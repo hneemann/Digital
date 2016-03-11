@@ -1,8 +1,6 @@
 package de.neemann.digital;
 
-import de.neemann.digital.basic.Function;
-import de.neemann.digital.basic.NAnd;
-import de.neemann.digital.basic.NOr;
+import de.neemann.digital.basic.*;
 import junit.framework.TestCase;
 
 /**
@@ -55,4 +53,58 @@ public class FlipFlops extends TestCase {
         sc.check(1, 0, 0, 1);
     }
 
+
+    public void testFlipFlopJKMS() throws Exception {
+        ObservableValue j = new ObservableValue(1);
+        ObservableValue k = new ObservableValue(1);
+        ObservableValue c = new ObservableValue(1);
+
+        Model model = new Model();
+        Function a1 = model.add(new And(1)).addInput(j).addInput(c);
+        Function a2 = model.add(new And(1)).addInput(k).addInput(c);
+        Not not = model.add(new Not(c));
+
+        Function nor1 = model.add(new NOr(1)).addInput(a1.getOutput());
+        Function nor2 = model.add(new NOr(1)).addInput(a2.getOutput());
+
+        nor1.addInput(nor2.getOutput());
+        nor2.addInput(nor1.getOutput());
+
+
+        Function a3 = model.add(new And(1)).addInput(nor1.getOutput()).addInput(not.getOutput());
+        Function a4 = model.add(new And(1)).addInput(nor2.getOutput()).addInput(not.getOutput());
+
+        Function nor3 = model.add(new NOr(1)).addInput(a3.getOutput());
+        Function nor4 = model.add(new NOr(1)).addInput(a4.getOutput());
+
+        nor3.addInput(nor4.getOutput());
+        nor4.addInput(nor3.getOutput());
+
+        a1.addInput(nor4.getOutput());
+        a2.addInput(nor3.getOutput());
+
+        TestExecuter sc = new TestExecuter(model, true).setInputs(c, j, k).setOutputs(nor3.getOutput(), nor4.getOutput());
+        sc.check(0, 1, 0, -1, -1); // undefined
+        sc.check(1, 1, 0, -1, -1); // undefined
+        sc.check(0, 1, 0, 1, 0);
+        sc.check(0, 0, 0, 1, 0);
+        sc.check(1, 0, 0, 1, 0);
+        sc.check(0, 1, 0, 1, 0);
+        sc.check(1, 1, 0, 1, 0);
+        sc.check(0, 0, 0, 1, 0);
+        sc.check(1, 0, 0, 1, 0);
+        sc.check(0, 0, 1, 1, 0);
+        sc.check(1, 0, 1, 1, 0);
+        sc.check(0, 0, 1, 0, 1);
+
+        sc.check(0, 1, 1, 0, 1);
+        sc.check(1, 1, 1, 0, 1);
+        sc.check(0, 1, 1, 1, 0);
+        sc.check(1, 1, 1, 1, 0);
+        sc.check(0, 1, 1, 0, 1);
+        sc.check(1, 1, 1, 0, 1);
+        sc.check(0, 1, 1, 1, 0);
+        sc.check(1, 1, 1, 1, 0);
+        sc.check(0, 1, 1, 0, 1);
+    }
 }

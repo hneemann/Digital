@@ -37,7 +37,9 @@ public class TestExecuter {
         model.doStep();
 
         for (int i = 0; i < outputs.length; i++) {
-            assertEquals("Value " + i, outputs[i].getValueBits(val[i + inputs.length]), outputs[i].getValueBits());
+            int should = val[i + inputs.length];
+            if (should >= 0)
+                assertEquals("Value " + i, outputs[i].getValueBits(should), outputs[i].getValueBits());
         }
     }
 

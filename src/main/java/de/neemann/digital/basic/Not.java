@@ -28,4 +28,8 @@ public class Not extends Node {
     public void writeOutputs() throws NodeException {
         output.setValue(~value);
     }
+
+    public ObservableValue getOutput() {
+        return output;
+    }
 }
