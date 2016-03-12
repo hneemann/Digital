@@ -1,5 +1,6 @@
 package de.neemann.digital.basic;
 
+import de.neemann.digital.NodeException;
 import de.neemann.digital.ObservableValue;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Or extends Function {
     }
 
     @Override
-    protected int calculate(ArrayList<ObservableValue> inputs) {
+    protected int calculate(ArrayList<ObservableValue> inputs) throws NodeException {
         int f = 0;
         for (ObservableValue i : inputs) {
             f |= i.getValue();

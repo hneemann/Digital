@@ -16,9 +16,9 @@ public class AndTest extends TestCase {
 
 
         Model model = new Model();
-        Function and = model.add(new And(1)).addInput(a).addInput(b);
+        ObservableValue out = model.add(new And(1)).addInput(a).addInput(b).getOutput();
 
-        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(and.getOutput());
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out);
         sc.check(0, 0, 0);
         sc.check(1, 0, 0);
         sc.check(0, 1, 0);

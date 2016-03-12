@@ -5,18 +5,20 @@ import java.util.ArrayList;
 /**
  * @author hneemann
  */
-public class ObservableValue {
+public class ObservableValue extends Value {
 
-    private final int bits;
-    private int value;
-    private ArrayList<Listener> listeners;
+    private final ArrayList<Listener> listeners;
 
     public ObservableValue(int bits) {
-        this.bits = bits;
+        this(bits, false);
+    }
+
+    public ObservableValue(int bits, boolean highZ) {
+        super(bits, highZ);
         listeners = new ArrayList<>();
     }
 
-    public void addListener(Listener listener) throws NodeException {
+    public void addListener(Listener listener) {
         listeners.add(listener);
     }
 
@@ -24,20 +26,9 @@ public class ObservableValue {
         listeners.remove(listener);
     }
 
-    public void hasChanged() throws NodeException {
+    public void hasChanged() {
         for (Listener l : listeners) {
             l.needsUpdate();
-        }
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) throws NodeException {
-        if (this.value != value) {
-            this.value = value;
-            hasChanged();
         }
     }
 
@@ -45,8 +36,22 @@ public class ObservableValue {
         return bits;
     }
 
-    public int getValueBits() {
-        return getValueBits(value);
+    public int getValue() throws NodeException {
+        if (highZ)
+            throw new HighZException(this);
+        return value;
+    }
+
+    public void setValue(int value) {
+        if (this.value != value) {
+            this.value = value;
+            if (!highZ)
+                hasChanged();
+        }
+    }
+
+    public int getValueBits() throws NodeException {
+        return getValueBits(getValue());
     }
 
     public int getValueBits(int value) {
@@ -59,10 +64,28 @@ public class ObservableValue {
         }
     }
 
+    public boolean isHighZ() {
+        return highZ;
+    }
+
+    public void setHighZ(boolean highZ) {
+        if (this.highZ != highZ) {
+            this.highZ = highZ;
+            hasChanged();
+        }
+    }
+
+
+    @Override
+    public void set(int value, boolean highZ) {
+        setValue(value);
+        setHighZ(highZ);
+    }
+
     @Override
     public String toString() {
         return "ObservableValue{" +
-                "value=" + value +
+                "value=" + (highZ ? "??" : value) +
                 ", bits=" + bits +
                 '}';
     }

@@ -13,9 +13,9 @@ public abstract class Node implements Listener {
     }
 
     @Override
-    public void needsUpdate() throws NodeException {
+    public void needsUpdate() {
         if (model == null)
-            throw new NodeException("no model set");
+            throw new RuntimeException("noModelSet");
 
         if (model.getVersion() != version) {
             model.addToUpdateList(this);
@@ -25,7 +25,7 @@ public abstract class Node implements Listener {
 
     /**
      * Only read the input!
-     * It is not allowed to write to the outputs!!!
+     * It is not allowed to write to one of the outputs!!!
      *
      * @throws NodeException
      */
@@ -33,10 +33,12 @@ public abstract class Node implements Listener {
 
     /**
      * Only write to the output!
-     * It is not allowed to read from the inputs!!!
+     * It is not allowed to read from one of the inputs!!!
      *
      * @throws NodeException
      */
     public abstract void writeOutputs() throws NodeException;
 
+    public void checkConsistence() throws NodeException {
+    }
 }
