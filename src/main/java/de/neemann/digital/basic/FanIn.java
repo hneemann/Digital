@@ -19,7 +19,7 @@ public abstract class FanIn extends Node {
         output = new ObservableValue(bits);
     }
 
-    public FanIn addInput(ObservableValue value) throws BitsException, NodeException {
+    public FanIn addInput(ObservableValue value) throws NodeException {
         output.checkBits(value);
         inputs.add(value);
         value.addListener(this);
@@ -33,5 +33,13 @@ public abstract class FanIn extends Node {
 
     public ObservableValue getOutput() {
         return output;
+    }
+
+    @Override
+    public void checkConsistence() throws NodeException {
+        super.checkConsistence();
+        for (ObservableValue in : inputs)
+            if (in.getBits() != output.getBits())
+                throw new BitsException("bitsMismatch", in, output);
     }
 }

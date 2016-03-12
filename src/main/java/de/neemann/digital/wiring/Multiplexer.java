@@ -1,5 +1,6 @@
 package de.neemann.digital.wiring;
 
+import de.neemann.digital.BitsException;
 import de.neemann.digital.NodeException;
 import de.neemann.digital.ObservableValue;
 import de.neemann.digital.basic.FanIn;
@@ -30,5 +31,13 @@ public class Multiplexer extends FanIn {
     @Override
     public void writeOutputs() throws NodeException {
         output.setValue(value);
+    }
+
+    @Override
+    public void checkConsistence() throws NodeException {
+        super.checkConsistence();
+
+        if ((1 << selector.getBits()) != inputs.size())
+            throw new BitsException("selectorMismatch", selector);
     }
 }

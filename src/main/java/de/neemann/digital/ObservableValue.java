@@ -60,7 +60,7 @@ public class ObservableValue extends Value {
 
     public void checkBits(ObservableValue value) throws BitsException {
         if (value.getBits() != bits) {
-            throw new BitsException("needs " + bits + " bits, found " + value.getBits());
+            throw new BitsException("needs " + bits + " bits, found " + value.getBits(), this, value);
         }
     }
 

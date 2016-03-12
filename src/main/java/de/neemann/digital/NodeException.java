@@ -4,7 +4,14 @@ package de.neemann.digital;
  * @author hneemann
  */
 public class NodeException extends Exception {
-    public NodeException(String message) {
+    private final ObservableValue[] values;
+
+    public NodeException(String message, ObservableValue... values) {
         super(message);
+        this.values = values;
+    }
+
+    public ObservableValue[] getValues() {
+        return values;
     }
 }

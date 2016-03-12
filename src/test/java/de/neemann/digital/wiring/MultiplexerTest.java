@@ -1,5 +1,6 @@
 package de.neemann.digital.wiring;
 
+import de.neemann.digital.BitsException;
 import de.neemann.digital.Model;
 import de.neemann.digital.ObservableValue;
 import de.neemann.digital.TestExecuter;
@@ -27,4 +28,23 @@ public class MultiplexerTest extends TestCase {
         te.check(3, 4, 5, 6, 3, 6);
 
     }
+
+    public void testMux2() throws Exception {
+        Model model = new Model();
+        ObservableValue a = new ObservableValue(4);
+        ObservableValue b = new ObservableValue(4);
+        ObservableValue c = new ObservableValue(4);
+        ObservableValue d = new ObservableValue(4);
+        ObservableValue sel = new ObservableValue(1);
+        ObservableValue out = model.add(new Multiplexer(4, sel)).addInput(a).addInput(b).addInput(c).addInput(d).getOutput();
+
+        try {
+            model.init();
+            assertTrue(false);
+        } catch (BitsException e) {
+            assertTrue(true);
+        }
+
+    }
+
 }
