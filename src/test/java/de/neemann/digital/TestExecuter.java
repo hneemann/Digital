@@ -1,5 +1,9 @@
 package de.neemann.digital;
 
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+
 import static org.junit.Assert.assertEquals;
 
 /**

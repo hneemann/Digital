@@ -1,6 +1,8 @@
 package de.neemann.digital;
 
-import de.neemann.digital.basic.*;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.basic.*;
 import junit.framework.TestCase;
 
 /**
