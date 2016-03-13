@@ -79,7 +79,7 @@
                 </configuration>
             </plugin>
 
-            <!--plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.5</version>
@@ -87,7 +87,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.neemann.assembler.gui.Main</mainClass>
+                            <mainClass>de.neemann.digital.gui.Main</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Build-SCM-Revision>${buildNumber}</Build-SCM-Revision>
@@ -97,7 +97,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+            <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
                 <version>1.3</version>
@@ -113,7 +113,7 @@
                     <doCheck>true</doCheck>
                     <doUpdate>false</doUpdate>
                 </configuration>
-            </plugin>
+            </plugin-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -128,7 +128,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.neemann.assembler.gui.Main</mainClass>
+                            <mainClass>de.neemann.digital.gui.Main</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Build-SCM-Revision>${buildNumber}</Build-SCM-Revision>
@@ -182,7 +182,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
 
         </plugins>
     </build>
