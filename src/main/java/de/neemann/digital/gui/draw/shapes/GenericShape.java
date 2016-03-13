@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class GenericShape implements Shape {
+    private static final int SIZE2 = 5;
+    private static final int SIZE = SIZE2 * 2;
 
     private final String name;
     private int inputs;
@@ -29,10 +31,9 @@ public class GenericShape implements Shape {
         if (pins == null) {
             pins = new ArrayList<>(inputs + outputs);
             for (int i = 0; i < inputs; i++)
-                pins.add(new Pin(new Vector(0, i * 5), "i" + i));
+                pins.add(new Pin(new Vector(0, i * SIZE), "i" + i));
             for (int i = 0; i < outputs; i++)
-                pins.add(new Pin(new Vector(15, i * 5), "o" + i));
-
+                pins.add(new Pin(new Vector(SIZE * 3, i * SIZE), "o" + i));
         }
         return pins;
     }
@@ -40,9 +41,9 @@ public class GenericShape implements Shape {
     @Override
     public void drawTo(Graphic graphic) {
         int max = Math.max(inputs, outputs);
-        int height = (max - 1) * 5 + 2;
-        graphic.drawPolygon(new Polygon(true).add(1, -2).add(14, -2).add(14, height).add(1, height), Style.NORMAL);
-        graphic.drawText(new Vector(3, 5), new Vector(4, 5), name);
+        int height = (max - 1) * SIZE + SIZE2;
+        graphic.drawPolygon(new Polygon(true).add(1, -SIZE2).add(SIZE * 3 - 1, -SIZE2).add(SIZE * 3 - 1, height).add(1, height), Style.NORMAL);
+        graphic.drawText(new Vector(SIZE2, SIZE), new Vector(SIZE, SIZE), name);
     }
 
     public int getInputs() {
