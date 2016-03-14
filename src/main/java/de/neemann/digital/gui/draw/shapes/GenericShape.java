@@ -31,9 +31,9 @@ public class GenericShape implements Shape {
         if (pins == null) {
             pins = new ArrayList<>(inputs + outputs);
             for (int i = 0; i < inputs; i++)
-                pins.add(new Pin(new Vector(0, i * SIZE), "i" + i));
+                pins.add(new Pin(new Vector(0, i * SIZE), "i" + i, Pin.Direction.input));
             for (int i = 0; i < outputs; i++)
-                pins.add(new Pin(new Vector(SIZE * 3, i * SIZE), "o" + i));
+                pins.add(new Pin(new Vector(SIZE * 3, i * SIZE), "o" + i, Pin.Direction.output));
         }
         return pins;
     }
