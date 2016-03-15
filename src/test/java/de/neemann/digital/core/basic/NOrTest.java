@@ -11,13 +11,14 @@ import junit.framework.TestCase;
 public class NOrTest extends TestCase {
 
     public void testNOr() throws Exception {
-        ObservableValue a = new ObservableValue(1);
-        ObservableValue b = new ObservableValue(1);
+        ObservableValue a = new ObservableValue("a", 1);
+        ObservableValue b = new ObservableValue("b", 1);
 
         Model model = new Model();
-        ObservableValue nor = model.add(new NOr(1)).addInput(a).addInput(b).getOutput();
+        NOr nor = model.add(new NOr(1));
+        nor.setInputs(a, b);
 
-        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(nor);
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(nor.getOutputs());
         sc.check(0, 0, 1);
         sc.check(1, 0, 0);
         sc.check(0, 1, 0);

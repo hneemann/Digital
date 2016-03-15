@@ -8,13 +8,15 @@ import java.util.ArrayList;
 public class ObservableValue extends Value {
 
     private final ArrayList<Listener> listeners;
+    private final String name;
 
-    public ObservableValue(int bits) {
-        this(bits, false);
+    public ObservableValue(String name, int bits) {
+        this(name, bits, false);
     }
 
-    public ObservableValue(int bits, boolean highZ) {
+    public ObservableValue(String name, int bits, boolean highZ) {
         super(bits, highZ);
+        this.name = name;
         listeners = new ArrayList<>();
     }
 
@@ -84,9 +86,13 @@ public class ObservableValue extends Value {
 
     @Override
     public String toString() {
-        return "ObservableValue{" +
+        return name + "{" +
                 "value=" + (highZ ? "??" : value) +
                 ", bits=" + bits +
                 '}';
+    }
+
+    public String getName() {
+        return name;
     }
 }

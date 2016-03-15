@@ -1,28 +1,28 @@
 package de.neemann.digital.core.arithmetic;
 
-import de.neemann.digital.core.BitsException;
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 
 /**
  * @author hneemann
  */
-public class Mul extends Node {
+public class Mul extends Node implements Part {
 
-    private final ObservableValue a;
-    private final ObservableValue b;
     private final ObservableValue mul;
+    private ObservableValue a;
+    private ObservableValue b;
     private long value;
 
-    public Mul(ObservableValue a, ObservableValue b) throws BitsException {
-        this.a = a;
-        this.b = b;
+    public Mul(int bits) {
+        this.mul = new ObservableValue("mul", bits * 2);
+    }
 
-        a.addListener(this);
-        b.addListener(this);
-
-        this.mul = new ObservableValue(a.getBits() + b.getBits());
+    public static PartFactory createFactory(int bits) {
+        return new PartFactory("a", "b") {
+            @Override
+            public Part create() {
+                return new Mul(bits);
+            }
+        };
     }
 
     @Override
@@ -37,5 +37,18 @@ public class Mul extends Node {
 
     public ObservableValue getMul() {
         return mul;
+    }
+
+    @Override
+    public void setInputs(ObservableValue... inputs) throws NodeException {
+        a = inputs[0];
+        a.addListener(this);
+        b = inputs[1];
+        b.addListener(this);
+    }
+
+    @Override
+    public ObservableValue[] getOutputs() {
+        return new ObservableValue[]{mul};
     }
 }

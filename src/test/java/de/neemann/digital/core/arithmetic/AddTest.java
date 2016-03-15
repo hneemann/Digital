@@ -11,16 +11,17 @@ import junit.framework.TestCase;
 public class AddTest extends TestCase {
 
     public void testAdd() throws Exception {
-        ObservableValue a = new ObservableValue(4);
-        ObservableValue b = new ObservableValue(4);
-        ObservableValue c = new ObservableValue(1);
+        ObservableValue a = new ObservableValue("a", 4);
+        ObservableValue b = new ObservableValue("b", 4);
+        ObservableValue c = new ObservableValue("c", 1);
 
 
         Model model = new Model();
-        Add node = new Add(a, b, c);
+        Add node = new Add(4);
+        node.setInputs(a, b, c);
         model.add(node);
 
-        TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(node.getSum(), node.getCOut());
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(node.getOutputs());
         sc.check(0, 0, 0, 0, 0);
         sc.check(0, 0, 1, 1, 0);
         sc.check(2, 3, 0, 5, 0);

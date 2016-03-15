@@ -74,8 +74,6 @@ public class Model {
     }
 
     public void init(boolean noise) throws NodeException {
-        for (Node n : nodes)
-            n.checkConsistence();
         nodesToUpdateNext.addAll(nodes);
         doStep(noise);
     }

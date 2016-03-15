@@ -1,22 +1,27 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 
 /**
  * @author hneemann
  */
-public class Not extends Node {
+public class Not extends Node implements Part {
 
-    private final ObservableValue input;
     private final ObservableValue output;
+    private ObservableValue input;
     private long value;
 
-    public Not(ObservableValue input) throws NodeException {
-        this.input = input;
-        output = new ObservableValue(input.getBits());
-        input.addListener(this);
+    public Not(int bits) {
+        output = new ObservableValue("out", bits);
+    }
+
+    public static PartFactory createFactory(int bits) {
+        return new PartFactory("in") {
+            @Override
+            public Part create() {
+                return new Not(bits);
+            }
+        };
     }
 
     @Override
@@ -31,5 +36,16 @@ public class Not extends Node {
 
     public ObservableValue getOutput() {
         return output;
+    }
+
+    @Override
+    public void setInputs(ObservableValue... inputs) throws NodeException {
+        input = inputs[0];
+        input.addListener(this);
+    }
+
+    @Override
+    public ObservableValue[] getOutputs() {
+        return new ObservableValue[]{output};
     }
 }

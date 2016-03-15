@@ -39,6 +39,4 @@ public abstract class Node implements Listener {
      */
     public abstract void writeOutputs() throws NodeException;
 
-    public void checkConsistence() throws NodeException {
-    }
 }

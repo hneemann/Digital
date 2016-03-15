@@ -11,15 +11,15 @@ import junit.framework.TestCase;
 public class FlipFlops extends TestCase {
 
     public void testFlipFlopNOr() throws Exception {
-        ObservableValue r = new ObservableValue(1);
-        ObservableValue s = new ObservableValue(1);
+        ObservableValue r = new ObservableValue("r", 1);
+        ObservableValue s = new ObservableValue("s", 1);
 
         Model model = new Model();
-        FanIn a1 = model.add(new NOr(1)).addInput(r);
-        FanIn a2 = model.add(new NOr(1)).addInput(s);
+        FanIn a1 = model.add(new NOr(1));
+        FanIn a2 = model.add(new NOr(1));
 
-        a1.addInput(a2.getOutput());
-        a2.addInput(a1.getOutput());
+        a1.setInputs(r, a2.getOutput());
+        a2.setInputs(s, a1.getOutput());
 
         TestExecuter sc = new TestExecuter(model, true).setInputs(r, s).setOutputs(a1.getOutput(), a2.getOutput());
         sc.check(0, 1, 1, 0);
@@ -37,15 +37,15 @@ public class FlipFlops extends TestCase {
     }
 
     public void testFlipFlopNAnd() throws Exception {
-        ObservableValue r = new ObservableValue(1);
-        ObservableValue s = new ObservableValue(1);
+        ObservableValue r = new ObservableValue("r", 1);
+        ObservableValue s = new ObservableValue("s", 1);
 
         Model model = new Model();
-        FanIn a1 = model.add(new NAnd(1)).addInput(r);
-        FanIn a2 = model.add(new NAnd(1)).addInput(s);
+        FanIn a1 = model.add(new NAnd(1));
+        FanIn a2 = model.add(new NAnd(1));
 
-        a1.addInput(a2.getOutput());
-        a2.addInput(a1.getOutput());
+        a1.setInputs(r, a2.getOutput());
+        a2.setInputs(s, a1.getOutput());
 
         TestExecuter sc = new TestExecuter(model).setInputs(r, s).setOutputs(a1.getOutput(), a2.getOutput());
         sc.check(1, 0, 0, 1);
@@ -57,33 +57,36 @@ public class FlipFlops extends TestCase {
 
 
     public void testFlipFlopJKMS() throws Exception {
-        ObservableValue j = new ObservableValue(1);
-        ObservableValue k = new ObservableValue(1);
-        ObservableValue c = new ObservableValue(1);
+        ObservableValue j = new ObservableValue("j", 1);
+        ObservableValue k = new ObservableValue("k", 1);
+        ObservableValue c = new ObservableValue("c", 1);
+
 
         Model model = new Model();
-        FanIn a1 = model.add(new And(1)).addInput(j).addInput(c);
-        FanIn a2 = model.add(new And(1)).addInput(k).addInput(c);
-        Not not = model.add(new Not(c));
+        FanIn nor3 = model.add(new NOr(1));
+        FanIn nor4 = model.add(new NOr(1));
 
-        FanIn nor1 = model.add(new NOr(1)).addInput(a1.getOutput());
-        FanIn nor2 = model.add(new NOr(1)).addInput(a2.getOutput());
+        FanIn a1 = model.add(new And(1));
+        a1.setInputs(j, c, nor4.getOutput());
+        FanIn a2 = model.add(new And(1));
+        a2.setInputs(k, c, nor3.getOutput());
+        Not not = model.add(new Not(1));
+        not.setInputs(c);
 
-        nor1.addInput(nor2.getOutput());
-        nor2.addInput(nor1.getOutput());
+        FanIn nor1 = model.add(new NOr(1));
+        FanIn nor2 = model.add(new NOr(1));
+
+        nor1.setInputs(a1.getOutput(), nor2.getOutput());
+        nor2.setInputs(a2.getOutput(), nor1.getOutput());
 
 
-        FanIn a3 = model.add(new And(1)).addInput(nor1.getOutput()).addInput(not.getOutput());
-        FanIn a4 = model.add(new And(1)).addInput(nor2.getOutput()).addInput(not.getOutput());
+        FanIn a3 = model.add(new And(1));
+        a3.setInputs(nor1.getOutput(), not.getOutput());
+        FanIn a4 = model.add(new And(1));
+        a4.setInputs(nor2.getOutput(), not.getOutput());
 
-        FanIn nor3 = model.add(new NOr(1)).addInput(a3.getOutput());
-        FanIn nor4 = model.add(new NOr(1)).addInput(a4.getOutput());
-
-        nor3.addInput(nor4.getOutput());
-        nor4.addInput(nor3.getOutput());
-
-        a1.addInput(nor4.getOutput());
-        a2.addInput(nor3.getOutput());
+        nor3.setInputs(a3.getOutput(), nor4.getOutput());
+        nor4.setInputs(a4.getOutput(), nor3.getOutput());
 
         TestExecuter sc = new TestExecuter(model, true).setInputs(c, j, k).setOutputs(nor3.getOutput(), nor4.getOutput());
         sc.check(0, 1, 0, -1, -1); // undefined

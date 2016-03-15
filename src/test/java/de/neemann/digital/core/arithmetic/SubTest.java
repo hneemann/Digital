@@ -11,13 +11,14 @@ import junit.framework.TestCase;
 public class SubTest extends TestCase {
 
     public void testSub() throws Exception {
-        ObservableValue a = new ObservableValue(4);
-        ObservableValue b = new ObservableValue(4);
-        ObservableValue c = new ObservableValue(1);
+        ObservableValue a = new ObservableValue("a", 4);
+        ObservableValue b = new ObservableValue("b", 4);
+        ObservableValue c = new ObservableValue("c", 1);
 
 
         Model model = new Model();
-        Add node = new Sub(a, b, c);
+        Add node = new Sub(4);
+        node.setInputs(a, b, c);
         model.add(node);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(node.getSum(), node.getCOut());

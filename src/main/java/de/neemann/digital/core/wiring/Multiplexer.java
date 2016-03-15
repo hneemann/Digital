@@ -5,18 +5,20 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.basic.FanIn;
 
+import java.util.Arrays;
+
 /**
  * @author hneemann
  */
 public class Multiplexer extends FanIn {
 
+    private final int selectorBits;
     private ObservableValue selector;
     private long value;
 
-    public Multiplexer(int bits, ObservableValue selector) {
-        super(bits);
-        this.selector = selector;
-        selector.addListener(this);
+    public Multiplexer(int dataBits, int selectorBits) {
+        super(dataBits);
+        this.selectorBits = selectorBits;
     }
 
     @Override
@@ -34,10 +36,12 @@ public class Multiplexer extends FanIn {
     }
 
     @Override
-    public void checkConsistence() throws NodeException {
-        super.checkConsistence();
+    public void setInputs(ObservableValue... inputs) throws NodeException {
+        selector = inputs[0];
+        selector.addListener(this);
+        super.setInputs(Arrays.copyOfRange(inputs, 1, inputs.length));
 
-        if ((1 << selector.getBits()) != inputs.size())
+        if (selector.getBits() != selectorBits)
             throw new BitsException("selectorMismatch", selector);
     }
 }

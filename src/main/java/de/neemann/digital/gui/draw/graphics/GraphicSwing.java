@@ -30,7 +30,10 @@ public class GraphicSwing implements Graphic {
     public void drawCircle(Vector p1, Vector p2, Style style) {
         Vector p = Vector.min(p1, p2);
         Vector w = Vector.width(p1, p2);
-        gr.drawOval(p.x, p.y, w.x, w.y);
+        if (style.isFilled())
+            gr.fillOval(p.x - 1, p.y - 1, w.x + 2, w.y + 2);
+        else
+            gr.drawOval(p.x, p.y, w.x, w.y);
     }
 
     @Override

@@ -10,13 +10,13 @@ import junit.framework.TestCase;
  */
 public class MulTest extends TestCase {
     public void testMul() throws Exception {
-        ObservableValue a = new ObservableValue(4);
-        ObservableValue b = new ObservableValue(4);
+        ObservableValue a = new ObservableValue("a", 4);
+        ObservableValue b = new ObservableValue("b", 4);
 
 
         Model model = new Model();
-        Mul node = new Mul(a, b);
-        model.add(node);
+        Mul node = model.add(new Mul(4));
+        node.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(node.getMul());
         sc.check(0, 0, 0);

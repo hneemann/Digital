@@ -10,11 +10,11 @@ import java.util.ArrayList;
  */
 public class Circuit implements Drawable {
 
-    private final ArrayList<Part> parts;
+    private final ArrayList<VisualPart> visualParts;
     private final ArrayList<Wire> wires;
 
     public Circuit() {
-        parts = new ArrayList<>();
+        visualParts = new ArrayList<>();
         wires = new ArrayList<>();
     }
 
@@ -22,11 +22,11 @@ public class Circuit implements Drawable {
     public void drawTo(Graphic graphic) {
         for (Wire w : wires)
             w.drawTo(graphic);
-        for (Part p : parts)
+        for (VisualPart p : visualParts)
             p.drawTo(graphic);
     }
 
-    public void add(Part part) {
-        parts.add(part);
+    public void add(VisualPart visualPart) {
+        visualParts.add(visualPart);
     }
 }

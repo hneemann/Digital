@@ -11,14 +11,15 @@ import junit.framework.TestCase;
 public class AndTest extends TestCase {
 
     public void testAnd() throws Exception {
-        ObservableValue a = new ObservableValue(1);
-        ObservableValue b = new ObservableValue(1);
+        ObservableValue a = new ObservableValue("a", 1);
+        ObservableValue b = new ObservableValue("b", 1);
 
 
         Model model = new Model();
-        ObservableValue out = model.add(new And(1)).addInput(a).addInput(b).getOutput();
+        FanIn out = model.add(new And(1));
+        out.setInputs(a, b);
 
-        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out);
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out.getOutputs());
         sc.check(0, 0, 0);
         sc.check(1, 0, 0);
         sc.check(0, 1, 0);

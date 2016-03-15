@@ -1,29 +1,26 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.BitsException;
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 
 import java.util.ArrayList;
 
 /**
  * @author hneemann
  */
-public abstract class FanIn extends Node {
+public abstract class FanIn extends Node implements Part {
+
     protected final ArrayList<ObservableValue> inputs;
     protected final ObservableValue output;
 
     public FanIn(int bits) {
         inputs = new ArrayList<>();
-        output = new ObservableValue(bits);
+        output = new ObservableValue("out", bits);
     }
 
-    public FanIn addInput(ObservableValue value) throws NodeException {
+    private void addInput(ObservableValue value) throws NodeException {
         output.checkBits(value);
         inputs.add(value);
         value.addListener(this);
-        return this;
     }
 
     public void removeInput(ObservableValue value) {
@@ -36,10 +33,27 @@ public abstract class FanIn extends Node {
     }
 
     @Override
-    public void checkConsistence() throws NodeException {
-        super.checkConsistence();
-        for (ObservableValue in : inputs)
-            if (in.getBits() != output.getBits())
-                throw new BitsException("bitsMismatch", in, output);
+    public void setInputs(ObservableValue... inputs) throws NodeException {
+        for (ObservableValue v : inputs)
+            addInput(v);
+    }
+
+    @Override
+    public ObservableValue[] getOutputs() {
+        return new ObservableValue[]{output};
+    }
+
+
+    public abstract static class FanInFactory extends PartFactory {
+        public FanInFactory(int count) {
+            super(createNames(count));
+        }
+
+        private static String[] createNames(int count) {
+            String[] names = new String[count];
+            for (int i = 0; i < count; i++)
+                names[i] = "in_" + i;
+            return names;
+        }
     }
 }
