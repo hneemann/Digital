@@ -1,10 +1,7 @@
 package de.neemann.digital.gui.draw.parts;
 
-import de.neemann.digital.core.PartFactory;
-import de.neemann.digital.gui.draw.graphics.Graphic;
-import de.neemann.digital.gui.draw.graphics.GraphicTransform;
-import de.neemann.digital.gui.draw.graphics.Style;
-import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.core.PartDescription;
+import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.shapes.Drawable;
 import de.neemann.digital.gui.draw.shapes.Shape;
 
@@ -13,14 +10,15 @@ import de.neemann.digital.gui.draw.shapes.Shape;
  */
 public class VisualPart implements Drawable, Moveable {
     private static final int PIN = 1;
-    private final PartFactory partFactory;
+    private final PartDescription partDescription;
+    private transient GraphicMinMax minMax;
     private Shape shape;
     private Vector pos;
     private int rotate;
 
-    public VisualPart(Shape shape, PartFactory partFactory) {
+    public VisualPart(Shape shape, PartDescription partDescription) {
         this.shape = shape;
-        this.partFactory = partFactory;
+        this.partDescription = partDescription;
     }
 
     public Vector getPos() {
@@ -29,7 +27,16 @@ public class VisualPart implements Drawable, Moveable {
 
     public VisualPart setPos(Vector pos) {
         this.pos = pos;
+        minMax = null;
         return this;
+    }
+
+    public boolean matches(Vector p) {
+        GraphicMinMax m = getMinMax();
+        return (m.getMin().x <= p.x) &&
+                (m.getMin().y <= p.y) &&
+                (p.x <= m.getMax().x) &&
+                (p.y <= m.getMax().y);
     }
 
     public int getRotate() {
@@ -38,6 +45,7 @@ public class VisualPart implements Drawable, Moveable {
 
     public void setRotate(int rotate) {
         this.rotate = rotate;
+        minMax = null;
     }
 
     @Override
@@ -48,12 +56,21 @@ public class VisualPart implements Drawable, Moveable {
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.FILLED);
     }
 
+    public GraphicMinMax getMinMax() {
+        if (minMax == null) {
+            minMax = new GraphicMinMax();
+            drawTo(minMax);
+        }
+        return minMax;
+    }
+
     @Override
     public void move(Vector delta) {
         pos = pos.add(delta);
+        minMax = null;
     }
 
-    public PartFactory getPartFactory() {
-        return partFactory;
+    public PartDescription getPartDescription() {
+        return partDescription;
     }
 }

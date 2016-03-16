@@ -44,9 +44,9 @@ public abstract class FanIn extends Node implements Part {
     }
 
 
-    public abstract static class FanInFactory extends PartFactory {
-        public FanInFactory(int count) {
-            super(createNames(count));
+    public static class FanInDescription extends PartDescription {
+        public FanInDescription(int count, PartFactory creator) {
+            super(creator, createNames(count));
         }
 
         private static String[] createNames(int count) {

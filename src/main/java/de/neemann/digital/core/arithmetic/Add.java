@@ -24,13 +24,8 @@ public class Add extends Node implements Part {
         this.c_out = new ObservableValue("c_out", 1);
     }
 
-    public static PartFactory createFactory(int bits) {
-        return new PartFactory("a", "b", "c_in") {
-            @Override
-            public Part create() {
-                return new Add(bits);
-            }
-        };
+    public static PartDescription createFactory(int bits) {
+        return new PartDescription(() -> new Add(bits), "a", "b", "c_in");
     }
 
     @Override

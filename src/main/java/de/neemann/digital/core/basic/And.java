@@ -2,8 +2,7 @@ package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Part;
-import de.neemann.digital.core.PartFactory;
+import de.neemann.digital.core.PartDescription;
 
 import java.util.ArrayList;
 
@@ -16,13 +15,8 @@ public class And extends Function {
         super(bits);
     }
 
-    public static PartFactory createFactory(int bits, int inputs) {
-        return new FanInFactory(inputs) {
-            @Override
-            public Part create() {
-                return new And(bits);
-            }
-        };
+    public static PartDescription createFactory(int bits, int inputs) {
+        return new FanInDescription(inputs, () -> new And(bits));
     }
 
     @Override

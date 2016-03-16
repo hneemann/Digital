@@ -23,6 +23,16 @@ public class Vector {
         return new Vector(x, y);
     }
 
+    public static Vector max(Vector... p) {
+        int x = p[0].x;
+        int y = p[0].y;
+        for (int i = 1; i < p.length; i++) {
+            if (p[i].x > x) x = p[i].x;
+            if (p[i].y > y) y = p[i].y;
+        }
+        return new Vector(x, y);
+    }
+
     public static Vector width(Vector... p) {
         int x1 = p[0].x;
         int y1 = p[0].y;
@@ -47,5 +57,13 @@ public class Vector {
 
     public Vector sub(Vector a) {
         return new Vector(x - a.x, y - a.y);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

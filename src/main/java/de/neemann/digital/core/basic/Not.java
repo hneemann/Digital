@@ -15,13 +15,8 @@ public class Not extends Node implements Part {
         output = new ObservableValue("out", bits);
     }
 
-    public static PartFactory createFactory(int bits) {
-        return new PartFactory("in") {
-            @Override
-            public Part create() {
-                return new Not(bits);
-            }
-        };
+    public static PartDescription createFactory(int bits) {
+        return new PartDescription(() -> new Not(bits), "in");
     }
 
     @Override

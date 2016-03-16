@@ -29,4 +29,8 @@ public class Circuit implements Drawable {
     public void add(VisualPart visualPart) {
         visualParts.add(visualPart);
     }
+
+    public ArrayList<VisualPart> getParts() {
+        return visualParts;
+    }
 }

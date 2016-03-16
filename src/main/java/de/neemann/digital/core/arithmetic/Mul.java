@@ -16,13 +16,8 @@ public class Mul extends Node implements Part {
         this.mul = new ObservableValue("mul", bits * 2);
     }
 
-    public static PartFactory createFactory(int bits) {
-        return new PartFactory("a", "b") {
-            @Override
-            public Part create() {
-                return new Mul(bits);
-            }
-        };
+    public static PartDescription createFactory(int bits) {
+        return new PartDescription(() -> new Mul(bits), "a", "b");
     }
 
     @Override
