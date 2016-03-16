@@ -1,12 +1,14 @@
 package de.neemann.digital.gui.draw.graphics;
 
+import de.neemann.digital.gui.draw.parts.Moveable;
+
 /**
  * @author hneemann
  */
-public class Vector {
+public class Vector implements Moveable {
 
-    public final int x;
-    public final int y;
+    public int x;
+    public int y;
 
     public Vector(int x, int y) {
         this.x = x;
@@ -65,5 +67,15 @@ public class Vector {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    @Override
+    public void move(Vector delta) {
+        x += delta.x;
+        y += delta.y;
+    }
+
+    public boolean inside(Vector min, Vector max) {
+        return min.x <= x && x <= max.x && min.y <= y && y <= max.y;
     }
 }

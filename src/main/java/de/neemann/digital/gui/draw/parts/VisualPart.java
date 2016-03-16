@@ -37,6 +37,15 @@ public class VisualPart implements Drawable, Moveable {
                 (p.y <= m.getMax().y);
     }
 
+    public boolean matches(Vector min, Vector max) {
+        GraphicMinMax m = getMinMax();
+        return (min.x <= m.getMin().x) &&
+                (m.getMax().x <= max.x) &&
+                (min.y <= m.getMin().y) &&
+                (m.getMax().y <= max.y);
+    }
+
+
     public int getRotate() {
         return rotate;
     }

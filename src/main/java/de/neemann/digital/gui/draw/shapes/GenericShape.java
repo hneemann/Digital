@@ -19,8 +19,11 @@ public class GenericShape implements Shape {
     private final String name;
     private final int inputs;
     private final int outputs;
-    private transient ArrayList<Pin> pins;
+    private final int width;
+    private final boolean symetric;
     private boolean invert = false;
+
+    private transient ArrayList<Pin> pins;
 
     public GenericShape(String name, int inputs) {
         this(name, inputs, 1);
@@ -30,6 +33,8 @@ public class GenericShape implements Shape {
         this.name = name;
         this.inputs = inputs;
         this.outputs = outputs;
+        width = inputs == 1 && outputs == 1 ? 1 : 3;
+        symetric = outputs == 1;
     }
 
     public GenericShape invert(boolean invert) {
@@ -43,15 +48,25 @@ public class GenericShape implements Shape {
             ObservableValue[] outputValues = partDescription.create().getOutputs();
             String[] inputs = partDescription.getInputNames();
             pins = new ArrayList<>(inputs.length + outputs);
-            for (int i = 0; i < inputs.length; i++)
-                pins.add(new Pin(new Vector(0, i * SIZE), inputs[i], Pin.Direction.input));
+
+            int offs = symetric ? inputs.length / 2 * SIZE : 0;
+
+            for (int i = 0; i < inputs.length; i++) {
+                int correct = 0;
+                if (symetric && ((inputs.length & 1) == 0) && i >= inputs.length / 2)
+                    correct = SIZE;
+
+                pins.add(new Pin(new Vector(0, i * SIZE + correct), inputs[i], Pin.Direction.input));
+            }
+
+
             if (invert) {
                 for (int i = 0; i < outputs; i++)
-                    pins.add(new Pin(new Vector(SIZE * 4, i * SIZE), outputValues[i].getName(), Pin.Direction.output));
+                    pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputValues[i].getName(), Pin.Direction.output));
 
             } else {
                 for (int i = 0; i < outputs; i++)
-                    pins.add(new Pin(new Vector(SIZE * 3, i * SIZE), outputValues[i].getName(), Pin.Direction.output));
+                    pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputValues[i].getName(), Pin.Direction.output));
             }
         }
         return pins;
@@ -61,15 +76,20 @@ public class GenericShape implements Shape {
     public void drawTo(Graphic graphic) {
         int max = Math.max(inputs, outputs);
         int height = (max - 1) * SIZE + SIZE2;
+
+        if (symetric && ((inputs & 1) == 0)) height += SIZE;
+
         graphic.drawPolygon(new Polygon(true)
                 .add(1, -SIZE2)
-                .add(SIZE * 3 - 1, -SIZE2)
-                .add(SIZE * 3 - 1, height)
+                .add(SIZE * width - 1, -SIZE2)
+                .add(SIZE * width - 1, height)
                 .add(1, height), Style.NORMAL);
 
         if (invert) {
+            int offs = symetric ? inputs / 2 * SIZE : 0;
             for (int i = 0; i < outputs; i++)
-                graphic.drawCircle(new Vector(SIZE * 3, i * SIZE - SIZE2 + 1), new Vector(SIZE * 4 - 2, i * SIZE + SIZE2 - 1), Style.NORMAL);
+                graphic.drawCircle(new Vector(SIZE * width, i * SIZE - SIZE2 + 1 + offs),
+                        new Vector(SIZE * (width + 1) - 2, i * SIZE + SIZE2 - 1 + offs), Style.NORMAL);
 
         }
 

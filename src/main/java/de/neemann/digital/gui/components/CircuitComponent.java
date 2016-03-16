@@ -1,30 +1,79 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.gui.draw.graphics.GraphicSwing;
-import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.gui.draw.graphics.*;
+import de.neemann.digital.gui.draw.graphics.Polygon;
 import de.neemann.digital.gui.draw.parts.Circuit;
+import de.neemann.digital.gui.draw.parts.Moveable;
 import de.neemann.digital.gui.draw.parts.VisualPart;
+import de.neemann.digital.gui.draw.parts.Wire;
 import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 /**
  * @author hneemann
  */
 public class CircuitComponent extends JComponent {
 
+    private static final String delAction = "myDelAction";
     private final Circuit circuit;
-
+    ;
+    private Mouse listener;
     public CircuitComponent(Circuit circuit) {
         this.circuit = circuit;
+        setMode(Mode.part);
 
-        MyMouseMotionListener l = new MyMouseMotionListener();
-        addMouseMotionListener(l);
-        addMouseListener(l);
+        KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
+        getInputMap().put(delKey, delAction);
+        getActionMap().put(delAction, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (listener instanceof MoveMouseListener) {
+                    MoveMouseListener mml = (MoveMouseListener) listener;
+                    if (mml.corner1 != null && mml.corner2 != null) {
+                        circuit.delete(Vector.min(mml.corner1, mml.corner2), Vector.max(mml.corner1, mml.corner2));
+                        mml.reset();
+                        repaint();
+                    }
+                }
+            }
+        });
+
+    }
+
+    public void setMode(Mode mode) {
+        if (listener != null) {
+            removeMouseListener(listener);
+            removeMouseMotionListener(listener);
+        }
+        switch (mode) {
+            case part:
+                listener = new PartMouseListener();
+                setCursor(new Cursor(Cursor.HAND_CURSOR));
+                break;
+            case wire:
+                listener = new WireMouseListener();
+                setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+                break;
+            case move:
+                listener = new MoveMouseListener();
+                setCursor(new Cursor(Cursor.MOVE_CURSOR));
+                break;
+        }
+        addMouseMotionListener(listener);
+        addMouseListener(listener);
+        repaint();
+    }
+
+    public void setPartToDrag(VisualPart part) {
+        setMode(Mode.part);
+        ((PartMouseListener) listener).setPartToDrag(part);
     }
 
     @Override
@@ -35,6 +84,8 @@ public class CircuitComponent extends JComponent {
 
         GraphicSwing gr = new GraphicSwing((Graphics2D) g);
         circuit.drawTo(gr);
+
+        listener.drawTo(gr);
     }
 
     private Vector raster(Vector pos) {
@@ -42,21 +93,84 @@ public class CircuitComponent extends JComponent {
                 ((pos.y + GenericShape.SIZE2) / GenericShape.SIZE) * GenericShape.SIZE);
     }
 
-    private class MyMouseMotionListener implements MouseMotionListener, MouseListener {
+    public enum Mode {part, move, wire}
 
-        private Vector lastPos;
+    private interface Mouse extends MouseMotionListener, MouseListener {
+        void drawTo(Graphic gr);
+    }
+
+    private class WireMouseListener implements Mouse {
+
+        private Wire wire;
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                if (wire != null) {
+                    circuit.add(wire);
+                    repaint();
+                }
+                Vector startPos = raster(new Vector(e.getX(), e.getY()));
+                wire = new Wire(startPos, startPos);
+                repaint();
+            } else {
+                wire = null;
+                repaint();
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            if (wire != null) {
+                wire.setP2(raster(new Vector(e.getX(), e.getY())));
+                repaint();
+            }
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            if (wire != null)
+                wire.drawTo(gr);
+        }
+    }
+
+    private class PartMouseListener implements Mouse {
+
         private VisualPart partToDrag;
+        private boolean autoPick = false;
+        private Vector delta;
 
         @Override
         public void mouseDragged(MouseEvent e) {
             Vector pos = new Vector(e.getX(), e.getY());
 
             if (partToDrag != null) {
-                partToDrag.move(pos.sub(lastPos));
+                partToDrag.setPos(raster(pos.add(delta)));
                 repaint();
             }
-
-            lastPos = pos;
         }
 
         @Override
@@ -70,27 +184,128 @@ public class CircuitComponent extends JComponent {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            lastPos = new Vector(e.getX(), e.getY());
+            Vector pos = new Vector(e.getX(), e.getY());
             for (VisualPart vp : circuit.getParts())
-                if (vp.matches(lastPos)) {
+                if (vp.matches(pos)) {
                     partToDrag = vp;
+                    delta = partToDrag.getPos().sub(pos);
                     break;
                 }
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            partToDrag.setPos(raster(partToDrag.getPos()));
-            repaint();
-            partToDrag = null;
+            if (partToDrag != null) {
+                partToDrag.setPos(raster(partToDrag.getPos()));
+                repaint();
+                partToDrag = null;
+            }
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
+            if (autoPick && partToDrag != null) {
+                partToDrag.setPos(raster(new Vector(e.getX(), e.getY())));
+                autoPick = false;
+                repaint();
+            }
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
+        }
+
+        public void setPartToDrag(VisualPart partToDrag) {
+            this.partToDrag = partToDrag;
+            autoPick = true;
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+        }
+    }
+
+    private class MoveMouseListener implements Mouse {
+        private Vector corner1;
+        private Vector corner2;
+        private ArrayList<Moveable> elementsToMove;
+        private Vector lastPos;
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            reset();
+            repaint();
+        }
+
+        private void reset() {
+            corner1 = null;
+            corner2 = null;
+            elementsToMove = null;
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (corner1 == null) {
+                corner1 = new Vector(e.getX(), e.getY());
+            } else {
+                elementsToMove = circuit.getElementsMatching(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                lastPos = new Vector(e.getX(), e.getY());
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            if (elementsToMove != null) {
+                Vector pos = new Vector(e.getX(), e.getY());
+                Vector delta = raster(pos.sub(lastPos));
+
+                if (delta.x != 0 || delta.y != 0) {
+
+                    for (Moveable m : elementsToMove)
+                        m.move(delta);
+
+                    corner1.move(delta);
+                    corner2.move(delta);
+                    repaint();
+
+                    lastPos = lastPos.add(delta);
+                }
+            } else {
+                corner2 = new Vector(e.getX(), e.getY());
+                repaint();
+            }
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            if (corner1 != null && corner2 != null) {
+                Polygon p = new Polygon(true)
+                        .add(corner1)
+                        .add(new Vector(corner1.x, corner2.y))
+                        .add(corner2)
+                        .add(new Vector(corner2.x, corner1.y));
+                gr.drawPolygon(p, Style.THIN);
+            }
         }
     }
 

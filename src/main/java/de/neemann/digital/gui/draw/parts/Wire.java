@@ -10,8 +10,13 @@ import de.neemann.digital.gui.draw.shapes.Drawable;
  */
 public class Wire implements Drawable, Moveable {
 
-    private Vector p1;
-    private Vector p2;
+    public Vector p1;
+    public Vector p2;
+
+    public Wire(Vector p1, Vector p2) {
+        this.p1 = p1;
+        this.p2 = p2;
+    }
 
     @Override
     public void drawTo(Graphic graphic) {
@@ -22,5 +27,9 @@ public class Wire implements Drawable, Moveable {
     public void move(Vector delta) {
         p1 = p1.add(delta);
         p2 = p2.add(delta);
+    }
+
+    public void setP2(Vector p2) {
+        this.p2 = p2;
     }
 }
