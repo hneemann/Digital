@@ -1,6 +1,7 @@
 package de.neemann.digital.core.arithmetic;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 /**
  * @author hneemann
@@ -17,7 +18,7 @@ public class Mul extends Node implements Part {
     }
 
     public static PartDescription createFactory(int bits) {
-        return new PartDescription(() -> new Mul(bits), "a", "b");
+        return new PartDescription(new GenericShape("*", 2), () -> new Mul(bits), "a", "b");
     }
 
     @Override

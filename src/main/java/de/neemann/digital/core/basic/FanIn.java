@@ -1,6 +1,7 @@
 package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.gui.draw.shapes.Shape;
 
 import java.util.ArrayList;
 
@@ -45,8 +46,8 @@ public abstract class FanIn extends Node implements Part {
 
 
     public static class FanInDescription extends PartDescription {
-        public FanInDescription(int count, PartFactory creator) {
-            super(creator, createNames(count));
+        public FanInDescription(Shape shape, int count, PartFactory creator) {
+            super(shape, creator, createNames(count));
         }
 
         private static String[] createNames(int count) {

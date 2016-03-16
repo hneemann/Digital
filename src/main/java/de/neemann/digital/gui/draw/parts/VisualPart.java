@@ -12,12 +12,10 @@ public class VisualPart implements Drawable, Moveable {
     private static final int PIN = 1;
     private final PartDescription partDescription;
     private transient GraphicMinMax minMax;
-    private Shape shape;
     private Vector pos;
     private int rotate;
 
-    public VisualPart(Shape shape, PartDescription partDescription) {
-        this.shape = shape;
+    public VisualPart(PartDescription partDescription) {
         this.partDescription = partDescription;
     }
 
@@ -51,8 +49,9 @@ public class VisualPart implements Drawable, Moveable {
     @Override
     public void drawTo(Graphic graphic) {
         Graphic gr = new GraphicTransform(graphic, pos, rotate);
+        Shape shape = partDescription.getShape();
         shape.drawTo(gr);
-        for (Pin p : shape.getPins())
+        for (Pin p : shape.getPins(partDescription))
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.FILLED);
     }
 
@@ -70,7 +69,4 @@ public class VisualPart implements Drawable, Moveable {
         minMax = null;
     }
 
-    public PartDescription getPartDescription() {
-        return partDescription;
-    }
 }

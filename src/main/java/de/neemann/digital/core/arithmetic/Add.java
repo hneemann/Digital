@@ -1,6 +1,7 @@
 package de.neemann.digital.core.arithmetic;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 /**
  * @author hneemann
@@ -25,7 +26,7 @@ public class Add extends Node implements Part {
     }
 
     public static PartDescription createFactory(int bits) {
-        return new PartDescription(() -> new Add(bits), "a", "b", "c_in");
+        return new PartDescription(new GenericShape("+", 2), () -> new Add(bits), "a", "b", "c_in");
     }
 
     @Override

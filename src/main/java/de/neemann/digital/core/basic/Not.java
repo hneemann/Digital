@@ -1,6 +1,7 @@
 package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 /**
  * @author hneemann
@@ -16,7 +17,7 @@ public class Not extends Node implements Part {
     }
 
     public static PartDescription createFactory(int bits) {
-        return new PartDescription(() -> new Not(bits), "in");
+        return new PartDescription(new GenericShape("", 1).invert(true), () -> new Not(bits), "in");
     }
 
     @Override

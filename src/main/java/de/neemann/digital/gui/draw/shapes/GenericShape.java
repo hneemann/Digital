@@ -17,14 +17,19 @@ public class GenericShape implements Shape {
     public static final int SIZE2 = 5;
     public static final int SIZE = SIZE2 * 2;
     private final String name;
-    private final PartDescription partDescription;
+    private final int inputs;
+    private final int outputs;
     private transient ArrayList<Pin> pins;
-    private transient int max;
     private boolean invert = false;
 
-    public GenericShape(String name, PartDescription partDescription) {
+    public GenericShape(String name, int inputs) {
+        this(name, inputs, 1);
+    }
+
+    public GenericShape(String name, int inputs, int outputs) {
         this.name = name;
-        this.partDescription = partDescription;
+        this.inputs = inputs;
+        this.outputs = outputs;
     }
 
     public GenericShape invert(boolean invert) {
@@ -33,28 +38,28 @@ public class GenericShape implements Shape {
     }
 
     @Override
-    public Iterable<Pin> getPins() {
+    public Iterable<Pin> getPins(PartDescription partDescription) {
         if (pins == null) {
-            ObservableValue[] outputs = partDescription.create().getOutputs();
+            ObservableValue[] outputValues = partDescription.create().getOutputs();
             String[] inputs = partDescription.getInputNames();
-            pins = new ArrayList<>(inputs.length + outputs.length);
+            pins = new ArrayList<>(inputs.length + outputs);
             for (int i = 0; i < inputs.length; i++)
                 pins.add(new Pin(new Vector(0, i * SIZE), inputs[i], Pin.Direction.input));
             if (invert) {
-                for (int i = 0; i < outputs.length; i++)
-                    pins.add(new Pin(new Vector(SIZE * 4, i * SIZE), outputs[i].getName(), Pin.Direction.output));
+                for (int i = 0; i < outputs; i++)
+                    pins.add(new Pin(new Vector(SIZE * 4, i * SIZE), outputValues[i].getName(), Pin.Direction.output));
 
             } else {
-                for (int i = 0; i < outputs.length; i++)
-                    pins.add(new Pin(new Vector(SIZE * 3, i * SIZE), outputs[i].getName(), Pin.Direction.output));
+                for (int i = 0; i < outputs; i++)
+                    pins.add(new Pin(new Vector(SIZE * 3, i * SIZE), outputValues[i].getName(), Pin.Direction.output));
             }
-            max = Math.max(inputs.length, outputs.length);
         }
         return pins;
     }
 
     @Override
     public void drawTo(Graphic graphic) {
+        int max = Math.max(inputs, outputs);
         int height = (max - 1) * SIZE + SIZE2;
         graphic.drawPolygon(new Polygon(true)
                 .add(1, -SIZE2)
@@ -63,8 +68,7 @@ public class GenericShape implements Shape {
                 .add(1, height), Style.NORMAL);
 
         if (invert) {
-            ObservableValue[] outputs = partDescription.create().getOutputs();
-            for (int i = 0; i < outputs.length; i++)
+            for (int i = 0; i < outputs; i++)
                 graphic.drawCircle(new Vector(SIZE * 3, i * SIZE - SIZE2 + 1), new Vector(SIZE * 4 - 2, i * SIZE + SIZE2 - 1), Style.NORMAL);
 
         }

@@ -1,13 +1,11 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.PartDescription;
-import de.neemann.digital.core.PartFactory;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.parts.Circuit;
 import de.neemann.digital.gui.draw.parts.VisualPart;
-import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,10 +34,11 @@ public class Main extends JFrame {
 
         JMenu parts = new JMenu("Parts");
         bar.add(parts);
-        parts.add(createSimpleMenu("AND", "&", () -> new And(1), false));
-        parts.add(createSimpleMenu("OR", "\u22651", () -> new Or(1), false));
-        parts.add(createSimpleMenu("NAND", "&", () -> new NAnd(1), true));
-        parts.add(createSimpleMenu("NOR", "\u22651", () -> new NOr(1), true));
+        parts.add(createSimpleMenu("AND", inputs -> And.createFactory(1, inputs)));
+        parts.add(createSimpleMenu("OR", inputs -> Or.createFactory(1, inputs)));
+        parts.add(createSimpleMenu("NAND", inputs -> NAnd.createFactory(1, inputs)));
+        parts.add(createSimpleMenu("NOR", inputs -> NOr.createFactory(1, inputs)));
+        parts.add(new InsertAbstractAction("Not", Not.createFactory(1)));
 
         setJMenuBar(bar);
     }
@@ -48,32 +47,29 @@ public class Main extends JFrame {
         SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
 
-    private JMenu createSimpleMenu(String name, String s, PartFactory creator, boolean invers) {
+    private JMenu createSimpleMenu(String name, DescriptionFactory factory) {
         JMenu m = new JMenu(name);
         for (int i = 2; i < 16; i++) {
-            m.add(new JMenuItem(new InsertAbstractAction(i, s, creator, invers)));
+            m.add(new JMenuItem(new InsertAbstractAction(Integer.toString(i), factory.create(i))));
         }
         return m;
     }
 
-    private class InsertAbstractAction extends AbstractAction {
-        private final int i;
-        private final String s;
-        private final boolean invers;
-        private PartFactory creator;
+    private interface DescriptionFactory {
+        PartDescription create(int inputs);
+    }
 
-        public InsertAbstractAction(int i, String s, PartFactory creator, boolean invers) {
-            super(Integer.toString(i));
-            this.i = i;
-            this.s = s;
-            this.creator = creator;
-            this.invers = invers;
+    private class InsertAbstractAction extends AbstractAction {
+        private final PartDescription partDescription;
+
+        public InsertAbstractAction(String name, PartDescription partDescription) {
+            super(name);
+            this.partDescription = partDescription;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            PartDescription factory = new FanIn.FanInDescription(i, creator);
-            cr.add(new VisualPart(new GenericShape(s, factory).invert(invers), factory).setPos(new Vector(10, 10)));
+            cr.add(new VisualPart(partDescription).setPos(new Vector(10, 10)));
         }
     }
 

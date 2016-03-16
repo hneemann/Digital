@@ -3,6 +3,7 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.PartDescription;
+import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class NOr extends Function {
     }
 
     public static PartDescription createFactory(int bits, int inputs) {
-        return new FanInDescription(inputs, () -> new NOr(bits));
+        return new FanInDescription(new GenericShape("\u22651", inputs).invert(true), inputs, () -> new NOr(bits));
     }
 
     @Override
