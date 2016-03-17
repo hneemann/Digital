@@ -26,6 +26,6 @@ public class Sub extends Add {
 
     @Override
     public void readInputs() throws NodeException {
-        value = a.getValueBits() - b.getValueBits() - c_in.getValueBits();
+        value = a.getValue() - b.getValue() - c_in.getValue();
     }
 }

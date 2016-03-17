@@ -16,20 +16,25 @@ public class Net {
 
     private final HashSet<Vector> points;
     private final ArrayList<Pin> pins;
+    private final ArrayList<Wire> wires;
 
     public Net(Wire w) {
         points = new HashSet<>();
         points.add(w.p1);
         points.add(w.p2);
         pins = new ArrayList<>();
+        wires = new ArrayList<>();
+        wires.add(w);
     }
 
     public Vector tryMerge(Wire wire) {
         if (points.contains(wire.p1)) {
+            wires.add(wire);
             points.add(wire.p2);
             return wire.p2;
         }
         if (points.contains(wire.p2)) {
+            wires.add(wire);
             points.add(wire.p1);
             return wire.p1;
         }
@@ -42,6 +47,7 @@ public class Net {
 
     public void addAllPointsFrom(Net changedNet) {
         points.addAll(changedNet.points);
+        wires.addAll(changedNet.wires);
     }
 
     public void add(Pin pin) {
@@ -71,5 +77,9 @@ public class Net {
         for (Pin i : inputs) {
             i.setValue(value);
         }
+
+        for (Wire w : wires)
+            w.setValue(value);
+
     }
 }

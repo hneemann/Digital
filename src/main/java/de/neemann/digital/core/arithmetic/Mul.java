@@ -28,7 +28,7 @@ public class Mul extends Node implements Part {
 
     @Override
     public void readInputs() throws NodeException {
-        value = a.getValueBits() * b.getValueBits();
+        value = a.getValue() * b.getValue();
     }
 
     @Override

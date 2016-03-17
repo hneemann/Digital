@@ -45,6 +45,7 @@ public class ObservableValue extends Value {
     }
 
     public void setValue(long value) {
+        value = getValueBits(value);
         if (this.value != value) {
             this.value = value;
             if (!highZ)
@@ -52,12 +53,8 @@ public class ObservableValue extends Value {
         }
     }
 
-    public long getValueBits() {
-        return getValueBits(getValue());
-    }
-
     public long getValueBits(long value) {
-        return value & (1 << bits) - 1;
+        return value & ((1 << bits) - 1);
     }
 
     public void checkBits(ObservableValue value) throws BitsException {

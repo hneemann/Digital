@@ -32,8 +32,8 @@ public class FlipFlops extends TestCase {
         s.setValue(0);
         model.doStep(true);     // geht nur mit noise!
 
-        assertTrue((a1.getOutput().getValueBits() == 1 && a2.getOutput().getValueBits() == 0) ||  // endzustand ist undefiniert!
-                (a1.getOutput().getValueBits() == 0 && a2.getOutput().getValueBits() == 1));
+        assertTrue((a1.getOutput().getValue() == 1 && a2.getOutput().getValue() == 0) ||  // endzustand ist undefiniert!
+                (a1.getOutput().getValue() == 0 && a2.getOutput().getValue() == 1));
     }
 
     public void testFlipFlopNAnd() throws Exception {

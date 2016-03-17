@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.draw.parts;
 
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
@@ -12,6 +13,7 @@ public class Wire implements Drawable, Moveable {
 
     public Vector p1;
     public Vector p2;
+    private ObservableValue value;
 
     public Wire(Vector p1, Vector p2) {
         this.p1 = p1;
@@ -20,7 +22,12 @@ public class Wire implements Drawable, Moveable {
 
     @Override
     public void drawTo(Graphic graphic, State state) {
-        graphic.drawLine(p1, p2, Style.WIRE);
+        Style style = Style.WIRE;
+        if (value != null && value.getValue() != 0) {
+            style = Style.WIRE_HIGH;
+        }
+
+        graphic.drawLine(p1, p2, style);
     }
 
     @Override
@@ -75,6 +82,10 @@ public class Wire implements Drawable, Moveable {
                 "p1=" + p1 +
                 ", p2=" + p2 +
                 '}';
+    }
+
+    public void setValue(ObservableValue value) {
+        this.value = value;
     }
 
     enum Orientation {horzontal, vertical, diagonal}

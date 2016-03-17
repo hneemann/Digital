@@ -8,11 +8,12 @@ import java.util.Collections;
  */
 public class Model {
 
-    private ArrayList<Node> nodes;
+    private final ArrayList<Node> nodes;
     private ArrayList<Node> nodesToUpdateAct;
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
     private int maxCounter = 1000;
+    private Listener listener;
 
     public Model() {
         this.nodes = new ArrayList<>();
@@ -66,6 +67,8 @@ public class Model {
             if (counter++ > maxCounter) {
                 throw new NodeException("seemsToOscillate");
             }
+            if (listener != null)
+                listener.needsUpdate();
         }
     }
 
@@ -76,5 +79,9 @@ public class Model {
     public void init(boolean noise) throws NodeException {
         nodesToUpdateNext.addAll(nodes);
         doStep(noise);
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
     }
 }

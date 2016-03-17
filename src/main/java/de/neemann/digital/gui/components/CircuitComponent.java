@@ -23,11 +23,11 @@ import java.util.ArrayList;
 public class CircuitComponent extends JComponent implements Listener {
 
     private static final String delAction = "myDelAction";
-    private final Circuit circuit;
+    private Circuit circuit;
     private Mouse listener;
 
-    public CircuitComponent(Circuit circuit) {
-        this.circuit = circuit;
+    public CircuitComponent(Circuit aCircuit) {
+        this.circuit = aCircuit;
         setMode(Mode.part);
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
@@ -35,7 +35,6 @@ public class CircuitComponent extends JComponent implements Listener {
         getActionMap().put(delAction, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("write");
                 if (listener instanceof SelectMouseListener) {
                     SelectMouseListener mml = (SelectMouseListener) listener;
                     if (mml.corner1 != null && mml.corner2 != null) {
@@ -108,6 +107,11 @@ public class CircuitComponent extends JComponent implements Listener {
 
     public Circuit getCircuit() {
         return circuit;
+    }
+
+    public void setCircuit(Circuit circuit) {
+        this.circuit = circuit;
+        setMode(Mode.part);
     }
 
     public enum Mode {part, wire, running, select}

@@ -76,6 +76,21 @@ public class GenericShape implements Shape {
 
     @Override
     public Interactor applyStateMonitor(State state, Listener listener, Model model) {
+        if (symmetric) {
+            state.getOutput(0).addListener(new Listener() {
+                public long lastValue = 0;
+
+                @Override
+                public void needsUpdate() {
+                    long value = state.getInput(0).getValue();
+                    if (lastValue != value) {
+                        lastValue = value;
+                        listener.needsUpdate();
+                    }
+                }
+            });
+
+        }
         return null;
     }
 
@@ -83,6 +98,11 @@ public class GenericShape implements Shape {
     public void drawTo(Graphic graphic, State state) {
         int max = Math.max(inputs, outputs);
         int height = (max - 1) * SIZE + SIZE2;
+
+        if (symmetric && state != null) {
+            graphic.drawText(new Vector(width * SIZE, 0), new Vector((width + 1) * SIZE, 0), Long.toString(state.getOutput(0).getValue()));
+        }
+
 
         if (symmetric && ((inputs & 1) == 0)) height += SIZE;
 

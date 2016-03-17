@@ -19,16 +19,20 @@ import de.process.utils.gui.ErrorMessage;
 import de.process.utils.gui.ToolTipAction;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 /**
  * @author hneemann
  */
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
+    private static final Preferences prefs = Preferences.userRoot().node("dig");
     private final CircuitComponent circuitComponent;
     private final InsertHistory insertHistory;
     private final ToolTipAction save;
@@ -40,6 +44,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr);
+        String name = prefs.get("name", null);
+        if (name != null) {
+            loadFile(new File(name));
+        }
+
         getContentPane().add(circuitComponent);
 
         addWindowListener(new ClosingWindowListener(this, this));
@@ -54,14 +63,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction open = new ToolTipAction("Open") {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JFileChooser fc = getjFileChooser();
+                if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                    loadFile(fc.getSelectedFile());
+                }
             }
         };
 
         ToolTipAction saveas = new ToolTipAction("Save As") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser(filename == null ? null : filename.getParentFile());
+                JFileChooser fc = getjFileChooser();
                 if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                     saveFile(fc.getSelectedFile());
                 }
@@ -113,7 +125,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ModelDescription m = new ModelDescription(cr);
+                    ModelDescription m = new ModelDescription(circuitComponent.getCircuit());
                     Model model = m.create(circuitComponent);
                     model.init(true);
                     circuitComponent.setMode(CircuitComponent.Mode.running);
@@ -143,6 +155,20 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
 
+    private static XStream getxStream() {
+        XStream xStream = new XStream(new StaxDriver());
+        xStream.alias("visualPart", VisualPart.class);
+        xStream.alias("wire", Wire.class);
+        xStream.alias("circuit", Circuit.class);
+        return xStream;
+    }
+
+    private JFileChooser getjFileChooser() {
+        JFileChooser fileChooser = new JFileChooser(filename == null ? null : filename.getParentFile());
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
+        return fileChooser;
+    }
+
     @Override
     public boolean isStateChanged() {
         return false;
@@ -153,14 +179,30 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         save.actionPerformed(null);
     }
 
-    private void saveFile(File filename) {
-        XStream xStream = new XStream(new StaxDriver());
-        xStream.alias("visualPart", VisualPart.class);
-        xStream.alias("wire", Wire.class);
-        xStream.alias("circuit", Circuit.class);
+    private void loadFile(File filename) {
+        XStream xStream = getxStream();
+        try (FileReader in = new FileReader(filename)) {
+            circuitComponent.setCircuit((Circuit) xStream.fromXML(in));
+            setFilename(filename);
+        } catch (IOException e) {
+            new ErrorMessage("error writing a file").addCause(e).show();
+        }
+    }
 
+    private void setFilename(File filename) {
+        this.filename = filename;
+        prefs.put("name", filename.getPath());
+        setTitle(filename + " - Digital");
+    }
+
+    private void saveFile(File filename) {
+        if (!filename.getName().endsWith(".dig"))
+            filename = new File(filename.getPath() + ".dig");
+
+        XStream xStream = getxStream();
         try (FileWriter out = new FileWriter(filename)) {
             xStream.marshal(circuitComponent.getCircuit(), new PrettyPrintWriter(out));
+            setFilename(filename);
         } catch (IOException e) {
             new ErrorMessage("error writing a file").addCause(e).show();
         }

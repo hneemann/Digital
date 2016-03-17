@@ -23,7 +23,7 @@ public class Multiplexer extends FanIn {
 
     @Override
     public void readInputs() throws NodeException {
-        int n = (int) selector.getValueBits();
+        int n = (int) selector.getValue();
         if (n >= inputs.size())
             throw new NodeException("multiplexerSelectsNotPresentInput");
 
