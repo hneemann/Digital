@@ -68,8 +68,9 @@ public class Main extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     ModelDescription m = new ModelDescription(cr);
-                    Model model = m.create();
-                    System.out.println(model);
+                    Model model = m.create(circuitComponent);
+                    model.init(true);
+                    circuitComponent.setMode(CircuitComponent.Mode.running);
                 } catch (Exception e1) {
                     new ErrorMessage("error creating model").addCause(e1).show(Main.this);
                 }

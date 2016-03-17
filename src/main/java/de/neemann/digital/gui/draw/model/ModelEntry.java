@@ -1,11 +1,7 @@
 package de.neemann.digital.gui.draw.model;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Part;
-import de.neemann.digital.gui.draw.parts.Pin;
-import de.neemann.digital.gui.draw.parts.PinException;
-import de.neemann.digital.gui.draw.parts.Pins;
+import de.neemann.digital.core.*;
+import de.neemann.digital.gui.draw.parts.*;
 
 import java.util.HashMap;
 
@@ -16,18 +12,20 @@ public class ModelEntry {
     private final Part part;
     private final Pins pins;
     private final String[] names;
+    private final VisualPart visualPart;
 
-    public ModelEntry(Part part, Pins pins, String[] names) {
+    public ModelEntry(Part part, Pins pins, VisualPart visualPart) {
         this.part = part;
         this.pins = pins;
-        this.names = names;
+        this.visualPart = visualPart;
+        this.names = visualPart.getPartDescription().getInputNames();
     }
 
-    public void applyInputs() throws PinException, NodeException {
+    public void applyInputs(Listener listener, Model model) throws PinException, NodeException {
         HashMap<String, Pin> ins = pins.getInputs();
 
+        ObservableValue[] inputs = new ObservableValue[names.length];
         if (names.length > 0) {
-            ObservableValue[] inputs = new ObservableValue[names.length];
             for (int i = 0; i < names.length; i++) {
                 Pin pin = ins.get(names[i]);
                 if (pin == null)
@@ -41,6 +39,7 @@ public class ModelEntry {
             }
             part.setInputs(inputs);
         }
+        visualPart.setState(new State(inputs, part.getOutputs()), listener, model);
     }
 
     public Part getPart() {

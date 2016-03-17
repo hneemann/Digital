@@ -1,8 +1,12 @@
 package de.neemann.digital.gui.draw.parts;
 
+import de.neemann.digital.core.Listener;
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.PartDescription;
+import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.shapes.Drawable;
+import de.neemann.digital.gui.draw.shapes.Interactor;
 import de.neemann.digital.gui.draw.shapes.Shape;
 
 import javax.swing.*;
@@ -18,6 +22,8 @@ public class VisualPart implements Drawable, Moveable {
     private transient GraphicMinMax minMax;
     private Vector pos;
     private int rotate;
+    private State state;
+    private Interactor interactor;
 
     public VisualPart(PartDescription partDescription) {
         this.partDescription = partDescription;
@@ -61,10 +67,10 @@ public class VisualPart implements Drawable, Moveable {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, State state) {
         Graphic gr = new GraphicTransform(graphic, createTransform());
         Shape shape = partDescription.getShape();
-        shape.drawTo(gr);
+        shape.drawTo(gr, this.state);
         for (Pin p : shape.getPins(partDescription))
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.FILLED);
     }
@@ -76,7 +82,7 @@ public class VisualPart implements Drawable, Moveable {
     public GraphicMinMax getMinMax() {
         if (minMax == null) {
             minMax = new GraphicMinMax();
-            drawTo(minMax);
+            drawTo(minMax, state);
         }
         return minMax;
     }
@@ -99,7 +105,7 @@ public class VisualPart implements Drawable, Moveable {
         gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
         gr.translate(-mm.getMin().x, -mm.getMin().y);
         GraphicSwing grs = new GraphicSwing(gr);
-        drawTo(grs);
+        drawTo(grs, state);
         return new ImageIcon(bi);
     }
 
@@ -115,5 +121,22 @@ public class VisualPart implements Drawable, Moveable {
         for (Pin p : pins)
             transformed.add(new Pin(tr.transform(p.getPos()), p));
         return transformed;
+    }
+
+    /**
+     * Sets the state of the parts inputs and outputs
+     *
+     * @param state    actual state
+     * @param listener
+     * @param model
+     */
+    public void setState(State state, Listener listener, Model model) {
+        this.state = state;
+        interactor = partDescription.getShape().applyStateMonitor(state, listener, model);
+    }
+
+    public void clicked(CircuitComponent cc, Vector pos) {
+        if (interactor != null)
+            interactor.interact(cc, pos, state);
     }
 }

@@ -19,7 +19,7 @@ public class Wire implements Drawable, Moveable {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, State state) {
         graphic.drawLine(p1, p2, Style.WIRE);
     }
 

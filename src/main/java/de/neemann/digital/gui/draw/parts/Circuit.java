@@ -24,13 +24,13 @@ public class Circuit implements Drawable {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, State state) {
         for (Wire w : wires)
-            w.drawTo(graphic);
+            w.drawTo(graphic, state);
         for (Vector d : dots)
             graphic.drawCircle(d.sub(RAD), d.add(RAD), Style.WIRE);
         for (VisualPart p : visualParts)
-            p.drawTo(graphic);
+            p.drawTo(graphic, state);
     }
 
     public void add(VisualPart visualPart) {

@@ -38,7 +38,7 @@ public class ObservableValue extends Value {
         return bits;
     }
 
-    public long getValue() throws NodeException {
+    public long getValue() {
         if (highZ)
             throw new HighZException(this);
         return value;
@@ -52,7 +52,7 @@ public class ObservableValue extends Value {
         }
     }
 
-    public long getValueBits() throws NodeException {
+    public long getValueBits() {
         return getValueBits(getValue());
     }
 

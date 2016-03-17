@@ -1,9 +1,6 @@
 package de.neemann.digital.gui.draw.model;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.Part;
-import de.neemann.digital.core.PartDescription;
+import de.neemann.digital.core.*;
 import de.neemann.digital.gui.draw.parts.*;
 
 import java.util.ArrayList;
@@ -27,20 +24,21 @@ public class ModelDescription {
             Part part = partDescription.create();
             pins.setOutputs(part.getOutputs());
 
-            entries.add(new ModelEntry(part, pins, partDescription.getInputNames()));
+            entries.add(new ModelEntry(part, pins, vp));
             for (Pin p : pins)
                 netList.add(p);
         }
     }
 
-    public Model create() throws PinException, NodeException {
+    public Model create(Listener listener) throws PinException, NodeException {
         for (Net n : netList)
             n.interconnect();
 
-        for (ModelEntry e : entries)
-            e.applyInputs();
-
         Model m = new Model();
+
+        for (ModelEntry e : entries)
+            e.applyInputs(listener, m);
+
         for (ModelEntry e : entries)
             e.getPart().registerNodes(m);
 

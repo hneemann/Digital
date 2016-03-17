@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.Listener;
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.gui.draw.graphics.Graphic;
@@ -8,6 +10,7 @@ import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.parts.Pin;
 import de.neemann.digital.gui.draw.parts.Pins;
+import de.neemann.digital.gui.draw.parts.State;
 
 /**
  * @author hneemann
@@ -72,7 +75,12 @@ public class GenericShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public Interactor applyStateMonitor(State state, Listener listener, Model model) {
+        return null;
+    }
+
+    @Override
+    public void drawTo(Graphic graphic, State state) {
         int max = Math.max(inputs, outputs);
         int height = (max - 1) * SIZE + SIZE2;
 

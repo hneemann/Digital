@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.Listener;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.graphics.Polygon;
 import de.neemann.digital.gui.draw.parts.Circuit;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 /**
  * @author hneemann
  */
-public class CircuitComponent extends JComponent {
+public class CircuitComponent extends JComponent implements Listener {
 
     private static final String delAction = "myDelAction";
     private final Circuit circuit;
@@ -57,7 +58,7 @@ public class CircuitComponent extends JComponent {
         switch (mode) {
             case part:
                 listener = new PartMouseListener();
-                setCursor(new Cursor(Cursor.HAND_CURSOR));
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 break;
             case wire:
                 listener = new WireMouseListener();
@@ -66,6 +67,10 @@ public class CircuitComponent extends JComponent {
             case select:
                 listener = new SelectMouseListener();
                 setCursor(new Cursor(Cursor.MOVE_CURSOR));
+                break;
+            case running:
+                listener = new RunningMouseListener();
+                setCursor(new Cursor(Cursor.HAND_CURSOR));
                 break;
         }
         addMouseMotionListener(listener);
@@ -86,7 +91,7 @@ public class CircuitComponent extends JComponent {
         g.fillRect(0, 0, getWidth(), getHeight());
 
         GraphicSwing gr = new GraphicSwing((Graphics2D) g);
-        circuit.drawTo(gr);
+        circuit.drawTo(gr, null);
 
         listener.drawTo(gr);
     }
@@ -96,7 +101,12 @@ public class CircuitComponent extends JComponent {
                 ((pos.y + GenericShape.SIZE2) / GenericShape.SIZE) * GenericShape.SIZE);
     }
 
-    public enum Mode {part, wire, select}
+    @Override
+    public void needsUpdate() {
+        repaint();
+    }
+
+    public enum Mode {part, wire, running, select}
 
     private interface Mouse extends MouseMotionListener, MouseListener {
         void drawTo(Graphic gr);
@@ -156,7 +166,7 @@ public class CircuitComponent extends JComponent {
         @Override
         public void drawTo(Graphic gr) {
             if (wire != null)
-                wire.drawTo(gr);
+                wire.drawTo(gr, null);
         }
     }
 
@@ -232,7 +242,7 @@ public class CircuitComponent extends JComponent {
         @Override
         public void drawTo(Graphic gr) {
             if (partToInsert != null)
-                partToInsert.drawTo(gr);
+                partToInsert.drawTo(gr, null);
         }
     }
 
@@ -320,4 +330,50 @@ public class CircuitComponent extends JComponent {
         }
     }
 
+    private class RunningMouseListener implements Mouse {
+        @Override
+        public void drawTo(Graphic gr) {
+
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            Vector pos = new Vector(e.getX(), e.getY());
+            for (VisualPart vp : circuit.getParts())
+                if (vp.matches(pos)) {
+                    vp.clicked(CircuitComponent.this, pos);
+                }
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+        }
+    }
 }

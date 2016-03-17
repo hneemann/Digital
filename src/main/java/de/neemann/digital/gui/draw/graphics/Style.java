@@ -8,9 +8,9 @@ import java.awt.*;
 public class Style {
     public static final Style NORMAL = new Style(2, false, Color.BLACK);
     public static final Style WIRE = new Style(2, true, Color.BLUE);
+    public static final Style WIRE_HIGH = new Style(2, true, new Color(0, 153, 255));
     public static final Style FILLED = new Style(2, true, Color.BLACK);
     public static final Style THIN = new Style(1, false, Color.BLACK);
-    ;
 
     private final int thickness;
     private final boolean filled;

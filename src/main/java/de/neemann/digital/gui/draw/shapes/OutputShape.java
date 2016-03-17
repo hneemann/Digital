@@ -1,11 +1,14 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.Listener;
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.parts.Pin;
 import de.neemann.digital.gui.draw.parts.Pins;
+import de.neemann.digital.gui.draw.parts.State;
 
 /**
  * @author hneemann
@@ -24,7 +27,28 @@ public class OutputShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
-        graphic.drawCircle(new Vector(2 + SIZE * 2, -SIZE), new Vector(2, SIZE), Style.NORMAL);
+    public Interactor applyStateMonitor(State state, Listener listener, Model model) {
+        state.getInput(0).addListener(new Listener() {
+            public long lastValue = 0;
+
+            @Override
+            public void needsUpdate() {
+                long value = state.getInput(0).getValue();
+                if (lastValue != value) {
+                    lastValue = value;
+                    listener.needsUpdate();
+                }
+            }
+        });
+        return null;
+    }
+
+    @Override
+    public void drawTo(Graphic graphic, State state) {
+        Style style = Style.WIRE;
+        if (state != null && state.getInput(0).getValue() != 0)
+            style = Style.WIRE_HIGH;
+
+        graphic.drawCircle(new Vector(2 + SIZE * 2, -SIZE), new Vector(2, SIZE), style);
     }
 }
