@@ -5,6 +5,10 @@ import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.shapes.Drawable;
 import de.neemann.digital.gui.draw.shapes.Shape;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 /**
  * @author hneemann
  */
@@ -17,6 +21,7 @@ public class VisualPart implements Drawable, Moveable {
 
     public VisualPart(PartDescription partDescription) {
         this.partDescription = partDescription;
+        pos = new Vector(0, 0);
     }
 
     public Vector getPos() {
@@ -78,4 +83,19 @@ public class VisualPart implements Drawable, Moveable {
         minMax = null;
     }
 
+    public ImageIcon createIcon(int maxHeight) {
+        GraphicMinMax mm = getMinMax();
+
+        if (mm.getMax().y - mm.getMin().y > maxHeight)
+            return null;
+
+        BufferedImage bi = new BufferedImage(mm.getMax().x - mm.getMin().x, mm.getMax().y - mm.getMin().y, BufferedImage.TYPE_INT_RGB);
+        Graphics2D gr = bi.createGraphics();
+        gr.setColor(Color.WHITE);
+        gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
+        gr.translate(-mm.getMin().x, -mm.getMin().y);
+        GraphicSwing grs = new GraphicSwing(gr);
+        drawTo(grs);
+        return new ImageIcon(bi);
+    }
 }

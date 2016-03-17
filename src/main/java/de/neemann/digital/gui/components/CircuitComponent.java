@@ -25,6 +25,7 @@ public class CircuitComponent extends JComponent {
     private final Circuit circuit;
     ;
     private Mouse listener;
+
     public CircuitComponent(Circuit circuit) {
         this.circuit = circuit;
         setMode(Mode.part);
@@ -34,6 +35,7 @@ public class CircuitComponent extends JComponent {
         getActionMap().put(delAction, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("write");
                 if (listener instanceof SelectMouseListener) {
                     SelectMouseListener mml = (SelectMouseListener) listener;
                     if (mml.corner1 != null && mml.corner2 != null) {
@@ -45,6 +47,7 @@ public class CircuitComponent extends JComponent {
             }
         });
 
+        setFocusable(true);
     }
 
     public void setMode(Mode mode) {
@@ -68,6 +71,7 @@ public class CircuitComponent extends JComponent {
         }
         addMouseMotionListener(listener);
         addMouseListener(listener);
+        requestFocusInWindow();
         repaint();
     }
 

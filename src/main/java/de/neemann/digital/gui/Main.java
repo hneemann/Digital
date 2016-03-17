@@ -82,11 +82,11 @@ public class Main extends JFrame {
         PartDescription create(int inputs);
     }
 
-    private class InsertAction extends AbstractAction {
+    private class InsertAction extends ToolTipAction {
         private final PartDescription partDescription;
 
         public InsertAction(String name, PartDescription partDescription) {
-            super(name);
+            super(name, new VisualPart(partDescription).createIcon(60));
             this.partDescription = partDescription;
         }
 
