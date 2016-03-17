@@ -188,11 +188,11 @@
     </build>
 
     <dependencies>
-        <!--dependency>
+        <dependency>
             <groupId>de.neemann.process</groupId>
             <artifactId>utils</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency-->
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>

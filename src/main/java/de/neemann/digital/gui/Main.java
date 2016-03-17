@@ -6,6 +6,7 @@ import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.parts.Circuit;
 import de.neemann.digital.gui.draw.parts.VisualPart;
+import de.process.utils.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,13 +17,13 @@ import java.awt.event.ActionEvent;
  */
 public class Main extends JFrame {
     private final CircuitComponent circuitComponent;
-    private final Circuit cr;
+    private final InsertHistory insertHistory;
 
     public Main() {
         super("Digital");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        cr = new Circuit();
+        Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr);
         getContentPane().add(circuitComponent);
 
@@ -42,9 +43,25 @@ public class Main extends JFrame {
 
         JMenu edit = new JMenu("Edit");
         bar.add(edit);
-        edit.add(new JMenuItem(new ModeAction("Wire", CircuitComponent.Mode.wire)));
-        edit.add(new JMenuItem(new ModeAction("Parts", CircuitComponent.Mode.part)));
-        edit.add(new JMenuItem(new ModeAction("Move", CircuitComponent.Mode.move)));
+
+
+        ToolTipAction wireMode = new ModeAction("Wire", CircuitComponent.Mode.wire).setToolTip("Edits wires");
+        ToolTipAction partsMode = new ModeAction("Parts", CircuitComponent.Mode.part).setToolTip("Moves Parts");
+        ToolTipAction selectionMode = new ModeAction("Select", CircuitComponent.Mode.select).setToolTip("Selects circuit sections");
+
+        edit.add(partsMode.createJMenuItem());
+        edit.add(wireMode.createJMenuItem());
+        edit.add(selectionMode.createJMenuItem());
+
+        JToolBar toolBar = new JToolBar();
+        toolBar.add(partsMode.createJButton());
+        toolBar.add(wireMode.createJButton());
+        toolBar.add(selectionMode.createJButton());
+
+        toolBar.addSeparator();
+        insertHistory = new InsertHistory(toolBar);
+
+        getContentPane().add(toolBar, BorderLayout.NORTH);
 
         setJMenuBar(bar);
     }
@@ -55,8 +72,8 @@ public class Main extends JFrame {
 
     private JMenu createSimpleMenu(String name, DescriptionFactory factory) {
         JMenu m = new JMenu(name);
-        for (int i = 2; i < 16; i++) {
-            m.add(new JMenuItem(new InsertAction(Integer.toString(i), factory.create(i))));
+        for (int i = 2; i <= 16; i++) {
+            m.add(new JMenuItem(new InsertAction(name + " (" + Integer.toString(i) + ")", factory.create(i))));
         }
         return m;
     }
@@ -76,12 +93,12 @@ public class Main extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             VisualPart visualPart = new VisualPart(partDescription).setPos(new Vector(10, 10));
-            cr.add(visualPart);
             circuitComponent.setPartToDrag(visualPart);
+            insertHistory.add(this);
         }
     }
 
-    private class ModeAction extends AbstractAction {
+    private class ModeAction extends ToolTipAction {
         private final CircuitComponent.Mode mode;
 
         public ModeAction(String name, CircuitComponent.Mode mode) {

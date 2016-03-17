@@ -34,8 +34,8 @@ public class CircuitComponent extends JComponent {
         getActionMap().put(delAction, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (listener instanceof MoveMouseListener) {
-                    MoveMouseListener mml = (MoveMouseListener) listener;
+                if (listener instanceof SelectMouseListener) {
+                    SelectMouseListener mml = (SelectMouseListener) listener;
                     if (mml.corner1 != null && mml.corner2 != null) {
                         circuit.delete(Vector.min(mml.corner1, mml.corner2), Vector.max(mml.corner1, mml.corner2));
                         mml.reset();
@@ -61,8 +61,8 @@ public class CircuitComponent extends JComponent {
                 listener = new WireMouseListener();
                 setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
                 break;
-            case move:
-                listener = new MoveMouseListener();
+            case select:
+                listener = new SelectMouseListener();
                 setCursor(new Cursor(Cursor.MOVE_CURSOR));
                 break;
         }
@@ -73,7 +73,7 @@ public class CircuitComponent extends JComponent {
 
     public void setPartToDrag(VisualPart part) {
         setMode(Mode.part);
-        ((PartMouseListener) listener).setPartToDrag(part);
+        ((PartMouseListener) listener).setPartToInsert(part);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class CircuitComponent extends JComponent {
                 ((pos.y + GenericShape.SIZE2) / GenericShape.SIZE) * GenericShape.SIZE);
     }
 
-    public enum Mode {part, move, wire}
+    public enum Mode {part, wire, select}
 
     private interface Mouse extends MouseMotionListener, MouseListener {
         void drawTo(Graphic gr);
@@ -159,53 +159,58 @@ public class CircuitComponent extends JComponent {
 
     private class PartMouseListener implements Mouse {
 
-        private VisualPart partToDrag;
+        private VisualPart partToInsert;
         private boolean autoPick = false;
         private Vector delta;
+        private boolean insert;
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            Vector pos = new Vector(e.getX(), e.getY());
-
-            if (partToDrag != null) {
-                partToDrag.setPos(raster(pos.add(delta)));
-                repaint();
-            }
         }
 
         @Override
         public void mouseMoved(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            Vector pos = new Vector(e.getX(), e.getY());
-            for (VisualPart vp : circuit.getParts())
-                if (vp.matches(pos)) {
-                    partToDrag = vp;
-                    delta = partToDrag.getPos().sub(pos);
-                    break;
-                }
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            if (partToDrag != null) {
-                partToDrag.setPos(raster(partToDrag.getPos()));
+            if (partToInsert != null) {
+                Vector pos = new Vector(e.getX(), e.getY());
+                partToInsert.setPos(raster(pos.add(delta)));
                 repaint();
-                partToDrag = null;
             }
         }
 
         @Override
+        public void mouseClicked(MouseEvent e) {
+            if (partToInsert == null) {
+                Vector pos = new Vector(e.getX(), e.getY());
+                insert = false;
+                for (VisualPart vp : circuit.getParts())
+                    if (vp.matches(pos)) {
+                        partToInsert = vp;
+                        delta = partToInsert.getPos().sub(pos);
+                        break;
+                    }
+            } else {
+                partToInsert.setPos(raster(partToInsert.getPos()));
+                if (insert)
+                    circuit.add(partToInsert);
+                repaint();
+                partToInsert = null;
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
         public void mouseEntered(MouseEvent e) {
-            if (autoPick && partToDrag != null) {
-                partToDrag.setPos(raster(new Vector(e.getX(), e.getY())));
+            if (autoPick && partToInsert != null) {
+                Vector pos = new Vector(e.getX(), e.getY());
+                delta = partToInsert.getMinMax().getMin().sub(partToInsert.getMinMax().getMax());
+                partToInsert.setPos(raster(pos.add(delta)));
                 autoPick = false;
                 repaint();
             }
@@ -215,17 +220,20 @@ public class CircuitComponent extends JComponent {
         public void mouseExited(MouseEvent e) {
         }
 
-        public void setPartToDrag(VisualPart partToDrag) {
-            this.partToDrag = partToDrag;
+        public void setPartToInsert(VisualPart partToInsert) {
+            this.partToInsert = partToInsert;
+            insert = true;
             autoPick = true;
         }
 
         @Override
         public void drawTo(Graphic gr) {
+            if (partToInsert != null)
+                partToInsert.drawTo(gr);
         }
     }
 
-    private class MoveMouseListener implements Mouse {
+    private class SelectMouseListener implements Mouse {
         private Vector corner1;
         private Vector corner2;
         private ArrayList<Moveable> elementsToMove;
