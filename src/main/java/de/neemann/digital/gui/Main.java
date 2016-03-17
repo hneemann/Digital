@@ -1,11 +1,16 @@
 package de.neemann.digital.gui;
 
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.Out;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.parts.Circuit;
 import de.neemann.digital.gui.draw.parts.VisualPart;
+import de.process.utils.gui.ErrorMessage;
 import de.process.utils.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -40,10 +45,11 @@ public class Main extends JFrame {
         parts.add(createSimpleMenu("NAND", inputs -> NAnd.createFactory(1, inputs)));
         parts.add(createSimpleMenu("NOR", inputs -> NOr.createFactory(1, inputs)));
         parts.add(new InsertAction("Not", Not.createFactory(1)));
+        parts.add(new InsertAction("In", In.createFactory(1)));
+        parts.add(new InsertAction("Out", Out.createFactory(1)));
 
         JMenu edit = new JMenu("Edit");
         bar.add(edit);
-
 
         ToolTipAction wireMode = new ModeAction("Wire", CircuitComponent.Mode.wire).setToolTip("Edits wires");
         ToolTipAction partsMode = new ModeAction("Parts", CircuitComponent.Mode.part).setToolTip("Moves Parts");
@@ -52,6 +58,26 @@ public class Main extends JFrame {
         edit.add(partsMode.createJMenuItem());
         edit.add(wireMode.createJMenuItem());
         edit.add(selectionMode.createJMenuItem());
+
+
+        JMenu run = new JMenu("Run");
+        bar.add(run);
+
+        ToolTipAction runModel = new ToolTipAction("Run") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ModelDescription m = new ModelDescription(cr);
+                    Model model = m.create();
+                    System.out.println(model);
+                } catch (Exception e1) {
+                    new ErrorMessage("error creating model").addCause(e1).show(Main.this);
+                }
+            }
+        }.setToolTip("Runs the Model");
+        run.add(runModel.createJMenuItem());
+
+
 
         JToolBar toolBar = new JToolBar();
         toolBar.add(partsMode.createJButton());

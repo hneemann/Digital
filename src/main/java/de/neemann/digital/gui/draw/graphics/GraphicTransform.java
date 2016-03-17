@@ -6,13 +6,11 @@ package de.neemann.digital.gui.draw.graphics;
 public class GraphicTransform implements Graphic {
 
     private final Graphic parent;
-    private final Vector pos;
-    private final int rotate;
+    private final Transform transform;
 
-    public GraphicTransform(Graphic parent, Vector pos, int rotate) {
+    public GraphicTransform(Graphic parent, Transform transform) {
         this.parent = parent;
-        this.pos = pos;
-        this.rotate = rotate;
+        this.transform = transform;
     }
 
     @Override
@@ -38,7 +36,7 @@ public class GraphicTransform implements Graphic {
         parent.drawText(transform(p1), transform(p2), text);
     }
 
-    public Vector transform(Vector v) {
-        return v.add(pos);
+    private Vector transform(Vector v) {
+        return transform.transform(v);
     }
 }

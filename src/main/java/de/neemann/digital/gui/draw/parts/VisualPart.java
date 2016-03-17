@@ -62,11 +62,15 @@ public class VisualPart implements Drawable, Moveable {
 
     @Override
     public void drawTo(Graphic graphic) {
-        Graphic gr = new GraphicTransform(graphic, pos, rotate);
+        Graphic gr = new GraphicTransform(graphic, createTransform());
         Shape shape = partDescription.getShape();
         shape.drawTo(gr);
         for (Pin p : shape.getPins(partDescription))
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.FILLED);
+    }
+
+    private Transform createTransform() {
+        return v -> v.add(pos);
     }
 
     public GraphicMinMax getMinMax() {
@@ -89,13 +93,27 @@ public class VisualPart implements Drawable, Moveable {
         if (mm.getMax().y - mm.getMin().y > maxHeight)
             return null;
 
-        BufferedImage bi = new BufferedImage(mm.getMax().x - mm.getMin().x, mm.getMax().y - mm.getMin().y, BufferedImage.TYPE_INT_RGB);
+        BufferedImage bi = new BufferedImage(mm.getMax().x - mm.getMin().x, mm.getMax().y - mm.getMin().y, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gr = bi.createGraphics();
-        gr.setColor(Color.WHITE);
+        gr.setColor(new Color(255, 255, 255, 0));
         gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
         gr.translate(-mm.getMin().x, -mm.getMin().y);
         GraphicSwing grs = new GraphicSwing(gr);
         drawTo(grs);
         return new ImageIcon(bi);
+    }
+
+    public PartDescription getPartDescription() {
+        return partDescription;
+    }
+
+    public Pins getPins() {
+        Shape shape = partDescription.getShape();
+        Transform tr = createTransform();
+        Pins pins = shape.getPins(partDescription);
+        Pins transformed = new Pins();
+        for (Pin p : pins)
+            transformed.add(new Pin(tr.transform(p.getPos()), p));
+        return transformed;
     }
 }

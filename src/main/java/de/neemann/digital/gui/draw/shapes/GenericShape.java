@@ -7,8 +7,7 @@ import de.neemann.digital.gui.draw.graphics.Polygon;
 import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.parts.Pin;
-
-import java.util.ArrayList;
+import de.neemann.digital.gui.draw.parts.Pins;
 
 /**
  * @author hneemann
@@ -23,7 +22,7 @@ public class GenericShape implements Shape {
     private final boolean symetric;
     private boolean invert = false;
 
-    private transient ArrayList<Pin> pins;
+    private transient Pins pins;
 
     public GenericShape(String name, int inputs) {
         this(name, inputs, 1);
@@ -43,11 +42,11 @@ public class GenericShape implements Shape {
     }
 
     @Override
-    public Iterable<Pin> getPins(PartDescription partDescription) {
+    public Pins getPins(PartDescription partDescription) {
         if (pins == null) {
             ObservableValue[] outputValues = partDescription.create().getOutputs();
             String[] inputs = partDescription.getInputNames();
-            pins = new ArrayList<>(inputs.length + outputs);
+            pins = new Pins();
 
             int offs = symetric ? inputs.length / 2 * SIZE : 0;
 

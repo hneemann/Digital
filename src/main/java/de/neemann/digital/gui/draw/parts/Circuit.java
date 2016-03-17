@@ -51,7 +51,6 @@ public class Circuit implements Drawable {
                 wires.set(i, new Wire(present.p1, newWire.p2));
                 wires.add(new Wire(present.p2, newWire.p2));
             }
-            ;
         }
 
         wires.add(newWire);
@@ -95,5 +94,9 @@ public class Circuit implements Drawable {
                     it.remove();
             }
         }
+    }
+
+    public ArrayList<Wire> getWires() {
+        return wires;
     }
 }
