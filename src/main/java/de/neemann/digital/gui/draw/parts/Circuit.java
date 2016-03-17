@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.draw.parts;
 
 import de.neemann.digital.gui.draw.graphics.Graphic;
+import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.shapes.Drawable;
 
@@ -11,19 +12,23 @@ import java.util.Iterator;
  * @author hneemann
  */
 public class Circuit implements Drawable {
-
+    private static final Vector RAD = new Vector(2, 2);
     private final ArrayList<VisualPart> visualParts;
-    private final ArrayList<Wire> wires;
+    private transient ArrayList<Vector> dots;
+    private ArrayList<Wire> wires;
 
     public Circuit() {
         visualParts = new ArrayList<>();
         wires = new ArrayList<>();
+        dots = new ArrayList<>();
     }
 
     @Override
     public void drawTo(Graphic graphic) {
         for (Wire w : wires)
             w.drawTo(graphic);
+        for (Vector d : dots)
+            graphic.drawCircle(d.sub(RAD), d.add(RAD), Style.WIRE);
         for (VisualPart p : visualParts)
             p.drawTo(graphic);
     }
@@ -32,8 +37,27 @@ public class Circuit implements Drawable {
         visualParts.add(visualPart);
     }
 
-    public void add(Wire wire) {
-        wires.add(wire);
+    public void add(Wire newWire) {
+        if (newWire.p1.equals(newWire.p2))
+            return;
+
+        int len = wires.size();
+        for (int i = 0; i < len; i++) {
+            Wire present = wires.get(i);
+            if (present.contains(newWire.p1)) {
+                wires.set(i, new Wire(present.p1, newWire.p1));
+                wires.add(new Wire(present.p2, newWire.p1));
+            } else if (present.contains(newWire.p2)) {
+                wires.set(i, new Wire(present.p1, newWire.p2));
+                wires.add(new Wire(present.p2, newWire.p2));
+            }
+            ;
+        }
+
+        wires.add(newWire);
+        WireConsistencyChecker checker = new WireConsistencyChecker(wires);
+        wires = checker.check();
+        dots = WireConsistencyChecker.createDots(wires);
     }
 
     public ArrayList<VisualPart> getParts() {

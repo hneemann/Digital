@@ -23,7 +23,6 @@ public class CircuitComponent extends JComponent {
 
     private static final String delAction = "myDelAction";
     private final Circuit circuit;
-    ;
     private Mouse listener;
 
     public CircuitComponent(Circuit circuit) {

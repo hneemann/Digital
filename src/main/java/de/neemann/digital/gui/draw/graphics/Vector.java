@@ -78,4 +78,23 @@ public class Vector implements Moveable {
     public boolean inside(Vector min, Vector max) {
         return min.x <= x && x <= max.x && min.y <= y && y <= max.y;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vector vector = (Vector) o;
+
+        if (x != vector.x) return false;
+        return y == vector.y;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
 }
