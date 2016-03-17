@@ -44,6 +44,10 @@ public abstract class FanIn extends Node implements Part {
         return new ObservableValue[]{output};
     }
 
+    @Override
+    public void registerNodes(Model model) {
+        model.add(this);
+    }
 
     public static class FanInDescription extends PartDescription {
         public FanInDescription(Shape shape, int count, PartFactory creator) {

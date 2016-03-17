@@ -44,4 +44,9 @@ public class Not extends Node implements Part {
     public ObservableValue[] getOutputs() {
         return new ObservableValue[]{output};
     }
+
+    @Override
+    public void registerNodes(Model model) {
+        model.add(this);
+    }
 }

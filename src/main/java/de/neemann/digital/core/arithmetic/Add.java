@@ -71,4 +71,9 @@ public class Add extends Node implements Part {
     public ObservableValue[] getOutputs() {
         return new ObservableValue[]{sum, c_out};
     }
+
+    @Override
+    public void registerNodes(Model model) {
+        model.add(this);
+    }
 }
