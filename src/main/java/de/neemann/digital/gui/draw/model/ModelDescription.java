@@ -30,7 +30,7 @@ public class ModelDescription {
         }
     }
 
-    public Model create(Listener listener) throws PinException, NodeException {
+    public Model createModel(Listener listener) throws PinException, NodeException {
         for (Net n : netList)
             n.interconnect();
 

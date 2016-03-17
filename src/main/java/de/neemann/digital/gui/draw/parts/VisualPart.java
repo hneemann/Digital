@@ -132,7 +132,10 @@ public class VisualPart implements Drawable, Moveable {
      */
     public void setState(State state, Listener listener, Model model) {
         this.state = state;
-        interactor = partDescription.getShape().applyStateMonitor(state, listener, model);
+        if (state == null)
+            interactor = null;
+        else
+            interactor = partDescription.getShape().applyStateMonitor(state, listener, model);
     }
 
     public void clicked(CircuitComponent cc, Vector pos) {

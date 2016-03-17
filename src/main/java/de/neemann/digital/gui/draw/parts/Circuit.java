@@ -105,4 +105,11 @@ public class Circuit implements Drawable {
             dots = WireConsistencyChecker.createDots(wires);
         return dots;
     }
+
+    public void clearState() {
+        for (VisualPart vp : visualParts)
+            vp.setState(null, null, null);
+        for (Wire w : wires)
+            w.setValue(null);
+    }
 }

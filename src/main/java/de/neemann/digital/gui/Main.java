@@ -3,6 +3,7 @@ package de.neemann.digital.gui;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.core.basic.*;
@@ -121,14 +122,29 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenu run = new JMenu("Run");
         bar.add(run);
 
+        JCheckBox microStep = new JCheckBox("micro");
+
         ToolTipAction runModel = new ToolTipAction("Run") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ModelDescription m = new ModelDescription(circuitComponent.getCircuit());
-                    Model model = m.create(circuitComponent);
-                    model.init(true);
                     circuitComponent.setMode(CircuitComponent.Mode.running);
+                    ModelDescription m = new ModelDescription(circuitComponent.getCircuit());
+                    Model model = m.createModel(circuitComponent);
+                    if (microStep.isSelected()) {
+                        model.setListener(new Listener() {
+                            @Override
+                            public void needsUpdate() {
+                                circuitComponent.paintImmediately(circuitComponent.getVisibleRect());
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                    model.init(true);
                 } catch (Exception e1) {
                     new ErrorMessage("error creating model").addCause(e1).show(Main.this);
                 }
@@ -142,6 +158,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(partsMode.createJButton());
         toolBar.add(wireMode.createJButton());
         toolBar.add(selectionMode.createJButton());
+        toolBar.add(runModel.createJButton());
+        toolBar.add(microStep);
 
         toolBar.addSeparator();
         insertHistory = new InsertHistory(toolBar);

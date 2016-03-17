@@ -41,35 +41,39 @@ public class Model {
 
     public void doStep(boolean noise) throws NodeException {
         int counter = 0;
-        while (!nodesToUpdateNext.isEmpty()) {
-            version++;
-            // swap lists
-            ArrayList<Node> nl = nodesToUpdateNext;
-            nodesToUpdateNext = nodesToUpdateAct;
-            nodesToUpdateAct = nl;
-
-            nodesToUpdateNext.clear();
-
-            if (noise) {
-                Collections.shuffle(nodesToUpdateAct);
-                for (Node n : nodesToUpdateAct) {
-                    n.readInputs();
-                    n.writeOutputs();
-                }
-            } else {
-                for (Node n : nodesToUpdateAct) {
-                    n.readInputs();
-                }
-                for (Node n : nodesToUpdateAct) {
-                    n.writeOutputs();
-                }
-            }
+        while (!doMicroStep(noise)) {
+            if (listener != null)
+                listener.needsUpdate();
             if (counter++ > maxCounter) {
                 throw new NodeException("seemsToOscillate");
             }
-            if (listener != null)
-                listener.needsUpdate();
         }
+    }
+
+    public boolean doMicroStep(boolean noise) throws NodeException {
+        version++;
+        // swap lists
+        ArrayList<Node> nl = nodesToUpdateNext;
+        nodesToUpdateNext = nodesToUpdateAct;
+        nodesToUpdateAct = nl;
+
+        nodesToUpdateNext.clear();
+
+        if (noise) {
+            Collections.shuffle(nodesToUpdateAct);
+            for (Node n : nodesToUpdateAct) {
+                n.readInputs();
+                n.writeOutputs();
+            }
+        } else {
+            for (Node n : nodesToUpdateAct) {
+                n.readInputs();
+            }
+            for (Node n : nodesToUpdateAct) {
+                n.writeOutputs();
+            }
+        }
+        return nodesToUpdateNext.isEmpty();
     }
 
     public void init() throws NodeException {

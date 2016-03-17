@@ -75,6 +75,7 @@ public class CircuitComponent extends JComponent implements Listener {
         addMouseMotionListener(listener);
         addMouseListener(listener);
         requestFocusInWindow();
+        circuit.clearState();
         repaint();
     }
 
