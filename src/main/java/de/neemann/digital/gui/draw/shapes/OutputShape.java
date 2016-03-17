@@ -14,7 +14,9 @@ import de.neemann.digital.gui.draw.parts.State;
  * @author hneemann
  */
 public class OutputShape implements Shape {
-    public static final int SIZE = 6;
+    public static final int SIZE = 8;
+    public static final Vector RAD = new Vector(SIZE - 3, SIZE - 3);
+    public static final Vector RADL = new Vector(SIZE, SIZE);
     private final int bits;
 
     public OutputShape(int bits) {
@@ -49,6 +51,8 @@ public class OutputShape implements Shape {
         if (state != null && state.getInput(0).getValue() != 0)
             style = Style.WIRE_HIGH;
 
-        graphic.drawCircle(new Vector(2 + SIZE * 2, -SIZE), new Vector(2, SIZE), style);
+        Vector center = new Vector(2 + SIZE, 0);
+        graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
+        graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);
     }
 }

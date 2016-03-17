@@ -13,6 +13,7 @@ import de.neemann.digital.gui.draw.parts.Pin;
 import de.neemann.digital.gui.draw.parts.Pins;
 import de.neemann.digital.gui.draw.parts.State;
 
+import static de.neemann.digital.gui.draw.shapes.OutputShape.RAD;
 import static de.neemann.digital.gui.draw.shapes.OutputShape.SIZE;
 
 /**
@@ -65,6 +66,8 @@ public class InputShape implements Shape {
         if (state != null && state.getOutput(0).getValue() != 0)
             style = Style.WIRE_HIGH;
 
-        graphic.drawPolygon(new Polygon(true).add(-SIZE * 2 - 2, -SIZE).add(-2, -SIZE).add(-2, SIZE).add(-SIZE * 2 - 2, SIZE), style);
+        Vector center = new Vector(-2 - SIZE, 0);
+        graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
+        graphic.drawPolygon(new Polygon(true).add(-SIZE * 2 - 2, -SIZE).add(-2, -SIZE).add(-2, SIZE).add(-SIZE * 2 - 2, SIZE), Style.NORMAL);
     }
 }

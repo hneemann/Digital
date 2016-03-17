@@ -61,6 +61,11 @@ public class Vector implements Moveable {
         return new Vector(x - a.x, y - a.y);
     }
 
+    public Vector mul(int a) {
+        return new Vector(x * a, y * a);
+    }
+
+
     @Override
     public String toString() {
         return "Vector{" +
