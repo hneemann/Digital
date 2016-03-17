@@ -94,6 +94,7 @@ public class Circuit implements Drawable {
                     it.remove();
             }
         }
+        dots = null;
     }
 
     public ArrayList<Wire> getWires() {

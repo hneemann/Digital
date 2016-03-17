@@ -10,10 +10,9 @@ import de.neemann.digital.gui.draw.shapes.Drawable;
  * @author hneemann
  */
 public class Wire implements Drawable, Moveable {
-
     public Vector p1;
     public Vector p2;
-    private ObservableValue value;
+    private transient ObservableValue value;
 
     public Wire(Vector p1, Vector p2) {
         this.p1 = p1;

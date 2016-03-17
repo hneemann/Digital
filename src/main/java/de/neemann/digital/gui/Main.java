@@ -61,6 +61,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenuBar bar = new JMenuBar();
 
 
+        ToolTipAction newFile = new ToolTipAction("New") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setFilename(null);
+                circuitComponent.setCircuit(new Circuit());
+            }
+        };
+
         ToolTipAction open = new ToolTipAction("Open") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,6 +101,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         JMenu file = new JMenu("File");
         bar.add(file);
+        file.add(newFile);
         file.add(open);
         file.add(save);
         file.add(saveas);
@@ -209,8 +218,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private void setFilename(File filename) {
         this.filename = filename;
-        prefs.put("name", filename.getPath());
-        setTitle(filename + " - Digital");
+        if (filename != null) {
+            prefs.put("name", filename.getPath());
+            setTitle(filename + " - Digital");
+        } else
+            setTitle("Digital");
     }
 
     private void saveFile(File filename) {
