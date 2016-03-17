@@ -1,8 +1,6 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.PartDescription;
+import de.neemann.digital.core.*;
 import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 import java.util.ArrayList;
@@ -17,7 +15,12 @@ public class Or extends Function {
     }
 
     public static PartDescription createFactory(int bits, int inputs) {
-        return new FanInDescription(new GenericShape("\u22651", inputs), inputs, () -> new Or(bits));
+        return new FanInDescription(new GenericShape("\u22651", inputs), inputs, new PartFactory() {
+            @Override
+            public Part create() {
+                return new Or(bits);
+            }
+        });
     }
 
     @Override

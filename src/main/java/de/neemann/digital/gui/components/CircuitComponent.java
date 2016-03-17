@@ -106,6 +106,10 @@ public class CircuitComponent extends JComponent implements Listener {
         repaint();
     }
 
+    public Circuit getCircuit() {
+        return circuit;
+    }
+
     public enum Mode {part, wire, running, select}
 
     private interface Mouse extends MouseMotionListener, MouseListener {

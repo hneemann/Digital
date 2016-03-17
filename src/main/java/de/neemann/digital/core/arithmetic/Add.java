@@ -26,7 +26,12 @@ public class Add extends Node implements Part {
     }
 
     public static PartDescription createFactory(int bits) {
-        return new PartDescription(new GenericShape("+", 2), () -> new Add(bits), "a", "b", "c_in");
+        return new PartDescription(new GenericShape("+", 2), new PartFactory() {
+            @Override
+            public Part create() {
+                return new Add(bits);
+            }
+        }, "a", "b", "c_in");
     }
 
     @Override

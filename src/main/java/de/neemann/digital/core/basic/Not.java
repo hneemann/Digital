@@ -17,7 +17,12 @@ public class Not extends Node implements Part {
     }
 
     public static PartDescription createFactory(int bits) {
-        return new PartDescription(new GenericShape("", 1).invert(true), () -> new Not(bits), "in");
+        return new PartDescription(new GenericShape("", 1).invert(true), new PartFactory() {
+            @Override
+            public Part create() {
+                return new Not(bits);
+            }
+        }, "in");
     }
 
     @Override

@@ -15,7 +15,12 @@ public class In implements Part {
     }
 
     public static PartDescription createFactory(int bits) {
-        return new PartDescription(new InputShape(bits), () -> new In(bits));
+        return new PartDescription(new InputShape(bits), new PartFactory() {
+            @Override
+            public Part create() {
+                return new In(bits);
+            }
+        });
     }
 
     @Override

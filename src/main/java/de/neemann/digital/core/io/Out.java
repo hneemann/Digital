@@ -14,7 +14,12 @@ public class Out implements Part {
     }
 
     public static PartDescription createFactory(int bits) {
-        return new PartDescription(new OutputShape(bits), () -> new Out(), "in");
+        return new PartDescription(new OutputShape(bits), new PartFactory() {
+            @Override
+            public Part create() {
+                return new Out();
+            }
+        }, "in");
     }
 
     @Override

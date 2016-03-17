@@ -21,7 +21,6 @@ import static de.neemann.digital.gui.draw.shapes.OutputShape.SIZE;
 public class InputShape implements Shape {
 
     private final int bits;
-    private long lastValue = 0;
 
     public InputShape(int bits) {
         this.bits = bits;
@@ -35,6 +34,8 @@ public class InputShape implements Shape {
     @Override
     public Interactor applyStateMonitor(State state, Listener listener, Model model) {
         state.getOutput(0).addListener(new Listener() {
+            public long lastValue;
+
             @Override
             public void needsUpdate() {
                 long value = state.getOutput(0).getValue();

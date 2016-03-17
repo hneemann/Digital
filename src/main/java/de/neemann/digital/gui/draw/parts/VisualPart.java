@@ -20,10 +20,10 @@ public class VisualPart implements Drawable, Moveable {
     private static final int PIN = 1;
     private final PartDescription partDescription;
     private transient GraphicMinMax minMax;
+    private transient State state;
+    private transient Interactor interactor;
     private Vector pos;
     private int rotate;
-    private State state;
-    private Interactor interactor;
 
     public VisualPart(PartDescription partDescription) {
         this.partDescription = partDescription;

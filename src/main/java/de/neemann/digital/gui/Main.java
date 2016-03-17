@@ -1,5 +1,8 @@
 package de.neemann.digital.gui;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.core.basic.*;
@@ -10,19 +13,26 @@ import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.parts.Circuit;
 import de.neemann.digital.gui.draw.parts.VisualPart;
+import de.neemann.digital.gui.draw.parts.Wire;
+import de.process.utils.gui.ClosingWindowListener;
 import de.process.utils.gui.ErrorMessage;
 import de.process.utils.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * @author hneemann
  */
-public class Main extends JFrame {
+public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final CircuitComponent circuitComponent;
     private final InsertHistory insertHistory;
+    private final ToolTipAction save;
+    private File filename;
 
     public Main() {
         super("Digital");
@@ -32,11 +42,47 @@ public class Main extends JFrame {
         circuitComponent = new CircuitComponent(cr);
         getContentPane().add(circuitComponent);
 
+        addWindowListener(new ClosingWindowListener(this, this));
+
         setPreferredSize(new Dimension(800, 600));
         pack();
         setLocationRelativeTo(null);
 
         JMenuBar bar = new JMenuBar();
+
+
+        ToolTipAction open = new ToolTipAction("Open") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        };
+
+        ToolTipAction saveas = new ToolTipAction("Save As") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser(filename == null ? null : filename.getParentFile());
+                if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                    saveFile(fc.getSelectedFile());
+                }
+            }
+        };
+
+        save = new ToolTipAction("Save") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (filename == null)
+                    saveas.actionPerformed(e);
+                else
+                    saveFile(filename);
+            }
+        };
+
+        JMenu file = new JMenu("File");
+        bar.add(file);
+        file.add(open);
+        file.add(save);
+        file.add(saveas);
 
         JMenu parts = new JMenu("Parts");
         bar.add(parts);
@@ -95,6 +141,29 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Main().setVisible(true));
+    }
+
+    @Override
+    public boolean isStateChanged() {
+        return false;
+    }
+
+    @Override
+    public void saveChanges() {
+        save.actionPerformed(null);
+    }
+
+    private void saveFile(File filename) {
+        XStream xStream = new XStream(new StaxDriver());
+        xStream.alias("visualPart", VisualPart.class);
+        xStream.alias("wire", Wire.class);
+        xStream.alias("circuit", Circuit.class);
+
+        try (FileWriter out = new FileWriter(filename)) {
+            xStream.marshal(circuitComponent.getCircuit(), new PrettyPrintWriter(out));
+        } catch (IOException e) {
+            new ErrorMessage("error writing a file").addCause(e).show();
+        }
     }
 
     private JMenu createSimpleMenu(String name, DescriptionFactory factory) {

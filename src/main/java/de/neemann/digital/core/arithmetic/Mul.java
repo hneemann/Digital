@@ -18,7 +18,12 @@ public class Mul extends Node implements Part {
     }
 
     public static PartDescription createFactory(int bits) {
-        return new PartDescription(new GenericShape("*", 2), () -> new Mul(bits), "a", "b");
+        return new PartDescription(new GenericShape("*", 2), new PartFactory() {
+            @Override
+            public Part create() {
+                return new Mul(bits);
+            }
+        }, "a", "b");
     }
 
     @Override

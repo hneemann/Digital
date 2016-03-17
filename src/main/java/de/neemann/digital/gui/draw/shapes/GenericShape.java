@@ -22,7 +22,7 @@ public class GenericShape implements Shape {
     private final int inputs;
     private final int outputs;
     private final int width;
-    private final boolean symetric;
+    private final boolean symmetric;
     private boolean invert = false;
 
     private transient Pins pins;
@@ -36,7 +36,7 @@ public class GenericShape implements Shape {
         this.inputs = inputs;
         this.outputs = outputs;
         width = inputs == 1 && outputs == 1 ? 1 : 3;
-        symetric = outputs == 1;
+        symmetric = outputs == 1;
     }
 
     public GenericShape invert(boolean invert) {
@@ -51,11 +51,11 @@ public class GenericShape implements Shape {
             String[] inputs = partDescription.getInputNames();
             pins = new Pins();
 
-            int offs = symetric ? inputs.length / 2 * SIZE : 0;
+            int offs = symmetric ? inputs.length / 2 * SIZE : 0;
 
             for (int i = 0; i < inputs.length; i++) {
                 int correct = 0;
-                if (symetric && ((inputs.length & 1) == 0) && i >= inputs.length / 2)
+                if (symmetric && ((inputs.length & 1) == 0) && i >= inputs.length / 2)
                     correct = SIZE;
 
                 pins.add(new Pin(new Vector(0, i * SIZE + correct), inputs[i], Pin.Direction.input));
@@ -84,7 +84,7 @@ public class GenericShape implements Shape {
         int max = Math.max(inputs, outputs);
         int height = (max - 1) * SIZE + SIZE2;
 
-        if (symetric && ((inputs & 1) == 0)) height += SIZE;
+        if (symmetric && ((inputs & 1) == 0)) height += SIZE;
 
         graphic.drawPolygon(new Polygon(true)
                 .add(1, -SIZE2)
@@ -93,7 +93,7 @@ public class GenericShape implements Shape {
                 .add(1, height), Style.NORMAL);
 
         if (invert) {
-            int offs = symetric ? inputs / 2 * SIZE : 0;
+            int offs = symmetric ? inputs / 2 * SIZE : 0;
             for (int i = 0; i < outputs; i++)
                 graphic.drawCircle(new Vector(SIZE * width, i * SIZE - SIZE2 + 1 + offs),
                         new Vector(SIZE * (width + 1) - 2, i * SIZE + SIZE2 - 1 + offs), Style.NORMAL);
