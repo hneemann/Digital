@@ -9,6 +9,7 @@ public class ObservableValue extends Value {
 
     private final ArrayList<Listener> listeners;
     private final String name;
+    private final long mask;
 
     public ObservableValue(String name, int bits) {
         this(name, bits, false);
@@ -16,6 +17,7 @@ public class ObservableValue extends Value {
 
     public ObservableValue(String name, int bits, boolean highZ) {
         super(bits, highZ);
+        mask = (1L << bits) - 1;
         this.name = name;
         listeners = new ArrayList<>();
     }
@@ -54,7 +56,7 @@ public class ObservableValue extends Value {
     }
 
     public long getValueBits(long value) {
-        return value & ((1 << bits) - 1);
+        return value & mask;
     }
 
     public void checkBits(ObservableValue value) throws BitsException {

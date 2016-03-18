@@ -1,7 +1,6 @@
 package de.neemann.digital.gui.draw.parts;
 
 import de.neemann.digital.gui.draw.graphics.Graphic;
-import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.shapes.Drawable;
 
@@ -12,21 +11,22 @@ import java.util.Iterator;
  * @author hneemann
  */
 public class Circuit implements Drawable {
-    private static final Vector RAD = new Vector(2, 2);
     private final ArrayList<VisualPart> visualParts;
-    private transient ArrayList<Vector> dots;
     private ArrayList<Wire> wires;
+    private transient boolean dotsPresent = false;
 
     public Circuit() {
         visualParts = new ArrayList<>();
         wires = new ArrayList<>();
-        dots = new ArrayList<>();
     }
 
     @Override
     public void drawTo(Graphic graphic, State state) {
-        for (Vector d : getDots())
-            graphic.drawCircle(d.sub(RAD), d.add(RAD), Style.FILLED);
+        if (!dotsPresent) {
+            new DotCreator(wires).applyDots();
+            dotsPresent = true;
+        }
+
         for (Wire w : wires)
             w.drawTo(graphic, state);
         for (VisualPart p : visualParts)
@@ -56,7 +56,8 @@ public class Circuit implements Drawable {
         wires.add(newWire);
         WireConsistencyChecker checker = new WireConsistencyChecker(wires);
         wires = checker.check();
-        dots = null;
+
+        dotsPresent = false;
     }
 
     public ArrayList<VisualPart> getParts() {
@@ -94,17 +95,11 @@ public class Circuit implements Drawable {
                     it.remove();
             }
         }
-        dots = null;
+        dotsPresent = false;
     }
 
     public ArrayList<Wire> getWires() {
         return wires;
-    }
-
-    public ArrayList<Vector> getDots() {
-        if (dots == null)
-            dots = WireConsistencyChecker.createDots(wires);
-        return dots;
     }
 
     public void clearState() {

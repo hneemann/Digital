@@ -43,8 +43,9 @@ public class WireMerger {
         }
     }
 
-    public void protectDots(ArrayList<Vector> dots) {
-        for (Vector v : dots) {
+    public void protectDots(ArrayList<DotCreator.Dot> dots) {
+        for (DotCreator.Dot d : dots) {
+            Vector v = d.getVector();
             WireContainer wc = wireContainers.get(handler.getWireClass(v));
             if (wc != null)    // is possible because diagonals are not included
                 wc.protect(handler.getS(v));

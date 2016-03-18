@@ -10,9 +10,12 @@ import de.neemann.digital.gui.draw.shapes.Drawable;
  * @author hneemann
  */
 public class Wire implements Drawable, Moveable {
+    private static final Vector RAD = new Vector(2, 2);
     public Vector p1;
     public Vector p2;
     private transient ObservableValue value;
+    private transient boolean p1Dot;
+    private transient boolean p2Dot;
 
     public Wire(Vector p1, Vector p2) {
         this.p1 = p1;
@@ -21,7 +24,7 @@ public class Wire implements Drawable, Moveable {
 
     @Override
     public void drawTo(Graphic graphic, State state) {
-        Style style = Style.NORMAL;
+        Style style = Style.FILLED;
         if (value != null) {
             if (value.getValue() != 0)
                 style = Style.WIRE_HIGH;
@@ -30,6 +33,11 @@ public class Wire implements Drawable, Moveable {
         }
 
         graphic.drawLine(p1, p2, style);
+
+        if (p1Dot)
+            graphic.drawCircle(p1.sub(RAD), p1.add(RAD), style);
+        if (p2Dot)
+            graphic.drawCircle(p2.sub(RAD), p2.add(RAD), style);
     }
 
     @Override
@@ -88,6 +96,16 @@ public class Wire implements Drawable, Moveable {
 
     public void setValue(ObservableValue value) {
         this.value = value;
+    }
+
+    public void noDot() {
+        p1Dot = false;
+        p2Dot = false;
+    }
+
+    public void setDot(Vector p) {
+        if (p.equals(p1)) p1Dot = true;
+        if (p.equals(p2)) p2Dot = true;
     }
 
     enum Orientation {horzontal, vertical, diagonal}
