@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public abstract class Function extends FanIn {
 
-    private int value;
+    private long value;
 
     public Function(int bits) {
         super(bits);

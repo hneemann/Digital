@@ -1,6 +1,11 @@
 package de.neemann.digital.gui.draw.model;
 
-import de.neemann.digital.core.*;
+import de.neemann.digital.core.Listener;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.part.Part;
+import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.gui.draw.library.PartLibrary;
 import de.neemann.digital.gui.draw.parts.*;
 
 import java.util.ArrayList;
@@ -14,17 +19,17 @@ public class ModelDescription {
     private final NetList netList;
     private final ArrayList<ModelEntry> entries;
 
-    public ModelDescription(Circuit circuit) throws PinException {
+    public ModelDescription(Circuit circuit, PartLibrary library) throws PinException {
         this.circuit = circuit;
         entries = new ArrayList<>();
         netList = new NetList(circuit.getWires());
         for (VisualPart vp : circuit.getParts()) {
-            PartDescription partDescription = vp.getPartDescription();
             Pins pins = vp.getPins();
-            Part part = partDescription.create();
+            PartTypeDescription partType = library.getPartType(vp.getPartName());
+            Part part = partType.createPart(vp.getPartAttributes());
             pins.setOutputs(part.getOutputs());
 
-            entries.add(new ModelEntry(part, pins, vp));
+            entries.add(new ModelEntry(part, pins, vp, partType.getInputNames(vp.getPartAttributes())));
             for (Pin p : pins)
                 netList.add(p);
         }

@@ -3,6 +3,7 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.part.PartAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -15,7 +16,7 @@ public class OrTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 1);
 
         Model model = new Model();
-        FanIn and = model.add(new Or(1));
+        FanIn and = model.add(new Or(new PartAttributes().bits(1)));
         and.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(and.getOutput());

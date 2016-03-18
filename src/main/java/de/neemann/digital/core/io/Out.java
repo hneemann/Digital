@@ -1,25 +1,22 @@
 package de.neemann.digital.core.io;
 
-import de.neemann.digital.core.*;
-import de.neemann.digital.gui.draw.shapes.OutputShape;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.part.AttributeKey;
+import de.neemann.digital.core.part.Part;
+import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.part.PartTypeDescription;
 
 /**
  * @author hneemann
  */
 public class Out implements Part {
 
+    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Out.class, "in").addAttribute(AttributeKey.Bits);
     private ObservableValue value;
 
-    public Out() {
-    }
-
-    public static PartDescription createFactory(int bits) {
-        return new PartDescription(new OutputShape(bits), new PartFactory() {
-            @Override
-            public Part create() {
-                return new Out();
-            }
-        }, "in");
+    public Out(PartAttributes attributes) {
     }
 
     @Override

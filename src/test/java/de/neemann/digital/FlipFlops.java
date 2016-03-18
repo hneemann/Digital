@@ -3,6 +3,7 @@ package de.neemann.digital;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.part.PartAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -15,8 +16,8 @@ public class FlipFlops extends TestCase {
         ObservableValue s = new ObservableValue("s", 1);
 
         Model model = new Model();
-        FanIn a1 = model.add(new NOr(1));
-        FanIn a2 = model.add(new NOr(1));
+        FanIn a1 = model.add(new NOr(new PartAttributes().bits(1)));
+        FanIn a2 = model.add(new NOr(new PartAttributes().bits(1)));
 
         a1.setInputs(r, a2.getOutput());
         a2.setInputs(s, a1.getOutput());
@@ -41,8 +42,8 @@ public class FlipFlops extends TestCase {
         ObservableValue s = new ObservableValue("s", 1);
 
         Model model = new Model();
-        FanIn a1 = model.add(new NAnd(1));
-        FanIn a2 = model.add(new NAnd(1));
+        FanIn a1 = model.add(new NAnd(new PartAttributes().bits(1)));
+        FanIn a2 = model.add(new NAnd(new PartAttributes().bits(1)));
 
         a1.setInputs(r, a2.getOutput());
         a2.setInputs(s, a1.getOutput());
@@ -61,28 +62,29 @@ public class FlipFlops extends TestCase {
         ObservableValue k = new ObservableValue("k", 1);
         ObservableValue c = new ObservableValue("c", 1);
 
+        PartAttributes attr = new PartAttributes().bits(1);
 
         Model model = new Model();
-        FanIn nor3 = model.add(new NOr(1));
-        FanIn nor4 = model.add(new NOr(1));
+        FanIn nor3 = model.add(new NOr(attr));
+        FanIn nor4 = model.add(new NOr(attr));
 
-        FanIn a1 = model.add(new And(1));
+        FanIn a1 = model.add(new And(attr));
         a1.setInputs(j, c, nor4.getOutput());
-        FanIn a2 = model.add(new And(1));
+        FanIn a2 = model.add(new And(attr));
         a2.setInputs(k, c, nor3.getOutput());
-        Not not = model.add(new Not(1));
+        Not not = model.add(new Not(attr));
         not.setInputs(c);
 
-        FanIn nor1 = model.add(new NOr(1));
-        FanIn nor2 = model.add(new NOr(1));
+        FanIn nor1 = model.add(new NOr(attr));
+        FanIn nor2 = model.add(new NOr(attr));
 
         nor1.setInputs(a1.getOutput(), nor2.getOutput());
         nor2.setInputs(a2.getOutput(), nor1.getOutput());
 
 
-        FanIn a3 = model.add(new And(1));
+        FanIn a3 = model.add(new And(attr));
         a3.setInputs(nor1.getOutput(), not.getOutput());
-        FanIn a4 = model.add(new And(1));
+        FanIn a4 = model.add(new And(attr));
         a4.setInputs(nor2.getOutput(), not.getOutput());
 
         nor3.setInputs(a3.getOutput(), nor4.getOutput());

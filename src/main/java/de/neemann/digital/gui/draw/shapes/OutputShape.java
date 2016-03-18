@@ -2,7 +2,6 @@ package de.neemann.digital.gui.draw.shapes;
 
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
@@ -24,8 +23,8 @@ public class OutputShape implements Shape {
     }
 
     @Override
-    public Pins getPins(PartDescription partDescription) {
-        return new Pins().add(new Pin(new Vector(0, 0), partDescription.getInputNames()[0], Pin.Direction.input));
+    public Pins getPins() {
+        return new Pins().add(new Pin(new Vector(0, 0), "in", Pin.Direction.input));
     }
 
     @Override

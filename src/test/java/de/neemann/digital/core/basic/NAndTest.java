@@ -3,6 +3,7 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.part.PartAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -15,7 +16,7 @@ public class NAndTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 1);
 
         Model model = new Model();
-        FanIn out = model.add(new NAnd(1));
+        FanIn out = model.add(new NAnd(new PartAttributes().bits(1)));
         out.setInputs(a, b);
 
 

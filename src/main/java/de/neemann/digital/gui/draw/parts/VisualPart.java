@@ -2,12 +2,13 @@ package de.neemann.digital.gui.draw.parts;
 
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.PartDescription;
+import de.neemann.digital.core.part.PartAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.shapes.Drawable;
 import de.neemann.digital.gui.draw.shapes.Interactor;
 import de.neemann.digital.gui.draw.shapes.Shape;
+import de.neemann.digital.gui.draw.shapes.ShapeFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,16 +19,27 @@ import java.awt.image.BufferedImage;
  */
 public class VisualPart implements Drawable, Moveable {
     private static final int PIN = 1;
-    private final PartDescription partDescription;
+    private final String partName;
+    private final PartAttributes partAttributes;
     private transient GraphicMinMax minMax;
     private transient State state;
     private transient Interactor interactor;
+    private transient Shape shape;
     private Vector pos;
     private int rotate;
 
-    public VisualPart(PartDescription partDescription) {
-        this.partDescription = partDescription;
+    public VisualPart(String partName) {
+        this.partName = partName;
+        partAttributes = new PartAttributes();
         pos = new Vector(0, 0);
+    }
+
+    public String getPartName() {
+        return partName;
+    }
+
+    public PartAttributes getPartAttributes() {
+        return partAttributes;
     }
 
     public Vector getPos() {
@@ -66,12 +78,18 @@ public class VisualPart implements Drawable, Moveable {
         minMax = null;
     }
 
+    public Shape getShape() {
+        if (shape == null)
+            shape = ShapeFactory.INSTANCE.getShape(partName, partAttributes);
+        return shape;
+    }
+
     @Override
     public void drawTo(Graphic graphic, State state) {
         Graphic gr = new GraphicTransform(graphic, createTransform());
-        Shape shape = partDescription.getShape();
+        Shape shape = getShape();
         shape.drawTo(gr, this.state);
-        for (Pin p : shape.getPins(partDescription))
+        for (Pin p : shape.getPins())
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.FILLED);
     }
 
@@ -109,14 +127,10 @@ public class VisualPart implements Drawable, Moveable {
         return new ImageIcon(bi);
     }
 
-    public PartDescription getPartDescription() {
-        return partDescription;
-    }
-
     public Pins getPins() {
-        Shape shape = partDescription.getShape();
+        Shape shape = getShape();
         Transform tr = createTransform();
-        Pins pins = shape.getPins(partDescription);
+        Pins pins = shape.getPins();
         Pins transformed = new Pins();
         for (Pin p : pins)
             transformed.add(new Pin(tr.transform(p.getPos()), p));
@@ -135,7 +149,7 @@ public class VisualPart implements Drawable, Moveable {
         if (state == null)
             interactor = null;
         else
-            interactor = partDescription.getShape().applyStateMonitor(state, listener, model);
+            interactor = getShape().applyStateMonitor(state, listener, model);
     }
 
     public void clicked(CircuitComponent cc, Vector pos) {

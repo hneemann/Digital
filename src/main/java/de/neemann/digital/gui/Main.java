@@ -5,12 +5,8 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.PartDescription;
-import de.neemann.digital.core.basic.*;
-import de.neemann.digital.core.io.In;
-import de.neemann.digital.core.io.Out;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.gui.draw.library.PartLibrary;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.parts.Circuit;
 import de.neemann.digital.gui.draw.parts.VisualPart;
@@ -35,13 +31,14 @@ import java.util.prefs.Preferences;
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Preferences prefs = Preferences.userRoot().node("dig");
     private final CircuitComponent circuitComponent;
-    private final InsertHistory insertHistory;
     private final ToolTipAction save;
+    private final PartLibrary library = new PartLibrary();
     private File filename;
 
     public Main() {
         super("Digital");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
 
         Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr);
@@ -106,16 +103,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         file.add(save);
         file.add(saveas);
 
-        JMenu parts = new JMenu("Parts");
-        bar.add(parts);
-        parts.add(createSimpleMenu("AND", inputs -> And.createFactory(1, inputs)));
-        parts.add(createSimpleMenu("OR", inputs -> Or.createFactory(1, inputs)));
-        parts.add(createSimpleMenu("NAND", inputs -> NAnd.createFactory(1, inputs)));
-        parts.add(createSimpleMenu("NOR", inputs -> NOr.createFactory(1, inputs)));
-        parts.add(new InsertAction("Not", Not.createFactory(1)));
-        parts.add(new InsertAction("In", In.createFactory(1)));
-        parts.add(new InsertAction("Out", Out.createFactory(1)));
-
         JMenu edit = new JMenu("Edit");
         bar.add(edit);
 
@@ -138,7 +125,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             public void actionPerformed(ActionEvent e) {
                 try {
                     circuitComponent.setMode(CircuitComponent.Mode.running);
-                    ModelDescription m = new ModelDescription(circuitComponent.getCircuit());
+                    ModelDescription m = new ModelDescription(circuitComponent.getCircuit(), library);
                     Model model = m.createModel(circuitComponent);
                     if (microStep.isSelected()) {
                         model.setListener(new Listener() {
@@ -171,7 +158,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(microStep);
 
         toolBar.addSeparator();
-        insertHistory = new InsertHistory(toolBar);
+
+        bar.add(new LibrarySelector(library).buildMenu(new InsertHistory(toolBar), circuitComponent));
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
@@ -211,7 +199,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         try (FileReader in = new FileReader(filename)) {
             circuitComponent.setCircuit((Circuit) xStream.fromXML(in));
             setFilename(filename);
-        } catch (IOException e) {
+        } catch (Exception e) {
             new ErrorMessage("error writing a file").addCause(e).show();
         }
     }
@@ -235,34 +223,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             setFilename(filename);
         } catch (IOException e) {
             new ErrorMessage("error writing a file").addCause(e).show();
-        }
-    }
-
-    private JMenu createSimpleMenu(String name, DescriptionFactory factory) {
-        JMenu m = new JMenu(name);
-        for (int i = 2; i <= 16; i++) {
-            m.add(new JMenuItem(new InsertAction(name + " (" + Integer.toString(i) + ")", factory.create(i))));
-        }
-        return m;
-    }
-
-    private interface DescriptionFactory {
-        PartDescription create(int inputs);
-    }
-
-    private class InsertAction extends ToolTipAction {
-        private final PartDescription partDescription;
-
-        public InsertAction(String name, PartDescription partDescription) {
-            super(name, new VisualPart(partDescription).createIcon(60));
-            this.partDescription = partDescription;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            VisualPart visualPart = new VisualPart(partDescription).setPos(new Vector(10, 10));
-            circuitComponent.setPartToDrag(visualPart);
-            insertHistory.add(this);
         }
     }
 

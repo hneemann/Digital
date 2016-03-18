@@ -2,8 +2,6 @@ package de.neemann.digital.gui.draw.shapes;
 
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Polygon;
 import de.neemann.digital.gui.draw.graphics.Style;
@@ -18,25 +16,22 @@ import de.neemann.digital.gui.draw.parts.State;
 public class GenericShape implements Shape {
     public static final int SIZE2 = 5;
     public static final int SIZE = SIZE2 * 2;
+
     private final String name;
-    private final int inputs;
-    private final int outputs;
+    private final String[] inputs;
+    private final String[] outputs;
     private final int width;
     private final boolean symmetric;
     private boolean invert = false;
 
     private transient Pins pins;
 
-    public GenericShape(String name, int inputs) {
-        this(name, inputs, 1);
-    }
-
-    public GenericShape(String name, int inputs, int outputs) {
+    public GenericShape(String name, String[] inputs, String[] outputs) {
         this.name = name;
         this.inputs = inputs;
         this.outputs = outputs;
-        width = inputs == 1 && outputs == 1 ? 1 : 3;
-        symmetric = outputs == 1;
+        width = inputs.length == 1 && outputs.length == 1 ? 1 : 3;
+        symmetric = outputs.length == 1;
     }
 
     public GenericShape invert(boolean invert) {
@@ -45,10 +40,8 @@ public class GenericShape implements Shape {
     }
 
     @Override
-    public Pins getPins(PartDescription partDescription) {
+    public Pins getPins() {
         if (pins == null) {
-            ObservableValue[] outputValues = partDescription.create().getOutputs();
-            String[] inputs = partDescription.getInputNames();
             pins = new Pins();
 
             int offs = symmetric ? inputs.length / 2 * SIZE : 0;
@@ -63,12 +56,12 @@ public class GenericShape implements Shape {
 
 
             if (invert) {
-                for (int i = 0; i < outputs; i++)
-                    pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputValues[i].getName(), Pin.Direction.output));
+                for (int i = 0; i < outputs.length; i++)
+                    pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputs[i], Pin.Direction.output));
 
             } else {
-                for (int i = 0; i < outputs; i++)
-                    pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputValues[i].getName(), Pin.Direction.output));
+                for (int i = 0; i < outputs.length; i++)
+                    pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputs[i], Pin.Direction.output));
             }
         }
         return pins;
@@ -81,7 +74,7 @@ public class GenericShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, State state) {
-        int max = Math.max(inputs, outputs);
+        int max = Math.max(inputs.length, outputs.length);
         int height = (max - 1) * SIZE + SIZE2;
 
 //        if (symmetric && state != null) {
@@ -89,7 +82,7 @@ public class GenericShape implements Shape {
 //        }
 
 
-        if (symmetric && ((inputs & 1) == 0)) height += SIZE;
+        if (symmetric && ((inputs.length & 1) == 0)) height += SIZE;
 
         graphic.drawPolygon(new Polygon(true)
                 .add(1, -SIZE2)
@@ -98,8 +91,8 @@ public class GenericShape implements Shape {
                 .add(1, height), Style.NORMAL);
 
         if (invert) {
-            int offs = symmetric ? inputs / 2 * SIZE : 0;
-            for (int i = 0; i < outputs; i++)
+            int offs = symmetric ? inputs.length / 2 * SIZE : 0;
+            for (int i = 0; i < outputs.length; i++)
                 graphic.drawCircle(new Vector(SIZE * width, i * SIZE - SIZE2 + 1 + offs),
                         new Vector(SIZE * (width + 1) - 2, i * SIZE + SIZE2 - 1 + offs), Style.NORMAL);
 

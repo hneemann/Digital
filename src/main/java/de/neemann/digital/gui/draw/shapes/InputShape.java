@@ -3,7 +3,6 @@ package de.neemann.digital.gui.draw.shapes;
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Polygon;
@@ -28,8 +27,8 @@ public class InputShape implements Shape {
     }
 
     @Override
-    public Pins getPins(PartDescription partDescription) {
-        return new Pins().add(new Pin(new Vector(0, 0), partDescription.create().getOutputs()[0].getName(), Pin.Direction.output));
+    public Pins getPins() {
+        return new Pins().add(new Pin(new Vector(0, 0), "out", Pin.Direction.output));
     }
 
     @Override

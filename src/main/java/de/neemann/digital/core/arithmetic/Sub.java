@@ -1,27 +1,19 @@
 package de.neemann.digital.core.arithmetic;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.Part;
-import de.neemann.digital.core.PartDescription;
-import de.neemann.digital.core.PartFactory;
-import de.neemann.digital.gui.draw.shapes.GenericShape;
+import de.neemann.digital.core.part.AttributeKey;
+import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.part.PartTypeDescription;
 
 /**
  * @author hneemann
  */
 public class Sub extends Add {
 
-    public Sub(int bits) {
-        super(bits);
-    }
+    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Sub.class, "a", "b", "c_in").addAttribute(AttributeKey.Bits);
 
-    public static PartDescription createFactory(int bits) {
-        return new PartDescription(new GenericShape("-", 2), new PartFactory() {
-            @Override
-            public Part create() {
-                return new Sub(bits);
-            }
-        }, "a", "b", "c_in");
+    public Sub(PartAttributes attributes) {
+        super(attributes);
     }
 
     @Override

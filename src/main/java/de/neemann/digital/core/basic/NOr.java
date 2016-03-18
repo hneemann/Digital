@@ -1,7 +1,10 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.*;
-import de.neemann.digital.gui.draw.shapes.GenericShape;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.part.AttributeKey;
+import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.part.PartTypeDescription;
 
 import java.util.ArrayList;
 
@@ -10,17 +13,10 @@ import java.util.ArrayList;
  */
 public class NOr extends Function {
 
-    public NOr(int bits) {
-        super(bits);
-    }
+    public static final PartTypeDescription DESCRIPTION = new FanInDescription(NOr.class);
 
-    public static PartDescription createFactory(int bits, int inputs) {
-        return new FanInDescription(new GenericShape("\u22651", inputs).invert(true), inputs, new PartFactory() {
-            @Override
-            public Part create() {
-                return new NOr(bits);
-            }
-        });
+    public NOr(PartAttributes attributes) {
+        super(attributes.get(AttributeKey.Bits));
     }
 
     @Override

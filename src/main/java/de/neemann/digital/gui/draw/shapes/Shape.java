@@ -2,7 +2,6 @@ package de.neemann.digital.gui.draw.shapes;
 
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.PartDescription;
 import de.neemann.digital.gui.draw.parts.Pins;
 import de.neemann.digital.gui.draw.parts.State;
 
@@ -14,10 +13,9 @@ public interface Shape extends Drawable {
     /**
      * Puts the pins name and the pins x-y-position together!
      *
-     * @param partDescription the description of the part
      * @return the pins
      */
-    Pins getPins(PartDescription partDescription);
+    Pins getPins();
 
     /**
      * If the look of the shape depends on an input or output state, the

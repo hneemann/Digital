@@ -1,28 +1,26 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.*;
-import de.neemann.digital.gui.draw.shapes.GenericShape;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Node;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.part.AttributeKey;
+import de.neemann.digital.core.part.Part;
+import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.part.PartTypeDescription;
 
 /**
  * @author hneemann
  */
 public class Not extends Node implements Part {
 
+    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Not.class, "in");
     private final ObservableValue output;
     private ObservableValue input;
     private long value;
 
-    public Not(int bits) {
-        output = new ObservableValue("out", bits);
-    }
-
-    public static PartDescription createFactory(int bits) {
-        return new PartDescription(new GenericShape("", 1).invert(true), new PartFactory() {
-            @Override
-            public Part create() {
-                return new Not(bits);
-            }
-        }, "in");
+    public Not(PartAttributes attributes) {
+        output = new ObservableValue("out", attributes.get(AttributeKey.Bits));
     }
 
     @Override
