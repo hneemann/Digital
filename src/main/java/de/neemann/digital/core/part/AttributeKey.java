@@ -8,6 +8,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Integer> Bits = new AttributeKey<>("Bits", 1);
     public static final AttributeKey<Integer> InputCount = new AttributeKey<>("Inputs", 2);
     public static final AttributeKey<String> Label = new AttributeKey<>("Label", "");
+    public static final AttributeKey<Integer> Value = new AttributeKey<>("Value", 1);
 
     private final String name;
     private final VALUE def;

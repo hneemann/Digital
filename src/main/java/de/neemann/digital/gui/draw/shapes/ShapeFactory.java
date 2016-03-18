@@ -5,6 +5,7 @@ import de.neemann.digital.core.arithmetic.Add;
 import de.neemann.digital.core.arithmetic.Mul;
 import de.neemann.digital.core.arithmetic.Sub;
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.part.AttributeKey;
@@ -39,6 +40,7 @@ public final class ShapeFactory {
 
         map.put(In.DESCRIPTION.getName(), attributes -> new InputShape(attributes.get(AttributeKey.Bits), attributes.get(AttributeKey.Label)));
         map.put(Out.DESCRIPTION.getName(), attributes -> new OutputShape(attributes.get(AttributeKey.Bits), attributes.get(AttributeKey.Label)));
+        map.put(Const.DESCRIPTION.getName(), attributes -> new ConstShape());
     }
 
     public PartLibrary setLibrary(PartLibrary library) {
