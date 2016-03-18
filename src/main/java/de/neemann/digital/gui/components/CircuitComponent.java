@@ -13,10 +13,9 @@ import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +27,7 @@ public class CircuitComponent extends JComponent implements Listener {
     private final PartLibrary library;
     private Circuit circuit;
     private Mouse listener;
+    private AffineTransform transform = AffineTransform.getScaleInstance(1, 1);
 
     public CircuitComponent(Circuit aCircuit, PartLibrary library) {
         this.circuit = aCircuit;
@@ -51,6 +51,22 @@ public class CircuitComponent extends JComponent implements Listener {
         });
 
         setFocusable(true);
+
+        addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                int rot = e.getWheelRotation();
+                if (rot > 0) {
+                    for (int i = 0; i < rot; i++)
+                        transform.scale(0.9, 0.9);
+                    repaint();
+                } else if (rot < 0) {
+                    for (int i = 0; i < -rot; i++)
+                        transform.scale(1.1, 1.1);
+                    repaint();
+                }
+            }
+        });
     }
 
     public void setMode(Mode mode) {
@@ -91,13 +107,27 @@ public class CircuitComponent extends JComponent implements Listener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        Graphics2D gr2 = (Graphics2D) g;
+        gr2.setColor(Color.WHITE);
+        gr2.fillRect(0, 0, getWidth(), getHeight());
+        AffineTransform oldTrans = gr2.getTransform();
+        gr2.transform(transform);
 
-        GraphicSwing gr = new GraphicSwing((Graphics2D) g);
+        GraphicSwing gr = new GraphicSwing(gr2);
         circuit.drawTo(gr, null);
 
         listener.drawTo(gr);
+        gr2.setTransform(oldTrans);
+    }
+
+    private Vector getPosVector(MouseEvent e) {
+        try {
+            Point p = new Point();
+            transform.inverseTransform(new Point(e.getX(), e.getY()), p);
+            return new Vector((int) p.getX(), (int) p.getY());
+        } catch (NoninvertibleTransformException e1) {
+            throw new RuntimeException(e1);
+        }
     }
 
     private Vector raster(Vector pos) {
@@ -121,11 +151,28 @@ public class CircuitComponent extends JComponent implements Listener {
 
     public enum Mode {part, wire, running, select}
 
-    private interface Mouse extends MouseMotionListener, MouseListener {
-        void drawTo(Graphic gr);
+    private abstract class Mouse extends MouseAdapter implements MouseMotionListener {
+        private Vector pos;
+
+        abstract void drawTo(Graphic gr);
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            pos = new Vector(e.getX(), e.getY());
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            Vector newPos = new Vector(e.getX(), e.getY());
+            Vector delta = newPos.sub(pos);
+            double s = transform.getScaleX();
+            transform.translate(delta.x / s, delta.y / s);
+            pos = newPos;
+            repaint();
+        }
     }
 
-    private class WireMouseListener implements Mouse {
+    private class WireMouseListener extends Mouse {
 
         private Wire wire;
 
@@ -136,7 +183,7 @@ public class CircuitComponent extends JComponent implements Listener {
                     circuit.add(wire);
                     repaint();
                 }
-                Vector startPos = raster(new Vector(e.getX(), e.getY()));
+                Vector startPos = raster(getPosVector(e));
                 wire = new Wire(startPos, startPos);
                 repaint();
             } else {
@@ -146,32 +193,9 @@ public class CircuitComponent extends JComponent implements Listener {
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-        }
-
-        @Override
         public void mouseMoved(MouseEvent e) {
             if (wire != null) {
-                wire.setP2(raster(new Vector(e.getX(), e.getY())));
+                wire.setP2(raster(getPosVector(e)));
                 repaint();
             }
         }
@@ -183,7 +207,7 @@ public class CircuitComponent extends JComponent implements Listener {
         }
     }
 
-    private class PartMouseListener implements Mouse {
+    private class PartMouseListener extends Mouse {
 
         private VisualPart partToInsert;
         private boolean autoPick = false;
@@ -191,13 +215,9 @@ public class CircuitComponent extends JComponent implements Listener {
         private boolean insert;
 
         @Override
-        public void mouseDragged(MouseEvent e) {
-        }
-
-        @Override
         public void mouseMoved(MouseEvent e) {
             if (partToInsert != null) {
-                Vector pos = new Vector(e.getX(), e.getY());
+                Vector pos = getPosVector(e);
                 partToInsert.setPos(raster(pos.add(delta)));
                 repaint();
             }
@@ -207,7 +227,7 @@ public class CircuitComponent extends JComponent implements Listener {
         public void mouseClicked(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (partToInsert == null) {
-                    Vector pos = new Vector(e.getX(), e.getY());
+                    Vector pos = getPosVector(e);
                     insert = false;
                     for (VisualPart vp : circuit.getParts())
                         if (vp.matches(pos)) {
@@ -223,7 +243,7 @@ public class CircuitComponent extends JComponent implements Listener {
                     partToInsert = null;
                 }
             } else {
-                Vector pos = new Vector(e.getX(), e.getY());
+                Vector pos = getPosVector(e);
                 for (VisualPart vp : circuit.getParts())
                     if (vp.matches(pos)) {
                         String name = vp.getPartName();
@@ -239,26 +259,14 @@ public class CircuitComponent extends JComponent implements Listener {
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
         public void mouseEntered(MouseEvent e) {
             if (autoPick && partToInsert != null) {
-                Vector pos = new Vector(e.getX(), e.getY());
+                Vector pos = getPosVector(e);
                 delta = partToInsert.getMinMax().getMin().sub(partToInsert.getMinMax().getMax());
                 partToInsert.setPos(raster(pos.add(delta)));
                 autoPick = false;
                 repaint();
             }
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
         }
 
         public void setPartToInsert(VisualPart partToInsert) {
@@ -274,7 +282,7 @@ public class CircuitComponent extends JComponent implements Listener {
         }
     }
 
-    private class SelectMouseListener implements Mouse {
+    private class SelectMouseListener extends Mouse {
         private Vector corner1;
         private Vector corner2;
         private ArrayList<Moveable> elementsToMove;
@@ -295,32 +303,17 @@ public class CircuitComponent extends JComponent implements Listener {
         @Override
         public void mousePressed(MouseEvent e) {
             if (corner1 == null) {
-                corner1 = new Vector(e.getX(), e.getY());
+                corner1 = getPosVector(e);
             } else {
                 elementsToMove = circuit.getElementsMatching(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-                lastPos = new Vector(e.getX(), e.getY());
+                lastPos = getPosVector(e);
             }
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
             if (elementsToMove != null) {
-                Vector pos = new Vector(e.getX(), e.getY());
+                Vector pos = getPosVector(e);
                 Vector delta = raster(pos.sub(lastPos));
 
                 if (delta.x != 0 || delta.y != 0) {
@@ -335,14 +328,9 @@ public class CircuitComponent extends JComponent implements Listener {
                     lastPos = lastPos.add(delta);
                 }
             } else {
-                corner2 = new Vector(e.getX(), e.getY());
+                corner2 = getPosVector(e);
                 repaint();
             }
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-
         }
 
         @Override
@@ -353,12 +341,12 @@ public class CircuitComponent extends JComponent implements Listener {
                         .add(new Vector(corner1.x, corner2.y))
                         .add(corner2)
                         .add(new Vector(corner2.x, corner1.y));
-                gr.drawPolygon(p, Style.THIN);
+                gr.drawPolygon(p, Style.DASH);
             }
         }
     }
 
-    private class RunningMouseListener implements Mouse {
+    private class RunningMouseListener extends Mouse {
         @Override
         public void drawTo(Graphic gr) {
 
@@ -366,41 +354,11 @@ public class CircuitComponent extends JComponent implements Listener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            Vector pos = new Vector(e.getX(), e.getY());
+            Vector pos = getPosVector(e);
             for (VisualPart vp : circuit.getParts())
                 if (vp.matches(pos)) {
                     vp.clicked(CircuitComponent.this, pos);
                 }
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
 
         }
     }

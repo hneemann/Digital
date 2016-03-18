@@ -65,14 +65,14 @@ public class Net {
         }
 
         if (outputs.size() == 0)
-            throw new PinException("only inputs connected!");
+            throw new PinException("No output connected to wire!");
 
         if (outputs.size() > 1)
-            throw new PinException("multiple outputs not supported yet!");
+            throw new PinException("Multiple outputs not supported yet!");
 
         ObservableValue value = outputs.get(0).getValue();
         if (value == null)
-            throw new PinException("output " + outputs.get(0) + " not defined!");
+            throw new PinException("Output " + outputs.get(0) + " not defined!");
 
         for (Pin i : inputs) {
             i.setValue(value);

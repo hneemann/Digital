@@ -11,10 +11,11 @@ public class Style {
     public static final Style WIRE_HIGH = new Style(3, true, new Color(102, 255, 102));
     public static final Style FILLED = new Style(2, true, Color.BLACK);
     public static final Style THIN = new Style(1, false, Color.BLACK);
+    public static final Style DASH = new Style(1, false, Color.BLACK);
 
     private final int thickness;
     private final boolean filled;
-    private Color color;
+    private final Color color;
 
     private Style(int thickness, boolean filled, Color color) {
         this.thickness = thickness;
