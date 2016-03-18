@@ -41,7 +41,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     public Main() {
         super("Digital");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 
         Circuit cr = new Circuit();
@@ -230,6 +230,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         try (FileWriter out = new FileWriter(filename)) {
             xStream.marshal(circuitComponent.getCircuit(), new PrettyPrintWriter(out));
             setFilename(filename);
+            circuitComponent.getCircuit().saved();
         } catch (IOException e) {
             new ErrorMessage("error writing a file").addCause(e).show();
         }

@@ -116,4 +116,8 @@ public class Circuit implements Drawable {
     public boolean isModified() {
         return modified;
     }
+
+    public void saved() {
+        modified = false;
+    }
 }

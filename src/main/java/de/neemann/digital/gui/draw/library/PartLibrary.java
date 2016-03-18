@@ -13,6 +13,7 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.LED;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.wiring.Delay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
         add(XOr.DESCRIPTION, "Logic");
         add(XNOr.DESCRIPTION, "Logic");
         add(Not.DESCRIPTION, "Logic");
+        add(Delay.DESCRIPTION, "Logic");
 
         add(In.DESCRIPTION, "IO");
         add(Out.DESCRIPTION, "IO");
