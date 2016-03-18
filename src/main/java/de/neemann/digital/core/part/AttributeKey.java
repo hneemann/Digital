@@ -7,15 +7,16 @@ public class AttributeKey<VALUE> {
 
     public static final AttributeKey<Integer> Bits = new AttributeKey<>("Bits", 1);
     public static final AttributeKey<Integer> InputCount = new AttributeKey<>("Inputs", 2);
+    public static final AttributeKey<String> Label = new AttributeKey<>("Label", "");
 
     private final String name;
     private final VALUE def;
 
     public AttributeKey(String name, VALUE def) {
         this.name = name;
-        this.def = def;
         if (def == null)
             throw new NullPointerException();
+        this.def = def;
     }
 
     public String getName() {

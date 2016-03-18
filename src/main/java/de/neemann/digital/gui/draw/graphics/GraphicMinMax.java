@@ -37,7 +37,7 @@ public class GraphicMinMax implements Graphic {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text) {
+    public void drawText(Vector p1, Vector p2, String text, Orientation orientation) {
         // ignore text!
     }
 

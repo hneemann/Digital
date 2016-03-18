@@ -14,6 +14,7 @@ import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.parts.Circuit;
 import de.neemann.digital.gui.draw.parts.VisualPart;
 import de.neemann.digital.gui.draw.parts.Wire;
+import de.neemann.digital.gui.draw.shapes.ShapeFactory;
 import de.process.utils.gui.ClosingWindowListener;
 import de.process.utils.gui.ErrorMessage;
 import de.process.utils.gui.ToolTipAction;
@@ -35,7 +36,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Preferences prefs = Preferences.userRoot().node("dig");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
-    private final PartLibrary library = new PartLibrary();
+    private final PartLibrary library = ShapeFactory.INSTANCE.setLibrary(new PartLibrary());
     private File filename;
 
     public Main() {
@@ -134,12 +135,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                         model.setListener(new Listener() {
                             @Override
                             public void needsUpdate() {
-                                circuitComponent.paintImmediately(circuitComponent.getVisibleRect());
                                 try {
                                     Thread.sleep(2000);
                                 } catch (InterruptedException e1) {
                                     e1.printStackTrace();
                                 }
+                                circuitComponent.paintImmediately(circuitComponent.getVisibleRect());
                             }
                         });
                     }

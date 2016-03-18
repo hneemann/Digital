@@ -2,10 +2,7 @@ package de.neemann.digital.gui.draw.shapes;
 
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
-import de.neemann.digital.gui.draw.graphics.Graphic;
-import de.neemann.digital.gui.draw.graphics.Polygon;
-import de.neemann.digital.gui.draw.graphics.Style;
-import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.parts.Pin;
 import de.neemann.digital.gui.draw.parts.Pins;
 import de.neemann.digital.gui.draw.parts.State;
@@ -98,7 +95,7 @@ public class GenericShape implements Shape {
 
         }
 
-        graphic.drawText(new Vector(SIZE2, SIZE), new Vector(SIZE, SIZE), name);
+        graphic.drawText(new Vector(SIZE2, SIZE), new Vector(SIZE, SIZE), name, Orientation.LEFTBOTTOM);
     }
 
 }

@@ -7,6 +7,7 @@ import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.core.part.PartAttributes;
 import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.gui.draw.library.PartLibrary;
 
 import java.util.HashMap;
 
@@ -16,6 +17,7 @@ import java.util.HashMap;
 public final class ShapeFactory {
     public static final ShapeFactory INSTANCE = new ShapeFactory();
     public HashMap<String, Creator> map = new HashMap<>();
+    private PartLibrary library;
 
     private ShapeFactory() {
         map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", And.DESCRIPTION, false));
@@ -24,8 +26,13 @@ public final class ShapeFactory {
         map.put(NOr.DESCRIPTION.getName(), new CreatorSimple("\u22651", NOr.DESCRIPTION, true));
         map.put(Not.DESCRIPTION.getName(), new CreatorSimple("", Not.DESCRIPTION, true));
 
-        map.put(In.DESCRIPTION.getName(), attributes -> new InputShape(attributes.get(AttributeKey.Bits)));
-        map.put(Out.DESCRIPTION.getName(), attributes -> new OutputShape(attributes.get(AttributeKey.Bits)));
+        map.put(In.DESCRIPTION.getName(), attributes -> new InputShape(attributes.get(AttributeKey.Bits), attributes.get(AttributeKey.Label)));
+        map.put(Out.DESCRIPTION.getName(), attributes -> new OutputShape(attributes.get(AttributeKey.Bits), attributes.get(AttributeKey.Label)));
+    }
+
+    public PartLibrary setLibrary(PartLibrary library) {
+        this.library = library;
+        return library;
     }
 
     private String[] outputNames(PartTypeDescription description, PartAttributes attributes) {
@@ -38,10 +45,15 @@ public final class ShapeFactory {
 
     public Shape getShape(String partName, PartAttributes partAttributes) {
         Creator cr = map.get(partName);
-        if (cr == null)
-            throw new RuntimeException("no shape for " + partName);
-
-        return cr.create(partAttributes);
+        if (cr == null) {
+            if (library == null)
+                throw new RuntimeException("no shape for " + partName);
+            else {
+                PartTypeDescription pt = library.getPartType(partName);
+                return new GenericShape(partName, pt.getInputNames(partAttributes), outputNames(pt, partAttributes));
+            }
+        } else
+            return cr.create(partAttributes);
     }
 
     private interface Creator {

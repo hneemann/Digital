@@ -3,6 +3,7 @@ package de.neemann.digital.gui.draw.shapes;
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.gui.draw.graphics.Graphic;
+import de.neemann.digital.gui.draw.graphics.Orientation;
 import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.parts.Pin;
@@ -17,9 +18,11 @@ public class OutputShape implements Shape {
     public static final Vector RAD = new Vector(SIZE - 3, SIZE - 3);
     public static final Vector RADL = new Vector(SIZE, SIZE);
     private final int bits;
+    private final String label;
 
-    public OutputShape(int bits) {
+    public OutputShape(int bits, String label) {
         this.bits = bits;
+        this.label = label;
     }
 
     @Override
@@ -57,5 +60,7 @@ public class OutputShape implements Shape {
         Vector center = new Vector(2 + SIZE, 0);
         graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
         graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);
+        Vector textPos = new Vector(SIZE * 3, 0);
+        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER);
     }
 }

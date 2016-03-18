@@ -11,5 +11,5 @@ public interface Graphic {
 
     void drawCircle(Vector p1, Vector p2, Style style);
 
-    void drawText(Vector p1, Vector p2, String text);
+    void drawText(Vector p1, Vector p2, String text, Orientation orientation);
 }

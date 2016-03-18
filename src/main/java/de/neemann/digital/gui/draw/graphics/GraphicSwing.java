@@ -49,7 +49,20 @@ public class GraphicSwing implements Graphic {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text) {
-        gr.drawString(text, p1.x, p1.y);
+    public void drawText(Vector p1, Vector p2, String text, Orientation orientation) {
+
+        int xoff = 0;
+        if (orientation.getX() != 0) {
+            int width = gr.getFontMetrics().stringWidth(text);
+            xoff -= width * orientation.getX() / 2;
+        }
+
+        int yoff = 0;
+        if (orientation.getY() != 0) {
+            int height = gr.getFontMetrics().getHeight();
+            yoff += height * orientation.getY() / 3;
+        }
+
+        gr.drawString(text, p1.x + xoff, p1.y + yoff);
     }
 }

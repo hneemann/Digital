@@ -32,8 +32,8 @@ public class GraphicTransform implements Graphic {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text) {
-        parent.drawText(transform(p1), transform(p2), text);
+    public void drawText(Vector p1, Vector p2, String text, Orientation orientation) {
+        parent.drawText(transform(p1), transform(p2), text, orientation);
     }
 
     private Vector transform(Vector v) {

@@ -13,7 +13,10 @@ import de.neemann.digital.core.part.PartTypeDescription;
  */
 public class Out implements Part {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Out.class, "in").addAttribute(AttributeKey.Bits);
+    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Out.class, "in")
+            .addAttribute(AttributeKey.Bits)
+            .addAttribute(AttributeKey.Label);
+
     private ObservableValue value;
 
     public Out(PartAttributes attributes) {
