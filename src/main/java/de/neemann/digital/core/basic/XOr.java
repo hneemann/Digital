@@ -1,4 +1,4 @@
-package de.neemann.digital.core.arithmetic;
+package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
@@ -12,43 +12,28 @@ import de.neemann.digital.core.part.PartTypeDescription;
 /**
  * @author hneemann
  */
-public class Add extends Node implements Part {
+public class XOr extends Node implements Part {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Add.class, "a", "b", "c_in").addAttribute(AttributeKey.Bits);
+    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(XOr.class, "a", "b").addAttribute(AttributeKey.Bits);
     private final int bits;
-    private final ObservableValue sum;
-    private final ObservableValue c_out;
-    private final long mask;
+    private final ObservableValue out;
     protected ObservableValue a;
     protected ObservableValue b;
-    protected ObservableValue c_in;
     protected long value;
 
-    public Add(PartAttributes attributes) {
+    public XOr(PartAttributes attributes) {
         bits = attributes.get(AttributeKey.Bits);
-        this.mask = 1 << bits;
-
-        this.sum = new ObservableValue("sum", bits);
-        this.c_out = new ObservableValue("c_out", 1);
+        this.out = new ObservableValue("out", bits);
     }
 
     @Override
     public void readInputs() throws NodeException {
-        value = a.getValue() + b.getValue() + c_in.getValue();
+        value = a.getValue() ^ b.getValue();
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        sum.setValue(value);
-        c_out.setValue((value & mask) == 0 ? 0 : 1);
-    }
-
-    public ObservableValue getSum() {
-        return sum;
-    }
-
-    public ObservableValue getCOut() {
-        return c_out;
+        out.setValue(value);
     }
 
     @Override
@@ -57,22 +42,17 @@ public class Add extends Node implements Part {
         a.addListener(this);
         b = inputs[1];
         b.addListener(this);
-        c_in = inputs[2];
-        c_in.addListener(this);
 
         if (a.getBits() != bits)
             throw new BitsException("wrongBitCount", a);
 
         if (b.getBits() != bits)
             throw new BitsException("wrongBitCount", b);
-
-        if (c_in.getBits() != 1)
-            throw new BitsException("carryIsABit", c_in);
     }
 
     @Override
     public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{sum, c_out};
+        return new ObservableValue[]{out};
     }
 
 }

@@ -1,6 +1,5 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
@@ -48,8 +47,4 @@ public class Not extends Node implements Part {
         return new ObservableValue[]{output};
     }
 
-    @Override
-    public void registerNodes(Model model) {
-        model.add(this);
-    }
 }

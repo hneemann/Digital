@@ -18,7 +18,7 @@ public class SubTest extends TestCase {
 
 
         Model model = new Model();
-        Add node = new Sub(new PartAttributes().bits(4));
+        Add node = new Sub(new PartAttributes().setBits(4));
         node.setInputs(a, b, c);
         model.add(node);
 

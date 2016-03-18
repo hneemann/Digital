@@ -18,7 +18,7 @@ public class AddTest extends TestCase {
 
 
         Model model = new Model();
-        Add node = new Add(new PartAttributes().bits(4));
+        Add node = new Add(new PartAttributes().setBits(4));
         node.setInputs(a, b, c);
         model.add(node);
 

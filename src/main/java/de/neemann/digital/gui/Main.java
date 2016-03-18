@@ -170,10 +170,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         setJMenuBar(bar);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Main().setVisible(true));
-    }
-
     private static XStream getxStream() {
         XStream xStream = new XStream(new StaxDriver());
         xStream.alias("visualPart", VisualPart.class);
@@ -187,6 +183,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         return xStream;
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Main().setVisible(true));
+    }
+
     private JFileChooser getjFileChooser() {
         JFileChooser fileChooser = new JFileChooser(filename == null ? null : filename.getParentFile());
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
@@ -195,7 +195,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     @Override
     public boolean isStateChanged() {
-        return false;
+        return circuitComponent.getCircuit().isModified();
     }
 
     @Override

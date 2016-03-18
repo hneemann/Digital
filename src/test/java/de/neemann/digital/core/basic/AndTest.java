@@ -15,9 +15,8 @@ public class AndTest extends TestCase {
         ObservableValue a = new ObservableValue("a", 1);
         ObservableValue b = new ObservableValue("b", 1);
 
-
         Model model = new Model();
-        FanIn out = model.add(new And(new PartAttributes().bits(1)));
+        FanIn out = model.add(new And(new PartAttributes().setBits(1)));
         out.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out.getOutputs());

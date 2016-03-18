@@ -27,7 +27,7 @@ public class CircuitComponent extends JComponent implements Listener {
     private final PartLibrary library;
     private Circuit circuit;
     private Mouse listener;
-    private AffineTransform transform = AffineTransform.getScaleInstance(1, 1);
+    private AffineTransform transform = new AffineTransform();
 
     public CircuitComponent(Circuit aCircuit, PartLibrary library) {
         this.circuit = aCircuit;
@@ -56,8 +56,8 @@ public class CircuitComponent extends JComponent implements Listener {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
                 Vector pos = getPosVector(e);
-                transform.translate(pos.x, pos.y);
                 double f = Math.pow(0.9, e.getWheelRotation());
+                transform.translate(pos.x, pos.y);
                 transform.scale(f, f);
                 transform.translate(-pos.x, -pos.y);
                 repaint();
@@ -355,7 +355,6 @@ public class CircuitComponent extends JComponent implements Listener {
                 if (vp.matches(pos)) {
                     vp.clicked(CircuitComponent.this, pos);
                 }
-
         }
     }
 }

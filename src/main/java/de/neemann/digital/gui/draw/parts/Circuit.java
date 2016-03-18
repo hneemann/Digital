@@ -14,6 +14,7 @@ public class Circuit implements Drawable {
     private final ArrayList<VisualPart> visualParts;
     private ArrayList<Wire> wires;
     private transient boolean dotsPresent = false;
+    private transient boolean modified = false;
 
     public Circuit() {
         visualParts = new ArrayList<>();
@@ -35,6 +36,7 @@ public class Circuit implements Drawable {
 
     public void add(VisualPart visualPart) {
         visualParts.add(visualPart);
+        modified = true;
     }
 
     public void add(Wire newWire) {
@@ -58,6 +60,7 @@ public class Circuit implements Drawable {
         wires = checker.check();
 
         dotsPresent = false;
+        modified = true;
     }
 
     public ArrayList<VisualPart> getParts() {
@@ -96,6 +99,7 @@ public class Circuit implements Drawable {
             }
         }
         dotsPresent = false;
+        modified = true;
     }
 
     public ArrayList<Wire> getWires() {
@@ -107,5 +111,9 @@ public class Circuit implements Drawable {
             vp.setState(null, null, null);
         for (Wire w : wires)
             w.setValue(null);
+    }
+
+    public boolean isModified() {
+        return modified;
     }
 }

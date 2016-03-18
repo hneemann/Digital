@@ -1,6 +1,13 @@
 package de.neemann.digital.gui.draw.library;
 
+import de.neemann.digital.core.arithmetic.Add;
+import de.neemann.digital.core.arithmetic.Mul;
+import de.neemann.digital.core.arithmetic.Sub;
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.flipflops.D_FF;
+import de.neemann.digital.core.flipflops.JK_FF;
+import de.neemann.digital.core.flipflops.RS_FF;
+import de.neemann.digital.core.flipflops.T_FF;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.part.PartTypeDescription;
@@ -19,17 +26,24 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
 
     public PartLibrary() {
         add(And.DESCRIPTION, "Logic");
-        add(Or.DESCRIPTION, "Logic");
         add(NAnd.DESCRIPTION, "Logic");
+        add(Or.DESCRIPTION, "Logic");
         add(NOr.DESCRIPTION, "Logic");
+        add(XOr.DESCRIPTION, "Logic");
+        add(XNOr.DESCRIPTION, "Logic");
         add(Not.DESCRIPTION, "Logic");
 
         add(In.DESCRIPTION, "IO");
         add(Out.DESCRIPTION, "IO");
 
-//        add(Add.DESCRIPTION,"Aritmetic");
-//        add(Sub.DESCRIPTION,"Aritmetic");
-//        add(Mul.DESCRIPTION,"Aritmetic");
+        add(RS_FF.DESCRIPTION, "FlipFlops");
+        add(JK_FF.DESCRIPTION, "FlipFlops");
+        add(D_FF.DESCRIPTION, "FlipFlops");
+        add(T_FF.DESCRIPTION, "FlipFlops");
+
+        add(Add.DESCRIPTION, "Aritmetic");
+        add(Sub.DESCRIPTION, "Aritmetic");
+        add(Mul.DESCRIPTION, "Aritmetic");
     }
 
     private void add(PartTypeDescription description, String treePath) {

@@ -16,7 +16,7 @@ public class OrTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 1);
 
         Model model = new Model();
-        FanIn and = model.add(new Or(new PartAttributes().bits(1)));
+        FanIn and = model.add(new Or(new PartAttributes().setBits(1)));
         and.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(and.getOutput());

@@ -16,7 +16,7 @@ public class NAndTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 1);
 
         Model model = new Model();
-        FanIn out = model.add(new NAnd(new PartAttributes().bits(1)));
+        FanIn out = model.add(new NAnd(new PartAttributes().setBits(1)));
         out.setInputs(a, b);
 
 

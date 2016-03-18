@@ -55,7 +55,11 @@ public class PartAttributes {
             listeners.remove(listener);
     }
 
-    public PartAttributes bits(int bits) {
+    public int getBits() {
+        return get(AttributeKey.Bits);
+    }
+
+    public PartAttributes setBits(int bits) {
         set(AttributeKey.Bits, bits);
         return this;
     }

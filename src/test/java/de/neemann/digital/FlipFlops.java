@@ -16,8 +16,8 @@ public class FlipFlops extends TestCase {
         ObservableValue s = new ObservableValue("s", 1);
 
         Model model = new Model();
-        FanIn a1 = model.add(new NOr(new PartAttributes().bits(1)));
-        FanIn a2 = model.add(new NOr(new PartAttributes().bits(1)));
+        FanIn a1 = model.add(new NOr(new PartAttributes().setBits(1)));
+        FanIn a2 = model.add(new NOr(new PartAttributes().setBits(1)));
 
         a1.setInputs(r, a2.getOutput());
         a2.setInputs(s, a1.getOutput());
@@ -42,8 +42,8 @@ public class FlipFlops extends TestCase {
         ObservableValue s = new ObservableValue("s", 1);
 
         Model model = new Model();
-        FanIn a1 = model.add(new NAnd(new PartAttributes().bits(1)));
-        FanIn a2 = model.add(new NAnd(new PartAttributes().bits(1)));
+        FanIn a1 = model.add(new NAnd(new PartAttributes().setBits(1)));
+        FanIn a2 = model.add(new NAnd(new PartAttributes().setBits(1)));
 
         a1.setInputs(r, a2.getOutput());
         a2.setInputs(s, a1.getOutput());
@@ -62,7 +62,7 @@ public class FlipFlops extends TestCase {
         ObservableValue k = new ObservableValue("k", 1);
         ObservableValue c = new ObservableValue("c", 1);
 
-        PartAttributes attr = new PartAttributes().bits(1);
+        PartAttributes attr = new PartAttributes().setBits(1);
 
         Model model = new Model();
         FanIn nor3 = model.add(new NOr(attr));

@@ -55,6 +55,14 @@ public class ObservableValue extends Value {
         }
     }
 
+    public boolean getBool() {
+        return getValue() != 0;
+    }
+
+    public void setBool(boolean bool) {
+        setValue(bool ? 1 : 0);
+    }
+
     public long getValueBits(long value) {
         return value & mask;
     }
@@ -87,11 +95,12 @@ public class ObservableValue extends Value {
     public String toString() {
         return name + "{" +
                 "value=" + (highZ ? "??" : value) +
-                ", bits=" + bits +
+                ", setBits=" + bits +
                 '}';
     }
 
     public String getName() {
         return name;
     }
+
 }

@@ -1,6 +1,5 @@
 package de.neemann.digital.core.arithmetic;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
@@ -51,8 +50,4 @@ public class Mul extends Node implements Part {
         return new ObservableValue[]{mul};
     }
 
-    @Override
-    public void registerNodes(Model model) {
-        model.add(this);
-    }
 }
