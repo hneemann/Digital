@@ -50,28 +50,20 @@ public class AttributeTableModel implements TableModel {
         AttributeKey attributeKey = list.get(rowIndex);
         if (columnIndex == 0)
             return attributeKey.getName();
-        else
-            return partAttributes.get(attributeKey);
+        else {
+            Object value = partAttributes.get(attributeKey);
+            return EditorFactory.INSTANCE.get(attributeKey.getValueClass()).toText(value);
+        }
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         if (columnIndex == 1) {
             AttributeKey attributeKey = list.get(rowIndex);
-            Object newValue = createValue(aValue, attributeKey);
+            Object newValue = EditorFactory.INSTANCE.get(attributeKey.getValueClass()).toValue(aValue.toString());
             if (newValue != null)
                 partAttributes.set(attributeKey, newValue);
         }
-    }
-
-    private Object createValue(Object aValue, AttributeKey attributeKey) {
-        if (attributeKey.getValueClass() == Integer.class)
-            return Integer.parseInt(aValue.toString());
-        else if (attributeKey.getValueClass() == String.class)
-            return aValue.toString();
-        if (attributeKey.getValueClass() == Double.class)
-            return Double.parseDouble(aValue.toString());
-        return null;
     }
 
     @Override

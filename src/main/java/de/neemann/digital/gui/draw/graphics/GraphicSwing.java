@@ -50,7 +50,7 @@ public class GraphicSwing implements Graphic {
 
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation) {
-
+        gr.setColor(Color.BLACK);
         int xoff = 0;
         if (orientation.getX() != 0) {
             int width = gr.getFontMetrics().stringWidth(text);

@@ -10,6 +10,7 @@ import de.neemann.digital.core.flipflops.RS_FF;
 import de.neemann.digital.core.flipflops.T_FF;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.LED;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.part.PartTypeDescription;
 
@@ -37,6 +38,7 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
         add(In.DESCRIPTION, "IO");
         add(Out.DESCRIPTION, "IO");
         add(Const.DESCRIPTION, "IO");
+        add(LED.DESCRIPTION, "IO");
 
         add(RS_FF.DESCRIPTION, "FlipFlops");
         add(JK_FF.DESCRIPTION, "FlipFlops");

@@ -17,7 +17,7 @@ public class Style {
     private final boolean filled;
     private final Color color;
 
-    private Style(int thickness, boolean filled, Color color) {
+    public Style(int thickness, boolean filled, Color color) {
         this.thickness = thickness;
         this.filled = filled;
         this.color = color;

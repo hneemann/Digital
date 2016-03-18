@@ -14,7 +14,10 @@ import de.neemann.digital.gui.draw.parts.State;
  */
 public class ConstShape implements Shape {
 
-    public ConstShape() {
+    private long value;
+
+    public ConstShape(long value) {
+        this.value = value;
     }
 
     @Override
@@ -30,7 +33,6 @@ public class ConstShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, State state) {
         Vector textPos = new Vector(-3, 0);
-        long value = 1;
         if (state != null)
             value = state.getOutput(0).getValue();
         graphic.drawText(textPos, textPos.add(1, 0), Long.toString(value), Orientation.RIGHTCENTER);
