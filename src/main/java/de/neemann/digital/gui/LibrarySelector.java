@@ -20,7 +20,7 @@ public class LibrarySelector {
     }
 
     public JMenu buildMenu(InsertHistory insertHistory, CircuitComponent circuitComponent) {
-        JMenu parts = new JMenu("Parts");
+        JMenu parts = new JMenu("Components");
 
         JMenu subMenu = null;
         String lastPath = null;
