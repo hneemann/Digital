@@ -46,9 +46,13 @@ public class OutputShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, State state) {
-        Style style = Style.WIRE;
-        if (state != null && state.getInput(0).getValue() != 0)
-            style = Style.WIRE_HIGH;
+        Style style = Style.NORMAL;
+        if (state != null) {
+            if (state.getInput(0).getValue() != 0)
+                style = Style.WIRE_HIGH;
+            else
+                style = Style.WIRE_LOW;
+        }
 
         Vector center = new Vector(2 + SIZE, 0);
         graphic.drawCircle(center.sub(RAD), center.add(RAD), style);

@@ -21,9 +21,12 @@ public class Wire implements Drawable, Moveable {
 
     @Override
     public void drawTo(Graphic graphic, State state) {
-        Style style = Style.WIRE;
-        if (value != null && value.getValue() != 0) {
-            style = Style.WIRE_HIGH;
+        Style style = Style.NORMAL;
+        if (value != null) {
+            if (value.getValue() != 0)
+                style = Style.WIRE_HIGH;
+            else
+                style = Style.WIRE_LOW;
         }
 
         graphic.drawLine(p1, p2, style);

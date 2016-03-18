@@ -12,7 +12,7 @@ import java.util.Iterator;
  * @author hneemann
  */
 public class Circuit implements Drawable {
-    private static final Vector RAD = new Vector(3, 3);
+    private static final Vector RAD = new Vector(2, 2);
     private final ArrayList<VisualPart> visualParts;
     private transient ArrayList<Vector> dots;
     private ArrayList<Wire> wires;
@@ -26,7 +26,7 @@ public class Circuit implements Drawable {
     @Override
     public void drawTo(Graphic graphic, State state) {
         for (Vector d : getDots())
-            graphic.drawCircle(d.sub(RAD), d.add(RAD), Style.WIRE);
+            graphic.drawCircle(d.sub(RAD), d.add(RAD), Style.FILLED);
         for (Wire w : wires)
             w.drawTo(graphic, state);
         for (VisualPart p : visualParts)

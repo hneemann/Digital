@@ -61,9 +61,13 @@ public class InputShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, State state) {
-        Style style = Style.WIRE;
-        if (state != null && state.getOutput(0).getValue() != 0)
-            style = Style.WIRE_HIGH;
+        Style style = Style.NORMAL;
+        if (state != null) {
+            if (state.getOutput(0).getValue() != 0)
+                style = Style.WIRE_HIGH;
+            else
+                style = Style.WIRE_LOW;
+        }
 
         Vector center = new Vector(-2 - SIZE, 0);
         graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
