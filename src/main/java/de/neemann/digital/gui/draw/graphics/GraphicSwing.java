@@ -42,15 +42,16 @@ public class GraphicSwing implements Graphic {
 
     private void applyStyle(Style style) {
         if (style != lastStyle) {
-            gr.setStroke(new BasicStroke(style.getThickness()));
+            gr.setStroke(style.getStroke());
             gr.setColor(style.getColor());
+            gr.setFont(style.getFont());
             lastStyle = style;
         }
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation) {
-        gr.setColor(Color.BLACK);
+    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+        applyStyle(style);
         int xoff = 0;
         if (orientation.getX() != 0) {
             int width = gr.getFontMetrics().stringWidth(text);

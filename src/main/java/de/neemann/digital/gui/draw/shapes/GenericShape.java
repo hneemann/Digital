@@ -22,11 +22,17 @@ public class GenericShape implements Shape {
     private boolean invert = false;
 
     private transient Pins pins;
+    private boolean showLabels;
 
     public GenericShape(String name, String[] inputs, String[] outputs) {
+        this(name, inputs, outputs, false);
+    }
+
+    public GenericShape(String name, String[] inputs, String[] outputs, boolean showLabels) {
         this.name = name;
         this.inputs = inputs;
         this.outputs = outputs;
+        this.showLabels = showLabels;
         width = inputs.length == 1 && outputs.length == 1 ? 1 : 3;
         symmetric = outputs.length == 1;
     }
@@ -95,7 +101,16 @@ public class GenericShape implements Shape {
 
         }
 
-        graphic.drawText(new Vector(SIZE2, SIZE), new Vector(SIZE, SIZE), name, Orientation.LEFTBOTTOM);
+        if (showLabels) {
+            for (Pin p : getPins()) {
+                if (p.getDirection() == Pin.Direction.input)
+                    graphic.drawText(p.getPos().add(2, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPEPIN);
+                else
+                    graphic.drawText(p.getPos().add(-2, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPEPIN);
+            }
+        }
+        Vector pos = new Vector(SIZE * width / 2, -SIZE2 + 2);
+        graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.NORMAL);
     }
 
 }

@@ -65,7 +65,7 @@ public final class ShapeFactory {
                 throw new RuntimeException("no shape for " + partName);
             else {
                 PartTypeDescription pt = library.getPartType(partName);
-                return new GenericShape(createName(partName), pt.getInputNames(partAttributes), outputNames(pt, partAttributes));
+                return new GenericShape(createName(partName), pt.getInputNames(partAttributes), outputNames(pt, partAttributes), true);
             }
         } else
             return cr.create(partAttributes);

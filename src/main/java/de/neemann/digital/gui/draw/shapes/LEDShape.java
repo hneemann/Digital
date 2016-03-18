@@ -12,11 +12,12 @@ import de.neemann.digital.gui.draw.parts.State;
 
 import java.awt.*;
 
+import static de.neemann.digital.gui.draw.shapes.OutputShape.SIZE;
+
 /**
  * @author hneemann
  */
 public class LEDShape implements Shape {
-    public static final int SIZE = 8;
     public static final Vector RAD = new Vector(SIZE - 1, SIZE - 1);
     public static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
@@ -60,6 +61,6 @@ public class LEDShape implements Shape {
         if (fill)
             graphic.drawCircle(center.sub(RAD), center.add(RAD), onStyle);
         Vector textPos = new Vector(SIZE * 3, 0);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER);
+        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
     }
 }
