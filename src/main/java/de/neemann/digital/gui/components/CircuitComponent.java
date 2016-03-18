@@ -55,16 +55,12 @@ public class CircuitComponent extends JComponent implements Listener {
         addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                int rot = e.getWheelRotation();
-                if (rot > 0) {
-                    for (int i = 0; i < rot; i++)
-                        transform.scale(0.9, 0.9);
-                    repaint();
-                } else if (rot < 0) {
-                    for (int i = 0; i < -rot; i++)
-                        transform.scale(1.1, 1.1);
-                    repaint();
-                }
+                Vector pos = getPosVector(e);
+                transform.translate(pos.x, pos.y);
+                double f = Math.pow(0.9, e.getWheelRotation());
+                transform.scale(f, f);
+                transform.translate(-pos.x, -pos.y);
+                repaint();
             }
         });
     }
