@@ -5,7 +5,10 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.part.AttributeKey;
+import de.neemann.digital.core.part.PartAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.library.PartLibrary;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.parts.Circuit;
@@ -41,7 +44,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
 
         Circuit cr = new Circuit();
-        circuitComponent = new CircuitComponent(cr);
+        circuitComponent = new CircuitComponent(cr, library);
         String name = prefs.get("name", null);
         if (name != null) {
             loadFile(new File(name));
@@ -175,6 +178,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         xStream.alias("visualPart", VisualPart.class);
         xStream.alias("wire", Wire.class);
         xStream.alias("circuit", Circuit.class);
+        xStream.alias("vector", Vector.class);
+        xStream.alias("key", AttributeKey.class);
+        xStream.addImplicitCollection(PartAttributes.class, "attributes");
+        xStream.aliasAttribute(Vector.class, "x", "x");
+        xStream.aliasAttribute(Vector.class, "y", "y");
         return xStream;
     }
 

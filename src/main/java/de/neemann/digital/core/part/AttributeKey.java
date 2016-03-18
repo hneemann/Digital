@@ -14,6 +14,8 @@ public class AttributeKey<VALUE> {
     public AttributeKey(String name, VALUE def) {
         this.name = name;
         this.def = def;
+        if (def == null)
+            throw new NullPointerException();
     }
 
     public String getName() {
@@ -22,5 +24,24 @@ public class AttributeKey<VALUE> {
 
     public VALUE getDefault() {
         return def;
+    }
+
+    public Class getValueClass() {
+        return def.getClass();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AttributeKey<?> that = (AttributeKey<?>) o;
+
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }

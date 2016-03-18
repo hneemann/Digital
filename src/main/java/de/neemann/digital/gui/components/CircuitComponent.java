@@ -1,8 +1,10 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.Listener;
+import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.graphics.Polygon;
+import de.neemann.digital.gui.draw.library.PartLibrary;
 import de.neemann.digital.gui.draw.parts.Circuit;
 import de.neemann.digital.gui.draw.parts.Moveable;
 import de.neemann.digital.gui.draw.parts.VisualPart;
@@ -23,11 +25,13 @@ import java.util.ArrayList;
 public class CircuitComponent extends JComponent implements Listener {
 
     private static final String delAction = "myDelAction";
+    private final PartLibrary library;
     private Circuit circuit;
     private Mouse listener;
 
-    public CircuitComponent(Circuit aCircuit) {
+    public CircuitComponent(Circuit aCircuit, PartLibrary library) {
         this.circuit = aCircuit;
+        this.library = library;
         setMode(Mode.part);
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
@@ -201,21 +205,36 @@ public class CircuitComponent extends JComponent implements Listener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (partToInsert == null) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                if (partToInsert == null) {
+                    Vector pos = new Vector(e.getX(), e.getY());
+                    insert = false;
+                    for (VisualPart vp : circuit.getParts())
+                        if (vp.matches(pos)) {
+                            partToInsert = vp;
+                            delta = partToInsert.getPos().sub(pos);
+                            break;
+                        }
+                } else {
+                    partToInsert.setPos(raster(partToInsert.getPos()));
+                    if (insert)
+                        circuit.add(partToInsert);
+                    repaint();
+                    partToInsert = null;
+                }
+            } else {
                 Vector pos = new Vector(e.getX(), e.getY());
-                insert = false;
                 for (VisualPart vp : circuit.getParts())
                     if (vp.matches(pos)) {
-                        partToInsert = vp;
-                        delta = partToInsert.getPos().sub(pos);
-                        break;
+                        String name = vp.getPartName();
+                        ArrayList<AttributeKey> list = library.getPartType(name).getAttributeList();
+                        if (list.size() > 0) {
+                            Point p = new Point(e.getX(), e.getY());
+                            SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+                            new AttributeDialog(p, list, vp.getPartAttributes()).showDialog();
+                            repaint();
+                        }
                     }
-            } else {
-                partToInsert.setPos(raster(partToInsert.getPos()));
-                if (insert)
-                    circuit.add(partToInsert);
-                repaint();
-                partToInsert = null;
             }
         }
 

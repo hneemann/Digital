@@ -2,6 +2,8 @@ package de.neemann.digital.gui.draw.parts;
 
 import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.part.AttributeKey;
+import de.neemann.digital.core.part.AttributeListener;
 import de.neemann.digital.core.part.PartAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.*;
@@ -17,14 +19,14 @@ import java.awt.image.BufferedImage;
 /**
  * @author hneemann
  */
-public class VisualPart implements Drawable, Moveable {
+public class VisualPart implements Drawable, Moveable, AttributeListener {
     private static final int PIN = 1;
     private final String partName;
     private final PartAttributes partAttributes;
     private transient GraphicMinMax minMax;
+    private transient Shape shape;
     private transient State state;
     private transient Interactor interactor;
-    private transient Shape shape;
     private Vector pos;
     private int rotate;
 
@@ -39,6 +41,7 @@ public class VisualPart implements Drawable, Moveable {
     }
 
     public PartAttributes getPartAttributes() {
+        partAttributes.addListener(this);
         return partAttributes;
     }
 
@@ -155,5 +158,11 @@ public class VisualPart implements Drawable, Moveable {
     public void clicked(CircuitComponent cc, Vector pos) {
         if (interactor != null)
             interactor.interact(cc, pos, state);
+    }
+
+    @Override
+    public void attributeChanged(AttributeKey key) {
+        shape = null;
+        minMax = null;
     }
 }
