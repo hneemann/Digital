@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.core.part.PartAttributes;
@@ -37,7 +38,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private final PartLibrary library = ShapeFactory.INSTANCE.setLibrary(new PartLibrary());
+    private final JCheckBox microStep;
+    private final ToolTipAction doStep;
     private File filename;
+    private Model model;
 
     public Main() {
         super("Digital");
@@ -122,37 +126,41 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenu run = new JMenu("Run");
         bar.add(run);
 
-        JCheckBox microStep = new JCheckBox("micro");
+        doStep = new ToolTipAction("Step") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    model.doMicroStep(false);
+                    circuitComponent.repaint(); // necessary to update the wires!
+                    doStep.setEnabled(model.needsUpdate());
+                } catch (NodeException e1) {
+                    SwingUtilities.invokeLater(
+                            new ErrorMessage("Error").addCause(e1).setComponent(Main.this)
+                    );
+                }
+            }
+        };
+
+        microStep = new JCheckBox("micro");
 
         ToolTipAction runModel = new ToolTipAction("Run") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    circuitComponent.setMode(CircuitComponent.Mode.running);
+                    circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
                     ModelDescription m = new ModelDescription(circuitComponent.getCircuit(), library);
-                    Model model = m.createModel(circuitComponent);
-                    if (microStep.isSelected()) {
-                        model.setObserver(new Observer() {
-                            @Override
-                            public void hasChanged() {
-                                try {
-                                    Thread.sleep(2000);
-                                } catch (InterruptedException e1) {
-                                    e1.printStackTrace();
-                                }
-                                circuitComponent.paintImmediately(circuitComponent.getVisibleRect());
-                            }
-                        });
-                    }
-                    model.init(true);
+                    model = m.createModel();
+                    m.connectToGui(circuitComponent);
+                    model.init();
+                    circuitComponent.setModel(model, createUserObserver(model));
                 } catch (Exception e1) {
                     new ErrorMessage("error creating model").addCause(e1).show(Main.this);
                 }
             }
         }.setToolTip("Runs the Model");
         run.add(runModel.createJMenuItem());
-
-
+        run.add(doStep.createJMenuItem());
+        doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
         toolBar.add(partsMode.createJButton());
@@ -160,6 +168,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(selectionMode.createJButton());
         toolBar.add(runModel.createJButton());
         toolBar.add(microStep);
+        toolBar.add(doStep.createJButton());
 
         toolBar.addSeparator();
 
@@ -236,6 +245,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }
     }
 
+    private Observer createUserObserver(Model model) {
+        if (microStep.isSelected())
+            return new MicroStepObserver(model);
+        else
+            return new FullStepObserver(model);
+    }
+
     private class ModeAction extends ToolTipAction {
         private final CircuitComponent.Mode mode;
 
@@ -246,7 +262,41 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            circuitComponent.setMode(mode);
+            circuitComponent.setModeAndReset(mode);
+            doStep.setEnabled(false);
+            model = null;
+        }
+    }
+
+    private class FullStepObserver implements Observer {
+        private final Model model;
+
+        public FullStepObserver(Model model) {
+            this.model = model;
+        }
+
+        @Override
+        public void hasChanged() {
+            try {
+                model.doStep();
+            } catch (NodeException e) {
+                SwingUtilities.invokeLater(
+                        new ErrorMessage("Error").addCause(e).setComponent(Main.this)
+                );
+            }
+        }
+    }
+
+    private class MicroStepObserver implements Observer {
+        private final Model model;
+
+        public MicroStepObserver(Model model) {
+            this.model = model;
+        }
+
+        @Override
+        public void hasChanged() {
+            doStep.setEnabled(model.needsUpdate());
         }
     }
 }

@@ -1,6 +1,5 @@
 package de.neemann.digital.gui.draw.model;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
@@ -17,6 +16,7 @@ public class ModelEntry {
     private final Pins pins;
     private final String[] inputNames;
     private final VisualPart visualPart;
+    private IOState ioState;
 
     public ModelEntry(Part part, Pins pins, VisualPart visualPart, String[] inputNames) {
         this.part = part;
@@ -28,12 +28,10 @@ public class ModelEntry {
     /**
      * Sets the Inputs of the part contained in thes entry
      *
-     * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
-     * @param model       the model
      * @throws PinException
      * @throws NodeException
      */
-    public void applyInputs(Observer guiObserver, Model model) throws PinException, NodeException {
+    public void applyInputs() throws PinException, NodeException {
         HashMap<String, Pin> ins = pins.getInputs();
 
         ObservableValue[] inputs = new ObservableValue[inputNames.length];
@@ -51,7 +49,13 @@ public class ModelEntry {
             }
             part.setInputs(inputs);
         }
-        visualPart.setState(new IOState(inputs, part.getOutputs()), guiObserver, model);
+        ioState = new IOState(inputs, part.getOutputs());
+    }
+
+    public void connectToGui(Observer guiObserver) {
+        if (ioState == null)
+            throw new RuntimeException("call applyInputs before connectToGui");
+        visualPart.setState(ioState, guiObserver);
     }
 
     public Part getPart() {

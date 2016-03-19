@@ -1,6 +1,5 @@
 package de.neemann.digital.gui.draw.shapes;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Orientation;
@@ -22,6 +21,7 @@ public class LEDShape implements Shape {
     public static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
     private Style onStyle;
+    private IOState ioState;
 
     public LEDShape(String label, Color color) {
         this.label = label;
@@ -34,24 +34,14 @@ public class LEDShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver, Model model) {
-        ioState.getInput(0).addObserver(new Observer() {
-            public long lastValue = 0;
-
-            @Override
-            public void hasChanged() {
-                long value = ioState.getInput(0).getValue();
-                if (lastValue != value) {
-                    lastValue = value;
-                    guiObserver.hasChanged();
-                }
-            }
-        });
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+        this.ioState = ioState;
+        ioState.getInput(0).addObserver(guiObserver);
         return null;
     }
 
     @Override
-    public void drawTo(Graphic graphic, IOState ioState) {
+    public void drawTo(Graphic graphic) {
         boolean fill = false;
         if (ioState != null)
             fill = ioState.getInput(0).getValue() != 0;

@@ -1,6 +1,5 @@
 package de.neemann.digital.gui.draw.parts;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.core.part.AttributeListener;
@@ -88,10 +87,10 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
     }
 
     @Override
-    public void drawTo(Graphic graphic, IOState ioState) {
+    public void drawTo(Graphic graphic) {
         Graphic gr = new GraphicTransform(graphic, createTransform());
         Shape shape = getShape();
-        shape.drawTo(gr, this.ioState);
+        shape.drawTo(gr);
         for (Pin p : shape.getPins())
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.FILLED);
     }
@@ -103,7 +102,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
     public GraphicMinMax getMinMax() {
         if (minMax == null) {
             minMax = new GraphicMinMax();
-            drawTo(minMax, ioState);
+            drawTo(minMax);
         }
         return minMax;
     }
@@ -126,7 +125,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
         gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
         gr.translate(-mm.getMin().x, -mm.getMin().y);
         GraphicSwing grs = new GraphicSwing(gr);
-        drawTo(grs, ioState);
+        drawTo(grs);
         return new ImageIcon(bi);
     }
 
@@ -142,22 +141,20 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
 
     /**
      * Sets the state of the parts inputs and outputs
-     *
-     * @param ioState    actual state
+     *  @param ioState    actual state
      * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
-     * @param model    the model
      */
-    public void setState(IOState ioState, Observer guiObserver, Model model) {
+    public void setState(IOState ioState, Observer guiObserver) {
         this.ioState = ioState;
         if (ioState == null)
             interactor = null;
         else
-            interactor = getShape().applyStateMonitor(ioState, guiObserver, model);
+            interactor = getShape().applyStateMonitor(ioState, guiObserver);
     }
 
     public void clicked(CircuitComponent cc, Vector pos) {
         if (interactor != null)
-            interactor.interact(cc, pos, ioState);
+            interactor.clicked(cc, pos, ioState);
     }
 
     @Override

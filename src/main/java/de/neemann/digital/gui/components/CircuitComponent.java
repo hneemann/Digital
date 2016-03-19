@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.gui.draw.graphics.*;
@@ -28,11 +29,13 @@ public class CircuitComponent extends JComponent implements Observer {
     private Circuit circuit;
     private Mouse listener;
     private AffineTransform transform = new AffineTransform();
+    private Model model;
+    private Observer callOnManualChange;
 
     public CircuitComponent(Circuit aCircuit, PartLibrary library) {
         this.circuit = aCircuit;
         this.library = library;
-        setMode(Mode.part);
+        setModeAndReset(Mode.part);
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
         getInputMap().put(delKey, delAction);
@@ -65,7 +68,12 @@ public class CircuitComponent extends JComponent implements Observer {
         });
     }
 
-    public void setMode(Mode mode) {
+    public void setModel(Model model, Observer callOnManualChange) {
+        this.model = model;
+        this.callOnManualChange = callOnManualChange;
+    }
+
+    public void setModeAndReset(Mode mode) {
         if (listener != null) {
             removeMouseListener(listener);
             removeMouseMotionListener(listener);
@@ -92,11 +100,12 @@ public class CircuitComponent extends JComponent implements Observer {
         addMouseListener(listener);
         requestFocusInWindow();
         circuit.clearState();
+        model = null;
         repaint();
     }
 
     public void setPartToDrag(VisualPart part) {
-        setMode(Mode.part);
+        setModeAndReset(Mode.part);
         ((PartMouseListener) listener).setPartToInsert(part);
     }
 
@@ -110,7 +119,7 @@ public class CircuitComponent extends JComponent implements Observer {
         gr2.transform(transform);
 
         GraphicSwing gr = new GraphicSwing(gr2);
-        circuit.drawTo(gr, null);
+        circuit.drawTo(gr);
 
         listener.drawTo(gr);
         gr2.setTransform(oldTrans);
@@ -142,7 +151,7 @@ public class CircuitComponent extends JComponent implements Observer {
 
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
-        setMode(Mode.part);
+        setModeAndReset(Mode.part);
     }
 
     public enum Mode {part, wire, running, select}
@@ -199,7 +208,7 @@ public class CircuitComponent extends JComponent implements Observer {
         @Override
         public void drawTo(Graphic gr) {
             if (wire != null)
-                wire.drawTo(gr, null);
+                wire.drawTo(gr);
         }
     }
 
@@ -276,7 +285,7 @@ public class CircuitComponent extends JComponent implements Observer {
         @Override
         public void drawTo(Graphic gr) {
             if (partToInsert != null)
-                partToInsert.drawTo(gr, null);
+                partToInsert.drawTo(gr);
         }
     }
 
@@ -348,7 +357,6 @@ public class CircuitComponent extends JComponent implements Observer {
     private class RunningMouseListener extends Mouse {
         @Override
         public void drawTo(Graphic gr) {
-
         }
 
         @Override
@@ -357,6 +365,8 @@ public class CircuitComponent extends JComponent implements Observer {
             for (VisualPart vp : circuit.getParts())
                 if (vp.matches(pos)) {
                     vp.clicked(CircuitComponent.this, pos);
+                    if (callOnManualChange != null)
+                        callOnManualChange.hasChanged();
                 }
         }
     }

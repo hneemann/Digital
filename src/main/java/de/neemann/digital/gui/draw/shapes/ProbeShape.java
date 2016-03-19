@@ -1,6 +1,5 @@
 package de.neemann.digital.gui.draw.shapes;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Orientation;
@@ -27,12 +26,12 @@ public class ProbeShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver, Model model) {
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         return null;
     }
 
     @Override
-    public void drawTo(Graphic graphic, IOState ioState) {
+    public void drawTo(Graphic graphic) {
         graphic.drawText(new Vector(2, -1), new Vector(3, -1), label, Orientation.LEFTBOTTOM, Style.NORMAL);
     }
 }

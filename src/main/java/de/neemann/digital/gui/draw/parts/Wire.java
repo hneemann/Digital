@@ -11,6 +11,7 @@ import de.neemann.digital.gui.draw.shapes.Drawable;
  */
 public class Wire implements Drawable, Moveable {
     private static final Vector RAD = new Vector(2, 2);
+    private static final Vector RAD_RUNNING = new Vector(3, 3);
     public Vector p1;
     public Vector p2;
     private transient ObservableValue value;
@@ -23,9 +24,12 @@ public class Wire implements Drawable, Moveable {
     }
 
     @Override
-    public void drawTo(Graphic graphic, IOState ioState) {
+    public void drawTo(Graphic graphic) {
         Style style = Style.FILLED;
+
+        Vector r = RAD;
         if (value != null) {
+            r = RAD_RUNNING;
             if (value.getValue() != 0)
                 style = Style.WIRE_HIGH;
             else
@@ -35,9 +39,9 @@ public class Wire implements Drawable, Moveable {
         graphic.drawLine(p1, p2, style);
 
         if (p1Dot)
-            graphic.drawCircle(p1.sub(RAD), p1.add(RAD), style);
+            graphic.drawCircle(p1.sub(r), p1.add(r), style);
         if (p2Dot)
-            graphic.drawCircle(p2.sub(RAD), p2.add(RAD), style);
+            graphic.drawCircle(p2.sub(r), p2.add(r), style);
     }
 
     @Override

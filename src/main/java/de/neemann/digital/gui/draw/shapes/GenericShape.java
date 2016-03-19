@@ -1,6 +1,5 @@
 package de.neemann.digital.gui.draw.shapes;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.parts.IOState;
@@ -74,12 +73,12 @@ public class GenericShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver, Model model) {
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         return null;
     }
 
     @Override
-    public void drawTo(Graphic graphic, IOState ioState) {
+    public void drawTo(Graphic graphic) {
         int max = Math.max(inputs.length, outputs.length);
         int height = (max - 1) * SIZE + SIZE2;
 
@@ -107,9 +106,9 @@ public class GenericShape implements Shape {
         if (showLabels) {
             for (Pin p : getPins()) {
                 if (p.getDirection() == Pin.Direction.input)
-                    graphic.drawText(p.getPos().add(2, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPEPIN);
+                    graphic.drawText(p.getPos().add(2, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
                 else
-                    graphic.drawText(p.getPos().add(-2, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPEPIN);
+                    graphic.drawText(p.getPos().add(-2, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
             }
         }
         Vector pos = new Vector(SIZE * width / 2, -SIZE2 + 2);

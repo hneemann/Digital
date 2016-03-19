@@ -13,7 +13,7 @@ public class Model {
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
     private int maxCounter = 1000;
-    private Observer observer;
+    private boolean isInitialized = false;
 
     public Model() {
         this.nodes = new ArrayList<>();
@@ -26,10 +26,37 @@ public class Model {
     }
 
     public <T extends Node> T add(T node) {
+        if (isInitialized)
+            throw new RuntimeException("is already initialized!");
+
         nodes.add(node);
         node.setModel(this);
         return node;
     }
+
+    /**
+     * Needs to be called after all nodes are added.
+     * If not called it es called automatically.
+     * Calles <code>init(true);</code>
+     *
+     * @throws NodeException
+     */
+    public void init() throws NodeException {
+        init(true);
+    }
+
+    /**
+     * Needs to be called after all nodes are added.
+     *
+     * @param noise setup with ore without noise
+     * @throws NodeException
+     */
+    public void init(boolean noise) throws NodeException {
+        nodesToUpdateNext.addAll(nodes);
+        isInitialized = true;
+        doStep(noise);
+    }
+
 
     public void addToUpdateList(Node node) {
         nodesToUpdateNext.add(node);
@@ -41,16 +68,30 @@ public class Model {
 
     public void doStep(boolean noise) throws NodeException {
         int counter = 0;
-        while (!doMicroStep(noise)) {
-            if (observer != null)
-                observer.hasChanged();
+        while (needsUpdate()) {
+            doMicroStep(noise);
             if (counter++ > maxCounter) {
                 throw new NodeException("seemsToOscillate");
             }
         }
     }
 
-    public boolean doMicroStep(boolean noise) throws NodeException {
+    /**
+     * Performs a micro step in the model
+     * <p/>
+     * Typical usage is a loop like:
+     * <pre>
+     * while (needsUpdate())
+     *     doMicroStep(noise);
+     * </pre>
+     *
+     * @param noise
+     * @throws NodeException
+     */
+    public void doMicroStep(boolean noise) throws NodeException {
+        if (!isInitialized)
+            throw new RuntimeException("notInitialized!");
+
         version++;
         // swap lists
         ArrayList<Node> nl = nodesToUpdateNext;
@@ -73,19 +114,19 @@ public class Model {
                 n.writeOutputs();
             }
         }
-        return nodesToUpdateNext.isEmpty();
     }
 
-    public void init() throws NodeException {
-        init(false);
+    /**
+     * Asks if an update is necessary.
+     * <p/>
+     * Typical usage is a loop like:
+     * <pre>
+     * while (needsUpdate())
+     *     doMicroStep(noise);
+     * </pre>
+     */
+    public boolean needsUpdate() {
+        return !nodesToUpdateNext.isEmpty();
     }
 
-    public void init(boolean noise) throws NodeException {
-        nodesToUpdateNext.addAll(nodes);
-        doStep(noise);
-    }
-
-    public void setObserver(Observer observer) {
-        this.observer = observer;
-    }
 }

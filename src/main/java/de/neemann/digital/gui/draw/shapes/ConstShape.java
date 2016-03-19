@@ -1,6 +1,5 @@
 package de.neemann.digital.gui.draw.shapes;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Orientation;
@@ -16,6 +15,7 @@ import de.neemann.digital.gui.draw.parts.Pins;
 public class ConstShape implements Shape {
 
     private long value;
+    private IOState ioState;
 
     public ConstShape(long value) {
         this.value = value;
@@ -27,12 +27,13 @@ public class ConstShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver, Model model) {
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+        this.ioState = ioState;
         return null;
     }
 
     @Override
-    public void drawTo(Graphic graphic, IOState ioState) {
+    public void drawTo(Graphic graphic) {
         Vector textPos = new Vector(-3, 0);
         if (ioState != null)
             value = ioState.getOutput(0).getValue();

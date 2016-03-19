@@ -38,24 +38,35 @@ public class ModelDescription {
     /**
      * Creates the model
      *
-     * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
      * @return the model
      * @throws PinException
      * @throws NodeException
      */
-    public Model createModel(Observer guiObserver) throws PinException, NodeException {
+    public Model createModel() throws PinException, NodeException {
         for (Net n : netList)
             n.interconnect();
 
         Model m = new Model();
 
         for (ModelEntry e : entries)
-            e.applyInputs(guiObserver, m);
+            e.applyInputs();
 
         for (ModelEntry e : entries)
             e.getPart().registerNodes(m);
 
         return m;
+    }
+
+    /**
+     * Needs to be called after create model is called!
+     * Connects the gui to the model
+     *
+     * @param guiObserver
+     */
+    public void connectToGui(Observer guiObserver) {
+        for (ModelEntry e : entries)
+            e.connectToGui(guiObserver);
+
     }
 
 }

@@ -22,16 +22,16 @@ public class Circuit implements Drawable {
     }
 
     @Override
-    public void drawTo(Graphic graphic, IOState ioState) {
+    public void drawTo(Graphic graphic) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
             dotsPresent = true;
         }
 
         for (Wire w : wires)
-            w.drawTo(graphic, ioState);
+            w.drawTo(graphic);
         for (VisualPart p : visualParts)
-            p.drawTo(graphic, ioState);
+            p.drawTo(graphic);
     }
 
     public void add(VisualPart visualPart) {
@@ -112,7 +112,7 @@ public class Circuit implements Drawable {
 
     public void clearState() {
         for (VisualPart vp : visualParts)
-            vp.setState(null, null, null);
+            vp.setState(null, null);
         for (Wire w : wires)
             w.setValue(null);
     }

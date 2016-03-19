@@ -13,5 +13,5 @@ import de.neemann.digital.gui.draw.parts.IOState;
  * @author hneemann
  */
 public interface Interactor {
-    void interact(CircuitComponent cc, Vector pos, IOState ioState);
+    void clicked(CircuitComponent cc, Vector pos, IOState ioState);
 }

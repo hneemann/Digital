@@ -1,7 +1,5 @@
 package de.neemann.digital.gui.draw.shapes;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.*;
@@ -19,6 +17,7 @@ public class InputShape implements Shape {
 
     private final int bits;
     private final String label;
+    private IOState ioState;
 
     public InputShape(int bits, String label) {
         this.bits = bits;
@@ -31,35 +30,21 @@ public class InputShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver, Model model) {
-        ioState.getOutput(0).addObserver(new Observer() {
-            public long lastValue;
-
-            @Override
-            public void hasChanged() {
-                long value = ioState.getOutput(0).getValue();
-                if (lastValue != value) {
-                    lastValue = value;
-                    guiObserver.hasChanged();
-                }
-            }
-        });
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+        this.ioState = ioState;
+        ioState.getOutput(0).addObserver(guiObserver);
         return new Interactor() {
             @Override
-            public void interact(CircuitComponent cc, Vector pos, IOState ioState) {
+            public void clicked(CircuitComponent cc, Vector pos, IOState ioState) {
+                // toggle the output
                 long v = ioState.getOutput(0).getValue();
                 ioState.getOutput(0).setValue(1 - v);
-                try {
-                    model.doStep();
-                } catch (NodeException e) {
-                    e.printStackTrace();
-                }
             }
         };
     }
 
     @Override
-    public void drawTo(Graphic graphic, IOState ioState) {
+    public void drawTo(Graphic graphic) {
         Style style = Style.NORMAL;
         if (ioState != null) {
             if (ioState.getOutput(0).getValue() != 0)
