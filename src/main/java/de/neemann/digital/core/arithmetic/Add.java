@@ -14,7 +14,7 @@ import de.neemann.digital.core.part.PartTypeDescription;
  */
 public class Add extends Node implements Part {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Add.class, "a", "b", "c_in").addAttribute(AttributeKey.Bits);
+    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Add.class, "a", "b", "c_i").addAttribute(AttributeKey.Bits);
     private final int bits;
     private final ObservableValue sum;
     private final ObservableValue c_out;
@@ -28,8 +28,8 @@ public class Add extends Node implements Part {
         bits = attributes.get(AttributeKey.Bits);
         this.mask = 1 << bits;
 
-        this.sum = new ObservableValue("sum", bits);
-        this.c_out = new ObservableValue("c_out", 1);
+        this.sum = new ObservableValue("s", bits);
+        this.c_out = new ObservableValue("c_o", 1);
     }
 
     @Override

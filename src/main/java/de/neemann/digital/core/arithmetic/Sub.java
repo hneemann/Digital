@@ -10,7 +10,7 @@ import de.neemann.digital.core.part.PartTypeDescription;
  */
 public class Sub extends Add {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Sub.class, "a", "b", "c_in").addAttribute(AttributeKey.Bits);
+    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Sub.class, "a", "b", "c_i").addAttribute(AttributeKey.Bits);
 
     public Sub(PartAttributes attributes) {
         super(attributes);

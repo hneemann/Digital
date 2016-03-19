@@ -43,9 +43,9 @@ public final class ShapeFactory {
         map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", XOr.DESCRIPTION, false));
         map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", XNOr.DESCRIPTION, true));
 
-        map.put(Add.DESCRIPTION.getName(), new CreatorSimple("+", Add.DESCRIPTION, false));
-        map.put(Sub.DESCRIPTION.getName(), new CreatorSimple("-", Sub.DESCRIPTION, false));
-        map.put(Mul.DESCRIPTION.getName(), new CreatorSimple("*", Mul.DESCRIPTION, false));
+        map.put(Add.DESCRIPTION.getName(), attr -> new GenericShape("+", Add.DESCRIPTION.getInputNames(attr), outputNames(Add.DESCRIPTION, attr), true));
+        map.put(Sub.DESCRIPTION.getName(), attr -> new GenericShape("-", Sub.DESCRIPTION.getInputNames(attr), outputNames(Sub.DESCRIPTION, attr), true));
+        map.put(Mul.DESCRIPTION.getName(), attr -> new GenericShape("*", Mul.DESCRIPTION.getInputNames(attr), outputNames(Mul.DESCRIPTION, attr), true));
 
 
         map.put(In.DESCRIPTION.getName(), attr -> new InputShape(attr.get(AttributeKey.Label)));

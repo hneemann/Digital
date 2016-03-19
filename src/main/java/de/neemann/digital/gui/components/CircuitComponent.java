@@ -154,9 +154,9 @@ public class CircuitComponent extends JComponent implements Observer {
         if (gr.getMin() != null) {
 
             Vector delta = gr.getMax().sub(gr.getMin());
-            double sx = ((double) getWidth()) / delta.x;
-            double sy = ((double) getHeight()) / delta.y;
-            double s = Math.min(sx, sy) * 0.8;
+            double sx = ((double) getWidth()) / delta.x * 0.8;
+            double sy = ((double) getHeight()) / delta.y * 0.95;
+            double s = Math.min(sx, sy);
 
             transform.setToScale(s, s);  // set Scaling
 
