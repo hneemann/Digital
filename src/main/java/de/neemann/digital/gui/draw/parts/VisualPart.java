@@ -165,4 +165,13 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
         shape = null;
         minMax = null;
     }
+
+    @Override
+    public String toString() {
+        String lab = partAttributes.get(AttributeKey.Label);
+        if (lab != null && lab.length() > 0)
+            return partName + "(" + lab + ")";
+        else
+            return partName;
+    }
 }

@@ -7,7 +7,6 @@ import de.neemann.digital.core.arithmetic.Sub;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
-import de.neemann.digital.core.io.LED;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.core.part.PartAttributes;
@@ -42,9 +41,10 @@ public final class ShapeFactory {
 
 
         map.put(In.DESCRIPTION.getName(), attr -> new InputShape(attr.get(AttributeKey.Bits), attr.get(AttributeKey.Label)));
-        map.put(Out.DESCRIPTION.getName(), attr -> new OutputShape(attr.get(AttributeKey.Bits), attr.get(AttributeKey.Label)));
         map.put(Const.DESCRIPTION.getName(), attr -> new ConstShape(attr.get(AttributeKey.Value)));
-        map.put(LED.DESCRIPTION.getName(), attr -> new LEDShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
+        map.put(Out.DESCRIPTION.getName(), attr -> new OutputShape(attr.get(AttributeKey.Bits), attr.get(AttributeKey.Label)));
+        map.put(Out.LEDDESCRIPTION.getName(), attr -> new LEDShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
+        map.put(Out.PROBEDESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
     }
 
     public PartLibrary setLibrary(PartLibrary library) {

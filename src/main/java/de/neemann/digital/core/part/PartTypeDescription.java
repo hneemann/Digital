@@ -17,7 +17,11 @@ public class PartTypeDescription {
     private final ArrayList<AttributeKey> attributeList;
 
     public PartTypeDescription(Class<?> clazz, String... inputNames) {
-        this(clazz.getSimpleName(), new PartFactory() {
+        this(clazz.getSimpleName(), clazz, inputNames);
+    }
+
+    public PartTypeDescription(String name, Class<?> clazz, String... inputNames) {
+        this(name, new PartFactory() {
             @Override
             public Part create(PartAttributes attributes) {
                 try {

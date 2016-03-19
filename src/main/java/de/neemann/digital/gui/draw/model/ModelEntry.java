@@ -33,11 +33,11 @@ public class ModelEntry {
             for (int i = 0; i < inputNames.length; i++) {
                 Pin pin = ins.get(inputNames[i]);
                 if (pin == null)
-                    throw new PinException("pin " + inputNames[i] + " not found!");
+                    throw new PinException("pin '" + inputNames[i] + "' at " + visualPart + " not found!");
 
                 ObservableValue value = pin.getValue();
                 if (value == null)
-                    throw new PinException("no value set for " + inputNames[i] + "!");
+                    throw new PinException("no value set for '" + inputNames[i] + "' at " + visualPart + "!");
 
                 inputs[i] = value;
             }

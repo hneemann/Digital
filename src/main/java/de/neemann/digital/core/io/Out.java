@@ -17,6 +17,15 @@ public class Out implements Part {
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);
 
+    public static final PartTypeDescription PROBEDESCRIPTION = new PartTypeDescription("Probe", Out.class, "in")
+            .addAttribute(AttributeKey.Bits)
+            .addAttribute(AttributeKey.Label);
+
+    public static final PartTypeDescription LEDDESCRIPTION = new PartTypeDescription("LED", Out.class, "in")
+            .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Color);
+
+
     private ObservableValue value;
 
     public Out(PartAttributes attributes) {
