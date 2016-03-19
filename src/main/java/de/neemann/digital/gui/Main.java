@@ -18,6 +18,7 @@ import de.neemann.digital.gui.draw.parts.Wire;
 import de.neemann.digital.gui.draw.shapes.ShapeFactory;
 import de.process.utils.gui.ClosingWindowListener;
 import de.process.utils.gui.ErrorMessage;
+import de.process.utils.gui.InfoDialog;
 import de.process.utils.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -35,6 +36,7 @@ import java.util.prefs.Preferences;
  */
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Preferences prefs = Preferences.userRoot().node("dig");
+    private static final String MESSAGE = "Digital\n\nA simple simulator for digital circuits.\nWritten bei H.Neemann in 2016";
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private final PartLibrary library = ShapeFactory.INSTANCE.setLibrary(new PartLibrary());
@@ -178,6 +180,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         setJMenuBar(bar);
+        InfoDialog.getInstance().addToFrame(this, MESSAGE);
     }
 
     private static XStream getxStream() {
