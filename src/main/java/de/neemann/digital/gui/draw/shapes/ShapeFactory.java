@@ -48,9 +48,9 @@ public final class ShapeFactory {
         map.put(Mul.DESCRIPTION.getName(), new CreatorSimple("*", Mul.DESCRIPTION, false));
 
 
-        map.put(In.DESCRIPTION.getName(), attr -> new InputShape(attr.get(AttributeKey.Bits), attr.get(AttributeKey.Label)));
+        map.put(In.DESCRIPTION.getName(), attr -> new InputShape(attr.get(AttributeKey.Label)));
         map.put(Const.DESCRIPTION.getName(), attr -> new ConstShape(attr.get(AttributeKey.Value)));
-        map.put(Out.DESCRIPTION.getName(), attr -> new OutputShape(attr.get(AttributeKey.Bits), attr.get(AttributeKey.Label)));
+        map.put(Out.DESCRIPTION.getName(), attr -> new OutputShape(attr.get(AttributeKey.Label)));
         map.put(Out.LEDDESCRIPTION.getName(), attr -> new LEDShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
         map.put(Out.PROBEDESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
     }

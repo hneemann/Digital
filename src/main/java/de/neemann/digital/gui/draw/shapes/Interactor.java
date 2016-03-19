@@ -1,8 +1,9 @@
 package de.neemann.digital.gui.draw.shapes;
 
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.parts.IOState;
+
+import java.awt.*;
 
 /**
  * The VisualParts Interactor instance is called if the part is clicked
@@ -13,5 +14,5 @@ import de.neemann.digital.gui.draw.parts.IOState;
  * @author hneemann
  */
 public interface Interactor {
-    void clicked(CircuitComponent cc, Vector pos, IOState ioState);
+    void clicked(CircuitComponent cc, Point pos, IOState ioState);
 }

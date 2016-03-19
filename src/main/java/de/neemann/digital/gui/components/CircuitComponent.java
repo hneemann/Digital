@@ -383,7 +383,9 @@ public class CircuitComponent extends JComponent implements Observer {
             Vector pos = getPosVector(e);
             for (VisualPart vp : circuit.getParts())
                 if (vp.matches(pos)) {
-                    vp.clicked(CircuitComponent.this, pos);
+                    Point p = new Point(e.getX(), e.getY());
+                    SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+                    vp.clicked(CircuitComponent.this, p);
                     if (callOnManualChange != null)
                         callOnManualChange.hasChanged();
                 }

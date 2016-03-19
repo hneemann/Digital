@@ -165,7 +165,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
             interactor = getShape().applyStateMonitor(ioState, guiObserver);
     }
 
-    public void clicked(CircuitComponent cc, Vector pos) {
+    public void clicked(CircuitComponent cc, Point pos) {
         if (interactor != null)
             interactor.clicked(cc, pos, ioState);
     }

@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Orientation;
@@ -16,12 +17,10 @@ public class OutputShape implements Shape {
     public static final int SIZE = 8;
     public static final Vector RAD = new Vector(SIZE - 3, SIZE - 3);
     public static final Vector RADL = new Vector(SIZE, SIZE);
-    private final int bits;
     private final String label;
     private IOState ioState;
 
-    public OutputShape(int bits, String label) {
-        this.bits = bits;
+    public OutputShape(String label) {
         this.label = label;
     }
 
@@ -41,10 +40,17 @@ public class OutputShape implements Shape {
     public void drawTo(Graphic graphic) {
         Style style = Style.NORMAL;
         if (ioState != null) {
-            if (ioState.getInput(0).getValue() != 0)
-                style = Style.WIRE_HIGH;
-            else
-                style = Style.WIRE_LOW;
+            ObservableValue value = ioState.getInput(0);
+            long val = value.getValue();
+            if (value.getBits() == 1) {
+                if (val != 0)
+                    style = Style.WIRE_HIGH;
+                else
+                    style = Style.WIRE_LOW;
+            } else {
+                Vector textPos = new Vector(2 + SIZE, -2 - SIZE);
+                graphic.drawText(textPos, textPos.add(1, 0), Long.toHexString(val), Orientation.CENTERBOTTOM, Style.NORMAL);
+            }
         }
 
         Vector center = new Vector(2 + SIZE, 0);

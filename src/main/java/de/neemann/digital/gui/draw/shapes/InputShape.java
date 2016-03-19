@@ -1,11 +1,16 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.components.SingleValueDialog;
 import de.neemann.digital.gui.draw.graphics.*;
+import de.neemann.digital.gui.draw.graphics.Polygon;
 import de.neemann.digital.gui.draw.parts.IOState;
 import de.neemann.digital.gui.draw.parts.Pin;
 import de.neemann.digital.gui.draw.parts.Pins;
+
+import java.awt.*;
 
 import static de.neemann.digital.gui.draw.shapes.OutputShape.RAD;
 import static de.neemann.digital.gui.draw.shapes.OutputShape.SIZE;
@@ -15,12 +20,10 @@ import static de.neemann.digital.gui.draw.shapes.OutputShape.SIZE;
  */
 public class InputShape implements Shape {
 
-    private final int bits;
     private final String label;
     private IOState ioState;
 
-    public InputShape(int bits, String label) {
-        this.bits = bits;
+    public InputShape(String label) {
         this.label = label;
     }
 
@@ -35,10 +38,13 @@ public class InputShape implements Shape {
         ioState.getOutput(0).addObserver(guiObserver);
         return new Interactor() {
             @Override
-            public void clicked(CircuitComponent cc, Vector pos, IOState ioState) {
-                // toggle the output
-                long v = ioState.getOutput(0).getValue();
-                ioState.getOutput(0).setValue(1 - v);
+            public void clicked(CircuitComponent cc, Point pos, IOState ioState) {
+                ObservableValue value = ioState.getOutput(0);
+                if (value.getBits() == 1) {
+                    value.setValue(1 - value.getValue());
+                } else {
+                    SingleValueDialog.editValue(pos, value);
+                }
             }
         };
     }
@@ -47,10 +53,17 @@ public class InputShape implements Shape {
     public void drawTo(Graphic graphic) {
         Style style = Style.NORMAL;
         if (ioState != null) {
-            if (ioState.getOutput(0).getValue() != 0)
-                style = Style.WIRE_HIGH;
-            else
-                style = Style.WIRE_LOW;
+            ObservableValue value = ioState.getOutput(0);
+            long val = value.getValue();
+            if (value.getBits() == 1) {
+                if (val != 0)
+                    style = Style.WIRE_HIGH;
+                else
+                    style = Style.WIRE_LOW;
+            } else {
+                Vector textPos = new Vector(-2 - SIZE, -2 - SIZE);
+                graphic.drawText(textPos, textPos.add(1, 0), Long.toHexString(val), Orientation.CENTERBOTTOM, Style.NORMAL);
+            }
         }
 
         Vector center = new Vector(-2 - SIZE, 0);

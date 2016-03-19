@@ -28,7 +28,8 @@ public class Wire implements Drawable, Moveable {
         Style style = Style.WIRE;
 
         Vector r = RAD;
-        if (value != null) {
+
+        if (value != null && value.getBits() == 1) {
             r = RAD_RUNNING;
             if (value.getValue() != 0)
                 style = Style.WIRE_HIGH;
