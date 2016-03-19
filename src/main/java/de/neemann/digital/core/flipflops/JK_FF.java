@@ -50,11 +50,11 @@ public class JK_FF extends Node implements Part {
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
         jVal = inputs[0];
-        jVal.addListener(this);
+        jVal.addObserver(this);
         clockVal = inputs[1];
-        clockVal.addListener(this);
+        clockVal.addObserver(this);
         kVal = inputs[2];
-        kVal.addListener(this);
+        kVal.addObserver(this);
 
         if (jVal.getBits() != 1)
             throw new BitsException("wrongBitCount", jVal);

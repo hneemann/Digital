@@ -23,7 +23,7 @@ public class Wire implements Drawable, Moveable {
     }
 
     @Override
-    public void drawTo(Graphic graphic, State state) {
+    public void drawTo(Graphic graphic, IOState ioState) {
         Style style = Style.FILLED;
         if (value != null) {
             if (value.getValue() != 0)

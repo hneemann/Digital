@@ -13,7 +13,7 @@ public class Model {
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
     private int maxCounter = 1000;
-    private Listener listener;
+    private Observer observer;
 
     public Model() {
         this.nodes = new ArrayList<>();
@@ -42,8 +42,8 @@ public class Model {
     public void doStep(boolean noise) throws NodeException {
         int counter = 0;
         while (!doMicroStep(noise)) {
-            if (listener != null)
-                listener.needsUpdate();
+            if (observer != null)
+                observer.hasChanged();
             if (counter++ > maxCounter) {
                 throw new NodeException("seemsToOscillate");
             }
@@ -85,7 +85,7 @@ public class Model {
         doStep(noise);
     }
 
-    public void setListener(Listener listener) {
-        this.listener = listener;
+    public void setObserver(Observer observer) {
+        this.observer = observer;
     }
 }

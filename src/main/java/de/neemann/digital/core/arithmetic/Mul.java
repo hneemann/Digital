@@ -40,9 +40,9 @@ public class Mul extends Node implements Part {
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
         a = inputs[0];
-        a.addListener(this);
+        a.addObserver(this);
         b = inputs[1];
-        b.addListener(this);
+        b.addObserver(this);
     }
 
     @Override

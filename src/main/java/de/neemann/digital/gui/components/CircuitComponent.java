@@ -1,6 +1,6 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.Listener;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.graphics.Polygon;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * @author hneemann
  */
-public class CircuitComponent extends JComponent implements Listener {
+public class CircuitComponent extends JComponent implements Observer {
 
     private static final String delAction = "myDelAction";
     private final PartLibrary library;
@@ -132,7 +132,7 @@ public class CircuitComponent extends JComponent implements Listener {
     }
 
     @Override
-    public void needsUpdate() {
+    public void hasChanged() {
         repaint();
     }
 
@@ -235,6 +235,7 @@ public class CircuitComponent extends JComponent implements Listener {
                     partToInsert.setPos(raster(partToInsert.getPos()));
                     if (insert)
                         circuit.add(partToInsert);
+                    circuit.modified();
                     repaint();
                     partToInsert = null;
                 }
@@ -248,6 +249,7 @@ public class CircuitComponent extends JComponent implements Listener {
                             Point p = new Point(e.getX(), e.getY());
                             SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
                             new AttributeDialog(p, list, vp.getPartAttributes()).showDialog();
+                            circuit.modified();
                             repaint();
                         }
                     }
@@ -316,6 +318,7 @@ public class CircuitComponent extends JComponent implements Listener {
 
                     for (Moveable m : elementsToMove)
                         m.move(delta);
+                    circuit.modified();
 
                     corner1.move(delta);
                     corner2.move(delta);

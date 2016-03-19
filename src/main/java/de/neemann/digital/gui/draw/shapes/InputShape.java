@@ -1,13 +1,13 @@
 package de.neemann.digital.gui.draw.shapes;
 
-import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.*;
+import de.neemann.digital.gui.draw.parts.IOState;
 import de.neemann.digital.gui.draw.parts.Pin;
 import de.neemann.digital.gui.draw.parts.Pins;
-import de.neemann.digital.gui.draw.parts.State;
 
 import static de.neemann.digital.gui.draw.shapes.OutputShape.RAD;
 import static de.neemann.digital.gui.draw.shapes.OutputShape.SIZE;
@@ -31,24 +31,24 @@ public class InputShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(State state, Listener listener, Model model) {
-        state.getOutput(0).addListener(new Listener() {
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver, Model model) {
+        ioState.getOutput(0).addObserver(new Observer() {
             public long lastValue;
 
             @Override
-            public void needsUpdate() {
-                long value = state.getOutput(0).getValue();
+            public void hasChanged() {
+                long value = ioState.getOutput(0).getValue();
                 if (lastValue != value) {
                     lastValue = value;
-                    listener.needsUpdate();
+                    guiObserver.hasChanged();
                 }
             }
         });
         return new Interactor() {
             @Override
-            public void interact(CircuitComponent cc, Vector pos, State state) {
-                long v = state.getOutput(0).getValue();
-                state.getOutput(0).setValue(1 - v);
+            public void interact(CircuitComponent cc, Vector pos, IOState ioState) {
+                long v = ioState.getOutput(0).getValue();
+                ioState.getOutput(0).setValue(1 - v);
                 try {
                     model.doStep();
                 } catch (NodeException e) {
@@ -59,10 +59,10 @@ public class InputShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, State state) {
+    public void drawTo(Graphic graphic, IOState ioState) {
         Style style = Style.NORMAL;
-        if (state != null) {
-            if (state.getOutput(0).getValue() != 0)
+        if (ioState != null) {
+            if (ioState.getOutput(0).getValue() != 0)
                 style = Style.WIRE_HIGH;
             else
                 style = Style.WIRE_LOW;

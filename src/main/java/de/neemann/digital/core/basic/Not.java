@@ -39,7 +39,7 @@ public class Not extends Node implements Part {
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
         input = inputs[0];
-        input.addListener(this);
+        input.addObserver(this);
     }
 
     @Override

@@ -3,8 +3,8 @@ package de.neemann.digital.gui;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.core.part.PartAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
@@ -132,9 +132,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                     ModelDescription m = new ModelDescription(circuitComponent.getCircuit(), library);
                     Model model = m.createModel(circuitComponent);
                     if (microStep.isSelected()) {
-                        model.setListener(new Listener() {
+                        model.setObserver(new Observer() {
                             @Override
-                            public void needsUpdate() {
+                            public void hasChanged() {
                                 try {
                                     Thread.sleep(2000);
                                 } catch (InterruptedException e1) {

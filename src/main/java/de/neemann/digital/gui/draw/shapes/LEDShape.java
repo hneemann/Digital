@@ -1,14 +1,14 @@
 package de.neemann.digital.gui.draw.shapes;
 
-import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Orientation;
 import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.gui.draw.parts.IOState;
 import de.neemann.digital.gui.draw.parts.Pin;
 import de.neemann.digital.gui.draw.parts.Pins;
-import de.neemann.digital.gui.draw.parts.State;
 
 import java.awt.*;
 
@@ -34,16 +34,16 @@ public class LEDShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(State state, Listener listener, Model model) {
-        state.getInput(0).addListener(new Listener() {
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver, Model model) {
+        ioState.getInput(0).addObserver(new Observer() {
             public long lastValue = 0;
 
             @Override
-            public void needsUpdate() {
-                long value = state.getInput(0).getValue();
+            public void hasChanged() {
+                long value = ioState.getInput(0).getValue();
                 if (lastValue != value) {
                     lastValue = value;
-                    listener.needsUpdate();
+                    guiObserver.hasChanged();
                 }
             }
         });
@@ -51,10 +51,10 @@ public class LEDShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, State state) {
+    public void drawTo(Graphic graphic, IOState ioState) {
         boolean fill = false;
-        if (state != null)
-            fill = state.getInput(0).getValue() != 0;
+        if (ioState != null)
+            fill = ioState.getInput(0).getValue() != 0;
 
         Vector center = new Vector(2 + SIZE, 0);
         graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);

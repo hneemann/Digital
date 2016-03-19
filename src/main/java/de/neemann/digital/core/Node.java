@@ -3,7 +3,7 @@ package de.neemann.digital.core;
 /**
  * @author hneemann
  */
-public abstract class Node implements Listener {
+public abstract class Node implements Observer {
 
     private Model model;
     private int version;
@@ -13,7 +13,7 @@ public abstract class Node implements Listener {
     }
 
     @Override
-    public void needsUpdate() {
+    public void hasChanged() {
         if (model == null)
             throw new RuntimeException("noModelSet");
 

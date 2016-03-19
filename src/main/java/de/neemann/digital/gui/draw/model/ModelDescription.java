@@ -1,8 +1,8 @@
 package de.neemann.digital.gui.draw.model;
 
-import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.part.Part;
 import de.neemann.digital.core.part.PartTypeDescription;
 import de.neemann.digital.gui.draw.library.PartLibrary;
@@ -35,14 +35,22 @@ public class ModelDescription {
         }
     }
 
-    public Model createModel(Listener listener) throws PinException, NodeException {
+    /**
+     * Creates the model
+     *
+     * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
+     * @return the model
+     * @throws PinException
+     * @throws NodeException
+     */
+    public Model createModel(Observer guiObserver) throws PinException, NodeException {
         for (Net n : netList)
             n.interconnect();
 
         Model m = new Model();
 
         for (ModelEntry e : entries)
-            e.applyInputs(listener, m);
+            e.applyInputs(guiObserver, m);
 
         for (ModelEntry e : entries)
             e.getPart().registerNodes(m);

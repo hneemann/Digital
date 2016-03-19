@@ -27,7 +27,7 @@ public abstract class FanIn extends Node implements Part {
     private void addInput(ObservableValue value) throws NodeException {
         output.checkBits(value);
         inputs.add(value);
-        value.addListener(this);
+        value.addObserver(this);
     }
 
     @Override

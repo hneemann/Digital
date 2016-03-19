@@ -1,14 +1,14 @@
 package de.neemann.digital.gui.draw.shapes;
 
-import de.neemann.digital.core.Listener;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Orientation;
 import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.gui.draw.parts.IOState;
 import de.neemann.digital.gui.draw.parts.Pin;
 import de.neemann.digital.gui.draw.parts.Pins;
-import de.neemann.digital.gui.draw.parts.State;
 
 /**
  * @author hneemann
@@ -27,12 +27,12 @@ public class ProbeShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(State state, Listener listener, Model model) {
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver, Model model) {
         return null;
     }
 
     @Override
-    public void drawTo(Graphic graphic, State state) {
+    public void drawTo(Graphic graphic, IOState ioState) {
         graphic.drawText(new Vector(2, -1), new Vector(3, -1), label, Orientation.LEFTBOTTOM, Style.NORMAL);
     }
 }

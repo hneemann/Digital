@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ObservableValue extends Value {
 
-    private final ArrayList<Listener> listeners;
+    private final ArrayList<Observer> observers;
     private final String name;
     private final long mask;
 
@@ -19,20 +19,20 @@ public class ObservableValue extends Value {
         super(bits, highZ);
         mask = (1L << bits) - 1;
         this.name = name;
-        listeners = new ArrayList<>();
+        observers = new ArrayList<>();
     }
 
-    public void addListener(Listener listener) {
-        listeners.add(listener);
+    public void addObserver(Observer observer) {
+        observers.add(observer);
     }
 
-    public void removeListener(Listener listener) {
-        listeners.remove(listener);
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
     }
 
     public void hasChanged() {
-        for (Listener l : listeners) {
-            l.needsUpdate();
+        for (Observer l : observers) {
+            l.hasChanged();
         }
     }
 
