@@ -12,6 +12,8 @@ public interface Shape extends Drawable {
 
     /**
      * Puts the pins name and the pins x-y-position together!
+     * This information is used to calculate the models connections
+     * from the wiring in the circuit.
      *
      * @return the pins
      */

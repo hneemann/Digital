@@ -8,6 +8,9 @@ import de.neemann.digital.gui.draw.parts.Pins;
 import de.neemann.digital.gui.draw.parts.State;
 
 /**
+ * Universal Shape. Used for most components.
+ * Shows a simple Box with inputs at the left and outputs at the right.
+ *
  * @author hneemann
  */
 public class GenericShape implements Shape {

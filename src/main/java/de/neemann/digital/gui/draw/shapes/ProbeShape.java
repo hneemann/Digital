@@ -15,7 +15,6 @@ import de.neemann.digital.gui.draw.parts.State;
  */
 public class ProbeShape implements Shape {
 
-
     private final String label;
 
     public ProbeShape(String label) {
