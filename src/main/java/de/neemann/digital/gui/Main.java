@@ -52,7 +52,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         circuitComponent = new CircuitComponent(cr, library);
         String name = prefs.get("name", null);
         if (name != null) {
-            loadFile(new File(name));
+            SwingUtilities.invokeLater(() -> loadFile(new File(name)));
         }
 
         getContentPane().add(circuitComponent);
@@ -199,6 +199,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private void createAndStartModel() {
         try {
+            if (modelDescription != null)
+                modelDescription.highLight(null);
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
             modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
             model = modelDescription.createModel();
@@ -228,7 +230,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private void loadFile(File filename) {
         XStream xStream = getxStream();
         try (FileReader in = new FileReader(filename)) {
-            circuitComponent.setCircuit((Circuit) xStream.fromXML(in));
+            Circuit circuit = (Circuit) xStream.fromXML(in);
+            circuitComponent.setCircuit(circuit);
             setFilename(filename);
         } catch (Exception e) {
             new ErrorMessage("error writing a file").addCause(e).show();

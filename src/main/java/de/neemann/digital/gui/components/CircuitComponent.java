@@ -33,9 +33,8 @@ public class CircuitComponent extends JComponent implements Observer {
     private Observer callOnManualChange;
 
     public CircuitComponent(Circuit aCircuit, PartLibrary library) {
-        this.circuit = aCircuit;
         this.library = library;
-        setModeAndReset(Mode.part);
+        setCircuit(aCircuit);
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
         getInputMap().put(delKey, delAction);
@@ -151,6 +150,26 @@ public class CircuitComponent extends JComponent implements Observer {
 
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
+
+        GraphicMinMax gr = new GraphicMinMax();
+        circuit.drawTo(gr);
+        if (gr.getMin() != null) {
+
+            Vector delta = gr.getMax().sub(gr.getMin());
+            double sx = ((double) getWidth()) / delta.x;
+            double sy = ((double) getHeight()) / delta.y;
+            double s = Math.min(sx, sy) * 0.8;
+
+            transform.setToScale(s, s);  // set Scaling
+
+            Vector center = gr.getMin().add(gr.getMax()).div(2);
+            transform.translate(-center.x, -center.y);  // move drawing center to (0,0)
+
+            Vector dif = new Vector(getWidth(), getHeight()).div(2);
+            transform.translate(dif.x / s, dif.y / s);  // move drawing center to frame center
+        } else
+            transform = new AffineTransform();
+
         setModeAndReset(Mode.part);
     }
 
