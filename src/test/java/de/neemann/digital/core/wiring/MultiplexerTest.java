@@ -20,7 +20,7 @@ public class MultiplexerTest extends TestCase {
         ObservableValue d = new ObservableValue("d", 4);
         ObservableValue sel = new ObservableValue("sel", 2);
         FanIn out = model.add(new Multiplexer(4, 2));
-        out.setInputs(sel, a, b, c, d);
+        out.setInputs(a, b, c, d, sel);
 
 
         TestExecuter te = new TestExecuter(model).setInputs(a, b, c, d, sel).setOutputs(out.getOutputs());
