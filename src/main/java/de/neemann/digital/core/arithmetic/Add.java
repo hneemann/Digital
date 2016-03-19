@@ -53,12 +53,9 @@ public class Add extends Node implements Part {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        a = inputs[0];
-        a.addObserver(this);
-        b = inputs[1];
-        b.addObserver(this);
-        c_in = inputs[2];
-        c_in.addObserver(this);
+        a = inputs[0].addObserver(this);
+        b = inputs[1].addObserver(this);
+        c_in = inputs[2].addObserver(this);
 
         if (a.getBits() != bits)
             throw new BitsException("wrongBitCount", a);

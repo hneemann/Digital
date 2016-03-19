@@ -42,8 +42,7 @@ public class Delay extends Node implements Part {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        input = inputs[0];
-        input.addObserver(this);
+        input = inputs[0].addObserver(this);
 
         if (input.getBits() != bits)
             throw new BitsException("wrongBitCountInDelay", input, output);

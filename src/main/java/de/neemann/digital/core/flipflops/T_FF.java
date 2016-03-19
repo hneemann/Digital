@@ -42,8 +42,7 @@ public class T_FF extends Node implements Part {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        clockVal = inputs[0];
-        clockVal.addObserver(this);
+        clockVal = inputs[0].addObserver(this);
 
         if (clockVal.getBits() != 1)
             throw new BitsException("carryIsABit", clockVal);

@@ -48,12 +48,9 @@ public class RS_FF extends Node implements Part {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        jVal = inputs[0];
-        jVal.addObserver(this);
-        clockVal = inputs[1];
-        clockVal.addObserver(this);
-        kVal = inputs[2];
-        kVal.addObserver(this);
+        jVal = inputs[0].addObserver(this);
+        clockVal = inputs[1].addObserver(this);
+        kVal = inputs[2].addObserver(this);
 
         if (jVal.getBits() != 1)
             throw new BitsException("wrongBitCount", jVal);

@@ -22,8 +22,9 @@ public class ObservableValue extends Value {
         observers = new ArrayList<>();
     }
 
-    public void addObserver(Observer observer) {
+    public ObservableValue addObserver(Observer observer) {
         observers.add(observer);
+        return this;
     }
 
     public void removeObserver(Observer observer) {

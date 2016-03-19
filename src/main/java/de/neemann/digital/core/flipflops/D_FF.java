@@ -45,10 +45,8 @@ public class D_FF extends Node implements Part {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        dVal = inputs[0];
-        dVal.addObserver(this);
-        clockVal = inputs[1];
-        clockVal.addObserver(this);
+        dVal = inputs[0].addObserver(this);
+        clockVal = inputs[1].addObserver(this);
 
         if (dVal.getBits() != bits)
             throw new BitsException("wrongBitCount", dVal);
