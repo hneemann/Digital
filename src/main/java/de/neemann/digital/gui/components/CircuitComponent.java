@@ -1,6 +1,5 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.part.AttributeKey;
 import de.neemann.digital.gui.draw.graphics.*;
@@ -10,6 +9,7 @@ import de.neemann.digital.gui.draw.parts.Circuit;
 import de.neemann.digital.gui.draw.parts.Moveable;
 import de.neemann.digital.gui.draw.parts.VisualPart;
 import de.neemann.digital.gui.draw.parts.Wire;
+import de.neemann.digital.gui.draw.shapes.Drawable;
 import de.neemann.digital.gui.draw.shapes.GenericShape;
 
 import javax.swing.*;
@@ -17,6 +17,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -29,8 +30,7 @@ public class CircuitComponent extends JComponent implements Observer {
     private Circuit circuit;
     private Mouse listener;
     private AffineTransform transform = new AffineTransform();
-    private Model model;
-    private Observer callOnManualChange;
+    private Observer manualChangeObserver;
 
     public CircuitComponent(Circuit aCircuit, PartLibrary library) {
         this.library = library;
@@ -67,9 +67,8 @@ public class CircuitComponent extends JComponent implements Observer {
         });
     }
 
-    public void setModel(Model model, Observer callOnManualChange) {
-        this.model = model;
-        this.callOnManualChange = callOnManualChange;
+    public void setManualChangeObserver(Observer callOnManualChange) {
+        this.manualChangeObserver = callOnManualChange;
     }
 
     public void setModeAndReset(Mode mode) {
@@ -99,7 +98,6 @@ public class CircuitComponent extends JComponent implements Observer {
         addMouseListener(listener);
         requestFocusInWindow();
         circuit.clearState();
-        model = null;
         repaint();
     }
 
@@ -126,17 +124,17 @@ public class CircuitComponent extends JComponent implements Observer {
 
     private Vector getPosVector(MouseEvent e) {
         try {
-            Point p = new Point();
+            Point2D.Double p = new Point2D.Double();
             transform.inverseTransform(new Point(e.getX(), e.getY()), p);
-            return new Vector((int) p.getX(), (int) p.getY());
+            return new Vector((int) Math.round(p.getX()), (int) Math.round(p.getY()));
         } catch (NoninvertibleTransformException e1) {
             throw new RuntimeException(e1);
         }
     }
 
     private Vector raster(Vector pos) {
-        return new Vector(((pos.x + GenericShape.SIZE2) / GenericShape.SIZE) * GenericShape.SIZE,
-                ((pos.y + GenericShape.SIZE2) / GenericShape.SIZE) * GenericShape.SIZE);
+        return new Vector((int) Math.round((double) pos.x / GenericShape.SIZE) * GenericShape.SIZE,
+                (int) Math.round((double) pos.y / GenericShape.SIZE) * GenericShape.SIZE);
     }
 
     @Override
@@ -308,43 +306,68 @@ public class CircuitComponent extends JComponent implements Observer {
         }
     }
 
+    private static enum State {COPY, MOVE}
+
     private class SelectMouseListener extends Mouse {
         private Vector corner1;
         private Vector corner2;
-        private ArrayList<Moveable> elementsToMove;
+        private ArrayList<Moveable> elements;
         private Vector lastPos;
+        private State state;
+        private boolean wasRealyDragged;
 
         @Override
         public void mouseClicked(MouseEvent e) {
             reset();
-            repaint();
         }
 
         private void reset() {
             corner1 = null;
             corner2 = null;
-            elementsToMove = null;
+            elements = null;
+            repaint();
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
             if (corner1 == null) {
                 corner1 = getPosVector(e);
+                wasRealyDragged = false;
             } else {
-                elementsToMove = circuit.getElementsMatching(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                    state = State.MOVE;
+                } else {
+                    elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                    state = State.COPY;
+                }
                 lastPos = getPosVector(e);
             }
         }
 
         @Override
+        public void mouseReleased(MouseEvent e) {
+            if (elements != null && state == State.COPY) {
+                for (Moveable m : elements) {
+                    if (m instanceof Wire)
+                        circuit.add((Wire) m);
+                    if (m instanceof VisualPart)
+                        circuit.add((VisualPart) m);
+                }
+                reset();
+            }
+            if (wasRealyDragged)
+                reset();
+        }
+
+        @Override
         public void mouseDragged(MouseEvent e) {
-            if (elementsToMove != null) {
+            if (elements != null) {
                 Vector pos = getPosVector(e);
                 Vector delta = raster(pos.sub(lastPos));
 
                 if (delta.x != 0 || delta.y != 0) {
-
-                    for (Moveable m : elementsToMove)
+                    for (Moveable m : elements)
                         m.move(delta);
                     circuit.modified();
 
@@ -353,6 +376,7 @@ public class CircuitComponent extends JComponent implements Observer {
                     repaint();
 
                     lastPos = lastPos.add(delta);
+                    wasRealyDragged = true;
                 }
             } else {
                 corner2 = getPosVector(e);
@@ -370,6 +394,10 @@ public class CircuitComponent extends JComponent implements Observer {
                         .add(new Vector(corner2.x, corner1.y));
                 gr.drawPolygon(p, Style.DASH);
             }
+            if (state == State.COPY && elements != null)
+                for (Moveable m : elements)
+                    if (m instanceof Drawable)
+                        ((Drawable) m).drawTo(gr);
         }
     }
 
@@ -386,8 +414,8 @@ public class CircuitComponent extends JComponent implements Observer {
                     Point p = new Point(e.getX(), e.getY());
                     SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
                     vp.clicked(CircuitComponent.this, p);
-                    if (callOnManualChange != null)
-                        callOnManualChange.hasChanged();
+                    if (manualChangeObserver != null)
+                        manualChangeObserver.hasChanged();
                 }
         }
     }

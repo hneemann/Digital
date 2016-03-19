@@ -36,6 +36,13 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
         pos = new Vector(0, 0);
     }
 
+    public VisualPart(VisualPart proto) {
+        this.partName = proto.partName;
+        this.partAttributes = new PartAttributes(proto.partAttributes);
+        this.pos = new Vector(proto.pos);
+        this.rotate = proto.rotate;
+    }
+
     public String getPartName() {
         return partName;
     }
@@ -94,7 +101,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
 
         shape.drawTo(gr);
         for (Pin p : shape.getPins())
-            gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.FILLED);
+            gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.WIRE);
 
         if (highLight && minMax != null) {
             Vector delta = minMax.getMax().sub(minMax.getMin());

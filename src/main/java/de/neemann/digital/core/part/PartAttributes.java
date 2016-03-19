@@ -2,6 +2,7 @@ package de.neemann.digital.core.part;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Describes one concrete Part.
@@ -11,6 +12,18 @@ import java.util.HashMap;
 public class PartAttributes {
     private HashMap<AttributeKey, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
+
+    public PartAttributes() {
+    }
+
+    public PartAttributes(PartAttributes proto) {
+        if (proto.attributes != null) {
+            attributes = new HashMap<>();
+            for (Map.Entry<AttributeKey, Object> e : proto.attributes.entrySet()) {
+                attributes.put(e.getKey(), e.getValue());
+            }
+        }
+    }
 
     public <VALUE> VALUE get(AttributeKey<VALUE> key) {
         if (attributes == null)

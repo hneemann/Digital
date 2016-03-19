@@ -34,6 +34,11 @@ public class SingleValueDialog extends JDialog {
         setLocation(pos.x, pos.y);
     }
 
+    /**
+     * edits the given value
+     *
+     * @return result or null if dialog closed without something entered
+     */
     public String showDialog() {
         setVisible(true);
         return returnText;

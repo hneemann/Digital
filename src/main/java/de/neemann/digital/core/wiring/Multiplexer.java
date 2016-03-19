@@ -37,9 +37,9 @@ public class Multiplexer extends FanIn {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        selector = inputs[0];
+        selector = inputs[inputs.length - 1];
         selector.addObserver(this);
-        super.setInputs(Arrays.copyOfRange(inputs, 1, inputs.length));
+        super.setInputs(Arrays.copyOfRange(inputs, 0, inputs.length - 1));
 
         if (selector.getBits() != selectorBits)
             throw new BitsException("selectorMismatch", selector);

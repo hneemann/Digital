@@ -15,6 +15,10 @@ public class Vector implements Moveable {
         this.y = y;
     }
 
+    public Vector(Vector pos) {
+        this(pos.x, pos.y);
+    }
+
     public static Vector min(Vector... p) {
         int x = p[0].x;
         int y = p[0].y;

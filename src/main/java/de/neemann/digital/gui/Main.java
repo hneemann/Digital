@@ -152,7 +152,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createAndStartModel();
-                circuitComponent.setModel(model, new FullStepObserver(model));
+                circuitComponent.setManualChangeObserver(new FullStepObserver(model));
             }
         }.setToolTip("Runs the Model");
 
@@ -160,9 +160,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createAndStartModel();
-                circuitComponent.setModel(model, new MicroStepObserver(model));
+                circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
-        }.setToolTip("Runs the Model in Micro mode");
+        }.setToolTip("Runs the Model in Micro Stepping Mode");
 
         run.add(runModel.createJMenuItem());
         run.add(runModelMicro.createJMenuItem());

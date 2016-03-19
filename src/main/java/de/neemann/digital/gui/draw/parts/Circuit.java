@@ -67,7 +67,7 @@ public class Circuit implements Drawable {
         return visualParts;
     }
 
-    public ArrayList<Moveable> getElementsMatching(Vector min, Vector max) {
+    public ArrayList<Moveable> getElementsToMove(Vector min, Vector max) {
         ArrayList<Moveable> m = new ArrayList<>();
         for (VisualPart vp : visualParts)
             if (vp.matches(min, max))
@@ -82,6 +82,20 @@ public class Circuit implements Drawable {
 
         return m;
     }
+
+    public ArrayList<Moveable> getElementsToCopy(Vector min, Vector max) {
+        ArrayList<Moveable> m = new ArrayList<>();
+        for (VisualPart vp : visualParts)
+            if (vp.matches(min, max))
+                m.add(new VisualPart(vp));
+
+        for (Wire w : wires)
+            if (w.p1.inside(min, max) && w.p2.inside(min, max))
+                m.add(new Wire(w));
+
+        return m;
+    }
+
 
     public void delete(Vector min, Vector max) {
         {

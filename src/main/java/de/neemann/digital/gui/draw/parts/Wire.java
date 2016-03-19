@@ -23,6 +23,13 @@ public class Wire implements Drawable, Moveable {
         this.p2 = p2;
     }
 
+    public Wire(Wire proto) {
+        this.p1 = new Vector(proto.p1);
+        this.p2 = new Vector(proto.p2);
+        this.p1Dot = proto.p1Dot;
+        this.p2Dot = proto.p2Dot;
+    }
+
     @Override
     public void drawTo(Graphic graphic) {
         Style style = Style.WIRE;
