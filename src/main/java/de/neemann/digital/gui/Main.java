@@ -39,7 +39,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final String MESSAGE = "Digital\n\nA simple simulator for digital circuits.\nWritten bei H.Neemann in 2016";
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
-    private final PartLibrary library = ShapeFactory.INSTANCE.setLibrary(new PartLibrary());
+    private final PartLibrary library = ShapeFactory.getInstance().setLibrary(new PartLibrary());
     private final ToolTipAction doStep;
     private File filename;
     private Model model;
@@ -71,17 +71,21 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction newFile = new ToolTipAction("New") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setFilename(null);
-                circuitComponent.setCircuit(new Circuit());
+                if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
+                    setFilename(null);
+                    circuitComponent.setCircuit(new Circuit());
+                }
             }
         };
 
         ToolTipAction open = new ToolTipAction("Open") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = getjFileChooser();
-                if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                    loadFile(fc.getSelectedFile());
+                if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
+                    JFileChooser fc = getjFileChooser();
+                    if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                        loadFile(fc.getSelectedFile());
+                    }
                 }
             }
         };

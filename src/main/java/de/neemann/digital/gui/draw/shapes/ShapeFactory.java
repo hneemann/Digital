@@ -20,7 +20,7 @@ import java.util.HashMap;
  * @author hneemann
  */
 public final class ShapeFactory {
-    public static final ShapeFactory INSTANCE = new ShapeFactory();
+
     public HashMap<String, Creator> map = new HashMap<>();
     private PartLibrary library;
 
@@ -45,6 +45,10 @@ public final class ShapeFactory {
         map.put(Out.DESCRIPTION.getName(), attr -> new OutputShape(attr.get(AttributeKey.Bits), attr.get(AttributeKey.Label)));
         map.put(Out.LEDDESCRIPTION.getName(), attr -> new LEDShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
         map.put(Out.PROBEDESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
+    }
+
+    public static ShapeFactory getInstance() {
+        return InstanceHolder.INSTANCE;
     }
 
     public PartLibrary setLibrary(PartLibrary library) {
@@ -83,6 +87,10 @@ public final class ShapeFactory {
 
     private interface Creator {
         Shape create(PartAttributes attributes);
+    }
+
+    private static final class InstanceHolder {
+        static final ShapeFactory INSTANCE = new ShapeFactory();
     }
 
     public class CreatorSimple implements Creator {

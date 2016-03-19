@@ -25,7 +25,7 @@ public class Wire implements Drawable, Moveable {
 
     @Override
     public void drawTo(Graphic graphic) {
-        Style style = Style.FILLED;
+        Style style = Style.WIRE;
 
         Vector r = RAD;
         if (value != null) {

@@ -26,7 +26,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
     private transient Shape shape;
     private transient IOState ioState;
     private transient Interactor interactor;
-    private transient boolean highLight = true;
+    private transient boolean highLight = false;
     private Vector pos;
     private int rotate;
 
@@ -83,7 +83,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
 
     public Shape getShape() {
         if (shape == null)
-            shape = ShapeFactory.INSTANCE.getShape(partName, partAttributes);
+            shape = ShapeFactory.getInstance().getShape(partName, partAttributes);
         return shape;
     }
 
