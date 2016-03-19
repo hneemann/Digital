@@ -26,6 +26,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
     private transient Shape shape;
     private transient IOState ioState;
     private transient Interactor interactor;
+    private transient boolean highLight = true;
     private Vector pos;
     private int rotate;
 
@@ -90,9 +91,18 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
     public void drawTo(Graphic graphic) {
         Graphic gr = new GraphicTransform(graphic, createTransform());
         Shape shape = getShape();
+
         shape.drawTo(gr);
         for (Pin p : shape.getPins())
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.FILLED);
+
+        if (highLight && minMax != null) {
+            Vector delta = minMax.getMax().sub(minMax.getMin());
+            int rad = (int) Math.sqrt(delta.x * delta.x + delta.y * delta.y) / 2;
+            delta = new Vector(rad, rad);
+            Vector pos = minMax.getMax().add(minMax.getMin()).div(2);
+            graphic.drawCircle(pos.sub(delta), pos.add(delta), Style.HIGHLIGHT);
+        }
     }
 
     private Transform createTransform() {
@@ -101,8 +111,9 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
 
     public GraphicMinMax getMinMax() {
         if (minMax == null) {
-            minMax = new GraphicMinMax();
-            drawTo(minMax);
+            GraphicMinMax mm = new GraphicMinMax();
+            drawTo(mm);
+            minMax = mm;
         }
         return minMax;
     }
@@ -141,14 +152,16 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
 
     /**
      * Sets the state of the parts inputs and outputs
-     *  @param ioState    actual state
+     *
+     * @param ioState     actual state, if null VisualPart is reset
      * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
      */
     public void setState(IOState ioState, Observer guiObserver) {
         this.ioState = ioState;
-        if (ioState == null)
+        if (ioState == null) {
             interactor = null;
-        else
+            shape = null;
+        } else
             interactor = getShape().applyStateMonitor(ioState, guiObserver);
     }
 
@@ -161,6 +174,12 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
     public void attributeChanged(AttributeKey key) {
         shape = null;
         minMax = null;
+    }
+
+    public void setHighLight(boolean highLight) {
+        this.highLight = highLight;
+        if (highLight)
+            getMinMax();
     }
 
     @Override

@@ -61,4 +61,8 @@ public class ModelEntry {
     public Part getPart() {
         return part;
     }
+
+    public VisualPart getVisualPart() {
+        return visualPart;
+    }
 }

@@ -65,6 +65,9 @@ public class Vector implements Moveable {
         return new Vector(x * a, y * a);
     }
 
+    public Vector div(int d) {
+        return new Vector(x / d, y / d);
+    }
 
     @Override
     public String toString() {

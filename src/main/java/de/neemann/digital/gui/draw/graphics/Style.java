@@ -13,6 +13,7 @@ public class Style {
     public static final Style THIN = new Style(1, false, Color.BLACK);
     public static final Style DASH = new Style(1, false, Color.BLACK);
     public static final Style SHAPE_PIN = new Style(2, false, Color.GRAY, 9);
+    public static final Style HIGHLIGHT = new Style(2, false, Color.CYAN);
 
     private final int thickness;
     private final boolean filled;

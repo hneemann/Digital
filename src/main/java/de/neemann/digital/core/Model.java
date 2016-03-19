@@ -1,6 +1,7 @@
 package de.neemann.digital.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -129,4 +130,7 @@ public class Model {
         return !nodesToUpdateNext.isEmpty();
     }
 
+    public Collection<Node> nodesToUpdate() {
+        return nodesToUpdateNext;
+    }
 }

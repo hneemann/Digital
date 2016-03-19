@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.draw.model;
 
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.part.Part;
@@ -9,6 +10,9 @@ import de.neemann.digital.gui.draw.library.PartLibrary;
 import de.neemann.digital.gui.draw.parts.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * @author hneemann
@@ -18,6 +22,7 @@ public class ModelDescription {
     private final Circuit circuit;
     private final NetList netList;
     private final ArrayList<ModelEntry> entries;
+    private HashMap<Node, ModelEntry> map;
 
     public ModelDescription(Circuit circuit, PartLibrary library) throws PinException {
         this.circuit = circuit;
@@ -67,6 +72,17 @@ public class ModelDescription {
         for (ModelEntry e : entries)
             e.connectToGui(guiObserver);
 
+    }
+
+    public void highLight(Collection<Node> nodes) {
+        HashSet<Node> nodeSet = new HashSet<>();
+        if (nodes != null)
+            nodeSet.addAll(nodes);
+        for (ModelEntry me : entries) {
+            Part part = me.getPart();
+            boolean highLight = part instanceof Node && nodeSet.contains(part);
+            me.getVisualPart().setHighLight(highLight);
+        }
     }
 
 }
