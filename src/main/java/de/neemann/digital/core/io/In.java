@@ -15,11 +15,13 @@ public class In implements Part {
 
     public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(In.class)
             .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.Label);
+            .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Default);
     private final ObservableValue output;
 
     public In(PartAttributes attributes) {
         output = new ObservableValue("out", attributes.get(AttributeKey.Bits));
+        output.setValue(attributes.get(AttributeKey.Default));
     }
 
     @Override
