@@ -59,7 +59,7 @@ public class Splitter implements Element {
     }
 
     private Observer createObserverForInput(int i) throws NodeException {
-        Observer observer = outPorts.getSimpleTargetObserver(inPorts.getPort(i), inputs, outputs);
+        Observer observer = outPorts.getSingleTargetObserver(inPorts.getPort(i), inputs, outputs);
         if (observer == null)
             throw new NodeException("splitterMismatchError");
         return observer;
@@ -126,7 +126,7 @@ public class Splitter implements Element {
          * @param inputs
          * @param outputs
          */
-        public Observer getSimpleTargetObserver(Port inPort, ObservableValue[] inputs, ObservableValue[] outputs) {
+        public Observer getSingleTargetObserver(Port inPort, ObservableValue[] inputs, ObservableValue[] outputs) {
             int pos = inPort.getPos();
             int bits = inPort.getBits();
 
