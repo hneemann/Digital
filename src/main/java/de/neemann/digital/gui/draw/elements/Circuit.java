@@ -79,8 +79,10 @@ public class Circuit implements Drawable {
             if (w.p2.inside(min, max))
                 m.add(w.p2);
         }
-
-        return m;
+        if (m.isEmpty())
+            return null;
+        else
+            return m;
     }
 
     public ArrayList<Moveable> getElementsToCopy(Vector min, Vector max) {
@@ -93,7 +95,10 @@ public class Circuit implements Drawable {
             if (w.p1.inside(min, max) && w.p2.inside(min, max))
                 m.add(new Wire(w));
 
-        return m;
+        if (m.isEmpty())
+            return null;
+        else
+            return m;
     }
 
 

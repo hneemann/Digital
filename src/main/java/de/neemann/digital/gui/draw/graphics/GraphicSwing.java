@@ -26,6 +26,9 @@ public class GraphicSwing implements Graphic {
         java.awt.Polygon poly = new java.awt.Polygon();
         for (Vector v : p.getPoints())
             poly.addPoint(v.x, v.y);
+
+        if (style.isFilled())
+            gr.fill(poly);
         gr.draw(poly);
     }
 

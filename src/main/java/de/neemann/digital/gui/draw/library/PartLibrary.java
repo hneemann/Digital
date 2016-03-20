@@ -38,12 +38,12 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
         add(Delay.DESCRIPTION, "Logic");
 
         add(In.DESCRIPTION, "IO");
-        add(Const.DESCRIPTION, "IO");
         add(Out.DESCRIPTION, "IO");
         add(Out.LEDDESCRIPTION, "IO");
         add(Out.PROBEDESCRIPTION, "IO");
 
         add(Splitter.DESCRIPTION, "Wires");
+        add(Const.DESCRIPTION, "Wires");
 
         add(RS_FF.DESCRIPTION, "FlipFlops");
         add(JK_FF.DESCRIPTION, "FlipFlops");

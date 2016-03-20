@@ -57,6 +57,6 @@ public class SplitterShape implements Shape {
                 .add(2, 0)
                 .add(SIZE - 2, 0)
                 .add(SIZE - 2, length)
-                .add(2, length), Style.NORMAL);
+                .add(2, length), Style.FILLED);
     }
 }
