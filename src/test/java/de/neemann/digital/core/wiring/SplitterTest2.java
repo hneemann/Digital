@@ -19,6 +19,7 @@ public class SplitterTest2 extends TestCase {
                 .set(AttributeKey.OutputSplit, "1,1,1,1"));
 
         splitter.setInputs(a);
+        assertEquals(4, a.observerCount());
 
         ObservableValue[] outputs = splitter.getOutputs();
         assertEquals(4, outputs.length);
@@ -40,6 +41,7 @@ public class SplitterTest2 extends TestCase {
                 .set(AttributeKey.OutputSplit, "4,4,4,4"));
 
         splitter.setInputs(a);
+        assertEquals(4, a.observerCount());
 
         ObservableValue[] outputs = splitter.getOutputs();
         assertEquals(4, outputs.length);
@@ -65,6 +67,8 @@ public class SplitterTest2 extends TestCase {
                 .set(AttributeKey.OutputSplit, "4,4,4,4"));
 
         splitter.setInputs(a, b);
+        assertEquals(2, a.observerCount());
+        assertEquals(2, b.observerCount());
 
         ObservableValue[] outputs = splitter.getOutputs();
         assertEquals(4, outputs.length);

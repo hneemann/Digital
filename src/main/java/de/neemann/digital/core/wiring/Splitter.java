@@ -56,18 +56,18 @@ public class Splitter implements Element {
             Port inPort = inPorts.getPort(i);
             if (inPort.getBits() != inputs[i].getBits())
                 throw new BitsException("splitterBitsMismatch", inputs[i]);
-            registerObserversFor(inPort);
         }
+
+        for (Port out : outPorts)
+            fillOutput(out);
     }
 
-    private void registerObserversFor(Port in) throws NodeException {
-        Observer observer = outPorts.getSingleTargetObserver(in, inputs, outputs);
-        if (observer != null) {
-            inputs[in.number].addObserver(observer);
-            return;
-        }
+    private void fillOutput(Port out) throws NodeException {
+        for (Port in : inPorts) {
+            if (in.getPos() + in.getBits() <= out.getPos() || out.getPos() + out.getBits() <= in.getPos())
+                continue; // this input is not needed to fill out!!!
 
-        for (Port out : outPorts) {
+            // out is filled completely by this single input value!
             if (out.getPos() >= in.getPos() &&
                     out.getPos() + out.getBits() <= in.getPos() + in.getBits()) {
 
@@ -80,7 +80,61 @@ public class Splitter implements Element {
                         outValue.setValue(inValue.getValue() >> bitPos);
                     }
                 });
+                break; // done!! out is completely filled!
             }
+
+            // complete in value needs to be copied to a part of the output
+            if (out.getPos() <= in.getPos() && in.getPos() + in.getBits() <= out.getPos() + out.getBits()) {
+                final int bitPos = in.getPos() - out.getPos();
+                final long mask = ~(((1L << in.bits) - 1) << bitPos);
+                final ObservableValue inValue = inputs[in.number];
+                final ObservableValue outValue = outputs[out.number];
+                inputs[in.number].addObserver(new Observer() {
+                    @Override
+                    public void hasChanged() {
+                        long in = inValue.getValue();
+                        long out = outValue.getValue();
+                        outValue.setValue((out & mask) | (in << bitPos));
+                    }
+                });
+                continue; // done with this input, its completely copied to the output!
+            }
+
+            // If this point is reached, a part of the input needs to be copied to a part of the output!
+
+            // upper part of input needs to be copied to the lower part of the output
+            if (in.getPos() < out.getPos()) {
+                final int bitsToCopy = in.getPos() + in.getBits() - out.getPos();
+                final long mask = ~((1L << bitsToCopy) - 1);
+                final int shift = out.getPos() - in.getPos();
+                final ObservableValue inValue = inputs[in.number];
+                final ObservableValue outValue = outputs[out.number];
+                inputs[in.number].addObserver(new Observer() {
+                    @Override
+                    public void hasChanged() {
+                        long in = inValue.getValue();
+                        long out = outValue.getValue();
+                        outValue.setValue((out & mask) | (in >> shift));
+                    }
+                });
+                continue;
+            }
+
+            // lower part of input needs to be copied to the upper part of the output
+            final int bitsToCopy = out.getPos() + out.getBits() - in.getPos();
+            final int shift = in.getPos() - out.getPos();
+            final long mask = ~(((1L << bitsToCopy) - 1) << shift);
+            final ObservableValue inValue = inputs[in.number];
+            final ObservableValue outValue = outputs[out.number];
+            inputs[in.number].addObserver(new Observer() {
+                @Override
+                public void hasChanged() {
+                    long in = inValue.getValue();
+                    long out = outValue.getValue();
+                    outValue.setValue((out & mask) | (in << shift));
+                }
+            });
+
         }
     }
 
@@ -136,36 +190,6 @@ public class Splitter implements Element {
 
         public Port getPort(int i) {
             return ports.get(i);
-        }
-
-        /**
-         * Checks if there is a single out target port for the input port
-         *
-         * @param inPort
-         * @param inputs
-         * @param outputs
-         */
-        public Observer getSingleTargetObserver(Port inPort, ObservableValue[] inputs, ObservableValue[] outputs) {
-            int pos = inPort.getPos();
-            int bits = inPort.getBits();
-
-            for (Port outPort : ports) {
-                if (outPort.getPos() <= pos && pos + bits <= outPort.getPos() + outPort.getBits()) {
-                    final int bitPos = pos - outPort.getPos();
-                    final int mask = ~(((1 << inPort.bits) - 1) << bitPos);
-                    final ObservableValue inValue = inputs[inPort.number];
-                    final ObservableValue outValue = outputs[outPort.number];
-                    return new Observer() {
-                        @Override
-                        public void hasChanged() {
-                            long in = inValue.getValue();
-                            long out = outValue.getValue();
-                            outValue.setValue((out & mask) | (in << bitPos));
-                        }
-                    };
-                }
-            }
-            return null;
         }
 
         @Override

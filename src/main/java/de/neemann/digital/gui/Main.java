@@ -215,6 +215,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             model.init();
         } catch (Exception e1) {
             new ErrorMessage("error creating model").addCause(e1).show(Main.this);
+            circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
         }
     }
 

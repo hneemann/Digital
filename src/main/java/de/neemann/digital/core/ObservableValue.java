@@ -104,4 +104,7 @@ public class ObservableValue extends Value {
         return name;
     }
 
+    public int observerCount() {
+        return observers.size();
+    }
 }
