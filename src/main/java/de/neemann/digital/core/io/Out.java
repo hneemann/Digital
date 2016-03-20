@@ -3,32 +3,31 @@ package de.neemann.digital.core.io;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
-public class Out implements Part {
+public class Out implements Element {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Out.class, "in")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Out.class, "in")
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);
 
-    public static final PartTypeDescription PROBEDESCRIPTION = new PartTypeDescription("Probe", Out.class, "in")
+    public static final ElementTypeDescription PROBEDESCRIPTION = new ElementTypeDescription("Probe", Out.class, "in")
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);
 
-    public static final PartTypeDescription LEDDESCRIPTION = new PartTypeDescription("LED", Out.class, "in")
+    public static final ElementTypeDescription LEDDESCRIPTION = new ElementTypeDescription("LED", Out.class, "in")
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
 
-
     private ObservableValue value;
 
-    public Out(PartAttributes attributes) {
+    public Out(ElementAttributes attributes) {
     }
 
     @Override

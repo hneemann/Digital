@@ -4,24 +4,24 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
-public class XOr extends Node implements Part {
+public class XOr extends Node implements Element {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(XOr.class, "a", "b").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(XOr.class, "a", "b").addAttribute(AttributeKey.Bits);
     private final int bits;
     private final ObservableValue out;
     protected ObservableValue a;
     protected ObservableValue b;
     protected long value;
 
-    public XOr(PartAttributes attributes) {
+    public XOr(ElementAttributes attributes) {
         bits = attributes.get(AttributeKey.Bits);
         this.out = new ObservableValue("out", bits);
     }

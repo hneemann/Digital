@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.draw.model;
 
+import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.Vector;
-import de.neemann.digital.gui.draw.parts.Wire;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;

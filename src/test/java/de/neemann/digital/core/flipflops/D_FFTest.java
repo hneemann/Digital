@@ -3,7 +3,7 @@ package de.neemann.digital.core.flipflops;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -15,7 +15,7 @@ public class D_FFTest extends TestCase {
         ObservableValue c = new ObservableValue("c", 1);
 
         Model model = new Model();
-        D_FF out = model.add(new D_FF(new PartAttributes().setBits(8)));
+        D_FF out = model.add(new D_FF(new ElementAttributes().setBits(8)));
         out.setInputs(d, c);
 
         TestExecuter sc = new TestExecuter(model).setInputs(d, c).setOutputs(out.getOutputs());

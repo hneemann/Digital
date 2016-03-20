@@ -4,10 +4,10 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.gui.draw.elements.*;
 import de.neemann.digital.gui.draw.library.PartLibrary;
-import de.neemann.digital.gui.draw.parts.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,13 +28,13 @@ public class ModelDescription {
         this.circuit = circuit;
         entries = new ArrayList<>();
         netList = new NetList(circuit.getWires());
-        for (VisualPart vp : circuit.getParts()) {
+        for (VisualElement vp : circuit.getParts()) {
             Pins pins = vp.getPins();
-            PartTypeDescription partType = library.getPartType(vp.getPartName());
-            Part part = partType.createPart(vp.getPartAttributes());
-            pins.setOutputs(part.getOutputs());
+            ElementTypeDescription partType = library.getPartType(vp.getElementName());
+            Element element = partType.createPart(vp.getElementAttributes());
+            pins.setOutputs(element.getOutputs());
 
-            entries.add(new ModelEntry(part, pins, vp, partType.getInputNames(vp.getPartAttributes())));
+            entries.add(new ModelEntry(element, pins, vp, partType.getInputNames(vp.getElementAttributes())));
             for (Pin p : pins)
                 netList.add(p);
         }
@@ -57,7 +57,7 @@ public class ModelDescription {
             e.applyInputs();
 
         for (ModelEntry e : entries)
-            e.getPart().registerNodes(m);
+            e.getElement().registerNodes(m);
 
         return m;
     }
@@ -79,9 +79,9 @@ public class ModelDescription {
         if (nodes != null)
             nodeSet.addAll(nodes);
         for (ModelEntry me : entries) {
-            Part part = me.getPart();
-            boolean highLight = part instanceof Node && nodeSet.contains(part);
-            me.getVisualPart().setHighLight(highLight);
+            Element element = me.getElement();
+            boolean highLight = element instanceof Node && nodeSet.contains(element);
+            me.getVisualElement().setHighLight(highLight);
         }
     }
 

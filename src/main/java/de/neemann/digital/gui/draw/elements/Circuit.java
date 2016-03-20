@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.draw.parts;
+package de.neemann.digital.gui.draw.elements;
 
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Vector;
@@ -11,13 +11,13 @@ import java.util.Iterator;
  * @author hneemann
  */
 public class Circuit implements Drawable {
-    private final ArrayList<VisualPart> visualParts;
+    private final ArrayList<VisualElement> visualElements;
     private ArrayList<Wire> wires;
     private transient boolean dotsPresent = false;
     private transient boolean modified = false;
 
     public Circuit() {
-        visualParts = new ArrayList<>();
+        visualElements = new ArrayList<>();
         wires = new ArrayList<>();
     }
 
@@ -30,12 +30,12 @@ public class Circuit implements Drawable {
 
         for (Wire w : wires)
             w.drawTo(graphic);
-        for (VisualPart p : visualParts)
+        for (VisualElement p : visualElements)
             p.drawTo(graphic);
     }
 
-    public void add(VisualPart visualPart) {
-        visualParts.add(visualPart);
+    public void add(VisualElement visualElement) {
+        visualElements.add(visualElement);
         modified();
     }
 
@@ -63,13 +63,13 @@ public class Circuit implements Drawable {
         modified();
     }
 
-    public ArrayList<VisualPart> getParts() {
-        return visualParts;
+    public ArrayList<VisualElement> getParts() {
+        return visualElements;
     }
 
     public ArrayList<Moveable> getElementsToMove(Vector min, Vector max) {
         ArrayList<Moveable> m = new ArrayList<>();
-        for (VisualPart vp : visualParts)
+        for (VisualElement vp : visualElements)
             if (vp.matches(min, max))
                 m.add(vp);
 
@@ -85,9 +85,9 @@ public class Circuit implements Drawable {
 
     public ArrayList<Moveable> getElementsToCopy(Vector min, Vector max) {
         ArrayList<Moveable> m = new ArrayList<>();
-        for (VisualPart vp : visualParts)
+        for (VisualElement vp : visualElements)
             if (vp.matches(min, max))
-                m.add(new VisualPart(vp));
+                m.add(new VisualElement(vp));
 
         for (Wire w : wires)
             if (w.p1.inside(min, max) && w.p2.inside(min, max))
@@ -99,7 +99,7 @@ public class Circuit implements Drawable {
 
     public void delete(Vector min, Vector max) {
         {
-            Iterator<VisualPart> it = visualParts.iterator();
+            Iterator<VisualElement> it = visualElements.iterator();
             while (it.hasNext())
                 if (it.next().matches(min, max))
                     it.remove();
@@ -125,7 +125,7 @@ public class Circuit implements Drawable {
     }
 
     public void clearState() {
-        for (VisualPart vp : visualParts)
+        for (VisualElement vp : visualElements)
             vp.setState(null, null);
         for (Wire w : wires)
             w.setValue(null);

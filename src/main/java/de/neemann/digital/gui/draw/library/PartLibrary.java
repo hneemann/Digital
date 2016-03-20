@@ -4,6 +4,7 @@ import de.neemann.digital.core.arithmetic.Add;
 import de.neemann.digital.core.arithmetic.Mul;
 import de.neemann.digital.core.arithmetic.Sub;
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.flipflops.D_FF;
 import de.neemann.digital.core.flipflops.JK_FF;
 import de.neemann.digital.core.flipflops.RS_FF;
@@ -11,7 +12,6 @@ import de.neemann.digital.core.flipflops.T_FF;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.part.PartTypeDescription;
 import de.neemann.digital.core.wiring.Delay;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.Iterator;
  */
 public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
 
-    private final HashMap<String, PartTypeDescription> map = new HashMap<>();
+    private final HashMap<String, ElementTypeDescription> map = new HashMap<>();
     private ArrayList<PartContainer> list = new ArrayList<>();
 
     public PartLibrary() {
@@ -52,20 +52,20 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
         add(Mul.DESCRIPTION, "Aritmetic");
     }
 
-    private void add(PartTypeDescription description, String treePath) {
+    private void add(ElementTypeDescription description, String treePath) {
         String name = description.getName();
         if (map.containsKey(name))
-            throw new RuntimeException("duplicate part " + name);
+            throw new RuntimeException("duplicate element " + name);
 
         map.put(name, description);
 
         list.add(new PartContainer(name, treePath));
     }
 
-    public PartTypeDescription getPartType(String partName) {
-        PartTypeDescription pd = map.get(partName);
+    public ElementTypeDescription getPartType(String partName) {
+        ElementTypeDescription pd = map.get(partName);
         if (pd == null)
-            throw new RuntimeException("part " + partName + " not found");
+            throw new RuntimeException("element " + partName + " not found");
         return pd;
     }
 

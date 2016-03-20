@@ -1,18 +1,18 @@
 package de.neemann.digital.core.arithmetic;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
 public class Sub extends Add {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Sub.class, "a", "b", "c_i").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Sub.class, "a", "b", "c_i").addAttribute(AttributeKey.Bits);
 
-    public Sub(PartAttributes attributes) {
+    public Sub(ElementAttributes attributes) {
         super(attributes);
     }
 

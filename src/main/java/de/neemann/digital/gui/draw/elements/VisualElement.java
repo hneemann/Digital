@@ -1,9 +1,9 @@
-package de.neemann.digital.gui.draw.parts;
+package de.neemann.digital.gui.draw.elements;
 
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.AttributeListener;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.AttributeListener;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.shapes.Drawable;
@@ -18,10 +18,10 @@ import java.awt.image.BufferedImage;
 /**
  * @author hneemann
  */
-public class VisualPart implements Drawable, Moveable, AttributeListener {
+public class VisualElement implements Drawable, Moveable, AttributeListener {
     private static final int PIN = 1;
-    private final String partName;
-    private final PartAttributes partAttributes;
+    private final String elementName;
+    private final ElementAttributes elementAttributes;
     private transient GraphicMinMax minMax;
     private transient Shape shape;
     private transient IOState ioState;
@@ -30,33 +30,33 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
     private Vector pos;
     private int rotate;
 
-    public VisualPart(String partName) {
-        this.partName = partName;
-        partAttributes = new PartAttributes();
+    public VisualElement(String elementName) {
+        this.elementName = elementName;
+        elementAttributes = new ElementAttributes();
         pos = new Vector(0, 0);
     }
 
-    public VisualPart(VisualPart proto) {
-        this.partName = proto.partName;
-        this.partAttributes = new PartAttributes(proto.partAttributes);
+    public VisualElement(VisualElement proto) {
+        this.elementName = proto.elementName;
+        this.elementAttributes = new ElementAttributes(proto.elementAttributes);
         this.pos = new Vector(proto.pos);
         this.rotate = proto.rotate;
     }
 
-    public String getPartName() {
-        return partName;
+    public String getElementName() {
+        return elementName;
     }
 
-    public PartAttributes getPartAttributes() {
-        partAttributes.addListener(this);
-        return partAttributes;
+    public ElementAttributes getElementAttributes() {
+        elementAttributes.addListener(this);
+        return elementAttributes;
     }
 
     public Vector getPos() {
         return pos;
     }
 
-    public VisualPart setPos(Vector pos) {
+    public VisualElement setPos(Vector pos) {
         this.pos = pos;
         minMax = null;
         return this;
@@ -90,7 +90,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
 
     public Shape getShape() {
         if (shape == null)
-            shape = ShapeFactory.getInstance().getShape(partName, partAttributes);
+            shape = ShapeFactory.getInstance().getShape(elementName, elementAttributes);
         return shape;
     }
 
@@ -158,7 +158,7 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
     }
 
     /**
-     * Sets the state of the parts inputs and outputs
+     * Sets the state of the elements inputs and outputs
      *
      * @param ioState     actual state, if null VisualPart is reset
      * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
@@ -191,10 +191,10 @@ public class VisualPart implements Drawable, Moveable, AttributeListener {
 
     @Override
     public String toString() {
-        String lab = partAttributes.get(AttributeKey.Label);
+        String lab = elementAttributes.get(AttributeKey.Label);
         if (lab != null && lab.length() > 0)
-            return partName + "(" + lab + ")";
+            return elementName + "(" + lab + ")";
         else
-            return partName;
+            return elementName;
     }
 }

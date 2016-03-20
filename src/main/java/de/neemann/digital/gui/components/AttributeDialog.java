@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +16,11 @@ import java.util.ArrayList;
  */
 public class AttributeDialog extends JDialog {
 
-    public AttributeDialog(Point pos, ArrayList<AttributeKey> list, PartAttributes partAttributes) {
+    public AttributeDialog(Point pos, ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
         super((Frame) null, "Attributes", true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JTable table = new JTable(new AttributeTableModel(list, partAttributes));
+        JTable table = new JTable(new AttributeTableModel(list, elementAttributes));
         getContentPane().add(table);
 
         addWindowListener(new WindowAdapter() {

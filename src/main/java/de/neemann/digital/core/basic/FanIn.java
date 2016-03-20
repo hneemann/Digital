@@ -3,14 +3,14 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.*;
+import de.neemann.digital.core.element.*;
 
 import java.util.ArrayList;
 
 /**
  * @author hneemann
  */
-public abstract class FanIn extends Node implements Part {
+public abstract class FanIn extends Node implements Element {
 
     protected final ArrayList<ObservableValue> inputs;
     protected final ObservableValue output;
@@ -41,7 +41,7 @@ public abstract class FanIn extends Node implements Part {
         return new ObservableValue[]{output};
     }
 
-    public static class FanInDescription extends PartTypeDescription {
+    public static class FanInDescription extends ElementTypeDescription {
         public FanInDescription(Class<?> clazz) {
             super(clazz);
             addAttributes();
@@ -58,8 +58,8 @@ public abstract class FanIn extends Node implements Part {
         }
 
         @Override
-        public String[] getInputNames(PartAttributes partAttributes) {
-            int count = partAttributes.get(AttributeKey.InputCount);
+        public String[] getInputNames(ElementAttributes elementAttributes) {
+            int count = elementAttributes.get(AttributeKey.InputCount);
             String[] names = new String[count];
             for (int i = 0; i < count; i++)
                 names[i] = "in_" + i;

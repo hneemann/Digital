@@ -1,18 +1,18 @@
 package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
 public class XNOr extends XOr {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(XNOr.class, "a", "b").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(XNOr.class, "a", "b").addAttribute(AttributeKey.Bits);
 
-    public XNOr(PartAttributes attributes) {
+    public XNOr(ElementAttributes attributes) {
         super(attributes);
     }
 

@@ -2,13 +2,13 @@ package de.neemann.digital.gui.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.gui.draw.elements.IOState;
+import de.neemann.digital.gui.draw.elements.Pin;
+import de.neemann.digital.gui.draw.elements.Pins;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Orientation;
 import de.neemann.digital.gui.draw.graphics.Style;
 import de.neemann.digital.gui.draw.graphics.Vector;
-import de.neemann.digital.gui.draw.parts.IOState;
-import de.neemann.digital.gui.draw.parts.Pin;
-import de.neemann.digital.gui.draw.parts.Pins;
 
 /**
  * @author hneemann

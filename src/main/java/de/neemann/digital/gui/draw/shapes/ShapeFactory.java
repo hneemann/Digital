@@ -5,12 +5,12 @@ import de.neemann.digital.core.arithmetic.Add;
 import de.neemann.digital.core.arithmetic.Mul;
 import de.neemann.digital.core.arithmetic.Sub;
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
 import de.neemann.digital.core.wiring.Delay;
 import de.neemann.digital.gui.draw.library.PartLibrary;
 
@@ -60,7 +60,7 @@ public final class ShapeFactory {
         return library;
     }
 
-    private String[] outputNames(PartTypeDescription description, PartAttributes attributes) {
+    private String[] outputNames(ElementTypeDescription description, ElementAttributes attributes) {
         ObservableValue[] o = description.createPart(attributes).getOutputs();
         String[] names = new String[o.length];
         for (int i = 0; i < names.length; i++)
@@ -68,46 +68,38 @@ public final class ShapeFactory {
         return names;
     }
 
-    public Shape getShape(String partName, PartAttributes partAttributes) {
+    public Shape getShape(String partName, ElementAttributes elementAttributes) {
         Creator cr = map.get(partName);
         if (cr == null) {
             if (library == null)
                 throw new RuntimeException("no shape for " + partName);
             else {
-                PartTypeDescription pt = library.getPartType(partName);
-                return new GenericShape(createName(partName), pt.getInputNames(partAttributes), outputNames(pt, partAttributes), true);
+                ElementTypeDescription pt = library.getPartType(partName);
+                return new GenericShape(pt.getShortName(), pt.getInputNames(elementAttributes), outputNames(pt, elementAttributes), true);
             }
         } else
-            return cr.create(partAttributes);
-    }
-
-    private String createName(String partName) {
-        int p = partName.indexOf('_');
-        if (p < 0)
-            return partName;
-        else
-            return partName.substring(0, p);
+            return cr.create(elementAttributes);
     }
 
     private interface Creator {
-        Shape create(PartAttributes attributes);
+        Shape create(ElementAttributes attributes);
     }
 
 
     public class CreatorSimple implements Creator {
 
         private final String name;
-        private final PartTypeDescription description;
+        private final ElementTypeDescription description;
         private final boolean invers;
 
-        public CreatorSimple(String name, PartTypeDescription description, boolean invers) {
+        public CreatorSimple(String name, ElementTypeDescription description, boolean invers) {
             this.name = name;
             this.description = description;
             this.invers = invers;
         }
 
         @Override
-        public Shape create(PartAttributes attributes) {
+        public Shape create(ElementAttributes attributes) {
             return new GenericShape(name, description.getInputNames(attributes), outputNames(description, attributes)).invert(invers);
         }
     }

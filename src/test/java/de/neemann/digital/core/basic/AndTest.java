@@ -3,7 +3,7 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -16,7 +16,7 @@ public class AndTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 1);
 
         Model model = new Model();
-        FanIn out = model.add(new And(new PartAttributes().setBits(1)));
+        FanIn out = model.add(new And(new ElementAttributes().setBits(1)));
         out.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out.getOutputs());

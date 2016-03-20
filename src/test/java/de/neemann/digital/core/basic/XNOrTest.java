@@ -3,7 +3,7 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -17,7 +17,7 @@ public class XNOrTest extends TestCase {
 
 
         Model model = new Model();
-        XNOr out = model.add(new XNOr(new PartAttributes().setBits(1)));
+        XNOr out = model.add(new XNOr(new ElementAttributes().setBits(1)));
         out.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out.getOutputs());

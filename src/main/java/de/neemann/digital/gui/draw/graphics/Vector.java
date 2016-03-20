@@ -1,6 +1,6 @@
 package de.neemann.digital.gui.draw.graphics;
 
-import de.neemann.digital.gui.draw.parts.Moveable;
+import de.neemann.digital.gui.draw.elements.Moveable;
 
 /**
  * @author hneemann

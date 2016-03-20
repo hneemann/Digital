@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.draw.parts;
+package de.neemann.digital.gui.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.gui.draw.graphics.Graphic;

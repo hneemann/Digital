@@ -3,7 +3,7 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -16,7 +16,7 @@ public class NOrTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 1);
 
         Model model = new Model();
-        NOr nor = model.add(new NOr(new PartAttributes().setBits(1)));
+        NOr nor = model.add(new NOr(new ElementAttributes().setBits(1)));
         nor.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(nor.getOutputs());

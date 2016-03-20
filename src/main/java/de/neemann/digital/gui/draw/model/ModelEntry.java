@@ -3,8 +3,8 @@ package de.neemann.digital.gui.draw.model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.gui.draw.parts.*;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.gui.draw.elements.*;
 
 import java.util.HashMap;
 
@@ -12,21 +12,21 @@ import java.util.HashMap;
  * @author hneemann
  */
 public class ModelEntry {
-    private final Part part;
+    private final Element element;
     private final Pins pins;
     private final String[] inputNames;
-    private final VisualPart visualPart;
+    private final VisualElement visualElement;
     private IOState ioState;
 
-    public ModelEntry(Part part, Pins pins, VisualPart visualPart, String[] inputNames) {
-        this.part = part;
+    public ModelEntry(Element element, Pins pins, VisualElement visualElement, String[] inputNames) {
+        this.element = element;
         this.pins = pins;
-        this.visualPart = visualPart;
+        this.visualElement = visualElement;
         this.inputNames = inputNames;
     }
 
     /**
-     * Sets the Inputs of the part contained in thes entry
+     * Sets the Inputs of the element contained in thes entry
      *
      * @throws PinException
      * @throws NodeException
@@ -39,30 +39,30 @@ public class ModelEntry {
             for (int i = 0; i < inputNames.length; i++) {
                 Pin pin = ins.get(inputNames[i]);
                 if (pin == null)
-                    throw new PinException("pin '" + inputNames[i] + "' at " + visualPart + " not found!");
+                    throw new PinException("pin '" + inputNames[i] + "' at " + visualElement + " not found!");
 
                 ObservableValue value = pin.getValue();
                 if (value == null)
-                    throw new PinException("no value set for '" + inputNames[i] + "' at " + visualPart + "!");
+                    throw new PinException("no value set for '" + inputNames[i] + "' at " + visualElement + "!");
 
                 inputs[i] = value;
             }
-            part.setInputs(inputs);
+            element.setInputs(inputs);
         }
-        ioState = new IOState(inputs, part.getOutputs());
+        ioState = new IOState(inputs, element.getOutputs());
     }
 
     public void connectToGui(Observer guiObserver) {
         if (ioState == null)
             throw new RuntimeException("call applyInputs before connectToGui");
-        visualPart.setState(ioState, guiObserver);
+        visualElement.setState(ioState, guiObserver);
     }
 
-    public Part getPart() {
-        return part;
+    public Element getElement() {
+        return element;
     }
 
-    public VisualPart getVisualPart() {
-        return visualPart;
+    public VisualElement getVisualElement() {
+        return visualElement;
     }
 }

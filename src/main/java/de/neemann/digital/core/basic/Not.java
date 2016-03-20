@@ -3,22 +3,22 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
-public class Not extends Node implements Part {
+public class Not extends Node implements Element {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Not.class, "in");
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, "in");
     private final ObservableValue output;
     private ObservableValue input;
     private long value;
 
-    public Not(PartAttributes attributes) {
+    public Not(ElementAttributes attributes) {
         output = new ObservableValue("out", attributes.get(AttributeKey.Bits));
     }
 

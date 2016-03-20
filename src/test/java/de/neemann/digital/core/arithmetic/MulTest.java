@@ -3,7 +3,7 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -16,7 +16,7 @@ public class MulTest extends TestCase {
 
 
         Model model = new Model();
-        Mul node = model.add(new Mul(new PartAttributes().setBits(4)));
+        Mul node = model.add(new Mul(new ElementAttributes().setBits(4)));
         node.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(node.getMul());

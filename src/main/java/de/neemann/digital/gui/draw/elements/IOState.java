@@ -1,9 +1,9 @@
-package de.neemann.digital.gui.draw.parts;
+package de.neemann.digital.gui.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
 
 /**
- * Represents the state of the state of the inputs and outputs of a part.
+ * Represents the state of the state of the inputs and outputs of a element.
  *
  * @author hneemann
  */

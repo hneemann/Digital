@@ -3,23 +3,24 @@ package de.neemann.digital.core.io;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
-public class In implements Part {
+public class In implements Element {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(In.class)
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(In.class)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Default);
+
     private final ObservableValue output;
 
-    public In(PartAttributes attributes) {
+    public In(ElementAttributes attributes) {
         output = new ObservableValue("out", attributes.get(AttributeKey.Bits));
         output.setValue(attributes.get(AttributeKey.Default));
     }

@@ -4,23 +4,26 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
-public class T_FF extends Node implements Part {
+public class T_FF extends Node implements Element {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(T_FF.class, "C");
+    public static final ElementTypeDescription DESCRIPTION
+            = new ElementTypeDescription(T_FF.class, "C")
+            .setShortName("T");
+
     private ObservableValue clockVal;
     private ObservableValue q;
     private ObservableValue qn;
     private boolean lastClock;
     private boolean out;
 
-    public T_FF(PartAttributes attributes) {
+    public T_FF(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("~Q", 1);
     }

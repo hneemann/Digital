@@ -4,24 +4,24 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
-public class Delay extends Node implements Part {
+public class Delay extends Node implements Element {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Delay.class, "in");
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Delay.class, "in");
 
     private final ObservableValue output;
     private final int bits;
     private ObservableValue input;
     private long value;
 
-    public Delay(PartAttributes attributes) {
+    public Delay(ElementAttributes attributes) {
         bits = attributes.get(AttributeKey.Bits);
         output = new ObservableValue("out", bits);
     }

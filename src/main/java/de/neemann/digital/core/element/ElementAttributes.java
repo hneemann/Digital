@@ -1,4 +1,4 @@
-package de.neemann.digital.core.part;
+package de.neemann.digital.core.element;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,14 +9,14 @@ import java.util.Map;
  *
  * @author hneemann
  */
-public class PartAttributes {
+public class ElementAttributes {
     private HashMap<AttributeKey, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
 
-    public PartAttributes() {
+    public ElementAttributes() {
     }
 
-    public PartAttributes(PartAttributes proto) {
+    public ElementAttributes(ElementAttributes proto) {
         if (proto.attributes != null) {
             attributes = new HashMap<>();
             for (Map.Entry<AttributeKey, Object> e : proto.attributes.entrySet()) {
@@ -72,7 +72,7 @@ public class PartAttributes {
         return get(AttributeKey.Bits);
     }
 
-    public PartAttributes setBits(int bits) {
+    public ElementAttributes setBits(int bits) {
         set(AttributeKey.Bits, bits);
         return this;
     }

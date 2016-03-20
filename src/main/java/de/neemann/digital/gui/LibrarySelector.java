@@ -1,9 +1,9 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.draw.elements.VisualElement;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.library.PartLibrary;
-import de.neemann.digital.gui.draw.parts.VisualPart;
 import de.process.utils.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -44,7 +44,7 @@ public class LibrarySelector {
         private final CircuitComponent circuitComponent;
 
         public InsertAction(String name, InsertHistory insertHistory, CircuitComponent circuitComponent) {
-            super(name, new VisualPart(name).createIcon(60));
+            super(name, new VisualElement(name).createIcon(60));
             this.name = name;
             this.insertHistory = insertHistory;
             this.circuitComponent = circuitComponent;
@@ -52,8 +52,8 @@ public class LibrarySelector {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            VisualPart visualPart = new VisualPart(name).setPos(new Vector(10, 10));
-            circuitComponent.setPartToDrag(visualPart);
+            VisualElement visualElement = new VisualElement(name).setPos(new Vector(10, 10));
+            circuitComponent.setPartToDrag(visualElement);
             insertHistory.add(this);
         }
     }

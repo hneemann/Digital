@@ -4,17 +4,17 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.Part;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
  * @author hneemann
  */
-public class Add extends Node implements Part {
+public class Add extends Node implements Element {
 
-    public static final PartTypeDescription DESCRIPTION = new PartTypeDescription(Add.class, "a", "b", "c_i").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Add.class, "a", "b", "c_i").addAttribute(AttributeKey.Bits);
     private final int bits;
     private final ObservableValue sum;
     private final ObservableValue c_out;
@@ -24,7 +24,7 @@ public class Add extends Node implements Part {
     protected ObservableValue c_in;
     protected long value;
 
-    public Add(PartAttributes attributes) {
+    public Add(ElementAttributes attributes) {
         bits = attributes.get(AttributeKey.Bits);
         this.mask = 1 << bits;
 

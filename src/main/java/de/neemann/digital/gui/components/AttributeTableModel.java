@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
  */
 public class AttributeTableModel implements TableModel {
     private final ArrayList<AttributeKey> list;
-    private final PartAttributes partAttributes;
+    private final ElementAttributes elementAttributes;
 
-    public AttributeTableModel(ArrayList<AttributeKey> list, PartAttributes partAttributes) {
+    public AttributeTableModel(ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
         this.list = list;
-        this.partAttributes = partAttributes;
+        this.elementAttributes = elementAttributes;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AttributeTableModel implements TableModel {
         if (columnIndex == 0)
             return attributeKey.getName();
         else {
-            Object value = partAttributes.get(attributeKey);
+            Object value = elementAttributes.get(attributeKey);
             return EditorFactory.INSTANCE.get(attributeKey.getValueClass()).toText(value);
         }
     }
@@ -62,7 +62,7 @@ public class AttributeTableModel implements TableModel {
             AttributeKey attributeKey = list.get(rowIndex);
             Object newValue = EditorFactory.INSTANCE.get(attributeKey.getValueClass()).toValue(aValue.toString());
             if (newValue != null)
-                partAttributes.set(attributeKey, newValue);
+                elementAttributes.set(attributeKey, newValue);
         }
     }
 

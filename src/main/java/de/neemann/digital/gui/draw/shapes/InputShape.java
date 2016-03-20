@@ -4,11 +4,11 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.SingleValueDialog;
+import de.neemann.digital.gui.draw.elements.IOState;
+import de.neemann.digital.gui.draw.elements.Pin;
+import de.neemann.digital.gui.draw.elements.Pins;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.graphics.Polygon;
-import de.neemann.digital.gui.draw.parts.IOState;
-import de.neemann.digital.gui.draw.parts.Pin;
-import de.neemann.digital.gui.draw.parts.Pins;
 
 import java.awt.*;
 

@@ -1,8 +1,8 @@
 package de.neemann.digital.gui.draw.model;
 
+import de.neemann.digital.gui.draw.elements.Pin;
+import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.Vector;
-import de.neemann.digital.gui.draw.parts.Pin;
-import de.neemann.digital.gui.draw.parts.Wire;
 
 import java.util.ArrayList;
 import java.util.Iterator;

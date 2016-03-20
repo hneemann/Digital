@@ -2,9 +2,9 @@ package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.PartAttributes;
-import de.neemann.digital.core.part.PartTypeDescription;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 import java.util.ArrayList;
 
@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public class NOr extends Function {
 
-    public static final PartTypeDescription DESCRIPTION = new FanInDescription(NOr.class);
+    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(NOr.class);
 
-    public NOr(PartAttributes attributes) {
+    public NOr(ElementAttributes attributes) {
         super(attributes.get(AttributeKey.Bits));
     }
 

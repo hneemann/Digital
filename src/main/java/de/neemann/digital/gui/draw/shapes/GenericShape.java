@@ -1,10 +1,10 @@
 package de.neemann.digital.gui.draw.shapes;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.gui.draw.elements.IOState;
+import de.neemann.digital.gui.draw.elements.Pin;
+import de.neemann.digital.gui.draw.elements.Pins;
 import de.neemann.digital.gui.draw.graphics.*;
-import de.neemann.digital.gui.draw.parts.IOState;
-import de.neemann.digital.gui.draw.parts.Pin;
-import de.neemann.digital.gui.draw.parts.Pins;
 
 /**
  * Universal Shape. Used for most components.

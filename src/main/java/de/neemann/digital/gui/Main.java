@@ -6,15 +6,15 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.part.AttributeKey;
-import de.neemann.digital.core.part.PartAttributes;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.draw.elements.Circuit;
+import de.neemann.digital.gui.draw.elements.VisualElement;
+import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.library.PartLibrary;
 import de.neemann.digital.gui.draw.model.ModelDescription;
-import de.neemann.digital.gui.draw.parts.Circuit;
-import de.neemann.digital.gui.draw.parts.VisualPart;
-import de.neemann.digital.gui.draw.parts.Wire;
 import de.neemann.digital.gui.draw.shapes.ShapeFactory;
 import de.process.utils.gui.ClosingWindowListener;
 import de.process.utils.gui.ErrorMessage;
@@ -189,12 +189,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private static XStream getxStream() {
         XStream xStream = new XStream(new StaxDriver());
-        xStream.alias("visualPart", VisualPart.class);
+        xStream.alias("visualElement", VisualElement.class);
         xStream.alias("wire", Wire.class);
         xStream.alias("circuit", Circuit.class);
         xStream.alias("vector", Vector.class);
         xStream.alias("key", AttributeKey.class);
-        xStream.addImplicitCollection(PartAttributes.class, "attributes");
+        xStream.addImplicitCollection(ElementAttributes.class, "attributes");
         xStream.aliasAttribute(Vector.class, "x", "x");
         xStream.aliasAttribute(Vector.class, "y", "y");
         return xStream;
@@ -241,7 +241,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             circuitComponent.setCircuit(circuit);
             setFilename(filename);
         } catch (Exception e) {
-            new ErrorMessage("error writing a file").addCause(e).show();
+            new ErrorMessage("error loading  file " + filename).addCause(e).show();
         }
     }
 

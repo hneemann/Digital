@@ -1,4 +1,4 @@
-package de.neemann.digital.core.part;
+package de.neemann.digital.core.element;
 
 /**
  * @author hneemann

@@ -1,14 +1,14 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.part.AttributeKey;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.gui.draw.elements.Circuit;
+import de.neemann.digital.gui.draw.elements.Moveable;
+import de.neemann.digital.gui.draw.elements.VisualElement;
+import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.graphics.Polygon;
 import de.neemann.digital.gui.draw.library.PartLibrary;
-import de.neemann.digital.gui.draw.parts.Circuit;
-import de.neemann.digital.gui.draw.parts.Moveable;
-import de.neemann.digital.gui.draw.parts.VisualPart;
-import de.neemann.digital.gui.draw.parts.Wire;
 import de.neemann.digital.gui.draw.shapes.Drawable;
 import de.neemann.digital.gui.draw.shapes.GenericShape;
 
@@ -101,7 +101,7 @@ public class CircuitComponent extends JComponent implements Observer {
         repaint();
     }
 
-    public void setPartToDrag(VisualPart part) {
+    public void setPartToDrag(VisualElement part) {
         setModeAndReset(Mode.part);
         ((PartMouseListener) listener).setPartToInsert(part);
     }
@@ -231,7 +231,7 @@ public class CircuitComponent extends JComponent implements Observer {
 
     private class PartMouseListener extends Mouse {
 
-        private VisualPart partToInsert;
+        private VisualElement partToInsert;
         private boolean autoPick = false;
         private Vector delta;
         private boolean insert;
@@ -251,7 +251,7 @@ public class CircuitComponent extends JComponent implements Observer {
                 if (partToInsert == null) {
                     Vector pos = getPosVector(e);
                     insert = false;
-                    for (VisualPart vp : circuit.getParts())
+                    for (VisualElement vp : circuit.getParts())
                         if (vp.matches(pos)) {
                             partToInsert = vp;
                             delta = partToInsert.getPos().sub(pos);
@@ -267,14 +267,14 @@ public class CircuitComponent extends JComponent implements Observer {
                 }
             } else {
                 Vector pos = getPosVector(e);
-                for (VisualPart vp : circuit.getParts())
+                for (VisualElement vp : circuit.getParts())
                     if (vp.matches(pos)) {
-                        String name = vp.getPartName();
+                        String name = vp.getElementName();
                         ArrayList<AttributeKey> list = library.getPartType(name).getAttributeList();
                         if (list.size() > 0) {
                             Point p = new Point(e.getX(), e.getY());
                             SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                            new AttributeDialog(p, list, vp.getPartAttributes()).showDialog();
+                            new AttributeDialog(p, list, vp.getElementAttributes()).showDialog();
                             circuit.modified();
                             repaint();
                         }
@@ -293,7 +293,7 @@ public class CircuitComponent extends JComponent implements Observer {
             }
         }
 
-        public void setPartToInsert(VisualPart partToInsert) {
+        public void setPartToInsert(VisualElement partToInsert) {
             this.partToInsert = partToInsert;
             insert = true;
             autoPick = true;
@@ -351,8 +351,8 @@ public class CircuitComponent extends JComponent implements Observer {
                 for (Moveable m : elements) {
                     if (m instanceof Wire)
                         circuit.add((Wire) m);
-                    if (m instanceof VisualPart)
-                        circuit.add((VisualPart) m);
+                    if (m instanceof VisualElement)
+                        circuit.add((VisualElement) m);
                 }
                 reset();
             }
@@ -409,7 +409,7 @@ public class CircuitComponent extends JComponent implements Observer {
         @Override
         public void mouseClicked(MouseEvent e) {
             Vector pos = getPosVector(e);
-            for (VisualPart vp : circuit.getParts())
+            for (VisualElement vp : circuit.getParts())
                 if (vp.matches(pos)) {
                     Point p = new Point(e.getX(), e.getY());
                     SwingUtilities.convertPointToScreen(p, CircuitComponent.this);

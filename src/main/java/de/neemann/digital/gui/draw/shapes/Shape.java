@@ -1,8 +1,8 @@
 package de.neemann.digital.gui.draw.shapes;
 
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.gui.draw.parts.IOState;
-import de.neemann.digital.gui.draw.parts.Pins;
+import de.neemann.digital.gui.draw.elements.IOState;
+import de.neemann.digital.gui.draw.elements.Pins;
 
 /**
  * @author hneemann
@@ -27,7 +27,7 @@ public interface Shape extends Drawable {
      * If the shape returns an interactor, this interactors clicked method is called if the
      * shape is clicked in the running mode.
      *
-     * @param ioState     the state of the part
+     * @param ioState     the state of the element
      * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
      * @return the interactor is called if the shape is clicked during running mode, maybe null
      */

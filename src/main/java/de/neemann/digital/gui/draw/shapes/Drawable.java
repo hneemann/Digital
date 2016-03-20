@@ -7,7 +7,7 @@ import de.neemann.digital.gui.draw.graphics.Graphic;
  */
 public interface Drawable {
     /**
-     * Draws a part depending on its state
+     * Draws a element depending on its state
      *  @param graphic interface to draw to
      *
      */
