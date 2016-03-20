@@ -101,7 +101,8 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
         shape.drawTo(gr);
         for (Pin p : shape.getPins())
-            gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN), p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.WIRE);
+            gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN)
+                    , p.getDirection() == Pin.Direction.input ? Style.NORMAL : Style.WIRE_OUT);
 
         if (highLight && minMax != null) {
             Vector delta = minMax.getMax().sub(minMax.getMin());

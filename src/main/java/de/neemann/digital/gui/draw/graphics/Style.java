@@ -10,6 +10,7 @@ public class Style {
     public static final Style WIRE = new Style(2, true, Color.BLUE.darker());
     public static final Style WIRE_LOW = new Style(3, true, new Color(0, 112, 0));
     public static final Style WIRE_HIGH = new Style(3, true, new Color(102, 255, 102));
+    public static final Style WIRE_OUT = new Style(2, true, Color.RED.darker());
     public static final Style FILLED = new Style(2, true, Color.BLACK);
     public static final Style THIN = new Style(1, false, Color.BLACK);
     public static final Style DASH = new Style(1, false, Color.BLACK);

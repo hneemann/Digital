@@ -3,6 +3,7 @@ package de.neemann.digital;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.element.Element;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,13 +16,17 @@ public class TestExecuter {
     private ObservableValue[] inputs;
     private ObservableValue[] outputs;
 
+    public TestExecuter() throws NodeException {
+        this(null);
+    }
     public TestExecuter(Model model) throws NodeException {
         this(model, false);
     }
 
     public TestExecuter(Model model, boolean noise) throws NodeException {
         this.model = model;
-        model.init(noise);
+        if (model != null)
+            model.init(noise);
     }
 
     public TestExecuter setInputs(ObservableValue... values) {
@@ -34,11 +39,17 @@ public class TestExecuter {
         return this;
     }
 
+    public TestExecuter setOutputsOf(Element element) {
+        outputs = element.getOutputs();
+        return this;
+    }
+
     public void check(int... val) throws NodeException {
         for (int i = 0; i < inputs.length; i++) {
             inputs[i].setValue(val[i]);
         }
-        model.doStep();
+        if (model != null)
+            model.doStep();
 
         for (int i = 0; i < outputs.length; i++) {
             int should = val[i + inputs.length];

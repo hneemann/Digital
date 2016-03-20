@@ -11,6 +11,8 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Integer> Value = new AttributeKey<>("Value", 1);
     public static final AttributeKey<Integer> Default = new AttributeKey<>("Default", 0);
     public static final AttributeKey<java.awt.Color> Color = new AttributeKey<>("Color", java.awt.Color.RED);
+    public static final AttributeKey<String> InputSplit = new AttributeKey<>("Input Splitting", "");
+    public static final AttributeKey<String> OutputSplit = new AttributeKey<>("Output Splitting", "");
 
     private final String name;
     private final VALUE def;

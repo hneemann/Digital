@@ -13,6 +13,7 @@ import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.Delay;
+import de.neemann.digital.core.wiring.Splitter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +42,8 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
         add(Out.DESCRIPTION, "IO");
         add(Out.LEDDESCRIPTION, "IO");
         add(Out.PROBEDESCRIPTION, "IO");
+
+        add(Splitter.DESCRIPTION, "Wires");
 
         add(RS_FF.DESCRIPTION, "FlipFlops");
         add(JK_FF.DESCRIPTION, "FlipFlops");

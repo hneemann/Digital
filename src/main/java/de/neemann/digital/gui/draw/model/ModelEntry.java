@@ -26,7 +26,7 @@ public class ModelEntry {
     }
 
     /**
-     * Sets the Inputs of the element contained in thes entry
+     * Sets the Inputs of the element contained in this entry
      *
      * @throws PinException
      * @throws NodeException

@@ -36,7 +36,7 @@ public class ElementAttributes {
         }
     }
 
-    public <VALUE> void set(AttributeKey<VALUE> key, VALUE value) {
+    public <VALUE> ElementAttributes set(AttributeKey<VALUE> key, VALUE value) {
         if (value != get(key)) {
             if (value.equals(key.getDefault())) {
                 if (attributes != null)
@@ -48,6 +48,7 @@ public class ElementAttributes {
             }
             fireValueChanged(key);
         }
+        return this;
     }
 
     private void fireValueChanged(AttributeKey key) {
