@@ -8,6 +8,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.gui.draw.elements.PinException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
@@ -52,17 +53,35 @@ public class Splitter implements Element {
     public void setInputs(ObservableValue... inputs) throws NodeException {
         this.inputs = inputs;
         for (int i = 0; i < inputs.length; i++) {
-            if (inPorts.getPort(i).getBits() != inputs[i].getBits())
+            Port inPort = inPorts.getPort(i);
+            if (inPort.getBits() != inputs[i].getBits())
                 throw new BitsException("splitterBitsMismatch", inputs[i]);
-            inputs[i].addObserver(createObserverForInput(i));
+            registerObserversFor(inPort);
         }
     }
 
-    private Observer createObserverForInput(int i) throws NodeException {
-        Observer observer = outPorts.getSingleTargetObserver(inPorts.getPort(i), inputs, outputs);
-        if (observer == null)
-            throw new NodeException("splitterMismatchError");
-        return observer;
+    private void registerObserversFor(Port in) throws NodeException {
+        Observer observer = outPorts.getSingleTargetObserver(in, inputs, outputs);
+        if (observer != null) {
+            inputs[in.number].addObserver(observer);
+            return;
+        }
+
+        for (Port out : outPorts) {
+            if (out.getPos() >= in.getPos() &&
+                    out.getPos() + out.getBits() <= in.getPos() + in.getBits()) {
+
+                final int bitPos = out.getPos() - in.getPos();
+                final ObservableValue inValue = inputs[in.number];
+                final ObservableValue outValue = outputs[out.number];
+                inValue.addObserver(new Observer() {
+                    @Override
+                    public void hasChanged() {
+                        outValue.setValue(inValue.getValue() >> bitPos);
+                    }
+                });
+            }
+        }
     }
 
     @Override
@@ -74,7 +93,7 @@ public class Splitter implements Element {
     public void registerNodes(Model model) {
     }
 
-    public static final class Ports {
+    public static final class Ports implements Iterable<Port> {
         private final ArrayList<Port> ports;
         private int bits;
 
@@ -149,6 +168,10 @@ public class Splitter implements Element {
             return null;
         }
 
+        @Override
+        public Iterator<Port> iterator() {
+            return ports.iterator();
+        }
     }
 
     private static final class Port {

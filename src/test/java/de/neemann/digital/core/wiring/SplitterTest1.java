@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 /**
  * @author hneemann
  */
-public class SplitterTest extends TestCase {
+public class SplitterTest1 extends TestCase {
 
     public void testBits() throws Exception {
         ObservableValue a = new ObservableValue("a", 1);
