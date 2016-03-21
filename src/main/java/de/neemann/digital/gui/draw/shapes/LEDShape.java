@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.elements.IOState;
 import de.neemann.digital.gui.draw.elements.Pin;
@@ -43,8 +44,11 @@ public class LEDShape implements Shape {
     @Override
     public void drawTo(Graphic graphic) {
         boolean fill = false;
-        if (ioState != null)
-            fill = ioState.getInput(0).getValue() != 0;
+        if (ioState != null) {
+            ObservableValue value = ioState.getInput(0);
+            if (!value.isHighZ() && (value.getValue() != 0))
+                fill = true;
+        }
 
         Vector center = new Vector(2 + SIZE, 0);
         graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);

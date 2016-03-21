@@ -47,6 +47,14 @@ public class ObservableValue extends Value {
         return value;
     }
 
+    public String getValueString() {
+        if (highZ)
+            return "?";
+        else
+            return "0x" + Long.toHexString(value);
+    }
+
+
     public void setValue(long value) {
         value = getValueBits(value);
         if (this.value != value) {

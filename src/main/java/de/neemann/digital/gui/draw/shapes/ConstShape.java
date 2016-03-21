@@ -14,11 +14,10 @@ import de.neemann.digital.gui.draw.graphics.Vector;
  */
 public class ConstShape implements Shape {
 
-    private long value;
-    private IOState ioState;
+    private String value;
 
     public ConstShape(long value) {
-        this.value = value;
+        this.value = "0x" + Long.toHexString(value);
     }
 
     @Override
@@ -28,15 +27,12 @@ public class ConstShape implements Shape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        this.ioState = ioState;
         return null;
     }
 
     @Override
     public void drawTo(Graphic graphic) {
         Vector textPos = new Vector(-3, 0);
-        if (ioState != null)
-            value = ioState.getOutput(0).getValue();
-        graphic.drawText(textPos, textPos.add(1, 0), Long.toString(value), Orientation.RIGHTCENTER, Style.NORMAL);
+        graphic.drawText(textPos, textPos.add(1, 0), value, Orientation.RIGHTCENTER, Style.NORMAL);
     }
 }

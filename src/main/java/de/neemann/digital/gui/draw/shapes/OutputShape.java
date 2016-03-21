@@ -41,15 +41,10 @@ public class OutputShape implements Shape {
         Style style = Style.NORMAL;
         if (ioState != null) {
             ObservableValue value = ioState.getInput(0);
-            long val = value.getValue();
-            if (value.getBits() == 1) {
-                if (val != 0)
-                    style = Style.WIRE_HIGH;
-                else
-                    style = Style.WIRE_LOW;
-            } else {
+            style = Style.getWireStyle(value);
+            if (value.getBits() > 1) {
                 Vector textPos = new Vector(2 + SIZE, -2 - SIZE);
-                graphic.drawText(textPos, textPos.add(1, 0), Long.toHexString(val), Orientation.CENTERBOTTOM, Style.NORMAL);
+                graphic.drawText(textPos, textPos.add(1, 0), value.getValueString(), Orientation.CENTERBOTTOM, Style.NORMAL);
             }
         }
 

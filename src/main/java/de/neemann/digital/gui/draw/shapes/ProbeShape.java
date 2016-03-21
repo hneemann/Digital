@@ -15,6 +15,8 @@ import de.neemann.digital.gui.draw.graphics.Vector;
 public class ProbeShape implements Shape {
 
     private final String label;
+    private IOState ioState;
+    private int bits;
 
     public ProbeShape(String label) {
         this.label = label;
@@ -27,11 +29,18 @@ public class ProbeShape implements Shape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+        this.ioState = ioState;
+        ioState.getInput(0).addObserver(guiObserver);
+        bits = ioState.getInput(0).getBits();
         return null;
     }
 
     @Override
     public void drawTo(Graphic graphic) {
         graphic.drawText(new Vector(2, -1), new Vector(3, -1), label, Orientation.LEFTBOTTOM, Style.NORMAL);
+        if (bits > 1) {
+            String v = ioState.getInput(0).getValueString();
+            graphic.drawText(new Vector(2, 1), new Vector(3, 1), v, Orientation.LEFTTOP, Style.NORMAL);
+        }
     }
 }

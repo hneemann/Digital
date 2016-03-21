@@ -45,8 +45,7 @@ public class SingleValueDialog extends JDialog {
     }
 
     public static void editValue(Point pos, ObservableValue value) {
-        String text = "0x" + Long.toHexString(value.getValue());
-        String ret = new SingleValueDialog(pos, text).showDialog();
+        String ret = new SingleValueDialog(pos, value.getValueString()).showDialog();
         if (ret != null) {
             try {
                 long l = Long.decode(ret);

@@ -10,8 +10,6 @@ import de.neemann.digital.gui.draw.shapes.Drawable;
  * @author hneemann
  */
 public class Wire implements Drawable, Moveable {
-    private static final Vector RAD = new Vector(2, 2);
-    private static final Vector RAD_RUNNING = new Vector(3, 3);
     public Vector p1;
     public Vector p2;
     private transient ObservableValue value;
@@ -32,24 +30,17 @@ public class Wire implements Drawable, Moveable {
 
     @Override
     public void drawTo(Graphic graphic) {
-        Style style = Style.WIRE;
-
-        Vector r = RAD;
-
-        if (value != null && value.getBits() == 1) {
-            r = RAD_RUNNING;
-            if (value.getValue() != 0)
-                style = Style.WIRE_HIGH;
-            else
-                style = Style.WIRE_LOW;
-        }
+        Style style = Style.getWireStyle(value);
 
         graphic.drawLine(p1, p2, style);
 
-        if (p1Dot)
-            graphic.drawCircle(p1.sub(r), p1.add(r), style);
-        if (p2Dot)
-            graphic.drawCircle(p2.sub(r), p2.add(r), style);
+        if (p1Dot || p2Dot) {
+            Vector r = new Vector(style.getThickness(), style.getThickness());
+            if (p1Dot)
+                graphic.drawCircle(p1.sub(r), p1.add(r), style);
+            if (p2Dot)
+                graphic.drawCircle(p2.sub(r), p2.add(r), style);
+        }
     }
 
     @Override
