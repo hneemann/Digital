@@ -13,6 +13,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<java.awt.Color> Color = new AttributeKey<>("Color", java.awt.Color.RED);
     public static final AttributeKey<String> InputSplit = new AttributeKey<>("Input Splitting", "");
     public static final AttributeKey<String> OutputSplit = new AttributeKey<>("Output Splitting", "");
+    public static final AttributeKey<Integer> Frequency = new AttributeKey<>("Frequency", 1);
 
     private final String name;
     private final VALUE def;

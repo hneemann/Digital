@@ -10,16 +10,19 @@ import java.util.Collections;
 public class Model {
 
     private final ArrayList<Node> nodes;
+    private final ArrayList<ModelStateObserver> observers;
     private ArrayList<Node> nodesToUpdateAct;
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
     private int maxCounter = 1000;
     private boolean isInitialized = false;
+    private boolean stopped = false;
 
     public Model() {
         this.nodes = new ArrayList<>();
         this.nodesToUpdateAct = new ArrayList<>();
         this.nodesToUpdateNext = new ArrayList<>();
+        observers = new ArrayList<>();
     }
 
     public int getVersion() {
@@ -56,8 +59,13 @@ public class Model {
         nodesToUpdateNext.addAll(nodes);
         isInitialized = true;
         doStep(noise);
+        fireEvent(ModelStateObserver.Event.STARTED);
     }
 
+    public void close() {
+        stopped = true;
+        fireEvent(ModelStateObserver.Event.STOPPED);
+    }
 
     public void addToUpdateList(Node node) {
         nodesToUpdateNext.add(node);
@@ -132,5 +140,18 @@ public class Model {
 
     public Collection<Node> nodesToUpdate() {
         return nodesToUpdateNext;
+    }
+
+    public void addObserver(ModelStateObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(ModelStateObserver observer) {
+        observers.add(observer);
+    }
+
+    private void fireEvent(ModelStateObserver.Event event) {
+        for (ModelStateObserver observer : observers)
+            observer.handleEvent(event);
     }
 }

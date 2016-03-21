@@ -12,6 +12,7 @@ import de.neemann.digital.core.flipflops.T_FF;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Delay;
 import de.neemann.digital.core.wiring.Splitter;
 
@@ -41,6 +42,7 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
         add(Out.DESCRIPTION, "IO");
         add(Out.LEDDESCRIPTION, "IO");
         add(Out.PROBEDESCRIPTION, "IO");
+        add(Clock.DESCRIPTION, "IO");
 
         add(Splitter.DESCRIPTION, "Wires");
         add(Const.DESCRIPTION, "Wires");
