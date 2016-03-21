@@ -254,13 +254,16 @@ public class CircuitComponent extends JComponent implements Observer {
                     for (VisualElement vp : circuit.getParts())
                         if (vp.matches(pos)) {
                             partToInsert = vp;
+                            partToInsert.setHighLight(true);
                             delta = partToInsert.getPos().sub(pos);
+                            repaint();
                             break;
                         }
                 } else {
                     partToInsert.setPos(raster(partToInsert.getPos()));
                     if (insert)
                         circuit.add(partToInsert);
+                    partToInsert.setHighLight(false);
                     circuit.modified();
                     repaint();
                     partToInsert = null;
@@ -285,8 +288,10 @@ public class CircuitComponent extends JComponent implements Observer {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (autoPick && partToInsert != null) {
+                GraphicMinMax minMax = partToInsert.getMinMax();
+                delta = partToInsert.getPos().sub(minMax.getMax());
+
                 Vector pos = getPosVector(e);
-                delta = partToInsert.getMinMax().getMin().sub(partToInsert.getMinMax().getMax());
                 partToInsert.setPos(raster(pos.add(delta)));
                 autoPick = false;
                 repaint();
@@ -295,6 +300,7 @@ public class CircuitComponent extends JComponent implements Observer {
 
         public void setPartToInsert(VisualElement partToInsert) {
             this.partToInsert = partToInsert;
+            partToInsert.setHighLight(true);
             insert = true;
             autoPick = true;
         }

@@ -21,7 +21,7 @@ public class AttributeDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTable table = new JTable(new AttributeTableModel(list, elementAttributes));
-        getContentPane().add(table);
+        getContentPane().add(new JScrollPane(table));
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -37,6 +37,8 @@ public class AttributeDialog extends JDialog {
                 close(table);
             }
         });
+
+        table.setPreferredScrollableViewportSize(table.getPreferredSize());
 
         pack();
         setLocation(pos.x, pos.y);

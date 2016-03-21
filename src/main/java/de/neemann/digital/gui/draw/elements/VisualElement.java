@@ -104,6 +104,8 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN)
                     , p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
 
+        if (highLight && minMax == null && !(graphic instanceof GraphicMinMax)) getMinMax();
+
         if (highLight && minMax != null) {
             Vector delta = minMax.getMax().sub(minMax.getMin());
             int rad = (int) Math.sqrt(delta.x * delta.x + delta.y * delta.y) / 2;
@@ -186,8 +188,6 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
     public void setHighLight(boolean highLight) {
         this.highLight = highLight;
-        if (highLight)
-            getMinMax();
     }
 
     @Override
