@@ -42,10 +42,10 @@ public class XOr extends Node implements Element {
         b = inputs[1].addObserver(this);
 
         if (a.getBits() != bits)
-            throw new BitsException("wrongBitCount", a);
+            throw new BitsException("wrongBitCount", this, a);
 
         if (b.getBits() != bits)
-            throw new BitsException("wrongBitCount", b);
+            throw new BitsException("wrongBitCount", this, b);
     }
 
     @Override

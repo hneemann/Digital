@@ -14,8 +14,10 @@ public abstract class FanIn extends Node implements Element {
 
     protected final ArrayList<ObservableValue> inputs;
     protected final ObservableValue output;
+    private final int bits;
 
     public FanIn(int bits) {
+        this.bits = bits;
         inputs = new ArrayList<>();
         output = new ObservableValue("out", bits);
     }
@@ -24,16 +26,10 @@ public abstract class FanIn extends Node implements Element {
         return output;
     }
 
-    private void addInput(ObservableValue value) throws NodeException {
-        output.checkBits(value);
-        inputs.add(value);
-        value.addObserver(this);
-    }
-
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        for (ObservableValue v : inputs)
-            addInput(v);
+    public void setInputs(ObservableValue... in) throws NodeException {
+        for (ObservableValue v : in)
+            inputs.add(v.checkBits(bits, this).addObserver(this));
     }
 
     @Override

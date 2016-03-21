@@ -53,10 +53,10 @@ public class D_FF extends Node implements Element {
         clockVal = inputs[1].addObserver(this);
 
         if (dVal.getBits() != bits)
-            throw new BitsException("wrongBitCount", dVal);
+            throw new BitsException("wrongBitCount", this, dVal);
 
         if (clockVal.getBits() != 1)
-            throw new BitsException("clockIsABit", clockVal);
+            throw new BitsException("clockIsABit", this, clockVal);
     }
 
     @Override

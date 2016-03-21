@@ -56,13 +56,13 @@ public class RS_FF extends Node implements Element {
         kVal = inputs[2].addObserver(this);
 
         if (jVal.getBits() != 1)
-            throw new BitsException("wrongBitCount", jVal);
+            throw new BitsException("wrongBitCount", this, jVal);
 
         if (kVal.getBits() != 1)
-            throw new BitsException("wrongBitCount", kVal);
+            throw new BitsException("wrongBitCount", this, kVal);
 
         if (clockVal.getBits() != 1)
-            throw new BitsException("carryIsABit", clockVal);
+            throw new BitsException("carryIsABit", this, clockVal);
     }
 
     @Override

@@ -76,10 +76,11 @@ public class ObservableValue extends Value {
         return value & mask;
     }
 
-    public void checkBits(ObservableValue value) throws BitsException {
-        if (value.getBits() != bits) {
-            throw new BitsException("needs " + bits + " bits, found " + value.getBits(), this, value);
+    public ObservableValue checkBits(int bits, Node node) throws BitsException {
+        if (this.bits != bits) {
+            throw new BitsException("needs " + bits + " bits, found " + this.bits, node, this);
         }
+        return this;
     }
 
     public boolean isHighZ() {

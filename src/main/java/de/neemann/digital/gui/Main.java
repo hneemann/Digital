@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.elements.Circuit;
+import de.neemann.digital.gui.draw.elements.PinException;
 import de.neemann.digital.gui.draw.elements.VisualElement;
 import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.Vector;
@@ -225,14 +226,31 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private void createAndStartModel() {
         try {
             if (modelDescription != null)
-                modelDescription.highLight(null);
+                modelDescription.highLightOff();
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
             modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
             model = modelDescription.createModel();
             modelDescription.connectToGui(circuitComponent);
             model.init();
-        } catch (Exception e1) {
-            new ErrorMessage("error creating model").addCause(e1).show(Main.this);
+        } catch (NodeException e) {
+            if (modelDescription != null) {
+                if (e.getNodes() != null)
+                    modelDescription.highLight(e.getNodes());
+                else
+                    modelDescription.highLight(e.getValues());
+
+                circuitComponent.repaint();
+            }
+            SwingUtilities.invokeLater(new ErrorMessage("error creating model").addCause(e).setComponent(Main.this));
+            circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
+        } catch (PinException e) {
+            if (modelDescription != null) {
+                modelDescription.highLight(e.getVisualElement());
+                if (e.getNet() != null)
+                    e.getNet().setHighLight(true);
+                circuitComponent.repaint();
+            }
+            SwingUtilities.invokeLater(new ErrorMessage("error creating model").addCause(e).setComponent(Main.this));
             circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
         }
     }
@@ -298,7 +316,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (modelDescription != null)
-                modelDescription.highLight(null);
+                modelDescription.highLightOff();
             circuitComponent.setModeAndReset(mode);
             doStep.setEnabled(false);
             if (model != null)

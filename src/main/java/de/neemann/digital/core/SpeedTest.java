@@ -18,9 +18,9 @@ public class SpeedTest {
     public double calculate() throws NodeException {
         ArrayList<Clock> clocks = model.getClocks();
         if (clocks.isEmpty())
-            throw new NodeException("NoClockFound");
+            throw new NodeException("NoClockFound", null);
         else if (clocks.size() > 1)
-            throw new NodeException("MoreThenOneClocksFound");
+            throw new NodeException("MoreThenOneClocksFound", null);
 
 
         Clock clock = clocks.get(0);

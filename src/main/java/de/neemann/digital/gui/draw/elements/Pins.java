@@ -47,4 +47,11 @@ public class Pins implements Iterable<Pin> {
     public HashMap<String, Pin> getInputs() {
         return inputs;
     }
+
+    public boolean containsValue(ObservableValue v) {
+        for (Pin p : allPins)
+            if (p.getValue() == v)
+                return true;
+        return false;
+    }
 }

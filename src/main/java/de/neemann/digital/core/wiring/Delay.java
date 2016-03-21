@@ -45,7 +45,7 @@ public class Delay extends Node implements Element {
         input = inputs[0].addObserver(this);
 
         if (input.getBits() != bits)
-            throw new BitsException("wrongBitCountInDelay", input, output);
+            throw new BitsException("wrongBitCountInDelay", this, input, output);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Clock implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        throw new NodeException("no inputs available!");
+        throw new NodeException("no inputs available!", null);
     }
 
     @Override

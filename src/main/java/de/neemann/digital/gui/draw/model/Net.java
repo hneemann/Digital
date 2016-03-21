@@ -65,21 +65,31 @@ public class Net {
         }
 
         if (outputs.size() == 0)
-            throw new PinException("No output connected to wire!");
+            throw new PinException("No output connected to wire!", this);
 
         if (outputs.size() > 1)
-            throw new PinException("Multiple outputs not supported yet!");
+            throw new PinException("Multiple outputs not supported yet!", this);
 
         ObservableValue value = outputs.get(0).getValue();
         if (value == null)
-            throw new PinException("Output " + outputs.get(0) + " not defined!");
+            throw new PinException("Output " + outputs.get(0) + " not defined!", this);
 
-        for (Pin i : inputs) {
+        for (Pin i : inputs)
             i.setValue(value);
-        }
 
         for (Wire w : wires)
             w.setValue(value);
+    }
 
+    public void setHighLight(boolean highLight) {
+        for (Wire w : wires)
+            w.setHighLight(highLight);
+    }
+
+    public boolean containsValue(ObservableValue v) {
+        for (Pin p : pins)
+            if (p.getValue() == v)
+                return true;
+        return false;
     }
 }

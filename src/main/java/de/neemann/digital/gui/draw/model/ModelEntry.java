@@ -39,11 +39,11 @@ public class ModelEntry {
             for (int i = 0; i < inputNames.length; i++) {
                 Pin pin = ins.get(inputNames[i]);
                 if (pin == null)
-                    throw new PinException("pin '" + inputNames[i] + "' at " + visualElement + " not found!");
+                    throw new PinException("pin '" + inputNames[i] + "' at " + visualElement + " not found!", visualElement);
 
                 ObservableValue value = pin.getValue();
                 if (value == null)
-                    throw new PinException("no value set for '" + inputNames[i] + "' at " + visualElement + "!");
+                    throw new PinException("no value set for '" + inputNames[i] + "' at " + visualElement + "!", visualElement);
 
                 inputs[i] = value;
             }
@@ -64,5 +64,9 @@ public class ModelEntry {
 
     public VisualElement getVisualElement() {
         return visualElement;
+    }
+
+    public boolean containsValue(ObservableValue v) {
+        return pins.containsValue(v);
     }
 }

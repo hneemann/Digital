@@ -80,10 +80,10 @@ public class Model {
     public void doStep(boolean noise) throws NodeException {
         int counter = 0;
         while (needsUpdate()) {
-            doMicroStep(noise);
             if (counter++ > maxCounter) {
-                throw new NodeException("seemsToOscillate");
+                throw new NodeException("seemsToOscillate", nodesToUpdateNext.get(0));
             }
+            doMicroStep(noise);
         }
     }
 

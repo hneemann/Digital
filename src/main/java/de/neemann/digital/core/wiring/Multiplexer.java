@@ -25,7 +25,7 @@ public class Multiplexer extends FanIn {
     public void readInputs() throws NodeException {
         int n = (int) selector.getValue();
         if (n >= inputs.size())
-            throw new NodeException("multiplexerSelectsNotPresentInput");
+            throw new NodeException("multiplexerSelectsNotPresentInput", this);
 
         value = inputs.get(n).getValue();
     }
@@ -42,6 +42,6 @@ public class Multiplexer extends FanIn {
         super.setInputs(Arrays.copyOfRange(inputs, 0, inputs.length - 1));
 
         if (selector.getBits() != selectorBits)
-            throw new BitsException("selectorMismatch", selector);
+            throw new BitsException("selectorMismatch", this, selector);
     }
 }

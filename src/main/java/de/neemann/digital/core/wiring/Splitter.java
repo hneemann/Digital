@@ -5,9 +5,9 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.gui.draw.elements.PinException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -41,21 +41,22 @@ public class Splitter implements Element {
 
     }
 
-    public Splitter(ElementAttributes attributes) throws PinException {
+    public Splitter(ElementAttributes attributes) {
         outPorts = new Ports(attributes.get(AttributeKey.OutputSplit));
         outputs = outPorts.getOutputs();
         inPorts = new Ports(attributes.get(AttributeKey.InputSplit));
-        if (inPorts.getBits() != outPorts.getBits())
-            throw new PinException("splitterPortMismatch");
     }
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
+        if (inPorts.getBits() != outPorts.getBits())
+            throw new BitsException("splitterBitsMismatch", null, combine(inputs, outputs));
+
         this.inputs = inputs;
         for (int i = 0; i < inputs.length; i++) {
             Port inPort = inPorts.getPort(i);
             if (inPort.getBits() != inputs[i].getBits())
-                throw new BitsException("splitterBitsMismatch", inputs[i]);
+                throw new BitsException("splitterBitsMismatch", null, inputs[i]);
         }
 
         for (Port out : outPorts)
@@ -228,4 +229,11 @@ public class Splitter implements Element {
             return name;
         }
     }
+
+    public static ObservableValue[] combine(ObservableValue[] inputs, ObservableValue[] outputs) {
+        ObservableValue[] com = Arrays.copyOf(inputs, inputs.length + outputs.length);
+        System.arraycopy(outputs, 0, com, inputs.length, outputs.length);
+        return com;
+    }
+
 }

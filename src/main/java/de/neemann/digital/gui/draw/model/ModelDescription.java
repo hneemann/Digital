@@ -1,9 +1,6 @@
 package de.neemann.digital.gui.draw.model;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.gui.draw.elements.*;
@@ -85,4 +82,30 @@ public class ModelDescription {
         }
     }
 
+    public void highLight(VisualElement visualElement) {
+        if (visualElement != null) {
+            visualElement.setHighLight(true);
+        }
+    }
+
+    public void highLight(ObservableValue[] values) {
+        for (ObservableValue v : values)
+            highLight(v);
+    }
+
+    private void highLight(ObservableValue v) {
+        for (ModelEntry me : entries)
+            if (me.containsValue(v))
+                me.getVisualElement().setHighLight(true);
+        for (Net n : netList)
+            if (n.containsValue(v))
+                n.setHighLight(true);
+    }
+
+    public void highLightOff() {
+        for (ModelEntry me : entries)
+            me.getVisualElement().setHighLight(false);
+        for (Net net : netList)
+            net.setHighLight(false);
+    }
 }

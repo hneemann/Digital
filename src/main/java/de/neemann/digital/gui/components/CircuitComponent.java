@@ -307,7 +307,7 @@ public class CircuitComponent extends JComponent implements Observer {
 
         @Override
         public void drawTo(Graphic gr) {
-            if (partToInsert != null)
+            if (partToInsert != null && !autoPick)
                 partToInsert.drawTo(gr);
         }
     }

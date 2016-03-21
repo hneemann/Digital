@@ -15,12 +15,14 @@ public class Mul extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Mul.class, "a", "b").addAttribute(AttributeKey.Bits);
     private final ObservableValue mul;
+    private final int bits;
     private ObservableValue a;
     private ObservableValue b;
     private long value;
 
     public Mul(ElementAttributes attributes) {
-        this.mul = new ObservableValue("mul", attributes.get(AttributeKey.Bits) * 2);
+        bits = attributes.get(AttributeKey.Bits);
+        this.mul = new ObservableValue("mul", bits * 2);
     }
 
     @Override
@@ -39,8 +41,8 @@ public class Mul extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        a = inputs[0].addObserver(this);
-        b = inputs[1].addObserver(this);
+        a = inputs[0].addObserver(this).checkBits(bits, this);
+        b = inputs[1].addObserver(this).checkBits(bits, this);
     }
 
     @Override
