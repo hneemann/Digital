@@ -24,7 +24,8 @@ public class SpeedTest {
 
 
         Clock clock = clocks.get(0);
-        model.init(true);
+        clock.disableTimer();
+        model.init();
         ObservableValue clockValue = clock.getOutputs()[0];
         int state = (int) clockValue.getValue();
 

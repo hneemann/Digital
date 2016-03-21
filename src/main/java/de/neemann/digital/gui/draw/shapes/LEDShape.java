@@ -43,8 +43,9 @@ public class LEDShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic) {
-        boolean fill = false;
+        boolean fill = true;
         if (ioState != null) {
+            fill = false;
             ObservableValue value = ioState.getInput(0);
             if (!value.isHighZ() && (value.getValue() != 0))
                 fill = true;

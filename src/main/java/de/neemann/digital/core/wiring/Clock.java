@@ -20,6 +20,7 @@ public class Clock implements Element {
 
     private final ObservableValue output;
     private final int frequency;
+    public boolean startThisTimer = true;
 
     public Clock(ElementAttributes attributes) {
         output = new ObservableValue("C", 1);
@@ -36,10 +37,13 @@ public class Clock implements Element {
         return new ObservableValue[]{output};
     }
 
+    public void disableTimer() {
+        this.startThisTimer = false;
+    }
+
     @Override
     public void registerNodes(Model model) {
         model.addObserver(new ModelStateObserver() {
-            public boolean startThisTimer = true;
             public Timer timer;
 
             @Override
@@ -67,7 +71,7 @@ public class Clock implements Element {
                         break;
                     case FETCHCLOCK:
                         event.registerClock(Clock.this);
-                        startThisTimer = false;
+                        break;
                 }
             }
         });
