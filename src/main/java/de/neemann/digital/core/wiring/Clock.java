@@ -1,9 +1,6 @@
 package de.neemann.digital.core.wiring;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelStateObserver;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -42,28 +39,35 @@ public class Clock implements Element {
     @Override
     public void registerNodes(Model model) {
         model.addObserver(new ModelStateObserver() {
+            public boolean startThisTimer = true;
             public Timer timer;
 
             @Override
-            public void handleEvent(Event event) {
-                switch (event) {
+            public void handleEvent(ModelEvent event) {
+                switch (event.getType()) {
                     case STARTED:
-                        int delay = 1000 / frequency;
-                        if (delay < 100) delay = 100;
-                        timer = new Timer(delay, e -> {
-                            output.setValue(1 - output.getValue());
-                            try {
-                                model.doStep();
-                            } catch (NodeException e1) {
-                                SwingUtilities.invokeLater(new ErrorMessage("ClockError").addCause(e1));
-                                timer.stop();
-                            }
-                        });
-                        timer.start();
+                        if (startThisTimer) {
+                            int delay = 1000 / frequency;
+                            if (delay < 100) delay = 100;
+                            timer = new Timer(delay, e -> {
+                                output.setValue(1 - output.getValue());
+                                try {
+                                    model.doStep();
+                                } catch (NodeException e1) {
+                                    SwingUtilities.invokeLater(new ErrorMessage("ClockError").addCause(e1));
+                                    timer.stop();
+                                }
+                            });
+                            timer.start();
+                        }
                         break;
                     case STOPPED:
-                        timer.stop();
+                        if (timer != null)
+                            timer.stop();
                         break;
+                    case FETCHCLOCK:
+                        event.registerClock(Clock.this);
+                        startThisTimer = false;
                 }
             }
         });

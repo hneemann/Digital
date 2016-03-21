@@ -1,5 +1,7 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.wiring.Clock;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -59,12 +61,12 @@ public class Model {
         nodesToUpdateNext.addAll(nodes);
         isInitialized = true;
         doStep(noise);
-        fireEvent(ModelStateObserver.Event.STARTED);
+        fireEvent(new ModelEvent(ModelEvent.Event.STARTED));
     }
 
     public void close() {
         stopped = true;
-        fireEvent(ModelStateObserver.Event.STOPPED);
+        fireEvent(new ModelEvent(ModelEvent.Event.STOPPED));
     }
 
     public void addToUpdateList(Node node) {
@@ -150,8 +152,14 @@ public class Model {
         observers.add(observer);
     }
 
-    private void fireEvent(ModelStateObserver.Event event) {
+    private void fireEvent(ModelEvent event) {
         for (ModelStateObserver observer : observers)
             observer.handleEvent(event);
+    }
+
+    public ArrayList<Clock> getClocks() {
+        ModelEvent e = new ModelEvent(ModelEvent.Event.FETCHCLOCK);
+        fireEvent(e);
+        return e.getClocks();
     }
 }

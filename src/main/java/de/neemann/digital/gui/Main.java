@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.SpeedTest;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
@@ -164,9 +165,26 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip("Runs the Model in Micro Stepping Mode");
 
+        ToolTipAction speedTest = new ToolTipAction("SpeedTest") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
+                    model = modelDescription.createModel();
+                    SpeedTest speedTest = new SpeedTest(model);
+                    double frequency = speedTest.calculate();
+                    JOptionPane.showMessageDialog(Main.this, "Frequency: " + frequency);
+                } catch (Exception e1) {
+                    new ErrorMessage("SpeedTestError").addCause(e1).show();
+                }
+            }
+        }.setToolTip("Runs the Model");
+
+
         run.add(runModel.createJMenuItem());
         run.add(runModelMicro.createJMenuItem());
         run.add(doStep.createJMenuItem());
+        run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
