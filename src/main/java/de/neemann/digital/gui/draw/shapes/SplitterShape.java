@@ -54,8 +54,8 @@ public class SplitterShape implements Shape {
         }
 
         graphic.drawPolygon(new Polygon(true)
-                .add(2, 0)
-                .add(SIZE - 2, 0)
+                .add(2, -2)
+                .add(SIZE - 2, -2)
                 .add(SIZE - 2, length)
                 .add(2, length), Style.FILLED);
     }

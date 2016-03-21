@@ -30,7 +30,7 @@ public class D_FF extends Node implements Element {
     public D_FF(ElementAttributes attributes) {
         bits = attributes.getBits();
         this.q = new ObservableValue("Q", bits);
-        this.qn = new ObservableValue("~Q", bits);
+        this.qn = new ObservableValue("\u00ACQ", bits);
     }
 
     @Override

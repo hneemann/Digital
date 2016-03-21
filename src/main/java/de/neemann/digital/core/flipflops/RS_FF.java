@@ -27,7 +27,7 @@ public class RS_FF extends Node implements Element {
 
     public RS_FF(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
-        this.qn = new ObservableValue("~Q", 1);
+        this.qn = new ObservableValue("\u00ACQ", 1);
     }
 
     @Override

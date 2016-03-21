@@ -65,9 +65,9 @@ public class Splitter implements Element {
     private void fillOutput(Port out) throws NodeException {
         for (Port in : inPorts) {
             if (in.getPos() + in.getBits() <= out.getPos() || out.getPos() + out.getBits() <= in.getPos())
-                continue; // this input is not needed to fill out!!!
+                continue; // this input is not needed to fill the output!!!
 
-            // out is filled completely by this single input value!
+            // out is filled completely by the actual single input value!
             if (out.getPos() >= in.getPos() &&
                     out.getPos() + out.getBits() <= in.getPos() + in.getBits()) {
 
@@ -145,6 +145,7 @@ public class Splitter implements Element {
 
     @Override
     public void registerNodes(Model model) {
+        // a splitter has no nodes, it works without a delay
     }
 
     public static final class Ports implements Iterable<Port> {

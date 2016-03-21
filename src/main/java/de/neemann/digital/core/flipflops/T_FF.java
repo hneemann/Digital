@@ -25,7 +25,7 @@ public class T_FF extends Node implements Element {
 
     public T_FF(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
-        this.qn = new ObservableValue("~Q", 1);
+        this.qn = new ObservableValue("\u00ACQ", 1);
     }
 
     @Override
