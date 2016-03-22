@@ -8,7 +8,7 @@ import de.neemann.digital.gui.draw.elements.VisualElement;
 import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.*;
 import de.neemann.digital.gui.draw.graphics.Polygon;
-import de.neemann.digital.gui.draw.library.PartLibrary;
+import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.neemann.digital.gui.draw.shapes.Drawable;
 import de.neemann.digital.gui.draw.shapes.GenericShape;
 
@@ -26,13 +26,13 @@ import java.util.ArrayList;
 public class CircuitComponent extends JComponent implements Observer {
 
     private static final String delAction = "myDelAction";
-    private final PartLibrary library;
+    private final ElementLibrary library;
     private Circuit circuit;
     private Mouse listener;
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
 
-    public CircuitComponent(Circuit aCircuit, PartLibrary library) {
+    public CircuitComponent(Circuit aCircuit, ElementLibrary library) {
         this.library = library;
         setCircuit(aCircuit);
 

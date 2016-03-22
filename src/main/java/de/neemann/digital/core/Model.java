@@ -103,6 +103,8 @@ public class Model {
         if (!isInitialized)
             throw new RuntimeException("notInitialized!");
 
+        fireEvent(ModelEvent.STEP);
+
         version++;
         // swap lists
         ArrayList<Node> nl = nodesToUpdateNext;
@@ -149,7 +151,7 @@ public class Model {
     }
 
     public void removeObserver(ModelStateObserver observer) {
-        observers.add(observer);
+        observers.remove(observer);
     }
 
     private void fireEvent(ModelEvent event) {

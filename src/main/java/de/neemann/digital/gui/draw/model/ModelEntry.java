@@ -58,6 +58,10 @@ public class ModelEntry {
         visualElement.setState(ioState, guiObserver);
     }
 
+    public Pins getPins() {
+        return pins;
+    }
+
     public Element getElement() {
         return element;
     }

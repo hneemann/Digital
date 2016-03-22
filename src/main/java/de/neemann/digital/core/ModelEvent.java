@@ -10,7 +10,9 @@ import java.util.ArrayList;
 public class ModelEvent {
 
 
-    public enum Event {STARTED, STOPPED, FETCHCLOCK}
+    public static final ModelEvent STEP = new ModelEvent(Event.STEP);
+
+    public enum Event {STARTED, STOPPED, FETCHCLOCK, STEP}
 
     ;
 

@@ -54,4 +54,12 @@ public class Pins implements Iterable<Pin> {
                 return true;
         return false;
     }
+
+    public int size() {
+        return allPins.size();
+    }
+
+    public Pin get(int index) {
+        return allPins.get(index);
+    }
 }

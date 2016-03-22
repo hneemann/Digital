@@ -14,7 +14,7 @@ import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Delay;
 import de.neemann.digital.core.wiring.Splitter;
-import de.neemann.digital.gui.draw.library.PartLibrary;
+import de.neemann.digital.gui.draw.library.ElementLibrary;
 
 import java.util.HashMap;
 
@@ -32,7 +32,7 @@ public final class ShapeFactory {
     }
 
     public HashMap<String, Creator> map = new HashMap<>();
-    private PartLibrary library;
+    private ElementLibrary library;
 
     private ShapeFactory() {
         map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", And.DESCRIPTION, false));
@@ -61,7 +61,7 @@ public final class ShapeFactory {
 
     }
 
-    public PartLibrary setLibrary(PartLibrary library) {
+    public ElementLibrary setLibrary(ElementLibrary library) {
         this.library = library;
         return library;
     }

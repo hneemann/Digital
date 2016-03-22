@@ -23,12 +23,12 @@ import java.util.Iterator;
 /**
  * @author hneemann
  */
-public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
+public class ElementLibrary implements Iterable<ElementLibrary.PartContainer> {
 
     private final HashMap<String, ElementTypeDescription> map = new HashMap<>();
     private ArrayList<PartContainer> list = new ArrayList<>();
 
-    public PartLibrary() {
+    public ElementLibrary() {
         add(And.DESCRIPTION, "Logic");
         add(NAnd.DESCRIPTION, "Logic");
         add(Or.DESCRIPTION, "Logic");
@@ -67,10 +67,10 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
         list.add(new PartContainer(name, treePath));
     }
 
-    public ElementTypeDescription getElementType(String partName) {
-        ElementTypeDescription pd = map.get(partName);
+    public ElementTypeDescription getElementType(String elementName) {
+        ElementTypeDescription pd = map.get(elementName);
         if (pd == null)
-            throw new RuntimeException("element " + partName + " not found");
+            throw new RuntimeException("element " + elementName + " not found");
         return pd;
     }
 

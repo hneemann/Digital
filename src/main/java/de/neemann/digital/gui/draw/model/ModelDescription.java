@@ -1,20 +1,18 @@
 package de.neemann.digital.gui.draw.model;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.gui.draw.elements.*;
-import de.neemann.digital.gui.draw.library.PartLibrary;
+import de.neemann.digital.gui.draw.library.ElementLibrary;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * @author hneemann
  */
-public class ModelDescription {
+public class ModelDescription implements Iterable<ModelEntry> {
 
     private final NetList netList;
     private final ArrayList<ModelEntry> entries;
@@ -30,7 +28,7 @@ public class ModelDescription {
      * @param library the library
      * @throws PinException
      */
-    public ModelDescription(Circuit circuit, PartLibrary library) throws PinException {
+    public ModelDescription(Circuit circuit, ElementLibrary library) throws PinException {
         entries = new ArrayList<>();
         netList = new NetList(circuit.getWires());
         for (VisualElement vp : circuit.getParts()) {
@@ -116,5 +114,10 @@ public class ModelDescription {
             me.getVisualElement().setHighLight(false);
         for (Net net : netList)
             net.setHighLight(false);
+    }
+
+    @Override
+    public Iterator<ModelEntry> iterator() {
+        return entries.iterator();
     }
 }

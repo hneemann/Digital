@@ -3,7 +3,7 @@ package de.neemann.digital.gui;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.elements.VisualElement;
 import de.neemann.digital.gui.draw.graphics.Vector;
-import de.neemann.digital.gui.draw.library.PartLibrary;
+import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.process.utils.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -13,9 +13,9 @@ import java.awt.event.ActionEvent;
  * @author hneemann
  */
 public class LibrarySelector {
-    private final PartLibrary library;
+    private final ElementLibrary library;
 
-    public LibrarySelector(PartLibrary library) {
+    public LibrarySelector(ElementLibrary library) {
         this.library = library;
     }
 
@@ -24,7 +24,7 @@ public class LibrarySelector {
 
         JMenu subMenu = null;
         String lastPath = null;
-        for (PartLibrary.PartContainer pc : library) {
+        for (ElementLibrary.PartContainer pc : library) {
             String path = pc.getTreePath();
             if (!path.equals(lastPath)) {
                 subMenu = new JMenu(path);

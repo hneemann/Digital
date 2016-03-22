@@ -15,7 +15,7 @@ import de.neemann.digital.gui.draw.elements.PinException;
 import de.neemann.digital.gui.draw.elements.VisualElement;
 import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.Vector;
-import de.neemann.digital.gui.draw.library.PartLibrary;
+import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.shapes.ShapeFactory;
 import de.process.utils.gui.ClosingWindowListener;
@@ -38,8 +38,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final String MESSAGE = "Digital\n\nA simple simulator for digital circuits.\nWritten bei H.Neemann in 2016";
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
-    private final PartLibrary library = ShapeFactory.getInstance().setLibrary(new PartLibrary());
+    private final ElementLibrary library = ShapeFactory.getInstance().setLibrary(new ElementLibrary());
     private final ToolTipAction doStep;
+    private final JCheckBoxMenuItem traceEnable;
     private File filename;
     private Model model;
     private ModelDescription modelDescription;
@@ -176,13 +177,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                     new ErrorMessage("SpeedTestError").addCause(e1).show();
                 }
             }
-        }.setToolTip("Runs the Model");
+        }.setToolTip("Performs a speed test by calculating the max. clock frequency.");
 
+        traceEnable = new JCheckBoxMenuItem("Trace");
 
         run.add(runModel.createJMenuItem());
         run.add(runModelMicro.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(speedTest.createJMenuItem());
+        run.add(traceEnable);
         doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
@@ -228,6 +231,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
             model = modelDescription.createModel(true);
             modelDescription.connectToGui(circuitComponent);
+
+            if (traceEnable.isSelected()) {
+
+            }
+
             model.init();
         } catch (NodeException e) {
             if (modelDescription != null) {
