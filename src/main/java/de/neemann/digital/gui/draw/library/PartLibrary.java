@@ -67,7 +67,7 @@ public class PartLibrary implements Iterable<PartLibrary.PartContainer> {
         list.add(new PartContainer(name, treePath));
     }
 
-    public ElementTypeDescription getPartType(String partName) {
+    public ElementTypeDescription getElementType(String partName) {
         ElementTypeDescription pd = map.get(partName);
         if (pd == null)
             throw new RuntimeException("element " + partName + " not found");

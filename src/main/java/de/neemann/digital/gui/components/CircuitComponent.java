@@ -273,7 +273,7 @@ public class CircuitComponent extends JComponent implements Observer {
                 for (VisualElement vp : circuit.getParts())
                     if (vp.matches(pos)) {
                         String name = vp.getElementName();
-                        ArrayList<AttributeKey> list = library.getPartType(name).getAttributeList();
+                        ArrayList<AttributeKey> list = library.getElementType(name).getAttributeList();
                         if (list.size() > 0) {
                             Point p = new Point(e.getX(), e.getY());
                             SwingUtilities.convertPointToScreen(p, CircuitComponent.this);

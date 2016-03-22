@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
+ * Contains all pins which are connected tigether.
+ * Is created and filled by the ModelDescription constructor.
+ * After creation all the ObservableValues belonging to the outputs are set.
+ *
  * @author hneemann
  */
 public class Net {
@@ -54,7 +58,7 @@ public class Net {
         pins.add(pin);
     }
 
-    public void interconnect() throws PinException {
+    public void interconnect(boolean connectWires) throws PinException {
         ArrayList<Pin> inputs = new ArrayList<>();
         ArrayList<Pin> outputs = new ArrayList<>();
         for (Pin p : pins) {
@@ -77,8 +81,9 @@ public class Net {
         for (Pin i : inputs)
             i.setValue(value);
 
-        for (Wire w : wires)
-            w.setValue(value);
+        if (connectWires)
+            for (Wire w : wires)
+                w.setValue(value);
     }
 
     public void setHighLight(boolean highLight) {

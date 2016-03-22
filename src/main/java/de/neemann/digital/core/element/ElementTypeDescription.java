@@ -99,7 +99,7 @@ public class ElementTypeDescription {
 
     /**
      * Returns the names of the inputs which are needed by this element.
-     * If you need a list of outputs names you can create a element using <code>createPart()</code>
+     * If you need a list of outputs names you can create a element using <code>createElement()</code>
      * and request the outputs by calling the elements <code>getOutputs()</code> method.
      * The you get an array of <code>ObservableName</code>s, and <code>ObservableName</code> has a
      * field <code>name</code>.
@@ -117,7 +117,7 @@ public class ElementTypeDescription {
      * @param elementAttributes the elements attributes
      * @return the Part instance
      */
-    public Element createPart(ElementAttributes elementAttributes) {
+    public Element createElement(ElementAttributes elementAttributes) {
         return partFactory.create(elementAttributes);
     }
 }

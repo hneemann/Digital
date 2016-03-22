@@ -27,10 +27,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.prefs.Preferences;
 
 /**
@@ -171,7 +168,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             public void actionPerformed(ActionEvent e) {
                 try {
                     modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
-                    model = modelDescription.createModel();
+                    model = modelDescription.createModel(false);
                     SpeedTest speedTest = new SpeedTest(model);
                     double frequency = speedTest.calculate();
                     JOptionPane.showMessageDialog(Main.this, "Frequency: " + frequency);
@@ -229,7 +226,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 modelDescription.highLightOff();
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
             modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
-            model = modelDescription.createModel();
+            model = modelDescription.createModel(true);
             modelDescription.connectToGui(circuitComponent);
             model.init();
         } catch (NodeException e) {
@@ -273,12 +270,27 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private void loadFile(File filename) {
         XStream xStream = getxStream();
-        try (FileReader in = new FileReader(filename)) {
+        try (InputStream in = new FileInputStream(filename)) {
             Circuit circuit = (Circuit) xStream.fromXML(in);
             circuitComponent.setCircuit(circuit);
             setFilename(filename);
         } catch (Exception e) {
             new ErrorMessage("error loading  file " + filename).addCause(e).show();
+        }
+    }
+
+    private void saveFile(File filename) {
+        if (!filename.getName().endsWith(".dig"))
+            filename = new File(filename.getPath() + ".dig");
+
+        XStream xStream = getxStream();
+        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
+            out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            xStream.marshal(circuitComponent.getCircuit(), new PrettyPrintWriter(out));
+            setFilename(filename);
+            circuitComponent.getCircuit().saved();
+        } catch (IOException e) {
+            new ErrorMessage("error writing a file").addCause(e).show();
         }
     }
 
@@ -289,20 +301,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             setTitle(filename + " - Digital");
         } else
             setTitle("Digital");
-    }
-
-    private void saveFile(File filename) {
-        if (!filename.getName().endsWith(".dig"))
-            filename = new File(filename.getPath() + ".dig");
-
-        XStream xStream = getxStream();
-        try (FileWriter out = new FileWriter(filename)) {
-            xStream.marshal(circuitComponent.getCircuit(), new PrettyPrintWriter(out));
-            setFilename(filename);
-            circuitComponent.getCircuit().saved();
-        } catch (IOException e) {
-            new ErrorMessage("error writing a file").addCause(e).show();
-        }
     }
 
     private class ModeAction extends ToolTipAction {

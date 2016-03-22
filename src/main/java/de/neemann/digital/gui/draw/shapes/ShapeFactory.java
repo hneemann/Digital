@@ -67,7 +67,7 @@ public final class ShapeFactory {
     }
 
     private String[] outputNames(ElementTypeDescription description, ElementAttributes attributes) {
-        ObservableValue[] o = description.createPart(attributes).getOutputs();
+        ObservableValue[] o = description.createElement(attributes).getOutputs();
         String[] names = new String[o.length];
         for (int i = 0; i < names.length; i++)
             names[i] = o[i].getName();
@@ -80,7 +80,7 @@ public final class ShapeFactory {
             if (library == null)
                 throw new RuntimeException("no shape for " + partName);
             else {
-                ElementTypeDescription pt = library.getPartType(partName);
+                ElementTypeDescription pt = library.getElementType(partName);
                 return new GenericShape(pt.getShortName(), pt.getInputNames(elementAttributes), outputNames(pt, elementAttributes), true);
             }
         } else

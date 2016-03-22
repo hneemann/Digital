@@ -16,22 +16,30 @@ import java.util.HashSet;
  */
 public class ModelDescription {
 
-    private final Circuit circuit;
     private final NetList netList;
     private final ArrayList<ModelEntry> entries;
     private HashMap<Node, ModelEntry> map;
 
+    /**
+     * Creates the ModelDescription.
+     * After the the NetList is complete, so all pins connected together are registered
+     * to the Net instances in the NetList. Evenry group of connected Pins is represented
+     * by a Net-instance in the NetList.
+     *
+     * @param circuit the circuit
+     * @param library the library
+     * @throws PinException
+     */
     public ModelDescription(Circuit circuit, PartLibrary library) throws PinException {
-        this.circuit = circuit;
         entries = new ArrayList<>();
         netList = new NetList(circuit.getWires());
         for (VisualElement vp : circuit.getParts()) {
             Pins pins = vp.getPins();
-            ElementTypeDescription partType = library.getPartType(vp.getElementName());
-            Element element = partType.createPart(vp.getElementAttributes());
+            ElementTypeDescription elementType = library.getElementType(vp.getElementName());
+            Element element = elementType.createElement(vp.getElementAttributes());
             pins.setOutputs(element.getOutputs());
 
-            entries.add(new ModelEntry(element, pins, vp, partType.getInputNames(vp.getElementAttributes())));
+            entries.add(new ModelEntry(element, pins, vp, elementType.getInputNames(vp.getElementAttributes())));
             for (Pin p : pins)
                 netList.add(p);
         }
@@ -43,10 +51,11 @@ public class ModelDescription {
      * @return the model
      * @throws PinException
      * @throws NodeException
+     * @param connectWires
      */
-    public Model createModel() throws PinException, NodeException {
+    public Model createModel(boolean connectWires) throws PinException, NodeException {
         for (Net n : netList)
-            n.interconnect();
+            n.interconnect(connectWires);
 
         Model m = new Model();
 
