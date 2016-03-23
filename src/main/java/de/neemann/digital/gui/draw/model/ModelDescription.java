@@ -31,7 +31,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
     public ModelDescription(Circuit circuit, ElementLibrary library) throws PinException {
         entries = new ArrayList<>();
         netList = new NetList(circuit.getWires());
-        for (VisualElement vp : circuit.getParts()) {
+        for (VisualElement vp : circuit.getElements()) {
             Pins pins = vp.getPins();
             ElementTypeDescription elementType = library.getElementType(vp.getElementName());
             Element element = elementType.createElement(vp.getElementAttributes());

@@ -209,8 +209,11 @@ public class CircuitComponent extends JComponent implements Observer {
                 wire = new Wire(startPos, startPos);
                 repaint();
             } else {
-                wire = null;
-                repaint();
+                if (wire != null) {
+                    wire = null;
+                    repaint();
+                } else
+                    editAttributes(e);
             }
         }
 
@@ -249,16 +252,15 @@ public class CircuitComponent extends JComponent implements Observer {
         public void mouseClicked(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (partToInsert == null) {
-                    Vector pos = getPosVector(e);
                     insert = false;
-                    for (VisualElement vp : circuit.getParts())
-                        if (vp.matches(pos)) {
-                            partToInsert = vp;
-                            partToInsert.setHighLight(true);
-                            delta = partToInsert.getPos().sub(pos);
-                            repaint();
-                            break;
-                        }
+                    Vector pos = getPosVector(e);
+                    VisualElement vp = circuit.getElementAt(pos);
+                    if (vp != null) {
+                        partToInsert = vp;
+                        partToInsert.setHighLight(true);
+                        delta = partToInsert.getPos().sub(pos);
+                        repaint();
+                    }
                 } else {
                     partToInsert.setPos(raster(partToInsert.getPos()));
                     if (insert)
@@ -269,19 +271,7 @@ public class CircuitComponent extends JComponent implements Observer {
                     partToInsert = null;
                 }
             } else {
-                Vector pos = getPosVector(e);
-                for (VisualElement vp : circuit.getParts())
-                    if (vp.matches(pos)) {
-                        String name = vp.getElementName();
-                        ArrayList<AttributeKey> list = library.getElementType(name).getAttributeList();
-                        if (list.size() > 0) {
-                            Point p = new Point(e.getX(), e.getY());
-                            SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                            new AttributeDialog(p, list, vp.getElementAttributes()).showDialog();
-                            circuit.modified();
-                            repaint();
-                        }
-                    }
+                editAttributes(e);
             }
         }
 
@@ -310,6 +300,23 @@ public class CircuitComponent extends JComponent implements Observer {
             if (partToInsert != null && !autoPick)
                 partToInsert.drawTo(gr);
         }
+    }
+
+    private boolean editAttributes(MouseEvent e) {
+        VisualElement vp = circuit.getElementAt(getPosVector(e));
+        if (vp != null) {
+            String name = vp.getElementName();
+            ArrayList<AttributeKey> list = library.getElementType(name).getAttributeList();
+            if (list.size() > 0) {
+                Point p = new Point(e.getX(), e.getY());
+                SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+                new AttributeDialog(p, list, vp.getElementAttributes()).showDialog();
+                circuit.modified();
+                repaint();
+                return true;
+            }
+        }
+        return false;
     }
 
     private static enum State {COPY, MOVE}
@@ -414,15 +421,14 @@ public class CircuitComponent extends JComponent implements Observer {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            Vector pos = getPosVector(e);
-            for (VisualElement vp : circuit.getParts())
-                if (vp.matches(pos)) {
-                    Point p = new Point(e.getX(), e.getY());
-                    SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                    vp.clicked(CircuitComponent.this, p);
-                    if (manualChangeObserver != null)
-                        manualChangeObserver.hasChanged();
-                }
+            VisualElement ve = circuit.getElementAt(getPosVector(e));
+            if (ve != null) {
+                Point p = new Point(e.getX(), e.getY());
+                SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+                ve.clicked(CircuitComponent.this, p);
+                if (manualChangeObserver != null)
+                    manualChangeObserver.hasChanged();
+            }
         }
     }
 }

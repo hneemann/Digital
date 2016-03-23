@@ -10,6 +10,7 @@ import de.neemann.digital.gui.draw.shapes.Drawable;
  * @author hneemann
  */
 public class Wire implements Drawable, Moveable {
+    private static final int MIN_LABEL_LEN = 50;
     public Vector p1;
     public Vector p2;
     private transient ObservableValue value;
@@ -36,6 +37,11 @@ public class Wire implements Drawable, Moveable {
             style = Style.HIGHLIGHT;
 
         graphic.drawLine(p1, p2, style);
+
+        if (value != null && p1.y == p2.y && Math.abs(p1.x - p2.x) > MIN_LABEL_LEN && value.getBits() > 1) {
+            Vector pos = p1.add(p2).div(2).add(0, -2);
+            graphic.drawText(pos, pos.add(1, 0), value.getValueString(), de.neemann.digital.gui.draw.graphics.Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
+        }
 
         if (p1Dot || p2Dot) {
             Vector r = new Vector(style.getThickness(), style.getThickness());

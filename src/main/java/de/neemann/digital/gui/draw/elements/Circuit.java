@@ -63,7 +63,7 @@ public class Circuit implements Drawable {
         modified();
     }
 
-    public ArrayList<VisualElement> getParts() {
+    public ArrayList<VisualElement> getElements() {
         return visualElements;
     }
 
@@ -119,6 +119,14 @@ public class Circuit implements Drawable {
         }
         dotsPresent = false;
         modified();
+    }
+
+    public VisualElement getElementAt(Vector pos) {
+        for (VisualElement element : visualElements) {
+            if (element.matches(pos))
+                return element;
+        }
+        return null;
     }
 
     public void modified() {

@@ -82,7 +82,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    JFileChooser fc = getjFileChooser();
+                    JFileChooser fc = getjFileChooser(filename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                         loadFile(fc.getSelectedFile());
                     }
@@ -93,7 +93,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction saveas = new ToolTipAction("Save As") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = getjFileChooser();
+                JFileChooser fc = getjFileChooser(filename);
                 if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                     saveFile(fc.getSelectedFile());
                 }
@@ -260,7 +260,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }
     }
 
-    private JFileChooser getjFileChooser() {
+    public static JFileChooser getjFileChooser(File filename) {
         JFileChooser fileChooser = new JFileChooser(filename == null ? null : filename.getParentFile());
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
         return fileChooser;
