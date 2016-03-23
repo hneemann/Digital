@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <visualElements>
+    <visualElement>
+      <elementName>JK_FF</elementName>
+      <elementAttributes/>
+      <pos x="240" y="190"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>JK_FF</elementName>
+      <elementAttributes/>
+      <pos x="240" y="140"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes/>
+      <pos x="300" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="210" y="210"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>LED</elementName>
+      <elementAttributes>
+        <entry>
+          <key>
+            <name>Label</name>
+            <def class="string"></def>
+          </key>
+          <string>Rot</string>
+        </entry>
+      </elementAttributes>
+      <pos x="350" y="150"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>LED</elementName>
+      <elementAttributes>
+        <entry>
+          <key>
+            <name>Color</name>
+            <def class="awt-color">
+              <red>255</red>
+              <green>0</green>
+              <blue>0</blue>
+              <alpha>255</alpha>
+            </def>
+          </key>
+          <awt-color>
+            <red>255</red>
+            <green>255</green>
+            <blue>0</blue>
+            <alpha>255</alpha>
+          </awt-color>
+        </entry>
+        <entry>
+          <key>
+            <name>Label</name>
+            <def class="string"></def>
+          </key>
+          <string>Gelb</string>
+        </entry>
+      </elementAttributes>
+      <pos x="350" y="170"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>LED</elementName>
+      <elementAttributes>
+        <entry>
+          <key reference="../../../../visualElement[6]/elementAttributes/entry/key"/>
+          <awt-color>
+            <red>0</red>
+            <green>255</green>
+            <blue>0</blue>
+            <alpha>255</alpha>
+          </awt-color>
+        </entry>
+        <entry>
+          <key reference="../../../../visualElement[6]/elementAttributes/entry[2]/key"/>
+          <string>Grün</string>
+        </entry>
+      </elementAttributes>
+      <pos x="350" y="190"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <key>
+            <name>Label</name>
+            <def class="string"></def>
+          </key>
+          <string>Clock</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="150"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes/>
+      <pos x="150" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="120" y="200"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <key>
+            <name>Label</name>
+            <def class="string"></def>
+          </key>
+          <string>Feuer</string>
+        </entry>
+      </elementAttributes>
+      <pos x="110" y="200"/>
+      <rotate>0</rotate>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="230" y="160"/>
+      <p2 x="240" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="210" y="210"/>
+      <p2 x="240" y="210"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="180"/>
+      <p2 x="290" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="180"/>
+      <p2 x="150" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="290" y="180"/>
+      <p2 x="300" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="150"/>
+      <p2 x="220" y="150"/>
+    </wire>
+    <wire>
+      <p1 x="270" y="150"/>
+      <p2 x="350" y="150"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="150"/>
+      <p2 x="240" y="150"/>
+    </wire>
+    <wire>
+      <p1 x="270" y="200"/>
+      <p2 x="300" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="200"/>
+      <p2 x="240" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="200"/>
+      <p2 x="120" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="200"/>
+      <p2 x="150" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="170"/>
+      <p2 x="280" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="170"/>
+      <p2 x="200" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="170"/>
+      <p2 x="350" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="140"/>
+      <p2 x="240" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="270" y="140"/>
+      <p2 x="290" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="270" y="190"/>
+      <p2 x="280" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="330" y="190"/>
+      <p2 x="350" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="190"/>
+      <p2 x="240" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="290" y="140"/>
+      <p2 x="290" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="140"/>
+      <p2 x="230" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="160"/>
+      <p2 x="230" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="170"/>
+      <p2 x="280" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="170"/>
+      <p2 x="200" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="150"/>
+      <p2 x="220" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="170"/>
+      <p2 x="140" y="180"/>
+    </wire>
+  </wires>
+</circuit>

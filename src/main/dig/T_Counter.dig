@@ -1,0 +1,170 @@
+<circuit>
+  <visualElements>
+    <visualElement>
+      <elementName>T_FF</elementName>
+      <elementAttributes/>
+      <pos x="150" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>T_FF</elementName>
+      <elementAttributes/>
+      <pos x="150" y="130"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>T_FF</elementName>
+      <elementAttributes/>
+      <pos x="150" y="80"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>T_FF</elementName>
+      <elementAttributes/>
+      <pos x="150" y="30"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="210" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="210" y="130"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="210" y="80"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="210" y="30"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes/>
+      <pos x="110" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="120" y="30"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="120" y="80"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="120" y="130"/>
+      <rotate>0</rotate>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="180" y="80"/>
+      <p2 x="190" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="80"/>
+      <p2 x="150" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="80"/>
+      <p2 x="120" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="190" y="80"/>
+      <p2 x="210" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="160"/>
+      <p2 x="190" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="130"/>
+      <p2 x="190" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="130"/>
+      <p2 x="150" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="130"/>
+      <p2 x="120" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="190" y="130"/>
+      <p2 x="210" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="180"/>
+      <p2 x="190" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="180"/>
+      <p2 x="150" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="190" y="180"/>
+      <p2 x="210" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="60"/>
+      <p2 x="190" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="30"/>
+      <p2 x="210" y="30"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="30"/>
+      <p2 x="120" y="30"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="30"/>
+      <p2 x="150" y="30"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="110"/>
+      <p2 x="190" y="110"/>
+    </wire>
+    <wire>
+      <p1 x="190" y="160"/>
+      <p2 x="190" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="190" y="110"/>
+      <p2 x="190" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="190" y="60"/>
+      <p2 x="190" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="30"/>
+      <p2 x="110" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="80"/>
+      <p2 x="110" y="110"/>
+    </wire>
+    <wire>
+      <p1 x="110" y="130"/>
+      <p2 x="110" y="160"/>
+    </wire>
+  </wires>
+</circuit>
