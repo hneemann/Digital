@@ -4,6 +4,7 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -15,6 +16,7 @@ public class RS_FF extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(RS_FF.class, "R", "C", "S")
+            .addAttribute(AttributeKey.Label)
             .setShortName("RS");
 
     private ObservableValue jVal;

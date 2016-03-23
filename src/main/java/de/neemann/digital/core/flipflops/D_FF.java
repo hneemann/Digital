@@ -17,6 +17,7 @@ public class D_FF extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(D_FF.class, "D", "C")
             .addAttribute(AttributeKey.Bits)
+            .addAttribute(AttributeKey.Label)
             .setShortName("D");
 
     private final int bits;

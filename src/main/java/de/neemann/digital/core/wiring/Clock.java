@@ -14,7 +14,7 @@ import javax.swing.*;
  */
 public class Clock implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Cl", Clock.class)
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Clock", Clock.class)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Frequency);
 

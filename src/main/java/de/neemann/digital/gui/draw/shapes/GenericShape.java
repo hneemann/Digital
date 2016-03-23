@@ -22,19 +22,23 @@ public class GenericShape implements Shape {
     private final int width;
     private final boolean symmetric;
     private boolean invert = false;
+    private final String label;
 
     private transient Pins pins;
-    private boolean showLabels;
+    private boolean showPinLabels;
 
     public GenericShape(String name, String[] inputs, String[] outputs) {
-        this(name, inputs, outputs, false);
+        this(name, inputs, outputs, null, false);
     }
 
-    public GenericShape(String name, String[] inputs, String[] outputs, boolean showLabels) {
+    public GenericShape(String name, String[] inputs, String[] outputs, String label, boolean showPinLabels) {
         this.name = name;
         this.inputs = inputs;
         this.outputs = outputs;
-        this.showLabels = showLabels;
+        if (label != null && label.length() == 0)
+            label = null;
+        this.label = label;
+        this.showPinLabels = showPinLabels;
         width = inputs.length == 1 && outputs.length == 1 ? 1 : 3;
         symmetric = outputs.length == 1;
     }
@@ -103,7 +107,12 @@ public class GenericShape implements Shape {
 
         }
 
-        if (showLabels) {
+        if (label != null) {
+            Vector pos = new Vector(SIZE2 * width, -SIZE2 - 4);
+            graphic.drawText(pos, pos.add(1, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
+        }
+
+        if (showPinLabels) {
             for (Pin p : getPins()) {
                 if (p.getDirection() == Pin.Direction.input)
                     graphic.drawText(p.getPos().add(2, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
@@ -111,7 +120,7 @@ public class GenericShape implements Shape {
                     graphic.drawText(p.getPos().add(-2, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
             }
         }
-        Vector pos = new Vector(SIZE * width / 2, -SIZE2 + 2);
+        Vector pos = new Vector(SIZE2 * width, -SIZE2 + 2);
         graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.NORMAL);
     }
 
