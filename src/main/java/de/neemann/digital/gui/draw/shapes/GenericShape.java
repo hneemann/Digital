@@ -120,8 +120,13 @@ public class GenericShape implements Shape {
                     graphic.drawText(p.getPos().add(-2, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
             }
         }
-        Vector pos = new Vector(SIZE2 * width, -SIZE2 + 2);
-        graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.NORMAL);
+        if (name.length() <= 3) {
+            Vector pos = new Vector(SIZE2 * width, -SIZE2 + 2);
+            graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.NORMAL);
+        } else {
+            Vector pos = new Vector(SIZE2 * width, height + 2);
+            graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.SHAPE_PIN);
+        }
     }
 
 }

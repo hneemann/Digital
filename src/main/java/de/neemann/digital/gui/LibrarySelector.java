@@ -111,7 +111,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                 public Element create(ElementAttributes attributes) {
                     return new CustomElement(circuit, library);
                 }
-            }, circuit.getInputNames(library));
+            }, circuit.getInputNames(library)).setShortName(createShortName(file));
             library.addDescription(description);
             customMenu.add(new InsertAction(description.getName(), insertHistory, circuitComponent));
             return description;
@@ -119,6 +119,12 @@ public class LibrarySelector implements ElementNotFoundNotification {
             new ErrorMessage("error importing model").addCause(e).show();
         }
         return null;
+    }
+
+    private String createShortName(File file) {
+        String name = file.getName();
+        if (name.endsWith(".dig")) name = name.substring(0, name.length() - 4);
+        return name;
     }
 
 }
