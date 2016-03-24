@@ -57,7 +57,7 @@
           <int>4</int>
         </entry>
       </elementAttributes>
-      <pos x="300" y="110"/>
+      <pos x="350" y="110"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -491,7 +491,7 @@
     </wire>
     <wire>
       <p1 x="260" y="110"/>
-      <p2 x="300" y="110"/>
+      <p2 x="350" y="110"/>
     </wire>
     <wire>
       <p1 x="240" y="240"/>

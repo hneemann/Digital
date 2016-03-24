@@ -134,6 +134,13 @@
           <key reference="../../../../visualElement[12]/elementAttributes/entry/key"/>
           <string>K</string>
         </entry>
+        <entry>
+          <key>
+            <name>Default</name>
+            <def class="int">0</def>
+          </key>
+          <int>1</int>
+        </entry>
       </elementAttributes>
       <pos x="230" y="90"/>
       <rotate>0</rotate>
