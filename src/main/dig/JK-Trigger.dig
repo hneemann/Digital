@@ -14,20 +14,6 @@
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="230" y="130"/>
-      <rotate>0</rotate>
-    </visualElement>
-    <visualElement>
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
@@ -45,7 +31,7 @@
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[4]/elementAttributes/entry/key"/>
+          <key reference="../../../../visualElement[3]/elementAttributes/entry/key"/>
           <int>3</int>
         </entry>
       </elementAttributes>
@@ -68,29 +54,17 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[3]/elementAttributes/entry/key"/>
-          <string>K</string>
+          <key>
+            <name>Label</name>
+            <def class="string"></def>
+          </key>
+          <string>J</string>
         </entry>
         <entry>
           <key>
             <name>Default</name>
             <def class="int">0</def>
           </key>
-          <int>1</int>
-        </entry>
-      </elementAttributes>
-      <pos x="230" y="90"/>
-      <rotate>0</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <key reference="../../../../visualElement[3]/elementAttributes/entry/key"/>
-          <string>J</string>
-        </entry>
-        <entry>
-          <key reference="../../../../visualElement[8]/elementAttributes/entry[2]/key"/>
           <int>1</int>
         </entry>
       </elementAttributes>
@@ -101,7 +75,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[3]/elementAttributes/entry/key"/>
+          <key reference="../../../../visualElement[7]/elementAttributes/entry/key"/>
           <string>Q</string>
         </entry>
       </elementAttributes>
@@ -112,7 +86,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[3]/elementAttributes/entry/key"/>
+          <key reference="../../../../visualElement[7]/elementAttributes/entry/key"/>
           <string>~Q</string>
         </entry>
       </elementAttributes>
@@ -137,6 +111,31 @@
         </entry>
       </elementAttributes>
       <pos x="350" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <key>
+            <name>Label</name>
+            <def class="string"></def>
+          </key>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="230" y="130"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <key reference="../../../../visualElement[12]/elementAttributes/entry/key"/>
+          <string>K</string>
+        </entry>
+      </elementAttributes>
+      <pos x="230" y="90"/>
       <rotate>0</rotate>
     </visualElement>
   </visualElements>

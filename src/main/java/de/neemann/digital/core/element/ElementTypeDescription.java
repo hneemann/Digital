@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 /**
- * One instance for a element, so there is only one PartDescription for an AND.
+ * One instance for an element, so there is only one ElementTypeDescription for an AND.
  * Regardless of how many of these elements are used in the circuit.
  * It has the possibility to create a concrete element by using the given factory
  *
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ElementTypeDescription {
     private final String name;
     private String shortName;
-    private final PartFactory partFactory;
+    private final ElementFactory elementFactory;
     private final String[] inputNames;
     private final ArrayList<AttributeKey> attributeList;
 
@@ -22,7 +22,7 @@ public class ElementTypeDescription {
     }
 
     public ElementTypeDescription(String name, Class<?> clazz, String... inputNames) {
-        this(name, new PartFactory() {
+        this(name, new ElementFactory() {
             @Override
             public Element create(ElementAttributes attributes) {
                 try {
@@ -35,10 +35,10 @@ public class ElementTypeDescription {
         }, inputNames);
     }
 
-    public ElementTypeDescription(String name, PartFactory partFactory, String... inputNames) {
+    public ElementTypeDescription(String name, ElementFactory elementFactory, String... inputNames) {
         this.name = name;
         this.shortName = name;
-        this.partFactory = partFactory;
+        this.elementFactory = elementFactory;
         this.inputNames = inputNames;
         attributeList = new ArrayList<>();
     }
@@ -118,6 +118,6 @@ public class ElementTypeDescription {
      * @return the Part instance
      */
     public Element createElement(ElementAttributes elementAttributes) {
-        return partFactory.create(elementAttributes);
+        return elementFactory.create(elementAttributes);
     }
 }

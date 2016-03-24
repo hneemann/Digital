@@ -21,6 +21,10 @@ public class NetList implements Iterable<Net> {
             add(w);
     }
 
+    public void add(NetList netList) {
+        this.netList.addAll(netList.netList);
+    }
+
     public void add(Pin pin) {
         for (Net net : netList)
             if (net.contains(pin.getPos()))
@@ -57,5 +61,16 @@ public class NetList implements Iterable<Net> {
     @Override
     public Iterator<Net> iterator() {
         return netList.iterator();
+    }
+
+    public Net getNetOfPin(Pin p) {
+        for (Net n : netList)
+            if (n.containsPin(p))
+                return n;
+        return null;
+    }
+
+    public void remove(Net childNet) {
+        netList.remove(childNet);
     }
 }

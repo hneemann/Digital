@@ -1,9 +1,21 @@
 package de.neemann.digital.gui.draw.elements;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.Out;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.neemann.digital.gui.draw.shapes.Drawable;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -16,10 +28,43 @@ public class Circuit implements Drawable {
     private transient boolean dotsPresent = false;
     private transient boolean modified = false;
 
+
+    private static XStream getxStream() {
+        XStream xStream = new XStream(new StaxDriver());
+        xStream.alias("visualElement", VisualElement.class);
+        xStream.alias("wire", Wire.class);
+        xStream.alias("circuit", Circuit.class);
+        xStream.alias("vector", Vector.class);
+        xStream.alias("key", AttributeKey.class);
+        xStream.addImplicitCollection(ElementAttributes.class, "attributes");
+        xStream.aliasAttribute(Vector.class, "x", "x");
+        xStream.aliasAttribute(Vector.class, "y", "y");
+        return xStream;
+    }
+
+    public static Circuit loadCircuit(File filename) throws IOException {
+        XStream xStream = getxStream();
+        try (InputStream in = new FileInputStream(filename)) {
+            return (Circuit) xStream.fromXML(in);
+        }
+    }
+
+    public void save(File filename) throws IOException {
+        XStream xStream = Circuit.getxStream();
+        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
+            out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            xStream.marshal(this, new PrettyPrintWriter(out));
+            modified = false;
+        }
+    }
+
+
+
     public Circuit() {
         visualElements = new ArrayList<>();
         wires = new ArrayList<>();
     }
+
 
     @Override
     public void drawTo(Graphic graphic) {
@@ -148,7 +193,44 @@ public class Circuit implements Drawable {
         return modified;
     }
 
-    public void saved() {
-        modified = false;
+    public String[] getInputNames(ElementLibrary library) throws PinException {
+        ArrayList<String> pinList = new ArrayList<>();
+        for (VisualElement ve : visualElements) {
+            ElementTypeDescription elementType = library.getElementType(ve.getElementName());
+            if (elementType == In.DESCRIPTION) {
+                String name = ve.getElementAttributes().get(AttributeKey.Label);
+                if (name == null || name.length() == 0)
+                    throw new PinException("pin without a name!");
+
+                pinList.add(name);
+            }
+        }
+        return pinList.toArray(new String[pinList.size()]);
     }
+
+    public ObservableValue[] getOutputNames(ElementLibrary library) throws PinException {
+        ArrayList<ObservableValue> pinList = new ArrayList<>();
+        for (VisualElement ve : visualElements) {
+            ElementTypeDescription elementType = library.getElementType(ve.getElementName());
+            if (elementType == Out.DESCRIPTION) {
+                String name = ve.getElementAttributes().get(AttributeKey.Label);
+                if (name == null || name.length() == 0)
+                    throw new PinException("pin without a name!");
+
+                pinList.add(new ObservableValue(name, 0) {
+                    @Override
+                    public long getValue() {
+                        throw new RuntimeException("invallid call!");
+                    }
+
+                    @Override
+                    public ObservableValue addObserver(Observer observer) {
+                        throw new RuntimeException("invallid call!");
+                    }
+                });
+            }
+        }
+        return pinList.toArray(new ObservableValue[pinList.size()]);
+    }
+
 }

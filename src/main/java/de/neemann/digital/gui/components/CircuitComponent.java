@@ -327,6 +327,7 @@ public class CircuitComponent extends JComponent implements Observer {
         private ArrayList<Moveable> elements;
         private Vector lastPos;
         private State state;
+        private Vector copyStartPosition;
         private boolean wasRealyDragged;
 
         @Override
@@ -352,6 +353,7 @@ public class CircuitComponent extends JComponent implements Observer {
                     state = State.MOVE;
                 } else {
                     elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                    copyStartPosition = raster(getPosVector(e));
                     state = State.COPY;
                 }
                 lastPos = getPosVector(e);
@@ -360,14 +362,14 @@ public class CircuitComponent extends JComponent implements Observer {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if (elements != null && state == State.COPY) {
+            if (elements != null && state == State.COPY && copyStartPosition != null && !copyStartPosition.equals(raster(getPosVector(e)))) {
                 for (Moveable m : elements) {
                     if (m instanceof Wire)
                         circuit.add((Wire) m);
                     if (m instanceof VisualElement)
                         circuit.add((VisualElement) m);
                 }
-                reset();
+                copyStartPosition = null;
             }
             if (wasRealyDragged)
                 reset();

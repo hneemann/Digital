@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <visualElements>
     <visualElement>
@@ -136,25 +137,25 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes/>
-      <pos x="200" y="230"/>
+      <pos x="190" y="230"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes/>
-      <pos x="160" y="240"/>
+      <pos x="210" y="240"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes/>
-      <pos x="200" y="250"/>
+      <pos x="190" y="250"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes/>
-      <pos x="220" y="260"/>
+      <pos x="210" y="260"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -169,31 +170,31 @@
           <string>1,1,1,1</string>
         </entry>
       </elementAttributes>
-      <pos x="320" y="230"/>
+      <pos x="350" y="230"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="370" y="230"/>
+      <pos x="400" y="230"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="390" y="240"/>
+      <pos x="420" y="240"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="370" y="250"/>
+      <pos x="400" y="250"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="390" y="260"/>
+      <pos x="420" y="260"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -322,13 +323,13 @@
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
-      <pos x="350" y="240"/>
+      <pos x="380" y="240"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
-      <pos x="210" y="240"/>
+      <pos x="220" y="240"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -433,24 +434,24 @@
       <p2 x="370" y="290"/>
     </wire>
     <wire>
-      <p1 x="220" y="260"/>
+      <p1 x="210" y="260"/>
       <p2 x="250" y="260"/>
     </wire>
     <wire>
-      <p1 x="330" y="260"/>
-      <p2 x="390" y="260"/>
+      <p1 x="360" y="260"/>
+      <p2 x="420" y="260"/>
     </wire>
     <wire>
-      <p1 x="200" y="230"/>
+      <p1 x="190" y="230"/>
       <p2 x="250" y="230"/>
     </wire>
     <wire>
-      <p1 x="330" y="230"/>
-      <p2 x="370" y="230"/>
+      <p1 x="360" y="230"/>
+      <p2 x="400" y="230"/>
     </wire>
     <wire>
       <p1 x="260" y="230"/>
-      <p2 x="320" y="230"/>
+      <p2 x="350" y="230"/>
     </wire>
     <wire>
       <p1 x="260" y="200"/>
@@ -493,20 +494,20 @@
       <p2 x="300" y="110"/>
     </wire>
     <wire>
-      <p1 x="230" y="240"/>
+      <p1 x="240" y="240"/>
       <p2 x="250" y="240"/>
     </wire>
     <wire>
-      <p1 x="330" y="240"/>
-      <p2 x="350" y="240"/>
+      <p1 x="360" y="240"/>
+      <p2 x="380" y="240"/>
     </wire>
     <wire>
-      <p1 x="370" y="240"/>
-      <p2 x="390" y="240"/>
+      <p1 x="400" y="240"/>
+      <p2 x="420" y="240"/>
     </wire>
     <wire>
-      <p1 x="160" y="240"/>
-      <p2 x="210" y="240"/>
+      <p1 x="210" y="240"/>
+      <p2 x="220" y="240"/>
     </wire>
     <wire>
       <p1 x="260" y="180"/>
@@ -537,12 +538,12 @@
       <p2 x="250" y="120"/>
     </wire>
     <wire>
-      <p1 x="200" y="250"/>
+      <p1 x="190" y="250"/>
       <p2 x="250" y="250"/>
     </wire>
     <wire>
-      <p1 x="330" y="250"/>
-      <p2 x="370" y="250"/>
+      <p1 x="360" y="250"/>
+      <p2 x="400" y="250"/>
     </wire>
     <wire>
       <p1 x="260" y="190"/>

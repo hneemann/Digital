@@ -35,7 +35,7 @@ public class Pins implements Iterable<Pin> {
         return allPins.iterator();
     }
 
-    public void setOutputs(ObservableValue[] outs) throws PinException {
+    public void bindOutputsToOutputPins(ObservableValue[] outs) throws PinException {
         for (ObservableValue o : outs) {
             Pin pin = outputs.get(o.getName());
             if (pin == null)

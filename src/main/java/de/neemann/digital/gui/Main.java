@@ -1,20 +1,12 @@
 package de.neemann.digital.gui;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SpeedTest;
-import de.neemann.digital.core.element.AttributeKey;
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.elements.Circuit;
 import de.neemann.digital.gui.draw.elements.PinException;
-import de.neemann.digital.gui.draw.elements.VisualElement;
-import de.neemann.digital.gui.draw.elements.Wire;
-import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.shapes.ShapeFactory;
@@ -27,7 +19,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.prefs.Preferences;
 
 /**
@@ -41,6 +34,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ElementLibrary library = ShapeFactory.getInstance().setLibrary(new ElementLibrary());
     private final ToolTipAction doStep;
     private final JCheckBoxMenuItem traceEnable;
+    private final LibrarySelector librarySelector;
     private File filename;
     private Model model;
     private ModelDescription modelDescription;
@@ -198,25 +192,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         toolBar.addSeparator();
 
-        bar.add(new LibrarySelector(library).buildMenu(new InsertHistory(toolBar), circuitComponent));
+        librarySelector = new LibrarySelector(library);
+        bar.add(librarySelector.buildMenu(new InsertHistory(toolBar), circuitComponent));
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         setJMenuBar(bar);
         InfoDialog.getInstance().addToFrame(this, MESSAGE);
-    }
-
-    private static XStream getxStream() {
-        XStream xStream = new XStream(new StaxDriver());
-        xStream.alias("visualElement", VisualElement.class);
-        xStream.alias("wire", Wire.class);
-        xStream.alias("circuit", Circuit.class);
-        xStream.alias("vector", Vector.class);
-        xStream.alias("key", AttributeKey.class);
-        xStream.addImplicitCollection(ElementAttributes.class, "attributes");
-        xStream.aliasAttribute(Vector.class, "x", "x");
-        xStream.aliasAttribute(Vector.class, "y", "y");
-        return xStream;
     }
 
     public static void main(String[] args) {
@@ -277,13 +259,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     private void loadFile(File filename) {
-        XStream xStream = getxStream();
-        try (InputStream in = new FileInputStream(filename)) {
-            Circuit circuit = (Circuit) xStream.fromXML(in);
-            circuitComponent.setCircuit(circuit);
+        try {
+            librarySelector.setFilePath(filename.getParentFile());
+            Circuit circ = Circuit.loadCircuit(filename);
+            circuitComponent.setCircuit(circ);
             setFilename(filename);
         } catch (Exception e) {
-            new ErrorMessage("error loading  file " + filename).addCause(e).show();
+            circuitComponent.setCircuit(new Circuit());
+            new ErrorMessage("error reading a file").addCause(e).show(this);
         }
     }
 
@@ -291,12 +274,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         if (!filename.getName().endsWith(".dig"))
             filename = new File(filename.getPath() + ".dig");
 
-        XStream xStream = getxStream();
-        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
-            out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            xStream.marshal(circuitComponent.getCircuit(), new PrettyPrintWriter(out));
+        try {
+            circuitComponent.getCircuit().save(filename);
             setFilename(filename);
-            circuitComponent.getCircuit().saved();
         } catch (IOException e) {
             new ErrorMessage("error writing a file").addCause(e).show();
         }
@@ -304,6 +284,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private void setFilename(File filename) {
         this.filename = filename;
+        librarySelector.setLastFile(filename);
         if (filename != null) {
             prefs.put("name", filename.getPath());
             setTitle(filename + " - Digital");

@@ -23,10 +23,11 @@ import java.util.Iterator;
 /**
  * @author hneemann
  */
-public class ElementLibrary implements Iterable<ElementLibrary.PartContainer> {
+public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
 
     private final HashMap<String, ElementTypeDescription> map = new HashMap<>();
-    private ArrayList<PartContainer> list = new ArrayList<>();
+    private ArrayList<ElementContainer> list = new ArrayList<>();
+    private ElementNotFoundNotification elementNotFoundNotification;
 
     public ElementLibrary() {
         add(And.DESCRIPTION, "Logic");
@@ -58,32 +59,47 @@ public class ElementLibrary implements Iterable<ElementLibrary.PartContainer> {
     }
 
     private void add(ElementTypeDescription description, String treePath) {
+        addDescription(description);
+        list.add(new ElementContainer(description.getName(), treePath));
+    }
+
+    public void addDescription(ElementTypeDescription description) {
         String name = description.getName();
         if (map.containsKey(name))
             throw new RuntimeException("duplicate element " + name);
 
         map.put(name, description);
-
-        list.add(new PartContainer(name, treePath));
     }
 
     public ElementTypeDescription getElementType(String elementName) {
         ElementTypeDescription pd = map.get(elementName);
-        if (pd == null)
-            throw new RuntimeException("element " + elementName + " not found");
+        if (pd == null) {
+            if (elementNotFoundNotification != null)
+                pd = elementNotFoundNotification.notFound(elementName);
+            if (pd == null)
+                throw new RuntimeException("element " + elementName + " not found");
+        }
         return pd;
     }
 
+    private ElementTypeDescription loadPart(String elementName) {
+        return null;
+    }
+
     @Override
-    public Iterator<PartContainer> iterator() {
+    public Iterator<ElementContainer> iterator() {
         return list.iterator();
     }
 
-    public static class PartContainer {
+    public void setElementNotFoundNotification(ElementNotFoundNotification elementNotFoundNotification) {
+        this.elementNotFoundNotification = elementNotFoundNotification;
+    }
+
+    public static class ElementContainer {
         private final String name;
         private final String treePath;
 
-        public PartContainer(String name, String treePath) {
+        public ElementContainer(String name, String treePath) {
             this.name = name;
             this.treePath = treePath;
         }

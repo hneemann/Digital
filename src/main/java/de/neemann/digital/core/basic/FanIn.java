@@ -43,8 +43,8 @@ public abstract class FanIn extends Node implements Element {
             addAttributes();
         }
 
-        public FanInDescription(String name, PartFactory partFactory) {
-            super(name, partFactory);
+        public FanInDescription(String name, ElementFactory elementFactory) {
+            super(name, elementFactory);
             addAttributes();
         }
 

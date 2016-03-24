@@ -113,13 +113,6 @@
           </key>
           <string>Clock</string>
         </entry>
-        <entry>
-          <key>
-            <name>Frequency</name>
-            <def class="int">1</def>
-          </key>
-          <int>5</int>
-        </entry>
       </elementAttributes>
       <pos x="200" y="170"/>
       <rotate>0</rotate>

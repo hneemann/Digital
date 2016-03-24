@@ -7,6 +7,7 @@ import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.Vector;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 
 /**
@@ -58,7 +59,11 @@ public class Net {
         pins.add(pin);
     }
 
-    public void interconnect(boolean connectWires) throws PinException {
+    public void addAll(Collection<Pin> p) {
+        pins.addAll(p);
+    }
+
+    public void interconnect(boolean bindWiresToValues) throws PinException {
         ArrayList<Pin> inputs = new ArrayList<>();
         ArrayList<Pin> outputs = new ArrayList<>();
         for (Pin p : pins) {
@@ -81,7 +86,7 @@ public class Net {
         for (Pin i : inputs)
             i.setValue(value);
 
-        if (connectWires)
+        if (bindWiresToValues)
             for (Wire w : wires)
                 w.setValue(value);
     }
@@ -96,5 +101,18 @@ public class Net {
             if (p.getValue() == v)
                 return true;
         return false;
+    }
+
+    public boolean containsPin(Pin p) {
+        return pins.contains(p);
+    }
+
+    public ArrayList<Pin> getPins() {
+        return pins;
+    }
+
+    public void removePin(Pin p) throws PinException {
+        if (!pins.remove(p))
+            throw new PinException("pin not present!", this);
     }
 }
