@@ -5,8 +5,10 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SpeedTest;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.draw.elements.Circuit;
 import de.neemann.digital.gui.draw.elements.PinException;
+import de.neemann.digital.gui.draw.elements.PinOrder;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.shapes.ShapeFactory;
@@ -118,9 +120,28 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction partsMode = new ModeAction("Parts", CircuitComponent.Mode.part).setToolTip("Moves Parts");
         ToolTipAction selectionMode = new ModeAction("Select", CircuitComponent.Mode.select).setToolTip("Selects circuit sections");
 
+        ToolTipAction orderInputs = new ToolTipAction("Order Inputs") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PinOrder o = new PinOrder(circuitComponent.getCircuit(), "In");
+                new ElementOrderer<>(Main.this, "Input Order", o).setVisible(true);
+            }
+        }.setToolTip("Order inputs for usage as nested model.");
+
+        ToolTipAction orderOutputs = new ToolTipAction("Order Outputs") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PinOrder o = new PinOrder(circuitComponent.getCircuit(), "Out");
+                new ElementOrderer<>(Main.this, "Output Order", o).setVisible(true);
+            }
+        }.setToolTip("Order outputs for usage as nested model.");
+
+
         edit.add(partsMode.createJMenuItem());
         edit.add(wireMode.createJMenuItem());
         edit.add(selectionMode.createJMenuItem());
+        edit.add(orderInputs.createJMenuItem());
+        edit.add(orderOutputs.createJMenuItem());
 
 
         JMenu run = new JMenu("Run");
