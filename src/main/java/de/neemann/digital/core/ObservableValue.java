@@ -50,8 +50,17 @@ public class ObservableValue extends Value {
     public String getValueString() {
         if (highZ)
             return "?";
+        else {
+            return getHexString(value);
+        }
+    }
+
+    public static String getHexString(long value) {
+        String s = Long.toHexString(value).toUpperCase();
+        if (s.length() == 1)
+            return s;
         else
-            return "0x" + Long.toHexString(value).toUpperCase();
+            return "0x" + s;
     }
 
 

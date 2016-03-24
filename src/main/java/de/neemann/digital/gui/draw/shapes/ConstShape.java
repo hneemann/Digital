@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.draw.elements.IOState;
 import de.neemann.digital.gui.draw.elements.Pin;
@@ -17,7 +18,7 @@ public class ConstShape implements Shape {
     private String value;
 
     public ConstShape(long value) {
-        this.value = "0x" + Long.toHexString(value);
+        this.value = ObservableValue.getHexString(value);
     }
 
     @Override
