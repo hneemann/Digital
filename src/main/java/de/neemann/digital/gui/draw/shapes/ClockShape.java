@@ -1,10 +1,15 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.elements.IOState;
 import de.neemann.digital.gui.draw.elements.Pin;
 import de.neemann.digital.gui.draw.elements.Pins;
 import de.neemann.digital.gui.draw.graphics.*;
+import de.neemann.digital.gui.draw.graphics.Polygon;
+
+import java.awt.*;
 
 import static de.neemann.digital.gui.draw.shapes.OutputShape.SIZE;
 
@@ -26,8 +31,15 @@ public class ClockShape implements Shape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        ioState.getOutput(0).addObserver(guiObserver);
-        return null;
+        return new Interactor() {
+            @Override
+            public void clicked(CircuitComponent cc, Point pos, IOState ioState) {
+                ObservableValue value = ioState.getOutput(0);
+                if (value.getBits() == 1) {
+                    value.setValue(1 - value.getValue());
+                }
+            }
+        };
     }
 
     @Override

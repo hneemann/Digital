@@ -44,7 +44,7 @@
             <name>Default</name>
             <def class="int">0</def>
           </key>
-          <int>240</int>
+          <int>170</int>
         </entry>
       </elementAttributes>
       <pos x="150" y="80"/>
@@ -90,7 +90,7 @@
         </entry>
         <entry>
           <key reference="../../../../visualElement[2]/elementAttributes/entry[3]/key"/>
-          <int>15</int>
+          <int>85</int>
         </entry>
       </elementAttributes>
       <pos x="150" y="190"/>

@@ -4,6 +4,7 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SpeedTest;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.draw.elements.Circuit;
@@ -36,6 +37,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ElementLibrary library = ShapeFactory.getInstance().setLibrary(new ElementLibrary());
     private final ToolTipAction doStep;
     private final JCheckBoxMenuItem traceEnable;
+    private final JCheckBoxMenuItem runClock;
     private final LibrarySelector librarySelector;
     private File lastFilename;
     private File filename;
@@ -196,12 +198,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }.setToolTip("Performs a speed test by calculating the max. clock frequency.");
 
         traceEnable = new JCheckBoxMenuItem("Trace");
+        runClock = new JCheckBoxMenuItem("Run Clock", true);
 
         run.add(runModel.createJMenuItem());
         run.add(runModelMicro.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(speedTest.createJMenuItem());
         run.add(traceEnable);
+        run.add(runClock);
         doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
@@ -238,6 +242,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             if (traceEnable.isSelected()) {
 
+            }
+
+            if (!runClock.isSelected()) {
+                for (Clock c : model.getClocks())
+                    c.disableTimer();
             }
 
             model.init();
