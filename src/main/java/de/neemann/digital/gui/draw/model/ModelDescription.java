@@ -93,7 +93,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
                     thisNet.removePin(p);
                     // and connect it to the nested inner net!
                     thisNet.addAll(childNet.getPins());
-                    // remove connecte net form child
+                    // remove connected net form child
                     child.remove(childNet);
                 }
                 it.remove();

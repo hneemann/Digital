@@ -1,8 +1,5 @@
 package de.neemann.digital.gui;
 
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementFactory;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.draw.elements.Circuit;
@@ -17,6 +14,7 @@ import de.process.utils.gui.ToolTipAction;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * @author hneemann
@@ -28,10 +26,12 @@ public class LibrarySelector implements ElementNotFoundNotification {
     private JMenu customMenu;
     private InsertHistory insertHistory;
     private CircuitComponent circuitComponent;
+    private ArrayList<String> importedElements;
 
     public LibrarySelector(ElementLibrary library) {
         this.library = library;
         library.setElementNotFoundNotification(this);
+        importedElements = new ArrayList<>();
     }
 
     public JMenu buildMenu(InsertHistory insertHistory, CircuitComponent circuitComponent) {
@@ -42,7 +42,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         customMenu = new JMenu("Custom");
         parts.add(customMenu);
 
-        ToolTipAction importAction = new ToolTipAction("Import") {
+        customMenu.add(new ToolTipAction("Import") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = Main.getjFileChooser(lastFile);
@@ -50,8 +50,15 @@ public class LibrarySelector implements ElementNotFoundNotification {
                     importElement(fc.getSelectedFile());
                 }
             }
-        }.setToolTip("Imports a model as a useable Element!");
-        customMenu.add(importAction.createJMenuItem());
+        }.setToolTip("Imports a model as a useable Element!"));
+
+        customMenu.add(new ToolTipAction("Refresh") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (String name : importedElements)
+                    library.removeElement(name);
+            }
+        }.setToolTip("Imports a model as a useable Element!"));
 
 
         JMenu subMenu = null;
@@ -105,15 +112,16 @@ public class LibrarySelector implements ElementNotFoundNotification {
 
     private ElementTypeDescription importElement(File file) {
         try {
+            System.out.println("load element " + file);
             Circuit circuit = Circuit.loadCircuit(file);
-            ElementTypeDescription description = new ElementTypeDescription(file.getName(), new ElementFactory() {
-                @Override
-                public Element create(ElementAttributes attributes) {
-                    return new CustomElement(circuit, library);
-                }
-            }, circuit.getInputNames(library)).setShortName(createShortName(file));
+            ElementTypeDescription description =
+                    new ElementTypeDescription(file.getName(),
+                            attributes -> new CustomElement(circuit, library),
+                            circuit.getInputNames(library))
+                            .setShortName(createShortName(file));
             library.addDescription(description);
             customMenu.add(new InsertAction(description.getName(), insertHistory, circuitComponent));
+            importedElements.add(description.getName());
             return description;
         } catch (Exception e) {
             new ErrorMessage("error importing model").addCause(e).show();

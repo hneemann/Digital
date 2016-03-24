@@ -82,10 +82,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         return pd;
     }
 
-    private ElementTypeDescription loadPart(String elementName) {
-        return null;
-    }
-
     @Override
     public Iterator<ElementContainer> iterator() {
         return list.iterator();
@@ -93,6 +89,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     public void setElementNotFoundNotification(ElementNotFoundNotification elementNotFoundNotification) {
         this.elementNotFoundNotification = elementNotFoundNotification;
+    }
+
+    public void removeElement(String name) {
+        map.remove(name);
     }
 
     public static class ElementContainer {
