@@ -15,7 +15,7 @@ public final class EditorFactory {
         add(Integer.class, new EditorString<Integer>() {
             @Override
             public Integer toValue(String text) {
-                return Integer.parseInt(text);
+                return Integer.decode(text);
             }
         });
         add(Double.class, new EditorString<Double>() {

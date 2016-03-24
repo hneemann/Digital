@@ -149,6 +149,12 @@ public class Splitter implements Element {
         // a splitter has no nodes, it works without a delay
     }
 
+    @Override
+    public void init() {
+        for (ObservableValue v : inputs)
+            v.hasChanged();
+    }
+
     public static final class Ports implements Iterable<Port> {
         private final ArrayList<Port> ports;
         private int bits;

@@ -37,6 +37,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ToolTipAction doStep;
     private final JCheckBoxMenuItem traceEnable;
     private final LibrarySelector librarySelector;
+    private File lastFilename;
     private File filename;
     private Model model;
     private ModelDescription modelDescription;
@@ -78,7 +79,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    JFileChooser fc = getjFileChooser(filename);
+                    JFileChooser fc = getjFileChooser(lastFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                         loadFile(fc.getSelectedFile());
                     }
@@ -89,7 +90,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction saveas = new ToolTipAction("Save As") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = getjFileChooser(filename);
+                JFileChooser fc = getjFileChooser(lastFilename);
                 if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                     saveFile(fc.getSelectedFile());
                 }
@@ -305,8 +306,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private void setFilename(File filename) {
         this.filename = filename;
-        librarySelector.setLastFile(filename);
         if (filename != null) {
+            librarySelector.setLastFile(filename);
+            this.lastFilename = filename;
             prefs.put("name", filename.getPath());
             setTitle(filename + " - Digital");
         } else

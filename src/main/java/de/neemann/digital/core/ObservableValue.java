@@ -59,8 +59,18 @@ public class ObservableValue extends Value {
         String s = Long.toHexString(value).toUpperCase();
         if (s.length() == 1)
             return s;
-        else
-            return "0x" + s;
+        else {
+            boolean mark = true;
+            for (int i = 0; i < s.length(); i++)
+                if (s.charAt(i) > '9') {
+                    mark = false;
+                    break;
+                }
+            if (mark)
+                return "0x" + s;
+            else
+                return s;
+        }
     }
 
 

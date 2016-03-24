@@ -33,4 +33,12 @@ public interface Element {
      * @param model the model to register to
      */
     void registerNodes(Model model);
+
+    /**
+     * Is called after registerNodes is called on all Elements.
+     */
+    default void init() {
+    }
+
+    ;
 }

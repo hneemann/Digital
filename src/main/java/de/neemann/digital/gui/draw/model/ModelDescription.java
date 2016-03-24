@@ -88,13 +88,14 @@ public class ModelDescription implements Iterable<ModelEntry> {
                 for (Pin p : me.getPins()) {
                     Net childNet = child.getNetOfIOandRemove(p.getName());
                     Net thisNet = netList.getNetOfPin(p);
-
-                    // Disconnect the parents net from the pin
-                    thisNet.removePin(p);
-                    // and connect it to the nested inner net!
-                    thisNet.addAll(childNet.getPins());
-                    // remove connected net form child
-                    child.remove(childNet);
+                    if (thisNet != null) {
+                        // Disconnect the parents net from the pin
+                        thisNet.removePin(p);
+                        // and connect it to the nested inner net!
+                        thisNet.addAll(childNet.getPins());
+                        // remove connected net form child
+                        child.remove(childNet);
+                    }
                 }
                 it.remove();
             }
@@ -141,6 +142,9 @@ public class ModelDescription implements Iterable<ModelEntry> {
 
         for (ModelEntry e : entries)
             e.getElement().registerNodes(m);
+
+        for (ModelEntry e : entries)
+            e.getElement().init();
 
         return m;
     }
