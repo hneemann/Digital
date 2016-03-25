@@ -55,7 +55,8 @@ public final class ShapeFactory {
         map.put(Out.PROBEDESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
         map.put(Clock.DESCRIPTION.getName(), attr -> new ClockShape(attr.get(AttributeKey.Label)));
         map.put(Multiplexer.DESCRIPTION.getName(), attr -> new MuxerShape(attr.get(AttributeKey.SelectorBits)));
-        map.put(Demultiplexer.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits)));
+        map.put(Demultiplexer.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), true));
+        map.put(Decoder.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), false));
 
         map.put(Splitter.DESCRIPTION.getName(), attr -> new SplitterShape(attr.get(AttributeKey.InputSplit), attr.get(AttributeKey.OutputSplit)));
 

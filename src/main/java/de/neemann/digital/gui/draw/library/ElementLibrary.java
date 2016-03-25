@@ -45,6 +45,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         add(Multiplexer.DESCRIPTION, "Mux");
         add(Demultiplexer.DESCRIPTION, "Mux");
+        add(Decoder.DESCRIPTION, "Mux");
 
         add(Splitter.DESCRIPTION, "Wires");
         add(Const.DESCRIPTION, "Wires");
