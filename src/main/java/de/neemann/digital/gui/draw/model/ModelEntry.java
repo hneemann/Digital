@@ -5,6 +5,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.gui.draw.elements.*;
+import de.neemann.digital.lang.Lang;
 
 import java.util.HashMap;
 
@@ -39,11 +40,11 @@ public class ModelEntry {
             for (int i = 0; i < inputNames.length; i++) {
                 Pin pin = ins.get(inputNames[i]);
                 if (pin == null)
-                    throw new PinException("pin '" + inputNames[i] + "' at " + visualElement + " not found!", visualElement);
+                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputNames[i], visualElement), visualElement);
 
                 ObservableValue value = pin.getValue();
                 if (value == null)
-                    throw new PinException("no value set for '" + inputNames[i] + "' at " + visualElement + "!", visualElement);
+                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputNames[i], visualElement), visualElement);
 
                 inputs[i] = value;
             }

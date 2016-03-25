@@ -15,6 +15,7 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,7 +73,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     public void addDescription(ElementTypeDescription description) {
         String name = description.getName();
         if (map.containsKey(name))
-            throw new RuntimeException("duplicate element " + name);
+            throw new RuntimeException(Lang.get("err_duplicateElement_N", name));
 
         map.put(name, description);
     }
@@ -83,7 +84,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             if (elementNotFoundNotification != null)
                 pd = elementNotFoundNotification.notFound(elementName);
             if (pd == null)
-                throw new RuntimeException("element " + elementName + " not found");
+                throw new RuntimeException(Lang.get("err_element_N_notFound", elementName));
         }
         return pd;
     }

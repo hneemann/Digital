@@ -10,6 +10,7 @@ import de.neemann.digital.core.io.Out;
 import de.neemann.digital.gui.draw.elements.*;
 import de.neemann.digital.gui.draw.library.CustomElement;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
+import de.neemann.digital.lang.Lang;
 
 import java.util.*;
 
@@ -58,9 +59,9 @@ public class ModelDescription implements Iterable<ModelEntry> {
                 if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION) {
                     String label = vp.getElementAttributes().get(AttributeKey.Label);
                     if (label == null || label.length() == 0)
-                        throw new PinException("no pin name given!");
+                        throw new PinException(Lang.get("err_pinWithoutName"));
                     if (pins.size() != 1)
-                        throw new PinException(label + " is not a regular input or output!");
+                        throw new PinException(Lang.get("err_N_isNotInputOrOutput", label));
 
                     ioMap.put(label, pins.get(0));
                     isNotAIO = false;
@@ -113,10 +114,10 @@ public class ModelDescription implements Iterable<ModelEntry> {
     private Net getNetOfIOandRemove(String name) throws PinException {
         Pin pin = ioMap.get(name);
         if (pin == null)
-            throw new PinException("pin " + name + " not found!");
+            throw new PinException(Lang.get("err_pin_N_notFound", name));
         Net netOfPin = netList.getNetOfPin(pin);
         if (netOfPin == null)
-            throw new PinException("net of pin " + name + " not found!");
+            throw new PinException(Lang.get("err_netOfPin_N_notFound", name));
 
         netOfPin.removePin(pin);
 

@@ -13,6 +13,7 @@ import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.neemann.digital.gui.draw.model.ModelBuilder;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.shapes.ShapeFactory;
+import de.neemann.digital.lang.Lang;
 import de.process.utils.gui.ClosingWindowListener;
 import de.process.utils.gui.ErrorMessage;
 import de.process.utils.gui.InfoDialog;
@@ -31,7 +32,7 @@ import java.util.prefs.Preferences;
  */
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Preferences prefs = Preferences.userRoot().node("dig");
-    private static final String MESSAGE = "Digital\n\nA simple simulator for digital circuits.\nWritten bei H.Neemann in 2016";
+    private static final String MESSAGE = Lang.get("message");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private final ElementLibrary library = ShapeFactory.getInstance().setLibrary(new ElementLibrary());
@@ -45,7 +46,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private ModelDescription modelDescription;
 
     public Main() {
-        super("Digital");
+        super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 
@@ -67,7 +68,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenuBar bar = new JMenuBar();
 
 
-        ToolTipAction newFile = new ToolTipAction("New") {
+        ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
@@ -77,7 +78,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
-        ToolTipAction open = new ToolTipAction("Open") {
+        ToolTipAction open = new ToolTipAction(Lang.get("menu_open")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
@@ -89,7 +90,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
-        ToolTipAction saveas = new ToolTipAction("Save As") {
+        ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getjFileChooser(lastFilename);
@@ -99,7 +100,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
-        save = new ToolTipAction("Save") {
+        save = new ToolTipAction(Lang.get("menu_save")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (filename == null)
@@ -109,35 +110,35 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
-        JMenu file = new JMenu("File");
+        JMenu file = new JMenu(Lang.get("menu_file"));
         bar.add(file);
         file.add(newFile);
         file.add(open);
         file.add(save);
         file.add(saveas);
 
-        JMenu edit = new JMenu("Edit");
+        JMenu edit = new JMenu(Lang.get("menu_edit"));
         bar.add(edit);
 
-        ToolTipAction wireMode = new ModeAction("Wire", CircuitComponent.Mode.wire).setToolTip("Edits wires");
-        ToolTipAction partsMode = new ModeAction("Parts", CircuitComponent.Mode.part).setToolTip("Moves Parts");
-        ToolTipAction selectionMode = new ModeAction("Select", CircuitComponent.Mode.select).setToolTip("Selects circuit sections");
+        ToolTipAction wireMode = new ModeAction(Lang.get("menu_wire"), CircuitComponent.Mode.wire).setToolTip(Lang.get("menu_wire_tt"));
+        ToolTipAction partsMode = new ModeAction(Lang.get("menu_element"), CircuitComponent.Mode.part).setToolTip(Lang.get("menu_element_tt"));
+        ToolTipAction selectionMode = new ModeAction(Lang.get("menu_select"), CircuitComponent.Mode.select).setToolTip(Lang.get("menu_select_tt"));
 
-        ToolTipAction orderInputs = new ToolTipAction("Order Inputs") {
+        ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PinOrder o = new PinOrder(circuitComponent.getCircuit(), "In");
-                new ElementOrderer<>(Main.this, "Input Order", o).setVisible(true);
+                new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).setVisible(true);
             }
-        }.setToolTip("Order inputs for usage as nested model.");
+        }.setToolTip(Lang.get("menu_orderInputs_tt"));
 
-        ToolTipAction orderOutputs = new ToolTipAction("Order Outputs") {
+        ToolTipAction orderOutputs = new ToolTipAction(Lang.get("menu_orderOutputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PinOrder o = new PinOrder(circuitComponent.getCircuit(), "Out");
-                new ElementOrderer<>(Main.this, "Output Order", o).setVisible(true);
+                new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).setVisible(true);
             }
-        }.setToolTip("Order outputs for usage as nested model.");
+        }.setToolTip(Lang.get("menu_orderOutputs_tt"));
 
 
         edit.add(partsMode.createJMenuItem());
@@ -147,10 +148,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         edit.add(orderOutputs.createJMenuItem());
 
 
-        JMenu run = new JMenu("Run");
+        JMenu run = new JMenu(Lang.get("menu_run"));
         bar.add(run);
 
-        doStep = new ToolTipAction("Step") {
+        doStep = new ToolTipAction(Lang.get("menu_step")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -164,25 +165,25 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                     );
                 }
             }
-        };
+        }.setToolTip(Lang.get("menu_step_tt"));
 
-        ToolTipAction runModel = new ToolTipAction("Run") {
+        ToolTipAction runModel = new ToolTipAction(Lang.get("menu_run")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createAndStartModel();
                 circuitComponent.setManualChangeObserver(new FullStepObserver(model));
             }
-        }.setToolTip("Runs the Model");
+        }.setToolTip(Lang.get("menu_run_tt"));
 
-        ToolTipAction runModelMicro = new ToolTipAction("Micro") {
+        ToolTipAction runModelMicro = new ToolTipAction(Lang.get("menu_micro")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createAndStartModel();
                 circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
-        }.setToolTip("Runs the Model in Micro Stepping Mode");
+        }.setToolTip(Lang.get("menu_micro_tt"));
 
-        ToolTipAction speedTest = new ToolTipAction("SpeedTest") {
+        ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -197,10 +198,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                     new ErrorMessage("SpeedTestError").addCause(e1).show();
                 }
             }
-        }.setToolTip("Performs a speed test by calculating the max. clock frequency.");
+        }.setToolTip(Lang.get("menu_speedTest_tt"));
 
-        traceEnable = new JCheckBoxMenuItem("Trace");
-        runClock = new JCheckBoxMenuItem("Run Clock", true);
+        traceEnable = new JCheckBoxMenuItem(Lang.get("menu_trace"));
+        runClock = new JCheckBoxMenuItem(Lang.get("menu_runClock"), true);
+        runClock.setToolTipText(Lang.get("menu_runClock_tt"));
 
         run.add(runModel.createJMenuItem());
         run.add(runModelMicro.createJMenuItem());
@@ -259,7 +261,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
                 circuitComponent.repaint();
             }
-            SwingUtilities.invokeLater(new ErrorMessage("error creating model").addCause(e).setComponent(Main.this));
+            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).setComponent(Main.this));
             circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
         } catch (PinException e) {
             if (modelDescription != null) {
@@ -268,7 +270,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                     e.getNet().setHighLight(true);
                 circuitComponent.repaint();
             }
-            SwingUtilities.invokeLater(new ErrorMessage("error creating model").addCause(e).setComponent(Main.this));
+            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).setComponent(Main.this));
             circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
         }
     }
@@ -297,7 +299,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             setFilename(filename);
         } catch (Exception e) {
             circuitComponent.setCircuit(new Circuit());
-            new ErrorMessage("error reading a file").addCause(e).show(this);
+            new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e).show(this);
         }
     }
 
@@ -309,7 +311,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             circuitComponent.getCircuit().save(filename);
             setFilename(filename);
         } catch (IOException e) {
-            new ErrorMessage("error writing a file").addCause(e).show();
+            new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
         }
     }
 
@@ -319,9 +321,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             librarySelector.setLastFile(filename);
             this.lastFilename = filename;
             prefs.put("name", filename.getPath());
-            setTitle(filename + " - Digital");
+            setTitle(filename + " - " + Lang.get("digital"));
         } else
-            setTitle("Digital");
+            setTitle(Lang.get("digital"));
     }
 
     private class ModeAction extends ToolTipAction {
@@ -358,7 +360,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 model.doStep();
             } catch (NodeException e) {
                 SwingUtilities.invokeLater(
-                        new ErrorMessage("Error").addCause(e).setComponent(Main.this)
+                        new ErrorMessage(Lang.get("msg_errorCalculatingStep")).addCause(e).setComponent(Main.this)
                 );
             }
         }

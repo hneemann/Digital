@@ -14,6 +14,7 @@ import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.neemann.digital.gui.draw.shapes.Drawable;
+import de.neemann.digital.lang.Lang;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -197,7 +198,7 @@ public class Circuit implements Drawable {
             if (elementType == In.DESCRIPTION) {
                 String name = ve.getElementAttributes().get(AttributeKey.Label);
                 if (name == null || name.length() == 0)
-                    throw new PinException("pin without a name!");
+                    throw new PinException(Lang.get("err_pinWithoutName"));
 
                 pinList.add(name);
             }
@@ -212,7 +213,7 @@ public class Circuit implements Drawable {
             if (elementType == Out.DESCRIPTION) {
                 String name = ve.getElementAttributes().get(AttributeKey.Label);
                 if (name == null || name.length() == 0)
-                    throw new PinException("pin without a name!");
+                    throw new PinException(Lang.get("err_pinWithoutName"));
 
                 pinList.add(new ObservableValue(name, 0) {
                     @Override

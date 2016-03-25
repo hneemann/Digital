@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class Pins implements Iterable<Pin> {
         for (ObservableValue o : outs) {
             Pin pin = outputs.get(o.getName());
             if (pin == null)
-                throw new PinException("pin " + o.getName() + " unknown!");
+                throw new PinException(Lang.get("err_pin_N_unknown", o.getName()));
             pin.setValue(o);
         }
     }

@@ -8,6 +8,7 @@ import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.library.CustomElement;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
 import de.neemann.digital.gui.draw.library.ElementNotFoundNotification;
+import de.neemann.digital.lang.Lang;
 import de.process.utils.gui.ErrorMessage;
 import de.process.utils.gui.ToolTipAction;
 
@@ -37,12 +38,12 @@ public class LibrarySelector implements ElementNotFoundNotification {
     public JMenu buildMenu(InsertHistory insertHistory, CircuitComponent circuitComponent) {
         this.insertHistory = insertHistory;
         this.circuitComponent = circuitComponent;
-        JMenu parts = new JMenu("Elements");
+        JMenu parts = new JMenu(Lang.get("menu_elements"));
 
-        customMenu = new JMenu("Custom");
+        customMenu = new JMenu(Lang.get("menu_custom"));
         parts.add(customMenu);
 
-        customMenu.add(new ToolTipAction("Import") {
+        customMenu.add(new ToolTipAction(Lang.get("menu_import")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = Main.getjFileChooser(lastFile);
@@ -50,15 +51,15 @@ public class LibrarySelector implements ElementNotFoundNotification {
                     importElement(fc.getSelectedFile());
                 }
             }
-        }.setToolTip("Imports a model as a useable Element!"));
+        }.setToolTip(Lang.get("menu_import_tt")));
 
-        customMenu.add(new ToolTipAction("Refresh") {
+        customMenu.add(new ToolTipAction(Lang.get("menu_refresh")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (String name : importedElements)
                     library.removeElement(name);
             }
-        }.setToolTip("Imports a model as a useable Element!"));
+        }.setToolTip(Lang.get("menu_refresh_tt")));
 
 
         JMenu subMenu = null;
@@ -125,7 +126,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             importedElements.add(description.getName());
             return description;
         } catch (Exception e) {
-            SwingUtilities.invokeLater(new ErrorMessage("error importing model").addCause(e));
+            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e));
         }
         return null;
     }

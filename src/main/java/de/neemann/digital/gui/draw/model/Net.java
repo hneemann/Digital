@@ -5,6 +5,7 @@ import de.neemann.digital.gui.draw.elements.Pin;
 import de.neemann.digital.gui.draw.elements.PinException;
 import de.neemann.digital.gui.draw.elements.Wire;
 import de.neemann.digital.gui.draw.graphics.Vector;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -74,14 +75,14 @@ public class Net {
         }
 
         if (outputs.size() == 0)
-            throw new PinException("No output connected to wire!", this);
+            throw new PinException(Lang.get("err_onOutConnectedToWire"), this);
 
         if (outputs.size() > 1)
             throw new PinException("Multiple outputs not supported yet!", this);
 
         ObservableValue value = outputs.get(0).getValue();
         if (value == null)
-            throw new PinException("Output " + outputs.get(0) + " not defined!", this);
+            throw new PinException(Lang.get("err_output_N_notDefined", outputs.get(0)), this);
 
         for (Pin i : inputs)
             i.setValue(value);
@@ -113,6 +114,6 @@ public class Net {
 
     public void removePin(Pin p) throws PinException {
         if (!pins.remove(p))
-            throw new PinException("pin not present!", this);
+            throw new PinException(Lang.get("err_pinNotPresent"), this);
     }
 }
