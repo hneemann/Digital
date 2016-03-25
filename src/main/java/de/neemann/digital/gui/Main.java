@@ -14,10 +14,7 @@ import de.neemann.digital.gui.draw.model.ModelBuilder;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
-import de.process.utils.gui.ClosingWindowListener;
-import de.process.utils.gui.ErrorMessage;
-import de.process.utils.gui.InfoDialog;
-import de.process.utils.gui.ToolTipAction;
+import de.process.utils.gui.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -33,6 +30,12 @@ import java.util.prefs.Preferences;
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Preferences prefs = Preferences.userRoot().node("dig");
     private static final String MESSAGE = Lang.get("message");
+    private static final Icon iconRun = IconCreator.create("run.gif");
+    private static final Icon iconMicro = IconCreator.create("micro.gif");
+    private static final Icon iconStep = IconCreator.create("step.gif");
+    private static final Icon iconElement = IconCreator.create("element.gif");
+    private static final Icon iconSelect = IconCreator.create("select.gif");
+    private static final Icon iconWire = IconCreator.create("wire.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private final ElementLibrary library = ShapeFactory.getInstance().setLibrary(new ElementLibrary());
@@ -120,9 +123,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenu edit = new JMenu(Lang.get("menu_edit"));
         bar.add(edit);
 
-        ToolTipAction wireMode = new ModeAction(Lang.get("menu_wire"), CircuitComponent.Mode.wire).setToolTip(Lang.get("menu_wire_tt"));
-        ToolTipAction partsMode = new ModeAction(Lang.get("menu_element"), CircuitComponent.Mode.part).setToolTip(Lang.get("menu_element_tt"));
-        ToolTipAction selectionMode = new ModeAction(Lang.get("menu_select"), CircuitComponent.Mode.select).setToolTip(Lang.get("menu_select_tt"));
+        ToolTipAction wireMode = new ModeAction(Lang.get("menu_wire"), iconWire, CircuitComponent.Mode.wire).setToolTip(Lang.get("menu_wire_tt"));
+        ToolTipAction partsMode = new ModeAction(Lang.get("menu_element"), iconElement, CircuitComponent.Mode.part).setToolTip(Lang.get("menu_element_tt"));
+        ToolTipAction selectionMode = new ModeAction(Lang.get("menu_select"), iconSelect, CircuitComponent.Mode.select).setToolTip(Lang.get("menu_select_tt"));
 
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
@@ -151,7 +154,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenu run = new JMenu(Lang.get("menu_run"));
         bar.add(run);
 
-        doStep = new ToolTipAction(Lang.get("menu_step")) {
+        doStep = new ToolTipAction(Lang.get("menu_step"), iconStep) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -167,7 +170,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_step_tt"));
 
-        ToolTipAction runModel = new ToolTipAction(Lang.get("menu_run")) {
+        ToolTipAction runModel = new ToolTipAction(Lang.get("menu_run"), iconRun) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createAndStartModel();
@@ -175,7 +178,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_run_tt"));
 
-        ToolTipAction runModelMicro = new ToolTipAction(Lang.get("menu_micro")) {
+        ToolTipAction runModelMicro = new ToolTipAction(Lang.get("menu_micro"), iconMicro) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createAndStartModel();
@@ -213,12 +216,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
-        toolBar.add(partsMode.createJButton());
-        toolBar.add(wireMode.createJButton());
-        toolBar.add(selectionMode.createJButton());
-        toolBar.add(runModel.createJButton());
-        toolBar.add(runModelMicro.createJButton());
-        toolBar.add(doStep.createJButton());
+        toolBar.add(partsMode.createJButtonNoText());
+        toolBar.add(wireMode.createJButtonNoText());
+        toolBar.add(selectionMode.createJButtonNoText());
+        toolBar.add(runModel.createJButtonNoText());
+        toolBar.add(runModelMicro.createJButtonNoText());
+        toolBar.add(doStep.createJButtonNoText());
 
         toolBar.addSeparator();
 
@@ -329,8 +332,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private class ModeAction extends ToolTipAction {
         private final CircuitComponent.Mode mode;
 
-        public ModeAction(String name, CircuitComponent.Mode mode) {
-            super(name);
+        public ModeAction(String name, Icon icon, CircuitComponent.Mode mode) {
+            super(name, icon);
             this.mode = mode;
         }
 
