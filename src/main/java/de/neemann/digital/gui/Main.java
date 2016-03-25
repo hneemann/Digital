@@ -4,13 +4,13 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SpeedTest;
-import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.draw.elements.Circuit;
 import de.neemann.digital.gui.draw.elements.PinException;
 import de.neemann.digital.gui.draw.elements.PinOrder;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
+import de.neemann.digital.gui.draw.model.ModelBuilder;
 import de.neemann.digital.gui.draw.model.ModelDescription;
 import de.neemann.digital.gui.draw.shapes.ShapeFactory;
 import de.process.utils.gui.ClosingWindowListener;
@@ -186,8 +186,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
-                    model = modelDescription.createModel(false);
+                    Model model = new ModelBuilder(circuitComponent.getCircuit())
+                            .setBindWiresToGui(false)
+                            .build(library);
+
                     SpeedTest speedTest = new SpeedTest(model);
                     double frequency = speedTest.calculate();
                     JOptionPane.showMessageDialog(Main.this, "Frequency: " + frequency);
@@ -235,19 +237,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         try {
             if (modelDescription != null)
                 modelDescription.highLightOff();
+
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
-            modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
-            model = modelDescription.createModel(true);
+
+            ModelBuilder mb = new ModelBuilder(circuitComponent.getCircuit())
+                    .setBindWiresToGui(true)
+                    .setDisableClock(!runClock.isSelected())
+                    .setEnableTrace(traceEnable.isSelected(), Main.this);
+
+            model = mb.build(library);
+            modelDescription = mb.getModelDescription();
             modelDescription.connectToGui(circuitComponent);
-
-            if (traceEnable.isSelected()) {
-
-            }
-
-            if (!runClock.isSelected()) {
-                for (Clock c : model.getClocks())
-                    c.disableTimer();
-            }
 
             model.init();
         } catch (NodeException e) {

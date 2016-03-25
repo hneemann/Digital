@@ -203,4 +203,12 @@ public class ModelDescription implements Iterable<ModelEntry> {
     public Iterator<ModelEntry> iterator() {
         return entries.iterator();
     }
+
+    public List<ModelEntry> getEntries(String elementName) {
+        List<ModelEntry> entr = new ArrayList<>();
+        for (ModelEntry me : entries)
+            if (me.getVisualElement().getElementName().endsWith(elementName))
+                entr.add(me);
+        return entr;
+    }
 }

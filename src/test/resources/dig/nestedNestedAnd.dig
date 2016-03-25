@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <visualElements>
+    <visualElement>
+      <elementName>nestedAnd.dig</elementName>
+      <elementAttributes/>
+      <pos x="320" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes/>
+      <pos x="290" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes/>
+      <pos x="290" y="140"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="380" y="130"/>
+      <rotate>0</rotate>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="350" y="130"/>
+      <p2 x="380" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="290" y="120"/>
+      <p2 x="320" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="290" y="140"/>
+      <p2 x="320" y="140"/>
+    </wire>
+  </wires>
+</circuit>

@@ -120,7 +120,8 @@ public class LibrarySelector implements ElementNotFoundNotification {
                             circuit.getInputNames(library))
                             .setShortName(createShortName(file));
             library.addDescription(description);
-            customMenu.add(new InsertAction(description.getName(), insertHistory, circuitComponent));
+            if (customMenu != null)
+                customMenu.add(new InsertAction(description.getName(), insertHistory, circuitComponent));
             importedElements.add(description.getName());
             return description;
         } catch (Exception e) {

@@ -23,4 +23,20 @@ public class IOState {
     public ObservableValue getOutput(int i) {
         return outputs[i];
     }
+
+    public int inputCount() {
+        return inputs.length;
+    }
+
+    public int outputCount() {
+        return outputs.length;
+    }
+
+    public ObservableValue[] getInputs() {
+        return inputs;
+    }
+
+    public ObservableValue[] getOutputs() {
+        return outputs;
+    }
 }

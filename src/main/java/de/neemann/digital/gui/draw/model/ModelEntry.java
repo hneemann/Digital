@@ -73,4 +73,8 @@ public class ModelEntry {
     public boolean containsValue(ObservableValue v) {
         return pins.containsValue(v);
     }
+
+    public IOState getIoState() {
+        return ioState;
+    }
 }

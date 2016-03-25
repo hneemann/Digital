@@ -5,6 +5,7 @@ import de.neemann.digital.core.wiring.Clock;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author hneemann
@@ -27,7 +28,7 @@ public class Model {
         observers = new ArrayList<>();
     }
 
-    public int getVersion() {
+    public int getStepCounter() {
         return version;
     }
 
@@ -163,5 +164,9 @@ public class Model {
         ModelEvent e = new ModelEvent(ModelEvent.Event.FETCHCLOCK);
         fireEvent(e);
         return e.getClocks();
+    }
+
+    public List<Node> getNodes() {
+        return Collections.unmodifiableList(nodes);
     }
 }

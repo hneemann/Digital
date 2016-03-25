@@ -17,9 +17,9 @@ public abstract class Node implements Observer {
         if (model == null)
             throw new RuntimeException("noModelSet");
 
-        if (model.getVersion() != version) {
+        if (model.getStepCounter() != version) {
             model.addToUpdateList(this);
-            version = model.getVersion();
+            version = model.getStepCounter();
         }
     }
 
