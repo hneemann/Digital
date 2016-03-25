@@ -123,6 +123,22 @@ public class TestExecuter {
         }
     }
 
+    public void clockUntil(int... val) throws NodeException {
+        for (int clocks = 0; clocks < 1000; clocks++) {
+            boolean isReached = true;
+            for (int i = 0; i < outputs.size(); i++) {
+                if (outputs.get(i).getValue() != val[i])
+                    isReached = false;
+            }
+            if (isReached)
+                return;
+
+            inputs.get(0).setValue(1 - inputs.get(0).getValue());
+            model.doStep();
+        }
+        throw new RuntimeException("desired state is not reached!");
+    }
+
     public Model getModel() {
         return model;
     }

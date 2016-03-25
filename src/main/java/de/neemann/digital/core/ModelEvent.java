@@ -14,8 +14,6 @@ public class ModelEvent {
 
     public enum Event {STARTED, STOPPED, FETCHCLOCK, STEP}
 
-    ;
-
     private final Event event;
     private ArrayList<Clock> clocks;
 

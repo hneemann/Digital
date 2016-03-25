@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <visualElements>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes/>
+      <pos x="300" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="210" y="210"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <key>
+            <name>Label</name>
+            <def class="string"></def>
+          </key>
+          <string>Clock</string>
+        </entry>
+      </elementAttributes>
+      <pos x="190" y="170"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <key reference="../../../../visualElement[3]/elementAttributes/entry/key"/>
+          <string>Red</string>
+        </entry>
+      </elementAttributes>
+      <pos x="350" y="150"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <key reference="../../../../visualElement[3]/elementAttributes/entry/key"/>
+          <string>Yellow</string>
+        </entry>
+      </elementAttributes>
+      <pos x="350" y="170"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <key reference="../../../../visualElement[3]/elementAttributes/entry/key"/>
+          <string>Green</string>
+        </entry>
+      </elementAttributes>
+      <pos x="350" y="190"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>MS-JK.dig</elementName>
+      <elementAttributes/>
+      <pos x="240" y="130"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>MS-JK.dig</elementName>
+      <elementAttributes/>
+      <pos x="240" y="190"/>
+      <rotate>0</rotate>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="270" y="140"/>
+      <p2 x="350" y="150"/>
+    </wire>
+    <wire>
+      <p1 x="210" y="210"/>
+      <p2 x="230" y="210"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="210"/>
+      <p2 x="240" y="210"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="130"/>
+      <p2 x="240" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="270" y="130"/>
+      <p2 x="290" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="290" y="180"/>
+      <p2 x="300" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="150"/>
+      <p2 x="240" y="150"/>
+    </wire>
+    <wire>
+      <p1 x="270" y="200"/>
+      <p2 x="300" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="200"/>
+      <p2 x="240" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="170"/>
+      <p2 x="280" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="190" y="170"/>
+      <p2 x="220" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="170"/>
+      <p2 x="350" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="140"/>
+      <p2 x="240" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="190"/>
+      <p2 x="240" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="270" y="190"/>
+      <p2 x="280" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="330" y="190"/>
+      <p2 x="350" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="290" y="130"/>
+      <p2 x="290" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="190"/>
+      <p2 x="230" y="210"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="130"/>
+      <p2 x="230" y="150"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="150"/>
+      <p2 x="230" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="170"/>
+      <p2 x="280" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="140"/>
+      <p2 x="220" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="170"/>
+      <p2 x="220" y="200"/>
+    </wire>
+  </wires>
+</circuit>
