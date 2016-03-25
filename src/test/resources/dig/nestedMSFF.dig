@@ -5,10 +5,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
@@ -19,7 +16,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>J</string>
         </entry>
       </elementAttributes>
@@ -30,7 +27,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>Q</string>
         </entry>
       </elementAttributes>
@@ -47,7 +44,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>K</string>
         </entry>
       </elementAttributes>

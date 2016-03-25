@@ -4,58 +4,55 @@
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
-      <pos x="340" y="180"/>
+      <pos x="360" y="170"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="180"/>
+      <pos x="340" y="170"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[2]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>B</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="200"/>
+      <pos x="340" y="190"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[2]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>Out</string>
         </entry>
       </elementAttributes>
-      <pos x="410" y="190"/>
+      <pos x="410" y="180"/>
       <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="300" y="180"/>
-      <p2 x="340" y="180"/>
+      <p1 x="390" y="180"/>
+      <p2 x="410" y="180"/>
     </wire>
     <wire>
-      <p1 x="300" y="200"/>
-      <p2 x="340" y="200"/>
+      <p1 x="340" y="170"/>
+      <p2 x="360" y="170"/>
     </wire>
     <wire>
-      <p1 x="370" y="190"/>
-      <p2 x="410" y="190"/>
+      <p1 x="340" y="190"/>
+      <p2 x="360" y="190"/>
     </wire>
   </wires>
 </circuit>

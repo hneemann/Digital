@@ -10,7 +10,7 @@ import java.util.Map;
  * @author hneemann
  */
 public class ElementAttributes {
-    private HashMap<AttributeKey, Object> attributes;
+    private HashMap<String, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
 
     public ElementAttributes() {
@@ -19,7 +19,7 @@ public class ElementAttributes {
     public ElementAttributes(ElementAttributes proto) {
         if (proto.attributes != null) {
             attributes = new HashMap<>();
-            for (Map.Entry<AttributeKey, Object> e : proto.attributes.entrySet()) {
+            for (Map.Entry<String, Object> e : proto.attributes.entrySet()) {
                 attributes.put(e.getKey(), e.getValue());
             }
         }
@@ -29,7 +29,7 @@ public class ElementAttributes {
         if (attributes == null)
             return key.getDefault();
         else {
-            VALUE value = (VALUE) attributes.get(key);
+            VALUE value = (VALUE) attributes.get(key.getKey());
             if (value == null)
                 return key.getDefault();
             return value;
@@ -40,11 +40,11 @@ public class ElementAttributes {
         if (value != get(key)) {
             if (value.equals(key.getDefault())) {
                 if (attributes != null)
-                    attributes.remove(key);
+                    attributes.remove(key.getKey());
             } else {
                 if (attributes == null)
                     attributes = new HashMap<>();
-                attributes.put(key, value);
+                attributes.put(key.getKey(), value);
             }
             fireValueChanged(key);
         }

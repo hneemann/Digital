@@ -5,10 +5,7 @@
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Inputs</name>
-            <def class="int">2</def>
-          </key>
+          <string>Inputs</string>
           <int>3</int>
         </entry>
       </elementAttributes>
@@ -19,7 +16,7 @@
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Inputs</string>
           <int>3</int>
         </entry>
       </elementAttributes>
@@ -36,17 +33,11 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>J</string>
         </entry>
         <entry>
-          <key>
-            <name>Default</name>
-            <def class="int">0</def>
-          </key>
+          <string>Default</string>
           <int>1</int>
         </entry>
       </elementAttributes>
@@ -57,7 +48,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[4]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
@@ -104,7 +95,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[4]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>Q</string>
         </entry>
       </elementAttributes>
@@ -115,7 +106,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[4]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>~Q</string>
         </entry>
       </elementAttributes>
@@ -126,10 +117,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>K</string>
         </entry>
       </elementAttributes>
