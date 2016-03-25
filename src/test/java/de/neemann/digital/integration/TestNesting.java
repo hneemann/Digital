@@ -104,5 +104,13 @@ public class TestNesting extends TestCase {
         te.check(1, 0, 1, 0);
         te.check(0, 1, 0, 0);  // Red
         te.check(1, 1, 0, 0);
+        te.check(0, 1, 1, 0);  // Red / Yellow
+        te.check(1, 1, 1, 0);
+        te.check(0, 0, 0, 1);  // Green
+        te.check(1, 0, 0, 1);
+        te.check(0, 0, 1, 0);  // Yellow
+        te.check(1, 0, 1, 0);
+        te.check(0, 1, 0, 0);  // Red
+        te.check(1, 1, 0, 0);
     }
 }

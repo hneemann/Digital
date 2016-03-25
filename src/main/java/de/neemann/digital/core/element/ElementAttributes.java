@@ -77,4 +77,11 @@ public class ElementAttributes {
         set(AttributeKey.Bits, bits);
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "ElementAttributes{" +
+                "attributes=" + attributes +
+                '}';
+    }
 }

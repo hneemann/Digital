@@ -5,8 +5,8 @@ package de.neemann.digital.core.element;
  */
 public class AttributeKey<VALUE> {
 
-    public static final AttributeKey<Integer> Bits = new AttributeKey<>("Bits", 1);
-    public static final AttributeKey<Integer> InputCount = new AttributeKey<>("Inputs", 2);
+    public static final AttributeKey<Integer> Bits = new AttributeKey<>("Data Bits", 1);
+    public static final AttributeKey<Integer> InputCount = new AttributeKey<>("Number of Inputs", 2);
     public static final AttributeKey<String> Label = new AttributeKey<>("Label", "");
     public static final AttributeKey<Integer> Value = new AttributeKey<>("Value", 1);
     public static final AttributeKey<Integer> Default = new AttributeKey<>("Default", 0);
@@ -37,6 +37,11 @@ public class AttributeKey<VALUE> {
 
     public Class getValueClass() {
         return def.getClass();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     @Override

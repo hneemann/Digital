@@ -1,12 +1,13 @@
 package de.neemann.digital.gui.components;
 
+import java.awt.*;
+
 /**
  * @author hneemann
  */
 public interface Editor<T> {
 
-    String toText(T value);
+    Component getComponent();
 
-    T toValue(String text);
-
+    T getValue();
 }

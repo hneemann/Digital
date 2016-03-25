@@ -2,13 +2,11 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.process.utils.gui.ErrorMessage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -16,45 +14,82 @@ import java.util.ArrayList;
  */
 public class AttributeDialog extends JDialog {
 
+    private final ArrayList<EditorHolder> editors;
+
     public AttributeDialog(Point pos, ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
         super((Frame) null, "Attributes", true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JTable table = new JTable(new AttributeTableModel(list, elementAttributes));
-        getContentPane().add(new JScrollPane(table));
+        JPanel panel = new JPanel(new GridLayout(0, 2));
 
-        addWindowListener(new WindowAdapter() {
+        getContentPane().add(new JScrollPane(panel));
+
+        editors = new ArrayList<>();
+
+        for (AttributeKey key : list) {
+            panel.add(new JLabel(key.getName() + ":  "));
+            Editor e = EditorFactory.INSTANCE.create(key.getValueClass(), elementAttributes.get(key));
+            editors.add(new EditorHolder(e, key));
+            panel.add(e.getComponent());
+        }
+
+        JButton okButton = new JButton(new AbstractAction("ok") {
             @Override
-            public void windowClosing(WindowEvent e) {
-                close(table);
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    setEditedValues(elementAttributes);
+                    dispose();
+                } catch (RuntimeException err) {
+                    new ErrorMessage("Error editing a value").addCause(err).setComponent(AttributeDialog.this).show();
+                }
             }
         });
+        getContentPane().add(okButton, BorderLayout.SOUTH);
 
-        table.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "MyEnter");
-        table.getActionMap().put("MyEnter", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                close(table);
-            }
-        });
-
-        table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        getRootPane().setDefaultButton(okButton);
 
         pack();
-        setLocation(pos.x, pos.y);
+
+        if (pos == null)
+            setLocationRelativeTo(null);
+        else
+            setLocation(pos.x, pos.y);
     }
 
-    private void close(JTable table) {
-        if (table.isEditing()) {
-            if (table.getCellEditor().stopCellEditing()) {
-                dispose();
-            }
-        } else
-            dispose();
+    private void setEditedValues(ElementAttributes attr) {
+        for (EditorHolder e : editors)
+            e.setTo(attr);
     }
-
 
     public void showDialog() {
         setVisible(true);
     }
+
+    private class EditorHolder<T> {
+        private final Editor<T> e;
+        private final AttributeKey<T> key;
+
+        public EditorHolder(Editor<T> e, AttributeKey<T> key) {
+            this.e = e;
+            this.key = key;
+        }
+
+        public void setTo(ElementAttributes attr) {
+            T value = e.getValue();
+            attr.set(key, value);
+        }
+    }
+
+    public static void main(String[] args) {
+        ArrayList<AttributeKey> list = new ArrayList<>();
+        list.add(AttributeKey.Bits);
+        list.add(AttributeKey.Label);
+        list.add(AttributeKey.Color);
+        list.add(AttributeKey.Signed);
+        ElementAttributes values = new ElementAttributes();
+        AttributeDialog d = new AttributeDialog(null, list, values);
+        d.showDialog();
+        System.out.println(values);
+    }
+
 }
