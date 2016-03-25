@@ -4,6 +4,9 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.basic.FanIn;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 
 import java.util.Arrays;
 
@@ -16,17 +19,28 @@ public class Multiplexer extends FanIn {
     private ObservableValue selector;
     private long value;
 
-    public Multiplexer(int dataBits, int selectorBits) {
-        super(dataBits);
-        this.selectorBits = selectorBits;
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Multiplexer.class) {
+        @Override
+        public String[] getInputNames(ElementAttributes elementAttributes) {
+            int size = 1 << elementAttributes.get(AttributeKey.SelectorBits);
+            String[] names = new String[size + 1];
+            names[0] = "sel";
+            for (int i = 0; i < size; i++)
+                names[i + 1] = "in_" + i;
+            return names;
+        }
+    }
+            .addAttribute(AttributeKey.Bits)
+            .addAttribute(AttributeKey.SelectorBits);
+
+    public Multiplexer(ElementAttributes attributes) {
+        super(attributes.get(AttributeKey.Bits));
+        this.selectorBits = attributes.get(AttributeKey.SelectorBits);
     }
 
     @Override
     public void readInputs() throws NodeException {
         int n = (int) selector.getValue();
-        if (n >= inputs.size())
-            throw new NodeException("multiplexerSelectsNotPresentInput", this);
-
         value = inputs.get(n).getValue();
     }
 
@@ -37,11 +51,11 @@ public class Multiplexer extends FanIn {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        selector = inputs[inputs.length - 1];
-        selector.addObserver(this);
-        super.setInputs(Arrays.copyOfRange(inputs, 0, inputs.length - 1));
+        selector = inputs[0].addObserver(this).checkBits(selectorBits, this);
+        ObservableValue[] in = Arrays.copyOfRange(inputs, 1, inputs.length);
+        super.setInputs(in);
 
-        if (selector.getBits() != selectorBits)
-            throw new BitsException("selectorMismatch", this, selector);
+        if (in.length != (1 << selectorBits))
+            throw new BitsException("selectorInputCountMismatch", this, selector);
     }
 }

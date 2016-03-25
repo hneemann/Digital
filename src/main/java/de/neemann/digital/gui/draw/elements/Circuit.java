@@ -58,13 +58,10 @@ public class Circuit implements Drawable {
         }
     }
 
-
-
     public Circuit() {
         visualElements = new ArrayList<>();
         wires = new ArrayList<>();
     }
-
 
     @Override
     public void drawTo(Graphic graphic) {

@@ -12,9 +12,7 @@ import de.neemann.digital.core.flipflops.T_FF;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.core.wiring.Delay;
-import de.neemann.digital.core.wiring.Splitter;
+import de.neemann.digital.core.wiring.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +42,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Out.LEDDESCRIPTION, "IO");
         add(Out.PROBEDESCRIPTION, "IO");
         add(Clock.DESCRIPTION, "IO");
+
+        add(Multiplexer.DESCRIPTION, "Mux");
+        add(Demultiplexer.DESCRIPTION, "Mux");
 
         add(Splitter.DESCRIPTION, "Wires");
         add(Const.DESCRIPTION, "Wires");

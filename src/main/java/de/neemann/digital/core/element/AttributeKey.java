@@ -14,6 +14,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<String> InputSplit = new AttributeKey<>("Input Splitting", "");
     public static final AttributeKey<String> OutputSplit = new AttributeKey<>("Output Splitting", "");
     public static final AttributeKey<Integer> Frequency = new AttributeKey<>("Frequency", 1);
+    public static final AttributeKey<Integer> SelectorBits = new AttributeKey<>("Selector Bits", 1);
 
     private final String name;
     private final VALUE def;

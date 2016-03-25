@@ -21,14 +21,16 @@ public interface Element {
     void setInputs(ObservableValue... inputs) throws NodeException;
 
     /**
-     * When the connections between the elements are build
+     * When the connections between the elements are build all outputs a collected
+     * by calling this method. After the interconnection they are set to the inputs
+     * by calling <code>setInputs()</code>
      *
      * @return the list of outputs wich are set by this element
      */
     ObservableValue[] getOutputs();
 
     /**
-     * The element has to connect itself to the model.
+     * The element has to register itself to the model.
      *
      * @param model the model to register to
      */
@@ -40,5 +42,4 @@ public interface Element {
     default void init() {
     }
 
-    ;
 }

@@ -12,8 +12,10 @@ public class PinOrder implements ElementOrderer.OrderInterface<String> {
 
     private final ArrayList<Entry> entries;
     private final ArrayList<VisualElement> elements;
+    private final Circuit circuit;
 
     public PinOrder(Circuit circuit, String name) {
+        this.circuit = circuit;
         this.elements = circuit.getElements();
         entries = new ArrayList<>();
         for (int i = 0; i < elements.size(); i++)
@@ -47,6 +49,7 @@ public class PinOrder implements ElementOrderer.OrderInterface<String> {
         entries.set(i, entries.get(j));
         entries.set(j, x);
 
+        circuit.modified();
     }
 
     public static class Entry {

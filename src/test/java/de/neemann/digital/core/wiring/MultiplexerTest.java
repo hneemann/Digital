@@ -5,6 +5,8 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.basic.FanIn;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
 /**
@@ -19,8 +21,10 @@ public class MultiplexerTest extends TestCase {
         ObservableValue c = new ObservableValue("c", 4);
         ObservableValue d = new ObservableValue("d", 4);
         ObservableValue sel = new ObservableValue("sel", 2);
-        FanIn out = model.add(new Multiplexer(4, 2));
-        out.setInputs(a, b, c, d, sel);
+        FanIn out = model.add(new Multiplexer(
+                new ElementAttributes().set(AttributeKey.Bits, 4)
+                        .set(AttributeKey.SelectorBits, 2)));
+        out.setInputs(sel, a, b, c, d);
 
 
         TestExecuter te = new TestExecuter(model).setInputs(a, b, c, d, sel).setOutputs(out.getOutputs());
@@ -37,15 +41,33 @@ public class MultiplexerTest extends TestCase {
         ObservableValue c = new ObservableValue("c", 4);
         ObservableValue d = new ObservableValue("d", 4);
         ObservableValue sel = new ObservableValue("sel", 1);
-        FanIn out = new Multiplexer(4, 2);
+        FanIn out = new Multiplexer(
+                new ElementAttributes().set(AttributeKey.Bits, 4)
+                        .set(AttributeKey.SelectorBits, 2));
 
         try {
-            out.setInputs(sel, a, b, c, d);
+            out.setInputs(a, b, c, d, sel);
             assertTrue(false);
         } catch (BitsException e) {
             assertTrue(true);
         }
+    }
 
+    public void testMux3() throws Exception {
+        ObservableValue a = new ObservableValue("a", 4);
+        ObservableValue b = new ObservableValue("b", 4);
+        ObservableValue c = new ObservableValue("c", 4);
+        ObservableValue sel = new ObservableValue("sel", 2);
+        FanIn out = new Multiplexer(
+                new ElementAttributes().set(AttributeKey.Bits, 4)
+                        .set(AttributeKey.SelectorBits, 2));
+
+        try {
+            out.setInputs(sel, a, b, c);
+            assertTrue(false);
+        } catch (BitsException e) {
+            assertTrue(true);
+        }
     }
 
 }

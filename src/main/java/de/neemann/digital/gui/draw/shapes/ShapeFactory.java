@@ -11,9 +11,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.core.wiring.Delay;
-import de.neemann.digital.core.wiring.Splitter;
+import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
 
 import java.util.HashMap;
@@ -56,6 +54,8 @@ public final class ShapeFactory {
         map.put(Out.LEDDESCRIPTION.getName(), attr -> new LEDShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
         map.put(Out.PROBEDESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
         map.put(Clock.DESCRIPTION.getName(), attr -> new ClockShape(attr.get(AttributeKey.Label)));
+        map.put(Multiplexer.DESCRIPTION.getName(), attr -> new MuxerShape(attr.get(AttributeKey.SelectorBits)));
+        map.put(Demultiplexer.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits)));
 
         map.put(Splitter.DESCRIPTION.getName(), attr -> new SplitterShape(attr.get(AttributeKey.InputSplit), attr.get(AttributeKey.OutputSplit)));
 

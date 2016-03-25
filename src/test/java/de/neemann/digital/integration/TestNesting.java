@@ -63,12 +63,12 @@ public class TestNesting extends TestCase {
         ElementLibrary library = new ElementLibrary();
         LibrarySelector librarySelector = new LibrarySelector(library);
         librarySelector.setFilePath(new File(Resources.getRoot(), "dig"));
-        ShapeFactory.getInstance().setLibrary(library);
+        ShapeFactory.getInstance().setLibrary(library); // neded to generate generic shapes
         return TestExecuter.createFromFile(file, library);
     }
 
     /**
-     * Nested JK-FF. One from tested model is not used!
+     * Nested JK-FF. One output from nested model is not used!
      *
      * @throws Exception
      */
@@ -88,11 +88,11 @@ public class TestNesting extends TestCase {
 
     /**
      * Imports the same model two times.
-     * A simple traffic light build with two nested MS-JK flipflops.
+     * A simple traffic light build with two nested MS-JK flip flops.
      */
     public void testMultipleNesting() throws NodeException, PinException, IOException {
         TestExecuter te = createTestExecuterForNesting("dig/trafficLight.dig");
-        te.clockUntil(1, 0, 0);  // runs the sequential logic up to the given state
+        te.clockUntil(1, 0, 0);  // runs the sequential logic up to the given state, its necessary because initial state is undefined
         //       C  R  Y  G
         te.check(0, 1, 0, 0);  // Red
         te.check(1, 1, 0, 0);

@@ -125,7 +125,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             importedElements.add(description.getName());
             return description;
         } catch (Exception e) {
-            new ErrorMessage("error importing model").addCause(e).show();
+            SwingUtilities.invokeLater(new ErrorMessage("error importing model").addCause(e));
         }
         return null;
     }
