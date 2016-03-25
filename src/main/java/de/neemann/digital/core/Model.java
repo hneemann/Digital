@@ -1,6 +1,7 @@
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +35,7 @@ public class Model {
 
     public <T extends Node> T add(T node) {
         if (isInitialized)
-            throw new RuntimeException("is already initialized!");
+            throw new RuntimeException(Lang.get("err_isAlreadyInitialized"));
 
         nodes.add(node);
         node.setModel(this);
@@ -82,7 +83,7 @@ public class Model {
         int counter = 0;
         while (needsUpdate()) {
             if (counter++ > maxCounter) {
-                throw new NodeException("seemsToOscillate", nodesToUpdateNext.get(0));
+                throw new NodeException(Lang.get("err_seemsToOscillate"), nodesToUpdateNext.get(0));
             }
             doMicroStep(noise);
         }
@@ -102,7 +103,7 @@ public class Model {
      */
     public void doMicroStep(boolean noise) throws NodeException {
         if (!isInitialized)
-            throw new RuntimeException("notInitialized!");
+            throw new RuntimeException(Lang.get("err_notInitialized"));
 
         fireEvent(ModelEvent.STEP);
 

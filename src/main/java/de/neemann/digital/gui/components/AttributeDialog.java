@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.lang.Lang;
 import de.process.utils.gui.ErrorMessage;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class AttributeDialog extends JDialog {
     private final ArrayList<EditorHolder> editors;
 
     public AttributeDialog(Point pos, ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
-        super((Frame) null, "Attributes", true);
+        super((Frame) null, Lang.get("attr_dialogTitle"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel(new GridLayout(0, 2));
@@ -30,17 +31,17 @@ public class AttributeDialog extends JDialog {
             panel.add(new JLabel(key.getName() + ":  "));
             Editor e = EditorFactory.INSTANCE.create(key.getValueClass(), elementAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            panel.add(e.getComponent());
+            panel.add(e.getComponent(elementAttributes));
         }
 
-        JButton okButton = new JButton(new AbstractAction("ok") {
+        JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     setEditedValues(elementAttributes);
                     dispose();
                 } catch (RuntimeException err) {
-                    new ErrorMessage("Error editing a value").addCause(err).setComponent(AttributeDialog.this).show();
+                    new ErrorMessage(Lang.get("msg_errorEditingValue")).addCause(err).setComponent(AttributeDialog.this).show();
                 }
             }
         });

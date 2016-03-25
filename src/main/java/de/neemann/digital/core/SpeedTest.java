@@ -1,6 +1,7 @@
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 
@@ -18,9 +19,9 @@ public class SpeedTest {
     public double calculate() throws NodeException {
         ArrayList<Clock> clocks = model.getClocks();
         if (clocks.isEmpty())
-            throw new NodeException("NoClockFound", null);
+            throw new NodeException(Lang.get("err_noClockFound"), null);
         else if (clocks.size() > 1)
-            throw new NodeException("MoreThenOneClocksFound", null);
+            throw new NodeException(Lang.get("err_moreThenOneClocksFound"), null);
 
 
         Clock clock = clocks.get(0);

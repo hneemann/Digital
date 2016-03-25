@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.lang.Lang;
 import de.process.utils.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -33,7 +34,7 @@ public class ElementOrderer<T> extends JDialog {
                     list.setSelectedIndex(i - 1);
                 }
             }
-        }.setToolTip("move item up").createJButton());
+        }.setToolTip(Lang.get("tt_moveItemUp")).createJButton());
         buttons.add(new ToolTipAction("\u2193") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,7 +45,7 @@ public class ElementOrderer<T> extends JDialog {
                 }
 
             }
-        }.setToolTip("move item up").createJButton());
+        }.setToolTip(Lang.get("tt_moveItemDown")).createJButton());
         getContentPane().add(buttons, BorderLayout.EAST);
 
         pack();

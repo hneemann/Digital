@@ -25,14 +25,16 @@ public class Out implements Element {
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
 
+    private final int bits;
     private ObservableValue value;
 
     public Out(ElementAttributes attributes) {
+        bits = attributes.getBits();
     }
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        value = inputs[0];
+        value = inputs[0].checkBits(bits, null);
     }
 
     @Override

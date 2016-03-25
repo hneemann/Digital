@@ -13,6 +13,7 @@ import de.neemann.digital.core.flipflops.T_FF;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.core.wiring.*;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(XOr.DESCRIPTION, "Logic");
         add(XNOr.DESCRIPTION, "Logic");
         add(Not.DESCRIPTION, "Logic");
-        add(Delay.DESCRIPTION, "Logic");
+        add(LookUpTable.DESCRIPTION, "Logic");
 
         add(In.DESCRIPTION, "IO");
         add(Out.DESCRIPTION, "IO");
@@ -50,6 +51,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         add(Splitter.DESCRIPTION, "Wires");
         add(Const.DESCRIPTION, "Wires");
+        add(Delay.DESCRIPTION, "Wires");
 
         add(RS_FF.DESCRIPTION, "FlipFlops");
         add(JK_FF.DESCRIPTION, "FlipFlops");

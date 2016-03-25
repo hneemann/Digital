@@ -1,5 +1,7 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.lang.Lang;
+
 import java.util.ArrayList;
 
 /**
@@ -97,7 +99,7 @@ public class ObservableValue extends Value {
 
     public ObservableValue checkBits(int bits, Node node) throws BitsException {
         if (this.bits != bits) {
-            throw new BitsException("needs " + bits + " bits, found " + this.bits, node, this);
+            throw new BitsException(Lang.get("err_needs_N0_bits_found_N2_bits", bits, this.bits), node, this);
         }
         return this;
     }

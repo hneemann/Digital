@@ -7,6 +7,7 @@ import de.neemann.digital.core.basic.FanIn;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.lang.Lang;
 
 import java.util.Arrays;
 
@@ -56,6 +57,6 @@ public class Multiplexer extends FanIn {
         super.setInputs(in);
 
         if (in.length != (1 << selectorBits))
-            throw new BitsException("selectorInputCountMismatch", this, selector);
+            throw new BitsException(Lang.get("err_selectorInputCountMismatch"), this, selector);
     }
 }

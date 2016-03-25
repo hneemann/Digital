@@ -1,5 +1,9 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.lang.Lang;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +23,7 @@ public final class EditorFactory {
         add(Integer.class, IntegerEditor.class);
         add(Color.class, ColorEditor.class);
         add(Boolean.class, BooleanEditor.class);
+        add(DataField.class, DataFieldEditor.class);
     }
 
     public <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -47,7 +52,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent() {
+        public Component getComponent(ElementAttributes attr) {
             return text;
         }
 
@@ -67,7 +72,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent() {
+        public Component getComponent(ElementAttributes attr) {
             return comboBox;
         }
 
@@ -91,7 +96,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent() {
+        public Component getComponent(ElementAttributes attr) {
             return bool;
         }
 
@@ -112,7 +117,7 @@ public final class EditorFactory {
             button = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Color col = JColorChooser.showDialog(button, "Color", color);
+                    Color col = JColorChooser.showDialog(button, Lang.get("msg_color"), color);
                     if (col != null) {
                         color = col;
                         button.setBackground(color);
@@ -123,7 +128,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent() {
+        public Component getComponent(ElementAttributes attr) {
             return button;
         }
 
@@ -133,4 +138,25 @@ public final class EditorFactory {
         }
     }
 
+    private static class DataFieldEditor implements Editor<DataField> {
+
+        private final DataField data;
+
+        public DataFieldEditor(DataField data) {
+            this.data = data;
+        }
+
+        @Override
+        public Component getComponent(ElementAttributes attr) {
+            JPanel panel = new JPanel(new FlowLayout());
+            panel.add(new JButton(Lang.get("btn_edit")));
+            panel.add(new JButton(Lang.get("btn_load")));
+            return panel;
+        }
+
+        @Override
+        public DataField getValue() {
+            return data;
+        }
+    }
 }

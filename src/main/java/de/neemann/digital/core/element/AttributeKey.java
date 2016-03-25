@@ -1,26 +1,30 @@
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.lang.Lang;
+
 /**
  * @author hneemann
  */
 public class AttributeKey<VALUE> {
 
-    public static final AttributeKey<Integer> Bits = new AttributeKey<>("Data Bits", 1);
-    public static final AttributeKey<Integer> InputCount = new AttributeKey<>("Number of Inputs", 2);
-    public static final AttributeKey<String> Label = new AttributeKey<>("Label", "");
-    public static final AttributeKey<Integer> Value = new AttributeKey<>("Value", 1);
-    public static final AttributeKey<Integer> Default = new AttributeKey<>("Default", 0);
-    public static final AttributeKey<java.awt.Color> Color = new AttributeKey<>("Color", java.awt.Color.RED);
-    public static final AttributeKey<String> InputSplit = new AttributeKey<>("Input Splitting", "");
-    public static final AttributeKey<String> OutputSplit = new AttributeKey<>("Output Splitting", "");
-    public static final AttributeKey<Integer> Frequency = new AttributeKey<>("Frequency", 1);
-    public static final AttributeKey<Integer> SelectorBits = new AttributeKey<>("Selector Bits", 1);
-    public static final AttributeKey<Boolean> Signed = new AttributeKey<>("Signed", false);
+    public static final AttributeKey<Integer> Bits = new AttributeKey<>(Lang.get("key_dataBits"), 1);
+    public static final AttributeKey<Integer> InputCount = new AttributeKey<>(Lang.get("key_numberInputs"), 2);
+    public static final AttributeKey<String> Label = new AttributeKey<>(Lang.get("key_label"), "");
+    public static final AttributeKey<Integer> Value = new AttributeKey<>(Lang.get("key_value"), 1);
+    public static final AttributeKey<Integer> Default = new AttributeKey<>(Lang.get("key_default"), 0);
+    public static final AttributeKey<java.awt.Color> Color = new AttributeKey<>(Lang.get("key_color"), java.awt.Color.RED);
+    public static final AttributeKey<String> InputSplit = new AttributeKey<>(Lang.get("key_inputSplitting"), "");
+    public static final AttributeKey<String> OutputSplit = new AttributeKey<>(Lang.get("key_outputSplitting"), "");
+    public static final AttributeKey<Integer> Frequency = new AttributeKey<>(Lang.get("key_frequency"), 1);
+    public static final AttributeKey<Integer> SelectorBits = new AttributeKey<>(Lang.get("key_selectorBits"), 1);
+    public static final AttributeKey<Boolean> Signed = new AttributeKey<>(Lang.get("key_signed"), false);
+    public static final AttributeKey<DataField> Data = new AttributeKey<>(Lang.get("key_data"), DataField.DEFAULT);
 
     private final String name;
     private final VALUE def;
 
-    public AttributeKey(String name, VALUE def) {
+    private AttributeKey(String name, VALUE def) {
         this.name = name;
         if (def == null)
             throw new NullPointerException();

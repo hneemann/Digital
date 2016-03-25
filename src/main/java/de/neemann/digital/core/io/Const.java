@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.lang.Lang;
 
 /**
  * @author hneemann
@@ -26,7 +27,7 @@ public class Const implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        throw new NodeException("no inputs available!", null);
+        throw new NodeException(Lang.get("err_noInputsAvailable"), null);
     }
 
     @Override

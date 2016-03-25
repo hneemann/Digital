@@ -54,18 +54,9 @@ public class JK_FF extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        jVal = inputs[0].addObserver(this);
-        clockVal = inputs[1].addObserver(this);
-        kVal = inputs[2].addObserver(this);
-
-        if (jVal.getBits() != 1)
-            throw new BitsException("wrongBitCount", this, jVal);
-
-        if (kVal.getBits() != 1)
-            throw new BitsException("wrongBitCount", this, kVal);
-
-        if (clockVal.getBits() != 1)
-            throw new BitsException("carryIsABit", this, clockVal);
+        jVal = inputs[0].addObserver(this).checkBits(1, this);
+        clockVal = inputs[1].addObserver(this).checkBits(1, this);
+        kVal = inputs[2].addObserver(this).checkBits(1, this);
     }
 
     @Override

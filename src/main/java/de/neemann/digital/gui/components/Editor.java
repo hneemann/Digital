@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.element.ElementAttributes;
+
 import java.awt.*;
 
 /**
@@ -7,7 +9,7 @@ import java.awt.*;
  */
 public interface Editor<T> {
 
-    Component getComponent();
+    Component getComponent(ElementAttributes elementAttributes);
 
     T getValue();
 }

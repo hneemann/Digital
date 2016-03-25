@@ -5,6 +5,7 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,13 +51,13 @@ public class Splitter implements Element {
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
         if (inPorts.getBits() != outPorts.getBits())
-            throw new BitsException("splitterBitsMismatch", null, combine(inputs, outputs));
+            throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, combine(inputs, outputs));
 
         this.inputs = inputs;
         for (int i = 0; i < inputs.length; i++) {
             Port inPort = inPorts.getPort(i);
             if (inPort.getBits() != inputs[i].getBits())
-                throw new BitsException("splitterBitsMismatch", null, inputs[i]);
+                throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, inputs[i]);
         }
 
         for (Port out : outPorts)

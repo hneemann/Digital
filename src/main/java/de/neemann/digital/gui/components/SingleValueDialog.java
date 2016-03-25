@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class SingleValueDialog extends JDialog {
     private String returnText;
 
     public SingleValueDialog(Point pos, String text) {
-        super((Frame) null, "Attributes", true);
+        super((Frame) null, Lang.get("attr_dialogTitle"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTextField textField = new JTextField(30);
