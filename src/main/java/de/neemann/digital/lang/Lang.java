@@ -18,27 +18,36 @@ public class Lang {
         return InstanceHolder.INSTANCE.getKey(key, params);
     }
 
-    private ResourceBundle bundle;
+    private final ResourceBundle defaultBundle;
+    private ResourceBundle localeBundle;
 
     private Lang() {
         Locale currentLocale = Locale.getDefault();
+        defaultBundle = ResourceBundle.getBundle("lang/lang", Locale.ENGLISH);
         try {
-            bundle = ResourceBundle.getBundle("lang/lang", currentLocale);
+            localeBundle = ResourceBundle.getBundle("lang/lang", currentLocale);
         } catch (MissingResourceException e) {
-            bundle = ResourceBundle.getBundle("lang/lang", Locale.ENGLISH);
         }
     }
 
     private String getKey(String key, Object... params) {
         try {
-            String str = bundle.getString(key);
-            if (params != null && params.length > 0)
-                str = MessageFormat.format(str, params);
-            return str;
+            return decodeString(localeBundle, key, params);
         } catch (MissingResourceException e) {
             System.out.println(key + "=" + key.substring(key.indexOf("_") + 1));
-            return key + " is missing";
+            try {
+                return decodeString(defaultBundle, key, params);
+            } catch (MissingResourceException e1) {
+                return key;
+            }
         }
+    }
+
+    private String decodeString(ResourceBundle bundle, String key, Object[] params) {
+        String str = bundle.getString(key);
+        if (params != null && params.length > 0)
+            str = MessageFormat.format(str, params);
+        return str;
     }
 
 }
