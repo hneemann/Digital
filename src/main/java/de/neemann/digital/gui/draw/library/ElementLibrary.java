@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.draw.library;
 
 import de.neemann.digital.core.arithmetic.Add;
+import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.arithmetic.Mul;
 import de.neemann.digital.core.arithmetic.Sub;
 import de.neemann.digital.core.basic.*;
@@ -58,6 +59,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Add.DESCRIPTION, "Aritmetic");
         add(Sub.DESCRIPTION, "Aritmetic");
         add(Mul.DESCRIPTION, "Aritmetic");
+        add(Comparator.DESCRIPTION, "Aritmetic");
     }
 
     private void add(ElementTypeDescription description, String treePath) {

@@ -15,11 +15,13 @@ public class Not extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, "in");
     private final ObservableValue output;
+    private final int bits;
     private ObservableValue input;
     private long value;
 
     public Not(ElementAttributes attributes) {
-        output = new ObservableValue("out", attributes.get(AttributeKey.Bits));
+        bits = attributes.get(AttributeKey.Bits);
+        output = new ObservableValue("out", bits);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class Not extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        input = inputs[0].addObserver(this);
+        input = inputs[0].addObserver(this).checkBits(bits, this);
     }
 
     @Override

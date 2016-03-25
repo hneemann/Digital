@@ -1,6 +1,5 @@
 package de.neemann.digital.core.wiring;
 
-import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
@@ -42,10 +41,7 @@ public class Delay extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        input = inputs[0].addObserver(this);
-
-        if (input.getBits() != bits)
-            throw new BitsException("wrongBitCountInDelay", this, input, output);
+        input = inputs[0].addObserver(this).checkBits(bits, this);
     }
 
     @Override

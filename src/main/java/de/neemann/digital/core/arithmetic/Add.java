@@ -53,18 +53,9 @@ public class Add extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        a = inputs[0].addObserver(this);
-        b = inputs[1].addObserver(this);
-        c_in = inputs[2].addObserver(this);
-
-        if (a.getBits() != bits)
-            throw new BitsException("wrongBitCount", this, a);
-
-        if (b.getBits() != bits)
-            throw new BitsException("wrongBitCount", this, b);
-
-        if (c_in.getBits() != 1)
-            throw new BitsException("carryIsABit", this, c_in);
+        a = inputs[0].addObserver(this).checkBits(bits, this);
+        b = inputs[1].addObserver(this).checkBits(bits, this);
+        c_in = inputs[2].addObserver(this).checkBits(1, this);
     }
 
     @Override
