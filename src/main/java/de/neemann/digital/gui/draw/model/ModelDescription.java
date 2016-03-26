@@ -37,10 +37,13 @@ public class ModelDescription implements Iterable<ModelEntry> {
     public ModelDescription(Circuit circuit, ElementLibrary library) throws PinException, NodeException {
         this(circuit, library, false);
     }
-
     public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
+        this(circuit, library, readAsCustom, new NetList(circuit.getWires()));
+    }
+
+    public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom, NetList netList) throws PinException, NodeException {
+        this.netList = netList;
         entries = new ArrayList<>();
-        netList = new NetList(circuit.getWires());
         if (readAsCustom)
             ioMap = new HashMap<>();
         else
@@ -73,7 +76,6 @@ public class ModelDescription implements Iterable<ModelEntry> {
 
             for (Pin p : pins)
                 netList.add(p);
-
         }
 
 

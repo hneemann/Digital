@@ -24,6 +24,12 @@ public class Net {
     private final ArrayList<Pin> pins;
     private final ArrayList<Wire> wires;
 
+    public Net(Net toCopy) {
+        points = toCopy.points;  // no deep copy of points necessary
+        wires = null;            // wires not needed
+        pins = new ArrayList<>(toCopy.pins); // Pins are changed so create a deep copy
+    }
+
     public Net(Wire w) {
         points = new HashSet<>();
         points.add(w.p1);
@@ -87,14 +93,15 @@ public class Net {
         for (Pin i : inputs)
             i.setValue(value);
 
-        if (bindWiresToValues)
+        if (bindWiresToValues && wires != null)
             for (Wire w : wires)
                 w.setValue(value);
     }
 
     public void setHighLight(boolean highLight) {
-        for (Wire w : wires)
-            w.setHighLight(highLight);
+        if (wires != null)
+            for (Wire w : wires)
+                w.setHighLight(highLight);
     }
 
     public boolean containsValue(ObservableValue v) {

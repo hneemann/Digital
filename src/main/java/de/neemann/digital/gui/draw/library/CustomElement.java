@@ -7,22 +7,25 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.gui.draw.elements.Circuit;
 import de.neemann.digital.gui.draw.elements.PinException;
 import de.neemann.digital.gui.draw.model.ModelDescription;
+import de.neemann.digital.gui.draw.model.NetList;
 
 /**
  * @author hneemann
  */
 public class CustomElement implements Element {
 
-    private Circuit circuit;
-    private ElementLibrary library;
+    private final NetList netList;
+    private final Circuit circuit;
+    private final ElementLibrary library;
 
     public CustomElement(Circuit circuit, ElementLibrary library) {
         this.circuit = circuit;
         this.library = library;
+        netList = new NetList(circuit.getWires());
     }
 
     public ModelDescription getModelDescription() throws PinException, NodeException {
-        return new ModelDescription(circuit, library, true);
+        return new ModelDescription(circuit, library, true, new NetList(netList));
     }
 
     @Override

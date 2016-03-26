@@ -21,6 +21,13 @@ public class NetList implements Iterable<Net> {
             add(w);
     }
 
+    public NetList(NetList toCopy) {
+        netList = new ArrayList<>();
+        for (Net net : toCopy)
+            netList.add(new Net(net));
+    }
+
+
     public void add(NetList netList) {
         this.netList.addAll(netList.netList);
     }
