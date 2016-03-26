@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.gui.draw.elements.IOState;
@@ -19,7 +20,7 @@ public class SplitterShape implements Shape {
     private final int length;
     private Pins pins;
 
-    public SplitterShape(String inputDef, String outputDef) {
+    public SplitterShape(String inputDef, String outputDef) throws BitsException {
         inputs = new Splitter.Ports(inputDef).getNames();
         outputs = new Splitter.Ports(outputDef).getNames();
         length = (Math.max(inputs.length, outputs.length) - 1) * SIZE + 2;

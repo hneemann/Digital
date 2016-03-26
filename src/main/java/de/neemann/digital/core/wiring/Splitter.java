@@ -35,14 +35,14 @@ public class Splitter implements Element {
         }
 
         @Override
-        public String[] getInputNames(ElementAttributes elementAttributes) {
+        public String[] getInputNames(ElementAttributes elementAttributes) throws BitsException {
             Ports p = new Ports(elementAttributes.get(AttributeKey.InputSplit));
             return p.getNames();
         }
 
     }
 
-    public Splitter(ElementAttributes attributes) {
+    public Splitter(ElementAttributes attributes) throws BitsException {
         outPorts = new Ports(attributes.get(AttributeKey.OutputSplit));
         outputs = outPorts.getOutputs();
         inPorts = new Ports(attributes.get(AttributeKey.InputSplit));
@@ -160,14 +160,30 @@ public class Splitter implements Element {
         private final ArrayList<Port> ports;
         private int bits;
 
-        public Ports(String definition) {
+        public Ports(String definition) throws BitsException {
             StringTokenizer st = new StringTokenizer(definition, ",", false);
             ports = new ArrayList<>();
             bits = 0;
             while (st.hasMoreTokens()) {
-                Port p = new Port(Integer.decode(st.nextToken().trim()), bits, ports.size());
-                ports.add(p);
-                bits += p.getBits();
+                try {
+                    String strVal = st.nextToken().trim();
+                    int pos = strVal.indexOf('*');
+                    if (pos < 0) {
+                        Port p = new Port(Integer.decode(strVal), bits, ports.size());
+                        ports.add(p);
+                        bits += p.getBits();
+                    } else {
+                        int b = Integer.decode(strVal.substring(0, pos).trim());
+                        int count = Integer.decode(strVal.substring(pos + 1).trim());
+                        for (int i = 0; i < count; i++) {
+                            Port p = new Port(b, bits, ports.size());
+                            ports.add(p);
+                            bits += p.getBits();
+                        }
+                    }
+                } catch (RuntimeException e) {
+                    throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition), null);
+                }
             }
             if (ports.isEmpty()) {
                 ports.add(new Port(1, 0, 0));

@@ -34,11 +34,11 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @param library the library used to create the Element instances
      * @throws PinException
      */
-    public ModelDescription(Circuit circuit, ElementLibrary library) throws PinException {
+    public ModelDescription(Circuit circuit, ElementLibrary library) throws PinException, NodeException {
         this(circuit, library, false);
     }
 
-    public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException {
+    public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
         entries = new ArrayList<>();
         netList = new NetList(circuit.getWires());
         if (readAsCustom)

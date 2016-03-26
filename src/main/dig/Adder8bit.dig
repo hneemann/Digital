@@ -5,17 +5,11 @@
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Input Splitting</name>
-            <def class="string"></def>
-          </key>
+          <string>Input Splitting</string>
           <string>8</string>
         </entry>
         <entry>
-          <key>
-            <name>Output Splitting</name>
-            <def class="string"></def>
-          </key>
+          <string>Output Splitting</string>
           <string>1,1,1,1,1,1,1,1</string>
         </entry>
       </elementAttributes>
@@ -26,25 +20,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>A</string>
         </entry>
         <entry>
-          <key>
-            <name>Bits</name>
-            <def class="int">1</def>
-          </key>
+          <string>Bits</string>
           <int>8</int>
         </entry>
         <entry>
-          <key>
-            <name>Default</name>
-            <def class="int">0</def>
-          </key>
-          <int>170</int>
+          <string>Default</string>
+          <int>240</int>
         </entry>
       </elementAttributes>
       <pos x="150" y="80"/>
@@ -66,11 +51,11 @@
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Input Splitting</string>
           <string>8</string>
         </entry>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry[2]/key"/>
+          <string>Output Splitting</string>
           <string>1,1,1,1,1,1,1,1</string>
         </entry>
       </elementAttributes>
@@ -81,16 +66,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[2]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>B</string>
         </entry>
         <entry>
-          <key reference="../../../../visualElement[2]/elementAttributes/entry[2]/key"/>
+          <string>Bits</string>
           <int>8</int>
         </entry>
         <entry>
-          <key reference="../../../../visualElement[2]/elementAttributes/entry[3]/key"/>
-          <int>85</int>
+          <string>Default</string>
+          <int>15</int>
         </entry>
       </elementAttributes>
       <pos x="150" y="190"/>
@@ -100,17 +85,11 @@
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Input Splitting</name>
-            <def class="string"></def>
-          </key>
+          <string>Input Splitting</string>
           <string>1,1,1,1,1,1,1,1</string>
         </entry>
         <entry>
-          <key>
-            <name>Output Splitting</name>
-            <def class="string"></def>
-          </key>
+          <string>Output Splitting</string>
           <string>8</string>
         </entry>
       </elementAttributes>
@@ -121,17 +100,11 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
-          <string>Out</string>
+          <string>Label</string>
+          <string>S</string>
         </entry>
         <entry>
-          <key>
-            <name>Bits</name>
-            <def class="int">1</def>
-          </key>
+          <string>Bits</string>
           <int>8</int>
         </entry>
       </elementAttributes>
@@ -140,7 +113,12 @@
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Takt</string>
+        </entry>
+      </elementAttributes>
       <pos x="240" y="60"/>
       <rotate>0</rotate>
     </visualElement>
@@ -148,10 +126,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>

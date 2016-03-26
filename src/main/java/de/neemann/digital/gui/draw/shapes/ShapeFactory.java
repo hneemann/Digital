@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.draw.shapes;
 
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.arithmetic.Add;
 import de.neemann.digital.core.arithmetic.Mul;
@@ -13,6 +14,7 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
+import de.neemann.digital.lang.Lang;
 
 import java.util.HashMap;
 
@@ -59,7 +61,6 @@ public final class ShapeFactory {
         map.put(Decoder.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), false));
 
         map.put(Splitter.DESCRIPTION.getName(), attr -> new SplitterShape(attr.get(AttributeKey.InputSplit), attr.get(AttributeKey.OutputSplit)));
-
     }
 
     public ElementLibrary setLibrary(ElementLibrary library) {
@@ -77,19 +78,23 @@ public final class ShapeFactory {
 
     public Shape getShape(String partName, ElementAttributes elementAttributes) {
         Creator cr = map.get(partName);
-        if (cr == null) {
-            if (library == null)
-                throw new RuntimeException("no shape for " + partName);
-            else {
-                ElementTypeDescription pt = library.getElementType(partName);
-                return new GenericShape(pt.getShortName(), pt.getInputNames(elementAttributes), outputNames(pt, elementAttributes), elementAttributes.get(AttributeKey.Label), true);
-            }
-        } else
-            return cr.create(elementAttributes);
+        try {
+            if (cr == null) {
+                if (library == null)
+                    throw new NodeException(Lang.get("err_noShapeFoundFor_N", partName), null);
+                else {
+                    ElementTypeDescription pt = library.getElementType(partName);
+                    return new GenericShape(pt.getShortName(), pt.getInputNames(elementAttributes), outputNames(pt, elementAttributes), elementAttributes.get(AttributeKey.Label), true);
+                }
+            } else
+                return cr.create(elementAttributes);
+        } catch (Exception e) {
+            return new MissingShape(partName, e);
+        }
     }
 
     private interface Creator {
-        Shape create(ElementAttributes attributes);
+        Shape create(ElementAttributes attributes) throws NodeException;
     }
 
 
@@ -106,7 +111,7 @@ public final class ShapeFactory {
         }
 
         @Override
-        public Shape create(ElementAttributes attributes) {
+        public Shape create(ElementAttributes attributes) throws NodeException {
             return new GenericShape(name, description.getInputNames(attributes), outputNames(description, attributes)).invert(invers);
         }
     }

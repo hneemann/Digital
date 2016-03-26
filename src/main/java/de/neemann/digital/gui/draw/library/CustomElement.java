@@ -21,7 +21,7 @@ public class CustomElement implements Element {
         this.library = library;
     }
 
-    public ModelDescription getModelDescription() throws PinException {
+    public ModelDescription getModelDescription() throws PinException, NodeException {
         return new ModelDescription(circuit, library, true);
     }
 

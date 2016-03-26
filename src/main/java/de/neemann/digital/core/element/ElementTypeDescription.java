@@ -1,5 +1,7 @@
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.core.NodeException;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
@@ -107,7 +109,7 @@ public class ElementTypeDescription {
      * @param elementAttributes the elements attributes
      * @return the list of input names
      */
-    public String[] getInputNames(ElementAttributes elementAttributes) {
+    public String[] getInputNames(ElementAttributes elementAttributes) throws NodeException {
         return inputNames;
     }
 
