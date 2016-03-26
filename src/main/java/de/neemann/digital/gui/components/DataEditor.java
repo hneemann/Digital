@@ -25,16 +25,18 @@ public class DataEditor extends JDialog {
 
         int bits = attr.getBits();
         int size;
-        if (attr.contains(AttributeKey.InputCount)) {
-            size = 1 << attr.get(AttributeKey.InputCount);
-        } else if (attr.contains(AttributeKey.AddrBits)) {
+        if (attr.contains(AttributeKey.AddrBits))
             size = 1 << attr.get(AttributeKey.AddrBits);
-        } else
-            size = dataField.size();
+        else
+            size = 1 << attr.get(AttributeKey.InputCount);
 
         this.dataField = new DataField(dataField, size);
 
-        JTable table = new JTable(new MyTableModel(this.dataField));
+        int cols = 16;
+        if (size <= 16) cols = 1;
+        else if (size <= 128) cols = 8;
+
+        JTable table = new JTable(new MyTableModel(this.dataField, cols));
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(bits));
         getContentPane().add(new JScrollPane(table));
 
@@ -63,12 +65,14 @@ public class DataEditor extends JDialog {
 
     private class MyTableModel implements TableModel {
         private final DataField dataField;
+        private final int cols;
         private final int rows;
         private ArrayList<TableModelListener> listener = new ArrayList<>();
 
-        public MyTableModel(DataField dataField) {
+        public MyTableModel(DataField dataField, int cols) {
             this.dataField = dataField;
-            rows = (dataField.size() - 1) / 16 + 1;
+            this.cols = cols;
+            rows = (dataField.size() - 1) / cols + 1;
         }
 
         @Override
@@ -78,15 +82,17 @@ public class DataEditor extends JDialog {
 
         @Override
         public int getColumnCount() {
-            return 17;
+            return cols + 1;
         }
 
         @Override
         public String getColumnName(int columnIndex) {
             if (columnIndex == 0)
                 return Lang.get("addr");
-            else
+            else if (cols > 1)
                 return Integer.toHexString(columnIndex - 1).toUpperCase();
+            else
+                return Lang.get("key_value");
         }
 
         @Override
@@ -102,14 +108,14 @@ public class DataEditor extends JDialog {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (columnIndex == 0) {
-                return new MyLong(rowIndex * 16);
+                return new MyLong(rowIndex * cols);
             }
-            return new MyLong(dataField.getData(rowIndex * 16 + (columnIndex - 1)));
+            return new MyLong(dataField.getData(rowIndex * cols + (columnIndex - 1)));
         }
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            dataField.setData(rowIndex * 16 + (columnIndex - 1), ((MyLong) aValue).getValue());
+            dataField.setData(rowIndex * cols + (columnIndex - 1), ((MyLong) aValue).getValue());
         }
 
         @Override
@@ -123,17 +129,20 @@ public class DataEditor extends JDialog {
         }
     }
 
+
     private class MyLongRenderer extends DefaultTableCellRenderer {
-        private final int bits;
+
+        private final int chars;
 
         public MyLongRenderer(int bits) {
-            this.bits = bits;
+            this.chars = (bits - 1) / 4 + 1;
             setHorizontalAlignment(JLabel.RIGHT);
         }
 
         @Override
         protected void setValue(Object value) {
             String str = Long.toHexString(((MyLong) value).getValue()).toUpperCase();
+            while (str.length() < chars) str = "0" + str;
             super.setValue(str);
         }
     }

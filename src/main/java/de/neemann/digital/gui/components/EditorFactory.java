@@ -3,10 +3,12 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
+import de.process.utils.gui.ErrorMessage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
@@ -159,13 +161,25 @@ public final class EditorFactory {
                     }
                 }
             }));
-            panel.add(new JButton(Lang.get("btn_load")));
+            panel.add(new JButton(new AbstractAction(Lang.get("btn_load")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser fc = new JFileChooser();
+                    if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
+                        try {
+                            data = new DataField(fc.getSelectedFile());
+                        } catch (IOException e1) {
+                            new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
+                        }
+                    }
+                }
+            }));
             return panel;
         }
 
         @Override
         public DataField getValue() {
-            return data;
+            return data.getMinimized();
         }
     }
 }

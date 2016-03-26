@@ -30,13 +30,12 @@ public class LookUpTable extends Node implements Element {
             .setShortName("LUT");
 
     private final DataField data;
-    private final int bits;
     private final ObservableValue output;
     private ObservableValue[] inputs;
     private int addr;
 
     public LookUpTable(ElementAttributes attr) {
-        bits = attr.get(AttributeKey.Bits);
+        int bits = attr.get(AttributeKey.Bits);
         output = new ObservableValue("out", bits);
         data = attr.get(AttributeKey.Data);
     }

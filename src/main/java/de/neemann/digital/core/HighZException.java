@@ -1,11 +1,13 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.lang.Lang;
+
 /**
  * @author hneemann
  */
 public class HighZException extends RuntimeException {
 
     public HighZException(ObservableValue... causedObservable) {
-        super("readOfHighZ");
+        super(Lang.get("err_readOfHighZ"));
     }
 }

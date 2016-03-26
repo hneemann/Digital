@@ -8,6 +8,8 @@ import de.neemann.digital.gui.draw.elements.Circuit;
 import de.neemann.digital.gui.draw.elements.PinException;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
 
+import java.util.ArrayList;
+
 /**
  * @author hneemann
  */
@@ -47,8 +49,10 @@ public class ModelBuilder {
         }
 
         if (disableClock) {
-            for (Clock c : model.getClocks())
-                c.disableTimer();
+            ArrayList<Clock> clocks = model.getClocks();
+            if (clocks != null)
+                for (Clock c : clocks)
+                    c.disableTimer();
         }
 
         return model;

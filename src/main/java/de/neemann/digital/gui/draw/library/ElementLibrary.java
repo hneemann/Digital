@@ -14,6 +14,7 @@ import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.LookUpTable;
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.lang.Lang;
 
@@ -31,38 +32,47 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private ElementNotFoundNotification elementNotFoundNotification;
 
     public ElementLibrary() {
-        add(And.DESCRIPTION, "Logic");
-        add(NAnd.DESCRIPTION, "Logic");
-        add(Or.DESCRIPTION, "Logic");
-        add(NOr.DESCRIPTION, "Logic");
-        add(XOr.DESCRIPTION, "Logic");
-        add(XNOr.DESCRIPTION, "Logic");
-        add(Not.DESCRIPTION, "Logic");
-        add(LookUpTable.DESCRIPTION, "Logic");
+        String menu = Lang.get("lib_Logic");
+        add(And.DESCRIPTION, menu);
+        add(NAnd.DESCRIPTION, menu);
+        add(Or.DESCRIPTION, menu);
+        add(NOr.DESCRIPTION, menu);
+        add(XOr.DESCRIPTION, menu);
+        add(XNOr.DESCRIPTION, menu);
+        add(Not.DESCRIPTION, menu);
+        add(LookUpTable.DESCRIPTION, menu);
 
-        add(In.DESCRIPTION, "IO");
-        add(Out.DESCRIPTION, "IO");
-        add(Out.LEDDESCRIPTION, "IO");
-        add(Out.PROBEDESCRIPTION, "IO");
-        add(Clock.DESCRIPTION, "IO");
+        menu = Lang.get("lib_io");
+        add(In.DESCRIPTION, menu);
+        add(Out.DESCRIPTION, menu);
+        add(Out.LEDDESCRIPTION, menu);
+        add(Out.PROBEDESCRIPTION, menu);
+        add(Clock.DESCRIPTION, menu);
 
-        add(Multiplexer.DESCRIPTION, "Mux");
-        add(Demultiplexer.DESCRIPTION, "Mux");
-        add(Decoder.DESCRIPTION, "Mux");
+        menu = Lang.get("lib_mux");
+        add(Multiplexer.DESCRIPTION, menu);
+        add(Demultiplexer.DESCRIPTION, menu);
+        add(Decoder.DESCRIPTION, menu);
 
-        add(Splitter.DESCRIPTION, "Wires");
-        add(Const.DESCRIPTION, "Wires");
-        add(Delay.DESCRIPTION, "Wires");
+        menu = Lang.get("lib_wires");
+        add(Splitter.DESCRIPTION, menu);
+        add(Const.DESCRIPTION, menu);
+        add(Delay.DESCRIPTION, menu);
 
-        add(RS_FF.DESCRIPTION, "FlipFlops");
-        add(JK_FF.DESCRIPTION, "FlipFlops");
-        add(D_FF.DESCRIPTION, "FlipFlops");
-        add(T_FF.DESCRIPTION, "FlipFlops");
+        menu = Lang.get("lib_flipFlops");
+        add(RS_FF.DESCRIPTION, menu);
+        add(JK_FF.DESCRIPTION, menu);
+        add(D_FF.DESCRIPTION, menu);
+        add(T_FF.DESCRIPTION, menu);
 
-        add(Add.DESCRIPTION, "Aritmetic");
-        add(Sub.DESCRIPTION, "Aritmetic");
-        add(Mul.DESCRIPTION, "Aritmetic");
-        add(Comparator.DESCRIPTION, "Aritmetic");
+        menu = Lang.get("lib_memory");
+        add(ROM.DESCRIPTION, menu);
+
+        menu = Lang.get("lib_arithmetic");
+        add(Add.DESCRIPTION, menu);
+        add(Sub.DESCRIPTION, menu);
+        add(Mul.DESCRIPTION, menu);
+        add(Comparator.DESCRIPTION, menu);
     }
 
     private void add(ElementTypeDescription description, String treePath) {

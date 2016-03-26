@@ -18,7 +18,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<String> OutputSplit = new AttributeKey<>("Output Splitting", Lang.get("key_outputSplitting"), "");
     public static final AttributeKey<Integer> Frequency = new AttributeKey<>("Frequency", Lang.get("key_frequency"), 1);
     public static final AttributeKey<Integer> SelectorBits = new AttributeKey<>("Selector Bits", Lang.get("key_selectorBits"), 1);
-    public static final AttributeKey<Integer> AddrBits = new AttributeKey<>("Addr Bits", Lang.get("key_addrBits"), 1);
+    public static final AttributeKey<Integer> AddrBits = new AttributeKey<>("Addr Bits", Lang.get("key_addrBits"), InputCount.getDefault());
     public static final AttributeKey<Boolean> Signed = new AttributeKey<>("Signed", Lang.get("key_signed"), false);
     public static final AttributeKey<DataField> Data = new AttributeKey<>("Data", Lang.get("key_data"), DataField.DEFAULT);
 
