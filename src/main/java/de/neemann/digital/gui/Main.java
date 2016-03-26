@@ -239,13 +239,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     private void createAndStartModel() {
+        ModelBuilder mb = null;
         try {
             if (modelDescription != null)
                 modelDescription.highLightOff();
 
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
-            ModelBuilder mb = new ModelBuilder(circuitComponent.getCircuit())
+            mb = new ModelBuilder(circuitComponent.getCircuit())
                     .setBindWiresToGui(true)
                     .setDisableClock(!runClock.isSelected())
                     .setEnableTrace(traceEnable.isSelected(), Main.this);
@@ -256,19 +257,21 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             model.init();
         } catch (NodeException e) {
-            if (modelDescription != null) {
+            if (mb.getModelDescription() != null) {
+                modelDescription = mb.getModelDescription();
                 if (e.getNodes() != null)
-                    modelDescription.highLight(e.getNodes());
+                    mb.getModelDescription().highLight(e.getNodes());
                 else
-                    modelDescription.highLight(e.getValues());
+                    mb.getModelDescription().highLight(e.getValues());
 
                 circuitComponent.repaint();
             }
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).setComponent(Main.this));
             circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
         } catch (PinException e) {
-            if (modelDescription != null) {
-                modelDescription.highLight(e.getVisualElement());
+            if (mb.getModelDescription() != null) {
+                modelDescription = mb.getModelDescription();
+                mb.getModelDescription().highLight(e.getVisualElement());
                 if (e.getNet() != null)
                     e.getNet().setHighLight(true);
                 circuitComponent.repaint();
