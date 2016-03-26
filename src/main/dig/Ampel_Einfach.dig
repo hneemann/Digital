@@ -5,10 +5,7 @@
       <elementName>JK_FF</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>Z_0</string>
         </entry>
       </elementAttributes>
@@ -19,7 +16,7 @@
       <elementName>JK_FF</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>Z_1</string>
         </entry>
       </elementAttributes>
@@ -42,10 +39,7 @@
       <elementName>LED</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>Rot</string>
         </entry>
       </elementAttributes>
@@ -56,15 +50,7 @@
       <elementName>LED</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Color</name>
-            <def class="awt-color">
-              <red>255</red>
-              <green>0</green>
-              <blue>0</blue>
-              <alpha>255</alpha>
-            </def>
-          </key>
+          <string>Color</string>
           <awt-color>
             <red>255</red>
             <green>255</green>
@@ -73,10 +59,7 @@
           </awt-color>
         </entry>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>Gelb</string>
         </entry>
       </elementAttributes>
@@ -87,7 +70,7 @@
       <elementName>LED</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[6]/elementAttributes/entry/key"/>
+          <string>Color</string>
           <awt-color>
             <red>0</red>
             <green>255</green>
@@ -96,7 +79,7 @@
           </awt-color>
         </entry>
         <entry>
-          <key reference="../../../../visualElement[6]/elementAttributes/entry[2]/key"/>
+          <string>Label</string>
           <string>Grün</string>
         </entry>
       </elementAttributes>
@@ -107,10 +90,7 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>Clock</string>
         </entry>
       </elementAttributes>
