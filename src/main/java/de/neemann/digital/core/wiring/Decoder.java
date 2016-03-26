@@ -24,6 +24,7 @@ public class Decoder extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Decoder.class, "sel")
             .addAttribute(AttributeKey.SelectorBits)
+            .addAttribute(AttributeKey.FlipSelPositon)
             .addAttribute(AttributeKey.Default);
 
     public Decoder(ElementAttributes attributes) {

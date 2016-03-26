@@ -17,10 +17,12 @@ import static de.neemann.digital.gui.draw.shapes.GenericShape.SIZE;
 public class DemuxerShape implements Shape {
     private final int outputCount;
     private final boolean hasInput;
+    private final boolean flip;
     private Pins pins;
 
-    public DemuxerShape(int selectorBits, boolean hasInput) {
+    public DemuxerShape(int selectorBits, boolean hasInput, boolean flip) {
         this.hasInput = hasInput;
+        this.flip = flip;
         this.outputCount = 1 << selectorBits;
     }
 
@@ -28,7 +30,7 @@ public class DemuxerShape implements Shape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(SIZE, outputCount * SIZE), "sel", Pin.Direction.input));
+            pins.add(new Pin(new Vector(SIZE, flip ? 0 : outputCount * SIZE), "sel", Pin.Direction.input));
             if (outputCount == 2) {
                 pins.add(new Pin(new Vector(SIZE * 2, 0 * SIZE), "out_0", Pin.Direction.output));
                 pins.add(new Pin(new Vector(SIZE * 2, 2 * SIZE), "out_1", Pin.Direction.output));

@@ -16,9 +16,11 @@ import static de.neemann.digital.gui.draw.shapes.GenericShape.SIZE;
  */
 public class MuxerShape implements Shape {
     private final int inputCount;
+    private final boolean flip;
     private Pins pins;
 
-    public MuxerShape(int selectorBits) {
+    public MuxerShape(int selectorBits, boolean flip) {
+        this.flip = flip;
         this.inputCount = 1 << selectorBits;
     }
 
@@ -26,7 +28,7 @@ public class MuxerShape implements Shape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(SIZE, inputCount * SIZE), "sel", Pin.Direction.input));
+            pins.add(new Pin(new Vector(SIZE, flip ? 0 : inputCount * SIZE), "sel", Pin.Direction.input));
             if (inputCount == 2) {
                 pins.add(new Pin(new Vector(0, 0 * SIZE), "in_0", Pin.Direction.input));
                 pins.add(new Pin(new Vector(0, 2 * SIZE), "in_1", Pin.Direction.input));

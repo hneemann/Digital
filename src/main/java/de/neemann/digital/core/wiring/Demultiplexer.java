@@ -28,6 +28,7 @@ public class Demultiplexer extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class, "sel", "in")
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.SelectorBits)
+            .addAttribute(AttributeKey.FlipSelPositon)
             .addAttribute(AttributeKey.Default);
 
     public Demultiplexer(ElementAttributes attributes) {

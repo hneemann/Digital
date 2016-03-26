@@ -6,6 +6,8 @@ import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
+import static de.neemann.digital.TestExecuter.IGNORE;
+
 /**
  * @author hneemann
  */
@@ -91,8 +93,8 @@ public class FlipFlops extends TestCase {
         nor4.setInputs(a4.getOutput(), nor3.getOutput());
 
         TestExecuter sc = new TestExecuter(model, true).setInputs(c, j, k).setOutputs(nor3.getOutput(), nor4.getOutput());
-        sc.check(0, 1, 0, -1, -1); // undefined
-        sc.check(1, 1, 0, -1, -1); // undefined
+        sc.check(0, 1, 0, IGNORE, IGNORE); // undefined
+        sc.check(1, 1, 0, IGNORE, IGNORE); // undefined
         sc.check(0, 1, 0, 1, 0);
         sc.check(0, 0, 0, 1, 0);
         sc.check(1, 0, 0, 1, 0);

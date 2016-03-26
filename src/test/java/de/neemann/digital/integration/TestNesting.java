@@ -11,6 +11,8 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.io.IOException;
 
+import static de.neemann.digital.TestExecuter.IGNORE;
+
 /**
  * @author hneemann
  */
@@ -75,8 +77,8 @@ public class TestNesting extends TestCase {
     public void testMSFF() throws Exception {
         TestExecuter te = createTestExecuterForNesting("dig/nestedMSFF.dig");
         //       C  J  K  Q
-        te.check(0, 0, 0, -1);  // initial state is undefined
-        te.check(1, 0, 1, -1);
+        te.check(0, 0, 0, IGNORE);  // initial state is undefined
+        te.check(1, 0, 1, IGNORE);
         te.check(0, 0, 0, 0);
         te.check(1, 1, 0, 0);
         te.check(0, 0, 0, 1);

@@ -19,11 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author hneemann
  */
 public class TestExecuter {
+    public static final int IGNORE = -1;
+    public static final int HIGHZ = -2;
 
     private final Model model;
     private ArrayList<ObservableValue> inputs;
@@ -118,8 +121,12 @@ public class TestExecuter {
 
         for (int i = 0; i < outputs.size(); i++) {
             int should = val[i + inputs.size()];
-            if (should >= 0)
-                assertEquals("output " + i, outputs.get(i).getValueBits(should), outputs.get(i).getValue());
+            if (should != IGNORE) {
+                if (should == HIGHZ) {
+                    assertTrue("highz output " + i, outputs.get(i).isHighZ());
+                } else
+                    assertEquals("output " + i, outputs.get(i).getValueBits(should), outputs.get(i).getValue());
+            }
         }
     }
 
