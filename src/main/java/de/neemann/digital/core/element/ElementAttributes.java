@@ -39,8 +39,11 @@ public class ElementAttributes {
     public <VALUE> ElementAttributes set(AttributeKey<VALUE> key, VALUE value) {
         if (value != get(key)) {
             if (value.equals(key.getDefault())) {
-                if (attributes != null)
+                if (attributes != null) {
                     attributes.remove(key.getKey());
+                    if (attributes.isEmpty())
+                        attributes = null;
+                }
             } else {
                 if (attributes == null)
                     attributes = new HashMap<>();
