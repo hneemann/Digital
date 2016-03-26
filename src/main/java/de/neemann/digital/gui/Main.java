@@ -173,7 +173,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction runModel = new ToolTipAction(Lang.get("menu_run"), iconRun) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createAndStartModel();
+                createAndStartModel(runClock.isSelected());
                 circuitComponent.setManualChangeObserver(new FullStepObserver(model));
             }
         }.setToolTip(Lang.get("menu_run_tt"));
@@ -181,7 +181,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction runModelMicro = new ToolTipAction(Lang.get("menu_micro"), iconMicro) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createAndStartModel();
+                createAndStartModel(false);
                 circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
         }.setToolTip(Lang.get("menu_micro_tt"));
@@ -238,7 +238,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
 
-    private void createAndStartModel() {
+    private void createAndStartModel(boolean runClock) {
         ModelBuilder mb = null;
         try {
             if (modelDescription != null)
@@ -248,7 +248,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             mb = new ModelBuilder(circuitComponent.getCircuit())
                     .setBindWiresToGui(true)
-                    .setDisableClock(!runClock.isSelected())
+                    .setDisableClock(!runClock)
                     .setEnableTrace(traceEnable.isSelected(), Main.this);
 
             model = mb.build(library);
