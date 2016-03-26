@@ -48,7 +48,8 @@ public final class EditorFactory {
         private final JTextField text;
 
         public StringEditor(String value) {
-            text = new JTextField(value);
+            text = new JTextField(10);
+            text.setText(value);
         }
 
         @Override
