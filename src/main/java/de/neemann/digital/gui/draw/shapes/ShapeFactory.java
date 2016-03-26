@@ -61,6 +61,7 @@ public final class ShapeFactory {
         map.put(Decoder.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), false));
 
         map.put(Splitter.DESCRIPTION.getName(), attr -> new SplitterShape(attr.get(AttributeKey.InputSplit), attr.get(AttributeKey.OutputSplit)));
+        map.put(Driver.DESCRIPTION.getName(), attr -> new DriverShape(attr.get(AttributeKey.FlipSelPositon)));
     }
 
     public ElementLibrary setLibrary(ElementLibrary library) {

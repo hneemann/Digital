@@ -125,7 +125,7 @@ public class ObservableValue extends Value {
     @Override
     public String toString() {
         return name + "{" +
-                "value=" + (highZ ? "??" : value) +
+                "value=" + getValueString() +
                 ", setBits=" + bits +
                 '}';
     }

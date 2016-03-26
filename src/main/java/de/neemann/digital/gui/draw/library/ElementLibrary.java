@@ -58,6 +58,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Splitter.DESCRIPTION, menu);
         add(Const.DESCRIPTION, menu);
         add(Delay.DESCRIPTION, menu);
+        add(Driver.DESCRIPTION, menu);
 
         menu = Lang.get("lib_flipFlops");
         add(RS_FF.DESCRIPTION, menu);

@@ -167,6 +167,12 @@ public class Circuit implements Drawable {
         modified();
     }
 
+    public void delete(VisualElement partToDelete) {
+        if (visualElements.remove(partToDelete))
+            modified();
+    }
+
+
     public VisualElement getElementAt(Vector pos) {
         for (VisualElement element : visualElements) {
             if (element.matches(pos))

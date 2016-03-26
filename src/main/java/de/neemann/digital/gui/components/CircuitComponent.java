@@ -48,23 +48,33 @@ public class CircuitComponent extends JComponent implements Observer {
                         mml.reset();
                         repaint();
                     }
+                } else if (listener instanceof PartMouseListener) {
+                    PartMouseListener pml = (PartMouseListener) listener;
+                    if (!pml.insert) {
+                        circuit.delete(pml.partToInsert);
+                    }
+                    pml.partToInsert = null;
+                    repaint();
                 }
-            }
-        });
+                    }
+                }
+        );
 
         setFocusable(true);
 
         addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                Vector pos = getPosVector(e);
-                double f = Math.pow(0.9, e.getWheelRotation());
-                transform.translate(pos.x, pos.y);
-                transform.scale(f, f);
-                transform.translate(-pos.x, -pos.y);
-                repaint();
-            }
-        });
+                                  @Override
+                                  public void mouseWheelMoved(MouseWheelEvent e) {
+                                      Vector pos = getPosVector(e);
+                                      double f = Math.pow(0.9, e.getWheelRotation());
+                                      transform.translate(pos.x, pos.y);
+                                      transform.scale(f, f);
+                                      transform.translate(-pos.x, -pos.y);
+                                      repaint();
+                                  }
+                              }
+
+        );
     }
 
     public void setManualChangeObserver(Observer callOnManualChange) {

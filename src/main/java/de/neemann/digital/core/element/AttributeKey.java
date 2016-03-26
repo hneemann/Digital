@@ -21,6 +21,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Integer> AddrBits = new AttributeKey<>("Addr Bits", Lang.get("key_addrBits"), InputCount.getDefault());
     public static final AttributeKey<Boolean> Signed = new AttributeKey<>("Signed", Lang.get("key_signed"), false);
     public static final AttributeKey<DataField> Data = new AttributeKey<>("Data", Lang.get("key_data"), DataField.DEFAULT);
+    public static final AttributeKey<Boolean> FlipSelPositon = new AttributeKey<>("flipSelPos", Lang.get("key_flipSelPos"), false);
 
     private final String key;
     private final VALUE def;

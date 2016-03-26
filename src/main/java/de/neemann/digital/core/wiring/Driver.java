@@ -11,29 +11,33 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 /**
  * @author hneemann
  */
-public class Delay extends Node implements Element {
+public class Driver extends Node implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Delay.class, "in")
-            .addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Driver.class, "in", "sel")
+            .addAttribute(AttributeKey.Bits)
+            .addAttribute(AttributeKey.FlipSelPositon);
 
     private final ObservableValue output;
     private final int bits;
     private ObservableValue input;
+    private ObservableValue selIn;
     private long value;
+    private boolean sel;
 
-    public Delay(ElementAttributes attributes) {
+    public Driver(ElementAttributes attributes) {
         bits = attributes.get(AttributeKey.Bits);
-        output = new ObservableValue("out", bits);
+        output = new ObservableValue("out", bits, true);
     }
 
     @Override
     public void readInputs() throws NodeException {
         value = input.getValue();
+        sel = selIn.getBool();
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.setValue(value);
+        output.set(value, !sel);
     }
 
     public ObservableValue getOutput() {
@@ -43,6 +47,7 @@ public class Delay extends Node implements Element {
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
         input = inputs[0].addObserver(this).checkBits(bits, this);
+        selIn = inputs[1].addObserver(this).checkBits(1, this);
     }
 
     @Override

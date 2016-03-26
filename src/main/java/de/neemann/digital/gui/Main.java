@@ -166,9 +166,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                     modelDescription.highLight(model.nodesToUpdate());
                     circuitComponent.repaint(); // necessary to update the wires!
                     doStep.setEnabled(model.needsUpdate());
-                } catch (NodeException e1) {
+                } catch (Exception e1) {
                     SwingUtilities.invokeLater(
-                            new ErrorMessage("Error").addCause(e1).setComponent(Main.this)
+                            new ErrorMessage(Lang.get("msg_errorCalculatingStep")).addCause(e1).setComponent(Main.this)
                     );
                 }
             }
@@ -371,7 +371,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         public void hasChanged() {
             try {
                 model.doStep();
-            } catch (NodeException e) {
+            } catch (Exception e) {
                 SwingUtilities.invokeLater(
                         new ErrorMessage(Lang.get("msg_errorCalculatingStep")).addCause(e).setComponent(Main.this)
                 );

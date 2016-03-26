@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.draw.model;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.wiring.DataBus;
 import de.neemann.digital.gui.draw.elements.Pin;
 import de.neemann.digital.gui.draw.elements.PinException;
 import de.neemann.digital.gui.draw.elements.Wire;
@@ -83,10 +84,13 @@ public class Net {
         if (outputs.size() == 0)
             throw new PinException(Lang.get("err_onOutConnectedToWire"), this);
 
-        if (outputs.size() > 1)
-            throw new PinException("Multiple outputs not supported yet!", this);
+        ObservableValue value = null;
+        if (outputs.size() == 1) {
+            value = outputs.get(0).getValue();
+        } else {
+            value = new DataBus(this, outputs).getReadeableOutput();
+        }
 
-        ObservableValue value = outputs.get(0).getValue();
         if (value == null)
             throw new PinException(Lang.get("err_output_N_notDefined", outputs.get(0)), this);
 

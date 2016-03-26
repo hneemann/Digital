@@ -29,7 +29,7 @@ public class ROM extends Node implements Element {
 
     public ROM(ElementAttributes attr) {
         int bits = attr.get(AttributeKey.Bits);
-        output = new ObservableValue("D", bits);
+        output = new ObservableValue("D", bits, true);
         data = attr.get(AttributeKey.Data);
         addrBits = attr.get(AttributeKey.AddrBits);
     }

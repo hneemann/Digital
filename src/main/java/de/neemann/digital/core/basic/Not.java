@@ -13,7 +13,9 @@ import de.neemann.digital.core.element.ElementTypeDescription;
  */
 public class Not extends Node implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, "in");
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, "in")
+            .addAttribute(AttributeKey.Bits);
+
     private final ObservableValue output;
     private final int bits;
     private ObservableValue input;
