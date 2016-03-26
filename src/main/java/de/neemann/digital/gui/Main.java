@@ -36,6 +36,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon iconElement = IconCreator.create("element.gif");
     private static final Icon iconSelect = IconCreator.create("select.gif");
     private static final Icon iconWire = IconCreator.create("wire.gif");
+    private static final Icon iconNew = IconCreator.create("New24.gif");
+    private static final Icon iconOpen = IconCreator.create("Open24.gif");
+    private static final Icon iconSave = IconCreator.create("Save24.gif");
+    private static final Icon iconSaveAs = IconCreator.create("SaveAs24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private final ElementLibrary library = ShapeFactory.getInstance().setLibrary(new ElementLibrary());
@@ -71,7 +75,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenuBar bar = new JMenuBar();
 
 
-        ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new")) {
+        ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new"), iconNew) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
@@ -81,7 +85,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
-        ToolTipAction open = new ToolTipAction(Lang.get("menu_open")) {
+        ToolTipAction open = new ToolTipAction(Lang.get("menu_open"), iconOpen) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
@@ -93,7 +97,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
-        ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs")) {
+        ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), iconSaveAs) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getjFileChooser(lastFilename);
@@ -103,7 +107,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
-        save = new ToolTipAction(Lang.get("menu_save")) {
+        save = new ToolTipAction(Lang.get("menu_save"), iconSave) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (filename == null)
@@ -216,6 +220,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
+        toolBar.add(open.createJButtonNoText());
+        toolBar.add(save.createJButtonNoText());
+        toolBar.addSeparator();
         toolBar.add(partsMode.createJButtonNoText());
         toolBar.add(wireMode.createJButtonNoText());
         toolBar.add(selectionMode.createJButtonNoText());
