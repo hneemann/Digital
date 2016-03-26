@@ -16,22 +16,23 @@ import java.util.ArrayList;
 public class AttributeDialog extends JDialog {
 
     private final ArrayList<EditorHolder> editors;
+    private boolean changed = false;
 
     public AttributeDialog(Point pos, ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
         super((Frame) null, Lang.get("attr_dialogTitle"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JPanel panel = new JPanel(new GridLayout(0, 2));
+        JPanel panel = new JPanel(new DialogLayout());
 
         getContentPane().add(new JScrollPane(panel));
 
         editors = new ArrayList<>();
 
         for (AttributeKey key : list) {
-            panel.add(new JLabel(key.getName() + ":  "));
+            panel.add(new JLabel(key.getName() + ":  "), DialogLayout.LABEL);
             Editor e = EditorFactory.INSTANCE.create(key.getValueClass(), elementAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            panel.add(e.getComponent(elementAttributes));
+            panel.add(e.getComponent(elementAttributes), DialogLayout.INPUT);
         }
 
         JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
@@ -39,6 +40,7 @@ public class AttributeDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     setEditedValues(elementAttributes);
+                    changed = true;
                     dispose();
                 } catch (RuntimeException err) {
                     new ErrorMessage(Lang.get("msg_errorEditingValue")).addCause(err).setComponent(AttributeDialog.this).show();
@@ -62,8 +64,9 @@ public class AttributeDialog extends JDialog {
             e.setTo(attr);
     }
 
-    public void showDialog() {
+    public boolean showDialog() {
         setVisible(true);
+        return changed;
     }
 
     private class EditorHolder<T> {
