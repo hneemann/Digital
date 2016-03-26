@@ -28,10 +28,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>C_i-1</string>
         </entry>
       </elementAttributes>
@@ -48,7 +45,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>A0</string>
         </entry>
       </elementAttributes>
@@ -59,7 +56,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>B0</string>
         </entry>
       </elementAttributes>
@@ -70,7 +67,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>S0</string>
         </entry>
       </elementAttributes>
@@ -111,7 +108,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>A1</string>
         </entry>
       </elementAttributes>
@@ -122,7 +119,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>B1</string>
         </entry>
       </elementAttributes>
@@ -133,7 +130,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>S1</string>
         </entry>
       </elementAttributes>
@@ -174,7 +171,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>A2</string>
         </entry>
       </elementAttributes>
@@ -185,7 +182,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>B2</string>
         </entry>
       </elementAttributes>
@@ -196,7 +193,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>S2</string>
         </entry>
       </elementAttributes>
@@ -231,7 +228,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>C_i</string>
         </entry>
       </elementAttributes>
@@ -248,7 +245,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>A3</string>
         </entry>
       </elementAttributes>
@@ -259,7 +256,7 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>B3</string>
         </entry>
       </elementAttributes>
@@ -270,7 +267,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement[5]/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>S3</string>
         </entry>
       </elementAttributes>

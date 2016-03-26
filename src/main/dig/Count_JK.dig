@@ -1,13 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <visualElements>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Label</name>
-            <def class="string"></def>
-          </key>
+          <string>Label</string>
           <string>Q0</string>
         </entry>
       </elementAttributes>
@@ -18,7 +16,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>Q1</string>
         </entry>
       </elementAttributes>
@@ -29,7 +27,7 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>Q2</string>
         </entry>
       </elementAttributes>
@@ -40,17 +38,11 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <key reference="../../../../visualElement/elementAttributes/entry/key"/>
+          <string>Label</string>
           <string>Q3</string>
         </entry>
       </elementAttributes>
       <pos x="490" y="170"/>
-      <rotate>0</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes/>
-      <pos x="90" y="100"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -95,6 +87,12 @@
       <pos x="90" y="160"/>
       <rotate>0</rotate>
     </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes/>
+      <pos x="80" y="100"/>
+      <rotate>0</rotate>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -126,7 +124,7 @@
       <p2 x="430" y="130"/>
     </wire>
     <wire>
-      <p1 x="90" y="100"/>
+      <p1 x="80" y="100"/>
       <p2 x="100" y="100"/>
     </wire>
     <wire>
@@ -206,16 +204,16 @@
       <p2 x="440" y="140"/>
     </wire>
     <wire>
+      <p1 x="110" y="140"/>
+      <p2 x="120" y="140"/>
+    </wire>
+    <wire>
       <p1 x="260" y="140"/>
       <p2 x="270" y="140"/>
     </wire>
     <wire>
       <p1 x="370" y="140"/>
       <p2 x="380" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="110" y="140"/>
-      <p2 x="120" y="140"/>
     </wire>
     <wire>
       <p1 x="160" y="140"/>

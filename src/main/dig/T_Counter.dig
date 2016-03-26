@@ -71,10 +71,7 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
-          <key>
-            <name>Frequency</name>
-            <def class="int">1</def>
-          </key>
+          <string>Frequency</string>
           <int>10</int>
         </entry>
       </elementAttributes>

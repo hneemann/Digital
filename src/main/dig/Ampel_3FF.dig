@@ -36,7 +36,12 @@
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Takt</string>
+        </entry>
+      </elementAttributes>
       <pos x="320" y="260"/>
       <rotate>0</rotate>
     </visualElement>
@@ -54,7 +59,12 @@
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Rot</string>
+        </entry>
+      </elementAttributes>
       <pos x="430" y="100"/>
       <rotate>0</rotate>
     </visualElement>
@@ -69,6 +79,10 @@
             <blue>0</blue>
             <alpha>255</alpha>
           </awt-color>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Gelb</string>
         </entry>
       </elementAttributes>
       <pos x="430" y="120"/>
@@ -85,6 +99,10 @@
             <blue>0</blue>
             <alpha>255</alpha>
           </awt-color>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Grün</string>
         </entry>
       </elementAttributes>
       <pos x="430" y="140"/>
