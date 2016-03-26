@@ -141,7 +141,7 @@ public final class EditorFactory {
 
     private static class DataFieldEditor implements Editor<DataField> {
 
-        private final DataField data;
+        private DataField data;
 
         public DataFieldEditor(DataField data) {
             this.data = data;
@@ -150,7 +150,15 @@ public final class EditorFactory {
         @Override
         public Component getComponent(ElementAttributes attr) {
             JPanel panel = new JPanel(new FlowLayout());
-            panel.add(new JButton(Lang.get("btn_edit")));
+            panel.add(new JButton(new AbstractAction(Lang.get("btn_edit")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    DataEditor de = new DataEditor(panel, data, attr);
+                    if (de.showDialog()) {
+                        data = de.getDataField();
+                    }
+                }
+            }));
             panel.add(new JButton(Lang.get("btn_load")));
             return panel;
         }

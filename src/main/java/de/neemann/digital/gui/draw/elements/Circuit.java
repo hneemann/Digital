@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.gui.draw.graphics.Graphic;
 import de.neemann.digital.gui.draw.graphics.Vector;
 import de.neemann.digital.gui.draw.library.ElementLibrary;
@@ -40,6 +41,8 @@ public class Circuit implements Drawable {
         xStream.aliasAttribute(Vector.class, "y", "y");
         //xStream.alias("key", AttributeKey.class);
         xStream.addImplicitCollection(ElementAttributes.class, "attributes");
+        xStream.alias("data", DataField.class);
+        xStream.addImplicitCollection(DataField.class, "data");
         return xStream;
     }
 

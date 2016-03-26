@@ -36,6 +36,13 @@ public class ElementAttributes {
         }
     }
 
+    public <VALUE> boolean contains(AttributeKey<VALUE> key) {
+        if (attributes == null)
+            return false;
+        else
+            return attributes.containsKey(key.getKey());
+    }
+
     public <VALUE> ElementAttributes set(AttributeKey<VALUE> key, VALUE value) {
         if (value != get(key)) {
             if (value.equals(key.getDefault())) {
@@ -87,4 +94,5 @@ public class ElementAttributes {
                 "attributes=" + attributes +
                 '}';
     }
+
 }
