@@ -13,6 +13,7 @@ public class ObservableValue extends Value {
     private final String name;
     private final long mask;
     private final boolean supportsHighZ;
+    private boolean bidirectional;
 
     public ObservableValue(String name, int bits) {
         this(name, bits, false);
@@ -150,5 +151,14 @@ public class ObservableValue extends Value {
 
     public long getValueIgnoreBurn() {
         return value;
+    }
+
+    public ObservableValue setBidirectional(boolean bidirectional) {
+        this.bidirectional = bidirectional;
+        return this;
+    }
+
+    public boolean isBidirectional() {
+        return bidirectional;
     }
 }

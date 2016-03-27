@@ -45,9 +45,9 @@ public final class ShapeFactory {
         map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", XOr.DESCRIPTION, false));
         map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", XNOr.DESCRIPTION, true));
 
-        map.put(Add.DESCRIPTION.getName(), attr -> new GenericShape("+", Add.DESCRIPTION.getInputNames(attr), outputNames(Add.DESCRIPTION, attr), null, true));
-        map.put(Sub.DESCRIPTION.getName(), attr -> new GenericShape("-", Sub.DESCRIPTION.getInputNames(attr), outputNames(Sub.DESCRIPTION, attr), null, true));
-        map.put(Mul.DESCRIPTION.getName(), attr -> new GenericShape("*", Mul.DESCRIPTION.getInputNames(attr), outputNames(Mul.DESCRIPTION, attr), null, true));
+        map.put(Add.DESCRIPTION.getName(), attr -> new GenericShape("+", Add.DESCRIPTION.getInputNames(attr), outputInfos(Add.DESCRIPTION, attr), null, true));
+        map.put(Sub.DESCRIPTION.getName(), attr -> new GenericShape("-", Sub.DESCRIPTION.getInputNames(attr), outputInfos(Sub.DESCRIPTION, attr), null, true));
+        map.put(Mul.DESCRIPTION.getName(), attr -> new GenericShape("*", Mul.DESCRIPTION.getInputNames(attr), outputInfos(Mul.DESCRIPTION, attr), null, true));
 
 
         map.put(In.DESCRIPTION.getName(), attr -> new InputShape(attr.get(AttributeKey.Label)));
@@ -69,12 +69,12 @@ public final class ShapeFactory {
         return library;
     }
 
-    private String[] outputNames(ElementTypeDescription description, ElementAttributes attributes) {
+    private OutputPinInfo[] outputInfos(ElementTypeDescription description, ElementAttributes attributes) {
         ObservableValue[] o = description.createElement(attributes).getOutputs();
-        String[] names = new String[o.length];
-        for (int i = 0; i < names.length; i++)
-            names[i] = o[i].getName();
-        return names;
+        OutputPinInfo[] outInfos = new OutputPinInfo[o.length];
+        for (int i = 0; i < outInfos.length; i++)
+            outInfos[i] = new OutputPinInfo(o[i].getName(), o[i].isBidirectional());
+        return outInfos;
     }
 
     public Shape getShape(String partName, ElementAttributes elementAttributes) {
@@ -85,7 +85,7 @@ public final class ShapeFactory {
                     throw new NodeException(Lang.get("err_noShapeFoundFor_N", partName), null);
                 else {
                     ElementTypeDescription pt = library.getElementType(partName);
-                    return new GenericShape(pt.getShortName(), pt.getInputNames(elementAttributes), outputNames(pt, elementAttributes), elementAttributes.get(AttributeKey.Label), true);
+                    return new GenericShape(pt.getShortName(), pt.getInputNames(elementAttributes), outputInfos(pt, elementAttributes), elementAttributes.get(AttributeKey.Label), true);
                 }
             } else
                 return cr.create(elementAttributes);
@@ -113,7 +113,7 @@ public final class ShapeFactory {
 
         @Override
         public Shape create(ElementAttributes attributes) throws NodeException {
-            return new GenericShape(name, description.getInputNames(attributes), outputNames(description, attributes)).invert(invers);
+            return new GenericShape(name, description.getInputNames(attributes), outputInfos(description, attributes)).invert(invers);
         }
     }
 }

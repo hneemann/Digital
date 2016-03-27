@@ -39,7 +39,6 @@ public class Circuit implements Drawable {
         xStream.alias("vector", Vector.class);
         xStream.aliasAttribute(Vector.class, "x", "x");
         xStream.aliasAttribute(Vector.class, "y", "y");
-        //xStream.alias("key", AttributeKey.class);
         xStream.addImplicitCollection(ElementAttributes.class, "attributes");
         xStream.alias("data", DataField.class);
         xStream.addImplicitCollection(DataField.class, "data");

@@ -13,10 +13,7 @@ import de.neemann.digital.core.flipflops.T_FF;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.memory.Counter;
-import de.neemann.digital.core.memory.LookUpTable;
-import de.neemann.digital.core.memory.RAMDualPort;
-import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.lang.Lang;
 
@@ -71,6 +68,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         menu = Lang.get("lib_memory");
         add(ROM.DESCRIPTION, menu);
         add(RAMDualPort.DESCRIPTION, menu);
+        add(RAMSinglePort.DESCRIPTION, menu);
         add(Counter.DESCRIPTION, menu);
 
         menu = Lang.get("lib_arithmetic");

@@ -18,7 +18,7 @@ public class GenericShape implements Shape {
 
     private final String name;
     private final String[] inputs;
-    private final String[] outputs;
+    private final OutputPinInfo[] outputs;
     private final int width;
     private final boolean symmetric;
     private boolean invert = false;
@@ -27,11 +27,11 @@ public class GenericShape implements Shape {
     private transient Pins pins;
     private boolean showPinLabels;
 
-    public GenericShape(String name, String[] inputs, String[] outputs) {
+    public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs) {
         this(name, inputs, outputs, null, false);
     }
 
-    public GenericShape(String name, String[] inputs, String[] outputs, String label, boolean showPinLabels) {
+    public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs, String label, boolean showPinLabels) {
         this.name = name;
         this.inputs = inputs;
         this.outputs = outputs;
@@ -66,11 +66,11 @@ public class GenericShape implements Shape {
 
             if (invert) {
                 for (int i = 0; i < outputs.length; i++)
-                    pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputs[i], Pin.Direction.output));
+                    pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputs[i].getName(), outputs[i].getDirection()));
 
             } else {
                 for (int i = 0; i < outputs.length; i++)
-                    pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputs[i], Pin.Direction.output));
+                    pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputs[i].getName(), outputs[i].getDirection()));
             }
         }
         return pins;

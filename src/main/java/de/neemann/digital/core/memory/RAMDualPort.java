@@ -16,26 +16,31 @@ public class RAMDualPort extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class, "A", "D", "str", "c", "ld")
             .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.AddrBits);
+            .addAttribute(AttributeKey.AddrBits)
+            .setShortName("RAM");
 
     private final DataField memory;
     private final ObservableValue output;
-    private final int addrBits;
-    private final int bits;
-    private ObservableValue addrIn;
-    private ObservableValue dataIn;
-    private ObservableValue strIn;
-    private ObservableValue clkIn;
-    private ObservableValue ldIn;
+    protected final int addrBits;
+    protected final int bits;
+    protected ObservableValue addrIn;
+    protected ObservableValue dataIn;
+    protected ObservableValue strIn;
+    protected ObservableValue clkIn;
+    protected ObservableValue ldIn;
     private int addr;
     private boolean lastClk = false;
     private boolean ld;
 
     public RAMDualPort(ElementAttributes attr) {
         bits = attr.get(AttributeKey.Bits);
-        output = new ObservableValue("D", bits, true);
+        output = createOutput();
         addrBits = attr.get(AttributeKey.AddrBits);
         memory = new DataField(1 << addrBits);
+    }
+
+    protected ObservableValue createOutput() {
+        return new ObservableValue("D", bits, true);
     }
 
     @Override
