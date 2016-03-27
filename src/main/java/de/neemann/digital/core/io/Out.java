@@ -3,10 +3,7 @@ package de.neemann.digital.core.io;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.*;
 
 /**
  * @author hneemann
@@ -25,11 +22,28 @@ public class Out implements Element {
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
 
+    public static final ElementTypeDescription SEVENDESCRIPTION = new ElementTypeDescription("Seven-Seg", Out.class, "a", "b", "c", "d", "e", "f", "g", "dp")
+            .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Color);
+
+    public static final ElementTypeDescription SEVENHEXDESCRIPTION = new ElementTypeDescription("Seven-Seg-Hex", new ElementFactory() {
+        @Override
+        public Element create(ElementAttributes attributes) {
+            return new Out(4);
+        }
+    }, "d")
+            .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Color);
+
     private final int bits;
     private ObservableValue value;
 
     public Out(ElementAttributes attributes) {
         bits = attributes.getBits();
+    }
+
+    public Out(int bits) {
+        this.bits = bits;
     }
 
     @Override

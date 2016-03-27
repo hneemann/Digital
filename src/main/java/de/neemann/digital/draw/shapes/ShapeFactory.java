@@ -60,6 +60,10 @@ public final class ShapeFactory {
         map.put(Out.LEDDESCRIPTION.getName(), attr -> new LEDShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
         map.put(Out.PROBEDESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
         map.put(Clock.DESCRIPTION.getName(), attr -> new ClockShape(attr.get(AttributeKey.Label)));
+        map.put(Out.SEVENDESCRIPTION.getName(), attr -> new SevenSegShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
+        map.put(Out.SEVENHEXDESCRIPTION.getName(), attr -> new SevenSegHexShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
+
+
         map.put(Multiplexer.DESCRIPTION.getName(), attr -> new MuxerShape(attr.get(AttributeKey.SelectorBits), attr.get(AttributeKey.FlipSelPositon)));
         map.put(Demultiplexer.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), true, attr.get(AttributeKey.FlipSelPositon)));
         map.put(Decoder.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), false, attr.get(AttributeKey.FlipSelPositon)));

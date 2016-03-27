@@ -47,6 +47,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Out.LEDDESCRIPTION, menu);
         add(Out.PROBEDESCRIPTION, menu);
         add(Clock.DESCRIPTION, menu);
+        add(Out.SEVENDESCRIPTION, menu);
+        add(Out.SEVENHEXDESCRIPTION, menu);
 
         menu = Lang.get("lib_mux");
         add(Multiplexer.DESCRIPTION, menu);
