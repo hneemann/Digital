@@ -17,6 +17,7 @@ public class ROM extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(ROM.class, "A", "sel")
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
+            .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Data);
 
     private final DataField data;

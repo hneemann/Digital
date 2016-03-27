@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.shapes;
 
+import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.gui.components.CircuitComponent;
 
@@ -22,5 +23,5 @@ public interface Interactor {
      * @param pos     the popuplocation on screen
      * @param ioState the state of the element
      */
-    void clicked(CircuitComponent cc, Point pos, IOState ioState);
+    void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element);
 }

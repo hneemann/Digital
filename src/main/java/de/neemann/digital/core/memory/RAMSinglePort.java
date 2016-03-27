@@ -11,16 +11,22 @@ import de.neemann.digital.core.element.ElementTypeDescription;
  */
 public class RAMSinglePort extends RAMDualPort {
 
-
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePort.class, "A", "str", "c", "ld")
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
+            .addAttribute(AttributeKey.Label)
             .setShortName("RAM");
 
     public RAMSinglePort(ElementAttributes attr) {
         super(attr);
     }
 
+    /**
+     * If a port is bidirectional an additional input comes with <code>setInputs</code>.
+     * Using this input you can read back the output port.
+     *
+     * @return outputs
+     */
     @Override
     protected ObservableValue createOutput() {
         return super.createOutput().setBidirectional(true);
@@ -32,7 +38,7 @@ public class RAMSinglePort extends RAMDualPort {
         strIn = inputs[1].checkBits(1, this).addObserver(this);
         clkIn = inputs[2].checkBits(1, this).addObserver(this);
         ldIn = inputs[3].checkBits(1, this).addObserver(this);
-        dataIn = inputs[4].checkBits(bits, this).addObserver(this);
+        dataIn = inputs[4].checkBits(bits, this).addObserver(this); // additional input to read the port
     }
 
 }

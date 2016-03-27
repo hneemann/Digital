@@ -71,7 +71,7 @@ public class Net {
         pins.addAll(p);
     }
 
-    public void interconnect(boolean bindWiresToValues) throws PinException {
+    public void interconnect() throws PinException {
         ArrayList<Pin> inputs = new ArrayList<>();
         ArrayList<Pin> outputs = new ArrayList<>();
         for (Pin p : pins) {
@@ -100,7 +100,7 @@ public class Net {
         for (Pin o : outputs)  // set also the reader for bidirectional pins
             o.setReaderValue(value);
 
-        if (bindWiresToValues && wires != null)
+        if (wires != null)
             for (Wire w : wires)
                 w.setValue(value);
     }

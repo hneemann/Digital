@@ -3,6 +3,7 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -10,22 +11,26 @@ import java.util.Arrays;
  */
 public class DataField {
 
-    public static final DataField DEFAULT = new DataField(0);
+    public static final DataField DEFAULT = new DataField(0, 8);
 
     private final int size;
     private long[] data;
+    private final int bits;
 
-    public DataField(int size) {
-        this(new long[size], size);
+    private transient ArrayList<DataListener> listeners;
+
+    public DataField(int size, int bits) {
+        this(new long[size], size, bits);
     }
 
-    private DataField(long[] data, int size) {
+    private DataField(long[] data, int size, int bits) {
         this.size = size;
         this.data = data;
+        this.bits = bits;
     }
 
-    public DataField(DataField dataField, int newSize) {
-        this(Arrays.copyOf(dataField.data, newSize), newSize);
+    public DataField(DataField dataField, int newSize, int bits) {
+        this(Arrays.copyOf(dataField.data, newSize), newSize, bits);
     }
 
     public DataField(File file) throws IOException {
@@ -53,13 +58,18 @@ public class DataField {
             }
             size = pos;
         }
+        bits = 16;
     }
 
     public void setData(int addr, long value) {
         if (addr < size) {
             if (addr >= data.length)
                 data = Arrays.copyOf(data, size);
-            data[addr] = value;
+
+            if (data[addr] != value) {
+                data[addr] = value;
+                fireChanged(addr);
+            }
         }
     }
 
@@ -80,6 +90,38 @@ public class DataField {
         if (pos == data.length)
             return this;
         else
-            return new DataField(Arrays.copyOf(data, pos), size);
+            return new DataField(Arrays.copyOf(data, pos), size, bits);
+    }
+
+    public int getBits() {
+        return bits;
+    }
+
+    public void addListener(DataListener l) {
+        if (listeners == null)
+            listeners = new ArrayList<>();
+        listeners.add(l);
+    }
+
+    public void removeListener(DataListener l) {
+        if (listeners == null)
+            return;
+
+        listeners.remove(l);
+        if (listeners.isEmpty())
+            listeners = null;
+    }
+
+    public void fireChanged(int addr) {
+        if (listeners == null)
+            return;
+
+        for (DataListener l : listeners)
+            l.valueChanged(addr);
+    }
+
+
+    public interface DataListener {
+        void valueChanged(int addr);
     }
 }

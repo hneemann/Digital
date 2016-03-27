@@ -49,10 +49,11 @@ public class ModelDescription implements Iterable<ModelEntry> {
         else
             ioMap = null;
 
-        for (VisualElement vp : circuit.getElements()) {
-            Pins pins = vp.getPins();
-            ElementTypeDescription elementType = library.getElementType(vp.getElementName());
-            Element element = elementType.createElement(vp.getElementAttributes());
+        for (VisualElement ve : circuit.getElements()) {
+            Pins pins = ve.getPins();
+            ElementTypeDescription elementType = library.getElementType(ve.getElementName());
+            Element element = elementType.createElement(ve.getElementAttributes());
+            ve.setElement(element);
             pins.bindOutputsToOutputPins(element.getOutputs());
 
 
@@ -60,7 +61,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
             boolean isNotAIO = true;
             if (readAsCustom) {
                 if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION) {
-                    String label = vp.getElementAttributes().get(AttributeKey.Label);
+                    String label = ve.getElementAttributes().get(AttributeKey.Label);
                     if (label == null || label.length() == 0)
                         throw new PinException(Lang.get("err_pinWithoutName"));
                     if (pins.size() != 1)
@@ -72,7 +73,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
             }
 
             if (isNotAIO)
-                entries.add(new ModelEntry(element, pins, vp, elementType.getInputNames(vp.getElementAttributes())));
+                entries.add(new ModelEntry(element, pins, ve, elementType.getInputNames(ve.getElementAttributes())));
 
             for (Pin p : pins)
                 netList.add(p);
@@ -129,14 +130,13 @@ public class ModelDescription implements Iterable<ModelEntry> {
     /**
      * Creates the model
      *
-     * @param bindWiresToValues
      * @return the model
      * @throws PinException
      * @throws NodeException
      */
-    public Model createModel(boolean bindWiresToValues) throws PinException, NodeException {
+    public Model createModel() throws PinException, NodeException {
         for (Net n : netList)
-            n.interconnect(bindWiresToValues);
+            n.interconnect();
 
         Model m = new Model();
 

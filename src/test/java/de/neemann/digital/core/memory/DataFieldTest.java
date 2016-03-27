@@ -10,7 +10,7 @@ import java.io.StringReader;
 public class DataFieldTest extends TestCase {
 
     public void testGetMinimized() throws Exception {
-        DataField data = new DataField(100);
+        DataField data = new DataField(100, 8);
         data.setData(9, 1);
         data = data.getMinimized();
         assertEquals(1, data.getData(9));
@@ -19,7 +19,7 @@ public class DataFieldTest extends TestCase {
     }
 
     public void testGrow() throws Exception {
-        DataField data = new DataField(100);
+        DataField data = new DataField(100, 8);
         data.setData(9, 1);
         data = data.getMinimized();
         assertEquals(1, data.getData(9));

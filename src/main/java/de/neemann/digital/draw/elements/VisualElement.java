@@ -3,6 +3,7 @@ package de.neemann.digital.draw.elements;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.AttributeListener;
+import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -27,6 +28,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     private transient IOState ioState;
     private transient Interactor interactor;
     private transient boolean highLight = false;
+    private transient Element element;
     private Vector pos;
     private int rotate;
 
@@ -182,7 +184,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
     public void clicked(CircuitComponent cc, Point pos) {
         if (interactor != null)
-            interactor.clicked(cc, pos, ioState);
+            interactor.clicked(cc, pos, ioState, element);
     }
 
     @Override
@@ -202,5 +204,13 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
             return elementName + "(" + lab + ")";
         else
             return elementName;
+    }
+
+    public void setElement(Element element) {
+        this.element = element;
+    }
+
+    public Element getElement() {
+        return element;
     }
 }

@@ -6,11 +6,14 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -20,25 +23,53 @@ public class DataEditor extends JDialog {
     private final DataField dataField;
     private boolean ok = false;
 
+    public DataEditor(JComponent parent, DataField dataField) {
+        this(parent, dataField, null);
+    }
+
     public DataEditor(JComponent parent, DataField dataField, ElementAttributes attr) {
-        super(SwingUtilities.windowForComponent(parent), Lang.get("key_data"), ModalityType.APPLICATION_MODAL);
+        super(SwingUtilities.windowForComponent(parent), Lang.get("key_data"), attr == null ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        int bits = attr.getBits();
         int size;
-        if (attr.contains(AttributeKey.AddrBits))
-            size = 1 << attr.get(AttributeKey.AddrBits);
-        else
-            size = 1 << attr.get(AttributeKey.InputCount);
+        int bits;
+        boolean register;
+        if (attr != null) {
+            bits = attr.getBits();
+            if (attr.contains(AttributeKey.AddrBits))
+                size = 1 << attr.get(AttributeKey.AddrBits);
+            else
+                size = 1 << attr.get(AttributeKey.InputCount);
 
-        this.dataField = new DataField(dataField, size);
+            this.dataField = new DataField(dataField, size, bits);
+            register = false;
+        } else {
+            this.dataField = dataField;
+            size = this.dataField.size();
+            bits = this.dataField.getBits();
+            register = true;
+        }
 
         int cols = 16;
         if (size <= 16) cols = 1;
         else if (size <= 128) cols = 8;
 
-        JTable table = new JTable(new MyTableModel(this.dataField, cols));
+        MyTableModel dm = new MyTableModel(this.dataField, cols);
+        JTable table = new JTable(dm);
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(bits));
         getContentPane().add(new JScrollPane(table));
+
+        if (register) {
+            this.dataField.addListener(dm);
+
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    DataEditor.this.dataField.removeListener(dm);
+                }
+            });
+        }
+
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
@@ -50,7 +81,10 @@ public class DataEditor extends JDialog {
         }));
         getContentPane().add(buttons, BorderLayout.SOUTH);
 
+        setPreferredSize(new Dimension((cols + 1) * 50, getPreferredSize().height));
+
         pack();
+
         setLocationRelativeTo(parent);
     }
 
@@ -63,7 +97,7 @@ public class DataEditor extends JDialog {
         return ok;
     }
 
-    private class MyTableModel implements TableModel {
+    private class MyTableModel implements TableModel, DataField.DataListener {
         private final DataField dataField;
         private final int cols;
         private final int rows;
@@ -118,6 +152,11 @@ public class DataEditor extends JDialog {
             dataField.setData(rowIndex * cols + (columnIndex - 1), ((MyLong) aValue).getValue());
         }
 
+        public void fireEvent(TableModelEvent e) {
+            for (TableModelListener l : listener)
+                l.tableChanged(e);
+        }
+
         @Override
         public void addTableModelListener(TableModelListener l) {
             listener.add(l);
@@ -126,6 +165,11 @@ public class DataEditor extends JDialog {
         @Override
         public void removeTableModelListener(TableModelListener l) {
             listener.remove(l);
+        }
+
+        @Override
+        public void valueChanged(int addr) {
+            fireEvent(new TableModelEvent(this, addr / cols));
         }
     }
 

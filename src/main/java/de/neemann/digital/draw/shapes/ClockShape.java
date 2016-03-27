@@ -2,6 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -34,7 +35,7 @@ public class ClockShape implements Shape {
         ioState.getOutput(0).addObserver(guiObserver); // necessary to replot wires also if component itself does not depend on state
         return new Interactor() {
             @Override
-            public void clicked(CircuitComponent cc, Point pos, IOState ioState) {
+            public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
                     value.setValue(1 - value.getValue());

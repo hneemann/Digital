@@ -11,12 +11,13 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 /**
  * @author hneemann
  */
-public class RAMDualPort extends Node implements Element {
+public class RAMDualPort extends Node implements Element, RAMInterface {
 
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class, "A", "D", "str", "c", "ld")
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
+            .addAttribute(AttributeKey.Label)
             .setShortName("RAM");
 
     private final DataField memory;
@@ -36,7 +37,7 @@ public class RAMDualPort extends Node implements Element {
         bits = attr.get(AttributeKey.Bits);
         output = createOutput();
         addrBits = attr.get(AttributeKey.AddrBits);
-        memory = new DataField(1 << addrBits);
+        memory = new DataField(1 << addrBits, bits);
     }
 
     protected ObservableValue createOutput() {
@@ -87,4 +88,8 @@ public class RAMDualPort extends Node implements Element {
         }
     }
 
+    @Override
+    public DataField getMemory() {
+        return memory;
+    }
 }

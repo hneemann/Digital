@@ -56,7 +56,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
-
         Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr, library);
         String name = prefs.get("name", null);
@@ -195,7 +194,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelBuilder(circuitComponent.getCircuit())
-                            .setBindWiresToGui(false)
                             .build(library);
 
                     SpeedTest speedTest = new SpeedTest(model);
@@ -255,7 +253,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
             mb = new ModelBuilder(circuitComponent.getCircuit())
-                    .setBindWiresToGui(true)
                     .setDisableClock(!runClock)
                     .setEnableTrace(traceEnable.isSelected(), Main.this);
 

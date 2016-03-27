@@ -18,7 +18,7 @@ public class LUTTest extends TestCase {
         ObservableValue c = new ObservableValue("c", 1);
 
         Model model = new Model();
-        DataField data = new DataField(8);
+        DataField data = new DataField(8, 8);
         data.setData(3, 1);
         data.setData(7, 1);
         LookUpTable out = model.add(new LookUpTable(
