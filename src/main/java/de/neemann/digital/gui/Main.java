@@ -53,7 +53,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private Model model;
     private ModelDescription modelDescription;
 
-    public Main(File fileToOpen) {
+    public Main() {
+        this(null, null);
+    }
+
+    public Main(Component parent, File fileToOpen) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
@@ -72,10 +76,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         getContentPane().add(circuitComponent);
 
         addWindowListener(new ClosingWindowListener(this, this));
-
-        setPreferredSize(new Dimension(800, 600));
-        pack();
-        setLocationRelativeTo(null);
 
         JMenuBar bar = new JMenuBar();
 
@@ -108,7 +108,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
                     JFileChooser fc = getjFileChooser(lastFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                        Main m = new Main(fc.getSelectedFile());
+                        Main m = new Main(Main.this, fc.getSelectedFile());
                         m.setLocationRelativeTo(Main.this);
                         m.setVisible(true);
                     }
@@ -261,10 +261,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         setJMenuBar(bar);
         InfoDialog.getInstance().addToFrame(this, MESSAGE);
+
+        setPreferredSize(new Dimension(800, 600));
+        pack();
+        setLocationRelativeTo(parent);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Main(null).setVisible(true));
+        SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
 
     private void createAndStartModel(boolean runClock) {
@@ -309,7 +313,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }
     }
 
-    public static JFileChooser getjFileChooser(File filename) {
+    private static JFileChooser getjFileChooser(File filename) {
         JFileChooser fileChooser = new JFileChooser(filename == null ? null : filename.getParentFile());
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
         return fileChooser;
@@ -352,7 +356,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private void setFilename(File filename) {
         this.filename = filename;
         if (filename != null) {
-            librarySelector.setLastFile(filename);
             this.lastFilename = filename;
             prefs.put("name", filename.getPath());
             setTitle(filename + " - " + Lang.get("digital"));

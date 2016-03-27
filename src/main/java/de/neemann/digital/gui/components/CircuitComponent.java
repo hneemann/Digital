@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Moveable;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -11,6 +12,8 @@ import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.GenericShape;
+import de.neemann.digital.gui.LibrarySelector;
+import de.neemann.digital.gui.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -316,15 +319,20 @@ public class CircuitComponent extends JComponent implements Observer {
         VisualElement vp = circuit.getElementAt(getPosVector(e));
         if (vp != null) {
             String name = vp.getElementName();
-            ArrayList<AttributeKey> list = library.getElementType(name).getAttributeList();
-            if (list.size() > 0) {
-                Point p = new Point(e.getX(), e.getY());
-                SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                if (new AttributeDialog(p, list, vp.getElementAttributes()).showDialog()) {
-                    circuit.modified();
-                    repaint();
+            ElementTypeDescription elementType = library.getElementType(name);
+            if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
+                new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile()).setVisible(true);
+            } else {
+                ArrayList<AttributeKey> list = elementType.getAttributeList();
+                if (list.size() > 0) {
+                    Point p = new Point(e.getX(), e.getY());
+                    SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+                    if (new AttributeDialog(p, list, vp.getElementAttributes()).showDialog()) {
+                        circuit.modified();
+                        repaint();
+                    }
+                    return true;
                 }
-                return true;
             }
         }
         return false;

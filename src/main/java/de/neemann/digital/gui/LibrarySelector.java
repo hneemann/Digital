@@ -1,5 +1,6 @@
 package de.neemann.digital.gui;
 
+import de.neemann.digital.core.element.ElementFactory;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -13,6 +14,7 @@ import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -22,7 +24,6 @@ import java.util.ArrayList;
  */
 public class LibrarySelector implements ElementNotFoundNotification {
     private final ElementLibrary library;
-    private File lastFile;
     private File filePath;
     private JMenu customMenu;
     private InsertHistory insertHistory;
@@ -46,7 +47,8 @@ public class LibrarySelector implements ElementNotFoundNotification {
         customMenu.add(new ToolTipAction(Lang.get("menu_import")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = Main.getjFileChooser(lastFile);
+                JFileChooser fc = new JFileChooser(filePath);
+                fc.addChoosableFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
                 if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     importElement(fc.getSelectedFile());
                 }
@@ -77,10 +79,6 @@ public class LibrarySelector implements ElementNotFoundNotification {
         }
 
         return parts;
-    }
-
-    public void setLastFile(File lastFile) {
-        this.lastFile = lastFile;
     }
 
     public void setFilePath(File filePath) {
@@ -118,7 +116,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             System.out.println("load element " + file);
             Circuit circuit = Circuit.loadCircuit(file);
             ElementTypeDescription description =
-                    new ElementTypeDescription(file.getName(),
+                    new ElementTypeDescriptionCustom(file,
                             attributes -> new CustomElement(circuit, library, file.getName()),
                             circuit.getInputNames(library))
                             .setShortName(createShortName(file));
@@ -148,6 +146,19 @@ public class LibrarySelector implements ElementNotFoundNotification {
         public ImportedItem(String name, JMenuItem menuEntry) {
             this.name = name;
             this.menuEntry = menuEntry;
+        }
+    }
+
+    public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
+        private final File file;
+
+        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, String... inputNames) {
+            super(file.getName(), elementFactory, inputNames);
+            this.file = file;
+        }
+
+        public File getFile() {
+            return file;
         }
     }
 }

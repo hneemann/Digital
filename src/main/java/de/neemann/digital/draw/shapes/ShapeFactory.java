@@ -33,7 +33,7 @@ public final class ShapeFactory {
         return InstanceHolder.INSTANCE;
     }
 
-    public HashMap<String, Creator> map = new HashMap<>();
+    private HashMap<String, Creator> map = new HashMap<>();
     private ElementLibrary library;
 
     private ShapeFactory() {
