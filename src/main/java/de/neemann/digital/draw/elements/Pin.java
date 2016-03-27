@@ -54,4 +54,9 @@ public class Pin {
     }
 
     public enum Direction {input, output, both}
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

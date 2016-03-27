@@ -27,7 +27,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
     private JMenu customMenu;
     private InsertHistory insertHistory;
     private CircuitComponent circuitComponent;
-    private ArrayList<String> importedElements;
+    private ArrayList<ImportedItem> importedElements;
 
     public LibrarySelector(ElementLibrary library) {
         this.library = library;
@@ -56,8 +56,10 @@ public class LibrarySelector implements ElementNotFoundNotification {
         customMenu.add(new ToolTipAction(Lang.get("menu_refresh")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (String name : importedElements)
-                    library.removeElement(name);
+                for (ImportedItem item : importedElements) {
+                    library.removeElement(item.name);
+                    customMenu.remove(item.menuEntry);
+                }
             }
         }.setToolTip(Lang.get("menu_refresh_tt")));
 
@@ -71,7 +73,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                 parts.add(subMenu);
                 lastPath = path;
             }
-            subMenu.add(new InsertAction(pc.getName(), insertHistory, circuitComponent));
+            subMenu.add(new InsertAction(pc.getName(), insertHistory, circuitComponent).createJMenuItem());
         }
 
         return parts;
@@ -117,13 +119,15 @@ public class LibrarySelector implements ElementNotFoundNotification {
             Circuit circuit = Circuit.loadCircuit(file);
             ElementTypeDescription description =
                     new ElementTypeDescription(file.getName(),
-                            attributes -> new CustomElement(circuit, library),
+                            attributes -> new CustomElement(circuit, library, file.getName()),
                             circuit.getInputNames(library))
                             .setShortName(createShortName(file));
             library.addDescription(description);
+            JMenuItem menuEntry = new InsertAction(description.getName(), insertHistory, circuitComponent).createJMenuItem();
             if (customMenu != null)
-                customMenu.add(new InsertAction(description.getName(), insertHistory, circuitComponent));
-            importedElements.add(description.getName());
+                customMenu.add(menuEntry);
+
+            importedElements.add(new ImportedItem(description.getName(), menuEntry));
             return description;
         } catch (Exception e) {
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e));
@@ -137,4 +141,13 @@ public class LibrarySelector implements ElementNotFoundNotification {
         return name;
     }
 
+    private static class ImportedItem {
+        private final String name;
+        private final JMenuItem menuEntry;
+
+        public ImportedItem(String name, JMenuItem menuEntry) {
+            this.name = name;
+            this.menuEntry = menuEntry;
+        }
+    }
 }

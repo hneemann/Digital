@@ -53,15 +53,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private Model model;
     private ModelDescription modelDescription;
 
-    public Main(File filename) {
+    public Main(File fileToOpen) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr, library);
 
-        if (filename != null) {
-            SwingUtilities.invokeLater(() -> loadFile(filename));
+        if (fileToOpen != null) {
+            SwingUtilities.invokeLater(() -> loadFile(fileToOpen));
         } else {
             String name = prefs.get("name", null);
             if (name != null) {

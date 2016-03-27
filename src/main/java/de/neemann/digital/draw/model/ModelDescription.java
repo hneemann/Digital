@@ -38,10 +38,10 @@ public class ModelDescription implements Iterable<ModelEntry> {
         this(circuit, library, false);
     }
     public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
-        this(circuit, library, readAsCustom, new NetList(circuit.getWires()));
+        this(circuit, library, readAsCustom, "unknown", new NetList(circuit.getWires()));
     }
 
-    public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom, NetList netList) throws PinException, NodeException {
+    public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom, String fileName, NetList netList) throws PinException, NodeException {
         this.netList = netList;
         entries = new ArrayList<>();
         if (readAsCustom)
@@ -63,9 +63,11 @@ public class ModelDescription implements Iterable<ModelEntry> {
                 if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION) {
                     String label = ve.getElementAttributes().get(AttributeKey.Label);
                     if (label == null || label.length() == 0)
-                        throw new PinException(Lang.get("err_pinWithoutName"));
+                        throw new PinException(Lang.get("err_pinWithoutName", fileName));
                     if (pins.size() != 1)
-                        throw new PinException(Lang.get("err_N_isNotInputOrOutput", label));
+                        throw new PinException(Lang.get("err_N_isNotInputOrOutput", label, fileName));
+                    if (ioMap.containsKey(label))
+                        throw new PinException(Lang.get("err_duplicatePinLabel", label, fileName));
 
                     ioMap.put(label, pins.get(0));
                     isNotAIO = false;

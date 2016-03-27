@@ -17,15 +17,17 @@ public class CustomElement implements Element {
     private final NetList netList;
     private final Circuit circuit;
     private final ElementLibrary library;
+    private final String name;
 
-    public CustomElement(Circuit circuit, ElementLibrary library) {
+    public CustomElement(Circuit circuit, ElementLibrary library, String name) {
         this.circuit = circuit;
         this.library = library;
+        this.name = name;
         netList = new NetList(circuit.getWires());
     }
 
     public ModelDescription getModelDescription() throws PinException, NodeException {
-        return new ModelDescription(circuit, library, true, new NetList(netList));
+        return new ModelDescription(circuit, library, true, name, new NetList(netList));
     }
 
     @Override
