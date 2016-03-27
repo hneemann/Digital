@@ -37,6 +37,7 @@ public class ModelBuilder {
     public Model build(ElementLibrary library) throws PinException, NodeException {
         modelDescription = new ModelDescription(circuit, library);
         Model model = modelDescription.createModel();
+        System.out.println("build " + model.getNodes().size() + " Nodes");
 
         if (enableTrace) {
 
