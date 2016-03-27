@@ -43,11 +43,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon iconSaveAs = IconCreator.create("SaveAs24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
-    private final ElementLibrary library = ShapeFactory.getInstance().setLibrary(new ElementLibrary());
+    private final ElementLibrary library;
     private final ToolTipAction doStep;
     private final JCheckBoxMenuItem traceEnable;
     private final JCheckBoxMenuItem runClock;
     private final LibrarySelector librarySelector;
+    private final ShapeFactory shapeFactory;
     private File lastFilename;
     private File filename;
     private Model model;
@@ -60,6 +61,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     public Main(Component parent, File fileToOpen) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
+        library = new ElementLibrary();
+        shapeFactory = new ShapeFactory(library);
 
         Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr, library);
@@ -254,7 +258,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         toolBar.addSeparator();
 
-        librarySelector = new LibrarySelector(library);
+        librarySelector = new LibrarySelector(library, shapeFactory);
         bar.add(librarySelector.buildMenu(new InsertHistory(toolBar), circuitComponent));
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
@@ -332,7 +336,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private void loadFile(File filename) {
         try {
             librarySelector.setFilePath(filename.getParentFile());
-            Circuit circ = Circuit.loadCircuit(filename);
+            Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circ);
             setFilename(filename);
         } catch (Exception e) {

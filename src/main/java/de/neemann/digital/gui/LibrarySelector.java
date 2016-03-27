@@ -8,6 +8,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundNotification;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
@@ -24,14 +25,16 @@ import java.util.ArrayList;
  */
 public class LibrarySelector implements ElementNotFoundNotification {
     private final ElementLibrary library;
+    private final ShapeFactory shapeFactory;
     private File filePath;
     private JMenu customMenu;
     private InsertHistory insertHistory;
     private CircuitComponent circuitComponent;
     private ArrayList<ImportedItem> importedElements;
 
-    public LibrarySelector(ElementLibrary library) {
+    public LibrarySelector(ElementLibrary library, ShapeFactory shapeFactory) {
         this.library = library;
+        this.shapeFactory = shapeFactory;
         library.setElementNotFoundNotification(this);
         importedElements = new ArrayList<>();
     }
@@ -97,7 +100,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         private final CircuitComponent circuitComponent;
 
         public InsertAction(String name, InsertHistory insertHistory, CircuitComponent circuitComponent) {
-            super(name, new VisualElement(name).createIcon(60));
+            super(name, new VisualElement(name).setShapeFactory(shapeFactory).createIcon(60));
             this.name = name;
             this.insertHistory = insertHistory;
             this.circuitComponent = circuitComponent;
@@ -114,7 +117,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
     private ElementTypeDescription importElement(File file) {
         try {
             System.out.println("load element " + file);
-            Circuit circuit = Circuit.loadCircuit(file);
+            Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
             ElementTypeDescription description =
                     new ElementTypeDescriptionCustom(file,
                             attributes -> new CustomElement(circuit, library, file.getName()),

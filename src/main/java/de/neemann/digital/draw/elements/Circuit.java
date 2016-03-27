@@ -15,6 +15,7 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
@@ -30,7 +31,6 @@ public class Circuit implements Drawable {
     private transient boolean dotsPresent = false;
     private transient boolean modified = false;
 
-
     private static XStream getxStream() {
         XStream xStream = new XStream(new StaxDriver());
         xStream.alias("visualElement", VisualElement.class);
@@ -45,10 +45,13 @@ public class Circuit implements Drawable {
         return xStream;
     }
 
-    public static Circuit loadCircuit(File filename) throws IOException {
+    public static Circuit loadCircuit(File filename, ShapeFactory shapeFactory) throws IOException {
         XStream xStream = getxStream();
         try (InputStream in = new FileInputStream(filename)) {
-            return (Circuit) xStream.fromXML(in);
+            Circuit circuit = (Circuit) xStream.fromXML(in);
+            for (VisualElement ve : circuit.getElements())
+                ve.setShapeFactory(shapeFactory);
+            return circuit;
         }
     }
 

@@ -10,6 +10,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelBuilder;
 import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.model.ModelEntry;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.integration.Resources;
 
 import java.io.File;
@@ -34,7 +35,7 @@ public class TestExecuter {
 
     public static TestExecuter createFromFile(String name, ElementLibrary library) throws IOException, NodeException, PinException {
         File filename = new File(Resources.getRoot(), name);
-        Circuit circuit = Circuit.loadCircuit(filename);
+        Circuit circuit = Circuit.loadCircuit(filename, new ShapeFactory(library));
 
         ModelBuilder mb = new ModelBuilder(circuit);
         Model model = mb.build(library);

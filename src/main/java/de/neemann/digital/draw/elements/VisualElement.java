@@ -29,6 +29,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     private transient Interactor interactor;
     private transient boolean highLight = false;
     private transient Element element;
+    private transient ShapeFactory shapeFactory;
     private Vector pos;
     private int rotate;
 
@@ -92,7 +93,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
     public Shape getShape() {
         if (shape == null)
-            shape = ShapeFactory.getInstance().getShape(elementName, elementAttributes);
+            shape = shapeFactory.getShape(elementName, elementAttributes);
         return shape;
     }
 
@@ -216,5 +217,10 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
     public Element getElement() {
         return element;
+    }
+
+    public VisualElement setShapeFactory(ShapeFactory shapeFactory) {
+        this.shapeFactory = shapeFactory;
+        return this;
     }
 }

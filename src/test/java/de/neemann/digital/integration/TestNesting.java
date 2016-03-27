@@ -63,9 +63,8 @@ public class TestNesting extends TestCase {
 
     private TestExecuter createTestExecuterForNesting(String file) throws IOException, NodeException, PinException {
         ElementLibrary library = new ElementLibrary();
-        LibrarySelector librarySelector = new LibrarySelector(library);
+        LibrarySelector librarySelector = new LibrarySelector(library, new ShapeFactory(library));
         librarySelector.setFilePath(new File(Resources.getRoot(), "dig"));
-        ShapeFactory.getInstance().setLibrary(library); // neded to generate generic shapes
         return TestExecuter.createFromFile(file, library);
     }
 

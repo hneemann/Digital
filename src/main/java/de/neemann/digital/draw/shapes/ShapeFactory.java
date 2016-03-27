@@ -25,18 +25,11 @@ import java.util.HashMap;
  */
 public final class ShapeFactory {
 
-    private static final class InstanceHolder {
-        static final ShapeFactory INSTANCE = new ShapeFactory();
-    }
+    private final HashMap<String, Creator> map = new HashMap<>();
+    private final ElementLibrary library;
 
-    public static ShapeFactory getInstance() {
-        return InstanceHolder.INSTANCE;
-    }
-
-    private HashMap<String, Creator> map = new HashMap<>();
-    private ElementLibrary library;
-
-    private ShapeFactory() {
+    public ShapeFactory(ElementLibrary library) {
+        this.library = library;
         map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", And.DESCRIPTION, false));
         map.put(Or.DESCRIPTION.getName(), new CreatorSimple("\u22651", Or.DESCRIPTION, false));
         map.put(NAnd.DESCRIPTION.getName(), new CreatorSimple("&", NAnd.DESCRIPTION, true));
@@ -70,11 +63,6 @@ public final class ShapeFactory {
 
         map.put(Splitter.DESCRIPTION.getName(), attr -> new SplitterShape(attr.get(AttributeKey.InputSplit), attr.get(AttributeKey.OutputSplit)));
         map.put(Driver.DESCRIPTION.getName(), attr -> new DriverShape(attr.get(AttributeKey.FlipSelPositon)));
-    }
-
-    public ElementLibrary setLibrary(ElementLibrary library) {
-        this.library = library;
-        return library;
     }
 
     private OutputPinInfo[] outputInfos(ElementTypeDescription description, ElementAttributes attributes) {
