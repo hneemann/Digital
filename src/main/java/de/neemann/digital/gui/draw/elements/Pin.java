@@ -13,6 +13,7 @@ public class Pin {
     private final String name;
     private final Direction direction;
     private ObservableValue value;
+    private ObservableValue readerValue;  // reader for bidirectional pins
 
     public Pin(Vector pos, Pin pin) {
         this(pos, pin.name, pin.direction);
@@ -42,6 +43,14 @@ public class Pin {
 
     public void setValue(ObservableValue value) {
         this.value = value;
+    }
+
+    public ObservableValue getReaderValue() {
+        return readerValue;
+    }
+
+    public void setReaderValue(ObservableValue readerValue) {
+        this.readerValue = readerValue;
     }
 
     public enum Direction {input, output, both}

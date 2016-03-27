@@ -4,9 +4,11 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.gui.draw.elements.*;
 import de.neemann.digital.lang.Lang;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -48,6 +50,18 @@ public class ModelEntry {
 
                 inputs[i] = value;
             }
+
+            ArrayList<ObservableValue> bidirect = null;
+            for (Pin p : pins) {
+                if (p.getDirection() == Pin.Direction.both) {
+                    if (bidirect == null)
+                        bidirect = new ArrayList<>();
+                    bidirect.add(p.getReaderValue());
+                }
+            }
+            if (bidirect != null)
+                inputs = Splitter.combine(inputs, bidirect.toArray(new ObservableValue[bidirect.size()]));
+
             element.setInputs(inputs);
         }
         ioState = new IOState(inputs, element.getOutputs());

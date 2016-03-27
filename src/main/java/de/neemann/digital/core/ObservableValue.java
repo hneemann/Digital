@@ -12,6 +12,7 @@ public class ObservableValue extends Value {
     private final ArrayList<Observer> observers;
     private final String name;
     private final long mask;
+    private final boolean supportsHighZ;
 
     public ObservableValue(String name, int bits) {
         this(name, bits, false);
@@ -22,6 +23,7 @@ public class ObservableValue extends Value {
         mask = (1L << bits) - 1;
         this.name = name;
         observers = new ArrayList<>();
+        supportsHighZ = highZ;
     }
 
     public ObservableValue addObserver(Observer observer) {
@@ -136,5 +138,17 @@ public class ObservableValue extends Value {
 
     public int observerCount() {
         return observers.size();
+    }
+
+    public boolean supportsHighZ() {
+        return supportsHighZ;
+    }
+
+    public boolean isHighZIgnoreBurn() {
+        return highZ;
+    }
+
+    public long getValueIgnoreBurn() {
+        return value;
     }
 }

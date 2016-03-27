@@ -67,9 +67,9 @@ public class Style {
 
     public static Style getWireStyle(ObservableValue value) {
         if (value == null || value.getBits() > 1) return WIRE;
-        if (value.isHighZ()) return WIRE_HIGHZ;
+        if (value.isHighZIgnoreBurn()) return WIRE_HIGHZ;
 
-        if (value.getValue() == 1) return WIRE_HIGH;
+        if (value.getValueIgnoreBurn() == 1) return WIRE_HIGH;
         else return WIRE_LOW;
     }
 }

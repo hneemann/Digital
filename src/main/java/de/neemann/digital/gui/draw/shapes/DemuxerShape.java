@@ -18,19 +18,21 @@ public class DemuxerShape implements Shape {
     private final int outputCount;
     private final boolean hasInput;
     private final boolean flip;
+    private final int height;
     private Pins pins;
 
     public DemuxerShape(int selectorBits, boolean hasInput, boolean flip) {
         this.hasInput = hasInput;
         this.flip = flip;
-        this.outputCount = 1 << selectorBits;
+        outputCount = 1 << selectorBits;
+        height = hasInput || (outputCount <= 2) ? outputCount * SIZE : (outputCount - 1) * SIZE;
     }
 
     @Override
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(SIZE, flip ? 0 : outputCount * SIZE), "sel", Pin.Direction.input));
+            pins.add(new Pin(new Vector(SIZE, flip ? 0 : height), "sel", Pin.Direction.input));
             if (outputCount == 2) {
                 pins.add(new Pin(new Vector(SIZE * 2, 0 * SIZE), "out_0", Pin.Direction.output));
                 pins.add(new Pin(new Vector(SIZE * 2, 2 * SIZE), "out_1", Pin.Direction.output));
@@ -54,7 +56,7 @@ public class DemuxerShape implements Shape {
         graphic.drawPolygon(new Polygon(true)
                 .add(2, 3)
                 .add(SIZE * 2 - 2, -2)
-                .add(SIZE * 2 - 2, outputCount * SIZE + 2)
-                .add(2, outputCount * SIZE - 3), Style.NORMAL);
+                .add(SIZE * 2 - 2, height + 2)
+                .add(2, height - 3), Style.NORMAL);
     }
 }

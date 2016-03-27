@@ -97,6 +97,9 @@ public class Net {
         for (Pin i : inputs)
             i.setValue(value);
 
+        for (Pin o : outputs)  // set also the reader for bidirectional pins
+            o.setReaderValue(value);
+
         if (bindWiresToValues && wires != null)
             for (Wire w : wires)
                 w.setValue(value);

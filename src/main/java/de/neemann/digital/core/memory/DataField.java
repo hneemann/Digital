@@ -2,10 +2,7 @@ package de.neemann.digital.core.memory;
 
 import de.neemann.digital.lang.Lang;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 
 /**
@@ -32,7 +29,11 @@ public class DataField {
     }
 
     public DataField(File file) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        this(new FileReader(file));
+    }
+
+    public DataField(Reader reader) throws IOException {
+        try (BufferedReader br = new BufferedReader(reader)) {
             data = new long[1024];
             String header = br.readLine();
             if (header == null || !header.equals("v2.0 raw"))
