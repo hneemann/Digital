@@ -3,9 +3,9 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.BurnException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.gui.draw.elements.Pin;
-import de.neemann.digital.gui.draw.elements.PinException;
-import de.neemann.digital.gui.draw.model.Net;
+import de.neemann.digital.draw.elements.Pin;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;

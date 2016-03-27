@@ -1,6 +1,6 @@
 package de.neemann.digital.core.element;
 
-import de.neemann.digital.gui.draw.shapes.Shape;
+import de.neemann.digital.draw.shapes.Shape;
 
 /**
  * @author hneemann

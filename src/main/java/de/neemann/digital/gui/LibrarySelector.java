@@ -1,13 +1,13 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.library.CustomElement;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundNotification;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.draw.elements.Circuit;
-import de.neemann.digital.gui.draw.elements.VisualElement;
-import de.neemann.digital.gui.draw.graphics.Vector;
-import de.neemann.digital.gui.draw.library.CustomElement;
-import de.neemann.digital.gui.draw.library.ElementLibrary;
-import de.neemann.digital.gui.draw.library.ElementNotFoundNotification;
 import de.neemann.digital.lang.Lang;
 import de.process.utils.gui.ErrorMessage;
 import de.process.utils.gui.ToolTipAction;

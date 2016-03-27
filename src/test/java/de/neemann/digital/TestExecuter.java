@@ -4,12 +4,12 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.Element;
-import de.neemann.digital.gui.draw.elements.Circuit;
-import de.neemann.digital.gui.draw.elements.PinException;
-import de.neemann.digital.gui.draw.library.ElementLibrary;
-import de.neemann.digital.gui.draw.model.ModelBuilder;
-import de.neemann.digital.gui.draw.model.ModelDescription;
-import de.neemann.digital.gui.draw.model.ModelEntry;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.model.ModelBuilder;
+import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.integration.Resources;
 
 import java.io.File;

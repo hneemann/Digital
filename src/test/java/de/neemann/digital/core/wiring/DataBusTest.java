@@ -3,7 +3,7 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.BurnException;
 import de.neemann.digital.core.HighZException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.gui.draw.elements.PinException;
+import de.neemann.digital.draw.elements.PinException;
 import junit.framework.TestCase;
 
 /**

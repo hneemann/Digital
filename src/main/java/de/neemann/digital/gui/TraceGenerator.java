@@ -7,9 +7,9 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
-import de.neemann.digital.gui.draw.library.ElementLibrary;
-import de.neemann.digital.gui.draw.model.ModelDescription;
-import de.neemann.digital.gui.draw.model.ModelEntry;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelEntry;
 
 /**
  * @author hneemann

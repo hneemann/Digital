@@ -2,10 +2,10 @@ package de.neemann.digital.integration;
 
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
-import de.neemann.digital.gui.draw.elements.PinException;
-import de.neemann.digital.gui.draw.library.ElementLibrary;
-import de.neemann.digital.gui.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
 
 import java.io.File;

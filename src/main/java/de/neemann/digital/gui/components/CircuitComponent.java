@@ -2,15 +2,15 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.AttributeKey;
-import de.neemann.digital.gui.draw.elements.Circuit;
-import de.neemann.digital.gui.draw.elements.Moveable;
-import de.neemann.digital.gui.draw.elements.VisualElement;
-import de.neemann.digital.gui.draw.elements.Wire;
-import de.neemann.digital.gui.draw.graphics.*;
-import de.neemann.digital.gui.draw.graphics.Polygon;
-import de.neemann.digital.gui.draw.library.ElementLibrary;
-import de.neemann.digital.gui.draw.shapes.Drawable;
-import de.neemann.digital.gui.draw.shapes.GenericShape;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.Moveable;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.elements.Wire;
+import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.draw.shapes.GenericShape;
 
 import javax.swing.*;
 import java.awt.*;

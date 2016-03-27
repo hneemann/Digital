@@ -3,10 +3,10 @@ package de.neemann.digital.integration;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
-import de.neemann.digital.gui.draw.elements.Circuit;
-import de.neemann.digital.gui.draw.library.ElementLibrary;
-import de.neemann.digital.gui.draw.model.ModelBuilder;
-import de.neemann.digital.gui.draw.model.ModelEntry;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.model.ModelBuilder;
+import de.neemann.digital.draw.model.ModelEntry;
 import junit.framework.TestCase;
 
 import java.io.File;
