@@ -38,7 +38,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon iconWire = IconCreator.create("wire.gif");
     private static final Icon iconNew = IconCreator.create("New24.gif");
     private static final Icon iconOpen = IconCreator.create("Open24.gif");
-    private static final Icon iconOpenWin = IconCreator.create("Open24.gif");
+    private static final Icon iconOpenWin = IconCreator.create("OpenNew24.gif");
     private static final Icon iconSave = IconCreator.create("Save24.gif");
     private static final Icon iconSaveAs = IconCreator.create("SaveAs24.gif");
     private final CircuitComponent circuitComponent;
@@ -242,6 +242,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JToolBar toolBar = new JToolBar();
         toolBar.add(newFile.createJButtonNoText());
         toolBar.add(open.createJButtonNoText());
+        toolBar.add(openWin.createJButtonNoText());
         toolBar.add(save.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(partsMode.createJButtonNoText());
