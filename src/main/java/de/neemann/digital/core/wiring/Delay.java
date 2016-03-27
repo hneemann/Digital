@@ -14,6 +14,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 public class Delay extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Delay.class, "in")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits);
 
     private final ObservableValue output;

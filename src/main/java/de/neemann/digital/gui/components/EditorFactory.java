@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 import de.process.utils.gui.ErrorMessage;
@@ -26,6 +27,7 @@ public final class EditorFactory {
         add(Color.class, ColorEditor.class);
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
+        add(Rotation.class, RotationEditor.class);
     }
 
     public <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -180,6 +182,29 @@ public final class EditorFactory {
         @Override
         public DataField getValue() {
             return data.getMinimized();
+        }
+    }
+
+    private static class RotationEditor implements Editor<Rotation> {
+        private static final String[] list = new String[]{Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")};
+
+        private final Rotation rotation;
+        private JComboBox<String> comb;
+
+        public RotationEditor(Rotation rotation) {
+            this.rotation = rotation;
+        }
+
+        @Override
+        public Component getComponent(ElementAttributes elementAttributes) {
+            comb = new JComboBox<>(list);
+            comb.setSelectedIndex(rotation.rotation);
+            return comb;
+        }
+
+        @Override
+        public Rotation getValue() {
+            return new Rotation(comb.getSelectedIndex());
         }
     }
 }

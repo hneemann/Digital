@@ -19,6 +19,7 @@ public class Splitter implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
             = new SplitterTypeDescription()
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.InputSplit)
             .addAttribute(AttributeKey.OutputSplit)
             .setShortName("");

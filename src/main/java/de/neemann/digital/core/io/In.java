@@ -15,6 +15,7 @@ import de.neemann.digital.lang.Lang;
 public class In implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(In.class)
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Default);

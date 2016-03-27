@@ -31,6 +31,7 @@ public class Multiplexer extends FanIn {
             return names;
         }
     }
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.FlipSelPositon)
             .addAttribute(AttributeKey.SelectorBits);

@@ -14,6 +14,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 public class Driver extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Driver.class, "in", "sel")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.FlipSelPositon);
 

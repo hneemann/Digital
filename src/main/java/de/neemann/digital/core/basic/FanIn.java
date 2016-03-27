@@ -49,6 +49,7 @@ public abstract class FanIn extends Node implements Element {
         }
 
         private void addAttributes() {
+            addAttribute(AttributeKey.Rotate);
             addAttribute(AttributeKey.Bits);
             addAttribute(AttributeKey.InputCount);
         }

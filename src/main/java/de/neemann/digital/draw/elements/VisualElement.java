@@ -118,7 +118,10 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     private Transform createTransform() {
-        return v -> v.add(pos);
+        if (rotate == 0)
+            return v -> v.add(pos);
+        else
+            return new TransformRotate(pos, rotate);
     }
 
     public GraphicMinMax getMinMax() {
@@ -191,6 +194,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public void attributeChanged(AttributeKey key) {
         shape = null;
         minMax = null;
+        rotate = elementAttributes.get(AttributeKey.Rotate).rotation;
     }
 
     public void setHighLight(boolean highLight) {

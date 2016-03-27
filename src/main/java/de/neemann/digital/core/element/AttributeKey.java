@@ -22,6 +22,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Boolean> Signed = new AttributeKey<>("Signed", Lang.get("key_signed"), false);
     public static final AttributeKey<DataField> Data = new AttributeKey<>("Data", Lang.get("key_data"), DataField.DEFAULT);
     public static final AttributeKey<Boolean> FlipSelPositon = new AttributeKey<>("flipSelPos", Lang.get("key_flipSelPos"), false);
+    public static final AttributeKey<Rotation> Rotate = new AttributeKey<>("rotation", Lang.get("key_rotation"), new Rotation(0));
 
     private final String key;
     private final VALUE def;

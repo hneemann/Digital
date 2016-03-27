@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.*;
 public class Out implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Out.class, "in")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);
 
@@ -19,6 +20,7 @@ public class Out implements Element {
             .addAttribute(AttributeKey.Label);
 
     public static final ElementTypeDescription LEDDESCRIPTION = new ElementTypeDescription("LED", Out.class, "in")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
 
