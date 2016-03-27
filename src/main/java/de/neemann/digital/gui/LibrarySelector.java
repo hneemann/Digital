@@ -108,7 +108,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            VisualElement visualElement = new VisualElement(name).setPos(new Vector(10, 10));
+            VisualElement visualElement = new VisualElement(name).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
             circuitComponent.setPartToDrag(visualElement);
             insertHistory.add(this);
         }
