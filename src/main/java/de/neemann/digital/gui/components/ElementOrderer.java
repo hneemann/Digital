@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.lang.Lang;
-import de.process.utils.gui.ToolTipAction;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;

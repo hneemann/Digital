@@ -14,7 +14,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.lang.Lang;
-import de.process.utils.gui.*;
+import de.neemann.gui.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -38,6 +38,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon iconWire = IconCreator.create("wire.gif");
     private static final Icon iconNew = IconCreator.create("New24.gif");
     private static final Icon iconOpen = IconCreator.create("Open24.gif");
+    private static final Icon iconOpenWin = IconCreator.create("Open24.gif");
     private static final Icon iconSave = IconCreator.create("Save24.gif");
     private static final Icon iconSaveAs = IconCreator.create("SaveAs24.gif");
     private final CircuitComponent circuitComponent;
@@ -52,15 +53,20 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private Model model;
     private ModelDescription modelDescription;
 
-    public Main() {
+    public Main(File filename) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr, library);
-        String name = prefs.get("name", null);
-        if (name != null) {
-            SwingUtilities.invokeLater(() -> loadFile(new File(name)));
+
+        if (filename != null) {
+            SwingUtilities.invokeLater(() -> loadFile(filename));
+        } else {
+            String name = prefs.get("name", null);
+            if (name != null) {
+                SwingUtilities.invokeLater(() -> loadFile(new File(name)));
+            }
         }
 
         getContentPane().add(circuitComponent);
@@ -96,6 +102,21 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
+        ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), iconOpenWin) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
+                    JFileChooser fc = getjFileChooser(lastFilename);
+                    if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                        Main m = new Main(fc.getSelectedFile());
+                        m.setLocationRelativeTo(Main.this);
+                        m.setVisible(true);
+                    }
+                }
+            }
+        }.setToolTip(Lang.get("menu_openWin_tt"));
+
+
         ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), iconSaveAs) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,6 +141,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         bar.add(file);
         file.add(newFile);
         file.add(open);
+        file.add(openWin);
         file.add(save);
         file.add(saveas);
 
@@ -241,7 +263,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Main().setVisible(true));
+        SwingUtilities.invokeLater(() -> new Main(null).setVisible(true));
     }
 
     private void createAndStartModel(boolean runClock) {

@@ -9,8 +9,8 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundNotification;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.lang.Lang;
-import de.process.utils.gui.ErrorMessage;
-import de.process.utils.gui.ToolTipAction;
+import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

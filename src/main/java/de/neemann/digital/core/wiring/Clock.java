@@ -6,7 +6,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.lang.Lang;
-import de.process.utils.gui.ErrorMessage;
+import de.neemann.gui.ErrorMessage;
 
 import javax.swing.*;
 

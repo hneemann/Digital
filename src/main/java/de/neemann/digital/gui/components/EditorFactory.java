@@ -4,7 +4,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
-import de.process.utils.gui.ErrorMessage;
+import de.neemann.gui.ErrorMessage;
 
 import javax.swing.*;
 import java.awt.*;
