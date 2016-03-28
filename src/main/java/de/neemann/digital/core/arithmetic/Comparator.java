@@ -15,6 +15,8 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 public class Comparator extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Comparator.class, "a", "b")
+            .addAttribute(AttributeKey.Rotate)
+            .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Signed)
             .setShortName("");

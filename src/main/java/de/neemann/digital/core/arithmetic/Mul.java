@@ -13,7 +13,12 @@ import de.neemann.digital.core.element.ElementTypeDescription;
  */
 public class Mul extends Node implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Mul.class, "a", "b").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION
+            = new ElementTypeDescription(Mul.class, "a", "b")
+            .addAttribute(AttributeKey.Rotate)
+            .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Bits);
+
     private final ObservableValue mul;
     private final int bits;
     private ObservableValue a;

@@ -4,10 +4,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
@@ -53,5 +50,6 @@ public class MuxerShape implements Shape {
                 .add(SIZE * 2 - 2, 3)
                 .add(SIZE * 2 - 2, inputCount * SIZE - 3)
                 .add(2, inputCount * SIZE + 2), Style.NORMAL);
+        graphic.drawText(new Vector(3, 0), new Vector(4, 0), "0", Orientation.LEFTTOP, Style.SHAPE_PIN);
     }
 }

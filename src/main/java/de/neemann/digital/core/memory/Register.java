@@ -19,7 +19,7 @@ public class Register extends Node implements Element {
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label)
-            .setShortName("D");
+            .setShortName("Reg");
 
     private final int bits;
     private ObservableValue dVal;

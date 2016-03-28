@@ -10,7 +10,11 @@ import de.neemann.digital.core.element.ElementTypeDescription;
  */
 public class Sub extends Add {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Sub.class, "a", "b", "c_i").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION
+            = new ElementTypeDescription(Sub.class, "a", "b", "c_i")
+            .addAttribute(AttributeKey.Rotate)
+            .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Bits);
 
     public Sub(ElementAttributes attributes) {
         super(attributes);

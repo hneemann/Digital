@@ -14,7 +14,12 @@ import de.neemann.digital.core.element.ElementTypeDescription;
  */
 public class Add extends Node implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Add.class, "a", "b", "c_i").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION
+            = new ElementTypeDescription(Add.class, "a", "b", "c_i")
+            .addAttribute(AttributeKey.Rotate)
+            .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Bits);
+
     private final int bits;
     private final ObservableValue sum;
     private final ObservableValue c_out;

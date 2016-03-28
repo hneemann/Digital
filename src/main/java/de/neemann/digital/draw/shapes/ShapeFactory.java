@@ -2,9 +2,6 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.arithmetic.Add;
-import de.neemann.digital.core.arithmetic.Mul;
-import de.neemann.digital.core.arithmetic.Sub;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -39,10 +36,6 @@ public final class ShapeFactory {
 
         map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", XOr.DESCRIPTION, false));
         map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", XNOr.DESCRIPTION, true));
-
-        map.put(Add.DESCRIPTION.getName(), attr -> new GenericShape("+", Add.DESCRIPTION.getInputNames(attr), outputInfos(Add.DESCRIPTION, attr), null, true));
-        map.put(Sub.DESCRIPTION.getName(), attr -> new GenericShape("-", Sub.DESCRIPTION.getInputNames(attr), outputInfos(Sub.DESCRIPTION, attr), null, true));
-        map.put(Mul.DESCRIPTION.getName(), attr -> new GenericShape("*", Mul.DESCRIPTION.getInputNames(attr), outputInfos(Mul.DESCRIPTION, attr), null, true));
 
         map.put(RAMDualPort.DESCRIPTION.getName(), attr -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputNames(attr), outputInfos(RAMDualPort.DESCRIPTION, attr), attr.get(AttributeKey.Label)));
         map.put(RAMSinglePort.DESCRIPTION.getName(), attr -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputNames(attr), outputInfos(RAMSinglePort.DESCRIPTION, attr), attr.get(AttributeKey.Label)));
