@@ -1,5 +1,6 @@
 package de.neemann.digital.gui;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementFactory;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.draw.elements.Circuit;
@@ -121,7 +122,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             ElementTypeDescription description =
                     new ElementTypeDescriptionCustom(file,
                             attributes -> new CustomElement(circuit, library, file.getName()),
-                            circuit.getInputNames(library))
+                            circuit.getAttributes(), circuit.getInputNames(library))
                             .setShortName(createShortName(file));
             library.addDescription(description);
 
@@ -169,14 +170,20 @@ public class LibrarySelector implements ElementNotFoundNotification {
 
     public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
         private final File file;
+        private final ElementAttributes attributes;
 
-        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, String... inputNames) {
+        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, String... inputNames) {
             super(file.getName(), elementFactory, inputNames);
             this.file = file;
+            this.attributes = attributes;
         }
 
         public File getFile() {
             return file;
+        }
+
+        public ElementAttributes getAttributes() {
+            return attributes;
         }
     }
 }

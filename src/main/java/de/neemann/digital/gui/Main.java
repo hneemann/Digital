@@ -67,7 +67,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         library = new ElementLibrary();
         shapeFactory = new ShapeFactory(library);
 
-        boolean normalMode = savedListener == null;
+        final boolean normalMode = savedListener == null;
 
         Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr, library, shapeFactory);
@@ -130,7 +130,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getjFileChooser(lastFilename);
                 if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                    saveFile(fc.getSelectedFile());
+                    saveFile(fc.getSelectedFile(), normalMode);
                 }
             }
         }.setActive(normalMode);
@@ -141,7 +141,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 if (filename == null)
                     saveas.actionPerformed(e);
                 else
-                    saveFile(filename);
+                    saveFile(filename, normalMode);
             }
         };
 
@@ -176,12 +176,20 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_orderOutputs_tt"));
 
+        ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.getCircuit().editAttributes();
+            }
+        }.setToolTip(Lang.get("menu_editAttributes_tt"));
+
 
         edit.add(partsMode.createJMenuItem());
         edit.add(wireMode.createJMenuItem());
         edit.add(selectionMode.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
+        edit.add(editAttributes.createJMenuItem());
 
 
         JMenu run = new JMenu(Lang.get("menu_run"));
@@ -349,7 +357,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }
     }
 
-    private void saveFile(File filename) {
+    private void saveFile(File filename, boolean toPrefs) {
         if (!filename.getName().endsWith(".dig"))
             filename = new File(filename.getPath() + ".dig");
 
@@ -357,7 +365,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             circuitComponent.getCircuit().save(filename);
             if (savedListener != null)
                 savedListener.saved(filename);
-            setFilename(filename, false);
+            setFilename(filename, toPrefs);
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
         }

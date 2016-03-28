@@ -95,4 +95,9 @@ public class ElementAttributes {
                 '}';
     }
 
+    public boolean isEmpty() {
+        if (attributes == null)
+            return true;
+        return attributes.isEmpty();
+    }
 }

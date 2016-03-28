@@ -13,6 +13,7 @@ import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.lang.Lang;
 
 import java.util.HashMap;
@@ -74,7 +75,22 @@ public final class ShapeFactory {
                     throw new NodeException(Lang.get("err_noShapeFoundFor_N", partName), null);
                 else {
                     ElementTypeDescription pt = library.getElementType(partName);
-                    return new GenericShape(pt.getShortName(), pt.getInputNames(elementAttributes), outputInfos(pt, elementAttributes), elementAttributes.get(AttributeKey.Label), true);
+                    if (pt instanceof LibrarySelector.ElementTypeDescriptionCustom) {
+                        LibrarySelector.ElementTypeDescriptionCustom customDescr = (LibrarySelector.ElementTypeDescriptionCustom) pt;
+                        return new GenericShape(
+                                pt.getShortName(),
+                                pt.getInputNames(elementAttributes),
+                                outputInfos(pt, elementAttributes),
+                                elementAttributes.get(AttributeKey.Label),
+                                true,
+                                customDescr.getAttributes().get(AttributeKey.Width));
+                    } else
+                        return new GenericShape(
+                                pt.getShortName(),
+                                pt.getInputNames(elementAttributes),
+                                outputInfos(pt, elementAttributes),
+                                elementAttributes.get(AttributeKey.Label),
+                                true);
                 }
             } else
                 return cr.create(elementAttributes);

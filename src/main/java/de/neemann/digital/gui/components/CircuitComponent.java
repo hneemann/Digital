@@ -330,6 +330,8 @@ public class CircuitComponent extends JComponent implements Observer {
                     @Override
                     public void saved(File filename) {
                         library.removeElement(filename.getName());
+                        circuit.clearState();
+                        repaint();
                     }
                 }).setVisible(true);
             } else {

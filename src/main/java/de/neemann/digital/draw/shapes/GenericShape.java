@@ -32,6 +32,10 @@ public class GenericShape implements Shape {
     }
 
     public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs, String label, boolean showPinLabels) {
+        this(name, inputs, outputs, label, showPinLabels, inputs.length == 1 && outputs.length == 1 && !showPinLabels ? 1 : 3);
+    }
+
+    public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs, String label, boolean showPinLabels, int width) {
         this.name = name;
         this.inputs = inputs;
         this.outputs = outputs;
@@ -39,7 +43,7 @@ public class GenericShape implements Shape {
             label = null;
         this.label = label;
         this.showPinLabels = showPinLabels;
-        width = inputs.length == 1 && outputs.length == 1 && !showPinLabels ? 1 : 3;
+        this.width = width;
         symmetric = outputs.length == 1;
     }
 

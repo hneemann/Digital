@@ -16,6 +16,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
@@ -26,6 +27,14 @@ import java.util.Iterator;
  * @author hneemann
  */
 public class Circuit implements Drawable {
+    private static final ArrayList<AttributeKey> ATTR_LIST = new ArrayList<>();
+
+    static {
+        ATTR_LIST.add(AttributeKey.Width);
+    }
+
+
+    private ElementAttributes attributes;
     private final ArrayList<VisualElement> visualElements;
     private ArrayList<Wire> wires;
     private transient boolean dotsPresent = false;
@@ -67,6 +76,20 @@ public class Circuit implements Drawable {
     public Circuit() {
         visualElements = new ArrayList<>();
         wires = new ArrayList<>();
+    }
+
+    public ElementAttributes getAttributes() {
+        if (attributes == null)
+            attributes = new ElementAttributes();
+        return attributes;
+    }
+
+    public void editAttributes() {
+        if (new AttributeDialog(null, ATTR_LIST, getAttributes()).showDialog()) {
+            if (attributes.isEmpty())
+                attributes = null;
+            modified();
+        }
     }
 
     @Override
