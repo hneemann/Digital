@@ -47,8 +47,8 @@ public class ObservableValue extends Value {
     }
 
     public long getValue() {
-        if (highZ)
-            throw new HighZException(this);
+//        if (highZ)
+//            throw new HighZException(this);
         return value;
     }
 

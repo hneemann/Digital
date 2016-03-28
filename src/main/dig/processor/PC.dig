@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <attributes>
+        <entry>
+            <string>Width</string>
+            <int>5</int>
+        </entry>
+    </attributes>
+    <visualElements>
+        <visualElement>
+            <elementName>Register</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>PC</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="130" y="70"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>ALU</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="80" y="170"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Add</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Add One</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="210" y="80"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Const</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="200" y="90"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Const</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Value</string>
+                    <int>0</int>
+                </entry>
+            </elementAttributes>
+            <pos x="200" y="100"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Next</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="320" y="80"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>rotation</string>
+                    <de.neemann.digital.core.element.Rotation>
+                        <rotation>3</rotation>
+                    </de.neemann.digital.core.element.Rotation>
+                </entry>
+                <entry>
+                    <string>Label</string>
+                    <string>PC</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="170" y="210"/>
+            <rotate>3</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Add</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Add ALU</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="290" y="160"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Clock</string>
+                </entry>
+            </elementAttributes>
+            <pos x="80" y="80"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Const</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Value</string>
+                    <int>0</int>
+                </entry>
+            </elementAttributes>
+            <pos x="280" y="180"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Multiplexer</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="340" y="140"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Multiplexer</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="380" y="150"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>rotation</string>
+                    <de.neemann.digital.core.element.Rotation>
+                        <rotation>1</rotation>
+                    </de.neemann.digital.core.element.Rotation>
+                </entry>
+                <entry>
+                    <string>Label</string>
+                    <string>abs</string>
+                </entry>
+            </elementAttributes>
+            <pos x="390" y="210"/>
+            <rotate>1</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Not</elementName>
+            <elementAttributes/>
+            <pos x="90" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>BRK</string>
+                </entry>
+            </elementAttributes>
+            <pos x="80" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>rotation</string>
+                    <de.neemann.digital.core.element.Rotation>
+                        <rotation>1</rotation>
+                    </de.neemann.digital.core.element.Rotation>
+                </entry>
+                <entry>
+                    <string>Label</string>
+                    <string>rel</string>
+                </entry>
+            </elementAttributes>
+            <pos x="350" y="210"/>
+            <rotate>1</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Not</elementName>
+            <elementAttributes/>
+            <pos x="90" y="80"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="80" y="80"/>
+            <p2 x="90" y="80"/>
+        </wire>
+        <wire>
+            <p1 x="110" y="80"/>
+            <p2 x="130" y="80"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="80"/>
+            <p2 x="170" y="80"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="80"/>
+            <p2 x="270" y="80"/>
+        </wire>
+        <wire>
+            <p1 x="270" y="80"/>
+            <p2 x="320" y="80"/>
+        </wire>
+        <wire>
+            <p1 x="170" y="80"/>
+            <p2 x="210" y="80"/>
+        </wire>
+        <wire>
+            <p1 x="270" y="160"/>
+            <p2 x="290" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="320" y="160"/>
+            <p2 x="340" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="400" y="160"/>
+            <p2 x="410" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="100"/>
+            <p2 x="210" y="100"/>
+        </wire>
+        <wire>
+            <p1 x="280" y="180"/>
+            <p2 x="290" y="180"/>
+        </wire>
+        <wire>
+            <p1 x="360" y="150"/>
+            <p2 x="380" y="150"/>
+        </wire>
+        <wire>
+            <p1 x="120" y="70"/>
+            <p2 x="130" y="70"/>
+        </wire>
+        <wire>
+            <p1 x="120" y="40"/>
+            <p2 x="410" y="40"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="200"/>
+            <p2 x="370" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="80" y="120"/>
+            <p2 x="90" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="110" y="120"/>
+            <p2 x="120" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="90"/>
+            <p2 x="210" y="90"/>
+        </wire>
+        <wire>
+            <p1 x="120" y="90"/>
+            <p2 x="130" y="90"/>
+        </wire>
+        <wire>
+            <p1 x="80" y="170"/>
+            <p2 x="240" y="170"/>
+        </wire>
+        <wire>
+            <p1 x="370" y="170"/>
+            <p2 x="380" y="170"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="170"/>
+            <p2 x="290" y="170"/>
+        </wire>
+        <wire>
+            <p1 x="270" y="140"/>
+            <p2 x="340" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="170"/>
+            <p2 x="240" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="370" y="170"/>
+            <p2 x="370" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="390" y="170"/>
+            <p2 x="390" y="210"/>
+        </wire>
+        <wire>
+            <p1 x="120" y="90"/>
+            <p2 x="120" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="120" y="40"/>
+            <p2 x="120" y="70"/>
+        </wire>
+        <wire>
+            <p1 x="170" y="80"/>
+            <p2 x="170" y="210"/>
+        </wire>
+        <wire>
+            <p1 x="410" y="40"/>
+            <p2 x="410" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="350" y="160"/>
+            <p2 x="350" y="210"/>
+        </wire>
+        <wire>
+            <p1 x="270" y="80"/>
+            <p2 x="270" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="270" y="140"/>
+            <p2 x="270" y="160"/>
+        </wire>
+    </wires>
+</circuit>

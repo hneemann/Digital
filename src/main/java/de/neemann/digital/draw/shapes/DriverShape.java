@@ -10,6 +10,7 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * @author hneemann
@@ -42,10 +43,14 @@ public class DriverShape implements Shape {
     public void drawTo(Graphic graphic) {
         graphic.drawPolygon(
                 new Polygon(true)
-                        .add(-SIZE, -SIZE)
-                        .add(SIZE, 0)
-                        .add(-SIZE, SIZE)
+                        .add(-SIZE + 1, -SIZE2 - 2)
+                        .add(SIZE - 1, 0)
+                        .add(-SIZE + 1, SIZE2 + 2)
                 , Style.NORMAL
         );
+        if (bottom)
+            graphic.drawLine(new Vector(0, SIZE), new Vector(0, 4), Style.NORMAL);
+        else
+            graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -4), Style.NORMAL);
     }
 }
