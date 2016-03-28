@@ -24,6 +24,11 @@ public abstract class ToolTipAction extends AbstractAction {
         return this;
     }
 
+    public ToolTipAction setActive(boolean newValue) {
+        super.setEnabled(newValue);
+        return this;
+    }
+
     public JButton createJButton() {
         JButton b = new JButton(this);
         if (toolTipText != null) {

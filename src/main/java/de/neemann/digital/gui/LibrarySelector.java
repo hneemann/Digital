@@ -124,14 +124,29 @@ public class LibrarySelector implements ElementNotFoundNotification {
                             circuit.getInputNames(library))
                             .setShortName(createShortName(file));
             library.addDescription(description);
+
             JMenuItem menuEntry = new InsertAction(description.getName(), insertHistory, circuitComponent).createJMenuItem();
+            ImportedItem item = findImportedItem(description.getName());
+            if (item != null) {
+                if (customMenu != null) {
+                    customMenu.remove(item.menuEntry);
+                }
+                importedElements.remove(item);
+            }
+            importedElements.add(new ImportedItem(description.getName(), menuEntry));
             if (customMenu != null)
                 customMenu.add(menuEntry);
-
-            importedElements.add(new ImportedItem(description.getName(), menuEntry));
             return description;
         } catch (Exception e) {
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e));
+        }
+        return null;
+    }
+
+    private ImportedItem findImportedItem(String name) {
+        for (ImportedItem i : importedElements) {
+            if (i.name.equals(name))
+                return i;
         }
         return null;
     }

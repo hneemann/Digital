@@ -14,6 +14,7 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.GenericShape;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.SavedListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,7 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -321,7 +323,12 @@ public class CircuitComponent extends JComponent implements Observer {
             String name = vp.getElementName();
             ElementTypeDescription elementType = library.getElementType(name);
             if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
-                new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile()).setVisible(true);
+                new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(), new SavedListener() {
+                    @Override
+                    public void saved(File filename) {
+                        library.removeElement(filename.getName());
+                    }
+                }).setVisible(true);
             } else {
                 ArrayList<AttributeKey> list = elementType.getAttributeList();
                 if (list.size() > 0) {

@@ -49,31 +49,35 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final JCheckBoxMenuItem runClock;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
+    private final SavedListener savedListener;
     private File lastFilename;
     private File filename;
     private Model model;
     private ModelDescription modelDescription;
 
     public Main() {
-        this(null, null);
+        this(null, null, null);
     }
 
-    public Main(Component parent, File fileToOpen) {
+    public Main(Component parent, File fileToOpen, SavedListener savedListener) {
         super(Lang.get("digital"));
+        this.savedListener = savedListener;
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         library = new ElementLibrary();
         shapeFactory = new ShapeFactory(library);
 
+        boolean normalMode = savedListener == null;
+
         Circuit cr = new Circuit();
         circuitComponent = new CircuitComponent(cr, library);
 
         if (fileToOpen != null) {
-            SwingUtilities.invokeLater(() -> loadFile(fileToOpen));
+            SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
         } else {
             String name = prefs.get("name", null);
             if (name != null) {
-                SwingUtilities.invokeLater(() -> loadFile(new File(name)));
+                SwingUtilities.invokeLater(() -> loadFile(new File(name), false));
             }
         }
 
@@ -88,11 +92,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    setFilename(null);
+                    setFilename(null, true);
                     circuitComponent.setCircuit(new Circuit());
                 }
             }
-        };
+        }.setActive(normalMode);
 
         ToolTipAction open = new ToolTipAction(Lang.get("menu_open"), iconOpen) {
             @Override
@@ -100,11 +104,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
                     JFileChooser fc = getjFileChooser(lastFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                        loadFile(fc.getSelectedFile());
+                        loadFile(fc.getSelectedFile(), true);
                     }
                 }
             }
-        };
+        }.setActive(normalMode);
 
         ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), iconOpenWin) {
             @Override
@@ -112,13 +116,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
                     JFileChooser fc = getjFileChooser(lastFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                        Main m = new Main(Main.this, fc.getSelectedFile());
+                        Main m = new Main(Main.this, fc.getSelectedFile(), null);
                         m.setLocationRelativeTo(Main.this);
                         m.setVisible(true);
                     }
                 }
             }
-        }.setToolTip(Lang.get("menu_openWin_tt"));
+        }.setToolTip(Lang.get("menu_openWin_tt")).setActive(normalMode);
 
 
         ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), iconSaveAs) {
@@ -129,7 +133,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                     saveFile(fc.getSelectedFile());
                 }
             }
-        };
+        }.setActive(normalMode);
 
         save = new ToolTipAction(Lang.get("menu_save"), iconSave) {
             @Override
@@ -333,12 +337,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         save.actionPerformed(null);
     }
 
-    private void loadFile(File filename) {
+    private void loadFile(File filename, boolean toPrefs) {
         try {
             librarySelector.setFilePath(filename.getParentFile());
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circ);
-            setFilename(filename);
+            setFilename(filename, toPrefs);
         } catch (Exception e) {
             circuitComponent.setCircuit(new Circuit());
             new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e).show(this);
@@ -351,17 +355,20 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         try {
             circuitComponent.getCircuit().save(filename);
-            setFilename(filename);
+            if (savedListener != null)
+                savedListener.saved(filename);
+            setFilename(filename, false);
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
         }
     }
 
-    private void setFilename(File filename) {
+    private void setFilename(File filename, boolean toPrefs) {
         this.filename = filename;
         if (filename != null) {
             this.lastFilename = filename;
-            prefs.put("name", filename.getPath());
+            if (toPrefs)
+                prefs.put("name", filename.getPath());
             setTitle(filename + " - " + Lang.get("digital"));
         } else
             setTitle(Lang.get("digital"));
