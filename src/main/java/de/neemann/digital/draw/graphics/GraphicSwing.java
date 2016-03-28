@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.graphics;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 /**
  * @author hneemann
@@ -55,15 +56,26 @@ public class GraphicSwing implements Graphic {
 
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+        boolean rotateText = false;
         if (p1.y == p2.y) {   // 0 and 180 deg
             if (p1.x > p2.x)   // 180
                 orientation = orientation.rot(2);
         } else {
-            if (p1.y < p2.y) // 90
-                orientation = orientation.rot(3);
-            else
-                orientation = orientation.rot(1);
+            if (p1.y < p2.y) // 270
+                orientation = orientation.rot(2);
+            else            // 90
+                orientation = orientation.rot(0);
+            rotateText = true;
         }
+
+        AffineTransform old = null;
+        if (rotateText) {
+            old = gr.getTransform();
+            gr.translate(p1.x, p1.y);
+            gr.rotate(-Math.PI / 2);
+            gr.translate(-p1.x, -p1.y);
+        }
+
 
         applyStyle(style);
         int xoff = 0;
@@ -79,5 +91,8 @@ public class GraphicSwing implements Graphic {
         }
 
         gr.drawString(text, p1.x + xoff, p1.y + yoff);
+
+        if (rotateText)
+            gr.setTransform(old);
     }
 }
