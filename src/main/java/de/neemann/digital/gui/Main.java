@@ -41,6 +41,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon iconOpenWin = IconCreator.create("OpenNew24.gif");
     private static final Icon iconSave = IconCreator.create("Save24.gif");
     private static final Icon iconSaveAs = IconCreator.create("SaveAs24.gif");
+    private static final Icon iconFast = IconCreator.create("FastForward24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private final ElementLibrary library;
@@ -227,6 +228,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_micro_tt"));
 
+        ToolTipAction runFast = new ToolTipAction(Lang.get("menu_fast"), iconFast) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createAndStartModel(false);
+                circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
+            }
+        }.setToolTip(Lang.get("menu_fast_tt"));
+
+
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -250,6 +260,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         run.add(runModel.createJMenuItem());
         run.add(runModelMicro.createJMenuItem());
         run.add(doStep.createJMenuItem());
+        run.add(runFast.createJMenuItem());
         run.add(speedTest.createJMenuItem());
         run.add(traceEnable);
         run.add(runClock);
@@ -267,6 +278,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(runModel.createJButtonNoText());
         toolBar.add(runModelMicro.createJButtonNoText());
         toolBar.add(doStep.createJButtonNoText());
+        toolBar.add(runFast.createJButtonNoText());
 
         toolBar.addSeparator();
 

@@ -22,11 +22,13 @@ public class Clock implements Element {
 
     private final ObservableValue output;
     private final int frequency;
-    public boolean startThisTimer = true;
+    private MyModelStateObserver observer;
 
     public Clock(ElementAttributes attributes) {
         output = new ObservableValue("C", 1);
-        frequency = attributes.get(AttributeKey.Frequency);
+        int f = attributes.get(AttributeKey.Frequency);
+        if (f < 1) f = 1;
+        frequency = f;
     }
 
     @Override
@@ -40,42 +42,58 @@ public class Clock implements Element {
     }
 
     public void disableTimer() {
-        this.startThisTimer = false;
+        observer.remove();
     }
 
     @Override
     public void registerNodes(Model model) {
-        model.addObserver(new ModelStateObserver() {
-            public Timer timer;
+        observer = new MyModelStateObserver(model, this, frequency, output);
+        model.addObserver(observer);
+    }
 
-            @Override
-            public void handleEvent(ModelEvent event) {
-                switch (event.getType()) {
-                    case STARTED:
-                        if (startThisTimer) {
-                            int delay = 1000 / frequency;
-                            if (delay < 100) delay = 100;
-                            timer = new Timer(delay, e -> {
-                                output.setValue(1 - output.getValue());
-                                try {
-                                    model.doStep();
-                                } catch (NodeException e1) {
-                                    SwingUtilities.invokeLater(new ErrorMessage("ClockError").addCause(e1));
-                                    timer.stop();
-                                }
-                            });
-                            timer.start();
-                        }
-                        break;
-                    case STOPPED:
-                        if (timer != null)
+    private static class MyModelStateObserver implements ModelStateObserver {
+        private final Model model;
+        private final Clock clock;
+        private final int frequency;
+        private final ObservableValue output;
+        private Timer timer;
+
+        public MyModelStateObserver(Model model, Clock clock, int frequency, ObservableValue output) {
+            this.model = model;
+            this.clock = clock;
+            this.frequency = frequency;
+            this.output = output;
+        }
+
+        @Override
+        public void handleEvent(ModelEvent event) {
+            switch (event.getType()) {
+                case STARTED:
+                    int delay = 1000 / frequency;
+                    if (delay < 100) delay = 100;
+                    timer = new Timer(delay, e -> {
+                        output.setValue(1 - output.getValue());
+                        try {
+                            model.doStep();
+                        } catch (NodeException e1) {
+                            SwingUtilities.invokeLater(new ErrorMessage("ClockError").addCause(e1));
                             timer.stop();
-                        break;
-                    case FETCHCLOCK:
-                        event.registerClock(Clock.this);
-                        break;
-                }
+                        }
+                    });
+                    timer.start();
+                    break;
+                case STOPPED:
+                    if (timer != null)
+                        timer.stop();
+                    break;
+                case FETCHCLOCK:
+                    event.registerClock(clock);
+                    break;
             }
-        });
+        }
+
+        public void remove() {
+            model.removeObserver(this);
+        }
     }
 }
