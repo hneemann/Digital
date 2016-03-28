@@ -170,12 +170,59 @@
           <string>Data</string>
           <data>
             <size>65536</size>
-            <long>5123</long>
-            <long>5137</long>
-            <long>1025</long>
+            <long>5130</long>
+            <long>8417</long>
+            <long>19680</long>
+            <long>8417</long>
+            <long>5367</long>
+            <long>19695</long>
+            <long>28162</long>
+            <long>20992</long>
             <long>31744</long>
+            <long>8417</long>
+            <long>19693</long>
+            <long>734</long>
+            <long>8417</long>
+            <long>32770</long>
+            <long>23053</long>
+            <long>15362</long>
+            <long>23574</long>
+            <long>8193</long>
+            <long>8417</long>
+            <long>19680</long>
+            <long>8417</long>
+            <long>5624</long>
+            <long>19695</long>
+            <long>28657</long>
+            <long>65535</long>
+            <long>22992</long>
+            <long>32770</long>
+            <long>23053</long>
+            <long>8194</long>
+            <long>8417</long>
+            <long>19680</long>
+            <long>8417</long>
+            <long>32804</long>
+            <long>4848</long>
+            <long>19695</long>
+            <long>28645</long>
+            <long>65535</long>
+            <long>23325</long>
+            <long>1025</long>
+            <long>749</long>
+            <long>20190</long>
+            <long>6369</long>
+            <long>20222</long>
+            <long>6370</long>
+            <long>27151</long>
             <bits>16</bits>
           </data>
+        </entry>
+        <entry>
+          <string>lastDataFile</string>
+          <file>
+            /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/src/main/asm/fibonacci.hex
+          </file>
         </entry>
       </elementAttributes>
       <pos x="60" y="240"/>
@@ -216,6 +263,10 @@
           <de.neemann.digital.core.element.Rotation>
             <rotation>1</rotation>
           </de.neemann.digital.core.element.Rotation>
+        </entry>
+        <entry>
+          <string>Frequency</string>
+          <int>10</int>
         </entry>
       </elementAttributes>
       <pos x="560" y="250"/>

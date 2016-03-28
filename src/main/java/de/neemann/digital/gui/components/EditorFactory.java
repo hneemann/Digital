@@ -167,7 +167,9 @@ public final class EditorFactory {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new JFileChooser();
+                    fc.setSelectedFile(attr.getFile("lastDataFile"));
                     if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
+                        attr.setFile("lastDataFile", fc.getSelectedFile());
                         try {
                             data = new DataField(fc.getSelectedFile());
                         } catch (IOException e1) {

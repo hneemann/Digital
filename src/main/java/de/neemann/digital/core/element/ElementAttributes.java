@@ -1,5 +1,6 @@
 package de.neemann.digital.core.element;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,5 +100,20 @@ public class ElementAttributes {
         if (attributes == null)
             return true;
         return attributes.isEmpty();
+    }
+
+    public File getFile(String fileKey) {
+        if (attributes != null) {
+            Object f = attributes.get(fileKey);
+            if (f instanceof File)
+                return (File) f;
+        }
+        return null;
+    }
+
+    public void setFile(String fileKey, File file) {
+        if (attributes == null)
+            attributes = new HashMap<>();
+        attributes.put(fileKey, file);
     }
 }
