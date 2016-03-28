@@ -133,11 +133,11 @@ public class Circuit implements Drawable {
             return m;
     }
 
-    public ArrayList<Moveable> getElementsToCopy(Vector min, Vector max) {
+    public ArrayList<Moveable> getElementsToCopy(Vector min, Vector max, ShapeFactory shapeFactory) {
         ArrayList<Moveable> m = new ArrayList<>();
         for (VisualElement vp : visualElements)
             if (vp.matches(min, max))
-                m.add(new VisualElement(vp));
+                m.add(new VisualElement(vp).setShapeFactory(shapeFactory));
 
         for (Wire w : wires)
             if (w.p1.inside(min, max) && w.p2.inside(min, max))

@@ -12,6 +12,7 @@ import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.GenericShape;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SavedListener;
@@ -32,13 +33,15 @@ public class CircuitComponent extends JComponent implements Observer {
 
     private static final String delAction = "myDelAction";
     private final ElementLibrary library;
+    private final ShapeFactory shapeFactory;
     private Circuit circuit;
     private Mouse listener;
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
 
-    public CircuitComponent(Circuit aCircuit, ElementLibrary library) {
+    public CircuitComponent(Circuit aCircuit, ElementLibrary library, ShapeFactory shapeFactory) {
         this.library = library;
+        this.shapeFactory = shapeFactory;
         setCircuit(aCircuit);
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
@@ -378,7 +381,7 @@ public class CircuitComponent extends JComponent implements Observer {
                     elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
                     state = State.MOVE;
                 } else {
-                    elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                    elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2), shapeFactory);
                     copyStartPosition = raster(getPosVector(e));
                     state = State.COPY;
                 }

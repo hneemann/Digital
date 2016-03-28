@@ -12,7 +12,6 @@ public class GraphicSwing implements Graphic {
 
     public GraphicSwing(Graphics2D gr) {
         this.gr = gr;
-//        gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
     }
 
@@ -56,6 +55,16 @@ public class GraphicSwing implements Graphic {
 
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+        if (p1.y == p2.y) {   // 0 and 180 deg
+            if (p1.x > p2.x)   // 180
+                orientation = orientation.rot(2);
+        } else {
+            if (p1.y < p2.y) // 90
+                orientation = orientation.rot(3);
+            else
+                orientation = orientation.rot(1);
+        }
+
         applyStyle(style);
         int xoff = 0;
         if (orientation.getX() != 0) {

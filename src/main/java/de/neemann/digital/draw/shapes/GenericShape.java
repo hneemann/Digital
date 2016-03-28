@@ -39,7 +39,7 @@ public class GenericShape implements Shape {
             label = null;
         this.label = label;
         this.showPinLabels = showPinLabels;
-        width = inputs.length == 1 && outputs.length == 1 ? 1 : 3;
+        width = inputs.length == 1 && outputs.length == 1 && !showPinLabels ? 1 : 3;
         symmetric = outputs.length == 1;
     }
 

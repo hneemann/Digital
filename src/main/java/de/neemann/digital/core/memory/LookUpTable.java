@@ -24,6 +24,7 @@ public class LookUpTable extends Node implements Element {
             return names;
         }
     }
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.InputCount)
             .addAttribute(AttributeKey.Data)
