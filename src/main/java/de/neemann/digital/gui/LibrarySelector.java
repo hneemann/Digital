@@ -101,7 +101,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         private final CircuitComponent circuitComponent;
 
         public InsertAction(String name, InsertHistory insertHistory, CircuitComponent circuitComponent) {
-            super(name, new VisualElement(name).setShapeFactory(shapeFactory).createIcon(75));
+            super(createShortName(name), new VisualElement(name).setShapeFactory(shapeFactory).createIcon(75));
             this.name = name;
             this.insertHistory = insertHistory;
             this.circuitComponent = circuitComponent;
@@ -153,7 +153,10 @@ public class LibrarySelector implements ElementNotFoundNotification {
     }
 
     private String createShortName(File file) {
-        String name = file.getName();
+        return createShortName(file.getName());
+    }
+
+    private String createShortName(String name) {
         if (name.endsWith(".dig")) name = name.substring(0, name.length() - 4);
         return name;
     }
