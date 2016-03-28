@@ -15,6 +15,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
 
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class, "A", "D", "str", "c", "ld")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
             .addAttribute(AttributeKey.Label)

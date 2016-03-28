@@ -16,6 +16,7 @@ public class Counter extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Counter.class, "C", "clr")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);
 

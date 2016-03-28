@@ -12,6 +12,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 public class RAMSinglePort extends RAMDualPort {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePort.class, "A", "str", "c", "ld")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
             .addAttribute(AttributeKey.Label)

@@ -16,6 +16,7 @@ public class JK_FF extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(JK_FF.class, "J", "C", "K")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .setShortName("JK");
 

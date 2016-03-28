@@ -68,6 +68,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(T_FF.DESCRIPTION, menu);
 
         menu = Lang.get("lib_memory");
+        add(Register.DESCRIPTION, menu);
         add(ROM.DESCRIPTION, menu);
         add(RAMDualPort.DESCRIPTION, menu);
         add(RAMSinglePort.DESCRIPTION, menu);

@@ -15,6 +15,7 @@ import de.neemann.digital.lang.Lang;
 public class Const implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Const.class)
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Value);
 

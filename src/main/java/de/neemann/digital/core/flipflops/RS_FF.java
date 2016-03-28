@@ -16,6 +16,7 @@ public class RS_FF extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(RS_FF.class, "R", "C", "S")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .setShortName("RS");
 
