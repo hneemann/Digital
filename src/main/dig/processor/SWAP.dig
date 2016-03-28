@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <visualElements>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Di</string>
+                </entry>
+                <entry>
+                    <string>Default</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="160" y="100"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Splitter</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Input Splitting</string>
+                    <string>16</string>
+                </entry>
+                <entry>
+                    <string>Output Splitting</string>
+                    <string>8,8</string>
+                </entry>
+            </elementAttributes>
+            <pos x="190" y="100"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Splitter</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Input Splitting</string>
+                    <string>8,8</string>
+                </entry>
+                <entry>
+                    <string>Output Splitting</string>
+                    <string>16</string>
+                </entry>
+            </elementAttributes>
+            <pos x="260" y="110"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Do</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="310" y="110"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="160" y="100"/>
+            <p2 x="190" y="100"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="100"/>
+            <p2 x="230" y="100"/>
+        </wire>
+        <wire>
+            <p1 x="230" y="120"/>
+            <p2 x="260" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="270" y="110"/>
+            <p2 x="310" y="110"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="110"/>
+            <p2 x="260" y="110"/>
+        </wire>
+        <wire>
+            <p1 x="230" y="100"/>
+            <p2 x="230" y="120"/>
+        </wire>
+    </wires>
+</circuit>

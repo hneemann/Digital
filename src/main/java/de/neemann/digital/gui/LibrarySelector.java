@@ -100,7 +100,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         private final CircuitComponent circuitComponent;
 
         public InsertAction(String name, InsertHistory insertHistory, CircuitComponent circuitComponent) {
-            super(name, new VisualElement(name).setShapeFactory(shapeFactory).createIcon(60));
+            super(name, new VisualElement(name).setShapeFactory(shapeFactory).createIcon(75));
             this.name = name;
             this.insertHistory = insertHistory;
             this.circuitComponent = circuitComponent;
