@@ -21,10 +21,12 @@ public class In implements Element {
             .addAttribute(AttributeKey.Default);
 
     private final ObservableValue output;
+    private final String label;
 
     public In(ElementAttributes attributes) {
         output = new ObservableValue("out", attributes.get(AttributeKey.Bits));
         output.setValue(attributes.get(AttributeKey.Default));
+        label = attributes.get(AttributeKey.Label);
     }
 
     @Override
@@ -39,5 +41,6 @@ public class In implements Element {
 
     @Override
     public void registerNodes(Model model) {
+        model.addSignal(label, output);
     }
 }

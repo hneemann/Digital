@@ -21,12 +21,14 @@ public class Clock implements Element {
 
     private final ObservableValue output;
     private final int frequency;
+    private final String label;
 
     public Clock(ElementAttributes attributes) {
         output = new ObservableValue("C", 1);
         int f = attributes.get(AttributeKey.Frequency);
         if (f < 1) f = 1;
         frequency = f;
+        label = attributes.get(AttributeKey.Label);
     }
 
     @Override
@@ -42,6 +44,7 @@ public class Clock implements Element {
     @Override
     public void registerNodes(Model model) {
         model.addClock(this);
+        model.addSignal(label, output);
     }
 
     public ObservableValue getClockOutput() {

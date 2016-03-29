@@ -21,7 +21,7 @@ public class Model {
 
     private final ArrayList<Clock> clocks;
     private final ArrayList<Break> breaks;
-    private final ArrayList<ObservableValue> signals;
+    private final ArrayList<Signal> signals;
 
     private final ArrayList<Node> nodes;
     private final ArrayList<ModelStateObserver> observers;
@@ -192,8 +192,11 @@ public class Model {
         breaks.add(aBreak);
     }
 
-    public void addSignal(ObservableValue value) {
-        signals.add(value);
+    public void addSignal(String name, ObservableValue value) {
+        if (name != null && name.length() > 0) {
+            signals.add(new Signal(name, value));
+            System.out.println(name + ": " + value);
+        }
     }
 
     public int runToBreak(Clock clock, Break br) throws NodeException {
@@ -212,6 +215,17 @@ public class Model {
             lastIn = brIn;
         }
         throw new NodeException(Lang.get("err_breakTimeOut"), null, brVal);
+    }
+
+    public static class Signal {
+
+        private final String name;
+        private final ObservableValue value;
+
+        public Signal(String name, ObservableValue value) {
+            this.name = name;
+            this.value = value;
+        }
     }
 
 }
