@@ -176,6 +176,10 @@ public class Model {
         return clocks;
     }
 
+    public ArrayList<Break> getBreaks() {
+        return breaks;
+    }
+
     public List<Node> getNodes() {
         return Collections.unmodifiableList(nodes);
     }
@@ -191,4 +195,23 @@ public class Model {
     public void addSignal(ObservableValue value) {
         signals.add(value);
     }
+
+    public int runToBreak(Clock clock, Break br) throws NodeException {
+        ObservableValue brVal = br.getBreakInput();
+        ObservableValue clkVal = clock.getClockOutput();
+
+        int count = br.getCycles() * 2;
+        boolean lastIn = brVal.getBool();
+        for (int i = 0; i < count; i++) {
+            clkVal.setValue(clkVal.getBool() ? 0 : 1);
+            doStep();
+            boolean brIn = brVal.getBool();
+            if (!lastIn && brIn) {
+                return i;
+            }
+            lastIn = brIn;
+        }
+        throw new NodeException(Lang.get("err_breakTimeOut"), null, brVal);
+    }
+
 }

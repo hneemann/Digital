@@ -52,6 +52,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
     private final SavedListener savedListener;
+    private final JLabel statusLabel;
     private File lastFilename;
     private File filename;
     private Model model;
@@ -84,6 +85,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }
 
         getContentPane().add(circuitComponent);
+
+        statusLabel = new JLabel(" ");
+        getContentPane().add(statusLabel, BorderLayout.SOUTH);
 
         addWindowListener(new ClosingWindowListener(this, this));
 
@@ -232,8 +236,24 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction runFast = new ToolTipAction(Lang.get("menu_fast"), iconFast) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createAndStartModel(false);
-                circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
+                if (model == null) {
+                    createAndStartModel(false);
+                    circuitComponent.setManualChangeObserver(null);
+                    if (model.getBreaks().size() != 1 || model.getClocks().size() != 1) {
+                        clearModelDescription();
+                        circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
+                        new ErrorMessage(Lang.get("msg_needOneClockAndOneTimer")).show(Main.this);
+                    }
+                }
+                if (model != null)
+                    try {
+                        int i = model.runToBreak(model.getClocks().get(0), model.getBreaks().get(0));
+                        statusLabel.setText(Lang.get("stat_clocks", i));
+                    } catch (NodeException e1) {
+                        clearModelDescription();
+                        circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
+                        new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
+                    }
             }
         }.setToolTip(Lang.get("menu_fast_tt"));
 
@@ -301,15 +321,34 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
 
+    private void clearModelDescription() {
+        if (modelDescription != null)
+            modelDescription.highLightOff();
+        if (model != null)
+            model.close();
+
+        modelDescription = null;
+        model = null;
+    }
+
+    private void setModelDescription(ModelDescription md) throws NodeException, PinException {
+        if (modelDescription != null)
+            modelDescription.highLightOff();
+
+        modelDescription = md;
+
+        if (model != null)
+            model.close();
+
+        model = modelDescription.createModel();
+    }
+
+
     private void createAndStartModel(boolean runClock) {
         try {
-            if (modelDescription != null)
-                modelDescription.highLightOff();
-
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
-            modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
-            model = modelDescription.createModel();
+            setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library));
             modelDescription.connectToGui(circuitComponent);
 
             if (runClock)
@@ -361,6 +400,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         try {
             librarySelector.setFilePath(filename.getParentFile());
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
+            clearModelDescription();
             circuitComponent.setCircuit(circ);
             setFilename(filename, toPrefs);
         } catch (Exception e) {
@@ -404,14 +444,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (modelDescription != null)
-                modelDescription.highLightOff();
+            clearModelDescription();
             circuitComponent.setModeAndReset(mode);
             doStep.setEnabled(false);
-            if (model != null)
-                model.close();
-            model = null;
-            modelDescription = null;
         }
     }
 

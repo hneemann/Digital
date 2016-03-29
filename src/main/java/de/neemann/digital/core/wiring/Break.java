@@ -18,10 +18,11 @@ public class Break implements Element {
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Cycles);
 
-
+    private final int cycles;
     private ObservableValue input;
 
     public Break(ElementAttributes attributes) {
+        cycles = attributes.get(AttributeKey.Cycles);
     }
 
     @Override
@@ -31,6 +32,10 @@ public class Break implements Element {
 
     public ObservableValue getBreakInput() {
         return input;
+    }
+
+    public int getCycles() {
+        return cycles;
     }
 
     @Override

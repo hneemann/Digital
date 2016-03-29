@@ -1,482 +1,447 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-    <attributes>
+  <attributes>
+    <entry>
+      <string>Width</string>
+      <int>7</int>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
         <entry>
-            <string>Width</string>
-            <int>7</int>
+          <string>Label</string>
+          <string>Op</string>
         </entry>
-    </attributes>
-    <visualElements>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>Op</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>7</int>
-                </entry>
-            </elementAttributes>
-            <pos x="130" y="80"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Splitter</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Input Splitting</string>
-                    <string>7</string>
-                </entry>
-                <entry>
-                    <string>Output Splitting</string>
-                    <string>6,1</string>
-                </entry>
-            </elementAttributes>
-            <pos x="150" y="80"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Multiplexer</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Bits</string>
-                    <int>6</int>
-                </entry>
-            </elementAttributes>
-            <pos x="200" y="80"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Const</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Value</string>
-                    <int>0</int>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>6</int>
-                </entry>
-            </elementAttributes>
-            <pos x="190" y="100"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>ROM</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>Logic</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>24</int>
-                </entry>
-                <entry>
-                    <string>Addr Bits</string>
-                    <int>6</int>
-                </entry>
-                <entry>
-                    <string>Data</string>
-                    <data>
-                        <size>64</size>
-                        <long>0</long>
-                        <long>192</long>
-                        <long>1216</long>
-                        <long>17600</long>
-                        <long>2240</long>
-                        <long>18624</long>
-                        <long>3264</long>
-                        <long>4288</long>
-                        <long>5312</long>
-                        <long>196</long>
-                        <long>212</long>
-                        <long>1220</long>
-                        <long>1236</long>
-                        <long>17604</long>
-                        <long>17620</long>
-                        <long>2244</long>
-                        <long>2260</long>
-                        <long>18628</long>
-                        <long>18644</long>
-                        <long>3268</long>
-                        <long>3284</long>
-                        <long>4292</long>
-                        <long>4308</long>
-                        <long>5316</long>
-                        <long>5332</long>
-                        <long>11456</long>
-                        <long>11460</long>
-                        <long>11476</long>
-                        <long>2048</long>
-                        <long>2052</long>
-                        <long>2068</long>
-                        <long>6336</long>
-                        <long>7360</long>
-                        <long>22720</long>
-                        <long>23744</long>
-                        <long>8384</long>
-                        <long>9408</long>
-                        <long>10432</long>
-                        <long>1034</long>
-                        <long>1673</long>
-                        <long>6</long>
-                        <long>30</long>
-                        <long>133</long>
-                        <long>149</long>
-                        <long>1030</long>
-                        <long>1669</long>
-                        <long>32792</long>
-                        <long>65560</long>
-                        <long>98328</long>
-                        <long>163864</long>
-                        <long>196632</long>
-                        <long>229400</long>
-                        <long>420</long>
-                        <long>32</long>
-                        <long>36</long>
-                        <long>131096</long>
-                        <long>262148</long>
-                        <long>262172</long>
-                        <long>263176</long>
-                        <long>524932</long>
-                        <long>524948</long>
-                        <long>525960</long>
-                        <long>1048576</long>
-                        <bits>24</bits>
-                    </data>
-                </entry>
-            </elementAttributes>
-            <pos x="240" y="90"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Const</elementName>
-            <elementAttributes/>
-            <pos x="230" y="110"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>stPC</string>
-                </entry>
-            </elementAttributes>
-            <pos x="340" y="160"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Splitter</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Input Splitting</string>
-                    <string>24</string>
-                </entry>
-                <entry>
-                    <string>Output Splitting</string>
-                    <string>1*2,3,1*5,5,3,1*6</string>
-                </entry>
-            </elementAttributes>
-            <pos x="300" y="100"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>WE</string>
-                </entry>
-            </elementAttributes>
-            <pos x="430" y="150"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>rotation</string>
-                    <de.neemann.digital.core.element.Rotation>
-                        <rotation>3</rotation>
-                    </de.neemann.digital.core.element.Rotation>
-                </entry>
-                <entry>
-                    <string>Label</string>
-                    <string>imm</string>
-                </entry>
-            </elementAttributes>
-            <pos x="170" y="140"/>
-            <rotate>3</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>absJmp</string>
-                </entry>
-            </elementAttributes>
-            <pos x="430" y="130"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>BRK</string>
-                </entry>
-            </elementAttributes>
-            <pos x="550" y="230"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>muxB</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>3</int>
-                </entry>
-            </elementAttributes>
-            <pos x="340" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>muxA</string>
-                </entry>
-            </elementAttributes>
-            <pos x="430" y="170"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>ALUToBus</string>
-                </entry>
-            </elementAttributes>
-            <pos x="340" y="140"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>ALUop</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>5</int>
-                </entry>
-            </elementAttributes>
-            <pos x="340" y="180"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>Branch</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>3</int>
-                </entry>
-            </elementAttributes>
-            <pos x="430" y="190"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>st</string>
-                </entry>
-            </elementAttributes>
-            <pos x="430" y="110"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>ld</string>
-                </entry>
-            </elementAttributes>
-            <pos x="340" y="100"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>ioW</string>
-                </entry>
-            </elementAttributes>
-            <pos x="340" y="200"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>And</elementName>
-            <elementAttributes/>
-            <pos x="510" y="220"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>ioR</string>
-                </entry>
-            </elementAttributes>
-            <pos x="430" y="210"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>BRKen</string>
-                </entry>
-            </elementAttributes>
-            <pos x="470" y="240"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Not</elementName>
-            <elementAttributes/>
-            <pos x="480" y="240"/>
-            <rotate>0</rotate>
-        </visualElement>
-    </visualElements>
-    <wires>
-        <wire>
-            <p1 x="310" y="160"/>
-            <p2 x="340" y="160"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="130"/>
-            <p2 x="430" y="130"/>
-        </wire>
-        <wire>
-            <p1 x="190" y="100"/>
-            <p2 x="200" y="100"/>
-        </wire>
-        <wire>
-            <p1 x="270" y="100"/>
-            <p2 x="300" y="100"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="100"/>
-            <p2 x="340" y="100"/>
-        </wire>
-        <wire>
-            <p1 x="540" y="230"/>
-            <p2 x="550" y="230"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="200"/>
-            <p2 x="340" y="200"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="170"/>
-            <p2 x="430" y="170"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="140"/>
-            <p2 x="340" y="140"/>
-        </wire>
-        <wire>
-            <p1 x="230" y="110"/>
-            <p2 x="240" y="110"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="110"/>
-            <p2 x="430" y="110"/>
-        </wire>
-        <wire>
-            <p1 x="160" y="80"/>
-            <p2 x="200" y="80"/>
-        </wire>
-        <wire>
-            <p1 x="130" y="80"/>
-            <p2 x="150" y="80"/>
-        </wire>
-        <wire>
-            <p1 x="470" y="240"/>
-            <p2 x="480" y="240"/>
-        </wire>
-        <wire>
-            <p1 x="500" y="240"/>
-            <p2 x="510" y="240"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="210"/>
-            <p2 x="430" y="210"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="180"/>
-            <p2 x="340" y="180"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="150"/>
-            <p2 x="430" y="150"/>
-        </wire>
-        <wire>
-            <p1 x="170" y="120"/>
-            <p2 x="210" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="120"/>
-            <p2 x="340" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="160" y="90"/>
-            <p2 x="170" y="90"/>
-        </wire>
-        <wire>
-            <p1 x="220" y="90"/>
-            <p2 x="240" y="90"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="220"/>
-            <p2 x="510" y="220"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="190"/>
-            <p2 x="430" y="190"/>
-        </wire>
-        <wire>
-            <p1 x="210" y="100"/>
-            <p2 x="210" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="170" y="90"/>
-            <p2 x="170" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="170" y="120"/>
-            <p2 x="170" y="140"/>
-        </wire>
-    </wires>
+        <entry>
+          <string>Bits</string>
+          <int>7</int>
+        </entry>
+      </elementAttributes>
+      <pos x="130" y="80"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>7</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>6,1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="150" y="80"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="80"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <int>0</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="190" y="100"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>ROM</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Logic</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+        <entry>
+          <string>Addr Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>Data</string>
+          <data>
+            <size>64</size>
+            <long>0</long>
+            <long>192</long>
+            <long>1216</long>
+            <long>17600</long>
+            <long>2240</long>
+            <long>18624</long>
+            <long>3264</long>
+            <long>4288</long>
+            <long>5312</long>
+            <long>196</long>
+            <long>212</long>
+            <long>1220</long>
+            <long>1236</long>
+            <long>17604</long>
+            <long>17620</long>
+            <long>2244</long>
+            <long>2260</long>
+            <long>18628</long>
+            <long>18644</long>
+            <long>3268</long>
+            <long>3284</long>
+            <long>4292</long>
+            <long>4308</long>
+            <long>5316</long>
+            <long>5332</long>
+            <long>11456</long>
+            <long>11460</long>
+            <long>11476</long>
+            <long>2048</long>
+            <long>2052</long>
+            <long>2068</long>
+            <long>6336</long>
+            <long>7360</long>
+            <long>22720</long>
+            <long>23744</long>
+            <long>8384</long>
+            <long>9408</long>
+            <long>10432</long>
+            <long>1034</long>
+            <long>1673</long>
+            <long>6</long>
+            <long>30</long>
+            <long>133</long>
+            <long>149</long>
+            <long>1030</long>
+            <long>1669</long>
+            <long>32792</long>
+            <long>65560</long>
+            <long>98328</long>
+            <long>163864</long>
+            <long>196632</long>
+            <long>229400</long>
+            <long>420</long>
+            <long>32</long>
+            <long>36</long>
+            <long>131096</long>
+            <long>262148</long>
+            <long>262172</long>
+            <long>263176</long>
+            <long>524932</long>
+            <long>524948</long>
+            <long>525960</long>
+            <long>1048576</long>
+            <bits>24</bits>
+          </data>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="90"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="230" y="110"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>stPC</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="160"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>24</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>1*2,3,1*5,5,3,1*6</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="100"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>WE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="430" y="150"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <de.neemann.digital.core.element.Rotation>
+            <rotation>3</rotation>
+          </de.neemann.digital.core.element.Rotation>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>imm</string>
+        </entry>
+      </elementAttributes>
+      <pos x="170" y="140"/>
+      <rotate>3</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>absJmp</string>
+        </entry>
+      </elementAttributes>
+      <pos x="430" y="130"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>muxB</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>muxA</string>
+        </entry>
+      </elementAttributes>
+      <pos x="430" y="170"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ALUToBus</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="140"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ALUop</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Branch</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="430" y="190"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>st</string>
+        </entry>
+      </elementAttributes>
+      <pos x="430" y="110"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ld</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="100"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ioW</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="200"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ioR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="430" y="210"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Break</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Break</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="220"/>
+      <rotate>0</rotate>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="310" y="160"/>
+      <p2 x="340" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="130"/>
+      <p2 x="430" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="190" y="100"/>
+      <p2 x="200" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="270" y="100"/>
+      <p2 x="300" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="100"/>
+      <p2 x="340" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="200"/>
+      <p2 x="340" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="170"/>
+      <p2 x="430" y="170"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="140"/>
+      <p2 x="340" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="230" y="110"/>
+      <p2 x="240" y="110"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="110"/>
+      <p2 x="430" y="110"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="80"/>
+      <p2 x="200" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="130" y="80"/>
+      <p2 x="150" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="210"/>
+      <p2 x="430" y="210"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="180"/>
+      <p2 x="340" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="150"/>
+      <p2 x="430" y="150"/>
+    </wire>
+    <wire>
+      <p1 x="170" y="120"/>
+      <p2 x="210" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="120"/>
+      <p2 x="340" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="90"/>
+      <p2 x="170" y="90"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="90"/>
+      <p2 x="240" y="90"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="220"/>
+      <p2 x="340" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="190"/>
+      <p2 x="430" y="190"/>
+    </wire>
+    <wire>
+      <p1 x="210" y="100"/>
+      <p2 x="210" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="170" y="90"/>
+      <p2 x="170" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="170" y="120"/>
+      <p2 x="170" y="140"/>
+    </wire>
+  </wires>
 </circuit>

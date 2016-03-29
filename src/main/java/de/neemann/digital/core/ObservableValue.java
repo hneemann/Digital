@@ -28,7 +28,8 @@ public class ObservableValue extends Value {
     }
 
     public ObservableValue addObserver(Observer observer) {
-        observers.add(observer);
+        if (observer != null)
+            observers.add(observer);
         return this;
     }
 
