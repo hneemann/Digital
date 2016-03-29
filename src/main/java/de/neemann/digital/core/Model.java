@@ -1,5 +1,6 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.lang.Lang;
 
@@ -18,6 +19,10 @@ import java.util.List;
  */
 public class Model {
 
+    private final ArrayList<Clock> clocks;
+    private final ArrayList<Break> breaks;
+    private final ArrayList<ObservableValue> signals;
+
     private final ArrayList<Node> nodes;
     private final ArrayList<ModelStateObserver> observers;
     private ArrayList<Node> nodesToUpdateAct;
@@ -25,13 +30,15 @@ public class Model {
     private int version;
     private int maxCounter = 1000;
     private boolean isInitialized = false;
-    private boolean stopped = false;
 
     public Model() {
+        this.clocks = new ArrayList<>();
+        this.breaks = new ArrayList<>();
+        this.signals = new ArrayList<>();
         this.nodes = new ArrayList<>();
         this.nodesToUpdateAct = new ArrayList<>();
         this.nodesToUpdateNext = new ArrayList<>();
-        observers = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
     public int getStepCounter() {
@@ -68,12 +75,11 @@ public class Model {
         nodesToUpdateNext.addAll(nodes);
         isInitialized = true;
         doStep(noise);
-        fireEvent(new ModelEvent(ModelEvent.Event.STARTED));
+        fireEvent(ModelEvent.STARTED);
     }
 
     public void close() {
-        stopped = true;
-        fireEvent(new ModelEvent(ModelEvent.Event.STOPPED));
+        fireEvent(ModelEvent.STOPPED);
     }
 
     public void addToUpdateList(Node node) {
@@ -167,12 +173,22 @@ public class Model {
     }
 
     public ArrayList<Clock> getClocks() {
-        ModelEvent e = new ModelEvent(ModelEvent.Event.FETCHCLOCK);
-        fireEvent(e);
-        return e.getClocks();
+        return clocks;
     }
 
     public List<Node> getNodes() {
         return Collections.unmodifiableList(nodes);
+    }
+
+    public void addClock(Clock clock) {
+        clocks.add(clock);
+    }
+
+    public void addBreak(Break aBreak) {
+        breaks.add(aBreak);
+    }
+
+    public void addSignal(ObservableValue value) {
+        signals.add(value);
     }
 }

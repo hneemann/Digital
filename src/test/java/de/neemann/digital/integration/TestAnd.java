@@ -5,7 +5,7 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.model.ModelBuilder;
+import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
@@ -30,16 +30,16 @@ public class TestAnd extends TestCase {
         File filename = new File(Resources.getRoot(), "dig/and.dig");
         Circuit circuit = Circuit.loadCircuit(filename, new ShapeFactory(new ElementLibrary()));
 
-        ModelBuilder mb = new ModelBuilder(circuit);
-        Model model = mb.build(library);
+        ModelDescription md = new ModelDescription(circuit, library);
+        Model model = md.createModel();
 
         List<Node> nodes = model.getNodes();
         assertEquals(1, nodes.size());
 
         // get inputs and outputs
-        List<ModelEntry> inputs = mb.getModelDescription().getEntries("In");
+        List<ModelEntry> inputs = md.getEntries("In");
         assertEquals(2, inputs.size());
-        List<ModelEntry> outputs = mb.getModelDescription().getEntries("Out");
+        List<ModelEntry> outputs = md.getEntries("Out");
         assertEquals(1, outputs.size());
 
         // check the inputs state: the input itself has an output

@@ -8,7 +8,6 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.PinOrder;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.model.ModelBuilder;
 import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
@@ -241,11 +240,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Model model = new ModelBuilder(circuitComponent.getCircuit())
-                            .build(library);
+                    Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel();
 
                     SpeedTest speedTest = new SpeedTest(model);
                     double frequency = speedTest.calculate();
+                    circuitComponent.getCircuit().clearState();
                     JOptionPane.showMessageDialog(Main.this, "Frequency: " + frequency);
                 } catch (Exception e1) {
                     new ErrorMessage("SpeedTestError").addCause(e1).show();
@@ -300,38 +299,30 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     private void createAndStartModel(boolean runClock) {
-        ModelBuilder mb = null;
         try {
             if (modelDescription != null)
                 modelDescription.highLightOff();
 
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
-            mb = new ModelBuilder(circuitComponent.getCircuit())
-                    .setDisableClock(!runClock)
-                    .setEnableTrace(traceEnable.isSelected(), Main.this);
-
-            model = mb.build(library);
-            modelDescription = mb.getModelDescription();
+            modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
             modelDescription.connectToGui(circuitComponent);
 
             model.init();
         } catch (NodeException e) {
-            if (mb.getModelDescription() != null) {
-                modelDescription = mb.getModelDescription();
+            if (modelDescription != null) {
                 if (e.getNodes() != null)
-                    mb.getModelDescription().highLight(e.getNodes());
+                    modelDescription.highLight(e.getNodes());
                 else
-                    mb.getModelDescription().highLight(e.getValues());
+                    modelDescription.highLight(e.getValues());
 
                 circuitComponent.repaint();
             }
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).setComponent(Main.this));
             circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
         } catch (PinException e) {
-            if (mb.getModelDescription() != null) {
-                modelDescription = mb.getModelDescription();
-                mb.getModelDescription().highLight(e.getVisualElement());
+            if (modelDescription != null) {
+                modelDescription.highLight(e.getVisualElement());
                 if (e.getNet() != null)
                     e.getNet().setHighLight(true);
                 circuitComponent.repaint();
