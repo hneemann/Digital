@@ -4,11 +4,13 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SpeedTest;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.PinOrder;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
@@ -277,6 +279,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(runModel.createJButtonNoText());
         toolBar.add(runModelMicro.createJButtonNoText());
         toolBar.add(doStep.createJButtonNoText());
+        toolBar.addSeparator();
         toolBar.add(runFast.createJButtonNoText());
 
         toolBar.addSeparator();
@@ -306,9 +309,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
             modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
+            model = modelDescription.createModel();
             modelDescription.connectToGui(circuitComponent);
 
+            if (runClock)
+                for (Clock c : model.getClocks())
+                    model.addObserver(new RealTimeClock(model, c));
+
             model.init();
+
         } catch (NodeException e) {
             if (modelDescription != null) {
                 if (e.getNodes() != null)

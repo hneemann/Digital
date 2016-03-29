@@ -50,6 +50,7 @@ public final class ShapeFactory {
         map.put(Out.SEVENDESCRIPTION.getName(), attr -> new SevenSegShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
         map.put(Out.SEVENHEXDESCRIPTION.getName(), attr -> new SevenSegHexShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
 
+        map.put(Break.DESCRIPTION.getName(), attributes -> new BreakShape(attributes.get(AttributeKey.Label)));
 
         map.put(Multiplexer.DESCRIPTION.getName(), attr -> new MuxerShape(attr.get(AttributeKey.SelectorBits), attr.get(AttributeKey.FlipSelPositon)));
         map.put(Demultiplexer.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), true, attr.get(AttributeKey.FlipSelPositon)));

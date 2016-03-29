@@ -5,6 +5,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
@@ -19,6 +20,9 @@ public class Break implements Element {
 
 
     private ObservableValue input;
+
+    public Break(ElementAttributes attributes) {
+    }
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {

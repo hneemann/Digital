@@ -110,6 +110,12 @@
       <pos x="240" y="190"/>
       <rotate>0</rotate>
     </visualElement>
+    <visualElement>
+      <elementName>Break</elementName>
+      <elementAttributes/>
+      <pos x="190" y="110"/>
+      <rotate>0</rotate>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
