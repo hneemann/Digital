@@ -99,10 +99,15 @@ public class Circuit implements Drawable {
             dotsPresent = true;
         }
 
+        graphic.openGroup();
         for (Wire w : wires)
             w.drawTo(graphic);
-        for (VisualElement p : visualElements)
+        graphic.closeGroup();
+        for (VisualElement p : visualElements) {
+            graphic.openGroup();
             p.drawTo(graphic);
+            graphic.closeGroup();
+        }
     }
 
     public void add(VisualElement visualElement) {

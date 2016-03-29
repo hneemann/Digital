@@ -8,6 +8,10 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.PinOrder;
+import de.neemann.digital.draw.graphics.Exporter;
+import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.GraphicMinMax;
+import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.model.RealTimeClock;
@@ -21,6 +25,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -151,6 +156,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         };
 
+
+        JMenu export = new JMenu(Lang.get("menu_export"));
+        export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVG::new));
+
+
         JMenu file = new JMenu(Lang.get("menu_file"));
         bar.add(file);
         file.add(newFile);
@@ -158,6 +168,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         file.add(openWin);
         file.add(save);
         file.add(saveas);
+        file.add(export);
 
         JMenu edit = new JMenu(Lang.get("menu_edit"));
         bar.add(edit);
@@ -481,6 +492,50 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             modelDescription.highLight(model.nodesToUpdate());
             circuitComponent.repaint();
             doStep.setEnabled(model.needsUpdate());
+        }
+    }
+
+    private class ExportAction extends ToolTipAction {
+        private final String name;
+        private final String suffix;
+        private final Exporter exporter;
+
+        public ExportAction(String name, String suffix, Exporter exporter) {
+            super(name);
+            this.name = name;
+            this.suffix = suffix;
+            this.exporter = exporter;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fc = new JFileChooser();
+            if (filename != null) {
+                String name = filename.getName();
+                int p = name.lastIndexOf('.');
+                if (p >= 0)
+                    name = name.substring(0, p);
+                File f = new File(filename.getParentFile(), name + "." + suffix);
+                fc.setSelectedFile(f);
+            }
+            fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
+            if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                Circuit circuit = circuitComponent.getCircuit();
+                GraphicMinMax minMax = new GraphicMinMax();
+                circuit.drawTo(minMax);
+                try {
+                    Graphic gr = null;
+                    try {
+                        gr = exporter.create(fc.getSelectedFile(), minMax.getMin(), minMax.getMax());
+                        circuit.drawTo(gr);
+                    } finally {
+                        if (gr instanceof Closeable)
+                            ((Closeable) gr).close();
+                    }
+                } catch (IOException e1) {
+                    new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(Main.this);
+                }
+            }
         }
     }
 }

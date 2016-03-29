@@ -43,4 +43,13 @@ public class Polygon {
     public ArrayList<Vector> getPoints() {
         return points;
     }
+
+
+    public Vector get(int i) {
+        return points.get(i);
+    }
+
+    public int size() {
+        return points.size();
+    }
 }
