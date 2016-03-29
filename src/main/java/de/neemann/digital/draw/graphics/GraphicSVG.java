@@ -51,7 +51,7 @@ public class GraphicSVG implements Graphic, Closeable {
     @Override
     public void drawLine(Vector p1, Vector p2, Style style) {
         try {
-            w.write("<line x1=\"" + p1.x + "\" y1=\"" + p1.y + "\" x2=\"" + p2.x + "\" y2=\"" + p2.y + "\" stroke=\"black\" stroke-linecap=\"square\" stroke-width=\"" + getStrokeWidth(style) + "\"");
+            w.write("<line x1=\"" + p1.x + "\" y1=\"" + p1.y + "\" x2=\"" + p2.x + "\" y2=\"" + p2.y + "\" stroke=\"" + getColor(style) + "\" stroke-linecap=\"square\" stroke-width=\"" + getStrokeWidth(style) + "\"");
 //            if (style.isDashed())
 //                addStrokeDash(w, style.getDashArray());
             w.write(" />\n");
@@ -73,7 +73,7 @@ public class GraphicSVG implements Graphic, Closeable {
             w.write("\"");
 //            if (style.isDashed())
 //                addStrokeDash(w, style.getDashArray());
-            w.write(" stroke=\"black\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
+            w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,9 +89,9 @@ public class GraphicSVG implements Graphic, Closeable {
             Vector c = p1.add(p2).div(2);
             double r = Math.abs(p2.sub(p1).x) / 2;
             if (style.isFilled())
-                w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"black\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"black\" />\n");
+                w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" />\n");
             else {
-                w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"black\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"");
+                w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"");
 //                if (style.isDashed())
 //                    addStrokeDash(w, style.getDashArray());
                 w.write(" />\n");
@@ -133,12 +133,16 @@ public class GraphicSVG implements Graphic, Closeable {
                 }
 
                 if (rotateText)
-                    w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"black\" style=\"font-size:" + style.getFontSize() + "\" transform=\"rotate(-90," + str(p1) + ")\" >" + text + "</text>\n");
+                    w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\" transform=\"rotate(-90," + str(p1) + ")\" >" + text + "</text>\n");
                 else
-                    w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"black\" style=\"font-size:" + style.getFontSize() + "\">" + text + "</text>\n");
+                    w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\">" + text + "</text>\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+    }
+
+    private String getColor(Style style) {
+        return "#" + Integer.toHexString(style.getColor().getRGB()).substring(2);
     }
 
     private String escapeXML(String text) {

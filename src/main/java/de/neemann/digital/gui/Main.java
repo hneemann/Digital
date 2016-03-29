@@ -301,7 +301,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JToolBar toolBar = new JToolBar();
         toolBar.add(newFile.createJButtonNoText());
         toolBar.add(open.createJButtonNoText());
-        toolBar.add(openWin.createJButtonNoText());
         toolBar.add(save.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(partsMode.createJButtonNoText());
