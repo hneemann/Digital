@@ -19,11 +19,9 @@ public class Reset implements Element {
             .addAttribute(AttributeKey.Label);
 
     private final ObservableValue output;
-    private final String label;
 
     public Reset(ElementAttributes attributes) {
         output = new ObservableValue("Reset", 1);
-        label = attributes.get(AttributeKey.Label);
     }
 
     @Override

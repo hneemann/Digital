@@ -339,7 +339,7 @@
       <elementAttributes>
         <entry>
           <string>Cycles</string>
-          <int>1000000</int>
+          <int>600000</int>
         </entry>
         <entry>
           <string>Label</string>

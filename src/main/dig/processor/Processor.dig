@@ -169,48 +169,27 @@
         <entry>
           <string>Data</string>
           <data>
-            <size>34</size>
-            <long>5380</long>
-            <long>8417</long>
-            <long>5365</long>
-            <long>19695</long>
-            <long>28163</long>
-            <long>20992</long>
-            <long>31744</long>
-            <long>28664</long>
-            <long>15362</long>
-            <long>23573</long>
-            <long>8417</long>
-            <long>19680</long>
+            <size>13</size>
+            <long>5137</long>
+            <long>5120</long>
+            <long>6145</long>
+            <long>15888</long>
+            <long>29521</long>
+            <long>15375</long>
+            <long>26107</long>
             <long>8193</long>
-            <long>8417</long>
-            <long>5617</long>
-            <long>19695</long>
-            <long>28663</long>
-            <long>19998</long>
-            <long>6369</long>
-            <long>8417</long>
-            <long>19680</long>
-            <long>8210</long>
-            <long>513</long>
-            <long>8417</long>
-            <long>32796</long>
-            <long>4848</long>
-            <long>19695</long>
-            <long>28652</long>
-            <long>19998</long>
-            <long>6369</long>
-            <long>1025</long>
-            <long>20222</long>
-            <long>6369</long>
-            <long>27151</long>
+            <long>16400</long>
+            <long>29521</long>
+            <long>15360</long>
+            <long>26107</long>
+            <long>28661</long>
             <bits>16</bits>
           </data>
         </entry>
         <entry>
           <string>lastDataFile</string>
           <string>
-            /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/src/main/asm/fibonacciFastCall.hex
+            /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/src/main/asm/lightChase.hex
           </string>
         </entry>
       </elementAttributes>
@@ -259,7 +238,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>5</int>
+          <int>100</int>
         </entry>
       </elementAttributes>
       <pos x="560" y="230"/>

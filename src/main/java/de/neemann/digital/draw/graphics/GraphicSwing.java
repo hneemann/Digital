@@ -56,6 +56,8 @@ public class GraphicSwing implements Graphic {
 
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+        if (text == null || text.length() == 0) return;
+
         boolean rotateText = false;
         if (p1.y == p2.y) {   // 0 and 180 deg
             if (p1.x > p2.x)   // 180

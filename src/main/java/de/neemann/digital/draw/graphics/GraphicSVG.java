@@ -103,42 +103,43 @@ public class GraphicSVG implements Graphic, Closeable {
 
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
-        if (text != null && text.length() > 0)
-            try {
-                text = escapeXML(text);
+        if (text == null || text.length() == 0) return;
 
-                boolean rotateText = false;
-                if (p1.y == p2.y) {   // 0 and 180 deg
-                    if (p1.x > p2.x)   // 180
-                        orientation = orientation.rot(2);
-                } else {
-                    if (p1.y < p2.y) // 270
-                        orientation = orientation.rot(2);
-                    else            // 90
-                        orientation = orientation.rot(0);
-                    rotateText = true;
-                }
+        try {
+            text = escapeXML(text);
 
-                Vector p = new Vector(p1);
-                switch (orientation.getY()) {
-                    case 1:
-                        p = p.add(0, style.getFontSize() / 2 - style.getFontSize() / 8);
-                        break;
-                    case 2:
-                        p = p.add(0, style.getFontSize() * 3 / 4);
-                        break;
-                    case 0:
-                        //p = p.add(0, -style.getFontSize() / 4);
-                        break;
-                }
-
-                if (rotateText)
-                    w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\" transform=\"rotate(-90," + str(p1) + ")\" >" + text + "</text>\n");
-                else
-                    w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\">" + text + "</text>\n");
-            } catch (IOException e) {
-                e.printStackTrace();
+            boolean rotateText = false;
+            if (p1.y == p2.y) {   // 0 and 180 deg
+                if (p1.x > p2.x)   // 180
+                    orientation = orientation.rot(2);
+            } else {
+                if (p1.y < p2.y) // 270
+                    orientation = orientation.rot(2);
+                else            // 90
+                    orientation = orientation.rot(0);
+                rotateText = true;
             }
+
+            Vector p = new Vector(p1);
+            switch (orientation.getY()) {
+                case 1:
+                    p = p.add(0, style.getFontSize() / 2 - style.getFontSize() / 8);
+                    break;
+                case 2:
+                    p = p.add(0, style.getFontSize() * 3 / 4);
+                    break;
+                case 0:
+                    //p = p.add(0, -style.getFontSize() / 4);
+                    break;
+            }
+
+            if (rotateText)
+                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\" transform=\"rotate(-90," + str(p1) + ")\" >" + text + "</text>\n");
+            else
+                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\">" + text + "</text>\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String getColor(Style style) {
