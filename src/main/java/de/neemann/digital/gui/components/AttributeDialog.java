@@ -18,8 +18,8 @@ public class AttributeDialog extends JDialog {
     private final ArrayList<EditorHolder> editors;
     private boolean changed = false;
 
-    public AttributeDialog(Point pos, ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
-        super((Frame) null, Lang.get("attr_dialogTitle"), true);
+    public AttributeDialog(Component parent, Point pos, ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
+        super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel(new DialogLayout());
@@ -91,7 +91,7 @@ public class AttributeDialog extends JDialog {
         list.add(AttributeKey.Color);
         list.add(AttributeKey.Signed);
         ElementAttributes values = new ElementAttributes();
-        AttributeDialog d = new AttributeDialog(null, list, values);
+        AttributeDialog d = new AttributeDialog(null, null, list, values);
         d.showDialog();
         System.out.println(values);
     }

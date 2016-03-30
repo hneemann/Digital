@@ -339,7 +339,7 @@ public class CircuitComponent extends JComponent implements Observer {
                 if (list.size() > 0) {
                     Point p = new Point(e.getX(), e.getY());
                     SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                    if (new AttributeDialog(p, list, vp.getElementAttributes()).showDialog()) {
+                    if (new AttributeDialog(this, p, list, vp.getElementAttributes()).showDialog()) {
                         circuit.modified();
                         repaint();
                     }

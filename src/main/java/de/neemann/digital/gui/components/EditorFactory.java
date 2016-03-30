@@ -5,6 +5,7 @@ import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -154,7 +155,7 @@ public final class EditorFactory {
         @Override
         public Component getComponent(ElementAttributes attr) {
             JPanel panel = new JPanel(new FlowLayout());
-            panel.add(new JButton(new AbstractAction(Lang.get("btn_edit")) {
+            panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     DataEditor de = new DataEditor(panel, data, attr);
@@ -162,8 +163,8 @@ public final class EditorFactory {
                         data = de.getDataField();
                     }
                 }
-            }));
-            panel.add(new JButton(new AbstractAction(Lang.get("btn_load")) {
+            }.createJButton());
+            panel.add(new ToolTipAction(Lang.get("btn_load")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new JFileChooser();
@@ -177,7 +178,21 @@ public final class EditorFactory {
                         }
                     }
                 }
-            }));
+            }.createJButton());
+            panel.add(new ToolTipAction(Lang.get("btn_reload")) {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                data = new DataField(attr.getFile("lastDataFile"));
+                            } catch (IOException e1) {
+                                new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
+                            }
+                        }
+                    }
+                            .setActive(attr.getFile("lastDataFile") != null)
+                            .setToolTip(Lang.get("btn_reload_tt"))
+                            .createJButton()
+            );
             return panel;
         }
 

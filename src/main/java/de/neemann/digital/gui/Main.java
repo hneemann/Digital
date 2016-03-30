@@ -62,6 +62,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private File filename;
     private Model model;
     private ModelDescription modelDescription;
+    private boolean modelHasRunningClocks;
 
     public Main() {
         this(null, null, null);
@@ -196,7 +197,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.getCircuit().editAttributes();
+                circuitComponent.getCircuit().editAttributes(Main.this);
             }
         }.setToolTip(Lang.get("menu_editAttributes_tt"));
 
@@ -247,9 +248,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction runFast = new ToolTipAction(Lang.get("menu_fast"), iconFast) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (model == null) {
+                if (model == null || modelHasRunningClocks) {
                     createAndStartModel(false);
-                    circuitComponent.setManualChangeObserver(null);
                     if (model.getBreaks().size() != 1 || model.getClocks().size() != 1) {
                         clearModelDescription();
                         circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
@@ -341,10 +341,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         model = null;
     }
 
-    private void setModelDescription(ModelDescription md) throws NodeException, PinException {
+    private void setModelDescription(ModelDescription md, boolean runClock) throws NodeException, PinException {
         if (modelDescription != null)
             modelDescription.highLightOff();
 
+        modelHasRunningClocks = runClock;
         modelDescription = md;
 
         if (model != null)
@@ -358,7 +359,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         try {
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
-            setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library));
+            setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library), runClock);
             modelDescription.connectToGui(circuitComponent);
 
             if (runClock)

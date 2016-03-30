@@ -19,6 +19,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.lang.Lang;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -84,8 +85,8 @@ public class Circuit implements Drawable {
         return attributes;
     }
 
-    public void editAttributes() {
-        if (new AttributeDialog(null, ATTR_LIST, getAttributes()).showDialog()) {
+    public void editAttributes(Component parent) {
+        if (new AttributeDialog(parent, null, ATTR_LIST, getAttributes()).showDialog()) {
             if (attributes.isEmpty())
                 attributes = null;
             modified();
