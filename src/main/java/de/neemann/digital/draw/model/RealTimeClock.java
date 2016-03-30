@@ -29,7 +29,7 @@ public class RealTimeClock implements ModelStateObserver {
         switch (event.getType()) {
             case STARTED:
                 int delay = 1000 / frequency;
-                if (delay < 100) delay = 100;
+                if (delay < 2) delay = 2;
                 timer = new Timer(delay, e -> {
                     output.setValue(1 - output.getValue());
                     try {
