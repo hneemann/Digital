@@ -98,6 +98,7 @@ public class Model {
             }
             doMicroStep(noise);
         }
+        fireEvent(ModelEvent.STEP);
     }
 
     /**
@@ -115,8 +116,6 @@ public class Model {
     public void doMicroStep(boolean noise) throws NodeException {
         if (!isInitialized)
             throw new RuntimeException(Lang.get("err_notInitialized"));
-
-        fireEvent(ModelEvent.STEP);
 
         version++;
         // swap lists
@@ -140,6 +139,7 @@ public class Model {
                 n.writeOutputs();
             }
         }
+        fireEvent(ModelEvent.MICROSTEP);
     }
 
     /**
@@ -210,6 +210,7 @@ public class Model {
             doStep();
             boolean brIn = brVal.getBool();
             if (!lastIn && brIn) {
+                fireEvent(ModelEvent.BREAK);
                 return i;
             }
             lastIn = brIn;

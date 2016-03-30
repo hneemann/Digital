@@ -3,6 +3,7 @@ package de.neemann.digital.core;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author hneemann
@@ -36,6 +37,15 @@ public class ObservableValue extends Value {
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
+
+    public void removeObserver(Class<? extends Observer> observerClass) {
+        Iterator<Observer> it = observers.iterator();
+        while (it.hasNext()) {
+            if (it.next().getClass() == observerClass)
+                it.remove();
+        }
+    }
+
 
     public void hasChanged() {
         for (Observer l : observers) {

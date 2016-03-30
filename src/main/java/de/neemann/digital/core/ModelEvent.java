@@ -6,10 +6,12 @@ package de.neemann.digital.core;
 public class ModelEvent {
 
     public static final ModelEvent STEP = new ModelEvent(Event.STEP);
+    public static final ModelEvent MICROSTEP = new ModelEvent(Event.MICROSTEP);
     public static final ModelEvent STARTED = new ModelEvent(Event.STARTED);
+    public static final ModelEvent BREAK = new ModelEvent(Event.BREAK);
     public static final ModelEvent STOPPED = new ModelEvent(Event.STOPPED);
 
-    public enum Event {STARTED, STOPPED, STEP}
+    public enum Event {STARTED, STOPPED, STEP, BREAK, MICROSTEP}
 
     private final Event event;
 

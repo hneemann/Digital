@@ -1,9 +1,6 @@
 package de.neemann.digital.gui;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.SpeedTest;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -240,7 +237,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction runModel = new ToolTipAction(Lang.get("menu_run"), iconRun) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createAndStartModel(runClock.isSelected());
+                createAndStartModel(runClock.isSelected(), ModelEvent.Event.STEP);
                 circuitComponent.setManualChangeObserver(new FullStepObserver(model));
             }
         }.setToolTip(Lang.get("menu_run_tt"));
@@ -248,7 +245,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction runModelMicro = new ToolTipAction(Lang.get("menu_micro"), iconMicro) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createAndStartModel(false);
+                createAndStartModel(false, ModelEvent.Event.MICROSTEP);
                 circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
         }.setToolTip(Lang.get("menu_micro_tt"));
@@ -257,7 +254,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (model == null || modelHasRunningClocks) {
-                    createAndStartModel(false);
+                    createAndStartModel(false, ModelEvent.Event.BREAK);
                     if (model.getBreaks().size() != 1 || model.getClocks().size() != 1) {
                         clearModelDescription();
                         circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
@@ -363,17 +360,19 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
 
-    private void createAndStartModel(boolean runClock) {
+    private void createAndStartModel(boolean runClock, ModelEvent.Event updateEvent) {
         try {
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
             setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library), runClock);
-            modelDescription.connectToGui(circuitComponent);
+            GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
+            modelDescription.connectToGui(gmo);
 
             if (runClock)
                 for (Clock c : model.getClocks())
                     model.addObserver(new RealTimeClock(model, c));
 
+            model.addObserver(gmo);
             model.init();
 
         } catch (NodeException e) {

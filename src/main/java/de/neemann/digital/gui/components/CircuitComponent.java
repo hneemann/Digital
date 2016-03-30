@@ -29,7 +29,7 @@ import java.util.ArrayList;
 /**
  * @author hneemann
  */
-public class CircuitComponent extends JComponent implements Observer {
+public class CircuitComponent extends JComponent {
 
     private static final String delAction = "myDelAction";
     private final ElementLibrary library;
@@ -153,11 +153,6 @@ public class CircuitComponent extends JComponent implements Observer {
     private Vector raster(Vector pos) {
         return new Vector((int) Math.round((double) pos.x / GenericShape.SIZE) * GenericShape.SIZE,
                 (int) Math.round((double) pos.y / GenericShape.SIZE) * GenericShape.SIZE);
-    }
-
-    @Override
-    public void hasChanged() {
-        repaint();
     }
 
     public Circuit getCircuit() {
