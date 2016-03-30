@@ -25,6 +25,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -96,6 +98,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         getContentPane().add(statusLabel, BorderLayout.SOUTH);
 
         addWindowListener(new ClosingWindowListener(this, this));
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                clearModelDescription(); // stop model timer if running
+            }
+        });
 
         JMenuBar bar = new JMenuBar();
 
