@@ -14,7 +14,7 @@ import de.neemann.digital.draw.graphics.Vector;
  */
 public class BreakShape implements Shape {
     private static final int SIZE = 8;
-    private static final int SIZEQ = 5;
+    private static final int SIZEQ = 3;
     private static final Vector RAD = new Vector(SIZE, SIZE);
     private static final Vector D1 = new Vector(SIZEQ, -SIZEQ);
     private static final Vector D2 = new Vector(SIZEQ, SIZEQ);

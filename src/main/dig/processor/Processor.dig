@@ -169,16 +169,17 @@
         <entry>
           <string>Data</string>
           <data>
-            <size>65536</size>
-            <long>5130</long>
+            <size>46</size>
+            <long>5380</long>
             <long>8417</long>
             <long>19680</long>
             <long>8417</long>
             <long>5367</long>
             <long>19695</long>
-            <long>28162</long>
+            <long>28163</long>
             <long>20992</long>
             <long>31744</long>
+            <long>28662</long>
             <long>8417</long>
             <long>19693</long>
             <long>734</long>
@@ -191,7 +192,7 @@
             <long>8417</long>
             <long>19680</long>
             <long>8417</long>
-            <long>5624</long>
+            <long>5625</long>
             <long>19695</long>
             <long>28657</long>
             <long>65535</long>
@@ -202,7 +203,7 @@
             <long>8417</long>
             <long>19680</long>
             <long>8417</long>
-            <long>32804</long>
+            <long>32805</long>
             <long>4848</long>
             <long>19695</long>
             <long>28645</long>
@@ -220,9 +221,9 @@
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <file>
+          <string>
             /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/src/main/asm/fibonacci.hex
-          </file>
+          </string>
         </entry>
       </elementAttributes>
       <pos x="60" y="220"/>
@@ -270,7 +271,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>10</int>
+          <int>1000</int>
         </entry>
       </elementAttributes>
       <pos x="560" y="230"/>
@@ -358,7 +359,7 @@
     </wire>
     <wire>
       <p1 x="310" y="360"/>
-      <p2 x="630" y="360"/>
+      <p2 x="640" y="360"/>
     </wire>
     <wire>
       <p1 x="220" y="10"/>
@@ -498,7 +499,7 @@
     </wire>
     <wire>
       <p1 x="560" y="210"/>
-      <p2 x="640" y="210"/>
+      <p2 x="630" y="210"/>
     </wire>
     <wire>
       <p1 x="460" y="30"/>
@@ -537,7 +538,7 @@
       <p2 x="600" y="100"/>
     </wire>
     <wire>
-      <p1 x="640" y="100"/>
+      <p1 x="630" y="100"/>
       <p2 x="650" y="100"/>
     </wire>
     <wire>
@@ -561,7 +562,7 @@
       <p2 x="390" y="110"/>
     </wire>
     <wire>
-      <p1 x="630" y="110"/>
+      <p1 x="640" y="110"/>
       <p2 x="650" y="110"/>
     </wire>
     <wire>
@@ -653,8 +654,8 @@
       <p2 x="320" y="260"/>
     </wire>
     <wire>
-      <p1 x="640" y="100"/>
-      <p2 x="640" y="210"/>
+      <p1 x="630" y="100"/>
+      <p2 x="630" y="210"/>
     </wire>
     <wire>
       <p1 x="200" y="70"/>
@@ -817,8 +818,8 @@
       <p2 x="180" y="180"/>
     </wire>
     <wire>
-      <p1 x="630" y="110"/>
-      <p2 x="630" y="360"/>
+      <p1 x="640" y="110"/>
+      <p2 x="640" y="360"/>
     </wire>
     <wire>
       <p1 x="440" y="80"/>

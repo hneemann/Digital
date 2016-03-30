@@ -338,6 +338,10 @@
       <elementName>Break</elementName>
       <elementAttributes>
         <entry>
+          <string>Cycles</string>
+          <int>1000000</int>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Break</string>
         </entry>
