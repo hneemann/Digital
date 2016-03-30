@@ -105,8 +105,8 @@ public class ElementAttributes {
     public File getFile(String fileKey) {
         if (attributes != null) {
             Object f = attributes.get(fileKey);
-            if (f instanceof File)
-                return (File) f;
+            if (f != null)
+                return new File(f.toString());
         }
         return null;
     }
@@ -114,6 +114,6 @@ public class ElementAttributes {
     public void setFile(String fileKey, File file) {
         if (attributes == null)
             attributes = new HashMap<>();
-        attributes.put(fileKey, file);
+        attributes.put(fileKey, file.getPath());
     }
 }
