@@ -47,6 +47,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Out.LEDDESCRIPTION, menu);
         add(Out.PROBEDESCRIPTION, menu);
         add(Clock.DESCRIPTION, menu);
+        add(Reset.DESCRIPTION, menu);
         add(Break.DESCRIPTION, menu);
         add(Out.SEVENDESCRIPTION, menu);
         add(Out.SEVENHEXDESCRIPTION, menu);

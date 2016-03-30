@@ -2,6 +2,7 @@ package de.neemann.digital.core;
 
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.core.wiring.Reset;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Model {
 
     private final ArrayList<Clock> clocks;
     private final ArrayList<Break> breaks;
+    private final ArrayList<Reset> resets;
     private final ArrayList<Signal> signals;
 
     private final ArrayList<Node> nodes;
@@ -34,6 +36,7 @@ public class Model {
     public Model() {
         this.clocks = new ArrayList<>();
         this.breaks = new ArrayList<>();
+        this.resets = new ArrayList<>();
         this.signals = new ArrayList<>();
         this.nodes = new ArrayList<>();
         this.nodesToUpdateAct = new ArrayList<>();
@@ -75,6 +78,11 @@ public class Model {
         nodesToUpdateNext.addAll(nodes);
         isInitialized = true;
         doStep(noise);
+        if (!resets.isEmpty()) {
+            for (Reset reset : resets)
+                reset.getResetOutput().setValue(1);
+            doStep(false);
+        }
         fireEvent(ModelEvent.STARTED);
     }
 
@@ -190,6 +198,10 @@ public class Model {
 
     public void addBreak(Break aBreak) {
         breaks.add(aBreak);
+    }
+
+    public void addReset(Reset reset) {
+        resets.add(reset);
     }
 
     public void addSignal(String name, ObservableValue value) {

@@ -210,9 +210,9 @@
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
-      <elementName>Const</elementName>
+      <elementName>Reset</elementName>
       <elementAttributes/>
-      <pos x="120" y="90"/>
+      <pos x="110" y="110"/>
       <rotate>0</rotate>
     </visualElement>
   </visualElements>
@@ -302,6 +302,10 @@
       <p2 x="340" y="140"/>
     </wire>
     <wire>
+      <p1 x="110" y="110"/>
+      <p2 x="120" y="110"/>
+    </wire>
+    <wire>
       <p1 x="240" y="170"/>
       <p2 x="240" y="200"/>
     </wire>
@@ -316,6 +320,10 @@
     <wire>
       <p1 x="120" y="40"/>
       <p2 x="120" y="70"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="90"/>
+      <p2 x="120" y="110"/>
     </wire>
     <wire>
       <p1 x="170" y="80"/>

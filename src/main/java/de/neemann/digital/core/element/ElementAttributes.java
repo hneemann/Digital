@@ -106,7 +106,7 @@ public class ElementAttributes {
         if (attributes != null) {
             Object f = attributes.get(fileKey);
             if (f != null)
-                return new File(f.toString());
+                return new File(f.toString().trim());
         }
         return null;
     }
