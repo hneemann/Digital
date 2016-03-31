@@ -211,7 +211,12 @@
     </visualElement>
     <visualElement>
       <elementName>Reset</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Reset</string>
+        </entry>
+      </elementAttributes>
       <pos x="110" y="110"/>
       <rotate>0</rotate>
     </visualElement>
