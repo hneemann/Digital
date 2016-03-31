@@ -51,10 +51,10 @@ public class DemuxerShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
         graphic.drawPolygon(new Polygon(true)
-                .add(2, 3)
-                .add(SIZE * 2 - 2, -2)
-                .add(SIZE * 2 - 2, height + 2)
-                .add(2, height - 3), Style.NORMAL);
+                .add(1, 3)
+                .add(SIZE * 2 - 1, -2)
+                .add(SIZE * 2 - 1, height + 2)
+                .add(1, height - 3), Style.NORMAL);
         graphic.drawText(new Vector(SIZE * 2 - 2, 0), new Vector(SIZE * 2, 0), "0", Orientation.RIGHTTOP, Style.SHAPE_PIN);
     }
 }

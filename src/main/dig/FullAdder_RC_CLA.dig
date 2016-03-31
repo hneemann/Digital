@@ -30,7 +30,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_i-1</string>
+          <string>C0</string>
         </entry>
       </elementAttributes>
       <pos x="-130" y="240"/>
@@ -242,7 +242,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_i</string>
+          <string>C3</string>
         </entry>
       </elementAttributes>
       <pos x="60" y="-300"/>
@@ -346,7 +346,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_i-1</string>
+          <string>C0</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="240"/>
@@ -638,10 +638,6 @@
           <string>Inputs</string>
           <int>5</int>
         </entry>
-        <entry>
-          <string>Inputs</string>
-          <int>5</int>
-        </entry>
       </elementAttributes>
       <pos x="450" y="-340"/>
       <rotate>0</rotate>
@@ -651,7 +647,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_i</string>
+          <string>C3</string>
         </entry>
       </elementAttributes>
       <pos x="530" y="-320"/>

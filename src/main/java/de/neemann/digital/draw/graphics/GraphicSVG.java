@@ -7,8 +7,7 @@ import java.util.Date;
  * @author hneemann
  */
 public class GraphicSVG implements Graphic, Closeable {
-    private static final int TEXTSIZE = 20;
-    private static final int DEF_SCALE = 100;
+    private static final int DEF_SCALE = 30;
     private final BufferedWriter w;
 
     public GraphicSVG(File file, Vector min, Vector max) throws IOException {
@@ -22,7 +21,7 @@ public class GraphicSVG implements Graphic, Closeable {
     public GraphicSVG(File file, Vector min, Vector max, File source, int svgScale) throws IOException {
         w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"));
         w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
-                "<!-- Created with Digital  by H.Neemann -->\n");
+                "<!-- Created with Digital by H.Neemann -->\n");
         w.write("<!-- created: " + new Date() + " -->\n");
         if (source != null) {
             w.write("<!-- source: " + source.getPath() + " -->\n");
@@ -32,8 +31,8 @@ public class GraphicSVG implements Graphic, Closeable {
                 "   xmlns:svg=\"http://www.w3.org/2000/svg\"\n" +
                 "   xmlns=\"http://www.w3.org/2000/svg\"\n");
 
-        double width = (max.x - min.x) * svgScale / 900;
-        double height = (max.y - min.y) * svgScale / 900;
+        double width = (max.x - min.x) * svgScale / 100;
+        double height = (max.y - min.y) * svgScale / 100;
 
         w.write("   width=\"" + width + "mm\"\n" +
                 "   height=\"" + height + "mm\"\n" +
@@ -142,7 +141,7 @@ public class GraphicSVG implements Graphic, Closeable {
         }
     }
 
-    private String getColor(Style style) {
+    public String getColor(Style style) {
         return "#" + Integer.toHexString(style.getColor().getRGB()).substring(2);
     }
 

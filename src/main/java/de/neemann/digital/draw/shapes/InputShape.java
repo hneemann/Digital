@@ -62,9 +62,9 @@ public class InputShape implements Shape {
             }
         }
 
-        Vector center = new Vector(-2 - SIZE, 0);
+        Vector center = new Vector(-1 - SIZE, 0);
         graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
-        graphic.drawPolygon(new Polygon(true).add(-SIZE * 2 - 2, -SIZE).add(-2, -SIZE).add(-2, SIZE).add(-SIZE * 2 - 2, SIZE), Style.NORMAL);
+        graphic.drawPolygon(new Polygon(true).add(-SIZE * 2 - 1, -SIZE).add(-1, -SIZE).add(-1, SIZE).add(-SIZE * 2 - 1, SIZE), Style.NORMAL);
 
         Vector textPos = new Vector(-SIZE * 3, 0);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);

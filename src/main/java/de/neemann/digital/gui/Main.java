@@ -5,10 +5,7 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.PinOrder;
-import de.neemann.digital.draw.graphics.Exporter;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.GraphicMinMax;
-import de.neemann.digital.draw.graphics.GraphicSVG;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.model.RealTimeClock;
@@ -164,6 +161,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVG::new));
+        export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
 
 
         JMenu file = new JMenu(Lang.get("menu_file"));
