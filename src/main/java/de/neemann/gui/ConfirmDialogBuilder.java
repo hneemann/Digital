@@ -15,6 +15,7 @@ public class ConfirmDialogBuilder {
     private String yes = "Yes";
     private String no = "No";
     private int def = 0;
+    private String cancle;
 
     /**
      * Creates anew dialog builder
@@ -59,6 +60,17 @@ public class ConfirmDialogBuilder {
     }
 
     /**
+     * Sets the text for the cancle-option
+     *
+     * @param cancle the cancle option text
+     * @return this for chaining calls
+     */
+    public ConfirmDialogBuilder setCancleOption(String cancle) {
+        this.cancle = cancle;
+        return this;
+    }
+
+    /**
      * Sets yes as the default option
      *
      * @return this for chaining calls
@@ -82,20 +94,23 @@ public class ConfirmDialogBuilder {
      * Shows the dialog
      *
      * @param parent the parent component
-     * @return true if yes is pressed
+     * @return the result of showOptionDialog
      */
-    public boolean show(Component parent) {
-        Object[] options = {yes, no};
-        int n = JOptionPane.showOptionDialog(parent,
+    public int show(Component parent) {
+        Object[] options;
+        if (cancle == null)
+            options = new Object[]{yes, no};
+        else
+            options = new Object[]{yes, no, cancle};
+
+        return JOptionPane.showOptionDialog(parent,
                 message,
                 title,
-                JOptionPane.YES_NO_OPTION,
+                cancle == null ? JOptionPane.YES_NO_OPTION : JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 options,
                 options[def]);
-
-        return n == JOptionPane.YES_OPTION;
     }
 
 }

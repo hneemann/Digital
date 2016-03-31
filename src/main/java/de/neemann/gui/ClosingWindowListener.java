@@ -17,6 +17,9 @@ public class ClosingWindowListener extends WindowAdapter {
     public static String SAVE_CHANGES_MESSAGE = Lang.get("win_saveChanges");
     public static String CONFIRM_EXIT_MESSAGE = Lang.get("win_confirmExit");
     public static String STATE_CHANGED_MESSAGE = Lang.get("win_stateChanged");
+    public static String NO_MESSAGE = Lang.get("btn_discard");
+    public static String YES_MESSAGE = Lang.get("btn_save");
+    public static String CANCEL_MESSAGE = Lang.get("btn_editFurther");
     private final Component parent;
     private final GUICloser guiCloser;
 
@@ -66,7 +69,13 @@ public class ClosingWindowListener extends WindowAdapter {
      */
     public static boolean checkForSave(JFrame parent, ConfirmSave confirmSave) {
         if (confirmSave.isStateChanged()) {
-            int r = JOptionPane.showConfirmDialog(parent, SAVE_CHANGES_MESSAGE, STATE_CHANGED_MESSAGE, JOptionPane.YES_NO_CANCEL_OPTION);
+            int r = new ConfirmDialogBuilder(SAVE_CHANGES_MESSAGE)
+                    .setTitle(STATE_CHANGED_MESSAGE)
+                    .setNoOption(NO_MESSAGE)
+                    .setYesOption(YES_MESSAGE)
+                    .setCancleOption(CANCEL_MESSAGE)
+                    .show(parent);
+
             if (r != JOptionPane.CANCEL_OPTION) {
                 if (r == JOptionPane.YES_OPTION) {
                     confirmSave.saveChanges();
@@ -93,8 +102,14 @@ public class ClosingWindowListener extends WindowAdapter {
     @Override
     public void windowClosing(WindowEvent e) {
         if (guiCloser.isStateChanged()) {
-            int r = JOptionPane.showConfirmDialog(parent, SAVE_CHANGES_MESSAGE, CONFIRM_EXIT_MESSAGE, JOptionPane.YES_NO_CANCEL_OPTION);
-            if (r != JOptionPane.CANCEL_OPTION) {
+            int r = new ConfirmDialogBuilder(SAVE_CHANGES_MESSAGE)
+                    .setTitle(CONFIRM_EXIT_MESSAGE)
+                    .setNoOption(NO_MESSAGE)
+                    .setYesOption(YES_MESSAGE)
+                    .setCancleOption(CANCEL_MESSAGE)
+                    .show(parent);
+
+            if (r == JOptionPane.YES_OPTION || r == JOptionPane.NO_OPTION) {
                 if (r == JOptionPane.YES_OPTION) {
                     guiCloser.saveChanges();
                 }
