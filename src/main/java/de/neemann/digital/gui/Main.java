@@ -39,7 +39,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon iconMicro = IconCreator.create("micro.gif");
     private static final Icon iconStep = IconCreator.create("step.gif");
     private static final Icon iconElement = IconCreator.create("element.gif");
-    private static final Icon iconSelect = IconCreator.create("select.gif");
+    private static final Icon iconSelect = IconCreator.create("Select24.gif");
     private static final Icon iconWire = IconCreator.create("wire.gif");
     private static final Icon iconNew = IconCreator.create("New24.gif");
     private static final Icon iconOpen = IconCreator.create("Open24.gif");
@@ -222,7 +222,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             public void actionPerformed(ActionEvent e) {
                 try {
                     model.doMicroStep(false);
-                    circuitComponent.clearHighLighted();
+                    circuitComponent.removeHighLighted();
                     modelDescription.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
                     circuitComponent.repaint();
                     doStep.setEnabled(model.needsUpdate());
@@ -311,6 +311,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(partsMode.createJButtonNoText());
         toolBar.add(wireMode.createJButtonNoText());
         toolBar.add(selectionMode.createJButtonNoText());
+        toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
+        toolBar.addSeparator();
         toolBar.add(runModel.createJButtonNoText());
         toolBar.add(runModelMicro.createJButtonNoText());
         toolBar.add(doStep.createJButtonNoText());
@@ -337,7 +339,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     private void clearModelDescription() {
-        circuitComponent.clearHighLighted();
+        circuitComponent.removeHighLighted();
         if (model != null)
             model.close();
 

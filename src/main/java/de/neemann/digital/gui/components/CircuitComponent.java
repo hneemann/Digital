@@ -17,6 +17,9 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SavedListener;
+import de.neemann.digital.lang.Lang;
+import de.neemann.gui.IconCreator;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,11 +37,13 @@ import java.util.HashSet;
  * @author hneemann
  */
 public class CircuitComponent extends JComponent {
+    private static final Icon iconDelete = IconCreator.create("Delete24.gif");
 
     private static final String delAction = "myDelAction";
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
     private final HashSet<Drawable> highLighted;
+    private final DelAction deleteAction;
     private Circuit circuit;
     private Mouse listener;
     private AffineTransform transform = new AffineTransform();
@@ -48,31 +53,12 @@ public class CircuitComponent extends JComponent {
         this.library = library;
         this.shapeFactory = shapeFactory;
         highLighted = new HashSet<>();
+        deleteAction = new DelAction();
         setCircuit(aCircuit);
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
         getInputMap().put(delKey, delAction);
-        getActionMap().put(delAction, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (listener instanceof SelectMouseListener) {
-                    SelectMouseListener mml = (SelectMouseListener) listener;
-                    if (mml.corner1 != null && mml.corner2 != null) {
-                        circuit.delete(Vector.min(mml.corner1, mml.corner2), Vector.max(mml.corner1, mml.corner2));
-                        mml.reset();
-                        repaint();
-                    }
-                } else if (listener instanceof PartMouseListener) {
-                    PartMouseListener pml = (PartMouseListener) listener;
-                    if (!pml.insert) {
-                        circuit.delete(pml.partToInsert);
-                    }
-                    pml.partToInsert = null;
-                    repaint();
-                }
-                    }
-                }
-        );
+        getActionMap().put(delAction, deleteAction);
 
         setFocusable(true);
 
@@ -89,6 +75,10 @@ public class CircuitComponent extends JComponent {
                               }
 
         );
+    }
+
+    public ToolTipAction getDeleteAction() {
+        return deleteAction;
     }
 
     public void setManualChangeObserver(Observer callOnManualChange) {
@@ -122,6 +112,7 @@ public class CircuitComponent extends JComponent {
         addMouseListener(listener);
         requestFocusInWindow();
         circuit.clearState();
+        deleteAction.setEnabled(false);
         repaint();
     }
 
@@ -145,7 +136,7 @@ public class CircuitComponent extends JComponent {
                 addHighLighted(w);
     }
 
-    public void clearHighLighted() {
+    public void removeHighLighted() {
         highLighted.clear();
     }
 
@@ -316,6 +307,7 @@ public class CircuitComponent extends JComponent {
                     repaint();
                     partToInsert = null;
                 }
+                deleteAction.setEnabled(partToInsert != null);
             } else {
                 editAttributes(e);
             }
@@ -330,6 +322,7 @@ public class CircuitComponent extends JComponent {
                 Vector pos = getPosVector(e);
                 partToInsert.setPos(raster(pos.add(delta)));
                 autoPick = false;
+                deleteAction.setEnabled(true);
                 repaint();
             }
         }
@@ -377,7 +370,7 @@ public class CircuitComponent extends JComponent {
         return false;
     }
 
-    private static enum State {COPY, MOVE}
+    private enum State {COPY, MOVE}
 
     private class SelectMouseListener extends Mouse {
         private Vector corner1;
@@ -397,6 +390,7 @@ public class CircuitComponent extends JComponent {
             corner1 = null;
             corner2 = null;
             elements = null;
+            deleteAction.setEnabled(false);
             repaint();
         }
 
@@ -416,6 +410,7 @@ public class CircuitComponent extends JComponent {
                 }
                 lastPos = getPosVector(e);
             }
+            deleteAction.setEnabled(corner1 != null && corner2 != null);
         }
 
         @Override
@@ -431,6 +426,8 @@ public class CircuitComponent extends JComponent {
             }
             if (wasRealyDragged)
                 reset();
+            else
+                deleteAction.setEnabled(corner1 != null && corner2 != null);
         }
 
         @Override
@@ -488,6 +485,34 @@ public class CircuitComponent extends JComponent {
                 ve.clicked(CircuitComponent.this, p);
                 if (manualChangeObserver != null)
                     manualChangeObserver.hasChanged();
+            }
+        }
+    }
+
+    private class DelAction extends ToolTipAction {
+
+        DelAction() {
+            super(Lang.get("menu_delete"), iconDelete);
+            setToolTip(Lang.get("menu_delete_tt"));
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (listener instanceof SelectMouseListener) {
+                SelectMouseListener mml = (SelectMouseListener) listener;
+                if (mml.corner1 != null && mml.corner2 != null) {
+                    circuit.delete(Vector.min(mml.corner1, mml.corner2), Vector.max(mml.corner1, mml.corner2));
+                    mml.reset();
+                    repaint();
+                }
+            } else if (listener instanceof PartMouseListener) {
+                PartMouseListener pml = (PartMouseListener) listener;
+                if (!pml.insert) {
+                    circuit.delete(pml.partToInsert);
+                }
+                pml.partToInsert = null;
+                deleteAction.setEnabled(false);
+                repaint();
             }
         }
     }
