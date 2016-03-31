@@ -37,7 +37,7 @@ public class OutputShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, boolean highLight) {
         Style style = Style.NORMAL;
         if (ioState != null) {
             ObservableValue value = ioState.getInput(0);

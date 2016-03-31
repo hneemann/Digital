@@ -227,7 +227,7 @@ public class Model {
             }
             lastIn = brIn;
         }
-        throw new NodeException(Lang.get("err_breakTimeOut"), null, brVal);
+        throw new NodeException(Lang.get("err_breakTimeOut", br.getCycles()), null, brVal);
     }
 
     public static class Signal {

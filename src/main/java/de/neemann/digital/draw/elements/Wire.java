@@ -14,7 +14,6 @@ public class Wire implements Drawable, Moveable {
     public Vector p1;
     public Vector p2;
     private transient ObservableValue value;
-    private transient boolean highLight = false;
     private transient boolean p1Dot;
     private transient boolean p2Dot;
 
@@ -31,7 +30,7 @@ public class Wire implements Drawable, Moveable {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, boolean highLight) {
         Style style = Style.getWireStyle(value);
         if (highLight)
             style = Style.HIGHLIGHT;
@@ -110,8 +109,8 @@ public class Wire implements Drawable, Moveable {
         this.value = value;
     }
 
-    public void setHighLight(boolean highLight) {
-        this.highLight = highLight;
+    public ObservableValue getValue() {
+        return value;
     }
 
     public void noDot() {

@@ -11,5 +11,5 @@ public interface Drawable {
      *  @param graphic interface to draw to
      *
      */
-    void drawTo(Graphic graphic);
+    void drawTo(Graphic graphic, boolean highLight);
 }

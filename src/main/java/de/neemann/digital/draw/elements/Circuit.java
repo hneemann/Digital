@@ -21,19 +21,18 @@ import de.neemann.digital.lang.Lang;
 
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author hneemann
  */
-public class Circuit implements Drawable {
+public class Circuit {
+    private static final Set<Drawable> EMPTY_SET = Collections.emptySet();
     private static final ArrayList<AttributeKey> ATTR_LIST = new ArrayList<>();
 
     static {
         ATTR_LIST.add(AttributeKey.Width);
     }
-
 
     private ElementAttributes attributes;
     private final ArrayList<VisualElement> visualElements;
@@ -93,8 +92,11 @@ public class Circuit implements Drawable {
         }
     }
 
-    @Override
     public void drawTo(Graphic graphic) {
+        drawTo(graphic, EMPTY_SET);
+    }
+
+    public void drawTo(Graphic graphic, Collection<Drawable> highLighted) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
             dotsPresent = true;
@@ -102,11 +104,11 @@ public class Circuit implements Drawable {
 
         graphic.openGroup();
         for (Wire w : wires)
-            w.drawTo(graphic);
+            w.drawTo(graphic, highLighted.contains(w));
         graphic.closeGroup();
         for (VisualElement p : visualElements) {
             graphic.openGroup();
-            p.drawTo(graphic);
+            p.drawTo(graphic, highLighted.contains(p));
             graphic.closeGroup();
         }
     }

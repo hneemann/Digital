@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -25,6 +26,9 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * @author hneemann
@@ -34,6 +38,7 @@ public class CircuitComponent extends JComponent {
     private static final String delAction = "myDelAction";
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
+    private final HashSet<Drawable> highLighted;
     private Circuit circuit;
     private Mouse listener;
     private AffineTransform transform = new AffineTransform();
@@ -42,6 +47,7 @@ public class CircuitComponent extends JComponent {
     public CircuitComponent(Circuit aCircuit, ElementLibrary library, ShapeFactory shapeFactory) {
         this.library = library;
         this.shapeFactory = shapeFactory;
+        highLighted = new HashSet<>();
         setCircuit(aCircuit);
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
@@ -119,6 +125,30 @@ public class CircuitComponent extends JComponent {
         repaint();
     }
 
+    public Collection<Drawable> getHighLighted() {
+        return highLighted;
+    }
+
+    public <T extends Drawable> void addHighLighted(T drawable) {
+        highLighted.add(drawable);
+    }
+
+    public void addHighLighted(Collection<? extends Drawable> drawables) {
+        highLighted.addAll(drawables);
+    }
+
+    public void addHighLightedWires(ObservableValue[] values) {
+        HashSet<ObservableValue> ov = new HashSet<>();
+        ov.addAll(Arrays.asList(values));
+        for (Wire w : circuit.getWires())
+            if (ov.contains(w.getValue()))
+                addHighLighted(w);
+    }
+
+    public void clearHighLighted() {
+        highLighted.clear();
+    }
+
     public void setPartToDrag(VisualElement part) {
         setModeAndReset(Mode.part);
         ((PartMouseListener) listener).setPartToInsert(part);
@@ -134,7 +164,7 @@ public class CircuitComponent extends JComponent {
         gr2.transform(transform);
 
         GraphicSwing gr = new GraphicSwing(gr2);
-        circuit.drawTo(gr);
+        circuit.drawTo(gr, highLighted);
 
         listener.drawTo(gr);
         gr2.setTransform(oldTrans);
@@ -246,7 +276,7 @@ public class CircuitComponent extends JComponent {
         @Override
         public void drawTo(Graphic gr) {
             if (wire != null)
-                wire.drawTo(gr);
+                wire.drawTo(gr, false);
         }
     }
 
@@ -275,7 +305,6 @@ public class CircuitComponent extends JComponent {
                     VisualElement vp = circuit.getElementAt(pos);
                     if (vp != null) {
                         partToInsert = vp;
-                        partToInsert.setHighLight(true);
                         delta = partToInsert.getPos().sub(pos);
                         repaint();
                     }
@@ -283,7 +312,6 @@ public class CircuitComponent extends JComponent {
                     partToInsert.setPos(raster(partToInsert.getPos()));
                     if (insert)
                         circuit.add(partToInsert);
-                    partToInsert.setHighLight(false);
                     circuit.modified();
                     repaint();
                     partToInsert = null;
@@ -308,7 +336,6 @@ public class CircuitComponent extends JComponent {
 
         public void setPartToInsert(VisualElement partToInsert) {
             this.partToInsert = partToInsert;
-            partToInsert.setHighLight(true);
             insert = true;
             autoPick = true;
         }
@@ -316,7 +343,7 @@ public class CircuitComponent extends JComponent {
         @Override
         public void drawTo(Graphic gr) {
             if (partToInsert != null && !autoPick)
-                partToInsert.drawTo(gr);
+                partToInsert.drawTo(gr, true);
         }
     }
 
@@ -443,7 +470,7 @@ public class CircuitComponent extends JComponent {
             if (state == State.COPY && elements != null)
                 for (Moveable m : elements)
                     if (m instanceof Drawable)
-                        ((Drawable) m).drawTo(gr);
+                        ((Drawable) m).drawTo(gr, true);
         }
     }
 

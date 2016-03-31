@@ -105,17 +105,8 @@ public class Net {
                 w.setValue(value);
     }
 
-    public void setHighLight(boolean highLight) {
-        if (wires != null)
-            for (Wire w : wires)
-                w.setHighLight(highLight);
-    }
-
-    public boolean containsValue(ObservableValue v) {
-        for (Pin p : pins)
-            if (p.getValue() == v)
-                return true;
-        return false;
+    public ArrayList<Wire> getWires() {
+        return wires;
     }
 
     public boolean containsPin(Pin p) {

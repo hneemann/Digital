@@ -51,7 +51,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ToolTipAction save;
     private final ElementLibrary library;
     private final ToolTipAction doStep;
-    private final JCheckBoxMenuItem traceEnable;
     private final JCheckBoxMenuItem runClock;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
@@ -63,7 +62,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private ModelDescription modelDescription;
     private boolean modelHasRunningClocks;
 
-    public Main() {
+    private Main() {
         this(null, null, null);
     }
 
@@ -223,8 +222,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             public void actionPerformed(ActionEvent e) {
                 try {
                     model.doMicroStep(false);
-                    modelDescription.highLight(model.nodesToUpdate());
-                    circuitComponent.repaint(); // necessary to update the wires!
+                    circuitComponent.clearHighLighted();
+                    modelDescription.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+                    circuitComponent.repaint();
                     doStep.setEnabled(model.needsUpdate());
                 } catch (Exception e1) {
                     SwingUtilities.invokeLater(
@@ -290,7 +290,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
 
-        traceEnable = new JCheckBoxMenuItem(Lang.get("menu_trace"));
+        JCheckBoxMenuItem traceEnable = new JCheckBoxMenuItem(Lang.get("menu_trace"));
         runClock = new JCheckBoxMenuItem(Lang.get("menu_runClock"), true);
         runClock.setToolTipText(Lang.get("menu_runClock_tt"));
 
@@ -337,8 +337,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     private void clearModelDescription() {
-        if (modelDescription != null)
-            modelDescription.highLightOff();
+        circuitComponent.clearHighLighted();
         if (model != null)
             model.close();
 
@@ -347,9 +346,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     private void setModelDescription(ModelDescription md, boolean runClock) throws NodeException, PinException {
-        if (modelDescription != null)
-            modelDescription.highLightOff();
-
         modelHasRunningClocks = runClock;
         modelDescription = md;
 
@@ -365,22 +361,27 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
             setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library), runClock);
-            GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
-            modelDescription.connectToGui(gmo);
+            if (runClock) {
+                // if clock is running, enable automatic update of gui
+                GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
+                modelDescription.connectToGui(gmo);
+                model.addObserver(gmo);
+            } else
+                // all repainting is initiated by user actions!
+                modelDescription.connectToGui(null);
 
             if (runClock)
                 for (Clock c : model.getClocks())
                     model.addObserver(new RealTimeClock(model, c));
 
-            model.addObserver(gmo);
             model.init();
 
         } catch (NodeException e) {
             if (modelDescription != null) {
                 if (e.getNodes() != null)
-                    modelDescription.highLight(e.getNodes());
+                    modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
                 else
-                    modelDescription.highLight(e.getValues());
+                    circuitComponent.addHighLightedWires(e.getValues());
 
                 circuitComponent.repaint();
             }
@@ -388,9 +389,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
         } catch (PinException e) {
             if (modelDescription != null) {
-                modelDescription.highLight(e.getVisualElement());
+                circuitComponent.addHighLighted(e.getVisualElement());
                 if (e.getNet() != null)
-                    e.getNet().setHighLight(true);
+                    circuitComponent.addHighLighted(e.getNet().getWires());
                 circuitComponent.repaint();
             }
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).setComponent(Main.this));
@@ -400,7 +401,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private static JFileChooser getjFileChooser(File filename) {
         JFileChooser fileChooser = new JFileChooser(filename == null ? null : filename.getParentFile());
-        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
         return fileChooser;
     }
 
@@ -455,7 +456,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private class ModeAction extends ToolTipAction {
         private final CircuitComponent.Mode mode;
 
-        public ModeAction(String name, Icon icon, CircuitComponent.Mode mode) {
+        ModeAction(String name, Icon icon, CircuitComponent.Mode mode) {
             super(name, icon);
             this.mode = mode;
         }
@@ -471,7 +472,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private class FullStepObserver implements Observer {
         private final Model model;
 
-        public FullStepObserver(Model model) {
+        FullStepObserver(Model model) {
             this.model = model;
         }
 
@@ -479,6 +480,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         public void hasChanged() {
             try {
                 model.doStep();
+                circuitComponent.repaint();
             } catch (Exception e) {
                 SwingUtilities.invokeLater(
                         new ErrorMessage(Lang.get("msg_errorCalculatingStep")).addCause(e).setComponent(Main.this)
@@ -490,13 +492,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private class MicroStepObserver implements Observer {
         private final Model model;
 
-        public MicroStepObserver(Model model) {
+        MicroStepObserver(Model model) {
             this.model = model;
         }
 
         @Override
         public void hasChanged() {
-            modelDescription.highLight(model.nodesToUpdate());
+            modelDescription.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             circuitComponent.repaint();
             doStep.setEnabled(model.needsUpdate());
         }
@@ -507,7 +509,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         private final String suffix;
         private final Exporter exporter;
 
-        public ExportAction(String name, String suffix, Exporter exporter) {
+        ExportAction(String name, String suffix, Exporter exporter) {
             super(name);
             this.name = name;
             this.suffix = suffix;

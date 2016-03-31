@@ -3,18 +3,17 @@ package de.neemann.digital.gui;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
 import de.neemann.digital.core.Observer;
-
-import javax.swing.*;
+import de.neemann.digital.gui.components.CircuitComponent;
 
 /**
  * @author hneemann
  */
 public class GuiModelObserver implements Observer, ModelStateObserver {
-    private final JComponent component;
+    private final CircuitComponent component;
     private final ModelEvent.Event type;
     private boolean changed = false;
 
-    public GuiModelObserver(JComponent component, ModelEvent.Event type) {
+    public GuiModelObserver(CircuitComponent component, ModelEvent.Event type) {
         this.component = component;
         this.type = type;
     }

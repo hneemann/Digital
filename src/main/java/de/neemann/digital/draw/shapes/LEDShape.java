@@ -42,7 +42,7 @@ public class LEDShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, boolean heighLight) {
         boolean fill = true;
         if (ioState != null) {
             fill = false;

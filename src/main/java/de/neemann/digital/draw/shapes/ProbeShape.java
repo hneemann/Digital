@@ -36,7 +36,7 @@ public class ProbeShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, boolean highLight) {
         graphic.drawText(new Vector(2, -1), new Vector(3, -1), label, Orientation.LEFTBOTTOM, Style.NORMAL);
         if (bits > 1) {
             String v = ioState.getInput(0).getValueString();

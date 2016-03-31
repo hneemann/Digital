@@ -34,7 +34,7 @@ public class MissingShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, boolean highLight) {
         Style style = Style.SHAPE_PIN;
         graphic.drawLine(new Vector(0, 0), new Vector(0, style.getFontSize()), style);
         graphic.drawText(new Vector(0, 0), new Vector(1, 0), message, Orientation.LEFTBOTTOM, style);

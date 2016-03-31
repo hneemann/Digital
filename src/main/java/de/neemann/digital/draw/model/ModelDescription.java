@@ -1,6 +1,8 @@
 package de.neemann.digital.draw.model;
 
-import de.neemann.digital.core.*;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Node;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
@@ -10,6 +12,7 @@ import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -166,42 +169,15 @@ public class ModelDescription implements Iterable<ModelEntry> {
 
     }
 
-    public void highLight(Collection<Node> nodes) {
+    public void addNodeElementsTo(Collection<Node> nodes, Collection<Drawable> highLighted) {
         HashSet<Node> nodeSet = new HashSet<>();
         if (nodes != null)
             nodeSet.addAll(nodes);
         for (ModelEntry me : entries) {
             Element element = me.getElement();
-            boolean highLight = element instanceof Node && nodeSet.contains(element);
-            me.getVisualElement().setHighLight(highLight);
+            if (element instanceof Node && nodeSet.contains(element))
+                highLighted.add(me.getVisualElement());
         }
-    }
-
-    public void highLight(VisualElement visualElement) {
-        if (visualElement != null) {
-            visualElement.setHighLight(true);
-        }
-    }
-
-    public void highLight(ObservableValue[] values) {
-        for (ObservableValue v : values)
-            highLight(v);
-    }
-
-    private void highLight(ObservableValue v) {
-        for (ModelEntry me : entries)
-            if (me.containsValue(v))
-                me.getVisualElement().setHighLight(true);
-        for (Net n : netList)
-            if (n.containsValue(v))
-                n.setHighLight(true);
-    }
-
-    public void highLightOff() {
-        for (ModelEntry me : entries)
-            me.getVisualElement().setHighLight(false);
-        for (Net net : netList)
-            net.setHighLight(false);
     }
 
     @Override
@@ -216,4 +192,5 @@ public class ModelDescription implements Iterable<ModelEntry> {
                 entr.add(me);
         return entr;
     }
+
 }

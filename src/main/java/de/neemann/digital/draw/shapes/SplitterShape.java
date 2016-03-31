@@ -44,7 +44,7 @@ public class SplitterShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, boolean heighLight) {
         for (int i = 0; i < inputs.length; i++) {
             Vector pos = new Vector(-2, i * SIZE - 2);
             graphic.drawText(pos, pos.add(2, 0), inputs[i], Orientation.RIGHTBOTTOM, Style.SHAPE_PIN);

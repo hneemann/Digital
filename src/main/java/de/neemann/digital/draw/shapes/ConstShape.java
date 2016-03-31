@@ -32,7 +32,7 @@ public class ConstShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, boolean heighLight) {
         Vector textPos = new Vector(-3, 0);
         graphic.drawText(textPos, textPos.add(1, 0), value, Orientation.RIGHTCENTER, Style.NORMAL);
     }

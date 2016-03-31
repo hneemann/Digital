@@ -27,7 +27,6 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     private transient Shape shape;
     private transient IOState ioState;
     private transient Interactor interactor;
-    private transient boolean highLight = false;
     private transient Element element;
     private transient ShapeFactory shapeFactory;
     private Vector pos;
@@ -98,11 +97,11 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     @Override
-    public void drawTo(Graphic graphic) {
+    public void drawTo(Graphic graphic, boolean highLight) {
         Graphic gr = new GraphicTransform(graphic, createTransform());
         Shape shape = getShape();
 
-        shape.drawTo(gr);
+        shape.drawTo(gr, highLight);
         for (Pin p : shape.getPins())
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN)
                     , p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
@@ -128,7 +127,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public GraphicMinMax getMinMax() {
         if (minMax == null) {
             GraphicMinMax mm = new GraphicMinMax();
-            drawTo(mm);
+            drawTo(mm, false);
             minMax = mm;
         }
         return minMax;
@@ -157,7 +156,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
         gr.translate(2 - mm.getMin().x, 2 - mm.getMin().y);
         GraphicSwing grs = new GraphicSwing(gr);
-        drawTo(grs);
+        drawTo(grs, false);
         return new ImageIcon(bi);
     }
 
@@ -196,10 +195,6 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         shape = null;
         minMax = null;
         rotate = elementAttributes.get(AttributeKey.Rotate).rotation;
-    }
-
-    public void setHighLight(boolean highLight) {
-        this.highLight = highLight;
     }
 
     @Override
