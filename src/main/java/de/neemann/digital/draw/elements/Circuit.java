@@ -212,6 +212,18 @@ public class Circuit implements Drawable {
         return null;
     }
 
+    public boolean isPinPos(Vector pos) {
+        VisualElement el = getElementAt(pos);
+        if (el == null) return false;
+
+        for (Pin p : el.getPins())
+            if (p.getPos().equals(pos))
+                return true;
+
+        return false;
+    }
+
+
     public void modified() {
         modified = true;
     }

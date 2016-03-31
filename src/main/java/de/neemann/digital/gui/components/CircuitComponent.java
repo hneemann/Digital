@@ -216,10 +216,15 @@ public class CircuitComponent extends JComponent {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (wire != null) {
                     circuit.add(wire);
-                    repaint();
+                    Vector startPos = raster(getPosVector(e));
+                    if (circuit.isPinPos(startPos))
+                        wire = null;
+                    else
+                        wire = new Wire(startPos, startPos);
+                } else {
+                    Vector startPos = raster(getPosVector(e));
+                    wire = new Wire(startPos, startPos);
                 }
-                Vector startPos = raster(getPosVector(e));
-                wire = new Wire(startPos, startPos);
                 repaint();
             } else {
                 if (wire != null) {
