@@ -15,28 +15,33 @@ public class Style {
     public static final Style WIRE_HIGHZ = new Style(2, true, Color.GRAY);
     public static final Style WIRE_OUT = new Style(2, true, Color.RED.darker());
     public static final Style FILLED = new Style(2, true, Color.BLACK);
-    public static final Style THIN = new Style(1, false, Color.BLACK);
-    public static final Style DASH = new Style(1, false, Color.BLACK);
-    public static final Style SHAPE_PIN = new Style(2, false, Color.GRAY, 9);
+    public static final Style DASH = new Style(0, false, Color.BLACK, new float[]{2, 2});
+    public static final Style SHAPE_PIN = new Style(2, false, Color.GRAY, 9, null);
     public static final Style HIGHLIGHT = new Style(2, false, Color.CYAN);
 
     private final int thickness;
     private final boolean filled;
     private final Color color;
     private final int fontsize;
+    private final float[] dash;
     private final Stroke stroke;
     private final Font font;
 
-    public Style(int thickness, boolean filled, Color color) {
-        this(thickness, filled, color, 12);
+    public Style(int thickness, boolean filled, Color color, float[] dash) {
+        this(thickness, filled, color, 12, dash);
     }
 
-    private Style(int thickness, boolean filled, Color color, int fontsize) {
+    public Style(int thickness, boolean filled, Color color) {
+        this(thickness, filled, color, 12, null);
+    }
+
+    private Style(int thickness, boolean filled, Color color, int fontsize, float[] dash) {
         this.thickness = thickness;
         this.filled = filled;
         this.color = color;
         this.fontsize = fontsize;
-        stroke = new BasicStroke(thickness);
+        this.dash = dash;
+        stroke = new BasicStroke(thickness, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 10f, dash, 0f);
 
         font = new Font("Arial", Font.PLAIN, fontsize);
     }
@@ -63,6 +68,10 @@ public class Style {
 
     public Font getFont() {
         return font;
+    }
+
+    public float[] getDash() {
+        return dash;
     }
 
     public static Style getWireStyle(ObservableValue value) {

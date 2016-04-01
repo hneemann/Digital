@@ -9,7 +9,6 @@ import de.neemann.digital.draw.elements.Moveable;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.GenericShape;
@@ -457,12 +456,12 @@ public class CircuitComponent extends JComponent {
         @Override
         public void drawTo(Graphic gr) {
             if (corner1 != null && corner2 != null) {
-                Polygon p = new Polygon(true)
-                        .add(corner1)
-                        .add(new Vector(corner1.x, corner2.y))
-                        .add(corner2)
-                        .add(new Vector(corner2.x, corner1.y));
-                gr.drawPolygon(p, Style.DASH);
+                Vector p1 = new Vector(corner1.x, corner2.y);
+                Vector p2 = new Vector(corner2.x, corner1.y);
+                gr.drawLine(corner1, p1, Style.DASH);
+                gr.drawLine(p1, corner2, Style.DASH);
+                gr.drawLine(corner2, p2, Style.DASH);
+                gr.drawLine(p2, corner1, Style.DASH);
             }
             if (state == State.COPY && elements != null)
                 for (Moveable m : elements)
