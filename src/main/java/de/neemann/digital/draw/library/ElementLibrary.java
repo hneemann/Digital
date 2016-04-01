@@ -15,6 +15,7 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Break.DESCRIPTION, menu);
         add(Out.SEVENDESCRIPTION, menu);
         add(Out.SEVENHEXDESCRIPTION, menu);
+        add(Terminal.DESCRIPTION, menu);
 
         menu = Lang.get("lib_mux");
         add(Multiplexer.DESCRIPTION, menu);

@@ -167,27 +167,172 @@
         <entry>
           <string>Data</string>
           <data>
-            <size>13</size>
-            <long>5137</long>
+            <size>158</size>
             <long>5120</long>
-            <long>6145</long>
-            <long>15888</long>
-            <long>29521</long>
-            <long>15375</long>
-            <long>26107</long>
-            <long>8193</long>
-            <long>16400</long>
-            <long>29521</long>
+            <long>21328</long>
+            <long>21488</long>
+            <long>5130</long>
+            <long>21312</long>
+            <long>21472</long>
+            <long>32800</long>
+            <long>4608</long>
+            <long>21040</long>
+            <long>21104</long>
+            <long>21152</long>
+            <long>21200</long>
+            <long>21264</long>
+            <long>21424</long>
+            <long>32805</long>
+            <long>4608</long>
+            <long>21168</long>
+            <long>21280</long>
+            <long>21440</long>
+            <long>32865</long>
+            <long>4608</long>
+            <long>21216</long>
+            <long>32868</long>
+            <long>4608</long>
+            <long>21248</long>
+            <long>32869</long>
+            <long>4608</long>
+            <long>21024</long>
+            <long>21392</long>
+            <long>32870</long>
+            <long>4608</long>
+            <long>21136</long>
+            <long>32871</long>
+            <long>4608</long>
+            <long>21344</long>
+            <long>32872</long>
+            <long>4608</long>
+            <long>21008</long>
+            <long>32873</long>
+            <long>4608</long>
+            <long>21360</long>
+            <long>32877</long>
+            <long>4608</long>
+            <long>21088</long>
+            <long>32878</long>
+            <long>4608</long>
+            <long>21232</long>
+            <long>32879</long>
+            <long>4608</long>
+            <long>21120</long>
+            <long>32883</long>
+            <long>4608</long>
+            <long>21056</long>
+            <long>21408</long>
+            <long>32884</long>
+            <long>4608</long>
+            <long>20992</long>
+            <long>32885</long>
+            <long>4608</long>
+            <long>21072</long>
+            <long>32886</long>
+            <long>4608</long>
+            <long>21376</long>
+            <long>32888</long>
+            <long>4608</long>
+            <long>21184</long>
+            <long>21296</long>
+            <long>21456</long>
+            <long>5125</long>
+            <long>8417</long>
+            <long>19680</long>
+            <long>5124</long>
+            <long>8417</long>
+            <long>19680</long>
+            <long>5120</long>
+            <long>8417</long>
+            <long>19680</long>
+            <long>8417</long>
+            <long>32850</long>
+            <long>4848</long>
+            <long>19695</long>
+            <long>28175</long>
+            <long>6371</long>
+            <long>5129</long>
+            <long>8417</long>
+            <long>19680</long>
+            <long>5382</long>
+            <long>8417</long>
+            <long>19680</long>
+            <long>8417</long>
+            <long>32862</long>
+            <long>4848</long>
+            <long>19695</long>
+            <long>28163</long>
+            <long>6370</long>
+            <long>31744</long>
+            <long>28643</long>
+            <long>8417</long>
+            <long>19693</long>
+            <long>734</long>
+            <long>589</long>
+            <long>6210</long>
+            <long>20020</long>
+            <long>19971</long>
             <long>15360</long>
-            <long>26107</long>
-            <long>28661</long>
+            <long>24070</long>
+            <long>32805</long>
+            <long>14848</long>
+            <long>24073</long>
+            <long>29680</long>
+            <long>6193</long>
+            <long>28663</long>
+            <long>749</long>
+            <long>20190</long>
+            <long>6369</long>
+            <long>20222</long>
+            <long>6369</long>
+            <long>27151</long>
+            <long>6193</long>
+            <long>19971</long>
+            <long>32888</long>
+            <long>14848</long>
+            <long>25605</long>
+            <long>6209</long>
+            <long>19972</long>
+            <long>32900</long>
+            <long>26864</long>
+            <long>28654</long>
+            <long>32805</long>
+            <long>4688</long>
+            <long>29685</long>
+            <long>28649</long>
+            <long>18432</long>
+            <long>18944</long>
+            <long>32915</long>
+            <long>26656</long>
+            <long>18944</long>
+            <long>32915</long>
+            <long>26656</long>
+            <long>18432</long>
+            <long>18944</long>
+            <long>32915</long>
+            <long>26656</long>
+            <long>18944</long>
+            <long>32915</long>
+            <long>26656</long>
+            <long>27151</long>
+            <long>528</long>
+            <long>10271</long>
+            <long>15386</long>
+            <long>25091</long>
+            <long>32816</long>
+            <long>5648</long>
+            <long>28162</long>
+            <long>32823</long>
+            <long>5648</long>
+            <long>29681</long>
+            <long>27138</long>
             <bits>16</bits>
           </data>
         </entry>
         <entry>
           <string>lastDataFile</string>
           <string>
-            /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/src/main/asm/lightChase.hex
+            /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/src/main/asm/printf.hex
           </string>
         </entry>
       </elementAttributes>
@@ -372,6 +517,12 @@
       <pos x="750" y="350"/>
       <rotate>0</rotate>
     </visualElement>
+    <visualElement>
+      <elementName>Terminal.dig</elementName>
+      <elementAttributes/>
+      <pos x="670" y="310"/>
+      <rotate>0</rotate>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -407,10 +558,6 @@
       <p2 x="750" y="190"/>
     </wire>
     <wire>
-      <p1 x="750" y="210"/>
-      <p2 x="720" y="210"/>
-    </wire>
-    <wire>
       <p1 x="720" y="220"/>
       <p2 x="750" y="230"/>
     </wire>
@@ -435,8 +582,16 @@
       <p2 x="750" y="350"/>
     </wire>
     <wire>
+      <p1 x="720" y="250"/>
+      <p2 x="750" y="290"/>
+    </wire>
+    <wire>
       <p1 x="310" y="320"/>
       <p2 x="460" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="610" y="320"/>
+      <p2 x="670" y="320"/>
     </wire>
     <wire>
       <p1 x="380" y="130"/>
@@ -447,16 +602,20 @@
       <p2 x="470" y="130"/>
     </wire>
     <wire>
+      <p1 x="650" y="130"/>
+      <p2 x="660" y="130"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="130"/>
+      <p2 x="690" y="130"/>
+    </wire>
+    <wire>
       <p1 x="140" y="260"/>
       <p2 x="240" y="260"/>
     </wire>
     <wire>
       <p1 x="310" y="260"/>
       <p2 x="320" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="720" y="250"/>
-      <p2 x="750" y="290"/>
     </wire>
     <wire>
       <p1 x="450" y="70"/>
@@ -495,16 +654,20 @@
       <p2 x="370" y="200"/>
     </wire>
     <wire>
+      <p1 x="630" y="330"/>
+      <p2 x="670" y="330"/>
+    </wire>
+    <wire>
+      <p1 x="310" y="330"/>
+      <p2 x="480" y="330"/>
+    </wire>
+    <wire>
       <p1 x="220" y="10"/>
       <p2 x="550" y="10"/>
     </wire>
     <wire>
       <p1 x="550" y="10"/>
       <p2 x="700" y="10"/>
-    </wire>
-    <wire>
-      <p1 x="310" y="330"/>
-      <p2 x="480" y="330"/>
     </wire>
     <wire>
       <p1 x="350" y="140"/>
@@ -567,6 +730,10 @@
       <p2 x="430" y="80"/>
     </wire>
     <wire>
+      <p1 x="720" y="210"/>
+      <p2 x="750" y="210"/>
+    </wire>
+    <wire>
       <p1 x="20" y="210"/>
       <p2 x="200" y="210"/>
     </wire>
@@ -587,8 +754,8 @@
       <p2 x="500" y="340"/>
     </wire>
     <wire>
-      <p1 x="650" y="130"/>
-      <p2 x="690" y="130"/>
+      <p1 x="650" y="340"/>
+      <p2 x="670" y="340"/>
     </wire>
     <wire>
       <p1 x="280" y="150"/>
@@ -601,6 +768,10 @@
     <wire>
       <p1 x="220" y="150"/>
       <p2 x="230" y="150"/>
+    </wire>
+    <wire>
+      <p1 x="630" y="150"/>
+      <p2 x="690" y="150"/>
     </wire>
     <wire>
       <p1 x="310" y="280"/>
@@ -711,10 +882,6 @@
       <p2 x="640" y="360"/>
     </wire>
     <wire>
-      <p1 x="630" y="150"/>
-      <p2 x="690" y="150"/>
-    </wire>
-    <wire>
       <p1 x="310" y="300"/>
       <p2 x="400" y="300"/>
     </wire>
@@ -761,6 +928,10 @@
     <wire>
       <p1 x="310" y="310"/>
       <p2 x="440" y="310"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="310"/>
+      <p2 x="670" y="310"/>
     </wire>
     <wire>
       <p1 x="380" y="120"/>
@@ -828,6 +999,10 @@
     </wire>
     <wire>
       <p1 x="650" y="160"/>
+      <p2 x="650" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="650" y="340"/>
       <p2 x="650" y="370"/>
     </wire>
     <wire>
@@ -849,6 +1024,10 @@
     <wire>
       <p1 x="340" y="230"/>
       <p2 x="340" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="130"/>
+      <p2 x="660" y="310"/>
     </wire>
     <wire>
       <p1 x="470" y="80"/>
@@ -885,6 +1064,10 @@
     <wire>
       <p1 x="610" y="80"/>
       <p2 x="610" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="610" y="140"/>
+      <p2 x="610" y="320"/>
     </wire>
     <wire>
       <p1 x="420" y="80"/>
@@ -973,6 +1156,10 @@
     <wire>
       <p1 x="630" y="150"/>
       <p2 x="630" y="210"/>
+    </wire>
+    <wire>
+      <p1 x="630" y="210"/>
+      <p2 x="630" y="330"/>
     </wire>
     <wire>
       <p1 x="310" y="30"/>

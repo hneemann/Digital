@@ -361,6 +361,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private void createAndStartModel(boolean runClock, ModelEvent.Event updateEvent) {
         try {
+            circuitComponent.removeHighLighted();
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
             setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library), runClock);
