@@ -13,7 +13,7 @@ import de.neemann.digital.draw.graphics.*;
  * @author hneemann
  */
 public class GenericShape implements Shape {
-    public static final int SIZE2 = 5;
+    public static final int SIZE2 = 10;
     public static final int SIZE = SIZE2 * 2;
 
     private final String name;
@@ -99,8 +99,8 @@ public class GenericShape implements Shape {
 
         graphic.drawPolygon(new Polygon(true)
                 .add(1, -SIZE2)
-                .add(SIZE * width - (invert ? 0 : 1), -SIZE2)
-                .add(SIZE * width - (invert ? 0 : 1), height)
+                .add(SIZE * width - 1, -SIZE2)
+                .add(SIZE * width - 1, height)
                 .add(1, height), Style.NORMAL);
 
         if (invert) {

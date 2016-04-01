@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
  * @author hneemann
  */
 public class VisualElement implements Drawable, Moveable, AttributeListener {
-    private static final int PIN = 1;
+    private static final int PIN = 2;
     private final String elementName;
     private final ElementAttributes elementAttributes;
     private transient GraphicMinMax minMax;
@@ -142,10 +142,10 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public ImageIcon createIcon(int maxHeight) {
         GraphicMinMax mm = getMinMax();
 
-        if (mm.getMax().y - mm.getMin().y > maxHeight)
+        if (mm.getMax().y - mm.getMin().y > maxHeight * 2)
             return null;
 
-        BufferedImage bi = new BufferedImage(mm.getMax().x - mm.getMin().x + 4, mm.getMax().y - mm.getMin().y + 4, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bi = new BufferedImage((mm.getMax().x - mm.getMin().x + 4) / 2 + 1, (mm.getMax().y - mm.getMin().y + 4) / 2 + 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gr = bi.createGraphics();
         gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -154,6 +154,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
         gr.setColor(new Color(255, 255, 255, 0));
         gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
+        gr.scale(0.5, 0.5);
         gr.translate(2 - mm.getMin().x, 2 - mm.getMin().y);
         GraphicSwing grs = new GraphicSwing(gr);
         drawTo(grs, false);

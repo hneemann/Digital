@@ -35,6 +35,7 @@ public class Circuit {
         ATTR_LIST.add(AttributeKey.Width);
     }
 
+    private int version = 1;
     private ElementAttributes attributes;
     private final ArrayList<VisualElement> visualElements;
     private ArrayList<Wire> wires;
@@ -63,6 +64,18 @@ public class Circuit {
             Circuit circuit = (Circuit) xStream.fromXML(in);
             for (VisualElement ve : circuit.getElements())
                 ve.setShapeFactory(shapeFactory);
+
+            if (circuit.version == 0) {
+                // convert to version 1
+                for (Wire w : circuit.getWires()) {
+                    w.p1 = w.p1.mul(2);
+                    w.p2 = w.p2.mul(2);
+                }
+                for (VisualElement e : circuit.getElements())
+                    e.setPos(e.getPos().mul(2));
+                circuit.version = 1;
+            }
+
             return circuit;
         }
     }

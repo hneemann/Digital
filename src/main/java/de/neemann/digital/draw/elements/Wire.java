@@ -10,7 +10,7 @@ import de.neemann.digital.draw.shapes.Drawable;
  * @author hneemann
  */
 public class Wire implements Drawable, Moveable {
-    private static final int MIN_LABEL_LEN = 50;
+    private static final int MIN_LABEL_LEN = 100;
     public Vector p1;
     public Vector p2;
     private transient ObservableValue value;

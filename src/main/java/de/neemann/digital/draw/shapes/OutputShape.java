@@ -14,8 +14,8 @@ import de.neemann.digital.draw.graphics.Vector;
  * @author hneemann
  */
 public class OutputShape implements Shape {
-    public static final int SIZE = 8;
-    public static final Vector RAD = new Vector(SIZE - 3, SIZE - 3);
+    public static final int SIZE = GenericShape.SIZE * 3 / 4;
+    public static final Vector RAD = new Vector(SIZE - 6, SIZE - 6);
     public static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
     private IOState ioState;

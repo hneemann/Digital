@@ -49,8 +49,8 @@ public class DriverShape implements Shape {
                 , Style.NORMAL
         );
         if (bottom)
-            graphic.drawLine(new Vector(0, SIZE), new Vector(0, 4), Style.NORMAL);
+            graphic.drawLine(new Vector(0, SIZE), new Vector(0, 7), Style.NORMAL);
         else
-            graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -4), Style.NORMAL);
+            graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -7), Style.NORMAL);
     }
 }

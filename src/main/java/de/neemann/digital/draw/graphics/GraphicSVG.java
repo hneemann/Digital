@@ -7,7 +7,7 @@ import java.util.Date;
  * @author hneemann
  */
 public class GraphicSVG implements Graphic, Closeable {
-    private static final int DEF_SCALE = 30;
+    private static final int DEF_SCALE = 15;
     private final BufferedWriter w;
 
     public GraphicSVG(File file, Vector min, Vector max) throws IOException {

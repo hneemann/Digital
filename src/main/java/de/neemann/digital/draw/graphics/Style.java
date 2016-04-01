@@ -8,16 +8,16 @@ import java.awt.*;
  * @author hneemann
  */
 public class Style {
-    public static final Style NORMAL = new Style(2, false, Color.BLACK);
-    public static final Style WIRE = new Style(2, true, Color.BLUE.darker());
-    public static final Style WIRE_LOW = new Style(2, true, new Color(0, 112, 0));
-    public static final Style WIRE_HIGH = new Style(2, true, new Color(102, 255, 102));
-    public static final Style WIRE_HIGHZ = new Style(2, true, Color.GRAY);
-    public static final Style WIRE_OUT = new Style(2, true, Color.RED.darker());
-    public static final Style FILLED = new Style(2, true, Color.BLACK);
-    public static final Style DASH = new Style(0, false, Color.BLACK, new float[]{2, 2});
-    public static final Style SHAPE_PIN = new Style(2, false, Color.GRAY, 9, null);
-    public static final Style HIGHLIGHT = new Style(2, false, Color.CYAN);
+    public static final Style NORMAL = new Style(4, false, Color.BLACK);
+    public static final Style WIRE = new Style(4, true, Color.BLUE.darker());
+    public static final Style WIRE_LOW = new Style(4, true, new Color(0, 112, 0));
+    public static final Style WIRE_HIGH = new Style(4, true, new Color(102, 255, 102));
+    public static final Style WIRE_HIGHZ = new Style(4, true, Color.GRAY);
+    public static final Style WIRE_OUT = new Style(4, true, Color.RED.darker());
+    public static final Style FILLED = new Style(4, true, Color.BLACK);
+    public static final Style DASH = new Style(1, false, Color.BLACK, new float[]{4, 4});
+    public static final Style SHAPE_PIN = new Style(4, false, Color.GRAY, 18, null);
+    public static final Style HIGHLIGHT = new Style(4, false, Color.CYAN);
 
     private final int thickness;
     private final boolean filled;
@@ -28,11 +28,11 @@ public class Style {
     private final Font font;
 
     public Style(int thickness, boolean filled, Color color, float[] dash) {
-        this(thickness, filled, color, 12, dash);
+        this(thickness, filled, color, 24, dash);
     }
 
     public Style(int thickness, boolean filled, Color color) {
-        this(thickness, filled, color, 12, null);
+        this(thickness, filled, color, 24, null);
     }
 
     private Style(int thickness, boolean filled, Color color, int fontsize, float[] dash) {
