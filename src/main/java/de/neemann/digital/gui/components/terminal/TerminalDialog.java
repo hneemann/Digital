@@ -10,14 +10,15 @@ import java.awt.*;
 /**
  * @author hneemann
  */
-public class TerminalFrame extends JFrame {
+public class TerminalDialog extends JDialog {
     private final JTextArea textArea;
     private final int width;
     private int pos;
 
-    public TerminalFrame(ElementAttributes attr) {
-        super(attr.get(AttributeKey.Label));
+    public TerminalDialog(ElementAttributes attr) {
+        super((JFrame) null, attr.get(AttributeKey.Label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         width = attr.get(AttributeKey.TermWidth);
         textArea = new JTextArea(attr.get(AttributeKey.TermHeight), width);
         textArea.setFont(new Font("monospaced", Font.PLAIN, 12));

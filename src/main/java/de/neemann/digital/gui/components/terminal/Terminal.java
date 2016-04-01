@@ -23,7 +23,7 @@ public class Terminal extends Node implements Element {
     private final ElementAttributes attr;
     private ObservableValue data;
     private ObservableValue clock;
-    private TerminalFrame terminalFrame;
+    private TerminalDialog terminalDialog;
     private boolean lastClock;
 
     public Terminal(ElementAttributes attributes) {
@@ -45,9 +45,9 @@ public class Terminal extends Node implements Element {
     public void readInputs() throws NodeException {
         boolean clockVal = clock.getBool();
         if (!lastClock && clockVal) {
-            if (terminalFrame == null)
-                terminalFrame = new TerminalFrame(attr);
-            terminalFrame.addChar((char) data.getValue());
+            if (terminalDialog == null)
+                terminalDialog = new TerminalDialog(attr);
+            terminalDialog.addChar((char) data.getValue());
         }
         lastClock = clockVal;
     }
