@@ -160,7 +160,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
 
         JMenu export = new JMenu(Lang.get("menu_export"));
-        export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVG::new));
+        export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
         export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
 
 

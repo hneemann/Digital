@@ -99,15 +99,15 @@ public class GenericShape implements Shape {
 
         graphic.drawPolygon(new Polygon(true)
                 .add(1, -SIZE2)
-                .add(SIZE * width - 1, -SIZE2)
-                .add(SIZE * width - 1, height)
+                .add(SIZE * width - (invert ? 0 : 1), -SIZE2)
+                .add(SIZE * width - (invert ? 0 : 1), height)
                 .add(1, height), Style.NORMAL);
 
         if (invert) {
             int offs = symmetric ? inputs.length / 2 * SIZE : 0;
             for (int i = 0; i < outputs.length; i++)
-                graphic.drawCircle(new Vector(SIZE * width, i * SIZE - SIZE2 + 1 + offs),
-                        new Vector(SIZE * (width + 1) - 2, i * SIZE + SIZE2 - 1 + offs), Style.NORMAL);
+                graphic.drawCircle(new Vector(SIZE * width + 1, i * SIZE - SIZE2 + 1 + offs),
+                        new Vector(SIZE * (width + 1) - 1, i * SIZE + SIZE2 - 1 + offs), Style.NORMAL);
 
         }
 

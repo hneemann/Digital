@@ -2,6 +2,7 @@ package de.neemann.digital.draw.graphics;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * @author hneemann
@@ -11,8 +12,13 @@ public class GraphicSVGLaTeX extends GraphicSVG {
         super(file, min, max);
     }
 
+    public GraphicSVGLaTeX(OutputStream out, Vector min, Vector max, File source, int svgScale) throws IOException {
+        super(out, min, max, source, svgScale);
+    }
+
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public String formatText(String text, int fontSize) {
+        text = formatIndex(text);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
@@ -31,8 +37,20 @@ public class GraphicSVGLaTeX extends GraphicSVG {
                     sb.append(c);
             }
         }
-        super.drawText(p1, p2, sb.toString(), orientation, style);
+        text = sb.toString();
+        if (fontSize < Style.NORMAL.getFontSize())
+            text = "{\\scriptsize " + text + "}";
+        return escapeXML(text);
     }
+
+    public String formatIndex(String text) {
+        int p = text.lastIndexOf("_");
+        if (p > 0) {
+            text = "$" + text.substring(0, p) + "_{" + text.substring(p + 1) + "}$";
+        }
+        return text;
+    }
+
 
     @Override
     public void drawCircle(Vector p1, Vector p2, Style style) {

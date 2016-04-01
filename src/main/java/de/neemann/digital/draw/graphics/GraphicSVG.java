@@ -19,7 +19,11 @@ public class GraphicSVG implements Graphic, Closeable {
     }
 
     public GraphicSVG(File file, Vector min, Vector max, File source, int svgScale) throws IOException {
-        w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"));
+        this(new FileOutputStream(file), min, max, source, svgScale);
+    }
+
+    public GraphicSVG(OutputStream out, Vector min, Vector max, File source, int svgScale) throws IOException {
+        w = new BufferedWriter(new OutputStreamWriter(out, "utf-8"));
         w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
                 "<!-- Created with Digital by H.Neemann -->\n");
         w.write("<!-- created: " + new Date() + " -->\n");
@@ -55,7 +59,7 @@ public class GraphicSVG implements Graphic, Closeable {
 //                addStrokeDash(w, style.getDashArray());
             w.write(" />\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -74,7 +78,7 @@ public class GraphicSVG implements Graphic, Closeable {
 //                addStrokeDash(w, style.getDashArray());
             w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -96,7 +100,7 @@ public class GraphicSVG implements Graphic, Closeable {
                 w.write(" />\n");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -105,7 +109,7 @@ public class GraphicSVG implements Graphic, Closeable {
         if (text == null || text.length() == 0) return;
 
         try {
-            text = escapeXML(text);
+            text = formatText(text, style.getFontSize());
 
             boolean rotateText = false;
             if (p1.y == p2.y) {   // 0 and 180 deg
@@ -137,15 +141,19 @@ public class GraphicSVG implements Graphic, Closeable {
             else
                 w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\">" + text + "</text>\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+    }
+
+    public String formatText(String text, int fontSize) {
+        return escapeXML(text);
     }
 
     public String getColor(Style style) {
         return "#" + Integer.toHexString(style.getColor().getRGB()).substring(2);
     }
 
-    private String escapeXML(String text) {
+    public String escapeXML(String text) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);

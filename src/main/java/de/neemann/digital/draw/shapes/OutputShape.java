@@ -48,7 +48,7 @@ public class OutputShape implements Shape {
             }
         }
 
-        Vector center = new Vector(2 + SIZE, 0);
+        Vector center = new Vector(1 + SIZE, 0);
         graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
         graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);
         Vector textPos = new Vector(SIZE * 3, 0);

@@ -51,7 +51,7 @@ public class LEDShape implements Shape {
                 fill = true;
         }
 
-        Vector center = new Vector(2 + SIZE, 0);
+        Vector center = new Vector(1 + SIZE, 0);
         graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.FILLED);
         if (fill)
             graphic.drawCircle(center.sub(RAD), center.add(RAD), onStyle);
