@@ -67,8 +67,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     public Main(Component parent, File fileToOpen, SavedListener savedListener) {
         super(Lang.get("digital"));
-        this.savedListener = savedListener;
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
+        this.savedListener = savedListener;
 
         library = new ElementLibrary();
         shapeFactory = new ShapeFactory(library);
@@ -102,7 +103,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         });
 
         JMenuBar bar = new JMenuBar();
-
 
         ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new"), iconNew) {
             @Override

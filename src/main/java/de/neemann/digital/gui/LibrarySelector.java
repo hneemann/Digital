@@ -54,7 +54,11 @@ public class LibrarySelector implements ElementNotFoundNotification {
                 JFileChooser fc = new JFileChooser(filePath);
                 fc.addChoosableFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
                 if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    importElement(fc.getSelectedFile());
+                    ElementTypeDescription des = importElement(fc.getSelectedFile());
+                    if (des != null) {
+                        VisualElement visualElement = new VisualElement(des.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
+                        circuitComponent.setPartToDrag(visualElement);
+                    }
                 }
             }
         }.setToolTip(Lang.get("menu_import_tt")));
