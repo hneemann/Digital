@@ -46,10 +46,10 @@ public class MuxerShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, boolean heighLight) {
         graphic.drawPolygon(new Polygon(true)
-                .add(1, -2)
-                .add(SIZE * 2 - 1, 3)
-                .add(SIZE * 2 - 1, inputCount * SIZE - 3)
-                .add(1, inputCount * SIZE + 2), Style.NORMAL);
+                .add(1, -4)
+                .add(SIZE * 2 - 1, 5)
+                .add(SIZE * 2 - 1, inputCount * SIZE - 5)
+                .add(1, inputCount * SIZE + 4), Style.NORMAL);
         graphic.drawText(new Vector(3, 0), new Vector(4, 0), "0", Orientation.LEFTTOP, Style.SHAPE_PIN);
     }
 }

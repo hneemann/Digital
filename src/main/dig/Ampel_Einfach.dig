@@ -6,7 +6,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Z_0</string>
+          <string>z_0</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="190"/>
@@ -17,7 +17,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Z_1</string>
+          <string>z_1</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="130"/>

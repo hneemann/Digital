@@ -371,7 +371,7 @@
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation rotation="1"/>
+          <rotation rotation="2"/>
         </entry>
         <entry>
           <string>Label</string>
@@ -382,8 +382,8 @@
           <int>1000</int>
         </entry>
       </elementAttributes>
-      <pos x="560" y="230"/>
-      <rotate>1</rotate>
+      <pos x="520" y="230"/>
+      <rotate>2</rotate>
     </visualElement>
     <visualElement>
       <elementName>Probe</elementName>
@@ -739,10 +739,10 @@
     </wire>
     <wire>
       <p1 x="490" y="210"/>
-      <p2 x="560" y="210"/>
+      <p2 x="510" y="210"/>
     </wire>
     <wire>
-      <p1 x="560" y="210"/>
+      <p1 x="510" y="210"/>
       <p2 x="630" y="210"/>
     </wire>
     <wire>
@@ -872,6 +872,10 @@
     <wire>
       <p1 x="90" y="230"/>
       <p2 x="100" y="230"/>
+    </wire>
+    <wire>
+      <p1 x="510" y="230"/>
+      <p2 x="520" y="230"/>
     </wire>
     <wire>
       <p1 x="100" y="230"/>
@@ -1126,10 +1130,6 @@
       <p2 x="110" y="140"/>
     </wire>
     <wire>
-      <p1 x="560" y="210"/>
-      <p2 x="560" y="230"/>
-    </wire>
-    <wire>
       <p1 x="370" y="60"/>
       <p2 x="370" y="80"/>
     </wire>
@@ -1176,6 +1176,10 @@
     <wire>
       <p1 x="380" y="80"/>
       <p2 x="380" y="90"/>
+    </wire>
+    <wire>
+      <p1 x="510" y="210"/>
+      <p2 x="510" y="230"/>
     </wire>
     <wire>
       <p1 x="190" y="70"/>
