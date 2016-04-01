@@ -14,6 +14,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 public class Not extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, "in")
+            .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits);
 
     private final ObservableValue output;

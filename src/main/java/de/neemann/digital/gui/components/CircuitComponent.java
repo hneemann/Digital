@@ -382,7 +382,10 @@ public class CircuitComponent extends JComponent {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            reset();
+            if (e.getButton() == MouseEvent.BUTTON1)
+                reset();
+            else
+                editAttributes(e);
         }
 
         private void reset() {

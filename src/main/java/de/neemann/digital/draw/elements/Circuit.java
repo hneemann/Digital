@@ -69,6 +69,7 @@ public class Circuit {
 
     public void save(File filename) throws IOException {
         wires = new WireConsistencyChecker(wires).check();
+        dotsPresent = false;
         XStream xStream = Circuit.getxStream();
         try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
