@@ -107,9 +107,7 @@
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <de.neemann.digital.core.element.Rotation>
-            <rotation>1</rotation>
-          </de.neemann.digital.core.element.Rotation>
+          <rotation rotation="1"/>
         </entry>
         <entry>
           <string>Bits</string>
@@ -228,9 +226,7 @@
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <de.neemann.digital.core.element.Rotation>
-            <rotation>1</rotation>
-          </de.neemann.digital.core.element.Rotation>
+          <rotation rotation="1"/>
         </entry>
         <entry>
           <string>Label</string>
@@ -238,7 +234,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>100</int>
+          <int>1000</int>
         </entry>
       </elementAttributes>
       <pos x="560" y="230"/>
@@ -277,166 +273,166 @@
     <visualElement>
       <elementName>GPO.dig</elementName>
       <elementAttributes/>
-      <pos x="700" y="130"/>
+      <pos x="690" y="130"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="50"/>
+      <pos x="750" y="50"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="70"/>
+      <pos x="750" y="70"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="90"/>
+      <pos x="750" y="90"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="110"/>
+      <pos x="750" y="110"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="130"/>
+      <pos x="750" y="130"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="150"/>
+      <pos x="750" y="150"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="170"/>
+      <pos x="750" y="170"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="190"/>
+      <pos x="750" y="190"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="210"/>
+      <pos x="750" y="210"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="230"/>
+      <pos x="750" y="230"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="250"/>
+      <pos x="750" y="250"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="270"/>
+      <pos x="750" y="270"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="290"/>
+      <pos x="750" y="290"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="310"/>
+      <pos x="750" y="310"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="330"/>
+      <pos x="750" y="330"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="760" y="350"/>
+      <pos x="750" y="350"/>
       <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="760" y="50"/>
-      <p2 x="730" y="130"/>
+      <p1 x="750" y="50"/>
+      <p2 x="720" y="130"/>
     </wire>
     <wire>
-      <p1 x="730" y="140"/>
-      <p2 x="760" y="70"/>
+      <p1 x="720" y="140"/>
+      <p2 x="750" y="70"/>
     </wire>
     <wire>
-      <p1 x="730" y="150"/>
-      <p2 x="760" y="90"/>
+      <p1 x="720" y="150"/>
+      <p2 x="750" y="90"/>
     </wire>
     <wire>
-      <p1 x="760" y="110"/>
-      <p2 x="730" y="160"/>
+      <p1 x="750" y="110"/>
+      <p2 x="720" y="160"/>
     </wire>
     <wire>
-      <p1 x="730" y="170"/>
-      <p2 x="760" y="130"/>
+      <p1 x="720" y="170"/>
+      <p2 x="750" y="130"/>
     </wire>
     <wire>
-      <p1 x="730" y="180"/>
-      <p2 x="760" y="150"/>
+      <p1 x="720" y="180"/>
+      <p2 x="750" y="150"/>
     </wire>
     <wire>
-      <p1 x="730" y="190"/>
-      <p2 x="760" y="170"/>
+      <p1 x="720" y="190"/>
+      <p2 x="750" y="170"/>
     </wire>
     <wire>
-      <p1 x="730" y="200"/>
-      <p2 x="760" y="190"/>
+      <p1 x="720" y="200"/>
+      <p2 x="750" y="190"/>
     </wire>
     <wire>
-      <p1 x="760" y="210"/>
-      <p2 x="730" y="210"/>
+      <p1 x="750" y="210"/>
+      <p2 x="720" y="210"/>
     </wire>
     <wire>
-      <p1 x="730" y="220"/>
-      <p2 x="760" y="230"/>
+      <p1 x="720" y="220"/>
+      <p2 x="750" y="230"/>
     </wire>
     <wire>
-      <p1 x="730" y="230"/>
-      <p2 x="760" y="250"/>
+      <p1 x="720" y="230"/>
+      <p2 x="750" y="250"/>
     </wire>
     <wire>
-      <p1 x="730" y="240"/>
-      <p2 x="760" y="270"/>
+      <p1 x="720" y="240"/>
+      <p2 x="750" y="270"/>
     </wire>
     <wire>
-      <p1 x="730" y="260"/>
-      <p2 x="760" y="310"/>
+      <p1 x="720" y="260"/>
+      <p2 x="750" y="310"/>
     </wire>
     <wire>
-      <p1 x="730" y="270"/>
-      <p2 x="760" y="330"/>
+      <p1 x="720" y="270"/>
+      <p2 x="750" y="330"/>
     </wire>
     <wire>
-      <p1 x="730" y="280"/>
-      <p2 x="760" y="350"/>
+      <p1 x="720" y="280"/>
+      <p2 x="750" y="350"/>
     </wire>
     <wire>
       <p1 x="310" y="320"/>
@@ -459,8 +455,8 @@
       <p2 x="320" y="260"/>
     </wire>
     <wire>
-      <p1 x="730" y="250"/>
-      <p2 x="760" y="290"/>
+      <p1 x="720" y="250"/>
+      <p2 x="750" y="290"/>
     </wire>
     <wire>
       <p1 x="450" y="70"/>
@@ -532,7 +528,7 @@
     </wire>
     <wire>
       <p1 x="610" y="140"/>
-      <p2 x="700" y="140"/>
+      <p2 x="690" y="140"/>
     </wire>
     <wire>
       <p1 x="310" y="270"/>
@@ -592,7 +588,7 @@
     </wire>
     <wire>
       <p1 x="650" y="130"/>
-      <p2 x="700" y="130"/>
+      <p2 x="690" y="130"/>
     </wire>
     <wire>
       <p1 x="280" y="150"/>
@@ -664,7 +660,7 @@
     </wire>
     <wire>
       <p1 x="650" y="160"/>
-      <p2 x="700" y="160"/>
+      <p2 x="690" y="160"/>
     </wire>
     <wire>
       <p1 x="310" y="290"/>
@@ -716,7 +712,7 @@
     </wire>
     <wire>
       <p1 x="630" y="150"/>
-      <p2 x="700" y="150"/>
+      <p2 x="690" y="150"/>
     </wire>
     <wire>
       <p1 x="310" y="300"/>

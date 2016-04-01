@@ -24,6 +24,7 @@ import java.awt.event.WindowEvent;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.prefs.Preferences;
 
 /**
@@ -58,6 +59,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private Model model;
     private ModelDescription modelDescription;
     private boolean modelHasRunningClocks;
+    private ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
 
     private Main() {
         this(null, null, null);
@@ -95,6 +97,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void windowClosed(WindowEvent e) {
                 clearModelDescription(); // stop model timer if running
+                timerExecuter.shutdown();
             }
         });
 
@@ -372,7 +375,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             if (runClock)
                 for (Clock c : model.getClocks())
-                    model.addObserver(new RealTimeClock(model, c));
+                    model.addObserver(new RealTimeClock(model, c, timerExecuter));
 
             model.init();
 

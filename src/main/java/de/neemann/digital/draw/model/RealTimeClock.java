@@ -6,19 +6,23 @@ import de.neemann.digital.gui.GuiModelObserver;
 import de.neemann.gui.ErrorMessage;
 
 import javax.swing.*;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author hneemann
  */
 public class RealTimeClock implements ModelStateObserver {
-
     private final Model model;
+    private final ScheduledThreadPoolExecutor executor;
     private final int frequency;
     private final ObservableValue output;
-    private Timer timer;
+    private ScheduledFuture<?> timer;
 
-    public RealTimeClock(Model model, Clock clock) {
+    public RealTimeClock(Model model, Clock clock, ScheduledThreadPoolExecutor executor) {
         this.model = model;
+        this.executor = executor;
         int f = clock.getFrequency();
         if (f < 1) f = 1;
         this.frequency = f;
@@ -34,20 +38,21 @@ public class RealTimeClock implements ModelStateObserver {
 
                 int delay = 1000 / frequency;
                 if (delay < 1) delay = 1;
-                timer = new Timer(delay, e -> {
+
+                timer = executor.scheduleAtFixedRate(() -> SwingUtilities.invokeLater(() -> {
                     output.setValue(1 - output.getValue());
                     try {
                         model.doStep();
                     } catch (NodeException e1) {
                         SwingUtilities.invokeLater(new ErrorMessage("ClockError").addCause(e1));
-                        timer.stop();
+                        timer.cancel(false);
                     }
-                });
-                timer.start();
+                }), delay, delay, TimeUnit.MILLISECONDS);
+
                 break;
             case STOPPED:
                 if (timer != null)
-                    timer.stop();
+                    timer.cancel(false);
                 break;
         }
     }
