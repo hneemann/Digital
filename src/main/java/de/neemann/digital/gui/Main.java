@@ -49,8 +49,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon iconFast = IconCreator.create("FastForward24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
-    private final ElementLibrary library;
     private final ToolTipAction doStep;
+    private final ToolTipAction runToBreak;
+    private final ElementLibrary library;
     private final JCheckBoxMenuItem runClock;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
@@ -68,7 +69,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private State selectState;
     private State runModelState;
     private State runModelMicroState;
-    private boolean clocksAreRunning;
 
     private Main() {
         this(null, null, null);
@@ -250,31 +250,19 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 .setToolTip(Lang.get("menu_run_tt"));
         ToolTipAction runModelMicroAction = runModelMicroState.createToolTipAction(Lang.get("menu_micro"), iconMicro)
                 .setToolTip(Lang.get("menu_micro_tt"));
-        ToolTipAction runFast = new ToolTipAction(Lang.get("menu_fast"), iconFast) {
+        runToBreak = new ToolTipAction(Lang.get("menu_fast"), iconFast) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (model == null || !model.isFastRunModel() || clocksAreRunning) {
-                    // start without running clocks
-                    createAndStartModel(false, ModelEvent.Event.BREAK);
-                    circuitComponent.setManualChangeObserver(new FullStepObserver(model));
-                    // inform StateManager that we manually entered the run state
-                    stateManager.stateEnteredManually(runModelState);
-                    if (!model.isFastRunModel()) {
-                        elementState.activate();
-                        new ErrorMessage(Lang.get("msg_needOneClockAndOneTimer")).show(Main.this);
-                    }
+                try {
+                    int i = model.runToBreak();
+                    circuitComponent.repaint();
+                    statusLabel.setText(Lang.get("stat_clocks", i));
+                } catch (NodeException e1) {
+                    elementState.activate();
+                    new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
                 }
-                if (model != null && model.isFastRunModel() && !clocksAreRunning)
-                    try {
-                        int i = model.runToBreak();
-                        circuitComponent.repaint();
-                        statusLabel.setText(Lang.get("stat_clocks", i));
-                    } catch (NodeException e1) {
-                        elementState.activate();
-                        new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
-                    }
             }
-        }.setToolTip(Lang.get("menu_fast_tt"));
+        }.setToolTip(Lang.get("menu_fast_tt")).setActive(false);
 
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
             @Override
@@ -299,7 +287,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
-        run.add(runFast.createJMenuItem());
+        run.add(runToBreak.createJMenuItem());
         run.add(speedTest.createJMenuItem());
         run.add(traceEnable);
         run.add(runClock);
@@ -316,7 +304,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
-        toolBar.add(runFast.createJButtonNoText());
+        toolBar.add(runToBreak.createJButtonNoText());
         toolBar.add(runModelMicroState.setIndicator(runModelMicroAction.createJButtonNoText()));
         toolBar.add(doStep.createJButtonNoText());
 
@@ -399,7 +387,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 for (Clock c : model.getClocks())
                     model.addObserver(new RealTimeClock(model, c, timerExecuter));
             }
-            clocksAreRunning = runClock;
+
+            runToBreak.setEnabled(!runClock && model.isFastRunModel());
 
             model.init();
 

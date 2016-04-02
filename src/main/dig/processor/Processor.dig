@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>Control.dig</elementName>
@@ -168,20 +169,22 @@
         <entry>
           <string>Data</string>
           <data>
-            <size>13</size>
+            <size>15</size>
             <long>5137</long>
             <long>5120</long>
             <long>6145</long>
             <long>15888</long>
             <long>29521</long>
+            <long>31744</long>
             <long>15375</long>
-            <long>26107</long>
+            <long>26106</long>
             <long>8193</long>
             <long>16400</long>
             <long>29521</long>
+            <long>31744</long>
             <long>15360</long>
-            <long>26107</long>
-            <long>28661</long>
+            <long>26106</long>
+            <long>28659</long>
             <bits>16</bits>
           </data>
         </entry>
@@ -235,7 +238,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>200</int>
+          <int>1000</int>
         </entry>
       </elementAttributes>
       <pos x="1040" y="460"/>
@@ -253,7 +256,7 @@
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="620" y="60"/>
+      <pos x="640" y="60"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -268,7 +271,7 @@
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="720" y="60"/>
+      <pos x="740" y="60"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -440,6 +443,14 @@
     <wire>
       <p1 x="1440" y="500"/>
       <p2 x="1500" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="80"/>
+      <p2 x="640" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="80"/>
+      <p2 x="740" y="60"/>
     </wire>
     <wire>
       <p1 x="620" y="640"/>
@@ -898,7 +909,7 @@
       <p2 x="400" y="420"/>
     </wire>
     <wire>
-      <p1 x="720" y="60"/>
+      <p1 x="720" y="80"/>
       <p2 x="720" y="140"/>
     </wire>
     <wire>
@@ -994,7 +1005,7 @@
       <p2 x="1260" y="420"/>
     </wire>
     <wire>
-      <p1 x="620" y="60"/>
+      <p1 x="620" y="80"/>
       <p2 x="620" y="120"/>
     </wire>
     <wire>
