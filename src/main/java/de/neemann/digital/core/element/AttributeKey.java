@@ -27,6 +27,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Integer> TermWidth = new AttributeKey<>("termWidth", Lang.get("key_termWidth"), 50);
     public static final AttributeKey<Integer> TermHeight = new AttributeKey<>("termHeight", Lang.get("key_termHeight"), 25);
     public static final AttributeKey<Integer> Cycles = new AttributeKey<>("Cycles", Lang.get("key_cycles"), 100000);
+    public static final AttributeKey<Boolean> ValueIsProbe = new AttributeKey<>("valueIsProbe", Lang.get("key_valueIsProbe"), false);
 
 
     private final String key;

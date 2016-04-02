@@ -12,6 +12,7 @@ import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
+import de.neemann.digital.gui.components.ProbeDialog;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.lang.Lang;
@@ -53,6 +54,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ToolTipAction runToBreak;
     private final ElementLibrary library;
     private final JCheckBoxMenuItem runClock;
+    private final JCheckBoxMenuItem showProbes;
+    private final JCheckBoxMenuItem traceEnable;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
     private final SavedListener savedListener;
@@ -280,16 +283,19 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
 
-        JCheckBoxMenuItem traceEnable = new JCheckBoxMenuItem(Lang.get("menu_trace"));
-        runClock = new JCheckBoxMenuItem(Lang.get("menu_runClock"), true);
+        showProbes = new JCheckBoxMenuItem(Lang.get("menu_probe"));
+        showProbes.setToolTipText(Lang.get("menu_probe_tt"));
+        traceEnable = new JCheckBoxMenuItem(Lang.get("menu_trace"));
+        runClock = new JCheckBoxMenuItem(Lang.get("menu_runClock"));
         runClock.setToolTipText(Lang.get("menu_runClock_tt"));
 
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runToBreak.createJMenuItem());
-        run.add(speedTest.createJMenuItem());
-        run.add(traceEnable);
+        //run.add(speedTest.createJMenuItem());
+        run.add(showProbes);
+        //run.add(traceEnable);
         run.add(runClock);
         doStep.setEnabled(false);
 
@@ -389,6 +395,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
 
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
+
+
+            if (showProbes.isSelected())
+                new ProbeDialog(this, model, updateEvent).setVisible(true);
+
 
             model.init();
 

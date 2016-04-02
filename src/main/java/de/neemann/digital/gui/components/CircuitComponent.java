@@ -402,13 +402,15 @@ public class CircuitComponent extends JComponent {
                 corner1 = getPosVector(e);
                 wasRealyDragged = false;
             } else {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-                    state = State.MOVE;
-                } else {
-                    elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2), shapeFactory);
-                    copyStartPosition = raster(getPosVector(e));
-                    state = State.COPY;
+                if (corner2 != null) {
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+                        elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                        state = State.MOVE;
+                    } else {
+                        elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2), shapeFactory);
+                        copyStartPosition = raster(getPosVector(e));
+                        state = State.COPY;
+                    }
                 }
                 lastPos = getPosVector(e);
             }

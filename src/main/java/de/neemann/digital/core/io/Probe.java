@@ -26,10 +26,6 @@ public class Probe implements Element {
         label = attributes.get(AttributeKey.Label);
     }
 
-    public Probe(int bits) {
-        label = null;
-    }
-
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
         value = inputs[0];

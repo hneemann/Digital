@@ -239,7 +239,7 @@ public class Model {
         return signals;
     }
 
-    public static class Signal {
+    public static class Signal implements Comparable<Signal> {
 
         private final String name;
         private final ObservableValue value;
@@ -247,6 +247,19 @@ public class Model {
         public Signal(String name, ObservableValue value) {
             this.name = name;
             this.value = value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public ObservableValue getValue() {
+            return value;
+        }
+
+        @Override
+        public int compareTo(Signal o) {
+            return name.compareTo(o.name);
         }
     }
 
