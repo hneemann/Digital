@@ -235,6 +235,10 @@ public class Model {
         return clocks.size() == 1 && breaks.size() == 1;
     }
 
+    public ArrayList<Signal> getSignals() {
+        return signals;
+    }
+
     public static class Signal {
 
         private final String name;

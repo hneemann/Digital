@@ -13,6 +13,7 @@ import de.neemann.digital.core.flipflops.T_FF;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.io.Probe;
 import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.gui.components.terminal.Terminal;
@@ -46,7 +47,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(In.DESCRIPTION, menu);
         add(Out.DESCRIPTION, menu);
         add(Out.LEDDESCRIPTION, menu);
-        add(Out.PROBEDESCRIPTION, menu);
+        add(Probe.DESCRIPTION, menu);
         add(Clock.DESCRIPTION, menu);
         add(Reset.DESCRIPTION, menu);
         add(Break.DESCRIPTION, menu);

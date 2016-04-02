@@ -19,12 +19,6 @@ public class Out implements Element {
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);
 
-    public static final ElementTypeDescription PROBEDESCRIPTION
-            = new ElementTypeDescription("Probe", Out.class, "in")
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.Label);
-
     public static final ElementTypeDescription LEDDESCRIPTION
             = new ElementTypeDescription("LED", Out.class, "in")
             .addAttribute(AttributeKey.Rotate)

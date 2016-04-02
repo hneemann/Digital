@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.io.Probe;
 import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
 import de.neemann.digital.core.wiring.*;
@@ -46,7 +47,7 @@ public final class ShapeFactory {
         map.put(Const.DESCRIPTION.getName(), attr -> new ConstShape(attr.get(AttributeKey.Value)));
         map.put(Out.DESCRIPTION.getName(), attr -> new OutputShape(attr.get(AttributeKey.Label)));
         map.put(Out.LEDDESCRIPTION.getName(), attr -> new LEDShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
-        map.put(Out.PROBEDESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
+        map.put(Probe.DESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
         map.put(Clock.DESCRIPTION.getName(), attr -> new ClockShape(attr.get(AttributeKey.Label)));
         map.put(Out.SEVENDESCRIPTION.getName(), attr -> new SevenSegShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
         map.put(Out.SEVENHEXDESCRIPTION.getName(), attr -> new SevenSegHexShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
