@@ -17,7 +17,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R0</string>
+          <string>R 0</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -51,7 +51,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R1</string>
+          <string>R 1</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -70,7 +70,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R2</string>
+          <string>R 2</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -89,7 +89,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R3</string>
+          <string>R 3</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -108,7 +108,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R4</string>
+          <string>R 4</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -127,7 +127,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R5</string>
+          <string>R 5</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -146,7 +146,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R6</string>
+          <string>R 6</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -165,7 +165,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R7</string>
+          <string>R 7</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -184,7 +184,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R8</string>
+          <string>R 8</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -203,7 +203,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>R9</string>
+          <string>R 9</string>
         </entry>
         <entry>
           <string>Bits</string>

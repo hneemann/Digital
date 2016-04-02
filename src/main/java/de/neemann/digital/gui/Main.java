@@ -446,7 +446,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         try {
             librarySelector.setFilePath(filename.getParentFile());
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
-            clearModelDescription();
+            elementState.activate();
             circuitComponent.setCircuit(circ);
             setFilename(filename, toPrefs);
         } catch (Exception e) {

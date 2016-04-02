@@ -205,10 +205,8 @@ public class Model {
     }
 
     public void addSignal(String name, ObservableValue value) {
-        if (name != null && name.length() > 0) {
+        if (name != null && name.length() > 0 && value != null)
             signals.add(new Signal(name, value));
-            System.out.println(name + ": " + value);
-        }
     }
 
     public int runToBreak() throws NodeException {
