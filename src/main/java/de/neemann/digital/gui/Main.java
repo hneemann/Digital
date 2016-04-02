@@ -12,6 +12,8 @@ import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
+import de.neemann.digital.gui.state.State;
+import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
 
@@ -54,12 +56,19 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ShapeFactory shapeFactory;
     private final SavedListener savedListener;
     private final JLabel statusLabel;
+    private final StateManager stateManager = new StateManager();
     private File lastFilename;
     private File filename;
     private Model model;
     private ModelDescription modelDescription;
-    private boolean modelHasRunningClocks;
     private ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
+
+    private State elementState;
+    private State wireState;
+    private State selectState;
+    private State runModelState;
+    private State runModelMicroState;
+    private boolean clocksAreRunning;
 
     private Main() {
         this(null, null, null);
@@ -176,12 +185,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         file.add(saveas);
         file.add(export);
 
+        setupStates();
+
         JMenu edit = new JMenu(Lang.get("menu_edit"));
         bar.add(edit);
 
-        ToolTipAction wireMode = new ModeAction(Lang.get("menu_wire"), iconWire, CircuitComponent.Mode.wire).setToolTip(Lang.get("menu_wire_tt"));
-        ToolTipAction partsMode = new ModeAction(Lang.get("menu_element"), iconElement, CircuitComponent.Mode.part).setToolTip(Lang.get("menu_element_tt"));
-        ToolTipAction selectionMode = new ModeAction(Lang.get("menu_select"), iconSelect, CircuitComponent.Mode.select).setToolTip(Lang.get("menu_select_tt"));
+        ToolTipAction wireStateAction = wireState.createToolTipAction(Lang.get("menu_wire"), iconWire).setToolTip(Lang.get("menu_wire_tt"));
+        ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), iconElement).setToolTip(Lang.get("menu_element_tt"));
+        ToolTipAction selectStateAction = selectState.createToolTipAction(Lang.get("menu_select"), iconSelect).setToolTip(Lang.get("menu_select_tt"));
 
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
@@ -207,9 +218,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }.setToolTip(Lang.get("menu_editAttributes_tt"));
 
 
-        edit.add(partsMode.createJMenuItem());
-        edit.add(wireMode.createJMenuItem());
-        edit.add(selectionMode.createJMenuItem());
+        edit.add(elementStateAction.createJMenuItem());
+        edit.add(wireStateAction.createJMenuItem());
+        edit.add(selectStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(editAttributes.createJMenuItem());
@@ -235,45 +246,35 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_step_tt"));
 
-        ToolTipAction runModel = new ToolTipAction(Lang.get("menu_run"), iconRun) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createAndStartModel(runClock.isSelected(), ModelEvent.Event.STEP);
-                circuitComponent.setManualChangeObserver(new FullStepObserver(model));
-            }
-        }.setToolTip(Lang.get("menu_run_tt"));
-
-        ToolTipAction runModelMicro = new ToolTipAction(Lang.get("menu_micro"), iconMicro) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createAndStartModel(false, ModelEvent.Event.MICROSTEP);
-                circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
-            }
-        }.setToolTip(Lang.get("menu_micro_tt"));
-
+        ToolTipAction runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), iconRun)
+                .setToolTip(Lang.get("menu_run_tt"));
+        ToolTipAction runModelMicroAction = runModelMicroState.createToolTipAction(Lang.get("menu_micro"), iconMicro)
+                .setToolTip(Lang.get("menu_micro_tt"));
         ToolTipAction runFast = new ToolTipAction(Lang.get("menu_fast"), iconFast) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (model == null || modelHasRunningClocks) {
+                if (model == null || !model.isFastRunModel() || clocksAreRunning) {
+                    // start without running clocks
                     createAndStartModel(false, ModelEvent.Event.BREAK);
-                    if (model.getBreaks().size() != 1 || model.getClocks().size() != 1) {
-                        clearModelDescription();
-                        circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
+                    circuitComponent.setManualChangeObserver(new FullStepObserver(model));
+                    // inform StateManager that we manually entered the run state
+                    stateManager.stateEnteredManually(runModelState);
+                    if (!model.isFastRunModel()) {
+                        elementState.activate();
                         new ErrorMessage(Lang.get("msg_needOneClockAndOneTimer")).show(Main.this);
                     }
                 }
-                if (model != null)
+                if (model != null && model.isFastRunModel() && !clocksAreRunning)
                     try {
-                        int i = model.runToBreak(model.getClocks().get(0), model.getBreaks().get(0));
+                        int i = model.runToBreak();
+                        circuitComponent.repaint();
                         statusLabel.setText(Lang.get("stat_clocks", i));
                     } catch (NodeException e1) {
-                        clearModelDescription();
-                        circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
+                        elementState.activate();
                         new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
                     }
             }
         }.setToolTip(Lang.get("menu_fast_tt"));
-
 
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
             @Override
@@ -295,8 +296,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         runClock = new JCheckBoxMenuItem(Lang.get("menu_runClock"), true);
         runClock.setToolTipText(Lang.get("menu_runClock_tt"));
 
-        run.add(runModel.createJMenuItem());
-        run.add(runModelMicro.createJMenuItem());
+        run.add(runModelAction.createJMenuItem());
+        run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runFast.createJMenuItem());
         run.add(speedTest.createJMenuItem());
@@ -309,16 +310,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(open.createJButtonNoText());
         toolBar.add(save.createJButtonNoText());
         toolBar.addSeparator();
-        toolBar.add(partsMode.createJButtonNoText());
-        toolBar.add(wireMode.createJButtonNoText());
-        toolBar.add(selectionMode.createJButtonNoText());
+        toolBar.add(elementState.setIndicator(elementStateAction.createJButtonNoText()));
+        toolBar.add(wireState.setIndicator(wireStateAction.createJButtonNoText()));
+        toolBar.add(selectState.setIndicator(selectStateAction.createJButtonNoText()));
         toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
         toolBar.addSeparator();
-        toolBar.add(runModel.createJButtonNoText());
-        toolBar.add(runModelMicro.createJButtonNoText());
-        toolBar.add(doStep.createJButtonNoText());
-        toolBar.addSeparator();
+        toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
         toolBar.add(runFast.createJButtonNoText());
+        toolBar.add(runModelMicroState.setIndicator(runModelMicroAction.createJButtonNoText()));
+        toolBar.add(doStep.createJButtonNoText());
 
         toolBar.addSeparator();
 
@@ -335,6 +335,28 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         setLocationRelativeTo(parent);
     }
 
+    private void setupStates() {
+        elementState = stateManager.register(new ModeState(CircuitComponent.Mode.part));
+        wireState = stateManager.register(new ModeState(CircuitComponent.Mode.wire));
+        selectState = stateManager.register(new ModeState(CircuitComponent.Mode.select));
+        runModelState = stateManager.register(new State() {
+            @Override
+            public void enter() {
+                super.enter();
+                createAndStartModel(runClock.isSelected(), ModelEvent.Event.STEP);
+                circuitComponent.setManualChangeObserver(new FullStepObserver(model));
+            }
+        });
+        runModelMicroState = stateManager.register(new State() {
+            @Override
+            public void enter() {
+                super.enter();
+                createAndStartModel(false, ModelEvent.Event.MICROSTEP);
+                circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
+            }
+        });
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
@@ -349,7 +371,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     private void setModelDescription(ModelDescription md, boolean runClock) throws NodeException, PinException {
-        modelHasRunningClocks = runClock;
         modelDescription = md;
 
         if (model != null)
@@ -374,9 +395,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                 // all repainting is initiated by user actions!
                 modelDescription.connectToGui(null);
 
-            if (runClock)
+            if (runClock) {
                 for (Clock c : model.getClocks())
                     model.addObserver(new RealTimeClock(model, c, timerExecuter));
+            }
+            clocksAreRunning = runClock;
 
             model.init();
 
@@ -457,16 +480,16 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             setTitle(Lang.get("digital"));
     }
 
-    private class ModeAction extends ToolTipAction {
+    private class ModeState extends State {
         private final CircuitComponent.Mode mode;
 
-        ModeAction(String name, Icon icon, CircuitComponent.Mode mode) {
-            super(name, icon);
+        ModeState(CircuitComponent.Mode mode) {
             this.mode = mode;
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void enter() {
+            super.enter();
             clearModelDescription();
             circuitComponent.setModeAndReset(mode);
             doStep.setEnabled(false);

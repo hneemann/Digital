@@ -211,11 +211,12 @@ public class Model {
         }
     }
 
-    public int runToBreak(Clock clock, Break br) throws NodeException {
-        ObservableValue brVal = br.getBreakInput();
-        ObservableValue clkVal = clock.getClockOutput();
+    public int runToBreak() throws NodeException {
+        Break aBreak = breaks.get(0);
+        ObservableValue brVal = aBreak.getBreakInput();
+        ObservableValue clkVal = clocks.get(0).getClockOutput();
 
-        int count = br.getCycles() * 2;
+        int count = aBreak.getCycles() * 2;
         boolean lastIn = brVal.getBool();
         for (int i = 0; i < count; i++) {
             clkVal.setValue(clkVal.getBool() ? 0 : 1);
@@ -227,7 +228,11 @@ public class Model {
             }
             lastIn = brIn;
         }
-        throw new NodeException(Lang.get("err_breakTimeOut", br.getCycles()), null, brVal);
+        throw new NodeException(Lang.get("err_breakTimeOut", aBreak.getCycles()), null, brVal);
+    }
+
+    public boolean isFastRunModel() {
+        return clocks.size() == 1 && breaks.size() == 1;
     }
 
     public static class Signal {
