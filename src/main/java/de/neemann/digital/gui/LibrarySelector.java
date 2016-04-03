@@ -11,6 +11,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundNotification;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.state.State;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -27,15 +28,17 @@ import java.util.ArrayList;
 public class LibrarySelector implements ElementNotFoundNotification {
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
+    private final State elementState;
     private File filePath;
     private JMenu customMenu;
     private InsertHistory insertHistory;
     private CircuitComponent circuitComponent;
     private ArrayList<ImportedItem> importedElements;
 
-    public LibrarySelector(ElementLibrary library, ShapeFactory shapeFactory) {
+    public LibrarySelector(ElementLibrary library, ShapeFactory shapeFactory, State elementState) {
         this.library = library;
         this.shapeFactory = shapeFactory;
+        this.elementState = elementState;
         library.setElementNotFoundNotification(this);
         importedElements = new ArrayList<>();
     }
@@ -114,6 +117,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         @Override
         public void actionPerformed(ActionEvent e) {
             VisualElement visualElement = new VisualElement(name).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
+            elementState.activate();
             circuitComponent.setPartToDrag(visualElement);
             insertHistory.add(this);
         }

@@ -140,8 +140,8 @@ public class CircuitComponent extends JComponent {
     }
 
     public void setPartToDrag(VisualElement part) {
-        setModeAndReset(Mode.part);
-        ((PartMouseListener) listener).setPartToInsert(part);
+        if (listener instanceof PartMouseListener)
+            ((PartMouseListener) listener).setPartToInsert(part);
     }
 
     @Override

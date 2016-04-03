@@ -30,7 +30,6 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Boolean> ValueIsProbe = new AttributeKey<>("valueIsProbe", Lang.get("key_valueIsProbe"), false);
     public static final AttributeKey<Boolean> ShowList = new AttributeKey<>("showList", Lang.get("key_showList"), false);
 
-
     private final String key;
     private final VALUE def;
     private final String name;
@@ -71,7 +70,7 @@ public class AttributeKey<VALUE> {
             super(key, name, def);
         }
 
-        public AttributeKeyInteger setComboBoxValues(Integer[] values) {
+        private AttributeKeyInteger setComboBoxValues(Integer[] values) {
             this.values = values;
             return this;
         }
