@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * The component to show the trace window.
+ * It shows the data in the given dataSet.
+ *
  * @author hneemann
  */
 public class DataSetComponent extends JComponent {
@@ -13,9 +16,15 @@ public class DataSetComponent extends JComponent {
     private static final int SEP = SEP2 * 2;
     private static final Stroke NORMAL = new BasicStroke(0);
     private static final Stroke THICK = new BasicStroke(2);
+    private static final int MIN_COUNT = 20;
     private final DataSet dataSet;
     private int textWidth;
 
+    /**
+     * Creates a new dataSet
+     *
+     * @param dataSet the dataSet to paint
+     */
     public DataSetComponent(DataSet dataSet) {
         this.dataSet = dataSet;
     }
@@ -48,7 +57,7 @@ public class DataSetComponent extends JComponent {
         g.drawLine(x, y - SEP2, x + SIZE * dataSet.size(), y - SEP2);
 
 
-        int[] last_ry = new int[dataSet.signalSize()];
+        int[] lastRy = new int[dataSet.signalSize()];
         boolean first = true;
         for (DataSample s : dataSet) {
             g2.setStroke(NORMAL);
@@ -64,10 +73,10 @@ public class DataSetComponent extends JComponent {
                 //int ry = (int) (SIZE-(SIZE*(s.getValue(i)-dataSet.getMin().getValue(i)))/ width);
                 int ry = (int) (SIZE - (SIZE * s.getValue(i)) / width);
                 g.drawLine(x, y + ry, x + SIZE, y + ry);
-                if (!first && ry != last_ry[i])
-                    g.drawLine(x, y + last_ry[i], x, y + ry);
+                if (!first && ry != lastRy[i])
+                    g.drawLine(x, y + lastRy[i], x, y + ry);
 
-                last_ry[i] = ry;
+                lastRy[i] = ry;
                 y += SIZE + SEP;
             }
             first = false;
@@ -81,7 +90,7 @@ public class DataSetComponent extends JComponent {
     @Override
     public Dimension getPreferredSize() {
         int count = dataSet.size();
-        if (count < 10) count = 10;
+        if (count < MIN_COUNT) count = MIN_COUNT;
         return new Dimension(SIZE * count + BORDER * 2 + textWidth, (SIZE + SEP) * dataSet.signalSize() + BORDER * 2);
     }
 }

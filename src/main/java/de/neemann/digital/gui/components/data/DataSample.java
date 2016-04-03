@@ -5,35 +5,68 @@ import de.neemann.digital.core.Model;
 import java.util.ArrayList;
 
 /**
+ * A DataSample contains all the values of the signals to collect data for.
+ * Only the data of a single timestamp is stored in one sample.
+ *
  * @author hneemann
  */
 public class DataSample {
 
-    private final int mainTime;
+    private final int timeStamp;
     private final long[] values;
 
-    public DataSample(int mainTime, int valueCount) {
-        this.mainTime = mainTime;
+    /**
+     * Creates a new sample
+     *
+     * @param timeStamp  the time stamp
+     * @param valueCount the number of values, all values are set to zero
+     */
+    public DataSample(int timeStamp, int valueCount) {
+        this.timeStamp = timeStamp;
         values = new long[valueCount];
     }
 
+    /**
+     * @param sample a deep copy of the given sample
+     */
     public DataSample(DataSample sample) {
-        this(sample.mainTime, sample.values.length);
+        this(sample.timeStamp, sample.values.length);
         System.arraycopy(sample.values, 0, values, 0, values.length);
     }
 
-    public int getMainTime() {
-        return mainTime;
+    /**
+     * @return returns the timestamp
+     */
+    public int getTimeStamp() {
+        return timeStamp;
     }
 
+    /**
+     * returns a value
+     *
+     * @param i indes of the value
+     * @return the value
+     */
     public long getValue(int i) {
         return values[i];
     }
 
+    /**
+     * sets a value in  the sample
+     *
+     * @param i     the index of the value
+     * @param value the value
+     */
     public void setValue(int i, long value) {
         values[i] = value;
     }
 
+    /**
+     * Fills this sample with the actual signals values
+     *
+     * @param signals the signals to create a sample from
+     * @return the sample to allow chained calls
+     */
     public DataSample fillWith(ArrayList<Model.Signal> signals) {
         for (int i = 0; i < signals.size(); i++)
             values[i] = signals.get(i).getValue().getValueIgnoreBurn();

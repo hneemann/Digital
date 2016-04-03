@@ -12,6 +12,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
+ * The Dialog which shows the data to plot.
+ *
  * @author hneemann
  */
 public class DataSetDialog extends JDialog implements ModelStateObserver {
@@ -22,6 +24,13 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
     private int maintime;
     private DataSet dataSet;
 
+    /**
+     * Creates a new instance
+     *
+     * @param owner the parent frame
+     * @param model the model used to collect the data
+     * @param type  the event type which triggers a new DataSample
+     */
     public DataSetDialog(Frame owner, Model model, ModelEvent.Event type) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
