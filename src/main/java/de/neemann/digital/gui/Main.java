@@ -14,7 +14,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.ProbeDialog;
-import de.neemann.digital.gui.components.ROMListingDialog;
+import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.lang.Lang;

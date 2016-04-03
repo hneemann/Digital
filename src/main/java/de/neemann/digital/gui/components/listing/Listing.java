@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components;
+package de.neemann.digital.gui.components.listing;
 
 import javax.swing.event.ListDataListener;
 import java.io.BufferedReader;

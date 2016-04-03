@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components;
+package de.neemann.digital.gui.components.listing;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.memory.ROM;
