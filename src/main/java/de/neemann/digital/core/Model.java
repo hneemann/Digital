@@ -114,7 +114,7 @@ public class Model {
 
     /**
      * Performs a micro step in the model
-     * <p/>
+     *
      * Typical usage is a loop like:
      * <pre>
      * while (needsUpdate())
@@ -155,7 +155,7 @@ public class Model {
 
     /**
      * Asks if an update is necessary.
-     * <p/>
+     *
      * Typical usage is a loop like:
      * <pre>
      * while (needsUpdate())
