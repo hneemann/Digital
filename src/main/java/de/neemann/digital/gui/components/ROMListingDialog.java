@@ -38,7 +38,7 @@ public class ROMListingDialog extends JDialog implements Observer {
         list.setFont(new Font("monospaced", Font.PLAIN, 12));
 
         rom.getAddrIn().addObserver(this);
-
+        hasChanged();
 
         getContentPane().add(new JScrollPane(list));
         pack();
