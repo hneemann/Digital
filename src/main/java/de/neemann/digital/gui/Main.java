@@ -14,6 +14,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.ProbeDialog;
+import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
@@ -57,8 +58,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ElementLibrary library;
     private final JCheckBoxMenuItem runClock;
     private final JCheckBoxMenuItem showProbes;
+    private final JCheckBoxMenuItem showGraph;
     private final JCheckBoxMenuItem showListing;
-    private final JCheckBoxMenuItem traceEnable;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
     private final SavedListener savedListener;
@@ -288,7 +289,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         showListing.setToolTipText(Lang.get("menu_listing_tt"));
         showProbes = new JCheckBoxMenuItem(Lang.get("menu_probe"));
         showProbes.setToolTipText(Lang.get("menu_probe_tt"));
-        traceEnable = new JCheckBoxMenuItem(Lang.get("menu_trace"));
+        showGraph = new JCheckBoxMenuItem(Lang.get("menu_graph"));
+        showGraph.setToolTipText(Lang.get("menu_graph_tt"));
         runClock = new JCheckBoxMenuItem(Lang.get("menu_runClock"));
         runClock.setToolTipText(Lang.get("menu_runClock_tt"));
 
@@ -298,8 +300,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         run.add(runToBreak.createJMenuItem());
         //run.add(speedTest.createJMenuItem());
         run.add(showProbes);
+        run.add(showGraph);
         run.add(showListing);
-        //run.add(traceEnable);
         run.add(runClock);
         doStep.setEnabled(false);
 
@@ -403,6 +405,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             if (showProbes.isSelected())
                 new ProbeDialog(this, model, updateEvent).setVisible(true);
+
+            if (showGraph.isSelected())
+                new DataSetDialog(this, model, updateEvent).setVisible(true);
+
 
             if (showListing.isSelected())
                 for (ROM rom : model.getRoms())
@@ -538,6 +544,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         @Override
         public void hasChanged() {
             modelDescription.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+            model.fireManualChangeEvent();
             circuitComponent.repaint();
             doStep.setEnabled(model.needsUpdate());
         }

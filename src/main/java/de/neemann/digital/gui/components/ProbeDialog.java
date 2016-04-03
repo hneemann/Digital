@@ -13,7 +13,6 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * @author hneemann
@@ -29,7 +28,6 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
         this.type = type;
 
         ArrayList<Model.Signal> signals = model.getSignals();
-        Collections.sort(signals);
         tableModel = new SignalTableModel(signals);
         JTable list = new JTable(tableModel);
         getContentPane().add(new JScrollPane(list), BorderLayout.CENTER);
@@ -55,7 +53,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event.getType() == type) {
+        if (event.getType() == type || event.getType() == ModelEvent.Event.MANUALCHANGE) {
             tableModel.fireChanged();
         }
     }

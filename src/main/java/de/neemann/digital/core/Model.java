@@ -55,6 +55,7 @@ public class Model {
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
     private boolean isInitialized = false;
+    private boolean signalsOrdered = false;
 
     /**
      * Creates a new model
@@ -83,9 +84,8 @@ public class Model {
 
     /**
      * Adds a node to the model
-     *
      * @param node the node
-     * @param <T>  type of the node
+     * @param <T> type of the node
      * @return the node itself for chained calls
      */
     public <T extends Node> T add(T node) {
@@ -324,6 +324,10 @@ public class Model {
     }
 
     public ArrayList<Signal> getSignals() {
+        if (!signalsOrdered) {
+            Collections.sort(signals);
+            signalsOrdered = true;
+        }
         return signals;
     }
 
@@ -333,6 +337,10 @@ public class Model {
 
     public ArrayList<ROM> getRoms() {
         return roms;
+    }
+
+    public void fireManualChangeEvent() {
+        fireEvent(ModelEvent.MANUALCHANGE);
     }
 
     public static class Signal implements Comparable<Signal> {

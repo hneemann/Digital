@@ -10,8 +10,9 @@ public class ModelEvent {
     public static final ModelEvent STARTED = new ModelEvent(Event.STARTED);
     public static final ModelEvent BREAK = new ModelEvent(Event.BREAK);
     public static final ModelEvent STOPPED = new ModelEvent(Event.STOPPED);
+    public static final ModelEvent MANUALCHANGE = new ModelEvent(Event.MANUALCHANGE);
 
-    public enum Event {STARTED, STOPPED, STEP, BREAK, MICROSTEP}
+    public enum Event {STARTED, STOPPED, STEP, BREAK, MANUALCHANGE, MICROSTEP}
 
     private final Event event;
 
