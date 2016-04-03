@@ -20,6 +20,10 @@ import java.util.List;
  * @author hneemann
  */
 public class Model {
+    /**
+     * Maximal number of calculation loops before oscillating behaviour is detected
+     */
+    private static final int MAX_COUNTER = 1000;
 
     private final ArrayList<Clock> clocks;
     private final ArrayList<Break> breaks;
@@ -32,7 +36,6 @@ public class Model {
     private ArrayList<Node> nodesToUpdateAct;
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
-    private int maxCounter = 1000;
     private boolean isInitialized = false;
 
     public Model() {
@@ -104,7 +107,7 @@ public class Model {
     public void doStep(boolean noise) throws NodeException {
         int counter = 0;
         while (needsUpdate()) {
-            if (counter++ > maxCounter) {
+            if (counter++ > MAX_COUNTER) {
                 throw new NodeException(Lang.get("err_seemsToOscillate"), nodesToUpdateNext.get(0));
             }
             doMicroStep(noise);
