@@ -315,9 +315,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.addSeparator();
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
         toolBar.add(runToBreak.createJButtonNoText());
+        toolBar.addSeparator();
         toolBar.add(runModelMicroState.setIndicator(runModelMicroAction.createJButtonNoText()));
         toolBar.add(doStep.createJButtonNoText());
-
         toolBar.addSeparator();
 
         librarySelector = new LibrarySelector(library, shapeFactory, elementState);

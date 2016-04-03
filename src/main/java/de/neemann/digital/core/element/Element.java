@@ -30,7 +30,8 @@ public interface Element {
     ObservableValue[] getOutputs();
 
     /**
-     * The element has to register itself to the model.
+     * The element has to register its nodes to the model.
+     * This method also is used to register special items at the model.
      *
      * @param model the model to register to
      */

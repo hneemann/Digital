@@ -16,8 +16,26 @@ import java.util.List;
  * It has also the possibility to run the model in full step mode (all changes of values are propagated to a stable state)
  * or in micro stepping mode: Only the gates which had a change on one of the input signals are updated. Then the
  * calculation is stopped.
+ * <br>
+ * There are tho ways of model execution: With noise turned on or off.
+ * <ol>
+ * <li>
+ * If noise is turned off, the steps of the model are calculated in a synchronized way. So the change of a signal
+ * happens at the same time at every node in the model. And every node in the model needs the same time to update its
+ * outputs. In this mode you can observe oscillations in the model, which makes it impossible to start the model.
+ * So a RS-FF typically does not start because of oscillations.
+ * </li>
+ * <li>
+ * If noise is turned on, all the nodes to update a updated in a random order. So the startup of a RS-FF is no problem.
+ * But the initial state of the model is undefined. To bring the model a defined initial state you can use the
+ * Reset element. Its output is hold at zero during startup, and when a stable state is reached it becomes one.
+ * </li>
+ * </ol>
+ * There are also some lists to store special elements. These lists are populated by the elements during the
+ * call of the registerNodes method.
  *
  * @author hneemann
+ * @see de.neemann.digital.core.element.Element#registerNodes(Model)
  */
 public class Model {
     /**
@@ -38,6 +56,9 @@ public class Model {
     private int version;
     private boolean isInitialized = false;
 
+    /**
+     * Creates a new model
+     */
     public Model() {
         this.clocks = new ArrayList<>();
         this.breaks = new ArrayList<>();
@@ -50,10 +71,23 @@ public class Model {
         this.observers = new ArrayList<>();
     }
 
+    /**
+     * Returns the actual step counter
+     * This counter is increased by every micro step
+     *
+     * @return the step counter
+     */
     public int getStepCounter() {
         return version;
     }
 
+    /**
+     * Adds a node to the model
+     *
+     * @param node the node
+     * @param <T>  type of the node
+     * @return the node itself for chained calls
+     */
     public <T extends Node> T add(T node) {
         if (isInitialized)
             throw new RuntimeException(Lang.get("err_isAlreadyInitialized"));
@@ -92,18 +126,41 @@ public class Model {
         fireEvent(ModelEvent.STARTED);
     }
 
+    /**
+     * Closes the model.
+     * A STOPPED event is fired.
+     */
     public void close() {
         fireEvent(ModelEvent.STOPPED);
     }
 
+    /**
+     * Adds a node to the update list.
+     *
+     * @param node the node
+     */
     public void addToUpdateList(Node node) {
         nodesToUpdateNext.add(node);
     }
 
+    /**
+     * Performes a step without noise.
+     *
+     * @throws NodeException
+     */
     public void doStep() throws NodeException {
         doStep(false);
     }
 
+    /**
+     * Performs a step.
+     * This means all Nodes which needs a update are updated, and all further nudes to
+     * update are also updated until the is no further Node to update.
+     * So this method propagates a value change through the whole model.
+     *
+     * @param noise calculation is performed using noise
+     * @throws NodeException
+     */
     public void doStep(boolean noise) throws NodeException {
         int counter = 0;
         while (needsUpdate()) {
@@ -117,14 +174,14 @@ public class Model {
 
     /**
      * Performs a micro step in the model
-     *
+     * <p>
      * Typical usage is a loop like:
      * <pre>
      * while (needsUpdate())
      *     doMicroStep(noise);
      * </pre>
      *
-     * @param noise
+     * @param noise if true the microstep is performed with noise
      * @throws NodeException
      */
     public void doMicroStep(boolean noise) throws NodeException {
@@ -157,64 +214,11 @@ public class Model {
     }
 
     /**
-     * Asks if an update is necessary.
+     * Runs the model until a positive edge at the Break element is detected.
      *
-     * Typical usage is a loop like:
-     * <pre>
-     * while (needsUpdate())
-     *     doMicroStep(noise);
-     * </pre>
+     * @return The number of clock cycles necessary to get the positive edge
+     * @throws NodeException
      */
-    public boolean needsUpdate() {
-        return !nodesToUpdateNext.isEmpty();
-    }
-
-    public Collection<Node> nodesToUpdate() {
-        return nodesToUpdateNext;
-    }
-
-    public void addObserver(ModelStateObserver observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(ModelStateObserver observer) {
-        observers.remove(observer);
-    }
-
-    private void fireEvent(ModelEvent event) {
-        for (ModelStateObserver observer : observers)
-            observer.handleEvent(event);
-    }
-
-    public ArrayList<Clock> getClocks() {
-        return clocks;
-    }
-
-    public ArrayList<Break> getBreaks() {
-        return breaks;
-    }
-
-    public List<Node> getNodes() {
-        return Collections.unmodifiableList(nodes);
-    }
-
-    public void addClock(Clock clock) {
-        clocks.add(clock);
-    }
-
-    public void addBreak(Break aBreak) {
-        breaks.add(aBreak);
-    }
-
-    public void addReset(Reset reset) {
-        resets.add(reset);
-    }
-
-    public void addSignal(String name, ObservableValue value) {
-        if (name != null && name.length() > 0 && value != null)
-            signals.add(new Signal(name, value));
-    }
-
     public int runToBreak() throws NodeException {
         Break aBreak = breaks.get(0);
         ObservableValue brVal = aBreak.getBreakInput();
@@ -235,8 +239,88 @@ public class Model {
         throw new NodeException(Lang.get("err_breakTimeOut", aBreak.getCycles()), null, brVal);
     }
 
+    /**
+     * @return true if the models allows fast run steps
+     */
     public boolean isFastRunModel() {
         return clocks.size() == 1 && breaks.size() == 1;
+    }
+
+    /**
+     * @return the nodes in this model
+     */
+    public List<Node> getNodes() {
+        return Collections.unmodifiableList(nodes);
+    }
+
+    /**
+     * Asks if an update is necessary.
+     * <p>
+     * Typical usage is a loop like:
+     * <pre>
+     * while (needsUpdate())
+     *     doMicroStep(noise);
+     * </pre>
+     */
+    public boolean needsUpdate() {
+        return !nodesToUpdateNext.isEmpty();
+    }
+
+    /**
+     * @return the nodes to update in the next step
+     */
+    public Collection<Node> nodesToUpdate() {
+        return nodesToUpdateNext;
+    }
+
+    /**
+     * Adds a observer to this model
+     * @param observer the observer to add
+     */
+    public void addObserver(ModelStateObserver observer) {
+        observers.add(observer);
+    }
+
+    /**
+     * Removes a observer to this model
+     * @param observer the observer to remove
+     */
+    public void removeObserver(ModelStateObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void fireEvent(ModelEvent event) {
+        for (ModelStateObserver observer : observers)
+            observer.handleEvent(event);
+    }
+
+    public void addClock(Clock clock) {
+        clocks.add(clock);
+    }
+
+    public ArrayList<Clock> getClocks() {
+        return clocks;
+    }
+
+    public void addBreak(Break aBreak) {
+        breaks.add(aBreak);
+    }
+
+    public ArrayList<Break> getBreaks() {
+        return breaks;
+    }
+
+    public void addReset(Reset reset) {
+        resets.add(reset);
+    }
+
+    public ArrayList<Reset> getResets() {
+        return resets;
+    }
+
+    public void addSignal(String name, ObservableValue value) {
+        if (name != null && name.length() > 0 && value != null)
+            signals.add(new Signal(name, value));
     }
 
     public ArrayList<Signal> getSignals() {
