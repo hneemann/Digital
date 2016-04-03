@@ -30,7 +30,7 @@ public class AttributeDialog extends JDialog {
 
         for (AttributeKey key : list) {
             panel.add(new JLabel(key.getName() + ":  "), DialogLayout.LABEL);
-            Editor e = EditorFactory.INSTANCE.create(key.getValueClass(), elementAttributes.get(key));
+            Editor e = EditorFactory.INSTANCE.create(key, elementAttributes.get(key));
             editors.add(new EditorHolder(e, key));
             panel.add(e.getComponent(elementAttributes), DialogLayout.INPUT);
         }

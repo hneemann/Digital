@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.memory.DataField;
@@ -35,14 +36,14 @@ public final class EditorFactory {
         map.put(clazz, editor);
     }
 
-    public <T> Editor<T> create(Class<T> clazz, T value) {
-        Class<? extends Editor> fac = map.get(clazz);
+    public <T> Editor<T> create(AttributeKey<T> key, T value) {
+        Class<? extends Editor> fac = map.get(key.getValueClass());
         if (fac == null)
-            throw new RuntimeException("no editor found for " + clazz.getSimpleName());
+            throw new RuntimeException("no editor found for " + key.getValueClass().getSimpleName());
 
         try {
-            Constructor<? extends Editor> c = fac.getConstructor(value.getClass());
-            return c.newInstance(value);
+            Constructor<? extends Editor> c = fac.getConstructor(value.getClass(), AttributeKey.class);
+            return c.newInstance(value, key);
         } catch (Exception e) {
             throw new RuntimeException("error creating editor", e);
         }
@@ -52,7 +53,7 @@ public final class EditorFactory {
 
         private final JTextField text;
 
-        public StringEditor(String value) {
+        public StringEditor(String value, AttributeKey<String> key) {
             text = new JTextField(10);
             text.setText(value);
         }
@@ -71,8 +72,12 @@ public final class EditorFactory {
     private static class IntegerEditor implements Editor<Integer> {
         private final JComboBox<Integer> comboBox;
 
-        public IntegerEditor(Integer value) {
-            comboBox = new JComboBox<>(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16});
+        public IntegerEditor(Integer value, AttributeKey<Integer> key) {
+            Integer[] selects = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+            if (key instanceof AttributeKey.AttributeKeyInteger) {
+                selects = ((AttributeKey.AttributeKeyInteger) key).getComboBoxValues();
+            }
+            comboBox = new JComboBox<>(selects);
             comboBox.setEditable(true);
             comboBox.setSelectedItem(value);
         }
@@ -97,7 +102,7 @@ public final class EditorFactory {
 
         private final JCheckBox bool;
 
-        public BooleanEditor(Boolean value) {
+        public BooleanEditor(Boolean value, AttributeKey<Boolean> key) {
             bool = new JCheckBox("", value);
         }
 
@@ -118,7 +123,7 @@ public final class EditorFactory {
         private Color color;
         private final JButton button;
 
-        public ColorEditor(Color value) {
+        public ColorEditor(Color value, AttributeKey<Color> key) {
             this.color = value;
             button = new JButton(new AbstractAction() {
                 @Override
@@ -148,7 +153,7 @@ public final class EditorFactory {
 
         private DataField data;
 
-        public DataFieldEditor(DataField data) {
+        public DataFieldEditor(DataField data, AttributeKey<DataField> key) {
             this.data = data;
         }
 
@@ -208,7 +213,7 @@ public final class EditorFactory {
         private final Rotation rotation;
         private JComboBox<String> comb;
 
-        public RotationEditor(Rotation rotation) {
+        public RotationEditor(Rotation rotation, AttributeKey<Rotation> key) {
             this.rotation = rotation;
         }
 

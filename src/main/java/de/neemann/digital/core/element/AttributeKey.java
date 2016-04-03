@@ -16,7 +16,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<java.awt.Color> Color = new AttributeKey<>("Color", Lang.get("key_color"), java.awt.Color.RED);
     public static final AttributeKey<String> InputSplit = new AttributeKey<>("Input Splitting", Lang.get("key_inputSplitting"), "");
     public static final AttributeKey<String> OutputSplit = new AttributeKey<>("Output Splitting", Lang.get("key_outputSplitting"), "");
-    public static final AttributeKey<Integer> Frequency = new AttributeKey<>("Frequency", Lang.get("key_frequency"), 1);
+    public static final AttributeKey<Integer> Frequency = new AttributeKeyInteger("Frequency", Lang.get("key_frequency"), 1).setComboBoxValues(new Integer[]{1, 2, 5, 10, 20, 50, 100, 200, 500});
     public static final AttributeKey<Integer> SelectorBits = new AttributeKey<>("Selector Bits", Lang.get("key_selectorBits"), 1);
     public static final AttributeKey<Integer> AddrBits = new AttributeKey<>("Addr Bits", Lang.get("key_addrBits"), InputCount.getDefault());
     public static final AttributeKey<Boolean> Signed = new AttributeKey<>("Signed", Lang.get("key_signed"), false);
@@ -26,7 +26,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Integer> Width = new AttributeKey<>("Width", Lang.get("key_width"), 3);
     public static final AttributeKey<Integer> TermWidth = new AttributeKey<>("termWidth", Lang.get("key_termWidth"), 50);
     public static final AttributeKey<Integer> TermHeight = new AttributeKey<>("termHeight", Lang.get("key_termHeight"), 25);
-    public static final AttributeKey<Integer> Cycles = new AttributeKey<>("Cycles", Lang.get("key_cycles"), 100000);
+    public static final AttributeKey<Integer> Cycles = new AttributeKeyInteger("Cycles", Lang.get("key_cycles"), 100000).setComboBoxValues(new Integer[]{1000, 10000, 100000, 1000000});
     public static final AttributeKey<Boolean> ValueIsProbe = new AttributeKey<>("valueIsProbe", Lang.get("key_valueIsProbe"), false);
     public static final AttributeKey<Boolean> ShowList = new AttributeKey<>("showList", Lang.get("key_showList"), false);
 
@@ -62,6 +62,23 @@ public class AttributeKey<VALUE> {
     @Override
     public String toString() {
         return name;
+    }
+
+    public static final class AttributeKeyInteger extends AttributeKey<Integer> {
+        private Integer[] values;
+
+        private AttributeKeyInteger(String key, String name, Integer def) {
+            super(key, name, def);
+        }
+
+        public AttributeKeyInteger setComboBoxValues(Integer[] values) {
+            this.values = values;
+            return this;
+        }
+
+        public Integer[] getComboBoxValues() {
+            return values;
+        }
     }
 
 }
