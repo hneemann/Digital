@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 /**
  * @author hneemann
  */
-public class SplitterTestMix extends TestCase {
+public class SplitterMixTest extends TestCase {
 
     public void test1() throws Exception {
         ObservableValue a = new ObservableValue("a", 8);

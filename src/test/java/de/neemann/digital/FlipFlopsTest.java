@@ -11,7 +11,7 @@ import static de.neemann.digital.TestExecuter.IGNORE;
 /**
  * @author hneemann
  */
-public class FlipFlops extends TestCase {
+public class FlipFlopsTest extends TestCase {
 
     public void testFlipFlopNOr() throws Exception {
         ObservableValue r = new ObservableValue("r", 1);
