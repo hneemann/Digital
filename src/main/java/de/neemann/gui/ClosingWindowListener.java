@@ -8,7 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * Frame needs to be set to {@link WindowConstants.DO_NOTHING_ON_CLOSE} to work.
+ * Frame needs to be set to DO_NOTHING_ON_CLOSE to work.
  * Closing should by done by the {@link GUICloser#closeGUI()}.
  *
  * @author hneemann
