@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 /**
+ * The InsertHistory puts the most frequently used elements to the toolbar of the main window.
+ * So its easier to build circuits.
+ *
  * @author hneemann
  */
 public class InsertHistory {
@@ -14,11 +17,23 @@ public class InsertHistory {
     private final ArrayList<WrapperAction> wrappers;
     private int mainTime;
 
+    /**
+     * Creates a new instace
+     *
+     * @param bar the toolbar to put the elements to
+     */
     public InsertHistory(JToolBar bar) {
         this.bar = bar;
         wrappers = new ArrayList<>();
     }
 
+    /**
+     * Add an action to the toolbar.
+     * The given action is wrapped by an action which counts the usage.
+     * So its possible to remove the item which is not used the longest time when the toolbar becomes to large.
+     *
+     * @param action the action
+     */
     public void add(AbstractAction action) {
         if (!contains(action)) {
             WrapperAction wrapper = new WrapperAction(action, bar.getComponentCount());
@@ -55,13 +70,13 @@ public class InsertHistory {
         return false;
     }
 
-    public class WrapperAction extends AbstractAction {
+    private final class WrapperAction extends AbstractAction {
 
         private final AbstractAction action;
         private int componentPosition;
         private int time;
 
-        public WrapperAction(AbstractAction action, int componentPosition) {
+        private WrapperAction(AbstractAction action, int componentPosition) {
             super(action.getValue(Action.NAME).toString(), (Icon) action.getValue(Action.SMALL_ICON));
             this.action = action;
             this.componentPosition = componentPosition;

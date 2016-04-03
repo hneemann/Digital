@@ -37,20 +37,20 @@ import java.util.prefs.Preferences;
  * @author hneemann
  */
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
-    private static final Preferences prefs = Preferences.userRoot().node("dig");
+    private static final Preferences PREFS = Preferences.userRoot().node("dig");
     private static final String MESSAGE = Lang.get("message");
-    private static final Icon iconRun = IconCreator.create("run.gif");
-    private static final Icon iconMicro = IconCreator.create("micro.gif");
-    private static final Icon iconStep = IconCreator.create("step.gif");
-    private static final Icon iconElement = IconCreator.create("element.gif");
-    private static final Icon iconSelect = IconCreator.create("Select24.gif");
-    private static final Icon iconWire = IconCreator.create("wire.gif");
-    private static final Icon iconNew = IconCreator.create("New24.gif");
-    private static final Icon iconOpen = IconCreator.create("Open24.gif");
-    private static final Icon iconOpenWin = IconCreator.create("OpenNew24.gif");
-    private static final Icon iconSave = IconCreator.create("Save24.gif");
-    private static final Icon iconSaveAs = IconCreator.create("SaveAs24.gif");
-    private static final Icon iconFast = IconCreator.create("FastForward24.gif");
+    private static final Icon ICON_RUN = IconCreator.create("run.gif");
+    private static final Icon ICON_MICRO = IconCreator.create("micro.gif");
+    private static final Icon ICON_STEP = IconCreator.create("step.gif");
+    private static final Icon ICON_ELEMENT = IconCreator.create("element.gif");
+    private static final Icon ICON_SELECT = IconCreator.create("Select24.gif");
+    private static final Icon ICON_WIRE = IconCreator.create("wire.gif");
+    private static final Icon ICON_NEW = IconCreator.create("New24.gif");
+    private static final Icon ICON_OPEN = IconCreator.create("Open24.gif");
+    private static final Icon ICON_OPEN_WIN = IconCreator.create("OpenNew24.gif");
+    private static final Icon ICON_SAVE = IconCreator.create("Save24.gif");
+    private static final Icon ICON_SAVE_AS = IconCreator.create("SaveAs24.gif");
+    private static final Icon ICON_FAST = IconCreator.create("FastForward24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private final ToolTipAction doStep;
@@ -81,6 +81,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         this(null, null, null);
     }
 
+    /**
+     * Creates a new instanve
+     *
+     * @param parent        the parent component
+     * @param fileToOpen    a file to open
+     * @param savedListener a listener which is notified if the file is changed on disk
+     */
     public Main(Component parent, File fileToOpen, SavedListener savedListener) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -98,7 +105,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         if (fileToOpen != null) {
             SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
         } else {
-            String name = prefs.get("name", null);
+            String name = PREFS.get("name", null);
             if (name != null) {
                 SwingUtilities.invokeLater(() -> loadFile(new File(name), false));
             }
@@ -120,7 +127,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
         JMenuBar bar = new JMenuBar();
 
-        ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new"), iconNew) {
+        ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new"), ICON_NEW) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
@@ -130,7 +137,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setActive(normalMode);
 
-        ToolTipAction open = new ToolTipAction(Lang.get("menu_open"), iconOpen) {
+        ToolTipAction open = new ToolTipAction(Lang.get("menu_open"), ICON_OPEN) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
@@ -142,7 +149,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setActive(normalMode);
 
-        ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), iconOpenWin) {
+        ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), ICON_OPEN_WIN) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
@@ -157,7 +164,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }.setToolTip(Lang.get("menu_openWin_tt")).setActive(normalMode);
 
 
-        ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), iconSaveAs) {
+        ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getjFileChooser(lastFilename);
@@ -167,7 +174,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setActive(normalMode);
 
-        save = new ToolTipAction(Lang.get("menu_save"), iconSave) {
+        save = new ToolTipAction(Lang.get("menu_save"), ICON_SAVE) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (filename == null)
@@ -195,9 +202,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenu edit = new JMenu(Lang.get("menu_edit"));
         bar.add(edit);
 
-        ToolTipAction wireStateAction = wireState.createToolTipAction(Lang.get("menu_wire"), iconWire).setToolTip(Lang.get("menu_wire_tt"));
-        ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), iconElement).setToolTip(Lang.get("menu_element_tt"));
-        ToolTipAction selectStateAction = selectState.createToolTipAction(Lang.get("menu_select"), iconSelect).setToolTip(Lang.get("menu_select_tt"));
+        ToolTipAction wireStateAction = wireState.createToolTipAction(Lang.get("menu_wire"), ICON_WIRE).setToolTip(Lang.get("menu_wire_tt"));
+        ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), ICON_ELEMENT).setToolTip(Lang.get("menu_element_tt"));
+        ToolTipAction selectStateAction = selectState.createToolTipAction(Lang.get("menu_select"), ICON_SELECT).setToolTip(Lang.get("menu_select_tt"));
 
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
@@ -234,7 +241,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenu run = new JMenu(Lang.get("menu_run"));
         bar.add(run);
 
-        doStep = new ToolTipAction(Lang.get("menu_step"), iconStep) {
+        doStep = new ToolTipAction(Lang.get("menu_step"), ICON_STEP) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -251,11 +258,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_step_tt"));
 
-        ToolTipAction runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), iconRun)
+        ToolTipAction runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), ICON_RUN)
                 .setToolTip(Lang.get("menu_run_tt"));
-        ToolTipAction runModelMicroAction = runModelMicroState.createToolTipAction(Lang.get("menu_micro"), iconMicro)
+        ToolTipAction runModelMicroAction = runModelMicroState.createToolTipAction(Lang.get("menu_micro"), ICON_MICRO)
                 .setToolTip(Lang.get("menu_micro_tt"));
-        runToBreak = new ToolTipAction(Lang.get("menu_fast"), iconFast) {
+        runToBreak = new ToolTipAction(Lang.get("menu_fast"), ICON_FAST) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -357,6 +364,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         });
     }
 
+    /**
+     * Starts the main app
+     * @param args the arguments
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
@@ -492,7 +503,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         if (filename != null) {
             this.lastFilename = filename;
             if (toPrefs)
-                prefs.put("name", filename.getPath());
+                PREFS.put("name", filename.getPath());
             setTitle(filename + " - " + Lang.get("digital"));
         } else
             setTitle(Lang.get("digital"));
