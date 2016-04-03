@@ -1,6 +1,7 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -13,6 +14,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.ProbeDialog;
+import de.neemann.digital.gui.components.ROMListingDialog;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.lang.Lang;
@@ -55,6 +57,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ElementLibrary library;
     private final JCheckBoxMenuItem runClock;
     private final JCheckBoxMenuItem showProbes;
+    private final JCheckBoxMenuItem showListing;
     private final JCheckBoxMenuItem traceEnable;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
@@ -283,6 +286,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
 
+        showListing = new JCheckBoxMenuItem(Lang.get("menu_listing"));
+        showListing.setToolTipText(Lang.get("menu_listing_tt"));
         showProbes = new JCheckBoxMenuItem(Lang.get("menu_probe"));
         showProbes.setToolTipText(Lang.get("menu_probe_tt"));
         traceEnable = new JCheckBoxMenuItem(Lang.get("menu_trace"));
@@ -295,6 +300,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         run.add(runToBreak.createJMenuItem());
         //run.add(speedTest.createJMenuItem());
         run.add(showProbes);
+        run.add(showListing);
         //run.add(traceEnable);
         run.add(runClock);
         doStep.setEnabled(false);
@@ -400,6 +406,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             if (showProbes.isSelected())
                 new ProbeDialog(this, model, updateEvent).setVisible(true);
 
+            if (showListing.isSelected())
+                for (ROM rom : model.getRoms())
+                    try {
+                        new ROMListingDialog(this, rom).setVisible(true);
+                    } catch (IOException e) {
+                        new ErrorMessage(Lang.get("msg_errorReadingListing_N0", rom.getListFile().toString())).addCause(e).show(this);
+                    }
+
 
             model.init();
 
@@ -446,8 +460,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         try {
             librarySelector.setFilePath(filename.getParentFile());
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
-            elementState.activate();
             circuitComponent.setCircuit(circ);
+            elementState.activate();
             setFilename(filename, toPrefs);
         } catch (Exception e) {
             circuitComponent.setCircuit(new Circuit());

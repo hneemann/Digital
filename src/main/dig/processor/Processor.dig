@@ -159,6 +159,10 @@
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
+          <string>showList</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>Bits</string>
           <int>16</int>
         </entry>
@@ -238,7 +242,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>200</int>
+          <int>20</int>
         </entry>
       </elementAttributes>
       <pos x="1060" y="460"/>

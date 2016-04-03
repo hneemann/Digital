@@ -1,5 +1,6 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Reset;
@@ -24,6 +25,7 @@ public class Model {
     private final ArrayList<Break> breaks;
     private final ArrayList<Reset> resets;
     private final ArrayList<Signal> signals;
+    private final ArrayList<ROM> roms;
 
     private final ArrayList<Node> nodes;
     private final ArrayList<ModelStateObserver> observers;
@@ -38,6 +40,7 @@ public class Model {
         this.breaks = new ArrayList<>();
         this.resets = new ArrayList<>();
         this.signals = new ArrayList<>();
+        this.roms = new ArrayList<>();
         this.nodes = new ArrayList<>();
         this.nodesToUpdateAct = new ArrayList<>();
         this.nodesToUpdateNext = new ArrayList<>();
@@ -235,6 +238,14 @@ public class Model {
 
     public ArrayList<Signal> getSignals() {
         return signals;
+    }
+
+    public void addRomListing(ROM rom) {
+        roms.add(rom);
+    }
+
+    public ArrayList<ROM> getRoms() {
+        return roms;
     }
 
     public static class Signal implements Comparable<Signal> {
