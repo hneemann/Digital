@@ -76,7 +76,10 @@ public class GraphicSVG implements Graphic, Closeable {
             w.write("\"");
 //            if (style.isDashed())
 //                addStrokeDash(w, style.getDashArray());
-            w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
+            if (style.isFilled())
+                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\"/>\n");
+            else
+                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
