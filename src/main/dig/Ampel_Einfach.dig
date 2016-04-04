@@ -33,7 +33,7 @@
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
-      <pos x="420" y="420"/>
+      <pos x="440" y="420"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -109,7 +109,7 @@
       <p2 x="480" y="400"/>
     </wire>
     <wire>
-      <p1 x="420" y="420"/>
+      <p1 x="440" y="420"/>
       <p2 x="460" y="420"/>
     </wire>
     <wire>

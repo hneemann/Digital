@@ -119,16 +119,16 @@ public class GenericShape implements Shape {
         if (showPinLabels) {
             for (Pin p : getPins()) {
                 if (p.getDirection() == Pin.Direction.input)
-                    graphic.drawText(p.getPos().add(2, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
+                    graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
                 else
-                    graphic.drawText(p.getPos().add(-2, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
+                    graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
             }
         }
         if (name.length() <= 3 && !showPinLabels) {
-            Vector pos = new Vector(SIZE2 * width, -SIZE2 + 2);
+            Vector pos = new Vector(SIZE2 * width, -SIZE2 + 4);
             graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.NORMAL);
         } else {
-            Vector pos = new Vector(SIZE2 * width, height + 2);
+            Vector pos = new Vector(SIZE2 * width, height + 4);
             graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.SHAPE_PIN);
         }
     }
