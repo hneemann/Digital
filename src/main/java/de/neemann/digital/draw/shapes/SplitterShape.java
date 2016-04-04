@@ -9,12 +9,12 @@ import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * @author hneemann
  */
 public class SplitterShape implements Shape {
-
     private final String[] inputs;
     private final String[] outputs;
     private final int length;
@@ -48,16 +48,18 @@ public class SplitterShape implements Shape {
         for (int i = 0; i < inputs.length; i++) {
             Vector pos = new Vector(-2, i * SIZE - 2);
             graphic.drawText(pos, pos.add(2, 0), inputs[i], Orientation.RIGHTBOTTOM, Style.SHAPE_PIN);
+            graphic.drawLine(new Vector(0, i * SIZE), new Vector(SIZE2, i * SIZE), Style.WIRE);
         }
         for (int i = 0; i < outputs.length; i++) {
             Vector pos = new Vector(SIZE + 2, i * SIZE - 2);
             graphic.drawText(pos, pos.add(2, 0), outputs[i], Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+            graphic.drawLine(new Vector(SIZE, i * SIZE), new Vector(SIZE2, i * SIZE), Style.WIRE);
         }
 
         graphic.drawPolygon(new Polygon(true)
-                .add(2, -2)
-                .add(SIZE - 2, -2)
-                .add(SIZE - 2, length)
-                .add(2, length), Style.FILLED);
+                .add(SIZE2 - 2, -2)
+                .add(SIZE2 + 2, -2)
+                .add(SIZE2 + 2, length)
+                .add(SIZE2 - 2, length), Style.FILLED);
     }
 }
