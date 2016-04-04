@@ -18,6 +18,8 @@ import de.neemann.digital.lang.Lang;
 import java.util.*;
 
 /**
+ * Creates a {@link Model} from the given {@link Circuit} instance.
+ *
  * @author hneemann
  */
 public class ModelDescription implements Iterable<ModelEntry> {
@@ -29,21 +31,43 @@ public class ModelDescription implements Iterable<ModelEntry> {
 
     /**
      * Creates the ModelDescription.
-     * In created the NetList is complete, so all pins connected together are registered
+     * If created, the NetList is complete. So all pins which are connected together are registered
      * to the Net instances in the NetList. Every group of connected Pins is represented
      * by a Net instance in the NetList.
      *
      * @param circuit the circuit
      * @param library the library used to create the Element instances
-     * @throws PinException
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
      */
     public ModelDescription(Circuit circuit, ElementLibrary library) throws PinException, NodeException {
         this(circuit, library, false);
     }
+
+    /**
+     * Creates a new instance
+     *
+     * @param circuit      the circuit to use
+     * @param library      the library to use
+     * @param readAsCustom if true the model is created for use as nested element
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
+     */
     public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
         this(circuit, library, readAsCustom, "unknown", new NetList(circuit.getWires()));
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param circuit      the circuit to use
+     * @param library      the library to use
+     * @param readAsCustom if true the model is created for use as nested element
+     * @param fileName     only used for better messages in exceptions
+     * @param netList      the NetList of the model. If known it is not necessary to create it.
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
+     */
     public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom, String fileName, NetList netList) throws PinException, NodeException {
         this.netList = netList;
         entries = new ArrayList<>();
@@ -60,7 +84,8 @@ public class ModelDescription implements Iterable<ModelEntry> {
             pins.bindOutputsToOutputPins(element.getOutputs());
 
 
-            // if handled as nested element, don't put pins in EntryList, but put pin in separate map to connect it with parent!
+            // if handled as nested element, don't put pins in EntryList, but put the pins in a
+            // separate map to connect it with the parent!
             boolean isNotAIO = true;
             if (readAsCustom) {
                 if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION) {
@@ -136,8 +161,8 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * Creates the model
      *
      * @return the model
-     * @throws PinException
-     * @throws NodeException
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
      */
     public Model createModel() throws PinException, NodeException {
         for (Net n : netList)
@@ -169,6 +194,13 @@ public class ModelDescription implements Iterable<ModelEntry> {
 
     }
 
+    /**
+     * Adds all the VisualElements, with have generated one of the given nodes to the collection
+     * of Drawables.
+     *
+     * @param nodes       The collection of nodes
+     * @param highLighted the list of drawables to add the VisualElements to
+     */
     public void addNodeElementsTo(Collection<Node> nodes, Collection<Drawable> highLighted) {
         HashSet<Node> nodeSet = new HashSet<>();
         if (nodes != null)
@@ -185,6 +217,12 @@ public class ModelDescription implements Iterable<ModelEntry> {
         return entries.iterator();
     }
 
+    /**
+     * Returns a list of all ModelEntries which contain a element of the given name
+     *
+     * @param elementName the name of the element
+     * @return the list
+     */
     public List<ModelEntry> getEntries(String elementName) {
         List<ModelEntry> entr = new ArrayList<>();
         for (ModelEntry me : entries)

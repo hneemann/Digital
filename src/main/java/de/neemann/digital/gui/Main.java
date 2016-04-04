@@ -4,8 +4,8 @@ import de.neemann.digital.core.*;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.ElementOrder;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.elements.PinOrder;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelDescription;
@@ -15,6 +15,7 @@ import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.ProbeDialog;
 import de.neemann.digital.gui.components.data.DataSetDialog;
+import de.neemann.digital.gui.components.data.MeasurementFilter;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
@@ -209,7 +210,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PinOrder o = new PinOrder(circuitComponent.getCircuit(), "In");
+                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), "In");
                 new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).setVisible(true);
             }
         }.setToolTip(Lang.get("menu_orderInputs_tt"));
@@ -217,10 +218,20 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction orderOutputs = new ToolTipAction(Lang.get("menu_orderOutputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PinOrder o = new PinOrder(circuitComponent.getCircuit(), "Out");
+                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), "Out");
                 new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).setVisible(true);
             }
         }.setToolTip(Lang.get("menu_orderOutputs_tt"));
+
+        ToolTipAction orderMeasurements = new ToolTipAction(Lang.get("menu_orderMeasurements")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), new MeasurementFilter());
+                new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o).setVisible(true);
+            }
+        }.setToolTip(Lang.get("menu_orderMeasurements_tt"));
+
+
 
         ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
             @Override
@@ -235,6 +246,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         edit.add(selectStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
+        edit.add(orderMeasurements.createJMenuItem());
         edit.add(editAttributes.createJMenuItem());
 
 

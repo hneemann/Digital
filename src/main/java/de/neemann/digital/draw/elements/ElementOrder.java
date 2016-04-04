@@ -8,20 +8,39 @@ import java.util.ArrayList;
 /**
  * @author hneemann
  */
-public class PinOrder implements ElementOrderer.OrderInterface<String> {
+public class ElementOrder implements ElementOrderer.OrderInterface<String> {
 
     private final ArrayList<Entry> entries;
     private final ArrayList<VisualElement> elements;
     private final Circuit circuit;
 
-    public PinOrder(Circuit circuit, String name) {
+    /**
+     * Creates a new instance
+     *
+     * @param circuit the circuit wich components are to otder
+     * @param name    the name of the lements to order
+     */
+    public ElementOrder(Circuit circuit, String name) {
+        this(circuit, element -> {
+            return element.getElementName().equals(name);
+        });
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param circuit the circuit wich components are to otder
+     * @param matcher the matcher to select th entries to order
+     */
+    public ElementOrder(Circuit circuit, ElementMatcher matcher) {
         this.circuit = circuit;
         this.elements = circuit.getElements();
         entries = new ArrayList<>();
         for (int i = 0; i < elements.size(); i++)
-            if (elements.get(i).getElementName().equals(name)) {
+            if (matcher.matches(elements.get(i))) {
                 String n = elements.get(i).getElementAttributes().get(AttributeKey.Label);
-                entries.add(new Entry(i, n));
+                if (n != null && n.length() > 0)
+                    entries.add(new Entry(i, n));
             }
     }
 
@@ -52,13 +71,24 @@ public class PinOrder implements ElementOrderer.OrderInterface<String> {
         circuit.modified();
     }
 
-    public static class Entry {
+    private final static class Entry {
         private int i;
         private final String name;
 
-        public Entry(int i, String name) {
+        private Entry(int i, String name) {
             this.i = i;
             this.name = name;
         }
+    }
+
+    /**
+     * Interface to determine the elements which should appear in the order list
+     */
+    public interface ElementMatcher {
+        /**
+         * @param element the element to check
+         * @return returns true if element is to order
+         */
+        boolean matches(VisualElement element);
     }
 }

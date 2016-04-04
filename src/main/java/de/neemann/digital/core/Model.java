@@ -55,7 +55,6 @@ public class Model {
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
     private boolean isInitialized = false;
-    private boolean signalsOrdered = false;
 
     /**
      * Creates a new model
@@ -84,8 +83,9 @@ public class Model {
 
     /**
      * Adds a node to the model
+     *
      * @param node the node
-     * @param <T> type of the node
+     * @param <T>  type of the node
      * @return the node itself for chained calls
      */
     public <T extends Node> T add(T node) {
@@ -102,7 +102,7 @@ public class Model {
      * If not called it es called automatically.
      * Calles <code>init(true);</code>
      *
-     * @throws NodeException
+     * @throws NodeException NodeException
      */
     public void init() throws NodeException {
         init(true);
@@ -112,7 +112,7 @@ public class Model {
      * Needs to be called after all nodes are added.
      *
      * @param noise setup with ore without noise
-     * @throws NodeException
+     * @throws NodeException NodeException
      */
     public void init(boolean noise) throws NodeException {
         nodesToUpdateNext.addAll(nodes);
@@ -146,7 +146,7 @@ public class Model {
     /**
      * Performes a step without noise.
      *
-     * @throws NodeException
+     * @throws NodeException NodeException
      */
     public void doStep() throws NodeException {
         doStep(false);
@@ -159,7 +159,7 @@ public class Model {
      * So this method propagates a value change through the whole model.
      *
      * @param noise calculation is performed using noise
-     * @throws NodeException
+     * @throws NodeException NodeException
      */
     public void doStep(boolean noise) throws NodeException {
         int counter = 0;
@@ -182,7 +182,7 @@ public class Model {
      * </pre>
      *
      * @param noise if true the microstep is performed with noise
-     * @throws NodeException
+     * @throws NodeException NodeException
      */
     public void doMicroStep(boolean noise) throws NodeException {
         if (!isInitialized)
@@ -217,7 +217,7 @@ public class Model {
      * Runs the model until a positive edge at the Break element is detected.
      *
      * @return The number of clock cycles necessary to get the positive edge
-     * @throws NodeException
+     * @throws NodeException NodeException
      */
     public int runToBreak() throws NodeException {
         Break aBreak = breaks.get(0);
@@ -261,6 +261,8 @@ public class Model {
      * while (needsUpdate())
      *     doMicroStep(noise);
      * </pre>
+     *
+     * @return true if model has more nodes to update
      */
     public boolean needsUpdate() {
         return !nodesToUpdateNext.isEmpty();
@@ -275,6 +277,7 @@ public class Model {
 
     /**
      * Adds a observer to this model
+     *
      * @param observer the observer to add
      */
     public void addObserver(ModelStateObserver observer) {
@@ -283,6 +286,7 @@ public class Model {
 
     /**
      * Removes a observer to this model
+     *
      * @param observer the observer to remove
      */
     public void removeObserver(ModelStateObserver observer) {
@@ -294,69 +298,119 @@ public class Model {
             observer.handleEvent(event);
     }
 
+    /**
+     * registers a Clock to the model
+     *
+     * @param clock the clock
+     */
     public void addClock(Clock clock) {
         clocks.add(clock);
     }
 
+    /**
+     * @return all registered clocks
+     */
     public ArrayList<Clock> getClocks() {
         return clocks;
     }
 
+    /**
+     * registers a Break to the model
+     * @param aBreak the break
+     */
     public void addBreak(Break aBreak) {
         breaks.add(aBreak);
     }
 
+    /**
+     * @return all registered Breaks
+     */
     public ArrayList<Break> getBreaks() {
         return breaks;
     }
 
+    /**
+     * registers a Reset to the model
+     * @param reset the Reset
+     */
     public void addReset(Reset reset) {
         resets.add(reset);
     }
 
+    /**
+     * @return all registered Resets
+     */
     public ArrayList<Reset> getResets() {
         return resets;
     }
 
+    /**
+     * registers a Signal to the model
+     * @param name the signals name
+     * @param value the signals value
+     */
     public void addSignal(String name, ObservableValue value) {
         if (name != null && name.length() > 0 && value != null)
             signals.add(new Signal(name, value));
     }
 
+    /**
+     * @return all registered Signals
+     */
     public ArrayList<Signal> getSignals() {
-        if (!signalsOrdered) {
-            Collections.sort(signals);
-            signalsOrdered = true;
-        }
         return signals;
     }
 
+    /**
+     * registers a ROM to the model
+     * @param rom the ROM
+     */
     public void addRomListing(ROM rom) {
         roms.add(rom);
     }
 
+    /**
+     * @return all registered Roms
+     */
     public ArrayList<ROM> getRoms() {
         return roms;
     }
 
+    /**
+     * fires a model changed event to all listeners
+     */
     public void fireManualChangeEvent() {
         fireEvent(ModelEvent.MANUALCHANGE);
     }
 
-    public static class Signal implements Comparable<Signal> {
-
+    /**
+     * A simple storage bean for signals
+     */
+    public static final class Signal implements Comparable<Signal> {
         private final String name;
         private final ObservableValue value;
 
-        public Signal(String name, ObservableValue value) {
+        /**
+         * Creates a new Instance
+         *
+         * @param name  the name of the Signal
+         * @param value the signals value
+         */
+        private Signal(String name, ObservableValue value) {
             this.name = name;
             this.value = value;
         }
 
+        /**
+         * @return the name
+         */
         public String getName() {
             return name;
         }
 
+        /**
+         * @return the value
+         */
         public ObservableValue getValue() {
             return value;
         }
