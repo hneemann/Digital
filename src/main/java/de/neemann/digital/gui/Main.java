@@ -73,7 +73,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
 
     private State elementState;
-    private State wireState;
+    //private State wireState;
     private State selectState;
     private State runModelState;
     private State runModelMicroState;
@@ -203,7 +203,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenu edit = new JMenu(Lang.get("menu_edit"));
         bar.add(edit);
 
-        ToolTipAction wireStateAction = wireState.createToolTipAction(Lang.get("menu_wire"), ICON_WIRE).setToolTip(Lang.get("menu_wire_tt"));
+        //ToolTipAction wireStateAction = wireState.createToolTipAction(Lang.get("menu_wire"), ICON_WIRE).setToolTip(Lang.get("menu_wire_tt"));
         ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), ICON_ELEMENT).setToolTip(Lang.get("menu_element_tt"));
         ToolTipAction selectStateAction = selectState.createToolTipAction(Lang.get("menu_select"), ICON_SELECT).setToolTip(Lang.get("menu_select_tt"));
 
@@ -242,7 +242,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
 
         edit.add(elementStateAction.createJMenuItem());
-        edit.add(wireStateAction.createJMenuItem());
+        //edit.add(wireStateAction.createJMenuItem());
         edit.add(selectStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
@@ -330,7 +330,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(save.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(elementState.setIndicator(elementStateAction.createJButtonNoText()));
-        toolBar.add(wireState.setIndicator(wireStateAction.createJButtonNoText()));
+        //toolBar.add(wireState.setIndicator(wireStateAction.createJButtonNoText()));
         toolBar.add(selectState.setIndicator(selectStateAction.createJButtonNoText()));
         toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
         toolBar.addSeparator();
@@ -356,7 +356,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
     private void setupStates() {
         elementState = stateManager.register(new ModeState(CircuitComponent.Mode.part));
-        wireState = stateManager.register(new ModeState(CircuitComponent.Mode.wire));
+        //wireState = stateManager.register(new ModeState(CircuitComponent.Mode.wire));
         selectState = stateManager.register(new ModeState(CircuitComponent.Mode.select));
         runModelState = stateManager.register(new State() {
             @Override

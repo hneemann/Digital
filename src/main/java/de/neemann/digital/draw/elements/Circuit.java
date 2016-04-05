@@ -236,6 +236,10 @@ public class Circuit {
         VisualElement el = getElementAt(pos);
         if (el == null) return false;
 
+        return isPinPos(pos, el);
+    }
+
+    public boolean isPinPos(Vector pos, VisualElement el) {
         for (Pin p : el.getPins())
             if (p.getPos().equals(pos))
                 return true;

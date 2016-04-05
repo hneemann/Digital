@@ -273,6 +273,7 @@ public class CircuitComponent extends JComponent {
     private class PartMouseListener extends Mouse {
 
         private VisualElement partToInsert;
+        private Wire wire;
         private boolean autoPick = false;
         private Vector delta;
         private boolean insert;
@@ -284,6 +285,10 @@ public class CircuitComponent extends JComponent {
                 partToInsert.setPos(raster(pos.add(delta)));
                 repaint();
             }
+            if (wire != null) {
+                wire.setP2(raster(getPosVector(e)));
+                repaint();
+            }
         }
 
         @Override
@@ -291,12 +296,29 @@ public class CircuitComponent extends JComponent {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (partToInsert == null) {
                     insert = false;
-                    Vector pos = getPosVector(e);
-                    VisualElement vp = circuit.getElementAt(pos);
-                    if (vp != null) {
-                        partToInsert = vp;
-                        delta = partToInsert.getPos().sub(pos);
-                        repaint();
+                    if (wire == null) {
+                        Vector pos = getPosVector(e);
+                        VisualElement vp = circuit.getElementAt(pos);
+                        if (vp != null) {
+                            Vector startPos = raster(pos);
+                            if (circuit.isPinPos(startPos)) {
+                                wire = new Wire(startPos, startPos);
+                            } else {
+                                partToInsert = vp;
+                                delta = partToInsert.getPos().sub(pos);
+                            }
+                            repaint();
+                        } else {
+                            Vector startPos = raster(pos);
+                            wire = new Wire(startPos, startPos);
+                        }
+                    } else {
+                        circuit.add(wire);
+                        Vector startPos = raster(getPosVector(e));
+                        if (circuit.isPinPos(startPos))
+                            wire = null;
+                        else
+                            wire = new Wire(startPos, startPos);
                     }
                 } else {
                     partToInsert.setPos(raster(partToInsert.getPos()));
@@ -308,7 +330,11 @@ public class CircuitComponent extends JComponent {
                 }
                 deleteAction.setEnabled(partToInsert != null);
             } else {
-                editAttributes(e);
+                if (wire != null) {
+                    wire = null;
+                    repaint();
+                } else
+                    editAttributes(e);
             }
         }
 
@@ -336,6 +362,8 @@ public class CircuitComponent extends JComponent {
         public void drawTo(Graphic gr) {
             if (partToInsert != null && !autoPick)
                 partToInsert.drawTo(gr, true);
+            if (wire != null)
+                wire.drawTo(gr, false);
         }
     }
 
