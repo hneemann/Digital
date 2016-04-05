@@ -7,21 +7,28 @@ import java.util.Collection;
  * @author hneemann
  */
 public class NodeException extends Exception {
-    private final Node node;
+    private final ArrayList<Node> nodes;
     private final ObservableValue[] values;
+
+    public NodeException(String message, ObservableValue... values) {
+        this(message, null, values);
+    }
 
     public NodeException(String message, Node node, ObservableValue... values) {
         super(message);
-        this.node = node;
+        this.nodes = new ArrayList<>();
+        if (node != null)
+            nodes.add(node);
         this.values = values;
+    }
+
+    public NodeException addNodes(Collection<Node> nodesToAdd) {
+        nodes.addAll(nodesToAdd);
+        return this;
     }
 
     public ObservableValue[] getValues() {
         return values;
-    }
-
-    public Node getNode() {
-        return node;
     }
 
     @Override
@@ -44,11 +51,6 @@ public class NodeException extends Exception {
     }
 
     public Collection<Node> getNodes() {
-        if (node == null)
-            return null;
-
-        ArrayList<Node> list = new ArrayList<>();
-        list.add(node);
-        return list;
+        return nodes;
     }
 }

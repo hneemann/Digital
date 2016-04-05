@@ -165,7 +165,7 @@ public class Model {
         int counter = 0;
         while (needsUpdate()) {
             if (counter++ > MAX_COUNTER) {
-                throw new NodeException(Lang.get("err_seemsToOscillate"), nodesToUpdateNext.get(0));
+                throw new NodeException(Lang.get("err_seemsToOscillate")).addNodes(nodesToUpdateNext);
             }
             doMicroStep(noise);
         }
@@ -236,7 +236,7 @@ public class Model {
             }
             lastIn = brIn;
         }
-        throw new NodeException(Lang.get("err_breakTimeOut", aBreak.getCycles()), null, brVal);
+        throw new NodeException(Lang.get("err_breakTimeOut", aBreak.getCycles()), brVal);
     }
 
     /**

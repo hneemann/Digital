@@ -22,7 +22,10 @@ import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
@@ -61,19 +64,14 @@ public class CircuitComponent extends JComponent {
 
         setFocusable(true);
 
-        addMouseWheelListener(new MouseWheelListener() {
-                                  @Override
-                                  public void mouseWheelMoved(MouseWheelEvent e) {
-                                      Vector pos = getPosVector(e);
-                                      double f = Math.pow(0.9, e.getWheelRotation());
-                                      transform.translate(pos.x, pos.y);
-                                      transform.scale(f, f);
-                                      transform.translate(-pos.x, -pos.y);
-                                      repaint();
-                                  }
-                              }
-
-        );
+        addMouseWheelListener(e -> {
+            Vector pos = getPosVector(e);
+            double f = Math.pow(0.9, e.getWheelRotation());
+            transform.translate(pos.x, pos.y);
+            transform.scale(f, f);
+            transform.translate(-pos.x, -pos.y);
+            repaint();
+        });
     }
 
     public ToolTipAction getDeleteAction() {

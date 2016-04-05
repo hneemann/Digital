@@ -45,7 +45,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon ICON_STEP = IconCreator.create("step.gif");
     private static final Icon ICON_ELEMENT = IconCreator.create("element.gif");
     private static final Icon ICON_SELECT = IconCreator.create("Select24.gif");
-    private static final Icon ICON_WIRE = IconCreator.create("wire.gif");
+    //    private static final Icon ICON_WIRE = IconCreator.create("wire.gif");
     private static final Icon ICON_NEW = IconCreator.create("New24.gif");
     private static final Icon ICON_OPEN = IconCreator.create("Open24.gif");
     private static final Icon ICON_OPEN_WIN = IconCreator.create("OpenNew24.gif");
@@ -232,7 +232,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         }.setToolTip(Lang.get("menu_orderMeasurements_tt"));
 
 
-
         ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -362,22 +361,23 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void enter() {
                 super.enter();
-                createAndStartModel(runClock.isSelected(), ModelEvent.Event.STEP);
-                circuitComponent.setManualChangeObserver(new FullStepObserver(model));
+                if (createAndStartModel(runClock.isSelected(), ModelEvent.Event.STEP))
+                    circuitComponent.setManualChangeObserver(new FullStepObserver(model));
             }
         });
         runModelMicroState = stateManager.register(new State() {
             @Override
             public void enter() {
                 super.enter();
-                createAndStartModel(false, ModelEvent.Event.MICROSTEP);
-                circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
+                if (createAndStartModel(false, ModelEvent.Event.MICROSTEP))
+                    circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
         });
     }
 
     /**
      * Starts the main app
+     *
      * @param args the arguments
      */
     public static void main(String[] args) {
@@ -393,7 +393,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         model = null;
     }
 
-    private void setModelDescription(ModelDescription md, boolean runClock) throws NodeException, PinException {
+    private void setModelDescription(ModelDescription md) throws NodeException, PinException {
         modelDescription = md;
 
         if (model != null)
@@ -403,12 +403,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
 
-    private void createAndStartModel(boolean runClock, ModelEvent.Event updateEvent) {
+    private boolean createAndStartModel(boolean runClock, ModelEvent.Event updateEvent) {
         try {
             circuitComponent.removeHighLighted();
             circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
 
-            setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library), runClock);
+            setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library));
             if (runClock) {
                 // if clock is running, enable automatic update of gui
                 GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
@@ -425,13 +425,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
 
-
             if (showProbes.isSelected())
                 new ProbeDialog(this, model, updateEvent).setVisible(true);
 
             if (showGraph.isSelected())
                 new DataSetDialog(this, model, updateEvent).setVisible(true);
-
 
             if (showListing.isSelected())
                 for (ROM rom : model.getRoms())
@@ -444,17 +442,16 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             model.init();
 
+            return true;
         } catch (NodeException e) {
             if (modelDescription != null) {
                 if (e.getNodes() != null)
                     modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
                 else
                     circuitComponent.addHighLightedWires(e.getValues());
-
                 circuitComponent.repaint();
             }
-            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).setComponent(Main.this));
-            circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
+            showSwingError(Lang.get("msg_errorCreatingModel"), e);
         } catch (PinException e) {
             if (modelDescription != null) {
                 circuitComponent.addHighLighted(e.getVisualElement());
@@ -462,9 +459,18 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
                     circuitComponent.addHighLighted(e.getNet().getWires());
                 circuitComponent.repaint();
             }
-            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).setComponent(Main.this));
-            circuitComponent.setModeAndReset(CircuitComponent.Mode.part);
+            showSwingError(Lang.get("msg_errorCreatingModel"), e);
+        } catch (RuntimeException e) {
+            showSwingError(Lang.get("msg_errorCreatingModel"), e);
         }
+        return false;
+    }
+
+    private void showSwingError(String message, Throwable cause) {
+        SwingUtilities.invokeLater(() -> {
+            new ErrorMessage(message).addCause(cause).show(Main.this);
+            elementState.activate();
+        });
     }
 
     private static JFileChooser getjFileChooser(File filename) {
@@ -549,10 +555,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             try {
                 model.doStep();
                 circuitComponent.repaint();
-            } catch (Exception e) {
-                SwingUtilities.invokeLater(
-                        new ErrorMessage(Lang.get("msg_errorCalculatingStep")).addCause(e).setComponent(Main.this)
-                );
+            } catch (NodeException e) {
+                if (modelDescription != null) {
+                    modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
+                    circuitComponent.repaint();
+                }
+                showSwingError(Lang.get("msg_errorCalculatingStep"), e);
+            } catch (RuntimeException e) {
+                showSwingError(Lang.get("msg_errorCalculatingStep"), e);
             }
         }
     }
