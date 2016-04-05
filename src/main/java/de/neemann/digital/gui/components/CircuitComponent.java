@@ -98,7 +98,7 @@ public class CircuitComponent extends JComponent {
                 break;
             case select:
                 listener = new SelectMouseListener();
-                setCursor(new Cursor(Cursor.MOVE_CURSOR));
+                setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
                 break;
             case running:
                 listener = new RunningMouseListener();

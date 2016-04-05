@@ -58,6 +58,14 @@ public class Circuit {
         return xStream;
     }
 
+    /**
+     * Creates a new circuit instance from a stored file
+     *
+     * @param filename     filename
+     * @param shapeFactory shapeFactory used to create the shapes
+     * @return the circuit
+     * @throws IOException IOException
+     */
     public static Circuit loadCircuit(File filename, ShapeFactory shapeFactory) throws IOException {
         XStream xStream = getxStream();
         try (InputStream in = new FileInputStream(filename)) {
@@ -80,6 +88,12 @@ public class Circuit {
         }
     }
 
+    /**
+     * Stores the circuit in the given file
+     *
+     * @param filename filename
+     * @throws IOException IOException
+     */
     public void save(File filename) throws IOException {
         wires = new WireConsistencyChecker(wires).check();
         dotsPresent = false;
@@ -91,17 +105,30 @@ public class Circuit {
         }
     }
 
+    /**
+     * Creates a ne empty circuit instance
+     */
     public Circuit() {
         visualElements = new ArrayList<>();
         wires = new ArrayList<>();
     }
 
+    /**
+     * returns the elements attributes
+     *
+     * @return the attributes
+     */
     public ElementAttributes getAttributes() {
         if (attributes == null)
             attributes = new ElementAttributes();
         return attributes;
     }
 
+    /**
+     * Opens the attribute editor
+     *
+     * @param parent the parent component
+     */
     public void editAttributes(Component parent) {
         if (new AttributeDialog(parent, null, ATTR_LIST, getAttributes()).showDialog()) {
             if (attributes.isEmpty())
@@ -110,10 +137,21 @@ public class Circuit {
         }
     }
 
+    /**
+     * Draws tis circuit using the given graphic instance
+     *
+     * @param graphic the graphic instance used
+     */
     public void drawTo(Graphic graphic) {
         drawTo(graphic, EMPTY_SET);
     }
 
+    /**
+     * Draws tis circuit using the given graphic instance
+     *
+     * @param graphic     the graphic instance used
+     * @param highLighted a list of Drawables to highlight
+     */
     public void drawTo(Graphic graphic, Collection<Drawable> highLighted) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
@@ -131,11 +169,21 @@ public class Circuit {
         }
     }
 
+    /**
+     * Adds a ne VisualElement
+     *
+     * @param visualElement the visual element to add
+     */
     public void add(VisualElement visualElement) {
         visualElements.add(visualElement);
         modified();
     }
 
+    /**
+     * Adds a new Wire
+     *
+     * @param newWire the wire to add
+     */
     public void add(Wire newWire) {
         if (newWire.p1.equals(newWire.p2))
             return;
@@ -160,10 +208,22 @@ public class Circuit {
         modified();
     }
 
+    /**
+     * Returns a list of all visual elements
+     *
+     * @return the list
+     */
     public ArrayList<VisualElement> getElements() {
         return visualElements;
     }
 
+    /**
+     * Returns a list of all Moveables in the given rectangle.
+     *
+     * @param min upper left corner of the rectangle
+     * @param max lower right corner of the rectangle
+     * @return the list
+     */
     public ArrayList<Moveable> getElementsToMove(Vector min, Vector max) {
         ArrayList<Moveable> m = new ArrayList<>();
         for (VisualElement vp : visualElements)
@@ -182,6 +242,14 @@ public class Circuit {
             return m;
     }
 
+    /**
+     * Returns a list of all Moveables in the given rectangle.
+     * It creates a deep copy of all elements.
+     *
+     * @param min upper left corner of the rectangle
+     * @param max lower right corner of the rectangle
+     * @return the list
+     */
     public ArrayList<Moveable> getElementsToCopy(Vector min, Vector max, ShapeFactory shapeFactory) {
         ArrayList<Moveable> m = new ArrayList<>();
         for (VisualElement vp : visualElements)
@@ -199,31 +267,45 @@ public class Circuit {
     }
 
 
+    /**
+     * Deletes all elements th the given rectangle
+     *
+     * @param min upper left corner of the rectangle
+     * @param max lower right corner of the rectangle
+     */
     public void delete(Vector min, Vector max) {
-        {
-            Iterator<VisualElement> it = visualElements.iterator();
-            while (it.hasNext())
-                if (it.next().matches(min, max))
-                    it.remove();
-        }
-        {
-            Iterator<Wire> it = wires.iterator();
-            while (it.hasNext()) {
-                Wire w = it.next();
-                if (w.p1.inside(min, max) || w.p2.inside(min, max))
-                    it.remove();
-            }
+        Iterator<VisualElement> veIt = visualElements.iterator();
+        while (veIt.hasNext())
+            if (veIt.next().matches(min, max))
+                veIt.remove();
+
+        Iterator<Wire> wIt = wires.iterator();
+        while (wIt.hasNext()) {
+            Wire w = wIt.next();
+            if (w.p1.inside(min, max) || w.p2.inside(min, max))
+                wIt.remove();
         }
         dotsPresent = false;
         modified();
     }
 
+    /**
+     * Deletes a single visual element
+     *
+     * @param partToDelete the element to delete
+     */
     public void delete(VisualElement partToDelete) {
         if (visualElements.remove(partToDelete))
             modified();
     }
 
 
+    /**
+     * Returns the element at the given position
+     *
+     * @param pos the cursor position
+     * @return the element or null if there is no element at the given position
+     */
     public VisualElement getElementAt(Vector pos) {
         for (VisualElement element : visualElements) {
             if (element.matches(pos))
@@ -232,6 +314,12 @@ public class Circuit {
         return null;
     }
 
+    /**
+     * Returns true if there is a pin at the given position
+     *
+     * @param pos the position
+     * @return true if position is a pin position
+     */
     public boolean isPinPos(Vector pos) {
         VisualElement el = getElementAt(pos);
         if (el == null) return false;
@@ -239,6 +327,13 @@ public class Circuit {
         return isPinPos(pos, el);
     }
 
+    /**
+     * Returns true if the given element has a pin at the given position
+     *
+     * @param pos the position
+     * @param el  the element
+     * @return true if position is a pin position
+     */
     public boolean isPinPos(Vector pos, VisualElement el) {
         for (Pin p : el.getPins())
             if (p.getPos().equals(pos))
@@ -248,14 +343,31 @@ public class Circuit {
     }
 
 
+    /**
+     * Sets this circuits state to modified
+     */
     public void modified() {
         modified = true;
     }
 
+    /**
+     * @return true if modified
+     */
+    public boolean isModified() {
+        return modified;
+    }
+
+
+    /**
+     * @return a list of all wires
+     */
     public ArrayList<Wire> getWires() {
         return wires;
     }
 
+    /**
+     * Deletes the references to the ObservableValues representing the elements or wire state.
+     */
     public void clearState() {
         for (VisualElement vp : visualElements)
             vp.setState(null, null);
@@ -263,10 +375,13 @@ public class Circuit {
             w.setValue(null);
     }
 
-    public boolean isModified() {
-        return modified;
-    }
-
+    /**
+     * returns a list of all input names of this circuit
+     *
+     * @param library the library
+     * @return the list of input names
+     * @throws PinException PinException
+     */
     public String[] getInputNames(ElementLibrary library) throws PinException {
         ArrayList<String> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
@@ -282,6 +397,14 @@ public class Circuit {
         return pinList.toArray(new String[pinList.size()]);
     }
 
+    /**
+     * returns a list of all output ObservableNames.
+     * The ObservableValue is not connected to a model! Its just a wrapper for the outputs name.
+     *
+     * @param library the library
+     * @return the list of output ObservableValues
+     * @throws PinException PinException
+     */
     public ObservableValue[] getOutputNames(ElementLibrary library) throws PinException {
         ArrayList<ObservableValue> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
@@ -294,12 +417,12 @@ public class Circuit {
                 pinList.add(new ObservableValue(name, 0) {
                     @Override
                     public long getValue() {
-                        throw new RuntimeException("invallid call!");
+                        throw new RuntimeException("invalid call!");
                     }
 
                     @Override
                     public ObservableValue addObserver(Observer observer) {
-                        throw new RuntimeException("invallid call!");
+                        throw new RuntimeException("invalid call!");
                     }
                 });
             }
