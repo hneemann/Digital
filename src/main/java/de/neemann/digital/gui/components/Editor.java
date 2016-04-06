@@ -1,15 +1,16 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 
-import java.awt.*;
+import javax.swing.*;
 
 /**
  * @author hneemann
  */
 public interface Editor<T> {
 
-    Component getComponent(ElementAttributes elementAttributes);
-
     T getValue();
+
+    void addToPanel(JPanel panel, AttributeKey key, ElementAttributes elementAttributes);
 }

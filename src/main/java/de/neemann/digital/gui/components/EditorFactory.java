@@ -49,7 +49,17 @@ public final class EditorFactory {
         }
     }
 
-    private static class StringEditor implements Editor<String> {
+    private static abstract class LabelEditor<T> implements Editor<T> {
+        @Override
+        public void addToPanel(JPanel panel, AttributeKey key, ElementAttributes elementAttributes) {
+            panel.add(new JLabel(key.getName() + ":  "), DialogLayout.LABEL);
+            panel.add(getComponent(elementAttributes), DialogLayout.INPUT);
+        }
+
+        protected abstract Component getComponent(ElementAttributes elementAttributes);
+    }
+
+    private static class StringEditor extends LabelEditor<String> {
 
         private final JTextField text;
 
@@ -67,9 +77,10 @@ public final class EditorFactory {
         public String getValue() {
             return text.getText();
         }
+
     }
 
-    private static class IntegerEditor implements Editor<Integer> {
+    private static class IntegerEditor extends LabelEditor<Integer> {
         private final JComboBox<Integer> comboBox;
 
         public IntegerEditor(Integer value, AttributeKey<Integer> key) {
@@ -103,22 +114,21 @@ public final class EditorFactory {
         private final JCheckBox bool;
 
         public BooleanEditor(Boolean value, AttributeKey<Boolean> key) {
-            bool = new JCheckBox("", value);
-        }
-
-        @Override
-        public Component getComponent(ElementAttributes attr) {
-            return bool;
+            bool = new JCheckBox(key.getName(), value);
         }
 
         @Override
         public Boolean getValue() {
             return bool.isSelected();
         }
+
+        @Override
+        public void addToPanel(JPanel panel, AttributeKey key, ElementAttributes elementAttributes) {
+            panel.add(bool, DialogLayout.BOTH);
+        }
     }
 
-
-    private static class ColorEditor implements Editor<Color> {
+    private static class ColorEditor extends LabelEditor<Color> {
 
         private Color color;
         private final JButton button;
@@ -149,7 +159,7 @@ public final class EditorFactory {
         }
     }
 
-    private static class DataFieldEditor implements Editor<DataField> {
+    private static class DataFieldEditor extends LabelEditor<DataField> {
 
         private DataField data;
 
@@ -207,7 +217,7 @@ public final class EditorFactory {
         }
     }
 
-    private static class RotationEditor implements Editor<Rotation> {
+    private static class RotationEditor extends LabelEditor<Rotation> {
         private static final String[] list = new String[]{Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")};
 
         private final Rotation rotation;

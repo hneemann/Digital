@@ -33,10 +33,9 @@ public class AttributeDialog extends JDialog {
         editors = new ArrayList<>();
 
         for (AttributeKey key : list) {
-            panel.add(new JLabel(key.getName() + ":  "), DialogLayout.LABEL);
             Editor e = EditorFactory.INSTANCE.create(key, elementAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            panel.add(e.getComponent(elementAttributes), DialogLayout.INPUT);
+            e.addToPanel(panel, key, elementAttributes);
         }
 
         JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
