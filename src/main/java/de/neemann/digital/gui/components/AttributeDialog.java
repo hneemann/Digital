@@ -87,16 +87,4 @@ public class AttributeDialog extends JDialog {
         }
     }
 
-    public static void main(String[] args) {
-        ArrayList<AttributeKey> list = new ArrayList<>();
-        list.add(AttributeKey.Bits);
-        list.add(AttributeKey.Label);
-        list.add(AttributeKey.Color);
-        list.add(AttributeKey.Signed);
-        ElementAttributes values = new ElementAttributes();
-        AttributeDialog d = new AttributeDialog(null, null, list, values);
-        d.showDialog();
-        System.out.println(values);
-    }
-
 }
