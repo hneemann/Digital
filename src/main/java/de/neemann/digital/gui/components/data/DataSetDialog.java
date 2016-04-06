@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components.data;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
+import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Dialog which shows the data to plot.
@@ -27,17 +29,25 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
     /**
      * Creates a new instance
      *
-     * @param owner the parent frame
-     * @param model the model used to collect the data
-     * @param type  the event type which triggers a new DataSample
+     * @param owner    the parent frame
+     * @param model    the model used to collect the data
+     * @param type     the event type which triggers a new DataSample
+     * @param ordering
      */
-    public DataSetDialog(Frame owner, Model model, ModelEvent.Event type) {
+    public DataSetDialog(Frame owner, Model model, ModelEvent.Event type, List<String> ordering) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         this.type = type;
 
-        signals = model.getSignals();
+        signals = model.getSignalsCopy();
+        new OrderMerger<String, Model.Signal>(ordering) {
+            @Override
+            public boolean equals(Model.Signal a, String b) {
+                return a.getName().equals(b);
+            }
+        }.order(signals);
+
         dataSet = new DataSet(signals);
 
         dsc = new DataSetComponent(dataSet);

@@ -23,6 +23,7 @@ import de.neemann.digital.lang.Lang;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * @author hneemann
@@ -39,6 +40,7 @@ public class Circuit {
     private ElementAttributes attributes;
     private final ArrayList<VisualElement> visualElements;
     private ArrayList<Wire> wires;
+    private List<String> measurementOrdering;
     private transient boolean dotsPresent = false;
     private transient boolean modified = false;
 
@@ -430,4 +432,21 @@ public class Circuit {
         return pinList.toArray(new ObservableValue[pinList.size()]);
     }
 
+    /**
+     * Gets the ordering of values used to show measurements
+     *
+     * @return list of names
+     */
+    public List<String> getMeasurementOrdering() {
+        return measurementOrdering;
+    }
+
+    /**
+     * Sets the ordering of values used to show measurements
+     *
+     * @param measurementOrdering
+     */
+    public void setMeasurementOrdering(List<String> measurementOrdering) {
+        this.measurementOrdering = measurementOrdering;
+    }
 }

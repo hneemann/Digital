@@ -62,10 +62,35 @@ public class ElementOrderer<T> extends JDialog {
 
     }
 
-    private static class ArrayOrderInterface<T> implements OrderInterface<T> {
+    public static class ListOrder<T> implements OrderInterface<T> {
+        private java.util.List<T> list;
+
+        public ListOrder(java.util.List<T> list) {
+            this.list = list;
+        }
+
+        @Override
+        public int size() {
+            return list.size();
+        }
+
+        @Override
+        public T get(int index) {
+            return list.get(index);
+        }
+
+        @Override
+        public void swap(int i, int j) {
+            T z = list.get(i);
+            list.set(i, list.get(j));
+            list.set(j, z);
+        }
+    }
+
+    private static class ArrayOrder<T> implements OrderInterface<T> {
         private final T[] data;
 
-        public ArrayOrderInterface(T[] data) {
+        public ArrayOrder(T[] data) {
             this.data = data;
         }
 
@@ -129,6 +154,6 @@ public class ElementOrderer<T> extends JDialog {
     }
 
     public static void main(String[] args) {
-        new ElementOrderer<>(null, "Test", new ArrayOrderInterface<>(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9})).setVisible(true);
+        new ElementOrderer<>(null, "Test", new ArrayOrder<>(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9})).setVisible(true);
     }
 }

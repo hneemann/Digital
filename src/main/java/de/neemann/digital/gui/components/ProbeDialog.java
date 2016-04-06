@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author hneemann
@@ -22,12 +23,19 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
     private final ModelEvent.Event type;
     private final SignalTableModel tableModel;
 
-    public ProbeDialog(Frame owner, Model model, ModelEvent.Event type) {
+    public ProbeDialog(Frame owner, Model model, ModelEvent.Event type, List<String> ordering) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.type = type;
 
-        ArrayList<Model.Signal> signals = model.getSignals();
+        ArrayList<Model.Signal> signals = model.getSignalsCopy();
+        new OrderMerger<String, Model.Signal>(ordering) {
+            @Override
+            public boolean equals(Model.Signal a, String b) {
+                return a.getName().equals(b);
+            }
+        }.order(signals);
+
         tableModel = new SignalTableModel(signals);
         JTable list = new JTable(tableModel);
         getContentPane().add(new JScrollPane(list), BorderLayout.CENTER);

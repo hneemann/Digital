@@ -362,6 +362,16 @@ public class Model {
     }
 
     /**
+     * @return a copy of all registered Signals
+     */
+    public ArrayList<Signal> getSignalsCopy() {
+        ArrayList<Signal> n = new ArrayList<>(signals.size());
+        n.addAll(signals);
+        return n;
+    }
+
+
+    /**
      * registers a ROM to the model
      * @param rom the ROM
      */
@@ -418,6 +428,11 @@ public class Model {
         @Override
         public int compareTo(Signal o) {
             return name.compareTo(o.name);
+        }
+
+        @Override
+        public String toString() {
+            return name;
         }
     }
 

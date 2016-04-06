@@ -39,9 +39,9 @@ import java.util.HashSet;
  * @author hneemann
  */
 public class CircuitComponent extends JComponent {
-    private static final Icon iconDelete = IconCreator.create("Delete24.gif");
+    private static final Icon ICON_DELETE = IconCreator.create("Delete24.gif");
+    private static final String DEL_ACTION = "myDelAction";
 
-    private static final String delAction = "myDelAction";
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
     private final HashSet<Drawable> highLighted;
@@ -59,8 +59,8 @@ public class CircuitComponent extends JComponent {
         setCircuit(aCircuit);
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
-        getInputMap().put(delKey, delAction);
-        getActionMap().put(delAction, deleteAction);
+        getInputMap().put(delKey, DEL_ACTION);
+        getActionMap().put(DEL_ACTION, deleteAction);
 
         setFocusable(true);
 
@@ -91,10 +91,6 @@ public class CircuitComponent extends JComponent {
             case part:
                 listener = new PartMouseListener();
                 setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                break;
-            case wire:
-                listener = new WireMouseListener();
-                setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
                 break;
             case select:
                 listener = new SelectMouseListener();
@@ -202,7 +198,7 @@ public class CircuitComponent extends JComponent {
         setModeAndReset(Mode.part);
     }
 
-    public enum Mode {part, wire, running, select}
+    public enum Mode {part, running, select}
 
     private abstract class Mouse extends MouseAdapter implements MouseMotionListener {
         private Vector pos;
@@ -222,49 +218,6 @@ public class CircuitComponent extends JComponent {
             transform.translate(delta.x / s, delta.y / s);
             pos = newPos;
             repaint();
-        }
-    }
-
-    private class WireMouseListener extends Mouse {
-
-        private Wire wire;
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
-                if (wire != null) {
-                    circuit.add(wire);
-                    Vector startPos = raster(getPosVector(e));
-                    if (circuit.isPinPos(startPos))
-                        wire = null;
-                    else
-                        wire = new Wire(startPos, startPos);
-                } else {
-                    Vector startPos = raster(getPosVector(e));
-                    wire = new Wire(startPos, startPos);
-                }
-                repaint();
-            } else {
-                if (wire != null) {
-                    wire = null;
-                    repaint();
-                } else
-                    editAttributes(e);
-            }
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-            if (wire != null) {
-                wire.setP2(raster(getPosVector(e)));
-                repaint();
-            }
-        }
-
-        @Override
-        public void drawTo(Graphic gr) {
-            if (wire != null)
-                wire.drawTo(gr, false);
         }
     }
 
@@ -522,7 +475,7 @@ public class CircuitComponent extends JComponent {
     private class DelAction extends ToolTipAction {
 
         DelAction() {
-            super(Lang.get("menu_delete"), iconDelete);
+            super(Lang.get("menu_delete"), ICON_DELETE);
             setToolTip(Lang.get("menu_delete_tt"));
         }
 

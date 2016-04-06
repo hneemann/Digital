@@ -13,9 +13,9 @@ import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
+import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.components.ProbeDialog;
 import de.neemann.digital.gui.components.data.DataSetDialog;
-import de.neemann.digital.gui.components.data.MeasurementFilter;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
@@ -31,6 +31,8 @@ import java.awt.event.WindowEvent;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.prefs.Preferences;
 
@@ -45,7 +47,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Icon ICON_STEP = IconCreator.create("step.gif");
     private static final Icon ICON_ELEMENT = IconCreator.create("element.gif");
     private static final Icon ICON_SELECT = IconCreator.create("Select24.gif");
-    //    private static final Icon ICON_WIRE = IconCreator.create("wire.gif");
     private static final Icon ICON_NEW = IconCreator.create("New24.gif");
     private static final Icon ICON_OPEN = IconCreator.create("Open24.gif");
     private static final Icon ICON_OPEN_WIN = IconCreator.create("OpenNew24.gif");
@@ -73,7 +74,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
 
     private State elementState;
-    //private State wireState;
     private State selectState;
     private State runModelState;
     private State runModelMicroState;
@@ -203,7 +203,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         JMenu edit = new JMenu(Lang.get("menu_edit"));
         bar.add(edit);
 
-        //ToolTipAction wireStateAction = wireState.createToolTipAction(Lang.get("menu_wire"), ICON_WIRE).setToolTip(Lang.get("menu_wire_tt"));
         ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), ICON_ELEMENT).setToolTip(Lang.get("menu_element_tt"));
         ToolTipAction selectStateAction = selectState.createToolTipAction(Lang.get("menu_select"), ICON_SELECT).setToolTip(Lang.get("menu_select_tt"));
 
@@ -226,8 +225,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ToolTipAction orderMeasurements = new ToolTipAction(Lang.get("menu_orderMeasurements")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), new MeasurementFilter());
-                new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o).setVisible(true);
+                orderMeasurements();
             }
         }.setToolTip(Lang.get("menu_orderMeasurements_tt"));
 
@@ -241,7 +239,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
 
         edit.add(elementStateAction.createJMenuItem());
-        //edit.add(wireStateAction.createJMenuItem());
         edit.add(selectStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
@@ -316,7 +313,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runToBreak.createJMenuItem());
-        //run.add(speedTest.createJMenuItem());
         run.add(showProbes);
         run.add(showGraph);
         run.add(showListing);
@@ -329,7 +325,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(save.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(elementState.setIndicator(elementStateAction.createJButtonNoText()));
-        //toolBar.add(wireState.setIndicator(wireStateAction.createJButtonNoText()));
         toolBar.add(selectState.setIndicator(selectStateAction.createJButtonNoText()));
         toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
         toolBar.addSeparator();
@@ -353,9 +348,24 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         setLocationRelativeTo(parent);
     }
 
+    private void orderMeasurements() {
+        try {
+            Model m = new ModelDescription(circuitComponent.getCircuit(), library).createModel();
+            circuitComponent.getCircuit().clearState();
+            ArrayList<String> names = new ArrayList<>();
+            for (Model.Signal s : m.getSignals())
+                names.add(s.getName());
+            new OrderMerger<String, String>(circuitComponent.getCircuit().getMeasurementOrdering()).order(names);
+            ElementOrderer.ListOrder<String> o = new ElementOrderer.ListOrder<>(names);
+            new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o).setVisible(true);
+            circuitComponent.getCircuit().setMeasurementOrdering(names);
+        } catch (Exception e1) {
+            showSwingError(Lang.get("msg_errorCreatingModel"), e1);
+        }
+    }
+
     private void setupStates() {
         elementState = stateManager.register(new ModeState(CircuitComponent.Mode.part));
-        //wireState = stateManager.register(new ModeState(CircuitComponent.Mode.wire));
         selectState = stateManager.register(new ModeState(CircuitComponent.Mode.select));
         runModelState = stateManager.register(new State() {
             @Override
@@ -425,11 +435,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
 
-            if (showProbes.isSelected())
-                new ProbeDialog(this, model, updateEvent).setVisible(true);
+            List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
+            if (showProbes.isSelected()) {
+                new ProbeDialog(this, model, updateEvent, ordering).setVisible(true);
+            }
 
             if (showGraph.isSelected())
-                new DataSetDialog(this, model, updateEvent).setVisible(true);
+                new DataSetDialog(this, model, updateEvent, ordering).setVisible(true);
 
             if (showListing.isSelected())
                 for (ROM rom : model.getRoms())
