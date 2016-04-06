@@ -80,6 +80,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
             dataSet.add(new DataSample(maintime, signals.size()).fillWith(signals));
             maintime++;
         }
+        dsc.revalidate();
         dsc.repaint();
     }
 }

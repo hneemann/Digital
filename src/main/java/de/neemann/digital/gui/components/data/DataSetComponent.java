@@ -35,7 +35,7 @@ public class DataSetComponent extends JComponent {
     @Override
     public Dimension getPreferredSize() {
         int w = dataSet.getGraphicWidth();
-        if (w < 800) w = 800;
+        if (w < 600) w = 600;
         return new Dimension(w, dataSet.getGraphicHeight());
     }
 }

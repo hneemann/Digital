@@ -1,9 +1,6 @@
 package de.neemann.digital.core.flipflops;
 
-import de.neemann.digital.core.BitsException;
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -18,7 +15,11 @@ public class RS_FF extends Node implements Element {
             = new ElementTypeDescription(RS_FF.class, "R", "C", "S")
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.ValueIsProbe)
             .setShortName("RS");
+
+    private final boolean isProbe;
+    private final String label;
 
     private ObservableValue jVal;
     private ObservableValue kVal;
@@ -31,6 +32,8 @@ public class RS_FF extends Node implements Element {
     public RS_FF(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
+        isProbe = attributes.get(AttributeKey.ValueIsProbe);
+        label = attributes.get(AttributeKey.Label);
     }
 
     @Override
@@ -62,6 +65,13 @@ public class RS_FF extends Node implements Element {
     @Override
     public ObservableValue[] getOutputs() {
         return new ObservableValue[]{q, qn};
+    }
+
+    @Override
+    public void registerNodes(Model model) {
+        super.registerNodes(model);
+        if (isProbe)
+            model.addSignal(label, q);
     }
 
 }
