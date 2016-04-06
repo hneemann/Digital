@@ -6,7 +6,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.components.CircuitComponent;
 
 /**
- * This observer is added to the model if rial time timers are started.
+ * This observer is added to the model if real time timers are started.
  * Its paints the CircuitComponent after a step is calculated.
  * It is registered to all elements which visual representation depends on a model value.
  * This listener method only sets a flag if there was a change.

@@ -1,6 +1,8 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
@@ -11,10 +13,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.components.ElementOrderer;
-import de.neemann.digital.gui.components.OrderMerger;
-import de.neemann.digital.gui.components.ProbeDialog;
+import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.state.State;
@@ -41,6 +40,14 @@ import java.util.prefs.Preferences;
  */
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private static final Preferences PREFS = Preferences.userRoot().node("dig");
+    private static final ArrayList<AttributeKey> ATTR_LIST = new ArrayList<>();
+
+    static {
+        ATTR_LIST.add(AttributeKey.ShowDataTable);
+        ATTR_LIST.add(AttributeKey.ShowDataGraph);
+        ATTR_LIST.add(AttributeKey.ShowListing);
+        ATTR_LIST.add(AttributeKey.StartTimer);
+    }
     private static final String MESSAGE = Lang.get("message");
     private static final Icon ICON_RUN = IconCreator.create("run.gif");
     private static final Icon ICON_MICRO = IconCreator.create("micro.gif");
@@ -58,10 +65,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private final ToolTipAction doStep;
     private final ToolTipAction runToBreak;
     private final ElementLibrary library;
-    private final JCheckBoxMenuItem runClock;
-    private final JCheckBoxMenuItem showProbes;
-    private final JCheckBoxMenuItem showGraph;
-    private final JCheckBoxMenuItem showListing;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
     private final SavedListener savedListener;
@@ -77,6 +80,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private State selectState;
     private State runModelState;
     private State runModelMicroState;
+    private ElementAttributes settings = new ElementAttributes();
 
     private Main() {
         this(null, null, null);
@@ -300,23 +304,18 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
 
-        showListing = new JCheckBoxMenuItem(Lang.get("menu_listing"));
-        showListing.setToolTipText(Lang.get("menu_listing_tt"));
-        showProbes = new JCheckBoxMenuItem(Lang.get("menu_probe"));
-        showProbes.setToolTipText(Lang.get("menu_probe_tt"));
-        showGraph = new JCheckBoxMenuItem(Lang.get("menu_graph"));
-        showGraph.setToolTipText(Lang.get("menu_graph_tt"));
-        runClock = new JCheckBoxMenuItem(Lang.get("menu_runClock"));
-        runClock.setToolTipText(Lang.get("menu_runClock_tt"));
+        ToolTipAction editRunAttributes = new ToolTipAction(Lang.get("menu_editRunAttributes")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AttributeDialog(Main.this, ATTR_LIST, settings).showDialog();
+            }
+        }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
 
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runToBreak.createJMenuItem());
-        run.add(showProbes);
-        run.add(showGraph);
-        run.add(showListing);
-        run.add(runClock);
+        run.add(editRunAttributes.createJMenuItem());
         doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
@@ -371,7 +370,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             @Override
             public void enter() {
                 super.enter();
-                if (createAndStartModel(runClock.isSelected(), ModelEvent.Event.STEP))
+                if (createAndStartModel(settings.get(AttributeKey.StartTimer), ModelEvent.Event.STEP))
                     circuitComponent.setManualChangeObserver(new FullStepObserver(model));
             }
         });
@@ -436,14 +435,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-            if (showProbes.isSelected()) {
+            if (settings.get(AttributeKey.ShowDataTable))
                 new ProbeDialog(this, model, updateEvent, ordering).setVisible(true);
-            }
 
-            if (showGraph.isSelected())
+            if (settings.get(AttributeKey.ShowDataGraph))
                 new DataSetDialog(this, model, updateEvent, ordering).setVisible(true);
 
-            if (showListing.isSelected())
+            if (settings.get(AttributeKey.ShowListing))
                 for (ROM rom : model.getRoms())
                     try {
                         new ROMListingDialog(this, rom).setVisible(true);

@@ -132,7 +132,7 @@ public class Circuit {
      * @param parent the parent component
      */
     public void editAttributes(Component parent) {
-        if (new AttributeDialog(parent, null, ATTR_LIST, getAttributes()).showDialog()) {
+        if (new AttributeDialog(parent, ATTR_LIST, getAttributes()).showDialog()) {
             if (attributes.isEmpty())
                 attributes = null;
             modified();

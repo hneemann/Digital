@@ -21,7 +21,7 @@ public class ROM extends Node implements Element {
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
             .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.ShowList)
+            .addAttribute(AttributeKey.ShowListing)
             .addAttribute(AttributeKey.Data);
 
     private final DataField data;
@@ -40,7 +40,7 @@ public class ROM extends Node implements Element {
         output = new ObservableValue("D", bits, true);
         data = attr.get(AttributeKey.Data);
         addrBits = attr.get(AttributeKey.AddrBits);
-        showList = attr.get(AttributeKey.ShowList);
+        showList = attr.get(AttributeKey.ShowListing);
         if (showList)
             listFile = attr.getFile("lastDataFile");
         else

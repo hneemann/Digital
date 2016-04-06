@@ -18,6 +18,10 @@ public class AttributeDialog extends JDialog {
     private final ArrayList<EditorHolder> editors;
     private boolean changed = false;
 
+    public AttributeDialog(Component parent, ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
+        this(parent, null, list, elementAttributes);
+    }
+
     public AttributeDialog(Component parent, Point pos, ArrayList<AttributeKey> list, ElementAttributes elementAttributes) {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

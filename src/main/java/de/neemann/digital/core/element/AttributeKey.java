@@ -28,7 +28,11 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Integer> TermHeight = new AttributeKey<>("termHeight", Lang.get("key_termHeight"), 25);
     public static final AttributeKey<Integer> Cycles = new AttributeKeyInteger("Cycles", Lang.get("key_cycles"), 100000).setComboBoxValues(new Integer[]{1000, 10000, 100000, 1000000});
     public static final AttributeKey<Boolean> ValueIsProbe = new AttributeKey<>("valueIsProbe", Lang.get("key_valueIsProbe"), false);
-    public static final AttributeKey<Boolean> ShowList = new AttributeKey<>("showList", Lang.get("key_showList"), false);
+    public static final AttributeKey<Boolean> ShowListing = new AttributeKey<>("showList", Lang.get("key_showListing"), false);
+
+    public static final AttributeKey<Boolean> ShowDataTable = new AttributeKey<>("showDataTable", Lang.get("key_showDataTable"), false);
+    public static final AttributeKey<Boolean> ShowDataGraph = new AttributeKey<>("showDataGraph", Lang.get("key_showDataGraph"), false);
+    public static final AttributeKey<Boolean> StartTimer = new AttributeKey<>("startTimer", Lang.get("key_startTimer"), false);
 
     private final String key;
     private final VALUE def;
