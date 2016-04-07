@@ -14,7 +14,11 @@ import de.neemann.digital.core.element.ElementTypeDescription;
  */
 public class XOr extends Node implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(XOr.class, "a", "b").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION
+            = new ElementTypeDescription(XOr.class, "a", "b")
+            .addAttribute(AttributeKey.Rotate)
+            .addAttribute(AttributeKey.Bits);
+
     private final int bits;
     private final ObservableValue out;
     protected ObservableValue a;

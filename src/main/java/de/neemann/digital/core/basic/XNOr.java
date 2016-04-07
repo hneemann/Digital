@@ -10,7 +10,10 @@ import de.neemann.digital.core.element.ElementTypeDescription;
  */
 public class XNOr extends XOr {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(XNOr.class, "a", "b").addAttribute(AttributeKey.Bits);
+    public static final ElementTypeDescription DESCRIPTION
+            = new ElementTypeDescription(XNOr.class, "a", "b")
+            .addAttribute(AttributeKey.Rotate)
+            .addAttribute(AttributeKey.Bits);
 
     public XNOr(ElementAttributes attributes) {
         super(attributes);
