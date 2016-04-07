@@ -34,7 +34,7 @@ public final class ShapeFactory {
         map.put(NAnd.DESCRIPTION.getName(), new CreatorSimple("&", NAnd.DESCRIPTION, true));
         map.put(NOr.DESCRIPTION.getName(), new CreatorSimple("\u22651", NOr.DESCRIPTION, true));
         map.put(Not.DESCRIPTION.getName(), new CreatorSimple("", Not.DESCRIPTION, true));
-        map.put(Delay.DESCRIPTION.getName(), new CreatorSimple("", Delay.DESCRIPTION, false));
+        map.put(Delay.DESCRIPTION.getName(), attr -> new DelayShape());
 
         map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", XOr.DESCRIPTION, false));
         map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", XNOr.DESCRIPTION, true));

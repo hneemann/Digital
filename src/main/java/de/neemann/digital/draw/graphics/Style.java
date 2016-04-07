@@ -9,6 +9,7 @@ import java.awt.*;
  */
 public class Style {
     public static final Style NORMAL = new Style(4, false, Color.BLACK);
+    public static final Style THIN = new Style(2, false, Color.BLACK);
     public static final Style WIRE = new Style(4, true, Color.BLUE.darker());
     public static final Style WIRE_LOW = new Style(4, true, new Color(0, 112, 0));
     public static final Style WIRE_HIGH = new Style(4, true, new Color(102, 255, 102));
