@@ -11,8 +11,8 @@ import java.awt.event.ActionEvent;
  * @author hneemann
  */
 public class State implements StateInterface {
-    private static final Border enabledBorder = BorderFactory.createCompoundBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED), BorderFactory.createEmptyBorder(4, 4, 4, 4));
-    private static final Border disabledBorder = BorderFactory.createCompoundBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED), BorderFactory.createEmptyBorder(4, 4, 4, 4));
+    private static final Border ENABLED_BORDER = BorderFactory.createCompoundBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED), BorderFactory.createEmptyBorder(4, 4, 4, 4));
+    private static final Border DISABLED_BORDER = BorderFactory.createCompoundBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED), BorderFactory.createEmptyBorder(4, 4, 4, 4));
     private JComponent indicator;
     private StateManager stateManager;
 
@@ -21,7 +21,7 @@ public class State implements StateInterface {
 
     public <C extends JComponent> C setIndicator(C indicator) {
         this.indicator = indicator;
-        indicator.setBorder(disabledBorder);
+        indicator.setBorder(DISABLED_BORDER);
         return indicator;
     }
 
@@ -32,13 +32,13 @@ public class State implements StateInterface {
     @Override
     public void enter() {
         if (indicator != null)
-            indicator.setBorder(enabledBorder);
+            indicator.setBorder(ENABLED_BORDER);
     }
 
     @Override
     public void leave() {
         if (indicator != null)
-            indicator.setBorder(disabledBorder);
+            indicator.setBorder(DISABLED_BORDER);
     }
 
     public ToolTipAction createToolTipAction(String name, Icon icon) {
@@ -54,9 +54,4 @@ public class State implements StateInterface {
         stateManager.setState(this);
     }
 
-
-    public void indicate() {
-        if (indicator != null)
-            indicator.setBorder(enabledBorder);
-    }
 }

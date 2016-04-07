@@ -70,16 +70,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private final SavedListener savedListener;
     private final JLabel statusLabel;
     private final StateManager stateManager = new StateManager();
+    private final ElementAttributes settings = new ElementAttributes();
+    private final ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
+
     private File lastFilename;
     private File filename;
     private Model model;
     private ModelDescription modelDescription;
-    private ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
 
     private State elementState;
     private State runModelState;
     private State runModelMicroState;
-    private ElementAttributes settings = new ElementAttributes();
 
     private Main() {
         this(null, null, null);
