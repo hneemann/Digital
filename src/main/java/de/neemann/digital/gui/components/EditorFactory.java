@@ -20,6 +20,9 @@ import java.util.HashMap;
  */
 public final class EditorFactory {
 
+    /**
+     * The single EditorFactory instance.
+     */
     public static final EditorFactory INSTANCE = new EditorFactory();
     private HashMap<Class<?>, Class<? extends Editor>> map = new HashMap<>();
 
@@ -32,10 +35,18 @@ public final class EditorFactory {
         add(Rotation.class, RotationEditor.class);
     }
 
-    public <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
+    private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
         map.put(clazz, editor);
     }
 
+    /**
+     * Creates a new Editor
+     *
+     * @param key   the key
+     * @param value the value
+     * @param <T>   the type of the value
+     * @return the editor
+     */
     public <T> Editor<T> create(AttributeKey<T> key, T value) {
         Class<? extends Editor> fac = map.get(key.getValueClass());
         if (fac == null)
@@ -59,11 +70,11 @@ public final class EditorFactory {
         protected abstract Component getComponent(ElementAttributes elementAttributes);
     }
 
-    private static class StringEditor extends LabelEditor<String> {
+    private final static class StringEditor extends LabelEditor<String> {
 
         private final JTextField text;
 
-        public StringEditor(String value, AttributeKey<String> key) {
+        private StringEditor(String value, AttributeKey<String> key) {
             text = new JTextField(10);
             text.setText(value);
         }
@@ -80,10 +91,10 @@ public final class EditorFactory {
 
     }
 
-    private static class IntegerEditor extends LabelEditor<Integer> {
+    private final static class IntegerEditor extends LabelEditor<Integer> {
         private final JComboBox<Integer> comboBox;
 
-        public IntegerEditor(Integer value, AttributeKey<Integer> key) {
+        private IntegerEditor(Integer value, AttributeKey<Integer> key) {
             Integer[] selects = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
             if (key instanceof AttributeKey.AttributeKeyInteger) {
                 selects = ((AttributeKey.AttributeKeyInteger) key).getComboBoxValues();
@@ -109,11 +120,11 @@ public final class EditorFactory {
         }
     }
 
-    private static class BooleanEditor implements Editor<Boolean> {
+    private final static class BooleanEditor implements Editor<Boolean> {
 
         private final JCheckBox bool;
 
-        public BooleanEditor(Boolean value, AttributeKey<Boolean> key) {
+        private BooleanEditor(Boolean value, AttributeKey<Boolean> key) {
             bool = new JCheckBox(key.getName(), value);
         }
 
@@ -128,12 +139,12 @@ public final class EditorFactory {
         }
     }
 
-    private static class ColorEditor extends LabelEditor<Color> {
+    private final static class ColorEditor extends LabelEditor<Color> {
 
         private Color color;
         private final JButton button;
 
-        public ColorEditor(Color value, AttributeKey<Color> key) {
+        private ColorEditor(Color value, AttributeKey<Color> key) {
             this.color = value;
             button = new JButton(new AbstractAction() {
                 @Override
@@ -159,11 +170,11 @@ public final class EditorFactory {
         }
     }
 
-    private static class DataFieldEditor extends LabelEditor<DataField> {
+    private final static class DataFieldEditor extends LabelEditor<DataField> {
 
         private DataField data;
 
-        public DataFieldEditor(DataField data, AttributeKey<DataField> key) {
+        private DataFieldEditor(DataField data, AttributeKey<DataField> key) {
             this.data = data;
         }
 
@@ -217,19 +228,19 @@ public final class EditorFactory {
         }
     }
 
-    private static class RotationEditor extends LabelEditor<Rotation> {
-        private static final String[] list = new String[]{Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")};
+    private final static class RotationEditor extends LabelEditor<Rotation> {
+        private static final String[] LIST = new String[]{Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")};
 
         private final Rotation rotation;
         private JComboBox<String> comb;
 
-        public RotationEditor(Rotation rotation, AttributeKey<Rotation> key) {
+        private RotationEditor(Rotation rotation, AttributeKey<Rotation> key) {
             this.rotation = rotation;
         }
 
         @Override
         public Component getComponent(ElementAttributes elementAttributes) {
-            comb = new JComboBox<>(list);
+            comb = new JComboBox<>(LIST);
             comb.setSelectedIndex(rotation.rotation);
             return comb;
         }
