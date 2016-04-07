@@ -48,7 +48,7 @@ public class SevenSegHexShape extends SevenShape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        input = ioState.getInput(0);
+        input = ioState.getInput(0).addObserver(guiObserver);
         return null;
     }
 }

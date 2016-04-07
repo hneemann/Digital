@@ -38,15 +38,15 @@ import java.util.prefs.Preferences;
 /**
  * @author hneemann
  */
-public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
+public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper {
     private static final Preferences PREFS = Preferences.userRoot().node("dig");
     private static final ArrayList<AttributeKey> ATTR_LIST = new ArrayList<>();
 
     static {
+        ATTR_LIST.add(AttributeKey.StartTimer);
         ATTR_LIST.add(AttributeKey.ShowDataTable);
         ATTR_LIST.add(AttributeKey.ShowDataGraph);
         ATTR_LIST.add(AttributeKey.ShowListing);
-        ATTR_LIST.add(AttributeKey.StartTimer);
     }
 
     private static final String MESSAGE = Lang.get("message");
@@ -353,7 +353,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o).setVisible(true);
             circuitComponent.getCircuit().setMeasurementOrdering(names);
         } catch (Exception e1) {
-            showSwingError(Lang.get("msg_errorCreatingModel"), e1);
+            showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e1);
         }
     }
 
@@ -431,7 +431,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
             if (runClock) {
                 for (Clock c : model.getClocks())
-                    model.addObserver(new RealTimeClock(model, c, timerExecuter));
+                    model.addObserver(new RealTimeClock(model, c, timerExecuter, this));
             }
 
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
@@ -455,31 +455,30 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             model.init();
 
             return true;
-        } catch (NodeException e) {
-            if (modelDescription != null) {
-                if (e.getNodes() != null)
-                    modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
-                else
-                    circuitComponent.addHighLightedWires(e.getValues());
-                circuitComponent.repaint();
-            }
-            showSwingError(Lang.get("msg_errorCreatingModel"), e);
-        } catch (PinException e) {
-            if (modelDescription != null) {
-                circuitComponent.addHighLighted(e.getVisualElement());
-                if (e.getNet() != null)
-                    circuitComponent.addHighLighted(e.getNet().getWires());
-                circuitComponent.repaint();
-            }
-            showSwingError(Lang.get("msg_errorCreatingModel"), e);
-        } catch (RuntimeException e) {
-            showSwingError(Lang.get("msg_errorCreatingModel"), e);
+        } catch (Exception e) {
+            showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
     }
 
-    private void showSwingError(String message, Throwable cause) {
+    @Override
+    public void showErrorAndStopModel(String message, Exception cause) {
         SwingUtilities.invokeLater(() -> {
+            if (modelDescription != null) {
+                if (cause instanceof NodeException) {
+                    NodeException e = (NodeException) cause;
+                    if (e.getNodes() != null)
+                        modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
+                    else
+                        circuitComponent.addHighLightedWires(e.getValues());
+                } else if (cause instanceof PinException) {
+                    PinException e = (PinException) cause;
+                    circuitComponent.addHighLighted(e.getVisualElement());
+                    if (e.getNet() != null)
+                        circuitComponent.addHighLighted(e.getNet().getWires());
+                }
+                circuitComponent.repaint();
+            }
             new ErrorMessage(message).addCause(cause).show(Main.this);
             elementState.activate();
         });
@@ -551,14 +550,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             try {
                 model.doStep();
                 circuitComponent.repaint();
-            } catch (NodeException e) {
-                if (modelDescription != null) {
-                    modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
-                    circuitComponent.repaint();
-                }
-                showSwingError(Lang.get("msg_errorCalculatingStep"), e);
-            } catch (RuntimeException e) {
-                showSwingError(Lang.get("msg_errorCalculatingStep"), e);
+            } catch (NodeException | RuntimeException e) {
+                showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
             }
         }
     }

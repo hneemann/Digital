@@ -400,7 +400,7 @@ public class CircuitComponent extends JComponent {
 
         @Override
         boolean dragged(MouseEvent e) {
-            if (downButton == MouseEvent.BUTTON3) {
+            if (downButton == MouseEvent.BUTTON1) {
                 mouseSelect.activate(pos, getPosVector(e));
                 return true;
             }
