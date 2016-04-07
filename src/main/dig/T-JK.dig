@@ -279,4 +279,12 @@
       <p2 x="780" y="240"/>
     </wire>
   </wires>
+  <measurementOrdering>
+    <string>C</string>
+    <string>J</string>
+    <string>K</string>
+    <string>Dif</string>
+    <string>Q</string>
+    <string>~Q</string>
+  </measurementOrdering>
 </circuit>
