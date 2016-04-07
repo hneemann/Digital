@@ -198,6 +198,65 @@ public class CircuitComponent extends JComponent {
         setModeAndReset(Mode.part);
     }
 
+    private boolean editAttributes(MouseEvent e) {
+        VisualElement vp = circuit.getElementAt(getPosVector(e));
+        if (vp != null) {
+            String name = vp.getElementName();
+            ElementTypeDescription elementType = library.getElementType(name);
+            if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
+                new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(), new SavedListener() {
+                    @Override
+                    public void saved(File filename) {
+                        library.removeElement(filename.getName());
+                        circuit.clearState();
+                        repaint();
+                    }
+                }).setVisible(true);
+            } else {
+                ArrayList<AttributeKey> list = elementType.getAttributeList();
+                if (list.size() > 0) {
+                    Point p = new Point(e.getX(), e.getY());
+                    SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+                    if (new AttributeDialog(this, p, list, vp.getElementAttributes()).showDialog()) {
+                        circuit.modified();
+                        repaint();
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private class DelAction extends ToolTipAction {
+
+        DelAction() {
+            super(Lang.get("menu_delete"), ICON_DELETE);
+            setToolTip(Lang.get("menu_delete_tt"));
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (listener instanceof SelectMouseListener) {
+                SelectMouseListener mml = (SelectMouseListener) listener;
+                if (mml.corner1 != null && mml.corner2 != null) {
+                    circuit.delete(Vector.min(mml.corner1, mml.corner2), Vector.max(mml.corner1, mml.corner2));
+                    mml.reset();
+                    repaint();
+                }
+            } else if (listener instanceof PartMouseListener) {
+                PartMouseListener pml = (PartMouseListener) listener;
+                if (!pml.insert) {
+                    circuit.delete(pml.partToInsert);
+                }
+                pml.partToInsert = null;
+                deleteAction.setEnabled(false);
+                repaint();
+            }
+        }
+    }
+
+
     public enum Mode {part, running, select}
 
     private abstract class Mouse extends MouseAdapter implements MouseMotionListener {
@@ -316,36 +375,6 @@ public class CircuitComponent extends JComponent {
             if (wire != null)
                 wire.drawTo(gr, false);
         }
-    }
-
-    private boolean editAttributes(MouseEvent e) {
-        VisualElement vp = circuit.getElementAt(getPosVector(e));
-        if (vp != null) {
-            String name = vp.getElementName();
-            ElementTypeDescription elementType = library.getElementType(name);
-            if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
-                new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(), new SavedListener() {
-                    @Override
-                    public void saved(File filename) {
-                        library.removeElement(filename.getName());
-                        circuit.clearState();
-                        repaint();
-                    }
-                }).setVisible(true);
-            } else {
-                ArrayList<AttributeKey> list = elementType.getAttributeList();
-                if (list.size() > 0) {
-                    Point p = new Point(e.getX(), e.getY());
-                    SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                    if (new AttributeDialog(this, p, list, vp.getElementAttributes()).showDialog()) {
-                        circuit.modified();
-                        repaint();
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     private enum State {COPY, MOVE}
@@ -472,31 +501,4 @@ public class CircuitComponent extends JComponent {
         }
     }
 
-    private class DelAction extends ToolTipAction {
-
-        DelAction() {
-            super(Lang.get("menu_delete"), ICON_DELETE);
-            setToolTip(Lang.get("menu_delete_tt"));
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (listener instanceof SelectMouseListener) {
-                SelectMouseListener mml = (SelectMouseListener) listener;
-                if (mml.corner1 != null && mml.corner2 != null) {
-                    circuit.delete(Vector.min(mml.corner1, mml.corner2), Vector.max(mml.corner1, mml.corner2));
-                    mml.reset();
-                    repaint();
-                }
-            } else if (listener instanceof PartMouseListener) {
-                PartMouseListener pml = (PartMouseListener) listener;
-                if (!pml.insert) {
-                    circuit.delete(pml.partToInsert);
-                }
-                pml.partToInsert = null;
-                deleteAction.setEnabled(false);
-                repaint();
-            }
-        }
-    }
 }

@@ -249,10 +249,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         edit.add(orderMeasurements.createJMenuItem());
         edit.add(editAttributes.createJMenuItem());
 
-
-        JMenu run = new JMenu(Lang.get("menu_run"));
-        bar.add(run);
-
         doStep = new ToolTipAction(Lang.get("menu_step"), ICON_STEP) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -311,11 +307,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             }
         }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
 
+        JMenu run = new JMenu(Lang.get("menu_run"));
+        bar.add(run);
+        run.add(editRunAttributes.createJMenuItem());
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runToBreak.createJMenuItem());
-        run.add(editRunAttributes.createJMenuItem());
         doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
