@@ -109,4 +109,8 @@ public class Vector implements Moveable {
         result = 31 * result + y;
         return result;
     }
+
+    public boolean isZero() {
+        return x == 0 && y == 0;
+    }
 }

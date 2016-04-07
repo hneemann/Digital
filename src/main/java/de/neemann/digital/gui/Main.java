@@ -48,12 +48,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         ATTR_LIST.add(AttributeKey.ShowListing);
         ATTR_LIST.add(AttributeKey.StartTimer);
     }
+
     private static final String MESSAGE = Lang.get("message");
     private static final Icon ICON_RUN = IconCreator.create("run.gif");
     private static final Icon ICON_MICRO = IconCreator.create("micro.gif");
     private static final Icon ICON_STEP = IconCreator.create("step.gif");
     private static final Icon ICON_ELEMENT = IconCreator.create("element.gif");
-    private static final Icon ICON_SELECT = IconCreator.create("Select24.gif");
     private static final Icon ICON_NEW = IconCreator.create("New24.gif");
     private static final Icon ICON_OPEN = IconCreator.create("Open24.gif");
     private static final Icon ICON_OPEN_WIN = IconCreator.create("OpenNew24.gif");
@@ -77,7 +77,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
 
     private State elementState;
-    private State selectState;
     private State runModelState;
     private State runModelMicroState;
     private ElementAttributes settings = new ElementAttributes();
@@ -208,7 +207,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         bar.add(edit);
 
         ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), ICON_ELEMENT).setToolTip(Lang.get("menu_element_tt"));
-        ToolTipAction selectStateAction = selectState.createToolTipAction(Lang.get("menu_select"), ICON_SELECT).setToolTip(Lang.get("menu_select_tt"));
 
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
@@ -243,7 +241,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
 
 
         edit.add(elementStateAction.createJMenuItem());
-        edit.add(selectStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
@@ -322,7 +319,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
         toolBar.add(save.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(elementState.setIndicator(elementStateAction.createJButtonNoText()));
-        toolBar.add(selectState.setIndicator(selectStateAction.createJButtonNoText()));
         toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
@@ -362,8 +358,16 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     }
 
     private void setupStates() {
-        elementState = stateManager.register(new ModeState(CircuitComponent.Mode.part));
-        selectState = stateManager.register(new ModeState(CircuitComponent.Mode.select));
+        elementState = stateManager.register(new State() {
+            @Override
+            public void enter() {
+                super.enter();
+                clearModelDescription();
+                circuitComponent.setModeAndReset(false);
+                doStep.setEnabled(false);
+            }
+
+        });
         runModelState = stateManager.register(new State() {
             @Override
             public void enter() {
@@ -413,7 +417,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
     private boolean createAndStartModel(boolean runClock, ModelEvent.Event updateEvent) {
         try {
             circuitComponent.removeHighLighted();
-            circuitComponent.setModeAndReset(CircuitComponent.Mode.running);
+            circuitComponent.setModeAndReset(true);
 
             setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library));
             if (runClock) {
@@ -533,22 +537,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave {
             setTitle(filename + " - " + Lang.get("digital"));
         } else
             setTitle(Lang.get("digital"));
-    }
-
-    private class ModeState extends State {
-        private final CircuitComponent.Mode mode;
-
-        ModeState(CircuitComponent.Mode mode) {
-            this.mode = mode;
-        }
-
-        @Override
-        public void enter() {
-            super.enter();
-            clearModelDescription();
-            circuitComponent.setModeAndReset(mode);
-            doStep.setEnabled(false);
-        }
     }
 
     private class FullStepObserver implements Observer {

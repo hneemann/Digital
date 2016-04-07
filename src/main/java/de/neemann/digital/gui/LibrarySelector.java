@@ -80,7 +80,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                     ElementTypeDescription des = importElement(fc.getSelectedFile());
                     if (des != null) {
                         VisualElement visualElement = new VisualElement(des.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
-                        circuitComponent.setPartToDrag(visualElement);
+                        circuitComponent.setPartToInsert(visualElement);
                     }
                 }
             }
@@ -143,7 +143,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         public void actionPerformed(ActionEvent e) {
             VisualElement visualElement = new VisualElement(name).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
             elementState.activate();
-            circuitComponent.setPartToDrag(visualElement);
+            circuitComponent.setPartToInsert(visualElement);
             insertHistory.add(this);
         }
     }

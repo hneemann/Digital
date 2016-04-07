@@ -45,18 +45,40 @@ public class CircuitComponent extends JComponent {
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
     private final HashSet<Drawable> highLighted;
-    private final DelAction deleteAction;
+    private final ToolTipAction deleteAction;
+
+    private final MouseController mouseNormal;
+    private final MouseControllerInsertElement mouseInsertElement;
+    private final MouseControllerMoveElement mouseMoveElement;
+    private final MouseControllerWire mouseWire;
+    private final MouseControllerSelect mouseSelect;
+    private final MouseControllerMoveSelected mouseMoveSelected;
+    private final MouseControllerCopySelected mouseCopySelected;
+    private final MouseController mouseRun;
+
     private Circuit circuit;
-    private Mouse listener;
+    private MouseController activeMouseController;
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
 
+    /**
+     * Creates a new instance
+     *
+     * @param aCircuit     the circuit to show
+     * @param library      the library used to edit the attributes of the elements
+     * @param shapeFactory the shapeFactory used for copied elements
+     */
     public CircuitComponent(Circuit aCircuit, ElementLibrary library, ShapeFactory shapeFactory) {
         this.library = library;
         this.shapeFactory = shapeFactory;
         highLighted = new HashSet<>();
-        deleteAction = new DelAction();
-        setCircuit(aCircuit);
+
+        deleteAction = new ToolTipAction(Lang.get("menu_delete"), ICON_DELETE) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                activeMouseController.delete();
+            }
+        }.setToolTip(Lang.get("menu_delete_tt"));
 
         KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
         getInputMap().put(delKey, DEL_ACTION);
@@ -72,55 +94,86 @@ public class CircuitComponent extends JComponent {
             transform.translate(-pos.x, -pos.y);
             repaint();
         });
+
+        Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+        mouseNormal = new MouseControllerNormal(normalCursor);
+        mouseInsertElement = new MouseControllerInsertElement(normalCursor);
+        mouseMoveElement = new MouseControllerMoveElement(normalCursor);
+        mouseWire = new MouseControllerWire(normalCursor);
+        mouseSelect = new MouseControllerSelect(new Cursor(Cursor.CROSSHAIR_CURSOR));
+        mouseMoveSelected = new MouseControllerMoveSelected(new Cursor(Cursor.MOVE_CURSOR));
+        mouseCopySelected = new MouseControllerCopySelected(new Cursor(Cursor.MOVE_CURSOR));
+        mouseRun = new MouseControllerRun(normalCursor);
+
+        setCircuit(aCircuit);
+
+        MouseDispatcher disp = new MouseDispatcher();
+        addMouseMotionListener(disp);
+        addMouseListener(disp);
+
     }
 
+    /**
+     * @return the delete action to put it to the toolbar
+     */
     public ToolTipAction getDeleteAction() {
         return deleteAction;
     }
 
+    /**
+     * Sets the observer to call if the user is clicking on elements while running.
+     *
+     * @param callOnManualChange the listener
+     */
     public void setManualChangeObserver(Observer callOnManualChange) {
         this.manualChangeObserver = callOnManualChange;
     }
 
-    public void setModeAndReset(Mode mode) {
-        if (listener != null) {
-            removeMouseListener(listener);
-            removeMouseMotionListener(listener);
-        }
-        switch (mode) {
-            case part:
-                listener = new PartMouseListener();
-                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                break;
-            case select:
-                listener = new SelectMouseListener();
-                setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-                break;
-            case running:
-                listener = new RunningMouseListener();
-                setCursor(new Cursor(Cursor.HAND_CURSOR));
-                break;
-        }
-        addMouseMotionListener(listener);
-        addMouseListener(listener);
+    /**
+     * Sets the edit mode and resets the circuit
+     *
+     * @param runMode true if running, false if editing
+     */
+    public void setModeAndReset(boolean runMode) {
+        if (runMode)
+            mouseRun.activate();
+        else
+            mouseNormal.activate();
         requestFocusInWindow();
         circuit.clearState();
-        deleteAction.setEnabled(false);
-        repaint();
     }
 
+    /**
+     * @return the high lighted elements
+     */
     public Collection<Drawable> getHighLighted() {
         return highLighted;
     }
 
+    /**
+     * Adds a drawable to the highlighted list
+     *
+     * @param drawable the drawable to add
+     * @param <T>      type of drawable
+     */
     public <T extends Drawable> void addHighLighted(T drawable) {
         highLighted.add(drawable);
     }
 
+    /**
+     * Add a list of drawables to high light
+     *
+     * @param drawables the list of drawables
+     */
     public void addHighLighted(Collection<? extends Drawable> drawables) {
         highLighted.addAll(drawables);
     }
 
+    /**
+     * Adds alle the wires representing the given value to the highlighted list
+     *
+     * @param values the value
+     */
     public void addHighLightedWires(ObservableValue[] values) {
         HashSet<ObservableValue> ov = new HashSet<>();
         ov.addAll(Arrays.asList(values));
@@ -129,13 +182,20 @@ public class CircuitComponent extends JComponent {
                 addHighLighted(w);
     }
 
+    /**
+     * remove all highlighted elements
+     */
     public void removeHighLighted() {
         highLighted.clear();
     }
 
-    public void setPartToDrag(VisualElement part) {
-        if (listener instanceof PartMouseListener)
-            ((PartMouseListener) listener).setPartToInsert(part);
+    /**
+     * Addes the given element to insert to the circuit
+     *
+     * @param element the element to insert
+     */
+    public void setPartToInsert(VisualElement element) {
+        mouseInsertElement.activate(element);
     }
 
     @Override
@@ -150,7 +210,7 @@ public class CircuitComponent extends JComponent {
         GraphicSwing gr = new GraphicSwing(gr2);
         circuit.drawTo(gr, highLighted);
 
-        listener.drawTo(gr);
+        activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);
     }
 
@@ -169,10 +229,17 @@ public class CircuitComponent extends JComponent {
                 (int) Math.round((double) pos.y / GenericShape.SIZE) * GenericShape.SIZE);
     }
 
+    /**
+     * @return the circuit shown
+     */
     public Circuit getCircuit() {
         return circuit;
     }
 
+    /**
+     * Sets a circuit to this component
+     * @param circuit the circuit
+     */
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
 
@@ -195,255 +262,357 @@ public class CircuitComponent extends JComponent {
         } else
             transform = new AffineTransform();
 
-        setModeAndReset(Mode.part);
+        setModeAndReset(false);
     }
 
-    private boolean editAttributes(MouseEvent e) {
-        VisualElement vp = circuit.getElementAt(getPosVector(e));
-        if (vp != null) {
-            String name = vp.getElementName();
-            ElementTypeDescription elementType = library.getElementType(name);
-            if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
-                new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(), new SavedListener() {
-                    @Override
-                    public void saved(File filename) {
-                        library.removeElement(filename.getName());
-                        circuit.clearState();
-                        repaint();
-                    }
-                }).setVisible(true);
-            } else {
-                ArrayList<AttributeKey> list = elementType.getAttributeList();
-                if (list.size() > 0) {
-                    Point p = new Point(e.getX(), e.getY());
-                    SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                    if (new AttributeDialog(this, p, list, vp.getElementAttributes()).showDialog()) {
-                        circuit.modified();
-                        repaint();
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private class DelAction extends ToolTipAction {
-
-        DelAction() {
-            super(Lang.get("menu_delete"), ICON_DELETE);
-            setToolTip(Lang.get("menu_delete_tt"));
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (listener instanceof SelectMouseListener) {
-                SelectMouseListener mml = (SelectMouseListener) listener;
-                if (mml.corner1 != null && mml.corner2 != null) {
-                    circuit.delete(Vector.min(mml.corner1, mml.corner2), Vector.max(mml.corner1, mml.corner2));
-                    mml.reset();
+    private void editAttributes(VisualElement vp, MouseEvent e) {
+        String name = vp.getElementName();
+        ElementTypeDescription elementType = library.getElementType(name);
+        if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
+            new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(), new SavedListener() {
+                @Override
+                public void saved(File filename) {
+                    library.removeElement(filename.getName());
+                    circuit.clearState();
                     repaint();
                 }
-            } else if (listener instanceof PartMouseListener) {
-                PartMouseListener pml = (PartMouseListener) listener;
-                if (!pml.insert) {
-                    circuit.delete(pml.partToInsert);
+            }).setVisible(true);
+        } else {
+            ArrayList<AttributeKey> list = elementType.getAttributeList();
+            if (list.size() > 0) {
+                Point p = new Point(e.getX(), e.getY());
+                SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+                if (new AttributeDialog(this, p, list, vp.getElementAttributes()).showDialog()) {
+                    circuit.modified();
+                    repaint();
                 }
-                pml.partToInsert = null;
-                deleteAction.setEnabled(false);
-                repaint();
             }
         }
     }
 
-
-    public enum Mode {part, running, select}
-
-    private abstract class Mouse extends MouseAdapter implements MouseMotionListener {
+    private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
         private Vector pos;
 
-        abstract void drawTo(Graphic gr);
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            activeMouseController.clicked(e);
+        }
 
         @Override
         public void mousePressed(MouseEvent e) {
             pos = new Vector(e.getX(), e.getY());
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            Vector newPos = new Vector(e.getX(), e.getY());
-            Vector delta = newPos.sub(pos);
-            double s = transform.getScaleX();
-            transform.translate(delta.x / s, delta.y / s);
-            pos = newPos;
-            repaint();
-        }
-    }
-
-    private class PartMouseListener extends Mouse {
-
-        private VisualElement partToInsert;
-        private Wire wire;
-        private boolean autoPick = false;
-        private Vector delta;
-        private boolean insert;
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-            if (partToInsert != null) {
-                Vector pos = getPosVector(e);
-                partToInsert.setPos(raster(pos.add(delta)));
-                repaint();
-            }
-            if (wire != null) {
-                wire.setP2(raster(getPosVector(e)));
-                repaint();
-            }
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
-                if (partToInsert == null) {
-                    insert = false;
-                    if (wire == null) {
-                        Vector pos = getPosVector(e);
-                        VisualElement vp = circuit.getElementAt(pos);
-                        if (vp != null) {
-                            Vector startPos = raster(pos);
-                            if (circuit.isPinPos(startPos)) {
-                                wire = new Wire(startPos, startPos);
-                            } else {
-                                partToInsert = vp;
-                                delta = partToInsert.getPos().sub(pos);
-                            }
-                            repaint();
-                        } else {
-                            Vector startPos = raster(pos);
-                            wire = new Wire(startPos, startPos);
-                        }
-                    } else {
-                        circuit.add(wire);
-                        Vector startPos = raster(getPosVector(e));
-                        if (circuit.isPinPos(startPos))
-                            wire = null;
-                        else
-                            wire = new Wire(startPos, startPos);
-                    }
-                } else {
-                    partToInsert.setPos(raster(partToInsert.getPos()));
-                    if (insert)
-                        circuit.add(partToInsert);
-                    circuit.modified();
-                    repaint();
-                    partToInsert = null;
-                }
-                deleteAction.setEnabled(partToInsert != null);
-            } else {
-                if (wire != null) {
-                    wire = null;
-                    repaint();
-                } else
-                    editAttributes(e);
-            }
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            if (autoPick && partToInsert != null) {
-                GraphicMinMax minMax = partToInsert.getMinMax();
-                delta = partToInsert.getPos().sub(minMax.getMax());
-
-                Vector pos = getPosVector(e);
-                partToInsert.setPos(raster(pos.add(delta)));
-                autoPick = false;
-                deleteAction.setEnabled(true);
-                repaint();
-            }
-        }
-
-        public void setPartToInsert(VisualElement partToInsert) {
-            this.partToInsert = partToInsert;
-            insert = true;
-            autoPick = true;
-        }
-
-        @Override
-        public void drawTo(Graphic gr) {
-            if (partToInsert != null && !autoPick)
-                partToInsert.drawTo(gr, true);
-            if (wire != null)
-                wire.drawTo(gr, false);
-        }
-    }
-
-    private enum State {COPY, MOVE}
-
-    private class SelectMouseListener extends Mouse {
-        private Vector corner1;
-        private Vector corner2;
-        private ArrayList<Moveable> elements;
-        private Vector lastPos;
-        private State state;
-        private Vector copyStartPosition;
-        private boolean wasRealyDragged;
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1)
-                reset();
-            else
-                editAttributes(e);
-        }
-
-        private void reset() {
-            corner1 = null;
-            corner2 = null;
-            elements = null;
-            deleteAction.setEnabled(false);
-            repaint();
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            if (corner1 == null) {
-                corner1 = getPosVector(e);
-                wasRealyDragged = false;
-            } else {
-                if (corner2 != null) {
-                    if (e.getButton() == MouseEvent.BUTTON1) {
-                        elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-                        state = State.MOVE;
-                    } else {
-                        elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2), shapeFactory);
-                        copyStartPosition = raster(getPosVector(e));
-                        state = State.COPY;
-                    }
-                }
-                lastPos = getPosVector(e);
-            }
-            deleteAction.setEnabled(corner1 != null && corner2 != null);
+            activeMouseController.pressed(e);
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if (elements != null && state == State.COPY && copyStartPosition != null && !copyStartPosition.equals(raster(getPosVector(e)))) {
-                for (Moveable m : elements) {
-                    if (m instanceof Wire)
-                        circuit.add((Wire) m);
-                    if (m instanceof VisualElement)
-                        circuit.add((VisualElement) m);
-                }
-                copyStartPosition = null;
-            }
-            if (wasRealyDragged)
-                reset();
-            else
-                deleteAction.setEnabled(corner1 != null && corner2 != null);
+            activeMouseController.released(e);
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            activeMouseController.moved(e);
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
+            if (!activeMouseController.dragged(e)) {
+                Vector newPos = new Vector(e.getX(), e.getY());
+                Vector delta = newPos.sub(pos);
+                double s = transform.getScaleX();
+                transform.translate(delta.x / s, delta.y / s);
+                pos = newPos;
+                repaint();
+            }
+        }
+
+    }
+
+    private class MouseController {
+        private final Cursor mouseCursor;
+
+        private MouseController(Cursor mouseCursor) {
+            this.mouseCursor = mouseCursor;
+        }
+
+        private void activate() {
+            activeMouseController = this;
+            deleteAction.setActive(false);
+            setCursor(mouseCursor);
+            repaint();
+        }
+
+        void clicked(MouseEvent e) {
+        }
+
+        void pressed(MouseEvent e) {
+        }
+
+        void released(MouseEvent e) {
+        }
+
+        void moved(MouseEvent e) {
+        }
+
+        boolean dragged(MouseEvent e) {
+            return false;
+        }
+
+        public void drawTo(Graphic gr) {
+        }
+
+        public void delete() {
+        }
+    }
+
+    private final class MouseControllerNormal extends MouseController {
+        private Vector pos;
+        private int downButton;
+
+        private MouseControllerNormal(Cursor cursor) {
+            super(cursor);
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            Vector pos = getPosVector(e);
+            VisualElement vp = circuit.getElementAt(pos);
+            if (e.getButton() == MouseEvent.BUTTON3) {
+                if (vp != null)
+                    editAttributes(vp, e);
+            } else if (e.getButton() == MouseEvent.BUTTON1) {
+                if (vp != null) {
+                    if (circuit.isPinPos(raster(pos), vp))
+                        mouseWire.activate(pos);
+                    else
+                        mouseMoveElement.activate(vp, pos);
+                } else {
+                    mouseWire.activate(pos);
+                }
+            }
+        }
+
+        @Override
+        void pressed(MouseEvent e) {
+            downButton = e.getButton();
+            pos = getPosVector(e);
+        }
+
+        @Override
+        boolean dragged(MouseEvent e) {
+            if (downButton == MouseEvent.BUTTON3) {
+                mouseSelect.activate(pos, getPosVector(e));
+                return true;
+            }
+            return false;
+        }
+    }
+
+    private final class MouseControllerInsertElement extends MouseController {
+        private VisualElement element;
+        private Vector delta;
+
+        private MouseControllerInsertElement(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(VisualElement element) {
+            super.activate();
+            this.element = element;
+            delta = null;
+            deleteAction.setActive(true);
+        }
+
+        @Override
+        void moved(MouseEvent e) {
+            if (delta == null) {
+                GraphicMinMax minMax = element.getMinMax();
+                delta = element.getPos().sub(minMax.getMax());
+            }
+            element.setPos(raster(getPosVector(e).add(delta)));
+            repaint();
+        }
+
+        @Override
+        public void delete() {
+            mouseNormal.activate();
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            if (delta != null)
+                element.drawTo(gr, true);
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                circuit.add(element);
+                repaint();
+            }
+            mouseNormal.activate();
+        }
+    }
+
+    private final class MouseControllerMoveElement extends MouseController {
+        private VisualElement visualElement;
+        private Vector delta;
+
+        private MouseControllerMoveElement(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(VisualElement visualElement, Vector pos) {
+            super.activate();
+            this.visualElement = visualElement;
+            delta = visualElement.getPos().sub(pos);
+            deleteAction.setActive(true);
+            repaint();
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            visualElement.setPos(raster(visualElement.getPos()));
+            mouseNormal.activate();
+        }
+
+        @Override
+        void moved(MouseEvent e) {
+            Vector pos = getPosVector(e);
+            visualElement.setPos(raster(pos.add(delta)));
+            repaint();
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            visualElement.drawTo(gr, true);
+        }
+
+        @Override
+        public void delete() {
+            circuit.delete(visualElement);
+            mouseNormal.activate();
+        }
+    }
+
+    private final class MouseControllerWire extends MouseController {
+        private Wire wire;
+
+        private MouseControllerWire(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(Vector startPos) {
+            super.activate();
+            Vector pos = raster(startPos);
+            wire = new Wire(pos, pos);
+        }
+
+        @Override
+        void moved(MouseEvent e) {
+            wire.setP2(raster(getPosVector(e)));
+            repaint();
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON3)
+                mouseNormal.activate();
+            else {
+                circuit.add(wire);
+                if (circuit.isPinPos(wire.p2))
+                    mouseNormal.activate();
+                else
+                    wire = new Wire(wire.p2, wire.p2);
+            }
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            wire.drawTo(gr, false);
+        }
+    }
+
+    private final class MouseControllerSelect extends MouseController {
+        private Vector corner1;
+        private Vector corner2;
+        private int downButton;
+        private boolean wasReleased;
+
+        private MouseControllerSelect(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(Vector corner1, Vector corner2) {
+            super.activate();
+            this.corner1 = corner1;
+            this.corner2 = corner2;
+            deleteAction.setActive(true);
+            wasReleased = false;
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            mouseNormal.activate();
+        }
+
+        @Override
+        void pressed(MouseEvent e) {
+            downButton = e.getButton();
+        }
+
+        @Override
+        void released(MouseEvent e) {
+            wasReleased = true;
+        }
+
+        @Override
+        boolean dragged(MouseEvent e) {
+            if (wasReleased) {
+                if (downButton == MouseEvent.BUTTON1)
+                    mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
+                else if (downButton == MouseEvent.BUTTON3)
+                    mouseCopySelected.activate(corner1, corner2, getPosVector(e));
+            } else {
+                corner2 = getPosVector(e);
+                repaint();
+            }
+            return true;
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            Vector p1 = new Vector(corner1.x, corner2.y);
+            Vector p2 = new Vector(corner2.x, corner1.y);
+            gr.drawLine(corner1, p1, Style.DASH);
+            gr.drawLine(p1, corner2, Style.DASH);
+            gr.drawLine(corner2, p2, Style.DASH);
+            gr.drawLine(p2, corner1, Style.DASH);
+        }
+
+        @Override
+        public void delete() {
+            circuit.delete(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+            mouseNormal.activate();
+        }
+    }
+
+    private final class MouseControllerMoveSelected extends MouseController {
+        private ArrayList<Moveable> elements;
+        private Vector lastPos;
+
+        private MouseControllerMoveSelected(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(Vector corner1, Vector corner2, Vector pos) {
+            super.activate();
+            lastPos = pos;
+            elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+        }
+
+        @Override
+        boolean dragged(MouseEvent e) {
             if (elements != null) {
                 Vector pos = getPosVector(e);
                 Vector delta = raster(pos.sub(lastPos));
@@ -453,43 +622,90 @@ public class CircuitComponent extends JComponent {
                         m.move(delta);
                     circuit.modified();
 
-                    corner1.move(delta);
-                    corner2.move(delta);
                     repaint();
-
                     lastPos = lastPos.add(delta);
-                    wasRealyDragged = true;
                 }
-            } else {
-                corner2 = getPosVector(e);
-                repaint();
             }
+            return true;
+        }
+
+        @Override
+        void released(MouseEvent e) {
+            mouseNormal.activate();
+        }
+    }
+
+    private final class MouseControllerCopySelected extends MouseController {
+        private ArrayList<Moveable> elements;
+        private Vector lastPos;
+        private Vector movement;
+
+        private MouseControllerCopySelected(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(Vector corner1, Vector corner2, Vector pos) {
+            super.activate();
+            lastPos = pos;
+            movement = new Vector(0, 0);
+            deleteAction.setActive(true);
+            elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2), shapeFactory);
+        }
+
+        @Override
+        boolean dragged(MouseEvent e) {
+            if (elements != null) {
+                Vector pos = getPosVector(e);
+                Vector delta = raster(pos.sub(lastPos));
+
+                if (delta.x != 0 || delta.y != 0) {
+                    for (Moveable m : elements)
+                        m.move(delta);
+
+                    movement = movement.add(delta);
+
+                    repaint();
+                    lastPos = lastPos.add(delta);
+                }
+            }
+            return true;
         }
 
         @Override
         public void drawTo(Graphic gr) {
-            if (corner1 != null && corner2 != null) {
-                Vector p1 = new Vector(corner1.x, corner2.y);
-                Vector p2 = new Vector(corner2.x, corner1.y);
-                gr.drawLine(corner1, p1, Style.DASH);
-                gr.drawLine(p1, corner2, Style.DASH);
-                gr.drawLine(corner2, p2, Style.DASH);
-                gr.drawLine(p2, corner1, Style.DASH);
-            }
-            if (state == State.COPY && elements != null)
+            if (elements != null)
                 for (Moveable m : elements)
                     if (m instanceof Drawable)
                         ((Drawable) m).drawTo(gr, true);
         }
-    }
 
-    private class RunningMouseListener extends Mouse {
         @Override
-        public void drawTo(Graphic gr) {
+        public void delete() {
+            mouseNormal.activate();
         }
 
         @Override
-        public void mouseClicked(MouseEvent e) {
+        void released(MouseEvent e) {
+            if (elements != null && !movement.isZero()) {
+                for (Moveable m : elements) {
+                    if (m instanceof Wire)
+                        circuit.add((Wire) m);
+                    if (m instanceof VisualElement)
+                        circuit.add((VisualElement) m);
+                }
+            }
+            mouseNormal.activate();
+        }
+    }
+
+    private final class MouseControllerRun extends MouseController {
+
+        private MouseControllerRun(Cursor cursor) {
+            super(cursor);
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
             VisualElement ve = circuit.getElementAt(getPosVector(e));
             if (ve != null) {
                 Point p = new Point(e.getX(), e.getY());
