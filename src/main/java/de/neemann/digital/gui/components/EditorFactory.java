@@ -74,7 +74,7 @@ public final class EditorFactory {
 
         private final JTextField text;
 
-        private StringEditor(String value, AttributeKey<String> key) {
+        public StringEditor(String value, AttributeKey<String> key) {
             text = new JTextField(10);
             text.setText(value);
         }
@@ -94,7 +94,7 @@ public final class EditorFactory {
     private final static class IntegerEditor extends LabelEditor<Integer> {
         private final JComboBox<Integer> comboBox;
 
-        private IntegerEditor(Integer value, AttributeKey<Integer> key) {
+        public IntegerEditor(Integer value, AttributeKey<Integer> key) {
             Integer[] selects = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
             if (key instanceof AttributeKey.AttributeKeyInteger) {
                 selects = ((AttributeKey.AttributeKeyInteger) key).getComboBoxValues();
@@ -124,7 +124,7 @@ public final class EditorFactory {
 
         private final JCheckBox bool;
 
-        private BooleanEditor(Boolean value, AttributeKey<Boolean> key) {
+        public BooleanEditor(Boolean value, AttributeKey<Boolean> key) {
             bool = new JCheckBox(key.getName(), value);
         }
 
@@ -144,7 +144,7 @@ public final class EditorFactory {
         private Color color;
         private final JButton button;
 
-        private ColorEditor(Color value, AttributeKey<Color> key) {
+        public ColorEditor(Color value, AttributeKey<Color> key) {
             this.color = value;
             button = new JButton(new AbstractAction() {
                 @Override
@@ -174,7 +174,7 @@ public final class EditorFactory {
 
         private DataField data;
 
-        private DataFieldEditor(DataField data, AttributeKey<DataField> key) {
+        public DataFieldEditor(DataField data, AttributeKey<DataField> key) {
             this.data = data;
         }
 
@@ -234,7 +234,7 @@ public final class EditorFactory {
         private final Rotation rotation;
         private JComboBox<String> comb;
 
-        private RotationEditor(Rotation rotation, AttributeKey<Rotation> key) {
+        public RotationEditor(Rotation rotation, AttributeKey<Rotation> key) {
             this.rotation = rotation;
         }
 
