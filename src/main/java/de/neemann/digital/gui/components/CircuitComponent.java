@@ -55,6 +55,7 @@ public class CircuitComponent extends JComponent {
     private final MouseControllerMoveSelected mouseMoveSelected;
     private final MouseControllerCopySelected mouseCopySelected;
     private final MouseController mouseRun;
+    private final Cursor moveCursor;
 
     private Circuit circuit;
     private MouseController activeMouseController;
@@ -96,13 +97,14 @@ public class CircuitComponent extends JComponent {
         });
 
         Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+        moveCursor = new Cursor(Cursor.MOVE_CURSOR);
         mouseNormal = new MouseControllerNormal(normalCursor);
         mouseInsertElement = new MouseControllerInsertElement(normalCursor);
         mouseMoveElement = new MouseControllerMoveElement(normalCursor);
         mouseWire = new MouseControllerWire(normalCursor);
         mouseSelect = new MouseControllerSelect(new Cursor(Cursor.CROSSHAIR_CURSOR));
-        mouseMoveSelected = new MouseControllerMoveSelected(new Cursor(Cursor.MOVE_CURSOR));
-        mouseCopySelected = new MouseControllerCopySelected(new Cursor(Cursor.MOVE_CURSOR));
+        mouseMoveSelected = new MouseControllerMoveSelected(moveCursor);
+        mouseCopySelected = new MouseControllerCopySelected(moveCursor);
         mouseRun = new MouseControllerRun(normalCursor);
 
         setCircuit(aCircuit);
@@ -564,6 +566,7 @@ public class CircuitComponent extends JComponent {
         @Override
         void released(MouseEvent e) {
             wasReleased = true;
+            setCursor(moveCursor);
         }
 
         @Override
