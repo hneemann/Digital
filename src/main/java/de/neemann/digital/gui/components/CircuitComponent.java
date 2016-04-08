@@ -11,7 +11,6 @@ import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
-import de.neemann.digital.draw.shapes.GenericShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.Main;
@@ -34,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
  * @author hneemann
@@ -227,8 +228,8 @@ public class CircuitComponent extends JComponent {
     }
 
     private Vector raster(Vector pos) {
-        return new Vector((int) Math.round((double) pos.x / GenericShape.SIZE) * GenericShape.SIZE,
-                (int) Math.round((double) pos.y / GenericShape.SIZE) * GenericShape.SIZE);
+        return new Vector((int) Math.round((double) pos.x / SIZE) * SIZE,
+                (int) Math.round((double) pos.y / SIZE) * SIZE);
     }
 
     /**
@@ -250,8 +251,8 @@ public class CircuitComponent extends JComponent {
         if (gr.getMin() != null) {
 
             Vector delta = gr.getMax().sub(gr.getMin());
-            double sx = ((double) getWidth()) / delta.x * 0.75;
-            double sy = ((double) getHeight()) / delta.y * 0.95;
+            double sx = ((double) getWidth()) / (delta.x + SIZE * 8);
+            double sy = ((double) getHeight()) / (delta.y + SIZE);
             double s = Math.min(sx, sy);
 
             transform.setToScale(s, s);  // set Scaling
@@ -482,6 +483,7 @@ public class CircuitComponent extends JComponent {
         void moved(MouseEvent e) {
             Vector pos = getPosVector(e);
             visualElement.setPos(raster(pos.add(delta)));
+            circuit.modified();
             repaint();
         }
 
