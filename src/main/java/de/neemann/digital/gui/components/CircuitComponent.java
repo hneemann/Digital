@@ -250,7 +250,7 @@ public class CircuitComponent extends JComponent {
         if (gr.getMin() != null) {
 
             Vector delta = gr.getMax().sub(gr.getMin());
-            double sx = ((double) getWidth()) / delta.x * 0.8;
+            double sx = ((double) getWidth()) / delta.x * 0.75;
             double sy = ((double) getHeight()) / delta.y * 0.95;
             double s = Math.min(sx, sy);
 

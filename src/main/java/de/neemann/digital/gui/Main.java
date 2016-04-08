@@ -522,6 +522,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             circuitComponent.getCircuit().save(filename);
             if (savedListener != null)
                 savedListener.saved(filename);
+            elementState.activate();
             setFilename(filename, toPrefs);
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
