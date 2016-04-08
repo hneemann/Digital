@@ -536,6 +536,7 @@ public class CircuitComponent extends JComponent {
     }
 
     private final class MouseControllerSelect extends MouseController {
+        private static final int MIN_SIZE = 8;
         private Vector corner1;
         private Vector corner2;
         private int downButton;
@@ -566,7 +567,11 @@ public class CircuitComponent extends JComponent {
         @Override
         void released(MouseEvent e) {
             wasReleased = true;
-            setCursor(moveCursor);
+            Vector dif = corner1.sub(corner2);
+            if (Math.abs(dif.x) > MIN_SIZE && Math.abs(dif.y) > MIN_SIZE)
+                setCursor(moveCursor);
+            else
+                mouseNormal.activate();
         }
 
         @Override
