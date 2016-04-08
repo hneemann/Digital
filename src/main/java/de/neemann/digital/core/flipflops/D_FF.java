@@ -16,6 +16,7 @@ public class D_FF extends Node implements Element {
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Default)
             .addAttribute(AttributeKey.ValueIsProbe)
             .setShortName("D");
 
@@ -35,6 +36,10 @@ public class D_FF extends Node implements Element {
         this.qn = new ObservableValue("\u00ACQ", bits);
         isProbe = attributes.get(AttributeKey.ValueIsProbe);
         label = attributes.get(AttributeKey.Label);
+
+        value = attributes.get(AttributeKey.Default);
+        q.setValue(value);
+        qn.setValue(~value);
     }
 
     @Override

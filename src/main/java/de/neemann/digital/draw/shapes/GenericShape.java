@@ -112,7 +112,7 @@ public class GenericShape implements Shape {
         }
 
         if (label != null) {
-            Vector pos = new Vector(SIZE2 * width, -SIZE2 - 4);
+            Vector pos = new Vector(SIZE2 * width, -SIZE2 - 8);
             graphic.drawText(pos, pos.add(1, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
         }
 

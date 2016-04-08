@@ -15,6 +15,7 @@ public class JK_FF extends Node implements Element {
             = new ElementTypeDescription(JK_FF.class, "J", "C", "K")
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Default)
             .addAttribute(AttributeKey.ValueIsProbe)
             .setShortName("JK");
 
@@ -33,6 +34,11 @@ public class JK_FF extends Node implements Element {
         this.qn = new ObservableValue("\u00ACQ", 1);
         isProbe = attributes.get(AttributeKey.ValueIsProbe);
         label = attributes.get(AttributeKey.Label);
+
+        int def = attributes.get(AttributeKey.Default);
+        out = def > 0;
+        q.setBool(out);
+        qn.setBool(!out);
     }
 
     @Override
