@@ -4,7 +4,7 @@
   <attributes>
     <entry>
       <string>Width</string>
-      <int>4</int>
+      <int>5</int>
     </entry>
   </attributes>
   <visualElements>
@@ -24,7 +24,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A0</string>
+          <string>A_0</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -63,7 +63,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A1</string>
+          <string>A_1</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="100"/>
@@ -74,7 +74,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S0</string>
+          <string>S_0</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="400"/>
@@ -85,7 +85,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A2</string>
+          <string>A_2</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="-180"/>
@@ -96,7 +96,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A3</string>
+          <string>A_3</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -147,7 +147,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S1</string>
+          <string>S_1</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="200"/>
@@ -192,7 +192,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S2</string>
+          <string>S_2</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="-80"/>
@@ -203,7 +203,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B0</string>
+          <string>B_0</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="420"/>
@@ -214,7 +214,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B1</string>
+          <string>B_1</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -286,7 +286,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B2</string>
+          <string>B_2</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -301,7 +301,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B3</string>
+          <string>B_3</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="-460"/>
@@ -336,7 +336,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S3</string>
+          <string>S_3</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="-480"/>
