@@ -19,11 +19,24 @@ public class ElementTypeDescription {
     private final String[] inputNames;
     private final ArrayList<AttributeKey> attributeList;
 
-    public ElementTypeDescription(Class<?> clazz, String... inputNames) {
+    /**
+     * Creates a new ElementTypeDescription
+     *
+     * @param clazz      the elements class
+     * @param inputNames names of the input signals
+     */
+    public ElementTypeDescription(Class<? extends Element> clazz, String... inputNames) {
         this(clazz.getSimpleName(), clazz, inputNames);
     }
 
-    public ElementTypeDescription(String name, Class<?> clazz, String... inputNames) {
+    /**
+     * Creates a new ElementTypeDescription
+     *
+     * @param name       name of this element
+     * @param clazz      the elements class
+     * @param inputNames names of the input signals
+     */
+    public ElementTypeDescription(String name, Class<? extends Element> clazz, String... inputNames) {
         this(name, new ElementFactory() {
             @Override
             public Element create(ElementAttributes attributes) {
@@ -37,6 +50,13 @@ public class ElementTypeDescription {
         }, inputNames);
     }
 
+    /**
+     * Creates a new ElementTypeDescription
+     *
+     * @param name           name of this element
+     * @param elementFactory factory used to create the element
+     * @param inputNames     names of the input signals
+     */
     public ElementTypeDescription(String name, ElementFactory elementFactory, String... inputNames) {
         this.name = name;
         this.shortName = name;
@@ -108,6 +128,7 @@ public class ElementTypeDescription {
      *
      * @param elementAttributes the elements attributes
      * @return the list of input names
+     * @throws NodeException NodeException
      */
     public String[] getInputNames(ElementAttributes elementAttributes) throws NodeException {
         return inputNames;

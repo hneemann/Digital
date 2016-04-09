@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * Describes one concrete Part.
+ * Its a Key value list, which is used to store the diferent elements attributes.
  *
  * @author hneemann
  */
@@ -14,9 +15,17 @@ public class ElementAttributes {
     private HashMap<String, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
 
+    /**
+     * Creates a new instance
+     */
     public ElementAttributes() {
     }
 
+    /**
+     * Creates a deep copy of the given attributes
+     *
+     * @param proto the ElementAttributes to copy
+     */
     public ElementAttributes(ElementAttributes proto) {
         if (proto.attributes != null) {
             attributes = new HashMap<>();
@@ -26,6 +35,15 @@ public class ElementAttributes {
         }
     }
 
+    /**
+     * Gets a value from the map.
+     * If the value is not present the default value is returned
+     *
+     * @param key     the key
+     * @param <VALUE> the type of the value
+     * @return the value
+     */
+    @SuppressWarnings("unchecked")
     public <VALUE> VALUE get(AttributeKey<VALUE> key) {
         if (attributes == null)
             return key.getDefault();
@@ -37,6 +55,13 @@ public class ElementAttributes {
         }
     }
 
+    /**
+     * Checks if a value is present.
+     *
+     * @param key     the key
+     * @param <VALUE> the type of the value
+     * @return true if value is present
+     */
     public <VALUE> boolean contains(AttributeKey<VALUE> key) {
         if (attributes == null)
             return false;
@@ -44,6 +69,14 @@ public class ElementAttributes {
             return attributes.containsKey(key.getKey());
     }
 
+    /**
+     * Sets a value
+     *
+     * @param key     the key
+     * @param value   the value
+     * @param <VALUE> the type of the value
+     * @return this to chain calls
+     */
     public <VALUE> ElementAttributes set(AttributeKey<VALUE> key, VALUE value) {
         if (value != get(key)) {
             if (value.equals(key.getDefault())) {
@@ -68,6 +101,11 @@ public class ElementAttributes {
                 l.attributeChanged(key);
     }
 
+    /**
+     * Adds a listener to this class
+     *
+     * @param listener the listener
+     */
     public void addListener(AttributeListener listener) {
         if (listeners == null)
             listeners = new ArrayList<>();
@@ -75,19 +113,43 @@ public class ElementAttributes {
             listeners.add(listener);
     }
 
+    /**
+     * removes a listener to this class
+     *
+     * @param listener the listener
+     */
     public void removeListener(AttributeListener listener) {
         if (listeners != null)
             listeners.remove(listener);
     }
 
+    /**
+     * Returns the bits count stored in this attributes.
+     * Its a short hand for get(AttributeKey.Bits)
+     *
+     * @return the number of bits
+     */
     public int getBits() {
         return get(AttributeKey.Bits);
     }
 
+    /**
+     * Returns the label stored in this attributes.
+     * Its a short hand for get(AttributeKey.Label)
+     *
+     * @return the label
+     */
     public String getLabel() {
         return get(AttributeKey.Label);
     }
 
+    /**
+     * Sets the bit count to this map.
+     * Shorthand for set(AttributeKey.Bits, bits);
+     *
+     * @param bits the number of bits
+     * @return this tp chain calls
+     */
     public ElementAttributes setBits(int bits) {
         set(AttributeKey.Bits, bits);
         return this;
@@ -95,17 +157,26 @@ public class ElementAttributes {
 
     @Override
     public String toString() {
-        return "ElementAttributes{" +
-                "attributes=" + attributes +
-                '}';
+        return "ElementAttributes{"
+                + "attributes=" + attributes
+                + '}';
     }
 
+    /**
+     * @return true if map is empty
+     */
     public boolean isEmpty() {
         if (attributes == null)
             return true;
         return attributes.isEmpty();
     }
 
+    /**
+     * Gets a file stored directly in the map
+     *
+     * @param fileKey the file key
+     * @return the file
+     */
     public File getFile(String fileKey) {
         if (attributes != null) {
             Object f = attributes.get(fileKey);
@@ -115,6 +186,12 @@ public class ElementAttributes {
         return null;
     }
 
+    /**
+     * Stores a file directly in the map
+     *
+     * @param fileKey the key
+     * @param file    the file
+     */
     public void setFile(String fileKey, File file) {
         if (attributes == null)
             attributes = new HashMap<>();

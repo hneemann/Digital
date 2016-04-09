@@ -26,7 +26,7 @@ public class Reset implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        throw new NodeException(Lang.get("err_noInputsAvailable"), null);
+        throw new NodeException(Lang.get("err_noInputsAvailable"));
     }
 
     @Override

@@ -1,13 +1,31 @@
 package de.neemann.digital.core.element;
 
 /**
+ * Warapper for the elements rotation
+ *
  * @author hneemann
  */
 public class Rotation {
-    public int rotation;
+    /**
+     * The rotation value.
+     * is in between 0 and 3
+     */
+    private final int rotation;
 
-    public Rotation(int rot) {
-        rotation = rot;
+    /**
+     * Creates a new instance
+     *
+     * @param rotation the rotation
+     */
+    public Rotation(int rotation) {
+        this.rotation = rotation;
+    }
+
+    /**
+     * @return the rotation value
+     */
+    public int getRotation() {
+        return rotation;
     }
 
     @Override

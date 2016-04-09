@@ -16,7 +16,7 @@ public interface Element {
      * inputs of this element.
      *
      * @param inputs the list of <code>ObservableValue</code>s to use
-     * @throws NodeException
+     * @throws NodeException NodeException
      */
     void setInputs(ObservableValue... inputs) throws NodeException;
 

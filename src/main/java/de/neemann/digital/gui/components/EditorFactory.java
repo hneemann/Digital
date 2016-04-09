@@ -241,7 +241,7 @@ public final class EditorFactory {
         @Override
         public Component getComponent(ElementAttributes elementAttributes) {
             comb = new JComboBox<>(LIST);
-            comb.setSelectedIndex(rotation.rotation);
+            comb.setSelectedIndex(rotation.getRotation());
             return comb;
         }
 

@@ -195,7 +195,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public void attributeChanged(AttributeKey key) {
         shape = null;
         minMax = null;
-        rotate = elementAttributes.get(AttributeKey.Rotate).rotation;
+        rotate = elementAttributes.get(AttributeKey.Rotate).getRotation();
     }
 
     @Override

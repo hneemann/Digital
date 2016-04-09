@@ -4,6 +4,9 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 
 /**
+ * A key for a single attribute
+ *
+ * @param <VALUE> the type of the value
  * @author hneemann
  */
 public class AttributeKey<VALUE> {
@@ -47,18 +50,34 @@ public class AttributeKey<VALUE> {
         this.def = def;
     }
 
+    /**
+     * Returns the attributes key
+     *
+     * @return the key
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     * Returns the attributes display name
+     *
+     * @return thr name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return the default value of this key
+     */
     public VALUE getDefault() {
         return def;
     }
 
+    /**
+     * @return The values class
+     */
     public Class getValueClass() {
         return def.getClass();
     }
@@ -68,6 +87,10 @@ public class AttributeKey<VALUE> {
         return name;
     }
 
+    /**
+     * A integer attribute.
+     * Stores additional combo box values
+     */
     public static final class AttributeKeyInteger extends AttributeKey<Integer> {
         private Integer[] values;
 
@@ -80,6 +103,9 @@ public class AttributeKey<VALUE> {
             return this;
         }
 
+        /**
+         * @return the values to show in the combo box
+         */
         public Integer[] getComboBoxValues() {
             return values;
         }

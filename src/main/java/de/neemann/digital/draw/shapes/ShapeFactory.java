@@ -77,7 +77,7 @@ public final class ShapeFactory {
         try {
             if (cr == null) {
                 if (library == null)
-                    throw new NodeException(Lang.get("err_noShapeFoundFor_N", partName), null);
+                    throw new NodeException(Lang.get("err_noShapeFoundFor_N", partName));
                 else {
                     ElementTypeDescription pt = library.getElementType(partName);
                     if (pt instanceof LibrarySelector.ElementTypeDescriptionCustom) {

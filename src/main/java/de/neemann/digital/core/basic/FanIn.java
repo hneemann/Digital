@@ -38,7 +38,7 @@ public abstract class FanIn extends Node implements Element {
     }
 
     public static class FanInDescription extends ElementTypeDescription {
-        public FanInDescription(Class<?> clazz) {
+        public FanInDescription(Class<? extends Element> clazz) {
             super(clazz);
             addAttributes();
         }
