@@ -1,96 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-    <version>1</version>
-    <visualElements>
-        <visualElement>
-            <elementName>D_MS.dig</elementName>
-            <elementAttributes/>
-            <pos x="200" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>D_MS.dig</elementName>
-            <elementAttributes/>
-            <pos x="340" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>D_MS.dig</elementName>
-            <elementAttributes/>
-            <pos x="480" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes/>
-            <pos x="140" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes/>
-            <pos x="600" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes/>
-            <pos x="140" y="200"/>
-            <rotate>0</rotate>
-        </visualElement>
-    </visualElements>
-    <wires>
-        <wire>
-            <p1 x="260" y="120"/>
-            <p2 x="340" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="400" y="120"/>
-            <p2 x="480" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="540" y="120"/>
-            <p2 x="600" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="140" y="120"/>
-            <p2 x="200" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="140" y="200"/>
-            <p2 x="180" y="200"/>
-        </wire>
-        <wire>
-            <p1 x="320" y="200"/>
-            <p2 x="460" y="200"/>
-        </wire>
-        <wire>
-            <p1 x="180" y="200"/>
-            <p2 x="320" y="200"/>
-        </wire>
-        <wire>
-            <p1 x="180" y="140"/>
-            <p2 x="200" y="140"/>
-        </wire>
-        <wire>
-            <p1 x="320" y="140"/>
-            <p2 x="340" y="140"/>
-        </wire>
-        <wire>
-            <p1 x="460" y="140"/>
-            <p2 x="480" y="140"/>
-        </wire>
-        <wire>
-            <p1 x="320" y="140"/>
-            <p2 x="320" y="200"/>
-        </wire>
-        <wire>
-            <p1 x="180" y="140"/>
-            <p2 x="180" y="200"/>
-        </wire>
-        <wire>
-            <p1 x="460" y="140"/>
-            <p2 x="460" y="200"/>
-        </wire>
-    </wires>
+  <version>1</version>
+  <visualElements>
+    <visualElement>
+      <elementName>D_MS.dig</elementName>
+      <elementAttributes/>
+      <pos x="200" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>D_MS.dig</elementName>
+      <elementAttributes/>
+      <pos x="340" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>D_MS.dig</elementName>
+      <elementAttributes/>
+      <pos x="480" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q</string>
+        </entry>
+      </elementAttributes>
+      <pos x="600" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="200"/>
+      <rotate>0</rotate>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="260" y="120"/>
+      <p2 x="340" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="120"/>
+      <p2 x="480" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="120"/>
+      <p2 x="600" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="120"/>
+      <p2 x="200" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="200"/>
+      <p2 x="180" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="200"/>
+      <p2 x="460" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="200"/>
+      <p2 x="320" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="140"/>
+      <p2 x="200" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="140"/>
+      <p2 x="340" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="140"/>
+      <p2 x="480" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="140"/>
+      <p2 x="320" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="140"/>
+      <p2 x="180" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="140"/>
+      <p2 x="460" y="200"/>
+    </wire>
+  </wires>
 </circuit>
