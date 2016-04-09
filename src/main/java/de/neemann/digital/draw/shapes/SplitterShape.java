@@ -50,12 +50,12 @@ public class SplitterShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, boolean heighLight) {
         for (int i = 0; i < inputs.length; i++) {
-            Vector pos = new Vector(-2, i * SIZE - 2);
+            Vector pos = new Vector(-2, i * SIZE - 3);
             graphic.drawText(pos, pos.add(2, 0), inputs[i], Orientation.RIGHTBOTTOM, Style.SHAPE_PIN);
             graphic.drawLine(new Vector(0, i * SIZE), new Vector(SIZE2, i * SIZE), Style.WIRE);
         }
         for (int i = 0; i < outputs.length; i++) {
-            Vector pos = new Vector(SIZE + 2, i * SIZE - 2);
+            Vector pos = new Vector(SIZE + 2, i * SIZE - 3);
             graphic.drawText(pos, pos.add(2, 0), outputs[i], Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
             graphic.drawLine(new Vector(SIZE, i * SIZE), new Vector(SIZE2, i * SIZE), Style.WIRE);
         }

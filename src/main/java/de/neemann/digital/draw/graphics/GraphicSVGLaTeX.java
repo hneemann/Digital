@@ -29,7 +29,19 @@ public class GraphicSVGLaTeX extends GraphicSVG {
                     sb.append(checkMath(inMath, "\\neg{}"));
                     break;
                 case '\u2265':
-                    sb.append(checkMath(inMath, "\\geq{}"));
+                    sb.append(checkMath(inMath, "\\geq\\!\\!{}"));
+                    break;
+                case '<':
+                    if (inMath)
+                        sb.append(c);
+                    else
+                        sb.append("\\textless{}");
+                    break;
+                case '>':
+                    if (inMath)
+                        sb.append(c);
+                    else
+                        sb.append("\\textgreater{}");
                     break;
                 case '&':
                     sb.append("\\&");

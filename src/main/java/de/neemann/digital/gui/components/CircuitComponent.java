@@ -252,7 +252,7 @@ public class CircuitComponent extends JComponent {
 
             Vector delta = gr.getMax().sub(gr.getMin());
             double sx = ((double) getWidth()) / (delta.x + SIZE * 8);
-            double sy = ((double) getHeight()) / (delta.y + SIZE);
+            double sy = ((double) getHeight()) / (delta.y + SIZE * 2);
             double s = Math.min(sx, sy);
 
             transform.setToScale(s, s);  // set Scaling

@@ -38,7 +38,7 @@ public class Wire implements Drawable, Moveable {
         graphic.drawLine(p1, p2, style);
 
         if (value != null && p1.y == p2.y && Math.abs(p1.x - p2.x) > MIN_LABEL_LEN && value.getBits() > 1) {
-            Vector pos = p1.add(p2).div(2).add(0, -2);
+            Vector pos = p1.add(p2).div(2).add(0, -3);
             graphic.drawText(pos, pos.add(1, 0), value.getValueString(), de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
         }
 

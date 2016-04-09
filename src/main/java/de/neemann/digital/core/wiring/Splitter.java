@@ -237,6 +237,8 @@ public class Splitter implements Element {
             this.number = number;
             if (bits == 1)
                 name = "" + pos;
+            else if (bits == 2)
+                name = "" + pos + "," + (pos + 1);
             else
                 name = "" + pos + "-" + (pos + bits - 1);
         }

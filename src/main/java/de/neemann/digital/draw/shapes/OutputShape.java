@@ -44,7 +44,7 @@ public class OutputShape implements Shape {
             ObservableValue value = ioState.getInput(0);
             style = Style.getWireStyle(value);
             if (value.getBits() > 1) {
-                Vector textPos = new Vector(2 + SIZE, -2 - SIZE);
+                Vector textPos = new Vector(1 + SIZE, -4 - SIZE);
                 graphic.drawText(textPos, textPos.add(1, 0), value.getValueString(), Orientation.CENTERBOTTOM, Style.NORMAL);
             }
         }
