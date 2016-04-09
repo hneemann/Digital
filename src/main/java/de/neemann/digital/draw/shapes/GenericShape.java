@@ -13,7 +13,13 @@ import de.neemann.digital.draw.graphics.*;
  * @author hneemann
  */
 public class GenericShape implements Shape {
+    /**
+     * Half the size of the used raster
+     */
     public static final int SIZE2 = 10;
+    /**
+     * The size of the used raster
+     */
     public static final int SIZE = SIZE2 * 2;
 
     private final String name;
@@ -27,14 +33,40 @@ public class GenericShape implements Shape {
     private transient Pins pins;
     private boolean showPinLabels;
 
+    /**
+     * Creates a new generic shape.
+     *
+     * @param name    the name shown in or below the shape
+     * @param inputs  the used inputs
+     * @param outputs the used outputs
+     */
     public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs) {
         this(name, inputs, outputs, null, false);
     }
 
+    /**
+     * Creates a new generic shape.
+     *
+     * @param name          the name shown in or below the shape
+     * @param inputs        the used inputs
+     * @param outputs       the used outputs
+     * @param label         the label shown above the shape
+     * @param showPinLabels true if pin names visible
+     */
     public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs, String label, boolean showPinLabels) {
         this(name, inputs, outputs, label, showPinLabels, inputs.length == 1 && outputs.length == 1 && !showPinLabels ? 1 : 3);
     }
 
+    /**
+     * Creates a new generic shape.
+     *
+     * @param name          the name shown in or below the shape
+     * @param inputs        the used inputs
+     * @param outputs       the used outputs
+     * @param label         the label shown above the shape
+     * @param showPinLabels true if pin names visible
+     * @param width         the width of the box
+     */
     public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs, String label, boolean showPinLabels, int width) {
         this.name = name;
         this.inputs = inputs;
@@ -47,6 +79,13 @@ public class GenericShape implements Shape {
         symmetric = outputs.length == 1;
     }
 
+    /**
+     * Sets the invert flag.
+     * If set true a little circle at the putput is shown.
+     *
+     * @param invert true is output is inverted
+     * @return this for chaind calls
+     */
     public GenericShape invert(boolean invert) {
         this.invert = invert;
         return this;
