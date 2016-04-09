@@ -14,7 +14,7 @@ import de.neemann.digital.draw.graphics.Vector;
  * @author hneemann
  */
 public class BreakShape implements Shape {
-    public static final int SIZE = GenericShape.SIZE * 3 / 4;
+    private static final int SIZE = GenericShape.SIZE * 3 / 4;
     private static final int SIZEQ = SIZE / 2;
     private static final Vector RAD = new Vector(SIZE, SIZE);
     private static final Vector D1 = new Vector(SIZEQ, -SIZEQ);

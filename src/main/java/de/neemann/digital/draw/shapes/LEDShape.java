@@ -18,8 +18,8 @@ import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
  * @author hneemann
  */
 public class LEDShape implements Shape {
-    public static final Vector RAD = new Vector(SIZE - 2, SIZE - 2);
-    public static final Vector RADL = new Vector(SIZE, SIZE);
+    private static final Vector RAD = new Vector(SIZE - 2, SIZE - 2);
+    private static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
     private Style onStyle;
     private IOState ioState;

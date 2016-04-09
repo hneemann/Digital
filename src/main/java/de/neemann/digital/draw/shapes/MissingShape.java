@@ -36,9 +36,10 @@ public class MissingShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
         Style style = Style.SHAPE_PIN;
-        graphic.drawLine(new Vector(0, 0), new Vector(0, style.getFontSize()), style);
-        graphic.drawText(new Vector(0, 0), new Vector(1, 0), message, Orientation.LEFTBOTTOM, style);
+        graphic.drawLine(new Vector(0, 0), new Vector(style.getFontSize() * 10, 0), style);
+        graphic.drawLine(new Vector(0, 0), new Vector(0, style.getFontSize() * 2), style);
+        graphic.drawText(new Vector(4, 4), new Vector(5, 4), message, Orientation.LEFTTOP, style);
         if (cause != null && cause.length() > 0)
-            graphic.drawText(new Vector(0, style.getFontSize()), new Vector(1, style.getFontSize()), cause, Orientation.LEFTBOTTOM, style);
+            graphic.drawText(new Vector(4, 4 + style.getFontSize()), new Vector(5, 4 + style.getFontSize()), cause, Orientation.LEFTTOP, style);
     }
 }
