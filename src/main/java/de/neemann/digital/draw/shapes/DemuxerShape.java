@@ -1,6 +1,8 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -18,10 +20,10 @@ public class DemuxerShape implements Shape {
     private final int height;
     private Pins pins;
 
-    public DemuxerShape(int selectorBits, boolean hasInput, boolean flip) {
+    public DemuxerShape(ElementAttributes attr, boolean hasInput) {
         this.hasInput = hasInput;
-        this.flip = flip;
-        outputCount = 1 << selectorBits;
+        this.flip = attr.get(AttributeKey.FlipSelPositon);
+        outputCount = 1 << attr.get(AttributeKey.SelectorBits);
         height = hasInput || (outputCount <= 2) ? outputCount * SIZE : (outputCount - 1) * SIZE;
     }
 

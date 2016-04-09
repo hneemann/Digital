@@ -2,13 +2,12 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
-
-import java.awt.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
@@ -19,8 +18,8 @@ public class SevenSegShape extends SevenShape {
     private ObservableValue[] inputs;
     private Pins pins;
 
-    public SevenSegShape(String label, Color color) {
-        super(label, color);
+    public SevenSegShape(ElementAttributes attr) {
+        super(attr);
     }
 
     @Override

@@ -2,6 +2,8 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -9,8 +11,6 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
-
-import java.awt.*;
 
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
@@ -24,9 +24,9 @@ public class LEDShape implements Shape {
     private Style onStyle;
     private IOState ioState;
 
-    public LEDShape(String label, Color color) {
-        this.label = label;
-        onStyle = new Style(1, true, color);
+    public LEDShape(ElementAttributes attr) {
+        this.label = attr.getLabel();
+        onStyle = new Style(1, true, attr.get(AttributeKey.Color));
     }
 
     @Override

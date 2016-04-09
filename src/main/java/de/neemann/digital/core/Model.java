@@ -406,7 +406,7 @@ public class Model {
          * @param name  the name of the Signal
          * @param value the signals value
          */
-        private Signal(String name, ObservableValue value) {
+        public Signal(String name, ObservableValue value) {
             this.name = name;
             this.value = value;
         }

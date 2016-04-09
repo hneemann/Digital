@@ -550,6 +550,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         @Override
         public void hasChanged() {
             try {
+                model.fireManualChangeEvent();
                 model.doStep();
                 circuitComponent.repaint();
             } catch (NodeException | RuntimeException e) {

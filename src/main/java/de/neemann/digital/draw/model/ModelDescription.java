@@ -24,10 +24,10 @@ import java.util.*;
  */
 public class ModelDescription implements Iterable<ModelEntry> {
 
+    private final Circuit circuit;
     private final NetList netList;
     private final ArrayList<ModelEntry> entries;
     private final HashMap<String, Pin> ioMap;
-    private HashMap<Node, ModelEntry> map;
 
     /**
      * Creates the ModelDescription.
@@ -69,6 +69,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @throws NodeException NodeException
      */
     public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom, String fileName, NetList netList) throws PinException, NodeException {
+        this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
         if (readAsCustom)
@@ -176,8 +177,10 @@ public class ModelDescription implements Iterable<ModelEntry> {
         for (ModelEntry e : entries)
             e.getElement().registerNodes(m);
 
-        for (ModelEntry e : entries)
-            e.getElement().init();
+        for (ModelEntry e : entries) {
+            e.getElement().init(m);
+            e.getVisualElement().getShape().registerModel(this, m, e);
+        }
 
         return m;
     }
@@ -231,4 +234,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
         return entr;
     }
 
+    public Circuit getCircuit() {
+        return circuit;
+    }
 }

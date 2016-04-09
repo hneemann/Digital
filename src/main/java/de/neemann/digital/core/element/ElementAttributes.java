@@ -84,6 +84,10 @@ public class ElementAttributes {
         return get(AttributeKey.Bits);
     }
 
+    public String getLabel() {
+        return get(AttributeKey.Label);
+    }
+
     public ElementAttributes setBits(int bits) {
         set(AttributeKey.Bits, bits);
         return this;
@@ -116,4 +120,5 @@ public class ElementAttributes {
             attributes = new HashMap<>();
         attributes.put(fileKey, file.getPath());
     }
+
 }

@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -20,8 +21,8 @@ public class BreakShape implements Shape {
     private static final Vector D2 = new Vector(SIZEQ, SIZEQ);
     private final String label;
 
-    public BreakShape(String label) {
-        this.label = label;
+    public BreakShape(ElementAttributes attr) {
+        this.label = attr.getLabel();
     }
 
     @Override

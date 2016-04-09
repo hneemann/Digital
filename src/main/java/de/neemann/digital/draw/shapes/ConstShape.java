@@ -2,6 +2,8 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -17,8 +19,8 @@ public class ConstShape implements Shape {
 
     private String value;
 
-    public ConstShape(long value) {
-        this.value = ObservableValue.getHexString(value);
+    public ConstShape(ElementAttributes attr) {
+        this.value = ObservableValue.getHexString(attr.get(AttributeKey.Value));
     }
 
     @Override

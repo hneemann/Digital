@@ -2,6 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -20,8 +21,8 @@ public class OutputShape implements Shape {
     private final String label;
     private IOState ioState;
 
-    public OutputShape(String label) {
-        this.label = label;
+    public OutputShape(ElementAttributes attr) {
+        this.label = attr.getLabel();
     }
 
     @Override

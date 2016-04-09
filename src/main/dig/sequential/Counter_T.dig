@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <version>1</version>
+    <visualElements>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>rotation</string>
+                    <rotation rotation="3"/>
+                </entry>
+            </elementAttributes>
+            <pos x="400" y="460"/>
+            <rotate>3</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Clock</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>C</string>
+                </entry>
+                <entry>
+                    <string>Frequency</string>
+                    <int>2</int>
+                </entry>
+            </elementAttributes>
+            <pos x="280" y="360"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>rotation</string>
+                    <rotation reference="../../../../visualElement/elementAttributes/entry/rotation"/>
+                </entry>
+            </elementAttributes>
+            <pos x="560" y="460"/>
+            <rotate>3</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>rotation</string>
+                    <rotation reference="../../../../visualElement/elementAttributes/entry/rotation"/>
+                </entry>
+            </elementAttributes>
+            <pos x="720" y="460"/>
+            <rotate>3</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>rotation</string>
+                    <rotation reference="../../../../visualElement/elementAttributes/entry/rotation"/>
+                </entry>
+            </elementAttributes>
+            <pos x="880" y="460"/>
+            <rotate>3</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>T_FF</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>valueIsProbe</string>
+                    <boolean>true</boolean>
+                </entry>
+                <entry>
+                    <string>Label</string>
+                    <string>Q_0</string>
+                </entry>
+            </elementAttributes>
+            <pos x="320" y="360"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>T_FF</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>valueIsProbe</string>
+                    <boolean>true</boolean>
+                </entry>
+                <entry>
+                    <string>Label</string>
+                    <string>Q_1</string>
+                </entry>
+            </elementAttributes>
+            <pos x="480" y="360"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>T_FF</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>valueIsProbe</string>
+                    <boolean>true</boolean>
+                </entry>
+                <entry>
+                    <string>Label</string>
+                    <string>Q_2</string>
+                </entry>
+            </elementAttributes>
+            <pos x="640" y="360"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>T_FF</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>valueIsProbe</string>
+                    <boolean>true</boolean>
+                </entry>
+                <entry>
+                    <string>Label</string>
+                    <string>Q_3</string>
+                </entry>
+            </elementAttributes>
+            <pos x="800" y="360"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Data</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>microStep</string>
+                    <boolean>true</boolean>
+                </entry>
+                <entry>
+                    <string>Label</string>
+                    <string>Data</string>
+                </entry>
+            </elementAttributes>
+            <pos x="220" y="100"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="540" y="360"/>
+            <p2 x="560" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="600" y="360"/>
+            <p2 x="640" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="380" y="360"/>
+            <p2 x="400" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="280" y="360"/>
+            <p2 x="320" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="440" y="360"/>
+            <p2 x="480" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="700" y="360"/>
+            <p2 x="720" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="760" y="360"/>
+            <p2 x="800" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="860" y="360"/>
+            <p2 x="880" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="540" y="380"/>
+            <p2 x="600" y="380"/>
+        </wire>
+        <wire>
+            <p1 x="380" y="380"/>
+            <p2 x="440" y="380"/>
+        </wire>
+        <wire>
+            <p1 x="700" y="380"/>
+            <p2 x="760" y="380"/>
+        </wire>
+        <wire>
+            <p1 x="560" y="360"/>
+            <p2 x="560" y="460"/>
+        </wire>
+        <wire>
+            <p1 x="880" y="360"/>
+            <p2 x="880" y="460"/>
+        </wire>
+        <wire>
+            <p1 x="400" y="360"/>
+            <p2 x="400" y="460"/>
+        </wire>
+        <wire>
+            <p1 x="720" y="360"/>
+            <p2 x="720" y="460"/>
+        </wire>
+        <wire>
+            <p1 x="440" y="360"/>
+            <p2 x="440" y="380"/>
+        </wire>
+        <wire>
+            <p1 x="760" y="360"/>
+            <p2 x="760" y="380"/>
+        </wire>
+        <wire>
+            <p1 x="600" y="360"/>
+            <p2 x="600" y="380"/>
+        </wire>
+    </wires>
+</circuit>

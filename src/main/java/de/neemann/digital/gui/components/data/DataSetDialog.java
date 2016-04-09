@@ -19,12 +19,10 @@ import java.util.List;
  * @author hneemann
  */
 public class DataSetDialog extends JDialog implements ModelStateObserver {
-    private final ModelEvent.Event type;
     private final ArrayList<Model.Signal> signals;
     private final DataSetComponent dsc;
-    private DataSample manualSample;
-    private int maintime;
     private DataSet dataSet;
+    private DataSetObserver dataSetObserver;
 
     /**
      * Creates a new instance
@@ -38,7 +36,6 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
-        this.type = type;
 
         signals = model.getSignalsCopy();
         new OrderMerger<String, Model.Signal>(ordering) {
@@ -49,6 +46,8 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         }.order(signals);
 
         dataSet = new DataSet(signals);
+
+        dataSetObserver = new DataSetObserver(type, dataSet);
 
         dsc = new DataSetComponent(dataSet);
         JScrollPane scrollPane = new JScrollPane(dsc);
@@ -75,21 +74,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event.getType() == ModelEvent.Event.MANUALCHANGE) {
-            if (manualSample == null)
-                manualSample = new DataSample(maintime, signals.size());
-            manualSample.fillWith(signals);
-        }
-
-        if (event.getType() == type) {
-            if (manualSample != null) {
-                dataSet.add(manualSample);
-                manualSample = null;
-                maintime++;
-            }
-            dataSet.add(new DataSample(maintime, signals.size()).fillWith(signals));
-            maintime++;
-        }
+        dataSetObserver.handleEvent(event);
         dsc.revalidate();
         dsc.repaint();
     }

@@ -1,6 +1,8 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.AttributeKey;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -19,8 +21,8 @@ public class DriverShape implements Shape {
     private final boolean bottom;
     private Pins pins;
 
-    public DriverShape(boolean bottom) {
-        this.bottom = bottom;
+    public DriverShape(ElementAttributes attr) {
+        this.bottom = attr.get(AttributeKey.FlipSelPositon);
     }
 
     @Override

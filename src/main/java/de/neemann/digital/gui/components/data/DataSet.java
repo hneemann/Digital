@@ -25,6 +25,23 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     private DataSample max;
 
     /**
+     * Creates a simple dummy DataSet used for creating the DataShape
+     */
+    public DataSet() {
+        this(createDummy());
+        add(new DataSample(0, signalSize()));
+        add(new DataSample(1, signalSize()).setValue(1, 1));
+    }
+
+    private static ArrayList<Model.Signal> createDummy() {
+        ArrayList<Model.Signal> list = new ArrayList<>();
+        list.add(new Model.Signal("A", null));
+        list.add(new Model.Signal("B", null));
+        list.add(new Model.Signal("C", null));
+        return list;
+    }
+
+    /**
      * Creates a new instance
      *
      * @param signals the signals used to collect DataSamples
@@ -172,5 +189,9 @@ public class DataSet implements Iterable<DataSample>, Drawable {
 
     public int getGraphicHeight() {
         return signalSize() * (SIZE + SEP) + 2 * BORDER;
+    }
+
+    public ArrayList<Model.Signal> getSignals() {
+        return signals;
     }
 }

@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -15,8 +16,8 @@ public class ResetShape implements Shape {
 
     private final String label;
 
-    public ResetShape(String label) {
-        this.label = label;
+    public ResetShape(ElementAttributes attr) {
+        this.label = attr.getLabel();
     }
 
     @Override

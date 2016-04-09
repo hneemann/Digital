@@ -152,7 +152,7 @@ public class Splitter implements Element {
     }
 
     @Override
-    public void init() {
+    public void init(Model m) {
         for (ObservableValue v : inputs)
             v.hasChanged();
     }

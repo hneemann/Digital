@@ -3,6 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -24,8 +25,8 @@ public class InputShape implements Shape {
     private final String label;
     private IOState ioState;
 
-    public InputShape(String label) {
-        this.label = label;
+    public InputShape(ElementAttributes attr) {
+        this.label = attr.getLabel();
     }
 
     @Override

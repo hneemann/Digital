@@ -56,9 +56,11 @@ public class DataSample {
      *
      * @param i     the index of the value
      * @param value the value
+     * @return this for chained calls
      */
-    public void setValue(int i, long value) {
+    public DataSample setValue(int i, long value) {
         values[i] = value;
+        return this;
     }
 
     /**

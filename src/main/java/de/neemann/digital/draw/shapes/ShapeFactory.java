@@ -15,6 +15,7 @@ import de.neemann.digital.core.memory.RAMSinglePort;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.LibrarySelector;
+import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.lang.Lang;
 
 import java.util.HashMap;
@@ -42,24 +43,25 @@ public final class ShapeFactory {
         map.put(RAMDualPort.DESCRIPTION.getName(), attr -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputNames(attr), outputInfos(RAMDualPort.DESCRIPTION, attr), attr.get(AttributeKey.Label)));
         map.put(RAMSinglePort.DESCRIPTION.getName(), attr -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputNames(attr), outputInfos(RAMSinglePort.DESCRIPTION, attr), attr.get(AttributeKey.Label)));
 
-        map.put(In.DESCRIPTION.getName(), attr -> new InputShape(attr.get(AttributeKey.Label)));
-        map.put(Reset.DESCRIPTION.getName(), attr -> new ResetShape(attr.get(AttributeKey.Label)));
-        map.put(Const.DESCRIPTION.getName(), attr -> new ConstShape(attr.get(AttributeKey.Value)));
-        map.put(Out.DESCRIPTION.getName(), attr -> new OutputShape(attr.get(AttributeKey.Label)));
-        map.put(Out.LEDDESCRIPTION.getName(), attr -> new LEDShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
-        map.put(Probe.DESCRIPTION.getName(), attr -> new ProbeShape(attr.get(AttributeKey.Label)));
-        map.put(Clock.DESCRIPTION.getName(), attr -> new ClockShape(attr.get(AttributeKey.Label)));
-        map.put(Out.SEVENDESCRIPTION.getName(), attr -> new SevenSegShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
-        map.put(Out.SEVENHEXDESCRIPTION.getName(), attr -> new SevenSegHexShape(attr.get(AttributeKey.Label), attr.get(AttributeKey.Color)));
+        map.put(In.DESCRIPTION.getName(), InputShape::new);
+        map.put(Reset.DESCRIPTION.getName(), ResetShape::new);
+        map.put(Const.DESCRIPTION.getName(), ConstShape::new);
+        map.put(Out.DESCRIPTION.getName(), OutputShape::new);
+        map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
+        map.put(Probe.DESCRIPTION.getName(), ProbeShape::new);
+        map.put(Clock.DESCRIPTION.getName(), ClockShape::new);
+        map.put(Out.SEVENDESCRIPTION.getName(), SevenSegShape::new);
+        map.put(Out.SEVENHEXDESCRIPTION.getName(), SevenSegHexShape::new);
+        map.put(DummyElement.DATADESCRIPTION.getName(), DataShape::new);
 
-        map.put(Break.DESCRIPTION.getName(), attributes -> new BreakShape(attributes.get(AttributeKey.Label)));
+        map.put(Break.DESCRIPTION.getName(), BreakShape::new);
 
-        map.put(Multiplexer.DESCRIPTION.getName(), attr -> new MuxerShape(attr.get(AttributeKey.SelectorBits), attr.get(AttributeKey.FlipSelPositon)));
-        map.put(Demultiplexer.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), true, attr.get(AttributeKey.FlipSelPositon)));
-        map.put(Decoder.DESCRIPTION.getName(), attr -> new DemuxerShape(attr.get(AttributeKey.SelectorBits), false, attr.get(AttributeKey.FlipSelPositon)));
+        map.put(Multiplexer.DESCRIPTION.getName(), MuxerShape::new);
+        map.put(Demultiplexer.DESCRIPTION.getName(), attr -> new DemuxerShape(attr, true));
+        map.put(Decoder.DESCRIPTION.getName(), attr -> new DemuxerShape(attr, false));
 
-        map.put(Splitter.DESCRIPTION.getName(), attr -> new SplitterShape(attr.get(AttributeKey.InputSplit), attr.get(AttributeKey.OutputSplit)));
-        map.put(Driver.DESCRIPTION.getName(), attr -> new DriverShape(attr.get(AttributeKey.FlipSelPositon)));
+        map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
+        map.put(Driver.DESCRIPTION.getName(), DriverShape::new);
     }
 
     private OutputPinInfo[] outputInfos(ElementTypeDescription description, ElementAttributes attributes) {
