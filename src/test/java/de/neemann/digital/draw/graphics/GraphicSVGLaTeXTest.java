@@ -11,8 +11,10 @@ public class GraphicSVGLaTeXTest extends TestCase {
 
         assertEquals("$Z_{0}$", gs.formatText("Z_0", Style.NORMAL.getFontSize()));
         assertEquals("\\&amp;", gs.formatText("&", Style.NORMAL.getFontSize()));
-        assertEquals("$\\geq$1", gs.formatText("\u22651", Style.NORMAL.getFontSize()));
-        assertEquals("$\\neg$Q", gs.formatText("~Q", Style.NORMAL.getFontSize()));
+        assertEquals("$\\geq{}$1", gs.formatText("\u22651", Style.NORMAL.getFontSize()));
+        assertEquals("$\\geq{}1$", gs.formatText("$\u22651$", Style.NORMAL.getFontSize()));
+        assertEquals("$\\neg{}$Q", gs.formatText("~Q", Style.NORMAL.getFontSize()));
+        assertEquals("$\\neg{}Q$", gs.formatText("$~Q$", Style.NORMAL.getFontSize()));
         assertEquals("&lt;a&gt;", gs.formatText("<a>", Style.NORMAL.getFontSize()));
         assertEquals("Grün", gs.formatText("Grün", Style.NORMAL.getFontSize()));
 
