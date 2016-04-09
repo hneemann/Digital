@@ -59,6 +59,15 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     }
 
     /**
+     * Deletes all data
+     */
+    public void clear() {
+        samples.clear();
+        min = null;
+        max = null;
+    }
+
+    /**
      * Adds a new Datasample
      *
      * @param sample the DataSample
@@ -194,4 +203,5 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     public ArrayList<Model.Signal> getSignals() {
         return signals;
     }
+
 }

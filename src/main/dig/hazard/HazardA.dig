@@ -1,151 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-    <version>1</version>
-    <attributes/>
-    <visualElements>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>x_2</string>
-                </entry>
-                <entry>
-                    <string>Default</string>
-                    <int>1</int>
-                </entry>
-            </elementAttributes>
-            <pos x="520" y="420"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>y</string>
-                </entry>
-            </elementAttributes>
-            <pos x="820" y="480"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>And</elementName>
-            <elementAttributes/>
-            <pos x="620" y="420"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Or</elementName>
-            <elementAttributes/>
-            <pos x="720" y="460"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>And</elementName>
-            <elementAttributes/>
-            <pos x="620" y="500"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>x_0</string>
-                </entry>
-            </elementAttributes>
-            <pos x="520" y="480"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>x_1</string>
-                </entry>
-                <entry>
-                    <string>Default</string>
-                    <int>1</int>
-                </entry>
-            </elementAttributes>
-            <pos x="520" y="540"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Not</elementName>
-            <elementAttributes/>
-            <pos x="560" y="460"/>
-            <rotate>0</rotate>
-        </visualElement>
-    </visualElements>
-    <wires>
-        <wire>
-            <p1 x="780" y="480"/>
-            <p2 x="820" y="480"/>
-        </wire>
-        <wire>
-            <p1 x="520" y="480"/>
-            <p2 x="540" y="480"/>
-        </wire>
-        <wire>
-            <p1 x="700" y="500"/>
-            <p2 x="720" y="500"/>
-        </wire>
-        <wire>
-            <p1 x="540" y="500"/>
-            <p2 x="620" y="500"/>
-        </wire>
-        <wire>
-            <p1 x="520" y="420"/>
-            <p2 x="620" y="420"/>
-        </wire>
-        <wire>
-            <p1 x="680" y="440"/>
-            <p2 x="700" y="440"/>
-        </wire>
-        <wire>
-            <p1 x="680" y="520"/>
-            <p2 x="700" y="520"/>
-        </wire>
-        <wire>
-            <p1 x="700" y="460"/>
-            <p2 x="720" y="460"/>
-        </wire>
-        <wire>
-            <p1 x="600" y="460"/>
-            <p2 x="620" y="460"/>
-        </wire>
-        <wire>
-            <p1 x="540" y="460"/>
-            <p2 x="560" y="460"/>
-        </wire>
-        <wire>
-            <p1 x="520" y="540"/>
-            <p2 x="620" y="540"/>
-        </wire>
-        <wire>
-            <p1 x="700" y="440"/>
-            <p2 x="700" y="460"/>
-        </wire>
-        <wire>
-            <p1 x="700" y="500"/>
-            <p2 x="700" y="520"/>
-        </wire>
-        <wire>
-            <p1 x="540" y="460"/>
-            <p2 x="540" y="480"/>
-        </wire>
-        <wire>
-            <p1 x="540" y="480"/>
-            <p2 x="540" y="500"/>
-        </wire>
-    </wires>
-    <measurementOrdering>
-        <string>x_0</string>
-        <string>x_1</string>
-        <string>x_2</string>
-        <string>y</string>
-    </measurementOrdering>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>x_2</string>
+        </entry>
+        <entry>
+          <string>Default</string>
+          <int>1</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="420"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>y</string>
+        </entry>
+      </elementAttributes>
+      <pos x="860" y="480"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes/>
+      <pos x="620" y="420"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes/>
+      <pos x="760" y="460"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes/>
+      <pos x="620" y="500"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>x_0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="480"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>x_1</string>
+        </entry>
+        <entry>
+          <string>Default</string>
+          <int>1</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="540"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="560" y="460"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Data</elementName>
+      <elementAttributes>
+        <entry>
+          <string>microStep</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="200"/>
+      <rotate>0</rotate>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="820" y="480"/>
+      <p2 x="860" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="480"/>
+      <p2 x="540" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="500"/>
+      <p2 x="760" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="500"/>
+      <p2 x="620" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="420"/>
+      <p2 x="620" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="440"/>
+      <p2 x="720" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="520"/>
+      <p2 x="720" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="460"/>
+      <p2 x="760" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="460"/>
+      <p2 x="620" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="460"/>
+      <p2 x="560" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="540"/>
+      <p2 x="620" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="440"/>
+      <p2 x="720" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="500"/>
+      <p2 x="720" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="460"/>
+      <p2 x="540" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="480"/>
+      <p2 x="540" y="500"/>
+    </wire>
+  </wires>
+  <measurementOrdering>
+    <string>x_0</string>
+    <string>x_1</string>
+    <string>x_2</string>
+    <string>y</string>
+  </measurementOrdering>
 </circuit>

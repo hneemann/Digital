@@ -21,6 +21,10 @@ public class DataSetObserver implements ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
+        if (event.getType() == ModelEvent.Event.STARTED) {
+            dataSet.clear();
+            maintime = 0;
+        }
         if (event.getType() == ModelEvent.Event.MANUALCHANGE) {
             if (manualSample == null)
                 manualSample = new DataSample(maintime, dataSet.signalSize());
