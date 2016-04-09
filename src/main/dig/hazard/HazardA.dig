@@ -23,7 +23,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>y</string>
+          <string>$y$</string>
         </entry>
       </elementAttributes>
       <pos x="860" y="480"/>

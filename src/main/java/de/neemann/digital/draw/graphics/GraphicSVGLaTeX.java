@@ -20,19 +20,22 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     public String formatText(String text, int fontSize) {
         text = formatIndex(text);
         StringBuilder sb = new StringBuilder();
+        boolean inMath = false;
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             switch (c) {
                 case '~':
                 case '\u00AC':
-                    sb.append("$\\neg$");
+                    sb.append(checkMath(inMath, "\\neg{}"));
                     break;
                 case '\u2265':
-                    sb.append("$\\geq$");
+                    sb.append(checkMath(inMath, "\\geq{}"));
                     break;
                 case '&':
                     sb.append("\\&");
                     break;
+                case '$':
+                    inMath = !inMath;
                 default:
                     sb.append(c);
             }
@@ -41,6 +44,13 @@ public class GraphicSVGLaTeX extends GraphicSVG {
         if (fontSize < Style.NORMAL.getFontSize())
             text = "{\\scriptsize " + text + "}";
         return escapeXML(text);
+    }
+
+    private String checkMath(boolean inMath, String s) {
+        if (inMath)
+            return s;
+        else
+            return "$" + s + "$";
     }
 
     public String formatIndex(String text) {

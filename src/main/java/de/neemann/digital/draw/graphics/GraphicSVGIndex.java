@@ -19,6 +19,10 @@ public class GraphicSVGIndex extends GraphicSVG {
 
     @Override
     public String formatText(String text, int fontSize) {
+        if (text.length() >= 3) {
+            if ((text.charAt(0) == '$') && (text.charAt(text.length() - 1) == '$'))
+                text = text.substring(1, text.length() - 1);
+        }
         return formatSVGIndex(escapeXML(formatIndex(text)));
     }
 
