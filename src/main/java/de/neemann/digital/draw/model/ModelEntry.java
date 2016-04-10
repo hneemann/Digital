@@ -18,14 +18,16 @@ public class ModelEntry {
     private final Element element;
     private final Pins pins;
     private final String[] inputNames;
+    private final boolean isNestedElement;
     private final VisualElement visualElement;
     private IOState ioState;
 
-    public ModelEntry(Element element, Pins pins, VisualElement visualElement, String[] inputNames) {
+    public ModelEntry(Element element, Pins pins, VisualElement visualElement, String[] inputNames, boolean isNestedElement) {
         this.element = element;
         this.pins = pins;
         this.visualElement = visualElement;
         this.inputNames = inputNames;
+        this.isNestedElement = isNestedElement;
     }
 
     /**
@@ -68,9 +70,11 @@ public class ModelEntry {
     }
 
     public void connectToGui(Observer guiObserver) {
-        if (ioState == null)
-            throw new RuntimeException("call applyInputs before connectToGui");
-        visualElement.setState(ioState, guiObserver);
+        if (!isNestedElement) {
+            if (ioState == null)
+                throw new RuntimeException("call applyInputs before connectToGui");
+            visualElement.setState(ioState, guiObserver);
+        }
     }
 
     public Pins getPins() {

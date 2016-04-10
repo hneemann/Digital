@@ -62,17 +62,17 @@ public class ModelDescription implements Iterable<ModelEntry> {
      *
      * @param circuit      the circuit to use
      * @param library      the library to use
-     * @param readAsCustom if true the model is created for use as nested element
+     * @param isNestedCircuit if true the model is created for use as nested element
      * @param fileName     only used for better messages in exceptions
      * @param netList      the NetList of the model. If known it is not necessary to create it.
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom, String fileName, NetList netList) throws PinException, NodeException {
+    public ModelDescription(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, String fileName, NetList netList) throws PinException, NodeException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
-        if (readAsCustom)
+        if (isNestedCircuit)
             ioMap = new HashMap<>();
         else
             ioMap = null;
@@ -88,7 +88,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
             // if handled as nested element, don't put pins in EntryList, but put the pins in a
             // separate map to connect it with the parent!
             boolean isNotAIO = true;
-            if (readAsCustom) {
+            if (isNestedCircuit) {
                 if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION) {
                     String label = ve.getElementAttributes().get(AttributeKey.Label);
                     if (label == null || label.length() == 0)
@@ -104,23 +104,23 @@ public class ModelDescription implements Iterable<ModelEntry> {
             }
 
             if (isNotAIO)
-                entries.add(new ModelEntry(element, pins, ve, elementType.getInputNames(ve.getElementAttributes())));
+                entries.add(new ModelEntry(element, pins, ve, elementType.getInputNames(ve.getElementAttributes()), isNestedCircuit));
 
             for (Pin p : pins)
                 netList.add(p);
         }
 
-
+        // connect all custom elements to the parents net
         ArrayList<ModelDescription> cmdl = new ArrayList<>();
         Iterator<ModelEntry> it = entries.iterator();
         while (it.hasNext()) {
             ModelEntry me = it.next();
-            if (me.getElement() instanceof CustomElement) {
+            if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
                 CustomElement ce = (CustomElement) me.getElement();
                 ModelDescription child = ce.getModelDescription();
                 cmdl.add(child);
 
-                for (Pin p : me.getPins()) {
+                for (Pin p : me.getPins()) {                     // connect the custom elements to the parents net
                     Net childNet = child.getNetOfIOandRemove(p.getName());
                     Net thisNet = netList.getNetOfPin(p);
                     if (thisNet != null) {
@@ -135,7 +135,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
                 it.remove();
             }
         }
-        for (ModelDescription md : cmdl) {
+        for (ModelDescription md : cmdl) {       // put the elements of the custom element to the parent
             entries.addAll(md.entries);
             netList.add(md.netList);
         }

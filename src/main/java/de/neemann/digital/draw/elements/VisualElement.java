@@ -174,7 +174,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     /**
      * Sets the state of the elements inputs and outputs
      *
-     * @param ioState     actual state, if null VisualPart is reset
+     * @param ioState     actual state, if null VisualPart is reseted
      * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
      */
     public void setState(IOState ioState, Observer guiObserver) {
