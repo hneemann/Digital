@@ -47,7 +47,7 @@ public class LEDShape implements Shape {
         if (ioState != null) {
             fill = false;
             ObservableValue value = ioState.getInput(0);
-            if (!value.isHighZIgnoreBurn() && (value.getValue() != 0))
+            if (!value.isHighZ() && (value.getValue() != 0))
                 fill = true;
         }
 

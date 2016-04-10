@@ -8,12 +8,19 @@ import java.util.ResourceBundle;
 /**
  * @author hneemann
  */
-public class Lang {
+public final class Lang {
 
     private static class InstanceHolder {
         static final Lang INSTANCE = new Lang();
     }
 
+    /**
+     * gets an internationalized string
+     *
+     * @param key    the key
+     * @param params optional parameters
+     * @return the internationalized string
+     */
     public static String get(String key, Object... params) {
         return InstanceHolder.INSTANCE.getKey(key, params);
     }

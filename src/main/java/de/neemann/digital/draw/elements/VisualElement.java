@@ -17,6 +17,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
+ * This class is used to store the visual representation of an element.
+ * Instances of this class are also used to store a circuit to disk.
+ *
  * @author hneemann
  */
 public class VisualElement implements Drawable, Moveable, AttributeListener {
@@ -32,12 +35,23 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     private Vector pos;
     private int rotate;
 
+    /**
+     * creates a new instance
+     * The name of the element is the name which is given to the Library to get the {@link de.neemann.digital.core.element.ElementTypeDescription}
+     *
+     * @param elementName the name of the element
+     */
     public VisualElement(String elementName) {
         this.elementName = elementName;
         elementAttributes = new ElementAttributes();
         pos = new Vector(0, 0);
     }
 
+    /**
+     * Creates a copy of the given VisualElement
+     *
+     * @param proto the VisualElement to copy
+     */
     public VisualElement(VisualElement proto) {
         this.elementName = proto.elementName;
         this.elementAttributes = new ElementAttributes(proto.elementAttributes);
@@ -45,51 +59,95 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         this.rotate = proto.rotate;
     }
 
+    /**
+     * Returns the name of the element.
+     * The name of the element is the name which is given to the Library to get the {@link de.neemann.digital.core.element.ElementTypeDescription}
+     *
+     * @return the name of the element
+     */
     public String getElementName() {
         return elementName;
     }
 
+    /**
+     * @return the elements attributes
+     */
     public ElementAttributes getElementAttributes() {
         elementAttributes.addListener(this);
         return elementAttributes;
     }
 
+    /**
+     * @return the position of this element
+     */
     public Vector getPos() {
         return pos;
     }
 
+    /**
+     * Sets the position of this element
+     *
+     * @param pos the position
+     * @return this for chained calls
+     */
     public VisualElement setPos(Vector pos) {
         this.pos = pos;
         minMax = null;
         return this;
     }
 
+    /**
+     * Checks if the given point is within the bounding box of the shape of this element.
+     *
+     * @param p a position
+     * @return true if p is inside the bounding box of the shape of this element.
+     */
     public boolean matches(Vector p) {
         GraphicMinMax m = getMinMax();
-        return (m.getMin().x <= p.x) &&
-                (m.getMin().y <= p.y) &&
-                (p.x <= m.getMax().x) &&
-                (p.y <= m.getMax().y);
+        return (m.getMin().x <= p.x)
+                && (m.getMin().y <= p.y)
+                && (p.x <= m.getMax().x)
+                && (p.y <= m.getMax().y);
     }
 
+    /**
+     * Checks if the given bounding box contains the bounding box of the shape of this element.
+     *
+     * @param min upper left corner of the bounding box
+     * @param max lower right corner of the bounding box
+     * @return true if the given box completely contains this element
+     */
     public boolean matches(Vector min, Vector max) {
         GraphicMinMax m = getMinMax();
-        return (min.x <= m.getMin().x) &&
-                (m.getMax().x <= max.x) &&
-                (min.y <= m.getMin().y) &&
-                (m.getMax().y <= max.y);
+        return (min.x <= m.getMin().x)
+                && (m.getMax().x <= max.x)
+                && (min.y <= m.getMin().y)
+                && (m.getMax().y <= max.y);
     }
 
-
+    /**
+     * @return the rotation of this element
+     */
     public int getRotate() {
         return rotate;
     }
 
+    /**
+     * sets the rotation of this element
+     *
+     * @param rotate the new value in the range 0-3
+     */
     public void setRotate(int rotate) {
         this.rotate = rotate;
         minMax = null;
     }
 
+    /**
+     * Returns the shape of this element.
+     * The there is no shape the {@link ShapeFactory} is requested for the shape.
+     *
+     * @return the shape
+     */
     public Shape getShape() {
         if (shape == null)
             shape = shapeFactory.getShape(elementName, elementAttributes);
@@ -103,8 +161,8 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
         shape.drawTo(gr, highLight);
         for (Pin p : shape.getPins())
-            gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN)
-                    , p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
+            gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN),
+                    p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
 
         if (highLight && minMax == null && !(graphic instanceof GraphicMinMax)) getMinMax();
 
@@ -124,6 +182,9 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
             return new TransformRotate(pos, rotate);
     }
 
+    /**
+     * @return the bounding box of the shape of this element
+     */
     public GraphicMinMax getMinMax() {
         if (minMax == null) {
             GraphicMinMax mm = new GraphicMinMax();
@@ -139,6 +200,13 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         minMax = null;
     }
 
+    /**
+     * Create an icon from this element.
+     * Is used to create the icons in the element menu
+     *
+     * @param maxHeight the maximum hight
+     * @return the icon ore null if the maximum height is exceeded.
+     */
     public ImageIcon createIcon(int maxHeight) {
         GraphicMinMax mm = getMinMax();
 
@@ -161,6 +229,9 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         return new ImageIcon(bi);
     }
 
+    /**
+     * @return the pins of this element
+     */
     public Pins getPins() {
         Shape shape = getShape();
         Transform tr = createTransform();
@@ -186,6 +257,13 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
             interactor = getShape().applyStateMonitor(ioState, guiObserver);
     }
 
+    /**
+     * Is called if this element is clicked by the mouse.
+     * the call is delegated to the {@link Interactor} of the {@link Shape}
+     *
+     * @param cc  the calling {@link CircuitComponent}
+     * @param pos the position
+     */
     public void clicked(CircuitComponent cc, Point pos) {
         if (interactor != null)
             interactor.clicked(cc, pos, ioState, element);
@@ -207,14 +285,22 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
             return elementName;
     }
 
+    /**
+     * Sets the concrete element created.
+     * The value is given to the {@link Interactor} if the shape is clicked.
+     *
+     * @param element the element
+     */
     public void setElement(Element element) {
         this.element = element;
     }
 
-    public Element getElement() {
-        return element;
-    }
-
+    /**
+     * Sets the shape factory of this element.
+     *
+     * @param shapeFactory the {@link ShapeFactory}
+     * @return this for chained calls
+     */
     public VisualElement setShapeFactory(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
         return this;
