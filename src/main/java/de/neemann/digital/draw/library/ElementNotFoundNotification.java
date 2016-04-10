@@ -9,7 +9,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
  */
 public interface ElementNotFoundNotification {
     /**
-     * called if the library could not create an element
+     * Called if the {@link ElementLibrary} could not create an element
      *
      * @param elementName the elements name
      * @return the element or null if not loadable

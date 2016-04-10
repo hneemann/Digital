@@ -33,6 +33,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private ArrayList<ElementContainer> list = new ArrayList<>();
     private ElementNotFoundNotification elementNotFoundNotification;
 
+    /**
+     * Creates a new instance.
+     */
     public ElementLibrary() {
         String menu = Lang.get("lib_Logic");
         add(And.DESCRIPTION, menu);
@@ -93,6 +96,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         list.add(new ElementContainer(description.getName(), treePath));
     }
 
+    /**
+     * Adds a description to the library
+     *
+     * @param description the descritpion
+     */
     public void addDescription(ElementTypeDescription description) {
         String name = description.getName();
         if (map.containsKey(name))
@@ -101,6 +109,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         map.put(name, description);
     }
 
+    /**
+     * Returns a {@link ElementTypeDescription} by a given name.
+     * If not found its tryed to load it.
+     *
+     * @param elementName the elements name
+     * @return the {@link ElementTypeDescription} ore null if not found
+     */
     public ElementTypeDescription getElementType(String elementName) {
         ElementTypeDescription pd = map.get(elementName);
         if (pd == null) {
@@ -117,27 +132,52 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         return list.iterator();
     }
 
+    /**
+     * Setes the {@link ElementNotFoundNotification} which can be calle if a element is not present.
+     *
+     * @param elementNotFoundNotification elementNotFoundNotification
+     */
     public void setElementNotFoundNotification(ElementNotFoundNotification elementNotFoundNotification) {
         this.elementNotFoundNotification = elementNotFoundNotification;
     }
 
+    /**
+     * Removes an element from the library
+     *
+     * @param name the elements name
+     */
     public void removeElement(String name) {
         map.remove(name);
     }
 
+    /**
+     * Used to store a elements name and its position in the elements menu.
+     */
     public static class ElementContainer {
         private final String name;
         private final String treePath;
 
+        /**
+         * Creates anew instance
+         *
+         * @param name     the elements name
+         * @param treePath the elements menu path
+         */
         public ElementContainer(String name, String treePath) {
             this.name = name;
             this.treePath = treePath;
         }
 
+        /**
+         * @return the elements name
+         */
         public String getName() {
             return name;
         }
 
+        /**
+         * @return Returns the path in the menu
+         */
         public String getTreePath() {
             return treePath;
         }
