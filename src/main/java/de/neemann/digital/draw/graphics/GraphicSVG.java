@@ -93,7 +93,7 @@ public class GraphicSVG implements Graphic, Closeable {
     public void drawCircle(Vector p1, Vector p2, Style style) {
         try {
             Vector c = p1.add(p2).div(2);
-            double r = Math.abs(p2.sub(p1).x) / 2;
+            double r = Math.abs(p2.sub(p1).x) / 2.0;
             if (style.isFilled())
                 w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" />\n");
             else {
