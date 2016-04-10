@@ -11,7 +11,7 @@ import de.neemann.digital.lang.Lang;
  */
 public class AttributeKey<VALUE> {
 
-    //CHECKSTYLE:OFF: checkstyle:ConstantName
+    //CHECKSTYLE:OFF
     public static final AttributeKey<Integer> Bits = new AttributeKey<>("Bits", Lang.get("key_dataBits"), 1);
     public static final AttributeKey<Integer> InputCount = new AttributeKey<>("Inputs", Lang.get("key_numberInputs"), 2);
     public static final AttributeKey<String> Label = new AttributeKey<>("Label", Lang.get("key_label"), "");
@@ -38,7 +38,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Boolean> ShowDataGraph = new AttributeKey<>("showDataGraph", Lang.get("key_showDataGraph"), false);
     public static final AttributeKey<Boolean> StartTimer = new AttributeKey<>("startTimer", Lang.get("key_startClock"), false);
     public static final AttributeKey<Boolean> MicroStep = new AttributeKey<>("microStep", Lang.get("key_microStep"), false);
-    //CHECKSTYLE:ON: checkstyle:ConstantName
+    //CHECKSTYLE:ON
 
     private final String key;
     private final VALUE def;
