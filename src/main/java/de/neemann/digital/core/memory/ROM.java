@@ -17,6 +17,10 @@ import java.io.File;
  * @author hneemann
  */
 public class ROM extends Node implements Element {
+    /**
+     * Key used to store the source file in the attribute set
+     */
+    public final static String LAST_DATA_FILE_KEY = "lastDataFile";
 
     /**
      * The ROMs {@link ElementTypeDescription}
@@ -51,9 +55,9 @@ public class ROM extends Node implements Element {
         data = attr.get(AttributeKey.Data);
         addrBits = attr.get(AttributeKey.AddrBits);
         showList = attr.get(AttributeKey.ShowListing);
-        if (showList)
-            listFile = attr.getFile("lastDataFile");
-        else
+        if (showList) {
+            listFile = attr.getFile(LAST_DATA_FILE_KEY);
+        } else
             listFile = null;
     }
 

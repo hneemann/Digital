@@ -4,6 +4,7 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -194,9 +195,9 @@ public final class EditorFactory {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new JFileChooser();
-                    fc.setSelectedFile(attr.getFile("lastDataFile"));
+                    fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                     if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
-                        attr.setFile("lastDataFile", fc.getSelectedFile());
+                        attr.setFile(ROM.LAST_DATA_FILE_KEY, fc.getSelectedFile());
                         try {
                             data = new DataField(fc.getSelectedFile());
                         } catch (IOException e1) {
@@ -209,13 +210,13 @@ public final class EditorFactory {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             try {
-                                data = new DataField(attr.getFile("lastDataFile"));
+                                data = new DataField(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                             } catch (IOException e1) {
                                 new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
                             }
                         }
                     }
-                            .setActive(attr.getFile("lastDataFile") != null)
+                    .setActive(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
                             .setToolTip(Lang.get("btn_reload_tt"))
                             .createJButton()
             );
