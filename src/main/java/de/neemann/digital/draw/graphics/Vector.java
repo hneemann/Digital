@@ -1,22 +1,20 @@
 package de.neemann.digital.draw.graphics;
 
-import de.neemann.digital.draw.elements.Moveable;
-
 /**
  * Represents a 2D Vector
  *
  * @author hneemann
  */
-public class Vector implements Moveable {
+public class Vector {
 
     /**
      * the x coordinate
      */
-    public int x;
+    public final int x;
     /**
      * the y coordinate
      */
-    public int y;
+    public final int y;
 
     /**
      * Creates a new instance
@@ -147,12 +145,6 @@ public class Vector implements Moveable {
                 + "x=" + x
                 + ", y=" + y
                 + '}';
-    }
-
-    @Override
-    public void move(Vector delta) {
-        x += delta.x;
-        y += delta.y;
     }
 
     /**

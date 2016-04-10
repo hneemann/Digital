@@ -234,9 +234,9 @@ public class Circuit {
 
         for (Wire w : wires) {
             if (w.p1.inside(min, max))
-                m.add(w.p1);
+                m.add(w.getMovableP1());
             if (w.p2.inside(min, max))
-                m.add(w.p2);
+                m.add(w.getMovableP2());
         }
         if (m.isEmpty())
             return null;

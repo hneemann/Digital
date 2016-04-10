@@ -99,10 +99,10 @@ public class Wire implements Drawable, Moveable {
 
     @Override
     public String toString() {
-        return "Wire{" +
-                "p1=" + p1 +
-                ", p2=" + p2 +
-                '}';
+        return "Wire{"
+                + "p1=" + p1
+                + ", p2=" + p2
+                + '}';
     }
 
     public void setValue(ObservableValue value) {
@@ -121,6 +121,14 @@ public class Wire implements Drawable, Moveable {
     public void setDot(Vector p) {
         if (p.equals(p1)) p1Dot = true;
         if (p.equals(p2)) p2Dot = true;
+    }
+
+    public Moveable getMovableP1() {
+        return delta -> p1 = p1.add(delta);
+    }
+
+    public Moveable getMovableP2() {
+        return delta -> p2 = p2.add(delta);
     }
 
     enum Orientation {horzontal, vertical, diagonal}
