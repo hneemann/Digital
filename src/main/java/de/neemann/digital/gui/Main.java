@@ -9,6 +9,8 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.ElementOrder;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.linemerger.GraphicLineCollector;
+import de.neemann.digital.draw.graphics.linemerger.GraphicSkipLines;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.model.RealTimeClock;
@@ -607,8 +609,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 try {
                     Graphic gr = null;
                     try {
+                        GraphicLineCollector glc = new GraphicLineCollector();
+                        circuit.drawTo(glc);
                         gr = exporter.create(fc.getSelectedFile(), minMax.getMin(), minMax.getMax());
-                        circuit.drawTo(gr);
+                        glc.drawTo(gr);
+                        circuit.drawTo(new GraphicSkipLines(gr));
                     } finally {
                         if (gr instanceof Closeable)
                             ((Closeable) gr).close();
