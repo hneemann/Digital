@@ -169,7 +169,8 @@ public class CircuitComponent extends JComponent {
      * @param drawables the list of drawables
      */
     public void addHighLighted(Collection<? extends Drawable> drawables) {
-        highLighted.addAll(drawables);
+        if (drawables != null)
+            highLighted.addAll(drawables);
     }
 
     /**
