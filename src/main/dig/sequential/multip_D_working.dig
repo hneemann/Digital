@@ -3,19 +3,19 @@
   <version>1</version>
   <visualElements>
     <visualElement>
-      <elementName>D_MS.dig</elementName>
+      <elementName>D-MS.dig</elementName>
       <elementAttributes/>
       <pos x="200" y="120"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
-      <elementName>D_MS.dig</elementName>
+      <elementName>D-MS.dig</elementName>
       <elementAttributes/>
       <pos x="340" y="120"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
-      <elementName>D_MS.dig</elementName>
+      <elementName>D-MS.dig</elementName>
       <elementAttributes/>
       <pos x="480" y="120"/>
       <rotate>0</rotate>

@@ -21,19 +21,19 @@
             <rotate>0</rotate>
         </visualElement>
         <visualElement>
-            <elementName>D_T.dig</elementName>
+            <elementName>D-T.dig</elementName>
             <elementAttributes/>
             <pos x="200" y="120"/>
             <rotate>0</rotate>
         </visualElement>
         <visualElement>
-            <elementName>D_T.dig</elementName>
+            <elementName>D-T.dig</elementName>
             <elementAttributes/>
             <pos x="340" y="120"/>
             <rotate>0</rotate>
         </visualElement>
         <visualElement>
-            <elementName>D_T.dig</elementName>
+            <elementName>D-T.dig</elementName>
             <elementAttributes/>
             <pos x="480" y="120"/>
             <rotate>0</rotate>

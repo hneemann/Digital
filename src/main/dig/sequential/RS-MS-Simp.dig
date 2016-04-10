@@ -58,13 +58,13 @@
             <rotate>0</rotate>
         </visualElement>
         <visualElement>
-            <elementName>RS_C.dig</elementName>
+            <elementName>RS-C.dig</elementName>
             <elementAttributes/>
             <pos x="1340" y="440"/>
             <rotate>0</rotate>
         </visualElement>
         <visualElement>
-            <elementName>RS_C.dig</elementName>
+            <elementName>RS-C.dig</elementName>
             <elementAttributes/>
             <pos x="1460" y="440"/>
             <rotate>0</rotate>
