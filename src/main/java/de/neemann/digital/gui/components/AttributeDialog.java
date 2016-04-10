@@ -72,11 +72,11 @@ public class AttributeDialog extends JDialog {
         return changed;
     }
 
-    private class EditorHolder<T> {
+    private static class EditorHolder<T> {
         private final Editor<T> e;
         private final AttributeKey<T> key;
 
-        public EditorHolder(Editor<T> e, AttributeKey<T> key) {
+        private EditorHolder(Editor<T> e, AttributeKey<T> key) {
             this.e = e;
             this.key = key;
         }

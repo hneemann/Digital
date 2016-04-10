@@ -34,7 +34,7 @@ public class DataField {
     }
 
     public DataField(File file) throws IOException {
-        this(new FileReader(file));
+        this(new InputStreamReader(new FileInputStream(file), "UTF-8"));
     }
 
     public DataField(Reader reader) throws IOException {

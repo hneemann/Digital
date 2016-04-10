@@ -101,7 +101,7 @@ public final class InfoDialog {
         public Manifest(URL url) throws IOException {
             this.url = url;
             manifest = new HashMap<String, String>();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {

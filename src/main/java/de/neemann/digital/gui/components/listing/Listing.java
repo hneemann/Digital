@@ -1,10 +1,7 @@
 package de.neemann.digital.gui.components.listing;
 
 import javax.swing.event.ListDataListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,7 +15,7 @@ public class Listing implements javax.swing.ListModel<String> {
     public Listing(File filename) throws IOException {
         lines = new ArrayList<String>();
         addrMap = new HashMap<>();
-        try (BufferedReader r = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"))) {
             String line;
             while ((line = r.readLine()) != null)
                 addLine(line);

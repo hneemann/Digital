@@ -14,12 +14,12 @@ import java.awt.event.WindowEvent;
  * @author hneemann
  */
 public class ClosingWindowListener extends WindowAdapter {
-    public static String SAVE_CHANGES_MESSAGE = Lang.get("win_saveChanges");
-    public static String CONFIRM_EXIT_MESSAGE = Lang.get("win_confirmExit");
-    public static String STATE_CHANGED_MESSAGE = Lang.get("win_stateChanged");
-    public static String NO_MESSAGE = Lang.get("btn_discard");
-    public static String YES_MESSAGE = Lang.get("btn_save");
-    public static String CANCEL_MESSAGE = Lang.get("btn_editFurther");
+    private final static String SAVE_CHANGES_MESSAGE = Lang.get("win_saveChanges");
+    private final static String CONFIRM_EXIT_MESSAGE = Lang.get("win_confirmExit");
+    private final static String STATE_CHANGED_MESSAGE = Lang.get("win_stateChanged");
+    private final static String NO_MESSAGE = Lang.get("btn_discard");
+    private final static String YES_MESSAGE = Lang.get("btn_save");
+    private final static String CANCEL_MESSAGE = Lang.get("btn_editFurther");
     private final Component parent;
     private final GUICloser guiCloser;
 

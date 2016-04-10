@@ -35,8 +35,8 @@ public class GraphicSVG implements Graphic, Closeable {
                 "   xmlns:svg=\"http://www.w3.org/2000/svg\"\n" +
                 "   xmlns=\"http://www.w3.org/2000/svg\"\n");
 
-        double width = (max.x - min.x) * svgScale / 100;
-        double height = (max.y - min.y) * svgScale / 100;
+        double width = (max.x - min.x) * svgScale / 100.0;
+        double height = (max.y - min.y) * svgScale / 100.0;
 
         w.write("   width=\"" + width + "mm\"\n" +
                 "   height=\"" + height + "mm\"\n" +

@@ -66,7 +66,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
         }
     }
 
-    private class SignalTableModel implements TableModel {
+    private static class SignalTableModel implements TableModel {
         private final ArrayList<Model.Signal> signals;
         private ArrayList<TableModelListener> listeners = new ArrayList<>();
 

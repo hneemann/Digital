@@ -97,13 +97,13 @@ public class DataEditor extends JDialog {
         return ok;
     }
 
-    private class MyTableModel implements TableModel, DataField.DataListener {
+    private static class MyTableModel implements TableModel, DataField.DataListener {
         private final DataField dataField;
         private final int cols;
         private final int rows;
         private ArrayList<TableModelListener> listener = new ArrayList<>();
 
-        public MyTableModel(DataField dataField, int cols) {
+        private MyTableModel(DataField dataField, int cols) {
             this.dataField = dataField;
             this.cols = cols;
             rows = (dataField.size() - 1) / cols + 1;
@@ -142,7 +142,7 @@ public class DataEditor extends JDialog {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (columnIndex == 0) {
-                return new MyLong(rowIndex * cols);
+                return new MyLong((long) rowIndex * cols);
             }
             return new MyLong(dataField.getData(rowIndex * cols + (columnIndex - 1)));
         }
@@ -152,7 +152,7 @@ public class DataEditor extends JDialog {
             dataField.setData(rowIndex * cols + (columnIndex - 1), ((MyLong) aValue).getValue());
         }
 
-        public void fireEvent(TableModelEvent e) {
+        private void fireEvent(TableModelEvent e) {
             for (TableModelListener l : listener)
                 l.tableChanged(e);
         }
@@ -174,11 +174,11 @@ public class DataEditor extends JDialog {
     }
 
 
-    private class MyLongRenderer extends DefaultTableCellRenderer {
+    private static class MyLongRenderer extends DefaultTableCellRenderer {
 
         private final int chars;
 
-        public MyLongRenderer(int bits) {
+        private MyLongRenderer(int bits) {
             this.chars = (bits - 1) / 4 + 1;
             setHorizontalAlignment(JLabel.RIGHT);
         }

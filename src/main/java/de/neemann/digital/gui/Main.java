@@ -456,7 +456,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             model.init();
 
             return true;
-        } catch (Exception e) {
+        } catch (NodeException | PinException | RuntimeException e) {
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
