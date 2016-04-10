@@ -4,43 +4,69 @@ import java.io.*;
 import java.util.Date;
 
 /**
+ * Used to create a SVG representatiob of the circuit.
+ *
  * @author hneemann
  */
 public class GraphicSVG implements Graphic, Closeable {
     private static final int DEF_SCALE = 15;
     private final BufferedWriter w;
 
+    /**
+     * Creates a new instance.
+     *
+     * @param file the file
+     * @param min  upper left corner
+     * @param max  lower right corner
+     * @throws IOException IOException
+     */
     public GraphicSVG(File file, Vector min, Vector max) throws IOException {
         this(file, min, max, null, DEF_SCALE);
     }
 
-    public GraphicSVG(File file, Vector min, Vector max, File source) throws IOException {
-        this(file, min, max, source, DEF_SCALE);
-    }
-
+    /**
+     * Creates a new instance.
+     *
+     * @param file     the file
+     * @param min      upper left corner
+     * @param max      lower right corner
+     * @param source   source file, only used to create a comment in the SVG file
+     * @param svgScale the scaling
+     * @throws IOException IOException
+     */
     public GraphicSVG(File file, Vector min, Vector max, File source, int svgScale) throws IOException {
         this(new FileOutputStream(file), min, max, source, svgScale);
     }
 
+    /**
+     * Creates a new instance.
+     *
+     * @param out      the stream to write the file to
+     * @param min      upper left corner
+     * @param max      lower right corner
+     * @param source   source file, only used to create a comment in the SVG file
+     * @param svgScale the scaling
+     * @throws IOException IOException
+     */
     public GraphicSVG(OutputStream out, Vector min, Vector max, File source, int svgScale) throws IOException {
         w = new BufferedWriter(new OutputStreamWriter(out, "utf-8"));
-        w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
-                "<!-- Created with Digital by H.Neemann -->\n");
+        w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+                + "<!-- Created with Digital by H.Neemann -->\n");
         w.write("<!-- created: " + new Date() + " -->\n");
         if (source != null) {
             w.write("<!-- source: " + source.getPath() + " -->\n");
         }
-        w.write("\n" +
-                "<svg\n" +
-                "   xmlns:svg=\"http://www.w3.org/2000/svg\"\n" +
-                "   xmlns=\"http://www.w3.org/2000/svg\"\n");
+        w.write("\n"
+                + "<svg\n"
+                + "   xmlns:svg=\"http://www.w3.org/2000/svg\"\n"
+                + "   xmlns=\"http://www.w3.org/2000/svg\"\n");
 
         double width = (max.x - min.x) * svgScale / 100.0;
         double height = (max.y - min.y) * svgScale / 100.0;
 
-        w.write("   width=\"" + width + "mm\"\n" +
-                "   height=\"" + height + "mm\"\n" +
-                "   viewBox=\"" + min.x + " " + min.y + " " + (max.x - min.x) + " " + (max.y - min.y) + "\">\n");
+        w.write("   width=\"" + width + "mm\"\n"
+                + "   height=\"" + height + "mm\"\n"
+                + "   viewBox=\"" + min.x + " " + min.y + " " + (max.x - min.x) + " " + (max.y - min.y) + "\">\n");
         w.write("<g>\n");
     }
 
@@ -148,15 +174,36 @@ public class GraphicSVG implements Graphic, Closeable {
         }
     }
 
+    /**
+     * Is used by drawText to format the given text to SVG.
+     * This implementation only calls escapeXML(text).
+     *
+     * @param text     the text
+     * @param fontSize the fontsize
+     * @return the formated text
+     */
     public String formatText(String text, int fontSize) {
         return escapeXML(text);
     }
 
-    public String getColor(Style style) {
+    /**
+     * Creates the color to use from the given Style instance.
+     * This instance creates the common HTML representation.
+     *
+     * @param style the {@link Style}
+     * @return the Color
+     */
+    protected String getColor(Style style) {
         return "#" + Integer.toHexString(style.getColor().getRGB()).substring(2);
     }
 
-    public String escapeXML(String text) {
+    /**
+     * Escapes a given string to XML
+     *
+     * @param text the text to escape
+     * @return the escaped text.
+     */
+    public static String escapeXML(String text) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);

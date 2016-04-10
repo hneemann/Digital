@@ -28,10 +28,17 @@ public class Style {
     private final Stroke stroke;
     private final Font font;
 
-    public Style(int thickness, boolean filled, Color color, float[] dash) {
+    private Style(int thickness, boolean filled, Color color, float[] dash) {
         this(thickness, filled, color, 24, dash);
     }
 
+    /**
+     * Creates a new style
+     *
+     * @param thickness the line thickness
+     * @param filled    true if polygons needs to be filled
+     * @param color     the color to use
+     */
     public Style(int thickness, boolean filled, Color color) {
         this(thickness, filled, color, 24, null);
     }
@@ -47,34 +54,61 @@ public class Style {
         font = new Font("Arial", Font.PLAIN, fontsize);
     }
 
+    /**
+     * @return the lines thickness
+     */
     public int getThickness() {
         return thickness;
     }
 
+    /**
+     * @return true if polygons and circles are filled
+     */
     public boolean isFilled() {
         return filled;
     }
 
+    /**
+     * @return the color
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * @return the Swing stroke which represents this style
+     */
     public Stroke getStroke() {
         return stroke;
     }
 
+    /**
+     * @return the font size
+     */
     public int getFontSize() {
         return fontsize;
     }
 
+    /**
+     * @return the font to use
+     */
     public Font getFont() {
         return font;
     }
 
+    /**
+     * @return the dash style
+     */
     public float[] getDash() {
         return dash;
     }
 
+    /**
+     * Returns the wire style depending of the actual value represented by this value
+     *
+     * @param value the value to represent
+     * @return the style
+     */
     public static Style getWireStyle(ObservableValue value) {
         if (value == null || value.getBits() > 1) return WIRE;
         if (value.isHighZ()) return WIRE_HIGHZ;

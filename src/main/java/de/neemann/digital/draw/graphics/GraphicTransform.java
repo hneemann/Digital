@@ -1,6 +1,8 @@
 package de.neemann.digital.draw.graphics;
 
 /**
+ * A instance that performs a transformation on the drawing and then draws it on a given delegate.
+ *
  * @author hneemann
  */
 public class GraphicTransform implements Graphic {
@@ -8,6 +10,12 @@ public class GraphicTransform implements Graphic {
     private final Graphic parent;
     private final Transform transform;
 
+    /**
+     * Creates a new instace
+     *
+     * @param parent    the delegate to be used to berform the drawing
+     * @param transform the transformation
+     */
     public GraphicTransform(Graphic parent, Transform transform) {
         this.parent = parent;
         this.transform = transform;
@@ -21,7 +29,7 @@ public class GraphicTransform implements Graphic {
     @Override
     public void drawPolygon(Polygon p, Style style) {
         Polygon pp = new Polygon(p.isClosed());
-        for (Vector v : p.getPoints())
+        for (Vector v : p)
             pp.add(transform(v));
         parent.drawPolygon(pp, style);
     }

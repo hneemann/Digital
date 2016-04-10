@@ -3,22 +3,47 @@ package de.neemann.digital.draw.graphics;
 import de.neemann.digital.draw.elements.Moveable;
 
 /**
+ * Represents a 2D Vector
+ *
  * @author hneemann
  */
 public class Vector implements Moveable {
 
+    /**
+     * the x coordinate
+     */
     public int x;
+    /**
+     * the y coordinate
+     */
     public int y;
 
+    /**
+     * Creates a new instance
+     *
+     * @param x x
+     * @param y y
+     */
     public Vector(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Creates a copy of the given vector
+     *
+     * @param pos the vector to copy
+     */
     public Vector(Vector pos) {
         this(pos.x, pos.y);
     }
 
+    /**
+     * returns the minimum vector from the given vectors.
+     *
+     * @param p
+     * @return the minimum
+     */
     public static Vector min(Vector... p) {
         int x = p[0].x;
         int y = p[0].y;
@@ -29,6 +54,12 @@ public class Vector implements Moveable {
         return new Vector(x, y);
     }
 
+    /**
+     * returns the maximim vector from the given vectors.
+     *
+     * @param p
+     * @return the maximum
+     */
     public static Vector max(Vector... p) {
         int x = p[0].x;
         int y = p[0].y;
@@ -39,6 +70,12 @@ public class Vector implements Moveable {
         return new Vector(x, y);
     }
 
+    /**
+     * returns the width of the given vectors.
+     *
+     * @param p the vectors
+     * @return max(p)-min(p)
+     */
     public static Vector width(Vector... p) {
         int x1 = p[0].x;
         int y1 = p[0].y;
@@ -53,32 +90,63 @@ public class Vector implements Moveable {
         return new Vector(x2 - x1, y2 - y1);
     }
 
+    /**
+     * Creates a new vector which has the value this+a
+     *
+     * @param a a
+     * @return this+a
+     */
     public Vector add(Vector a) {
         return new Vector(x + a.x, y + a.y);
     }
 
+    /**
+     * Creates a new vector which has the value this+(x,y)
+     *
+     * @param x x
+     * @param y y
+     * @return this+(x,y)
+     */
     public Vector add(int x, int y) {
         return new Vector(this.x + x, this.y + y);
     }
 
+    /**
+     * Creates a new vector which has the value this-a
+     *
+     * @param a a
+     * @return this-a
+     */
     public Vector sub(Vector a) {
         return new Vector(x - a.x, y - a.y);
     }
 
+    /**
+     * Creates a new vector which has the value this*a
+     *
+     * @param a a
+     * @return this*a
+     */
     public Vector mul(int a) {
         return new Vector(x * a, y * a);
     }
 
+    /**
+     * Creates a new vector which has the value this/d
+     *
+     * @param d a
+     * @return this/d
+     */
     public Vector div(int d) {
         return new Vector(x / d, y / d);
     }
 
     @Override
     public String toString() {
-        return "Vector{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return "Vector{"
+                + "x=" + x
+                + ", y=" + y
+                + '}';
     }
 
     @Override
@@ -87,6 +155,13 @@ public class Vector implements Moveable {
         y += delta.y;
     }
 
+    /**
+     * Checks if this vector is inside the given bounding box
+     *
+     * @param min upper left corner
+     * @param max lower right corner
+     * @return true is inside
+     */
     public boolean inside(Vector min, Vector max) {
         return min.x <= x && x <= max.x && min.y <= y && y <= max.y;
     }
@@ -110,6 +185,9 @@ public class Vector implements Moveable {
         return result;
     }
 
+    /**
+     * @return true if this vector is (0,0)
+     */
     public boolean isZero() {
         return x == 0 && y == 0;
     }

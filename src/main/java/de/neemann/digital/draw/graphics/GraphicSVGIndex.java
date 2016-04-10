@@ -5,14 +5,35 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
+ * Subclass of {@link GraphicSVG} which creates the correct SVG representation
+ * of an index if used like "x_0".
+ *
  * @author hneemann
  */
 public class GraphicSVGIndex extends GraphicSVG {
 
+    /**
+     * Creates new instance
+     *
+     * @param file the file
+     * @param min  upper left corner
+     * @param max  lower right corner
+     * @throws IOException IOException
+     */
     public GraphicSVGIndex(File file, Vector min, Vector max) throws IOException {
         super(file, min, max);
     }
 
+    /**
+     * Creates new instance
+     *
+     * @param out      the output stream to use
+     * @param min      upper left corner
+     * @param max      lower right corner
+     * @param source   source file, only used to create a comment in the SVG file
+     * @param svgScale the scaling
+     * @throws IOException IOException
+     */
     public GraphicSVGIndex(OutputStream out, Vector min, Vector max, File source, int svgScale) throws IOException {
         super(out, min, max, source, svgScale);
     }
@@ -26,7 +47,7 @@ public class GraphicSVGIndex extends GraphicSVG {
         return formatSVGIndex(escapeXML(formatIndex(text)));
     }
 
-    public String formatIndex(String text) {
+    private String formatIndex(String text) {
         int p = text.lastIndexOf("_");
         if (p > 0) {
             text = text.substring(0, p) + "_{" + text.substring(p + 1) + "}";

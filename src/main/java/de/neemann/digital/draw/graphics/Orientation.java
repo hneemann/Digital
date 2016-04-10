@@ -15,7 +15,6 @@ public enum Orientation {
     CENTERCENTER(1, 1);
 
 
-
     private final int x;
     private final int y;
 
@@ -24,14 +23,26 @@ public enum Orientation {
         this.y = y;
     }
 
+    /**
+     * @return the x orientation value 0,1,2
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * @return the y orientation value 0,1,2
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Rotate this orientation by the given angle.
+     *
+     * @param n the angle in units of 45 degrees
+     * @return the new orientation
+     */
     public Orientation rot(int n) {
         if (this == CENTERCENTER) return CENTERCENTER;
 

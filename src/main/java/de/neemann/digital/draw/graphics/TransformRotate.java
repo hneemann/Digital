@@ -1,16 +1,24 @@
 package de.neemann.digital.draw.graphics;
 
 /**
+ * Implements a rotation and translation.
+ *
  * @author hneemann
  */
 public class TransformRotate implements Transform {
 
     private final int sin;
     private final int cos;
-    private final Vector pos;
+    private final Vector translation;
 
-    public TransformRotate(Vector pos, int rot) {
-        this.pos = pos;
+    /**
+     * Creates a new instance
+     *
+     * @param translation the translation
+     * @param rot         the rotation
+     */
+    public TransformRotate(Vector translation, int rot) {
+        this.translation = translation;
         switch (rot) {
             case 1:
                 sin = 1;
@@ -33,6 +41,6 @@ public class TransformRotate implements Transform {
 
     @Override
     public Vector transform(Vector v) {
-        return new Vector(v.x * cos + v.y * sin, -v.x * sin + v.y * cos).add(pos);
+        return new Vector(v.x * cos + v.y * sin, -v.x * sin + v.y * cos).add(translation);
     }
 }

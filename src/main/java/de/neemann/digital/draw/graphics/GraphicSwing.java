@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 /**
+ * Used to draw on a {@link Graphics2D} instance.
+ *
  * @author hneemann
  */
 public class GraphicSwing implements Graphic {
@@ -11,6 +13,11 @@ public class GraphicSwing implements Graphic {
     private final Graphics2D gr;
     private Style lastStyle;
 
+    /**
+     * Creates a new instance
+     *
+     * @param gr the {@link Graphics2D} instave to use.
+     */
     public GraphicSwing(Graphics2D gr) {
         this.gr = gr;
         gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
@@ -26,7 +33,7 @@ public class GraphicSwing implements Graphic {
     public void drawPolygon(Polygon p, Style style) {
         applyStyle(style);
         java.awt.Polygon poly = new java.awt.Polygon();
-        for (Vector v : p.getPoints())
+        for (Vector v : p)
             poly.addPoint(v.x, v.y);
 
         if (style.isFilled())

@@ -1,6 +1,10 @@
 package de.neemann.digital.draw.graphics;
 
 /**
+ * This class is used to determine the size of shapes or the whole circuit.
+ * You can draw the items to a instance of this class an then obtain the size
+ * by the getters getMin() and getMax().
+ *
  * @author hneemann
  */
 public class GraphicMinMax implements Graphic {
@@ -16,7 +20,7 @@ public class GraphicMinMax implements Graphic {
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
-        for (Vector v : p.getPoints())
+        for (Vector v : p)
             check(v);
     }
 
@@ -41,10 +45,16 @@ public class GraphicMinMax implements Graphic {
         // ignore text!
     }
 
+    /**
+     * @return the upper left corner of the circuit
+     */
     public Vector getMin() {
         return min;
     }
 
+    /**
+     * @return the lower right corner of the circuit
+     */
     public Vector getMax() {
         return max;
     }

@@ -5,13 +5,38 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
+ * Subclass of {@link GraphicSVG} which creates the correct SVG representation
+ * of an index if used like "x_0". But the text itself is created to be interpreted
+ * by LaTeX. To include such a SVG file in LaTeX inkscape is needed. To run the transformation
+ * automatically by the LaTeX compiler see InkscapePDFLaTeX.pdf.
+ *
+ * @see <a href="https://inkscape.org">inkscape</a>
+ * @see <a href="http://mirrors.ctan.org/info/svg-inkscape/InkscapePDFLaTeX.pdf">InkscapePDFLaTeX.pdf</a>
  * @author hneemann
  */
 public class GraphicSVGLaTeX extends GraphicSVG {
+    /**
+     * Creates new instance
+     *
+     * @param file the file
+     * @param min  upper left corner
+     * @param max  lower right corner
+     * @throws IOException IOException
+     */
     public GraphicSVGLaTeX(File file, Vector min, Vector max) throws IOException {
         super(file, min, max);
     }
 
+    /**
+     * Creates new instance
+     *
+     * @param out      the output stream to use
+     * @param min      upper left corner
+     * @param max      lower right corner
+     * @param source   source file, only used to create a comment in the SVG file
+     * @param svgScale the scaling
+     * @throws IOException IOException
+     */
     public GraphicSVGLaTeX(OutputStream out, Vector min, Vector max, File source, int svgScale) throws IOException {
         super(out, min, max, source, svgScale);
     }
@@ -65,7 +90,7 @@ public class GraphicSVGLaTeX extends GraphicSVG {
             return "$" + s + "$";
     }
 
-    public String formatIndex(String text) {
+    private String formatIndex(String text) {
         int p = text.lastIndexOf("_");
         if (p > 0) {
             text = "$" + text.substring(0, p) + "_{" + text.substring(p + 1) + "}$";
