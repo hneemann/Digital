@@ -291,7 +291,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     SpeedTest speedTest = new SpeedTest(model);
                     double frequency = speedTest.calculate();
                     circuitComponent.getCircuit().clearState();
-                    JOptionPane.showMessageDialog(Main.this, "Frequency: " + frequency);
+                    JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
                 } catch (Exception e1) {
                     new ErrorMessage("SpeedTestError").addCause(e1).show();
                 }
@@ -312,6 +312,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runToBreak.createJMenuItem());
+        run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
         JToolBar toolBar = new JToolBar();
