@@ -9,11 +9,15 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
+ * A look up table which can be used as a generic customizable gate.
+ *
  * @author hneemann
  */
 public class LookUpTable extends Node implements Element {
 
-
+    /**
+     * The LUTs {@link ElementTypeDescription}
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(LookUpTable.class) {
         @Override
         public String[] getInputNames(ElementAttributes elementAttributes) {
@@ -35,6 +39,11 @@ public class LookUpTable extends Node implements Element {
     private ObservableValue[] inputs;
     private int addr;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr the elements attributes
+     */
     public LookUpTable(ElementAttributes attr) {
         int bits = attr.get(AttributeKey.Bits);
         output = new ObservableValue("out", bits);

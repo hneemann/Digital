@@ -7,9 +7,15 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
+ * RAM module with a single port to read and write data.
+ *
  * @author hneemann
  */
 public class RAMSinglePort extends RAMDualPort {
+
+    /**
+     * The RAMs {@link ElementTypeDescription}
+     */
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePort.class, "A", "str", "c", "ld")
             .addAttribute(AttributeKey.Rotate)
@@ -18,6 +24,11 @@ public class RAMSinglePort extends RAMDualPort {
             .addAttribute(AttributeKey.Label)
             .setShortName("RAM");
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr the elements attributes
+     */
     public RAMSinglePort(ElementAttributes attr) {
         super(attr);
     }

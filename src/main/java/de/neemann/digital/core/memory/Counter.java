@@ -10,10 +10,15 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
+ * A simple counter.
+ *
  * @author hneemann
  */
 public class Counter extends Node implements Element {
 
+    /**
+     * The counters {@link ElementTypeDescription}
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Counter.class, "C", "clr")
             .addAttribute(AttributeKey.Rotate)
@@ -26,6 +31,11 @@ public class Counter extends Node implements Element {
     private boolean lastClock;
     private int counter;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the elements attributes
+     */
     public Counter(ElementAttributes attributes) {
         int bits = attributes.getBits();
         this.out = new ObservableValue("out", bits);

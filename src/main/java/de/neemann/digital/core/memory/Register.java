@@ -7,10 +7,15 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
+ * A simple register.
+ *
  * @author hneemann
  */
 public class Register extends Node implements Element {
 
+    /**
+     * The registers {@link ElementTypeDescription}
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Register.class, "D", "C", "en")
             .addAttribute(AttributeKey.Rotate)
@@ -29,6 +34,11 @@ public class Register extends Node implements Element {
     private boolean lastClock;
     private long value;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the elements attributes
+     */
     public Register(ElementAttributes attributes) {
         bits = attributes.getBits();
         this.q = new ObservableValue("Q", bits);

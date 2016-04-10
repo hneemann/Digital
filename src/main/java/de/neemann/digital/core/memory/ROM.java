@@ -12,10 +12,15 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import java.io.File;
 
 /**
+ * A ROM module.
+ *
  * @author hneemann
  */
 public class ROM extends Node implements Element {
 
+    /**
+     * The ROMs {@link ElementTypeDescription}
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(ROM.class, "A", "sel")
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
@@ -35,6 +40,11 @@ public class ROM extends Node implements Element {
     private boolean sel;
     private int romAddr;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr the elements attributes
+     */
     public ROM(ElementAttributes attr) {
         int bits = attr.get(AttributeKey.Bits);
         output = new ObservableValue("D", bits, true);
@@ -71,14 +81,18 @@ public class ROM extends Node implements Element {
         output.set(data.getData(addr), !sel);
     }
 
-    public ObservableValue getAddrIn() {
-        return addrIn;
-    }
-
+    /**
+     * @return the last used input address
+     */
     public long getRomAddress() {
         return romAddr;
     }
 
+    /**
+     * The file used to fill this ROM module.
+     *
+     * @return the file
+     */
     public File getListFile() {
         return listFile;
     }

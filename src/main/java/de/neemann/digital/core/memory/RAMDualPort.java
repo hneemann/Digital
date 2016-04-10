@@ -9,11 +9,15 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
 /**
+ * RAM module with different ports to read and write the data.
+ *
  * @author hneemann
  */
 public class RAMDualPort extends Node implements Element, RAMInterface {
 
-
+    /**
+     * The RAMs {@link ElementTypeDescription}
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class, "A", "D", "str", "c", "ld")
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
@@ -34,6 +38,11 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
     private boolean lastClk = false;
     private boolean ld;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr the elemets attributes
+     */
     public RAMDualPort(ElementAttributes attr) {
         bits = attr.get(AttributeKey.Bits);
         output = createOutput();
@@ -41,6 +50,11 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
         memory = new DataField(1 << addrBits, bits);
     }
 
+    /**
+     * called to create the output value
+     *
+     * @return the output value
+     */
     protected ObservableValue createOutput() {
         return new ObservableValue("D", bits, true);
     }
