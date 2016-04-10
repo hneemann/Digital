@@ -105,7 +105,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         ElementTypeDescription pd = map.get(elementName);
         if (pd == null) {
             if (elementNotFoundNotification != null)
-                pd = elementNotFoundNotification.notFound(elementName);
+                pd = elementNotFoundNotification.elementNotFound(elementName);
             if (pd == null)
                 throw new RuntimeException(Lang.get("err_element_N_notFound", elementName));
         }

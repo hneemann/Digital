@@ -75,12 +75,13 @@ public class LibrarySelector implements ElementNotFoundNotification {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser(filePath);
-                fc.addChoosableFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
+                fc.setFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
                 if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    ElementTypeDescription des = importElement(fc.getSelectedFile());
-                    if (des != null) {
-                        VisualElement visualElement = new VisualElement(des.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
+                    Imported imp = importElement(fc.getSelectedFile());
+                    if (imp != null) {
+                        VisualElement visualElement = new VisualElement(imp.description.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
                         circuitComponent.setPartToInsert(visualElement);
+                        insertHistory.add(imp.insertAction);
                     }
                 }
             }
@@ -122,8 +123,12 @@ public class LibrarySelector implements ElementNotFoundNotification {
     }
 
     @Override
-    public ElementTypeDescription notFound(String elementName) {
-        return importElement(new File(filePath, elementName));
+    public ElementTypeDescription elementNotFound(String elementName) {
+        Imported imported = importElement(new File(filePath, elementName));
+        if (imported == null)
+            return null;
+        else
+            return imported.description;
     }
 
     private final class InsertAction extends ToolTipAction {
@@ -148,7 +153,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         }
     }
 
-    private ElementTypeDescription importElement(File file) {
+    private Imported importElement(File file) {
         try {
             System.out.println("load element " + file);
             Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
@@ -159,7 +164,8 @@ public class LibrarySelector implements ElementNotFoundNotification {
                             .setShortName(createShortName(file));
             library.addDescription(description);
 
-            JMenuItem menuEntry = new InsertAction(description.getName(), insertHistory, circuitComponent).createJMenuItem();
+            InsertAction insertAction = new InsertAction(description.getName(), insertHistory, circuitComponent);
+            JMenuItem menuEntry = insertAction.createJMenuItem();
             ImportedItem item = findImportedItem(description.getName());
             if (item != null) {
                 if (customMenu != null) {
@@ -170,7 +176,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             importedElements.add(new ImportedItem(description.getName(), menuEntry));
             if (customMenu != null)
                 customMenu.add(menuEntry);
-            return description;
+            return new Imported(description, insertAction);
         } catch (Exception e) {
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e));
         }
@@ -241,6 +247,16 @@ public class LibrarySelector implements ElementNotFoundNotification {
          */
         public ElementAttributes getAttributes() {
             return attributes;
+        }
+    }
+
+    private static class Imported {
+        private final ElementTypeDescription description;
+        private final InsertAction insertAction;
+
+        private Imported(ElementTypeDescription description, InsertAction insertAction) {
+            this.description = description;
+            this.insertAction = insertAction;
         }
     }
 }
