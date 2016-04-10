@@ -232,7 +232,7 @@ public class Model {
             boolean brIn = brVal.getBool();
             if (!lastIn && brIn) {
                 fireEvent(ModelEvent.BREAK);
-                return i;
+                return i + 1;
             }
             lastIn = brIn;
         }
