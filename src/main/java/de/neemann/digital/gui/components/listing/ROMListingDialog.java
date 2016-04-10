@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * The dialog to show the ROM listing while running.
+ * Used to debug assembler code.
+ *
  * @author hneemann
  */
 public class ROMListingDialog extends JDialog implements Observer {
@@ -19,6 +22,13 @@ public class ROMListingDialog extends JDialog implements Observer {
     private final JList<String> list;
     private int lastAddr = -1;
 
+    /**
+     * Creates a new instance
+     *
+     * @param parent the parent frame
+     * @param rom    the rom element
+     * @throws IOException IOException
+     */
     public ROMListingDialog(JFrame parent, ROM rom) throws IOException {
         super(parent, Lang.get("win_listing"), false);
         this.rom = rom;
@@ -36,6 +46,7 @@ public class ROMListingDialog extends JDialog implements Observer {
         listing = new Listing(filename);
         list = new JList<>(listing);
         list.setFont(new Font("monospaced", Font.PLAIN, 12));
+        list.setVisibleRowCount(30);
 
         rom.getAddrIn().addObserver(this);
         hasChanged();

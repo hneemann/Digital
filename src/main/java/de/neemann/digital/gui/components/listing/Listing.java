@@ -6,12 +6,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Represents a ROM listing
+ *
  * @author hneemann
  */
 public class Listing implements javax.swing.ListModel<String> {
     private final ArrayList<String> lines;
     private final HashMap<Integer, Integer> addrMap;
 
+    /**
+     * Creates a new instance.
+     * The given file is read.
+     *
+     * @param filename the filename
+     * @throws IOException IOException
+     */
     public Listing(File filename) throws IOException {
         lines = new ArrayList<String>();
         addrMap = new HashMap<>();
@@ -55,6 +64,12 @@ public class Listing implements javax.swing.ListModel<String> {
     public void removeListDataListener(ListDataListener l) {
     }
 
+    /**
+     * returns the line belonging to the given address
+     *
+     * @param addr the address
+     * @return the line or null if not found.
+     */
     public Integer getLine(int addr) {
         return addrMap.get(addr);
     }
