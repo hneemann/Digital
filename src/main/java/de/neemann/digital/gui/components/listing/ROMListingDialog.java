@@ -58,7 +58,7 @@ public class ROMListingDialog extends JDialog implements Observer {
 
     @Override
     public void hasChanged() {
-        int addr = (int) rom.getAddrIn().getValueIgnoreBurn();
+        int addr = (int) rom.getRomAddress();
         if (addr != lastAddr) {
             Integer line = listing.getLine(addr);
             if (line != null) {

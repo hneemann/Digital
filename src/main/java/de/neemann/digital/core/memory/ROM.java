@@ -82,6 +82,13 @@ public class ROM extends Node implements Element {
     }
 
     /**
+     * @return the value representing the input address
+     */
+    public ObservableValue getAddrIn() {
+        return addrIn;
+    }
+
+    /**
      * @return the last used input address
      */
     public long getRomAddress() {
@@ -103,4 +110,5 @@ public class ROM extends Node implements Element {
         if (showList && listFile != null)
             model.addRomListing(this);
     }
+
 }
