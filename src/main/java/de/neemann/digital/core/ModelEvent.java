@@ -1,27 +1,43 @@
 package de.neemann.digital.core;
 
 /**
+ * A event fired by the model
+ *
  * @author hneemann
  */
-public class ModelEvent {
+public enum ModelEvent {
 
-    public static final ModelEvent STEP = new ModelEvent(Event.STEP);
-    public static final ModelEvent MICROSTEP = new ModelEvent(Event.MICROSTEP);
-    public static final ModelEvent STARTED = new ModelEvent(Event.STARTED);
-    public static final ModelEvent BREAK = new ModelEvent(Event.BREAK);
-    public static final ModelEvent STOPPED = new ModelEvent(Event.STOPPED);
-    public static final ModelEvent MANUALCHANGE = new ModelEvent(Event.MANUALCHANGE);
+    /**
+     * Is fired after the model had became stable after first stabilization.
+     */
+    STARTED,
 
-    public enum Event {STARTED, STOPPED, STEP, BREAK, MANUALCHANGE, MICROSTEP}
+    /**
+     * The model had stopped.
+     */
+    STOPPED,
 
-    private final Event event;
+    /**
+     * Is fired if the model had performed a full step.
+     * This means a change is propagated through all nodes, and the model has
+     * become stable again.
+     */
+    STEP,
 
-    private ModelEvent(Event event) {
-        this.event = event;
-    }
+    /**
+     * A break is detected.
+     */
+    BREAK,
 
-    public Event getType() {
-        return event;
-    }
+    /**
+     * Here was a manual change to the model by the user.
+     */
+    MANUALCHANGE,
+
+    /**
+     * If fired if a micro step is calculated.
+     * This means the aktual nodes are calculated, but not the effected nodes.
+     */
+    MICROSTEP;
 
 }

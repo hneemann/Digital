@@ -32,7 +32,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
      * @param type     the event type which triggers a new DataSample
      * @param ordering
      */
-    public DataSetDialog(Frame owner, Model model, ModelEvent.Event type, List<String> ordering) {
+    public DataSetDialog(Frame owner, Model model, ModelEvent type, List<String> ordering) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);

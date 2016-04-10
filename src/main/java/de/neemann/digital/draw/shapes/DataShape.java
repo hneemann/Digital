@@ -23,14 +23,14 @@ import java.util.ArrayList;
  */
 public class DataShape implements Shape {
 
-    private final ModelEvent.Event type;
+    private final ModelEvent type;
     private DataSet dataSet;
 
     public DataShape(ElementAttributes attr) {
         if (attr.get(AttributeKey.MicroStep))
-            type = ModelEvent.Event.MICROSTEP;
+            type = ModelEvent.MICROSTEP;
         else
-            type = ModelEvent.Event.STEP;
+            type = ModelEvent.STEP;
     }
 
     @Override

@@ -374,7 +374,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void enter() {
                 super.enter();
-                if (createAndStartModel(settings.get(AttributeKey.StartTimer), ModelEvent.Event.STEP))
+                if (createAndStartModel(settings.get(AttributeKey.StartTimer), ModelEvent.STEP))
                     circuitComponent.setManualChangeObserver(new FullStepObserver(model));
             }
         });
@@ -382,7 +382,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void enter() {
                 super.enter();
-                if (createAndStartModel(false, ModelEvent.Event.MICROSTEP))
+                if (createAndStartModel(false, ModelEvent.MICROSTEP))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
         });
@@ -416,7 +416,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
 
-    private boolean createAndStartModel(boolean runClock, ModelEvent.Event updateEvent) {
+    private boolean createAndStartModel(boolean runClock, ModelEvent updateEvent) {
         try {
             circuitComponent.removeHighLighted();
             circuitComponent.setModeAndReset(true);

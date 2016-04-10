@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class ProbeDialog extends JDialog implements ModelStateObserver {
 
-    private final ModelEvent.Event type;
+    private final ModelEvent type;
     private final SignalTableModel tableModel;
 
-    public ProbeDialog(Frame owner, Model model, ModelEvent.Event type, List<String> ordering) {
+    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.type = type;
@@ -61,7 +61,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event.getType() == type || event.getType() == ModelEvent.Event.MANUALCHANGE) {
+        if (event == type || event == ModelEvent.MANUALCHANGE) {
             tableModel.fireChanged();
         }
     }

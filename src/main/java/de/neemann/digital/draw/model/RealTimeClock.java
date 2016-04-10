@@ -41,7 +41,7 @@ public class RealTimeClock implements ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        switch (event.getType()) {
+        switch (event) {
             case STARTED:
                 if (frequency > 50)  // if frequency is high it is not necessary to update the GUI at every clock
                     output.removeObserver(GuiModelObserver.class);

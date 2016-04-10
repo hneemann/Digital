@@ -16,7 +16,7 @@ import de.neemann.digital.gui.components.CircuitComponent;
  */
 public class GuiModelObserver implements Observer, ModelStateObserver {
     private final CircuitComponent component;
-    private final ModelEvent.Event type;
+    private final ModelEvent type;
     private boolean changed = false;
 
     /**
@@ -25,7 +25,7 @@ public class GuiModelObserver implements Observer, ModelStateObserver {
      * @param component the component to update
      * @param type      the event type which triggers a repainting
      */
-    public GuiModelObserver(CircuitComponent component, ModelEvent.Event type) {
+    public GuiModelObserver(CircuitComponent component, ModelEvent type) {
         this.component = component;
         this.type = type;
     }
@@ -37,7 +37,7 @@ public class GuiModelObserver implements Observer, ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (changed && event.getType() == type) {
+        if (changed && event == type) {
             component.paintImmediately(0, 0, component.getWidth(), component.getHeight());
             changed = false;
         }
