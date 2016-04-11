@@ -38,6 +38,8 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Boolean> StartTimer = new AttributeKey<>("startTimer", Lang.get("key_startClock"), false);
     public static final AttributeKey<Boolean> MicroStep = new AttributeKey<>("microStep", Lang.get("key_microStep"), false);
 
+    public static final AttributeKey<Boolean> IsHighZ = new AttributeKey<>("isHighZ", Lang.get("key_isHighZ"), false);
+
     private final String key;
     private final VALUE def;
     private final String name;

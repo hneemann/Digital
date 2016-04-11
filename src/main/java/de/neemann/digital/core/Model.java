@@ -163,13 +163,16 @@ public class Model {
      */
     public void doStep(boolean noise) throws NodeException {
         int counter = 0;
-        while (needsUpdate()) {
-            if (counter++ > MAX_COUNTER) {
-                throw new NodeException(Lang.get("err_seemsToOscillate")).addNodes(nodesToUpdateNext);
+        if (needsUpdate()) {
+            while (needsUpdate()) {
+                if (counter++ > MAX_COUNTER) {
+                    throw new NodeException(Lang.get("err_seemsToOscillate")).addNodes(nodesToUpdateNext);
+                }
+                doMicroStep(noise);
             }
-            doMicroStep(noise);
-        }
-        fireEvent(ModelEvent.STEP);
+        } else
+            fireEvent(ModelEvent.STEP);
+
     }
 
     /**
@@ -211,6 +214,9 @@ public class Model {
             }
         }
         fireEvent(ModelEvent.MICROSTEP);
+
+        if (nodesToUpdateNext.isEmpty())
+            fireEvent(ModelEvent.STEP);
     }
 
     /**
@@ -291,6 +297,18 @@ public class Model {
      */
     public void removeObserver(ModelStateObserver observer) {
         observers.remove(observer);
+    }
+
+    /**
+     * Returns the first observer of the given class
+     *
+     * @param observerClass the observer class
+     */
+    public <T extends ModelStateObserver> T getObserver(Class<T> observerClass) {
+        for (ModelStateObserver mso : observers)
+            if (mso.getClass() == observerClass)
+                return (T) mso;
+        return null;
     }
 
     private void fireEvent(ModelEvent event) {

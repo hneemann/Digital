@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.model;
 
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.wiring.DataBus;
 import de.neemann.digital.draw.elements.Pin;
@@ -71,7 +72,7 @@ public class Net {
         pins.addAll(p);
     }
 
-    public void interconnect() throws PinException {
+    public void interconnect(Model m) throws PinException {
         ArrayList<Pin> inputs = new ArrayList<>();
         ArrayList<Pin> outputs = new ArrayList<>();
         for (Pin p : pins) {
@@ -88,7 +89,7 @@ public class Net {
         if (outputs.size() == 1) {
             value = outputs.get(0).getValue();
         } else {
-            value = new DataBus(this, outputs).getReadeableOutput();
+            value = new DataBus(this, m, outputs).getReadableOutput();
         }
 
         if (value == null)

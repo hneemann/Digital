@@ -166,10 +166,11 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @throws NodeException NodeException
      */
     public Model createModel() throws PinException, NodeException {
-        for (Net n : netList)
-            n.interconnect();
 
         Model m = new Model();
+
+        for (Net n : netList)
+            n.interconnect(m);
 
         for (ModelEntry e : entries)
             e.applyInputs();

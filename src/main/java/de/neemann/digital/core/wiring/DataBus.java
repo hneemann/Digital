@@ -1,8 +1,6 @@
 package de.neemann.digital.core.wiring;
 
-import de.neemann.digital.core.BurnException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.*;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.model.Net;
@@ -11,13 +9,28 @@ import de.neemann.digital.lang.Lang;
 import java.util.ArrayList;
 
 /**
+ * Handles the creation of a data bus.
+ * Is needed to connect multiple outputs which can become high Z.
+ * If one of the output becomes low Z, this value is returnd by the {@link ObservableValue}
+ * created by this bus. If more then one output becomes low Z then a {@link BurnException}
+ * is thrown atter the models step is completed.
+ * During the calculation of of a single step a temporary burn condition is allowed.
+ *
  * @author hneemann
  */
 public class DataBus {
-    private final CommonObservableValue commonOut;
+    private final ObservableValue commonOut;
 
-    public DataBus(Net net, ArrayList<Pin> outputs) throws PinException {
-        this(net, createArray(outputs));
+    /**
+     * Creates a new data bus
+     *
+     * @param net     the net
+     * @param model   the model
+     * @param outputs the outputs building the net
+     * @throws PinException PinException
+     */
+    public DataBus(Net net, Model model, ArrayList<Pin> outputs) throws PinException {
+        this(net, model, createArray(outputs));
     }
 
     private static ObservableValue[] createArray(ArrayList<Pin> outputs) {
@@ -27,7 +40,15 @@ public class DataBus {
         return o;
     }
 
-    public DataBus(Net net, ObservableValue... outputs) throws PinException {
+    /**
+     * Creates a new data bus
+     *
+     * @param net     the net
+     * @param model   the model
+     * @param outputs the outputs building the net
+     * @throws PinException PinException
+     */
+    public DataBus(Net net, Model model, ObservableValue... outputs) throws PinException {
         int bits = 0;
         for (ObservableValue o : outputs) {
             int b = o.getBits();
@@ -39,25 +60,40 @@ public class DataBus {
             if (!o.supportsHighZ())
                 throw new PinException(Lang.get("err_notAllOutputsSupportHighZ"), net);
         }
-        commonOut = new CommonObservableValue(bits);
+        commonOut = new ObservableValue("common", bits);
 
-        CommonObserver observer = new CommonObserver(commonOut, outputs);
+        BusModelStateObserver obs = model.getObserver(BusModelStateObserver.class);
+        if (obs == null) {
+            obs = new BusModelStateObserver();
+            model.addObserver(obs);
+        }
+
+        CommonBusObserver observer = new CommonBusObserver(commonOut, obs, outputs);
         for (ObservableValue p : outputs)
             p.addObserver(observer);
+        observer.hasChanged();
     }
 
-    public ObservableValue getReadeableOutput() {
+    /**
+     * Returns the readable ObservableValue for this bus
+     *
+     * @return the readable ObservableValue
+     */
+    public ObservableValue getReadableOutput() {
         return commonOut;
     }
 
-    private static class CommonObserver implements Observer {
+    private static class CommonBusObserver implements Observer {
 
-        private final CommonObservableValue commonOut;
+        private final ObservableValue commonOut;
+        private final BusModelStateObserver obs;
         private final ObservableValue[] inputs;
         private boolean burn;
+        private int addedVersion = -1;
 
-        CommonObserver(CommonObservableValue commonOut, ObservableValue[] outputs) {
+        CommonBusObserver(ObservableValue commonOut, BusModelStateObserver obs, ObservableValue[] outputs) {
             this.commonOut = commonOut;
+            this.obs = obs;
             inputs = outputs;
         }
 
@@ -74,39 +110,44 @@ public class DataBus {
                     value = inputs[i].getValue();
                 }
             }
-            commonOut.set(value, highz, burn);
+            commonOut.set(value, highz);
+
+            // if burn condition and not yet added for post step check add for post step check
+            if (burn && (obs.version != addedVersion)) {
+                addedVersion = obs.version;
+                obs.addCheck(this);
+            }
+
+        }
+
+        private void checkBurn() {
+            if (burn)
+                throw new BurnException();
         }
     }
 
+    private static final class BusModelStateObserver implements ModelStateObserver {
+        private final ArrayList<CommonBusObserver> busList;
+        private int version;
 
-    private static class CommonObservableValue extends ObservableValue {
-        private boolean burn;
-
-        CommonObservableValue(int bits) {
-            super("commmon", bits);
+        private BusModelStateObserver() {
+            busList = new ArrayList<>();
         }
 
-        private void check() {
-            if (burn) {
-                throw new BurnException();
+        @Override
+        public void handleEvent(ModelEvent event) {
+            if (event == ModelEvent.STEP && !busList.isEmpty()) {
+                for (CommonBusObserver bus : busList) {
+                    bus.checkBurn();
+                }
+                busList.clear();
+                version++;
             }
         }
 
-        @Override
-        public long getValue() {
-            check();
-            return super.getValue();
-        }
-
-        @Override
-        public boolean isHighZ() {
-            check();
-            return super.isHighZ();
-        }
-
-        public void set(long value, boolean highz, boolean burn) {
-            super.set(value, highz);
-            this.burn = burn;
+        private void addCheck(CommonBusObserver commonBusObserver) {
+            busList.add(commonBusObserver);
         }
     }
+
 }

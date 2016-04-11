@@ -246,7 +246,7 @@ public class ObservableValue extends Value {
     }
 
     /**
-     * @return teturns true if the value could become a highZ value
+     * @return returns true if the value could become a highZ value
      */
     public boolean supportsHighZ() {
         return supportsHighZ;

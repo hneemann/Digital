@@ -48,11 +48,16 @@ public class SingleValueDialog extends JDialog {
     public static void editValue(Point pos, ObservableValue value) {
         String ret = new SingleValueDialog(pos, value.getValueString()).showDialog();
         if (ret != null) {
-            try {
-                long l = Long.decode(ret);
-                value.setValue(l);
-            } catch (NumberFormatException e) {
+            ret = ret.trim();
+            if (ret.equals("?") && value.supportsHighZ()) {
+                value.setHighZ(true);
+            } else {
+                try {
+                    long l = Long.decode(ret);
+                    value.set(l, false);
+                } catch (NumberFormatException e) {
 
+                }
             }
         }
     }

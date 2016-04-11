@@ -1,6 +1,8 @@
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.core.BurnException;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.draw.elements.PinException;
 import junit.framework.TestCase;
@@ -10,11 +12,13 @@ import junit.framework.TestCase;
  */
 public class DataBusTest extends TestCase {
 
-    public void testSimple() throws PinException {
+    public void testSimple() throws PinException, NodeException {
         ObservableValue a = new ObservableValue("a", 4, true);
         ObservableValue b = new ObservableValue("b", 4, true);
 
-        ObservableValue out = new DataBus(null, a, b).getReadeableOutput();
+        Model m = new Model();
+
+        ObservableValue out = new DataBus(null, m, a, b).getReadableOutput();
 
         a.set(1, false);
         assertEquals(1, out.getValue());
@@ -34,7 +38,7 @@ public class DataBusTest extends TestCase {
         b.set(2, false);
 
         try {
-            out.getValue();
+            m.doStep();
             assertTrue(false);
         } catch (BurnException e) {
             assertTrue(true);

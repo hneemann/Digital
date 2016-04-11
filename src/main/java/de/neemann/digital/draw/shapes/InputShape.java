@@ -43,7 +43,12 @@ public class InputShape implements Shape {
             public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
-                    value.setValue(1 - value.getValue());
+                    if (value.supportsHighZ()) {
+                        if (value.isHighZ()) value.set(0, false);
+                        else if (value.getValue() == 0) value.setValue(1);
+                        else value.set(0, true);
+                    } else
+                        value.setValue(1 - value.getValue());
                 } else {
                     SingleValueDialog.editValue(pos, value);
                 }

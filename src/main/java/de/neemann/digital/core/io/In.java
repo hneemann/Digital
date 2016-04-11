@@ -16,15 +16,18 @@ public class In implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(In.class)
             .addAttribute(AttributeKey.Rotate)
+            .addAttribute(AttributeKey.IsHighZ)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Default);
 
     private final ObservableValue output;
     private final String label;
+    private final boolean highZ;
 
     public In(ElementAttributes attributes) {
-        output = new ObservableValue("out", attributes.get(AttributeKey.Bits));
+        highZ = attributes.get(AttributeKey.IsHighZ);
+        output = new ObservableValue("out", attributes.get(AttributeKey.Bits), highZ);
         output.setValue(attributes.get(AttributeKey.Default));
         label = attributes.get(AttributeKey.Label);
     }
