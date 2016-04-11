@@ -83,6 +83,9 @@ public class DataBus {
         return commonOut;
     }
 
+    /**
+     * This observer is added to all outputs connected together
+     */
     private static class CommonBusObserver implements Observer {
 
         private final ObservableValue commonOut;
@@ -129,6 +132,10 @@ public class DataBus {
         }
     }
 
+    /**
+     * Checks if a temporary burn condition is still present after the step is completed.
+     * If so an exception is thrown.
+     */
     private static final class BusModelStateObserver implements ModelStateObserver {
         private final ArrayList<CommonBusObserver> busList;
         private int version;
