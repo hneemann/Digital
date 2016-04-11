@@ -35,11 +35,18 @@ public class DataBusTest extends TestCase {
 //        }
 
         a.set(1, false);
-        b.set(2, false);
+        b.set(1, false);
+        m.doStep();
 
+        a.set(0, false);
+        b.set(0, false);
+        m.doStep();
+
+        a.set(1, false);
+        b.set(0, false);
         try {
             m.doStep();
-            assertTrue(false);
+            assertTrue(true);
         } catch (BurnException e) {
             assertTrue(true);
         }

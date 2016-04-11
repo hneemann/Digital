@@ -11,9 +11,9 @@ import java.util.ArrayList;
 /**
  * Handles the creation of a data bus.
  * Is needed to connect multiple outputs which can become high Z.
- * If one of the output becomes low Z, this value is returnd by the {@link ObservableValue}
- * created by this bus. If more then one output becomes low Z then a {@link BurnException}
- * is thrown atter the models step is completed.
+ * If one of the output becomes low Z, this value is returned by the {@link ObservableValue}
+ * created by this bus. If more then one output becomes low Z and the values are not equal then
+ * a {@link BurnException} is thrown after the models step is completed.
  * During the calculation of of a single step a temporary burn condition is allowed.
  *
  * @author hneemann
@@ -104,10 +104,13 @@ public class DataBus {
             boolean highz = true;
             for (int i = 0; i < inputs.length; i++) {
                 if (!inputs[i].isHighZ()) {
-                    if (!highz)
-                        burn = true;
-                    highz = false;
-                    value = inputs[i].getValue();
+                    if (highz) {
+                        highz = false;
+                        value = inputs[i].getValue();
+                    } else {
+                        if (value != inputs[i].getValue())
+                            burn = true;
+                    }
                 }
             }
             commonOut.set(value, highz);
@@ -122,7 +125,7 @@ public class DataBus {
 
         private void checkBurn() {
             if (burn)
-                throw new BurnException();
+                throw new BurnException(commonOut);
         }
     }
 

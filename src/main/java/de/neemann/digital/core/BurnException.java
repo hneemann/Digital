@@ -8,10 +8,20 @@ import de.neemann.digital.lang.Lang;
  * @author hneemann
  */
 public class BurnException extends RuntimeException {
+    private final ObservableValue value;
+
     /**
      * Creates a new instance
      */
-    public BurnException() {
+    public BurnException(ObservableValue value) {
         super(Lang.get("err_burnError"));
+        this.value = value;
+    }
+
+    /**
+     * @return returns the causing value
+     */
+    public ObservableValue getValue() {
+        return value;
     }
 }
