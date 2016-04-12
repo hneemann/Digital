@@ -404,7 +404,8 @@ public class Circuit {
      * The ObservableValue is not connected to a model! Its just a wrapper for the outputs name.
      * This method is used to create dummy outputs for a nested element.
      * They are not used, because during creation of a model all inputs and outputs which connect a model
-     * with a nested model are removed from the model and replaced by a direct connection of inputs and outputs.
+     * with a nested model are removed from the model and replaced by a direct connection of the input or output
+     * and the wires of the containing model.
      *
      * @param library the library
      * @return the list of output ObservableValues
