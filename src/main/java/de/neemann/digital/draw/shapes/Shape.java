@@ -34,7 +34,7 @@ public interface Shape extends Drawable {
      * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
      * @return the interactor is called if the shape is clicked during running mode, maybe null
      */
-    Interactor applyStateMonitor(IOState ioState, Observer guiObserver);
+    InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver);
 
     /**
      * Allows the shape to make its drawing dependent of the model.

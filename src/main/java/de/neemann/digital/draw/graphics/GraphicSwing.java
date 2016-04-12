@@ -2,6 +2,8 @@ package de.neemann.digital.draw.graphics;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 
 /**
  * Used to draw on a {@link Graphics2D} instance.
@@ -32,13 +34,18 @@ public class GraphicSwing implements Graphic {
     @Override
     public void drawPolygon(Polygon p, Style style) {
         applyStyle(style);
-        java.awt.Polygon poly = new java.awt.Polygon();
+        Path2D path = new GeneralPath();
+        boolean first = true;
         for (Vector v : p)
-            poly.addPoint(v.x, v.y);
+            if (first) {
+                first = false;
+                path.moveTo(v.x, v.y);
+            } else
+                path.lineTo(v.x, v.y);
 
-        if (style.isFilled())
-            gr.fill(poly);
-        gr.draw(poly);
+        if (p.isClosed())
+            path.closePath();
+        gr.draw(path);
     }
 
     @Override

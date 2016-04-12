@@ -14,15 +14,15 @@ import java.awt.*;
  * @author hneemann
  * @see InputShape
  */
-public interface Interactor {
+public abstract class Interactor implements InteractorInterface {
 
-    /**
-     * Called if clicked on running model
-     *
-     * @param cc      the CircuitComponent
-     * @param pos     the popuplocation on screen
-     * @param ioState the state of the element
-     * @return true if model is changed
-     */
-    boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element);
+    @Override
+    public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+        return false;
+    }
+
+    @Override
+    public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+        return false;
+    }
 }

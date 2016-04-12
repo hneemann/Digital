@@ -242,6 +242,7 @@ public class CircuitComponent extends JComponent {
 
     /**
      * Sets a circuit to this component
+     *
      * @param circuit the circuit
      */
     public void setCircuit(Circuit circuit) {
@@ -709,6 +710,10 @@ public class CircuitComponent extends JComponent {
         }
     }
 
+    private interface Actor {
+        boolean interact(CircuitComponent cc, Point p);
+    }
+
     private final class MouseControllerRun extends MouseController {
 
         private MouseControllerRun(Cursor cursor) {
@@ -716,18 +721,36 @@ public class CircuitComponent extends JComponent {
         }
 
         @Override
+        void pressed(MouseEvent e) {
+            VisualElement ve = circuit.getElementAt(getPosVector(e));
+            if (ve != null)
+                interact(e, ve::elementPressed);
+        }
+
+        @Override
+        void released(MouseEvent e) {
+            VisualElement ve = circuit.getElementAt(getPosVector(e));
+            if (ve != null)
+                interact(e, ve::elementReleased);
+        }
+
+        @Override
         void clicked(MouseEvent e) {
             VisualElement ve = circuit.getElementAt(getPosVector(e));
-            if (ve != null) {
-                Point p = new Point(e.getX(), e.getY());
-                SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                boolean modelHasChanged = ve.clicked(CircuitComponent.this, p);
-                if (modelHasChanged) {
-                    if (manualChangeObserver != null)
-                        manualChangeObserver.hasChanged();
-                } else
-                    repaint();
-            }
+            if (ve != null)
+                interact(e, ve::elementClicked);
+        }
+
+
+        private void interact(MouseEvent e, Actor actor) {
+            Point p = new Point(e.getX(), e.getY());
+            SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+            boolean modelHasChanged = actor.interact(CircuitComponent.this, p);
+            if (modelHasChanged) {
+                if (manualChangeObserver != null)
+                    manualChangeObserver.hasChanged();
+            } else
+                repaint();
         }
     }
 

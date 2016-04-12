@@ -6,10 +6,8 @@ import de.neemann.digital.core.element.AttributeListener;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.shapes.Drawable;
-import de.neemann.digital.draw.shapes.Interactor;
+import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.draw.shapes.Shape;
-import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 
 import javax.swing.*;
@@ -29,7 +27,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     private transient GraphicMinMax minMax;
     private transient Shape shape;
     private transient IOState ioState;
-    private transient Interactor interactor;
+    private transient InteractorInterface interactor;
     private transient Element element;
     private transient ShapeFactory shapeFactory;
     private Vector pos;
@@ -267,19 +265,50 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     /**
-     * Is called if this element is clicked by the mouse.
-     * the call is delegated to the {@link Interactor} of the {@link Shape}
+     * Is called if this element is clicked with the mouse.
+     * The call is delegated to the {@link Interactor} of the {@link Shape}
      *
      * @param cc  the calling {@link CircuitComponent}
      * @param pos the position
      * @return true if model is changed
      */
-    public boolean clicked(CircuitComponent cc, Point pos) {
+    public boolean elementClicked(CircuitComponent cc, Point pos) {
         if (interactor != null)
             return interactor.clicked(cc, pos, ioState, element);
         else
             return false;
     }
+
+    /**
+     * Is called if this element is clicked with the mouse.
+     * The call is delegated to the {@link Interactor} of the {@link Shape}
+     *
+     * @param cc  the calling {@link CircuitComponent}
+     * @param pos the position
+     * @return true if model is changed
+     */
+    public boolean elementPressed(CircuitComponent cc, Point pos) {
+        if (interactor != null)
+            return interactor.pressed(cc, pos, ioState, element);
+        else
+            return false;
+    }
+
+    /**
+     * Is called if this element is clicked with the mouse.
+     * The call is delegated to the {@link Interactor} of the {@link Shape}
+     *
+     * @param cc  the calling {@link CircuitComponent}
+     * @param pos the position
+     * @return true if model is changed
+     */
+    public boolean elementReleased(CircuitComponent cc, Point pos) {
+        if (interactor != null)
+            return interactor.released(cc, pos, ioState, element);
+        else
+            return false;
+    }
+
 
     @Override
     public void attributeChanged(AttributeKey key) {
