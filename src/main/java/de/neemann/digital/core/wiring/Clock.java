@@ -14,20 +14,32 @@ import de.neemann.digital.lang.Lang;
  */
 public class Clock implements Element {
 
+    /**
+     * the clocks description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Clock", Clock.class)
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.RunAtRealTime)
             .addAttribute(AttributeKey.Frequency);
 
     private final ObservableValue output;
     private final int frequency;
     private final String label;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the clocks attributes
+     */
     public Clock(ElementAttributes attributes) {
         output = new ObservableValue("C", 1);
-        int f = attributes.get(AttributeKey.Frequency);
-        if (f < 1) f = 1;
-        frequency = f;
+        if (attributes.get(AttributeKey.RunAtRealTime)) {
+            int f = attributes.get(AttributeKey.Frequency);
+            if (f < 1) f = 1;
+            frequency = f;
+        } else
+            frequency = 0;
         label = attributes.get(AttributeKey.Label);
     }
 
@@ -47,10 +59,16 @@ public class Clock implements Element {
         model.addSignal(label, output);
     }
 
+    /**
+     * @return the clock output value
+     */
     public ObservableValue getClockOutput() {
         return output;
     }
 
+    /**
+     * @return the clocks frequency
+     */
     public int getFrequency() {
         return frequency;
     }

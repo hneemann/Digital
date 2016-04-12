@@ -50,9 +50,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Out.LEDDESCRIPTION, menu);
         add(Button.DESCRIPTION, menu);
         add(Probe.DESCRIPTION, menu);
-        add(Clock.DESCRIPTION, menu);
-        add(Reset.DESCRIPTION, menu);
-        add(Break.DESCRIPTION, menu);
         add(Out.SEVENDESCRIPTION, menu);
         add(Out.SEVENHEXDESCRIPTION, menu);
         add(Terminal.DESCRIPTION, menu);
@@ -64,10 +61,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Decoder.DESCRIPTION, menu);
 
         menu = Lang.get("lib_wires");
-        add(Splitter.DESCRIPTION, menu);
         add(Const.DESCRIPTION, menu);
+        add(Splitter.DESCRIPTION, menu);
+        add(Clock.DESCRIPTION, menu);
         add(Delay.DESCRIPTION, menu);
         add(Driver.DESCRIPTION, menu);
+        add(Reset.DESCRIPTION, menu);
+        add(Break.DESCRIPTION, menu);
 
         menu = Lang.get("lib_flipFlops");
         add(RS_FF.DESCRIPTION, menu);

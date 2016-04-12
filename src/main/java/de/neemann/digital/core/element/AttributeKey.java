@@ -35,10 +35,11 @@ public class AttributeKey<VALUE> {
 
     public static final AttributeKey<Boolean> ShowDataTable = new AttributeKey<>("showDataTable", Lang.get("key_showDataTable"), false);
     public static final AttributeKey<Boolean> ShowDataGraph = new AttributeKey<>("showDataGraph", Lang.get("key_showDataGraph"), false);
-    public static final AttributeKey<Boolean> StartTimer = new AttributeKey<>("startTimer", Lang.get("key_startClock"), false);
+    //public static final AttributeKey<Boolean> StartTimer = new AttributeKey<>("startTimer", Lang.get("key_startClock"), false);
     public static final AttributeKey<Boolean> MicroStep = new AttributeKey<>("microStep", Lang.get("key_microStep"), false);
 
     public static final AttributeKey<Boolean> IsHighZ = new AttributeKey<>("isHighZ", Lang.get("key_isHighZ"), false);
+    public static final AttributeKey<Boolean> RunAtRealTime = new AttributeKey<>("runRealTime", Lang.get("key_runRealTime"), false);
 
     private final String key;
     private final VALUE def;

@@ -45,7 +45,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final ArrayList<AttributeKey> ATTR_LIST = new ArrayList<>();
 
     static {
-        ATTR_LIST.add(AttributeKey.StartTimer);
         ATTR_LIST.add(AttributeKey.ShowDataTable);
         ATTR_LIST.add(AttributeKey.ShowDataGraph);
         ATTR_LIST.add(AttributeKey.ShowListing);
@@ -376,7 +375,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void enter() {
                 super.enter();
-                if (createAndStartModel(settings.get(AttributeKey.StartTimer), ModelEvent.STEP))
+                if (createAndStartModel(true, ModelEvent.STEP))
                     circuitComponent.setManualChangeObserver(new FullStepObserver(model));
             }
         });
@@ -418,12 +417,21 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
 
-    private boolean createAndStartModel(boolean runClock, ModelEvent updateEvent) {
+    private boolean createAndStartModel(boolean globalRunClock, ModelEvent updateEvent) {
         try {
             circuitComponent.removeHighLighted();
             circuitComponent.setModeAndReset(true);
 
             setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library));
+
+            boolean runClock = false;
+            if (globalRunClock)
+                for (Clock c : model.getClocks())
+                    if (c.getFrequency() > 0) {
+                        model.addObserver(new RealTimeClock(model, c, timerExecuter, this));
+                        runClock = true;
+                    }
+
             if (runClock) {
                 // if clock is running, enable automatic update of gui
                 GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
@@ -432,11 +440,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             } else
                 // all repainting is initiated by user actions!
                 modelDescription.connectToGui(null);
-
-            if (runClock) {
-                for (Clock c : model.getClocks())
-                    model.addObserver(new RealTimeClock(model, c, timerExecuter, this));
-            }
 
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
 
