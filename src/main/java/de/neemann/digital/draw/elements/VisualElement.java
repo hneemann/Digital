@@ -149,30 +149,35 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @return the shape
      */
     public Shape getShape() {
-        if (shape == null)
+        if (shape == null) {
             shape = shapeFactory.getShape(elementName, elementAttributes);
+            minMax = null;
+        }
         return shape;
     }
 
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
+        drawShape(graphic, highLight);
+
+        // draw circle around element
+        if (highLight) {
+            GraphicMinMax mm = getMinMax();
+            Vector delta = mm.getMax().sub(mm.getMin());
+            int rad = (int) Math.sqrt(delta.x * delta.x + delta.y * delta.y) / 2;
+            delta = new Vector(rad, rad);
+            Vector pos = mm.getMax().add(mm.getMin()).div(2);
+            graphic.drawCircle(pos.sub(delta), pos.add(delta), Style.HIGHLIGHT);
+        }
+    }
+
+    private void drawShape(Graphic graphic, boolean highLight) {
         Graphic gr = new GraphicTransform(graphic, createTransform());
         Shape shape = getShape();
-
         shape.drawTo(gr, highLight);
         for (Pin p : shape.getPins())
             gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN),
                     p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
-
-        if (highLight && minMax == null && !(graphic instanceof GraphicMinMax)) getMinMax();
-
-        if (highLight && minMax != null) {
-            Vector delta = minMax.getMax().sub(minMax.getMin());
-            int rad = (int) Math.sqrt(delta.x * delta.x + delta.y * delta.y) / 2;
-            delta = new Vector(rad, rad);
-            Vector pos = minMax.getMax().add(minMax.getMin()).div(2);
-            graphic.drawCircle(pos.sub(delta), pos.add(delta), Style.HIGHLIGHT);
-        }
     }
 
     private Transform createTransform() {
@@ -188,7 +193,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public GraphicMinMax getMinMax() {
         if (minMax == null) {
             GraphicMinMax mm = new GraphicMinMax();
-            drawTo(mm, false);
+            drawShape(mm, false);
             minMax = mm;
         }
         return minMax;
@@ -204,16 +209,20 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * Create an icon from this element.
      * Is used to create the icons in the element menu
      *
-     * @param maxHeight the maximum hight
-     * @return the icon ore null if the maximum height is exceeded.
+     * @param maxHeight the maximum height
+     * @return the icon or null if the maximum height is exceeded.
      */
     public ImageIcon createIcon(int maxHeight) {
         GraphicMinMax mm = getMinMax();
 
-        if (mm.getMax().y - mm.getMin().y > maxHeight * 2)
-            return null;
+        double scale = 0.5;
+        if (mm.getMax().y - mm.getMin().y > maxHeight / scale)
+            scale = (double) (maxHeight - 1) / (mm.getMax().y - mm.getMin().y + 4);
 
-        BufferedImage bi = new BufferedImage((mm.getMax().x - mm.getMin().x + 4) / 2 + 1, (mm.getMax().y - mm.getMin().y + 4) / 2 + 1, BufferedImage.TYPE_INT_ARGB);
+        int width = (int) Math.round((mm.getMax().x - mm.getMin().x + 4) * scale + 1);
+        int height = (int) Math.round((mm.getMax().y - mm.getMin().y + 4) * scale + 1);
+
+        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gr = bi.createGraphics();
         gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -222,7 +231,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
         gr.setColor(new Color(255, 255, 255, 0));
         gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
-        gr.scale(0.5, 0.5);
+        gr.scale(scale, scale);
         gr.translate(2 - mm.getMin().x, 2 - mm.getMin().y);
         GraphicSwing grs = new GraphicSwing(gr);
         drawTo(grs, false);
@@ -272,7 +281,6 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     @Override
     public void attributeChanged(AttributeKey key) {
         shape = null;
-        minMax = null;
         rotate = elementAttributes.get(AttributeKey.Rotate).getRotation();
     }
 

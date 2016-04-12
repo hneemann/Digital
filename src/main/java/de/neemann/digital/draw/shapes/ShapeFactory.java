@@ -72,14 +72,22 @@ public final class ShapeFactory {
         return outInfos;
     }
 
-    public Shape getShape(String partName, ElementAttributes elementAttributes) {
-        Creator cr = map.get(partName);
+    /**
+     * Returns a shape matching the given name.
+     * If no shape is found, a special "missing shape" shape is returned.
+     *
+     * @param elementName       the elemnets name
+     * @param elementAttributes the elements attributes
+     * @return the shape
+     */
+    public Shape getShape(String elementName, ElementAttributes elementAttributes) {
+        Creator cr = map.get(elementName);
         try {
             if (cr == null) {
                 if (library == null)
-                    throw new NodeException(Lang.get("err_noShapeFoundFor_N", partName));
+                    throw new NodeException(Lang.get("err_noShapeFoundFor_N", elementName));
                 else {
-                    ElementTypeDescription pt = library.getElementType(partName);
+                    ElementTypeDescription pt = library.getElementType(elementName);
                     if (pt instanceof LibrarySelector.ElementTypeDescriptionCustom) {
                         LibrarySelector.ElementTypeDescriptionCustom customDescr = (LibrarySelector.ElementTypeDescriptionCustom) pt;
                         return new GenericShape(
@@ -100,7 +108,7 @@ public final class ShapeFactory {
             } else
                 return cr.create(elementAttributes);
         } catch (Exception e) {
-            return new MissingShape(partName, e);
+            return new MissingShape(elementName, e);
         }
     }
 
