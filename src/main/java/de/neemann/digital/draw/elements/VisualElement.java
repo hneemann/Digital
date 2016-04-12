@@ -272,10 +272,13 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      *
      * @param cc  the calling {@link CircuitComponent}
      * @param pos the position
+     * @return true if model is changed
      */
-    public void clicked(CircuitComponent cc, Point pos) {
+    public boolean clicked(CircuitComponent cc, Point pos) {
         if (interactor != null)
-            interactor.clicked(cc, pos, ioState, element);
+            return interactor.clicked(cc, pos, ioState, element);
+        else
+            return false;
     }
 
     @Override

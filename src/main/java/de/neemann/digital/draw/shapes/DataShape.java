@@ -40,7 +40,10 @@ public class DataShape implements Shape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        return null;
+        return (cc, pos, ioState1, element) -> {
+            dataSet.clear();
+            return false;
+        };
     }
 
     @Override

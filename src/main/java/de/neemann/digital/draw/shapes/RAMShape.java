@@ -22,11 +22,12 @@ public class RAMShape extends GenericShape {
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         return new Interactor() {
             @Override
-            public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
                 if (element instanceof RAMInterface) {
                     DataField dataField = ((RAMInterface) element).getMemory();
                     new DataEditor(cc, dataField).showDialog();
                 }
+                return false;
             }
         };
     }

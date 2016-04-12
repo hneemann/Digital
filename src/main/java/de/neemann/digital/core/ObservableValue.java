@@ -42,6 +42,43 @@ public class ObservableValue extends Observable {
     }
 
     /**
+     * Sets the value and fires a event if value has changed.
+     *
+     * @param value the new value
+     */
+    public void setValue(long value) {
+        value = getValueBits(value);
+        if (this.value != value) {
+            this.value = value;
+            if (!highZ)
+                hasChanged();
+        }
+    }
+
+    /**
+     * Sets the highZ state of this value
+     *
+     * @param highZ the new highZ state
+     */
+    public void setHighZ(boolean highZ) {
+        if (this.highZ != highZ) {
+            this.highZ = highZ;
+            hasChanged();
+        }
+    }
+
+    /**
+     * Sets the value and highZ state
+     *
+     * @param value the value
+     * @param highZ highZ state
+     */
+    public void set(long value, boolean highZ) {
+        setValue(value);
+        setHighZ(highZ);
+    }
+
+    /**
      * Adds an observer to this value.
      *
      * @param observer the observer to add
@@ -65,7 +102,7 @@ public class ObservableValue extends Observable {
      * @return the value
      */
     public long getValue() {
-//        if (highZ)
+//        if (highZ)      // ToDo: how to handle highZ read?
 //            throw new HighZException(this);
         return value;
     }
@@ -104,20 +141,6 @@ public class ObservableValue extends Observable {
                 return "0x" + s;
             else
                 return s;
-        }
-    }
-
-    /**
-     * Sets the value and fires a event if value has changed.
-     *
-     * @param value the new value
-     */
-    public void setValue(long value) {
-        value = getValueBits(value);
-        if (this.value != value) {
-            this.value = value;
-            if (!highZ)
-                hasChanged();
         }
     }
 
@@ -170,29 +193,6 @@ public class ObservableValue extends Observable {
      */
     public boolean isHighZ() {
         return highZ;
-    }
-
-    /**
-     * Sets the highZ state of this value
-     *
-     * @param highZ the new highZ state
-     */
-    public void setHighZ(boolean highZ) {
-        if (this.highZ != highZ) {
-            this.highZ = highZ;
-            hasChanged();
-        }
-    }
-
-    /**
-     * Sets the value and highZ state
-     *
-     * @param value the value
-     * @param highZ highZ state
-     */
-    public void set(long value, boolean highZ) {
-        setValue(value);
-        setHighZ(highZ);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class InputShape implements Shape {
         ioState.getOutput(0).addObserverToValue(guiObserver);
         return new Interactor() {
             @Override
-            public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
                     if (value.supportsHighZ()) {
@@ -52,6 +52,7 @@ public class InputShape implements Shape {
                 } else {
                     SingleValueDialog.editValue(pos, value);
                 }
+                return true;
             }
         };
     }

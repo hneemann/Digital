@@ -348,7 +348,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private void orderMeasurements() {
         try {
             Model m = new ModelDescription(circuitComponent.getCircuit(), library).createModel();
-            circuitComponent.getCircuit().clearState();
+            elementState.activate();
             ArrayList<String> names = new ArrayList<>();
             for (Model.Signal s : m.getSignals())
                 names.add(s.getName());

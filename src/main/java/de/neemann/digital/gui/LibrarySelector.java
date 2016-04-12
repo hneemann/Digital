@@ -80,6 +80,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                     Imported imp = importElement(fc.getSelectedFile());
                     if (imp != null) {
                         VisualElement visualElement = new VisualElement(imp.description.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
+                        elementState.activate();
                         circuitComponent.setPartToInsert(visualElement);
                         insertHistory.add(imp.insertAction);
                     }

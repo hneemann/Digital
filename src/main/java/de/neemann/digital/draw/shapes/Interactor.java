@@ -11,8 +11,8 @@ import java.awt.*;
  * during execution. So the User can interact with the element during execution.
  * Used at the InputShape to let the user toggle the inputs state.
  *
- * @see InputShape
  * @author hneemann
+ * @see InputShape
  */
 public interface Interactor {
 
@@ -22,6 +22,7 @@ public interface Interactor {
      * @param cc      the CircuitComponent
      * @param pos     the popuplocation on screen
      * @param ioState the state of the element
+     * @return true if model is changed
      */
-    void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element);
+    boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element);
 }

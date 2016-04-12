@@ -721,9 +721,12 @@ public class CircuitComponent extends JComponent {
             if (ve != null) {
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                ve.clicked(CircuitComponent.this, p);
-                if (manualChangeObserver != null)
-                    manualChangeObserver.hasChanged();
+                boolean modelHasChanged = ve.clicked(CircuitComponent.this, p);
+                if (modelHasChanged) {
+                    if (manualChangeObserver != null)
+                        manualChangeObserver.hasChanged();
+                } else
+                    repaint();
             }
         }
     }
