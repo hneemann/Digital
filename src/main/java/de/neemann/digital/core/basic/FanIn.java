@@ -29,7 +29,7 @@ public abstract class FanIn extends Node implements Element {
     @Override
     public void setInputs(ObservableValue... in) throws NodeException {
         for (ObservableValue v : in)
-            inputs.add(v.checkBits(bits, this).addObserver(this));
+            inputs.add(v.checkBits(bits, this).addObserverToValue(this));
     }
 
     @Override

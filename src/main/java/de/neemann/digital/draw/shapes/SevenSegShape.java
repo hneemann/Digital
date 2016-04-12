@@ -42,7 +42,7 @@ public class SevenSegShape extends SevenShape {
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         inputs = ioState.getInputs();
         for (ObservableValue o : inputs)
-            o.addObserver(guiObserver);
+            o.addObserverToValue(guiObserver);
         return null;
     }
 

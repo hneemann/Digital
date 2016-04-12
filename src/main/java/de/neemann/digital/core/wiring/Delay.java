@@ -43,7 +43,7 @@ public class Delay extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        input = inputs[0].addObserver(this).checkBits(bits, this);
+        input = inputs[0].addObserverToValue(this).checkBits(bits, this);
     }
 
     @Override

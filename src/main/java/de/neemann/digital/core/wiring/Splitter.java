@@ -77,7 +77,7 @@ public class Splitter implements Element {
                 final int bitPos = out.getPos() - in.getPos();
                 final ObservableValue inValue = inputs[in.number];
                 final ObservableValue outValue = outputs[out.number];
-                inValue.addObserver(new Observer() {
+                inValue.addObserverToValue(new Observer() {
                     @Override
                     public void hasChanged() {
                         outValue.setValue(inValue.getValue() >> bitPos);
@@ -92,7 +92,7 @@ public class Splitter implements Element {
                 final long mask = ~(((1L << in.bits) - 1) << bitPos);
                 final ObservableValue inValue = inputs[in.number];
                 final ObservableValue outValue = outputs[out.number];
-                inputs[in.number].addObserver(new Observer() {
+                inputs[in.number].addObserverToValue(new Observer() {
                     @Override
                     public void hasChanged() {
                         long in = inValue.getValue();
@@ -112,7 +112,7 @@ public class Splitter implements Element {
                 final int shift = out.getPos() - in.getPos();
                 final ObservableValue inValue = inputs[in.number];
                 final ObservableValue outValue = outputs[out.number];
-                inputs[in.number].addObserver(new Observer() {
+                inputs[in.number].addObserverToValue(new Observer() {
                     @Override
                     public void hasChanged() {
                         long in = inValue.getValue();
@@ -129,7 +129,7 @@ public class Splitter implements Element {
             final long mask = ~(((1L << bitsToCopy) - 1) << shift);
             final ObservableValue inValue = inputs[in.number];
             final ObservableValue outValue = outputs[out.number];
-            inputs[in.number].addObserver(new Observer() {
+            inputs[in.number].addObserverToValue(new Observer() {
                 @Override
                 public void hasChanged() {
                     long in = inValue.getValue();

@@ -42,8 +42,8 @@ public class XOr extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        a = inputs[0].addObserver(this).checkBits(bits, this);
-        b = inputs[1].addObserver(this).checkBits(bits, this);
+        a = inputs[0].addObserverToValue(this).checkBits(bits, this);
+        b = inputs[1].addObserverToValue(this).checkBits(bits, this);
     }
 
     @Override

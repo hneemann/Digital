@@ -57,7 +57,7 @@ public class Decoder extends Node implements Element {
     }
 
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        selector = inputs[0].addObserver(this).checkBits(selectorBits, this);
+        selector = inputs[0].addObserverToValue(this).checkBits(selectorBits, this);
     }
 
 }

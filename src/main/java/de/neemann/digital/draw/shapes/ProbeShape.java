@@ -31,7 +31,7 @@ public class ProbeShape implements Shape {
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         this.ioState = ioState;
-        ioState.getInput(0).addObserver(guiObserver);
+        ioState.getInput(0).addObserverToValue(guiObserver);
         bits = ioState.getInput(0).getBits();
         return null;
     }

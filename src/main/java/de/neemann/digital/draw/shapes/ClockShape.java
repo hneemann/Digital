@@ -33,7 +33,7 @@ public class ClockShape implements Shape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        ioState.getOutput(0).addObserver(guiObserver); // necessary to replot wires also if component itself does not depend on state
+        ioState.getOutput(0).addObserverToValue(guiObserver); // necessary to replot wires also if component itself does not depend on state
         return new Interactor() {
             @Override
             public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {

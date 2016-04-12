@@ -999,4 +999,27 @@
       <p2 x="380" y="500"/>
     </wire>
   </wires>
+  <measurementOrdering>
+    <string>Clock</string>
+    <string>Carry</string>
+    <string>Zero</string>
+    <string>Neg</string>
+    <string>PC</string>
+    <string>R0</string>
+    <string>R1</string>
+    <string>R2</string>
+    <string>R3</string>
+    <string>R4</string>
+    <string>R5</string>
+    <string>R6</string>
+    <string>R7</string>
+    <string>R8</string>
+    <string>R9</string>
+    <string>R10</string>
+    <string>R11</string>
+    <string>R12</string>
+    <string>BP</string>
+    <string>SP</string>
+    <string>RA</string>
+  </measurementOrdering>
 </circuit>

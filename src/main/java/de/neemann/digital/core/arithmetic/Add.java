@@ -58,9 +58,9 @@ public class Add extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        a = inputs[0].addObserver(this).checkBits(bits, this);
-        b = inputs[1].addObserver(this).checkBits(bits, this);
-        c_in = inputs[2].addObserver(this).checkBits(1, this);
+        a = inputs[0].addObserverToValue(this).checkBits(bits, this);
+        b = inputs[1].addObserverToValue(this).checkBits(bits, this);
+        c_in = inputs[2].addObserverToValue(this).checkBits(1, this);
     }
 
     @Override

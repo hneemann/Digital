@@ -61,11 +61,11 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        addrIn = inputs[0].checkBits(addrBits, this).addObserver(this);
-        dataIn = inputs[1].checkBits(bits, this).addObserver(this);
-        strIn = inputs[2].checkBits(1, this).addObserver(this);
-        clkIn = inputs[3].checkBits(1, this).addObserver(this);
-        ldIn = inputs[4].checkBits(1, this).addObserver(this);
+        addrIn = inputs[0].checkBits(addrBits, this).addObserverToValue(this);
+        dataIn = inputs[1].checkBits(bits, this).addObserverToValue(this);
+        strIn = inputs[2].checkBits(1, this).addObserverToValue(this);
+        clkIn = inputs[3].checkBits(1, this).addObserverToValue(this);
+        ldIn = inputs[4].checkBits(1, this).addObserverToValue(this);
     }
 
     @Override

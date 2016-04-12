@@ -59,8 +59,8 @@ public class Counter extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        clockIn = inputs[0].addObserver(this).checkBits(1, this);
-        clrIn = inputs[1].addObserver(this).checkBits(1, this);
+        clockIn = inputs[0].addObserverToValue(this).checkBits(1, this);
+        clrIn = inputs[1].addObserverToValue(this).checkBits(1, this);
     }
 
     @Override

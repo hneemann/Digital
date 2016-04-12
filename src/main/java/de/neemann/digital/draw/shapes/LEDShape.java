@@ -37,7 +37,7 @@ public class LEDShape implements Shape {
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         this.ioState = ioState;
-        ioState.getInput(0).addObserver(guiObserver);
+        ioState.getInput(0).addObserverToValue(guiObserver);
         return null;
     }
 

@@ -57,9 +57,9 @@ public class RS_FF extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        jVal = inputs[0].addObserver(this).checkBits(1, this);
-        clockVal = inputs[1].addObserver(this).checkBits(1, this);
-        kVal = inputs[2].addObserver(this).checkBits(1, this);
+        jVal = inputs[0].addObserverToValue(this).checkBits(1, this);
+        clockVal = inputs[1].addObserverToValue(this).checkBits(1, this);
+        kVal = inputs[2].addObserverToValue(this).checkBits(1, this);
     }
 
     @Override

@@ -54,7 +54,7 @@ public class Multiplexer extends FanIn {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        selector = inputs[0].addObserver(this).checkBits(selectorBits, this);
+        selector = inputs[0].addObserverToValue(this).checkBits(selectorBits, this);
         ObservableValue[] in = Arrays.copyOfRange(inputs, 1, inputs.length);
         super.setInputs(in);
 

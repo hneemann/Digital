@@ -47,8 +47,8 @@ public class Driver extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        input = inputs[0].addObserver(this).checkBits(bits, this);
-        selIn = inputs[1].addObserver(this).checkBits(1, this);
+        input = inputs[0].addObserverToValue(this).checkBits(bits, this);
+        selIn = inputs[1].addObserverToValue(this).checkBits(1, this);
     }
 
     @Override

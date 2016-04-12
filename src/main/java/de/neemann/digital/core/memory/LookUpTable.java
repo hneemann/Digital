@@ -54,7 +54,7 @@ public class LookUpTable extends Node implements Element {
     public void setInputs(ObservableValue... inputs) throws NodeException {
         this.inputs = inputs;
         for (int i = 0; i < inputs.length; i++)
-            inputs[i].checkBits(1, this).addObserver(this);
+            inputs[i].checkBits(1, this).addObserverToValue(this);
     }
 
     @Override

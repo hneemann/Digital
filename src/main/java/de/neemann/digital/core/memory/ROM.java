@@ -1,9 +1,6 @@
 package de.neemann.digital.core.memory;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -38,6 +35,7 @@ public class ROM extends Node implements Element {
     private final int addrBits;
     private final boolean showList;
     private final File listFile;
+    private final Observable romObservable = new Observable();
     private ObservableValue addrIn;
     private ObservableValue selIn;
     private int addr;
@@ -63,8 +61,8 @@ public class ROM extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        addrIn = inputs[0].checkBits(addrBits, this).addObserver(this);
-        selIn = inputs[1].checkBits(1, this).addObserver(this);
+        addrIn = inputs[0].checkBits(addrBits, this).addObserverToValue(this);
+        selIn = inputs[1].checkBits(1, this).addObserverToValue(this);
     }
 
     @Override
@@ -76,20 +74,15 @@ public class ROM extends Node implements Element {
     public void readInputs() throws NodeException {
         addr = (int) addrIn.getValue();
         sel = selIn.getBool();
-        if (sel)
+        if (sel) {
             romAddr = addr;
+            romObservable.hasChanged();
+        }
     }
 
     @Override
     public void writeOutputs() throws NodeException {
         output.set(data.getData(addr), !sel);
-    }
-
-    /**
-     * @return the value representing the input address
-     */
-    public ObservableValue getAddrIn() {
-        return addrIn;
     }
 
     /**
@@ -115,4 +108,21 @@ public class ROM extends Node implements Element {
             model.addRomListing(this);
     }
 
+    /**
+     * Adds an observer to this ROM
+     *
+     * @param observer the observer to add
+     */
+    public void addObserver(Observer observer) {
+        romObservable.addObserver(observer);
+    }
+
+    /**
+     * Removes an observer from this ROM
+     *
+     * @param observer the observer to remove
+     */
+    public void removeObserver(Observer observer) {
+        romObservable.removeObserver(observer);
+    }
 }

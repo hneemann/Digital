@@ -51,7 +51,7 @@ public class T_FF extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        clockVal = inputs[0].addObserver(this).checkBits(1, this);
+        clockVal = inputs[0].addObserverToValue(this).checkBits(1, this);
     }
 
     @Override

@@ -63,8 +63,8 @@ public class Demultiplexer extends Node implements Element {
     }
 
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        selector = inputs[0].addObserver(this).checkBits(selectorBits, this);
-        input = inputs[1].addObserver(this).checkBits(bits, this);
+        selector = inputs[0].addObserverToValue(this).checkBits(selectorBits, this);
+        input = inputs[1].addObserverToValue(this).checkBits(bits, this);
     }
 
 }

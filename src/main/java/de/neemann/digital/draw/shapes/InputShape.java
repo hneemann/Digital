@@ -37,7 +37,7 @@ public class InputShape implements Shape {
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         this.ioState = ioState;
-        ioState.getOutput(0).addObserver(guiObserver);
+        ioState.getOutput(0).addObserverToValue(guiObserver);
         return new Interactor() {
             @Override
             public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {

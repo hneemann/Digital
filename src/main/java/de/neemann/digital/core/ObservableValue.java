@@ -2,18 +2,17 @@ package de.neemann.digital.core;
 
 import de.neemann.digital.lang.Lang;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
  * @author hneemann
  */
-public class ObservableValue extends Value {
+public class ObservableValue extends Observable {
 
-    private final ArrayList<Observer> observers;
     private final String name;
     private final long mask;
     private final boolean supportsHighZ;
+    private final int bits;
+    private long value;
+    private boolean highZ;
     private boolean bidirectional;
 
     /**
@@ -34,10 +33,11 @@ public class ObservableValue extends Value {
      * @param highZ if true this value can be a high impedance value
      */
     public ObservableValue(String name, int bits, boolean highZ) {
-        super(bits, highZ);
+        super();
+        this.bits = bits;
+        this.highZ = highZ;
         mask = (1L << bits) - 1;
         this.name = name;
-        observers = new ArrayList<>();
         supportsHighZ = highZ;
     }
 
@@ -45,43 +45,11 @@ public class ObservableValue extends Value {
      * Adds an observer to this value.
      *
      * @param observer the observer to add
-     * @return this for call chaining
+     * @return this for chained calls
      */
-    public ObservableValue addObserver(Observer observer) {
-        if (observer != null)
-            observers.add(observer);
+    public ObservableValue addObserverToValue(Observer observer) {
+        super.addObserver(observer);
         return this;
-    }
-
-    /**
-     * Removes an observer from this value.
-     *
-     * @param observer the observer to use
-     */
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    /**
-     * Removes al observers from the given class
-     *
-     * @param observerClass the class of observers to remove
-     */
-    public void removeObserver(Class<? extends Observer> observerClass) {
-        Iterator<Observer> it = observers.iterator();
-        while (it.hasNext()) {
-            if (it.next().getClass() == observerClass)
-                it.remove();
-        }
-    }
-
-    /**
-     * Fires a has changed event to all observers
-     */
-    public void hasChanged() {
-        for (Observer l : observers) {
-            l.hasChanged();
-        }
     }
 
     /**
@@ -216,8 +184,12 @@ public class ObservableValue extends Value {
         }
     }
 
-
-    @Override
+    /**
+     * Sets the value and highZ state
+     *
+     * @param value the value
+     * @param highZ highZ state
+     */
     public void set(long value, boolean highZ) {
         setValue(value);
         setHighZ(highZ);
@@ -236,13 +208,6 @@ public class ObservableValue extends Value {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * @return the numbers of observers
-     */
-    public int observerCount() {
-        return observers.size();
     }
 
     /**

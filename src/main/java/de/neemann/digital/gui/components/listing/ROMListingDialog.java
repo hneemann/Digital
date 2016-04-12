@@ -6,6 +6,8 @@ import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -31,6 +33,8 @@ public class ROMListingDialog extends JDialog implements Observer {
      */
     public ROMListingDialog(JFrame parent, ROM rom) throws IOException {
         super(parent, Lang.get("win_listing"), false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
         this.rom = rom;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -48,7 +52,19 @@ public class ROMListingDialog extends JDialog implements Observer {
         list.setFont(new Font("monospaced", Font.PLAIN, 12));
         list.setVisibleRowCount(30);
 
-        rom.getAddrIn().addObserver(this);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                rom.addObserver(ROMListingDialog.this);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                rom.removeObserver(ROMListingDialog.this);
+            }
+        });
+
+
         hasChanged();
 
         getContentPane().add(new JScrollPane(list));

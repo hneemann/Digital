@@ -70,7 +70,7 @@ public class DataBus {
 
         CommonBusObserver observer = new CommonBusObserver(commonOut, obs, outputs);
         for (ObservableValue p : outputs)
-            p.addObserver(observer);
+            p.addObserverToValue(observer);
         observer.hasChanged();
     }
 
