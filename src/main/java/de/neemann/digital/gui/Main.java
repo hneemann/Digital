@@ -474,7 +474,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             if (modelDescription != null) {
                 if (cause instanceof NodeException) {
                     NodeException e = (NodeException) cause;
-                    if (e.getNodes() != null)
+                    if (!e.getNodes().isEmpty())
                         modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
                     else
                         circuitComponent.addHighLightedWires(e.getValues());
