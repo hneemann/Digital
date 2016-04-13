@@ -368,6 +368,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 clearModelDescription();
                 circuitComponent.setModeAndReset(false);
                 doStep.setEnabled(false);
+                runToBreak.setEnabled(false);
             }
 
         });

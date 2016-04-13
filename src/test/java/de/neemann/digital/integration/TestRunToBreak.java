@@ -24,9 +24,11 @@ public class TestRunToBreak extends TestCase {
 
         ModelDescription md = new ModelDescription(circuit, library);
         Model model = md.createModel();
+        model.init(true);
 
-        int clocks = model.runToBreak();
-        assertEquals(10, clocks);
+        assertTrue(model.isFastRunModel());
+        int halfClocks = model.runToBreak();
+        assertEquals(511, halfClocks);
     }
 
 }
