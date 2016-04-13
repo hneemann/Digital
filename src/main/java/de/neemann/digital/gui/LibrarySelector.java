@@ -1,5 +1,6 @@
 package de.neemann.digital.gui;
 
+import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementFactory;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -178,6 +179,10 @@ public class LibrarySelector implements ElementNotFoundNotification {
             library.addDescription(description);
 
             InsertAction insertAction = new InsertAction(description.getName(), insertHistory, circuitComponent);
+            String descriptionText = circuit.getAttributes().get(AttributeKey.Description);
+            if (descriptionText != null && descriptionText.length() > 0)
+                insertAction.setToolTip(descriptionText);
+
             JMenuItem menuEntry = insertAction.createJMenuItem();
             ImportedItem item = findImportedItem(description.getName());
             if (item != null) {

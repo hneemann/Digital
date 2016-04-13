@@ -3,6 +3,10 @@
   <version>1</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>Leitwerk für einen einfachen Prozessor.</string>
+    </entry>
+    <entry>
       <string>Width</string>
       <int>5</int>
     </entry>

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Einheit für bedingte Verzweigungen.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
@@ -128,10 +134,6 @@
     </wire>
     <wire>
       <p1 x="420" y="120"/>
-      <p2 x="440" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="120"/>
       <p2 x="520" y="120"/>
     </wire>
     <wire>

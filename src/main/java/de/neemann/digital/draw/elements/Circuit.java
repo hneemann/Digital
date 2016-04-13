@@ -34,6 +34,7 @@ public class Circuit {
 
     static {
         ATTR_LIST.add(AttributeKey.Width);
+        ATTR_LIST.add(AttributeKey.Description);
     }
 
     private int version = 1;

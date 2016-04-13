@@ -40,6 +40,7 @@ public class AttributeKey<VALUE> {
 
     public static final AttributeKey<Boolean> IsHighZ = new AttributeKey<>("isHighZ", Lang.get("key_isHighZ"), false);
     public static final AttributeKey<Boolean> RunAtRealTime = new AttributeKey<>("runRealTime", Lang.get("key_runRealTime"), false);
+    public static final AttributeKey<String> Description = new AttributeKey<>("Description", Lang.get("key_description"), "");
 
     private final String key;
     private final VALUE def;
