@@ -19,8 +19,8 @@ import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
  * @author hneemann
  */
 public class ClockShape implements Shape {
-    private static final int WI = SIZE / 2;
-    private static final Vector POS = new Vector(-SIZE * 2 + WI / 2, WI / 2);
+    private static final int WI = SIZE / 3;
+    private static final Vector POS = new Vector(-SIZE - WI * 2, WI);
 
     private final String label;
 
@@ -65,10 +65,12 @@ public class ClockShape implements Shape {
         graphic.drawPolygon(new Polygon(false)
                 .add(POS)
                 .add(POS.add(WI, 0))
-                .add(POS.add(WI, -WI))
-                .add(POS.add(2 * WI, -WI))
+                .add(POS.add(WI, -WI * 2))
+                .add(POS.add(2 * WI, -WI * 2))
                 .add(POS.add(2 * WI, 0))
-                .add(POS.add(3 * WI, 0)), Style.THIN);
+                .add(POS.add(3 * WI, 0))
+                .add(POS.add(3 * WI, -WI * 2))
+                .add(POS.add(4 * WI, -WI * 2)), Style.THIN);
 
         Vector textPos = new Vector(-SIZE * 3, 0);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
