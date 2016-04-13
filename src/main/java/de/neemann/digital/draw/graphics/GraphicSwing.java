@@ -45,6 +45,9 @@ public class GraphicSwing implements Graphic {
 
         if (p.isClosed())
             path.closePath();
+
+        if (style.isFilled())
+            gr.fill(path);
         gr.draw(path);
     }
 
