@@ -66,8 +66,4 @@ public class Out implements Element {
     public void registerNodes(Model model) {
         model.addSignal(label, value);
     }
-
-    public ObservableValue getValue() {
-        return value;
-    }
 }

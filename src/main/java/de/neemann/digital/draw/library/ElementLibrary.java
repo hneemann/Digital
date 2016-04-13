@@ -1,9 +1,6 @@
 package de.neemann.digital.draw.library;
 
-import de.neemann.digital.core.arithmetic.Add;
-import de.neemann.digital.core.arithmetic.Comparator;
-import de.neemann.digital.core.arithmetic.Mul;
-import de.neemann.digital.core.arithmetic.Sub;
+import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.flipflops.D_FF;
@@ -87,6 +84,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Sub.DESCRIPTION, menu);
         add(Mul.DESCRIPTION, menu);
         add(Comparator.DESCRIPTION, menu);
+        add(Neg.DESCRIPTION, menu);
     }
 
     private void add(ElementTypeDescription description, String treePath) {

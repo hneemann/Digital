@@ -22,14 +22,24 @@ public class CounterTest extends TestCase {
         out.setInputs(clk, clr);
 
         TestExecuter sc = new TestExecuter(model).setInputs(clk, clr).setOutputs(out.getOutputs());
-        sc.check(0, 0, 0);
-        sc.check(1, 0, 1);
-        sc.check(0, 0, 1);
-        sc.check(1, 0, 2);
-        sc.check(0, 0, 2);
-        sc.check(1, 0, 3);
-        sc.check(0, 0, 3);
-        sc.check(0, 1, 0);
+        sc.check(0, 0, 0, 0);
+        sc.check(1, 0, 1, 0);
+        sc.check(0, 0, 1, 0);
+        sc.check(1, 0, 2, 0);
+        sc.check(0, 0, 2, 0);
+        sc.check(1, 0, 3, 0);
+        sc.check(0, 0, 3, 0);
+        sc.check(0, 1, 0, 0);
+
+        sc.check(0, 0, 0, 0);
+        for (int i = 1; i <= 255; i++) {
+            sc.check(0, 0, i - 1, 0);
+            sc.check(1, 0, i, 0);
+        }
+        sc.check(0, 0, 255, 0);
+        sc.check(1, 0, 0, 1);
+        sc.check(0, 0, 0, 0);
+        sc.check(1, 0, 1, 0);
     }
 
 

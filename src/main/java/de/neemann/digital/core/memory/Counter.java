@@ -25,7 +25,9 @@ public class Counter extends Node implements Element {
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);
 
-    private ObservableValue out;
+    private final ObservableValue out;
+    private final ObservableValue ovf;
+    private final int ovfValue;
     private ObservableValue clockIn;
     private ObservableValue clrIn;
     private boolean lastClock;
@@ -39,6 +41,8 @@ public class Counter extends Node implements Element {
     public Counter(ElementAttributes attributes) {
         int bits = attributes.getBits();
         this.out = new ObservableValue("out", bits);
+        this.ovf = new ObservableValue("ovf", 1);
+        ovfValue = 1 << bits;
     }
 
     @Override
@@ -54,6 +58,12 @@ public class Counter extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
+        if (counter == ovfValue) {
+            counter = 0;
+            ovf.setValue(1);
+        } else
+            ovf.setValue(0);
+
         out.setValue(counter);
     }
 
@@ -65,7 +75,7 @@ public class Counter extends Node implements Element {
 
     @Override
     public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{out};
+        return new ObservableValue[]{out, ovf};
     }
 
 }

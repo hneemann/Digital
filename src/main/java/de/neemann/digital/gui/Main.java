@@ -474,10 +474,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             if (modelDescription != null) {
                 if (cause instanceof NodeException) {
                     NodeException e = (NodeException) cause;
-                    if (!e.getNodes().isEmpty())
-                        modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
-                    else
+                    if (e.getNodes().isEmpty())
                         circuitComponent.addHighLightedWires(e.getValues());
+                    else
+                        modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
                 } else if (cause instanceof PinException) {
                     PinException e = (PinException) cause;
                     circuitComponent.addHighLighted(e.getVisualElement());

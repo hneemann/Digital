@@ -41,7 +41,4 @@ public class Probe implements Element {
         model.addSignal(label, value);
     }
 
-    public ObservableValue getValue() {
-        return value;
-    }
 }
