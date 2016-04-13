@@ -197,8 +197,8 @@ public class LibrarySelector implements ElementNotFoundNotification {
     }
 
     private String createShortName(String name) {
-        if (name.endsWith(".dig")) name = name.substring(0, name.length() - 4);
-        return name;
+        if (name.endsWith(".dig")) return name.substring(0, name.length() - 4);
+        return Lang.get("elem_" + name);
     }
 
     private final static class ImportedItem {
