@@ -86,7 +86,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                     }
                 }
             }
-        }.setToolTip(Lang.get("menu_import_tt")));
+        }.setToolTip(Lang.get("menu_import_tt")).createJMenuItem());
 
         customMenu.add(new ToolTipAction(Lang.get("menu_refresh")) {
             @Override
@@ -96,22 +96,34 @@ public class LibrarySelector implements ElementNotFoundNotification {
                     customMenu.remove(item.menuEntry);
                 }
             }
-        }.setToolTip(Lang.get("menu_refresh_tt")));
+        }.setToolTip(Lang.get("menu_refresh_tt")).createJMenuItem());
 
 
         JMenu subMenu = null;
         String lastPath = null;
-        for (ElementLibrary.ElementContainer pc : library) {
-            String path = pc.getTreePath();
+        for (ElementLibrary.ElementContainer elementContainer : library) {
+            String path = elementContainer.getTreePath();
             if (!path.equals(lastPath)) {
                 subMenu = new JMenu(path);
                 parts.add(subMenu);
                 lastPath = path;
             }
-            subMenu.add(new InsertAction(pc.getName(), insertHistory, circuitComponent).createJMenuItem());
+            subMenu.add(new InsertAction(elementContainer.getName(), insertHistory, circuitComponent)
+                    .setToolTip(createToolTipText(elementContainer.getName()))
+                    .createJMenuItem());
         }
 
         return parts;
+    }
+
+    private String createToolTipText(String elementName) {
+        String toolTipText = Lang.getNull("elem_" + elementName + "_tt");
+        if (toolTipText == null)
+            return null;
+
+        if (toolTipText.indexOf('\n') >= 0)
+            toolTipText = "<html>" + toolTipText.replace("\n", "<br>") + "</html>";
+        return toolTipText;
     }
 
     /**
@@ -198,7 +210,12 @@ public class LibrarySelector implements ElementNotFoundNotification {
 
     private String createShortName(String name) {
         if (name.endsWith(".dig")) return name.substring(0, name.length() - 4);
-        return Lang.get("elem_" + name);
+
+        String transName = Lang.getNull("elem_" + name);
+        if (transName == null)
+            return name;
+        else
+            return transName;
     }
 
     private final static class ImportedItem {
