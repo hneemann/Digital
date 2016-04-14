@@ -1,10 +1,7 @@
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.AttributeKey;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -36,9 +33,9 @@ public class Splitter implements Element {
         }
 
         @Override
-        public String[] getInputNames(ElementAttributes elementAttributes) throws BitsException {
+        public PinDescription[] getInputNames(ElementAttributes elementAttributes) throws BitsException {
             Ports p = new Ports(elementAttributes.get(AttributeKey.InputSplit));
-            return p.getNames();
+            return p.getNames(PinDescription.Direction.input);
         }
 
     }
@@ -197,10 +194,10 @@ public class Splitter implements Element {
             return bits;
         }
 
-        public String[] getNames() {
-            String[] name = new String[ports.size()];
+        public PinDescription[] getNames(PinDescription.Direction dir) {
+            PinInfo[] name = new PinInfo[ports.size()];
             for (int i = 0; i < name.length; i++)
-                name[i] = ports.get(i).getName();
+                name[i] = new PinInfo(ports.get(i).getName(), "", dir);
 
             return name;
         }

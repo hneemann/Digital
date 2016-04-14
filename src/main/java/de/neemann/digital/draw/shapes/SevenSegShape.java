@@ -9,6 +9,7 @@ import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import static de.neemann.digital.core.element.PinInfo.input;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
@@ -26,14 +27,14 @@ public class SevenSegShape extends SevenShape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(0, 0), "a", Pin.Direction.input));
-            pins.add(new Pin(new Vector(SIZE, 0), "b", Pin.Direction.input));
-            pins.add(new Pin(new Vector(SIZE * 2, 0), "c", Pin.Direction.input));
-            pins.add(new Pin(new Vector(SIZE * 3, 0), "d", Pin.Direction.input));
-            pins.add(new Pin(new Vector(0, SIZE * HEIGHT), "e", Pin.Direction.input));
-            pins.add(new Pin(new Vector(SIZE, SIZE * HEIGHT), "f", Pin.Direction.input));
-            pins.add(new Pin(new Vector(SIZE * 2, SIZE * HEIGHT), "g", Pin.Direction.input));
-            pins.add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), "dp", Pin.Direction.input));
+            pins.add(new Pin(new Vector(0, 0), input("a")));
+            pins.add(new Pin(new Vector(SIZE, 0), input("b")));
+            pins.add(new Pin(new Vector(SIZE * 2, 0), input("c")));
+            pins.add(new Pin(new Vector(SIZE * 3, 0), input("d")));
+            pins.add(new Pin(new Vector(0, SIZE * HEIGHT), input("e")));
+            pins.add(new Pin(new Vector(SIZE, SIZE * HEIGHT), input("f")));
+            pins.add(new Pin(new Vector(SIZE * 2, SIZE * HEIGHT), input("g")));
+            pins.add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), input("dp")));
         }
         return pins;
     }

@@ -4,6 +4,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.lang.Lang;
@@ -17,12 +18,12 @@ import java.util.HashMap;
 public class ModelEntry {
     private final Element element;
     private final Pins pins;
-    private final String[] inputNames;
+    private final PinDescription[] inputNames;
     private final boolean isNestedElement;
     private final VisualElement visualElement;
     private IOState ioState;
 
-    public ModelEntry(Element element, Pins pins, VisualElement visualElement, String[] inputNames, boolean isNestedElement) {
+    public ModelEntry(Element element, Pins pins, VisualElement visualElement, PinDescription[] inputNames, boolean isNestedElement) {
         this.element = element;
         this.pins = pins;
         this.visualElement = visualElement;
@@ -33,8 +34,8 @@ public class ModelEntry {
     /**
      * Sets the Inputs of the element contained in this entry
      *
-     * @throws PinException
-     * @throws NodeException
+     * @throws PinException PinException
+     * @throws NodeException NodeException
      */
     public void applyInputs() throws PinException, NodeException {
         HashMap<String, Pin> ins = pins.getInputs();
@@ -42,7 +43,7 @@ public class ModelEntry {
         ObservableValue[] inputs = new ObservableValue[inputNames.length];
         if (inputNames.length > 0) {
             for (int i = 0; i < inputNames.length; i++) {
-                Pin pin = ins.get(inputNames[i]);
+                Pin pin = ins.get(inputNames[i].getName());
                 if (pin == null)
                     throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputNames[i], visualElement), visualElement);
 

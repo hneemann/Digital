@@ -8,25 +8,28 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
 public class Out implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Out.class, "in")
+            = new ElementTypeDescription(Out.class, input("in"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);
 
     public static final ElementTypeDescription LEDDESCRIPTION
-            = new ElementTypeDescription("LED", Out.class, "in")
+            = new ElementTypeDescription("LED", Out.class, input("in"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
 
     public static final ElementTypeDescription SEVENDESCRIPTION
-            = new ElementTypeDescription("Seven-Seg", Out.class, "a", "b", "c", "d", "e", "f", "g", "dp")
+            = new ElementTypeDescription("Seven-Seg", Out.class,
+            input("a"), input("b"), input("c"), input("d"), input("e"), input("f"), input("g"), input("dp"))
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
 
@@ -34,7 +37,7 @@ public class Out implements Element {
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> {
                 return new Out(4);
-            }, "d")
+            }, input("d"))
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
 

@@ -8,12 +8,14 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
 public class Not extends Node implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, "in")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, input("in"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits);
 

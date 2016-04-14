@@ -5,13 +5,15 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
 public class XNOr extends XOr {
 
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(XNOr.class, "a", "b")
+            = new ElementTypeDescription(XNOr.class, input("a"), input("b"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits);
 

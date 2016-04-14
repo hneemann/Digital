@@ -10,6 +10,8 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
@@ -25,7 +27,7 @@ public class ProbeShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), "in", Pin.Direction.input));
+        return new Pins().add(new Pin(new Vector(0, 0), input("in")));
     }
 
     @Override

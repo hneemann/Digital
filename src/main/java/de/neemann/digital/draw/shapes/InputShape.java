@@ -14,6 +14,7 @@ import de.neemann.digital.gui.components.SingleValueDialog;
 
 import java.awt.*;
 
+import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.OutputShape.RAD;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
@@ -31,7 +32,7 @@ public class InputShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), "out", Pin.Direction.output));
+        return new Pins().add(new Pin(new Vector(0, 0), output("out")));
     }
 
     @Override

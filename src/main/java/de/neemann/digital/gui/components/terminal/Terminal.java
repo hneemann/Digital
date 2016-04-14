@@ -8,13 +8,15 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
 public class Terminal extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Terminal.class, "D", "C")
+            = new ElementTypeDescription(Terminal.class, input("D"), input("C"))
             .addAttribute(AttributeKey.TermWidth)
             .addAttribute(AttributeKey.TermHeight)
             .addAttribute(AttributeKey.Rotate)

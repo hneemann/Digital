@@ -7,6 +7,7 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 
+import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
@@ -22,7 +23,7 @@ public class ResetShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), "Reset", Pin.Direction.output));
+        return new Pins().add(new Pin(new Vector(0, 0), output("Reset")));
     }
 
     @Override

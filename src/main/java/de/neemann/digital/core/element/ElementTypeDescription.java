@@ -16,17 +16,17 @@ public class ElementTypeDescription {
     private final String name;
     private String shortName;
     private final ElementFactory elementFactory;
-    private final String[] inputNames;
+    private final PinDescription[] inputPins;
     private final ArrayList<AttributeKey> attributeList;
 
     /**
      * Creates a new ElementTypeDescription
      *
      * @param clazz      the elements class
-     * @param inputNames names of the input signals
+     * @param inputPins names of the input signals
      */
-    public ElementTypeDescription(Class<? extends Element> clazz, String... inputNames) {
-        this(clazz.getSimpleName(), clazz, inputNames);
+    public ElementTypeDescription(Class<? extends Element> clazz, PinDescription... inputPins) {
+        this(clazz.getSimpleName(), clazz, inputPins);
     }
 
     /**
@@ -34,9 +34,9 @@ public class ElementTypeDescription {
      *
      * @param name       name of this element
      * @param clazz      the elements class
-     * @param inputNames names of the input signals
+     * @param inputPins names of the input signals
      */
-    public ElementTypeDescription(String name, Class<? extends Element> clazz, String... inputNames) {
+    public ElementTypeDescription(String name, Class<? extends Element> clazz, PinDescription... inputPins) {
         this(name, new ElementFactory() {
             @Override
             public Element create(ElementAttributes attributes) {
@@ -47,7 +47,7 @@ public class ElementTypeDescription {
                     throw new RuntimeException(e);
                 }
             }
-        }, inputNames);
+        }, inputPins);
     }
 
     /**
@@ -55,13 +55,16 @@ public class ElementTypeDescription {
      *
      * @param name           name of this element
      * @param elementFactory factory used to create the element
-     * @param inputNames     names of the input signals
+     * @param inputPins     names of the input signals
      */
-    public ElementTypeDescription(String name, ElementFactory elementFactory, String... inputNames) {
+    public ElementTypeDescription(String name, ElementFactory elementFactory, PinDescription... inputPins) {
         this.name = name;
         this.shortName = name;
         this.elementFactory = elementFactory;
-        this.inputNames = inputNames;
+        this.inputPins = inputPins;
+        for (PinDescription p : inputPins)
+            if (p.getDirection() != PinDescription.Direction.input)
+                throw new RuntimeException("pin direction error");
         attributeList = new ArrayList<>();
     }
 
@@ -130,8 +133,8 @@ public class ElementTypeDescription {
      * @return the list of input names
      * @throws NodeException NodeException
      */
-    public String[] getInputNames(ElementAttributes elementAttributes) throws NodeException {
-        return inputNames;
+    public PinDescription[] getInputNames(ElementAttributes elementAttributes) throws NodeException {
+        return inputPins;
     }
 
     /**

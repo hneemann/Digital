@@ -12,6 +12,8 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import static de.neemann.digital.core.element.PinInfo.output;
+
 /**
  * @author hneemann
  */
@@ -25,7 +27,7 @@ public class ConstShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), "out", Pin.Direction.output));
+        return new Pins().add(new Pin(new Vector(0, 0), output("out")));
     }
 
     @Override

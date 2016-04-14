@@ -3,6 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.PinInfo;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -40,7 +41,7 @@ public class SevenSegHexShape extends SevenShape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), "d", Pin.Direction.input));
+            pins.add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), PinInfo.input("d")));
         }
         return pins;
     }

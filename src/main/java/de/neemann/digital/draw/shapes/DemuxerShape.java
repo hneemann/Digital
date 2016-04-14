@@ -8,6 +8,8 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
@@ -31,16 +33,16 @@ public class DemuxerShape implements Shape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(SIZE, flip ? 0 : height), "sel", Pin.Direction.input));
+            pins.add(new Pin(new Vector(SIZE, flip ? 0 : height), input("sel")));
             if (outputCount == 2) {
-                pins.add(new Pin(new Vector(SIZE * 2, 0 * SIZE), "out_0", Pin.Direction.output));
-                pins.add(new Pin(new Vector(SIZE * 2, 2 * SIZE), "out_1", Pin.Direction.output));
+                pins.add(new Pin(new Vector(SIZE * 2, 0 * SIZE), output("out_0")));
+                pins.add(new Pin(new Vector(SIZE * 2, 2 * SIZE), output("out_1")));
             } else
                 for (int i = 0; i < outputCount; i++) {
-                    pins.add(new Pin(new Vector(SIZE * 2, i * SIZE), "out_" + i, Pin.Direction.output));
+                    pins.add(new Pin(new Vector(SIZE * 2, i * SIZE), output("out_" + i)));
                 }
             if (hasInput)
-                pins.add(new Pin(new Vector(0, (outputCount / 2) * SIZE), "in", Pin.Direction.input));
+                pins.add(new Pin(new Vector(0, (outputCount / 2) * SIZE), input("in")));
         }
         return pins;
     }

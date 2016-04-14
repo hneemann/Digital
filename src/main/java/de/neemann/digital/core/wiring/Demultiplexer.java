@@ -8,6 +8,8 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 
 /**
  * @author hneemann
@@ -25,7 +27,7 @@ public class Demultiplexer extends Node implements Element {
     private int selectorValue;
     private long value;
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class, "sel", "in")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class, input("sel"), input("in"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.SelectorBits)

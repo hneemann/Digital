@@ -6,6 +6,8 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * RAM module with a single port to read and write data.
  *
@@ -17,7 +19,8 @@ public class RAMSinglePort extends RAMDualPort {
      * The RAMs {@link ElementTypeDescription}
      */
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePort.class, "A", "str", "c", "ld")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePort.class,
+            input("A"), input("str"), input("c"), input("ld"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)

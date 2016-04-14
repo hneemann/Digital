@@ -7,9 +7,12 @@ import de.neemann.digital.core.basic.FanIn;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
 import java.util.Arrays;
+
+import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * @author hneemann
@@ -22,12 +25,12 @@ public class Multiplexer extends FanIn {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Multiplexer.class) {
         @Override
-        public String[] getInputNames(ElementAttributes elementAttributes) {
+        public PinDescription[] getInputNames(ElementAttributes elementAttributes) {
             int size = 1 << elementAttributes.get(AttributeKey.SelectorBits);
-            String[] names = new String[size + 1];
-            names[0] = "sel";
+            PinDescription[] names = new PinDescription[size + 1];
+            names[0] = input("sel");
             for (int i = 0; i < size; i++)
-                names[i + 1] = "in_" + i;
+                names[i + 1] = input("in_" + i);
             return names;
         }
     }

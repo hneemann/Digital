@@ -5,10 +5,7 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.AttributeKey;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Rotation;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
@@ -24,6 +21,8 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
+
+import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * @author hneemann
@@ -385,8 +384,8 @@ public class Circuit {
      * @return the list of input names
      * @throws PinException PinException
      */
-    public String[] getInputNames(ElementLibrary library) throws PinException {
-        ArrayList<String> pinList = new ArrayList<>();
+    public PinDescription[] getInputNames(ElementLibrary library) throws PinException {
+        ArrayList<PinDescription> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
             ElementTypeDescription elementType = library.getElementType(ve.getElementName());
             if (elementType == In.DESCRIPTION) {
@@ -394,10 +393,10 @@ public class Circuit {
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                pinList.add(name);
+                pinList.add(input(name));
             }
         }
-        return pinList.toArray(new String[pinList.size()]);
+        return pinList.toArray(new PinDescription[pinList.size()]);
     }
 
     /**

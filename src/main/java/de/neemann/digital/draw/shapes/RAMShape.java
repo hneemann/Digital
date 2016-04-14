@@ -2,6 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.RAMInterface;
 import de.neemann.digital.draw.elements.IOState;
@@ -14,7 +15,7 @@ import java.awt.*;
  * @author hneemann
  */
 public class RAMShape extends GenericShape {
-    public RAMShape(String name, String[] inputs, OutputPinInfo[] outputs, String label) {
+    public RAMShape(String name, PinDescription[] inputs, PinDescription[] outputs, String label) {
         super(name, inputs, outputs, label, true);
     }
 

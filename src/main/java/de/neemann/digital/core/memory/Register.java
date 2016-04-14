@@ -6,6 +6,8 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * A simple register.
  *
@@ -17,7 +19,7 @@ public class Register extends Node implements Element {
      * The registers {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Register.class, "D", "C", "en")
+            = new ElementTypeDescription(Register.class, input("D"), input("C"), input("en"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label)

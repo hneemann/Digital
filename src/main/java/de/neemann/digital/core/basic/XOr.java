@@ -9,13 +9,15 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
 public class XOr extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(XOr.class, "a", "b")
+            = new ElementTypeDescription(XOr.class, input("a"), input("b"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits);
 

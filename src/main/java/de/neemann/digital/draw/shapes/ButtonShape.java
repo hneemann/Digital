@@ -13,6 +13,7 @@ import de.neemann.digital.gui.components.CircuitComponent;
 
 import java.awt.*;
 
+import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
@@ -31,7 +32,7 @@ public class ButtonShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), "out", Pin.Direction.output));
+        return new Pins().add(new Pin(new Vector(0, 0), output("out")));
     }
 
     @Override

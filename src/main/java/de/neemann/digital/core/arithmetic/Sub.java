@@ -5,13 +5,15 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
 public class Sub extends Add {
 
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Sub.class, "a", "b", "c_i")
+            = new ElementTypeDescription(Sub.class, input("a"), input("b"), input("c_i"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Bits);

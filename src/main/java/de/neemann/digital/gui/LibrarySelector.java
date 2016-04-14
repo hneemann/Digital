@@ -1,9 +1,6 @@
 package de.neemann.digital.gui;
 
-import de.neemann.digital.core.element.AttributeKey;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementFactory;
-import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
@@ -249,7 +246,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
          * @param attributes     the attributes of the element
          * @param inputNames     the names of the input signals
          */
-        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, String... inputNames) {
+        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, PinDescription... inputNames) {
             super(file.getName(), elementFactory, inputNames);
             this.file = file;
             this.attributes = attributes;

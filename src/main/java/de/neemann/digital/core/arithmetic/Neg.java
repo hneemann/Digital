@@ -8,6 +8,8 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * Negation, twos complement
  *
@@ -18,7 +20,7 @@ public class Neg extends Node implements Element {
     /**
      * The element description
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Neg.class, "in")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Neg.class, input("in"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits);
 

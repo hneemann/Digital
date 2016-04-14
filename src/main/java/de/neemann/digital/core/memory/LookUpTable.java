@@ -3,10 +3,9 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.*;
+
+import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A look up table which can be used as a generic customizable gate.
@@ -20,11 +19,11 @@ public class LookUpTable extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(LookUpTable.class) {
         @Override
-        public String[] getInputNames(ElementAttributes elementAttributes) {
+        public PinDescription[] getInputNames(ElementAttributes elementAttributes) {
             int size = elementAttributes.get(AttributeKey.InputCount);
-            String[] names = new String[size];
+            PinDescription[] names = new PinDescription[size];
             for (int i = 0; i < size; i++)
-                names[i] = "in_" + i;
+                names[i] = input("in_" + i);
             return names;
         }
     }

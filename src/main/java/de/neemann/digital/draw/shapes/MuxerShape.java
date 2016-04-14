@@ -8,6 +8,8 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
@@ -27,15 +29,15 @@ public class MuxerShape implements Shape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(SIZE, flip ? 0 : inputCount * SIZE), "sel", Pin.Direction.input));
+            pins.add(new Pin(new Vector(SIZE, flip ? 0 : inputCount * SIZE), input("sel")));
             if (inputCount == 2) {
-                pins.add(new Pin(new Vector(0, 0 * SIZE), "in_0", Pin.Direction.input));
-                pins.add(new Pin(new Vector(0, 2 * SIZE), "in_1", Pin.Direction.input));
+                pins.add(new Pin(new Vector(0, 0 * SIZE), input("in_0")));
+                pins.add(new Pin(new Vector(0, 2 * SIZE), input("in_1")));
             } else
                 for (int i = 0; i < inputCount; i++) {
-                    pins.add(new Pin(new Vector(0, i * SIZE), "in_" + i, Pin.Direction.input));
+                    pins.add(new Pin(new Vector(0, i * SIZE), input("in_" + i)));
                 }
-            pins.add(new Pin(new Vector(SIZE * 2, (inputCount / 2) * SIZE), "out", Pin.Direction.output));
+            pins.add(new Pin(new Vector(SIZE * 2, (inputCount / 2) * SIZE), output("out")));
         }
         return pins;
     }

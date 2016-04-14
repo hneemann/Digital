@@ -7,6 +7,8 @@ import de.neemann.digital.core.element.*;
 
 import java.util.ArrayList;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
@@ -55,11 +57,11 @@ public abstract class FanIn extends Node implements Element {
         }
 
         @Override
-        public String[] getInputNames(ElementAttributes elementAttributes) {
+        public PinDescription[] getInputNames(ElementAttributes elementAttributes) {
             int count = elementAttributes.get(AttributeKey.InputCount);
-            String[] names = new String[count];
+            PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
-                names[i] = "in_" + i;
+                names[i] = input("in_" + i);
             return names;
         }
     }

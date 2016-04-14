@@ -9,6 +9,8 @@ import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
@@ -24,8 +26,8 @@ public class DelayShape implements Shape {
     @Override
     public Pins getPins() {
         return new Pins()
-                .add(new Pin(new Vector(SIZE * 2, 0), "out", Pin.Direction.output))
-                .add(new Pin(new Vector(0, 0), "in", Pin.Direction.input));
+                .add(new Pin(new Vector(SIZE * 2, 0), output("out")))
+                .add(new Pin(new Vector(0, 0), input("in")));
     }
 
     @Override

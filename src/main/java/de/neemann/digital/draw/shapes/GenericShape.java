@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -23,8 +24,8 @@ public class GenericShape implements Shape {
     public static final int SIZE = SIZE2 * 2;
 
     private final String name;
-    private final String[] inputs;
-    private final OutputPinInfo[] outputs;
+    private final PinDescription[] inputs;
+    private final PinDescription[] outputs;
     private final int width;
     private final boolean symmetric;
     private boolean invert = false;
@@ -40,7 +41,7 @@ public class GenericShape implements Shape {
      * @param inputs  the used inputs
      * @param outputs the used outputs
      */
-    public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs) {
+    public GenericShape(String name, PinDescription[] inputs, PinDescription[] outputs) {
         this(name, inputs, outputs, null, false);
     }
 
@@ -53,7 +54,7 @@ public class GenericShape implements Shape {
      * @param label         the label shown above the shape
      * @param showPinLabels true if pin names visible
      */
-    public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs, String label, boolean showPinLabels) {
+    public GenericShape(String name, PinDescription[] inputs, PinDescription[] outputs, String label, boolean showPinLabels) {
         this(name, inputs, outputs, label, showPinLabels, inputs.length == 1 && outputs.length == 1 && !showPinLabels ? 1 : 3);
     }
 
@@ -67,7 +68,7 @@ public class GenericShape implements Shape {
      * @param showPinLabels true if pin names visible
      * @param width         the width of the box
      */
-    public GenericShape(String name, String[] inputs, OutputPinInfo[] outputs, String label, boolean showPinLabels, int width) {
+    public GenericShape(String name, PinDescription[] inputs, PinDescription[] outputs, String label, boolean showPinLabels, int width) {
         this.name = name;
         this.inputs = inputs;
         this.outputs = outputs;
@@ -103,17 +104,17 @@ public class GenericShape implements Shape {
                 if (symmetric && ((inputs.length & 1) == 0) && i >= inputs.length / 2)
                     correct = SIZE;
 
-                pins.add(new Pin(new Vector(0, i * SIZE + correct), inputs[i], Pin.Direction.input));
+                pins.add(new Pin(new Vector(0, i * SIZE + correct), inputs[i]));
             }
 
 
             if (invert) {
                 for (int i = 0; i < outputs.length; i++)
-                    pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputs[i].getName(), outputs[i].getDirection()));
+                    pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputs[i]));
 
             } else {
                 for (int i = 0; i < outputs.length; i++)
-                    pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputs[i].getName(), outputs[i].getDirection()));
+                    pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputs[i]));
             }
         }
         return pins;

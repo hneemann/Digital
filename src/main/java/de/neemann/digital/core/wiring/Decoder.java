@@ -8,6 +8,8 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 
 /**
  * @author hneemann
@@ -22,7 +24,7 @@ public class Decoder extends Node implements Element {
     private int oldSelectorValue;
     private int selectorValue;
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Decoder.class, "sel")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Decoder.class, input("sel"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.SelectorBits)
             .addAttribute(AttributeKey.FlipSelPositon)

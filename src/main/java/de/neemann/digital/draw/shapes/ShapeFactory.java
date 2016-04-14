@@ -1,11 +1,11 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
@@ -62,12 +62,8 @@ public final class ShapeFactory {
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);
     }
 
-    private OutputPinInfo[] outputInfos(ElementTypeDescription description, ElementAttributes attributes) {
-        ObservableValue[] o = description.createElement(attributes).getOutputs();
-        OutputPinInfo[] outInfos = new OutputPinInfo[o.length];
-        for (int i = 0; i < outInfos.length; i++)
-            outInfos[i] = new OutputPinInfo(o[i].getName(), o[i].isBidirectional());
-        return outInfos;
+    private PinDescription[] outputInfos(ElementTypeDescription description, ElementAttributes attributes) {
+        return description.createElement(attributes).getOutputs();
     }
 
     /**

@@ -9,6 +9,8 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * A simple counter.
  *
@@ -20,7 +22,7 @@ public class Counter extends Node implements Element {
      * The counters {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Counter.class, "C", "clr")
+            = new ElementTypeDescription(Counter.class, input("C"), input("clr"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label);

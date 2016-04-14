@@ -1,11 +1,12 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
 /**
  * @author hneemann
  */
-public class ObservableValue extends Observable {
+public class ObservableValue extends Observable implements PinDescription {
 
     private final String name;
     private final long mask;
@@ -245,4 +246,16 @@ public class ObservableValue extends Observable {
     public boolean isBidirectional() {
         return bidirectional;
     }
+
+
+    @Override
+    public String getDescription() {
+        return "";  // ToDo
+    }
+
+    @Override
+    public Direction getDirection() {
+        return bidirectional ? Direction.both : Direction.output;
+    }
+
 }

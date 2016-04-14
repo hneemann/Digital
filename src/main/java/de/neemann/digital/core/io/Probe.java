@@ -8,6 +8,8 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
@@ -15,7 +17,7 @@ public class Probe implements Element {
 
 
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription("Probe", Probe.class, "in")
+            = new ElementTypeDescription("Probe", Probe.class, input("in"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label);
 

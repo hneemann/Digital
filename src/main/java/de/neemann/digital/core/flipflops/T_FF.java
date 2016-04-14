@@ -6,13 +6,15 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
 public class T_FF extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(T_FF.class, "C")
+            = new ElementTypeDescription(T_FF.class, input("C"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.ValueIsProbe)

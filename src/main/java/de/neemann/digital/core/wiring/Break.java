@@ -8,12 +8,14 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * @author hneemann
  */
 public class Break implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Break.class, "brk")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Break.class, input("brk"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Cycles);

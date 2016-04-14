@@ -11,6 +11,8 @@ import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
@@ -29,9 +31,9 @@ public class DriverShape implements Shape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(-SIZE, 0), "in", Pin.Direction.input));
-            pins.add(new Pin(new Vector(0, bottom ? SIZE : -SIZE), "sel", Pin.Direction.input));
-            pins.add(new Pin(new Vector(SIZE, 0), "out", Pin.Direction.output));
+            pins.add(new Pin(new Vector(-SIZE, 0), input("in")));
+            pins.add(new Pin(new Vector(0, bottom ? SIZE : -SIZE), input("sel")));
+            pins.add(new Pin(new Vector(SIZE, 0), output("out")));
         }
         return pins;
     }
@@ -47,8 +49,7 @@ public class DriverShape implements Shape {
                 new Polygon(true)
                         .add(-SIZE + 1, -SIZE2 - 2)
                         .add(SIZE - 1, 0)
-                        .add(-SIZE + 1, SIZE2 + 2)
-                , Style.NORMAL
+                        .add(-SIZE + 1, SIZE2 + 2), Style.NORMAL
         );
         if (bottom)
             graphic.drawLine(new Vector(0, SIZE), new Vector(0, 7), Style.NORMAL);

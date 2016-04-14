@@ -8,6 +8,8 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 
 import java.io.File;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * A ROM module.
  *
@@ -22,7 +24,7 @@ public class ROM extends Node implements Element {
     /**
      * The ROMs {@link ElementTypeDescription}
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(ROM.class, "A", "sel")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(ROM.class, input("A"), input("sel"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)

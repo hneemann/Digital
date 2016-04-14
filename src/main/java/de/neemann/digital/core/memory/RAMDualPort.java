@@ -8,6 +8,8 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 
+import static de.neemann.digital.core.element.PinInfo.input;
+
 /**
  * RAM module with different ports to read and write the data.
  *
@@ -18,7 +20,8 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
     /**
      * The RAMs {@link ElementTypeDescription}
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class, "A", "D", "str", "c", "ld")
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class,
+            input("A"), input("D"), input("str"), input("c"), input("ld"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
