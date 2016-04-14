@@ -7,6 +7,7 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -192,16 +193,43 @@ public class DataSet implements Iterable<DataSample>, Drawable {
         return maxTextLength * Style.NORMAL.getFontSize() / 2 + BORDER + SEP;
     }
 
+    /**
+     * @return the preferred width of the graphical representation
+     */
     public int getGraphicWidth() {
         return getTextBorder() + size() * SIZE;
     }
 
+    /**
+     * @return the preferred height of the graphical representation
+     */
     public int getGraphicHeight() {
         return signalSize() * (SIZE + SEP) + 2 * BORDER;
     }
 
+    /**
+     * @return the signals stored
+     */
     public ArrayList<Model.Signal> getSignals() {
         return signals;
     }
 
+    /**
+     * Stores the data in  csv file
+     *
+     * @param file the file
+     * @throws IOException IOException
+     */
+    public void saveCSV(File file) throws IOException {
+        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))) {
+            w.write("\"step\"");
+            for (Model.Signal s : signals)
+                w.write(",\"" + s.getName() + '"');
+            w.newLine();
+            for (DataSample s : samples) {
+                s.writeTo(w);
+                w.newLine();
+            }
+        }
+    }
 }

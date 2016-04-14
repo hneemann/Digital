@@ -2,6 +2,8 @@ package de.neemann.digital.gui.components.data;
 
 import de.neemann.digital.core.Model;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -73,5 +75,17 @@ public class DataSample {
         for (int i = 0; i < signals.size(); i++)
             values[i] = signals.get(i).getValue().getValueIgnoreBurn();
         return this;
+    }
+
+    /**
+     * Write this sample as a single CSV line
+     *
+     * @param w the writer
+     * @throws IOException IOException
+     */
+    public void writeTo(BufferedWriter w) throws IOException {
+        w.write("\"" + timeStamp + "\"");
+        for (int i = 0; i < values.length; i++)
+            w.write(",\"" + values[i] + "\"");
     }
 }
