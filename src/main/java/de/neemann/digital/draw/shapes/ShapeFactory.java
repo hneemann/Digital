@@ -60,6 +60,8 @@ public final class ShapeFactory {
 
         map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);
+
+        map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
     }
 
     private PinDescription[] outputInfos(ElementTypeDescription description, ElementAttributes attributes) {

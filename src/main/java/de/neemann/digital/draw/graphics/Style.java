@@ -19,6 +19,7 @@ public class Style {
     public static final Style DASH = new Style(1, false, Color.BLACK, new float[]{4, 4});
     public static final Style SHAPE_PIN = new Style(4, false, Color.GRAY, 18, null);
     public static final Style HIGHLIGHT = new Style(4, false, Color.CYAN);
+    public static final Style INVISIBLE = new Style(0, false, Color.WHITE);
 
     private final int thickness;
     private final boolean filled;

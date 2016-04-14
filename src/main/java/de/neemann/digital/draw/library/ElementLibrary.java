@@ -51,6 +51,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Out.SEVENHEXDESCRIPTION, menu);
         add(Terminal.DESCRIPTION, menu);
         add(DummyElement.DATADESCRIPTION, menu);
+        add(DummyElement.TEXTDESCRIPTION, menu);
 
         menu = Lang.get("lib_mux");
         add(Multiplexer.DESCRIPTION, menu);

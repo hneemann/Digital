@@ -27,28 +27,32 @@ public class GraphicSwing implements Graphic {
 
     @Override
     public void drawLine(Vector p1, Vector p2, Style style) {
-        applyStyle(style);
-        gr.drawLine(p1.x, p1.y, p2.x, p2.y);
+        if (style != Style.INVISIBLE) {
+            applyStyle(style);
+            gr.drawLine(p1.x, p1.y, p2.x, p2.y);
+        }
     }
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
-        applyStyle(style);
-        Path2D path = new GeneralPath();
-        boolean first = true;
-        for (Vector v : p)
-            if (first) {
-                first = false;
-                path.moveTo(v.x, v.y);
-            } else
-                path.lineTo(v.x, v.y);
+        if (style != Style.INVISIBLE) {
+            applyStyle(style);
+            Path2D path = new GeneralPath();
+            boolean first = true;
+            for (Vector v : p)
+                if (first) {
+                    first = false;
+                    path.moveTo(v.x, v.y);
+                } else
+                    path.lineTo(v.x, v.y);
 
-        if (p.isClosed())
-            path.closePath();
+            if (p.isClosed())
+                path.closePath();
 
-        if (style.isFilled())
-            gr.fill(path);
-        gr.draw(path);
+            if (style.isFilled())
+                gr.fill(path);
+            gr.draw(path);
+        }
     }
 
     @Override

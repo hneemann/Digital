@@ -23,6 +23,12 @@ public class DummyElement implements Element {
             .addAttribute(AttributeKey.MicroStep);
 
     /**
+     * The TextElement description
+     */
+    public static final ElementTypeDescription TEXTDESCRIPTION = new ElementTypeDescription("Text", DummyElement.class)
+            .addAttribute(AttributeKey.Label);
+
+    /**
      * Creates a new dummy element
      *
      * @param attr the attributes

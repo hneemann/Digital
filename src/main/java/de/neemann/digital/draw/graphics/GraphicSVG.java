@@ -79,36 +79,38 @@ public class GraphicSVG implements Graphic, Closeable {
 
     @Override
     public void drawLine(Vector p1, Vector p2, Style style) {
-        try {
-            w.write("<line x1=\"" + p1.x + "\" y1=\"" + p1.y + "\" x2=\"" + p2.x + "\" y2=\"" + p2.y + "\" stroke=\"" + getColor(style) + "\" stroke-linecap=\"square\" stroke-width=\"" + getStrokeWidth(style) + "\"");
+        if (style != Style.INVISIBLE)
+            try {
+                w.write("<line x1=\"" + p1.x + "\" y1=\"" + p1.y + "\" x2=\"" + p2.x + "\" y2=\"" + p2.y + "\" stroke=\"" + getColor(style) + "\" stroke-linecap=\"square\" stroke-width=\"" + getStrokeWidth(style) + "\"");
 //            if (style.isDashed())
 //                addStrokeDash(w, style.getDashArray());
-            w.write(" />\n");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                w.write(" />\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
     }
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
-        try {
-            w.write("<path d=\"M " + str(p.get(0)));
-            for (int i = 1; i < p.size(); i++)
-                w.write(" L " + str(p.get(i)));
+        if (style != Style.INVISIBLE)
+            try {
+                w.write("<path d=\"M " + str(p.get(0)));
+                for (int i = 1; i < p.size(); i++)
+                    w.write(" L " + str(p.get(i)));
 
-            if (p.isClosed())
-                w.write(" Z");
+                if (p.isClosed())
+                    w.write(" Z");
 
-            w.write("\"");
+                w.write("\"");
 //            if (style.isDashed())
 //                addStrokeDash(w, style.getDashArray());
-            if (style.isFilled() && p.isClosed())
-                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\"/>\n");
-            else
-                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                if (style.isFilled() && p.isClosed())
+                    w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\"/>\n");
+                else
+                    w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
     }
 
     private static double getStrokeWidth(Style style) {
@@ -117,20 +119,21 @@ public class GraphicSVG implements Graphic, Closeable {
 
     @Override
     public void drawCircle(Vector p1, Vector p2, Style style) {
-        try {
-            Vector c = p1.add(p2).div(2);
-            double r = Math.abs(p2.sub(p1).x) / 2.0;
-            if (style.isFilled())
-                w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" />\n");
-            else {
-                w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"");
+        if (style != Style.INVISIBLE)
+            try {
+                Vector c = p1.add(p2).div(2);
+                double r = Math.abs(p2.sub(p1).x) / 2.0;
+                if (style.isFilled())
+                    w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" />\n");
+                else {
+                    w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"");
 //                if (style.isDashed())
 //                    addStrokeDash(w, style.getDashArray());
-                w.write(" />\n");
+                    w.write(" />\n");
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
