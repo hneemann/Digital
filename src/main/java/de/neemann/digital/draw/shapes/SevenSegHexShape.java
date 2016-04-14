@@ -19,6 +19,7 @@ public class SevenSegHexShape extends SevenShape {
     private static final int[] TABLE = new int[]{0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71};
     private Pins pins;
     private ObservableValue input;
+    private ObservableValue dp;
 
     public SevenSegHexShape(ElementAttributes attr) {
         super(attr);
@@ -29,19 +30,27 @@ public class SevenSegHexShape extends SevenShape {
         if (input == null)
             return onStyle;
 
-        int v = (int) input.getValueIgnoreBurn() & 0xf;
-        v = TABLE[v];
-        if ((v & (1 << i)) != 0)
-            return onStyle;
-        else
-            return offStyle;
+        if (i == 7) {
+            if (dp.getBool())
+                return onStyle;
+            else
+                return offStyle;
+        } else {
+            int v = (int) input.getValueIgnoreBurn() & 0xf;
+            v = TABLE[v];
+            if ((v & (1 << i)) != 0)
+                return onStyle;
+            else
+                return offStyle;
+        }
     }
 
     @Override
     public Pins getPins() {
         if (pins == null) {
-            pins = new Pins();
-            pins.add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), PinInfo.input("d")));
+            pins = new Pins()
+                    .add(new Pin(new Vector(SIZE * 2, SIZE * HEIGHT), PinInfo.input("d")))
+                    .add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), PinInfo.input("dp")));
         }
         return pins;
     }
@@ -49,6 +58,7 @@ public class SevenSegHexShape extends SevenShape {
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         input = ioState.getInput(0).addObserverToValue(guiObserver);
+        dp = ioState.getInput(1).addObserverToValue(guiObserver);
         return null;
     }
 }

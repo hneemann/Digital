@@ -15,7 +15,7 @@ public class PinInfo implements PinDescription {
      * @return the new input
      */
     public static PinInfo input(String name) {
-        return new PinInfo(name, "", Direction.input);
+        return new PinInfo(name, null, Direction.input);
     }
 
     /**
@@ -36,7 +36,7 @@ public class PinInfo implements PinDescription {
      * @return the new output
      */
     public static PinInfo output(String name) {
-        return new PinInfo(name, "", Direction.output);
+        return new PinInfo(name, null, Direction.output);
     }
 
     /**
@@ -83,7 +83,10 @@ public class PinInfo implements PinDescription {
 
     @Override
     public String getDescription() {
-        return description;
+        if (description == null)
+            return name;
+        else
+            return description;
     }
 
     @Override

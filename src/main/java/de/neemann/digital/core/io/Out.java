@@ -34,7 +34,10 @@ public class Out implements Element {
             .addAttribute(AttributeKey.Color);
 
     public static final ElementTypeDescription SEVENDESCRIPTION
-            = new ElementTypeDescription("Seven-Seg", Out.class,
+            = new ElementTypeDescription("Seven-Seg",
+            attributes -> {
+                return new Out(1, 1, 1, 1, 1, 1, 1, 1);
+            },
             input("a"), input("b"), input("c"), input("d"), input("e"), input("f"), input("g"), input("dp"))
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
@@ -42,28 +45,32 @@ public class Out implements Element {
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> {
-                return new Out(4);
-            }, input("d"))
+                return new Out(4, 1);
+            }, input("d"), input("dp"))
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Color);
 
-    private final int bits;
+    private final int[] bits;
     private final String label;
     private ObservableValue value;
 
     public Out(ElementAttributes attributes) {
-        bits = attributes.getBits();
+        bits = new int[]{attributes.getBits()};
         label = attributes.get(AttributeKey.Label);
     }
 
-    public Out(int bits) {
+    public Out(int... bits) {
         this.bits = bits;
         label = null;
     }
 
     @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
-        value = inputs[0].checkBits(bits, null);
+        if (inputs.length != bits.length)
+            throw new NodeException("wrong input count");
+        value = inputs[0].checkBits(bits[0], null);
+        for (int i = 1; i < bits.length; i++)
+            inputs[i].checkBits(bits[i], null);
     }
 
     @Override
