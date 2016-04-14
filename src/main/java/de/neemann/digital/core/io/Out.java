@@ -16,10 +16,16 @@ import static de.neemann.digital.core.element.PinInfo.input;
 public class Out implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Out.class, input("in"))
+            = new ElementTypeDescription(Out.class, input("in")) {
+        @Override
+        public String getDescription(ElementAttributes elementAttributes) {
+            return elementAttributes.get(AttributeKey.Description);
+        }
+    }
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.Label);
+            .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Description);
 
     public static final ElementTypeDescription LEDDESCRIPTION
             = new ElementTypeDescription("LED", Out.class, input("in"))

@@ -16,6 +16,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Der Opcode incl. Immediate Bit</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Op</string>
         </entry>
@@ -167,6 +171,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Programm Counter in Register Speichern</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>stPC</string>
         </entry>
@@ -193,6 +201,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Wert am Datenbus in Register speichern</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>WE</string>
         </entry>
@@ -203,6 +215,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Aktiviert das Speichern der Konstanten</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -219,6 +235,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>absoluten Sprung auslösen</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>absJmp</string>
         </entry>
@@ -229,6 +249,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Selektor für Mux B</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>muxB</string>
@@ -245,6 +269,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Selector für Mux A</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>muxA</string>
         </entry>
@@ -256,6 +284,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>ALU auf den Datenbus legen</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>ALUToBus</string>
         </entry>
@@ -266,6 +298,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Operation der ALU</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>ALUop</string>
@@ -282,6 +318,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Art des bedingten Sprunges</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Branch</string>
         </entry>
@@ -297,6 +337,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Ram speichert Daten vom Datenbus</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>st</string>
         </entry>
@@ -307,6 +351,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Ram gibt Daten auf den Datenbus</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>ld</string>
@@ -319,6 +367,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Es wird auf die IO geschrieben</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>ioW</string>
         </entry>
@@ -329,6 +381,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Es wird IO gelesen</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>ioR</string>

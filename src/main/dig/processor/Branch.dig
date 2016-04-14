@@ -73,6 +73,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>relativen Sprung ausführen</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>jmp</string>
         </entry>
@@ -83,6 +87,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Art des Sprungs wählen</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>ctrl</string>

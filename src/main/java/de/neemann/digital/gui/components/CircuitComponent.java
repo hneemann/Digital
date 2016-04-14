@@ -4,10 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.Moveable;
-import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.elements.Wire;
+import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -114,6 +111,28 @@ public class CircuitComponent extends JComponent {
         addMouseMotionListener(disp);
         addMouseListener(disp);
 
+        setToolTipText("");
+    }
+
+    @Override
+    public String getToolTipText(MouseEvent event) {
+        Vector pos = getPosVector(event);
+        VisualElement ve = circuit.getElementAt(pos);
+        if (ve == null) return null;
+
+        Pin p = circuit.getPinAt(raster(pos), ve);
+        if (p != null)
+            return checkToolTip(p.getDescription());
+
+        ElementTypeDescription etd = library.getElementType(ve.getElementName());
+        return checkToolTip(etd.getDescription(ve.getElementAttributes()));
+    }
+
+    private String checkToolTip(String tt) {
+        if (tt != null && tt.length() == 0)
+            return null;
+        else
+            return tt;
     }
 
     /**

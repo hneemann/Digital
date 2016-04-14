@@ -14,11 +14,17 @@ import de.neemann.digital.lang.Lang;
  */
 public class In implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(In.class)
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(In.class) {
+        @Override
+        public String getDescription(ElementAttributes elementAttributes) {
+            return elementAttributes.get(AttributeKey.Description);
+        }
+    }
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.IsHighZ)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label)
+            .addAttribute(AttributeKey.Description)
             .addAttribute(AttributeKey.Default);
 
     private final ObservableValue output;

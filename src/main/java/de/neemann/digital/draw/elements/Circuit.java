@@ -337,11 +337,22 @@ public class Circuit {
      * @return true if position is a pin position
      */
     public boolean isPinPos(Vector pos, VisualElement el) {
+        return getPinAt(pos, el) != null;
+    }
+
+    /**
+     * Returns the pin at the given position
+     *
+     * @param pos position
+     * @param el  the element
+     * @return the pin or null if no pin found
+     */
+    public Pin getPinAt(Vector pos, VisualElement el) {
         for (Pin p : el.getPins())
             if (p.getPos().equals(pos))
-                return true;
+                return p;
 
-        return false;
+        return null;
     }
 
 
@@ -393,7 +404,8 @@ public class Circuit {
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                pinList.add(input(name));
+                String descr = ve.getElementAttributes().get(AttributeKey.Description);
+                pinList.add(input(name, descr));
             }
         }
         return pinList.toArray(new PinDescription[pinList.size()]);
@@ -420,6 +432,7 @@ public class Circuit {
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
+                String descr = ve.getElementAttributes().get(AttributeKey.Description);
                 pinList.add(new ObservableValue(name, 0) {
                     @Override
                     public long getValue() {
@@ -430,7 +443,7 @@ public class Circuit {
                     public ObservableValue addObserverToValue(Observer observer) {
                         throw new RuntimeException("invalid call!");
                     }
-                });
+                }.setDescription(descr));
             }
         }
         return pinList.toArray(new ObservableValue[pinList.size()]);

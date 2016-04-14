@@ -35,6 +35,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Aktueller ALU-Inhalt</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>ALU</string>
         </entry>
@@ -87,6 +91,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Adresse des nächsten auszuführenden Befehls</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Next</string>
         </entry>
@@ -101,6 +109,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Programm Counter</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -135,6 +147,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Takt</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
@@ -180,6 +196,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>absoluten Sprung auslösen</string>
+        </entry>
+        <entry>
           <string>rotation</string>
           <rotation rotation="1"/>
         </entry>
@@ -194,6 +214,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>relativen Spung auslösen</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="1"/>

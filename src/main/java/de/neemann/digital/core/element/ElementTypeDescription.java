@@ -18,11 +18,12 @@ public class ElementTypeDescription {
     private final ElementFactory elementFactory;
     private final PinDescription[] inputPins;
     private final ArrayList<AttributeKey> attributeList;
+    private String description;
 
     /**
      * Creates a new ElementTypeDescription
      *
-     * @param clazz      the elements class
+     * @param clazz     the elements class
      * @param inputPins names of the input signals
      */
     public ElementTypeDescription(Class<? extends Element> clazz, PinDescription... inputPins) {
@@ -32,8 +33,8 @@ public class ElementTypeDescription {
     /**
      * Creates a new ElementTypeDescription
      *
-     * @param name       name of this element
-     * @param clazz      the elements class
+     * @param name      name of this element
+     * @param clazz     the elements class
      * @param inputPins names of the input signals
      */
     public ElementTypeDescription(String name, Class<? extends Element> clazz, PinDescription... inputPins) {
@@ -55,7 +56,7 @@ public class ElementTypeDescription {
      *
      * @param name           name of this element
      * @param elementFactory factory used to create the element
-     * @param inputPins     names of the input signals
+     * @param inputPins      names of the input signals
      */
     public ElementTypeDescription(String name, ElementFactory elementFactory, PinDescription... inputPins) {
         this.name = name;
@@ -79,7 +80,7 @@ public class ElementTypeDescription {
     }
 
     /**
-     * Returns a short name which should be used to draw on the shape.
+     * Sets a short name which should be used to draw it on the shape.
      *
      * @param shortName the short name
      * @return this for call chaining
@@ -87,6 +88,31 @@ public class ElementTypeDescription {
     public ElementTypeDescription setShortName(String shortName) {
         this.shortName = shortName;
         return this;
+    }
+
+    /**
+     * Sets the description of this element
+     *
+     * @param description the description
+     * @return this for call chaining
+     */
+    public ElementTypeDescription setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Returns a description of this element.
+     * If no description is set, the name is returned
+     *
+     * @param elementAttributes the elements attributes
+     * @return the description
+     */
+    public String getDescription(ElementAttributes elementAttributes) {
+        if (description == null)
+            return name;
+        else
+            return description;
     }
 
     /**
@@ -146,4 +172,5 @@ public class ElementTypeDescription {
     public Element createElement(ElementAttributes elementAttributes) {
         return elementFactory.create(elementAttributes);
     }
+
 }

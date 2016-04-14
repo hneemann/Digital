@@ -35,6 +35,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Daten die gespeichert werden sollen</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>WD</string>
         </entry>
@@ -346,6 +350,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Takt</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
@@ -356,6 +364,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Nummer des Source Registers</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="1"/>
@@ -406,6 +418,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Nummer des Destignation Registers</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>dest</string>
         </entry>
@@ -421,6 +437,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Das Speichern aktivieren</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>WE</string>
         </entry>
@@ -431,6 +451,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Inhalt des Destignation Registers</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Rdest</string>
@@ -446,6 +470,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Inhalt des Source Registers</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Rsrc</string>

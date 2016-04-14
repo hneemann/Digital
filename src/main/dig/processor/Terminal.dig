@@ -1,151 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-    <visualElements>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>A</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>16</int>
-                </entry>
-            </elementAttributes>
-            <pos x="180" y="80"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>D</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>16</int>
-                </entry>
-            </elementAttributes>
-            <pos x="180" y="60"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Comparator</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Bits</string>
-                    <int>16</int>
-                </entry>
-            </elementAttributes>
-            <pos x="220" y="80"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Const</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Value</string>
-                    <int>31</int>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>16</int>
-                </entry>
-            </elementAttributes>
-            <pos x="210" y="90"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Terminal</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>Terminal</string>
-                </entry>
-            </elementAttributes>
-            <pos x="330" y="60"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>C</string>
-                </entry>
-            </elementAttributes>
-            <pos x="180" y="130"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>And</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Inputs</string>
-                    <int>3</int>
-                </entry>
-            </elementAttributes>
-            <pos x="280" y="90"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>W</string>
-                </entry>
-            </elementAttributes>
-            <pos x="180" y="110"/>
-            <rotate>0</rotate>
-        </visualElement>
-    </visualElements>
-    <wires>
-        <wire>
-            <p1 x="180" y="80"/>
-            <p2 x="220" y="80"/>
-        </wire>
-        <wire>
-            <p1 x="180" y="130"/>
-            <p2 x="270" y="130"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="100"/>
-            <p2 x="320" y="100"/>
-        </wire>
-        <wire>
-            <p1 x="270" y="100"/>
-            <p2 x="280" y="100"/>
-        </wire>
-        <wire>
-            <p1 x="320" y="70"/>
-            <p2 x="330" y="70"/>
-        </wire>
-        <wire>
-            <p1 x="250" y="90"/>
-            <p2 x="280" y="90"/>
-        </wire>
-        <wire>
-            <p1 x="210" y="90"/>
-            <p2 x="220" y="90"/>
-        </wire>
-        <wire>
-            <p1 x="180" y="60"/>
-            <p2 x="330" y="60"/>
-        </wire>
-        <wire>
-            <p1 x="180" y="110"/>
-            <p2 x="280" y="110"/>
-        </wire>
-        <wire>
-            <p1 x="320" y="70"/>
-            <p2 x="320" y="100"/>
-        </wire>
-        <wire>
-            <p1 x="270" y="100"/>
-            <p2 x="270" y="130"/>
-        </wire>
-    </wires>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Terminal</string>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Addressbus</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="160"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Datenbus</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Comparator</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="160"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <int>31</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Terminal</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Terminal</string>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="120"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Takt</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="260"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="180"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Write Enable</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>W</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="220"/>
+      <rotate>0</rotate>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="360" y="160"/>
+      <p2 x="440" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="260"/>
+      <p2 x="540" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="180"/>
+      <p2 x="560" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="180"/>
+      <p2 x="440" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="200"/>
+      <p2 x="640" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="200"/>
+      <p2 x="560" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="120"/>
+      <p2 x="660" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="140"/>
+      <p2 x="660" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="220"/>
+      <p2 x="560" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="140"/>
+      <p2 x="640" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="200"/>
+      <p2 x="540" y="260"/>
+    </wire>
+  </wires>
 </circuit>
