@@ -14,6 +14,9 @@ import de.neemann.digital.lang.Lang;
  */
 public class In implements Element {
 
+    /**
+     * The inputs description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(In.class) {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
@@ -29,10 +32,14 @@ public class In implements Element {
 
     private final ObservableValue output;
     private final String label;
-    private final boolean highZ;
 
+    /**
+     * Create a new instance
+     *
+     * @param attributes the inputs attributes
+     */
     public In(ElementAttributes attributes) {
-        highZ = attributes.get(AttributeKey.IsHighZ);
+        boolean highZ = attributes.get(AttributeKey.IsHighZ);
         output = new ObservableValue("out", attributes.get(AttributeKey.Bits), highZ);
         output.setValue(attributes.get(AttributeKey.Default));
         label = attributes.get(AttributeKey.Label);
