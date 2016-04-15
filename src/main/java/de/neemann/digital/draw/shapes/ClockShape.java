@@ -4,6 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -13,7 +14,6 @@ import de.neemann.digital.gui.components.CircuitComponent;
 
 import java.awt.*;
 
-import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
@@ -24,19 +24,21 @@ public class ClockShape implements Shape {
     private static final Vector POS = new Vector(-SIZE - WI * 2, WI);
 
     private final String label;
+    private final PinDescription[] outputs;
 
     /**
      * Creates a new instance
      *
      * @param attr
      */
-    public ClockShape(ElementAttributes attr) {
+    public ClockShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+        this.outputs = outputs;
         this.label = attr.getLabel();
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), output("C")));
+        return new Pins().add(new Pin(new Vector(0, 0), outputs[0]));
     }
 
     @Override

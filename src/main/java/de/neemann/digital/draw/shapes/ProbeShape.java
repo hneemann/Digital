@@ -2,6 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -10,24 +11,24 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
-import static de.neemann.digital.core.element.PinInfo.input;
-
 /**
  * @author hneemann
  */
 public class ProbeShape implements Shape {
 
     private final String label;
+    private final PinDescription[] inputs;
     private IOState ioState;
     private int bits;
 
-    public ProbeShape(ElementAttributes attr) {
+    public ProbeShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+        this.inputs = inputs;
         this.label = attr.getLabel();
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), input("in")));
+        return new Pins().add(new Pin(new Vector(0, 0), inputs[0]));
     }
 
     @Override

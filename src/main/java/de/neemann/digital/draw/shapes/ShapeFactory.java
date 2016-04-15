@@ -32,13 +32,13 @@ public final class ShapeFactory {
         map.put(NAnd.DESCRIPTION.getName(), new CreatorSimple("&", NAnd.DESCRIPTION, true));
         map.put(NOr.DESCRIPTION.getName(), new CreatorSimple("\u22651", NOr.DESCRIPTION, true));
         map.put(Not.DESCRIPTION.getName(), new CreatorSimple("", Not.DESCRIPTION, true));
-        map.put(Delay.DESCRIPTION.getName(), attr -> new DelayShape());
+        map.put(Delay.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new DelayShape());
 
         map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", XOr.DESCRIPTION, false));
         map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", XNOr.DESCRIPTION, true));
 
-        map.put(RAMDualPort.DESCRIPTION.getName(), attr -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputNames(attr), outputInfos(RAMDualPort.DESCRIPTION, attr), attr.get(AttributeKey.Label)));
-        map.put(RAMSinglePort.DESCRIPTION.getName(), attr -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputNames(attr), outputInfos(RAMSinglePort.DESCRIPTION, attr), attr.get(AttributeKey.Label)));
+        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr), attr.get(AttributeKey.Label)));
+        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr), attr.get(AttributeKey.Label)));
 
         map.put(In.DESCRIPTION.getName(), InputShape::new);
         map.put(Reset.DESCRIPTION.getName(), ResetShape::new);
@@ -55,17 +55,13 @@ public final class ShapeFactory {
         map.put(Break.DESCRIPTION.getName(), BreakShape::new);
 
         map.put(Multiplexer.DESCRIPTION.getName(), MuxerShape::new);
-        map.put(Demultiplexer.DESCRIPTION.getName(), attr -> new DemuxerShape(attr, true));
-        map.put(Decoder.DESCRIPTION.getName(), attr -> new DemuxerShape(attr, false));
+        map.put(Demultiplexer.DESCRIPTION.getName(), DemuxerShape::new);
+        map.put(Decoder.DESCRIPTION.getName(), DemuxerShape::new);
 
         map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
-    }
-
-    private PinDescription[] outputInfos(ElementTypeDescription description, ElementAttributes attributes) {
-        return description.createElement(attributes).getOutputs();
     }
 
     /**
@@ -88,28 +84,32 @@ public final class ShapeFactory {
                         LibrarySelector.ElementTypeDescriptionCustom customDescr = (LibrarySelector.ElementTypeDescriptionCustom) pt;
                         return new GenericShape(
                                 pt.getShortName(),
-                                pt.getInputNames(elementAttributes),
-                                outputInfos(pt, elementAttributes),
+                                pt.getInputDescription(elementAttributes),
+                                pt.getOutputDescriptions(elementAttributes),
                                 elementAttributes.get(AttributeKey.Label),
                                 true,
                                 customDescr.getAttributes().get(AttributeKey.Width));
                     } else
                         return new GenericShape(
                                 pt.getShortName(),
-                                pt.getInputNames(elementAttributes),
-                                outputInfos(pt, elementAttributes),
+                                pt.getInputDescription(elementAttributes),
+                                pt.getOutputDescriptions(elementAttributes),
                                 elementAttributes.get(AttributeKey.Label),
                                 true);
                 }
-            } else
-                return cr.create(elementAttributes);
+            } else {
+                ElementTypeDescription pt = library.getElementType(elementName);
+                return cr.create(elementAttributes,
+                        pt.getInputDescription(elementAttributes),
+                        pt.getOutputDescriptions(elementAttributes));
+            }
         } catch (Exception e) {
             return new MissingShape(elementName, e);
         }
     }
 
     private interface Creator {
-        Shape create(ElementAttributes attributes) throws NodeException;
+        Shape create(ElementAttributes attributes, PinDescription[] inputs, PinDescription[] outputs) throws NodeException;
     }
 
 
@@ -126,8 +126,8 @@ public final class ShapeFactory {
         }
 
         @Override
-        public Shape create(ElementAttributes attributes) throws NodeException {
-            return new GenericShape(name, description.getInputNames(attributes), outputInfos(description, attributes)).invert(invers);
+        public Shape create(ElementAttributes attributes, PinDescription[] inputs, PinDescription[] outputs) throws NodeException {
+            return new GenericShape(name, inputs, outputs).invert(invers);
         }
     }
 }

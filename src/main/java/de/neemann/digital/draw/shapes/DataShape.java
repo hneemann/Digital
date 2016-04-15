@@ -6,6 +6,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
@@ -30,7 +31,7 @@ public class DataShape implements Shape {
     private final int maxSize;
     private DataSet dataSet;
 
-    public DataShape(ElementAttributes attr) {
+    public DataShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         if (attr.get(AttributeKey.MicroStep))
             type = ModelEvent.MICROSTEP;
         else

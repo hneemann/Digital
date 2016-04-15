@@ -33,7 +33,7 @@ public class Splitter implements Element {
         }
 
         @Override
-        public PinDescription[] getInputNames(ElementAttributes elementAttributes) throws BitsException {
+        public PinDescription[] getInputDescription(ElementAttributes elementAttributes) throws BitsException {
             Ports p = new Ports(elementAttributes.get(AttributeKey.InputSplit));
             return p.getNames(PinDescription.Direction.input);
         }

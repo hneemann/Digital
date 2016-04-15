@@ -104,7 +104,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
             }
 
             if (isNotAIO)
-                entries.add(new ModelEntry(element, pins, ve, elementType.getInputNames(ve.getElementAttributes()), isNestedCircuit));
+                entries.add(new ModelEntry(element, pins, ve, elementType.getInputDescription(ve.getElementAttributes()), isNestedCircuit));
 
             for (Pin p : pins)
                 netList.add(p);

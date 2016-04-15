@@ -4,6 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -12,22 +13,22 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
-import static de.neemann.digital.core.element.PinInfo.output;
-
 /**
  * @author hneemann
  */
 public class ConstShape implements Shape {
 
+    private final PinDescription[] outputs;
     private String value;
 
-    public ConstShape(ElementAttributes attr) {
+    public ConstShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+        this.outputs = outputs;
         this.value = ObservableValue.getHexString(attr.get(AttributeKey.Value));
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), output("out")));
+        return new Pins().add(new Pin(new Vector(0, 0), outputs[0]));
     }
 
     @Override

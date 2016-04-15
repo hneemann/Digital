@@ -19,7 +19,7 @@ public class LookUpTable extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(LookUpTable.class) {
         @Override
-        public PinDescription[] getInputNames(ElementAttributes elementAttributes) {
+        public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
             int size = elementAttributes.get(AttributeKey.InputCount);
             PinDescription[] names = new PinDescription[size];
             for (int i = 0; i < size; i++)

@@ -15,7 +15,9 @@ import static de.neemann.digital.core.element.PinInfo.input;
  */
 public class Driver extends Node implements Element {
 
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Driver.class, input("in"), input("sel"))
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Driver.class,
+            input("in"),
+            input("sel"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.FlipSelPositon);

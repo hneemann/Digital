@@ -4,6 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -14,7 +15,6 @@ import de.neemann.digital.gui.components.SingleValueDialog;
 
 import java.awt.*;
 
-import static de.neemann.digital.core.element.PinInfo.output;
 import static de.neemann.digital.draw.shapes.OutputShape.RAD;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
@@ -24,15 +24,17 @@ import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 public class InputShape implements Shape {
 
     private final String label;
+    private final PinDescription[] outputs;
     private IOState ioState;
 
-    public InputShape(ElementAttributes attr) {
+    public InputShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+        this.outputs = outputs;
         this.label = attr.getLabel();
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), output("out")));
+        return new Pins().add(new Pin(new Vector(0, 0), outputs[0]));
     }
 
     @Override

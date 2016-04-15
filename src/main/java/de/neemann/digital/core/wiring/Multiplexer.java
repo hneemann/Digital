@@ -25,10 +25,10 @@ public class Multiplexer extends FanIn {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Multiplexer.class) {
         @Override
-        public PinDescription[] getInputNames(ElementAttributes elementAttributes) {
+        public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
             int size = 1 << elementAttributes.get(AttributeKey.SelectorBits);
             PinDescription[] names = new PinDescription[size + 1];
-            names[0] = input("sel");
+            names[0] = input("sel", Lang.get("elem_Multiplexer_pin_sel"));
             for (int i = 0; i < size; i++)
                 names[i + 1] = input("in_" + i);
             return names;

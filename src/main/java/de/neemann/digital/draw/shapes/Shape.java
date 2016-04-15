@@ -16,6 +16,9 @@ public interface Shape extends Drawable {
      * Puts the pins name and the pins x-y-position together!
      * This information is used to calculate the models connections
      * from the wiring in the circuit.
+     * Don't create your own {@link de.neemann.digital.core.element.PinInfo} instance! Try to use
+     * the instances available from the {@link de.neemann.digital.core.element.ElementTypeDescription}s
+     * getInputDescription and get
      *
      * @return the pins
      */

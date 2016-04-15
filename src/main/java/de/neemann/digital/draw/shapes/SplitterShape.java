@@ -23,11 +23,11 @@ public class SplitterShape implements Shape {
     private final int length;
     private Pins pins;
 
-    public SplitterShape(ElementAttributes attr) throws BitsException {
+    public SplitterShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) throws BitsException {
         String inputDef = attr.get(AttributeKey.InputSplit);
         String outputDef = attr.get(AttributeKey.OutputSplit);
-        inputs = new Splitter.Ports(inputDef).getNames(PinDescription.Direction.input);
-        outputs = new Splitter.Ports(outputDef).getNames(PinDescription.Direction.output);
+        this.inputs = new Splitter.Ports(inputDef).getNames(PinDescription.Direction.input);
+        this.outputs = new Splitter.Ports(outputDef).getNames(PinDescription.Direction.output);
         length = (Math.max(inputs.length, outputs.length) - 1) * SIZE + 2;
     }
 

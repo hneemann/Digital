@@ -15,7 +15,7 @@ public class ObservableValue extends Observable implements PinDescription {
     private long value;
     private boolean highZ;
     private boolean bidirectional;
-    private String description = "";
+    private String description;
 
     /**
      * Creates a new instance
@@ -251,7 +251,10 @@ public class ObservableValue extends Observable implements PinDescription {
 
     @Override
     public String getDescription() {
-        return description;
+        if (description != null)
+            return description;
+        else
+            return getName();
     }
 
     public ObservableValue setDescription(String description) {

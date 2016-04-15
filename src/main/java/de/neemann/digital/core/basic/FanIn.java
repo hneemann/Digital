@@ -57,7 +57,7 @@ public abstract class FanIn extends Node implements Element {
         }
 
         @Override
-        public PinDescription[] getInputNames(ElementAttributes elementAttributes) {
+        public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
             int count = elementAttributes.get(AttributeKey.InputCount);
             PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
