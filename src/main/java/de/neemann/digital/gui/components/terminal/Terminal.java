@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -15,8 +16,13 @@ import static de.neemann.digital.core.element.PinInfo.input;
  */
 public class Terminal extends Node implements Element {
 
+    /**
+     * The terminal description
+     */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Terminal.class, input("D"), input("C"))
+            = new ElementTypeDescription(Terminal.class,
+            input("D", Lang.get("elem_Terminal_pin_D")),
+            input("C", Lang.get("elem_Terminal_pin_C")))
             .addAttribute(AttributeKey.TermWidth)
             .addAttribute(AttributeKey.TermHeight)
             .addAttribute(AttributeKey.Rotate)
@@ -28,6 +34,11 @@ public class Terminal extends Node implements Element {
     private TerminalDialog terminalDialog;
     private boolean lastClock;
 
+    /**
+     * Creates a new terminal instance
+     *
+     * @param attributes the attributes
+     */
     public Terminal(ElementAttributes attributes) {
         attr = attributes;
     }

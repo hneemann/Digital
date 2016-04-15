@@ -5,6 +5,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -20,7 +21,10 @@ public class RAMSinglePort extends RAMDualPort {
      */
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePort.class,
-            input("A"), input("str"), input("c"), input("ld"))
+            input("A", Lang.get("elem_RAMSinglePort_pin_addr")),
+            input("str", Lang.get("elem_RAMSinglePort_pin_str")),
+            input("c", Lang.get("elem_RAMSinglePort_pin_c")),
+            input("ld", Lang.get("elem_RAMSinglePort_pin_ld")))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
@@ -44,7 +48,9 @@ public class RAMSinglePort extends RAMDualPort {
      */
     @Override
     protected ObservableValue createOutput() {
-        return super.createOutput().setBidirectional(true);
+        return super.createOutput()
+                .setBidirectional(true)
+                .setDescription(Lang.get("elem_RAMSinglePort_pin_d"));
     }
 
     @Override

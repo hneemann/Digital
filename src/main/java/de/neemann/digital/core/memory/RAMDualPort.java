@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -21,7 +22,11 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      * The RAMs {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class,
-            input("A"), input("D"), input("str"), input("c"), input("ld"))
+            input("A", Lang.get("elem_RAMDualPort_pin_addr")),
+            input("D", Lang.get("elem_RAMDualPort_pin_dataIn")),
+            input("str", Lang.get("elem_RAMDualPort_pin_str")),
+            input("c", Lang.get("elem_RAMDualPort_pin_c")),
+            input("ld", Lang.get("elem_RAMDualPort_pin_ld")))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.AddrBits)
@@ -59,7 +64,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      * @return the output value
      */
     protected ObservableValue createOutput() {
-        return new ObservableValue("D", bits, true);
+        return new ObservableValue("D", bits, true).setDescription(Lang.get("elem_RAMDualPort_pin_dataOut"));
     }
 
     @Override
