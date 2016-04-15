@@ -26,7 +26,6 @@ import java.util.List;
  */
 public class DataSetDialog extends JDialog implements ModelStateObserver {
     private static final int MAX_SAMPLE_SIZE = 1000;
-    private final ArrayList<Model.Signal> signals;
     private final DataSetComponent dsc;
     private final JScrollPane scrollPane;
     private DataSet dataSet;
@@ -45,7 +44,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
-        signals = model.getSignalsCopy();
+        ArrayList<Model.Signal> signals = model.getSignalsCopy();
         new OrderMerger<String, Model.Signal>(ordering) {
             @Override
             public boolean equals(Model.Signal a, String b) {
