@@ -155,6 +155,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>maxStepCount</string>
+          <int>30</int>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Data</string>
         </entry>

@@ -20,7 +20,8 @@ public class DummyElement implements Element {
      * The DataElement description
      */
     public static final ElementTypeDescription DATADESCRIPTION = new ElementTypeDescription("Data", DummyElement.class)
-            .addAttribute(AttributeKey.MicroStep);
+            .addAttribute(AttributeKey.MicroStep)
+            .addAttribute(AttributeKey.MaxStepCount);
 
     /**
      * The TextElement description

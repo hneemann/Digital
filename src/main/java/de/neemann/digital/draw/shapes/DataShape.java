@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class DataShape implements Shape {
 
     private final ModelEvent type;
+    private final int maxSize;
     private DataSet dataSet;
 
     public DataShape(ElementAttributes attr) {
@@ -34,6 +35,7 @@ public class DataShape implements Shape {
             type = ModelEvent.MICROSTEP;
         else
             type = ModelEvent.STEP;
+        maxSize = attr.get(AttributeKey.MaxStepCount);
     }
 
     @Override
@@ -70,7 +72,7 @@ public class DataShape implements Shape {
             }
         }.order(signals);
 
-        dataSet = new DataSet(signals);
+        dataSet = new DataSet(signals, maxSize);
 
         DataSetObserver dataSetObserver = new DataSetObserver(type, dataSet);
         model.addObserver(dataSetObserver);

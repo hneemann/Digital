@@ -25,6 +25,7 @@ import java.util.List;
  * @author hneemann
  */
 public class DataSetDialog extends JDialog implements ModelStateObserver {
+    private static final int MAX_SAMPLE_SIZE = 1000;
     private final ArrayList<Model.Signal> signals;
     private final DataSetComponent dsc;
     private DataSet dataSet;
@@ -51,7 +52,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
             }
         }.order(signals);
 
-        dataSet = new DataSet(signals);
+        dataSet = new DataSet(signals, MAX_SAMPLE_SIZE);
 
         dataSetObserver = new DataSetObserver(type, dataSet);
 

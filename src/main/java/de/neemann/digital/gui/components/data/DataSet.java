@@ -18,8 +18,8 @@ import java.util.Iterator;
  * @author hneemann
  */
 public class DataSet implements Iterable<DataSample>, Drawable {
-    private static final int MAX_SAMPLES = 1000;
     private final ArrayList<Model.Signal> signals;
+    private final int maxSize;
     private final ArrayList<DataSample> samples;
     private final int maxTextLength;
     private DataSample min;
@@ -29,7 +29,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
      * Creates a simple dummy DataSet used for creating the DataShape
      */
     public DataSet() {
-        this(createDummy());
+        this(createDummy(), 20);
         add(new DataSample(0, signalSize()));
         add(new DataSample(1, signalSize()).setValue(1, 1));
     }
@@ -46,9 +46,11 @@ public class DataSet implements Iterable<DataSample>, Drawable {
      * Creates a new instance
      *
      * @param signals the signals used to collect DataSamples
+     * @param maxSize max size of data elements
      */
-    public DataSet(ArrayList<Model.Signal> signals) {
+    public DataSet(ArrayList<Model.Signal> signals, int maxSize) {
         this.signals = signals;
+        this.maxSize = maxSize;
         samples = new ArrayList<>();
         int tl = 0;
         for (int i = 0; i < signalSize(); i++) {
@@ -74,18 +76,19 @@ public class DataSet implements Iterable<DataSample>, Drawable {
      * @param sample the DataSample
      */
     public void add(DataSample sample) {
-        if (samples.size() < MAX_SAMPLES) {
-            samples.add(sample);
-            if (min == null) {
-                min = new DataSample(sample);
-                max = new DataSample(sample);
-            } else {
-                for (int i = 0; i < signals.size(); i++) {
-                    if (sample.getValue(i) < min.getValue(i))
-                        min.setValue(i, sample.getValue(i));
-                    if (sample.getValue(i) > max.getValue(i))
-                        max.setValue(i, sample.getValue(i));
-                }
+        while (samples.size() >= maxSize)
+            samples.remove(0);
+
+        samples.add(sample);
+        if (min == null) {
+            min = new DataSample(sample);
+            max = new DataSample(sample);
+        } else {
+            for (int i = 0; i < signals.size(); i++) {
+                if (sample.getValue(i) < min.getValue(i))
+                    min.setValue(i, sample.getValue(i));
+                if (sample.getValue(i) > max.getValue(i))
+                    max.setValue(i, sample.getValue(i));
             }
         }
     }

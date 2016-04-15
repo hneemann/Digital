@@ -38,6 +38,7 @@ public class AttributeKey<VALUE> {
     public static final AttributeKey<Boolean> ShowDataGraphMicro = new AttributeKey<>("showDataGraphMicro", Lang.get("key_showDataGraphMicro"), false);
     //public static final AttributeKey<Boolean> StartTimer = new AttributeKey<>("startTimer", Lang.get("key_startClock"), false);
     public static final AttributeKey<Boolean> MicroStep = new AttributeKey<>("microStep", Lang.get("key_microStep"), false);
+    public static final AttributeKey<Integer> MaxStepCount = new AttributeKey<>("maxStepCount", Lang.get("key_maxStepCount"), 25);
 
     public static final AttributeKey<Boolean> IsHighZ = new AttributeKey<>("isHighZ", Lang.get("key_isHighZ"), false);
     public static final AttributeKey<Boolean> RunAtRealTime = new AttributeKey<>("runRealTime", Lang.get("key_runRealTime"), false);
