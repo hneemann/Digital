@@ -19,8 +19,7 @@ import java.util.List;
 /**
  * @author hneemann
  */
-public class TestFibonacci extends TestCase {
-
+public class TestProcessor extends TestCase {
 
     private Model createModel(String file) throws IOException, PinException, NodeException {
         File filename = new File(Resources.getRoot(), file);
