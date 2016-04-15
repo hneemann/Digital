@@ -197,7 +197,7 @@ public class Splitter implements Element {
         public PinDescription[] getNames(PinDescription.Direction dir) {
             PinInfo[] name = new PinInfo[ports.size()];
             for (int i = 0; i < name.length; i++)
-                name[i] = new PinInfo(ports.get(i).getName(), "", dir);
+                name[i] = new PinInfo(ports.get(i).getName(), null, dir);
 
             return name;
         }
