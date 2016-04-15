@@ -28,6 +28,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
     private static final int MAX_SAMPLE_SIZE = 1000;
     private final ArrayList<Model.Signal> signals;
     private final DataSetComponent dsc;
+    private final JScrollPane scrollPane;
     private DataSet dataSet;
     private DataSetObserver dataSetObserver;
 
@@ -57,7 +58,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         dataSetObserver = new DataSetObserver(type, dataSet);
 
         dsc = new DataSetComponent(dataSet);
-        JScrollPane scrollPane = new JScrollPane(dsc);
+        scrollPane = new JScrollPane(dsc);
         getContentPane().add(scrollPane);
 
         addWindowListener(new WindowAdapter() {
@@ -117,5 +118,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         dataSetObserver.handleEvent(event);
         dsc.revalidate();
         dsc.repaint();
+        JScrollBar bar = scrollPane.getHorizontalScrollBar();
+        SwingUtilities.invokeLater(() -> bar.setValue(bar.getMaximum()));
     }
 }
