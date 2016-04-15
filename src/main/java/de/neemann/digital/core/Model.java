@@ -334,6 +334,7 @@ public class Model {
 
     /**
      * registers a Break to the model
+     *
      * @param aBreak the break
      */
     public void addBreak(Break aBreak) {
@@ -349,6 +350,7 @@ public class Model {
 
     /**
      * registers a Reset to the model
+     *
      * @param reset the Reset
      */
     public void addReset(Reset reset) {
@@ -364,7 +366,8 @@ public class Model {
 
     /**
      * registers a Signal to the model
-     * @param name the signals name
+     *
+     * @param name  the signals name
      * @param value the signals value
      */
     public void addSignal(String name, ObservableValue value) {
@@ -391,6 +394,7 @@ public class Model {
 
     /**
      * registers a ROM to the model
+     *
      * @param rom the ROM
      */
     public void addRomListing(ROM rom) {
@@ -470,4 +474,18 @@ public class Model {
         }
     }
 
+    /**
+     * Returns all nodes of the given class
+     *
+     * @param nodeClass the class
+     * @param <NODE>    the node type
+     * @return the list, not null, but maybe empty
+     */
+    public <NODE extends Node> List<NODE> findNode(Class<NODE> nodeClass) {
+        ArrayList<NODE> found = new ArrayList<>();
+        for (Node n : nodes)
+            if (n.getClass() == nodeClass)
+                found.add((NODE) n);
+        return found;
+    }
 }

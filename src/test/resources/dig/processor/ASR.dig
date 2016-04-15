@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <visualElements>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Di</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="180" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Splitter</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Input Splitting</string>
+                    <string>16</string>
+                </entry>
+                <entry>
+                    <string>Output Splitting</string>
+                    <string>1,14,1</string>
+                </entry>
+            </elementAttributes>
+            <pos x="210" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>C</string>
+                </entry>
+            </elementAttributes>
+            <pos x="320" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Splitter</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Input Splitting</string>
+                    <string>14,1,1</string>
+                </entry>
+                <entry>
+                    <string>Output Splitting</string>
+                    <string>16</string>
+                </entry>
+            </elementAttributes>
+            <pos x="270" y="130"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Do</string>
+                </entry>
+                <entry>
+                    <string>Bits</string>
+                    <int>16</int>
+                </entry>
+            </elementAttributes>
+            <pos x="320" y="150"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="220" y="130"/>
+            <p2 x="270" y="130"/>
+        </wire>
+        <wire>
+            <p1 x="280" y="130"/>
+            <p2 x="310" y="130"/>
+        </wire>
+        <wire>
+            <p1 x="310" y="150"/>
+            <p2 x="320" y="150"/>
+        </wire>
+        <wire>
+            <p1 x="250" y="150"/>
+            <p2 x="270" y="150"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="120"/>
+            <p2 x="320" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="180" y="120"/>
+            <p2 x="210" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="140"/>
+            <p2 x="250" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="250" y="140"/>
+            <p2 x="270" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="310" y="130"/>
+            <p2 x="310" y="150"/>
+        </wire>
+        <wire>
+            <p1 x="250" y="140"/>
+            <p2 x="250" y="150"/>
+        </wire>
+    </wires>
+</circuit>
