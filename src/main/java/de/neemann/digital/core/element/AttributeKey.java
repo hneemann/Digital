@@ -35,6 +35,7 @@ public class AttributeKey<VALUE> {
 
     public static final AttributeKey<Boolean> ShowDataTable = new AttributeKey<>("showDataTable", Lang.get("key_showDataTable"), false);
     public static final AttributeKey<Boolean> ShowDataGraph = new AttributeKey<>("showDataGraph", Lang.get("key_showDataGraph"), false);
+    public static final AttributeKey<Boolean> ShowDataGraphMicro = new AttributeKey<>("showDataGraphMicro", Lang.get("key_showDataGraphMicro"), false);
     //public static final AttributeKey<Boolean> StartTimer = new AttributeKey<>("startTimer", Lang.get("key_startClock"), false);
     public static final AttributeKey<Boolean> MicroStep = new AttributeKey<>("microStep", Lang.get("key_microStep"), false);
 

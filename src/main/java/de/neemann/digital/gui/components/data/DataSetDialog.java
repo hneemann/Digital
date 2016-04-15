@@ -39,7 +39,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
      * @param ordering the ordering of the measurement values
      */
     public DataSetDialog(Frame owner, Model model, ModelEvent type, List<String> ordering) {
-        super(owner, Lang.get("win_measures"), false);
+        super(owner, createTitle(type), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
@@ -97,6 +97,17 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
 
         pack();
         setLocationRelativeTo(owner);
+    }
+
+    private static String createTitle(ModelEvent type) {
+        switch (type) {
+            case MICROSTEP:
+                return Lang.get("win_measures_microstep");
+            case STEP:
+                return Lang.get("win_measures_fullstep");
+            default:
+                return Lang.get("win_measures");
+        }
     }
 
 

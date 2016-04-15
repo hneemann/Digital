@@ -17,6 +17,7 @@ import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.DataSetDialog;
+import de.neemann.digital.gui.components.framepos.WindowPosManager;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
@@ -47,6 +48,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     static {
         ATTR_LIST.add(AttributeKey.ShowDataTable);
         ATTR_LIST.add(AttributeKey.ShowDataGraph);
+        ATTR_LIST.add(AttributeKey.ShowDataGraphMicro);
         ATTR_LIST.add(AttributeKey.ShowListing);
     }
 
@@ -73,6 +75,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private final StateManager stateManager = new StateManager();
     private final ElementAttributes settings = new ElementAttributes();
     private final ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
+    private final WindowPosManager windowPosManager = new WindowPosManager();
 
     private File lastFilename;
     private File filename;
@@ -106,7 +109,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         final boolean normalMode = savedListener == null;
 
         Circuit cr = new Circuit();
-        circuitComponent = new CircuitComponent(cr, library, shapeFactory, this.savedListener);
+        circuitComponent = new CircuitComponent(cr, library, shapeFactory, savedListener);
 
         if (fileToOpen != null) {
             SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
@@ -446,18 +449,22 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(AttributeKey.ShowDataTable))
-                new ProbeDialog(this, model, updateEvent, ordering).setVisible(true);
+                windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering)).setVisible(true);
 
             if (settings.get(AttributeKey.ShowDataGraph))
-                new DataSetDialog(this, model, updateEvent, ordering).setVisible(true);
+                windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent, ordering)).setVisible(true);
+            if (settings.get(AttributeKey.ShowDataGraphMicro))
+                windowPosManager.register("datasetMicro", new DataSetDialog(this, model, ModelEvent.MICROSTEP, ordering)).setVisible(true);
 
-            if (settings.get(AttributeKey.ShowListing))
+            if (settings.get(AttributeKey.ShowListing)) {
+                int i = 0;
                 for (ROM rom : model.getRoms())
                     try {
-                        new ROMListingDialog(this, rom).setVisible(true);
+                        windowPosManager.register("rom" + (i++), new ROMListingDialog(this, rom)).setVisible(true);
                     } catch (IOException e) {
                         new ErrorMessage(Lang.get("msg_errorReadingListing_N0", rom.getListFile().toString())).addCause(e).show(this);
                     }
+            }
 
 
             model.init();
