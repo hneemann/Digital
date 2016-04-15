@@ -1,6 +1,7 @@
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.lang.Lang;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  */
 public class ElementTypeDescription {
     private final String name;
+    private final String translatedName;
     private String shortName;
     private final ElementFactory elementFactory;
     private final PinDescription[] inputPins;
@@ -60,7 +62,10 @@ public class ElementTypeDescription {
      */
     public ElementTypeDescription(String name, ElementFactory elementFactory, PinDescription... inputPins) {
         this.name = name;
-        this.shortName = name;
+        this.shortName = null;
+        String n = Lang.getNull("elem_" + name);
+        if (n != null) this.translatedName = n;
+        else this.translatedName = name;
         this.elementFactory = elementFactory;
         this.inputPins = inputPins;
         for (PinDescription p : inputPins)
@@ -76,7 +81,17 @@ public class ElementTypeDescription {
      * @return the shortname
      */
     public String getShortName() {
-        return shortName;
+        if (shortName == null)
+            return getTranslatedName();
+        else
+            return shortName;
+    }
+
+    /**
+     * @return returns the translated element name
+     */
+    public String getTranslatedName() {
+        return translatedName;
     }
 
     /**
@@ -109,9 +124,9 @@ public class ElementTypeDescription {
      * @return the description
      */
     public String getDescription(ElementAttributes elementAttributes) {
-        if (description == null)
-            return name;
-        else
+        if (description == null) {
+            return translatedName;
+        } else
             return description;
     }
 

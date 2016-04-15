@@ -34,6 +34,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Setzen</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>J</string>
         </entry>
@@ -117,6 +121,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Rücksetzen</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>K</string>

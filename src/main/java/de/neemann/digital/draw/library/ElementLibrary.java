@@ -90,7 +90,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void add(ElementTypeDescription description, String treePath) {
         addDescription(description);
-        list.add(new ElementContainer(description.getName(), treePath));
+        list.add(new ElementContainer(description, treePath));
     }
 
     /**
@@ -151,24 +151,23 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * Used to store a elements name and its position in the elements menu.
      */
     public static class ElementContainer {
-        private final String name;
+        private final ElementTypeDescription name;
         private final String treePath;
 
         /**
          * Creates anew instance
-         *
-         * @param name     the elements name
+         *  @param typeDescription     the elements typeDescription
          * @param treePath the elements menu path
          */
-        public ElementContainer(String name, String treePath) {
-            this.name = name;
+        public ElementContainer(ElementTypeDescription typeDescription, String treePath) {
+            this.name = typeDescription;
             this.treePath = treePath;
         }
 
         /**
          * @return the elements name
          */
-        public String getName() {
+        public ElementTypeDescription getDescription() {
             return name;
         }
 

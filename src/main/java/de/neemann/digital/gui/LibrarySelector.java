@@ -106,8 +106,8 @@ public class LibrarySelector implements ElementNotFoundNotification {
                 parts.add(subMenu);
                 lastPath = path;
             }
-            subMenu.add(new InsertAction(elementContainer.getName(), insertHistory, circuitComponent)
-                    .setToolTip(createToolTipText(elementContainer.getName()))
+            subMenu.add(new InsertAction(elementContainer.getDescription(), insertHistory, circuitComponent)
+                    .setToolTip(createToolTipText(elementContainer.getDescription().getTranslatedName()))
                     .createJMenuItem());
         }
 
@@ -148,9 +148,9 @@ public class LibrarySelector implements ElementNotFoundNotification {
         private final InsertHistory insertHistory;
         private final CircuitComponent circuitComponent;
 
-        private InsertAction(String name, InsertHistory insertHistory, CircuitComponent circuitComponent) {
-            super(createShortName(name), new VisualElement(name).setShapeFactory(shapeFactory).createIcon(75));
-            this.name = name;
+        private InsertAction(ElementTypeDescription typeDescription, InsertHistory insertHistory, CircuitComponent circuitComponent) {
+            super(typeDescription.getTranslatedName(), new VisualElement(typeDescription.getName()).setShapeFactory(shapeFactory).createIcon(75));
+            this.name = typeDescription.getName();
             this.insertHistory = insertHistory;
             this.circuitComponent = circuitComponent;
         }
@@ -175,7 +175,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                             .setShortName(createShortName(file));
             library.addDescription(description);
 
-            InsertAction insertAction = new InsertAction(description.getName(), insertHistory, circuitComponent);
+            InsertAction insertAction = new InsertAction(description, insertHistory, circuitComponent);
             String descriptionText = circuit.getAttributes().get(AttributeKey.Description);
             if (descriptionText != null && descriptionText.length() > 0)
                 insertAction.setToolTip(descriptionText);
