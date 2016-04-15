@@ -106,7 +106,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         final boolean normalMode = savedListener == null;
 
         Circuit cr = new Circuit();
-        circuitComponent = new CircuitComponent(cr, library, shapeFactory);
+        circuitComponent = new CircuitComponent(cr, library, shapeFactory, this.savedListener);
 
         if (fileToOpen != null) {
             SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));

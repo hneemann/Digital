@@ -42,6 +42,7 @@ public class CircuitComponent extends JComponent {
 
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
+    private final SavedListener parentsSavedListener;
     private final HashSet<Drawable> highLighted;
     private final ToolTipAction deleteAction;
 
@@ -67,9 +68,10 @@ public class CircuitComponent extends JComponent {
      * @param library      the library used to edit the attributes of the elements
      * @param shapeFactory the shapeFactory used for copied elements
      */
-    public CircuitComponent(Circuit aCircuit, ElementLibrary library, ShapeFactory shapeFactory) {
+    public CircuitComponent(Circuit aCircuit, ElementLibrary library, ShapeFactory shapeFactory, SavedListener parentsSavedListener) {
         this.library = library;
         this.shapeFactory = shapeFactory;
+        this.parentsSavedListener = parentsSavedListener;
         highLighted = new HashSet<>();
 
         deleteAction = new ToolTipAction(Lang.get("menu_delete"), ICON_DELETE) {
@@ -296,6 +298,8 @@ public class CircuitComponent extends JComponent {
             new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(), new SavedListener() {
                 @Override
                 public void saved(File filename) {
+                    if (parentsSavedListener != null)
+                        parentsSavedListener.saved(filename);
                     library.removeElement(filename.getName());
                     circuit.clearState();
                     repaint();
