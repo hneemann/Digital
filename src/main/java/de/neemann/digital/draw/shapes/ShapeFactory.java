@@ -113,13 +113,13 @@ public final class ShapeFactory {
     }
 
 
-    public class CreatorSimple implements Creator {
+    private static final class CreatorSimple implements Creator {
 
         private final String name;
         private final ElementTypeDescription description;
         private final boolean invers;
 
-        public CreatorSimple(String name, ElementTypeDescription description, boolean invers) {
+        private CreatorSimple(String name, ElementTypeDescription description, boolean invers) {
             this.name = name;
             this.description = description;
             this.invers = invers;
