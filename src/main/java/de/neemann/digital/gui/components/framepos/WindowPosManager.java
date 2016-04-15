@@ -21,7 +21,9 @@ public class WindowPosManager {
     }
 
     /**
-     * Registers a new window
+     * Registers a new window.
+     * If an old window with the same id is found, its position and size is set to the new window.
+     * After that the old window is disposed.
      *
      * @param id     the id of the window
      * @param window the window itself
