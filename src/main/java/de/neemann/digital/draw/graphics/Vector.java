@@ -183,4 +183,12 @@ public class Vector {
     public boolean isZero() {
         return x == 0 && y == 0;
     }
+
+    /**
+     * @return the norm multiplied by 128
+     */
+    public Vector norm128() {
+        float l = (float) Math.sqrt(x * x + y * y);
+        return new Vector(Math.round(x * 128 / l), Math.round(y * 128 / l));
+    }
 }

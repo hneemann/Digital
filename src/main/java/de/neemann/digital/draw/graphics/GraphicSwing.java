@@ -121,5 +121,8 @@ public class GraphicSwing implements Graphic {
 
         if (rotateText)
             gr.setTransform(old);
+
+        //GraphicMinMax.approxTextSize(this, p1, p2, text, orientation, style);
     }
+
 }
