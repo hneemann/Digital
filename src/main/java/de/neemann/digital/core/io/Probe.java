@@ -11,11 +11,15 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The measurement Probe
+ *
  * @author hneemann
  */
 public class Probe implements Element {
 
-
+    /**
+     * The Probe description
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("Probe", Probe.class, input("in"))
             .addAttribute(Keys.ROTATE)
@@ -24,6 +28,11 @@ public class Probe implements Element {
     private final String label;
     private ObservableValue value;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Probe(ElementAttributes attributes) {
         label = attributes.get(Keys.LABEL);
     }

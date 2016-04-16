@@ -11,10 +11,15 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The different outputs
+ *
  * @author hneemann
  */
 public class Out implements Element {
 
+    /**
+     * The Input description
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Out.class, input("in")) {
         @Override
@@ -27,12 +32,18 @@ public class Out implements Element {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DESCRIPTION);
 
+    /**
+     * The LED description
+     */
     public static final ElementTypeDescription LEDDESCRIPTION
             = new ElementTypeDescription("LED", Out.class, input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.COLOR);
 
+    /**
+     * The seven segment display description
+     */
     public static final ElementTypeDescription SEVENDESCRIPTION
             = new ElementTypeDescription("Seven-Seg",
             attributes -> {
@@ -42,6 +53,9 @@ public class Out implements Element {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.COLOR);
 
+    /**
+     * The seven segment hex display description
+     */
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> {
@@ -54,11 +68,21 @@ public class Out implements Element {
     private final String label;
     private ObservableValue value;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Out(ElementAttributes attributes) {
         bits = new int[]{attributes.getBits()};
         label = attributes.get(Keys.LABEL);
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param bits the bitcount of the different inputs
+     */
     public Out(int... bits) {
         this.bits = bits;
         label = null;

@@ -10,10 +10,15 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 /**
+ * The Button
+ *
  * @author hneemann
  */
 public class Button implements Element {
 
+    /**
+     * The Button description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Button.class)
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL);
@@ -21,6 +26,11 @@ public class Button implements Element {
     private final ObservableValue output;
     private final String label;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Button(ElementAttributes attributes) {
         output = new ObservableValue("out", 1);
         label = attributes.get(Keys.LABEL);

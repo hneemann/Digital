@@ -10,10 +10,15 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 /**
+ * A constant
+ *
  * @author hneemann
  */
 public class Const implements Element {
 
+    /**
+     * The Constant description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Const.class)
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
@@ -21,6 +26,11 @@ public class Const implements Element {
 
     private final ObservableValue output;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Const(ElementAttributes attributes) {
         output = new ObservableValue("out", attributes.get(Keys.BITS));
         output.setValue(attributes.get(Keys.VALUE));

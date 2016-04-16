@@ -10,6 +10,8 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 /**
+ * The Input
+ *
  * @author hneemann
  */
 public class In implements Element {
