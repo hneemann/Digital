@@ -39,6 +39,10 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Clock</string>
         </entry>
