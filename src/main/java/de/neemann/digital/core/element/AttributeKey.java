@@ -11,7 +11,7 @@ import de.neemann.digital.lang.Lang;
  */
 public class AttributeKey<VALUE> {
 
-    public static final AttributeKey<Integer> Bits = new AttributeKey<>("Bits", Lang.get("key_dataBits"), 1);
+    public static final AttributeKeyInteger Bits = new AttributeKeyInteger("Bits", Lang.get("key_dataBits"), 1).setComboBoxValues(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16});
     public static final AttributeKey<Integer> InputCount = new AttributeKey<>("Inputs", Lang.get("key_numberInputs"), 2);
     public static final AttributeKey<String> Label = new AttributeKey<>("Label", Lang.get("key_label"), "");
     public static final AttributeKey<Integer> Value = new AttributeKey<>("Value", Lang.get("key_value"), 1);
