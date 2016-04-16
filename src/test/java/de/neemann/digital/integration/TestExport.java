@@ -9,6 +9,7 @@ import de.neemann.digital.draw.graphics.linemerger.GraphicSkipLines;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -37,6 +38,10 @@ public class TestExport extends TestCase {
         glc.drawTo(gr);
 
         circuit.drawTo(new GraphicSkipLines(gr));
+
+        if (gr instanceof Closeable)
+            ((Closeable) gr).close();
+
         return baos;
     }
 
@@ -45,7 +50,7 @@ public class TestExport extends TestCase {
                 = export("dig/processor/Processor_fibonacci.dig",
                 (out, min, max) -> new GraphicSVGIndex(out, min, max, null, 15));
 
-        assertTrue(baos.size() > 15000);
+        assertTrue(baos.size() > 20000);
     }
 
     public void testSVGExportLaTeX() throws NodeException, PinException, IOException {
@@ -53,7 +58,14 @@ public class TestExport extends TestCase {
                 = export("dig/processor/Processor_fibonacci.dig",
                 (out, min, max) -> new GraphicSVGLaTeX(out, min, max, null, 15));
 
-        assertTrue(baos.size() > 8000);
+        assertTrue(baos.size() > 15000);
     }
 
+    public void testPNGExport() throws NodeException, PinException, IOException {
+        ByteArrayOutputStream baos
+                = export("dig/processor/Processor_fibonacci.dig",
+                (out, min, max) -> GraphicsImage.create(out, min, max, "PNG"));
+
+        assertTrue(baos.size() > 50000);
+    }
 }
