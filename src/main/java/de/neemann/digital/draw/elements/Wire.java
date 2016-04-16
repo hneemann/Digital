@@ -7,6 +7,8 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
 
 /**
+ * A simple wire described by two points
+ *
  * @author hneemann
  */
 public class Wire implements Drawable, Moveable {
@@ -17,11 +19,22 @@ public class Wire implements Drawable, Moveable {
     private transient boolean p1Dot;
     private transient boolean p2Dot;
 
+    /**
+     * Creates anew wire
+     *
+     * @param p1 one end point
+     * @param p2 the other end point
+     */
     public Wire(Vector p1, Vector p2) {
         this.p1 = p1;
         this.p2 = p2;
     }
 
+    /**
+     * Copies a wire
+     *
+     * @param proto the wire to copy
+     */
     public Wire(Wire proto) {
         this.p1 = new Vector(proto.p1);
         this.p2 = new Vector(proto.p2);
@@ -57,10 +70,23 @@ public class Wire implements Drawable, Moveable {
         p2 = p2.add(delta);
     }
 
+    /**
+     * Setter for point 2.
+     * Is used to move the line with the mouse
+     *
+     * @param p2 the new point
+     */
     public void setP2(Vector p2) {
         this.p2 = p2;
     }
 
+    /**
+     * Checks if the given point is on the wire.
+     * Only works on vertical and horizontal lines
+     *
+     * @param v the given point
+     * @return true if the point matches the wire
+     */
     public boolean contains(Vector v) {
         if (p1.x == p2.x && p1.x == v.x)
             return (p1.y < v.y && v.y < p2.y) || (p2.y < v.y && v.y < p1.y);
@@ -70,6 +96,9 @@ public class Wire implements Drawable, Moveable {
             return false;
     }
 
+    /**
+     * @return the orientation of the wire
+     */
     public Orientation getOrientation() {
         if (p1.x == p2.x)
             return Orientation.vertical;
@@ -105,28 +134,50 @@ public class Wire implements Drawable, Moveable {
                 + '}';
     }
 
+    /**
+     * Sets the {@link ObservableValue} which is represented by this wire
+     *
+     * @param value
+     */
     public void setValue(ObservableValue value) {
         this.value = value;
     }
 
+    /**
+     * @return returns the value which is represented by this wire
+     */
     public ObservableValue getValue() {
         return value;
     }
 
+    /**
+     * Turns of the visualisation of the wire dots
+     */
     public void noDot() {
         p1Dot = false;
         p2Dot = false;
     }
 
+    /**
+     * Turns on the wire dot for the given position
+     *
+     * @param p the position
+     */
     public void setDot(Vector p) {
         if (p.equals(p1)) p1Dot = true;
         if (p.equals(p2)) p2Dot = true;
     }
 
+    /**
+     * @return a moveable representing point one
+     */
     public Moveable getMovableP1() {
         return delta -> p1 = p1.add(delta);
     }
 
+    /**
+     * @return a moveable representing point two
+     */
     public Moveable getMovableP2() {
         return delta -> p2 = p2.add(delta);
     }
