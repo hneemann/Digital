@@ -49,7 +49,7 @@ public class GraphicSwing implements Graphic {
             if (p.isClosed())
                 path.closePath();
 
-            if (style.isFilled())
+            if (style.isFilled() && p.isClosed())
                 gr.fill(path);
             gr.draw(path);
         }

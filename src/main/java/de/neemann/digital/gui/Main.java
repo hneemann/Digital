@@ -33,6 +33,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -197,6 +198,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
         export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
+        export.add(new ExportAction(Lang.get("menu_exportPNG"), "png", (file, min, max) -> GraphicsImage.create(new FileOutputStream(file), min, max, "PNG")));
 
         JMenu file = new JMenu(Lang.get("menu_file"));
         bar.add(file);
