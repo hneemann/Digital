@@ -3,10 +3,10 @@ package de.neemann.digital.core.io;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -15,15 +15,15 @@ import de.neemann.digital.lang.Lang;
 public class Const implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Const.class)
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.Value);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.Value);
 
     private final ObservableValue output;
 
     public Const(ElementAttributes attributes) {
-        output = new ObservableValue("out", attributes.get(AttributeKey.Bits));
-        output.setValue(attributes.get(AttributeKey.Value));
+        output = new ObservableValue("out", attributes.get(Keys.Bits));
+        output.setValue(attributes.get(Keys.Value));
     }
 
     @Override

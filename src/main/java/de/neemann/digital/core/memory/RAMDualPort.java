@@ -3,10 +3,10 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -27,10 +27,10 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             input("str", Lang.get("elem_RAMDualPort_pin_str")),
             input("c", Lang.get("elem_RAMDualPort_pin_c")),
             input("ld", Lang.get("elem_RAMDualPort_pin_ld")))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.AddrBits)
-            .addAttribute(AttributeKey.Label)
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.AddrBits)
+            .addAttribute(Keys.Label)
             .setShortName("RAM");
 
     private final DataField memory;
@@ -52,9 +52,9 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      * @param attr the elemets attributes
      */
     public RAMDualPort(ElementAttributes attr) {
-        bits = attr.get(AttributeKey.Bits);
+        bits = attr.get(Keys.Bits);
         output = createOutput();
-        addrBits = attr.get(AttributeKey.AddrBits);
+        addrBits = attr.get(Keys.AddrBits);
         memory = new DataField(1 << addrBits, bits);
     }
 

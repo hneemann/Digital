@@ -19,7 +19,7 @@ public class ElementTypeDescription {
     private String shortName;
     private final ElementFactory elementFactory;
     private final PinDescription[] inputPins;
-    private final ArrayList<AttributeKey> attributeList;
+    private final ArrayList<Key> attributeList;
     private String description;
 
     /**
@@ -137,9 +137,9 @@ public class ElementTypeDescription {
      * @param key     the key
      * @param <VALUE> type of the value beloging to the key
      * @return this for call chaining
-     * @see AttributeKey
+     * @see Keys
      */
-    public <VALUE> ElementTypeDescription addAttribute(AttributeKey<VALUE> key) {
+    public <VALUE> ElementTypeDescription addAttribute(Key<VALUE> key) {
         attributeList.add(key);
         return this;
     }
@@ -149,7 +149,7 @@ public class ElementTypeDescription {
      *
      * @return the list of attributes
      */
-    public ArrayList<AttributeKey> getAttributeList() {
+    public ArrayList<Key> getAttributeList() {
         return attributeList;
     }
 

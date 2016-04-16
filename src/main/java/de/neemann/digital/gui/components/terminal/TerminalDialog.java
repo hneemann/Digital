@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.components.terminal;
 
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +16,11 @@ public class TerminalDialog extends JDialog {
     private int pos;
 
     public TerminalDialog(ElementAttributes attr) {
-        super((JFrame) null, attr.get(AttributeKey.Label), false);
+        super((JFrame) null, attr.get(Keys.Label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
-        width = attr.get(AttributeKey.TermWidth);
-        textArea = new JTextArea(attr.get(AttributeKey.TermHeight), width);
+        width = attr.get(Keys.TermWidth);
+        textArea = new JTextArea(attr.get(Keys.TermHeight), width);
         textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
         getContentPane().add(new JScrollPane(textArea));
         pack();

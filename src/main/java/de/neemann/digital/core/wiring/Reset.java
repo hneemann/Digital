@@ -3,10 +3,10 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -15,8 +15,8 @@ import de.neemann.digital.lang.Lang;
 public class Reset implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Reset", Reset.class)
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Label);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Label);
 
     private final ObservableValue output;
 

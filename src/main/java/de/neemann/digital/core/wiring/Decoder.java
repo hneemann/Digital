@@ -3,10 +3,10 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -27,14 +27,14 @@ public class Decoder extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Decoder.class,
             input("sel", Lang.get("elem_Decode_pin_sel")))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.SelectorBits)
-            .addAttribute(AttributeKey.FlipSelPositon)
-            .addAttribute(AttributeKey.Default);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.SelectorBits)
+            .addAttribute(Keys.FlipSelPositon)
+            .addAttribute(Keys.Default);
 
     public Decoder(ElementAttributes attributes) {
-        this.selectorBits = attributes.get(AttributeKey.SelectorBits);
-        this.defaultValue = attributes.get(AttributeKey.Default);
+        this.selectorBits = attributes.get(Keys.SelectorBits);
+        this.defaultValue = attributes.get(Keys.Default);
         int outputs = 1 << selectorBits;
         output = new ObservableValue[outputs];
         for (int i = 0; i < outputs; i++) {

@@ -2,8 +2,8 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -29,7 +29,7 @@ public class LEDShape implements Shape {
     public LEDShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
-        onStyle = new Style(1, true, attr.get(AttributeKey.Color));
+        onStyle = new Style(1, true, attr.get(Keys.Color));
     }
 
     @Override

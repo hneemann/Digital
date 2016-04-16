@@ -176,7 +176,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             library.addDescription(description);
 
             InsertAction insertAction = new InsertAction(description, insertHistory, circuitComponent);
-            String descriptionText = circuit.getAttributes().get(AttributeKey.Description);
+            String descriptionText = circuit.getAttributes().get(Keys.Description);
             if (descriptionText != null && descriptionText.length() > 0)
                 insertAction.setToolTip(descriptionText);
 
@@ -250,8 +250,8 @@ public class LibrarySelector implements ElementNotFoundNotification {
             super(file.getName(), elementFactory, inputNames);
             this.file = file;
             this.attributes = attributes;
-            if (attributes.contains(AttributeKey.Description))
-                setDescription(attributes.get(AttributeKey.Description));
+            if (attributes.contains(Keys.Description))
+                setDescription(attributes.get(Keys.Description));
         }
 
         /**

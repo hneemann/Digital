@@ -1,10 +1,7 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.AttributeKey;
-import de.neemann.digital.core.element.AttributeListener;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.draw.shapes.Shape;
@@ -311,14 +308,14 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
 
     @Override
-    public void attributeChanged(AttributeKey key) {
+    public void attributeChanged(Key key) {
         shape = null;
-        rotate = elementAttributes.get(AttributeKey.Rotate).getRotation();
+        rotate = elementAttributes.get(Keys.Rotate).getRotation();
     }
 
     @Override
     public String toString() {
-        String lab = elementAttributes.get(AttributeKey.Label);
+        String lab = elementAttributes.get(Keys.Label);
         if (lab != null && lab.length() > 0)
             return elementName + "(" + lab + ")";
         else

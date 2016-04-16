@@ -44,7 +44,7 @@ public class ElementAttributes {
      * @return the value
      */
     @SuppressWarnings("unchecked")
-    public <VALUE> VALUE get(AttributeKey<VALUE> key) {
+    public <VALUE> VALUE get(Key<VALUE> key) {
         if (attributes == null)
             return key.getDefault();
         else {
@@ -62,7 +62,7 @@ public class ElementAttributes {
      * @param <VALUE> the type of the value
      * @return true if value is present
      */
-    public <VALUE> boolean contains(AttributeKey<VALUE> key) {
+    public <VALUE> boolean contains(Key<VALUE> key) {
         if (attributes == null)
             return false;
         else
@@ -77,7 +77,7 @@ public class ElementAttributes {
      * @param <VALUE> the type of the value
      * @return this to chain calls
      */
-    public <VALUE> ElementAttributes set(AttributeKey<VALUE> key, VALUE value) {
+    public <VALUE> ElementAttributes set(Key<VALUE> key, VALUE value) {
         if (value != get(key)) {
             if (value.equals(key.getDefault())) {
                 if (attributes != null) {
@@ -95,7 +95,7 @@ public class ElementAttributes {
         return this;
     }
 
-    private void fireValueChanged(AttributeKey key) {
+    private void fireValueChanged(Key key) {
         if (listeners != null)
             for (AttributeListener l : listeners)
                 l.attributeChanged(key);
@@ -130,7 +130,7 @@ public class ElementAttributes {
      * @return the number of bits
      */
     public int getBits() {
-        return get(AttributeKey.Bits);
+        return get(Keys.Bits);
     }
 
     /**
@@ -140,7 +140,7 @@ public class ElementAttributes {
      * @return the label
      */
     public String getLabel() {
-        return get(AttributeKey.Label);
+        return get(Keys.Label);
     }
 
     /**
@@ -151,7 +151,7 @@ public class ElementAttributes {
      * @return this tp chain calls
      */
     public ElementAttributes setBits(int bits) {
-        set(AttributeKey.Bits, bits);
+        set(Keys.Bits, bits);
         return this;
     }
 

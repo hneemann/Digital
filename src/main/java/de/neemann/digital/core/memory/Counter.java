@@ -4,10 +4,10 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -23,9 +23,9 @@ public class Counter extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Counter.class, input("C"), input("clr"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.Label);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.Label);
 
     private final ObservableValue out;
     private final ObservableValue ovf;

@@ -1,10 +1,10 @@
 package de.neemann.digital.core.flipflops;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -20,10 +20,10 @@ public class FlipflopJK extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("JK_FF", FlipflopJK.class, input("J"), input("C"), input("K"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.Default)
-            .addAttribute(AttributeKey.ValueIsProbe)
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.Default)
+            .addAttribute(Keys.ValueIsProbe)
             .setShortName("JK");
 
     private final Boolean isProbe;
@@ -44,10 +44,10 @@ public class FlipflopJK extends Node implements Element {
     public FlipflopJK(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
-        isProbe = attributes.get(AttributeKey.ValueIsProbe);
-        label = attributes.get(AttributeKey.Label);
+        isProbe = attributes.get(Keys.ValueIsProbe);
+        label = attributes.get(Keys.Label);
 
-        int def = attributes.get(AttributeKey.Default);
+        int def = attributes.get(Keys.Default);
         out = def > 0;
         q.setBool(out);
         qn.setBool(!out);

@@ -4,9 +4,9 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.basic.FanIn;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
@@ -26,7 +26,7 @@ public class Multiplexer extends FanIn {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Multiplexer.class) {
         @Override
         public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
-            int size = 1 << elementAttributes.get(AttributeKey.SelectorBits);
+            int size = 1 << elementAttributes.get(Keys.SelectorBits);
             PinDescription[] names = new PinDescription[size + 1];
             names[0] = input("sel", Lang.get("elem_Multiplexer_pin_sel"));
             for (int i = 0; i < size; i++)
@@ -34,14 +34,14 @@ public class Multiplexer extends FanIn {
             return names;
         }
     }
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.FlipSelPositon)
-            .addAttribute(AttributeKey.SelectorBits);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.FlipSelPositon)
+            .addAttribute(Keys.SelectorBits);
 
     public Multiplexer(ElementAttributes attributes) {
-        super(attributes.get(AttributeKey.Bits));
-        this.selectorBits = attributes.get(AttributeKey.SelectorBits);
+        super(attributes.get(Keys.Bits));
+        this.selectorBits = attributes.get(Keys.SelectorBits);
     }
 
     @Override

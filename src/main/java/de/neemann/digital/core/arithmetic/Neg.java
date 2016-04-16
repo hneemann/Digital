@@ -3,10 +3,10 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -21,8 +21,8 @@ public class Neg extends Node implements Element {
      * The element description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Neg.class, input("in"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits);
 
     private final ObservableValue output;
     private final int bits;
@@ -35,7 +35,7 @@ public class Neg extends Node implements Element {
      * @param attributes attributes
      */
     public Neg(ElementAttributes attributes) {
-        bits = attributes.get(AttributeKey.Bits);
+        bits = attributes.get(Keys.Bits);
         output = new ObservableValue("out", bits);
     }
 

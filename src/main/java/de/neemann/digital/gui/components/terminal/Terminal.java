@@ -3,10 +3,10 @@ package de.neemann.digital.gui.components.terminal;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -23,10 +23,10 @@ public class Terminal extends Node implements Element {
             = new ElementTypeDescription(Terminal.class,
             input("D", Lang.get("elem_Terminal_pin_D")),
             input("C", Lang.get("elem_Terminal_pin_C")))
-            .addAttribute(AttributeKey.TermWidth)
-            .addAttribute(AttributeKey.TermHeight)
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Label);
+            .addAttribute(Keys.TermWidth)
+            .addAttribute(Keys.TermHeight)
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Label);
 
     private final ElementAttributes attr;
     private ObservableValue data;

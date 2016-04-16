@@ -11,5 +11,5 @@ public interface AttributeListener {
      *
      * @param key the key which value has changed
      */
-    void attributeChanged(AttributeKey key);
+    void attributeChanged(Key key);
 }

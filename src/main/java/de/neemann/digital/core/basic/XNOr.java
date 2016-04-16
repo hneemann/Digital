@@ -1,9 +1,9 @@
 package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -18,8 +18,8 @@ public class XNOr extends XOr {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(XNOr.class, input("a"), input("b"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits);
 
     /**
      * Creates a new instance

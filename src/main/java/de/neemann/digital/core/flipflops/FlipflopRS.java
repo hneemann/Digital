@@ -1,10 +1,10 @@
 package de.neemann.digital.core.flipflops;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -20,9 +20,9 @@ public class FlipflopRS extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("R"), input("C"), input("S"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.ValueIsProbe)
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.ValueIsProbe)
             .setShortName("RS");
 
     private final boolean isProbe;
@@ -44,8 +44,8 @@ public class FlipflopRS extends Node implements Element {
     public FlipflopRS(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
-        isProbe = attributes.get(AttributeKey.ValueIsProbe);
-        label = attributes.get(AttributeKey.Label);
+        isProbe = attributes.get(Keys.ValueIsProbe);
+        label = attributes.get(Keys.Label);
     }
 
     @Override

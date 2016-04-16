@@ -48,12 +48,12 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>Takt</string>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
         </entry>
         <entry>
-          <string>Frequency</string>
-          <int>10</int>
+          <string>Label</string>
+          <string>Takt</string>
         </entry>
       </elementAttributes>
       <pos x="400" y="340"/>

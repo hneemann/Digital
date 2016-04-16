@@ -4,10 +4,10 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -21,8 +21,8 @@ public class XOr extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(XOr.class, input("a"), input("b"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits);
 
     private final int bits;
     private final ObservableValue out;
@@ -36,7 +36,7 @@ public class XOr extends Node implements Element {
      * @param attributes the attributes
      */
     public XOr(ElementAttributes attributes) {
-        bits = attributes.get(AttributeKey.Bits);
+        bits = attributes.get(Keys.Bits);
         this.out = new ObservableValue("out", bits);
     }
 

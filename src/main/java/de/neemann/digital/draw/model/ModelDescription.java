@@ -4,9 +4,9 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.*;
@@ -90,7 +90,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
             boolean isNotAIO = true;
             if (isNestedCircuit) {
                 if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION) {
-                    String label = ve.getElementAttributes().get(AttributeKey.Label);
+                    String label = ve.getElementAttributes().get(Keys.Label);
                     if (label == null || label.length() == 0)
                         throw new PinException(Lang.get("err_pinWithoutName", fileName));
                     if (pins.size() != 1)

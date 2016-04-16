@@ -3,8 +3,8 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
 import static de.neemann.digital.TestExecuter.HIGHZ;
@@ -24,7 +24,7 @@ public class RAMDualPortTest extends TestCase {
         Model model = new Model();
         RAMDualPort out = model.add(new RAMDualPort(
                 new ElementAttributes()
-                        .set(AttributeKey.AddrBits, 4)
+                        .set(Keys.AddrBits, 4)
                         .setBits(4)));
         out.setInputs(a, d, str, clk, ld);
 

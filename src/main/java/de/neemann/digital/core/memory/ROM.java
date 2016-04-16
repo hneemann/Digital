@@ -1,10 +1,10 @@
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
@@ -28,12 +28,12 @@ public class ROM extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(ROM.class,
             input("A", Lang.get("elem_ROM_pin_address")),
             input("sel", Lang.get("elem_ROM_pin_sel")))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.AddrBits)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.ShowListing)
-            .addAttribute(AttributeKey.Data);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.AddrBits)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.ShowListing)
+            .addAttribute(Keys.Data);
 
     private final DataField data;
     private final ObservableValue output;
@@ -53,11 +53,11 @@ public class ROM extends Node implements Element {
      * @param attr the elements attributes
      */
     public ROM(ElementAttributes attr) {
-        int bits = attr.get(AttributeKey.Bits);
+        int bits = attr.get(Keys.Bits);
         output = new ObservableValue("D", bits, true).setDescription(Lang.get("elem_ROM_pin_data"));
-        data = attr.get(AttributeKey.Data);
-        addrBits = attr.get(AttributeKey.AddrBits);
-        showList = attr.get(AttributeKey.ShowListing);
+        data = attr.get(Keys.Data);
+        addrBits = attr.get(Keys.AddrBits);
+        showList = attr.get(Keys.ShowListing);
         if (showList) {
             listFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else

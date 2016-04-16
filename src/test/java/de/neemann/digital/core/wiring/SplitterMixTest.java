@@ -2,8 +2,8 @@ package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
 /**
@@ -16,8 +16,8 @@ public class SplitterMixTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 8);
 
         Splitter splitter = new Splitter(new ElementAttributes()
-                .set(AttributeKey.InputSplit, "8,8")
-                .set(AttributeKey.OutputSplit, "4,12"));
+                .set(Keys.InputSplit, "8,8")
+                .set(Keys.OutputSplit, "4,12"));
 
         splitter.setInputs(a, b);
         assertEquals(2, a.observerCount());
@@ -47,8 +47,8 @@ public class SplitterMixTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 8);
 
         Splitter splitter = new Splitter(new ElementAttributes()
-                .set(AttributeKey.InputSplit, "8,8")
-                .set(AttributeKey.OutputSplit, "12,4"));
+                .set(Keys.InputSplit, "8,8")
+                .set(Keys.OutputSplit, "12,4"));
 
         splitter.setInputs(a, b);
         assertEquals(1, a.observerCount());

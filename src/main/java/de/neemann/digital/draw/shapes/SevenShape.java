@@ -1,7 +1,7 @@
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
@@ -27,7 +27,7 @@ public abstract class SevenShape implements Shape {
 
     public SevenShape(ElementAttributes attr) {
         this.label = attr.getLabel();
-        onStyle = new Style(8, true, attr.get(AttributeKey.Color));
+        onStyle = new Style(8, true, attr.get(Keys.Color));
         offStyle = new Style(8, true, new Color(230, 230, 230));
     }
 

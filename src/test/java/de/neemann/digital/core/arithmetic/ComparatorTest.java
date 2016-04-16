@@ -3,8 +3,8 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
 /**
@@ -20,7 +20,7 @@ public class ComparatorTest extends TestCase {
         Model model = new Model();
         Comparator node = new Comparator(new ElementAttributes()
                 .setBits(4)
-                .set(AttributeKey.Signed, false));
+                .set(Keys.Signed, false));
         node.setInputs(a, b);
         model.add(node);
 
@@ -39,7 +39,7 @@ public class ComparatorTest extends TestCase {
         Model model = new Model();
         Comparator node = new Comparator(new ElementAttributes()
                 .setBits(4)
-                .set(AttributeKey.Signed, true));
+                .set(Keys.Signed, true));
         node.setInputs(a, b);
         model.add(node);
 

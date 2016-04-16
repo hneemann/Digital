@@ -1,8 +1,9 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
@@ -43,13 +44,13 @@ import java.util.prefs.Preferences;
  */
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper {
     private static final Preferences PREFS = Preferences.userRoot().node("dig");
-    private static final ArrayList<AttributeKey> ATTR_LIST = new ArrayList<>();
+    private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
 
     static {
-        ATTR_LIST.add(AttributeKey.ShowDataTable);
-        ATTR_LIST.add(AttributeKey.ShowDataGraph);
-        ATTR_LIST.add(AttributeKey.ShowDataGraphMicro);
-        ATTR_LIST.add(AttributeKey.ShowListing);
+        ATTR_LIST.add(Keys.ShowDataTable);
+        ATTR_LIST.add(Keys.ShowDataGraph);
+        ATTR_LIST.add(Keys.ShowDataGraphMicro);
+        ATTR_LIST.add(Keys.ShowListing);
     }
 
     private static final String MESSAGE = Lang.get("message");
@@ -448,15 +449,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-            if (settings.get(AttributeKey.ShowDataTable))
+            if (settings.get(Keys.ShowDataTable))
                 windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering)).setVisible(true);
 
-            if (settings.get(AttributeKey.ShowDataGraph))
+            if (settings.get(Keys.ShowDataGraph))
                 windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent, ordering)).setVisible(true);
-            if (settings.get(AttributeKey.ShowDataGraphMicro))
+            if (settings.get(Keys.ShowDataGraphMicro))
                 windowPosManager.register("datasetMicro", new DataSetDialog(this, model, ModelEvent.MICROSTEP, ordering)).setVisible(true);
 
-            if (settings.get(AttributeKey.ShowListing)) {
+            if (settings.get(Keys.ShowListing)) {
                 int i = 0;
                 for (ROM rom : model.getRoms())
                     try {

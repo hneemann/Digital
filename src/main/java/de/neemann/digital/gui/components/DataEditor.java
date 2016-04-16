@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 
@@ -36,10 +36,10 @@ public class DataEditor extends JDialog {
         boolean register;
         if (attr != null) {
             bits = attr.getBits();
-            if (attr.contains(AttributeKey.AddrBits))
-                size = 1 << attr.get(AttributeKey.AddrBits);
+            if (attr.contains(Keys.AddrBits))
+                size = 1 << attr.get(Keys.AddrBits);
             else
-                size = 1 << attr.get(AttributeKey.InputCount);
+                size = 1 << attr.get(Keys.InputCount);
 
             this.dataField = new DataField(dataField, size, bits);
             register = false;

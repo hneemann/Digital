@@ -1,10 +1,10 @@
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -20,10 +20,10 @@ public class Register extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Register.class, input("D"), input("C"), input("en"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.ValueIsProbe)
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.ValueIsProbe)
             .setShortName("Reg");
 
     private final int bits;
@@ -44,8 +44,8 @@ public class Register extends Node implements Element {
     public Register(ElementAttributes attributes) {
         bits = attributes.getBits();
         this.q = new ObservableValue("Q", bits);
-        isProbe = attributes.get(AttributeKey.ValueIsProbe);
-        label = attributes.get(AttributeKey.Label);
+        isProbe = attributes.get(Keys.ValueIsProbe);
+        label = attributes.get(Keys.Label);
     }
 
     @Override

@@ -3,8 +3,8 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
 /**
@@ -18,8 +18,8 @@ public class DemultiplexerTest extends TestCase {
         ObservableValue sel = new ObservableValue("sel", 2);
         Demultiplexer demul = model.add(new Demultiplexer(
                 new ElementAttributes()
-                        .set(AttributeKey.Bits, 4)
-                        .set(AttributeKey.SelectorBits, 2)));
+                        .set(Keys.Bits, 4)
+                        .set(Keys.SelectorBits, 2)));
         demul.setInputs(sel, a);
 
 
@@ -37,9 +37,9 @@ public class DemultiplexerTest extends TestCase {
         ObservableValue sel = new ObservableValue("sel", 2);
         Demultiplexer demul = model.add(new Demultiplexer(
                 new ElementAttributes()
-                        .set(AttributeKey.Bits, 4)
-                        .set(AttributeKey.Default, 7)
-                        .set(AttributeKey.SelectorBits, 2)));
+                        .set(Keys.Bits, 4)
+                        .set(Keys.Default, 7)
+                        .set(Keys.SelectorBits, 2)));
         demul.setInputs(sel, a);
 
 

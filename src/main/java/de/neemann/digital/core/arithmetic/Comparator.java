@@ -4,10 +4,10 @@ import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -21,10 +21,10 @@ public class Comparator extends Node implements Element {
      * The comparators description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Comparator.class, input("a"), input("b"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.Signed)
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.Signed)
             .setShortName("");
 
     private final int bits;
@@ -45,8 +45,8 @@ public class Comparator extends Node implements Element {
      * @param attributes the attributes
      */
     public Comparator(ElementAttributes attributes) {
-        signed = attributes.get(AttributeKey.Signed);
-        bits = attributes.get(AttributeKey.Bits);
+        signed = attributes.get(Keys.Signed);
+        bits = attributes.get(Keys.Bits);
         this.maskAnd = 1 << (bits - 1);
         this.maskOr = ~((1 << bits) - 1);
 

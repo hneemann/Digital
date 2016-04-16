@@ -3,8 +3,8 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
 /**
@@ -24,7 +24,7 @@ public class LUTTest extends TestCase {
         LookUpTable out = model.add(new LookUpTable(
                 new ElementAttributes()
                         .setBits(1)
-                        .set(AttributeKey.Data, data)));
+                        .set(Keys.Data, data)));
         out.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(out.getOutputs());

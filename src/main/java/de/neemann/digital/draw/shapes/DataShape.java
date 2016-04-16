@@ -3,9 +3,9 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
@@ -32,11 +32,11 @@ public class DataShape implements Shape {
     private DataSet dataSet;
 
     public DataShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
-        if (attr.get(AttributeKey.MicroStep))
+        if (attr.get(Keys.MicroStep))
             type = ModelEvent.MICROSTEP;
         else
             type = ModelEvent.STEP;
-        maxSize = attr.get(AttributeKey.MaxStepCount);
+        maxSize = attr.get(Keys.MaxStepCount);
     }
 
     @Override

@@ -20,17 +20,17 @@ public class LookUpTable extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(LookUpTable.class) {
         @Override
         public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
-            int size = elementAttributes.get(AttributeKey.InputCount);
+            int size = elementAttributes.get(Keys.InputCount);
             PinDescription[] names = new PinDescription[size];
             for (int i = 0; i < size; i++)
                 names[i] = input("in_" + i);
             return names;
         }
     }
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.InputCount)
-            .addAttribute(AttributeKey.Data)
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.InputCount)
+            .addAttribute(Keys.Data)
             .setShortName("LUT");
 
     private final DataField data;
@@ -44,9 +44,9 @@ public class LookUpTable extends Node implements Element {
      * @param attr the elements attributes
      */
     public LookUpTable(ElementAttributes attr) {
-        int bits = attr.get(AttributeKey.Bits);
+        int bits = attr.get(Keys.Bits);
         output = new ObservableValue("out", bits);
-        data = attr.get(AttributeKey.Data);
+        data = attr.get(Keys.Data);
     }
 
     @Override

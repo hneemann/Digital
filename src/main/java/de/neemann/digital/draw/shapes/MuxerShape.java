@@ -1,8 +1,8 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -25,7 +25,7 @@ public class MuxerShape implements Shape {
         this.inputs = inputs;
         this.outputs = outputs;
         inputCount = inputs.length - 1;
-        this.flip = attr.get(AttributeKey.FlipSelPositon);
+        this.flip = attr.get(Keys.FlipSelPositon);
     }
 
     @Override

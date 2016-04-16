@@ -1,7 +1,8 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
@@ -48,13 +49,13 @@ public final class EditorFactory {
      * @param <T>   the type of the value
      * @return the editor
      */
-    public <T> Editor<T> create(AttributeKey<T> key, T value) {
+    public <T> Editor<T> create(Key<T> key, T value) {
         Class<? extends Editor> fac = map.get(key.getValueClass());
         if (fac == null)
             throw new RuntimeException("no editor found for " + key.getValueClass().getSimpleName());
 
         try {
-            Constructor<? extends Editor> c = fac.getConstructor(value.getClass(), AttributeKey.class);
+            Constructor<? extends Editor> c = fac.getConstructor(value.getClass(), Keys.class);
             return c.newInstance(value, key);
         } catch (Exception e) {
             throw new RuntimeException("error creating editor", e);
@@ -63,7 +64,7 @@ public final class EditorFactory {
 
     private static abstract class LabelEditor<T> implements Editor<T> {
         @Override
-        public void addToPanel(JPanel panel, AttributeKey key, ElementAttributes elementAttributes) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes) {
             panel.add(new JLabel(key.getName() + ":  "), DialogLayout.LABEL);
             panel.add(getComponent(elementAttributes), DialogLayout.INPUT);
         }
@@ -75,7 +76,7 @@ public final class EditorFactory {
 
         private final JTextField text;
 
-        public StringEditor(String value, AttributeKey<String> key) {
+        public StringEditor(String value, Keys<String> key) {
             text = new JTextField(10);
             text.setText(value);
         }
@@ -95,10 +96,10 @@ public final class EditorFactory {
     private final static class IntegerEditor extends LabelEditor<Integer> {
         private final JComboBox<Integer> comboBox;
 
-        public IntegerEditor(Integer value, AttributeKey<Integer> key) {
+        public IntegerEditor(Integer value, Key<Integer> key) {
             Integer[] selects = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-            if (key instanceof AttributeKey.AttributeKeyInteger) {
-                selects = ((AttributeKey.AttributeKeyInteger) key).getComboBoxValues();
+            if (key instanceof Key.KeyInteger) {
+                selects = ((Key.KeyInteger) key).getComboBoxValues();
             }
             comboBox = new JComboBox<>(selects);
             comboBox.setEditable(true);
@@ -125,7 +126,7 @@ public final class EditorFactory {
 
         private final JCheckBox bool;
 
-        public BooleanEditor(Boolean value, AttributeKey<Boolean> key) {
+        public BooleanEditor(Boolean value, Key<Boolean> key) {
             bool = new JCheckBox(key.getName(), value);
         }
 
@@ -135,7 +136,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public void addToPanel(JPanel panel, AttributeKey key, ElementAttributes elementAttributes) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes) {
             panel.add(bool, DialogLayout.BOTH);
         }
     }
@@ -145,7 +146,7 @@ public final class EditorFactory {
         private Color color;
         private final JButton button;
 
-        public ColorEditor(Color value, AttributeKey<Color> key) {
+        public ColorEditor(Color value, Key<Color> key) {
             this.color = value;
             button = new JButton(new AbstractAction() {
                 @Override
@@ -175,7 +176,7 @@ public final class EditorFactory {
 
         private DataField data;
 
-        public DataFieldEditor(DataField data, AttributeKey<DataField> key) {
+        public DataFieldEditor(DataField data, Key<DataField> key) {
             this.data = data;
         }
 
@@ -235,7 +236,7 @@ public final class EditorFactory {
         private final Rotation rotation;
         private JComboBox<String> comb;
 
-        public RotationEditor(Rotation rotation, AttributeKey<Rotation> key) {
+        public RotationEditor(Rotation rotation, Key<Rotation> key) {
             this.rotation = rotation;
         }
 

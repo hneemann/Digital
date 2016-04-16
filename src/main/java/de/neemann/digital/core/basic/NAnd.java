@@ -2,9 +2,9 @@ package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class NAnd extends Function {
      * @param attributes the attributes
      */
     public NAnd(ElementAttributes attributes) {
-        super(attributes.get(AttributeKey.Bits));
+        super(attributes.get(Keys.Bits));
     }
 
     @Override

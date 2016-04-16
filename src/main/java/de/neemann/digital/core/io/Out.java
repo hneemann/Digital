@@ -3,10 +3,10 @@ package de.neemann.digital.core.io;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -19,19 +19,19 @@ public class Out implements Element {
             = new ElementTypeDescription(Out.class, input("in")) {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
-            return elementAttributes.get(AttributeKey.Description);
+            return elementAttributes.get(Keys.Description);
         }
     }
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.Description);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.Description);
 
     public static final ElementTypeDescription LEDDESCRIPTION
             = new ElementTypeDescription("LED", Out.class, input("in"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.Color);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.Color);
 
     public static final ElementTypeDescription SEVENDESCRIPTION
             = new ElementTypeDescription("Seven-Seg",
@@ -39,16 +39,16 @@ public class Out implements Element {
                 return new Out(1, 1, 1, 1, 1, 1, 1, 1);
             },
             input("a"), input("b"), input("c"), input("d"), input("e"), input("f"), input("g"), input("dp"))
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.Color);
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.Color);
 
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> {
                 return new Out(4, 1);
             }, input("d"), input("dp"))
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.Color);
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.Color);
 
     private final int[] bits;
     private final String label;
@@ -56,7 +56,7 @@ public class Out implements Element {
 
     public Out(ElementAttributes attributes) {
         bits = new int[]{attributes.getBits()};
-        label = attributes.get(AttributeKey.Label);
+        label = attributes.get(Keys.Label);
     }
 
     public Out(int... bits) {

@@ -3,10 +3,10 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -22,9 +22,9 @@ public class Mul extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Mul.class, input("a"), input("b"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.Bits);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.Bits);
 
     private final ObservableValue mul;
     private final int bits;
@@ -38,7 +38,7 @@ public class Mul extends Node implements Element {
      * @param attributes the attributes
      */
     public Mul(ElementAttributes attributes) {
-        bits = attributes.get(AttributeKey.Bits);
+        bits = attributes.get(Keys.Bits);
         this.mul = new ObservableValue("mul", bits * 2);
     }
 

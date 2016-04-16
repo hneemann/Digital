@@ -3,8 +3,8 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
 /**
@@ -23,8 +23,8 @@ public class ROMTest extends TestCase {
         ROM out = model.add(new ROM(
                 new ElementAttributes()
                         .setBits(8)
-                        .set(AttributeKey.AddrBits, 3)
-                        .set(AttributeKey.Data, data)));
+                        .set(Keys.AddrBits, 3)
+                        .set(Keys.Data, data)));
         out.setInputs(addr, sel);
 
         TestExecuter sc = new TestExecuter(model).setInputs(addr, sel).setOutputs(out.getOutputs());

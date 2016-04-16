@@ -2,9 +2,9 @@ package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -25,10 +25,10 @@ public class RAMSinglePort extends RAMDualPort {
             input("str", Lang.get("elem_RAMSinglePort_pin_str")),
             input("c", Lang.get("elem_RAMSinglePort_pin_c")),
             input("ld", Lang.get("elem_RAMSinglePort_pin_ld")))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.AddrBits)
-            .addAttribute(AttributeKey.Label)
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.AddrBits)
+            .addAttribute(Keys.Label)
             .setShortName("RAM");
 
     /**

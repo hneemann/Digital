@@ -3,10 +3,10 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -18,10 +18,10 @@ public class Clock implements Element {
      * the clocks description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Clock", Clock.class)
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Label)
-            .addAttribute(AttributeKey.RunAtRealTime)
-            .addAttribute(AttributeKey.Frequency);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Label)
+            .addAttribute(Keys.RunAtRealTime)
+            .addAttribute(Keys.Frequency);
 
     private final ObservableValue output;
     private final int frequency;
@@ -34,13 +34,13 @@ public class Clock implements Element {
      */
     public Clock(ElementAttributes attributes) {
         output = new ObservableValue("C", 1);
-        if (attributes.get(AttributeKey.RunAtRealTime)) {
-            int f = attributes.get(AttributeKey.Frequency);
+        if (attributes.get(Keys.RunAtRealTime)) {
+            int f = attributes.get(Keys.Frequency);
             if (f < 1) f = 1;
             frequency = f;
         } else
             frequency = 0;
-        label = attributes.get(AttributeKey.Label);
+        label = attributes.get(Keys.Label);
     }
 
     @Override

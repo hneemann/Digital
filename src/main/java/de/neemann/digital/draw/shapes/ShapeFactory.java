@@ -2,9 +2,9 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.*;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.RAMDualPort;
@@ -37,8 +37,8 @@ public final class ShapeFactory {
         map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", XOr.DESCRIPTION, false));
         map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", XNOr.DESCRIPTION, true));
 
-        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr), attr.get(AttributeKey.Label)));
-        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr), attr.get(AttributeKey.Label)));
+        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr), attr.get(Keys.Label)));
+        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr), attr.get(Keys.Label)));
 
         map.put(In.DESCRIPTION.getName(), InputShape::new);
         map.put(Reset.DESCRIPTION.getName(), ResetShape::new);
@@ -86,15 +86,15 @@ public final class ShapeFactory {
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),
                                 pt.getOutputDescriptions(elementAttributes),
-                                elementAttributes.get(AttributeKey.Label),
+                                elementAttributes.get(Keys.Label),
                                 true,
-                                customDescr.getAttributes().get(AttributeKey.Width));
+                                customDescr.getAttributes().get(Keys.Width));
                     } else
                         return new GenericShape(
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),
                                 pt.getOutputDescriptions(elementAttributes),
-                                elementAttributes.get(AttributeKey.Label),
+                                elementAttributes.get(Keys.Label),
                                 true);
                 }
             } else {

@@ -2,8 +2,8 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Key;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -306,7 +306,7 @@ public class CircuitComponent extends JComponent {
                 }
             }).setVisible(true);
         } else {
-            ArrayList<AttributeKey> list = elementType.getAttributeList();
+            ArrayList<Key> list = elementType.getAttributeList();
             if (list.size() > 0) {
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);

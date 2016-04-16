@@ -3,10 +3,10 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.element.AttributeKey;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -31,16 +31,16 @@ public class Demultiplexer extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class,
             input("sel", Lang.get("elem_Demultiplexer_pin_sel")),
             input("in"))
-            .addAttribute(AttributeKey.Rotate)
-            .addAttribute(AttributeKey.Bits)
-            .addAttribute(AttributeKey.SelectorBits)
-            .addAttribute(AttributeKey.FlipSelPositon)
-            .addAttribute(AttributeKey.Default);
+            .addAttribute(Keys.Rotate)
+            .addAttribute(Keys.Bits)
+            .addAttribute(Keys.SelectorBits)
+            .addAttribute(Keys.FlipSelPositon)
+            .addAttribute(Keys.Default);
 
     public Demultiplexer(ElementAttributes attributes) {
-        bits = attributes.get(AttributeKey.Bits);
-        this.selectorBits = attributes.get(AttributeKey.SelectorBits);
-        this.defaultValue = attributes.get(AttributeKey.Default);
+        bits = attributes.get(Keys.Bits);
+        this.selectorBits = attributes.get(Keys.SelectorBits);
+        this.defaultValue = attributes.get(Keys.Default);
         int outputs = 1 << selectorBits;
         output = new ObservableValue[outputs];
         for (int i = 0; i < outputs; i++) {
