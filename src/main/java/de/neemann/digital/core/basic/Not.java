@@ -11,10 +11,15 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The Not
+ *
  * @author hneemann
  */
 public class Not extends Node implements Element {
 
+    /**
+     * The Not description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, input("in"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits);
@@ -24,6 +29,11 @@ public class Not extends Node implements Element {
     private ObservableValue input;
     private long value;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Not(ElementAttributes attributes) {
         bits = attributes.get(AttributeKey.Bits);
         output = new ObservableValue("out", bits);
@@ -37,10 +47,6 @@ public class Not extends Node implements Element {
     @Override
     public void writeOutputs() throws NodeException {
         output.setValue(~value);
-    }
-
-    public ObservableValue getOutput() {
-        return output;
     }
 
     @Override

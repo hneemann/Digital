@@ -16,6 +16,9 @@ import static de.neemann.digital.core.element.PinInfo.input;
  */
 public class XOr extends Node implements Element {
 
+    /**
+     * The XOr description
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(XOr.class, input("a"), input("b"))
             .addAttribute(AttributeKey.Rotate)
@@ -27,6 +30,11 @@ public class XOr extends Node implements Element {
     protected ObservableValue b;
     protected long value;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public XOr(ElementAttributes attributes) {
         bits = attributes.get(AttributeKey.Bits);
         this.out = new ObservableValue("out", bits);

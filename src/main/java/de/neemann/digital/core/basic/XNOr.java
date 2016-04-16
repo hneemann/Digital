@@ -8,15 +8,24 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The XNOr
  * @author hneemann
  */
 public class XNOr extends XOr {
 
+    /**
+     * The XNOr description
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(XNOr.class, input("a"), input("b"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Bits);
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public XNOr(ElementAttributes attributes) {
         super(attributes);
     }

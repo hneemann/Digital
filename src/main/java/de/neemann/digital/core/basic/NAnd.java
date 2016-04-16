@@ -9,12 +9,21 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import java.util.ArrayList;
 
 /**
+ * The NAnd
  * @author hneemann
  */
 public class NAnd extends Function {
 
+    /**
+     * The NAnd description
+     */
     public static final ElementTypeDescription DESCRIPTION = new FanInDescription(NAnd.class);
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public NAnd(ElementAttributes attributes) {
         super(attributes.get(AttributeKey.Bits));
     }

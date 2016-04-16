@@ -85,9 +85,9 @@ public class FlipFlopsTest extends TestCase {
 
 
         FanIn a3 = model.add(new And(attr));
-        a3.setInputs(nor1.getOutput(), not.getOutput());
+        a3.setInputs(nor1.getOutput(), not.getOutputs()[0]);
         FanIn a4 = model.add(new And(attr));
-        a4.setInputs(nor2.getOutput(), not.getOutput());
+        a4.setInputs(nor2.getOutput(), not.getOutputs()[0]);
 
         nor3.setInputs(a3.getOutput(), nor4.getOutput());
         nor4.setInputs(a4.getOutput(), nor3.getOutput());

@@ -10,22 +10,25 @@ import java.util.ArrayList;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * A fan in. Used as base class for the simple bool operations
+ *
  * @author hneemann
  */
 public abstract class FanIn extends Node implements Element {
 
-    protected final ArrayList<ObservableValue> inputs;
-    protected final ObservableValue output;
+    private final ArrayList<ObservableValue> inputs;
+    private final ObservableValue output;
     private final int bits;
 
+    /**
+     * Creates a new instance
+     *
+     * @param bits the number of bits
+     */
     public FanIn(int bits) {
         this.bits = bits;
         inputs = new ArrayList<>();
         output = new ObservableValue("out", bits);
-    }
-
-    public ObservableValue getOutput() {
-        return output;
     }
 
     @Override
@@ -34,19 +37,31 @@ public abstract class FanIn extends Node implements Element {
             inputs.add(v.checkBits(bits, this).addObserverToValue(this));
     }
 
+    /**
+     * @return the outputs
+     */
+    public ObservableValue getOutput() {
+        return output;
+    }
+
+    /**
+     * @return the outputs
+     */
+    public ArrayList<ObservableValue> getInputs() {
+        return inputs;
+    }
+
     @Override
     public ObservableValue[] getOutputs() {
         return new ObservableValue[]{output};
     }
 
-    public static class FanInDescription extends ElementTypeDescription {
-        public FanInDescription(Class<? extends Element> clazz) {
+    /**
+     * The fan in description
+     */
+    static class FanInDescription extends ElementTypeDescription {
+        FanInDescription(Class<? extends Element> clazz) {
             super(clazz);
-            addAttributes();
-        }
-
-        public FanInDescription(String name, ElementFactory elementFactory) {
-            super(name, elementFactory);
             addAttributes();
         }
 

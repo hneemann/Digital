@@ -9,12 +9,21 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import java.util.ArrayList;
 
 /**
+ * The Or
  * @author hneemann
  */
 public class Or extends Function {
 
+    /**
+     * The And description
+     */
     public static final ElementTypeDescription DESCRIPTION = new FanInDescription(Or.class);
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Or(ElementAttributes attributes) {
         super(attributes.get(AttributeKey.Bits));
     }

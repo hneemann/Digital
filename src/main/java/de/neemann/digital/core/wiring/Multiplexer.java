@@ -47,12 +47,12 @@ public class Multiplexer extends FanIn {
     @Override
     public void readInputs() throws NodeException {
         int n = (int) selector.getValue();
-        value = inputs.get(n).getValue();
+        value = getInputs().get(n).getValue();
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.setValue(value);
+        getOutput().setValue(value);
     }
 
     @Override
