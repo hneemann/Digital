@@ -15,15 +15,15 @@ import de.neemann.digital.lang.Lang;
 public class Button implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Button.class)
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL);
 
     private final ObservableValue output;
     private final String label;
 
     public Button(ElementAttributes attributes) {
         output = new ObservableValue("out", 1);
-        label = attributes.get(Keys.Label);
+        label = attributes.get(Keys.LABEL);
     }
 
     @Override

@@ -23,9 +23,9 @@ public class Add extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Add.class, input("a"), input("b"), input("c_i"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Bits);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.BITS);
 
     private final int bits;
     private final ObservableValue sum;
@@ -42,7 +42,7 @@ public class Add extends Node implements Element {
      * @param attributes the attributes
      */
     public Add(ElementAttributes attributes) {
-        bits = attributes.get(Keys.Bits);
+        bits = attributes.get(Keys.BITS);
         this.mask = 1 << bits;
 
         this.sum = new ObservableValue("s", bits);

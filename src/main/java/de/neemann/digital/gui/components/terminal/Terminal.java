@@ -23,10 +23,10 @@ public class Terminal extends Node implements Element {
             = new ElementTypeDescription(Terminal.class,
             input("D", Lang.get("elem_Terminal_pin_D")),
             input("C", Lang.get("elem_Terminal_pin_C")))
-            .addAttribute(Keys.TermWidth)
-            .addAttribute(Keys.TermHeight)
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label);
+            .addAttribute(Keys.TERM_WIDTH)
+            .addAttribute(Keys.TERM_HEIGHT)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL);
 
     private final ElementAttributes attr;
     private ObservableValue data;

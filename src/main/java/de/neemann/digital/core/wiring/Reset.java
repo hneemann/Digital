@@ -15,8 +15,8 @@ import de.neemann.digital.lang.Lang;
 public class Reset implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Reset", Reset.class)
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL);
 
     private final ObservableValue output;
 

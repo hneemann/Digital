@@ -25,7 +25,7 @@ public class MuxerShape implements Shape {
         this.inputs = inputs;
         this.outputs = outputs;
         inputCount = inputs.length - 1;
-        this.flip = attr.get(Keys.FlipSelPositon);
+        this.flip = attr.get(Keys.FLIP_SEL_POSITON);
     }
 
     @Override

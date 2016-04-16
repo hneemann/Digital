@@ -17,9 +17,9 @@ public class Sub extends Add {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Sub.class, input("a"), input("b"), input("c_i"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Bits);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.BITS);
 
     /**
      * Creates a new instance

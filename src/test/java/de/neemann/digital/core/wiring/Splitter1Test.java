@@ -18,8 +18,8 @@ public class Splitter1Test extends TestCase {
         ObservableValue d = new ObservableValue("d", 1);
 
         Splitter splitter = new Splitter(new ElementAttributes()
-                .set(Keys.InputSplit, "1,1,1,1")
-                .set(Keys.OutputSplit, "4"));
+                .set(Keys.INPUT_SPLIT, "1,1,1,1")
+                .set(Keys.OUTPUT_SPLIT, "4"));
 
         splitter.setInputs(a, b, c, d);
         assertEquals(1, a.observerCount());
@@ -50,8 +50,8 @@ public class Splitter1Test extends TestCase {
         ObservableValue d = new ObservableValue("d", 4);
 
         Splitter splitter = new Splitter(new ElementAttributes()
-                .set(Keys.InputSplit, "4,4,4,4")
-                .set(Keys.OutputSplit, "16"));
+                .set(Keys.INPUT_SPLIT, "4,4,4,4")
+                .set(Keys.OUTPUT_SPLIT, "16"));
 
         splitter.setInputs(a, b, c, d);
         assertEquals(1, a.observerCount());
@@ -81,8 +81,8 @@ public class Splitter1Test extends TestCase {
         ObservableValue d = new ObservableValue("d", 4);
 
         Splitter splitter = new Splitter(new ElementAttributes()
-                .set(Keys.InputSplit, "4,4,4,4")
-                .set(Keys.OutputSplit, "8,8"));
+                .set(Keys.INPUT_SPLIT, "4,4,4,4")
+                .set(Keys.OUTPUT_SPLIT, "8,8"));
 
         splitter.setInputs(a, b, c, d);
         assertEquals(1, a.observerCount());

@@ -36,10 +36,10 @@ public class DataEditor extends JDialog {
         boolean register;
         if (attr != null) {
             bits = attr.getBits();
-            if (attr.contains(Keys.AddrBits))
-                size = 1 << attr.get(Keys.AddrBits);
+            if (attr.contains(Keys.ADDR_BITS))
+                size = 1 << attr.get(Keys.ADDR_BITS);
             else
-                size = 1 << attr.get(Keys.InputCount);
+                size = 1 << attr.get(Keys.INPUT_COUNT);
 
             this.dataField = new DataField(dataField, size, bits);
             register = false;

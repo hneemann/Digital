@@ -24,8 +24,8 @@ public class SplitterShape implements Shape {
     private Pins pins;
 
     public SplitterShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) throws BitsException {
-        String inputDef = attr.get(Keys.InputSplit);
-        String outputDef = attr.get(Keys.OutputSplit);
+        String inputDef = attr.get(Keys.INPUT_SPLIT);
+        String outputDef = attr.get(Keys.OUTPUT_SPLIT);
         this.inputs = new Splitter.Ports(inputDef).getNames(PinDescription.Direction.input);
         this.outputs = new Splitter.Ports(outputDef).getNames(PinDescription.Direction.output);
         length = (Math.max(inputs.length, outputs.length) - 1) * SIZE + 2;

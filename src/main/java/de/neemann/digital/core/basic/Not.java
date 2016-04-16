@@ -21,8 +21,8 @@ public class Not extends Node implements Element {
      * The Not description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, input("in"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS);
 
     private final ObservableValue output;
     private final int bits;
@@ -35,7 +35,7 @@ public class Not extends Node implements Element {
      * @param attributes the attributes
      */
     public Not(ElementAttributes attributes) {
-        bits = attributes.get(Keys.Bits);
+        bits = attributes.get(Keys.BITS);
         output = new ObservableValue("out", bits);
     }
 

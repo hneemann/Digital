@@ -15,15 +15,15 @@ import de.neemann.digital.lang.Lang;
 public class Const implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Const.class)
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.Value);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.VALUE);
 
     private final ObservableValue output;
 
     public Const(ElementAttributes attributes) {
-        output = new ObservableValue("out", attributes.get(Keys.Bits));
-        output.setValue(attributes.get(Keys.Value));
+        output = new ObservableValue("out", attributes.get(Keys.BITS));
+        output.setValue(attributes.get(Keys.VALUE));
     }
 
     @Override

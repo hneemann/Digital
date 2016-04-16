@@ -17,7 +17,7 @@ public class DecoderTest extends TestCase {
         ObservableValue sel = new ObservableValue("sel", 2);
         Decoder decoder = model.add(new Decoder(
                 new ElementAttributes()
-                        .set(Keys.SelectorBits, 2)));
+                        .set(Keys.SELECTOR_BITS, 2)));
         decoder.setInputs(sel);
 
 

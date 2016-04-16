@@ -24,7 +24,7 @@ public class RAMSinglePortTest extends TestCase {
         Model model = new Model();
         RAMSinglePort out = model.add(new RAMSinglePort(
                 new ElementAttributes()
-                        .set(Keys.AddrBits, 4)
+                        .set(Keys.ADDR_BITS, 4)
                         .setBits(4)));
         out.setInputs(a, str, clk, ld, d);
 

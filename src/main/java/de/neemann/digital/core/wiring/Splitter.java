@@ -16,9 +16,9 @@ public class Splitter implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
             = new SplitterTypeDescription()
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.InputSplit)
-            .addAttribute(Keys.OutputSplit)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.INPUT_SPLIT)
+            .addAttribute(Keys.OUTPUT_SPLIT)
             .setShortName("");
 
     private final ObservableValue[] outputs;
@@ -34,16 +34,16 @@ public class Splitter implements Element {
 
         @Override
         public PinDescription[] getInputDescription(ElementAttributes elementAttributes) throws BitsException {
-            Ports p = new Ports(elementAttributes.get(Keys.InputSplit));
+            Ports p = new Ports(elementAttributes.get(Keys.INPUT_SPLIT));
             return p.getNames(PinDescription.Direction.input);
         }
 
     }
 
     public Splitter(ElementAttributes attributes) throws BitsException {
-        outPorts = new Ports(attributes.get(Keys.OutputSplit));
+        outPorts = new Ports(attributes.get(Keys.OUTPUT_SPLIT));
         outputs = outPorts.getOutputs();
-        inPorts = new Ports(attributes.get(Keys.InputSplit));
+        inPorts = new Ports(attributes.get(Keys.INPUT_SPLIT));
     }
 
     @Override

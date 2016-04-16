@@ -25,7 +25,7 @@ public class NOr extends Function {
      * @param attributes the attributes
      */
     public NOr(ElementAttributes attributes) {
-        super(attributes.get(Keys.Bits));
+        super(attributes.get(Keys.BITS));
     }
 
     @Override

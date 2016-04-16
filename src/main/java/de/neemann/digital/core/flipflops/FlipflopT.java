@@ -20,9 +20,9 @@ public class FlipflopT extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("T_FF", FlipflopT.class, input("C"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.ValueIsProbe)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.VALUE_IS_PROBE)
             .setShortName("T");
 
     private final boolean isProbe;
@@ -42,8 +42,8 @@ public class FlipflopT extends Node implements Element {
     public FlipflopT(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
-        isProbe = attributes.get(Keys.ValueIsProbe);
-        label = attributes.get(Keys.Label);
+        isProbe = attributes.get(Keys.VALUE_IS_PROBE);
+        label = attributes.get(Keys.LABEL);
     }
 
     @Override

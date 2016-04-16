@@ -18,14 +18,14 @@ public class Probe implements Element {
 
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("Probe", Probe.class, input("in"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL);
 
     private final String label;
     private ObservableValue value;
 
     public Probe(ElementAttributes attributes) {
-        label = attributes.get(Keys.Label);
+        label = attributes.get(Keys.LABEL);
     }
 
     @Override

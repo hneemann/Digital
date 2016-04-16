@@ -26,7 +26,7 @@ public class And extends Function {
      * @param attributes the attributes
      */
     public And(ElementAttributes attributes) {
-        super(attributes.get(Keys.Bits));
+        super(attributes.get(Keys.BITS));
     }
 
     @Override

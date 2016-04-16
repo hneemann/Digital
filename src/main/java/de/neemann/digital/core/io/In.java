@@ -20,15 +20,15 @@ public class In implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(In.class) {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
-            return elementAttributes.get(Keys.Description);
+            return elementAttributes.get(Keys.DESCRIPTION);
         }
     }
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.IsHighZ)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Description)
-            .addAttribute(Keys.Default);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.IS_HIGH_Z)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.DESCRIPTION)
+            .addAttribute(Keys.DEFAULT);
 
     private final ObservableValue output;
     private final String label;
@@ -39,10 +39,10 @@ public class In implements Element {
      * @param attributes the inputs attributes
      */
     public In(ElementAttributes attributes) {
-        boolean highZ = attributes.get(Keys.IsHighZ);
-        output = new ObservableValue("out", attributes.get(Keys.Bits), highZ);
-        output.setValue(attributes.get(Keys.Default));
-        label = attributes.get(Keys.Label);
+        boolean highZ = attributes.get(Keys.IS_HIGH_Z);
+        output = new ObservableValue("out", attributes.get(Keys.BITS), highZ);
+        output.setValue(attributes.get(Keys.DEFAULT));
+        label = attributes.get(Keys.LABEL);
     }
 
     @Override

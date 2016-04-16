@@ -27,7 +27,7 @@ public class DriverShape implements Shape {
     public DriverShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
-        this.bottom = attr.get(Keys.FlipSelPositon);
+        this.bottom = attr.get(Keys.FLIP_SEL_POSITON);
     }
 
     @Override

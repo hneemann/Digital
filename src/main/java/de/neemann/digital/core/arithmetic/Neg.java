@@ -21,8 +21,8 @@ public class Neg extends Node implements Element {
      * The element description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Neg.class, input("in"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS);
 
     private final ObservableValue output;
     private final int bits;
@@ -35,7 +35,7 @@ public class Neg extends Node implements Element {
      * @param attributes attributes
      */
     public Neg(ElementAttributes attributes) {
-        bits = attributes.get(Keys.Bits);
+        bits = attributes.get(Keys.BITS);
         output = new ObservableValue("out", bits);
     }
 

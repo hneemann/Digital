@@ -18,10 +18,10 @@ public class Clock implements Element {
      * the clocks description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Clock", Clock.class)
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.RunAtRealTime)
-            .addAttribute(Keys.Frequency);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.RUN_AT_REAL_TIME)
+            .addAttribute(Keys.FREQUENCY);
 
     private final ObservableValue output;
     private final int frequency;
@@ -34,13 +34,13 @@ public class Clock implements Element {
      */
     public Clock(ElementAttributes attributes) {
         output = new ObservableValue("C", 1);
-        if (attributes.get(Keys.RunAtRealTime)) {
-            int f = attributes.get(Keys.Frequency);
+        if (attributes.get(Keys.RUN_AT_REAL_TIME)) {
+            int f = attributes.get(Keys.FREQUENCY);
             if (f < 1) f = 1;
             frequency = f;
         } else
             frequency = 0;
-        label = attributes.get(Keys.Label);
+        label = attributes.get(Keys.LABEL);
     }
 
     @Override

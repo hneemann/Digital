@@ -26,8 +26,8 @@ public class DemuxerShape implements Shape {
     public DemuxerShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
-        this.flip = attr.get(Keys.FlipSelPositon);
-        outputCount = 1 << attr.get(Keys.SelectorBits);
+        this.flip = attr.get(Keys.FLIP_SEL_POSITON);
+        outputCount = 1 << attr.get(Keys.SELECTOR_BITS);
         hasInput = inputs.length > 1;
         height = hasInput || (outputCount <= 2) ? outputCount * SIZE : (outputCount - 1) * SIZE;
     }

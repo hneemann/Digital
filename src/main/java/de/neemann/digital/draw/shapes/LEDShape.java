@@ -29,7 +29,7 @@ public class LEDShape implements Shape {
     public LEDShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
-        onStyle = new Style(1, true, attr.get(Keys.Color));
+        onStyle = new Style(1, true, attr.get(Keys.COLOR));
     }
 
     @Override

@@ -21,8 +21,8 @@ public class XOr extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(XOr.class, input("a"), input("b"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS);
 
     private final int bits;
     private final ObservableValue out;
@@ -36,7 +36,7 @@ public class XOr extends Node implements Element {
      * @param attributes the attributes
      */
     public XOr(ElementAttributes attributes) {
-        bits = attributes.get(Keys.Bits);
+        bits = attributes.get(Keys.BITS);
         this.out = new ObservableValue("out", bits);
     }
 

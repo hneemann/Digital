@@ -27,7 +27,7 @@ public abstract class SevenShape implements Shape {
 
     public SevenShape(ElementAttributes attr) {
         this.label = attr.getLabel();
-        onStyle = new Style(8, true, attr.get(Keys.Color));
+        onStyle = new Style(8, true, attr.get(Keys.COLOR));
         offStyle = new Style(8, true, new Color(230, 230, 230));
     }
 

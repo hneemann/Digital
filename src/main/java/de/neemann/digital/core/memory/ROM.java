@@ -28,12 +28,12 @@ public class ROM extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(ROM.class,
             input("A", Lang.get("elem_ROM_pin_address")),
             input("sel", Lang.get("elem_ROM_pin_sel")))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.AddrBits)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.ShowListing)
-            .addAttribute(Keys.Data);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.ADDR_BITS)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.SHOW_LISTING)
+            .addAttribute(Keys.DATA);
 
     private final DataField data;
     private final ObservableValue output;
@@ -53,11 +53,11 @@ public class ROM extends Node implements Element {
      * @param attr the elements attributes
      */
     public ROM(ElementAttributes attr) {
-        int bits = attr.get(Keys.Bits);
+        int bits = attr.get(Keys.BITS);
         output = new ObservableValue("D", bits, true).setDescription(Lang.get("elem_ROM_pin_data"));
-        data = attr.get(Keys.Data);
-        addrBits = attr.get(Keys.AddrBits);
-        showList = attr.get(Keys.ShowListing);
+        data = attr.get(Keys.DATA);
+        addrBits = attr.get(Keys.ADDR_BITS);
+        showList = attr.get(Keys.SHOW_LISTING);
         if (showList) {
             listFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else

@@ -20,11 +20,11 @@ public class FlipflopD extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("D_FF", FlipflopD.class, input("D"), input("C"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Default)
-            .addAttribute(Keys.ValueIsProbe)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.DEFAULT)
+            .addAttribute(Keys.VALUE_IS_PROBE)
             .setShortName("D");
 
     private final int bits;
@@ -46,10 +46,10 @@ public class FlipflopD extends Node implements Element {
         bits = attributes.getBits();
         this.q = new ObservableValue("Q", bits);
         this.qn = new ObservableValue("\u00ACQ", bits);
-        isProbe = attributes.get(Keys.ValueIsProbe);
-        label = attributes.get(Keys.Label);
+        isProbe = attributes.get(Keys.VALUE_IS_PROBE);
+        label = attributes.get(Keys.LABEL);
 
-        value = attributes.get(Keys.Default);
+        value = attributes.get(Keys.DEFAULT);
         q.setValue(value);
         qn.setValue(~value);
     }

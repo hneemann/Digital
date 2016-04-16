@@ -20,10 +20,10 @@ public class FlipflopJK extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("JK_FF", FlipflopJK.class, input("J"), input("C"), input("K"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Default)
-            .addAttribute(Keys.ValueIsProbe)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.DEFAULT)
+            .addAttribute(Keys.VALUE_IS_PROBE)
             .setShortName("JK");
 
     private final Boolean isProbe;
@@ -44,10 +44,10 @@ public class FlipflopJK extends Node implements Element {
     public FlipflopJK(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
-        isProbe = attributes.get(Keys.ValueIsProbe);
-        label = attributes.get(Keys.Label);
+        isProbe = attributes.get(Keys.VALUE_IS_PROBE);
+        label = attributes.get(Keys.LABEL);
 
-        int def = attributes.get(Keys.Default);
+        int def = attributes.get(Keys.DEFAULT);
         out = def > 0;
         q.setBool(out);
         qn.setBool(!out);

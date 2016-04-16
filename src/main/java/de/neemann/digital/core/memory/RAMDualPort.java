@@ -27,10 +27,10 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             input("str", Lang.get("elem_RAMDualPort_pin_str")),
             input("c", Lang.get("elem_RAMDualPort_pin_c")),
             input("ld", Lang.get("elem_RAMDualPort_pin_ld")))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.AddrBits)
-            .addAttribute(Keys.Label)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.ADDR_BITS)
+            .addAttribute(Keys.LABEL)
             .setShortName("RAM");
 
     private final DataField memory;
@@ -52,9 +52,9 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      * @param attr the elemets attributes
      */
     public RAMDualPort(ElementAttributes attr) {
-        bits = attr.get(Keys.Bits);
+        bits = attr.get(Keys.BITS);
         output = createOutput();
-        addrBits = attr.get(Keys.AddrBits);
+        addrBits = attr.get(Keys.ADDR_BITS);
         memory = new DataField(1 << addrBits, bits);
     }
 

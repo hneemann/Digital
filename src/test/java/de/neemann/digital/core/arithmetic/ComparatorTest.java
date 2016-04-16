@@ -20,7 +20,7 @@ public class ComparatorTest extends TestCase {
         Model model = new Model();
         Comparator node = new Comparator(new ElementAttributes()
                 .setBits(4)
-                .set(Keys.Signed, false));
+                .set(Keys.SIGNED, false));
         node.setInputs(a, b);
         model.add(node);
 
@@ -39,7 +39,7 @@ public class ComparatorTest extends TestCase {
         Model model = new Model();
         Comparator node = new Comparator(new ElementAttributes()
                 .setBits(4)
-                .set(Keys.Signed, true));
+                .set(Keys.SIGNED, true));
         node.setInputs(a, b);
         model.add(node);
 

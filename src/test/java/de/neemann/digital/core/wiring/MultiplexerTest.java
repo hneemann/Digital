@@ -22,8 +22,8 @@ public class MultiplexerTest extends TestCase {
         ObservableValue d = new ObservableValue("d", 4);
         ObservableValue sel = new ObservableValue("sel", 2);
         FanIn out = model.add(new Multiplexer(
-                new ElementAttributes().set(Keys.Bits, 4)
-                        .set(Keys.SelectorBits, 2)));
+                new ElementAttributes().set(Keys.BITS, 4)
+                        .set(Keys.SELECTOR_BITS, 2)));
         out.setInputs(sel, a, b, c, d);
 
 
@@ -42,8 +42,8 @@ public class MultiplexerTest extends TestCase {
         ObservableValue d = new ObservableValue("d", 4);
         ObservableValue sel = new ObservableValue("sel", 1);
         FanIn out = new Multiplexer(
-                new ElementAttributes().set(Keys.Bits, 4)
-                        .set(Keys.SelectorBits, 2));
+                new ElementAttributes().set(Keys.BITS, 4)
+                        .set(Keys.SELECTOR_BITS, 2));
 
         try {
             out.setInputs(a, b, c, d, sel);
@@ -59,8 +59,8 @@ public class MultiplexerTest extends TestCase {
         ObservableValue c = new ObservableValue("c", 4);
         ObservableValue sel = new ObservableValue("sel", 2);
         FanIn out = new Multiplexer(
-                new ElementAttributes().set(Keys.Bits, 4)
-                        .set(Keys.SelectorBits, 2));
+                new ElementAttributes().set(Keys.BITS, 4)
+                        .set(Keys.SELECTOR_BITS, 2));
 
         try {
             out.setInputs(sel, a, b, c);

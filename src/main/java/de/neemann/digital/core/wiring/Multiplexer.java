@@ -26,7 +26,7 @@ public class Multiplexer extends FanIn {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Multiplexer.class) {
         @Override
         public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
-            int size = 1 << elementAttributes.get(Keys.SelectorBits);
+            int size = 1 << elementAttributes.get(Keys.SELECTOR_BITS);
             PinDescription[] names = new PinDescription[size + 1];
             names[0] = input("sel", Lang.get("elem_Multiplexer_pin_sel"));
             for (int i = 0; i < size; i++)
@@ -34,14 +34,14 @@ public class Multiplexer extends FanIn {
             return names;
         }
     }
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.FlipSelPositon)
-            .addAttribute(Keys.SelectorBits);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.FLIP_SEL_POSITON)
+            .addAttribute(Keys.SELECTOR_BITS);
 
     public Multiplexer(ElementAttributes attributes) {
-        super(attributes.get(Keys.Bits));
-        this.selectorBits = attributes.get(Keys.SelectorBits);
+        super(attributes.get(Keys.BITS));
+        this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
     }
 
     @Override

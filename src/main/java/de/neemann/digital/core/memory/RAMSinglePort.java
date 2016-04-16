@@ -25,10 +25,10 @@ public class RAMSinglePort extends RAMDualPort {
             input("str", Lang.get("elem_RAMSinglePort_pin_str")),
             input("c", Lang.get("elem_RAMSinglePort_pin_c")),
             input("ld", Lang.get("elem_RAMSinglePort_pin_ld")))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.AddrBits)
-            .addAttribute(Keys.Label)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.ADDR_BITS)
+            .addAttribute(Keys.LABEL)
             .setShortName("RAM");
 
     /**

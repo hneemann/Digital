@@ -16,15 +16,15 @@ import static de.neemann.digital.core.element.PinInfo.input;
 public class Break implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Break.class, input("brk"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Cycles);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.CYCLES);
 
     private final int cycles;
     private ObservableValue input;
 
     public Break(ElementAttributes attributes) {
-        cycles = attributes.get(Keys.Cycles);
+        cycles = attributes.get(Keys.CYCLES);
     }
 
     @Override

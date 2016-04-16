@@ -23,9 +23,9 @@ public class Counter extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Counter.class, input("C"), input("clr"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.Label);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.LABEL);
 
     private final ObservableValue out;
     private final ObservableValue ovf;

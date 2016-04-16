@@ -66,14 +66,14 @@ public abstract class FanIn extends Node implements Element {
         }
 
         private void addAttributes() {
-            addAttribute(Keys.Rotate);
-            addAttribute(Keys.Bits);
-            addAttribute(Keys.InputCount);
+            addAttribute(Keys.ROTATE);
+            addAttribute(Keys.BITS);
+            addAttribute(Keys.INPUT_COUNT);
         }
 
         @Override
         public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
-            int count = elementAttributes.get(Keys.InputCount);
+            int count = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
                 names[i] = input("in_" + i);

@@ -22,9 +22,9 @@ public class Mul extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Mul.class, input("a"), input("b"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Bits);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.BITS);
 
     private final ObservableValue mul;
     private final int bits;
@@ -38,7 +38,7 @@ public class Mul extends Node implements Element {
      * @param attributes the attributes
      */
     public Mul(ElementAttributes attributes) {
-        bits = attributes.get(Keys.Bits);
+        bits = attributes.get(Keys.BITS);
         this.mul = new ObservableValue("mul", bits * 2);
     }
 

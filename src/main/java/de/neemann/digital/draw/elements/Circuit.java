@@ -32,8 +32,8 @@ public class Circuit {
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
 
     static {
-        ATTR_LIST.add(Keys.Width);
-        ATTR_LIST.add(Keys.Description);
+        ATTR_LIST.add(Keys.WIDTH);
+        ATTR_LIST.add(Keys.DESCRIPTION);
     }
 
     private int version = 1;
@@ -400,11 +400,11 @@ public class Circuit {
         for (VisualElement ve : visualElements) {
             ElementTypeDescription elementType = library.getElementType(ve.getElementName());
             if (elementType == In.DESCRIPTION) {
-                String name = ve.getElementAttributes().get(Keys.Label);
+                String name = ve.getElementAttributes().get(Keys.LABEL);
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                String descr = ve.getElementAttributes().get(Keys.Description);
+                String descr = ve.getElementAttributes().get(Keys.DESCRIPTION);
                 pinList.add(input(name, descr));
             }
         }
@@ -428,11 +428,11 @@ public class Circuit {
         for (VisualElement ve : visualElements) {
             ElementTypeDescription elementType = library.getElementType(ve.getElementName());
             if (elementType == Out.DESCRIPTION) {
-                String name = ve.getElementAttributes().get(Keys.Label);
+                String name = ve.getElementAttributes().get(Keys.LABEL);
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                String descr = ve.getElementAttributes().get(Keys.Description);
+                String descr = ve.getElementAttributes().get(Keys.DESCRIPTION);
                 pinList.add(new ObservableValue(name, 0) {
                     @Override
                     public long getValue() {

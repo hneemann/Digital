@@ -21,10 +21,10 @@ public class Comparator extends Node implements Element {
      * The comparators description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Comparator.class, input("a"), input("b"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.Signed)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.SIGNED)
             .setShortName("");
 
     private final int bits;
@@ -45,8 +45,8 @@ public class Comparator extends Node implements Element {
      * @param attributes the attributes
      */
     public Comparator(ElementAttributes attributes) {
-        signed = attributes.get(Keys.Signed);
-        bits = attributes.get(Keys.Bits);
+        signed = attributes.get(Keys.SIGNED);
+        bits = attributes.get(Keys.BITS);
         this.maskAnd = 1 << (bits - 1);
         this.maskOr = ~((1 << bits) - 1);
 

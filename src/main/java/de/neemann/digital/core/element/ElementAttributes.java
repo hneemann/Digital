@@ -125,33 +125,33 @@ public class ElementAttributes {
 
     /**
      * Returns the bits count stored in this attributes.
-     * Its a short hand for get(AttributeKey.Bits)
+     * Its a short hand for get(AttributeKey.BITS)
      *
      * @return the number of bits
      */
     public int getBits() {
-        return get(Keys.Bits);
+        return get(Keys.BITS);
     }
 
     /**
      * Returns the label stored in this attributes.
-     * Its a short hand for get(AttributeKey.Label)
+     * Its a short hand for get(AttributeKey.LABEL)
      *
      * @return the label
      */
     public String getLabel() {
-        return get(Keys.Label);
+        return get(Keys.LABEL);
     }
 
     /**
      * Sets the bit count to this map.
-     * Shorthand for set(AttributeKey.Bits, bits);
+     * Shorthand for set(AttributeKey.BITS, bits);
      *
      * @param bits the number of bits
      * @return this tp chain calls
      */
     public ElementAttributes setBits(int bits) {
-        set(Keys.Bits, bits);
+        set(Keys.BITS, bits);
         return this;
     }
 

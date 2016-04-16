@@ -25,7 +25,7 @@ public class Or extends Function {
      * @param attributes the attributes
      */
     public Or(ElementAttributes attributes) {
-        super(attributes.get(Keys.Bits));
+        super(attributes.get(Keys.BITS));
     }
 
     @Override

@@ -18,8 +18,8 @@ public class DemultiplexerTest extends TestCase {
         ObservableValue sel = new ObservableValue("sel", 2);
         Demultiplexer demul = model.add(new Demultiplexer(
                 new ElementAttributes()
-                        .set(Keys.Bits, 4)
-                        .set(Keys.SelectorBits, 2)));
+                        .set(Keys.BITS, 4)
+                        .set(Keys.SELECTOR_BITS, 2)));
         demul.setInputs(sel, a);
 
 
@@ -37,9 +37,9 @@ public class DemultiplexerTest extends TestCase {
         ObservableValue sel = new ObservableValue("sel", 2);
         Demultiplexer demul = model.add(new Demultiplexer(
                 new ElementAttributes()
-                        .set(Keys.Bits, 4)
-                        .set(Keys.Default, 7)
-                        .set(Keys.SelectorBits, 2)));
+                        .set(Keys.BITS, 4)
+                        .set(Keys.DEFAULT, 7)
+                        .set(Keys.SELECTOR_BITS, 2)));
         demul.setInputs(sel, a);
 
 

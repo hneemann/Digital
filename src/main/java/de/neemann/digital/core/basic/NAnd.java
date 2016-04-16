@@ -25,7 +25,7 @@ public class NAnd extends Function {
      * @param attributes the attributes
      */
     public NAnd(ElementAttributes attributes) {
-        super(attributes.get(Keys.Bits));
+        super(attributes.get(Keys.BITS));
     }
 
     @Override

@@ -27,14 +27,14 @@ public class Decoder extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Decoder.class,
             input("sel", Lang.get("elem_Decode_pin_sel")))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.SelectorBits)
-            .addAttribute(Keys.FlipSelPositon)
-            .addAttribute(Keys.Default);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.SELECTOR_BITS)
+            .addAttribute(Keys.FLIP_SEL_POSITON)
+            .addAttribute(Keys.DEFAULT);
 
     public Decoder(ElementAttributes attributes) {
-        this.selectorBits = attributes.get(Keys.SelectorBits);
-        this.defaultValue = attributes.get(Keys.Default);
+        this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
+        this.defaultValue = attributes.get(Keys.DEFAULT);
         int outputs = 1 << selectorBits;
         output = new ObservableValue[outputs];
         for (int i = 0; i < outputs; i++) {

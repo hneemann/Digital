@@ -32,11 +32,11 @@ public class DataShape implements Shape {
     private DataSet dataSet;
 
     public DataShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
-        if (attr.get(Keys.MicroStep))
+        if (attr.get(Keys.MICRO_STEP))
             type = ModelEvent.MICROSTEP;
         else
             type = ModelEvent.STEP;
-        maxSize = attr.get(Keys.MaxStepCount);
+        maxSize = attr.get(Keys.MAX_STEP_COUNT);
     }
 
     @Override

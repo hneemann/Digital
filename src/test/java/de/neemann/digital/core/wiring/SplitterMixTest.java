@@ -16,8 +16,8 @@ public class SplitterMixTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 8);
 
         Splitter splitter = new Splitter(new ElementAttributes()
-                .set(Keys.InputSplit, "8,8")
-                .set(Keys.OutputSplit, "4,12"));
+                .set(Keys.INPUT_SPLIT, "8,8")
+                .set(Keys.OUTPUT_SPLIT, "4,12"));
 
         splitter.setInputs(a, b);
         assertEquals(2, a.observerCount());
@@ -47,8 +47,8 @@ public class SplitterMixTest extends TestCase {
         ObservableValue b = new ObservableValue("b", 8);
 
         Splitter splitter = new Splitter(new ElementAttributes()
-                .set(Keys.InputSplit, "8,8")
-                .set(Keys.OutputSplit, "12,4"));
+                .set(Keys.INPUT_SPLIT, "8,8")
+                .set(Keys.OUTPUT_SPLIT, "12,4"));
 
         splitter.setInputs(a, b);
         assertEquals(1, a.observerCount());

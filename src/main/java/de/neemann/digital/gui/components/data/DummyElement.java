@@ -19,15 +19,15 @@ public class DummyElement implements Element {
     /**
      * The DataElement description
      */
-    public static final ElementTypeDescription DATADESCRIPTION = new ElementTypeDescription("Data", DummyElement.class)
-            .addAttribute(Keys.MicroStep)
-            .addAttribute(Keys.MaxStepCount);
+    public static final ElementTypeDescription DATADESCRIPTION = new ElementTypeDescription("DATA", DummyElement.class)
+            .addAttribute(Keys.MICRO_STEP)
+            .addAttribute(Keys.MAX_STEP_COUNT);
 
     /**
      * The TextElement description
      */
     public static final ElementTypeDescription TEXTDESCRIPTION = new ElementTypeDescription("Text", DummyElement.class)
-            .addAttribute(Keys.Label);
+            .addAttribute(Keys.LABEL);
 
     /**
      * Creates a new dummy element

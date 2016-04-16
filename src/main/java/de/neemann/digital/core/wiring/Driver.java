@@ -18,9 +18,9 @@ public class Driver extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Driver.class,
             input("in"),
             input("sel"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.FlipSelPositon);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.FLIP_SEL_POSITON);
 
     private final ObservableValue output;
     private final int bits;
@@ -30,7 +30,7 @@ public class Driver extends Node implements Element {
     private boolean sel;
 
     public Driver(ElementAttributes attributes) {
-        bits = attributes.get(Keys.Bits);
+        bits = attributes.get(Keys.BITS);
         output = new ObservableValue("out", bits, true);
     }
 

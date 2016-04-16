@@ -310,12 +310,12 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     @Override
     public void attributeChanged(Key key) {
         shape = null;
-        rotate = elementAttributes.get(Keys.Rotate).getRotation();
+        rotate = elementAttributes.get(Keys.ROTATE).getRotation();
     }
 
     @Override
     public String toString() {
-        String lab = elementAttributes.get(Keys.Label);
+        String lab = elementAttributes.get(Keys.LABEL);
         if (lab != null && lab.length() > 0)
             return elementName + "(" + lab + ")";
         else

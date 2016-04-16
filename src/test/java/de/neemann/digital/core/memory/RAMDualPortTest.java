@@ -24,7 +24,7 @@ public class RAMDualPortTest extends TestCase {
         Model model = new Model();
         RAMDualPort out = model.add(new RAMDualPort(
                 new ElementAttributes()
-                        .set(Keys.AddrBits, 4)
+                        .set(Keys.ADDR_BITS, 4)
                         .setBits(4)));
         out.setInputs(a, d, str, clk, ld);
 

@@ -16,8 +16,8 @@ import static de.neemann.digital.core.element.PinInfo.input;
 public class Delay extends Node implements Element {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Delay.class, input("in"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS);
 
     private final ObservableValue output;
     private final int bits;
@@ -25,7 +25,7 @@ public class Delay extends Node implements Element {
     private long value;
 
     public Delay(ElementAttributes attributes) {
-        bits = attributes.get(Keys.Bits);
+        bits = attributes.get(Keys.BITS);
         output = new ObservableValue("out", bits);
     }
 

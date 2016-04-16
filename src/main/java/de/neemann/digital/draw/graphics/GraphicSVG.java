@@ -194,7 +194,7 @@ public class GraphicSVG implements Graphic, Closeable {
      * This instance creates the common HTML representation.
      *
      * @param style the {@link Style}
-     * @return the Color
+     * @return the COLOR
      */
     protected String getColor(Style style) {
         return "#" + Integer.toHexString(style.getColor().getRGB()).substring(2);

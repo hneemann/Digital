@@ -23,8 +23,8 @@ public class ROMTest extends TestCase {
         ROM out = model.add(new ROM(
                 new ElementAttributes()
                         .setBits(8)
-                        .set(Keys.AddrBits, 3)
-                        .set(Keys.Data, data)));
+                        .set(Keys.ADDR_BITS, 3)
+                        .set(Keys.DATA, data)));
         out.setInputs(addr, sel);
 
         TestExecuter sc = new TestExecuter(model).setInputs(addr, sel).setOutputs(out.getOutputs());

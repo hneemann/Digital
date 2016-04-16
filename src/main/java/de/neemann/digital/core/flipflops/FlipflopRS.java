@@ -20,9 +20,9 @@ public class FlipflopRS extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("R"), input("C"), input("S"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.ValueIsProbe)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.VALUE_IS_PROBE)
             .setShortName("RS");
 
     private final boolean isProbe;
@@ -44,8 +44,8 @@ public class FlipflopRS extends Node implements Element {
     public FlipflopRS(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
-        isProbe = attributes.get(Keys.ValueIsProbe);
-        label = attributes.get(Keys.Label);
+        isProbe = attributes.get(Keys.VALUE_IS_PROBE);
+        label = attributes.get(Keys.LABEL);
     }
 
     @Override

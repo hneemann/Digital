@@ -20,10 +20,10 @@ public class Register extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Register.class, input("D"), input("C"), input("en"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.ValueIsProbe)
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.VALUE_IS_PROBE)
             .setShortName("Reg");
 
     private final int bits;
@@ -44,8 +44,8 @@ public class Register extends Node implements Element {
     public Register(ElementAttributes attributes) {
         bits = attributes.getBits();
         this.q = new ObservableValue("Q", bits);
-        isProbe = attributes.get(Keys.ValueIsProbe);
-        label = attributes.get(Keys.Label);
+        isProbe = attributes.get(Keys.VALUE_IS_PROBE);
+        label = attributes.get(Keys.LABEL);
     }
 
     @Override

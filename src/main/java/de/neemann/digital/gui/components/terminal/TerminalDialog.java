@@ -16,11 +16,11 @@ public class TerminalDialog extends JDialog {
     private int pos;
 
     public TerminalDialog(ElementAttributes attr) {
-        super((JFrame) null, attr.get(Keys.Label), false);
+        super((JFrame) null, attr.get(Keys.LABEL), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
-        width = attr.get(Keys.TermWidth);
-        textArea = new JTextArea(attr.get(Keys.TermHeight), width);
+        width = attr.get(Keys.TERM_WIDTH);
+        textArea = new JTextArea(attr.get(Keys.TERM_HEIGHT), width);
         textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
         getContentPane().add(new JScrollPane(textArea));
         pack();

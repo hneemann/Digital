@@ -19,19 +19,19 @@ public class Out implements Element {
             = new ElementTypeDescription(Out.class, input("in")) {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
-            return elementAttributes.get(Keys.Description);
+            return elementAttributes.get(Keys.DESCRIPTION);
         }
     }
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Description);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.DESCRIPTION);
 
     public static final ElementTypeDescription LEDDESCRIPTION
             = new ElementTypeDescription("LED", Out.class, input("in"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Color);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.COLOR);
 
     public static final ElementTypeDescription SEVENDESCRIPTION
             = new ElementTypeDescription("Seven-Seg",
@@ -39,16 +39,16 @@ public class Out implements Element {
                 return new Out(1, 1, 1, 1, 1, 1, 1, 1);
             },
             input("a"), input("b"), input("c"), input("d"), input("e"), input("f"), input("g"), input("dp"))
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Color);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.COLOR);
 
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> {
                 return new Out(4, 1);
             }, input("d"), input("dp"))
-            .addAttribute(Keys.Label)
-            .addAttribute(Keys.Color);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.COLOR);
 
     private final int[] bits;
     private final String label;
@@ -56,7 +56,7 @@ public class Out implements Element {
 
     public Out(ElementAttributes attributes) {
         bits = new int[]{attributes.getBits()};
-        label = attributes.get(Keys.Label);
+        label = attributes.get(Keys.LABEL);
     }
 
     public Out(int... bits) {

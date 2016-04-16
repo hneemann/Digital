@@ -24,7 +24,7 @@ public class LUTTest extends TestCase {
         LookUpTable out = model.add(new LookUpTable(
                 new ElementAttributes()
                         .setBits(1)
-                        .set(Keys.Data, data)));
+                        .set(Keys.DATA, data)));
         out.setInputs(a, b);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(out.getOutputs());

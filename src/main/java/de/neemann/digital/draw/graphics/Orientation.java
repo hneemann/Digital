@@ -38,7 +38,7 @@ public enum Orientation {
     }
 
     /**
-     * Rotate this orientation by the given angle.
+     * ROTATE this orientation by the given angle.
      *
      * @param n the angle in units of 45 degrees
      * @return the new orientation

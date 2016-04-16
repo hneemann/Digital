@@ -31,16 +31,16 @@ public class Demultiplexer extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class,
             input("sel", Lang.get("elem_Demultiplexer_pin_sel")),
             input("in"))
-            .addAttribute(Keys.Rotate)
-            .addAttribute(Keys.Bits)
-            .addAttribute(Keys.SelectorBits)
-            .addAttribute(Keys.FlipSelPositon)
-            .addAttribute(Keys.Default);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.SELECTOR_BITS)
+            .addAttribute(Keys.FLIP_SEL_POSITON)
+            .addAttribute(Keys.DEFAULT);
 
     public Demultiplexer(ElementAttributes attributes) {
-        bits = attributes.get(Keys.Bits);
-        this.selectorBits = attributes.get(Keys.SelectorBits);
-        this.defaultValue = attributes.get(Keys.Default);
+        bits = attributes.get(Keys.BITS);
+        this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
+        this.defaultValue = attributes.get(Keys.DEFAULT);
         int outputs = 1 << selectorBits;
         output = new ObservableValue[outputs];
         for (int i = 0; i < outputs; i++) {

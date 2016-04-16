@@ -23,7 +23,7 @@ public class ConstShape implements Shape {
 
     public ConstShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.outputs = outputs;
-        this.value = ObservableValue.getHexString(attr.get(Keys.Value));
+        this.value = ObservableValue.getHexString(attr.get(Keys.VALUE));
     }
 
     @Override

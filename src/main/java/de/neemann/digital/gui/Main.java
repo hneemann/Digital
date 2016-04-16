@@ -47,10 +47,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
 
     static {
-        ATTR_LIST.add(Keys.ShowDataTable);
-        ATTR_LIST.add(Keys.ShowDataGraph);
-        ATTR_LIST.add(Keys.ShowDataGraphMicro);
-        ATTR_LIST.add(Keys.ShowListing);
+        ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
+        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH);
+        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
+        ATTR_LIST.add(Keys.SHOW_LISTING);
     }
 
     private static final String MESSAGE = Lang.get("message");
@@ -449,15 +449,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-            if (settings.get(Keys.ShowDataTable))
+            if (settings.get(Keys.SHOW_DATA_TABLE))
                 windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering)).setVisible(true);
 
-            if (settings.get(Keys.ShowDataGraph))
+            if (settings.get(Keys.SHOW_DATA_GRAPH))
                 windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent, ordering)).setVisible(true);
-            if (settings.get(Keys.ShowDataGraphMicro))
+            if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
                 windowPosManager.register("datasetMicro", new DataSetDialog(this, model, ModelEvent.MICROSTEP, ordering)).setVisible(true);
 
-            if (settings.get(Keys.ShowListing)) {
+            if (settings.get(Keys.SHOW_LISTING)) {
                 int i = 0;
                 for (ROM rom : model.getRoms())
                     try {

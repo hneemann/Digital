@@ -90,7 +90,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
             boolean isNotAIO = true;
             if (isNestedCircuit) {
                 if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION) {
-                    String label = ve.getElementAttributes().get(Keys.Label);
+                    String label = ve.getElementAttributes().get(Keys.LABEL);
                     if (label == null || label.length() == 0)
                         throw new PinException(Lang.get("err_pinWithoutName", fileName));
                     if (pins.size() != 1)

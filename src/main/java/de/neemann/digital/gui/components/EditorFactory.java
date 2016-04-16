@@ -2,7 +2,6 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
@@ -55,7 +54,7 @@ public final class EditorFactory {
             throw new RuntimeException("no editor found for " + key.getValueClass().getSimpleName());
 
         try {
-            Constructor<? extends Editor> c = fac.getConstructor(value.getClass(), Keys.class);
+            Constructor<? extends Editor> c = fac.getConstructor(value.getClass(), Key.class);
             return c.newInstance(value, key);
         } catch (Exception e) {
             throw new RuntimeException("error creating editor", e);
@@ -76,7 +75,7 @@ public final class EditorFactory {
 
         private final JTextField text;
 
-        public StringEditor(String value, Keys<String> key) {
+        public StringEditor(String value, Key<String> key) {
             text = new JTextField(10);
             text.setText(value);
         }
@@ -95,8 +94,10 @@ public final class EditorFactory {
 
     private final static class IntegerEditor extends LabelEditor<Integer> {
         private final JComboBox<Integer> comboBox;
+        private final Key<Integer> key;
 
         public IntegerEditor(Integer value, Key<Integer> key) {
+            this.key = key;
             Integer[] selects = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
             if (key instanceof Key.KeyInteger) {
                 selects = ((Key.KeyInteger) key).getComboBoxValues();
@@ -114,11 +115,20 @@ public final class EditorFactory {
         @Override
         public Integer getValue() {
             Object item = comboBox.getSelectedItem();
+            int value = 0;
             if (item instanceof Number)
-                return ((Number) item).intValue();
+                value = ((Number) item).intValue();
             else {
-                return Integer.decode(item.toString());
+                value = Integer.decode(item.toString());
             }
+
+            if (key instanceof Key.KeyInteger) {
+                int min = ((Key.KeyInteger) key).getMin();
+                if (value < min)
+                    value = min;
+            }
+
+            return value;
         }
     }
 
