@@ -23,12 +23,13 @@ import static org.junit.Assert.assertTrue;
 public class ToBreakRunner {
 
     private final Model model;
+    private final Circuit circuit;
 
     public ToBreakRunner(String file) throws IOException, PinException, NodeException {
         File filename = new File(Resources.getRoot(), file);
         ElementLibrary library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library);
-        Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
+        circuit = Circuit.loadCircuit(filename, shapeFactory);
         LibrarySelector librarySelector = new LibrarySelector(library, shapeFactory, null);
         librarySelector.setFilePath(filename.getParentFile());
 
@@ -48,5 +49,13 @@ public class ToBreakRunner {
         List<T> nodes = model.findNode(clazz);
         assertEquals(1, nodes.size());
         return nodes.get(0);
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public Circuit getCircuit() {
+        return circuit;
     }
 }
