@@ -87,7 +87,7 @@ public class ROM extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.set(data.getData(addr), !sel);
+        output.set(data.getDataWord(addr), !sel);
     }
 
     /**

@@ -114,7 +114,7 @@ public class DataField {
      * @param addr the address
      * @return the value
      */
-    public long getData(int addr) {
+    public long getDataWord(int addr) {
         if (addr >= data.length)
             return 0;
         else

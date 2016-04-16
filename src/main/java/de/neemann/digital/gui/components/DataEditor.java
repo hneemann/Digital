@@ -144,7 +144,7 @@ public class DataEditor extends JDialog {
             if (columnIndex == 0) {
                 return new MyLong((long) rowIndex * cols);
             }
-            return new MyLong(dataField.getData(rowIndex * cols + (columnIndex - 1)));
+            return new MyLong(dataField.getDataWord(rowIndex * cols + (columnIndex - 1)));
         }
 
         @Override

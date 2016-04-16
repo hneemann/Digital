@@ -74,7 +74,7 @@ public class LookUpTable extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.setValue(data.getData(addr));
+        output.setValue(data.getDataWord(addr));
     }
 
 }

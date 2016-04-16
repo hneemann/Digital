@@ -1,34 +1,45 @@
 package de.neemann.digital.integration;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.core.memory.RAMSinglePort;
+import de.neemann.digital.core.memory.Register;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.model.ModelDescription;
-import de.neemann.digital.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
  * @author hneemann
  */
 public class TestRunToBreak extends TestCase {
-    private ElementLibrary library = new ElementLibrary();
 
     public void testRunToBreak() throws IOException, NodeException, PinException {
-        File filename = new File(Resources.getRoot(), "dig/runToBreak.dig");
-        Circuit circuit = Circuit.loadCircuit(filename, new ShapeFactory(new ElementLibrary()));
+        new ToBreakRunner("dig/runToBreak.dig")
+                .runToBreak(511);
+    }
 
-        ModelDescription md = new ModelDescription(circuit, library);
-        Model model = md.createModel();
-        model.init(true);
+    public void testCounterSplitter() throws IOException, NodeException, PinException {
+        Register r = new ToBreakRunner("dig/CounterSplitter.dig")
+                .runToBreak(2047)
+                .getSingleNode(Register.class);
 
-        assertTrue(model.isFastRunModel());
-        int halfClocks = model.runToBreak();
-        assertEquals(511, halfClocks);
+        assertEquals(0x3ff, r.getOutputs()[0].getValue());
+    }
+
+    /**
+     * Loads a simulated processor, which has already stored a machine program that calculates the 15th
+     * fibonacci number with a simple recursive algorithm. The result (610) is stored in the first RAM word.
+     *
+     * @throws IOException   IOException
+     * @throws NodeException NodeException
+     * @throws PinException  PinException
+     */
+    public void testFibonacci() throws IOException, NodeException, PinException {
+        RAMSinglePort ram = new ToBreakRunner("dig/processor/Processor_fibonacci.dig")
+                .runToBreak(98644)
+                .getSingleNode(RAMSinglePort.class);
+
+        assertEquals(610, ram.getMemory().getDataWord(0));
     }
 
 }

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <version>1</version>
+    <visualElements>
+        <visualElement>
+            <elementName>Clock</elementName>
+            <elementAttributes/>
+            <pos x="120" y="180"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Counter</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Bits</string>
+                    <int>5</int>
+                </entry>
+            </elementAttributes>
+            <pos x="180" y="180"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Const</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Value</string>
+                    <int>0</int>
+                </entry>
+            </elementAttributes>
+            <pos x="160" y="200"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Counter</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Bits</string>
+                    <int>5</int>
+                </entry>
+            </elementAttributes>
+            <pos x="180" y="280"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Splitter</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Input Splitting</string>
+                    <string>5,5</string>
+                </entry>
+                <entry>
+                    <string>Output Splitting</string>
+                    <string>10</string>
+                </entry>
+            </elementAttributes>
+            <pos x="320" y="180"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Break</elementName>
+            <elementAttributes/>
+            <pos x="320" y="300"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Register</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Bits</string>
+                    <int>10</int>
+                </entry>
+            </elementAttributes>
+            <pos x="400" y="180"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Bits</string>
+                    <int>10</int>
+                </entry>
+            </elementAttributes>
+            <pos x="480" y="200"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Const</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Value</string>
+                    <int>0</int>
+                </entry>
+            </elementAttributes>
+            <pos x="160" y="300"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Not</elementName>
+            <elementAttributes/>
+            <pos x="320" y="220"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="120" y="180"/>
+            <p2 x="160" y="180"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="180"/>
+            <p2 x="320" y="180"/>
+        </wire>
+        <wire>
+            <p1 x="340" y="180"/>
+            <p2 x="400" y="180"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="180"/>
+            <p2 x="180" y="180"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="260"/>
+            <p2 x="260" y="260"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="200"/>
+            <p2 x="260" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="280" y="200"/>
+            <p2 x="320" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="460" y="200"/>
+            <p2 x="480" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="200"/>
+            <p2 x="180" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="380" y="200"/>
+            <p2 x="400" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="280"/>
+            <p2 x="180" y="280"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="280"/>
+            <p2 x="280" y="280"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="300"/>
+            <p2 x="300" y="300"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="300"/>
+            <p2 x="180" y="300"/>
+        </wire>
+        <wire>
+            <p1 x="300" y="300"/>
+            <p2 x="320" y="300"/>
+        </wire>
+        <wire>
+            <p1 x="360" y="220"/>
+            <p2 x="400" y="220"/>
+        </wire>
+        <wire>
+            <p1 x="300" y="220"/>
+            <p2 x="320" y="220"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="140"/>
+            <p2 x="380" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="260"/>
+            <p2 x="160" y="280"/>
+        </wire>
+        <wire>
+            <p1 x="160" y="140"/>
+            <p2 x="160" y="180"/>
+        </wire>
+        <wire>
+            <p1 x="260" y="200"/>
+            <p2 x="260" y="260"/>
+        </wire>
+        <wire>
+            <p1 x="280" y="200"/>
+            <p2 x="280" y="280"/>
+        </wire>
+        <wire>
+            <p1 x="300" y="220"/>
+            <p2 x="300" y="300"/>
+        </wire>
+        <wire>
+            <p1 x="380" y="140"/>
+            <p2 x="380" y="200"/>
+        </wire>
+    </wires>
+</circuit>
