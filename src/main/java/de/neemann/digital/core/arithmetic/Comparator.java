@@ -12,10 +12,14 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * A comparator
  * @author hneemann
  */
 public class Comparator extends Node implements Element {
 
+    /**
+     * The comparators description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Comparator.class, input("a"), input("b"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
@@ -32,8 +36,14 @@ public class Comparator extends Node implements Element {
     private final int maskOr;
     private ObservableValue a;
     private ObservableValue b;
-    private long valueA, valueB;
+    private long valueA;
+    private long valueB;
 
+    /**
+     * Create a new instance
+     *
+     * @param attributes the attributes
+     */
     public Comparator(ElementAttributes attributes) {
         signed = attributes.get(AttributeKey.Signed);
         bits = attributes.get(AttributeKey.Bits);
@@ -66,8 +76,8 @@ public class Comparator extends Node implements Element {
             }
 
             boolean kl = valueA < valueB;
-            aklb.setValue(kl ? 1 : 0);
-            agrb.setValue(kl ? 0 : 1);
+            aklb.setBool(kl);
+            agrb.setBool(!kl);
         }
     }
 

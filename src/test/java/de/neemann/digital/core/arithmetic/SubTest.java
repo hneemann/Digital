@@ -22,7 +22,7 @@ public class SubTest extends TestCase {
         node.setInputs(a, b, c);
         model.add(node);
 
-        TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(node.getSum(), node.getCOut());
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputsOf(node);
         sc.check(0, 0, 0, 0, 0);
         sc.check(3, 2, 0, 1, 0);
         sc.check(2, 3, 0, 15, 1);

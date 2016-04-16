@@ -12,10 +12,15 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * A adder.
+ *
  * @author hneemann
  */
 public class Add extends Node implements Element {
 
+    /**
+     * The adders description
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Add.class, input("a"), input("b"), input("c_i"))
             .addAttribute(AttributeKey.Rotate)
@@ -24,50 +29,47 @@ public class Add extends Node implements Element {
 
     private final int bits;
     private final ObservableValue sum;
-    private final ObservableValue c_out;
+    private final ObservableValue cOut;
     private final long mask;
     protected ObservableValue a;
     protected ObservableValue b;
-    protected ObservableValue c_in;
+    protected ObservableValue cIn;
     protected long value;
 
+    /**
+     * Create a new instance
+     *
+     * @param attributes the attributes
+     */
     public Add(ElementAttributes attributes) {
         bits = attributes.get(AttributeKey.Bits);
         this.mask = 1 << bits;
 
         this.sum = new ObservableValue("s", bits);
-        this.c_out = new ObservableValue("c_o", 1);
+        this.cOut = new ObservableValue("c_o", 1);
     }
 
     @Override
     public void readInputs() throws NodeException {
-        value = a.getValue() + b.getValue() + c_in.getValue();
+        value = a.getValue() + b.getValue() + cIn.getValue();
     }
 
     @Override
     public void writeOutputs() throws NodeException {
         sum.setValue(value);
-        c_out.setValue((value & mask) == 0 ? 0 : 1);
-    }
-
-    public ObservableValue getSum() {
-        return sum;
-    }
-
-    public ObservableValue getCOut() {
-        return c_out;
+        cOut.setValue((value & mask) == 0 ? 0 : 1);
     }
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
         a = inputs[0].addObserverToValue(this).checkBits(bits, this);
         b = inputs[1].addObserverToValue(this).checkBits(bits, this);
-        c_in = inputs[2].addObserverToValue(this).checkBits(1, this);
+        cIn = inputs[2].addObserverToValue(this).checkBits(1, this);
     }
 
     @Override
     public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{sum, c_out};
+        return new ObservableValue[]{sum, cOut};
     }
 
 }

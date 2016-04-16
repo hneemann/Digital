@@ -12,18 +12,26 @@ import static de.neemann.digital.core.element.PinInfo.input;
  */
 public class Sub extends Add {
 
+    /**
+     * The subtractors description
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Sub.class, input("a"), input("b"), input("c_i"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Bits);
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Sub(ElementAttributes attributes) {
         super(attributes);
     }
 
     @Override
     public void readInputs() throws NodeException {
-        value = a.getValue() - b.getValue() - c_in.getValue();
+        value = a.getValue() - b.getValue() - cIn.getValue();
     }
 }

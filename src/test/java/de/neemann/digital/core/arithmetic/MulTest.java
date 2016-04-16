@@ -19,7 +19,7 @@ public class MulTest extends TestCase {
         Mul node = model.add(new Mul(new ElementAttributes().setBits(4)));
         node.setInputs(a, b);
 
-        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(node.getMul());
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputsOf(node);
         sc.check(0, 0, 0);
         sc.check(6, 6, 36);
         sc.check(15, 15, 225);
