@@ -13,6 +13,8 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 
 /**
+ * The Demultiplexer
+ *
  * @author hneemann
  */
 public class Demultiplexer extends Node implements Element {
@@ -28,6 +30,9 @@ public class Demultiplexer extends Node implements Element {
     private int selectorValue;
     private long value;
 
+    /**
+     * The Demultiplexer description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class,
             input("sel", Lang.get("elem_Demultiplexer_pin_sel")),
             input("in"))
@@ -37,6 +42,11 @@ public class Demultiplexer extends Node implements Element {
             .addAttribute(Keys.FLIP_SEL_POSITON)
             .addAttribute(Keys.DEFAULT);
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Demultiplexer(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
         this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
@@ -67,6 +77,7 @@ public class Demultiplexer extends Node implements Element {
         oldSelectorValue = selectorValue;
     }
 
+    @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
         selector = inputs[0].addObserverToValue(this).checkBits(selectorBits, this);
         input = inputs[1].addObserverToValue(this).checkBits(bits, this);

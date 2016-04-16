@@ -10,10 +10,15 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
+ * The splitter
+ *
  * @author hneemann
  */
 public class Splitter implements Element {
 
+    /**
+     * Th splitters type description
+     */
     public static final ElementTypeDescription DESCRIPTION
             = new SplitterTypeDescription()
             .addAttribute(Keys.ROTATE)
@@ -28,7 +33,7 @@ public class Splitter implements Element {
 
 
     private static class SplitterTypeDescription extends ElementTypeDescription {
-        public SplitterTypeDescription() {
+        SplitterTypeDescription() {
             super(Splitter.class);
         }
 
@@ -40,6 +45,12 @@ public class Splitter implements Element {
 
     }
 
+    /**
+     * creates a new instance
+     *
+     * @param attributes the attributes
+     * @throws BitsException BitsException
+     */
     public Splitter(ElementAttributes attributes) throws BitsException {
         outPorts = new Ports(attributes.get(Keys.OUTPUT_SPLIT));
         outputs = outPorts.getOutputs();
@@ -68,8 +79,8 @@ public class Splitter implements Element {
                 continue; // this input is not needed to fill the output!!!
 
             // out is filled completely by the actual single input value!
-            if (out.getPos() >= in.getPos() &&
-                    out.getPos() + out.getBits() <= in.getPos() + in.getBits()) {
+            if (out.getPos() >= in.getPos()
+                    && out.getPos() + out.getBits() <= in.getPos() + in.getBits()) {
 
                 final int bitPos = out.getPos() - in.getPos();
                 final ObservableValue inValue = inputs[in.number];
@@ -154,11 +165,11 @@ public class Splitter implements Element {
             v.hasChanged();
     }
 
-    public static final class Ports implements Iterable<Port> {
+    static final class Ports implements Iterable<Port> {
         private final ArrayList<Port> ports;
         private int bits;
 
-        public Ports(String definition) throws BitsException {
+        Ports(String definition) throws BitsException {
             StringTokenizer st = new StringTokenizer(definition, ",", false);
             ports = new ArrayList<>();
             bits = 0;
@@ -228,7 +239,7 @@ public class Splitter implements Element {
         private final int pos;
         private final int number;
 
-        public Port(int bits, int pos, int number) {
+        Port(int bits, int pos, int number) {
             this.bits = bits;
             this.pos = pos;
             this.number = number;
@@ -253,6 +264,13 @@ public class Splitter implements Element {
         }
     }
 
+    /**
+     * combines two arrays of {@link ObservableValue}s to a single array.
+     *
+     * @param inputs  first array
+     * @param outputs second array
+     * @return the combined array
+     */
     public static ObservableValue[] combine(ObservableValue[] inputs, ObservableValue[] outputs) {
         ObservableValue[] com = Arrays.copyOf(inputs, inputs.length + outputs.length);
         System.arraycopy(outputs, 0, com, inputs.length, outputs.length);

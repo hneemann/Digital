@@ -28,7 +28,7 @@ public class DataEditor extends JDialog {
     }
 
     public DataEditor(JComponent parent, DataField dataField, ElementAttributes attr) {
-        super(SwingUtilities.windowForComponent(parent), Lang.get("key_data"), attr == null ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
+        super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), attr == null ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         int size;
@@ -126,7 +126,7 @@ public class DataEditor extends JDialog {
             else if (cols > 1)
                 return Integer.toHexString(columnIndex - 1).toUpperCase();
             else
-                return Lang.get("key_value");
+                return Lang.get("key_Value");
         }
 
         @Override

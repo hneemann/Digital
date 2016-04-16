@@ -15,6 +15,8 @@ import java.util.Arrays;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The Multiplexer
+ *
  * @author hneemann
  */
 public class Multiplexer extends FanIn {
@@ -23,6 +25,9 @@ public class Multiplexer extends FanIn {
     private ObservableValue selector;
     private long value;
 
+    /**
+     * The Multiplexer description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Multiplexer.class) {
         @Override
         public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
@@ -39,6 +44,11 @@ public class Multiplexer extends FanIn {
             .addAttribute(Keys.FLIP_SEL_POSITON)
             .addAttribute(Keys.SELECTOR_BITS);
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Multiplexer(ElementAttributes attributes) {
         super(attributes.get(Keys.BITS));
         this.selectorBits = attributes.get(Keys.SELECTOR_BITS);

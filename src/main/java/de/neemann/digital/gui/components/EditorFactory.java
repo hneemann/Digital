@@ -64,11 +64,15 @@ public final class EditorFactory {
     private static abstract class LabelEditor<T> implements Editor<T> {
         @Override
         public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes) {
-            panel.add(new JLabel(key.getName() + ":  "), DialogLayout.LABEL);
-            panel.add(getComponent(elementAttributes), DialogLayout.INPUT);
+            JLabel label = new JLabel(key.getName() + ":  ");
+            label.setToolTipText(key.getDescription());
+            panel.add(label, DialogLayout.LABEL);
+            JComponent component = getComponent(elementAttributes);
+            component.setToolTipText(key.getDescription());
+            panel.add(component, DialogLayout.INPUT);
         }
 
-        protected abstract Component getComponent(ElementAttributes elementAttributes);
+        protected abstract JComponent getComponent(ElementAttributes elementAttributes);
     }
 
     private final static class StringEditor extends LabelEditor<String> {
@@ -81,7 +85,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent(ElementAttributes attr) {
+        public JComponent getComponent(ElementAttributes attr) {
             return text;
         }
 
@@ -108,7 +112,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent(ElementAttributes attr) {
+        public JComponent getComponent(ElementAttributes attr) {
             return comboBox;
         }
 
@@ -138,6 +142,7 @@ public final class EditorFactory {
 
         public BooleanEditor(Boolean value, Key<Boolean> key) {
             bool = new JCheckBox(key.getName(), value);
+            bool.setToolTipText(key.getDescription());
         }
 
         @Override
@@ -172,7 +177,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent(ElementAttributes attr) {
+        public JComponent getComponent(ElementAttributes attr) {
             return button;
         }
 
@@ -191,7 +196,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent(ElementAttributes attr) {
+        public JComponent getComponent(ElementAttributes attr) {
             JPanel panel = new JPanel(new FlowLayout());
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
@@ -251,7 +256,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Component getComponent(ElementAttributes elementAttributes) {
+        public JComponent getComponent(ElementAttributes elementAttributes) {
             comb = new JComboBox<>(LIST);
             comb.setSelectedIndex(rotation.getRotation());
             return comb;

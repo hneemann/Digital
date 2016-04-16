@@ -1,5 +1,7 @@
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.lang.Lang;
+
 /**
  * Class is used to define the keys used to access the models attributes
  *
@@ -10,10 +12,13 @@ public class Key<VALUE> {
     private final String key;
     private final VALUE def;
     private final String name;
+    private final String description;
 
-    Key(String key, String name, VALUE def) {
+    Key(String key, VALUE def) {
         this.key = key;
-        this.name = name;
+        String langName = "key_" + key.replace(" ", "");
+        this.name = Lang.get(langName);
+        this.description = Lang.getNull(langName + "_tt");
         if (def == null)
             throw new NullPointerException();
         this.def = def;
@@ -57,6 +62,16 @@ public class Key<VALUE> {
     }
 
     /**
+     * @return the keys description
+     */
+    public String getDescription() {
+        if (description != null)
+            return description;
+        else
+            return name;
+    }
+
+    /**
      * A integer attribute.
      * Stores additional combo box values
      */
@@ -64,8 +79,8 @@ public class Key<VALUE> {
         private Integer[] values;
         private int min = Integer.MIN_VALUE;
 
-        KeyInteger(String key, String name, Integer def) {
-            super(key, name, def);
+        KeyInteger(String key, Integer def) {
+            super(key, def);
         }
 
         KeyInteger setComboBoxValues(Integer[] values) {
@@ -100,8 +115,8 @@ public class Key<VALUE> {
     static final class KeyBits extends KeyInteger {
         private static final Integer[] VALUES = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 
-        KeyBits(String key, String name) {
-            super(key, name, 1);
+        KeyBits(String key) {
+            super(key, 1);
             setMin(1);
             setComboBoxValues(VALUES);
         }

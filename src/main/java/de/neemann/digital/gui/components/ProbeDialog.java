@@ -86,8 +86,8 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
 
         @Override
         public String getColumnName(int columnIndex) {
-            if (columnIndex == 0) return Lang.get("key_label");
-            else return Lang.get("key_value");
+            if (columnIndex == 0) return Lang.get("key_Label");
+            else return Lang.get("key_Value");
         }
 
         @Override

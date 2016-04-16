@@ -11,10 +11,15 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The Driver
+ *
  * @author hneemann
  */
 public class Driver extends Node implements Element {
 
+    /**
+     * The Driver description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Driver.class,
             input("in"),
             input("sel"))
@@ -29,6 +34,11 @@ public class Driver extends Node implements Element {
     private long value;
     private boolean sel;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Driver(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
         output = new ObservableValue("out", bits, true);
@@ -43,10 +53,6 @@ public class Driver extends Node implements Element {
     @Override
     public void writeOutputs() throws NodeException {
         output.set(value, !sel);
-    }
-
-    public ObservableValue getOutput() {
-        return output;
     }
 
     @Override

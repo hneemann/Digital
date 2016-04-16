@@ -11,10 +11,15 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The Break element
+ *
  * @author hneemann
  */
 public class Break implements Element {
 
+    /**
+     * The Break description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Break.class, input("brk"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
@@ -23,6 +28,11 @@ public class Break implements Element {
     private final int cycles;
     private ObservableValue input;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Break(ElementAttributes attributes) {
         cycles = attributes.get(Keys.CYCLES);
     }
@@ -32,10 +42,16 @@ public class Break implements Element {
         input = inputs[0].checkBits(1, null);
     }
 
+    /**
+     * @return the break value
+     */
     public ObservableValue getBreakInput() {
         return input;
     }
 
+    /**
+     * @return the timeout cycles
+     */
     public int getCycles() {
         return cycles;
     }

@@ -13,6 +13,8 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 
 /**
+ * The decoder
+ *
  * @author hneemann
  */
 public class Decoder extends Node implements Element {
@@ -25,6 +27,9 @@ public class Decoder extends Node implements Element {
     private int oldSelectorValue;
     private int selectorValue;
 
+    /**
+     * The Decoder description
+     */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Decoder.class,
             input("sel", Lang.get("elem_Decode_pin_sel")))
             .addAttribute(Keys.ROTATE)
@@ -32,6 +37,11 @@ public class Decoder extends Node implements Element {
             .addAttribute(Keys.FLIP_SEL_POSITON)
             .addAttribute(Keys.DEFAULT);
 
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
     public Decoder(ElementAttributes attributes) {
         this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
         this.defaultValue = attributes.get(Keys.DEFAULT);
@@ -60,6 +70,7 @@ public class Decoder extends Node implements Element {
         oldSelectorValue = selectorValue;
     }
 
+    @Override
     public void setInputs(ObservableValue... inputs) throws NodeException {
         selector = inputs[0].addObserverToValue(this).checkBits(selectorBits, this);
     }
