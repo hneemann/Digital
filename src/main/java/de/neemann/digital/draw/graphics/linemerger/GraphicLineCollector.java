@@ -104,6 +104,5 @@ public class GraphicLineCollector implements Graphic {
     public void drawTo(Graphic gr) {
         for (PolygonSet p : polys.values())
             p.drawTo(gr);
-
     }
 }

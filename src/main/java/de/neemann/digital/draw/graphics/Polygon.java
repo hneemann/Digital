@@ -137,7 +137,8 @@ public class Polygon implements Iterable<Vector> {
      * @return this for chained calls
      */
     public Polygon append(Polygon p2) {
-        points.addAll(p2.points);
+        for (int i = 1; i < p2.points.size(); i++)
+            points.add(p2.points.get(i));
         return this;
     }
 
