@@ -12,6 +12,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * The real time clock which is used to fire the models clocks with realtime signals
  * @author hneemann
  */
 public class RealTimeClock implements ModelStateObserver {

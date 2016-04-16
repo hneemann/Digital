@@ -26,12 +26,22 @@ public class Net {
     private final ArrayList<Pin> pins;
     private final ArrayList<Wire> wires;
 
+    /**
+     * Creates a copy of the given net
+     *
+     * @param toCopy the net to copy
+     */
     public Net(Net toCopy) {
         points = toCopy.points;  // no deep copy of points necessary
         wires = null;            // wires not needed
         pins = new ArrayList<>(toCopy.pins); // Pins are changed so create a deep copy
     }
 
+    /**
+     * Creates a net containing of a single wire
+     *
+     * @param w the wire
+     */
     public Net(Wire w) {
         points = new HashSet<>();
         points.add(w.p1);
@@ -41,6 +51,12 @@ public class Net {
         wires.add(w);
     }
 
+    /**
+     * Tries to add the given wire to this net
+     *
+     * @param wire the wire
+     * @return true if the given wire is connected to one of the old wires.
+     */
     public Vector tryMerge(Wire wire) {
         if (points.contains(wire.p1)) {
             wires.add(wire);
@@ -55,23 +71,56 @@ public class Net {
         return null;
     }
 
+    /**
+     * Checks if the given position is part of this net
+     *
+     * @param vector the position
+     * @return true if vector matches a wire end point
+     */
     public boolean contains(Vector vector) {
         return points.contains(vector);
     }
 
+    /**
+     * Add all wires of the given net to this net
+     *
+     * @param changedNet the net to add
+     */
     public void addAllPointsFrom(Net changedNet) {
         points.addAll(changedNet.points);
         wires.addAll(changedNet.wires);
     }
 
+    /**
+     * Add a pin to this net
+     *
+     * @param pin the pin to add
+     */
     public void add(Pin pin) {
         pins.add(pin);
     }
 
+    /**
+     * Add all given pins to the net
+     *
+     * @param p the pins
+     */
     public void addAll(Collection<Pin> p) {
         pins.addAll(p);
     }
 
+    /**
+     * Do the interconnection.
+     * All inputs and outputs in the net are connected together.
+     * If there is no output an exception is thrown.
+     * If there is one single output, all input {@link ObservableValue}s are set to this output
+     * If there are more then one output a {@link DataBus} is created.
+     * <p>
+     * At the end all wires get a reference to the {@link ObservableValue} the represent
+     *
+     * @param m the model is needed to create the {@link DataBus}
+     * @throws PinException PinException
+     */
     public void interconnect(Model m) throws PinException {
         ArrayList<Pin> inputs = new ArrayList<>();
         ArrayList<Pin> outputs = new ArrayList<>();
@@ -106,18 +155,34 @@ public class Net {
                 w.setValue(value);
     }
 
+    /**
+     * @return the wires building this net
+     */
     public ArrayList<Wire> getWires() {
         return wires;
     }
 
+    /**
+     * @param p the pin
+     * @return true if the given pin belongs to this net
+     */
     public boolean containsPin(Pin p) {
         return pins.contains(p);
     }
 
+    /**
+     * @return all the pins of this net
+     */
     public ArrayList<Pin> getPins() {
         return pins;
     }
 
+    /**
+     * Removes a pin from the net
+     *
+     * @param p the pin to remove
+     * @throws PinException is thrown if pin is not present
+     */
     public void removePin(Pin p) throws PinException {
         if (!pins.remove(p))
             throw new PinException(Lang.get("err_pinNotPresent"), this);

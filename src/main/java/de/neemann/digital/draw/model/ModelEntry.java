@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * The ModelEntry is used to generate the model.
+ * It holds the element which is able to register nodes to the model and the visual element which is
+ * the visual representation of the circuits.
+ *
  * @author hneemann
  */
 public class ModelEntry {
@@ -23,6 +27,15 @@ public class ModelEntry {
     private final VisualElement visualElement;
     private IOState ioState;
 
+    /**
+     * Creates a new instance
+     *
+     * @param element         the element which is created
+     * @param pins            the pins transformed in the circuits coordinate system
+     * @param visualElement   the visual element which has created the element
+     * @param inputNames      the pin descriptions of the inputs.
+     * @param isNestedElement true if this visual element is a nested included element
+     */
     public ModelEntry(Element element, Pins pins, VisualElement visualElement, PinDescription[] inputNames, boolean isNestedElement) {
         this.element = element;
         this.pins = pins;
@@ -34,7 +47,7 @@ public class ModelEntry {
     /**
      * Sets the Inputs of the element contained in this entry
      *
-     * @throws PinException PinException
+     * @throws PinException  PinException
      * @throws NodeException NodeException
      */
     public void applyInputs() throws PinException, NodeException {
@@ -70,6 +83,11 @@ public class ModelEntry {
         ioState = new IOState(inputs, element.getOutputs());
     }
 
+    /**
+     * Connects this model to the gui.
+     *
+     * @param guiObserver the observer which could be notified if the a repaint is necessary
+     */
     public void connectToGui(Observer guiObserver) {
         if (!isNestedElement) {
             if (ioState == null)
@@ -78,22 +96,30 @@ public class ModelEntry {
         }
     }
 
+    /**
+     * @return the pins of this model entry
+     */
     public Pins getPins() {
         return pins;
     }
 
+    /**
+     * @return the element of this entry
+     */
     public Element getElement() {
         return element;
     }
 
+    /**
+     * @return the visual element which has created the element
+     */
     public VisualElement getVisualElement() {
         return visualElement;
     }
 
-    public boolean containsValue(ObservableValue v) {
-        return pins.containsValue(v);
-    }
-
+    /**
+     * @return the IOState of this element. The IOState contains the {@link ObservableValue}s of the inputs and outputs.
+     */
     public IOState getIoState() {
         return ioState;
     }

@@ -49,13 +49,6 @@ public class Pins implements Iterable<Pin> {
         return inputs;
     }
 
-    public boolean containsValue(ObservableValue v) {
-        for (Pin p : allPins)
-            if (p.getValue() == v)
-                return true;
-        return false;
-    }
-
     public int size() {
         return allPins.size();
     }

@@ -32,7 +32,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
     /**
      * Creates the ModelDescription.
      * If created, the NetList is complete. So all pins which are connected together are registered
-     * to the Net instances in the NetList. Every group of connected Pins is represented
+     * to the Net instances in the NetList. Every group of connected pins is represented
      * by a Net instance in the NetList.
      *
      * @param circuit the circuit
@@ -195,11 +195,10 @@ public class ModelDescription implements Iterable<ModelEntry> {
     public void connectToGui(Observer guiObserver) {
         for (ModelEntry e : entries)
             e.connectToGui(guiObserver);
-
     }
 
     /**
-     * Adds all the VisualElements, with have generated one of the given nodes to the collection
+     * Adds all the VisualElements, witch have generated one of the given nodes to the collection
      * of Drawables.
      *
      * @param nodes       The collection of nodes
@@ -235,6 +234,9 @@ public class ModelDescription implements Iterable<ModelEntry> {
         return entr;
     }
 
+    /**
+     * @return the circuit whih was used to create this model description
+     */
     public Circuit getCircuit() {
         return circuit;
     }
