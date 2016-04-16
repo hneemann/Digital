@@ -161,7 +161,10 @@ public class ObservableValue extends Observable implements PinDescription {
      * @param bool the boolean to set
      */
     public void setBool(boolean bool) {
-        setValue(bool ? 1 : 0);
+        if (bool)
+            setValue(1);
+        else
+            setValue(0);
     }
 
     /**
@@ -257,6 +260,12 @@ public class ObservableValue extends Observable implements PinDescription {
             return getName();
     }
 
+    /**
+     * Sets the description of this value.
+     *
+     * @param description the description
+     * @return this for call chaining
+     */
     public ObservableValue setDescription(String description) {
         this.description = description;
         return this;
@@ -264,7 +273,10 @@ public class ObservableValue extends Observable implements PinDescription {
 
     @Override
     public Direction getDirection() {
-        return bidirectional ? Direction.both : Direction.output;
+        if (bidirectional)
+            return Direction.both;
+        else
+            return Direction.output;
     }
 
 }

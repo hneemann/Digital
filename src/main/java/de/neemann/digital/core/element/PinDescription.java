@@ -7,6 +7,9 @@ package de.neemann.digital.core.element;
  */
 public interface PinDescription {
 
+    /**
+     * The possible directions of a pin
+     */
     enum Direction {input, output, both}
 
     /**

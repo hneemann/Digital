@@ -9,12 +9,12 @@ import junit.framework.TestCase;
 /**
  * @author hneemann
  */
-public class T_FFTest extends TestCase {
+public class FlipflopT_Test extends TestCase {
     public void testFlipFlop() throws Exception {
         ObservableValue c = new ObservableValue("c", 1);
 
         Model model = new Model();
-        T_FF out = model.add(new T_FF(new ElementAttributes().setBits(1)));
+        FlipflopT out = model.add(new FlipflopT(new ElementAttributes().setBits(1)));
         out.setInputs(c);
 
         TestExecuter sc = new TestExecuter(model).setInputs(c).setOutputs(out.getOutputs());

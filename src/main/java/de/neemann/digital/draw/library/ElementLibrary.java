@@ -3,10 +3,10 @@ package de.neemann.digital.draw.library;
 import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.flipflops.D_FF;
-import de.neemann.digital.core.flipflops.JK_FF;
-import de.neemann.digital.core.flipflops.RS_FF;
-import de.neemann.digital.core.flipflops.T_FF;
+import de.neemann.digital.core.flipflops.FlipflopD;
+import de.neemann.digital.core.flipflops.FlipflopJK;
+import de.neemann.digital.core.flipflops.FlipflopRS;
+import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.wiring.*;
@@ -68,10 +68,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Break.DESCRIPTION, menu);
 
         menu = Lang.get("lib_flipFlops");
-        add(RS_FF.DESCRIPTION, menu);
-        add(JK_FF.DESCRIPTION, menu);
-        add(D_FF.DESCRIPTION, menu);
-        add(T_FF.DESCRIPTION, menu);
+        add(FlipflopRS.DESCRIPTION, menu);
+        add(FlipflopJK.DESCRIPTION, menu);
+        add(FlipflopD.DESCRIPTION, menu);
+        add(FlipflopT.DESCRIPTION, menu);
 
         menu = Lang.get("lib_memory");
         add(Register.DESCRIPTION, menu);

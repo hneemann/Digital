@@ -233,7 +233,7 @@ public class Model {
         int count = aBreak.getCycles() * 2;
         boolean lastIn = brVal.getBool();
         for (int i = 0; i < count; i++) {
-            clkVal.setValue(clkVal.getBool() ? 0 : 1);
+            clkVal.setBool(!clkVal.getBool());
             doStep();
             boolean brIn = brVal.getBool();
             if (!lastIn && brIn) {
@@ -303,6 +303,7 @@ public class Model {
      * Returns the first observer of the given class
      *
      * @param observerClass the observer class
+     * @return the found observer or null if not present
      */
     public <T extends ModelStateObserver> T getObserver(Class<T> observerClass) {
         for (ModelStateObserver mso : observers)

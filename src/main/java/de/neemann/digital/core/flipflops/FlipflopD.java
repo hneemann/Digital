@@ -9,65 +9,69 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The D Flipflop
+ *
  * @author hneemann
  */
-public class JK_FF extends Node implements Element {
+public class FlipflopD extends Node implements Element {
 
+    /**
+     * The D-FF description
+     */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(JK_FF.class, input("J"), input("C"), input("K"))
+            = new ElementTypeDescription("D_FF", FlipflopD.class, input("D"), input("C"))
             .addAttribute(AttributeKey.Rotate)
+            .addAttribute(AttributeKey.Bits)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.Default)
             .addAttribute(AttributeKey.ValueIsProbe)
-            .setShortName("JK");
+            .setShortName("D");
 
-    private final Boolean isProbe;
+    private final int bits;
+    private final boolean isProbe;
     private final String label;
-    private ObservableValue jVal;
-    private ObservableValue kVal;
+    private ObservableValue dVal;
     private ObservableValue clockVal;
     private ObservableValue q;
     private ObservableValue qn;
     private boolean lastClock;
-    private boolean out;
+    private long value;
 
-    public JK_FF(ElementAttributes attributes) {
-        this.q = new ObservableValue("Q", 1);
-        this.qn = new ObservableValue("\u00ACQ", 1);
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
+    public FlipflopD(ElementAttributes attributes) {
+        bits = attributes.getBits();
+        this.q = new ObservableValue("Q", bits);
+        this.qn = new ObservableValue("\u00ACQ", bits);
         isProbe = attributes.get(AttributeKey.ValueIsProbe);
         label = attributes.get(AttributeKey.Label);
 
-        int def = attributes.get(AttributeKey.Default);
-        out = def > 0;
-        q.setBool(out);
-        qn.setBool(!out);
+        value = attributes.get(AttributeKey.Default);
+        q.setValue(value);
+        qn.setValue(~value);
     }
 
     @Override
     public void readInputs() throws NodeException {
         boolean clock = clockVal.getBool();
-        if (clock && !lastClock) {
-            boolean j = jVal.getBool();
-            boolean k = kVal.getBool();
-
-            if (j && k) out = !out;
-            else if (j) out = true;
-            else if (k) out = false;
-        }
+        if (clock && !lastClock)
+            value = dVal.getValue();
         lastClock = clock;
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        q.setBool(out);
-        qn.setBool(!out);
+        q.setValue(value);
+        qn.setValue(~value);
     }
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        jVal = inputs[0].addObserverToValue(this).checkBits(1, this);
+        dVal = inputs[0].addObserverToValue(this).checkBits(bits, this);
         clockVal = inputs[1].addObserverToValue(this).checkBits(1, this);
-        kVal = inputs[2].addObserverToValue(this).checkBits(1, this);
     }
 
     @Override

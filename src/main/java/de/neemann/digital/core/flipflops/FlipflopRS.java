@@ -9,27 +9,39 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The RS Flipflop
+ *
  * @author hneemann
  */
-public class T_FF extends Node implements Element {
+public class FlipflopRS extends Node implements Element {
 
+    /**
+     * The RS-FF description
+     */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(T_FF.class, input("C"))
+            = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("R"), input("C"), input("S"))
             .addAttribute(AttributeKey.Rotate)
             .addAttribute(AttributeKey.Label)
             .addAttribute(AttributeKey.ValueIsProbe)
-            .setShortName("T");
+            .setShortName("RS");
 
     private final boolean isProbe;
     private final String label;
 
+    private ObservableValue jVal;
+    private ObservableValue kVal;
     private ObservableValue clockVal;
     private ObservableValue q;
     private ObservableValue qn;
     private boolean lastClock;
     private boolean out;
 
-    public T_FF(ElementAttributes attributes) {
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     */
+    public FlipflopRS(ElementAttributes attributes) {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
         isProbe = attributes.get(AttributeKey.ValueIsProbe);
@@ -40,7 +52,11 @@ public class T_FF extends Node implements Element {
     public void readInputs() throws NodeException {
         boolean clock = clockVal.getBool();
         if (clock && !lastClock) {
-            out = !out;
+            boolean j = jVal.getBool();
+            boolean k = kVal.getBool();
+
+            if (j && !k) out = true;
+            else if (!j && k) out = false;
         }
         lastClock = clock;
     }
@@ -53,7 +69,9 @@ public class T_FF extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValue... inputs) throws BitsException {
-        clockVal = inputs[0].addObserverToValue(this).checkBits(1, this);
+        jVal = inputs[0].addObserverToValue(this).checkBits(1, this);
+        clockVal = inputs[1].addObserverToValue(this).checkBits(1, this);
+        kVal = inputs[2].addObserverToValue(this).checkBits(1, this);
     }
 
     @Override
