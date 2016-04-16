@@ -23,12 +23,12 @@ public final class GraphicsImage extends GraphicSwing implements Closeable {
      * @param format the format to write
      * @return the {@link Graphic} instance
      */
-    public static GraphicsImage create(OutputStream out, Vector min, Vector max, String format) {
+    public static GraphicsImage create(OutputStream out, Vector min, Vector max, String format, float scale) {
         int thickness = Style.NORMAL.getThickness();
         BufferedImage bi
                 = new BufferedImage(
-                (max.x - min.x + thickness * 2) * 2,
-                (max.y - min.y + thickness * 2) * 2,
+                Math.round((max.x - min.x + thickness * 2) * scale),
+                Math.round((max.y - min.y + thickness * 2) * scale),
                 BufferedImage.TYPE_INT_ARGB);
         Graphics2D gr = bi.createGraphics();
         gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
@@ -39,7 +39,7 @@ public final class GraphicsImage extends GraphicSwing implements Closeable {
         gr.setColor(new Color(255, 255, 255, 0));
         gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
 
-        gr.scale(2, 2);
+        gr.scale(scale, scale);
         gr.translate(thickness - min.x, thickness - min.y);
 
         return new GraphicsImage(out, gr, bi, format);

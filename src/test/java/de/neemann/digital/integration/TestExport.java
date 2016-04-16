@@ -64,7 +64,7 @@ public class TestExport extends TestCase {
     public void testPNGExport() throws NodeException, PinException, IOException {
         ByteArrayOutputStream baos
                 = export("dig/processor/Processor_fibonacci.dig",
-                (out, min, max) -> GraphicsImage.create(out, min, max, "PNG"));
+                (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1));
 
         assertTrue(baos.size() > 50000);
     }
