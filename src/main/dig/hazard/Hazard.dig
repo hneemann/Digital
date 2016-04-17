@@ -50,6 +50,10 @@
           <string>microStep</string>
           <boolean>true</boolean>
         </entry>
+        <entry>
+          <string>maxStepCount</string>
+          <int>16</int>
+        </entry>
       </elementAttributes>
       <pos x="440" y="260"/>
       <rotate>0</rotate>

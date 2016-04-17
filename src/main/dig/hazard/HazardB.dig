@@ -92,8 +92,17 @@
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
-      <elementAttributes/>
-      <pos x="420" y="200"/>
+      <elementAttributes>
+        <entry>
+          <string>microStep</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>maxStepCount</string>
+          <int>20</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="220"/>
       <rotate>0</rotate>
     </visualElement>
   </visualElements>

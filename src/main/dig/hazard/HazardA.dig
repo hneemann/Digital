@@ -86,8 +86,12 @@
           <string>microStep</string>
           <boolean>true</boolean>
         </entry>
+        <entry>
+          <string>maxStepCount</string>
+          <int>19</int>
+        </entry>
       </elementAttributes>
-      <pos x="440" y="200"/>
+      <pos x="420" y="220"/>
       <rotate>0</rotate>
     </visualElement>
   </visualElements>
