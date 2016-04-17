@@ -32,6 +32,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -618,9 +619,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
             fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
             if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                try {
-                    new Export(circuitComponent.getCircuit(), exportFactory)
-                            .export(new FileOutputStream(fc.getSelectedFile()));
+                try (OutputStream out = new FileOutputStream(fc.getSelectedFile())) {
+                    new Export(circuitComponent.getCircuit(), exportFactory).export(out);
                 } catch (IOException e1) {
                     new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(Main.this);
                 }
