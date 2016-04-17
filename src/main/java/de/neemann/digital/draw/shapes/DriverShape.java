@@ -16,6 +16,8 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
+ * The driver shape
+ *
  * @author hneemann
  */
 public class DriverShape implements Shape {
@@ -24,6 +26,13 @@ public class DriverShape implements Shape {
     private final PinDescription[] outputs;
     private Pins pins;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public DriverShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.outputs = outputs;

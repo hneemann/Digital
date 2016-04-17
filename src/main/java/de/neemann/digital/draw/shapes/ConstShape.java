@@ -14,6 +14,7 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 /**
+ * The constant shape
  * @author hneemann
  */
 public class ConstShape implements Shape {
@@ -21,6 +22,13 @@ public class ConstShape implements Shape {
     private final PinDescription[] outputs;
     private String value;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public ConstShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.outputs = outputs;
         this.value = ObservableValue.getHexString(attr.get(Keys.VALUE));

@@ -12,6 +12,7 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 /**
+ * The probe shape
  * @author hneemann
  */
 public class ProbeShape implements Shape {
@@ -21,6 +22,13 @@ public class ProbeShape implements Shape {
     private IOState ioState;
     private int bits;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public ProbeShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();

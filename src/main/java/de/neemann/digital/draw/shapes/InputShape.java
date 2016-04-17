@@ -19,6 +19,8 @@ import static de.neemann.digital.draw.shapes.OutputShape.RAD;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
+ * The input shape
+ *
  * @author hneemann
  */
 public class InputShape implements Shape {
@@ -27,6 +29,13 @@ public class InputShape implements Shape {
     private final PinDescription[] outputs;
     private IOState ioState;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public InputShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.outputs = outputs;
         this.label = attr.getLabel();

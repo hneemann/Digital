@@ -15,11 +15,16 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
+ * The delays shape
+ *
  * @author hneemann
  */
 public class DelayShape implements Shape {
 
 
+    /**
+     * Creates a new instance
+     */
     public DelayShape() {
     }
 

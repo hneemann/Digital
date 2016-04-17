@@ -17,6 +17,8 @@ import java.awt.*;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
+ * The Button shape
+ *
  * @author hneemann
  */
 public class ButtonShape implements Shape {
@@ -27,6 +29,13 @@ public class ButtonShape implements Shape {
     private final PinDescription[] outputs;
     private IOState ioState;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public ButtonShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.outputs = outputs;
         this.label = attr.getLabel();

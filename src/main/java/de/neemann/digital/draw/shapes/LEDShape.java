@@ -16,6 +16,8 @@ import de.neemann.digital.draw.graphics.Vector;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
+ * The LED shape
+ *
  * @author hneemann
  */
 public class LEDShape implements Shape {
@@ -26,6 +28,13 @@ public class LEDShape implements Shape {
     private Style onStyle;
     private IOState ioState;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public LEDShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();

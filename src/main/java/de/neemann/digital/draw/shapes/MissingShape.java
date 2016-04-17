@@ -10,6 +10,8 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 
 /**
+ * Used to visualize a missing shape
+ *
  * @author hneemann
  */
 public class MissingShape implements Shape {
@@ -18,6 +20,12 @@ public class MissingShape implements Shape {
     private final String cause;
     private final String message;
 
+    /**
+     * Creates a new instance
+     *
+     * @param elementName the name of the element
+     * @param cause       the cause of missing
+     */
     public MissingShape(String elementName, Exception cause) {
         this.message = Lang.get("msg_missingShape_N", elementName);
         this.cause = cause.getMessage();
@@ -36,8 +44,8 @@ public class MissingShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
         Style style = Style.SHAPE_PIN;
-        graphic.drawLine(new Vector(0, 0), new Vector(style.getFontSize() * 10, 0), style);
-        graphic.drawLine(new Vector(0, 0), new Vector(0, style.getFontSize() * 2), style);
+        //graphic.drawLine(new Vector(0, 0), new Vector(style.getFontSize() * 10, 0), style);
+        //graphic.drawLine(new Vector(0, 0), new Vector(0, style.getFontSize() * 2), style);
         graphic.drawText(new Vector(4, 4), new Vector(5, 4), message, Orientation.LEFTTOP, style);
         if (cause != null && cause.length() > 0)
             graphic.drawText(new Vector(4, 4 + style.getFontSize()), new Vector(5, 4 + style.getFontSize()), cause, Orientation.LEFTTOP, style);

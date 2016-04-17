@@ -13,6 +13,8 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
+ * The Splitter shape
+ *
  * @author hneemann
  */
 public class SplitterShape implements Shape {
@@ -21,6 +23,14 @@ public class SplitterShape implements Shape {
     private final int length;
     private Pins pins;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     * @throws BitsException BitsException
+     */
     public SplitterShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) throws BitsException {
         this.inputs = inputs;
         this.outputs = outputs;

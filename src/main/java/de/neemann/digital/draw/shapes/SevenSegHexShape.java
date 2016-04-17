@@ -7,12 +7,13 @@ import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
+ * A seven segment shape with hex input
+ *
  * @author hneemann
  */
 public class SevenSegHexShape extends SevenShape {
@@ -22,28 +23,29 @@ public class SevenSegHexShape extends SevenShape {
     private ObservableValue input;
     private ObservableValue dp;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public SevenSegHexShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         super(attr);
         this.inputs = inputs;
     }
 
     @Override
-    protected Style getStyle(int i) {
+    protected boolean getStyle(int i) {
         if (input == null)
-            return onStyle;
+            return true;
 
         if (i == 7) {
-            if (dp.getBool())
-                return onStyle;
-            else
-                return offStyle;
+            return dp.getBool();
         } else {
             int v = (int) input.getValueIgnoreBurn() & 0xf;
             v = TABLE[v];
-            if ((v & (1 << i)) != 0)
-                return onStyle;
-            else
-                return offStyle;
+            return (v & (1 << i)) != 0;
         }
     }
 

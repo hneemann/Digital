@@ -12,6 +12,8 @@ import de.neemann.digital.draw.graphics.*;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
+ * The Muxer shape
+ *
  * @author hneemann
  */
 public class MuxerShape implements Shape {
@@ -21,6 +23,13 @@ public class MuxerShape implements Shape {
     private final PinDescription[] outputs;
     private Pins pins;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public MuxerShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.outputs = outputs;

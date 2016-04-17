@@ -12,6 +12,8 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 /**
+ * The Break shape
+ *
  * @author hneemann
  */
 public class BreakShape implements Shape {
@@ -23,6 +25,13 @@ public class BreakShape implements Shape {
     private final String label;
     private final PinDescription[] inputs;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public BreakShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();

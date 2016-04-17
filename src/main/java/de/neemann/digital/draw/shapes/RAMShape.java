@@ -12,9 +12,18 @@ import de.neemann.digital.gui.components.DataEditor;
 import java.awt.*;
 
 /**
+ * The RAM shape
  * @author hneemann
  */
 public class RAMShape extends GenericShape {
+    /**
+     * Creates a new instance
+     *
+     * @param name    name of the element
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     * @param label   the label to use
+     */
     public RAMShape(String name, PinDescription[] inputs, PinDescription[] outputs, String label) {
         super(name, inputs, outputs, label, true);
     }

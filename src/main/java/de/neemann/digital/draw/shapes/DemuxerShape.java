@@ -12,6 +12,8 @@ import de.neemann.digital.draw.graphics.*;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
+ * The Demuxer shape
+ *
  * @author hneemann
  */
 public class DemuxerShape implements Shape {
@@ -23,6 +25,13 @@ public class DemuxerShape implements Shape {
     private final PinDescription[] outputs;
     private Pins pins;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public DemuxerShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.outputs = outputs;

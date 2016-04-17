@@ -7,12 +7,13 @@ import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
+ * A seven seg display with seven single controllable inputs
+ *
  * @author hneemann
  */
 public class SevenSegShape extends SevenShape {
@@ -20,6 +21,13 @@ public class SevenSegShape extends SevenShape {
     private ObservableValue[] inputs;
     private Pins pins;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public SevenSegShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         super(attr);
         this.inputPins = inputs;
@@ -50,13 +58,11 @@ public class SevenSegShape extends SevenShape {
     }
 
 
-    protected Style getStyle(int i) {
+    @Override
+    protected boolean getStyle(int i) {
         if (inputs == null)
-            return onStyle;
-        else if (inputs[i].getValueIgnoreBurn() > 0)
-            return onStyle;
-        else
-            return offStyle;
+            return true;
+        else return inputs[i].getValueIgnoreBurn() > 0;
     }
 
 }

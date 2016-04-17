@@ -18,6 +18,8 @@ import de.neemann.digital.lang.Lang;
 import java.util.HashMap;
 
 /**
+ * Used to create a shape matching a given name
+ *
  * @author hneemann
  */
 public final class ShapeFactory {
@@ -25,6 +27,11 @@ public final class ShapeFactory {
     private final HashMap<String, Creator> map = new HashMap<>();
     private final ElementLibrary library;
 
+    /**
+     * Creates a new instance
+     *
+     * @param library the library to get information about the parts to visualize
+     */
     public ShapeFactory(ElementLibrary library) {
         this.library = library;
         map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", And.DESCRIPTION, false));

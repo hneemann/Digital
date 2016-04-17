@@ -13,16 +13,33 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 /**
+ * The output shape
  * @author hneemann
  */
 public class OutputShape implements Shape {
+    /**
+     * The size of the used grid
+     */
     public static final int SIZE = GenericShape.SIZE * 3 / 4;
+    /**
+     * Inner circle size used for inputs and outputs
+     */
     public static final Vector RAD = new Vector(SIZE - 6, SIZE - 6);
+    /**
+     * Outer circle size used for inputs and outputs
+     */
     public static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
     private final PinDescription[] inputs;
     private IOState ioState;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public OutputShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();

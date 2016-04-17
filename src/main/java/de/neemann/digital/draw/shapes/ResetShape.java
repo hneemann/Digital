@@ -11,6 +11,8 @@ import de.neemann.digital.draw.graphics.*;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
+ * The reset shape
+ *
  * @author hneemann
  */
 public class ResetShape implements Shape {
@@ -18,6 +20,13 @@ public class ResetShape implements Shape {
     private final String label;
     private final PinDescription[] outputs;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public ResetShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
         this.outputs = outputs;
         this.label = attr.getLabel();
