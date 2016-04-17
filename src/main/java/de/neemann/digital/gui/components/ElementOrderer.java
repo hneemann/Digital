@@ -11,10 +11,21 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 /**
+ * Orders items.
+ * The items are ordered in their container described by {@link ElementOrderer.OrderInterface}.
+ *
+ * @param <T> the element types to order
  * @author hneemann
  */
 public class ElementOrderer<T> extends JDialog {
 
+    /**
+     * Creates a new instance
+     *
+     * @param owner the owner of this dialog
+     * @param title the dialogs title
+     * @param data  the data to order
+     */
     public ElementOrderer(Frame owner, String title, OrderInterface<T> data) {
         super(owner, title, true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -52,19 +63,49 @@ public class ElementOrderer<T> extends JDialog {
         setLocationRelativeTo(owner);
     }
 
+    /**
+     * Container for the items to order
+     *
+     * @param <T> the type of the items
+     */
     public interface OrderInterface<T> {
 
+        /**
+         * @return number of items
+         */
         int size();
 
+        /**
+         * Returns the requested items
+         *
+         * @param index the index
+         * @return the item
+         */
         T get(int index);
 
+        /**
+         * Swap the items
+         *
+         * @param i th item
+         * @param j th item
+         */
         void swap(int i, int j);
 
     }
 
+    /**
+     * Implementation to order a list
+     *
+     * @param <T> type of items
+     */
     public static class ListOrder<T> implements OrderInterface<T> {
         private java.util.List<T> list;
 
+        /**
+         * Creates a new instance
+         *
+         * @param list the list to order
+         */
         public ListOrder(java.util.List<T> list) {
             this.list = list;
         }
@@ -90,7 +131,7 @@ public class ElementOrderer<T> extends JDialog {
     private static class ArrayOrder<T> implements OrderInterface<T> {
         private final T[] data;
 
-        public ArrayOrder(T[] data) {
+        ArrayOrder(T[] data) {
             this.data = data;
         }
 
@@ -116,7 +157,7 @@ public class ElementOrderer<T> extends JDialog {
         private final OrderInterface<T> data;
         private ArrayList<ListDataListener> listener;
 
-        public MyListModel(OrderInterface<T> data) {
+        MyListModel(OrderInterface<T> data) {
             this.data = data;
             listener = new ArrayList<>();
         }
@@ -141,7 +182,7 @@ public class ElementOrderer<T> extends JDialog {
             listener.remove(l);
         }
 
-        public void swap(int i, int j) {
+        void swap(int i, int j) {
             data.swap(i, j);
             fireEvent(Math.min(i, j), Math.max(i, j));
         }
@@ -151,9 +192,5 @@ public class ElementOrderer<T> extends JDialog {
             for (ListDataListener l : listener)
                 l.contentsChanged(e);
         }
-    }
-
-    public static void main(String[] args) {
-        new ElementOrderer<>(null, "Test", new ArrayOrder<>(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9})).setVisible(true);
     }
 }

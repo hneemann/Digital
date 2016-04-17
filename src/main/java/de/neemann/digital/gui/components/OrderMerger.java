@@ -3,15 +3,31 @@ package de.neemann.digital.gui.components;
 import java.util.List;
 
 /**
+ * Takes an old ordering and order the new items in the same way.
+ * The items are compared by calling the {@link OrderMerger#equals(Object, Object)} method.
+ *
+ * @param <O> type of old items
+ * @param <N> type of new items
  * @author hneemann
  */
 public class OrderMerger<O, N> {
     private final List<O> oldOrdering;
 
+    /**
+     * Creates a new instance
+     *
+     * @param oldOrdering the old ordering
+     */
     public OrderMerger(List<O> oldOrdering) {
         this.oldOrdering = oldOrdering;
     }
 
+    /**
+     * Orders the given list
+     *
+     * @param list the list to order
+     * @param <L>  the type of the items
+     */
     public <L extends List<N>> void order(L list) {
         if (oldOrdering == null || oldOrdering.size() == 0)
             return;
@@ -33,6 +49,14 @@ public class OrderMerger<O, N> {
         }
     }
 
+    /**
+     * Method to compare the items.
+     * This implementation simply calls <code>a.equals(b);</code>
+     *
+     * @param a item
+     * @param b item
+     * @return true in equal
+     */
     public boolean equals(N a, O b) {
         return a.equals(b);
     }

@@ -52,13 +52,13 @@ public class DialogLayout implements LayoutManager {
         private boolean indent;
         private boolean dynamic;
 
-        public Line(Component both, boolean indent) {
+        Line(Component both, boolean indent) {
             this.label = both;
             this.both = true;
             this.indent = indent;
         }
 
-        public Line(Component component, String s) {
+        Line(Component component, String s) {
             both = false;
             if (LABEL.equals(s)) label = component;
             else if (INPUT.equals(s)) input = component;
@@ -178,8 +178,10 @@ public class DialogLayout implements LayoutManager {
         if (lines.size() > 0 && lines.get(lines.size() - 1).isInputFree()) {
             l = lines.get(lines.size() - 1);
             l.setInput(component);
-        } else
-            lines.add(l = new Line(component, INPUT));
+        } else {
+            l = new Line(component, INPUT);
+            lines.add(l);
+        }
 
         return l;
     }

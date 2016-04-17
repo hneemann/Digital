@@ -17,16 +17,32 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
+ * Used to edit ROM data fields.
+ * Looks loke a HEX editor.
+ *
  * @author hneemann
  */
 public class DataEditor extends JDialog {
     private final DataField dataField;
     private boolean ok = false;
 
+    /**
+     * Creates a new instance
+     *
+     * @param parent    the parent
+     * @param dataField the data to edit
+     */
     public DataEditor(JComponent parent, DataField dataField) {
         this(parent, dataField, null);
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param parent    the parent
+     * @param dataField the data to edit
+     * @param attr      uset to get bit sizes
+     */
     public DataEditor(JComponent parent, DataField dataField, ElementAttributes attr) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), attr == null ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -88,16 +104,22 @@ public class DataEditor extends JDialog {
         setLocationRelativeTo(parent);
     }
 
+    /**
+     * @return the data field
+     */
     public DataField getDataField() {
         return dataField;
     }
 
+    /**
+     * @return true if data is modified
+     */
     public boolean showDialog() {
         setVisible(true);
         return ok;
     }
 
-    private static class MyTableModel implements TableModel, DataField.DataListener {
+    private final static class MyTableModel implements TableModel, DataField.DataListener {
         private final DataField dataField;
         private final int cols;
         private final int rows;
@@ -174,7 +196,7 @@ public class DataEditor extends JDialog {
     }
 
 
-    private static class MyLongRenderer extends DefaultTableCellRenderer {
+    private final static class MyLongRenderer extends DefaultTableCellRenderer {
 
         private final int chars;
 
@@ -191,13 +213,26 @@ public class DataEditor extends JDialog {
         }
     }
 
+    /**
+     * Used to store a long is used by the table
+     */
     public static class MyLong {
         private final long data;
 
+        /**
+         * Is called by the JTable to create a new instance if field was edited
+         *
+         * @param value the edited value
+         */
         public MyLong(String value) {
             data = Long.decode(value);
         }
 
+        /**
+         * Creates a new instance
+         *
+         * @param data the value to store
+         */
         public MyLong(long data) {
             this.data = data;
         }
@@ -207,6 +242,9 @@ public class DataEditor extends JDialog {
             return "0x" + Long.toHexString(data).toUpperCase();
         }
 
+        /**
+         * @return the stored value
+         */
         public long getValue() {
             return data;
         }

@@ -23,6 +23,14 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
     private final ModelEvent type;
     private final SignalTableModel tableModel;
 
+    /**
+     * Creates a new instance
+     *
+     * @param owner    the owner
+     * @param model    the model to run
+     * @param type     the event type which fires a dialog repaint
+     * @param ordering the names list used to order the measurement values
+     */
     public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -70,7 +78,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
         private final ArrayList<Model.Signal> signals;
         private ArrayList<TableModelListener> listeners = new ArrayList<>();
 
-        public SignalTableModel(ArrayList<Model.Signal> signals) {
+        SignalTableModel(ArrayList<Model.Signal> signals) {
             this.signals = signals;
         }
 

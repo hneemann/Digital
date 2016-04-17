@@ -9,13 +9,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Dialog to edit a single value.
+ * Used to enter a multi bit input value
+ *
  * @author hneemann
  */
-public class SingleValueDialog extends JDialog {
+public final class SingleValueDialog extends JDialog {
 
     private String returnText;
 
-    public SingleValueDialog(Point pos, String text) {
+    /**
+     * Creates a new instance
+     *
+     * @param pos  the position to show the dialog
+     * @param text the text to edit
+     */
+    private SingleValueDialog(Point pos, String text) {
         super((Frame) null, Lang.get("attr_dialogTitle"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -40,11 +49,17 @@ public class SingleValueDialog extends JDialog {
      *
      * @return result or null if dialog closed without something entered
      */
-    public String showDialog() {
+    private String showDialog() {
         setVisible(true);
         return returnText;
     }
 
+    /**
+     * Edits a single value
+     *
+     * @param pos   the position to pop up the dialog
+     * @param value the value to edit
+     */
     public static void editValue(Point pos, ObservableValue value) {
         String ret = new SingleValueDialog(pos, value.getValueString()).showDialog();
         if (ret != null) {
