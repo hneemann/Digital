@@ -13,7 +13,13 @@ import de.neemann.digital.draw.shapes.Drawable;
  */
 public class Wire implements Drawable, Moveable {
     private static final int MIN_LABEL_LEN = 100;
+    /**
+     * The first endpoint of the line
+     */
     public Vector p1;
+    /**
+     * The second endpoint of the line
+     */
     public Vector p2;
     private transient ObservableValue value;
     private transient boolean p1Dot;
