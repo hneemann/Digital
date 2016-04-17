@@ -18,6 +18,14 @@ public class TestRunToBreak extends TestCase {
                 .runToBreak(511);
     }
 
+    /**
+     * Runs two 5 bit cascaded counters up to a overflow of second counter
+     * The 10 bit value is stored in a register.
+     *
+     * @throws IOException
+     * @throws NodeException
+     * @throws PinException
+     */
     public void testCounterSplitter() throws IOException, NodeException, PinException {
         Register r = new ToBreakRunner("dig/CounterSplitter.dig")
                 .runToBreak(2047)

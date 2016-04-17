@@ -15,6 +15,12 @@ import java.io.File;
  */
 public class TestShapes extends TestCase {
 
+    /**
+     * Loads a circuit with all available elements and writes it
+     * to a PNG.
+     *
+     * @throws Exception
+     */
     public void testShapes() throws Exception {
         File filename = new File(Resources.getRoot(), "dig/shapes.dig");
         ElementLibrary library = new ElementLibrary();

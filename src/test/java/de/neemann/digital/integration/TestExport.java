@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
+ * Loads the processor and exports it to the different export instances
  * Only checks that something is written without an error
  *
  * @author hneemann

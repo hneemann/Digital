@@ -16,6 +16,12 @@ import java.io.StringWriter;
  */
 public class TestData extends TestCase {
 
+    /**
+     * Runs a 4 bit counter build from JK flip flops 16 ticks.
+     * The 4 output signals are recoded in a DataSet.
+     *
+     * @throws Exception
+     */
     public void testData() throws Exception {
         ToBreakRunner toBreakRunner = new ToBreakRunner("dig/data.dig").runToBreak(31);
 
