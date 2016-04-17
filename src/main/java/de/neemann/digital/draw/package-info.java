@@ -4,7 +4,7 @@
  * about position of elements in the circuit, the wires, the shapes to represent
  * a element and so on.
  * <p>
- * In the packege model you can find the classes and methods to create
+ * In the package model you can find the classes and methods to create
  * a running core model of the graphical representation.
  *
  * @author hneemann
