@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
+ * A list of pins
+ *
  * @author hneemann
  */
 public class Pins implements Iterable<Pin> {
@@ -16,12 +18,21 @@ public class Pins implements Iterable<Pin> {
     private final HashMap<String, Pin> outputs;
     private final ArrayList<Pin> allPins;
 
+    /**
+     * creates a new instance
+     */
     public Pins() {
         inputs = new HashMap<>();
         outputs = new HashMap<>();
         allPins = new ArrayList<>();
     }
 
+    /**
+     * Adds a pin to this list
+     *
+     * @param pin the pin
+     * @return this for call chaning
+     */
     public Pins add(Pin pin) {
         if (pin.getDirection() == Pin.Direction.input)
             inputs.put(pin.getName(), pin);
@@ -36,6 +47,13 @@ public class Pins implements Iterable<Pin> {
         return allPins.iterator();
     }
 
+    /**
+     * Binds the outputs to the pins.
+     * The {@link Pin#setValue(ObservableValue)} method is called with one of the given outputs
+     *
+     * @param outs outputs
+     * @throws PinException thrown if pin not found
+     */
     public void bindOutputsToOutputPins(ObservableValue[] outs) throws PinException {
         for (ObservableValue o : outs) {
             Pin pin = outputs.get(o.getName());
@@ -45,14 +63,26 @@ public class Pins implements Iterable<Pin> {
         }
     }
 
+    /**
+     * @return a map of inputs
+     */
     public HashMap<String, Pin> getInputs() {
         return inputs;
     }
 
+    /**
+     * @return the number of pins
+     */
     public int size() {
         return allPins.size();
     }
 
+    /**
+     * Returns a requested pin
+     *
+     * @param index the pins index
+     * @return the pin
+     */
     public Pin get(int index) {
         return allPins.get(index);
     }

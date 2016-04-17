@@ -3,15 +3,28 @@ package de.neemann.digital.draw.elements;
 import java.util.ArrayList;
 
 /**
+ * Used to reduce the wires found in the circuit.
+ * So multiple linear connected wires a replaced by a single wire.
+ *
  * @author hneemann
  */
 public class WireConsistencyChecker {
     private ArrayList<Wire> wires;
 
+    /**
+     * Creates a new instance
+     *
+     * @param wires the wires to check
+     */
     public WireConsistencyChecker(ArrayList<Wire> wires) {
         this.wires = wires;
     }
 
+    /**
+     * Performs the check
+     *
+     * @return the simplified wires
+     */
     public ArrayList<Wire> check() {
         wires = merge(wires);
         return wires;

@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Is used to create the dots to visualize the connections between wires.
+ * Each {@link Wire} has two flags to decide which end of the wire needs to be marked with a dot.
+ *
  * @author hneemann
  */
 public class DotCreator {
@@ -15,6 +18,11 @@ public class DotCreator {
     private final ArrayList<Wire> wires;
     private HashMap<Vector, Dot> map;
 
+    /**
+     * Creates a new instance
+     *
+     * @param wires the wires
+     */
     public DotCreator(ArrayList<Wire> wires) {
         this.wires = wires;
         map = new HashMap<>();
@@ -30,6 +38,9 @@ public class DotCreator {
         map = null;
     }
 
+    /**
+     * @return the list of necessary dots
+     */
     public ArrayList<Dot> getDots() {
         return dots;
     }
@@ -43,6 +54,9 @@ public class DotCreator {
         c.inc();
     }
 
+    /**
+     * Applies the dots to the wires
+     */
     public void applyDots() {
         for (Wire w : wires)
             w.noDot();
@@ -50,12 +64,15 @@ public class DotCreator {
             d.setDot();
     }
 
+    /**
+     * A single dot
+     */
     public static class Dot {
         private final Vector vector;
         private final Wire w;
         private int counter;
 
-        public Dot(Vector vector, Wire w) {
+        Dot(Vector vector, Wire w) {
             this.vector = vector;
             this.w = w;
         }
@@ -64,11 +81,11 @@ public class DotCreator {
             counter++;
         }
 
-        public Vector getVector() {
+        Vector getVector() {
             return vector;
         }
 
-        public void setDot() {
+        void setDot() {
             w.setDot(vector);
         }
     }
