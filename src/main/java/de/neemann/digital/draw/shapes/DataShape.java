@@ -1,7 +1,6 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -27,15 +26,19 @@ import java.util.ArrayList;
  */
 public class DataShape implements Shape {
 
-    private final ModelEvent type;
+    private final boolean microStep;
     private final int maxSize;
     private DataSet dataSet;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
     public DataShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
-        if (attr.get(Keys.MICRO_STEP))
-            type = ModelEvent.MICROSTEP;
-        else
-            type = ModelEvent.STEP;
+        microStep = attr.get(Keys.MICRO_STEP);
         maxSize = attr.get(Keys.MAX_STEP_COUNT);
     }
 
@@ -75,7 +78,7 @@ public class DataShape implements Shape {
 
         dataSet = new DataSet(signals, maxSize);
 
-        DataSetObserver dataSetObserver = new DataSetObserver(type, dataSet);
+        DataSetObserver dataSetObserver = new DataSetObserver(microStep, dataSet);
         model.addObserver(dataSetObserver);
     }
 }

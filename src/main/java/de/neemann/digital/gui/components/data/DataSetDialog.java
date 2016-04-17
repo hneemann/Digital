@@ -34,13 +34,13 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
     /**
      * Creates a new instance
      *
-     * @param owner    the parent frame
-     * @param model    the model used to collect the data
-     * @param type     the event type which triggers a new DataSample
-     * @param ordering the ordering of the measurement values
+     * @param owner     the parent frame
+     * @param model     the model used to collect the data
+     * @param microStep true     the event type which triggers a new DataSample
+     * @param ordering  the ordering of the measurement values
      */
-    public DataSetDialog(Frame owner, Model model, ModelEvent type, List<String> ordering) {
-        super(owner, createTitle(type), false);
+    public DataSetDialog(Frame owner, Model model, boolean microStep, List<String> ordering) {
+        super(owner, createTitle(microStep), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
@@ -54,7 +54,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
 
         dataSet = new DataSet(signals, MAX_SAMPLE_SIZE);
 
-        dataSetObserver = new DataSetObserver(type, dataSet);
+        dataSetObserver = new DataSetObserver(microStep, dataSet);
 
         dsc = new DataSetComponent(dataSet);
         scrollPane = new JScrollPane(dsc);
@@ -100,15 +100,11 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         setLocationRelativeTo(owner);
     }
 
-    private static String createTitle(ModelEvent type) {
-        switch (type) {
-            case MICROSTEP:
-                return Lang.get("win_measures_microstep");
-            case STEP:
-                return Lang.get("win_measures_fullstep");
-            default:
-                return Lang.get("win_measures");
-        }
+    private static String createTitle(boolean microStep) {
+        if (microStep)
+            return Lang.get("win_measures_microstep");
+        else
+            return Lang.get("win_measures_fullstep");
     }
 
 

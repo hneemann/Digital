@@ -4,6 +4,8 @@ import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
 
 /**
+ * Observer to create measurement data
+ *
  * @author hneemann
  */
 public class DataSetObserver implements ModelStateObserver {
@@ -14,8 +16,18 @@ public class DataSetObserver implements ModelStateObserver {
     private DataSample manualSample;
     private int maintime;
 
-    public DataSetObserver(ModelEvent type, DataSet dataSet) {
-        this.type = type;
+    /**
+     * Creates a new instance
+     *
+     * @param microStep true if gate base logging required
+     * @param dataSet   the dataset to fill
+     */
+    public DataSetObserver(boolean microStep, DataSet dataSet) {
+        if (microStep)
+            this.type = ModelEvent.MICROSTEP;
+        else
+            this.type = ModelEvent.STEP;
+
         this.dataSet = dataSet;
     }
 
@@ -25,7 +37,7 @@ public class DataSetObserver implements ModelStateObserver {
             dataSet.clear();
             maintime = 0;
         }
-        if (event == ModelEvent.MANUALCHANGE) {
+        if (event == ModelEvent.MANUALCHANGE && type == ModelEvent.MICROSTEP) {
             if (manualSample == null)
                 manualSample = new DataSample(maintime, dataSet.signalSize());
             manualSample.fillWith(dataSet.getSignals());

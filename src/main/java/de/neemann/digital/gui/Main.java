@@ -453,9 +453,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering)).setVisible(true);
 
             if (settings.get(Keys.SHOW_DATA_GRAPH))
-                windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent, ordering)).setVisible(true);
+                windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering)).setVisible(true);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
-                windowPosManager.register("datasetMicro", new DataSetDialog(this, model, ModelEvent.MICROSTEP, ordering)).setVisible(true);
+                windowPosManager.register("datasetMicro", new DataSetDialog(this, model, true, ordering)).setVisible(true);
 
             if (settings.get(Keys.SHOW_LISTING)) {
                 int i = 0;
