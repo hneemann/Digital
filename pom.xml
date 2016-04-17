@@ -53,6 +53,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.2</version>
                 <configuration>
+                    <failOnError>false</failOnError>
                     <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
                     <docletArtifact>
                         <groupId>org.umlgraph</groupId>
