@@ -98,15 +98,19 @@ public class ConfirmDialogBuilder {
      */
     public int show(Component parent) {
         Object[] options;
-        if (cancle == null)
+        int optionType;
+        if (cancle == null) {
             options = new Object[]{yes, no};
-        else
+            optionType = JOptionPane.YES_NO_OPTION;
+        } else {
             options = new Object[]{yes, no, cancle};
+            optionType = JOptionPane.YES_NO_CANCEL_OPTION;
+        }
 
         return JOptionPane.showOptionDialog(parent,
                 message,
                 title,
-                cancle == null ? JOptionPane.YES_NO_OPTION : JOptionPane.YES_NO_CANCEL_OPTION,
+                optionType,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 options,

@@ -98,7 +98,7 @@ public final class InfoDialog {
         private final HashMap<String, String> manifest;
         private final URL url;
 
-        public Manifest(URL url) throws IOException {
+        Manifest(URL url) throws IOException {
             this.url = url;
             manifest = new HashMap<String, String>();
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -135,10 +135,9 @@ public final class InfoDialog {
 
         @Override
         public String toString() {
-            return "Manifest{" +
-                    "manifest=" + manifest +
-                    ", url=" + url +
-                    '}';
+            return "Manifest{"
+                    + "manifest=" + manifest
+                    + ", url=" + url + '}';
         }
     }
 }

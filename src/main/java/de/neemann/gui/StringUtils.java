@@ -1,9 +1,20 @@
 package de.neemann.gui;
 
 /**
+ * Some helper functions concerning strings
  */
-public class StringUtils {
+public final class StringUtils {
 
+    private StringUtils() {
+    }
+
+    /**
+     * Adds a list to a {@link StringBuilder}
+     *
+     * @param sb        the StringBuilder
+     * @param i         the list
+     * @param separator the separator to use
+     */
     public static void addList(StringBuilder sb, Iterable<?> i, String separator) {
         boolean first = true;
         for (Object o : i) {
@@ -15,6 +26,12 @@ public class StringUtils {
         }
     }
 
+    /**
+     * Creates a exception message
+     *
+     * @param e the {@link Throwable} instance
+     * @return the message
+     */
     public static String getExceptionMessage(Throwable e) {
         StringBuilder sb = new StringBuilder();
 
