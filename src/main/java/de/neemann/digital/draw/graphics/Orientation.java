@@ -1,17 +1,46 @@
 package de.neemann.digital.draw.graphics;
 
 /**
+ * The text orientation
+ *
  * @author hneemann
  */
 public enum Orientation {
+    /**
+     * the anchor point is at the left side of the text at the bottom line
+     */
     LEFTBOTTOM(0, 0),
+    /**
+     * the anchor point is at the center of the text at the bottom line
+     */
     CENTERBOTTOM(1, 0),
+    /**
+     * the anchor point is at the right side of the text at the bottom line
+     */
     RIGHTBOTTOM(2, 0),
+    /**
+     * the anchor point is at the right side of the text in middle height
+     */
     RIGHTCENTER(2, 1),
+    /**
+     * the anchor point is at the right side of the text at the top of the text
+     */
     RIGHTTOP(2, 2),
+    /**
+     * the anchor point is at the center of the text at the top of the text
+     */
     CENTERTOP(1, 2),
+    /**
+     * the anchor point is at the left side of the text at the top of the text
+     */
     LEFTTOP(0, 2),
+    /**
+     * the anchor point is at the left side of the text in middle height
+     */
     LEFTCENTER(0, 1),
+    /**
+     * the anchor point is in the center of the text
+     */
     CENTERCENTER(1, 1);
 
 

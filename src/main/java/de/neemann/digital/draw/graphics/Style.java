@@ -8,18 +8,50 @@ import java.awt.*;
  * @author hneemann
  */
 public class Style {
+    /**
+     * used for all lines to draw the shapes itself
+     */
     public static final Style NORMAL = new Style(4, false, Color.BLACK);
+    /**
+     * thin line used for the graphic in the clock or delay shape
+     */
     public static final Style THIN = new Style(2, false, Color.BLACK);
+    /**
+     * Used for wires in editing mode
+     */
     public static final Style WIRE = new Style(4, true, Color.BLUE.darker());
+    /**
+     * Used for low wires in running mode
+     */
     public static final Style WIRE_LOW = new Style(4, true, new Color(0, 112, 0));
+    /**
+     * Used for high wires in running mode
+     */
     public static final Style WIRE_HIGH = new Style(4, true, new Color(102, 255, 102));
+    /**
+     * Used for wires in high Z state
+     */
     public static final Style WIRE_HIGHZ = new Style(4, true, Color.GRAY);
+    /**
+     * used to draw the output dots
+     */
     public static final Style WIRE_OUT = new Style(4, true, Color.RED.darker());
+    /**
+     * filld style used to fill the splitter or the dark LEDs
+     */
     public static final Style FILLED = new Style(4, true, Color.BLACK);
+    /**
+     * Used to draw the grid in the graph
+     */
     public static final Style DASH = new Style(1, false, Color.BLACK, new float[]{4, 4});
+    /**
+     * Used todraw the pin description text
+     */
     public static final Style SHAPE_PIN = new Style(4, false, Color.GRAY, 18, null);
+    /**
+     * highlight color used for the circles to mark an element
+     */
     public static final Style HIGHLIGHT = new Style(4, false, Color.CYAN);
-    public static final Style INVISIBLE = new Style(0, false, Color.WHITE);
 
     private final int thickness;
     private final boolean filled;

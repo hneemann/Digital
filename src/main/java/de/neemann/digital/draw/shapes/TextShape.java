@@ -5,7 +5,10 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Orientation;
+import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -41,13 +44,6 @@ public class TextShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
-        int size = Style.NORMAL.getFontSize();
-        graphic.drawPolygon(
-                new Polygon(true)
-                        .add(0, 0)
-                        .add(size * 2, 0)
-                        .add(size * 2, size)
-                        .add(0, size), Style.INVISIBLE);
         graphic.drawText(new Vector(0, 0), new Vector(1, 0), label, Orientation.LEFTTOP, Style.NORMAL);
     }
 }

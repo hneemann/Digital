@@ -158,9 +158,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         // draw circle around element
         if (highLight) {
             GraphicMinMax mm = getMinMax();
-            Vector delta = mm.getMax().sub(mm.getMin());
-            int rad = (int) Math.sqrt(delta.x * delta.x + delta.y * delta.y) / 2;
-            delta = new Vector(rad, rad);
+            Vector delta = mm.getMax().sub(mm.getMin()).mul(3).div(5);
             Vector pos = mm.getMax().add(mm.getMin()).div(2);
             graphic.drawCircle(pos.sub(delta), pos.add(delta), Style.HIGHLIGHT);
         }
