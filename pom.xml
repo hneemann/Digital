@@ -175,6 +175,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
+                            <successCodes>0,1</successCodes>
                             <executable>chmod</executable>
                             <arguments>
                                 <argument>+x</argument>
@@ -189,6 +190,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
+                            <successCodes>0,1</successCodes>
                             <executable>cp</executable>
                             <arguments>
                                 <argument>target/Digital.jar</argument>
