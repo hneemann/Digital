@@ -8,6 +8,8 @@ import javax.swing.border.Border;
 import java.awt.event.ActionEvent;
 
 /**
+ * A simple state
+ *
  * @author hneemann
  */
 public class State implements StateInterface {
@@ -16,16 +18,26 @@ public class State implements StateInterface {
     private JComponent indicator;
     private StateManager stateManager;
 
+    /**
+     * Creates new state
+     */
     public State() {
     }
 
+    /**
+     * The JComponent used to indicate the state
+     *
+     * @param indicator the JComponent
+     * @param <C>       the type of the JComponent
+     * @return the JComponent for call chaining
+     */
     public <C extends JComponent> C setIndicator(C indicator) {
         this.indicator = indicator;
         indicator.setBorder(DISABLED_BORDER);
         return indicator;
     }
 
-    public void setStateManager(StateManager stateManager) {
+    void setStateManager(StateManager stateManager) {
         this.stateManager = stateManager;
     }
 
@@ -41,6 +53,13 @@ public class State implements StateInterface {
             indicator.setBorder(DISABLED_BORDER);
     }
 
+    /**
+     * Creates a tooltip action which activates the state
+     *
+     * @param name the name of the action to create
+     * @param icon the icon to use
+     * @return the acttion
+     */
     public ToolTipAction createToolTipAction(String name, Icon icon) {
         return new ToolTipAction(name, icon) {
             @Override
@@ -50,6 +69,9 @@ public class State implements StateInterface {
         };
     }
 
+    /**
+     * Activates this state
+     */
     public void activate() {
         stateManager.setState(this);
     }
