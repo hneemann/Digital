@@ -59,7 +59,10 @@ public class GraphicMinMax implements Graphic {
         if (text != null && text.length() > 0) {
             Vector delta = p2.sub(p1).norm128();
             Vector height = new Vector(delta.y, -delta.x).mul(style.getFontSize()).div(128);
-            Vector width = delta.mul(text.length() * style.getFontSize()).div(190);
+
+            int div = 190;
+            if (text.length() > 15) div = 240;
+            Vector width = delta.mul(text.length() * style.getFontSize()).div(div);
 
 
             if (p1.y == p2.y) {   // 0 and 180 deg
@@ -80,8 +83,8 @@ public class GraphicMinMax implements Graphic {
 
             if (orientation.getY() != 0) {
                 p = p.sub(height.mul(orientation.getY()).div(2));
-            }
-            p.sub(height.div(3));
+            } else
+                p = p.sub(height.div(4));
 
             gr.drawPolygon(new Polygon(true)
                     .add(p)
