@@ -175,10 +175,6 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <successCodes>
-                                <successCode>0</successCode>
-                                <successCode>1</successCode>
-                            </successCodes>
                             <executable>chmod</executable>
                             <arguments>
                                 <argument>+x</argument>
