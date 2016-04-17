@@ -15,13 +15,13 @@ public class GraphicSVGIndex extends GraphicSVG {
     /**
      * Creates new instance
      *
-     * @param file the file
+     * @param out the file
      * @param min  upper left corner
      * @param max  lower right corner
      * @throws IOException IOException
      */
-    public GraphicSVGIndex(File file, Vector min, Vector max) throws IOException {
-        super(file, min, max);
+    public GraphicSVGIndex(OutputStream out, Vector min, Vector max) throws IOException {
+        super(out, min, max);
     }
 
     /**

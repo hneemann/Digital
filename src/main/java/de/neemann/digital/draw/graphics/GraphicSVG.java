@@ -15,13 +15,13 @@ public class GraphicSVG implements Graphic, Closeable {
     /**
      * Creates a new instance.
      *
-     * @param file the file
+     * @param out  the stream
      * @param min  upper left corner
      * @param max  lower right corner
      * @throws IOException IOException
      */
-    public GraphicSVG(File file, Vector min, Vector max) throws IOException {
-        this(file, min, max, null, DEF_SCALE);
+    public GraphicSVG(OutputStream out, Vector min, Vector max) throws IOException {
+        this(out, min, max, null, DEF_SCALE);
     }
 
     /**

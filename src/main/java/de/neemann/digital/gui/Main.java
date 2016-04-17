@@ -10,8 +10,6 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.ElementOrder;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.graphics.linemerger.GraphicLineCollector;
-import de.neemann.digital.draw.graphics.linemerger.GraphicSkipLines;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.model.RealTimeClock;
@@ -31,7 +29,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -198,8 +195,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
         export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
-        export.add(new ExportAction(Lang.get("menu_exportPNGSmall"), "png", (file, min, max) -> GraphicsImage.create(new FileOutputStream(file), min, max, "PNG", 1)));
-        export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (file, min, max) -> GraphicsImage.create(new FileOutputStream(file), min, max, "PNG", 2)));
+        export.add(new ExportAction(Lang.get("menu_exportPNGSmall"), "png", (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1)));
+        export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 2)));
 
         JMenu file = new JMenu(Lang.get("menu_file"));
         bar.add(file);
@@ -599,13 +596,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private class ExportAction extends ToolTipAction {
         private final String name;
         private final String suffix;
-        private final Exporter exporter;
+        private final ExportFactory exportFactory;
 
-        ExportAction(String name, String suffix, Exporter exporter) {
+        ExportAction(String name, String suffix, ExportFactory exportFactory) {
             super(name);
             this.name = name;
             this.suffix = suffix;
-            this.exporter = exporter;
+            this.exportFactory = exportFactory;
         }
 
         @Override
@@ -621,21 +618,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
             fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
             if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                Circuit circuit = circuitComponent.getCircuit();
-                GraphicMinMax minMax = new GraphicMinMax();
-                circuit.drawTo(minMax);
                 try {
-                    Graphic gr = null;
-                    try {
-                        GraphicLineCollector glc = new GraphicLineCollector();
-                        circuit.drawTo(glc);
-                        gr = exporter.create(fc.getSelectedFile(), minMax.getMin(), minMax.getMax());
-                        glc.drawTo(gr);
-                        circuit.drawTo(new GraphicSkipLines(gr));
-                    } finally {
-                        if (gr instanceof Closeable)
-                            ((Closeable) gr).close();
-                    }
+                    new Export(circuitComponent.getCircuit(), exportFactory)
+                            .export(new FileOutputStream(fc.getSelectedFile()));
                 } catch (IOException e1) {
                     new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(Main.this);
                 }
