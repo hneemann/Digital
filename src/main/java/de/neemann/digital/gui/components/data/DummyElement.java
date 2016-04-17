@@ -19,7 +19,7 @@ public class DummyElement implements Element {
     /**
      * The DataElement description
      */
-    public static final ElementTypeDescription DATADESCRIPTION = new ElementTypeDescription("DATA", DummyElement.class)
+    public static final ElementTypeDescription DATADESCRIPTION = new ElementTypeDescription("Data", DummyElement.class)
             .addAttribute(Keys.MICRO_STEP)
             .addAttribute(Keys.MAX_STEP_COUNT);
 

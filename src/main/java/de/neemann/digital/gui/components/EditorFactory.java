@@ -97,15 +97,18 @@ public final class EditorFactory {
     }
 
     private final static class IntegerEditor extends LabelEditor<Integer> {
+        private static final Integer[] DEFAULTS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
         private final JComboBox<Integer> comboBox;
         private final Key<Integer> key;
 
         public IntegerEditor(Integer value, Key<Integer> key) {
             this.key = key;
-            Integer[] selects = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+            Integer[] selects = null;
             if (key instanceof Key.KeyInteger) {
                 selects = ((Key.KeyInteger) key).getComboBoxValues();
             }
+            if (selects == null)
+                selects = DEFAULTS;
             comboBox = new JComboBox<>(selects);
             comboBox.setEditable(true);
             comboBox.setSelectedItem(value);
