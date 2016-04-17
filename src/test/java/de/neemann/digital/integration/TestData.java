@@ -1,0 +1,83 @@
+package de.neemann.digital.integration;
+
+import de.neemann.digital.draw.graphics.Export;
+import de.neemann.digital.draw.graphics.GraphicsImage;
+import de.neemann.digital.gui.components.data.DataSample;
+import de.neemann.digital.gui.components.data.DataSet;
+import de.neemann.digital.gui.components.data.DataSetObserver;
+import junit.framework.TestCase;
+
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.StringWriter;
+
+/**
+ * @author hneemann
+ */
+public class TestData extends TestCase {
+
+    public void testData() throws Exception {
+        ToBreakRunner toBreakRunner = new ToBreakRunner("dig/data.dig").runToBreak(31);
+
+        // check recorded data
+        DataSet dataSet = toBreakRunner.getModel()
+                .getObserver(DataSetObserver.class)
+                .getDataSet();
+
+        assertEquals(31, dataSet.size());
+        int i = 0;
+        for (DataSample ds : dataSet) {
+            assertEquals((~i) & 1, ds.getValue(0)); // clock
+            int s = i / 2 + 1;
+            assertEquals(s & 1, ds.getValue(1));//q_0
+            assertEquals((s >> 1) & 1, ds.getValue(2));//q_1
+            assertEquals((s >> 2) & 1, ds.getValue(3));//q_2
+            assertEquals((s >> 3) & 1, ds.getValue(4));//q_3
+            i++;
+        }
+
+        // try to write data to graphics instance
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        new Export(toBreakRunner.getCircuit(),
+                (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1))
+                .export(baos);
+
+        assertTrue(baos.size() > 15000);
+
+        // export data to CSV
+        StringWriter w = new StringWriter();
+        dataSet.saveCSV(new BufferedWriter(w));
+        assertEquals("\"step\",\"C\",\"q_0n\",\"q_1n\",\"q_2n\",\"q_3n\"\n" +
+                "\"0\",\"1\",\"1\",\"0\",\"0\",\"0\"\n" +
+                "\"1\",\"0\",\"1\",\"0\",\"0\",\"0\"\n" +
+                "\"2\",\"1\",\"0\",\"1\",\"0\",\"0\"\n" +
+                "\"3\",\"0\",\"0\",\"1\",\"0\",\"0\"\n" +
+                "\"4\",\"1\",\"1\",\"1\",\"0\",\"0\"\n" +
+                "\"5\",\"0\",\"1\",\"1\",\"0\",\"0\"\n" +
+                "\"6\",\"1\",\"0\",\"0\",\"1\",\"0\"\n" +
+                "\"7\",\"0\",\"0\",\"0\",\"1\",\"0\"\n" +
+                "\"8\",\"1\",\"1\",\"0\",\"1\",\"0\"\n" +
+                "\"9\",\"0\",\"1\",\"0\",\"1\",\"0\"\n" +
+                "\"10\",\"1\",\"0\",\"1\",\"1\",\"0\"\n" +
+                "\"11\",\"0\",\"0\",\"1\",\"1\",\"0\"\n" +
+                "\"12\",\"1\",\"1\",\"1\",\"1\",\"0\"\n" +
+                "\"13\",\"0\",\"1\",\"1\",\"1\",\"0\"\n" +
+                "\"14\",\"1\",\"0\",\"0\",\"0\",\"1\"\n" +
+                "\"15\",\"0\",\"0\",\"0\",\"0\",\"1\"\n" +
+                "\"16\",\"1\",\"1\",\"0\",\"0\",\"1\"\n" +
+                "\"17\",\"0\",\"1\",\"0\",\"0\",\"1\"\n" +
+                "\"18\",\"1\",\"0\",\"1\",\"0\",\"1\"\n" +
+                "\"19\",\"0\",\"0\",\"1\",\"0\",\"1\"\n" +
+                "\"20\",\"1\",\"1\",\"1\",\"0\",\"1\"\n" +
+                "\"21\",\"0\",\"1\",\"1\",\"0\",\"1\"\n" +
+                "\"22\",\"1\",\"0\",\"0\",\"1\",\"1\"\n" +
+                "\"23\",\"0\",\"0\",\"0\",\"1\",\"1\"\n" +
+                "\"24\",\"1\",\"1\",\"0\",\"1\",\"1\"\n" +
+                "\"25\",\"0\",\"1\",\"0\",\"1\",\"1\"\n" +
+                "\"26\",\"1\",\"0\",\"1\",\"1\",\"1\"\n" +
+                "\"27\",\"0\",\"0\",\"1\",\"1\",\"1\"\n" +
+                "\"28\",\"1\",\"1\",\"1\",\"1\",\"1\"\n" +
+                "\"29\",\"0\",\"1\",\"1\",\"1\",\"1\"\n" +
+                "\"30\",\"1\",\"0\",\"0\",\"0\",\"0\"\n", w.toString());
+    }
+}

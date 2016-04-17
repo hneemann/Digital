@@ -224,7 +224,17 @@ public class DataSet implements Iterable<DataSample>, Drawable {
      * @throws IOException IOException
      */
     public void saveCSV(File file) throws IOException {
-        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))) {
+        saveCSV(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8")));
+    }
+
+    /**
+     * Stores the data in  csv file
+     *
+     * @param w the writer
+     * @throws IOException IOException
+     */
+    public void saveCSV(BufferedWriter w) throws IOException {
+        try {
             w.write("\"step\"");
             for (Model.Signal s : signals)
                 w.write(",\"" + s.getName() + '"');
@@ -233,6 +243,8 @@ public class DataSet implements Iterable<DataSample>, Drawable {
                 s.writeTo(w);
                 w.newLine();
             }
+        } finally {
+            w.close();
         }
     }
 }

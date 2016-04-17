@@ -54,4 +54,10 @@ public class DataSetObserver implements ModelStateObserver {
         }
     }
 
+    /**
+     * @return the dataSet
+     */
+    public DataSet getDataSet() {
+        return dataSet;
+    }
 }
