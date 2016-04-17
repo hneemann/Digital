@@ -272,7 +272,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         }
     }
 
-    private static class Imported {
+    private final static class Imported {
         private final ElementTypeDescription description;
         private final InsertAction insertAction;
 
