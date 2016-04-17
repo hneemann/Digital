@@ -8,6 +8,8 @@ import java.awt.*;
 
 
 /**
+ * The dialog which shows the terminal
+ *
  * @author hneemann
  */
 public class TerminalDialog extends JDialog {
@@ -15,6 +17,11 @@ public class TerminalDialog extends JDialog {
     private final int width;
     private int pos;
 
+    /**
+     * Creates a new instance
+     *
+     * @param attr the terminals attributes
+     */
     public TerminalDialog(ElementAttributes attr) {
         super((JFrame) null, attr.get(Keys.LABEL), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -28,6 +35,11 @@ public class TerminalDialog extends JDialog {
         setVisible(true);
     }
 
+    /**
+     * Adds a char to the terminal dialog
+     *
+     * @param value the character
+     */
     public void addChar(char value) {
         if (value == 13 || value == 10) {
             pos = 0;

@@ -18,10 +18,25 @@ public class AttributeDialog extends JDialog {
     private final ArrayList<EditorHolder> editors;
     private boolean changed = false;
 
+    /**
+     * Creates a new instance
+     *
+     * @param parent            the parent
+     * @param list              the list of keys which are to edit
+     * @param elementAttributes the data stored
+     */
     public AttributeDialog(Component parent, ArrayList<Key> list, ElementAttributes elementAttributes) {
         this(parent, null, list, elementAttributes);
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param parent            the parent
+     * @param pos               the position to pop up the dialog
+     * @param list              the list of keys which are to edit
+     * @param elementAttributes the data stored
+     */
     public AttributeDialog(Component parent, Point pos, ArrayList<Key> list, ElementAttributes elementAttributes) {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -67,12 +82,17 @@ public class AttributeDialog extends JDialog {
             e.setTo(attr);
     }
 
+    /**
+     * shows the dialog
+     *
+     * @return true if data was changed
+     */
     public boolean showDialog() {
         setVisible(true);
         return changed;
     }
 
-    private static class EditorHolder<T> {
+    private final class EditorHolder<T> {
         private final Editor<T> e;
         private final Key<T> key;
 

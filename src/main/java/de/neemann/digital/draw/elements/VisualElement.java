@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+
 /**
  * This class is used to store the visual representation of an element.
  * Instances of this class are also used to store a circuit to disk.
@@ -158,7 +160,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         // draw circle around element
         if (highLight) {
             GraphicMinMax mm = getMinMax();
-            Vector delta = mm.getMax().sub(mm.getMin()).mul(3).div(5);
+            Vector delta = mm.getMax().sub(mm.getMin()).add(SIZE, SIZE).div(2);
             Vector pos = mm.getMax().add(mm.getMin()).div(2);
             graphic.drawCircle(pos.sub(delta), pos.add(delta), Style.HIGHLIGHT);
         }

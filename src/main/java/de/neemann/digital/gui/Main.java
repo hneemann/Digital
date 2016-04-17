@@ -16,7 +16,6 @@ import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.DataSetDialog;
-import de.neemann.digital.gui.components.framepos.WindowPosManager;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;

@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.framepos;
+package de.neemann.digital.gui.components;
 
 import java.awt.*;
 import java.util.HashMap;
