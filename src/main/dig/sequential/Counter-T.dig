@@ -129,6 +129,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>maxStepCount</string>
+          <int>24</int>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Data</string>
         </entry>
