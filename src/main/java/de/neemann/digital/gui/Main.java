@@ -480,26 +480,26 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     @Override
     public void showErrorAndStopModel(String message, Exception cause) {
         SwingUtilities.invokeLater(() -> {
-            if (modelDescription != null) {
-                if (cause instanceof NodeException) {
-                    NodeException e = (NodeException) cause;
-                    if (e.getNodes().isEmpty())
-                        circuitComponent.addHighLightedWires(e.getValues());
-                    else
+            if (cause instanceof NodeException) {
+                NodeException e = (NodeException) cause;
+                if (e.getNodes().isEmpty())
+                    circuitComponent.addHighLightedWires(e.getValues());
+                else {
+                    if (modelDescription != null)
                         modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
-                } else if (cause instanceof PinException) {
-                    PinException e = (PinException) cause;
-                    circuitComponent.addHighLighted(e.getVisualElement());
-                    if (e.getNet() != null)
-                        circuitComponent.addHighLighted(e.getNet().getWires());
-                    else if (e.getVisualElement() != null)
-                        circuitComponent.addHighLighted(e.getVisualElement());
-                } else if (cause instanceof BurnException) {
-                    BurnException e = (BurnException) cause;
-                    circuitComponent.addHighLightedWires(new ObservableValue[]{e.getValue()});
                 }
-                circuitComponent.repaint();
+            } else if (cause instanceof PinException) {
+                PinException e = (PinException) cause;
+                circuitComponent.addHighLighted(e.getVisualElement());
+                if (e.getNet() != null)
+                    circuitComponent.addHighLighted(e.getNet().getWires());
+                else if (e.getVisualElement() != null)
+                    circuitComponent.addHighLighted(e.getVisualElement());
+            } else if (cause instanceof BurnException) {
+                BurnException e = (BurnException) cause;
+                circuitComponent.addHighLightedWires(new ObservableValue[]{e.getValue()});
             }
+            circuitComponent.repaint();
             new ErrorMessage(message).addCause(cause).show(Main.this);
             elementState.activate();
         });

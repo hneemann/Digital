@@ -217,8 +217,6 @@ public class Net {
 
     @Override
     public String toString() {
-        return "Net{" +
-                "labelSet=" + labelSet +
-                '}';
+        return "Net{" + labelSet + '}';
     }
 }
