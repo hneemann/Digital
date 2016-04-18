@@ -10,6 +10,7 @@ import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.lang.Lang;
@@ -63,6 +64,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Splitter.DESCRIPTION, menu);
         add(Clock.DESCRIPTION, menu);
         add(Delay.DESCRIPTION, menu);
+        add(Tunnel.DESCRIPTION, menu);
         add(Driver.DESCRIPTION, menu);
         add(Reset.DESCRIPTION, menu);
         add(Break.DESCRIPTION, menu);

@@ -18,10 +18,10 @@ import de.neemann.digital.draw.model.NetList;
  */
 public class CustomElement implements Element {
 
-    private final NetList netList;
     private final Circuit circuit;
     private final ElementLibrary library;
     private final String name;
+    private NetList netList;
 
     /**
      * Creates a new custom element
@@ -34,7 +34,6 @@ public class CustomElement implements Element {
         this.circuit = circuit;
         this.library = library;
         this.name = name;
-        netList = new NetList(circuit.getWires());
     }
 
     /**
@@ -46,6 +45,9 @@ public class CustomElement implements Element {
      * @throws NodeException NodeException
      */
     public ModelDescription getModelDescription() throws PinException, NodeException {
+        if (netList == null)
+            netList = new NetList(circuit);
+
         return new ModelDescription(circuit, library, true, name, new NetList(netList));
     }
 

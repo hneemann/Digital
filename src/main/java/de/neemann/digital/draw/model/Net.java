@@ -25,6 +25,7 @@ public class Net {
     private final HashSet<Vector> points;
     private final ArrayList<Pin> pins;
     private final ArrayList<Wire> wires;
+    private final HashSet<String> labelSet;
 
     /**
      * Creates a copy of the given net
@@ -35,6 +36,7 @@ public class Net {
         points = toCopy.points;  // no deep copy of points necessary
         wires = null;            // wires not needed
         pins = new ArrayList<>(toCopy.pins); // Pins are changed so create a deep copy
+        labelSet = new HashSet<>(toCopy.labelSet); //ToDo copy necessary?
     }
 
     /**
@@ -49,6 +51,7 @@ public class Net {
         pins = new ArrayList<>();
         wires = new ArrayList<>();
         wires.add(w);
+        labelSet = new HashSet<>();
     }
 
     /**
@@ -86,9 +89,10 @@ public class Net {
      *
      * @param changedNet the net to add
      */
-    public void addAllPointsFrom(Net changedNet) {
+    void addAllPointsFrom(Net changedNet) {
         points.addAll(changedNet.points);
         wires.addAll(changedNet.wires);
+        labelSet.addAll(changedNet.labelSet);
     }
 
     /**
@@ -186,5 +190,35 @@ public class Net {
     public void removePin(Pin p) throws PinException {
         if (!pins.remove(p))
             throw new PinException(Lang.get("err_pinNotPresent"), this);
+    }
+
+    /**
+     * Adds a label this this net
+     *
+     * @param label the label to add
+     */
+    public void addLabel(String label) {
+        labelSet.add(label);
+    }
+
+    /**
+     * Returns true if the given net has at least one same net label.
+     *
+     * @param net the other net
+     * @return true if same net
+     */
+    public boolean matchesLabel(Net net) {
+        for (String l : labelSet) {
+            if (net.labelSet.contains(l))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Net{" +
+                "labelSet=" + labelSet +
+                '}';
     }
 }

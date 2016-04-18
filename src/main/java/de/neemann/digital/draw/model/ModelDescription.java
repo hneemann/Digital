@@ -54,7 +54,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @throws NodeException NodeException
      */
     public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
-        this(circuit, library, readAsCustom, "unknown", new NetList(circuit.getWires()));
+        this(circuit, library, readAsCustom, "unknown", new NetList(circuit));
     }
 
     /**

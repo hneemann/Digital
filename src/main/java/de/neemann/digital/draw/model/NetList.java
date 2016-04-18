@@ -1,12 +1,12 @@
 package de.neemann.digital.draw.model;
 
-import de.neemann.digital.draw.elements.Pin;
-import de.neemann.digital.draw.elements.Wire;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Holds all the nets in a circuit
@@ -18,14 +18,42 @@ public class NetList implements Iterable<Net> {
     private final ArrayList<Net> netList;
 
     /**
-     * Creates a net list from the given wires
+     * Creates a net list from the given circuit
      *
-     * @param wires the wires
+     * @param circuit the circuit
+     * @throws PinException PinException
      */
-    public NetList(List<Wire> wires) {
+    public NetList(Circuit circuit) throws PinException {
         netList = new ArrayList<>();
-        for (Wire w : wires)
+        for (Wire w : circuit.getWires())
             add(w);
+
+        for (VisualElement ve : circuit.getElements())
+            if (ve.getElementName().equals(Tunnel.DESCRIPTION.getName())) {
+                Vector pos = ve.getPos();
+                Net found = null;
+                for (Net n : netList)
+                    if (n.contains(pos))
+                        found = n;
+
+                String label = ve.getElementAttributes().get(Keys.NETNAME).trim();
+                if (found == null)
+                    throw new PinException(Lang.get("err_labelNotConnectedToNet_N", label), ve);
+
+                found.addLabel(label);
+            }
+
+        mergeLabels();
+    }
+
+    private void mergeLabels() {
+        for (int i = 0; i < netList.size() - 1; i++)
+            for (int j = i + 1; j < netList.size(); j++)
+                if (netList.get(i).matchesLabel(netList.get(j))) {
+                    netList.get(i).addAllPointsFrom(netList.get(j));
+                    netList.remove(j);
+                    j--;
+                }
     }
 
     /**
@@ -49,7 +77,7 @@ public class NetList implements Iterable<Net> {
     }
 
     /**
-     * Adds a pin to tis net list
+     * Adds a pin to this net list
      *
      * @param pin the pin to add
      */

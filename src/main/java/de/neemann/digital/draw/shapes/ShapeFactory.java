@@ -10,6 +10,7 @@ import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.components.data.DummyElement;
@@ -67,6 +68,7 @@ public final class ShapeFactory {
 
         map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);
+        map.put(Tunnel.DESCRIPTION.getName(), TunnelShape::new);
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
     }

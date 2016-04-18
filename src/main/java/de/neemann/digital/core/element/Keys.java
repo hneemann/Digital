@@ -186,4 +186,9 @@ public final class Keys {
     public static final Key<String> DESCRIPTION
             = new Key<>("Description", "");
 
+    /**
+     * A net name
+     */
+    public static final Key<String> NETNAME
+            = new Key<>("NetName", "");
 }
