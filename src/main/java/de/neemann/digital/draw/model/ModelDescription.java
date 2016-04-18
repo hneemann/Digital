@@ -60,11 +60,11 @@ public class ModelDescription implements Iterable<ModelEntry> {
     /**
      * Creates a new instance
      *
-     * @param circuit      the circuit to use
-     * @param library      the library to use
+     * @param circuit         the circuit to use
+     * @param library         the library to use
      * @param isNestedCircuit if true the model is created for use as nested element
-     * @param fileName     only used for better messages in exceptions
-     * @param netList      the NetList of the model. If known it is not necessary to create it.
+     * @param fileName        only used for better messages in exceptions
+     * @param netList         the NetList of the model. If known it is not necessary to create it.
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
@@ -205,9 +205,10 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @param highLighted the list of drawables to add the VisualElements to
      */
     public void addNodeElementsTo(Collection<Node> nodes, Collection<Drawable> highLighted) {
+        if (nodes == null) return;
+
         HashSet<Node> nodeSet = new HashSet<>();
-        if (nodes != null)
-            nodeSet.addAll(nodes);
+        nodeSet.addAll(nodes);
         for (ModelEntry me : entries) {
             Element element = me.getElement();
             if (element instanceof Node && nodeSet.contains(element))

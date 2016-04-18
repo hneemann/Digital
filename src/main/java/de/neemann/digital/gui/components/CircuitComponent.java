@@ -181,7 +181,8 @@ public class CircuitComponent extends JComponent {
      * @param <T>      type of drawable
      */
     public <T extends Drawable> void addHighLighted(T drawable) {
-        highLighted.add(drawable);
+        if (drawable != null)
+            highLighted.add(drawable);
     }
 
     /**
@@ -200,6 +201,8 @@ public class CircuitComponent extends JComponent {
      * @param values the value
      */
     public void addHighLightedWires(ObservableValue[] values) {
+        if (values == null) return;
+
         HashSet<ObservableValue> ov = new HashSet<>();
         ov.addAll(Arrays.asList(values));
         for (Wire w : circuit.getWires())
