@@ -233,6 +233,10 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>rotation</string>
           <rotation rotation="2"/>
         </entry>
@@ -242,7 +246,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>50</int>
+          <int>100</int>
         </entry>
       </elementAttributes>
       <pos x="1060" y="460"/>

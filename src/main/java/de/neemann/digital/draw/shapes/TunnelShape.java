@@ -21,6 +21,7 @@ public class TunnelShape implements Shape {
 
     private final PinDescription input;
     private final String label;
+//    private ObservableValue inValue;
 
     /**
      * Creates a new instance
@@ -41,16 +42,23 @@ public class TunnelShape implements Shape {
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+//        inValue = ioState.getInput(0).addObserverToValue(guiObserver);
         return null;
     }
 
     @Override
     public void drawTo(Graphic gr, boolean highLight) {
+//        if (inValue!=null) {
+//            Style style = Style.getWireStyle(inValue);
+//            Vector pos= new Vector(14,0);
+//            Vector rad = new Vector(3,3);
+//            gr.drawCircle(pos.sub(rad),pos.add(rad),style);
+//        }
         gr.drawPolygon(new Polygon(true)
                 .add(0, 0)
-                .add(SIZE, SIZE2)
-                .add(SIZE, -SIZE2), Style.NORMAL);
-        Vector pos = new Vector(SIZE + SIZE2, 0);
+                .add(SIZE, SIZE2 - 3)
+                .add(SIZE, -SIZE2 + 3), Style.NORMAL);
+        Vector pos = new Vector(SIZE + SIZE2 / 2, 0);
         gr.drawText(pos, pos.add(1, 0), label, Orientation.LEFTCENTER, Style.SHAPE_PIN);
     }
 }

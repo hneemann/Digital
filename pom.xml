@@ -160,6 +160,16 @@
                             <goal>single</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>make-dstribution</id>
+                        <phase>install</phase>
+                        <configuration>
+                            <descriptor>distAssembly.xml</descriptor>
+                        </configuration>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
 
