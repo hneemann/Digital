@@ -149,7 +149,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    JFileChooser fc = getjFileChooser(lastFilename);
+                    JFileChooser fc = getJFileChooser(lastFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                         loadFile(fc.getSelectedFile(), true);
                     }
@@ -161,7 +161,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    JFileChooser fc = getjFileChooser(lastFilename);
+                    JFileChooser fc = getJFileChooser(lastFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                         Main m = new Main(Main.this, fc.getSelectedFile(), null);
                         m.setLocationRelativeTo(Main.this);
@@ -175,7 +175,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = getjFileChooser(lastFilename);
+                JFileChooser fc = getJFileChooser(lastFilename);
                 if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                     saveFile(fc.getSelectedFile(), normalMode);
                 }
@@ -500,8 +500,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         });
     }
 
-    private static JFileChooser getjFileChooser(File filename) {
-        JFileChooser fileChooser = new JFileChooser(filename == null ? null : filename.getParentFile());
+    private static JFileChooser getJFileChooser(File filename) {
+        File folder = null;
+        if (filename != null)
+            folder = filename.getParentFile();
+
+        JFileChooser fileChooser = new JFileChooser(folder);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
         return fileChooser;
     }
