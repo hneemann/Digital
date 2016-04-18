@@ -211,7 +211,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>script-cp</id>
+                        <id>script-cp2</id>
                         <phase>install</phase>
                         <goals>
                             <goal>exec</goal>
