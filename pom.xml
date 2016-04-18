@@ -210,6 +210,24 @@
                             </arguments>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>script-cp</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <successCodes>
+                                <successCode>0</successCode>
+                                <successCode>1</successCode>
+                            </successCodes>
+                            <executable>cp</executable>
+                            <arguments>
+                                <argument>target/Digital.zip</argument>
+                                <argument>/home/hneemann/Dokumente/DHBW/Software/</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
