@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <version>1</version>
+    <visualElements>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes/>
+            <pos x="200" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>XOr</elementName>
+            <elementAttributes/>
+            <pos x="280" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes/>
+            <pos x="420" y="140"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="260" y="160"/>
+            <p2 x="280" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="120"/>
+            <p2 x="280" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="260" y="200"/>
+            <p2 x="380" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="340" y="140"/>
+            <p2 x="380" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="380" y="140"/>
+            <p2 x="420" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="260" y="160"/>
+            <p2 x="260" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="380" y="140"/>
+            <p2 x="380" y="200"/>
+        </wire>
+    </wires>
+</circuit>
