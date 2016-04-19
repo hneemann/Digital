@@ -16,15 +16,25 @@ public class Listing implements javax.swing.ListModel<String> {
 
     /**
      * Creates a new instance.
-     * The given file is read.
      *
-     * @param filename the filename
+     * @param filename the file to read
      * @throws IOException IOException
      */
     public Listing(File filename) throws IOException {
-        lines = new ArrayList<String>();
+        this(new FileInputStream(filename));
+    }
+
+    /**
+     * Creates a new instance.
+     * The given file is to read.
+     *
+     * @param inputStream the inputStream to read the file
+     * @throws IOException IOException
+     */
+    public Listing(InputStream inputStream) throws IOException {
+        lines = new ArrayList<>();
         addrMap = new HashMap<>();
-        try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"))) {
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
             String line;
             while ((line = r.readLine()) != null)
                 addLine(line);
