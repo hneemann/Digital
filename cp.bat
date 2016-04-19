@@ -1,1 +1,1 @@
-echo cp not available under Windows
+@echo cp not available under Windows
