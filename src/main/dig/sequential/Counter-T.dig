@@ -145,7 +145,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Asynchroner Zähler aus T-Flipflops</string>
+          <string>Asynchroner Zähler mit T-Flipflops</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="80"/>
