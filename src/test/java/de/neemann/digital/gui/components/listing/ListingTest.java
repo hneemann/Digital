@@ -42,6 +42,13 @@ public class ListingTest extends TestCase {
                     "11  | 0002: 1801      up:        ADDIs R0,1            ; 0x1\n" +
                     "12  | 0003: 3e10                LSL   R1\n" +
                     "13  | 0004: 7351                OUTs  LedAddr,R1       ; 0x15\n" +
+                    " .data text1 \"the sum of %x and %x\\n\",  0\n" +
+                    " .data text2 \"gives %x\\n\",  0\n" +
+                    " .const TERMINAL_PORT 31\n" +
+                    " .reg ARG_ADDR R4\n" +
+                    " .reg TEXT_ADDR R3\n" +
+                    " .reg DATA R0\n" +
+                    " .reg DIGIT R1\n" +
                     "14  | 0005: 7c00                BRK   \n" +
                     "; full line comment: test\n" +
                     "15  | 0006: 3c0f                CPIs  R0,15            ; 0xf\n" +
@@ -59,8 +66,8 @@ public class ListingTest extends TestCase {
         Listing l = new Listing(new ByteArrayInputStream(listing2.getBytes()));
 
         assertEquals(0, (int) l.getLine(0x0000));
-        assertEquals(12, (int) l.getLine(0x0009));
-        assertEquals(17, (int) l.getLine(0x000e));
+        assertEquals(19, (int) l.getLine(0x0009));
+        assertEquals(24, (int) l.getLine(0x000e));
     }
 
 }

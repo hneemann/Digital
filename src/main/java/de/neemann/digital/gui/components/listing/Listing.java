@@ -53,6 +53,8 @@ public class Listing implements javax.swing.ListModel<String> {
                 // do nothing on error;
             }
         }
+        if (line.length() == 0)
+            line = " ";  // JList has problems with empty lines, the line height becomes 2 in this case
         lines.add(line);
     }
 
