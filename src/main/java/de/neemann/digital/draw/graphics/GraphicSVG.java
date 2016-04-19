@@ -4,7 +4,9 @@ import java.io.*;
 import java.util.Date;
 
 /**
- * Used to create a SVG representatiob of the circuit.
+ * Used to create a SVG representation of the circuit.
+ * Don't use this implementation directly. Use {@link GraphicSVGIndex} to create plain SVG or
+ * {@link GraphicSVGLaTeX} if you want to include your SVG to LaTeX.
  *
  * @author hneemann
  */

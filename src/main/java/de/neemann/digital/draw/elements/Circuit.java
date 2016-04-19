@@ -461,7 +461,7 @@ public class Circuit {
     /**
      * Sets the ordering of values used to show measurements
      *
-     * @param measurementOrdering
+     * @param measurementOrdering list of names
      */
     public void setMeasurementOrdering(List<String> measurementOrdering) {
         this.measurementOrdering = measurementOrdering;

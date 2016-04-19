@@ -8,17 +8,17 @@ import de.neemann.digital.draw.model.ModelDescription;
 import de.neemann.digital.draw.model.ModelEntry;
 
 /**
+ * Every element you can put on the circuit panel implements this interface.
+ *
  * @author hneemann
  */
 public interface Shape extends Drawable {
 
     /**
      * Puts the pins name and the pins x-y-position together!
-     * This information is used to calculate the models connections
-     * from the wiring in the circuit.
+     * This information is used to calculate the models connections from the wiring in the circuit.
      * Don't create your own {@link de.neemann.digital.core.element.PinInfo} instance! Try to use
-     * the instances available from the {@link de.neemann.digital.core.element.ElementTypeDescription}s
-     * getInputDescription and get
+     * the instances available from the {@link de.neemann.digital.core.element.ElementTypeDescription}s.
      *
      * @return the pins
      */
@@ -31,16 +31,16 @@ public interface Shape extends Drawable {
      * variable.
      * <p>
      * If the shape returns an interactor, this interactors clicked method is called if the
-     * shape is clicked in the running mode.
+     * shape is clicked in running mode.
      *
-     * @param ioState     the state of the element
+     * @param ioState     the state of the element, never null
      * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
      * @return the interactor is called if the shape is clicked during running mode, maybe null
      */
     InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver);
 
     /**
-     * Allows the shape to make its drawing dependent of the model.
+     * Allows the shape to make its drawing dependent of the model by registering a Observer to the model.
      * It is used by {@link DataShape} to create and show the data graph.
      *
      * @param modelDescription the models description

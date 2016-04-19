@@ -13,7 +13,8 @@ import java.util.List;
 
 /**
  * The Model contains all the nodes of the model.
- * It has also the possibility to run the model in full step mode (all changes of values are propagated to a stable state)
+ * Every time the circuit is started a new model is created.
+ * The model has the possibility to run the model in full step mode (all changes of values are propagated to a stable state)
  * or in micro stepping mode: Only the gates which had a change on one of the input signals are updated. Then the
  * calculation is stopped.
  * <br>

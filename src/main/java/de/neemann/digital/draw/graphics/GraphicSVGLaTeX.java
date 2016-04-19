@@ -7,20 +7,23 @@ import java.io.OutputStream;
 /**
  * Subclass of {@link GraphicSVG} which creates the correct SVG representation
  * of an index if used like "x_0". But the text itself is created to be interpreted
- * by LaTeX. To include such a SVG file in LaTeX inkscape is needed. To run the transformation
- * automatically by the LaTeX compiler see InkscapePDFLaTeX.pdf.
+ * by LaTeX. To include such a SVG file in LaTeX Inkscape is needed to transform the SVG to PDF.
+ * In this case the image itself is included as a PDF file in which all the text is missing.
+ * Inkscape also creates a LaTeX overlay containing the text only. So you get best document quality:
+ * All the graphics as included PDF, all the text set with LaTeX fonts matching the rest of your LaTeX document.
+ * To run the transformation automatically by the LaTeX compiler see InkscapePDFLaTeX.pdf.
  *
- * @see <a href="https://inkscape.org">inkscape</a>
- * @see <a href="http://mirrors.ctan.org/info/svg-inkscape/InkscapePDFLaTeX.pdf">InkscapePDFLaTeX.pdf</a>
  * @author hneemann
+ * @see <a href="https://Inkscape.org">inkscape</a>
+ * @see <a href="http://mirrors.ctan.org/info/svg-inkscape/InkscapePDFLaTeX.pdf">InkscapePDFLaTeX.pdf</a>
  */
 public class GraphicSVGLaTeX extends GraphicSVG {
     /**
      * Creates new instance
      *
      * @param out the file
-     * @param min  upper left corner
-     * @param max  lower right corner
+     * @param min upper left corner
+     * @param max lower right corner
      * @throws IOException IOException
      */
     public GraphicSVGLaTeX(OutputStream out, Vector min, Vector max) throws IOException {
