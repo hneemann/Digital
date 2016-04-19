@@ -15,16 +15,24 @@ import java.io.IOException;
  * @author hneemann
  */
 public class TestExamples extends TestCase {
+    private static final File examples=new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
 
-    public void testExamples() throws Exception {
-        File res = Resources.getRoot();
-        File src = res.getParentFile().getParentFile();
-        File examples = new File(src, "/main/dig");
+    public void testCombinatorial() throws Exception {
         assertEquals(17, scan(new File(examples, "combinatorial")));
+    }
+
+    public void testSequential() throws Exception {
         assertEquals(18, scan(new File(examples, "sequential")));
+    }
+
+    public void testProcessor() throws Exception {
         assertEquals(16, scan(new File(examples, "processor")));
+    }
+
+    public void testHazard() throws Exception {
         assertEquals(4, scan(new File(examples, "hazard")));
     }
+
 
     private int scan(File path) {
         int count = 0;
