@@ -238,10 +238,10 @@ public class DataSet implements Iterable<DataSample>, Drawable {
             w.write("\"step\"");
             for (Model.Signal s : signals)
                 w.write(",\"" + s.getName() + '"');
-            w.newLine();
+            w.write("\n");
             for (DataSample s : samples) {
                 s.writeTo(w);
-                w.newLine();
+                w.write("\n");
             }
         } finally {
             w.close();
