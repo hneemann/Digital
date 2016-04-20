@@ -5,6 +5,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 
+import static de.neemann.digital.core.element.ElementAttributes.cleanLabel;
+
 /**
  * Used to draw on a {@link Graphics2D} instance.
  *
@@ -74,10 +76,7 @@ public class GraphicSwing implements Graphic {
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
         if (text == null || text.length() == 0) return;
-        if (text.length() >= 3) {
-            if ((text.charAt(0) == '$') && (text.charAt(text.length() - 1) == '$'))
-                text = text.substring(1, text.length() - 1);
-        }
+        text = cleanLabel(text);
 
         boolean rotateText = false;
         if (p1.y == p2.y) {   // 0 and 180 deg
