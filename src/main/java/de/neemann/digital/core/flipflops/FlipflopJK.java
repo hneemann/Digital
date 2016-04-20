@@ -45,7 +45,7 @@ public class FlipflopJK extends Node implements Element {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
-        label = attributes.get(Keys.LABEL);
+        label = attributes.getCleanLabel();
 
         int def = attributes.get(Keys.DEFAULT);
         out = def > 0;

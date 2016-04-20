@@ -398,9 +398,8 @@ public class Circuit {
     public PinDescription[] getInputNames(ElementLibrary library) throws PinException {
         ArrayList<PinDescription> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
-            ElementTypeDescription elementType = library.getElementType(ve.getElementName());
-            if (elementType == In.DESCRIPTION) {
-                String name = ve.getElementAttributes().get(Keys.LABEL);
+            if (ve.getElementName().equals(In.DESCRIPTION.getName())) {
+                String name = ve.getElementAttributes().getLabel();
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
@@ -426,9 +425,8 @@ public class Circuit {
     public ObservableValue[] getOutputNames(ElementLibrary library) throws PinException {
         ArrayList<ObservableValue> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
-            ElementTypeDescription elementType = library.getElementType(ve.getElementName());
-            if (elementType == Out.DESCRIPTION) {
-                String name = ve.getElementAttributes().get(Keys.LABEL);
+            if (ve.getElementName().equals(Out.DESCRIPTION.getName())) {
+                String name = ve.getElementAttributes().getLabel();
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 

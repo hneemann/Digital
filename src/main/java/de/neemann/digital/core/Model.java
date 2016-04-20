@@ -480,10 +480,7 @@ public class Model {
          * @param value the signals value
          */
         public Signal(String name, ObservableValue value) {
-            if (name.length() > 2 && name.charAt(0) == '$' && name.charAt(name.length() - 1) == '$')
-                this.name = name.substring(1, name.length() - 1);
-            else
-                this.name = name;
+            this.name = name;
             this.value = value;
         }
 

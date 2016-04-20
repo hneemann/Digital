@@ -45,7 +45,7 @@ public class FlipflopRS extends Node implements Element {
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
-        label = attributes.get(Keys.LABEL);
+        label = attributes.getCleanLabel();
     }
 
     @Override

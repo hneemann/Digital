@@ -1,6 +1,5 @@
 package de.neemann.digital.draw.elements;
 
-import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.gui.components.ElementOrderer;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
         entries = new ArrayList<>();
         for (int i = 0; i < elements.size(); i++)
             if (matcher.matches(elements.get(i))) {
-                String n = elements.get(i).getElementAttributes().get(Keys.LABEL);
+                String n = elements.get(i).getElementAttributes().getCleanLabel();
                 if (n != null && n.length() > 0)
                     entries.add(new Entry(i, n));
             }

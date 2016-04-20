@@ -1,5 +1,7 @@
 package de.neemann.digital.draw.graphics;
 
+import static de.neemann.digital.core.element.ElementAttributes.cleanLabel;
+
 /**
  * This class is used to determine the size of shapes or the whole circuit.
  * You can draw the items to a instance of this class an then obtain the size
@@ -57,6 +59,7 @@ public class GraphicMinMax implements Graphic {
      */
     public static void approxTextSize(Graphic gr, Vector p1, Vector p2, String text, Orientation orientation, Style style) {
         if (text != null && text.length() > 0) {
+            text = cleanLabel(text);
             Vector delta = p2.sub(p1).norm128();
             Vector height = new Vector(delta.y, -delta.x).mul(style.getFontSize()).div(128);
 

@@ -315,7 +315,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
     @Override
     public String toString() {
-        String lab = elementAttributes.get(Keys.LABEL);
+        String lab = elementAttributes.getCleanLabel();
         if (lab != null && lab.length() > 0)
             return elementName + "(" + lab + ")";
         else

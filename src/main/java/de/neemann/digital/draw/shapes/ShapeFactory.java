@@ -45,8 +45,8 @@ public final class ShapeFactory {
         map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", XOr.DESCRIPTION, false));
         map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", XNOr.DESCRIPTION, true));
 
-        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr), attr.get(Keys.LABEL)));
-        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr), attr.get(Keys.LABEL)));
+        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr), attr.getLabel()));
+        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr), attr.getLabel()));
 
         map.put(In.DESCRIPTION.getName(), InputShape::new);
         map.put(Reset.DESCRIPTION.getName(), ResetShape::new);
@@ -95,7 +95,7 @@ public final class ShapeFactory {
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),
                                 pt.getOutputDescriptions(elementAttributes),
-                                elementAttributes.get(Keys.LABEL),
+                                elementAttributes.getLabel(),
                                 true,
                                 customDescr.getAttributes().get(Keys.WIDTH));
                     } else
@@ -103,7 +103,7 @@ public final class ShapeFactory {
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),
                                 pt.getOutputDescriptions(elementAttributes),
-                                elementAttributes.get(Keys.LABEL),
+                                elementAttributes.getLabel(),
                                 true);
                 }
             } else {

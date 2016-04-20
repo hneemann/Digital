@@ -44,7 +44,7 @@ public class In implements Element {
         boolean highZ = attributes.get(Keys.IS_HIGH_Z);
         output = new ObservableValue("out", attributes.get(Keys.BITS), highZ);
         output.setValue(attributes.get(Keys.DEFAULT));
-        label = attributes.get(Keys.LABEL);
+        label = attributes.getCleanLabel();
     }
 
     @Override

@@ -75,7 +75,7 @@ public class Out implements Element {
      */
     public Out(ElementAttributes attributes) {
         bits = new int[]{attributes.getBits()};
-        label = attributes.get(Keys.LABEL);
+        label = attributes.getCleanLabel();
     }
 
     /**

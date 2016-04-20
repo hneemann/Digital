@@ -47,7 +47,7 @@ public class FlipflopD extends Node implements Element {
         this.q = new ObservableValue("Q", bits);
         this.qn = new ObservableValue("\u00ACQ", bits);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
-        label = attributes.get(Keys.LABEL);
+        label = attributes.getCleanLabel();
 
         value = attributes.get(Keys.DEFAULT);
         q.setValue(value);

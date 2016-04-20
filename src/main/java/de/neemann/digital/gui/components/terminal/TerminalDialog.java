@@ -23,7 +23,7 @@ public class TerminalDialog extends JDialog {
      * @param attr the terminals attributes
      */
     public TerminalDialog(ElementAttributes attr) {
-        super((JFrame) null, attr.get(Keys.LABEL), false);
+        super((JFrame) null, attr.getLabel(), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         width = attr.get(Keys.TERM_WIDTH);
