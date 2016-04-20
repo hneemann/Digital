@@ -48,6 +48,8 @@ public class Model {
     private final ArrayList<Break> breaks;
     private final ArrayList<Reset> resets;
     private final ArrayList<Signal> signals;
+    private final ArrayList<Signal> inputs;
+    private final ArrayList<Signal> outputs;
     private final ArrayList<ROM> roms;
 
     private final ArrayList<Node> nodes;
@@ -65,6 +67,8 @@ public class Model {
         this.breaks = new ArrayList<>();
         this.resets = new ArrayList<>();
         this.signals = new ArrayList<>();
+        this.outputs = new ArrayList<>();
+        this.inputs = new ArrayList<>();
         this.roms = new ArrayList<>();
         this.nodes = new ArrayList<>();
         this.nodesToUpdateAct = new ArrayList<>();
@@ -100,8 +104,7 @@ public class Model {
 
     /**
      * Needs to be called after all nodes are added.
-     * If not called it es called automatically.
-     * Calles <code>init(true);</code>
+     * Calls <code>init(true);</code>
      *
      * @throws NodeException NodeException
      */
@@ -373,8 +376,54 @@ public class Model {
      * @param value the signals value
      */
     public void addSignal(String name, ObservableValue value) {
-        if (name != null && name.length() > 0 && value != null)
+        if (isSignal(name, value))
             signals.add(new Signal(name, value));
+    }
+
+    private static boolean isSignal(String name, ObservableValue value) {
+        return name != null && name.length() > 0 && value != null;
+    }
+
+    /**
+     * registers a input to the model
+     *
+     * @param name  the signals name
+     * @param value the signals value
+     */
+    public void addInput(String name, ObservableValue value) {
+        if (isSignal(name, value)) {
+            Signal signal = new Signal(name, value);
+            signals.add(signal);
+            inputs.add(signal);
+        }
+    }
+
+    /**
+     * @return the models inputs
+     */
+    public ArrayList<Signal> getInputs() {
+        return inputs;
+    }
+
+    /**
+     * registers a output to the model
+     *
+     * @param name  the signals name
+     * @param value the signals value
+     */
+    public void addOutput(String name, ObservableValue value) {
+        if (isSignal(name, value)) {
+            Signal signal = new Signal(name, value);
+            signals.add(signal);
+            outputs.add(signal);
+        }
+    }
+
+    /**
+     * @return the models outputs
+     */
+    public ArrayList<Signal> getOutputs() {
+        return outputs;
     }
 
     /**
@@ -431,7 +480,10 @@ public class Model {
          * @param value the signals value
          */
         public Signal(String name, ObservableValue value) {
-            this.name = name;
+            if (name.length() > 2 && name.charAt(0) == '$' && name.charAt(name.length() - 1) == '$')
+                this.name = name.substring(1, name.length() - 1);
+            else
+                this.name = name;
             this.value = value;
         }
 

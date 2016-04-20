@@ -104,6 +104,6 @@ public class Out implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addSignal(label, value);
+        model.addOutput(label, value);
     }
 }

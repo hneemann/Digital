@@ -76,10 +76,10 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_i</string>
+          <string>S_i</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="280"/>
+      <pos x="940" y="440"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -87,10 +87,10 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S_i</string>
+          <string>C_i</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="440"/>
+      <pos x="940" y="280"/>
       <rotate>0</rotate>
     </visualElement>
   </visualElements>

@@ -59,6 +59,6 @@ public class In implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addSignal(label, output);
+        model.addInput(label, output);
     }
 }

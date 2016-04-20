@@ -1,5 +1,7 @@
 package de.neemann.digital.gui;
 
+import de.neemann.digital.analyse.AnalyseException;
+import de.neemann.digital.analyse.ModelAnalyser;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
@@ -320,6 +322,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
+        bar.add(createAanalyseMenu());
+
         JToolBar toolBar = new JToolBar();
         toolBar.add(newFile.createJButtonNoText());
         toolBar.add(open.createJButtonNoText());
@@ -346,6 +350,26 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         setPreferredSize(new Dimension(800, 600));
         pack();
         setLocationRelativeTo(parent);
+    }
+
+    private JMenu createAanalyseMenu() {
+        JMenu analyse = new JMenu(Lang.get("menu_analyse"));
+        analyse.add(new ToolTipAction(Lang.get("menu_analyse")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel();
+                    new TableDialog(Main.this, new ModelAnalyser(model).analyse()).setVisible(true);
+                    elementState.activate();
+                } catch (PinException | NodeException | AnalyseException e1) {
+                    showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
+                }
+            }
+        }
+                .setToolTip(Lang.get("menu_analyse_tt"))
+                .createJMenuItem());
+
+        return analyse;
     }
 
     private void orderMeasurements() {
