@@ -7,11 +7,12 @@
     <groupId>de.neemann.digital</groupId>
     <artifactId>digital</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Digital</name>
+    <url>https://bitbucket.org/hneemann/digital</url>
 
     <properties>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.org.slf4j>1.7.12</version.org.slf4j>
     </properties>
 
     <distributionManagement>
