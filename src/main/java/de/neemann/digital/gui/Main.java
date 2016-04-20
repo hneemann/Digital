@@ -446,6 +446,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 // all repainting is initiated by user actions!
                 modelDescription.connectToGui(null);
 
+            doStep.setEnabled(false);
             runToBreak.setEnabled(!runClock && model.isFastRunModel());
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
