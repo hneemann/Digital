@@ -3,7 +3,7 @@
 Digital is a simple simulator for digital circuits. You can place the circuit in a simple panel and connect the elements
 by wires. If your circuit is complete you can turn it on and interact with it.
 
-There are two modes of wow to run the circuit:
+There are two modes of how to run the circuit:
 
 * At first there is the normal or full step mode started by clicking ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/run.gif). 
   In most cases this mode is suitable. If you modify the running circuit by
