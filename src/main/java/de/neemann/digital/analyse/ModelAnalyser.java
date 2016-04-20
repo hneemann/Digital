@@ -85,13 +85,6 @@ public class ModelAnalyser {
         return outputs;
     }
 
-    /**
-     * @return the truth table
-     */
-    public boolean[][] getData() {
-        return data;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

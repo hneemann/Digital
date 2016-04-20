@@ -4,11 +4,18 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 /**
+ * Used to visualize a analyzer instanve in a JTable
+ *
  * @author hneemann
  */
 public class ModelAnalyzerTableModel implements TableModel {
     private final ModelAnalyser analyzer;
 
+    /**
+     * Creates a new instance
+     *
+     * @param analyzer the analyzer which is to visualize
+     */
     public ModelAnalyzerTableModel(ModelAnalyser analyzer) {
         this.analyzer = analyzer;
     }
