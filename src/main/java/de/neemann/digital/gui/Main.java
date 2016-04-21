@@ -40,6 +40,8 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.prefs.Preferences;
 
 /**
+ * The main frame of the Digital Simulator
+ *
  * @author hneemann
  */
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper {
@@ -66,8 +68,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final Icon ICON_FAST = IconCreator.create("FastForward24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
-    private final ToolTipAction doStep;
-    private final ToolTipAction runToBreak;
+    private ToolTipAction doStep;
+    private ToolTipAction runToBreak;
     private final ElementLibrary library;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
@@ -135,8 +137,42 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         });
 
-        JMenuBar bar = new JMenuBar();
+        setupStates();
 
+        JMenuBar menuBar = new JMenuBar();
+        JToolBar toolBar = new JToolBar();
+
+        save = createFileMenu(menuBar, toolBar, normalMode);
+        toolBar.addSeparator();
+
+        ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), ICON_ELEMENT).setToolTip(Lang.get("menu_element_tt"));
+
+        createEditMenu(menuBar, elementStateAction);
+
+        toolBar.add(elementState.setIndicator(elementStateAction.createJButtonNoText()));
+        toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
+        toolBar.addSeparator();
+
+        createStartMenu(menuBar, toolBar);
+
+        createAnalyseMenu(menuBar);
+
+        toolBar.addSeparator();
+
+        librarySelector = new LibrarySelector(library, shapeFactory, elementState);
+        menuBar.add(librarySelector.buildMenu(new InsertHistory(toolBar), circuitComponent));
+
+        getContentPane().add(toolBar, BorderLayout.NORTH);
+
+        setJMenuBar(menuBar);
+        InfoDialog.getInstance().addToFrame(this, MESSAGE);
+
+        setPreferredSize(new Dimension(800, 600));
+        pack();
+        setLocationRelativeTo(parent);
+    }
+
+    private ToolTipAction createFileMenu(JMenuBar menuBar, JToolBar toolBar, boolean normalMode) {
         ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new"), ICON_NEW) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -184,7 +220,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setActive(normalMode);
 
-        save = new ToolTipAction(Lang.get("menu_save"), ICON_SAVE) {
+        ToolTipAction save = new ToolTipAction(Lang.get("menu_save"), ICON_SAVE) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (filename == null)
@@ -201,7 +237,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 2)));
 
         JMenu file = new JMenu(Lang.get("menu_file"));
-        bar.add(file);
+        menuBar.add(file);
         file.add(newFile);
         file.add(open);
         file.add(openWin);
@@ -209,12 +245,16 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         file.add(saveas);
         file.add(export);
 
-        setupStates();
+        toolBar.add(newFile.createJButtonNoText());
+        toolBar.add(open.createJButtonNoText());
+        toolBar.add(save.createJButtonNoText());
 
+        return save;
+    }
+
+    private void createEditMenu(JMenuBar menuBar, ToolTipAction elementStateAction) {
         JMenu edit = new JMenu(Lang.get("menu_edit"));
-        bar.add(edit);
-
-        ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), ICON_ELEMENT).setToolTip(Lang.get("menu_element_tt"));
+        menuBar.add(edit);
 
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
@@ -247,13 +287,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_editAttributes_tt"));
 
-
         edit.add(elementStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
         edit.add(editAttributes.createJMenuItem());
+    }
 
+    private void createStartMenu(JMenuBar menuBar, JToolBar toolBar) {
         doStep = new ToolTipAction(Lang.get("menu_step"), ICON_STEP) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -313,7 +354,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
 
         JMenu run = new JMenu(Lang.get("menu_run"));
-        bar.add(run);
+        menuBar.add(run);
         run.add(editRunAttributes.createJMenuItem());
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
@@ -322,38 +363,16 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
-        bar.add(createAanalyseMenu());
-
-        JToolBar toolBar = new JToolBar();
-        toolBar.add(newFile.createJButtonNoText());
-        toolBar.add(open.createJButtonNoText());
-        toolBar.add(save.createJButtonNoText());
-        toolBar.addSeparator();
-        toolBar.add(elementState.setIndicator(elementStateAction.createJButtonNoText()));
-        toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
-        toolBar.addSeparator();
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
         toolBar.add(runToBreak.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(runModelMicroState.setIndicator(runModelMicroAction.createJButtonNoText()));
         toolBar.add(doStep.createJButtonNoText());
-        toolBar.addSeparator();
-
-        librarySelector = new LibrarySelector(library, shapeFactory, elementState);
-        bar.add(librarySelector.buildMenu(new InsertHistory(toolBar), circuitComponent));
-
-        getContentPane().add(toolBar, BorderLayout.NORTH);
-
-        setJMenuBar(bar);
-        InfoDialog.getInstance().addToFrame(this, MESSAGE);
-
-        setPreferredSize(new Dimension(800, 600));
-        pack();
-        setLocationRelativeTo(parent);
     }
 
-    private JMenu createAanalyseMenu() {
+    private JMenu createAnalyseMenu(JMenuBar menuBar) {
         JMenu analyse = new JMenu(Lang.get("menu_analyse"));
+        menuBar.add(analyse);
         analyse.add(new ToolTipAction(Lang.get("menu_analyse")) {
             @Override
             public void actionPerformed(ActionEvent e) {
