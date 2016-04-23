@@ -45,6 +45,6 @@ public class TestExport extends TestCase {
                 = export("dig/processor/Processor_fibonacci.dig",
                 (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1));
 
-        assertTrue(baos.size() > 50000);
+        assertTrue(baos.size() > 45000);
     }
 }

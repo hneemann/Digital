@@ -38,7 +38,7 @@ public class TestExecuter {
 
         ModelDescription mb = new ModelDescription(circuit, library);
 
-        return new TestExecuter(mb.createModel(), true).setUp(mb);
+        return new TestExecuter(mb.createModel(false), true).setUp(mb);
     }
 
 

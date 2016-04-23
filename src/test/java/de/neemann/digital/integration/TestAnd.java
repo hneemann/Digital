@@ -31,7 +31,7 @@ public class TestAnd extends TestCase {
         Circuit circuit = Circuit.loadCircuit(filename, new ShapeFactory(new ElementLibrary()));
 
         ModelDescription md = new ModelDescription(circuit, library);
-        Model model = md.createModel();
+        Model model = md.createModel(false);
 
         List<Node> nodes = model.getNodes();
         assertEquals(1, nodes.size());

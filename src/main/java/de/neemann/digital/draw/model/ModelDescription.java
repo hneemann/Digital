@@ -160,16 +160,17 @@ public class ModelDescription implements Iterable<ModelEntry> {
     /**
      * Creates the model
      *
+     * @param attachWires if true the wires are attached to the values
      * @return the model
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public Model createModel() throws PinException, NodeException {
+    public Model createModel(boolean attachWires) throws PinException, NodeException {
 
         Model m = new Model();
 
         for (Net n : netList)
-            n.interconnect(m);
+            n.interconnect(m, attachWires);
 
         for (ModelEntry e : entries)
             e.applyInputs();

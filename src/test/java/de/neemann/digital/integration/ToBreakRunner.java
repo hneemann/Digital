@@ -55,7 +55,7 @@ public class ToBreakRunner {
         librarySelector.setFilePath(filename.getParentFile());
 
         ModelDescription md = new ModelDescription(circuit, library);
-        model = md.createModel();
+        model = md.createModel(false);
         model.init(true);
     }
 

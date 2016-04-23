@@ -94,7 +94,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     /**
-     * Creates a new instanve
+     * Creates a new instance
      *
      * @param parent        the parent component
      * @param fileToOpen    a file to open
@@ -334,7 +334,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel();
+                    Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
 
                     SpeedTest speedTest = new SpeedTest(model);
                     double frequency = speedTest.calculate();
@@ -377,7 +377,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel();
+                    Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
                     new TableDialog(Main.this, new ModelAnalyser(model).analyse()).setVisible(true);
                     elementState.activate();
                 } catch (PinException | NodeException | AnalyseException e1) {
@@ -393,7 +393,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     private void orderMeasurements() {
         try {
-            Model m = new ModelDescription(circuitComponent.getCircuit(), library).createModel();
+            Model m = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
             elementState.activate();
             ArrayList<String> names = new ArrayList<>();
             for (Model.Signal s : m.getSignals())
@@ -455,22 +455,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         model = null;
     }
 
-    private void setModelDescription(ModelDescription md) throws NodeException, PinException {
-        modelDescription = md;
-
-        if (model != null)
-            model.close();
-
-        model = modelDescription.createModel();
-    }
-
-
     private boolean createAndStartModel(boolean globalRunClock, ModelEvent updateEvent) {
         try {
             circuitComponent.removeHighLighted();
             circuitComponent.setModeAndReset(true);
 
-            setModelDescription(new ModelDescription(circuitComponent.getCircuit(), library));
+            modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
+
+            if (model != null)
+                model.close();
+
+            model = modelDescription.createModel(true);
 
             boolean runClock = false;
             if (globalRunClock)

@@ -123,9 +123,10 @@ public class Net {
      * At the end all wires get a reference to the {@link ObservableValue} the represent
      *
      * @param m the model is needed to create the {@link DataBus}
+     * @param attachWires if true, the values are attached to the wires
      * @throws PinException PinException
      */
-    public void interconnect(Model m) throws PinException {
+    public void interconnect(Model m, boolean attachWires) throws PinException {
         ArrayList<Pin> inputs = new ArrayList<>();
         ArrayList<Pin> outputs = new ArrayList<>();
         for (Pin p : pins) {
@@ -154,7 +155,7 @@ public class Net {
         for (Pin o : outputs)  // set also the reader for bidirectional pins
             o.setReaderValue(value);
 
-        if (wires != null)
+        if (wires != null && attachWires)
             for (Wire w : wires)
                 w.setValue(value);
     }
