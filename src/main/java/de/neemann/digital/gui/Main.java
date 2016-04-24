@@ -172,6 +172,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         setLocationRelativeTo(parent);
     }
 
+    /**
+     * Creates the file menu and adds it to menu and toolbar
+     *
+     * @param menuBar    the menuBar
+     * @param toolBar    the toolBar
+     * @param normalMode if false, menu is added in nested mode
+     * @return the save action
+     */
     private ToolTipAction createFileMenu(JMenuBar menuBar, JToolBar toolBar, boolean normalMode) {
         ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new"), ICON_NEW) {
             @Override
@@ -252,6 +260,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         return save;
     }
 
+    /**
+     * Creates the edit menu
+     *
+     * @param menuBar            the menu bar
+     * @param elementStateAction state action to add to menu
+     */
     private void createEditMenu(JMenuBar menuBar, ToolTipAction elementStateAction) {
         JMenu edit = new JMenu(Lang.get("menu_edit"));
         menuBar.add(edit);
@@ -294,6 +308,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         edit.add(editAttributes.createJMenuItem());
     }
 
+    /**
+     * Creates the start menu
+     *
+     * @param menuBar the menu bar
+     * @param toolBar the tool bar
+     */
     private void createStartMenu(JMenuBar menuBar, JToolBar toolBar) {
         doStep = new ToolTipAction(Lang.get("menu_step"), ICON_STEP) {
             @Override
@@ -370,7 +390,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         toolBar.add(doStep.createJButtonNoText());
     }
 
-    private JMenu createAnalyseMenu(JMenuBar menuBar) {
+    /**
+     * Creates the analyse menu
+     *
+     * @param menuBar the menu bar
+     */
+    private void createAnalyseMenu(JMenuBar menuBar) {
         JMenu analyse = new JMenu(Lang.get("menu_analyse"));
         menuBar.add(analyse);
         analyse.add(new ToolTipAction(Lang.get("menu_analyse")) {
@@ -387,8 +412,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         }
                 .setToolTip(Lang.get("menu_analyse_tt"))
                 .createJMenuItem());
-
-        return analyse;
     }
 
     private void orderMeasurements() {
