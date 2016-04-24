@@ -107,7 +107,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                 lastPath = path;
             }
             subMenu.add(new InsertAction(elementContainer.getDescription(), insertHistory, circuitComponent)
-                    .setToolTip(createToolTipText(elementContainer.getDescription().getTranslatedName()))
+                    .setToolTip(createToolTipText(elementContainer.getDescription().getName()))
                     .createJMenuItem());
         }
 
