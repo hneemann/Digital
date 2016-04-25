@@ -18,7 +18,7 @@ public class InsertHistory {
     private int mainTime;
 
     /**
-     * Creates a new instace
+     * Creates a new instance
      *
      * @param bar the toolbar to put the elements to
      */
