@@ -26,7 +26,7 @@ public class TestExamples extends TestCase {
     }
 
     public void testProcessor() throws Exception {
-        assertEquals(16, scan(new File(examples, "processor")));
+        assertEquals(15, scan(new File(examples, "processor")));
     }
 
     public void testHazard() throws Exception {
