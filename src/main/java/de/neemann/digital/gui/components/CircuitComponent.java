@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * @author hneemann
@@ -323,21 +324,25 @@ public class CircuitComponent extends JComponent {
 
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
         private Vector pos;
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            activeMouseController.clicked(e);
-        }
+        private boolean isMoved;
 
         @Override
         public void mousePressed(MouseEvent e) {
             pos = new Vector(e.getX(), e.getY());
+            isMoved = false;
             activeMouseController.pressed(e);
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
             activeMouseController.released(e);
+            if (!wasMoved(e))
+                activeMouseController.clicked(e);
+        }
+
+        private boolean wasMoved(MouseEvent e) {
+            Vector d = new Vector(e.getX(), e.getY()).sub(pos);
+            return Math.abs(d.x) > SIZE2 || Math.abs(d.y) > SIZE2;
         }
 
         @Override
@@ -347,13 +352,16 @@ public class CircuitComponent extends JComponent {
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            if (!activeMouseController.dragged(e)) {
-                Vector newPos = new Vector(e.getX(), e.getY());
-                Vector delta = newPos.sub(pos);
-                double s = transform.getScaleX();
-                transform.translate(delta.x / s, delta.y / s);
-                pos = newPos;
-                repaint();
+            if (wasMoved(e) || isMoved) {
+                isMoved = true;
+                if (!activeMouseController.dragged(e)) {
+                    Vector newPos = new Vector(e.getX(), e.getY());
+                    Vector delta = newPos.sub(pos);
+                    double s = transform.getScaleX();
+                    transform.translate(delta.x / s, delta.y / s);
+                    pos = newPos;
+                    repaint();
+                }
             }
         }
 
