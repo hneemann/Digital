@@ -183,11 +183,11 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     /**
-     * @return the bounding box of the shape of this element
+     * @return the bounding box of the shape of this element, text is ignored
      */
     public GraphicMinMax getMinMax() {
         if (minMax == null) {
-            GraphicMinMax mm = new GraphicMinMax();
+            GraphicMinMax mm = new GraphicMinMax(false);
             drawShape(mm, false);
             minMax = mm;
         }
@@ -205,10 +205,11 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * Is used to create the icons in the element menu
      *
      * @param maxHeight the maximum height
-     * @return the icon or null if the maximum height is exceeded.
+     * @return the created icon
      */
     public ImageIcon createIcon(int maxHeight) {
-        GraphicMinMax mm = getMinMax();
+        GraphicMinMax mm = new GraphicMinMax();
+        drawShape(mm, false);
 
         double scale = 0.5;
         if (mm.getMax().y - mm.getMin().y > maxHeight / scale)

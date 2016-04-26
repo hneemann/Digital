@@ -4,15 +4,32 @@ import static de.neemann.digital.core.element.ElementAttributes.cleanLabel;
 
 /**
  * This class is used to determine the size of shapes or the whole circuit.
- * You can draw the items to a instance of this class an then obtain the size
+ * You can draw the items to an instance of this class and then obtain the size
  * by the getters getMin() and getMax().
  *
  * @author hneemann
  */
 public class GraphicMinMax implements Graphic {
 
+    private final boolean includeText;
     private Vector min;
     private Vector max;
+
+    /**
+     * Creates a new instance
+     */
+    public GraphicMinMax() {
+        this(true);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param includeText true if text is included in measurement
+     */
+    public GraphicMinMax(boolean includeText) {
+        this.includeText = includeText;
+    }
 
     @Override
     public void drawLine(Vector p1, Vector p2, Style style) {
@@ -44,7 +61,8 @@ public class GraphicMinMax implements Graphic {
 
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
-        approxTextSize(this, p1, p2, text, orientation, style);
+        if (includeText)
+            approxTextSize(this, p1, p2, text, orientation, style);
     }
 
     /**
@@ -64,7 +82,7 @@ public class GraphicMinMax implements Graphic {
             Vector height = new Vector(delta.y, -delta.x).mul(style.getFontSize()).div(128);
 
             int div = 190;
-            if (text.length() > 15) div = 240;
+            if (text.length() > 2) div = 220;
             Vector width = delta.mul(text.length() * style.getFontSize()).div(div);
 
 
