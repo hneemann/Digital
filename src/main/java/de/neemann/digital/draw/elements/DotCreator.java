@@ -38,13 +38,6 @@ public class DotCreator {
         map = null;
     }
 
-    /**
-     * @return the list of necessary dots
-     */
-    public ArrayList<Dot> getDots() {
-        return dots;
-    }
-
     private void inc(Vector vector, Wire w) {
         Dot c = map.get(vector);
         if (c == null) {
@@ -67,7 +60,7 @@ public class DotCreator {
     /**
      * A single dot
      */
-    public static class Dot {
+    private static class Dot {
         private final Vector vector;
         private final Wire w;
         private int counter;
