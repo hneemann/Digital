@@ -38,8 +38,6 @@ public class WireConsistencyCheckerTest extends TestCase {
         checkContains(wires, new Wire(new Vector(10, 0), new Vector(10, 10)));
     }
 
-    /* */
-
     public void testCheck3() throws Exception {
         ArrayList<Wire> wires = new ArrayList<>();
         wires.add(new Wire(new Vector(0, 0), new Vector(10, 0)));
@@ -54,6 +52,18 @@ public class WireConsistencyCheckerTest extends TestCase {
         checkContains(wires, new Wire(new Vector(10, 0), new Vector(20, 0)));
         checkContains(wires, new Wire(new Vector(10, 0), new Vector(10, 10)));
         checkContains(wires, new Wire(new Vector(10, 0), new Vector(10, -10)));
+    }
+
+    public void testCheck4() throws Exception {
+        ArrayList<Wire> wires = new ArrayList<>();
+        wires.add(new Wire(new Vector(0, 10), new Vector(20, 10)));
+        wires.add(new Wire(new Vector(10, 0), new Vector(10, 20)));
+
+        wires = new WireConsistencyChecker(wires).check();
+
+        assertEquals(2, wires.size());
+        checkContains(wires, new Wire(new Vector(0, 10), new Vector(20, 10)));
+        checkContains(wires, new Wire(new Vector(10, 0), new Vector(10, 20)));
     }
 
     public static void checkContains(ArrayList<Wire> wires, Wire wire) {
