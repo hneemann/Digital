@@ -59,7 +59,7 @@ public class CustomElement implements Element {
     @Override
     public ObservableValue[] getOutputs() {
         try {
-            return circuit.getOutputNames(library);
+            return circuit.getOutputNames();
         } catch (PinException e) {
             throw new RuntimeException(e);
         }

@@ -11,7 +11,6 @@ import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
@@ -388,11 +387,10 @@ public class Circuit {
     /**
      * returns a list of all input names of this circuit
      *
-     * @param library the library
      * @return the list of input names
      * @throws PinException PinException
      */
-    public PinDescription[] getInputNames(ElementLibrary library) throws PinException {
+    public PinDescription[] getInputNames() throws PinException {
         ArrayList<PinDescription> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
             if (ve.getElementName().equals(In.DESCRIPTION.getName())) {
@@ -415,11 +413,10 @@ public class Circuit {
      * with a nested model are removed from the model and replaced by a direct connection of the input or output
      * and the wires of the containing model.
      *
-     * @param library the library
      * @return the list of output ObservableValues
      * @throws PinException PinException
      */
-    public ObservableValue[] getOutputNames(ElementLibrary library) throws PinException {
+    public ObservableValue[] getOutputNames() throws PinException {
         ArrayList<ObservableValue> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
             if (ve.getElementName().equals(Out.DESCRIPTION.getName())) {
