@@ -3,6 +3,7 @@ package de.neemann.digital.draw.elements;
 import de.neemann.digital.draw.graphics.Vector;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -61,19 +62,19 @@ public class WireMerger {
     }
 
     /**
-     * Protects the dot.
-     * Ensures that wires are not merged if the connection is necessary for a wire connection
+     * Protects the given coordinates
+     * Ensures that wires are not merged if the connection is necessary for a wire to wire connection
      *
-     * @param dots the dot positions
+     * @param points the coordinated to protect
      */
-    public void protectDots(ArrayList<DotCreator.Dot> dots) {
-        for (DotCreator.Dot d : dots) {
-            Vector v = d.getVector();
+    public void protectPoints(Collection<Vector> points) {
+        for (Vector v : points) {
             WireContainer wc = wireContainers.get(handler.getWireClass(v));
             if (wc != null)    // is possible because diagonals are not included
                 wc.protect(handler.getS(v));
         }
     }
+
 
     interface OrientationHandler {
         Wire toWire(SimpleWire wire);

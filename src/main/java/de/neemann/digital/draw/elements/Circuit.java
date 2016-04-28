@@ -97,8 +97,6 @@ public class Circuit {
      * @throws IOException IOException
      */
     public void save(File filename) throws IOException {
-        wires = new WireConsistencyChecker(wires).check();
-        dotsPresent = false;
         XStream xStream = Circuit.getxStream();
         try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
@@ -190,19 +188,18 @@ public class Circuit {
         if (newWire.p1.equals(newWire.p2))
             return;
 
-        int len = wires.size();
-        for (int i = 0; i < len; i++) {
-            Wire present = wires.get(i);
-            if (present.contains(newWire.p1)) {
-                wires.set(i, new Wire(present.p1, newWire.p1));
-                wires.add(new Wire(present.p2, newWire.p1));
-            } else if (present.contains(newWire.p2)) {
-                wires.set(i, new Wire(present.p1, newWire.p2));
-                wires.add(new Wire(present.p2, newWire.p2));
-            }
-        }
-
         wires.add(newWire);
+        WireConsistencyChecker checker = new WireConsistencyChecker(wires);
+        wires = checker.check();
+
+        dotsPresent = false;
+        modified();
+    }
+
+    /**
+     * Called if elements are moved
+     */
+    public void elementsMoved() {
         WireConsistencyChecker checker = new WireConsistencyChecker(wires);
         wires = checker.check();
 
@@ -464,4 +461,5 @@ public class Circuit {
     public void setMeasurementOrdering(List<String> measurementOrdering) {
         this.measurementOrdering = measurementOrdering;
     }
+
 }

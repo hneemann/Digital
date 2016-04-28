@@ -646,6 +646,7 @@ public class CircuitComponent extends JComponent {
     private final class MouseControllerMoveSelected extends MouseController {
         private ArrayList<Moveable> elements;
         private Vector lastPos;
+        private boolean wasMoved;
 
         private MouseControllerMoveSelected(Cursor cursor) {
             super(cursor);
@@ -654,6 +655,7 @@ public class CircuitComponent extends JComponent {
         private void activate(Vector corner1, Vector corner2, Vector pos) {
             super.activate();
             lastPos = pos;
+            wasMoved = false;
             elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
         }
 
@@ -666,7 +668,7 @@ public class CircuitComponent extends JComponent {
                 if (delta.x != 0 || delta.y != 0) {
                     for (Moveable m : elements)
                         m.move(delta);
-                    circuit.modified();
+                    wasMoved = true;
 
                     repaint();
                     lastPos = lastPos.add(delta);
@@ -677,6 +679,8 @@ public class CircuitComponent extends JComponent {
 
         @Override
         void released(MouseEvent e) {
+            if (wasMoved)
+                circuit.elementsMoved();
             mouseNormal.activate();
         }
     }
