@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <version>1</version>
+    <visualElements>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>$A$</string>
+                </entry>
+            </elementAttributes>
+            <pos x="220" y="300"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>$B$</string>
+                </entry>
+            </elementAttributes>
+            <pos x="220" y="360"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>BO_0</string>
+                </entry>
+            </elementAttributes>
+            <pos x="220" y="420"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>$S$</string>
+                </entry>
+            </elementAttributes>
+            <pos x="540" y="300"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>BO_1</string>
+                </entry>
+            </elementAttributes>
+            <pos x="540" y="340"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>HalfSub.dig</elementName>
+            <elementAttributes/>
+            <pos x="260" y="300"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>HalfSub.dig</elementName>
+            <elementAttributes/>
+            <pos x="380" y="300"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Or</elementName>
+            <elementAttributes/>
+            <pos x="460" y="320"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="240" y="320"/>
+            <p2 x="260" y="320"/>
+        </wire>
+        <wire>
+            <p1 x="360" y="320"/>
+            <p2 x="380" y="320"/>
+        </wire>
+        <wire>
+            <p1 x="440" y="320"/>
+            <p2 x="460" y="320"/>
+        </wire>
+        <wire>
+            <p1 x="320" y="320"/>
+            <p2 x="340" y="320"/>
+        </wire>
+        <wire>
+            <p1 x="520" y="340"/>
+            <p2 x="540" y="340"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="420"/>
+            <p2 x="360" y="420"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="360"/>
+            <p2 x="240" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="340" y="360"/>
+            <p2 x="460" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="300"/>
+            <p2 x="260" y="300"/>
+        </wire>
+        <wire>
+            <p1 x="320" y="300"/>
+            <p2 x="380" y="300"/>
+        </wire>
+        <wire>
+            <p1 x="440" y="300"/>
+            <p2 x="540" y="300"/>
+        </wire>
+        <wire>
+            <p1 x="240" y="320"/>
+            <p2 x="240" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="340" y="320"/>
+            <p2 x="340" y="360"/>
+        </wire>
+        <wire>
+            <p1 x="360" y="320"/>
+            <p2 x="360" y="420"/>
+        </wire>
+    </wires>
+</circuit>
