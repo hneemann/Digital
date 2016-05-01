@@ -44,6 +44,6 @@ public class TextShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
-        graphic.drawText(new Vector(0, 0), new Vector(1, 0), label, Orientation.LEFTTOP, Style.NORMAL);
+        graphic.drawText(new Vector(0, 0), new Vector(1, 0), label, Orientation.LEFTTOP, Style.NORMAL_TEXT);
     }
 }

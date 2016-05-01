@@ -13,6 +13,12 @@ public class Style {
      */
     public static final Style NORMAL = new Style(4, false, Color.BLACK);
     /**
+     * Used for text which is integral part of the shape.
+     * Text which uses this style is always included in sizing!
+     * Used for text only elements.
+     */
+    public static final Style NORMAL_TEXT = new Style(4, false, Color.BLACK);
+    /**
      * thin line used for the graphic in the clock or delay shape
      */
     public static final Style THIN = new Style(2, false, Color.BLACK);
