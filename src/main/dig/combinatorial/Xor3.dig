@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <version>1</version>
+    <visualElements>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>$A$</string>
+                </entry>
+            </elementAttributes>
+            <pos x="180" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>$B$</string>
+                </entry>
+            </elementAttributes>
+            <pos x="180" y="240"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>$Y$</string>
+                </entry>
+            </elementAttributes>
+            <pos x="560" y="180"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>NAnd</elementName>
+            <elementAttributes/>
+            <pos x="460" y="160"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>NAnd</elementName>
+            <elementAttributes/>
+            <pos x="340" y="120"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>NAnd</elementName>
+            <elementAttributes/>
+            <pos x="340" y="200"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>NAnd</elementName>
+            <elementAttributes/>
+            <pos x="240" y="100"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>NAnd</elementName>
+            <elementAttributes/>
+            <pos x="240" y="220"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="200" y="160"/>
+            <p2 x="320" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="200"/>
+            <p2 x="320" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="320" y="160"/>
+            <p2 x="340" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="440" y="160"/>
+            <p2 x="460" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="180" y="240"/>
+            <p2 x="200" y="240"/>
+        </wire>
+        <wire>
+            <p1 x="320" y="240"/>
+            <p2 x="340" y="240"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="240"/>
+            <p2 x="220" y="240"/>
+        </wire>
+        <wire>
+            <p1 x="540" y="180"/>
+            <p2 x="560" y="180"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="100"/>
+            <p2 x="240" y="100"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="260"/>
+            <p2 x="240" y="260"/>
+        </wire>
+        <wire>
+            <p1 x="180" y="120"/>
+            <p2 x="200" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="320" y="120"/>
+            <p2 x="340" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="120"/>
+            <p2 x="220" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="440" y="200"/>
+            <p2 x="460" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="320" y="200"/>
+            <p2 x="340" y="200"/>
+        </wire>
+        <wire>
+            <p1 x="420" y="220"/>
+            <p2 x="440" y="220"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="220"/>
+            <p2 x="240" y="220"/>
+        </wire>
+        <wire>
+            <p1 x="420" y="140"/>
+            <p2 x="440" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="140"/>
+            <p2 x="240" y="140"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="120"/>
+            <p2 x="200" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="200" y="200"/>
+            <p2 x="200" y="240"/>
+        </wire>
+        <wire>
+            <p1 x="440" y="200"/>
+            <p2 x="440" y="220"/>
+        </wire>
+        <wire>
+            <p1 x="440" y="140"/>
+            <p2 x="440" y="160"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="100"/>
+            <p2 x="220" y="120"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="220"/>
+            <p2 x="220" y="240"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="240"/>
+            <p2 x="220" y="260"/>
+        </wire>
+        <wire>
+            <p1 x="220" y="120"/>
+            <p2 x="220" y="140"/>
+        </wire>
+    </wires>
+</circuit>
