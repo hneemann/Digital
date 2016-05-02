@@ -1,1 +1,1 @@
-@echo chmod not available under Windows
+@echo chmod not available at Windows
