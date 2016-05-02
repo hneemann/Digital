@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+    <version>1</version>
+    <visualElements>
+        <visualElement>
+            <elementName>selectInnerLongName.dig</elementName>
+            <elementAttributes/>
+            <pos x="0" y="0"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes/>
+            <pos x="-80" y="0"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>In</elementName>
+            <elementAttributes/>
+            <pos x="-80" y="40"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Out</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Out</string>
+                </entry>
+            </elementAttributes>
+            <pos x="180" y="20"/>
+            <rotate>0</rotate>
+        </visualElement>
+        <visualElement>
+            <elementName>Text</elementName>
+            <elementAttributes>
+                <entry>
+                    <string>Label</string>
+                    <string>Long Text</string>
+                </entry>
+            </elementAttributes>
+            <pos x="0" y="100"/>
+            <rotate>0</rotate>
+        </visualElement>
+    </visualElements>
+    <wires>
+        <wire>
+            <p1 x="-80" y="0"/>
+            <p2 x="0" y="0"/>
+        </wire>
+        <wire>
+            <p1 x="60" y="20"/>
+            <p2 x="180" y="20"/>
+        </wire>
+        <wire>
+            <p1 x="-80" y="40"/>
+            <p2 x="0" y="40"/>
+        </wire>
+    </wires>
+</circuit>
