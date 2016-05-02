@@ -10,6 +10,11 @@
             <source>${basedir}/target/Digital.jar</source>
             <outputDirectory>/</outputDirectory>
         </file>
+        <file>
+            <source>${basedir}/Version.txt</source>
+            <outputDirectory>/</outputDirectory>
+            <filtered>true</filtered>
+        </file>
     </files>
     <fileSets>
         <fileSet>
