@@ -80,12 +80,10 @@ public class GraphicMinMax implements Graphic {
      */
     public static void approxTextSize(Graphic gr, Vector p1, Vector p2, String text, Orientation orientation, Style style) {
         if (text != null && text.length() > 0) {
-            text = cleanLabel(text);
             Vector delta = p2.sub(p1).norm128();
             Vector height = new Vector(delta.y, -delta.x).mul(style.getFontSize()).div(128);
 
-            Rectangle2D sb = style.getFont().getStringBounds(text, new FontRenderContext(null, true, false));
-            int textWidth = (int) sb.getWidth();
+            int textWidth = getTextWidth(text, style);
             Vector width = delta.mul(textWidth).div(128);
 
             if (p1.y == p2.y) {   // 0 and 180 deg
@@ -115,6 +113,19 @@ public class GraphicMinMax implements Graphic {
                     .add(p.add(width).add(height))
                     .add(p.add(height)), Style.THIN);
         }
+    }
+
+    /**
+     * Returns a approximation of the width of the given text in the given style
+     *
+     * @param text  the text
+     * @param style the style
+     * @return the approximated text width
+     */
+    public static int getTextWidth(String text, Style style) {
+        text = cleanLabel(text);
+        Rectangle2D sb = style.getFont().getStringBounds(text, new FontRenderContext(null, true, false));
+        return (int) sb.getWidth();
     }
 
     /**
