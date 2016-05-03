@@ -167,7 +167,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         setJMenuBar(menuBar);
         InfoDialog.getInstance().addToFrame(this, MESSAGE);
 
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(1024, 768));
         pack();
         setLocationRelativeTo(parent);
     }
