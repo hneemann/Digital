@@ -9,7 +9,6 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
@@ -18,6 +17,9 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * @author hneemann
  */
 public class TunnelShape implements Shape {
+
+    private static final int HEIGHT = SIZE2 - 2;
+    private static final int WIDTH = (int) Math.round(HEIGHT * Math.sqrt(3));
 
     private final PinDescription input;
     private final String label;
@@ -57,10 +59,10 @@ public class TunnelShape implements Shape {
 //        }
 
         gr.drawPolygon(new Polygon(true)
-                .add(0, 0)
-                .add(SIZE, SIZE2 - 3)
-                .add(SIZE, -SIZE2 + 3), Style.NORMAL);
-        Vector pos = new Vector(SIZE + SIZE2 / 2, 0);
+                .add(1, 0)
+                .add(WIDTH, HEIGHT)
+                .add(WIDTH, -HEIGHT), Style.NORMAL);
+        Vector pos = new Vector(WIDTH + SIZE2 / 2, 0);
         gr.drawText(pos, pos.add(1, 0), label, Orientation.LEFTCENTER, Style.SHAPE_PIN);
     }
 }
