@@ -1,5 +1,8 @@
 package de.neemann.digital.draw.graphics;
 
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
+
 import static de.neemann.digital.core.element.ElementAttributes.cleanLabel;
 
 /**
@@ -81,10 +84,9 @@ public class GraphicMinMax implements Graphic {
             Vector delta = p2.sub(p1).norm128();
             Vector height = new Vector(delta.y, -delta.x).mul(style.getFontSize()).div(128);
 
-            int div = 190;
-            if (text.length() > 2) div = 220;
-            Vector width = delta.mul(text.length() * style.getFontSize()).div(div);
-
+            Rectangle2D sb = style.getFont().getStringBounds(text, new FontRenderContext(null, true, false));
+            int textWidth = (int) sb.getWidth();
+            Vector width = delta.mul(textWidth).div(128);
 
             if (p1.y == p2.y) {   // 0 and 180 deg
                 if (p1.x > p2.x)   // 180
