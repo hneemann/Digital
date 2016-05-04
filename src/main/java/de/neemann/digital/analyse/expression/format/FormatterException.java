@@ -5,7 +5,7 @@ package de.neemann.digital.analyse.expression.format;
  *
  * @author hneemann
  */
-public class FormatterException extends Throwable {
+public class FormatterException extends Exception {
     /**
      * Creates a new instance
      *

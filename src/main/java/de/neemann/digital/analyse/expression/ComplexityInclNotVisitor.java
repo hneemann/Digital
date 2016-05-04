@@ -12,6 +12,11 @@ public class ComplexityInclNotVisitor implements ExpressionVisitor {
         return true;
     }
 
+    /**
+     * Returns a measure for the complexity of the examined expression
+     *
+     * @return the complexity
+     */
     public int getComplexity() {
         return counter;
     }

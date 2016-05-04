@@ -6,12 +6,20 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 
 /**
+ * Creates a bool table from the given expression
+ *
  * @author hneemann
  */
 public class BoolTableExpression implements BoolTable {
     private final Expression expression;
     private final ContextFiller context;
 
+    /**
+     * Creates a new instance
+     *
+     * @param expression the expression
+     * @param context    the context to evaluate the expression
+     */
     public BoolTableExpression(Expression expression, ContextFiller context) {
         this.expression = expression;
         this.context = context;

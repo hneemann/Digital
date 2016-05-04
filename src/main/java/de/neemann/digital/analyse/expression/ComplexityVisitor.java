@@ -13,6 +13,12 @@ public class ComplexityVisitor implements ExpressionVisitor {
         return true;
     }
 
+    /**
+     * Returns a measure for the complexity of the examined expression
+     * The Not expression does not increase this complexity measure
+     *
+     * @return the complexity
+     */
     public int getComplexity() {
         return counter;
     }
