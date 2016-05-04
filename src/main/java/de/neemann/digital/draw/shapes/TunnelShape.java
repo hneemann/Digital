@@ -59,7 +59,7 @@ public class TunnelShape implements Shape {
 //        }
 
         gr.drawPolygon(new Polygon(true)
-                .add(1, 0)
+                .add(0, 0)
                 .add(WIDTH, HEIGHT)
                 .add(WIDTH, -HEIGHT), Style.NORMAL);
         Vector pos = new Vector(WIDTH + SIZE2 / 2, 0);
