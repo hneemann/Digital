@@ -1,0 +1,87 @@
+package de.neemann.digital.analyse.quinemc;
+
+import de.neemann.digital.analyse.expression.ContextFiller;
+import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
+import junit.framework.TestCase;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import static de.neemann.digital.analyse.expression.Operation.or;
+
+/**
+ * @author hneemann
+ */
+public class QuineMcCluskyRegressionTest extends TestCase {
+
+    public void testRegression() throws Exception, FormatterException {
+        testRegression(8, 128);
+        testRegression(8, 16);
+        testRegression(4, 8);
+        testRegression(4, 4);
+    }
+
+    public void testRegression2() throws Exception, FormatterException {
+        for (int i = 0; i < 100; i++) {
+            testRegression(5, 16);
+            testRegression(5, 8);
+            testRegression(5, 4);
+        }
+    }
+
+    public void testRegression3() throws Exception, FormatterException {
+        Variable a = new Variable("A");
+        Variable b = new Variable("B");
+        Variable c = new Variable("C");
+        Variable d = new Variable("D");
+        ArrayList<Variable> vars = new ArrayList<>();
+        vars.add(a);
+        vars.add(b);
+        vars.add(c);
+        vars.add(d);
+        QuineMcClusky t = new QuineMcClusky(vars);
+
+        Expression ex = or(a, c);
+        t.fillTableWith(new BoolTableExpression(ex, new ContextFiller(vars)));
+
+        System.out.println("--");
+        while (!t.isFinished()) {
+            System.out.println(FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
+            t = t.simplifyStep().removeDuplicates();
+        }
+        t.simplifyPrimes(PrimeSelector.DEFAULT);
+        assertEquals("A || C", FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
+        System.out.println("--");
+    }
+
+
+    public static void testRegression(int n, int j) throws Exception, FormatterException {
+        int size = 1 << n;
+        boolean[] table = new boolean[size];
+
+        ArrayList<Integer> index = new ArrayList<>();
+        for (int i = 0; i < size; i++) index.add(i);
+        Collections.shuffle(index);
+
+        for (int i = 0; i < j; i++)
+            table[index.get(i)] = true;
+
+        ArrayList<Variable> var = Variable.vars(n);
+
+        Expression expression =
+                new QuineMcClusky(var)
+                        .fillTableWith(new BoolTableBoolArray(table))
+                        .simplify()
+                        .getExpression();
+
+        ContextFiller cf = new ContextFiller(var);
+
+        for (int i = 0; i < table.length; i++)
+            assertEquals(table[i], expression.calculate(cf.setContextTo(i)));
+
+    }
+}
