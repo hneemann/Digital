@@ -1,0 +1,38 @@
+package de.neemann.digital.analyse.expression;
+
+import java.util.Collection;
+import java.util.HashSet;
+
+/**
+ * Visitor to collect all used variables in an expression
+ *
+ * @author hneemann
+ */
+public class VariableVisitor implements ExpressionVisitor {
+
+    private final HashSet<Variable> variables;
+
+    /**
+     * Creates a new instance
+     */
+    public VariableVisitor() {
+        variables = new HashSet<>();
+    }
+
+    @Override
+    public boolean visit(Expression expression) {
+        if (expression instanceof Variable) {
+            variables.add((Variable) expression);
+        }
+        return true;
+    }
+
+    /**
+     * Rerurns all used variables
+     *
+     * @return used variables
+     */
+    public Collection<Variable> getVariables() {
+        return variables;
+    }
+}
