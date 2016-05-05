@@ -16,7 +16,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 /**
  * @author hneemann
  */
-public class QuineMcCluskyRegressionTest extends TestCase {
+public class QuineMcCluskeyRegressionTest extends TestCase {
 
     public void testRegression() throws Exception, FormatterException {
         testRegression(8, 128);
@@ -43,7 +43,7 @@ public class QuineMcCluskyRegressionTest extends TestCase {
         vars.add(b);
         vars.add(c);
         vars.add(d);
-        QuineMcClusky t = new QuineMcClusky(vars);
+        QuineMcCluskey t = new QuineMcCluskey(vars);
 
         Expression ex = or(a, c);
         t.fillTableWith(new BoolTableExpression(ex, new ContextFiller(vars)));
@@ -73,7 +73,7 @@ public class QuineMcCluskyRegressionTest extends TestCase {
         ArrayList<Variable> var = Variable.vars(n);
 
         Expression expression =
-                new QuineMcClusky(var)
+                new QuineMcCluskey(var)
                         .fillTableWith(new BoolTableBoolArray(table))
                         .simplify()
                         .getExpression();

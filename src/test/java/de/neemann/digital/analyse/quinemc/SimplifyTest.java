@@ -20,7 +20,7 @@ public class SimplifyTest extends TestCase {
         Variable a = v("a");
         Variable b = v("b");
         Expression e = or(and(a, b), a);
-        Expression s = QuineMcClusky.simplify(e);
+        Expression s = QuineMcCluskey.simplify(e);
 
         assertEquals("a", FormatToExpression.FORMATTER_UNICODE.format(s));
     }
@@ -29,7 +29,7 @@ public class SimplifyTest extends TestCase {
         Variable a = v("a");
         Variable b = v("b");
         Expression e = and(or(a, b), a);
-        Expression s = QuineMcClusky.simplify(e);
+        Expression s = QuineMcCluskey.simplify(e);
 
         assertEquals("a", FormatToExpression.FORMATTER_UNICODE.format(s));
     }
@@ -39,7 +39,7 @@ public class SimplifyTest extends TestCase {
         Variable b = v("b");
         Variable c = v("c");
         Expression e = and(or(a, b), c);
-        Expression s = QuineMcClusky.simplify(e);
+        Expression s = QuineMcCluskey.simplify(e);
 
         assertNull(s);
     }

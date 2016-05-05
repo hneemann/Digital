@@ -1,5 +1,5 @@
 /**
- * Implementation of the algorithm from Quine and McClusky
+ * Implementation of the algorithm from Quine and McCluskey
  *
  * @author hneemann
  */

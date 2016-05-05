@@ -19,7 +19,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 /**
  * @author hneemann
  */
-public class QuineMcCluskyTest extends TestCase {
+public class QuineMcCluskeyTest extends TestCase {
 
 
     public void testGenerator() throws ExpressionException {
@@ -29,7 +29,7 @@ public class QuineMcCluskyTest extends TestCase {
         Variable d = new Variable("D");
 
         Expression e = or(and(a, and(c, d)), or(and(not(c), not(d)), and(not(b), c)));
-        QuineMcClusky t = new QuineMcClusky(e);
+        QuineMcCluskey t = new QuineMcCluskey(e);
 
         assertEquals("0000,1\n" +
                 "0010,2\n" +
@@ -50,7 +50,7 @@ public class QuineMcCluskyTest extends TestCase {
         Variable d = new Variable("D");
 
         Expression e = or(and(a, and(c, d)), or(and(not(c), not(d)), and(not(b), c)));
-        QuineMcClusky t = new QuineMcClusky(e).simplifyStep();
+        QuineMcCluskey t = new QuineMcCluskey(e).simplifyStep();
         assertFalse(t.isFinished());
 
         assertEquals("00-0,1,2\n" +
@@ -108,7 +108,7 @@ public class QuineMcCluskyTest extends TestCase {
     }
 
     public void testSimplify2() throws ExpressionException, FormatterException {
-        QuineMcClusky t = new QuineMcClusky(Variable.vars("A", "B", "C", "D"));
+        QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C", "D"));
         t.fillTableWith(new BoolTableIntArray(new int[]{1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1}));
         t = t.simplify();
 
@@ -116,7 +116,7 @@ public class QuineMcCluskyTest extends TestCase {
     }
 
     public void testZero() throws Exception {
-        QuineMcClusky t = new QuineMcClusky(Variable.vars("A", "B", "C"));
+        QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C"));
         t.fillTableWith(new BoolTableIntArray(new int[]{0, 0, 0, 0, 0, 0, 0, 0}));
         t = t.simplify();
         Expression e = t.getExpression();
@@ -127,7 +127,7 @@ public class QuineMcCluskyTest extends TestCase {
     }
 
     public void testZero2() throws Exception {
-        QuineMcClusky t = new QuineMcClusky(Variable.vars("A", "B", "C"));
+        QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C"));
         t.fillTableWith(new BoolTableIntArray(new int[]{0, 0, 0, 0, 0, 0, 2, 2}));
         t = t.simplify();
         Expression e = t.getExpression();
@@ -138,7 +138,7 @@ public class QuineMcCluskyTest extends TestCase {
     }
 
     public void testOne() throws Exception {
-        QuineMcClusky t = new QuineMcClusky(Variable.vars("A", "B", "C"));
+        QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C"));
         t.fillTableWith(new BoolTableIntArray(new int[]{1, 1, 1, 1, 1, 1, 1, 1}));
         t = t.simplify();
         Expression e = t.getExpression();
@@ -149,7 +149,7 @@ public class QuineMcCluskyTest extends TestCase {
     }
 
     public void testOne2() throws Exception {
-        QuineMcClusky t = new QuineMcClusky(Variable.vars("A", "B", "C"));
+        QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C"));
         t.fillTableWith(new BoolTableIntArray(new int[]{1, 1, 1, 1, 1, 1, 2, 2}));
         t = t.simplify();
         Expression e = t.getExpression();

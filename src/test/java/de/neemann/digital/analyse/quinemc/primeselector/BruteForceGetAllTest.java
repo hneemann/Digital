@@ -8,7 +8,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.analyse.quinemc.FullVariantDontCareCreator;
-import de.neemann.digital.analyse.quinemc.QuineMcClusky;
+import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 import de.neemann.digital.analyse.quinemc.TableRow;
 import junit.framework.TestCase;
 
@@ -56,7 +56,7 @@ public class BruteForceGetAllTest extends TestCase {
         BruteForceGetAll ps = new BruteForceGetAll();
 
         ArrayList<Variable> v = vars(n);
-        new QuineMcClusky(v)
+        new QuineMcCluskey(v)
                 .fillTableWith(new BoolTableIntArray(tab))
                 .simplify(ps);
 
@@ -64,7 +64,7 @@ public class BruteForceGetAllTest extends TestCase {
         if (solutions != null) {
 
             for (ArrayList<TableRow> sol : solutions) {
-                Expression e = QuineMcClusky.addAnd(null, sol, v);
+                Expression e = QuineMcCluskey.addAnd(null, sol, v);
                 ContextFiller context = new ContextFiller(v);
                 for (int i = 0; i < tab.length; i++) {
                     if (tab[i] <= 1) {

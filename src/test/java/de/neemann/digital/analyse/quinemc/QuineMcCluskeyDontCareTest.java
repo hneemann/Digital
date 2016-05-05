@@ -16,11 +16,11 @@ import static de.neemann.digital.analyse.expression.format.FormatToExpression.FO
 /**
  * @author hneemann
  */
-public class QuineMcCluskyDontCareTest extends TestCase {
+public class QuineMcCluskeyDontCareTest extends TestCase {
 
     public void testDontCare() throws Exception, FormatterException {
         ArrayList<Variable> v = vars("A", "B", "C");
-        Expression e = new QuineMcClusky(v)
+        Expression e = new QuineMcCluskey(v)
                 .fillTableWith(new BoolTableIntArray(new int[]{1, 1, 0, 0, 1, 2, 2, 0}))
                 .simplify()
                 .getExpression();
@@ -67,7 +67,7 @@ public class QuineMcCluskyDontCareTest extends TestCase {
 
     static private void performTestCalculation(int n, int[] tab) throws ExpressionException {
         ArrayList<Variable> v = vars(n);
-        Expression e = new QuineMcClusky(v)
+        Expression e = new QuineMcCluskey(v)
                 .fillTableWith(new BoolTableIntArray(tab))
                 .simplify()
                 .getExpression();
@@ -116,7 +116,7 @@ public class QuineMcCluskyDontCareTest extends TestCase {
 
     private Expression createExpression(int n, int[] tab) throws ExpressionException {
         ArrayList<Variable> v = vars(n);
-        return new QuineMcClusky(v)
+        return new QuineMcCluskey(v)
                 .fillTableWith(new BoolTableIntArray(tab))
                 .simplify()
                 .getExpression();

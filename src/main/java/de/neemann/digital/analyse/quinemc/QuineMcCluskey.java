@@ -12,11 +12,11 @@ import java.util.TreeSet;
 import static de.neemann.digital.analyse.expression.Operation.or;
 
 /**
- * The algorithm from Quine and McClusky
+ * The algorithm from Quine and McCluskey
  *
  * @author hneemann
  */
-public class QuineMcClusky {
+public class QuineMcCluskey {
 
     private final ArrayList<TableRow> rows;
     private final ArrayList<Variable> variables;
@@ -27,13 +27,13 @@ public class QuineMcClusky {
      *
      * @param variables the variables to use
      */
-    public QuineMcClusky(ArrayList<Variable> variables) {
+    public QuineMcCluskey(ArrayList<Variable> variables) {
         this.variables = variables;
         this.rows = new ArrayList<>();
         this.primes = new ArrayList<>();
     }
 
-    private QuineMcClusky(ArrayList<Variable> variables, ArrayList<TableRow> rows, ArrayList<TableRow> primes) {
+    private QuineMcCluskey(ArrayList<Variable> variables, ArrayList<TableRow> rows, ArrayList<TableRow> primes) {
         this.variables = variables;
         this.rows = rows;
         this.primes = primes;
@@ -46,7 +46,7 @@ public class QuineMcClusky {
      * @param expression the expression used to build the table
      * @throws ExpressionException ExpressionException
      */
-    public QuineMcClusky(Expression expression) throws ExpressionException {
+    public QuineMcCluskey(Expression expression) throws ExpressionException {
         ContextFiller context = new ContextFiller(expression);
         variables = context.getVariables();
         rows = new ArrayList<>();
@@ -61,7 +61,7 @@ public class QuineMcClusky {
      * @return this for chained calls
      * @throws ExpressionException ExpressionException
      */
-    public QuineMcClusky fillTableWith(BoolTable values) throws ExpressionException {
+    public QuineMcCluskey fillTableWith(BoolTable values) throws ExpressionException {
         int n = 1 << variables.size();
         if (n != values.size())
             throw new ExpressionException("exact " + n + " values necessary, not " + values.size());
@@ -90,7 +90,7 @@ public class QuineMcClusky {
     public static Expression simplify(Expression expression) throws ExpressionException {
         int initialCplx = expression.traverse(new ComplexityInclNotVisitor()).getComplexity();
 
-        Expression newExp = new QuineMcClusky(expression)
+        Expression newExp = new QuineMcCluskey(expression)
                 .simplify()
                 .getExpression();
 
@@ -107,7 +107,7 @@ public class QuineMcClusky {
      *
      * @return the simplified QMC instance
      */
-    public QuineMcClusky simplify() {
+    public QuineMcCluskey simplify() {
         return simplify(PrimeSelector.DEFAULT);
     }
 
@@ -117,15 +117,15 @@ public class QuineMcClusky {
      * @param ps the prome selector
      * @return the simplified QMC instance
      */
-    public QuineMcClusky simplify(PrimeSelector ps) {
-        QuineMcClusky t = this;
+    public QuineMcCluskey simplify(PrimeSelector ps) {
+        QuineMcCluskey t = this;
         while (!t.isFinished())
             t = t.simplifyStep().removeDuplicates();
         return t.simplifyPrimes(ps);
     }
 
 
-    QuineMcClusky simplifyStep() {
+    QuineMcCluskey simplifyStep() {
         ArrayList<TableRow> newRows = new ArrayList<>();
         for (int i = 0; i < rows.size() - 1; i++)
             for (int j = i + 1; j < rows.size(); j++) {
@@ -154,10 +154,10 @@ public class QuineMcClusky {
             if (!row.isUsed() && row.getSource().size() > 0)
                 np.add(row);
 
-        return new QuineMcClusky(variables, newRows, np);
+        return new QuineMcCluskey(variables, newRows, np);
     }
 
-    QuineMcClusky removeDuplicates() {
+    QuineMcCluskey removeDuplicates() {
         ArrayList<TableRow> newRows = new ArrayList<TableRow>();
         for (TableRow r : rows) {
             int i = newRows.indexOf(r);
@@ -254,7 +254,7 @@ public class QuineMcClusky {
      * @param primeSelector the prome selector to use
      * @return this for call chaning
      */
-    public QuineMcClusky simplifyPrimes(PrimeSelector primeSelector) {
+    public QuineMcCluskey simplifyPrimes(PrimeSelector primeSelector) {
         ArrayList<TableRow> primesAvail = new ArrayList<TableRow>(primes);
         primes.clear();
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * @author hneemann
  */
-public class QuineMcCluskyRowTest extends TestCase {
+public class QuineMcCluskeyRowTest extends TestCase {
 
     public void testSimple() throws FormatterException {
         ArrayList<Variable> vars = Variable.vars("A", "B", "C", "D");
