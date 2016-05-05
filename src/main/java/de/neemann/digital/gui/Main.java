@@ -206,13 +206,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), ICON_OPEN_WIN) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    JFileChooser fc = getJFileChooser(lastFilename);
-                    if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                        Main m = new Main(Main.this, fc.getSelectedFile(), null);
-                        m.setLocationRelativeTo(Main.this);
-                        m.setVisible(true);
-                    }
+                JFileChooser fc = getJFileChooser(lastFilename);
+                if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                    Main m = new Main(Main.this, fc.getSelectedFile(), null);
+                    m.setLocationRelativeTo(Main.this);
+                    m.setVisible(true);
                 }
             }
         }.setToolTip(Lang.get("menu_openWin_tt")).setActive(normalMode);
