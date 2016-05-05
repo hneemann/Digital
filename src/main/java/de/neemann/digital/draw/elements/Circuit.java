@@ -266,7 +266,7 @@ public class Circuit {
 
 
     /**
-     * Deletes all elements th the given rectangle
+     * Deletes all elements in the given rectangle
      *
      * @param min upper left corner of the rectangle
      * @param max lower right corner of the rectangle
@@ -376,6 +376,7 @@ public class Circuit {
 
     /**
      * Deletes the references to the ObservableValues representing the elements or wire state.
+     * So this circuit is detached from a generated model.
      */
     public void clearState() {
         for (VisualElement vp : visualElements)
@@ -406,7 +407,7 @@ public class Circuit {
     }
 
     /**
-     * returns a list of all output ObservableNames.
+     * Returns a list of all output ObservableNames.
      * The ObservableValue is not connected to a model! Its just a wrapper for the outputs name.
      * This method is used to create dummy outputs for a nested element.
      * They are not used, because during creation of a model all inputs and outputs which connect a model
