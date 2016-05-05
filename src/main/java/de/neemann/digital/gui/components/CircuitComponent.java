@@ -330,6 +330,7 @@ public class CircuitComponent extends JComponent {
         public void mousePressed(MouseEvent e) {
             pos = new Vector(e.getX(), e.getY());
             isMoved = false;
+            requestFocusInWindow();
             activeMouseController.pressed(e);
         }
 
