@@ -2,6 +2,7 @@ package de.neemann.digital.gui;
 
 import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.ModelAnalyser;
+import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
@@ -410,6 +411,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }
                 .setToolTip(Lang.get("menu_analyse_tt"))
+                .createJMenuItem());
+
+        analyse.add(new ToolTipAction(Lang.get("menu_synthesise")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TruthTable tt = new TruthTable(3).addResult();
+                new TableFrame(Main.this, tt).setVisible(true);
+                elementState.activate();
+            }
+        }
+                .setToolTip(Lang.get("menu_synthesise_tt"))
                 .createJMenuItem());
     }
 
