@@ -41,6 +41,6 @@ public class SimplifyTest extends TestCase {
         Expression e = and(or(a, b), c);
         Expression s = QuineMcCluskey.simplify(e);
 
-        assertNull(s);
+        assertTrue(s == e);
     }
 }

@@ -81,7 +81,8 @@ public class QuineMcCluskey {
     }
 
     /**
-     * Simplifies the given expression
+     * Simplifies the given expression.
+     * If no simplification was found, the original expression is returned unchanged.
      *
      * @param expression the expression to simplify
      * @return the simplified expression
@@ -99,7 +100,7 @@ public class QuineMcCluskey {
         if (newCplx < initialCplx)
             return newExp;
         else
-            return null;
+            return expression;
     }
 
     /**

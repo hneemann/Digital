@@ -62,14 +62,16 @@ public abstract class ExpressionCreator {
         if (name.endsWith("n+1")) {
             String detName = name.substring(0, name.length() - 2);
             DetermineJKStateMachine jk = new DetermineJKStateMachine(detName, expression);
-            resultFound("J" + detName, jk.getJ());
-            Expression s = QuineMcCluskey.simplify(jk.getJ());
-            if (s != null) {
+            Expression j = jk.getJ();
+            resultFound("J" + detName, j);
+            Expression s = QuineMcCluskey.simplify(j);
+            if (s != j) {
                 resultFound("", s);
             }
-            resultFound("K" + detName, jk.getK());
-            s = QuineMcCluskey.simplify(jk.getK());
-            if (s != null) {
+            Expression k = jk.getK();
+            resultFound("K" + detName, k);
+            s = QuineMcCluskey.simplify(k);
+            if (s != k) {
                 resultFound("", s);
             }
         }
