@@ -3,6 +3,7 @@ package de.neemann.digital.analyse.quinemc;
 
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,7 +65,7 @@ public class QuineMcCluskey {
     public QuineMcCluskey fillTableWith(BoolTable values) throws ExpressionException {
         int n = 1 << variables.size();
         if (n != values.size())
-            throw new ExpressionException("exact " + n + " values necessary, not " + values.size());
+            throw new ExpressionException(Lang.get("err_exact_N0_valuesNecessaryNot_N1", n, values.size()));
         for (int i = 0; i < n; i++) {
             ThreeStateValue value = values.get(i);
             if (!value.equals(ThreeStateValue.zero)) {

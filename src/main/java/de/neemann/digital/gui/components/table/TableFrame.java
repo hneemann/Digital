@@ -6,7 +6,9 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
@@ -45,7 +47,7 @@ public class TableFrame extends JFrame {
      * @param truthTable the table to show
      */
     public TableFrame(JFrame parent, TruthTable truthTable) {
-        super("Table");
+        super(Lang.get("win_table"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
@@ -88,23 +90,23 @@ public class TableFrame extends JFrame {
 
         JMenuBar bar = new JMenuBar();
 
-        JMenu sizeMenu = new JMenu("Size");
+        JMenu sizeMenu = new JMenu(Lang.get("menu_table_size"));
         for (int i = 2; i <= 8; i++)
             sizeMenu.add(new JMenuItem(new SizeAction(i)));
         bar.add(sizeMenu);
 
-        reorderMenu = new JMenu("Reorder");
+        reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
         bar.add(reorderMenu);
 
-        JMenu colsMenu = new JMenu("Columns");
-        colsMenu.add(new JMenuItem(new AbstractAction("add column") {
+        JMenu colsMenu = new JMenu(Lang.get("menu_table_columns"));
+        colsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAdd")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 TruthTable t = model.getTable();
                 t.addResult();
                 setModel(new TruthTableTableModel(t));
             }
-        }));
+        }.setToolTip(Lang.get("menu_table_columnsAdd_tt")).createJMenuItem());
         bar.add(colsMenu);
 
         setJMenuBar(bar);
@@ -183,7 +185,7 @@ public class TableFrame extends JFrame {
 
             allSolutionsFrame.setText(sb.toString());
         } catch (ExpressionException | FormatterException e1) {
-            new ErrorMessage("error during calculation").addCause(e1).show();
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
         }
     }
 
@@ -192,7 +194,7 @@ public class TableFrame extends JFrame {
         private int n;
 
         private SizeAction(int n) {
-            super(n + " Vars");
+            super(Lang.get("menu_table_N_variables", n));
             this.n = n;
         }
 
@@ -227,14 +229,14 @@ public class TableFrame extends JFrame {
         private final int[] swap;
 
         private ReorderAction(int cols) {
-            super("reverse");
+            super(Lang.get("menu_table_reverse"));
             swap = new int[cols];
             for (int i = 0; i < cols; i++)
                 swap[cols - i - 1] = i;
         }
 
         private ReorderAction(int cols, int swapIndex) {
-            super("swap " + swapIndex + " and " + (swapIndex + 1));
+            super(Lang.get("menu_table_swap_N1_N2", swapIndex, swapIndex + 1));
             swap = new int[cols];
             for (int i = 0; i < cols; i++)
                 swap[i] = i;

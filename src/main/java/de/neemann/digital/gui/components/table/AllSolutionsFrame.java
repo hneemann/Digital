@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.components.table;
 
+import de.neemann.digital.lang.Lang;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,7 +20,7 @@ public class AllSolutionsFrame extends JDialog {
      * @param font  the font to use
      */
     public AllSolutionsFrame(Frame owner, Font font) {
-        super(owner, "Alle möglichen Lösungen", false);
+        super(owner, Lang.get("win_allSolutions"), false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
 
         textArea = new JTextArea(6, 30);

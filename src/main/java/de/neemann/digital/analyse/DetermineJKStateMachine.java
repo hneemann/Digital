@@ -6,6 +6,7 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Operation;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.lang.Lang;
 
 import java.util.Iterator;
 
@@ -55,7 +56,7 @@ public class DetermineJKStateMachine {
             }
 
             if (belongsToJ && belongsToK) {
-                throw new ExpressionException("contains var and not var");
+                throw new ExpressionException(Lang.get("err_containsVarAndNotVar"));
             } else {
                 if (belongsToJ) {
                     j = or(term, j);

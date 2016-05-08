@@ -1,5 +1,7 @@
 package de.neemann.digital.analyse.expression;
 
+import de.neemann.digital.lang.Lang;
+
 import java.util.HashMap;
 
 /**
@@ -21,7 +23,7 @@ public class ContextMap implements Context {
     public boolean get(Variable variable) throws ExpressionException {
         Boolean aBoolean = map.get(variable);
         if (aBoolean == null)
-            throw new ExpressionException(variable + " not defined");
+            throw new ExpressionException(Lang.get("err_varNotDefined_N", variable));
         return aBoolean;
     }
 
