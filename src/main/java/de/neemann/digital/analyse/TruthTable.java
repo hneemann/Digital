@@ -1,6 +1,8 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.expression.BitSetter;
+import de.neemann.digital.analyse.expression.Context;
+import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
@@ -45,6 +47,19 @@ public class TruthTable {
     }
 
     /**
+     * Creates a new instance
+     *
+     * @param newVars  the variables to use
+     * @param oldTable delivers the column names for the results
+     */
+    public TruthTable(ArrayList<Variable> newVars, TruthTable oldTable) {
+        this(newVars);
+        for (int i = 0; i < oldTable.getResultCount(); i++) {
+            addResult(oldTable.results.get(i).getName(), new BoolTableIntArray(getRows()));
+        }
+    }
+
+    /**
      * Returns the number of rows
      *
      * @return the number of rows
@@ -62,6 +77,17 @@ public class TruthTable {
     public void addResult(String name, BoolTable values) {
         results.add(new Result(name, values));
     }
+
+    /**
+     * Adds a new column
+     *
+     * @return this for call chaining
+     */
+    public TruthTable addResult() {
+        results.add(new Result("Y", new BoolTableIntArray(getRows())));
+        return this;
+    }
+
 
     /**
      * Adds a variable
@@ -177,6 +203,92 @@ public class TruthTable {
             if (v instanceof BoolTableIntArray)
                 ((BoolTableIntArray) v).set(rowIndex, aValue);
         }
+    }
+
+    /**
+     * Sets the column name
+     *
+     * @param columnIndex the column
+     * @param name        the new name
+     */
+    public void setColumnName(int columnIndex, String name) {
+        if (columnIndex < variables.size())
+            variables.set(columnIndex, new Variable(name));
+        else {
+            results.get(columnIndex - variables.size()).setName(name);
+        }
+    }
+
+    /**
+     * @return the used variables
+     */
+    public ArrayList<Variable> getVars() {
+        return variables;
+    }
+
+    /**
+     * Gets the value which is determined by the actual context state
+     *
+     * @param result  the result index
+     * @param context the context
+     * @return the table value
+     * @throws ExpressionException ExpressionException
+     */
+    public int getByContext(int result, Context context) throws ExpressionException {
+        return results.get(result).getValues().get(getIndexByContext(context)).asInt();
+    }
+
+    /**
+     * Sets the value which is determined by the actual context state
+     *
+     * @param result  the result index
+     * @param context the context
+     * @param value   the new value
+     * @throws ExpressionException ExpressionException
+     */
+    public void setByContext(int result, Context context, int value) throws ExpressionException {
+        BoolTable v = results.get(result).getValues();
+        if (v instanceof BoolTableIntArray)
+            ((BoolTableIntArray) v).set(getIndexByContext(context), value);
+    }
+
+    private int getIndexByContext(Context context) throws ExpressionException {
+        int mask = 1 << (variables.size() - 1);
+        int index = 0;
+        for (int i = 0; i < variables.size(); i++) {
+            if (context.get(variables.get(i))) {
+                index |= mask;
+            }
+            mask >>= 1;
+        }
+        return index;
+    }
+
+    /**
+     * @return the number of results
+     */
+    public int getResultCount() {
+        return results.size();
+    }
+
+    /**
+     * Returns the result with the given index
+     *
+     * @param result the result index
+     * @return the table representing the result
+     */
+    public BoolTable getResult(int result) {
+        return results.get(result).getValues();
+    }
+
+    /**
+     * Returns the results name
+     *
+     * @param result index of result
+     * @return the name
+     */
+    public String getResultName(int result) {
+        return results.get(result).getName();
     }
 
     /**

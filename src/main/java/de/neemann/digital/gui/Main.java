@@ -19,6 +19,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
+import de.neemann.digital.gui.components.table.TableFrame;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.lang.Lang;
@@ -401,7 +402,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
-                    new TableDialog(Main.this, new ModelAnalyser(model).analyse()).setVisible(true);
+                    new TableFrame(Main.this, new ModelAnalyser(model).analyse()).setVisible(true);
                     elementState.activate();
                 } catch (PinException | NodeException | AnalyseException e1) {
                     showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
