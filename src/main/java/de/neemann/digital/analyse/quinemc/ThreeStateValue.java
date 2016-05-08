@@ -5,13 +5,13 @@ package de.neemann.digital.analyse.quinemc;
  */
 public enum ThreeStateValue {
     /**
-     * one or true
-     */
-    one,
-    /**
      * zero or false
      */
     zero,
+    /**
+     * one or true
+     */
+    one,
     /**
      * dont care
      */
@@ -48,5 +48,14 @@ public enum ThreeStateValue {
             default:
                 return ThreeStateValue.dontCare;
         }
+    }
+
+    /**
+     * this value as an integer
+     *
+     * @return the int value, 2 mans "don't care"
+     */
+    public int asInt() {
+        return ordinal();
     }
 }

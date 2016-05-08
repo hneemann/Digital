@@ -31,8 +31,12 @@ public class BoolTableExpression implements BoolTable {
     }
 
     @Override
-    public ThreeStateValue get(int i) throws ExpressionException {
+    public ThreeStateValue get(int i) {
         context.setContextTo(i);
-        return ThreeStateValue.value(expression.calculate(context));
+        try {
+            return ThreeStateValue.value(expression.calculate(context));
+        } catch (ExpressionException e) {
+            throw new RuntimeException(e); // ToDo!!
+        }
     }
 }

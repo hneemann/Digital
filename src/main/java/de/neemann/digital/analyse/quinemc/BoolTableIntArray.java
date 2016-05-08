@@ -1,8 +1,6 @@
 package de.neemann.digital.analyse.quinemc;
 
 
-import de.neemann.digital.analyse.expression.ExpressionException;
-
 /**
  * A int array.
  * Zero and one behave as expected, any other value represents "don't care"
@@ -14,7 +12,16 @@ public class BoolTableIntArray implements BoolTable {
     private final int[] table;
 
     /**
-     * Creates a new instace
+     * Creates a new instance
+     *
+     * @param rows the number of rows
+     */
+    public BoolTableIntArray(int rows) {
+        this(new int[rows]);
+    }
+
+    /**
+     * Creates a new instance
      *
      * @param table the int values
      */
@@ -28,7 +35,7 @@ public class BoolTableIntArray implements BoolTable {
     }
 
     @Override
-    public ThreeStateValue get(int i) throws ExpressionException {
+    public ThreeStateValue get(int i) {
         return ThreeStateValue.value(table[i]);
     }
 }

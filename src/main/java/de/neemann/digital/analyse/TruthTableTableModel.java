@@ -4,38 +4,35 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 /**
- * Used to visualize a analyzer instanve in a JTable
+ * Used to visualize a truthTable instance in a JTable
  *
  * @author hneemann
  */
-public class ModelAnalyzerTableModel implements TableModel {
-    private final ModelAnalyser analyzer;
+public class TruthTableTableModel implements TableModel {
+    private final TruthTable truthTable;
 
     /**
      * Creates a new instance
      *
-     * @param analyzer the analyzer which is to visualize
+     * @param truthTable the truthTable which is to visualize
      */
-    public ModelAnalyzerTableModel(ModelAnalyser analyzer) {
-        this.analyzer = analyzer;
+    public TruthTableTableModel(TruthTable truthTable) {
+        this.truthTable = truthTable;
     }
 
     @Override
     public int getRowCount() {
-        return analyzer.getRows();
+        return truthTable.getRows();
     }
 
     @Override
     public int getColumnCount() {
-        return analyzer.getCols();
+        return truthTable.getCols();
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        if (columnIndex < analyzer.getInputs().size())
-            return analyzer.getInputs().get(columnIndex).getName();
-        else
-            return analyzer.getOutputs().get(columnIndex - analyzer.getInputs().size()).getName();
+        return truthTable.getColumnName(columnIndex);
     }
 
     @Override
@@ -50,7 +47,7 @@ public class ModelAnalyzerTableModel implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return analyzer.getValue(rowIndex, columnIndex);
+        return truthTable.getValue(rowIndex, columnIndex);
     }
 
     @Override

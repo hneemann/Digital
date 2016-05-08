@@ -1,7 +1,5 @@
 package de.neemann.digital.analyse.quinemc;
 
-import de.neemann.digital.analyse.expression.ExpressionException;
-
 /**
  * A simple bool table
  *
@@ -18,7 +16,6 @@ public interface BoolTable {
      *
      * @param i the index
      * @return the value
-     * @throws ExpressionException ExpressionException
      */
-    ThreeStateValue get(int i) throws ExpressionException;
+    ThreeStateValue get(int i);
 }

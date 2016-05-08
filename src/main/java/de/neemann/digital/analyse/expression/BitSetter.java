@@ -33,6 +33,19 @@ public abstract class BitSetter {
     }
 
     /**
+     * Gets a single bit
+     *
+     * @param row the row
+     * @param bit the var number
+     * @return the bit value
+     */
+    public boolean getBit(int row, int bit) {
+        int mask = 1 << (bitCount - 1);
+        mask >>= bit;
+        return (row & mask) > 0;
+    }
+
+    /**
      * Used to fill the row
      *
      * @param row   the row number

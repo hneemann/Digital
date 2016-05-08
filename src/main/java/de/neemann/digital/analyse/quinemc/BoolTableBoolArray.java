@@ -1,8 +1,6 @@
 package de.neemann.digital.analyse.quinemc;
 
 
-import de.neemann.digital.analyse.expression.ExpressionException;
-
 /**
  * A simple boolean array
  *
@@ -15,11 +13,21 @@ public class BoolTableBoolArray implements BoolTable {
     /**
      * Creates a new instance
      *
+     * @param rows number of rows
+     */
+    public BoolTableBoolArray(int rows) {
+        this(new boolean[rows]);
+    }
+
+    /**
+     * Creates a new instance
+     *
      * @param table the bool values
      */
     public BoolTableBoolArray(boolean[] table) {
         this.table = table;
     }
+
 
     @Override
     public int size() {
@@ -27,7 +35,17 @@ public class BoolTableBoolArray implements BoolTable {
     }
 
     @Override
-    public ThreeStateValue get(int i) throws ExpressionException {
+    public ThreeStateValue get(int i) {
         return ThreeStateValue.value(table[i]);
+    }
+
+    /**
+     * Sets a value
+     *
+     * @param row   the row
+     * @param value the value
+     */
+    public void set(int row, boolean value) {
+        table[row] = value;
     }
 }
