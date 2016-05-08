@@ -220,6 +220,13 @@ public class TableFrame extends JFrame {
                 label.setBackground(MYGRAY);
             else
                 label.setBackground(Color.WHITE);
+
+            if (value instanceof Integer) {
+                int v = (int) value;
+                if (v > 1)
+                    label.setText("x");
+            }
+
             return label;
         }
     }
