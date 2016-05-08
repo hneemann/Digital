@@ -42,7 +42,7 @@ public class TruthTableTableModel implements TableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return false;
+        return truthTable.isEditable(columnIndex);
     }
 
     @Override
@@ -52,6 +52,8 @@ public class TruthTableTableModel implements TableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        if (aValue instanceof Integer)
+            truthTable.setValue(rowIndex, columnIndex, (Integer) aValue);
     }
 
     @Override

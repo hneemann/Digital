@@ -38,4 +38,24 @@ public class BoolTableIntArray implements BoolTable {
     public ThreeStateValue get(int i) {
         return ThreeStateValue.value(table[i]);
     }
+
+    /**
+     * Sets a table value
+     *
+     * @param row  the row
+     * @param bool the value
+     */
+    public void set(int row, boolean bool) {
+        set(row, bool ? 1 : 0);
+    }
+
+    /**
+     * Sets a table value
+     *
+     * @param row   the row
+     * @param value the value
+     */
+    public void set(int row, int value) {
+        table[row] = value;
+    }
 }

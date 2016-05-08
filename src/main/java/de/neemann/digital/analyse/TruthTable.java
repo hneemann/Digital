@@ -3,6 +3,7 @@ package de.neemann.digital.analyse;
 import de.neemann.digital.analyse.expression.BitSetter;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 
 import java.util.ArrayList;
 
@@ -141,10 +142,41 @@ public class TruthTable {
      * @return the table value (2 means "don't care")
      */
     public int getValue(int rowIndex, int columnIndex) {
-        if (columnIndex < variables.size())
-            return getBitSetter().getBit(rowIndex, columnIndex) ? 1 : 0;
-        else
+        if (columnIndex < variables.size()) {
+            if (getBitSetter().getBit(rowIndex, columnIndex)) return 1;
+            else return 0;
+        } else
             return results.get(columnIndex - variables.size()).getValues().get(rowIndex).asInt();
+    }
+
+    /**
+     * Returns true if given column is editable
+     *
+     * @param columnIndex the column
+     * @return thrue if editable
+     */
+    public boolean isEditable(int columnIndex) {
+        if (columnIndex < variables.size())
+            return false;
+        else {
+            BoolTable v = results.get(columnIndex - variables.size()).getValues();
+            return v instanceof BoolTableIntArray;
+        }
+    }
+
+    /**
+     * Sets modifies the table
+     *
+     * @param rowIndex    the row
+     * @param columnIndex the column
+     * @param aValue      the new value
+     */
+    public void setValue(int rowIndex, int columnIndex, int aValue) {
+        if (columnIndex >= variables.size()) {
+            BoolTable v = results.get(columnIndex - variables.size()).getValues();
+            if (v instanceof BoolTableIntArray)
+                ((BoolTableIntArray) v).set(rowIndex, aValue);
+        }
     }
 
     /**
