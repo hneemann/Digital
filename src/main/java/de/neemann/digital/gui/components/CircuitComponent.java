@@ -275,7 +275,7 @@ public class CircuitComponent extends JComponent {
 
         GraphicMinMax gr = new GraphicMinMax();
         circuit.drawTo(gr);
-        if (gr.getMin() != null) {
+        if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
 
             Vector delta = gr.getMax().sub(gr.getMin());
             double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 2);

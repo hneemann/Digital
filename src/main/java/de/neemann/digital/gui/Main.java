@@ -103,6 +103,28 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * @param savedListener a listener which is notified if the file is changed on disk
      */
     public Main(Component parent, File fileToOpen, SavedListener savedListener) {
+        this(parent, fileToOpen, savedListener, null);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param parent  the parent component
+     * @param circuit circuit to show
+     */
+    public Main(Component parent, Circuit circuit) {
+        this(parent, null, null, circuit);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param parent        the parent component
+     * @param fileToOpen    a file to open
+     * @param savedListener a listener which is notified if the file is changed on disk
+     * @param circuit       circuit to show
+     */
+    private Main(Component parent, File fileToOpen, SavedListener savedListener, Circuit circuit) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
@@ -113,15 +135,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         final boolean normalMode = savedListener == null;
 
-        Circuit cr = new Circuit();
-        circuitComponent = new CircuitComponent(cr, library, shapeFactory, savedListener);
-
-        if (fileToOpen != null) {
-            SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
+        if (circuit != null) {
+            circuitComponent = new CircuitComponent(circuit, library, shapeFactory, savedListener);
         } else {
-            String name = PREFS.get("name", null);
-            if (name != null) {
-                SwingUtilities.invokeLater(() -> loadFile(new File(name), false));
+            circuitComponent = new CircuitComponent(new Circuit(), library, shapeFactory, savedListener);
+            if (fileToOpen != null) {
+                SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
+            } else {
+                String name = PREFS.get("name", null);
+                if (name != null) {
+                    SwingUtilities.invokeLater(() -> loadFile(new File(name), false));
+                }
             }
         }
 
