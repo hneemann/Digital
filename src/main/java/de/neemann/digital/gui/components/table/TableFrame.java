@@ -6,6 +6,10 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.draw.builder.Builder;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -22,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashSet;
 
 /**
  * @author hneemann
@@ -35,6 +40,7 @@ public class TableFrame extends JFrame {
     private final JPopupMenu renamePopup;
     private final Font font;
     private final JMenu reorderMenu;
+    private final ShapeFactory shapeFactory;
     private TruthTableTableModel model;
     private TableColumn column;
     private int columnIndex;
@@ -46,8 +52,9 @@ public class TableFrame extends JFrame {
      * @param parent     the parent frame
      * @param truthTable the table to show
      */
-    public TableFrame(JFrame parent, TruthTable truthTable) {
+    public TableFrame(JFrame parent, TruthTable truthTable, ShapeFactory shapeFactory) {
         super(Lang.get("win_table"));
+        this.shapeFactory = shapeFactory;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
@@ -109,6 +116,16 @@ public class TableFrame extends JFrame {
         }.setToolTip(Lang.get("menu_table_columnsAdd_tt")).createJMenuItem());
         bar.add(colsMenu);
 
+        JMenu createMenu = new JMenu(Lang.get("menu_table_create"));
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_create")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCircuit();
+            }
+        }.setToolTip(Lang.get("menu_table_create_tt")).createJMenuItem());
+        bar.add(createMenu);
+
+
         setJMenuBar(bar);
 
         setModel(new TruthTableTableModel(truthTable));
@@ -117,6 +134,28 @@ public class TableFrame extends JFrame {
         getContentPane().add(label, BorderLayout.SOUTH);
         pack();
         setLocationRelativeTo(parent);
+    }
+
+    private void createCircuit() {
+        try {
+            Builder builder = new Builder(shapeFactory);
+            HashSet<String> contained = new HashSet<>();
+            new ExpressionCreator(model.getTable()) {
+                @Override
+                public void resultFound(String name, Expression expression) throws FormatterException {
+                    if (!contained.contains(name)) {
+                        contained.add(name);
+                        builder.addExpression(name, expression);
+                    }
+                }
+            }.create();
+
+            Circuit circuit = builder.createCircuit();
+            SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
+
+        } catch (ExpressionException | FormatterException e) {
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
+        }
     }
 
     private void editColumnAt(Point p) {

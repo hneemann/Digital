@@ -136,9 +136,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         final boolean normalMode = savedListener == null;
 
         if (circuit != null) {
-            circuitComponent = new CircuitComponent(circuit, library, shapeFactory, savedListener);
+            circuitComponent = new CircuitComponent(library, shapeFactory, savedListener);
+            SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(circuit));
         } else {
-            circuitComponent = new CircuitComponent(new Circuit(), library, shapeFactory, savedListener);
+            circuitComponent = new CircuitComponent(library, shapeFactory, savedListener);
             if (fileToOpen != null) {
                 SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
             } else {
@@ -427,7 +428,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
-                    new TableFrame(Main.this, new ModelAnalyser(model).analyse()).setVisible(true);
+                    new TableFrame(Main.this, new ModelAnalyser(model).analyse(), shapeFactory).setVisible(true);
                     elementState.activate();
                 } catch (PinException | NodeException | AnalyseException e1) {
                     showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
@@ -441,7 +442,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 TruthTable tt = new TruthTable(3).addResult();
-                new TableFrame(Main.this, tt).setVisible(true);
+                new TableFrame(Main.this, tt, shapeFactory).setVisible(true);
                 elementState.activate();
             }
         }

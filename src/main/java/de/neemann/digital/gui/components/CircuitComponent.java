@@ -65,11 +65,10 @@ public class CircuitComponent extends JComponent {
     /**
      * Creates a new instance
      *
-     * @param aCircuit     the circuit to show
      * @param library      the library used to edit the attributes of the elements
      * @param shapeFactory the shapeFactory used for copied elements
      */
-    public CircuitComponent(Circuit aCircuit, ElementLibrary library, ShapeFactory shapeFactory, SavedListener parentsSavedListener) {
+    public CircuitComponent(ElementLibrary library, ShapeFactory shapeFactory, SavedListener parentsSavedListener) {
         this.library = library;
         this.shapeFactory = shapeFactory;
         this.parentsSavedListener = parentsSavedListener;
@@ -108,7 +107,7 @@ public class CircuitComponent extends JComponent {
         mouseCopySelected = new MouseControllerCopySelected(moveCursor);
         mouseRun = new MouseControllerRun(normalCursor);
 
-        setCircuit(aCircuit);
+        setCircuit(new Circuit());
 
         MouseDispatcher disp = new MouseDispatcher();
         addMouseMotionListener(disp);
