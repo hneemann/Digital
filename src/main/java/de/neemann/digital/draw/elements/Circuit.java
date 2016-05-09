@@ -254,7 +254,7 @@ public class Circuit {
                 m.add(vp);
 
         for (Wire w : wires) {
-            if (w.p1.inside(min, max) && w.p2.inside(min, max))
+            if (w.p1.inside(min, max) || w.p2.inside(min, max))
                 m.add(w);
         }
         if (m.isEmpty())
