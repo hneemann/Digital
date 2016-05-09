@@ -25,10 +25,22 @@ public class FragmentExpression implements Fragment {
         return f;
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param fragment a single frgment as an input
+     * @param merger   the merger
+     */
     public FragmentExpression(Fragment fragment, Fragment merger) {
         this(createList(fragment), merger);
     }
 
+    /**
+     * The list of fragments is merged by a merger to a single output
+     *
+     * @param frags  the fragments to merge
+     * @param merger the merger
+     */
     public FragmentExpression(ArrayList<Fragment> frags, Fragment merger) {
         this.merger = merger;
         fragments = new ArrayList<>();

@@ -11,11 +11,8 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.Main;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -141,25 +138,6 @@ public class Builder {
     public Circuit createCircuit() {
         createInputBus();
         return circuit;
-    }
-
-
-    public static void main(String[] args) {
-        Variable a = new Variable("A");
-        Variable b = new Variable("B");
-        Variable c = new Variable("C");
-        Expression y = Operation.or(Not.not(Operation.and(a, Not.not(b), c)), Operation.and(Not.not(a), c), Operation.and(b, Not.not(c)));
-        Expression y1 = Operation.or(Not.not(Operation.and(a, Not.not(b), c)), Operation.and(Not.not(a), c), Operation.and(b, Not.not(c)), Operation.and(b, Not.not(c)));
-
-        Expression l = Operation.and(y, y1, a);
-
-        Builder builder = new Builder(new ShapeFactory(new ElementLibrary()));
-
-        Circuit circuit = builder
-                .addExpression("L", l)
-                .addExpression("Y", y)
-                .createCircuit();
-        SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
     }
 
 }

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A fragment describing a VisualElement
+ *
  * @author hneemann
  */
 public class FragmentVisualElement implements Fragment {
@@ -25,10 +27,23 @@ public class FragmentVisualElement implements Fragment {
     private final VisualElement visualElement;
     private Vector pos;
 
+    /**
+     * Creates a new instance
+     *
+     * @param description  the elements description
+     * @param shapeFactory the shapeFactory to use
+     */
     public FragmentVisualElement(ElementTypeDescription description, ShapeFactory shapeFactory) {
         this(description, 1, shapeFactory);
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param description  the elements description
+     * @param inputCount   number of inputs
+     * @param shapeFactory the shapeFactory to use
+     */
     public FragmentVisualElement(ElementTypeDescription description, int inputCount, ShapeFactory shapeFactory) {
         visualElement = new VisualElement(description.getName()).setShapeFactory(shapeFactory);
         visualElement.getElementAttributes().set(Keys.INPUT_COUNT, inputCount);
@@ -44,6 +59,14 @@ public class FragmentVisualElement implements Fragment {
         }
     }
 
+    /**
+     * Sets an attribute to this VisualElement
+     *
+     * @param key     the key
+     * @param value   the value
+     * @param <VALUE> the tyype of the value
+     * @return this for call chaining
+     */
     public <VALUE> FragmentVisualElement setAttr(Key<VALUE> key, VALUE value) {
         visualElement.getElementAttributes().set(key, value);
         return this;
