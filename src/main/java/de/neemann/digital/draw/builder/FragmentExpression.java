@@ -41,19 +41,23 @@ public class FragmentExpression implements Fragment {
             if (w > width)
                 width = w;
 
-            height += SIZE;
+            height += SIZE*2;
         }
-        height -= SIZE;
+        height -= SIZE*2;
 
         Box mergerBox = merger.doLayout();
 
         width += SIZE;
 
-        merger.setPos(new Vector(width, (height - mergerBox.getHeight()) / 2));
+        merger.setPos(new Vector(width, raster((height - mergerBox.getHeight()) / 2)));
 
         width += mergerBox.getWidth();
 
         return new Box(width, Math.max(height, mergerBox.getHeight()));
+    }
+
+    private int raster(int k) {
+        return (int) Math.round((double) k / SIZE) * SIZE;
     }
 
     @Override

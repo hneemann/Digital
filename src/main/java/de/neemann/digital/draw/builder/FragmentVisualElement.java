@@ -45,7 +45,11 @@ public class FragmentVisualElement implements Fragment {
 
     @Override
     public Box doLayout() {
-        GraphicMinMax mm = visualElement.getMinMax();
+        GraphicMinMax mm = new GraphicMinMax();
+        for (Pin p : inputs)
+            mm.check(p.getPos());
+        for (Pin p : outputs)
+            mm.check(p.getPos());
         Vector delta = mm.getMax().sub(mm.getMin());
         return new Box(delta.x, delta.y);
     }

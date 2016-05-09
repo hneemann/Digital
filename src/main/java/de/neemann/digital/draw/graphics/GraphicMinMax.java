@@ -52,7 +52,12 @@ public class GraphicMinMax implements Graphic {
         check(p2);
     }
 
-    private void check(Vector p) {
+    /**
+     * Checks the given point a makes the bounding box larger if necessary
+     *
+     * @param p the point to check
+     */
+    public void check(Vector p) {
         if (min == null || max == null) {
             min = new Vector(p.x, p.y);
             max = new Vector(p.x, p.y);

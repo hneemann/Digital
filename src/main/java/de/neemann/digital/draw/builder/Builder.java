@@ -65,7 +65,7 @@ public class Builder {
         Variable a = new Variable("A");
         Variable b = new Variable("B");
         Variable c = new Variable("C");
-        Expression e = Operation.or(Not.not(Operation.and(a, Not.not(b))), Operation.and(a, Not.not(c)), Operation.and(b, Not.not(c)));
+        Expression e = Operation.or(Not.not(Operation.and(a, Not.not(b), c)), Operation.and(a, Not.not(c)), Operation.and(b, Not.not(c)));
         Builder builder = new Builder(e, new ShapeFactory(new ElementLibrary()));
 
         Circuit circuit = builder.createCircuit();
