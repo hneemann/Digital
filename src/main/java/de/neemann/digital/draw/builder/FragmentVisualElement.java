@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.builder;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.Circuit;
@@ -12,16 +13,21 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author hneemann
  */
 public class FragmentVisualElement implements Fragment {
 
-    private final ArrayList<Pin> inputs;
-    private final ArrayList<Pin> outputs;
+    private final ArrayList<Vector> inputs;
+    private final ArrayList<Vector> outputs;
     private final VisualElement visualElement;
     private Vector pos;
+
+    public FragmentVisualElement(ElementTypeDescription description, ShapeFactory shapeFactory) {
+        this(description, 1, shapeFactory);
+    }
 
     public FragmentVisualElement(ElementTypeDescription description, int inputCount, ShapeFactory shapeFactory) {
         visualElement = new VisualElement(description.getName()).setShapeFactory(shapeFactory);
@@ -32,24 +38,24 @@ public class FragmentVisualElement implements Fragment {
         outputs = new ArrayList<>();
         for (Pin p : pins) {
             if (p.getDirection().equals(PinDescription.Direction.input))
-                inputs.add(p);
+                inputs.add(p.getPos());
             else
-                outputs.add(p);
+                outputs.add(p.getPos());
         }
     }
 
-    @Override
-    public Vector output() {
-        return outputs.get(0).getPos();
+    public <VALUE> FragmentVisualElement setAttr(Key<VALUE> key, VALUE value) {
+        visualElement.getElementAttributes().set(key, value);
+        return this;
     }
 
     @Override
     public Box doLayout() {
         GraphicMinMax mm = new GraphicMinMax();
-        for (Pin p : inputs)
-            mm.check(p.getPos());
-        for (Pin p : outputs)
-            mm.check(p.getPos());
+        for (Vector p : inputs)
+            mm.check(p);
+        for (Vector p : outputs)
+            mm.check(p);
         Vector delta = mm.getMax().sub(mm.getMin());
         return new Box(delta.x, delta.y);
     }
@@ -61,8 +67,17 @@ public class FragmentVisualElement implements Fragment {
 
     @Override
     public void addToCircuit(Vector offset, Circuit circuit) {
-        System.out.println(visualElement.getElementName() + ", " + pos + ", " + offset);
         visualElement.setPos(pos.add(offset));
         circuit.add(visualElement);
+    }
+
+    @Override
+    public List<Vector> getInputs() {
+        return Vector.add(inputs, pos);
+    }
+
+    @Override
+    public List<Vector> getOutputs() {
+        return Vector.add(outputs, pos);
     }
 }

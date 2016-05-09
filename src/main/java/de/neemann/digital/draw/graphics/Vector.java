@@ -1,5 +1,8 @@
 package de.neemann.digital.draw.graphics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a 2D Vector
  *
@@ -190,5 +193,19 @@ public class Vector {
     public Vector norm128() {
         float l = (float) Math.sqrt(x * x + y * y);
         return new Vector(Math.round(x * 128 / l), Math.round(y * 128 / l));
+    }
+
+    /**
+     * Adds a offset to every vector in the given list
+     *
+     * @param vectors the original vectors
+     * @param offs    the offset
+     * @return the new list
+     */
+    public static List<Vector> add(List<Vector> vectors, Vector offs) {
+        ArrayList<Vector> newVec = new ArrayList<>();
+        for (Vector v : vectors)
+            newVec.add(v.add(offs));
+        return newVec;
     }
 }

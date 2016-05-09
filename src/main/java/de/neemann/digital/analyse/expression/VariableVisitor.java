@@ -1,7 +1,7 @@
 package de.neemann.digital.analyse.expression;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  * Visitor to collect all used variables in an expression
@@ -10,13 +10,13 @@ import java.util.HashSet;
  */
 public class VariableVisitor implements ExpressionVisitor {
 
-    private final HashSet<Variable> variables;
+    private final TreeSet<Variable> variables;
 
     /**
      * Creates a new instance
      */
     public VariableVisitor() {
-        variables = new HashSet<>();
+        variables = new TreeSet<>();
     }
 
     @Override

@@ -4,6 +4,9 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author hneemann
  */
@@ -13,11 +16,6 @@ public class FragmentVariable implements Fragment {
 
     public FragmentVariable(Variable variable) {
         this.variable = variable;
-    }
-
-    @Override
-    public Vector output() {
-        return new Vector(0, 0);
     }
 
     @Override
@@ -32,5 +30,17 @@ public class FragmentVariable implements Fragment {
 
     @Override
     public void addToCircuit(Vector pos, Circuit circuit) {
+    }
+
+    @Override
+    public List<Vector> getInputs() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Vector> getOutputs() {
+        ArrayList<Vector> o = new ArrayList<>();
+        o.add(pos);
+        return o;
     }
 }
