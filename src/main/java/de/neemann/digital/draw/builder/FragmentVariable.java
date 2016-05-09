@@ -12,10 +12,13 @@ import java.util.List;
  */
 public class FragmentVariable implements Fragment {
     private final Variable variable;
+    private final boolean neg;
     private Vector pos;
+    private Vector circuitPos;
 
-    public FragmentVariable(Variable variable) {
+    public FragmentVariable(Variable variable, boolean neg) {
         this.variable = variable;
+        this.neg = neg;
     }
 
     @Override
@@ -30,6 +33,15 @@ public class FragmentVariable implements Fragment {
 
     @Override
     public void addToCircuit(Vector pos, Circuit circuit) {
+        circuitPos = pos.add(this.pos);
+    }
+
+    public Vector getCircuitPos() {
+        return circuitPos;
+    }
+
+    public boolean isNeg() {
+        return neg;
     }
 
     @Override
@@ -42,5 +54,9 @@ public class FragmentVariable implements Fragment {
         ArrayList<Vector> o = new ArrayList<>();
         o.add(pos);
         return o;
+    }
+
+    public Variable getVariable() {
+        return variable;
     }
 }

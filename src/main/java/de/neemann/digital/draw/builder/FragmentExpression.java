@@ -38,17 +38,11 @@ public class FragmentExpression implements Fragment {
 
     @Override
     public Box doLayout() {
-        int centerHeight = 0;
         int height = 0;
         int width = 0;
-        int centerIndex = fragments.size() / 2;
-        for (int i = 0; i < fragments.size(); i++) {
-            FragmentHolder fr = fragments.get(i);
+        for (FragmentHolder fr : fragments) {
             fr.fragment.setPos(new Vector(0, height));
             fr.box = fr.fragment.doLayout();
-
-            if (i == centerIndex)
-                centerHeight = height;
 
             height += fr.box.getHeight();
             int w = fr.box.getWidth();
@@ -74,6 +68,7 @@ public class FragmentExpression implements Fragment {
             merger.setPos(new Vector(width, raster((height - mergerBox.getHeight()) / 2)));
         } else {
             // odd number of inputs
+            int centerIndex = fragments.size() / 2;
             int y = fragments.get(centerIndex).fragment.getOutputs().get(0).y - centerIndex * SIZE;
             merger.setPos(new Vector(width, y));
         }
@@ -138,7 +133,7 @@ public class FragmentExpression implements Fragment {
         return Vector.add(merger.getOutputs(), pos);
     }
 
-    public boolean isLong() {
+    private boolean isLong() {
         return fragments.size() > 1;
     }
 

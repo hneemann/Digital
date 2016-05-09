@@ -4,8 +4,12 @@ import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.core.basic.And;
 import de.neemann.digital.core.basic.Or;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.Rotation;
+import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -13,10 +17,13 @@ import de.neemann.digital.gui.Main;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
+ * Builder to create a circuit from an expression
+ *
  * @author hneemann
  */
 public class Builder {
@@ -25,14 +32,28 @@ public class Builder {
     private final VariableVisitor variableVisitor;
     private final ShapeFactory shapeFactory;
     private int pos;
+    private ArrayList<FragmentVariable> fragmentVariables;
 
+    /**
+     * Creates a new builder
+     *
+     * @param shapeFactory ShapeFactory used ti set to the created VisualElements
+     */
     public Builder(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
         circuit = new Circuit();
         variableVisitor = new VariableVisitor();
+        fragmentVariables = new ArrayList<>();
     }
 
-    public Builder addCircuit(String name, Expression expression) {
+    /**
+     * Adds an expression to the circuit
+     *
+     * @param name       the output name
+     * @param expression the expression
+     * @return this for chained calls
+     */
+    public Builder addExpression(String name, Expression expression) {
         Fragment fr = createFragment(expression);
 
         fr = new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name));
@@ -63,16 +84,65 @@ public class Builder {
                 throw new RuntimeException("nyi");
         } else if (expression instanceof Not) {
             Not n = (Not) expression;
-            return new FragmentExpression(createFragment(n.getExpression()), new FragmentVisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION, shapeFactory));
+            if (n.getExpression() instanceof Variable) {
+                FragmentVariable fragmentVariable = new FragmentVariable((Variable) n.getExpression(), true);
+                fragmentVariables.add(fragmentVariable);
+                return fragmentVariable;
+            } else
+                return new FragmentExpression(createFragment(n.getExpression()), new FragmentVisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION, shapeFactory));
         } else if (expression instanceof Variable) {
-            return new FragmentVariable(((Variable) expression));
+            FragmentVariable fragmentVariable = new FragmentVariable((Variable) expression, false);
+            fragmentVariables.add(fragmentVariable);
+            return fragmentVariable;
         } else
             throw new RuntimeException("nyi");
     }
 
-    public Circuit getCircuit() {
+    private void createInputBus() {
+        HashMap<String, Integer> varPos = new HashMap<>();
+        int dx = -variableVisitor.getVariables().size() * SIZE * 2;
+        for (Variable v : variableVisitor.getVariables()) {
+            VisualElement visualElement = new VisualElement(In.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+            visualElement.getElementAttributes()
+                    .set(Keys.ROTATE, new Rotation(3))
+                    .set(Keys.LABEL, v.getIdentifier());
+            visualElement.setPos(new Vector(dx, -SIZE * 5));
+            circuit.add(visualElement);
+
+            visualElement = new VisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+            visualElement.getElementAttributes()
+                    .set(Keys.ROTATE, new Rotation(3));
+            visualElement.setPos(new Vector(dx + SIZE, -SIZE * 3));
+            circuit.add(visualElement);
+
+            circuit.add(new Wire(new Vector(dx, -SIZE * 4), new Vector(dx + SIZE, -SIZE * 4)));
+            circuit.add(new Wire(new Vector(dx + SIZE, -SIZE * 3), new Vector(dx + SIZE, -SIZE * 4)));
+
+            circuit.add(new Wire(new Vector(dx, -SIZE * 5), new Vector(dx, pos)));
+            circuit.add(new Wire(new Vector(dx + SIZE, -SIZE), new Vector(dx + SIZE, pos)));
+
+            varPos.put(v.getIdentifier(), dx);
+            dx += SIZE * 2;
+        }
+
+        for (FragmentVariable f : fragmentVariables) {
+            Vector p = f.getCircuitPos();
+            int in = varPos.get(f.getVariable().getIdentifier());
+            if (f.isNeg()) in += SIZE;
+            circuit.add(new Wire(p, new Vector(in, p.y)));
+        }
+    }
+
+    /**
+     * Creates the circuit
+     *
+     * @return the circuit
+     */
+    public Circuit createCircuit() {
+        createInputBus();
         return circuit;
     }
+
 
     public static void main(String[] args) {
         Variable a = new Variable("A");
@@ -86,9 +156,9 @@ public class Builder {
         Builder builder = new Builder(new ShapeFactory(new ElementLibrary()));
 
         Circuit circuit = builder
-                .addCircuit("L", l)
-                .addCircuit("Y", y)
-                .getCircuit();
+                .addExpression("L", l)
+                .addExpression("Y", y)
+                .createCircuit();
         SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
     }
 
