@@ -12,6 +12,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,8 +50,9 @@ public class Builder {
      * @param name       the output name
      * @param expression the expression
      * @return this for chained calls
+     * @throws BuilderException BuilderException
      */
-    public Builder addExpression(String name, Expression expression) {
+    public Builder addExpression(String name, Expression expression) throws BuilderException {
         Fragment fr = createFragment(expression);
 
         fr = new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name));
@@ -59,14 +61,14 @@ public class Builder {
         Box b = fr.doLayout();
 
         fr.addToCircuit(new Vector(0, pos), circuit);
-        pos += b.getHeight() + SIZE;
+        pos += b.getHeight() + SIZE * 2;
 
         expression.traverse(variableVisitor);
 
         return this;
     }
 
-    private Fragment createFragment(Expression expression) {
+    private Fragment createFragment(Expression expression) throws BuilderException {
         if (expression instanceof Operation) {
             Operation op = (Operation) expression;
             ArrayList<Fragment> frags = new ArrayList<>();
@@ -78,7 +80,7 @@ public class Builder {
             else if (op instanceof Operation.Or)
                 return new FragmentExpression(frags, new FragmentVisualElement(Or.DESCRIPTION, frags.size(), shapeFactory));
             else
-                throw new RuntimeException("nyi");
+                throw new BuilderException(Lang.get("err_builder_operationNotSupported", op.getClass().getSimpleName()));
         } else if (expression instanceof Not) {
             Not n = (Not) expression;
             if (n.getExpression() instanceof Variable) {
@@ -92,7 +94,7 @@ public class Builder {
             fragmentVariables.add(fragmentVariable);
             return fragmentVariable;
         } else
-            throw new RuntimeException("nyi");
+            throw new BuilderException(Lang.get("err_builder_exprNotSupported", expression.getClass().getSimpleName()));
     }
 
     private void createInputBus() {
