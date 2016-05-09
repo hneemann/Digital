@@ -108,17 +108,19 @@ public class Builder {
             visualElement.setPos(new Vector(dx, -SIZE * 5));
             circuit.add(visualElement);
 
-            visualElement = new VisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
-            visualElement.getElementAttributes()
-                    .set(Keys.ROTATE, new Rotation(3));
-            visualElement.setPos(new Vector(dx + SIZE, -SIZE * 3));
-            circuit.add(visualElement);
-
-            circuit.add(new Wire(new Vector(dx, -SIZE * 4), new Vector(dx + SIZE, -SIZE * 4)));
-            circuit.add(new Wire(new Vector(dx + SIZE, -SIZE * 3), new Vector(dx + SIZE, -SIZE * 4)));
-
             circuit.add(new Wire(new Vector(dx, -SIZE * 5), new Vector(dx, pos)));
-            circuit.add(new Wire(new Vector(dx + SIZE, -SIZE), new Vector(dx + SIZE, pos)));
+
+            if (isNotNeeded(v.getIdentifier())) {
+                visualElement = new VisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+                visualElement.getElementAttributes()
+                        .set(Keys.ROTATE, new Rotation(3));
+                visualElement.setPos(new Vector(dx + SIZE, -SIZE * 3));
+                circuit.add(visualElement);
+
+                circuit.add(new Wire(new Vector(dx, -SIZE * 4), new Vector(dx + SIZE, -SIZE * 4)));
+                circuit.add(new Wire(new Vector(dx + SIZE, -SIZE * 3), new Vector(dx + SIZE, -SIZE * 4)));
+                circuit.add(new Wire(new Vector(dx + SIZE, -SIZE), new Vector(dx + SIZE, pos)));
+            }
 
             varPos.put(v.getIdentifier(), dx);
             dx += SIZE * 2;
@@ -130,6 +132,14 @@ public class Builder {
             if (f.isNeg()) in += SIZE;
             circuit.add(new Wire(p, new Vector(in, p.y)));
         }
+    }
+
+    private boolean isNotNeeded(String identifier) {
+        for (FragmentVariable fv : fragmentVariables)
+            if (fv.isNeg() && fv.getVariable().getIdentifier().equals(identifier))
+                return true;
+
+        return false;
     }
 
     /**

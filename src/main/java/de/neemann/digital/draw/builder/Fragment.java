@@ -6,7 +6,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import java.util.List;
 
 /**
- * A fragemnt used to create a circuit from an expression
+ * A fragment used to create a circuit from an expression
  *
  * @author hneemann
  */

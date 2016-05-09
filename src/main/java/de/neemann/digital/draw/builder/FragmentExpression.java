@@ -48,8 +48,7 @@ public class FragmentExpression implements Fragment {
             fragments.add(new FragmentHolder(fr));
     }
 
-    @Override
-    public Box doLayout() {
+    private Box doLayoutNormal() {
         int height = 0;
         int width = 0;
         for (FragmentHolder fr : fragments) {
@@ -88,6 +87,28 @@ public class FragmentExpression implements Fragment {
         width += mergerBox.getWidth();
 
         return new Box(width, Math.max(height, mergerBox.getHeight()));
+    }
+
+    private Box doLayoutOnlyVariables() {
+        Box mergerBox = merger.doLayout();
+        merger.setPos(new Vector(SIZE * 2, 0));
+
+        Iterator<Vector> in = merger.getInputs().iterator();
+        for (FragmentHolder fr : fragments) {
+            fr.fragment.setPos(new Vector(0, in.next().y));
+            fr.box = fr.fragment.doLayout();
+        }
+
+        return new Box(mergerBox.getWidth() + SIZE * 2, mergerBox.getHeight());
+    }
+
+    @Override
+    public Box doLayout() {
+        for (FragmentHolder fr : fragments)
+            if (!(fr.fragment instanceof FragmentVariable))
+                return doLayoutNormal();
+
+        return doLayoutOnlyVariables();
     }
 
     private int raster(int k) {
