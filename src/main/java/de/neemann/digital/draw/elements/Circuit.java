@@ -241,6 +241,30 @@ public class Circuit {
     }
 
     /**
+     * Returns a list of all Drawables in the given rectangle.
+     *
+     * @param min upper left corner of the rectangle
+     * @param max lower right corner of the rectangle
+     * @return the list
+     */
+    public ArrayList<Drawable> getElementsToHighlight(Vector min, Vector max) {
+        ArrayList<Drawable> m = new ArrayList<>();
+        for (VisualElement vp : visualElements)
+            if (vp.matches(min, max))
+                m.add(vp);
+
+        for (Wire w : wires) {
+            if (w.p1.inside(min, max) && w.p2.inside(min, max))
+                m.add(w);
+        }
+        if (m.isEmpty())
+            return null;
+        else
+            return m;
+    }
+
+
+    /**
      * Returns a list of all Moveables in the given rectangle.
      * It creates a deep copy of all elements.
      *
