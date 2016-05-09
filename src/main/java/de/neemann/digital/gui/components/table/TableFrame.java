@@ -7,6 +7,7 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.draw.builder.Builder;
+import de.neemann.digital.draw.builder.BuilderException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
@@ -145,7 +146,11 @@ public class TableFrame extends JFrame {
                 public void resultFound(String name, Expression expression) throws FormatterException {
                     if (!contained.contains(name)) {
                         contained.add(name);
-                        builder.addExpression(name, expression);
+                        try {
+                            builder.addExpression(name, expression);
+                        } catch (BuilderException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }.create();
@@ -153,7 +158,7 @@ public class TableFrame extends JFrame {
             Circuit circuit = builder.createCircuit();
             SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
 
-        } catch (ExpressionException | FormatterException e) {
+        } catch (ExpressionException | FormatterException | RuntimeException e) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
         }
     }
