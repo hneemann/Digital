@@ -11,12 +11,18 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static de.neemann.digital.analyse.expression.Not.not;
+import static de.neemann.digital.analyse.expression.Operation.and;
+import static de.neemann.digital.analyse.expression.Operation.or;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
@@ -100,6 +106,7 @@ public class Builder {
     private void createInputBus() {
         HashMap<String, Integer> varPos = new HashMap<>();
         int dx = -variableVisitor.getVariables().size() * SIZE * 2;
+        pos -= SIZE;
         for (Variable v : variableVisitor.getVariables()) {
             VisualElement visualElement = new VisualElement(In.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
             visualElement.getElementAttributes()
@@ -151,5 +158,34 @@ public class Builder {
         createInputBus();
         return circuit;
     }
+
+    public static void main(String[] args) throws BuilderException {
+
+        Variable a = new Variable("a");
+        Variable b = new Variable("b");
+        Variable c = new Variable("c");
+        Variable d = new Variable("d");
+
+        Expression y0 = or(a, b);
+        Expression y1 = and(a, b, b, or(and(c, not(b)), and(c, d)));
+        Expression y2 = or(and(a, not(b)), and(c, d));
+        Expression y3 = or(and(a, b), and(c, d), and(c, d));
+        Expression y4 = or(and(not(a), b), and(b, c), and(c, d), and(b, c));
+        Expression y5 = or(and(a, b), and(b, not(c)), and(c, d), and(b, c), and(b, c));
+        Expression y6 = or(and(a, b), and(b, c), and(c, not(d)), and(b, c), and(b, c), and(b, c));
+
+        Circuit circuit = new Builder(new ShapeFactory(new ElementLibrary()))
+//                .addExpression("Y_0", y0)
+//                .addExpression("Y_1", y1)
+                .addExpression("Y_2", y2)
+                .addExpression("Y_3", y3)
+                .addExpression("Y_4", y4)
+                .addExpression("Y_5", y5)
+                .addExpression("Y_6", y6)
+                .createCircuit();
+
+        SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
+    }
+
 
 }

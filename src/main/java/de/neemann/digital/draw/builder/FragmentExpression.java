@@ -18,6 +18,7 @@ public class FragmentExpression implements Fragment {
     private final ArrayList<FragmentHolder> fragments;
     private final Fragment merger;
     private Vector pos;
+    private boolean normalLayout;
 
     private static ArrayList<Fragment> createList(Fragment fragment) {
         ArrayList<Fragment> f = new ArrayList<>();
@@ -66,20 +67,17 @@ public class FragmentExpression implements Fragment {
 
         Box mergerBox = merger.doLayout();
 
-        if (isLong())
-            if (fragments.size() > 3)
-                width += SIZE * 3;
-            else
-                width += SIZE * 2;
-        else
-            width += SIZE;
+        width += (fragments.size() / 2 + 1) * SIZE;
 
+        int centerIndex = fragments.size() / 2;
         if ((fragments.size() & 1) == 0) {
             // even number of inputs
-            merger.setPos(new Vector(width, raster((height - mergerBox.getHeight()) / 2)));
+            int y1 = fragments.get(centerIndex - 1).fragment.getOutputs().get(0).y;
+            int y2 = fragments.get(centerIndex).fragment.getOutputs().get(0).y;
+            int y = raster((y1 + y2) / 2) - centerIndex * SIZE;
+            merger.setPos(new Vector(width, y));
         } else {
             // odd number of inputs
-            int centerIndex = fragments.size() / 2;
             int y = fragments.get(centerIndex).fragment.getOutputs().get(0).y - centerIndex * SIZE;
             merger.setPos(new Vector(width, y));
         }
@@ -91,7 +89,7 @@ public class FragmentExpression implements Fragment {
 
     private Box doLayoutOnlyVariables() {
         Box mergerBox = merger.doLayout();
-        merger.setPos(new Vector(SIZE * 2, 0));
+        merger.setPos(new Vector(SIZE, 0));
 
         Iterator<Vector> in = merger.getInputs().iterator();
         for (FragmentHolder fr : fragments) {
@@ -99,15 +97,18 @@ public class FragmentExpression implements Fragment {
             fr.box = fr.fragment.doLayout();
         }
 
-        return new Box(mergerBox.getWidth() + SIZE * 2, mergerBox.getHeight());
+        return new Box(mergerBox.getWidth() + SIZE, mergerBox.getHeight());
     }
 
     @Override
     public Box doLayout() {
         for (FragmentHolder fr : fragments)
-            if (!(fr.fragment instanceof FragmentVariable))
+            if (!(fr.fragment instanceof FragmentVariable)) {
+                normalLayout = true;
                 return doLayoutNormal();
+            }
 
+        normalLayout = false;
         return doLayoutOnlyVariables();
     }
 
@@ -124,21 +125,22 @@ public class FragmentExpression implements Fragment {
     public void addToCircuit(Vector offset, Circuit circuit) {
         Vector p = pos.add(offset);
         merger.addToCircuit(p, circuit);
-        Iterator<Vector> inputs = merger.getInputs().iterator();
-        for (FragmentHolder fr : fragments) {
+        for (int i = 0; i < fragments.size(); i++) {
+            FragmentHolder fr = fragments.get(i);
             fr.fragment.addToCircuit(p, circuit);
 
             Vector pin = fr.fragment.getOutputs().get(0);
 
             Vector start = pin.add(p);
-            Vector end = inputs.next().add(p);
-            if (isLong()) {
-                int dx = end.x - start.x - SIZE;
-                if (fragments.size() > 3)
-                    dx -= SIZE;
+            Vector end = merger.getInputs().get(i).add(p);
 
-                Vector inter1 = start.add(dx, 0);
-                Vector inter2 = end.add(-SIZE, 0);
+            int back = 0;
+            if (normalLayout)
+                back = calcBackOffset(fragments.size(), i);
+
+            if (back > 0) {
+                Vector inter2 = end.add(-back * SIZE, 0);
+                Vector inter1 = new Vector(inter2.x, start.y);
                 circuit.add(new Wire(start, inter1));
                 circuit.add(new Wire(inter1, inter2));
                 circuit.add(new Wire(inter2, end));
@@ -148,6 +150,16 @@ public class FragmentExpression implements Fragment {
 
             p.add(0, fr.box.getHeight() + SIZE);
         }
+    }
+
+    static int calcBackOffset(int size, int i) {
+        if ((size & 1) != 0 && i == (size - 1) / 2)
+            return 0;
+
+        if (i >= size / 2)
+            return size - i;
+        else
+            return i + 1;
     }
 
     @Override
@@ -164,10 +176,6 @@ public class FragmentExpression implements Fragment {
     @Override
     public List<Vector> getOutputs() {
         return Vector.add(merger.getOutputs(), pos);
-    }
-
-    private boolean isLong() {
-        return fragments.size() > 1;
     }
 
     private class FragmentHolder {
