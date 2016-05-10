@@ -10,7 +10,8 @@ public final class Not implements Expression {
     private Expression expression;
 
     /**
-     * Creates a not expression
+     * Creates a not expression.
+     * Simplifies the expression if possible.
      *
      * @param a the child expression to invert
      * @return the inverted expression
@@ -27,6 +28,12 @@ public final class Not implements Expression {
             return new Not(a);
     }
 
+    /**
+     * Creates a new instance.
+     * In most cases it's better to use {@link Not#not(Expression)}.
+     *
+     * @param expression
+     */
     public Not(Expression expression) {
         this.expression = expression;
     }

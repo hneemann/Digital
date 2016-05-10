@@ -8,17 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Represents a variable
+ *
  * @author hneemann
  */
 public class FragmentVariable implements Fragment {
     private final Variable variable;
-    private final boolean neg;
+    private final boolean invert;
     private Vector pos;
     private Vector circuitPos;
 
-    public FragmentVariable(Variable variable, boolean neg) {
+    /**
+     * Creates a new variable
+     *
+     * @param variable the variable
+     * @param invert   true if variable needs to be inverted
+     */
+    public FragmentVariable(Variable variable, boolean invert) {
         this.variable = variable;
-        this.neg = neg;
+        this.invert = invert;
     }
 
     @Override
@@ -36,12 +44,18 @@ public class FragmentVariable implements Fragment {
         circuitPos = pos.add(this.pos);
     }
 
+    /**
+     * @return the position of the variable in the circuit
+     */
     public Vector getCircuitPos() {
         return circuitPos;
     }
 
-    public boolean isNeg() {
-        return neg;
+    /**
+     * @return true if variable is inverted
+     */
+    public boolean isInvert() {
+        return invert;
     }
 
     @Override
@@ -56,6 +70,9 @@ public class FragmentVariable implements Fragment {
         return o;
     }
 
+    /**
+     * @return the variable
+     */
     public Variable getVariable() {
         return variable;
     }

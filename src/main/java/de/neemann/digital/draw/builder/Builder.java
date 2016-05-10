@@ -152,14 +152,14 @@ public class Builder {
         for (FragmentVariable f : fragmentVariables) {
             Vector p = f.getCircuitPos();
             int in = varPos.get(f.getVariable().getIdentifier());
-            if (f.isNeg()) in += SIZE;
+            if (f.isInvert()) in += SIZE;
             circuit.add(new Wire(p, new Vector(in, p.y)));
         }
     }
 
     private boolean isNotNeeded(String identifier) {
         for (FragmentVariable fv : fragmentVariables)
-            if (fv.isNeg() && fv.getVariable().getIdentifier().equals(identifier))
+            if (fv.isInvert() && fv.getVariable().getIdentifier().equals(identifier))
                 return true;
 
         return false;
