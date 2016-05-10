@@ -159,6 +159,12 @@ public class Builder {
         return circuit;
     }
 
+    /**
+     * Only used for manual tests
+     *
+     * @param args args
+     * @throws BuilderException BuilderException
+     */
     public static void main(String[] args) throws BuilderException {
 
         Variable a = new Variable("a");

@@ -46,6 +46,7 @@ public class TableFrame extends JFrame {
     private TableColumn column;
     private int columnIndex;
     private AllSolutionsFrame allSolutionsFrame;
+    private int variables;
 
     /**
      * Creates a new instance
@@ -65,7 +66,7 @@ public class TableFrame extends JFrame {
         table = new JTable(model);
         JComboBox<String> comboBox = new JComboBox<String>(TruthTableTableModel.STATENAMES);
         table.setDefaultEditor(Integer.class, new DefaultCellEditor(comboBox));
-        table.setDefaultRenderer(Integer.class, new CenterDefaultTableCellRenderer(true));
+        table.setDefaultRenderer(Integer.class, new CenterDefaultTableCellRenderer());
         table.setRowHeight(25);
 
         allSolutionsFrame = new AllSolutionsFrame(this, font);
@@ -188,6 +189,7 @@ public class TableFrame extends JFrame {
         this.model = model;
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
+        variables = model.getTable().getVars().size();
         reorderMenu.removeAll();
         int cols = model.getTable().getVars().size();
         reorderMenu.add(new JMenuItem(new ReorderAction(cols)));
@@ -249,18 +251,13 @@ public class TableFrame extends JFrame {
     }
 
     private final class CenterDefaultTableCellRenderer extends DefaultTableCellRenderer {
-        private final boolean gray;
-
-        private CenterDefaultTableCellRenderer(boolean gray) {
-            this.gray = gray;
-        }
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setFont(font);
-            if (gray)
+            if (column < variables)
                 label.setBackground(MYGRAY);
             else
                 label.setBackground(Color.WHITE);
