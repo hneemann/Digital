@@ -147,8 +147,6 @@ public class FragmentExpression implements Fragment {
             } else {
                 circuit.add(new Wire(start, end));
             }
-
-            p.add(0, fr.box.getHeight() + SIZE);
         }
     }
 
@@ -165,11 +163,9 @@ public class FragmentExpression implements Fragment {
     @Override
     public List<Vector> getInputs() {
         ArrayList<Vector> pins = new ArrayList<>();
-        Vector p = new Vector(pos);
-        for (FragmentHolder fr : fragments) {
-            pins.addAll(Vector.add(fr.fragment.getInputs(), p));
-            p.add(0, fr.box.getHeight() + SIZE);
-        }
+        for (FragmentHolder fr : fragments)
+            pins.addAll(Vector.add(fr.fragment.getInputs(), pos));
+
         return pins;
     }
 
@@ -178,7 +174,7 @@ public class FragmentExpression implements Fragment {
         return Vector.add(merger.getOutputs(), pos);
     }
 
-    private class FragmentHolder {
+    private static final class FragmentHolder {
         private final Fragment fragment;
         private Box box;
 
