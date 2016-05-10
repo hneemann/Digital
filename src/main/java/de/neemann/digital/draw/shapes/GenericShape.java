@@ -95,28 +95,56 @@ public class GenericShape implements Shape {
     @Override
     public Pins getPins() {
         if (pins == null) {
-            pins = new Pins();
-
-            int offs = symmetric ? inputs.length / 2 * SIZE : 0;
-
-            for (int i = 0; i < inputs.length; i++) {
-                int correct = 0;
-                if (symmetric && ((inputs.length & 1) == 0) && i >= inputs.length / 2)
-                    correct = SIZE;
-
-                pins.add(new Pin(new Vector(0, i * SIZE + correct), inputs[i]));
-            }
-
-
-            if (invert) {
-                for (int i = 0; i < outputs.length; i++)
-                    pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputs[i]));
-
-            } else {
-                for (int i = 0; i < outputs.length; i++)
-                    pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputs[i]));
-            }
+            pins = createPins(inputs, outputs, invert, width, symmetric);
         }
+        return pins;
+    }
+
+    /**
+     * Creates pins
+     *
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     * @param invert  true if invert output
+     * @return the pins
+     */
+    public static Pins createPins(PinDescription[] inputs, PinDescription[] outputs, boolean invert) {
+        return createPins(inputs, outputs, invert, 3, true);
+    }
+
+    /**
+     * Creates pins
+     *
+     * @param inputs    the inputs
+     * @param outputs   the outputs
+     * @param invert    true if invert output
+     * @param width     with of symbol
+     * @param symmetric true if outputs in the center
+     * @return the pins
+     */
+    public static Pins createPins(PinDescription[] inputs, PinDescription[] outputs, boolean invert, int width, boolean symmetric) {
+        Pins pins = new Pins();
+
+        int offs = symmetric ? inputs.length / 2 * SIZE : 0;
+
+        for (int i = 0; i < inputs.length; i++) {
+            int correct = 0;
+            if (symmetric && ((inputs.length & 1) == 0) && i >= inputs.length / 2)
+                correct = SIZE;
+
+            pins.add(new Pin(new Vector(0, i * SIZE + correct), inputs[i]));
+        }
+
+
+        if (invert) {
+            for (int i = 0; i < outputs.length; i++)
+                pins.add(new Pin(new Vector(SIZE * (width + 1), i * SIZE + offs), outputs[i]));
+
+        } else {
+            for (int i = 0; i < outputs.length; i++)
+                pins.add(new Pin(new Vector(SIZE * width, i * SIZE + offs), outputs[i]));
+        }
+
         return pins;
     }
 
