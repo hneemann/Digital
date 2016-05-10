@@ -619,8 +619,7 @@ public class CircuitComponent extends JComponent {
                 if (downButton == MouseEvent.BUTTON1) {
                     removeHighLighted();
                     mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
-                }
-                else if (downButton == MouseEvent.BUTTON3) {
+                } else if (downButton == MouseEvent.BUTTON3) {
                     removeHighLighted();
                     mouseCopySelected.activate(corner1, corner2, getPosVector(e));
                 }
@@ -628,7 +627,7 @@ public class CircuitComponent extends JComponent {
                 corner2 = getPosVector(e);
                 ArrayList<Drawable> elements = circuit.getElementsToHighlight(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
                 removeHighLighted();
-                if (elements!=null)
+                if (elements != null)
                     addHighLighted(elements);
 
                 repaint();
