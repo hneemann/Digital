@@ -18,7 +18,7 @@ public class TestExamples extends TestCase {
     private static final File examples=new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
 
     public void testCombinatorial() throws Exception {
-        assertEquals(26, scan(new File(examples, "combinatorial")));
+        assertEquals(28, scan(new File(examples, "combinatorial")));
     }
 
     public void testSequential() throws Exception {
