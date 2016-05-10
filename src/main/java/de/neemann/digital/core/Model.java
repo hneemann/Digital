@@ -467,6 +467,13 @@ public class Model {
     }
 
     /**
+     * @return the number of nodes
+     */
+    public int size() {
+        return nodes.size();
+    }
+
+    /**
      * A simple storage bean for signals
      */
     public static final class Signal implements Comparable<Signal> {

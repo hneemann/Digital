@@ -526,6 +526,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
             model = modelDescription.createModel(true);
 
+            statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
+
             boolean runClock = false;
             if (globalRunClock)
                 for (Clock c : model.getClocks())
@@ -625,6 +627,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             circuitComponent.setCircuit(circ);
             elementState.activate();
             setFilename(filename, toPrefs);
+            statusLabel.setText(" ");
         } catch (Exception e) {
             circuitComponent.setCircuit(new Circuit());
             new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e).show(this);
