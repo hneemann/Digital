@@ -384,6 +384,13 @@ public class Circuit {
     }
 
     /**
+     * Sets this circuits state to not modified
+     */
+    public void setNotModified() {
+        modified = false;
+    }
+
+    /**
      * @return true if modified
      */
     public boolean isModified() {

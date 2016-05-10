@@ -1,6 +1,7 @@
 package de.neemann.digital.analyse.expression.modify;
 
 import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.Not;
 import de.neemann.digital.analyse.expression.Operation;
 
 import java.util.ArrayList;
@@ -14,6 +15,9 @@ public class NOr implements ExpressionModifier {
 
     @Override
     public Expression modify(Expression expression) {
+        if (expression instanceof Operation.Or) {
+            return new Not(not(expression));
+        } else
         if (expression instanceof Operation.And) {
             ArrayList<Expression> exp = new ArrayList<>();
             for (Expression e : ((Operation.And) expression).getExpressions())

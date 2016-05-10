@@ -172,6 +172,7 @@ public class Builder {
      */
     public Circuit createCircuit() {
         createInputBus();
+        circuit.setNotModified();
         return circuit;
     }
 
