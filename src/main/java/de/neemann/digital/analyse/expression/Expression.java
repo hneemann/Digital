@@ -28,7 +28,9 @@ public interface Expression {
     <V extends ExpressionVisitor> V traverse(V visitor);
 
     /**
-     * Used to modify the ast
+     * Used to modify the ast.
+     * Don't call this method directly!
+     * Use {@link ExpressionModifier#modifyExpression(Expression, ExpressionModifier)} instead!
      *
      * @param modifier the modifier
      */

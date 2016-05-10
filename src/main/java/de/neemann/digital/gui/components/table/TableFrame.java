@@ -163,8 +163,7 @@ public class TableFrame extends JFrame {
                     if (!contained.contains(name)) {
                         contained.add(name);
                         try {
-                            expression.modify(modifier);
-                            builder.addExpression(name, modifier.modify(expression));
+                            builder.addExpression(name, ExpressionModifier.modifyExpression(expression, modifier));
                         } catch (BuilderException e) {
                             throw new RuntimeException(e);
                         }
