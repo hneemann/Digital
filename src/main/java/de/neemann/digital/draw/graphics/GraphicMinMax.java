@@ -91,21 +91,10 @@ public class GraphicMinMax implements Graphic {
             int textWidth = getTextWidth(text, style);
             Vector width = delta.mul(textWidth).div(128);
 
-            if (p1.y == p2.y) {   // 0 and 180 deg
-                if (p1.x > p2.x)   // 180
-                    orientation = orientation.rot(2);
-            } else {
-                if (p1.y < p2.y) // 270
-                    orientation = orientation.rot(2);
-                else            // 90
-                    orientation = orientation.rot(0);
-            }
-
             Vector p = p1;
             if (orientation.getX() != 0) {
                 p = p.sub(width.mul(orientation.getX()).div(2));
             }
-
 
             if (orientation.getY() != 0) {
                 p = p.sub(height.mul(orientation.getY()).div(2));

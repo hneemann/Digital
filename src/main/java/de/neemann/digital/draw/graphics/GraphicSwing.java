@@ -76,6 +76,9 @@ public class GraphicSwing implements Graphic {
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
         if (text == null || text.length() == 0) return;
+
+        //GraphicMinMax.approxTextSize(this, p1, p2, text, orientation, style);
+
         text = cleanLabel(text);
 
         boolean rotateText = false;
@@ -117,7 +120,6 @@ public class GraphicSwing implements Graphic {
         if (rotateText)
             gr.setTransform(old);
 
-        //GraphicMinMax.approxTextSize(this, p1, p2, text, orientation, style);
     }
 
 }
