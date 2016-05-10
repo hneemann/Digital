@@ -113,6 +113,20 @@ public class Vector {
     }
 
     /**
+     * Adds a offset to every vector in the given list
+     *
+     * @param vectors the original vectors
+     * @param offs    the offset
+     * @return the new list
+     */
+    public static List<Vector> add(List<Vector> vectors, Vector offs) {
+        ArrayList<Vector> newVec = new ArrayList<>();
+        for (Vector v : vectors)
+            newVec.add(v.add(offs));
+        return newVec;
+    }
+
+    /**
      * Creates a new vector which has the value this-a
      *
      * @param a a
@@ -195,17 +209,4 @@ public class Vector {
         return new Vector(Math.round(x * 128 / l), Math.round(y * 128 / l));
     }
 
-    /**
-     * Adds a offset to every vector in the given list
-     *
-     * @param vectors the original vectors
-     * @param offs    the offset
-     * @return the new list
-     */
-    public static List<Vector> add(List<Vector> vectors, Vector offs) {
-        ArrayList<Vector> newVec = new ArrayList<>();
-        for (Vector v : vectors)
-            newVec.add(v.add(offs));
-        return newVec;
-    }
 }
