@@ -1,7 +1,7 @@
 package de.neemann.digital.draw.builder;
 
 /**
- * With and height of a fragment
+ * Width and height of a fragment
  *
  * @author hneemann
  */

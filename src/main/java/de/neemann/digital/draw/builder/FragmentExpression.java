@@ -11,6 +11,8 @@ import java.util.List;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
+ * Fragment which handles an expression.
+ *
  * @author hneemann
  */
 public class FragmentExpression implements Fragment {

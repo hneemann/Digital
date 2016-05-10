@@ -44,7 +44,7 @@ public class Builder {
     /**
      * Creates a new builder
      *
-     * @param shapeFactory ShapeFactory used ti set to the created VisualElements
+     * @param shapeFactory ShapeFactory which is set to the created VisualElements
      */
     public Builder(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
@@ -200,10 +200,10 @@ public class Builder {
         Circuit circuit = new Builder(new ShapeFactory(new ElementLibrary()))
                 .addExpression("Y_0", y0)
                 .addExpression("Y_1", y1)
-//                .addExpression("Y_2", y2)
-//                .addExpression("Y_3", y3)
-//                .addExpression("Y_4", y4)
-//                .addExpression("Y_5", y5)
+                .addExpression("Y_2", y2)
+                .addExpression("Y_3", y3)
+                .addExpression("Y_4", y4)
+                .addExpression("Y_5", y5)
                 .addExpression("Y_6", y6)
                 .createCircuit();
 
