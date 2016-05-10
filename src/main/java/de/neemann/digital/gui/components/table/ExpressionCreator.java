@@ -8,7 +8,8 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 import de.neemann.digital.analyse.quinemc.TableRow;
-import de.neemann.digital.analyse.quinemc.primeselector.BruteForceGetAll;
+import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
+import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public abstract class ExpressionCreator {
     public void create() throws ExpressionException, FormatterException {
         ArrayList<Variable> vars = theTable.getVars();
         for (int table = 0; table < theTable.getResultCount(); table++) {
-            BruteForceGetAll ps = new BruteForceGetAll();
+            PrimeSelector ps = new PrimeSelectorDefault();
             Expression e = new QuineMcCluskey(vars)
                     .fillTableWith(theTable.getResult(table))
                     .simplify(ps)

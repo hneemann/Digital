@@ -5,7 +5,6 @@ import de.neemann.digital.analyse.quinemc.TableRow;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.TreeSet;
 
 /**
@@ -14,17 +13,15 @@ import java.util.TreeSet;
 public class BruteForce implements PrimeSelector {
     @Override
     public void select(ArrayList<TableRow> primes, ArrayList<TableRow> primesAvail, TreeSet<Integer> termIndices) {
+        if (primesAvail.size() > 31)
+            throw new RuntimeException("to many primes");
+
         int comb = 1 << primesAvail.size();
         ArrayList<Integer> list = new ArrayList<>(comb);
         for (int i = 1; i < comb; i++) {
             list.add(i);
         }
-        Collections.sort(list, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer i1, Integer i2) {
-                return Integer.bitCount(i1) - Integer.bitCount(i2);
-            }
-        });
+        Collections.sort(list, (i1, i2) -> Integer.bitCount(i1) - Integer.bitCount(i2));
 
         ArrayList<Integer> l = new ArrayList<>();
         for (int mask : list) {

@@ -5,7 +5,7 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
-import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
+import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class QuineMcCluskeyRegressionTest extends TestCase {
             System.out.println(FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
             t = t.simplifyStep().removeDuplicates();
         }
-        t.simplifyPrimes(PrimeSelector.DEFAULT);
+        t.simplifyPrimes(new PrimeSelectorDefault());
         assertEquals("A || C", FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
         System.out.println("--");
     }

@@ -3,6 +3,7 @@ package de.neemann.digital.analyse.quinemc;
 
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
+import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class QuineMcCluskey {
      * @return the simplified QMC instance
      */
     public QuineMcCluskey simplify() {
-        return simplify(PrimeSelector.DEFAULT);
+        return simplify(new PrimeSelectorDefault());
     }
 
     /**

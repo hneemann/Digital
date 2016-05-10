@@ -7,7 +7,7 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
-import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
+import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -101,7 +101,7 @@ public class QuineMcCluskeyTest extends TestCase {
         Expression exp = t.getExpression();
         assertEquals("(A && C && D) || (!B && !D) || (!B && C) || (!C && !D)", FormatToExpression.FORMATTER_JAVA.format(exp));
 
-        t.simplifyPrimes(PrimeSelector.DEFAULT);
+        t.simplifyPrimes(new PrimeSelectorDefault());
 
         exp = t.getExpression();
         assertEquals("(A && C && D) || (!B && C) || (!C && !D)", FormatToExpression.FORMATTER_JAVA.format(exp));
