@@ -2,9 +2,12 @@ package de.neemann.digital.draw.builder;
 
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.core.basic.And;
+import de.neemann.digital.core.basic.NAnd;
+import de.neemann.digital.core.basic.NOr;
 import de.neemann.digital.core.basic.Or;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.Rotation;
+import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.Circuit;
@@ -77,10 +80,7 @@ public class Builder {
     private Fragment createFragment(Expression expression) throws BuilderException {
         if (expression instanceof Operation) {
             Operation op = (Operation) expression;
-            ArrayList<Fragment> frags = new ArrayList<>();
-            for (Expression exp : op.getExpressions())
-                frags.add(createFragment(exp));
-
+            ArrayList<Fragment> frags = getOperationFragments(op);
             if (op instanceof Operation.And)
                 return new FragmentExpression(frags, new FragmentVisualElement(And.DESCRIPTION, frags.size(), shapeFactory));
             else if (op instanceof Operation.Or)
@@ -93,14 +93,30 @@ public class Builder {
                 FragmentVariable fragmentVariable = new FragmentVariable((Variable) n.getExpression(), true);
                 fragmentVariables.add(fragmentVariable);
                 return fragmentVariable;
-            } else
-                return new FragmentExpression(createFragment(n.getExpression()), new FragmentVisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION, shapeFactory));
+            } else if (n.getExpression() instanceof Operation.And) {
+                ArrayList<Fragment> frags = getOperationFragments((Operation) n.getExpression());
+                return new FragmentExpression(frags, new FragmentVisualElement(NAnd.DESCRIPTION, frags.size(), shapeFactory));
+            } else if (n.getExpression() instanceof Operation.Or) {
+                ArrayList<Fragment> frags = getOperationFragments((Operation) n.getExpression());
+                return new FragmentExpression(frags, new FragmentVisualElement(NOr.DESCRIPTION, frags.size(), shapeFactory));
+            }
+            return new FragmentExpression(createFragment(n.getExpression()), new FragmentVisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION, shapeFactory));
         } else if (expression instanceof Variable) {
             FragmentVariable fragmentVariable = new FragmentVariable((Variable) expression, false);
             fragmentVariables.add(fragmentVariable);
             return fragmentVariable;
+        } else if (expression instanceof Constant) {
+            int val = ((Constant) expression).getValue() ? 1 : 0;
+            return new FragmentVisualElement(Const.DESCRIPTION, shapeFactory).setAttr(Keys.VALUE, val);
         } else
             throw new BuilderException(Lang.get("err_builder_exprNotSupported", expression.getClass().getSimpleName()));
+    }
+
+    private ArrayList<Fragment> getOperationFragments(Operation op) throws BuilderException {
+        ArrayList<Fragment> frags = new ArrayList<>();
+        for (Expression exp : op.getExpressions())
+            frags.add(createFragment(exp));
+        return frags;
     }
 
     private void createInputBus() {
@@ -173,7 +189,7 @@ public class Builder {
         Variable d = new Variable("d");
 
         Expression y0 = or(a, b);
-        Expression y1 = and(a, b, b, or(and(c, not(b)), and(c, d)));
+        Expression y1 = and(a, b, b, not(or(not(and(c, not(b))), and(c, d))));
         Expression y2 = or(and(a, not(b)), and(c, d));
         Expression y3 = or(and(a, b), and(c, d), and(c, d));
         Expression y4 = or(and(not(a), b), and(b, c), and(c, d), and(b, c));
@@ -181,12 +197,12 @@ public class Builder {
         Expression y6 = or(and(a, b), and(b, c), and(c, not(d)), and(b, c), and(b, c), and(b, c));
 
         Circuit circuit = new Builder(new ShapeFactory(new ElementLibrary()))
-//                .addExpression("Y_0", y0)
-//                .addExpression("Y_1", y1)
-                .addExpression("Y_2", y2)
-                .addExpression("Y_3", y3)
-                .addExpression("Y_4", y4)
-                .addExpression("Y_5", y5)
+                .addExpression("Y_0", y0)
+                .addExpression("Y_1", y1)
+//                .addExpression("Y_2", y2)
+//                .addExpression("Y_3", y3)
+//                .addExpression("Y_4", y4)
+//                .addExpression("Y_5", y5)
                 .addExpression("Y_6", y6)
                 .createCircuit();
 
