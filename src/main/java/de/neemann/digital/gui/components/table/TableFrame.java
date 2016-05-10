@@ -6,6 +6,8 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
+import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.draw.builder.Builder;
 import de.neemann.digital.draw.builder.BuilderException;
 import de.neemann.digital.draw.elements.Circuit;
@@ -122,9 +124,22 @@ public class TableFrame extends JFrame {
         createMenu.add(new ToolTipAction(Lang.get("menu_table_create")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                createCircuit();
+                createCircuit(ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_create_tt")).createJMenuItem());
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCircuit(new NAnd());
+            }
+        }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
+//        createMenu.add(new ToolTipAction(Lang.get("menu_table_createNOr")) {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                createCircuit(new NOr());
+//            }
+//        }.setToolTip(Lang.get("menu_table_createNOr_tt")).createJMenuItem());
+
         bar.add(createMenu);
 
 
@@ -138,7 +153,7 @@ public class TableFrame extends JFrame {
         setLocationRelativeTo(parent);
     }
 
-    private void createCircuit() {
+    private void createCircuit(ExpressionModifier modifier) {
         try {
             Builder builder = new Builder(shapeFactory);
             HashSet<String> contained = new HashSet<>();
@@ -148,7 +163,8 @@ public class TableFrame extends JFrame {
                     if (!contained.contains(name)) {
                         contained.add(name);
                         try {
-                            builder.addExpression(name, expression);
+                            expression.modify(modifier);
+                            builder.addExpression(name, modifier.modify(expression));
                         } catch (BuilderException e) {
                             throw new RuntimeException(e);
                         }

@@ -1,5 +1,7 @@
 package de.neemann.digital.analyse.expression;
 
+import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -99,6 +101,15 @@ public abstract class Operation implements Expression {
                 e.traverse(v);
         }
         return v;
+    }
+
+    @Override
+    public void modify(ExpressionModifier modifier) {
+        for (int i = 0; i < expr.size(); i++) {
+            Expression e = expr.get(i);
+            e.modify(modifier);
+            expr.set(i, modifier.modify(e));
+        }
     }
 
     /**

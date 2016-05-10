@@ -1,11 +1,13 @@
 package de.neemann.digital.analyse.expression;
 
+import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
+
 /**
  * @author hneemann
  */
 public final class Not implements Expression {
 
-    private final Expression expression;
+    private Expression expression;
 
     /**
      * Creates a not expression
@@ -25,7 +27,7 @@ public final class Not implements Expression {
             return new Not(a);
     }
 
-    private Not(Expression expression) {
+    public Not(Expression expression) {
         this.expression = expression;
     }
 
@@ -40,6 +42,12 @@ public final class Not implements Expression {
             expression.traverse(v);
         }
         return v;
+    }
+
+    @Override
+    public void modify(ExpressionModifier modifier) {
+        expression.modify(modifier);
+        expression = modifier.modify(expression);
     }
 
     @Override
