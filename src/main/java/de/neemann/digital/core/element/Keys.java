@@ -2,6 +2,8 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.memory.DataField;
 
+import java.util.Locale;
+
 /**
  * Collection of key constants
  *
@@ -191,4 +193,10 @@ public final class Keys {
      */
     public static final Key<String> NETNAME
             = new Key<>("NetName", "");
+
+    /**
+     * shape setting
+     */
+    public static final Key<Boolean> SETTINGS_IEEE_SHAPES
+            = new Key<>("IEEEShapes", !Locale.getDefault().getCountry().equals("DE"));
 }

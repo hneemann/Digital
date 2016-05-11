@@ -43,8 +43,14 @@ public class Circuit {
     private transient boolean dotsPresent = false;
     private transient boolean modified = false;
 
-    private static XStream getxStream() {
+    /**
+     * Creates a proper configurated XStream instance
+     *
+     * @return the XStream instance
+     */
+    public static XStream getxStream() {
         XStream xStream = new XStream(new StaxDriver());
+        xStream.alias("attributes", ElementAttributes.class);
         xStream.alias("visualElement", VisualElement.class);
         xStream.alias("wire", Wire.class);
         xStream.alias("circuit", Circuit.class);

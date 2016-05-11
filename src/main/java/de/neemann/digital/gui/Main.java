@@ -131,7 +131,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         this.savedListener = savedListener;
 
         library = new ElementLibrary();
-        shapeFactory = new ShapeFactory(library);
+        shapeFactory = new ShapeFactory(library, Settings.getInstance().getAttributes().get(Keys.SETTINGS_IEEE_SHAPES));
 
         final boolean normalMode = savedListener == null;
 
@@ -326,11 +326,20 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_editAttributes_tt"));
 
+        ToolTipAction editSettings = new ToolTipAction(Lang.get("menu_editSettings")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog())
+                    JOptionPane.showMessageDialog(Main.this,Lang.get("msg_restartNeeded"));;
+            }
+        }.setToolTip(Lang.get("menu_editSettings_tt"));
+
         edit.add(elementStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
         edit.add(editAttributes.createJMenuItem());
+        edit.add(editSettings.createJMenuItem());
     }
 
     /**
