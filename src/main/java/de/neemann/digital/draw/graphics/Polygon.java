@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.graphics;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Iterator;
 public class Polygon implements Iterable<Vector> {
 
     private final ArrayList<Vector> points;
+    private final HashSet<Integer> isBezierStart;
     private final boolean closed;
 
     /**
@@ -38,6 +40,7 @@ public class Polygon implements Iterable<Vector> {
     public Polygon(ArrayList<Vector> points, boolean closed) {
         this.points = points;
         this.closed = closed;
+        isBezierStart = new HashSet<>();
     }
 
     /**
@@ -67,6 +70,32 @@ public class Polygon implements Iterable<Vector> {
     public Polygon add(Vector p) {
         points.add(p);
         return this;
+    }
+
+    /**
+     * Adds a new bezier line to the polygon.
+     *
+     * @param c1 the first control point to add
+     * @param c2 the second control point to add
+     * @param p  the end point to add
+     * @return this for chained calls
+     */
+    public Polygon add(Vector c1, Vector c2, Vector p) {
+        isBezierStart.add(points.size());
+        points.add(c1);
+        points.add(c2);
+        points.add(p);
+        return this;
+    }
+
+    /**
+     * Returns true if the point with the given index is a bezier start point
+     *
+     * @param n the index
+     * @return true if point is bezier start
+     */
+    public boolean isBezierStart(int n) {
+        return isBezierStart.contains(n);
     }
 
     /**
@@ -151,6 +180,20 @@ public class Polygon implements Iterable<Vector> {
         Polygon p = new Polygon(closed);
         for (int i = points.size() - 1; i >= 0; i--)
             p.add(points.get(i));
+        return p;
+    }
+
+    /**
+     * Transforms this polygon
+     *
+     * @param transform the transformation
+     * @return the transformed polygon
+     */
+    public Polygon transform(Transform transform) {
+        Polygon p = new Polygon(closed);
+        for (Vector v : points)
+            p.add(transform.transform(v));
+        p.isBezierStart.addAll(isBezierStart);
         return p;
     }
 }

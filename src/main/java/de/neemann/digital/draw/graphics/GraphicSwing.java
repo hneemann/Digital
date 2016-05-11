@@ -37,13 +37,18 @@ public class GraphicSwing implements Graphic {
     public void drawPolygon(Polygon p, Style style) {
         applyStyle(style);
         Path2D path = new GeneralPath();
-        boolean first = true;
-        for (Vector v : p)
-            if (first) {
-                first = false;
-                path.moveTo(v.x, v.y);
-            } else
-                path.lineTo(v.x, v.y);
+        for (int i=0;i<p.size();i++) {
+            if (i == 0) {
+                path.moveTo(p.get(i).x, p.get(i).y);
+            } else {
+                if (p.isBezierStart(i)) {
+                    path.curveTo(p.get(i).x, p.get(i).y, p.get(i+1).x, p.get(i+1).y, p.get(i+2).x, p.get(i+2).y);
+                    i+=2;
+                }
+                else
+                    path.lineTo(p.get(i).x, p.get(i).y);
+            }
+        }
 
         if (p.isClosed())
             path.closePath();

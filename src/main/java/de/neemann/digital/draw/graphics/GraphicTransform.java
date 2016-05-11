@@ -28,10 +28,7 @@ public class GraphicTransform implements Graphic {
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
-        Polygon pp = new Polygon(p.isClosed());
-        for (Vector v : p)
-            pp.add(transform(v));
-        parent.drawPolygon(pp, style);
+        parent.drawPolygon(p.transform(transform), style);
     }
 
     @Override

@@ -4,6 +4,7 @@ import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.Vector;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -23,13 +24,9 @@ public class IEEEAndShape extends IEEEGenericShape {
                 .add(SIZE + SIZE2, SIZE * 2 + SIZE2)
                 .add(0, SIZE * 2 + SIZE2)
                 .add(0, -SIZE2)
-                .add(SIZE + SIZE2, -SIZE2);
-
-        for (int i = 1; i < STEPS; i++) {
-            double w = Math.PI * i / STEPS;
-            int r = SIZE2 + SIZE;
-            p.add((int) (SIZE + SIZE2 + r * Math.sin(w)), (int) (SIZE - r * Math.cos(w)));
-        }
+                .add(SIZE + SIZE2, -SIZE2)
+                .add(new Vector(SIZE*2, -SIZE2),new Vector(SIZE*3, 0),new Vector(SIZE*3, SIZE))
+                .add(new Vector(SIZE*3, SIZE*2),new Vector(SIZE*2, SIZE*2+SIZE2),new Vector(SIZE+SIZE2, SIZE*2+SIZE2));
         return p;
     }
 
