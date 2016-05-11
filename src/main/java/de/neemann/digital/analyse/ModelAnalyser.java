@@ -32,6 +32,8 @@ public class ModelAnalyser {
         inputs = checkBinary(model.getInputs());
         if (inputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoInputs"));
+        if (inputs.size() > 9)
+            throw new AnalyseException(Lang.get("err_toManyInputs_N", 9));
         outputs = checkBinary(model.getOutputs());
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
