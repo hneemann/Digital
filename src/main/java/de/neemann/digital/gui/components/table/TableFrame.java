@@ -128,19 +128,20 @@ public class TableFrame extends JFrame {
                 createCircuit(ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_create_tt")).createJMenuItem());
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCircuit(new NAnd());
-            }
-        }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_createNOr")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCircuit(new NOr());
-            }
-        }.setToolTip(Lang.get("menu_table_createNOr_tt")).createJMenuItem());
-
+        if (Main.enableExperimental()) {
+            createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCircuit(new NAnd());
+                }
+            }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
+            createMenu.add(new ToolTipAction(Lang.get("menu_table_createNOr")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCircuit(new NOr());
+                }
+            }.setToolTip(Lang.get("menu_table_createNOr_tt")).createJMenuItem());
+        }
         bar.add(createMenu);
 
 

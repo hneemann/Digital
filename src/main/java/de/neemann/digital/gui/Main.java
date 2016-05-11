@@ -49,6 +49,14 @@ import java.util.prefs.Preferences;
 public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper {
     private static final Preferences PREFS = Preferences.userRoot().node("dig");
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
+    private static boolean experimental;
+
+    /**
+     * @return true if experimental features are enabled
+     */
+    public static boolean enableExperimental() {
+        return experimental;
+    }
 
     static {
         ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
@@ -511,6 +519,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * @param args the arguments
      */
     public static void main(String[] args) {
+        experimental = args.length == 1 && args[0].equals("experimental");
         SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
 
