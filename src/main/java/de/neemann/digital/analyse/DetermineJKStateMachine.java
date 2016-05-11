@@ -9,6 +9,7 @@ import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.lang.Lang;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -139,6 +140,8 @@ public class DetermineJKStateMachine {
 
             @Override
             public T next() {
+                if (item == null)
+                    throw new NoSuchElementException();
                 T ee = item;
                 item = null;
                 return ee;
