@@ -28,7 +28,7 @@ public class IEEEOrShape extends IEEEGenericShape {
                 .add(SIZE2, -SIZE2)
                 .add(new Vector(SIZE, -SIZE2),
                         new Vector(SIZE * 2, 0),
-                        new Vector(SIZE * 3, SIZE))
+                        new Vector(SIZE * 3-1, SIZE))
                 .add(new Vector(SIZE * 2, SIZE * 2),
                         new Vector(SIZE, SIZE * 2 + SIZE2),
                         new Vector(SIZE2, SIZE * 2 + SIZE2));

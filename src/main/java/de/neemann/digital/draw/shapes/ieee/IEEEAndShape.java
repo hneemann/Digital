@@ -21,11 +21,11 @@ public class IEEEAndShape extends IEEEGenericShape {
     private static Polygon createPoly() {
         return new Polygon(true)
                 .add(SIZE + SIZE2, SIZE * 2 + SIZE2)
-                .add(0, SIZE * 2 + SIZE2)
-                .add(0, -SIZE2)
+                .add(1, SIZE * 2 + SIZE2)
+                .add(1, -SIZE2)
                 .add(SIZE + SIZE2, -SIZE2)
-                .add(new Vector(SIZE*2, -SIZE2),new Vector(SIZE*3, 0),new Vector(SIZE*3, SIZE))
-                .add(new Vector(SIZE*3, SIZE*2),new Vector(SIZE*2, SIZE*2+SIZE2),new Vector(SIZE+SIZE2, SIZE*2+SIZE2));
+                .add(new Vector(SIZE*2, -SIZE2),new Vector(SIZE*3, 0),new Vector(SIZE*3-1, SIZE))
+                .add(new Vector(SIZE*3-1, SIZE*2),new Vector(SIZE*2, SIZE*2+SIZE2),new Vector(SIZE+SIZE2, SIZE*2+SIZE2));
     }
 
     /**

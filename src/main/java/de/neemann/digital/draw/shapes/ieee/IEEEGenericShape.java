@@ -59,9 +59,9 @@ public abstract class IEEEGenericShape implements Shape {
         drawIEEE(new GraphicTransform(graphic, v -> v.add(0, offs)));
 
         if (offs > 0) {
-            graphic.drawLine(new Vector(0, 0), new Vector(0, offs - SIZE2), Style.NORMAL);
+            graphic.drawLine(new Vector(1, 0), new Vector(1, offs - SIZE2 - 1), Style.NORMAL);
             int h = (inputs.length / 2) * SIZE * 2;
-            graphic.drawLine(new Vector(0, h), new Vector(0, h - offs + SIZE2), Style.NORMAL);
+            graphic.drawLine(new Vector(1, h), new Vector(1, h - offs + SIZE2 + 1), Style.NORMAL);
         }
 
         if (invert) {
