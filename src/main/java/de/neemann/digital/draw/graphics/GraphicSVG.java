@@ -96,7 +96,11 @@ public class GraphicSVG implements Graphic, Closeable {
         try {
             w.write("<path d=\"M " + str(p.get(0)));
             for (int i = 1; i < p.size(); i++)
-                w.write(" L " + str(p.get(i)));
+                if (p.isBezierStart(i)) {
+                    w.write(" C " + str(p.get(i)) + " " + str(p.get(i + 1)) + " " + str(p.get(i + 2)));
+                    i += 2;
+                } else
+                    w.write(" L " + str(p.get(i)));
 
             if (p.isClosed())
                 w.write(" Z");
