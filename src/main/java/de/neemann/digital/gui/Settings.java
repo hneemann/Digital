@@ -73,6 +73,18 @@ public final class Settings implements AttributeListener {
         return attributes;
     }
 
+    /**
+     * Gets a value from the settings.
+     * If the value is not present the default value is returned
+     *
+     * @param key     the key
+     * @param <VALUE> the type of the value
+     * @return the value
+     */
+    public <VALUE> VALUE get(Key<VALUE> key) {
+        return attributes.get(key);
+    }
+
     @Override
     public void attributeChanged(Key key) {
         XStream xStream = Circuit.getxStream();

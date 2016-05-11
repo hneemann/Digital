@@ -131,7 +131,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         this.savedListener = savedListener;
 
         library = new ElementLibrary();
-        shapeFactory = new ShapeFactory(library, Settings.getInstance().getAttributes().get(Keys.SETTINGS_IEEE_SHAPES));
+        shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
 
         final boolean normalMode = savedListener == null;
 
