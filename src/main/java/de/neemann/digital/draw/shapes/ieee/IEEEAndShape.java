@@ -16,18 +16,16 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class IEEEAndShape extends IEEEGenericShape {
 
-    private static final int STEPS = 11;
     private static final Polygon POLYGON = createPoly();
 
     private static Polygon createPoly() {
-        Polygon p = new Polygon(true)
+        return new Polygon(true)
                 .add(SIZE + SIZE2, SIZE * 2 + SIZE2)
                 .add(0, SIZE * 2 + SIZE2)
                 .add(0, -SIZE2)
                 .add(SIZE + SIZE2, -SIZE2)
                 .add(new Vector(SIZE*2, -SIZE2),new Vector(SIZE*3, 0),new Vector(SIZE*3, SIZE))
                 .add(new Vector(SIZE*3, SIZE*2),new Vector(SIZE*2, SIZE*2+SIZE2),new Vector(SIZE+SIZE2, SIZE*2+SIZE2));
-        return p;
     }
 
     /**

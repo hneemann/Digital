@@ -16,27 +16,22 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class IEEEOrShape extends IEEEGenericShape {
 
-    private static final int STEPS = 11;
-    private static final int STEPS2 = 7;
     private static final Polygon POLYGON = createPoly();
 
     private static Polygon createPoly() {
-        Polygon p = new Polygon(true);
-
-        p.add(SIZE2, SIZE * 2 + SIZE2);
-        p.add(0, SIZE * 2 + SIZE2);
-        p.add(new Vector(SIZE2, SIZE * 2),
-                new Vector(SIZE2, 0),
-                new Vector(0, -SIZE2));
-        p.add(SIZE2, -SIZE2);
-        p.add(new Vector(SIZE, -SIZE2),
-                new Vector(SIZE*2, 0),
-                new Vector(SIZE*3, SIZE));
-        p.add(new Vector(SIZE*2, SIZE*2),
-                new Vector(SIZE, SIZE*2+SIZE2),
-                new Vector(SIZE2, SIZE*2+SIZE2));
-
-        return p;
+        return new Polygon(true)
+                .add(SIZE2, SIZE * 2 + SIZE2)
+                .add(0, SIZE * 2 + SIZE2)
+                .add(new Vector(SIZE2, SIZE * 2),
+                        new Vector(SIZE2, 0),
+                        new Vector(0, -SIZE2))
+                .add(SIZE2, -SIZE2)
+                .add(new Vector(SIZE, -SIZE2),
+                        new Vector(SIZE * 2, 0),
+                        new Vector(SIZE * 3, SIZE))
+                .add(new Vector(SIZE * 2, SIZE * 2),
+                        new Vector(SIZE, SIZE * 2 + SIZE2),
+                        new Vector(SIZE2, SIZE * 2 + SIZE2));
     }
 
     /**
