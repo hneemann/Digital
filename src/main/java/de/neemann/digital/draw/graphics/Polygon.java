@@ -166,6 +166,8 @@ public class Polygon implements Iterable<Vector> {
      * @return this for chained calls
      */
     public Polygon append(Polygon p2) {
+        if (!p2.isBezierStart.isEmpty())
+            throw new RuntimeException("append of bezier not supported");
         for (int i = 1; i < p2.points.size(); i++)
             points.add(p2.points.get(i));
         return this;
@@ -177,6 +179,8 @@ public class Polygon implements Iterable<Vector> {
      * @return returns this polygon with reverse order of points
      */
     public Polygon reverse() {
+        if (!isBezierStart.isEmpty())
+            throw new RuntimeException("reverse of bezier not supported");
         Polygon p = new Polygon(closed);
         for (int i = points.size() - 1; i >= 0; i--)
             p.add(points.get(i));
