@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * <p/>
  * Created by Helmut.Neemann on 11.05.2016.
  */
-public class Settings implements AttributeListener {
+public final class Settings implements AttributeListener {
 
     /**
      * The list of supported attributes.
@@ -27,10 +27,8 @@ public class Settings implements AttributeListener {
         SETTINGS_KEYS.add(Keys.SETTINGS_IEEE_SHAPES);
     }
 
-    private static SettingsHolder settingsHolder = new SettingsHolder();
-
-    private static class SettingsHolder {
-        Settings INSTANCE = new Settings();
+    private static final class SettingsHolder {
+        static final Settings INSTANCE = new Settings();
     }
 
     /**
@@ -39,7 +37,7 @@ public class Settings implements AttributeListener {
      * @return the Settings
      */
     public static Settings getInstance() {
-        return settingsHolder.INSTANCE;
+        return SettingsHolder.INSTANCE;
     }
 
     private ElementAttributes attributes;

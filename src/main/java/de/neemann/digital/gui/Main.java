@@ -330,7 +330,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog())
-                    JOptionPane.showMessageDialog(Main.this,Lang.get("msg_restartNeeded"));;
+                    JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
             }
         }.setToolTip(Lang.get("menu_editSettings_tt"));
 

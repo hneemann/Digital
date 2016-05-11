@@ -28,11 +28,13 @@ public class IEEEOrShape extends IEEEGenericShape {
                 .add(SIZE2, -SIZE2)
                 .add(new Vector(SIZE, -SIZE2),
                         new Vector(SIZE * 2, 0),
-                        new Vector(SIZE * 3-1, SIZE))
+                        new Vector(SIZE * 3, SIZE))
                 .add(new Vector(SIZE * 2, SIZE * 2),
                         new Vector(SIZE, SIZE * 2 + SIZE2),
                         new Vector(SIZE2, SIZE * 2 + SIZE2));
     }
+
+    private final boolean center;
 
     /**
      * Creates a new instance
@@ -43,10 +45,15 @@ public class IEEEOrShape extends IEEEGenericShape {
      */
     public IEEEOrShape(PinDescription[] inputs, PinDescription[] outputs, boolean invert) {
         super(inputs, outputs, invert);
+        center = (inputs.length & 1) != 0;
     }
 
     @Override
     protected void drawIEEE(Graphic graphic) {
+        graphic.drawLine(new Vector(0, 0), new Vector(4, 0), Style.WIRE);
+        graphic.drawLine(new Vector(0, SIZE * 2), new Vector(4, SIZE * 2), Style.WIRE);
+        if (center)
+            graphic.drawLine(new Vector(0, SIZE), new Vector(7, SIZE), Style.WIRE);
         graphic.drawPolygon(POLYGON, Style.NORMAL);
     }
 }
