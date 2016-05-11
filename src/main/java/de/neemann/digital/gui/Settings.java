@@ -10,21 +10,26 @@ import de.neemann.digital.draw.elements.Circuit;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The Settings of Digital
- * <p/>
+ * <p>
  * Created by Helmut.Neemann on 11.05.2016.
  */
 public final class Settings implements AttributeListener {
 
+    private static final List<Key> INT_LIST = new ArrayList<>();
+
     /**
      * The list of supported attributes.
      */
-    public static final ArrayList<Key> SETTINGS_KEYS = new ArrayList<>();
+    public static final List<Key> SETTINGS_KEYS = Collections.unmodifiableList(INT_LIST);
+
 
     static {
-        SETTINGS_KEYS.add(Keys.SETTINGS_IEEE_SHAPES);
+        INT_LIST.add(Keys.SETTINGS_IEEE_SHAPES);
     }
 
     private static final class SettingsHolder {

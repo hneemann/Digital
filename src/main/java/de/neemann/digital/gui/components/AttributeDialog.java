@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class AttributeDialog extends JDialog {
 
-    private final ArrayList<EditorHolder> editors;
+    private final java.util.List<EditorHolder> editors;
     private boolean changed = false;
 
     /**
@@ -25,7 +25,7 @@ public class AttributeDialog extends JDialog {
      * @param list              the list of keys which are to edit
      * @param elementAttributes the data stored
      */
-    public AttributeDialog(Component parent, ArrayList<Key> list, ElementAttributes elementAttributes) {
+    public AttributeDialog(Component parent, java.util.List<Key> list, ElementAttributes elementAttributes) {
         this(parent, null, list, elementAttributes);
     }
 
@@ -37,7 +37,7 @@ public class AttributeDialog extends JDialog {
      * @param list              the list of keys which are to edit
      * @param elementAttributes the data stored
      */
-    public AttributeDialog(Component parent, Point pos, ArrayList<Key> list, ElementAttributes elementAttributes) {
+    public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
