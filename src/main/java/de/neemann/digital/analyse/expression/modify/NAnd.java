@@ -16,12 +16,12 @@ public class NAnd implements ExpressionModifier {
     @Override
     public Expression modify(Expression expression) {
         if (expression instanceof Operation.And) {
-            return new Not(not(expression));
+            return not(new Not(expression).protect());
         } else if (expression instanceof Operation.Or) {
             ArrayList<Expression> exp = new ArrayList<>();
             for (Expression e : ((Operation.Or) expression).getExpressions())
                 exp.add(not(e));
-            return not(Operation.and(exp));
+            return new Not(Operation.and(exp)).protect();
         } else
             return expression;
     }

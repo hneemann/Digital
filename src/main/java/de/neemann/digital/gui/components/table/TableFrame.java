@@ -9,6 +9,7 @@ import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.analyse.expression.modify.NOr;
+import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.draw.builder.Builder;
 import de.neemann.digital.draw.builder.BuilderException;
 import de.neemann.digital.draw.elements.Circuit;
@@ -128,19 +129,42 @@ public class TableFrame extends JFrame {
                 createCircuit(ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_create_tt")).createJMenuItem());
+
         if (Main.enableExperimental()) {
+            createMenu.add(new ToolTipAction(Lang.get("menu_table_createTwo")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCircuit(new TwoInputs());
+                }
+            }.setToolTip(Lang.get("menu_table_createTwo_tt")).createJMenuItem());
+
             createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     createCircuit(new NAnd());
                 }
             }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
+
+            createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAndTwo")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCircuit(new TwoInputs(), new NAnd());
+                }
+            }.setToolTip(Lang.get("menu_table_createNAndTwo_tt")).createJMenuItem());
+
             createMenu.add(new ToolTipAction(Lang.get("menu_table_createNOr")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     createCircuit(new NOr());
                 }
             }.setToolTip(Lang.get("menu_table_createNOr_tt")).createJMenuItem());
+
+            createMenu.add(new ToolTipAction(Lang.get("menu_table_createNOrTwo")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCircuit(new TwoInputs(), new NOr());
+                }
+            }.setToolTip(Lang.get("menu_table_createNOrTwo_tt")).createJMenuItem());
         }
         bar.add(createMenu);
 
@@ -155,7 +179,7 @@ public class TableFrame extends JFrame {
         setLocationRelativeTo(parent);
     }
 
-    private void createCircuit(ExpressionModifier modifier) {
+    private void createCircuit(ExpressionModifier... modifier) {
         try {
             Builder builder = new Builder(shapeFactory);
             HashSet<String> contained = new HashSet<>();

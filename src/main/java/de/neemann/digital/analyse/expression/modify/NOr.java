@@ -16,13 +16,13 @@ public class NOr implements ExpressionModifier {
     @Override
     public Expression modify(Expression expression) {
         if (expression instanceof Operation.Or) {
-            return new Not(not(expression));
+            return not(new Not(expression).protect());
         } else
         if (expression instanceof Operation.And) {
             ArrayList<Expression> exp = new ArrayList<>();
             for (Expression e : ((Operation.And) expression).getExpressions())
                 exp.add(not(e));
-            return not(Operation.or(exp));
+            return new Not(Operation.or(exp)).protect();
         } else
             return expression;
     }

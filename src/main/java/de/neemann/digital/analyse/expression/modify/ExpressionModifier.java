@@ -26,6 +26,19 @@ public interface ExpressionModifier {
     }
 
     /**
+     * Modifies the given expression with the given modifiers
+     *
+     * @param expression the expression to modify
+     * @param modifiers  the modifiers to use
+     * @return the modified expression
+     */
+    static Expression modifyExpression(Expression expression, ExpressionModifier... modifiers) {
+        for (ExpressionModifier m : modifiers)
+            expression = modifyExpression(expression, m);
+        return expression;
+    }
+
+    /**
      * Modifies an expression.
      * Don't recurse! Recursion is done by calling {@link Expression#modify(ExpressionModifier)}
      * Don't call this method directly. Call {@link ExpressionModifier#modifyExpression(Expression, ExpressionModifier)} instead!

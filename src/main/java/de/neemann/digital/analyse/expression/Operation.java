@@ -26,7 +26,7 @@ public abstract class Operation implements Expression {
      * @return the created expression
      */
     public static Expression or(Iterable<Expression> exp) {
-        return simplify(new Or(exp));
+        return simplify(new Or(exp, true));
     }
 
     /**
@@ -36,7 +36,17 @@ public abstract class Operation implements Expression {
      * @return the created expression
      */
     public static Expression or(Expression... exp) {
-        return simplify(new Or(Arrays.asList(exp)));
+        return simplify(new Or(Arrays.asList(exp), true));
+    }
+
+    /**
+     * Creates a new OR expression
+     *
+     * @param exp the expressions to OR
+     * @return the created expression
+     */
+    public static Expression orNoMerge(Expression... exp) {
+        return simplify(new Or(Arrays.asList(exp), false));
     }
 
     /**
@@ -46,7 +56,7 @@ public abstract class Operation implements Expression {
      * @return the created expression
      */
     public static Expression and(Iterable<Expression> exp) {
-        return simplify(new And(exp));
+        return simplify(new And(exp, true));
     }
 
     /**
@@ -56,7 +66,17 @@ public abstract class Operation implements Expression {
      * @return the created expression
      */
     public static Expression and(Expression... exp) {
-        return simplify(new And(Arrays.asList(exp)));
+        return simplify(new And(Arrays.asList(exp), true));
+    }
+
+    /**
+     * Creates a new AND expression
+     *
+     * @param exp the expressions to AND
+     * @return the created expression
+     */
+    public static Expression andNoMerge(Expression... exp) {
+        return simplify(new And(Arrays.asList(exp), false));
     }
 
     private static Expression simplify(Operation operation) {
@@ -72,11 +92,14 @@ public abstract class Operation implements Expression {
         }
     }
 
-    private Operation(Iterable<Expression> exp) {
+    private Operation(Iterable<Expression> exp, boolean merge) {
         expr = new ArrayList<>();
         for (Expression e : exp)
             if (e != null)
-                merge(e);
+                if (merge)
+                    merge(e);
+                else
+                    expr.add(e);
     }
 
     private void merge(Expression e) {
@@ -143,8 +166,8 @@ public abstract class Operation implements Expression {
      */
     public static final class And extends Operation {
 
-        private And(Iterable<Expression> exp) {
-            super(exp);
+        private And(Iterable<Expression> exp, boolean merge) {
+            super(exp, merge);
         }
 
         @Override
@@ -163,8 +186,8 @@ public abstract class Operation implements Expression {
      */
     public static final class Or extends Operation {
 
-        private Or(Iterable<Expression> exp) {
-            super(exp);
+        private Or(Iterable<Expression> exp, boolean merge) {
+            super(exp, merge);
         }
 
         @Override

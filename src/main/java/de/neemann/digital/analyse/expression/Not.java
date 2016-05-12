@@ -8,6 +8,7 @@ import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 public final class Not implements Expression {
 
     private Expression expression;
+    private boolean protect = false;
 
     /**
      * Creates a not expression.
@@ -22,7 +23,7 @@ public final class Not implements Expression {
         if (a == Constant.ZERO)
             return Constant.ONE;
 
-        if (a instanceof Not) {
+        if (a instanceof Not && !((Not) a).protect) {
             return ((Not) a).expression;
         } else
             return new Not(a);
@@ -32,10 +33,20 @@ public final class Not implements Expression {
      * Creates a new instance.
      * In most cases it's better to use {@link Not#not(Expression)}.
      *
-     * @param expression
+     * @param expression the expression to invert
      */
     public Not(Expression expression) {
         this.expression = expression;
+    }
+
+    /**
+     * Protects this not against simplification
+     *
+     * @return this for call chaning
+     */
+    public Not protect() {
+        protect = true;
+        return this;
     }
 
     @Override
