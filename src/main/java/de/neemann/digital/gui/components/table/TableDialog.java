@@ -36,7 +36,7 @@ import java.util.HashSet;
 /**
  * @author hneemann
  */
-public class TableFrame extends JFrame {
+public class TableDialog extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
     private final JLabel label;
     private final JTable table;
@@ -49,7 +49,7 @@ public class TableFrame extends JFrame {
     private TruthTableTableModel model;
     private TableColumn column;
     private int columnIndex;
-    private AllSolutionsFrame allSolutionsFrame;
+    private AllSolutionsDialog allSolutionsDialog;
     private int variables;
 
     /**
@@ -58,8 +58,8 @@ public class TableFrame extends JFrame {
      * @param parent     the parent frame
      * @param truthTable the table to show
      */
-    public TableFrame(JFrame parent, TruthTable truthTable, ShapeFactory shapeFactory) {
-        super(Lang.get("win_table"));
+    public TableDialog(JFrame parent, TruthTable truthTable, ShapeFactory shapeFactory) {
+        super(parent, Lang.get("win_table"));
         this.shapeFactory = shapeFactory;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -73,7 +73,7 @@ public class TableFrame extends JFrame {
         table.setDefaultRenderer(Integer.class, new CenterDefaultTableCellRenderer());
         table.setRowHeight(25);
 
-        allSolutionsFrame = new AllSolutionsFrame(this, font);
+        allSolutionsDialog = new AllSolutionsDialog(parent, font);
 
         header = table.getTableHeader();
         header.addMouseListener(new MouseAdapter() {
@@ -263,14 +263,14 @@ public class TableFrame extends JFrame {
                     sb.append(expr);
                     count++;
                     if (count == 2)
-                        allSolutionsFrame.setVisible(true);
+                        allSolutionsDialog.setVisible(true);
                 }
             }.create();
 
             if (sb.length() == 0)
                 label.setText("");
 
-            allSolutionsFrame.setText(sb.toString());
+            allSolutionsDialog.setText(sb.toString());
         } catch (ExpressionException | FormatterException e1) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
         }

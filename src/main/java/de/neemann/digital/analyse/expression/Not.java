@@ -40,13 +40,22 @@ public final class Not implements Expression {
     }
 
     /**
-     * Protects this not against simplification
+     * Protects this not against simplification.
+     * So it is possible to create a NAnd: You can create an And and protect the outer Not.
+     * No simplification will take place in this case and you will end up with a NAnd gate.
      *
-     * @return this for call chaning
+     * @return this for call chaining
      */
     public Not protect() {
         protect = true;
         return this;
+    }
+
+    /**
+     * @return true if this not is protected.
+     */
+    public boolean isProtected() {
+        return protect;
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.awt.*;
  *
  * @author hneemann
  */
-public class AllSolutionsFrame extends JDialog {
+public class AllSolutionsDialog extends JDialog {
     private final JTextArea textArea;
 
     /**
@@ -19,7 +19,7 @@ public class AllSolutionsFrame extends JDialog {
      * @param owner the owner frame
      * @param font  the font to use
      */
-    public AllSolutionsFrame(Frame owner, Font font) {
+    public AllSolutionsDialog(JFrame owner, Font font) {
         super(owner, Lang.get("win_allSolutions"), false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
 
@@ -39,7 +39,7 @@ public class AllSolutionsFrame extends JDialog {
      * @param text the text
      * @return this for call chaining
      */
-    public AllSolutionsFrame setText(String text) {
+    public AllSolutionsDialog setText(String text) {
         textArea.setText(text);
         return this;
     }
