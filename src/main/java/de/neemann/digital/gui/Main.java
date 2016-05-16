@@ -236,6 +236,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         toolBar.add(zoomIn.createJButtonNoText());
         toolBar.add(zoomOut.createJButtonNoText());
         toolBar.add(maximize.createJButtonNoText());
+
+        JMenu view = new JMenu(Lang.get("menu_view"));
+        menuBar.add(view);
+        view.add(maximize.createJMenuItem());
+        view.add(zoomOut.createJMenuItem());
+        view.add(zoomIn.createJMenuItem());
     }
 
     /**
