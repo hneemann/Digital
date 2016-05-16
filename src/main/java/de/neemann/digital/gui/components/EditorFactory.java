@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Rotation;
+import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.lang.Lang;
@@ -34,6 +35,7 @@ public final class EditorFactory {
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
         add(Rotation.class, RotationEditor.class);
+        add(IntFormat.class, IntFormatsEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -270,4 +272,37 @@ public final class EditorFactory {
             return new Rotation(comb.getSelectedIndex());
         }
     }
+
+    private static class EnumEditor<E extends Enum> extends LabelEditor<E> {
+        private final JComboBox comboBox;
+        private final E[] values;
+        private final String[] names;
+
+        public EnumEditor(Enum value, Key<E> key) {
+            if (!(key instanceof Key.KeyEnum))
+                throw new RuntimeException("wrong enum type");
+            this.names = ((Key.KeyEnum<E>) key).getNames();
+            this.values = ((Key.KeyEnum<E>) key).getValues();
+
+            comboBox = new JComboBox<>(names);
+            comboBox.setSelectedIndex(value.ordinal());
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            return comboBox;
+        }
+
+        @Override
+        public E getValue() {
+            return values[comboBox.getSelectedIndex()];
+        }
+    }
+
+    private static final class IntFormatsEditor extends EnumEditor<IntFormat> {
+        public IntFormatsEditor(IntFormat value, Key<IntFormat> key) {
+            super(value, key);
+        }
+    }
+
 }

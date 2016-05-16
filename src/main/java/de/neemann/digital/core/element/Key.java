@@ -122,4 +122,36 @@ public class Key<VALUE> {
         }
     }
 
+    /**
+     * Used to store enum values
+     *
+     * @param <E> the enum type
+     */
+    public static final class KeyEnum<E extends Enum> extends Key<E> {
+        private final E[] values;
+        private final String[] names;
+
+        KeyEnum(String key, E def, E[] values) {
+            super(key, def);
+            this.values = values;
+
+            names = new String[values.length];
+            for (int i = 0; i < values.length; i++)
+                names[i] = Lang.get("key_" + key.replace(" ", "") + "_" + values[i].name());
+        }
+
+        /**
+         * @return the enums values
+         */
+        public E[] getValues() {
+            return values;
+        }
+
+        /**
+         * @return the enums translated names
+         */
+        public String[] getNames() {
+            return names;
+        }
+    }
 }

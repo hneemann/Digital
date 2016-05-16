@@ -1,5 +1,6 @@
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 
 import java.util.Locale;
@@ -199,4 +200,11 @@ public final class Keys {
      */
     public static final Key<Boolean> SETTINGS_IEEE_SHAPES
             = new Key<>("IEEEShapes", !Locale.getDefault().getCountry().equals("DE"));
+
+    /**
+     * output format for numbers
+     */
+    public static final Key.KeyEnum<IntFormat> INTFORMAT
+            = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values());
+
 }

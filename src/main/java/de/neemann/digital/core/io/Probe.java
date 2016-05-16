@@ -23,7 +23,8 @@ public class Probe implements Element {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("Probe", Probe.class, input("in"))
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INTFORMAT);
 
     private final String label;
     private ObservableValue value;

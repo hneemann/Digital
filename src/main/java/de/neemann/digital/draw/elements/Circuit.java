@@ -7,6 +7,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.graphics.Graphic;
@@ -54,6 +55,7 @@ public class Circuit {
         xStream.alias("visualElement", VisualElement.class);
         xStream.alias("wire", Wire.class);
         xStream.alias("circuit", Circuit.class);
+        xStream.alias("intFormat", IntFormat.class);
         xStream.alias("rotation", Rotation.class);
         xStream.aliasAttribute(Rotation.class, "rotation", "rotation");
         xStream.alias("vector", Vector.class);
