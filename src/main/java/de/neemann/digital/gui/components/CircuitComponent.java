@@ -271,7 +271,14 @@ public class CircuitComponent extends JComponent {
      */
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
+        fitCircuit();
+        setModeAndReset(false);
+    }
 
+    /**
+     * maximizes the circuit shown
+     */
+    public void fitCircuit() {
         GraphicMinMax gr = new GraphicMinMax();
         circuit.drawTo(gr);
         if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
@@ -290,8 +297,26 @@ public class CircuitComponent extends JComponent {
             transform.translate(dif.x / s, dif.y / s);  // move drawing center to frame center
         } else
             transform = new AffineTransform();
+        repaint();
+    }
 
-        setModeAndReset(false);
+    /**
+     * scales the circuit
+     *
+     * @param f factor to scale
+     */
+    public void scaleCircuit(double f) {
+        try {
+            Point2D.Double p = new Point2D.Double();
+            transform.inverseTransform(new Point(getWidth() / 2, getHeight() / 2), p);
+            Vector dif = new Vector((int) Math.round(p.getX()), (int) Math.round(p.getY()));
+            transform.translate(dif.x, dif.y);
+            transform.scale(f, f);
+            transform.translate(-dif.x, -dif.y);
+            repaint();
+        } catch (NoninvertibleTransformException e1) {
+            throw new RuntimeException(e1);
+        }
     }
 
     private void editAttributes(VisualElement vp, MouseEvent e) {
@@ -336,7 +361,7 @@ public class CircuitComponent extends JComponent {
         @Override
         public void mouseReleased(MouseEvent e) {
             activeMouseController.released(e);
-            if (!wasMoved(e))
+            if (!(wasMoved(e) || isMoved))
                 activeMouseController.clicked(e);
         }
 

@@ -76,6 +76,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final Icon ICON_SAVE = IconCreator.create("Save24.gif");
     private static final Icon ICON_SAVE_AS = IconCreator.create("SaveAs24.gif");
     private static final Icon ICON_FAST = IconCreator.create("FastForward24.gif");
+    private static final Icon ICON_EXPAND = IconCreator.create("Expand24.gif");
+    private static final Icon ICON_ZOOMIN = IconCreator.create("ZoomIn24.gif");
+    private static final Icon ICON_ZOOMOUT = IconCreator.create("ZoomOut24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private ToolTipAction doStep;
@@ -180,6 +183,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         save = createFileMenu(menuBar, toolBar, normalMode);
         toolBar.addSeparator();
 
+        createViewMenu(menuBar, toolBar);
+
+        toolBar.addSeparator();
+
         ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), ICON_ELEMENT).setToolTip(Lang.get("menu_element_tt"));
 
         createEditMenu(menuBar, elementStateAction);
@@ -205,6 +212,30 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         setPreferredSize(new Dimension(1024, 768));
         pack();
         setLocationRelativeTo(parent);
+    }
+
+    private void createViewMenu(JMenuBar menuBar, JToolBar toolBar) {
+        ToolTipAction maximize = new ToolTipAction(Lang.get("menu_maximize"), ICON_EXPAND) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.fitCircuit();
+            }
+        };
+        ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOMIN) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.scaleCircuit(1.2);
+            }
+        };
+        ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOMOUT) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.scaleCircuit(0.8);
+            }
+        };
+        toolBar.add(zoomIn.createJButtonNoText());
+        toolBar.add(zoomOut.createJButtonNoText());
+        toolBar.add(maximize.createJButtonNoText());
     }
 
     /**
