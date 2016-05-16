@@ -224,7 +224,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOMIN) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.scaleCircuit(1.2);
+                circuitComponent.scaleCircuit(1.25);
             }
         };
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOMOUT) {

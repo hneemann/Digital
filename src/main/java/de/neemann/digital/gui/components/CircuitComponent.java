@@ -243,9 +243,13 @@ public class CircuitComponent extends JComponent {
     }
 
     private Vector getPosVector(MouseEvent e) {
+        return getPosVector(e.getX(), e.getY());
+    }
+
+    private Vector getPosVector(int x, int y) {
         try {
             Point2D.Double p = new Point2D.Double();
-            transform.inverseTransform(new Point(e.getX(), e.getY()), p);
+            transform.inverseTransform(new Point(x, y), p);
             return new Vector((int) Math.round(p.getX()), (int) Math.round(p.getY()));
         } catch (NoninvertibleTransformException e1) {
             throw new RuntimeException(e1);
@@ -306,17 +310,11 @@ public class CircuitComponent extends JComponent {
      * @param f factor to scale
      */
     public void scaleCircuit(double f) {
-        try {
-            Point2D.Double p = new Point2D.Double();
-            transform.inverseTransform(new Point(getWidth() / 2, getHeight() / 2), p);
-            Vector dif = new Vector((int) Math.round(p.getX()), (int) Math.round(p.getY()));
-            transform.translate(dif.x, dif.y);
-            transform.scale(f, f);
-            transform.translate(-dif.x, -dif.y);
-            repaint();
-        } catch (NoninvertibleTransformException e1) {
-            throw new RuntimeException(e1);
-        }
+        Vector dif = getPosVector(getWidth() / 2, getHeight() / 2);
+        transform.translate(dif.x, dif.y);
+        transform.scale(f, f);
+        transform.translate(-dif.x, -dif.y);
+        repaint();
     }
 
     private void editAttributes(VisualElement vp, MouseEvent e) {
