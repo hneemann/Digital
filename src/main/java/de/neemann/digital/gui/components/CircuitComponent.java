@@ -632,8 +632,10 @@ public class CircuitComponent extends JComponent {
             Vector dif = corner1.sub(corner2);
             if (Math.abs(dif.x) > MIN_SIZE && Math.abs(dif.y) > MIN_SIZE)
                 setCursor(moveCursor);
-            else
+            else {
+                removeHighLighted();
                 mouseNormal.activate();
+            }
         }
 
         @Override
