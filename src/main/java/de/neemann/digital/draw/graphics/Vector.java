@@ -113,7 +113,7 @@ public class Vector {
     }
 
     /**
-     * Adds a offset to every vector in the given list
+     * Adds an offset to every vector in the given list
      *
      * @param vectors the original vectors
      * @param offs    the offset
