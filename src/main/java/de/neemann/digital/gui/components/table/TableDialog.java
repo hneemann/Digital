@@ -142,20 +142,21 @@ public class TableDialog extends JDialog {
             }
         }.setToolTip(Lang.get("menu_table_create_tt")).createJMenuItem());
 
-        if (Main.enableExperimental()) {
-            createMenu.add(new ToolTipAction(Lang.get("menu_table_createTwo")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    createCircuit(new TwoInputs());
-                }
-            }.setToolTip(Lang.get("menu_table_createTwo_tt")).createJMenuItem());
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_createTwo")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCircuit(new TwoInputs());
+            }
+        }.setToolTip(Lang.get("menu_table_createTwo_tt")).createJMenuItem());
 
-            createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    createCircuit(new NAnd());
-                }
-            }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCircuit(new NAnd());
+            }
+        }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
+
+        if (Main.enableExperimental()) {
 
             createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAndTwo")) {
                 @Override

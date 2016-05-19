@@ -100,8 +100,6 @@ public class TruthTable {
 
     /**
      * Adds a new variable
-     *
-     * @return this for call chaining
      */
     public void addVariable() {
         addVariable("A");
