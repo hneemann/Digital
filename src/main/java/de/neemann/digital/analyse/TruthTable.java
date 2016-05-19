@@ -71,7 +71,7 @@ public class TruthTable {
     /**
      * Adds a new result row
      *
-     * @param name   name of the value
+     * @param name   name of the result column
      * @param values the values
      */
     public void addResult(String name, BoolTable values) {
@@ -84,10 +84,28 @@ public class TruthTable {
      * @return this for call chaining
      */
     public TruthTable addResult() {
-        results.add(new Result("Y", new BoolTableIntArray(getRows())));
+        return addResult("Y");
+    }
+
+    /**
+     * Adds a new column
+     *
+     * @param name name of result column
+     * @return this for call chaining
+     */
+    public TruthTable addResult(String name) {
+        results.add(new Result(name, new BoolTableIntArray(getRows())));
         return this;
     }
 
+    /**
+     * Adds a new variable
+     *
+     * @return this for call chaining
+     */
+    public void addVariable() {
+        addVariable("A");
+    }
 
     /**
      * Adds a variable
@@ -96,6 +114,9 @@ public class TruthTable {
      */
     public void addVariable(String name) {
         variables.add(new Variable(name));
+        for (Result r : results)
+            r.setValues(BoolTableIntArray.createDoubledValues(r.getValues()));
+
         bitSetter = null;
     }
 
@@ -331,6 +352,16 @@ public class TruthTable {
         public BoolTable getValues() {
             return values;
         }
+
+        /**
+         * Sets new values
+         *
+         * @param values the values to set
+         */
+        public void setValues(BoolTable values) {
+            this.values = values;
+        }
+
     }
 
     private static final class DummyBitSetter extends BitSetter {

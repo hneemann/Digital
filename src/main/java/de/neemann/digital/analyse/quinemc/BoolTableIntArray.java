@@ -58,4 +58,20 @@ public class BoolTableIntArray implements BoolTable {
     public void set(int row, int value) {
         table[row] = value;
     }
+
+    /**
+     * Creates a table where all values added twive
+     *
+     * @param values the original values
+     * @return the new values
+     */
+    public static BoolTableIntArray createDoubledValues(BoolTable values) {
+        BoolTableIntArray t = new BoolTableIntArray(values.size() * 2);
+        for (int i = 0; i < values.size(); i++) {
+            int v = values.get(i).asInt();
+            t.set(i * 2, v);
+            t.set(i * 2 + 1, v);
+        }
+        return t;
+    }
 }

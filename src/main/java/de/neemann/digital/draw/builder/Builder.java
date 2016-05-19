@@ -7,10 +7,13 @@ import de.neemann.digital.core.basic.NOr;
 import de.neemann.digital.core.basic.Or;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.Rotation;
+import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
@@ -21,7 +24,9 @@ import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -40,6 +45,8 @@ public class Builder {
     private final ShapeFactory shapeFactory;
     private int pos;
     private ArrayList<FragmentVariable> fragmentVariables;
+    private Variable clockVar;
+    private HashSet<String> createdNets = new HashSet<>();
 
     /**
      * Creates a new builder
@@ -63,18 +70,46 @@ public class Builder {
      */
     public Builder addExpression(String name, Expression expression) throws BuilderException {
         Fragment fr = createFragment(expression);
+        addFragment(new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name)));
+        expression.traverse(variableVisitor);
+        return this;
+    }
 
-        fr = new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name));
+    /**
+     * Add a state of a state machine
+     *
+     * @param name       name of the state
+     * @param expression the expression describing next state
+     * @return this for chained calls
+     * @throws BuilderException BuilderException
+     */
+    public Builder addState(String name, Expression expression) throws BuilderException {
+        Fragment fr = createFragment(expression);
 
+        if (clockVar == null)
+            clockVar = new Variable("Clock");
+
+        ArrayList<Fragment> inputs = new ArrayList<>();
+        inputs.add(fr);
+        FragmentVariable fragmentVariable = new FragmentVariable(clockVar, false);
+        inputs.add(fragmentVariable);
+        fragmentVariables.add(fragmentVariable);
+
+        Fragment ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
+        ff = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
+        createdNets.add(name);
+        addFragment(new FragmentExpression(inputs, ff));
+        expression.traverse(variableVisitor);
+        return this;
+    }
+
+
+    private void addFragment(Fragment fr) {
         fr.setPos(new Vector(0, 0));
         Box b = fr.doLayout();
 
         fr.addToCircuit(new Vector(0, pos), circuit);
         pos += b.getHeight() + SIZE * 2;
-
-        expression.traverse(variableVisitor);
-
-        return this;
     }
 
     private Fragment createFragment(Expression expression) throws BuilderException {
@@ -119,15 +154,27 @@ public class Builder {
         return frags;
     }
 
-    private void createInputBus() {
+    private void createInputBus(Collection<Variable> inputs) {
         HashMap<String, Integer> varPos = new HashMap<>();
-        int dx = -variableVisitor.getVariables().size() * SIZE * 2;
+        int dx = -inputs.size() * SIZE * 2;
         pos -= SIZE;
-        for (Variable v : variableVisitor.getVariables()) {
-            VisualElement visualElement = new VisualElement(In.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
-            visualElement.getElementAttributes()
-                    .set(Keys.ROTATE, new Rotation(3))
-                    .set(Keys.LABEL, v.getIdentifier());
+        for (Variable v : inputs) {
+            VisualElement visualElement;
+            if (v == clockVar) {
+                visualElement = new VisualElement(Clock.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+                visualElement.getElementAttributes()
+                        .set(Keys.ROTATE, new Rotation(3));
+            } else if (createdNets.contains(v.getIdentifier())) {
+                visualElement = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+                visualElement.getElementAttributes()
+                        .set(Keys.ROTATE, new Rotation(1))
+                        .set(Keys.NETNAME, v.getIdentifier());
+            } else {
+                visualElement = new VisualElement(In.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+                visualElement.getElementAttributes()
+                        .set(Keys.ROTATE, new Rotation(3))
+                        .set(Keys.LABEL, v.getIdentifier());
+            }
             visualElement.setPos(new Vector(dx, -SIZE * 5));
             circuit.add(visualElement);
 
@@ -171,7 +218,22 @@ public class Builder {
      * @return the circuit
      */
     public Circuit createCircuit() {
-        createInputBus();
+        Collection<Variable> variables = variableVisitor.getVariables();
+        if (clockVar != null) {
+            ArrayList<Variable> c1 = new ArrayList<>();
+            ArrayList<Variable> c2 = new ArrayList<>();
+            for (Variable v : variables)
+                if (createdNets.contains(v.getIdentifier()))
+                    c2.add(v);
+                else
+                    c1.add(v);
+
+            c1.addAll(c2);
+            c1.add(clockVar);
+            variables = c1;
+        }
+
+        createInputBus(variables);
         circuit.setNotModified();
         return circuit;
     }
@@ -184,27 +246,16 @@ public class Builder {
      */
     public static void main(String[] args) throws BuilderException {
 
-        Variable a = new Variable("a");
-        Variable b = new Variable("b");
-        Variable c = new Variable("c");
-        Variable d = new Variable("d");
+        Variable y0 = new Variable("Y_0");
+        Variable y1 = new Variable("Y_1");
+        Variable z = new Variable("Z");
 
-        Expression y0 = or(a, b);
-        Expression y1 = and(a, b, b, not(or(not(and(c, not(b))), and(c, d))));
-        Expression y2 = or(and(a, not(b)), and(c, d));
-        Expression y3 = or(and(a, b), and(c, d), and(c, d));
-        Expression y4 = or(and(not(a), b), and(b, c), and(c, d), and(b, c));
-        Expression y5 = or(and(a, b), and(b, not(c)), and(c, d), and(b, c), and(b, c));
-        Expression y6 = or(and(a, b), and(b, c), and(c, not(d)), and(b, c), and(b, c), and(b, c));
+        Expression y0s = and(not(y0), z);
+        Expression y1s = or(and(y0, not(y1)), and(y1, not(y0)));
 
         Circuit circuit = new Builder(new ShapeFactory(new ElementLibrary()))
-                .addExpression("Y_0", y0)
-                .addExpression("Y_1", y1)
-                .addExpression("Y_2", y2)
-                .addExpression("Y_3", y3)
-                .addExpression("Y_4", y4)
-                .addExpression("Y_5", y5)
-                .addExpression("Y_6", y6)
+                .addState("Y_0", y0s)
+                .addState("Y_1", y1s)
                 .createCircuit();
 
         SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));

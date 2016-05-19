@@ -4,6 +4,7 @@ import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.TruthTableTableModel;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
+import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
@@ -31,6 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -106,6 +108,8 @@ public class TableDialog extends JDialog {
         JMenu sizeMenu = new JMenu(Lang.get("menu_table_size"));
         for (int i = 2; i <= 8; i++)
             sizeMenu.add(new JMenuItem(new SizeAction(i)));
+        for (int i = 2; i <= 5; i++)
+            sizeMenu.add(new JMenuItem(new SizeSequentialAction(i)));
         bar.add(sizeMenu);
 
         reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
@@ -120,6 +124,14 @@ public class TableDialog extends JDialog {
                 setModel(new TruthTableTableModel(t));
             }
         }.setToolTip(Lang.get("menu_table_columnsAdd_tt")).createJMenuItem());
+        colsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAddVariable")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                TruthTable t = model.getTable();
+                t.addVariable();
+                setModel(new TruthTableTableModel(t));
+            }
+        }.setToolTip(Lang.get("menu_table_columnsAddVariable_tt")).createJMenuItem());
         bar.add(colsMenu);
 
         JMenu createMenu = new JMenu(Lang.get("menu_table_create"));
@@ -189,7 +201,11 @@ public class TableDialog extends JDialog {
                     if (!contained.contains(name)) {
                         contained.add(name);
                         try {
-                            builder.addExpression(name, ExpressionModifier.modifyExpression(expression, modifier));
+                            if (name.endsWith("n+1")) {
+                                name = name.substring(0, name.length() - 2);
+                                builder.addState(name, ExpressionModifier.modifyExpression(expression, modifier));
+                            } else
+                                builder.addExpression(name, ExpressionModifier.modifyExpression(expression, modifier));
                         } catch (BuilderException e) {
                             throw new RuntimeException(e);
                         }
@@ -220,10 +236,6 @@ public class TableDialog extends JDialog {
             text.requestFocusInWindow();
             text.selectAll();
         }
-    }
-
-    private void setInputVariables(int n) {
-        setModel(new TruthTableTableModel(new TruthTable(n).addResult()));
     }
 
     private void setModel(TruthTableTableModel model) {
@@ -277,7 +289,6 @@ public class TableDialog extends JDialog {
     }
 
     private final class SizeAction extends AbstractAction {
-
         private int n;
 
         private SizeAction(int n) {
@@ -287,7 +298,28 @@ public class TableDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            setInputVariables(n);
+            setModel(new TruthTableTableModel(new TruthTable(n).addResult()));
+        }
+    }
+
+    private final class SizeSequentialAction extends AbstractAction {
+        private int n;
+
+        private SizeSequentialAction(int n) {
+            super(Lang.get("menu_table_N_variablesSequential", n));
+            this.n = n;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            ArrayList<Variable> vars = new ArrayList<>();
+            for (int i = n - 1; i >= 0; i--)
+                vars.add(new Variable("Q_" + i + "n"));
+            TruthTable truthTable = new TruthTable(vars);
+            for (Variable v : vars)
+                truthTable.addResult(v.getIdentifier() + "+1");
+
+            setModel(new TruthTableTableModel(truthTable));
         }
     }
 

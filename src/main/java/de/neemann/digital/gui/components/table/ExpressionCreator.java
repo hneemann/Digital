@@ -1,6 +1,5 @@
 package de.neemann.digital.gui.components.table;
 
-import de.neemann.digital.analyse.DetermineJKStateMachine;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
@@ -60,6 +59,7 @@ public abstract class ExpressionCreator {
     private void resultFoundInt(String name, Expression expression) throws FormatterException, ExpressionException {
         resultFound(name, expression);
 
+        /*
         if (name.endsWith("n+1")) {
             String detName = name.substring(0, name.length() - 2);
             DetermineJKStateMachine jk = new DetermineJKStateMachine(detName, expression);
@@ -75,7 +75,7 @@ public abstract class ExpressionCreator {
             if (s != k) {
                 resultFound("", s);
             }
-        }
+        }*/
     }
 
     /**
