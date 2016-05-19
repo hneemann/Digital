@@ -309,12 +309,21 @@ public class Circuit {
             if (veIt.next().matches(min, max))
                 veIt.remove();
 
+        boolean wireDeleted = false;
         Iterator<Wire> wIt = wires.iterator();
         while (wIt.hasNext()) {
             Wire w = wIt.next();
-            if (w.p1.inside(min, max) || w.p2.inside(min, max))
+            if (w.p1.inside(min, max) || w.p2.inside(min, max)) {
                 wIt.remove();
+                wireDeleted = true;
+            }
         }
+
+        if (wireDeleted) {
+            WireConsistencyChecker checker = new WireConsistencyChecker(wires);
+            wires = checker.check();
+        }
+
         dotsPresent = false;
         modified();
     }
