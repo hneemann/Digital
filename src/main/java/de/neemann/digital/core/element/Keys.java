@@ -199,7 +199,7 @@ public final class Keys {
      * shape setting
      */
     public static final Key<Boolean> SETTINGS_IEEE_SHAPES
-            = new Key<>("IEEEShapes", !Locale.getDefault().getCountry().equals("DE"));
+            = new Key<>("IEEEShapes", Locale.getDefault().getLanguage().equals(Locale.US.getLanguage()));
 
     /**
      * output format for numbers
