@@ -11,6 +11,7 @@ import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
+import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.draw.builder.Builder;
 import de.neemann.digital.draw.builder.BuilderException;
 import de.neemann.digital.draw.elements.Circuit;
@@ -108,8 +109,10 @@ public class TableDialog extends JDialog {
         JMenu sizeMenu = new JMenu(Lang.get("menu_table_size"));
         for (int i = 2; i <= 8; i++)
             sizeMenu.add(new JMenuItem(new SizeAction(i)));
-        for (int i = 2; i <= 5; i++)
-            sizeMenu.add(new JMenuItem(new SizeSequentialAction(i)));
+        if (Main.enableExperimental()) {
+            for (int i = 2; i <= 5; i++)
+                sizeMenu.add(new JMenuItem(new SizeSequentialAction(i)));
+        }
         bar.add(sizeMenu);
 
         reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
@@ -317,8 +320,15 @@ public class TableDialog extends JDialog {
             for (int i = n - 1; i >= 0; i--)
                 vars.add(new Variable("Q_" + i + "n"));
             TruthTable truthTable = new TruthTable(vars);
-            for (Variable v : vars)
-                truthTable.addResult(v.getIdentifier() + "+1");
+            int i = n - 1;
+            int rows = 1 << n;
+            for (Variable v : vars) {
+                BoolTableIntArray val = new BoolTableIntArray(rows);
+                for (int n = 0; n < rows; n++)
+                    val.set(n, ((n + 1) >> i) & 1);
+                truthTable.addResult(v.getIdentifier() + "+1", val);
+                i--;
+            }
 
             setModel(new TruthTableTableModel(truthTable));
         }
