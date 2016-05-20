@@ -251,8 +251,9 @@ public class TableDialog extends JDialog {
         int cols = model.getTable().getVars().size();
         reorderMenu.add(new JMenuItem(new ReorderAction(cols)));
         for (int i = 0; i < cols - 1; i++) {
-            reorderMenu.add(new JMenuItem(new ReorderAction(cols, i)));
+            reorderMenu.add(new JMenuItem(new ReorderAction(cols, i, i + 1)));
         }
+        reorderMenu.add(new JMenuItem(new ReorderAction(cols, cols - 1, 0)));
         calculateExpressions();
     }
 
@@ -367,15 +368,15 @@ public class TableDialog extends JDialog {
                 swap[cols - i - 1] = i;
         }
 
-        private ReorderAction(int cols, int swapIndex) {
-            super(Lang.get("menu_table_swap_N1_N2", swapIndex, swapIndex + 1));
+        private ReorderAction(int cols, int swapIndex1, int swapIndex2) {
+            super(Lang.get("menu_table_swap_N1_N2", swapIndex1, swapIndex2));
             swap = new int[cols];
             for (int i = 0; i < cols; i++)
                 swap[i] = i;
 
-            int z = swap[swapIndex];
-            swap[swapIndex] = swap[swapIndex + 1];
-            swap[swapIndex + 1] = z;
+            int z = swap[swapIndex1];
+            swap[swapIndex1] = swap[swapIndex2];
+            swap[swapIndex2] = z;
         }
 
         @Override

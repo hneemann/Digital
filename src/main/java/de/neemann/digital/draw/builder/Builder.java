@@ -277,7 +277,9 @@ public class Builder {
         VisualElement clock = new VisualElement(Clock.DESCRIPTION.getName())
                 .setShapeFactory(shapeFactory)
                 .setPos(new Vector(x, yMin - SIZE * 3));
-        clock.getElementAttributes().set(Keys.ROTATE, new Rotation(3));
+        clock.getElementAttributes()
+                .set(Keys.ROTATE, new Rotation(3))
+                .set(Keys.RUN_AT_REAL_TIME, true);
         circuit.add(clock);
     }
 
