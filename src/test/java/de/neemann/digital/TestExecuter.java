@@ -111,6 +111,13 @@ public class TestExecuter {
         return this;
     }
 
+    public void checkC(int... val) throws NodeException {
+        ObservableValue clock = model.getClocks().get(0).getClockOutput();
+        clock.setBool(true);
+        model.doStep();
+        clock.setBool(false);
+        check(val);
+    }
     public void check(int... val) throws NodeException {
         for (int i = 0; i < inputs.size(); i++) {
             inputs.get(i).setValue(val[i]);

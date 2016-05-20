@@ -18,7 +18,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
  */
 public class BuilderTest extends TestCase {
 
-    public void testBuilder() throws Exception {
+    public void testBuilderCombinatorial() throws Exception {
 
         Variable a = new Variable("a");
         Variable b = new Variable("b");
@@ -39,4 +39,30 @@ public class BuilderTest extends TestCase {
         te.check(1, 0, 1);
         te.check(1, 1, 0);
     }
+
+    public void testBuilderSequential() throws Exception {
+        Variable y0 = new Variable("Y_0");
+        Variable y1 = new Variable("Y_1");
+
+        // counter
+        Expression y0s = not(y0);
+        Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
+
+        ElementLibrary library = new ElementLibrary();
+        Circuit circuit = new Builder(new ShapeFactory(library))
+                .addState("Y_0", y0s)
+                .addState("Y_1", y1s)
+                .addExpression("Y_0", y0)
+                .addExpression("Y_1", y1)
+                .createCircuit();
+
+        ModelDescription m = new ModelDescription(circuit, library);
+        TestExecuter te = new TestExecuter(m.createModel(false)).setUp(m);
+        te.check(0, 0);
+        te.checkC(1, 0);
+        te.checkC(0, 1);
+        te.checkC(1, 1);
+        te.checkC(0, 0);
+    }
+
 }
