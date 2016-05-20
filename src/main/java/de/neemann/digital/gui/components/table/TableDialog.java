@@ -249,6 +249,7 @@ public class TableDialog extends JDialog {
         variables = model.getTable().getVars().size();
         reorderMenu.removeAll();
         int cols = model.getTable().getVars().size();
+        reorderMenu.add(new JMenuItem(new ReorderAction(cols, -1)));
         reorderMenu.add(new JMenuItem(new ReorderAction(cols)));
         for (int i = 0; i < cols - 1; i++) {
             reorderMenu.add(new JMenuItem(new ReorderAction(cols, i, i + 1)));
@@ -366,6 +367,17 @@ public class TableDialog extends JDialog {
             swap = new int[cols];
             for (int i = 0; i < cols; i++)
                 swap[cols - i - 1] = i;
+        }
+
+        private ReorderAction(int cols, int offs) {
+            super(Lang.get("menu_table_rotate"));
+            swap = new int[cols];
+            for (int i = 0; i < cols; i++) {
+                int n = i + offs;
+                if (n < 0) n += cols;
+                if (n >= cols) n -= cols;
+                swap[i] = n;
+            }
         }
 
         private ReorderAction(int cols, int swapIndex1, int swapIndex2) {
