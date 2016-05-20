@@ -103,4 +103,11 @@ public class FragmentVisualElement implements Fragment {
     public List<Vector> getOutputs() {
         return Vector.add(outputs, pos);
     }
+
+    /**
+     * @return the VisualElement contained in this fragment
+     */
+    public VisualElement getVisualElement() {
+        return visualElement;
+    }
 }

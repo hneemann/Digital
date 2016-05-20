@@ -21,6 +21,7 @@ public class FragmentExpression implements Fragment {
     private final Fragment merger;
     private Vector pos;
     private boolean normalLayout;
+    private int alignedWidth;
 
     private static ArrayList<Fragment> createList(Fragment fragment) {
         ArrayList<Fragment> f = new ArrayList<>();
@@ -71,6 +72,10 @@ public class FragmentExpression implements Fragment {
 
         width += (fragments.size() / 2 + 1) * SIZE;
 
+        if (alignedWidth > 0) {
+            width = alignedWidth - mergerBox.getWidth();
+        }
+
         int centerIndex = fragments.size() / 2;
         if ((fragments.size() & 1) == 0) {
             // even number of inputs
@@ -90,8 +95,16 @@ public class FragmentExpression implements Fragment {
     }
 
     private Box doLayoutOnlyVariables() {
+
+        int xPos = SIZE;
+        if (alignedWidth > 0) {
+            Box mergerBox = merger.doLayout();
+            xPos = alignedWidth - mergerBox.getWidth();
+        }
+
+
         Box mergerBox = merger.doLayout();
-        merger.setPos(new Vector(SIZE, 0));
+        merger.setPos(new Vector(xPos, 0));
 
         Iterator<Vector> in = merger.getInputs().iterator();
         for (FragmentHolder fr : fragments) {
@@ -174,6 +187,16 @@ public class FragmentExpression implements Fragment {
     @Override
     public List<Vector> getOutputs() {
         return Vector.add(merger.getOutputs(), pos);
+    }
+
+    /**
+     * Sets the alignment width.
+     * If set the fragment will be layout to the given width
+     *
+     * @param width the requirted width
+     */
+    public void setWidth(int width) {
+        this.alignedWidth = width;
     }
 
     private static final class FragmentHolder {
