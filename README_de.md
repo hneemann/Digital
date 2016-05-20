@@ -34,7 +34,7 @@ nicht definert.
  
 Um eine Schaltung in einem definierten Zustand zu starten gibt es ein Reset-Gatter. 
 Dieses Gatter hat einen einzigen Ausgang welcher während der Stabilisierungsphase auf Low gehalten wird und 
-anschließend auf High wechselt.
+auf High wechselt sobald diese abgeschlossen ist.
 
 ### Oszillationen ###
 
