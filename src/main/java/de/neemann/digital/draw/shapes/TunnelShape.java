@@ -4,6 +4,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -32,8 +33,8 @@ public class TunnelShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public TunnelShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
-        input = inputs[0];
+    public TunnelShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
+        input = inputs.get(0);
         label = attr.get(Keys.NETNAME);
     }
 

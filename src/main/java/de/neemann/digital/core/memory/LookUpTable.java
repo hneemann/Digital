@@ -3,6 +3,7 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.*;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -19,12 +20,12 @@ public class LookUpTable extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(LookUpTable.class) {
         @Override
-        public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
+        public PinDescriptions getInputDescription(ElementAttributes elementAttributes) {
             int size = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[size];
             for (int i = 0; i < size; i++)
                 names[i] = input("in_" + i);
-            return names;
+            return new PinDescriptions(names);
         }
     }
             .addAttribute(Keys.ROTATE)
@@ -35,7 +36,7 @@ public class LookUpTable extends Node implements Element {
 
     private final DataField data;
     private final ObservableValue output;
-    private ObservableValue[] inputs;
+    private ObservableValues inputs;
     private int addr;
 
     /**
@@ -50,23 +51,23 @@ public class LookUpTable extends Node implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
+    public void setInputs(ObservableValues inputs) throws NodeException {
         this.inputs = inputs;
-        for (int i = 0; i < inputs.length; i++)
-            inputs[i].checkBits(1, this).addObserverToValue(this);
+        for (ObservableValue v : inputs)
+            v.checkBits(1, this).addObserverToValue(this);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{output};
+    public ObservableValues getOutputs() {
+        return new ObservableValues(output);
     }
 
     @Override
     public void readInputs() throws NodeException {
         addr = 0;
         int mask = 1;
-        for (int i = 0; i < inputs.length; i++) {
-            if (inputs[i].getValue() > 0)
+        for (int i = 0; i < inputs.size(); i++) {
+            if (inputs.get(i).getValue() > 0)
                 addr = addr | mask;
             mask = mask * 2;
         }

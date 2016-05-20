@@ -2,7 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -23,7 +23,7 @@ public class BreakShape implements Shape {
     private static final Vector D1 = new Vector(SIZEQ, -SIZEQ);
     private static final Vector D2 = new Vector(SIZEQ, SIZEQ);
     private final String label;
-    private final PinDescription[] inputs;
+    private final PinDescriptions inputs;
 
     /**
      * Creates a new instance
@@ -32,14 +32,14 @@ public class BreakShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public BreakShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public BreakShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), inputs[0]));
+        return new Pins().add(new Pin(new Vector(0, 0), inputs.get(0)));
     }
 
     @Override

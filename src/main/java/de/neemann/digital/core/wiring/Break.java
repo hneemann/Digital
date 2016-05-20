@@ -3,6 +3,7 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -38,8 +39,8 @@ public class Break implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        input = inputs[0].checkBits(1, null);
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        input = inputs.get(0).checkBits(1, null);
     }
 
     /**
@@ -57,8 +58,8 @@ public class Break implements Element {
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[0];
+    public ObservableValues getOutputs() {
+        return new ObservableValues();
     }
 
     @Override

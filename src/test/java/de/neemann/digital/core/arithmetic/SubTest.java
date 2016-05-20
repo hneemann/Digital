@@ -3,6 +3,7 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
@@ -19,7 +20,7 @@ public class SubTest extends TestCase {
 
         Model model = new Model();
         Add node = new Sub(new ElementAttributes().setBits(4));
-        node.setInputs(a, b, c);
+        node.setInputs(new ObservableValues(a, b, c));
         model.add(node);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputsOf(node);

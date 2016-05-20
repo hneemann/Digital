@@ -3,6 +3,7 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -53,14 +54,14 @@ public class Mul extends Node implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        a = inputs[0].addObserverToValue(this).checkBits(bits, this);
-        b = inputs[1].addObserverToValue(this).checkBits(bits, this);
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        a = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
+        b = inputs.get(1).addObserverToValue(this).checkBits(bits, this);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{mul};
+    public ObservableValues getOutputs() {
+        return new ObservableValues(mul);
     }
 
 }

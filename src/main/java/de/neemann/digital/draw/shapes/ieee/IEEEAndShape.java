@@ -1,6 +1,6 @@
 package de.neemann.digital.draw.shapes.ieee;
 
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
@@ -35,7 +35,7 @@ public class IEEEAndShape extends IEEEGenericShape {
      * @param outputs outputs
      * @param invert  true if NAnd
      */
-    public IEEEAndShape(PinDescription[] inputs, PinDescription[] outputs, boolean invert) {
+    public IEEEAndShape(PinDescriptions inputs, PinDescriptions outputs, boolean invert) {
         super(inputs, outputs, invert);
     }
 

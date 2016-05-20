@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class Pins implements Iterable<Pin> {
      * @param outs outputs
      * @throws PinException thrown if pin not found
      */
-    public void bindOutputsToOutputPins(ObservableValue[] outs) throws PinException {
+    public void bindOutputsToOutputPins(ObservableValues outs) throws PinException {
         for (ObservableValue o : outs) {
             Pin pin = outputs.get(o.getName());
             if (pin == null)

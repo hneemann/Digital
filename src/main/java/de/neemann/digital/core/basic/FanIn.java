@@ -3,6 +3,7 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.*;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public abstract class FanIn extends Node implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... in) throws NodeException {
+    public void setInputs(ObservableValues in) throws NodeException {
         for (ObservableValue v : in)
             inputs.add(v.checkBits(bits, this).addObserverToValue(this));
     }
@@ -52,8 +53,8 @@ public abstract class FanIn extends Node implements Element {
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{output};
+    public ObservableValues getOutputs() {
+        return new ObservableValues(output);
     }
 
     /**
@@ -72,12 +73,12 @@ public abstract class FanIn extends Node implements Element {
         }
 
         @Override
-        public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
+        public PinDescriptions getInputDescription(ElementAttributes elementAttributes) {
             int count = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
                 names[i] = input("in_" + i);
-            return names;
+            return new PinDescriptions(names);
         }
     }
 }

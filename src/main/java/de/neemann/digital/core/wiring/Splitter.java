@@ -26,10 +26,10 @@ public class Splitter implements Element {
             .addAttribute(Keys.OUTPUT_SPLIT)
             .setShortName("");
 
-    private final ObservableValue[] outputs;
+    private final ObservableValues outputs;
     private final Ports inPorts;
     private final Ports outPorts;
-    private ObservableValue[] inputs;
+    private ObservableValues inputs;
 
 
     private static class SplitterTypeDescription extends ElementTypeDescription {
@@ -38,7 +38,7 @@ public class Splitter implements Element {
         }
 
         @Override
-        public PinDescription[] getInputDescription(ElementAttributes elementAttributes) throws BitsException {
+        public PinDescriptions getInputDescription(ElementAttributes elementAttributes) throws BitsException {
             Ports p = new Ports(elementAttributes.get(Keys.INPUT_SPLIT));
             return p.getNames(PinDescription.Direction.input);
         }
@@ -58,15 +58,16 @@ public class Splitter implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        if (inPorts.getBits() != outPorts.getBits())
-            throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, combine(inputs, outputs));
-
+    public void setInputs(ObservableValues inputs) throws NodeException {
         this.inputs = inputs;
-        for (int i = 0; i < inputs.length; i++) {
+
+        if (inPorts.getBits() != outPorts.getBits())
+            throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, UnmutableList.combine(inputs, outputs));
+
+        for (int i = 0; i < inputs.size(); i++) {
             Port inPort = inPorts.getPort(i);
-            if (inPort.getBits() != inputs[i].getBits())
-                throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, inputs[i]);
+            if (inPort.getBits() != inputs.get(i).getBits())
+                throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, inputs);
         }
 
         for (Port out : outPorts)
@@ -83,8 +84,8 @@ public class Splitter implements Element {
                     && out.getPos() + out.getBits() <= in.getPos() + in.getBits()) {
 
                 final int bitPos = out.getPos() - in.getPos();
-                final ObservableValue inValue = inputs[in.number];
-                final ObservableValue outValue = outputs[out.number];
+                final ObservableValue inValue = inputs.get(in.number);
+                final ObservableValue outValue = outputs.get(out.number);
                 inValue.addObserverToValue(new Observer() {
                     @Override
                     public void hasChanged() {
@@ -98,9 +99,9 @@ public class Splitter implements Element {
             if (out.getPos() <= in.getPos() && in.getPos() + in.getBits() <= out.getPos() + out.getBits()) {
                 final int bitPos = in.getPos() - out.getPos();
                 final long mask = ~(((1L << in.bits) - 1) << bitPos);
-                final ObservableValue inValue = inputs[in.number];
-                final ObservableValue outValue = outputs[out.number];
-                inputs[in.number].addObserverToValue(new Observer() {
+                final ObservableValue inValue = inputs.get(in.number);
+                final ObservableValue outValue = outputs.get(out.number);
+                inputs.get(in.number).addObserverToValue(new Observer() {
                     @Override
                     public void hasChanged() {
                         long in = inValue.getValue();
@@ -118,9 +119,9 @@ public class Splitter implements Element {
                 final int bitsToCopy = in.getPos() + in.getBits() - out.getPos();
                 final long mask = ~((1L << bitsToCopy) - 1);
                 final int shift = out.getPos() - in.getPos();
-                final ObservableValue inValue = inputs[in.number];
-                final ObservableValue outValue = outputs[out.number];
-                inputs[in.number].addObserverToValue(new Observer() {
+                final ObservableValue inValue = inputs.get(in.number);
+                final ObservableValue outValue = outputs.get(out.number);
+                inputs.get(in.number).addObserverToValue(new Observer() {
                     @Override
                     public void hasChanged() {
                         long in = inValue.getValue();
@@ -135,9 +136,9 @@ public class Splitter implements Element {
             final int bitsToCopy = out.getPos() + out.getBits() - in.getPos();
             final int shift = in.getPos() - out.getPos();
             final long mask = ~(((1L << bitsToCopy) - 1) << shift);
-            final ObservableValue inValue = inputs[in.number];
-            final ObservableValue outValue = outputs[out.number];
-            inputs[in.number].addObserverToValue(new Observer() {
+            final ObservableValue inValue = inputs.get(in.number);
+            final ObservableValue outValue = outputs.get(out.number);
+            inputs.get(in.number).addObserverToValue(new Observer() {
                 @Override
                 public void hasChanged() {
                     long in = inValue.getValue();
@@ -150,7 +151,7 @@ public class Splitter implements Element {
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
+    public ObservableValues getOutputs() {
         return outputs;
     }
 
@@ -205,21 +206,21 @@ public class Splitter implements Element {
             return bits;
         }
 
-        public PinDescription[] getNames(PinDescription.Direction dir) {
+        public PinDescriptions getNames(PinDescription.Direction dir) {
             PinInfo[] name = new PinInfo[ports.size()];
             for (int i = 0; i < name.length; i++)
                 name[i] = new PinInfo(ports.get(i).getName(), null, dir);
 
-            return name;
+            return new PinDescriptions(name);
         }
 
-        public ObservableValue[] getOutputs() {
+        public ObservableValues getOutputs() {
             ObservableValue[] outputs = new ObservableValue[ports.size()];
             for (int i = 0; i < ports.size(); i++) {
                 Port p = ports.get(i);
                 outputs[i] = new ObservableValue(p.getName(), p.getBits());
             }
-            return outputs;
+            return new ObservableValues(outputs);
         }
 
         public Port getPort(int i) {

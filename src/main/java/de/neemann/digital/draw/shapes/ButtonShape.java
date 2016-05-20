@@ -4,7 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -26,7 +26,7 @@ public class ButtonShape implements Shape {
     private static final int HEIGHT = SIZE / 2;
 
     private final String label;
-    private final PinDescription[] outputs;
+    private final PinDescriptions outputs;
     private IOState ioState;
 
     /**
@@ -36,14 +36,14 @@ public class ButtonShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public ButtonShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public ButtonShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
         this.label = attr.getLabel();
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), outputs[0]));
+        return new Pins().add(new Pin(new Vector(0, 0), outputs.get(0)));
     }
 
     @Override

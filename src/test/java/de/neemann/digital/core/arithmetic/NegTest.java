@@ -3,6 +3,7 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
@@ -16,7 +17,7 @@ public class NegTest extends TestCase {
 
         Model model = new Model();
         Neg out = model.add(new Neg(new ElementAttributes().setBits(4)));
-        out.setInputs(a);
+        out.setInputs(new ObservableValues(a));
 
         TestExecuter sc = new TestExecuter(model).setInputs(a).setOutputs(out.getOutputs());
         sc.check(0, 0);

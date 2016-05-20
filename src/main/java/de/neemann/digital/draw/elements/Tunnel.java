@@ -2,7 +2,7 @@ package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -45,12 +45,12 @@ public class Tunnel implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
+    public void setInputs(ObservableValues inputs) throws NodeException {
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[0];
+    public ObservableValues getOutputs() {
+        return new ObservableValues();
     }
 
     @Override

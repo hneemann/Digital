@@ -3,7 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -22,8 +22,8 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class DriverShape implements Shape {
     private final boolean bottom;
-    private final PinDescription[] inputs;
-    private final PinDescription[] outputs;
+    private final PinDescriptions inputs;
+    private final PinDescriptions outputs;
     private Pins pins;
 
     /**
@@ -33,7 +33,7 @@ public class DriverShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public DriverShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public DriverShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
         this.bottom = attr.get(Keys.FLIP_SEL_POSITON);
@@ -43,9 +43,9 @@ public class DriverShape implements Shape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(-SIZE, 0), inputs[0]));
-            pins.add(new Pin(new Vector(0, bottom ? SIZE : -SIZE), inputs[1]));
-            pins.add(new Pin(new Vector(SIZE, 0), outputs[0]));
+            pins.add(new Pin(new Vector(-SIZE, 0), inputs.get(0)));
+            pins.add(new Pin(new Vector(0, bottom ? SIZE : -SIZE), inputs.get(1)));
+            pins.add(new Pin(new Vector(SIZE, 0), outputs.get(0)));
         }
         return pins;
     }

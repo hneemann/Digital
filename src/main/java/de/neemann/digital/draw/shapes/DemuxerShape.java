@@ -3,7 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -21,8 +21,8 @@ public class DemuxerShape implements Shape {
     private final boolean hasInput;
     private final boolean flip;
     private final int height;
-    private final PinDescription[] inputs;
-    private final PinDescription[] outputs;
+    private final PinDescriptions inputs;
+    private final PinDescriptions outputs;
     private Pins pins;
 
     /**
@@ -32,12 +32,12 @@ public class DemuxerShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public DemuxerShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public DemuxerShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
         this.flip = attr.get(Keys.FLIP_SEL_POSITON);
         outputCount = 1 << attr.get(Keys.SELECTOR_BITS);
-        hasInput = inputs.length > 1;
+        hasInput = inputs.size() > 1;
         height = hasInput || (outputCount <= 2) ? outputCount * SIZE : (outputCount - 1) * SIZE;
     }
 
@@ -45,16 +45,16 @@ public class DemuxerShape implements Shape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(SIZE, flip ? 0 : height), inputs[0]));
+            pins.add(new Pin(new Vector(SIZE, flip ? 0 : height), inputs.get(0)));
             if (outputCount == 2) {
-                pins.add(new Pin(new Vector(SIZE * 2, 0 * SIZE), outputs[0]));
-                pins.add(new Pin(new Vector(SIZE * 2, 2 * SIZE), outputs[1]));
+                pins.add(new Pin(new Vector(SIZE * 2, 0 * SIZE), outputs.get(0)));
+                pins.add(new Pin(new Vector(SIZE * 2, 2 * SIZE), outputs.get(1)));
             } else
                 for (int i = 0; i < outputCount; i++) {
-                    pins.add(new Pin(new Vector(SIZE * 2, i * SIZE), outputs[i]));
+                    pins.add(new Pin(new Vector(SIZE * 2, i * SIZE), outputs.get(i)));
                 }
             if (hasInput)
-                pins.add(new Pin(new Vector(0, (outputCount / 2) * SIZE), inputs[1]));
+                pins.add(new Pin(new Vector(0, (outputCount / 2) * SIZE), inputs.get(1)));
         }
         return pins;
     }

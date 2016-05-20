@@ -2,6 +2,7 @@ package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
@@ -21,14 +22,14 @@ public class Splitter1Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "1,1,1,1")
                 .set(Keys.OUTPUT_SPLIT, "4"));
 
-        splitter.setInputs(a, b, c, d);
+        splitter.setInputs(new ObservableValues(a, b, c, d));
         assertEquals(1, a.observerCount());
         assertEquals(1, b.observerCount());
         assertEquals(1, c.observerCount());
         assertEquals(1, d.observerCount());
 
-        ObservableValue[] outputs = splitter.getOutputs();
-        assertEquals(1, outputs.length);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(1, outputs.size());
 
         TestExecuter sc = new TestExecuter().setInputs(a, b, c, d).setOutputsOf(splitter);
         sc.check(0, 0, 0, 0, 0);
@@ -53,14 +54,14 @@ public class Splitter1Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "4,4,4,4")
                 .set(Keys.OUTPUT_SPLIT, "16"));
 
-        splitter.setInputs(a, b, c, d);
+        splitter.setInputs(new ObservableValues(a, b, c, d));
         assertEquals(1, a.observerCount());
         assertEquals(1, b.observerCount());
         assertEquals(1, c.observerCount());
         assertEquals(1, d.observerCount());
 
-        ObservableValue[] outputs = splitter.getOutputs();
-        assertEquals(1, outputs.length);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(1, outputs.size());
 
         TestExecuter sc = new TestExecuter().setInputs(d, c, b, a).setOutputsOf(splitter);
         sc.check(0, 0, 0, 0, 0x0000);
@@ -84,14 +85,14 @@ public class Splitter1Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "4,4,4,4")
                 .set(Keys.OUTPUT_SPLIT, "8,8"));
 
-        splitter.setInputs(a, b, c, d);
+        splitter.setInputs(new ObservableValues(a, b, c, d));
         assertEquals(1, a.observerCount());
         assertEquals(1, b.observerCount());
         assertEquals(1, c.observerCount());
         assertEquals(1, d.observerCount());
 
-        ObservableValue[] outputs = splitter.getOutputs();
-        assertEquals(2, outputs.length);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(2, outputs.size());
 
         TestExecuter sc = new TestExecuter().setInputs(b, a, d, c).setOutputsOf(splitter);
         sc.check(0x0, 0x0, 0x0, 0x0, 0x00, 0x00);

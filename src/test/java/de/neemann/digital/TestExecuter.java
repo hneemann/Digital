@@ -3,6 +3,7 @@ package de.neemann.digital;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -57,6 +58,11 @@ public class TestExecuter {
         outputs = new ArrayList<>();
     }
 
+    public TestExecuter setInputs(ObservableValues values) {
+        inputs.addAll(values.asCollection());
+        return this;
+    }
+
     public TestExecuter setInputs(ObservableValue... values) {
         inputs.addAll(Arrays.asList(values));
         return this;
@@ -72,6 +78,11 @@ public class TestExecuter {
         setInputs(me.getIoState().getOutputs());
     }
 
+
+    public TestExecuter setOutputs(ObservableValues values) {
+        outputs.addAll(values.asCollection());
+        return this;
+    }
 
     public TestExecuter setOutputs(ObservableValue... values) {
         outputs.addAll(Arrays.asList(values));

@@ -3,6 +3,7 @@ package de.neemann.digital.core.io;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -94,17 +95,17 @@ public class Out implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        if (inputs.length != bits.length)
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        if (inputs.size() != bits.length)
             throw new NodeException("wrong input count");
-        value = inputs[0].checkBits(bits[0], null);
+        value = inputs.get(0).checkBits(bits[0], null);
         for (int i = 1; i < bits.length; i++)
-            inputs[i].checkBits(bits[i], null);
+            inputs.get(i).checkBits(bits[i], null);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[0];
+    public ObservableValues getOutputs() {
+        return new ObservableValues();
     }
 
     @Override

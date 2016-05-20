@@ -65,14 +65,14 @@ public class ROM extends Node implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        addrIn = inputs[0].checkBits(addrBits, this).addObserverToValue(this);
-        selIn = inputs[1].checkBits(1, this).addObserverToValue(this);
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
+        selIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{output};
+    public ObservableValues getOutputs() {
+        return new ObservableValues(output);
     }
 
     @Override

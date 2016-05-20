@@ -1,5 +1,7 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.element.UnmutableList;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -10,7 +12,16 @@ import java.util.Collection;
  */
 public class NodeException extends Exception {
     private final ArrayList<Node> nodes;
-    private final ObservableValue[] values;
+    private final UnmutableList<ObservableValue> values;
+
+    /**
+     * Creates a new instance.
+     *
+     * @param message the message
+     */
+    public NodeException(String message, ObservableValue... values) {
+        this(message, null, new ObservableValues(values));
+    }
 
     /**
      * Creates a new instance.
@@ -18,7 +29,7 @@ public class NodeException extends Exception {
      * @param message the message
      * @param values  the values affected by this exception
      */
-    public NodeException(String message, ObservableValue... values) {
+    public NodeException(String message, UnmutableList<ObservableValue> values) {
         this(message, null, values);
     }
 
@@ -29,7 +40,7 @@ public class NodeException extends Exception {
      * @param node    the nod effected by tis exception
      * @param values  the values affected by this exception
      */
-    public NodeException(String message, Node node, ObservableValue... values) {
+    public NodeException(String message, Node node, UnmutableList<ObservableValue> values) {
         super(message);
         this.nodes = new ArrayList<>();
         if (node != null)
@@ -53,13 +64,13 @@ public class NodeException extends Exception {
      *
      * @return the affected values
      */
-    public ObservableValue[] getValues() {
+    public UnmutableList<ObservableValue> getValues() {
         return values;
     }
 
     @Override
     public String getMessage() {
-        if (values == null || values.length == 0)
+        if (values == null || values.size() == 0)
             return super.getMessage();
         else {
             StringBuilder sb = new StringBuilder(super.getMessage());

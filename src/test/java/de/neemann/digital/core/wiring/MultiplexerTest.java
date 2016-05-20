@@ -4,6 +4,7 @@ import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.basic.FanIn;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
@@ -24,7 +25,7 @@ public class MultiplexerTest extends TestCase {
         FanIn out = model.add(new Multiplexer(
                 new ElementAttributes().set(Keys.BITS, 4)
                         .set(Keys.SELECTOR_BITS, 2)));
-        out.setInputs(sel, a, b, c, d);
+        out.setInputs(new ObservableValues(sel, a, b, c, d));
 
 
         TestExecuter te = new TestExecuter(model).setInputs(a, b, c, d, sel).setOutputs(out.getOutputs());
@@ -46,7 +47,7 @@ public class MultiplexerTest extends TestCase {
                         .set(Keys.SELECTOR_BITS, 2));
 
         try {
-            out.setInputs(a, b, c, d, sel);
+            out.setInputs(new ObservableValues(a, b, c, d, sel));
             assertTrue(false);
         } catch (BitsException e) {
             assertTrue(true);
@@ -63,7 +64,7 @@ public class MultiplexerTest extends TestCase {
                         .set(Keys.SELECTOR_BITS, 2));
 
         try {
-            out.setInputs(sel, a, b, c);
+            out.setInputs(new ObservableValues(sel, a, b, c));
             assertTrue(false);
         } catch (BitsException e) {
             assertTrue(true);

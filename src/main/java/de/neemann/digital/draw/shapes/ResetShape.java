@@ -2,7 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -18,7 +18,7 @@ import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 public class ResetShape implements Shape {
 
     private final String label;
-    private final PinDescription[] outputs;
+    private final PinDescriptions outputs;
 
     /**
      * Creates a new instance
@@ -27,14 +27,14 @@ public class ResetShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public ResetShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public ResetShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
         this.label = attr.getLabel();
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), outputs[0]));
+        return new Pins().add(new Pin(new Vector(0, 0), outputs.get(0)));
     }
 
     @Override

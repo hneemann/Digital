@@ -3,6 +3,7 @@ package de.neemann.digital.core.io;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -37,13 +38,13 @@ public class Const implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
+    public void setInputs(ObservableValues inputs) throws NodeException {
         throw new NodeException(Lang.get("err_noInputsAvailable"));
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{output};
+    public ObservableValues getOutputs() {
+        return new ObservableValues(output);
     }
 
     @Override

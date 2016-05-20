@@ -2,7 +2,7 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 
 /**
  * A concrete element used for the simulation
@@ -18,7 +18,7 @@ public interface Element {
      * @param inputs the list of <code>ObservableValue</code>s to use
      * @throws NodeException NodeException
      */
-    void setInputs(ObservableValue... inputs) throws NodeException;
+    void setInputs(ObservableValues inputs) throws NodeException;
 
     /**
      * When the connections between the elements are build all outputs a collected
@@ -27,7 +27,7 @@ public interface Element {
      *
      * @return the list of outputs wich are set by this element
      */
-    ObservableValue[] getOutputs();
+    ObservableValues getOutputs();
 
     /**
      * The element has to register its nodes to the model.

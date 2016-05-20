@@ -2,6 +2,7 @@ package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
@@ -54,12 +55,12 @@ public class RAMSinglePort extends RAMDualPort {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        addrIn = inputs[0].checkBits(addrBits, this).addObserverToValue(this);
-        strIn = inputs[1].checkBits(1, this).addObserverToValue(this);
-        clkIn = inputs[2].checkBits(1, this).addObserverToValue(this);
-        ldIn = inputs[3].checkBits(1, this).addObserverToValue(this);
-        dataIn = inputs[4].checkBits(bits, this).addObserverToValue(this); // additional input to read the port
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
+        strIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
+        clkIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
+        ldIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
+        dataIn = inputs.get(4).checkBits(bits, this).addObserverToValue(this); // additional input to read the port
     }
 
 }

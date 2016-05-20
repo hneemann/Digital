@@ -5,7 +5,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
@@ -37,7 +37,7 @@ public class DataShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public DataShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public DataShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         microStep = attr.get(Keys.MICRO_STEP);
         maxSize = attr.get(Keys.MAX_STEP_COUNT);
     }

@@ -3,7 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -30,7 +30,7 @@ public class OutputShape implements Shape {
      */
     public static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
-    private final PinDescription[] inputs;
+    private final PinDescriptions inputs;
     private IOState ioState;
 
     /**
@@ -40,14 +40,14 @@ public class OutputShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public OutputShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public OutputShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), inputs[0]));
+        return new Pins().add(new Pin(new Vector(0, 0), inputs.get(0)));
     }
 
     @Override

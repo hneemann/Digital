@@ -4,6 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.UnmutableList;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -27,7 +28,6 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -200,11 +200,11 @@ public class CircuitComponent extends JComponent {
      *
      * @param values the value
      */
-    public void addHighLightedWires(ObservableValue[] values) {
+    public void addHighLightedWires(UnmutableList<ObservableValue> values) {
         if (values == null) return;
 
         HashSet<ObservableValue> ov = new HashSet<>();
-        ov.addAll(Arrays.asList(values));
+        ov.addAll(values.asCollection());
         for (Wire w : circuit.getWires())
             if (ov.contains(w.getValue()))
                 addHighLighted(w);

@@ -39,7 +39,7 @@ public class SpeedTest {
 
         Clock clock = clocks.get(0);
         model.init();
-        ObservableValue clockValue = clock.getOutputs()[0];
+        ObservableValue clockValue = clock.getOutputs().get(0);
         int state = (int) clockValue.getValue();
 
         long aktTime;

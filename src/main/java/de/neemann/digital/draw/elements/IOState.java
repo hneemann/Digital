@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 
 /**
  * Represents the state of the state of the inputs and outputs of a element.
@@ -9,8 +10,8 @@ import de.neemann.digital.core.ObservableValue;
  * @author hneemann
  */
 public class IOState {
-    private final ObservableValue[] inputs;
-    private final ObservableValue[] outputs;
+    private final ObservableValues inputs;
+    private final ObservableValues outputs;
 
     /**
      * creates a new instance
@@ -18,7 +19,7 @@ public class IOState {
      * @param inputs  inputs
      * @param outputs outputs
      */
-    public IOState(ObservableValue[] inputs, ObservableValue[] outputs) {
+    public IOState(ObservableValues inputs, ObservableValues outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
     }
@@ -29,7 +30,7 @@ public class IOState {
      * @return the input
      */
     public ObservableValue getInput(int i) {
-        return inputs[i];
+        return inputs.get(i);
     }
 
     /**
@@ -38,34 +39,34 @@ public class IOState {
      * @return the output
      */
     public ObservableValue getOutput(int i) {
-        return outputs[i];
+        return outputs.get(i);
     }
 
     /**
      * @return the number of inputs
      */
     public int inputCount() {
-        return inputs.length;
+        return inputs.size();
     }
 
     /**
      * @return the number of outputs
      */
     public int outputCount() {
-        return outputs.length;
+        return outputs.size();
     }
 
     /**
      * @return all inputs as an array
      */
-    public ObservableValue[] getInputs() {
+    public ObservableValues getInputs() {
         return inputs;
     }
 
     /**
      * @return all outputs as an array
      */
-    public ObservableValue[] getOutputs() {
+    public ObservableValues getOutputs() {
         return outputs;
     }
 }

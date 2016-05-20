@@ -3,6 +3,7 @@ package de.neemann.digital.core.io;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -39,13 +40,13 @@ public class Probe implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        value = inputs[0];
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        value = inputs.get(0);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[0];
+    public ObservableValues getOutputs() {
+        return new ObservableValues();
     }
 
     @Override

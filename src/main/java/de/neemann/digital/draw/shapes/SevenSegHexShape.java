@@ -3,7 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -18,7 +18,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
  */
 public class SevenSegHexShape extends SevenShape {
     private static final int[] TABLE = new int[]{0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71};
-    private final PinDescription[] inputs;
+    private final PinDescriptions inputs;
     private Pins pins;
     private ObservableValue input;
     private ObservableValue dp;
@@ -30,7 +30,7 @@ public class SevenSegHexShape extends SevenShape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public SevenSegHexShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public SevenSegHexShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         super(attr);
         this.inputs = inputs;
     }
@@ -53,8 +53,8 @@ public class SevenSegHexShape extends SevenShape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins()
-                    .add(new Pin(new Vector(SIZE * 2, SIZE * HEIGHT), inputs[0]))
-                    .add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), inputs[1]));
+                    .add(new Pin(new Vector(SIZE * 2, SIZE * HEIGHT), inputs.get(0)))
+                    .add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), inputs.get(1)));
         }
         return pins;
     }

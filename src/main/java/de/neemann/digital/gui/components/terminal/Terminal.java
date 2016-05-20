@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components.terminal;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -44,14 +45,14 @@ public class Terminal extends Node implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        data = inputs[0];
-        clock = inputs[1].addObserverToValue(this).checkBits(1, this);
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        data = inputs.get(0);
+        clock = inputs.get(1).addObserverToValue(this).checkBits(1, this);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[0];
+    public ObservableValues getOutputs() {
+        return new ObservableValues();
     }
 
     @Override

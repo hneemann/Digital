@@ -18,7 +18,7 @@ public class ElementTypeDescription {
     private final String translatedName;
     private String shortName;
     private final ElementFactory elementFactory;
-    private final PinDescription[] inputPins;
+    private final PinDescriptions inputPins;
     private final ArrayList<Key> attributeList;
     private String description;
 
@@ -67,7 +67,7 @@ public class ElementTypeDescription {
         if (n != null) this.translatedName = n;
         else this.translatedName = name;
         this.elementFactory = elementFactory;
-        this.inputPins = inputPins;
+        this.inputPins = new PinDescriptions(inputPins);
         for (PinDescription p : inputPins)
             if (p.getDirection() != PinDescription.Direction.input)
                 throw new RuntimeException("pin direction error");
@@ -174,7 +174,7 @@ public class ElementTypeDescription {
      * @return the list of input descriptions
      * @throws NodeException NodeException
      */
-    public PinDescription[] getInputDescription(ElementAttributes elementAttributes) throws NodeException {
+    public PinDescriptions getInputDescription(ElementAttributes elementAttributes) throws NodeException {
         return inputPins;
     }
 
@@ -184,8 +184,8 @@ public class ElementTypeDescription {
      * @param elementAttributes the elements attributs
      * @return the list of input descriptions
      */
-    public PinDescription[] getOutputDescriptions(ElementAttributes elementAttributes) {
-        return elementFactory.create(elementAttributes).getOutputs();
+    public PinDescriptions getOutputDescriptions(ElementAttributes elementAttributes) {
+        return new PinDescriptions(elementFactory.create(elementAttributes).getOutputs());
     }
 
     /**

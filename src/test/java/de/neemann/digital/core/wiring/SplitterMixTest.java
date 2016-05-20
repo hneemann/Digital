@@ -2,6 +2,7 @@ package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
@@ -19,12 +20,12 @@ public class SplitterMixTest extends TestCase {
                 .set(Keys.INPUT_SPLIT, "8,8")
                 .set(Keys.OUTPUT_SPLIT, "4,12"));
 
-        splitter.setInputs(a, b);
+        splitter.setInputs(new ObservableValues(a, b));
         assertEquals(2, a.observerCount());
         assertEquals(1, b.observerCount());
 
-        ObservableValue[] outputs = splitter.getOutputs();
-        assertEquals(2, outputs.length);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(2, outputs.size());
 
         TestExecuter sc = new TestExecuter().setInputs(a, b).setOutputsOf(splitter);
         sc.check(0x00, 0x00, 0x0, 0x000);
@@ -50,12 +51,12 @@ public class SplitterMixTest extends TestCase {
                 .set(Keys.INPUT_SPLIT, "8,8")
                 .set(Keys.OUTPUT_SPLIT, "12,4"));
 
-        splitter.setInputs(a, b);
+        splitter.setInputs(new ObservableValues(a, b));
         assertEquals(1, a.observerCount());
         assertEquals(2, b.observerCount());
 
-        ObservableValue[] outputs = splitter.getOutputs();
-        assertEquals(2, outputs.length);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(2, outputs.size());
 
         TestExecuter sc = new TestExecuter().setInputs(a, b).setOutputsOf(splitter);
         sc.check(0x00, 0x00, 0x000, 0x0);

@@ -3,14 +3,10 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.basic.FanIn;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.lang.Lang;
-
-import java.util.Arrays;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -30,13 +26,13 @@ public class Multiplexer extends FanIn {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Multiplexer.class) {
         @Override
-        public PinDescription[] getInputDescription(ElementAttributes elementAttributes) {
+        public PinDescriptions getInputDescription(ElementAttributes elementAttributes) {
             int size = 1 << elementAttributes.get(Keys.SELECTOR_BITS);
             PinDescription[] names = new PinDescription[size + 1];
             names[0] = input("sel", Lang.get("elem_Multiplexer_pin_sel"));
             for (int i = 0; i < size; i++)
                 names[i + 1] = input("in_" + i);
-            return names;
+            return new PinDescriptions(names);
         }
     }
             .addAttribute(Keys.ROTATE)
@@ -66,12 +62,12 @@ public class Multiplexer extends FanIn {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        selector = inputs[0].addObserverToValue(this).checkBits(selectorBits, this);
-        ObservableValue[] in = Arrays.copyOfRange(inputs, 1, inputs.length);
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        selector = inputs.get(0).addObserverToValue(this).checkBits(selectorBits, this);
+        ObservableValues in = new ObservableValues(inputs, 1, inputs.size());
         super.setInputs(in);
 
-        if (in.length != (1 << selectorBits))
+        if (in.size() != (1 << selectorBits))
             throw new BitsException(Lang.get("err_selectorInputCountMismatch"), this, selector);
     }
 }

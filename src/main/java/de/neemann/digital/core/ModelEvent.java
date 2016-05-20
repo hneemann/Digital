@@ -38,6 +38,6 @@ public enum ModelEvent {
      * If fired if a micro step is calculated.
      * This means the aktual nodes are calculated, but not the effected nodes.
      */
-    MICROSTEP;
+    MICROSTEP
 
 }

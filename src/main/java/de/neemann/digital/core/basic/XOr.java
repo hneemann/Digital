@@ -1,9 +1,6 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.BitsException;
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -51,14 +48,14 @@ public class XOr extends Node implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws BitsException {
-        a = inputs[0].addObserverToValue(this).checkBits(bits, this);
-        b = inputs[1].addObserverToValue(this).checkBits(bits, this);
+    public void setInputs(ObservableValues inputs) throws BitsException {
+        a = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
+        b = inputs.get(1).addObserverToValue(this).checkBits(bits, this);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{out};
+    public ObservableValues getOutputs() {
+        return new ObservableValues(out);
     }
 
 }

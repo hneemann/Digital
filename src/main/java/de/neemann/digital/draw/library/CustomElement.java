@@ -2,7 +2,7 @@ package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -52,12 +52,12 @@ public class CustomElement implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
+    public void setInputs(ObservableValues inputs) throws NodeException {
         throw new RuntimeException("invalid call!");
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
+    public ObservableValues getOutputs() {
         try {
             return circuit.getOutputNames();
         } catch (PinException e) {

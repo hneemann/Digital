@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
@@ -465,7 +466,7 @@ public class Circuit {
      * @return the list of output ObservableValues
      * @throws PinException PinException
      */
-    public ObservableValue[] getOutputNames() throws PinException {
+    public ObservableValues getOutputNames() throws PinException {
         ArrayList<ObservableValue> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
             if (ve.getElementName().equals(Out.DESCRIPTION.getName())) {
@@ -487,7 +488,7 @@ public class Circuit {
                 }.setDescription(descr));
             }
         }
-        return pinList.toArray(new ObservableValue[pinList.size()]);
+        return new ObservableValues(pinList.toArray(new ObservableValue[pinList.size()]));
     }
 
     /**

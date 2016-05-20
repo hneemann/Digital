@@ -31,7 +31,7 @@ public class TestRunToBreak extends TestCase {
                 .runToBreak(2047)
                 .getSingleNode(Register.class);
 
-        assertEquals(0x3ff, r.getOutputs()[0].getValue());
+        assertEquals(0x3ff, r.getOutputs().get(0).getValue());
     }
 
     /**

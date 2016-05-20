@@ -2,9 +2,10 @@ package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.lang.Lang;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 public class ModelEntry {
     private final Element element;
     private final Pins pins;
-    private final PinDescription[] inputNames;
+    private final PinDescriptions inputNames;
     private final boolean isNestedElement;
     private final VisualElement visualElement;
     private IOState ioState;
@@ -36,7 +37,7 @@ public class ModelEntry {
      * @param inputNames      the pin descriptions of the inputs.
      * @param isNestedElement true if this visual element is a nested included element
      */
-    public ModelEntry(Element element, Pins pins, VisualElement visualElement, PinDescription[] inputNames, boolean isNestedElement) {
+    public ModelEntry(Element element, Pins pins, VisualElement visualElement, PinDescriptions inputNames, boolean isNestedElement) {
         this.element = element;
         this.pins = pins;
         this.visualElement = visualElement;
@@ -53,16 +54,17 @@ public class ModelEntry {
     public void applyInputs() throws PinException, NodeException {
         HashMap<String, Pin> ins = pins.getInputs();
 
-        ObservableValue[] inputs = new ObservableValue[inputNames.length];
-        if (inputNames.length > 0) {
-            for (int i = 0; i < inputNames.length; i++) {
-                Pin pin = ins.get(inputNames[i].getName());
+        ObservableValue[] inputs = new ObservableValue[inputNames.size()];
+        ObservableValues values = new ObservableValues(inputs);
+        if (inputNames.size() > 0) {
+            for (int i = 0; i < inputNames.size(); i++) {
+                Pin pin = ins.get(inputNames.get(i).getName());
                 if (pin == null)
-                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputNames[i], visualElement), visualElement);
+                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputNames.get(i), visualElement), visualElement);
 
                 ObservableValue value = pin.getValue();
                 if (value == null)
-                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputNames[i], visualElement), visualElement);
+                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputNames.get(i), visualElement), visualElement);
 
                 inputs[i] = value;
             }
@@ -76,11 +78,11 @@ public class ModelEntry {
                 }
             }
             if (bidirect != null)
-                inputs = Splitter.combine(inputs, bidirect.toArray(new ObservableValue[bidirect.size()]));
+                values = new ObservableValues(Splitter.combine(inputs, bidirect.toArray(new ObservableValue[bidirect.size()])));
 
-            element.setInputs(inputs);
+            element.setInputs(values);
         }
-        ioState = new IOState(inputs, element.getOutputs());
+        ioState = new IOState(values, element.getOutputs());
     }
 
     /**

@@ -3,6 +3,7 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -68,17 +69,17 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        addrIn = inputs[0].checkBits(addrBits, this).addObserverToValue(this);
-        dataIn = inputs[1].checkBits(bits, this).addObserverToValue(this);
-        strIn = inputs[2].checkBits(1, this).addObserverToValue(this);
-        clkIn = inputs[3].checkBits(1, this).addObserverToValue(this);
-        ldIn = inputs[4].checkBits(1, this).addObserverToValue(this);
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
+        dataIn = inputs.get(1).checkBits(bits, this).addObserverToValue(this);
+        strIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
+        clkIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
+        ldIn = inputs.get(4).checkBits(1, this).addObserverToValue(this);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{output};
+    public ObservableValues getOutputs() {
+        return new ObservableValues(output);
     }
 
     @Override

@@ -2,6 +2,7 @@ package de.neemann.digital;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
@@ -21,8 +22,8 @@ public class FlipFlopsTest extends TestCase {
         FanIn a1 = model.add(new NOr(new ElementAttributes().setBits(1)));
         FanIn a2 = model.add(new NOr(new ElementAttributes().setBits(1)));
 
-        a1.setInputs(r, a2.getOutput());
-        a2.setInputs(s, a1.getOutput());
+        a1.setInputs(new ObservableValues(r, a2.getOutput()));
+        a2.setInputs(new ObservableValues(s, a1.getOutput()));
 
         TestExecuter sc = new TestExecuter(model, true).setInputs(r, s).setOutputs(a1.getOutput(), a2.getOutput());
         sc.check(0, 1, 1, 0);
@@ -47,8 +48,8 @@ public class FlipFlopsTest extends TestCase {
         FanIn a1 = model.add(new NAnd(new ElementAttributes().setBits(1)));
         FanIn a2 = model.add(new NAnd(new ElementAttributes().setBits(1)));
 
-        a1.setInputs(r, a2.getOutput());
-        a2.setInputs(s, a1.getOutput());
+        a1.setInputs(new ObservableValues(r, a2.getOutput()));
+        a2.setInputs(new ObservableValues(s, a1.getOutput()));
 
         TestExecuter sc = new TestExecuter(model).setInputs(r, s).setOutputs(a1.getOutput(), a2.getOutput());
         sc.check(1, 0, 0, 1);
@@ -71,26 +72,26 @@ public class FlipFlopsTest extends TestCase {
         FanIn nor4 = model.add(new NOr(attr));
 
         FanIn a1 = model.add(new And(attr));
-        a1.setInputs(j, c, nor4.getOutput());
+        a1.setInputs(new ObservableValues(j, c, nor4.getOutput()));
         FanIn a2 = model.add(new And(attr));
-        a2.setInputs(k, c, nor3.getOutput());
+        a2.setInputs(new ObservableValues(k, c, nor3.getOutput()));
         Not not = model.add(new Not(attr));
-        not.setInputs(c);
+        not.setInputs(new ObservableValues(c));
 
         FanIn nor1 = model.add(new NOr(attr));
         FanIn nor2 = model.add(new NOr(attr));
 
-        nor1.setInputs(a1.getOutput(), nor2.getOutput());
-        nor2.setInputs(a2.getOutput(), nor1.getOutput());
+        nor1.setInputs(new ObservableValues(a1.getOutput(), nor2.getOutput()));
+        nor2.setInputs(new ObservableValues(a2.getOutput(), nor1.getOutput()));
 
 
         FanIn a3 = model.add(new And(attr));
-        a3.setInputs(nor1.getOutput(), not.getOutputs()[0]);
+        a3.setInputs(new ObservableValues(nor1.getOutput(), not.getOutputs().get(0)));
         FanIn a4 = model.add(new And(attr));
-        a4.setInputs(nor2.getOutput(), not.getOutputs()[0]);
+        a4.setInputs(new ObservableValues(nor2.getOutput(), not.getOutputs().get(0)));
 
-        nor3.setInputs(a3.getOutput(), nor4.getOutput());
-        nor4.setInputs(a4.getOutput(), nor3.getOutput());
+        nor3.setInputs(new ObservableValues(a3.getOutput(), nor4.getOutput()));
+        nor4.setInputs(new ObservableValues(a4.getOutput(), nor3.getOutput()));
 
         TestExecuter sc = new TestExecuter(model, true).setInputs(c, j, k).setOutputs(nor3.getOutput(), nor4.getOutput());
         sc.check(0, 1, 0, IGNORE, IGNORE); // undefined

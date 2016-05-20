@@ -4,7 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -24,7 +24,7 @@ public class LEDShape implements Shape {
     private static final Vector RAD = new Vector(SIZE - 2, SIZE - 2);
     private static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
-    private final PinDescription[] inputs;
+    private final PinDescriptions inputs;
     private Style onStyle;
     private IOState ioState;
 
@@ -35,7 +35,7 @@ public class LEDShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public LEDShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public LEDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
         onStyle = new Style(1, true, attr.get(Keys.COLOR));
@@ -43,7 +43,7 @@ public class LEDShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), inputs[0]));
+        return new Pins().add(new Pin(new Vector(0, 0), inputs.get(0)));
     }
 
     @Override

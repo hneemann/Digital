@@ -3,6 +3,7 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
@@ -26,7 +27,7 @@ public class RAMSinglePortTest extends TestCase {
                 new ElementAttributes()
                         .set(Keys.ADDR_BITS, 4)
                         .setBits(4)));
-        out.setInputs(a, str, clk, ld, d);
+        out.setInputs(new ObservableValues(a, str, clk, ld, d));
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, d, str, clk, ld).setOutputs(out.getOutputs());
         //       A  D  ST C  LD

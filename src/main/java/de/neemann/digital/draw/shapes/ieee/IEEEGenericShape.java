@@ -1,7 +1,7 @@
 package de.neemann.digital.draw.shapes.ieee;
 
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
@@ -22,8 +22,8 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public abstract class IEEEGenericShape implements Shape {
 
-    private final PinDescription[] inputs;
-    private final PinDescription[] outputs;
+    private final PinDescriptions inputs;
+    private final PinDescriptions outputs;
     private final boolean invert;
 
     private Pins pins;
@@ -35,7 +35,7 @@ public abstract class IEEEGenericShape implements Shape {
      * @param outputs outputs
      * @param invert  true if NAnd, NOr
      */
-    public IEEEGenericShape(PinDescription[] inputs, PinDescription[] outputs, boolean invert) {
+    public IEEEGenericShape(PinDescriptions inputs, PinDescriptions outputs, boolean invert) {
         this.inputs = inputs;
         this.outputs = outputs;
         this.invert = invert;
@@ -55,18 +55,18 @@ public abstract class IEEEGenericShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
-        int offs = (inputs.length / 2 - 1) * SIZE;
+        int offs = (inputs.size() / 2 - 1) * SIZE;
         drawIEEE(new GraphicTransform(graphic, v -> v.add(0, offs)));
 
         if (offs > 0) {
             graphic.drawLine(new Vector(1, 0), new Vector(1, offs - SIZE2 - 1), Style.NORMAL);
-            int h = (inputs.length / 2) * SIZE * 2;
+            int h = (inputs.size() / 2) * SIZE * 2;
             graphic.drawLine(new Vector(1, h), new Vector(1, h - offs + SIZE2 + 1), Style.NORMAL);
         }
 
         if (invert) {
-            int o = inputs.length / 2 * SIZE;
-            for (int i = 0; i < outputs.length; i++)
+            int o = inputs.size() / 2 * SIZE;
+            for (int i = 0; i < outputs.size(); i++)
                 graphic.drawCircle(new Vector(SIZE * 3 + 1, i * SIZE - SIZE2 + 1 + o),
                         new Vector(SIZE * 4 - 1, i * SIZE + SIZE2 - 1 + o), Style.NORMAL);
         }

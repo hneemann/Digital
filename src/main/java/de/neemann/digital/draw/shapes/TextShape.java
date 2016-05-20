@@ -2,7 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
@@ -24,7 +24,7 @@ public class TextShape implements Shape {
      *
      * @param attr attributes
      */
-    public TextShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public TextShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         String text = attr.getLabel();
         if (text.length() == 0)
             text = Lang.get("elem_Text");

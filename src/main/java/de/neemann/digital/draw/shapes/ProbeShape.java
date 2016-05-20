@@ -4,7 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -21,7 +21,7 @@ import de.neemann.digital.draw.graphics.Vector;
 public class ProbeShape implements Shape {
 
     private final String label;
-    private final PinDescription[] inputs;
+    private final PinDescriptions inputs;
     private final IntFormat format;
     private int bits;
     private ObservableValue inValue;
@@ -33,7 +33,7 @@ public class ProbeShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public ProbeShape(ElementAttributes attr, PinDescription[] inputs, PinDescription[] outputs) {
+    public ProbeShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
         this.format = attr.get(Keys.INTFORMAT);
@@ -41,7 +41,7 @@ public class ProbeShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), inputs[0]));
+        return new Pins().add(new Pin(new Vector(0, 0), inputs.get(0)));
     }
 
     @Override

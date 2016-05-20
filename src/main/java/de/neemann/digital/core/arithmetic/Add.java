@@ -1,9 +1,6 @@
 package de.neemann.digital.core.arithmetic;
 
-import de.neemann.digital.core.BitsException;
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -61,15 +58,15 @@ public class Add extends Node implements Element {
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws BitsException {
-        a = inputs[0].addObserverToValue(this).checkBits(bits, this);
-        b = inputs[1].addObserverToValue(this).checkBits(bits, this);
-        cIn = inputs[2].addObserverToValue(this).checkBits(1, this);
+    public void setInputs(ObservableValues inputs) throws BitsException {
+        a = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
+        b = inputs.get(1).addObserverToValue(this).checkBits(bits, this);
+        cIn = inputs.get(2).addObserverToValue(this).checkBits(1, this);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
-        return new ObservableValue[]{sum, cOut};
+    public ObservableValues getOutputs() {
+        return new ObservableValues(sum, cOut);
     }
 
 }

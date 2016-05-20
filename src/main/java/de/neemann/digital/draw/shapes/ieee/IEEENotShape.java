@@ -1,7 +1,7 @@
 package de.neemann.digital.draw.shapes.ieee;
 
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -21,8 +21,8 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * @author hneemann
  */
 public class IEEENotShape implements Shape {
-    private final PinDescription[] inputs;
-    private final PinDescription[] outputs;
+    private final PinDescriptions inputs;
+    private final PinDescriptions outputs;
     private Pins pins;
 
     /**
@@ -31,7 +31,7 @@ public class IEEENotShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public IEEENotShape(PinDescription[] inputs, PinDescription[] outputs) {
+    public IEEENotShape(PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
     }
@@ -40,8 +40,8 @@ public class IEEENotShape implements Shape {
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            pins.add(new Pin(new Vector(0, 0), inputs[0]));
-            pins.add(new Pin(new Vector(SIZE * 2, 0), outputs[0]));
+            pins.add(new Pin(new Vector(0, 0), inputs.get(0)));
+            pins.add(new Pin(new Vector(SIZE * 2, 0), outputs.get(0)));
         }
         return pins;
     }

@@ -2,6 +2,7 @@ package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
@@ -18,11 +19,11 @@ public class Splitter2Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "4")
                 .set(Keys.OUTPUT_SPLIT, "1,1,1,1"));
 
-        splitter.setInputs(a);
+        splitter.setInputs(new ObservableValues(a));
         assertEquals(4, a.observerCount());
 
-        ObservableValue[] outputs = splitter.getOutputs();
-        assertEquals(4, outputs.length);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(4, outputs.size());
 
         TestExecuter sc = new TestExecuter().setInputs(a).setOutputsOf(splitter);
         sc.check(0, 0, 0, 0, 0);
@@ -40,11 +41,11 @@ public class Splitter2Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "16")
                 .set(Keys.OUTPUT_SPLIT, "4,4,4,4"));
 
-        splitter.setInputs(a);
+        splitter.setInputs(new ObservableValues(a));
         assertEquals(4, a.observerCount());
 
-        ObservableValue[] outputs = splitter.getOutputs();
-        assertEquals(4, outputs.length);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(4, outputs.size());
 
         TestExecuter sc = new TestExecuter().setInputs(a).setOutputsOf(splitter);
         sc.check(0x0000, 0x0, 0x0, 0x0, 0x0);
@@ -66,12 +67,12 @@ public class Splitter2Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "8,8")
                 .set(Keys.OUTPUT_SPLIT, "4,4,4,4"));
 
-        splitter.setInputs(a, b);
+        splitter.setInputs(new ObservableValues(a, b));
         assertEquals(2, a.observerCount());
         assertEquals(2, b.observerCount());
 
-        ObservableValue[] outputs = splitter.getOutputs();
-        assertEquals(4, outputs.length);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(4, outputs.size());
 
         TestExecuter sc = new TestExecuter().setInputs(a, b).setOutputsOf(splitter);
         sc.check(0x00, 0x00, 0x0, 0x0, 0x0, 0x0);

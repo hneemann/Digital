@@ -3,6 +3,7 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -21,7 +22,7 @@ public class Decoder extends Node implements Element {
 
     private final int selectorBits;
     private final long defaultValue;
-    private final ObservableValue[] output;
+    private final ObservableValues output;
     private ObservableValue selector;
 
     private int oldSelectorValue;
@@ -46,15 +47,16 @@ public class Decoder extends Node implements Element {
         this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
         this.defaultValue = attributes.get(Keys.DEFAULT);
         int outputs = 1 << selectorBits;
-        output = new ObservableValue[outputs];
+        ObservableValue[] o = new ObservableValue[outputs];
         for (int i = 0; i < outputs; i++) {
-            output[i] = new ObservableValue("out_" + i, 1);
-            output[i].setValue(defaultValue);
+            o[i] = new ObservableValue("out_" + i, 1);
+            o[i].setValue(defaultValue);
         }
+        output = new ObservableValues(o);
     }
 
     @Override
-    public ObservableValue[] getOutputs() {
+    public ObservableValues getOutputs() {
         return output;
     }
 
@@ -65,14 +67,14 @@ public class Decoder extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output[oldSelectorValue].setValue(defaultValue);
-        output[selectorValue].setValue(1);
+        output.get(oldSelectorValue).setValue(defaultValue);
+        output.get(selectorValue).setValue(1);
         oldSelectorValue = selectorValue;
     }
 
     @Override
-    public void setInputs(ObservableValue... inputs) throws NodeException {
-        selector = inputs[0].addObserverToValue(this).checkBits(selectorBits, this);
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        selector = inputs.get(0).addObserverToValue(this).checkBits(selectorBits, this);
     }
 
 }

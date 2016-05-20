@@ -3,6 +3,7 @@ package de.neemann.digital.core.flipflops;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
@@ -15,7 +16,7 @@ public class FlipflopT_Test extends TestCase {
 
         Model model = new Model();
         FlipflopT out = model.add(new FlipflopT(new ElementAttributes().setBits(1)));
-        out.setInputs(c);
+        out.setInputs(new ObservableValues(c));
 
         TestExecuter sc = new TestExecuter(model).setInputs(c).setOutputs(out.getOutputs());
         //       C  Q  ~Q

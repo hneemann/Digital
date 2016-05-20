@@ -3,6 +3,7 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
@@ -18,7 +19,7 @@ public class RegisterTest extends TestCase {
 
         Model model = new Model();
         Register out = model.add(new Register(new ElementAttributes().setBits(8)));
-        out.setInputs(d, c, en);
+        out.setInputs(new ObservableValues(d, c, en));
 
         TestExecuter sc = new TestExecuter(model).setInputs(d, c, en).setOutputs(out.getOutputs());
         //       D  C  en  Q

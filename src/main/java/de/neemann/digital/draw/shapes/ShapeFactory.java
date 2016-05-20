@@ -5,7 +5,7 @@ import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
@@ -142,7 +142,7 @@ public final class ShapeFactory {
     }
 
     private interface Creator {
-        Shape create(ElementAttributes attributes, PinDescription[] inputs, PinDescription[] outputs) throws NodeException;
+        Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException;
     }
 
 
@@ -159,7 +159,7 @@ public final class ShapeFactory {
         }
 
         @Override
-        public Shape create(ElementAttributes attributes, PinDescription[] inputs, PinDescription[] outputs) throws NodeException {
+        public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException {
             return new GenericShape(name, inputs, outputs).invert(invers);
         }
     }
