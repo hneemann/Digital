@@ -4,9 +4,12 @@ import de.neemann.digital.analyse.expression.BitSetter;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Analyses a given model.
@@ -30,11 +33,33 @@ public class ModelAnalyser {
     public ModelAnalyser(Model model) throws AnalyseException {
         this.model = model;
         inputs = checkBinary(model.getInputs());
+        outputs = checkBinary(model.getOutputs());
+
+        int i = 0;
+        List<FlipflopD> flipflops = model.findNode(FlipflopD.class);
+        for (FlipflopD ff : flipflops) {
+            ff.getDInput().removeObserver(ff); // turn off flipflop
+            String label = ff.getLabel();
+            if (label.length() == 0)
+                throw new AnalyseException(Lang.get("err_DFlipflopWithoutALabel"));
+
+            if (!label.endsWith("n"))
+                label += "n";
+
+            outputs.add(i++, new Model.Signal(label + "+1", ff.getDInput()));
+
+            ObservableValue q = ff.getOutputs().get(0);
+            inputs.add(new Model.Signal(label, q));
+
+            ObservableValue notQ = ff.getOutputs().get(1);
+            if (notQ.observerCount() > 0)
+                q.addObserver(() -> notQ.setValue(~q.getValue()));
+        }
+
         if (inputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoInputs"));
         if (inputs.size() > 9)
             throw new AnalyseException(Lang.get("err_toManyInputs_N", 9));
-        outputs = checkBinary(model.getOutputs());
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
         rows = 1 << inputs.size();

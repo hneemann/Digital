@@ -87,4 +87,17 @@ public class FlipflopD extends Node implements Element {
             model.addSignal(label, q);
     }
 
+    /**
+     * @return the D input
+     */
+    public ObservableValue getDInput() {
+        return dVal;
+    }
+
+    /**
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
 }

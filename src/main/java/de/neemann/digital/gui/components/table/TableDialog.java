@@ -109,10 +109,8 @@ public class TableDialog extends JDialog {
         JMenu sizeMenu = new JMenu(Lang.get("menu_table_size"));
         for (int i = 2; i <= 8; i++)
             sizeMenu.add(new JMenuItem(new SizeAction(i)));
-        if (Main.enableExperimental()) {
-            for (int i = 2; i <= 5; i++)
-                sizeMenu.add(new JMenuItem(new SizeSequentialAction(i)));
-        }
+        for (int i = 2; i <= 5; i++)
+            sizeMenu.add(new JMenuItem(new SizeSequentialAction(i)));
         bar.add(sizeMenu);
 
         reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
