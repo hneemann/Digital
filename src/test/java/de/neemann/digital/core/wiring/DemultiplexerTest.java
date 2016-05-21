@@ -3,10 +3,11 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
+
+import static de.neemann.digital.core.ObservableValues.ovs;
 
 /**
  * @author hneemann
@@ -21,7 +22,7 @@ public class DemultiplexerTest extends TestCase {
                 new ElementAttributes()
                         .set(Keys.BITS, 4)
                         .set(Keys.SELECTOR_BITS, 2)));
-        demul.setInputs(new ObservableValues(sel, a));
+        demul.setInputs(ovs(sel, a));
 
 
         TestExecuter te = new TestExecuter(model).setInputs(a, sel).setOutputs(demul.getOutputs());
@@ -41,7 +42,7 @@ public class DemultiplexerTest extends TestCase {
                         .set(Keys.BITS, 4)
                         .set(Keys.DEFAULT, 7)
                         .set(Keys.SELECTOR_BITS, 2)));
-        demul.setInputs(new ObservableValues(sel, a));
+        demul.setInputs(ovs(sel, a));
 
 
         TestExecuter te = new TestExecuter(model).setInputs(a, sel).setOutputs(demul.getOutputs());

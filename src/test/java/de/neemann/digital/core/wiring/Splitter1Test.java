@@ -7,6 +7,8 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
+import static de.neemann.digital.core.ObservableValues.ovs;
+
 /**
  * @author hneemann
  */
@@ -22,7 +24,7 @@ public class Splitter1Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "1,1,1,1")
                 .set(Keys.OUTPUT_SPLIT, "4"));
 
-        splitter.setInputs(new ObservableValues(a, b, c, d));
+        splitter.setInputs(ovs(a, b, c, d));
         assertEquals(1, a.observerCount());
         assertEquals(1, b.observerCount());
         assertEquals(1, c.observerCount());
@@ -54,7 +56,7 @@ public class Splitter1Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "4,4,4,4")
                 .set(Keys.OUTPUT_SPLIT, "16"));
 
-        splitter.setInputs(new ObservableValues(a, b, c, d));
+        splitter.setInputs(ovs(a, b, c, d));
         assertEquals(1, a.observerCount());
         assertEquals(1, b.observerCount());
         assertEquals(1, c.observerCount());
@@ -85,7 +87,7 @@ public class Splitter1Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "4,4,4,4")
                 .set(Keys.OUTPUT_SPLIT, "8,8"));
 
-        splitter.setInputs(new ObservableValues(a, b, c, d));
+        splitter.setInputs(ovs(a, b, c, d));
         assertEquals(1, a.observerCount());
         assertEquals(1, b.observerCount());
         assertEquals(1, c.observerCount());

@@ -59,7 +59,7 @@ public class LookUpTable extends Node implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues(output);
+        return output.asList();
     }
 
     @Override

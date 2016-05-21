@@ -44,7 +44,7 @@ public class Button implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues(output);
+        return output.asList();
     }
 
     @Override

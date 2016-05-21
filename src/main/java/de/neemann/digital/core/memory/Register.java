@@ -71,7 +71,7 @@ public class Register extends Node implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues(q);
+        return q.asList();
     }
 
     @Override

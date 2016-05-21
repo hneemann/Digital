@@ -3,10 +3,11 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
+
+import static de.neemann.digital.core.ObservableValues.ovs;
 
 /**
  * @author hneemann
@@ -22,7 +23,7 @@ public class ComparatorTest extends TestCase {
         Comparator node = new Comparator(new ElementAttributes()
                 .setBits(4)
                 .set(Keys.SIGNED, false));
-        node.setInputs(new ObservableValues(a, b));
+        node.setInputs(ovs(a, b));
         model.add(node);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(node.getOutputs());
@@ -41,7 +42,7 @@ public class ComparatorTest extends TestCase {
         Comparator node = new Comparator(new ElementAttributes()
                 .setBits(4)
                 .set(Keys.SIGNED, true));
-        node.setInputs(new ObservableValues(a, b));
+        node.setInputs(ovs(a, b));
         model.add(node);
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(node.getOutputs());

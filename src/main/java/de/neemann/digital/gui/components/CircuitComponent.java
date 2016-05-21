@@ -3,8 +3,8 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.UnmutableList;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -200,11 +200,11 @@ public class CircuitComponent extends JComponent {
      *
      * @param values the value
      */
-    public void addHighLightedWires(UnmutableList<ObservableValue> values) {
+    public void addHighLightedWires(ImmutableList<ObservableValue> values) {
         if (values == null) return;
 
         HashSet<ObservableValue> ov = new HashSet<>();
-        ov.addAll(values.asCollection());
+        ov.addAll(values);
         for (Wire w : circuit.getWires())
             if (ov.contains(w.getValue()))
                 addHighLighted(w);

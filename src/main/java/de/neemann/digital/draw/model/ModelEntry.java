@@ -5,8 +5,8 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.lang.Lang;
 
@@ -54,19 +54,19 @@ public class ModelEntry {
     public void applyInputs() throws PinException, NodeException {
         HashMap<String, Pin> ins = pins.getInputs();
 
-        ObservableValue[] inputs = new ObservableValue[inputNames.size()];
-        ObservableValues values = new ObservableValues(inputs);
+        ObservableValues values = ObservableValues.EMPTY_LIST;
         if (inputNames.size() > 0) {
-            for (int i = 0; i < inputNames.size(); i++) {
-                Pin pin = ins.get(inputNames.get(i).getName());
+            ArrayList<ObservableValue> inputs = new ArrayList<>();
+            for (PinDescription inputName : inputNames) {
+                Pin pin = ins.get(inputName.getName());
                 if (pin == null)
-                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputNames.get(i), visualElement), visualElement);
+                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputName, visualElement), visualElement);
 
                 ObservableValue value = pin.getValue();
                 if (value == null)
-                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputNames.get(i), visualElement), visualElement);
+                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputName, visualElement), visualElement);
 
-                inputs[i] = value;
+                inputs.add(value);
             }
 
             ArrayList<ObservableValue> bidirect = null;
@@ -78,8 +78,9 @@ public class ModelEntry {
                 }
             }
             if (bidirect != null)
-                values = new ObservableValues(Splitter.combine(inputs, bidirect.toArray(new ObservableValue[bidirect.size()])));
+                inputs.addAll(bidirect);
 
+            values = new ObservableValues(inputs);
             element.setInputs(values);
         }
         ioState = new IOState(values, element.getOutputs());

@@ -55,7 +55,7 @@ public class XOr extends Node implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues(out);
+        return out.asList();
     }
 
 }

@@ -47,14 +47,16 @@ public class ObservableValue extends Observable implements PinDescription {
      * Sets the value and fires a event if value has changed.
      *
      * @param value the new value
+     * @return this for chained calls
      */
-    public void setValue(long value) {
+    public ObservableValue setValue(long value) {
         value = getValueBits(value);
         if (this.value != value) {
             this.value = value;
             if (!highZ)
                 hasChanged();
         }
+        return this;
     }
 
     /**
@@ -277,6 +279,15 @@ public class ObservableValue extends Observable implements PinDescription {
             return Direction.both;
         else
             return Direction.output;
+    }
+
+    /**
+     * Returns a list containing only this {@link ObservableValue}
+     *
+     * @return the list
+     */
+    public ObservableValues asList() {
+        return new ObservableValues(this);
     }
 
 }

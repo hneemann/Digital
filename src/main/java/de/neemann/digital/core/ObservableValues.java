@@ -1,11 +1,28 @@
 package de.neemann.digital.core;
 
-import de.neemann.digital.core.element.UnmutableList;
+import de.neemann.digital.core.element.ImmutableList;
+
+import java.util.Collection;
 
 /**
  * @author hneemann
  */
-public class ObservableValues extends UnmutableList<ObservableValue> {
+public class ObservableValues extends ImmutableList<ObservableValue> {
+    /**
+     * An empty list
+     */
+    public static final ObservableValues EMPTY_LIST = new ObservableValues();
+
+    /**
+     * Helper to create a {@link ObservableValues} instance
+     *
+     * @param items the items
+     * @return the created instance
+     */
+    public static ObservableValues ovs(ObservableValue... items) {
+        return new ObservableValues(items);
+    }
+
     /**
      * Creates a new Instance
      *
@@ -20,19 +37,18 @@ public class ObservableValues extends UnmutableList<ObservableValue> {
      *
      * @param items the items to store
      */
+    public ObservableValues(Collection<ObservableValue> items) {
+        super(items.toArray(new ObservableValue[items.size()]));
+    }
+
+
+    /**
+     * Creates a new Instance
+     *
+     * @param items the items to store
+     */
     public ObservableValues(ObservableValues items, int from, int to) {
         super(items, from, to);
     }
 
-    /**
-     * Copys the given list
-     *
-     * @param items the original data
-     * @param from  inclusive
-     * @param to    exclusive
-     * @return the new list
-     */
-    public ObservableValues copyOfRange(ObservableValues items, int from, int to) {
-        return new ObservableValues(items, from, to);
-    }
 }

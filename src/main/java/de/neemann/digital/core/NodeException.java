@@ -1,6 +1,6 @@
 package de.neemann.digital.core;
 
-import de.neemann.digital.core.element.UnmutableList;
+import de.neemann.digital.core.element.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,7 +12,7 @@ import java.util.Collection;
  */
 public class NodeException extends Exception {
     private final ArrayList<Node> nodes;
-    private final UnmutableList<ObservableValue> values;
+    private final ImmutableList<ObservableValue> values;
 
     /**
      * Creates a new instance.
@@ -29,7 +29,7 @@ public class NodeException extends Exception {
      * @param message the message
      * @param values  the values affected by this exception
      */
-    public NodeException(String message, UnmutableList<ObservableValue> values) {
+    public NodeException(String message, ImmutableList<ObservableValue> values) {
         this(message, null, values);
     }
 
@@ -40,7 +40,7 @@ public class NodeException extends Exception {
      * @param node    the nod effected by tis exception
      * @param values  the values affected by this exception
      */
-    public NodeException(String message, Node node, UnmutableList<ObservableValue> values) {
+    public NodeException(String message, Node node, ImmutableList<ObservableValue> values) {
         super(message);
         this.nodes = new ArrayList<>();
         if (node != null)
@@ -64,7 +64,7 @@ public class NodeException extends Exception {
      *
      * @return the affected values
      */
-    public UnmutableList<ObservableValue> getValues() {
+    public ImmutableList<ObservableValue> getValues() {
         return values;
     }
 

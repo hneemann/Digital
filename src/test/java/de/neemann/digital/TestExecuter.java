@@ -59,7 +59,7 @@ public class TestExecuter {
     }
 
     public TestExecuter setInputs(ObservableValues values) {
-        inputs.addAll(values.asCollection());
+        inputs.addAll(values);
         return this;
     }
 
@@ -80,7 +80,7 @@ public class TestExecuter {
 
 
     public TestExecuter setOutputs(ObservableValues values) {
-        outputs.addAll(values.asCollection());
+        outputs.addAll(values);
         return this;
     }
 

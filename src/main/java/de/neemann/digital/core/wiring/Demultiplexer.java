@@ -10,6 +10,8 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
+import java.util.ArrayList;
+
 import static de.neemann.digital.core.element.PinInfo.input;
 
 
@@ -53,11 +55,9 @@ public class Demultiplexer extends Node implements Element {
         this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
         this.defaultValue = attributes.get(Keys.DEFAULT);
         int outputs = 1 << selectorBits;
-        ObservableValue[] o = new ObservableValue[outputs];
-        for (int i = 0; i < outputs; i++) {
-            o[i] = new ObservableValue("out_" + i, bits);
-            o[i].setValue(defaultValue);
-        }
+        ArrayList<ObservableValue> o = new ArrayList<>(outputs);
+        for (int i = 0; i < outputs; i++)
+            o.add(new ObservableValue("out_" + i, bits).setValue(defaultValue));
         output = new ObservableValues(o);
     }
 

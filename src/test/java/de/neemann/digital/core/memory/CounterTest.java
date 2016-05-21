@@ -3,9 +3,10 @@ package de.neemann.digital.core.memory;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
+
+import static de.neemann.digital.core.ObservableValues.ovs;
 
 /**
  * @author hneemann
@@ -20,7 +21,7 @@ public class CounterTest extends TestCase {
         Counter out = model.add(new Counter(
                 new ElementAttributes()
                         .setBits(8)));
-        out.setInputs(new ObservableValues(clk, clr));
+        out.setInputs(ovs(clk, clr));
 
         TestExecuter sc = new TestExecuter(model).setInputs(clk, clr).setOutputs(out.getOutputs());
         sc.check(0, 0, 0, 0);

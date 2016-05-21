@@ -61,7 +61,7 @@ public class Mul extends Node implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues(mul);
+        return mul.asList();
     }
 
 }

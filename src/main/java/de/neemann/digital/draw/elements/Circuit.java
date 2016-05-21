@@ -488,7 +488,7 @@ public class Circuit {
                 }.setDescription(descr));
             }
         }
-        return new ObservableValues(pinList.toArray(new ObservableValue[pinList.size()]));
+        return new ObservableValues(pinList);
     }
 
     /**

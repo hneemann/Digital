@@ -62,7 +62,7 @@ public class Splitter implements Element {
         this.inputs = inputs;
 
         if (inPorts.getBits() != outPorts.getBits())
-            throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, UnmutableList.combine(inputs, outputs));
+            throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, ImmutableList.combine(inputs, outputs));
 
         for (int i = 0; i < inputs.size(); i++) {
             Port inPort = inPorts.getPort(i);
@@ -215,11 +215,9 @@ public class Splitter implements Element {
         }
 
         public ObservableValues getOutputs() {
-            ObservableValue[] outputs = new ObservableValue[ports.size()];
-            for (int i = 0; i < ports.size(); i++) {
-                Port p = ports.get(i);
-                outputs[i] = new ObservableValue(p.getName(), p.getBits());
-            }
+            ArrayList<ObservableValue> outputs = new ArrayList<>(ports.size());
+            for (Port p : ports)
+                outputs.add(new ObservableValue(p.getName(), p.getBits()));
             return new ObservableValues(outputs);
         }
 

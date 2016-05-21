@@ -3,7 +3,6 @@ package de.neemann.digital.core.wiring;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
@@ -19,7 +18,7 @@ public class DecoderTest extends TestCase {
         Decoder decoder = model.add(new Decoder(
                 new ElementAttributes()
                         .set(Keys.SELECTOR_BITS, 2)));
-        decoder.setInputs(new ObservableValues(sel));
+        decoder.setInputs(sel.asList());
 
 
         TestExecuter te = new TestExecuter(model).setInputs(sel).setOutputs(decoder.getOutputs());

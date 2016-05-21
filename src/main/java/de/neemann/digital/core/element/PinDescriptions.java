@@ -5,7 +5,7 @@ import de.neemann.digital.core.ObservableValues;
 /**
  * @author hneemann
  */
-public class PinDescriptions extends UnmutableList<PinDescription> {
+public class PinDescriptions extends ImmutableList<PinDescription> {
     /**
      * Creates a new Instance
      *

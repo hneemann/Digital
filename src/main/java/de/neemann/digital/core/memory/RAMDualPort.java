@@ -79,7 +79,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues(output);
+        return output.asList();
     }
 
     @Override

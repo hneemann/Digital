@@ -7,6 +7,8 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
+import static de.neemann.digital.core.ObservableValues.ovs;
+
 /**
  * @author hneemann
  */
@@ -19,7 +21,7 @@ public class Splitter2Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "4")
                 .set(Keys.OUTPUT_SPLIT, "1,1,1,1"));
 
-        splitter.setInputs(new ObservableValues(a));
+        splitter.setInputs(a.asList());
         assertEquals(4, a.observerCount());
 
         ObservableValues outputs = splitter.getOutputs();
@@ -41,7 +43,7 @@ public class Splitter2Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "16")
                 .set(Keys.OUTPUT_SPLIT, "4,4,4,4"));
 
-        splitter.setInputs(new ObservableValues(a));
+        splitter.setInputs(a.asList());
         assertEquals(4, a.observerCount());
 
         ObservableValues outputs = splitter.getOutputs();
@@ -67,7 +69,7 @@ public class Splitter2Test extends TestCase {
                 .set(Keys.INPUT_SPLIT, "8,8")
                 .set(Keys.OUTPUT_SPLIT, "4,4,4,4"));
 
-        splitter.setInputs(new ObservableValues(a, b));
+        splitter.setInputs(ovs(a, b));
         assertEquals(2, a.observerCount());
         assertEquals(2, b.observerCount());
 

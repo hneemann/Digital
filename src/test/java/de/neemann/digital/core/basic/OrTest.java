@@ -3,9 +3,10 @@ package de.neemann.digital.core.basic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
+
+import static de.neemann.digital.core.ObservableValues.ovs;
 
 /**
  * @author hneemann
@@ -18,7 +19,7 @@ public class OrTest extends TestCase {
 
         Model model = new Model();
         FanIn and = model.add(new Or(new ElementAttributes().setBits(1)));
-        and.setInputs(new ObservableValues(a, b));
+        and.setInputs(ovs(a, b));
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(and.getOutput());
         sc.check(0, 0, 0);

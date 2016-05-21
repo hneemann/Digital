@@ -3,9 +3,10 @@ package de.neemann.digital.core.flipflops;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
+
+import static de.neemann.digital.core.ObservableValues.ovs;
 
 /**
  * @author hneemann
@@ -18,7 +19,7 @@ public class JK_FlipflopTest extends TestCase {
 
         Model model = new Model();
         FlipflopJK out = model.add(new FlipflopJK(new ElementAttributes()));
-        out.setInputs(new ObservableValues(j, c, k));
+        out.setInputs(ovs(j, c, k));
 
         TestExecuter sc = new TestExecuter(model).setInputs(j, c, k).setOutputs(out.getOutputs());
         //       J  C  K  Q  ~Q

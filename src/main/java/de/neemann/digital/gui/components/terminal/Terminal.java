@@ -52,7 +52,7 @@ public class Terminal extends Node implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues();
+        return ObservableValues.EMPTY_LIST;
     }
 
     @Override

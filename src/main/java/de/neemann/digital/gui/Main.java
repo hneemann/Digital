@@ -647,7 +647,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     circuitComponent.addHighLighted(e.getNet().getWires());
             } else if (cause instanceof BurnException) {
                 BurnException e = (BurnException) cause;
-                circuitComponent.addHighLightedWires(new ObservableValues(e.getValue()));
+                circuitComponent.addHighLightedWires(e.getValue().asList());
             }
             circuitComponent.repaint();
             new ErrorMessage(message).addCause(cause).show(Main.this);

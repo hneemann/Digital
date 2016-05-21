@@ -1,6 +1,6 @@
 package de.neemann.digital.core;
 
-import de.neemann.digital.core.element.UnmutableList;
+import de.neemann.digital.core.element.ImmutableList;
 
 /**
  * Is thrown if bit count is not matching
@@ -26,7 +26,7 @@ public class BitsException extends NodeException {
      * @param node    the affected node
      * @param values  the affected values
      */
-    public BitsException(String message, Node node, UnmutableList<ObservableValue> values) {
+    public BitsException(String message, Node node, ImmutableList<ObservableValue> values) {
         super(message, node, values);
     }
 }

@@ -6,6 +6,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
+import static de.neemann.digital.core.ObservableValues.ovs;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
@@ -76,7 +77,7 @@ public class FlipflopRS extends Node implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues(q, qn);
+        return ovs(q, qn);
     }
 
     @Override
