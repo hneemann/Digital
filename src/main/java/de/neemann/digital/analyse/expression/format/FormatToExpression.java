@@ -18,6 +18,10 @@ public class FormatToExpression implements Formatter {
      */
     public static final FormatToExpression FORMATTER_DERIVE = new FormatToExpression("OR", "AND", "NOT ", "false", "true");
     /**
+     * Creates a string compatible to WinCUPL
+     */
+    public static final FormatToExpression FORMATTER_CUPL = new FormatToExpression("#", "&", "!", "0", "1");
+    /**
      * Creates a string compatible to Logisim
      */
     public static final FormatToExpression FORMATTER_LOGISIM = new FormatToExpression("+", "", "~", "false", "true");

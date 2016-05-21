@@ -12,8 +12,10 @@ import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
-import de.neemann.digital.draw.builder.Builder;
 import de.neemann.digital.draw.builder.BuilderException;
+import de.neemann.digital.draw.builder.BuilderInterface;
+import de.neemann.digital.draw.builder.CircuitBuilder;
+import de.neemann.digital.draw.builder.CuplCreator;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
@@ -25,6 +27,7 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
@@ -33,6 +36,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -49,6 +55,7 @@ public class TableDialog extends JDialog {
     private final Font font;
     private final JMenu reorderMenu;
     private final ShapeFactory shapeFactory;
+    private final File filename;
     private TruthTableTableModel model;
     private TableColumn column;
     private int columnIndex;
@@ -61,9 +68,10 @@ public class TableDialog extends JDialog {
      * @param parent     the parent frame
      * @param truthTable the table to show
      */
-    public TableDialog(JFrame parent, TruthTable truthTable, ShapeFactory shapeFactory) {
+    public TableDialog(JFrame parent, TruthTable truthTable, ShapeFactory shapeFactory, File filename) {
         super(parent, Lang.get("win_table"));
         this.shapeFactory = shapeFactory;
+        this.filename = filename;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
@@ -158,7 +166,6 @@ public class TableDialog extends JDialog {
         }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
 
         if (Main.enableExperimental()) {
-
             createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAndTwo")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
@@ -179,6 +186,13 @@ public class TableDialog extends JDialog {
                     createCircuit(new TwoInputs(), new NOr());
                 }
             }.setToolTip(Lang.get("menu_table_createNOrTwo_tt")).createJMenuItem());
+
+            createMenu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCUPL();
+                }
+            }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
         }
         bar.add(createMenu);
 
@@ -195,32 +209,42 @@ public class TableDialog extends JDialog {
 
     private void createCircuit(ExpressionModifier... modifier) {
         try {
-            Builder builder = new Builder(shapeFactory);
-            HashSet<String> contained = new HashSet<>();
-            new ExpressionCreator(model.getTable()) {
-                @Override
-                public void resultFound(String name, Expression expression) throws FormatterException {
-                    if (!contained.contains(name)) {
-                        contained.add(name);
-                        try {
-                            if (name.endsWith("n+1")) {
-                                name = name.substring(0, name.length() - 2);
-                                builder.addState(name, ExpressionModifier.modifyExpression(expression, modifier));
-                            } else
-                                builder.addExpression(name, ExpressionModifier.modifyExpression(expression, modifier));
-                        } catch (BuilderException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            }.create();
-
-            Circuit circuit = builder.createCircuit();
+            CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory);
+            new BuiderExpressionCreator(circuitBuilder, modifier).create();
+            Circuit circuit = circuitBuilder.createCircuit();
             SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
-
         } catch (ExpressionException | FormatterException | RuntimeException e) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
         }
+    }
+
+    private void createCUPL() {
+        JFileChooser fileChooser = new JFileChooser();
+        if (filename != null && filename.getName().endsWith(".dig")) {
+            String path = filename.getPath();
+            File file = new File(path.substring(0, path.length() - 3) + "PLD");
+            fileChooser.setSelectedFile(file);
+        }
+        fileChooser.setFileFilter(new FileNameExtensionFilter("PLD", "PLD"));
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                File f = fileChooser.getSelectedFile();
+                String name = f.getName();
+                if (!name.endsWith(".PLD"))
+                    name = name + ".PLD";
+
+                f = new File(f.getParentFile(), name);
+
+                CuplCreator cupl = new CuplCreator(name.substring(0, name.length() - 4));
+                new BuiderExpressionCreator(cupl, ExpressionModifier.IDENTITY).create();
+                try (FileOutputStream out = new FileOutputStream(f)) {
+                    cupl.writeTo(out);
+                }
+            } catch (ExpressionException | FormatterException | RuntimeException | IOException e) {
+                new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
+            }
+        }
+
     }
 
     private void editColumnAt(Point p) {
@@ -399,4 +423,32 @@ public class TableDialog extends JDialog {
         }
     }
 
+    private class BuiderExpressionCreator extends ExpressionCreator {
+        private final HashSet<String> contained;
+        private final BuilderInterface builder;
+        private final ExpressionModifier[] modifier;
+
+        BuiderExpressionCreator(BuilderInterface builder, ExpressionModifier... modifier) {
+            super(TableDialog.this.model.getTable());
+            contained = new HashSet<>();
+            this.builder = builder;
+            this.modifier = modifier;
+        }
+
+        @Override
+        public void resultFound(String name, Expression expression) throws FormatterException {
+            if (!contained.contains(name)) {
+                contained.add(name);
+                try {
+                    if (name.endsWith("n+1")) {
+                        name = name.substring(0, name.length() - 2);
+                        builder.addState(name, ExpressionModifier.modifyExpression(expression, modifier));
+                    } else
+                        builder.addExpression(name, ExpressionModifier.modifyExpression(expression, modifier));
+                } catch (BuilderException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
 }

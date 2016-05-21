@@ -482,7 +482,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
-                    new TableDialog(Main.this, new ModelAnalyser(model).analyse(), shapeFactory).setVisible(true);
+                    new TableDialog(Main.this, new ModelAnalyser(model).analyse(), shapeFactory, filename).setVisible(true);
                     elementState.activate();
                 } catch (PinException | NodeException | AnalyseException e1) {
                     showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
@@ -496,7 +496,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 TruthTable tt = new TruthTable(3).addResult();
-                new TableDialog(Main.this, tt, shapeFactory).setVisible(true);
+                new TableDialog(Main.this, tt, shapeFactory, filename).setVisible(true);
                 elementState.activate();
             }
         }

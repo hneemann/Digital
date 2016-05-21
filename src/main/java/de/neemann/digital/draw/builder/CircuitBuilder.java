@@ -38,7 +38,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
  *
  * @author hneemann
  */
-public class Builder {
+public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
     private final VariableVisitor variableVisitor;
     private final ShapeFactory shapeFactory;
@@ -53,7 +53,7 @@ public class Builder {
      *
      * @param shapeFactory ShapeFactory which is set to the created VisualElements
      */
-    public Builder(ShapeFactory shapeFactory) {
+    public CircuitBuilder(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
         variableVisitor = new VariableVisitor();
         fragmentVariables = new ArrayList<>();
@@ -69,7 +69,8 @@ public class Builder {
      * @return this for chained calls
      * @throws BuilderException BuilderException
      */
-    public Builder addExpression(String name, Expression expression) throws BuilderException {
+    @Override
+    public CircuitBuilder addExpression(String name, Expression expression) throws BuilderException {
         Fragment fr = createFragment(expression);
         fragments.add(new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name)));
         expression.traverse(variableVisitor);
@@ -84,7 +85,8 @@ public class Builder {
      * @return this for chained calls
      * @throws BuilderException BuilderException
      */
-    public Builder addState(String name, Expression expression) throws BuilderException {
+    @Override
+    public CircuitBuilder addState(String name, Expression expression) throws BuilderException {
         Fragment fr = createFragment(expression);
         FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
         flipflops.add(ff);
@@ -301,7 +303,7 @@ public class Builder {
         Expression y2s = not(y2);
         Expression p0 = and(y0, y1, z);
 
-        Circuit circuit = new Builder(new ShapeFactory(new ElementLibrary()))
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(new ElementLibrary()))
                 .addState("Y_0", y0s)
                 .addState("Y_1", y1s)
                 .addState("Y_2", y2s)

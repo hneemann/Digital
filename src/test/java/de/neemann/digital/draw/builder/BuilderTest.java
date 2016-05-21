@@ -27,7 +27,7 @@ public class BuilderTest extends TestCase {
         Expression y = and(or(a, b), not(and(a, b)));
 
         ElementLibrary library = new ElementLibrary();
-        Circuit circuit = new Builder(new ShapeFactory(library))
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
                 .addExpression("y", y)
                 .createCircuit();
 
@@ -49,7 +49,7 @@ public class BuilderTest extends TestCase {
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
         ElementLibrary library = new ElementLibrary();
-        Circuit circuit = new Builder(new ShapeFactory(library))
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
                 .addState("Y_0", y0s)
                 .addState("Y_1", y1s)
                 .addExpression("Y_0", y0)
