@@ -6,7 +6,7 @@ import de.neemann.digital.analyse.expression.VariableVisitor;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 
-import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +27,8 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
     private final String projectName;
     private final TreeSet<String> outVars;
     private final VariableVisitor vars;
+    private final String username;
+    private final Date date;
     private boolean sequential = false;
 
     /**
@@ -35,7 +37,20 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
      * @param projectName the project name
      */
     public CuplCreator(String projectName) {
+        this(projectName, System.getProperty("user.name"), new Date());
+    }
+
+    /**
+     * Creates a new project name
+     *
+     * @param projectName the project name
+     * @param username    user name
+     * @param date        date
+     */
+    public CuplCreator(String projectName, String username, Date date) {
         this.projectName = projectName;
+        this.username = username;
+        this.date = date;
         this.expressions = new StringBuilder();
         outVars = new TreeSet<>();
         vars = new VariableVisitor();
@@ -78,9 +93,9 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
         out
                 .append("Name     ").append(projectName).append(" ;\r\n")
                 .append("PartNo   00 ;\r\n")
-                .append("Date     ").append(DATE_FORMAT.format(new Date())).append(" ;\r\n")
+                .append("Date     ").append(DATE_FORMAT.format(date)).append(" ;\r\n")
                 .append("Revision 01 ;\r\n")
-                .append("Designer ").append(System.getProperty("user.name")).append(" ;\r\n")
+                .append("Designer ").append(username).append(" ;\r\n")
                 .append("Company  unknown ;\r\n")
                 .append("Assembly None ;\r\n")
                 .append("Location unknown ;\r\n")
@@ -114,7 +129,7 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
      *
      * @param out the stream to write to
      */
-    public void writeTo(FileOutputStream out) {
+    public void writeTo(OutputStream out) {
         writeTo(new PrintStream(out));
     }
 
