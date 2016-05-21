@@ -2,7 +2,7 @@
 
 Digital ist ein Simulator für digitale Schaltkreise. Er ist für Lehrzwecke entwickelt worden und
 wird von mir in meinen Vorlesungen eingesetzt.
-Bevor ich mit der Entwicklung von Digital begonnen habe, habe ich [Logisim](www.cburch.com/logisim/) von Carl Burch 
+Bevor ich mit der Entwicklung von Digital begonnen habe, habe ich [Logisim](http://www.cburch.com/logisim/) von Carl Burch 
 eingesetzt. Daher rührt die Ähnlichkeit des verwendeten Farbschemas.
 
 Logisim ist ein ganz hervorragendes Werkzeug welches sich beim Einsatz in der Lehre vielfach 
@@ -69,7 +69,10 @@ So lässt sich im Simulator ein Assembler-Programm im Einzelschrittmodus ausfüh
 Logisim kann Schaltungen aus einer Wahrheitstabelle erzeugen. In Digital ist dies auch möglich. Zudem lassen sich
 mit Digital auch Automaten aus einer geeigneten Zustandsübergangstabelle erzeugen. Dabei kann sowohl das 
 Übergangsschaltnetz als auch ein Ausgangsschaltnetz erzeugt werden. Die  Minimierung der Ausdrücke erfolgt dabei 
-nach dem Verfahren von Quine und McCluskey. 
+nach dem Verfahren von Quine und McCluskey. Ebenso lässt sich aus einer Schaltung, die D-Flipflops enthält die
+Zustandsübergangstabelle ermitteln.
+Um die Schaltung zu realisieren kann eine CUPL-Datei erzeugt werden, welche dann mit [WinCUPL](http://www.atmel.com/tools/WINCUPL.aspx)
+compiliert und z.B. in ein GAL16v8 gebrannt werden kann.
 
 ## Development ##
 
