@@ -60,7 +60,6 @@ public class TableDialog extends JDialog {
     private TableColumn column;
     private int columnIndex;
     private AllSolutionsDialog allSolutionsDialog;
-    private int variables;
 
     /**
      * Creates a new instance
@@ -384,7 +383,7 @@ public class TableDialog extends JDialog {
             JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setFont(font);
-            if (column < variables)
+            if (column < model.getTable().getVars().size())
                 label.setBackground(MYGRAY);
             else
                 label.setBackground(Color.WHITE);
