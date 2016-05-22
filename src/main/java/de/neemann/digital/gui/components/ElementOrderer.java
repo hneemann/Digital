@@ -27,11 +27,24 @@ public class ElementOrderer<T> extends JDialog {
      * @param data  the data to order
      */
     public ElementOrderer(Frame owner, String title, OrderInterface<T> data) {
+        this(owner, title, data, false);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param owner         the owner of this dialog
+     * @param title         the dialogs title
+     * @param data          the data to order
+     * @param deleteAllowed its allowed to delete items
+     */
+    public ElementOrderer(Frame owner, String title, OrderInterface<T> data, boolean deleteAllowed) {
         super(owner, title, true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         MyListModel<T> listModel = new MyListModel<T>(data);
         JList list = new JList<T>(listModel);
+        list.setPreferredSize(new Dimension(100, 150));
         getContentPane().add(new JScrollPane(list));
 
         JPanel buttons = new JPanel();
@@ -57,6 +70,18 @@ public class ElementOrderer<T> extends JDialog {
 
             }
         }.setToolTip(Lang.get("tt_moveItemDown")).createJButton());
+        if (deleteAllowed) {
+            buttons.add(new ToolTipAction("\u274C") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int i = list.getSelectedIndex();
+                    if (i >= 0 && i < data.size()) {
+                        listModel.delete(i);
+                    }
+
+                }
+            }.setToolTip(Lang.get("tt_deleteItem")).createJButton());
+        }
         getContentPane().add(buttons, BorderLayout.EAST);
 
         pack();
@@ -90,6 +115,15 @@ public class ElementOrderer<T> extends JDialog {
          * @param j th item
          */
         void swap(int i, int j);
+
+        /**
+         * Deletes the given item
+         *
+         * @param index the element to delete
+         */
+        default void delete(int index) {
+            throw new UnsupportedOperationException("delete");
+        }
 
     }
 
@@ -126,30 +160,10 @@ public class ElementOrderer<T> extends JDialog {
             list.set(i, list.get(j));
             list.set(j, z);
         }
-    }
-
-    private static class ArrayOrder<T> implements OrderInterface<T> {
-        private final T[] data;
-
-        ArrayOrder(T[] data) {
-            this.data = data;
-        }
 
         @Override
-        public int size() {
-            return data.length;
-        }
-
-        @Override
-        public T get(int index) {
-            return data[index];
-        }
-
-        @Override
-        public void swap(int i, int j) {
-            T x = data[i];
-            data[i] = data[j];
-            data[j] = x;
+        public void delete(int index) {
+            list.remove(index);
         }
     }
 
@@ -187,10 +201,22 @@ public class ElementOrderer<T> extends JDialog {
             fireEvent(Math.min(i, j), Math.max(i, j));
         }
 
+        void delete(int i) {
+            data.delete(i);
+            fireEventDeleted(i);
+        }
+
         private void fireEvent(int min, int max) {
             ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, min, max);
             for (ListDataListener l : listener)
                 l.contentsChanged(e);
         }
+
+        private void fireEventDeleted(int item) {
+            ListDataEvent e = new ListDataEvent(this, ListDataEvent.INTERVAL_REMOVED, item, item);
+            for (ListDataListener l : listener)
+                l.contentsChanged(e);
+        }
+
     }
 }

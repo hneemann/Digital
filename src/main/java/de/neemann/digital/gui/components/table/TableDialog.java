@@ -19,6 +19,7 @@ import de.neemann.digital.draw.builder.CuplCreator;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -53,8 +54,6 @@ public class TableDialog extends JDialog {
     private final JTextField text;
     private final JPopupMenu renamePopup;
     private final Font font;
-    private final JMenu reorderMenu;
-    private final JMenu deleteMenu;
     private final ShapeFactory shapeFactory;
     private final File filename;
     private TruthTableTableModel model;
@@ -105,7 +104,7 @@ public class TableDialog extends JDialog {
                 renamePopup.setVisible(false);
                 header.repaint();
                 model.getTable().setColumnName(columnIndex, text.getText());
-                updateMenus();
+                calculateExpressions();
             }
         });
 
@@ -127,11 +126,32 @@ public class TableDialog extends JDialog {
             sequential.add(new JMenuItem(new SizeSequentialAction(i)));
         bar.add(sizeMenu);
 
-        reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
+        JMenu reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
         bar.add(reorderMenu);
-
-        deleteMenu = new JMenu(Lang.get("menu_table_delete"));
-        bar.add(deleteMenu);
+        reorderMenu.add(new ToolTipAction(Lang.get("menu_table_inputs")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReorderInputs ri = new ReorderInputs(model.getTable());
+                new ElementOrderer<>(parent, Lang.get("menu_table_inputs"), ri.getItems(), true).setVisible(true);
+                try {
+                    setModel(new TruthTableTableModel(ri.reorder()));
+                } catch (ExpressionException e1) {
+                    new ErrorMessage().addCause(e1).show(TableDialog.this);
+                }
+            }
+        }.createJMenuItem());
+        reorderMenu.add(new ToolTipAction(Lang.get("menu_table_outputs")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReorderOutputs ro = new ReorderOutputs(model.getTable());
+                new ElementOrderer<>(parent, Lang.get("menu_table_inputs"), ro.getItems(), true).setVisible(true);
+                try {
+                    setModel(new TruthTableTableModel(ro.reorder()));
+                } catch (ExpressionException e1) {
+                    new ErrorMessage().addCause(e1).show(TableDialog.this);
+                }
+            }
+        }.createJMenuItem());
 
         JMenu colsMenu = new JMenu(Lang.get("menu_table_newColumns"));
         colsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAdd")) {
@@ -277,30 +297,8 @@ public class TableDialog extends JDialog {
         this.model = model;
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
-        updateMenus();
-    }
-
-    private void updateMenus() {
-        variables = model.getTable().getVars().size();
-        reorderMenu.removeAll();
-        int cols = model.getTable().getVars().size();
-        reorderMenu.add(new JMenuItem(new ReorderAction(cols, -1)));
-        reorderMenu.add(new JMenuItem(new ReorderAction(cols)));
-        for (int i = 0; i < cols - 1; i++)
-            reorderMenu.add(new JMenuItem(new ReorderAction(cols, i, i + 1)));
-
-        reorderMenu.add(new JMenuItem(new ReorderAction(cols, cols - 1, 0)));
-
-        deleteMenu.removeAll();
-        for (int i = 0; i < cols; i++)
-            deleteMenu.add(new JMenuItem(new DeleteAction(i)));
-        int res = model.getTable().getResultCount();
-        for (int i = 0; i < res; i++)
-            deleteMenu.add(new JMenuItem(new DeleteAction(cols + i)));
-
         calculateExpressions();
     }
-
 
     private class CalculationTableModelListener implements TableModelListener {
         @Override
@@ -398,67 +396,6 @@ public class TableDialog extends JDialog {
             }
 
             return label;
-        }
-    }
-
-    private final class ReorderAction extends AbstractAction {
-
-        private final int[] swap;
-
-        private ReorderAction(int cols) {
-            super(Lang.get("menu_table_reverse"));
-            swap = new int[cols];
-            for (int i = 0; i < cols; i++)
-                swap[cols - i - 1] = i;
-        }
-
-        private ReorderAction(int cols, int offs) {
-            super(Lang.get("menu_table_rotate"));
-            swap = new int[cols];
-            for (int i = 0; i < cols; i++) {
-                int n = i + offs;
-                if (n < 0) n += cols;
-                if (n >= cols) n -= cols;
-                swap[i] = n;
-            }
-        }
-
-        private ReorderAction(int cols, int swapIndex1, int swapIndex2) {
-            super(Lang.get("menu_table_swap_N1_N2", model.getTable().getColumnName(swapIndex1), model.getTable().getColumnName(swapIndex2)));
-            swap = new int[cols];
-            for (int i = 0; i < cols; i++)
-                swap[i] = i;
-
-            int z = swap[swapIndex1];
-            swap[swapIndex1] = swap[swapIndex2];
-            swap[swapIndex2] = z;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            try {
-                setModel(new TruthTableTableModel(new Reorder(model.getTable()).reorder(swap)));
-            } catch (ExpressionException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private final class DeleteAction extends AbstractAction {
-        private final int i;
-
-        DeleteAction(int i) {
-            super(model.getTable().getColumnName(i));
-            this.i = i;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                setModel(new TruthTableTableModel(new Delete(model.getTable()).delete(i)));
-            } catch (ExpressionException e1) {
-                e1.printStackTrace();
-            }
         }
     }
 
