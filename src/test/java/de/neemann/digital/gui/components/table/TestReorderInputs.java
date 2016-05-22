@@ -43,7 +43,7 @@ public class TestReorderInputs extends TestCase {
         assertEquals(1, newTable.getResultCount());
 
         ContextFiller cf = new ContextFiller(newTable.getVars());
-        cf.set(t.getVars().get(1), false);
+        cf.set(t.getVars().get(2), false);
         for (int i = 0; i < newTable.getRows(); i++) {
             cf.setContextTo(i);
             assertEquals(newTable.getByContext(0, cf), t.getByContext(0, cf));

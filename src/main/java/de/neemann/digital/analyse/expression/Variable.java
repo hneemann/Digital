@@ -78,6 +78,11 @@ public class Variable implements Comparable<Variable>, Expression {
     }
 
     @Override
+    public String toString() {
+        return identifier;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
