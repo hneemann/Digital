@@ -311,9 +311,18 @@ public class TruthTable {
     }
 
     /**
+     * Removes the given result column
+     *
+     * @param i
+     */
+    public void removeResult(int i) {
+        results.remove(i);
+    }
+
+    /**
      * A single result column
      */
-    public static final class Result {
+    private static final class Result {
         private String name;
         private BoolTable values;
 

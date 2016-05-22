@@ -54,6 +54,7 @@ public class TableDialog extends JDialog {
     private final JPopupMenu renamePopup;
     private final Font font;
     private final JMenu reorderMenu;
+    private final JMenu deleteMenu;
     private final ShapeFactory shapeFactory;
     private final File filename;
     private TruthTableTableModel model;
@@ -104,7 +105,7 @@ public class TableDialog extends JDialog {
                 renamePopup.setVisible(false);
                 header.repaint();
                 model.getTable().setColumnName(columnIndex, text.getText());
-                calculateExpressions();
+                updateMenus();
             }
         });
 
@@ -114,17 +115,25 @@ public class TableDialog extends JDialog {
 
         JMenuBar bar = new JMenuBar();
 
-        JMenu sizeMenu = new JMenu(Lang.get("menu_table_size"));
+        JMenu sizeMenu = new JMenu(Lang.get("menu_table_new"));
+
+        JMenu combinatorial = new JMenu(Lang.get("menu_table_new_combinatorial"));
+        sizeMenu.add(combinatorial);
         for (int i = 2; i <= 8; i++)
-            sizeMenu.add(new JMenuItem(new SizeAction(i)));
+            combinatorial.add(new JMenuItem(new SizeAction(i)));
+        JMenu sequential = new JMenu(Lang.get("menu_table_new_sequential"));
+        sizeMenu.add(sequential);
         for (int i = 2; i <= 5; i++)
-            sizeMenu.add(new JMenuItem(new SizeSequentialAction(i)));
+            sequential.add(new JMenuItem(new SizeSequentialAction(i)));
         bar.add(sizeMenu);
 
         reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
         bar.add(reorderMenu);
 
-        JMenu colsMenu = new JMenu(Lang.get("menu_table_columns"));
+        deleteMenu = new JMenu(Lang.get("menu_table_delete"));
+        bar.add(deleteMenu);
+
+        JMenu colsMenu = new JMenu(Lang.get("menu_table_newColumns"));
         colsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAdd")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -268,15 +277,27 @@ public class TableDialog extends JDialog {
         this.model = model;
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
+        updateMenus();
+    }
+
+    private void updateMenus() {
         variables = model.getTable().getVars().size();
         reorderMenu.removeAll();
         int cols = model.getTable().getVars().size();
         reorderMenu.add(new JMenuItem(new ReorderAction(cols, -1)));
         reorderMenu.add(new JMenuItem(new ReorderAction(cols)));
-        for (int i = 0; i < cols - 1; i++) {
+        for (int i = 0; i < cols - 1; i++)
             reorderMenu.add(new JMenuItem(new ReorderAction(cols, i, i + 1)));
-        }
+
         reorderMenu.add(new JMenuItem(new ReorderAction(cols, cols - 1, 0)));
+
+        deleteMenu.removeAll();
+        for (int i = 0; i < cols; i++)
+            deleteMenu.add(new JMenuItem(new DeleteAction(i)));
+        int res = model.getTable().getResultCount();
+        for (int i = 0; i < res; i++)
+            deleteMenu.add(new JMenuItem(new DeleteAction(cols + i)));
+
         calculateExpressions();
     }
 
@@ -334,7 +355,7 @@ public class TableDialog extends JDialog {
         private int n;
 
         private SizeSequentialAction(int n) {
-            super(Lang.get("menu_table_N_variablesSequential", n));
+            super(Lang.get("menu_table_N_variables", n));
             this.n = n;
         }
 
@@ -403,7 +424,7 @@ public class TableDialog extends JDialog {
         }
 
         private ReorderAction(int cols, int swapIndex1, int swapIndex2) {
-            super(Lang.get("menu_table_swap_N1_N2", swapIndex1, swapIndex2));
+            super(Lang.get("menu_table_swap_N1_N2", model.getTable().getColumnName(swapIndex1), model.getTable().getColumnName(swapIndex2)));
             swap = new int[cols];
             for (int i = 0; i < cols; i++)
                 swap[i] = i;
@@ -419,6 +440,24 @@ public class TableDialog extends JDialog {
                 setModel(new TruthTableTableModel(new Reorder(model.getTable()).reorder(swap)));
             } catch (ExpressionException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private final class DeleteAction extends AbstractAction {
+        private final int i;
+
+        DeleteAction(int i) {
+            super(model.getTable().getColumnName(i));
+            this.i = i;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                setModel(new TruthTableTableModel(new Delete(model.getTable()).delete(i)));
+            } catch (ExpressionException e1) {
+                e1.printStackTrace();
             }
         }
     }
@@ -451,4 +490,5 @@ public class TableDialog extends JDialog {
             }
         }
     }
+
 }
