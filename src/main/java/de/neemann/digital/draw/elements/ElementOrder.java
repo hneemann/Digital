@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Takes a circuit and generates of all elements of the given name.
- * This list you can use order the entries.
+ * This list you can use order the entries. See {@link ElementOrderer}.
  *
  * @author hneemann
  */
