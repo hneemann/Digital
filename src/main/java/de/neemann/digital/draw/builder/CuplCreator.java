@@ -12,10 +12,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -110,7 +107,7 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
                 .append("Company  unknown ;\r\n")
                 .append("Assembly None ;\r\n")
                 .append("Location unknown ;\r\n")
-                .append("Device   g16v8a ;\r\n\r\n");
+                .append("Device   g16v8a ;\r\n");
 
         ArrayList<String> inputs = new ArrayList<>();
         for (Variable v : vars.getVariables())
@@ -118,9 +115,9 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
                 inputs.add(v.getIdentifier());
 
         out.append("\r\n/* inputs */\r\n");
-        int inNum = 1;
         if (sequential)
-            out.append("PIN ").append(Integer.toString(inNum++)).append(" = CLK;\r\n");
+            out.append("PIN 1 = CLK;\r\n");
+        int inNum = 2;
         for (String in : inputs)
             out.append("PIN ").append(Integer.toString(inNum++)).append(" = ").append(in).append(";\r\n");
 
@@ -146,10 +143,21 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
 
     private static final class NotAllowedVariablesVisitor implements ExpressionVisitor {
         private final HashSet<String> notAllowed;
+        private final String notAllowedChars = " &#()-+[]/:.*;,!'=@$^\"";
 
         NotAllowedVariablesVisitor() {
             notAllowed = new HashSet<>();
-            notAllowed.add("D");
+            add("APPEND", "FUNCTION", "PARTNO", "ASSEMBLY", "FUSE", "PIN",
+                    "ASSY", "GROUP", "PINNNODE", "COMPANY", "IF", "PRESENT",
+                    "CONDITION", "JUMP", "REV", "DATE", "LOC", "REVISION",
+                    "DEFAULT", "LOCATION", "SEQUENCE", "DESIGNER", "MACRO", "SEQUENCED",
+                    "DEVICE", "MIN", "SEQUENCEJK", "ELSE", "NAME", "SEQUENCERS",
+                    "FIELD", "NODE", "SEQUENCET", "FLD", "OUT", "TABLE", "FORMAT");
+            add("D");
+        }
+
+        private void add(String... names) {
+            Collections.addAll(notAllowed, names);
         }
 
         @Override
@@ -162,6 +170,9 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
         }
 
         private void check(String v) {
+            for (int i = 0; i < notAllowedChars.length(); i++)
+                if (v.indexOf(notAllowedChars.charAt(i)) >= 0)
+                    throw new RuntimeException(Lang.get("err_varNotAllowedInCUPL_N", v));
             if (notAllowed.contains(v))
                 throw new RuntimeException(Lang.get("err_varNotAllowedInCUPL_N", v));
         }

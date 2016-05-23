@@ -15,6 +15,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
  * @author hneemann
  */
 public class CuplCreatorTest extends TestCase {
+
     public void testCUPLBuilder() throws Exception {
         Variable y0 = new Variable("Y_0");
         Variable y1 = new Variable("Y_1");
@@ -39,7 +40,6 @@ public class CuplCreatorTest extends TestCase {
                 "Assembly None ;\r\n" +
                 "Location unknown ;\r\n" +
                 "Device   g16v8a ;\r\n" +
-                "\r\n" +
                 "\r\n" +
                 "/* inputs */\r\n" +
                 "PIN 1 = CLK;\r\n" +
