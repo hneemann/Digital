@@ -5,6 +5,9 @@ import de.neemann.digital.gui.components.ElementOrderer;
 import java.util.ArrayList;
 
 /**
+ * Takes a circuit and generates of all elements of the given name.
+ * This list you can use order the entries.
+ *
  * @author hneemann
  */
 public class ElementOrder implements ElementOrderer.OrderInterface<String> {
@@ -16,8 +19,8 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
     /**
      * Creates a new instance
      *
-     * @param circuit the circuit wich components are to otder
-     * @param name    the name of the lements to order
+     * @param circuit the circuit witch components are to order
+     * @param name    the name of the elements to order
      */
     public ElementOrder(Circuit circuit, String name) {
         this(circuit, element -> {
@@ -28,15 +31,15 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
     /**
      * Creates a new instance
      *
-     * @param circuit the circuit wich components are to otder
-     * @param matcher the matcher to select th entries to order
+     * @param circuit the circuit witch components are to order
+     * @param filter  the filter to select the entries to order
      */
-    public ElementOrder(Circuit circuit, ElementMatcher matcher) {
+    public ElementOrder(Circuit circuit, ElementFilter filter) {
         this.circuit = circuit;
         this.elements = circuit.getElements();
         entries = new ArrayList<>();
         for (int i = 0; i < elements.size(); i++)
-            if (matcher.matches(elements.get(i))) {
+            if (filter.accept(elements.get(i))) {
                 String n = elements.get(i).getElementAttributes().getCleanLabel();
                 if (n != null && n.length() > 0)
                     entries.add(new Entry(i, n));
@@ -83,11 +86,11 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
     /**
      * Interface to determine the elements which should appear in the order list
      */
-    public interface ElementMatcher {
+    public interface ElementFilter {
         /**
          * @param element the element to check
          * @return returns true if element is to order
          */
-        boolean matches(VisualElement element);
+        boolean accept(VisualElement element);
     }
 }
