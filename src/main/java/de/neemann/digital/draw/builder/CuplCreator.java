@@ -1,10 +1,12 @@
 package de.neemann.digital.draw.builder;
 
 import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.ExpressionVisitor;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.VariableVisitor;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.lang.Lang;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -12,7 +14,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.TreeSet;
+import java.util.concurrent.LinkedTransferQueue;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -23,6 +27,8 @@ import static de.neemann.digital.analyse.expression.Operation.or;
  */
 public class CuplCreator implements BuilderInterface<CuplCreator> {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    private static final ExpressionVisitor checkForNotAllowedVars = new NotAllowedExpressionVisitor();
+
     private final StringBuilder expressions;
     private final String projectName;
     private final TreeSet<String> outVars;
@@ -73,6 +79,7 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
 
     private void addToStr(String name, Expression expression) throws BuilderException {
         expression.traverse(vars);
+        expression.traverse(checkForNotAllowedVars);
         try {
             expressions
                     .append(name)
@@ -161,4 +168,23 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
         cupl.writeTo(System.out);
     }
 
+    private static final class NotAllowedExpressionVisitor implements ExpressionVisitor {
+        private HashSet<String> notAllowed;
+
+        public NotAllowedExpressionVisitor() {
+            notAllowed = new HashSet<>();
+            notAllowed.add("D");
+        }
+
+        @Override
+        public boolean visit(Expression expression) {
+            if (expression instanceof Variable) {
+                Variable v = (Variable) expression;
+                if (notAllowed.contains(v.getIdentifier()))
+                    throw new RuntimeException(Lang.get("err_varNotAllowedInCUPL_N",v.getIdentifier()));
+            }
+            return true;
+        }
+
+    }
 }
