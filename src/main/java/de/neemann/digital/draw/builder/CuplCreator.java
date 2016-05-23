@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.TreeSet;
-import java.util.concurrent.LinkedTransferQueue;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -27,7 +26,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
  */
 public class CuplCreator implements BuilderInterface<CuplCreator> {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
-    private static final ExpressionVisitor checkForNotAllowedVars = new NotAllowedExpressionVisitor();
+    private static final ExpressionVisitor NOT_ALLOWED_EXPRESSION_VISITOR = new NotAllowedExpressionVisitor();
 
     private final StringBuilder expressions;
     private final String projectName;
@@ -79,7 +78,7 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
 
     private void addToStr(String name, Expression expression) throws BuilderException {
         expression.traverse(vars);
-        expression.traverse(checkForNotAllowedVars);
+        expression.traverse(NOT_ALLOWED_EXPRESSION_VISITOR);
         try {
             expressions
                     .append(name)
@@ -169,7 +168,7 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
     }
 
     private static final class NotAllowedExpressionVisitor implements ExpressionVisitor {
-        private HashSet<String> notAllowed;
+        private final HashSet<String> notAllowed;
 
         public NotAllowedExpressionVisitor() {
             notAllowed = new HashSet<>();
