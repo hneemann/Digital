@@ -108,5 +108,25 @@ public class BuilderTest extends TestCase {
                 "A = Y_0 & Y_1 ;\r\n", baos.toString());
     }
 
+    public void testCUPLBuilderVars() throws Exception {
+        Variable y0 = new Variable("D");
+        Variable y1 = new Variable("Y_1");
+
+        // counter
+        Expression y0s = not(y0);
+        Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
+
+        try {
+            new CuplCreator("test", "user", new Date(0))
+                    .addState("Y_0", y0s)
+                    .addState("Y_1", y1s)
+                    .addExpression("A", and(y0, y1));
+
+            assertTrue(false);
+        } catch (RuntimeException e) {
+            assertTrue(true);
+        }
+    }
+
 
 }
