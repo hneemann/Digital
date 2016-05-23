@@ -108,6 +108,11 @@ public class ImmutableList<T> implements List<T> {
     // ***************************************************
 
     @Override
+    public <T1> T1[] toArray(T1[] a) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public T set(int index, T element) {
         throw new UnsupportedOperationException();
     }
@@ -159,11 +164,6 @@ public class ImmutableList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T1> T1[] toArray(T1[] a) {
         throw new UnsupportedOperationException();
     }
 
