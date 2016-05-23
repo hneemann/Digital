@@ -344,7 +344,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), "In");
-                new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).setVisible(true);
+                new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).showDialog();
             }
         }.setToolTip(Lang.get("menu_orderInputs_tt"));
 
@@ -352,7 +352,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), "Out");
-                new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).setVisible(true);
+                new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).showDialog();
             }
         }.setToolTip(Lang.get("menu_orderOutputs_tt"));
 
@@ -513,8 +513,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 names.add(s.getName());
             new OrderMerger<String, String>(circuitComponent.getCircuit().getMeasurementOrdering()).order(names);
             ElementOrderer.ListOrder<String> o = new ElementOrderer.ListOrder<>(names);
-            new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o).setVisible(true);
-            circuitComponent.getCircuit().setMeasurementOrdering(names);
+            if (new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o)
+                    .addOkButton()
+                    .showDialog()) {
+                circuitComponent.getCircuit().setMeasurementOrdering(names);
+            }
         } catch (Exception e1) {
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e1);
         }
