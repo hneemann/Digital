@@ -57,17 +57,30 @@ public class CuplCreatorTest extends TestCase {
 
     public void testCUPLBuilderInvalidVars() throws Exception {
         Variable y0 = new Variable("D");  // D is not allowed in CUPL
-        Variable y1 = new Variable("Y_1");
 
         // counter
         Expression y0s = not(y0);
-        Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
         try {
             new CuplCreator("test", "user", new Date(0))
-                    .addState("Y_0", y0s)
-                    .addState("Y_1", y1s)
-                    .addExpression("A", and(y0, y1));
+                    .addState("Y_0", y0s);
+
+            assertTrue(false);
+        } catch (RuntimeException e) {
+            assertTrue(true);
+        }
+    }
+
+    public void testCUPLBuilderInvalidVars2() throws Exception {
+        Variable y0 = new Variable("Y_0");  // D is not allowed in CUPL
+
+        // counter
+        Expression y0s = not(y0);
+
+        try {
+            new CuplCreator("test", "user", new Date(0))
+                    .addExpression("D", y0s)
+                    .writeTo(System.out);
 
             assertTrue(false);
         } catch (RuntimeException e) {
