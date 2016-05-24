@@ -249,8 +249,11 @@ public class TableDialog extends JDialog {
     private void createCUPL() {
         JFileChooser fileChooser = new JFileChooser();
         if (filename != null && filename.getName().endsWith(".dig")) {
-            String path = filename.getPath();
-            File file = new File(path.substring(0, path.length() - 3) + "PLD");
+            String name = filename.getName();
+            File cuplPath = new File(filename.getParentFile(), "cupl");
+            File file = new File(cuplPath, name.substring(0, name.length() - 3) + "PLD");
+            if (!cuplPath.exists())
+                cuplPath.mkdirs();
             fileChooser.setSelectedFile(file);
         }
         fileChooser.setFileFilter(new FileNameExtensionFilter("PLD", "PLD"));
