@@ -131,11 +131,15 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ReorderInputs ri = new ReorderInputs(model.getTable());
-                new ElementOrderer<>(parent, Lang.get("menu_table_inputs"), ri.getItems(), true).setVisible(true);
-                try {
-                    setModel(new TruthTableTableModel(ri.reorder()));
-                } catch (ExpressionException e1) {
-                    new ErrorMessage().addCause(e1).show(TableDialog.this);
+                if (new ElementOrderer<>(parent, Lang.get("menu_table_inputs"), ri.getItems())
+                        .addDeleteButton()
+                        .addOkButton()
+                        .showDialog()) {
+                    try {
+                        setModel(new TruthTableTableModel(ri.reorder()));
+                    } catch (ExpressionException e1) {
+                        new ErrorMessage().addCause(e1).show(TableDialog.this);
+                    }
                 }
             }
         }.createJMenuItem());
@@ -143,11 +147,15 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ReorderOutputs ro = new ReorderOutputs(model.getTable());
-                new ElementOrderer<>(parent, Lang.get("menu_table_inputs"), ro.getItems(), true).setVisible(true);
-                try {
-                    setModel(new TruthTableTableModel(ro.reorder()));
-                } catch (ExpressionException e1) {
-                    new ErrorMessage().addCause(e1).show(TableDialog.this);
+                if (new ElementOrderer<>(parent, Lang.get("menu_table_outputs"), ro.getItems())
+                        .addDeleteButton()
+                        .addOkButton()
+                        .showDialog()) {
+                    try {
+                        setModel(new TruthTableTableModel(ro.reorder()));
+                    } catch (ExpressionException e1) {
+                        new ErrorMessage().addCause(e1).show(TableDialog.this);
+                    }
                 }
             }
         }.createJMenuItem());

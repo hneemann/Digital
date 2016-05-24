@@ -19,6 +19,13 @@ import java.util.ArrayList;
  */
 public class ElementOrderer<T> extends JDialog {
 
+    private final JPanel buttons;
+    private final JList<T> list;
+    private final MyListModel<T> listModel;
+    private final OrderInterface<T> data;
+
+    private boolean okPressed = true;
+
     /**
      * Creates a new instance
      *
@@ -27,27 +34,16 @@ public class ElementOrderer<T> extends JDialog {
      * @param data  the data to order
      */
     public ElementOrderer(Frame owner, String title, OrderInterface<T> data) {
-        this(owner, title, data, false);
-    }
-
-    /**
-     * Creates a new instance
-     *
-     * @param owner         the owner of this dialog
-     * @param title         the dialogs title
-     * @param data          the data to order
-     * @param deleteAllowed its allowed to delete items
-     */
-    public ElementOrderer(Frame owner, String title, OrderInterface<T> data, boolean deleteAllowed) {
         super(owner, title, true);
+        this.data = data;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        MyListModel<T> listModel = new MyListModel<T>(data);
-        JList list = new JList<T>(listModel);
+        listModel = new MyListModel<T>(data);
+        list = new JList<T>(listModel);
         list.setPreferredSize(new Dimension(100, 150));
         getContentPane().add(new JScrollPane(list));
 
-        JPanel buttons = new JPanel();
+        buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
         buttons.add(new ToolTipAction("\u2191") {
             @Override
@@ -70,22 +66,57 @@ public class ElementOrderer<T> extends JDialog {
 
             }
         }.setToolTip(Lang.get("tt_moveItemDown")).createJButton());
-        if (deleteAllowed) {
-            buttons.add(new ToolTipAction("\u274C") {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int i = list.getSelectedIndex();
-                    if (i >= 0 && i < data.size()) {
-                        listModel.delete(i);
-                    }
-
-                }
-            }.setToolTip(Lang.get("tt_deleteItem")).createJButton());
-        }
         getContentPane().add(buttons, BorderLayout.EAST);
 
-        pack();
         setLocationRelativeTo(owner);
+    }
+
+    /**
+     * Called to add a ok button
+     *
+     * @return this for chained calls
+     */
+    public ElementOrderer<T> addOkButton() {
+        JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                okPressed = true;
+                dispose();
+            }
+        });
+        getContentPane().add(okButton, BorderLayout.SOUTH);
+        okPressed = false;
+        return this;
+    }
+
+    /**
+     * Called to add a delete button
+     *
+     * @return this for chained calls
+     */
+    public ElementOrderer<T> addDeleteButton() {
+        buttons.add(new ToolTipAction("\u274C") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int i = list.getSelectedIndex();
+                if (i >= 0 && i < data.size()) {
+                    listModel.delete(i);
+                }
+
+            }
+        }.setToolTip(Lang.get("tt_deleteItem")).createJButton());
+        return this;
+    }
+
+    /**
+     * Shows the dialog
+     *
+     * @return true if ok was pressed
+     */
+    public boolean showDialog() {
+        pack();
+        setVisible(true);
+        return okPressed;
     }
 
     /**
