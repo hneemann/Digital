@@ -20,7 +20,7 @@ public class FlipflopRS extends Node implements Element {
      * The RS-FF description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("R"), input("C"), input("S"))
+            = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("S"), input("C"), input("R"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.VALUE_IS_PROBE)
