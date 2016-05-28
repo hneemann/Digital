@@ -19,7 +19,6 @@ public class FuseMapFiller {
 
     private final FuseMap fuseMap;
     private final int varsConnectedToMap;
-    private final int productTerms;
     private final HashMap<Variable, Integer> varMap;
 
     /**
@@ -29,12 +28,10 @@ public class FuseMapFiller {
      *
      * @param fuseMap            the fuse map to fill
      * @param varsConnectedToMap the number variables available in matrix
-     * @param productTerms       the number of product terms available
      */
-    public FuseMapFiller(FuseMap fuseMap, int varsConnectedToMap, int productTerms) {
+    public FuseMapFiller(FuseMap fuseMap, int varsConnectedToMap) {
         this.fuseMap = fuseMap;
         this.varsConnectedToMap = varsConnectedToMap;
-        this.productTerms = productTerms;
         varMap = new HashMap<>();
     }
 
@@ -54,16 +51,22 @@ public class FuseMapFiller {
     /**
      * Fills an expression to the fuse map
      *
-     * @param offs number of first fuse of first product term to use
-     * @param exp  the expression
+     * @param offs         number of first fuse of first product term to use
+     * @param exp          the expression
+     * @param productTerms the number of product terms available
      * @throws FuseMapFillerException EquationHandlerException
      */
-    public void fillExpression(int offs, Expression exp) throws FuseMapFillerException {
-        if (!(exp instanceof Operation.Or))
-            throw new FuseMapFillerException("only OR terms are supported!");
+    public void fillExpression(int offs, Expression exp, int productTerms) throws FuseMapFillerException {
+        ArrayList<Expression> terms;
 
-        Operation.Or or = (Operation.Or) exp;
-        ArrayList<Expression> terms = or.getExpressions();
+        if (exp instanceof Operation.Or) {
+            Operation.Or or = (Operation.Or) exp;
+            terms = or.getExpressions();
+        } else {
+            terms = new ArrayList<>();
+            terms.add(exp);
+        }
+
         if (terms.size() > productTerms)
             throw new FuseMapFillerException("only " + productTerms + " product terms supported!");
 
@@ -74,12 +77,16 @@ public class FuseMapFiller {
             for (int i = 0; i < fusesInTerm; i++)
                 fuseMap.setFuse(offs + i, true);
 
-            if (!(e instanceof Operation.And))
-                throw new FuseMapFillerException("only OR must contain AND terms!");
+            ArrayList<Expression> ands;
 
-            Operation.And and = (Operation.And) e;
+            if (e instanceof Operation.And) {
+                ands = ((Operation.And) e).getExpressions();
+            } else {
+                ands = new ArrayList<>();
+                ands.add(e);
+            }
 
-            for (Expression v : and.getExpressions()) {
+            for (Expression v : ands) {
 
                 Variable var;
                 boolean invert = false;

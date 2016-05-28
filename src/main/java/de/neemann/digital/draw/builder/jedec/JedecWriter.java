@@ -62,6 +62,7 @@ public class JedecWriter extends FilterOutputStream {
      */
     public JedecWriter write(FuseMap fuseMap) throws IOException {
         println("QF" + fuseMap.getFuses() + "*");
+        println("G0*");
         println("F0*");
         int lines = (fuseMap.getFuses() - 1) / LINELEN + 1;
         for (int li = 0; li < lines; li++) {
