@@ -38,10 +38,11 @@ public class JedecWriterTest extends TestCase {
 
         assertEquals("\u0002Test*\r\n" +
                 "QF500*\r\n" +
+                "G0*\r\n" +
                 "F0*\r\n" +
                 "L0 01001110000010001111000011111111*\r\n" +
                 "L32 01010001000000000000000000000000*\r\n" +
                 "C021A*\r\n" +
-                "\u00031365", baos.toString());
+                "\u0003141D", baos.toString());
     }
 }
