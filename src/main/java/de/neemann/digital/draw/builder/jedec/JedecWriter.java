@@ -17,16 +17,15 @@ public class JedecWriter extends FilterOutputStream {
     private int checksum;
 
     /**
-     * Creates a new fuse map
+     * Creates a new jedec writer
      *
-     * @param out the stream to write the map to
+     * @param out the stream to write the data to
      * @throws IOException IOException
      */
     public JedecWriter(OutputStream out) throws IOException {
         super(out);
         write(STX);
     }
-
 
     /**
      * Writes the string to the file
