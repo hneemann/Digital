@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.util.HashMap;
 
 /**
+ * Class to create a JEDEC file for the Lattice GAL16V8
+ *
  * @author hneemann
  */
 public class Gal16v8 {
@@ -65,8 +67,8 @@ public class Gal16v8 {
     /**
      * enables register in registered mode
      *
-     * @param i the OLMC enable the register
-     * @return this for chaained calls
+     * @param i the OLMC to enable the register for
+     * @return this for chained calls
      */
     private Gal16v8 enableRegisterFor(int i) {
         map.setFuse(AC1 + i, false);
@@ -75,7 +77,7 @@ public class Gal16v8 {
 
     /**
      * Sets a pin number for a signal.
-     * If no pin is set a suited pin is choosen automatically
+     * If no pin is set a suited pin is chosen automatically
      *
      * @param name the signals name
      * @param pin  the pin to use
