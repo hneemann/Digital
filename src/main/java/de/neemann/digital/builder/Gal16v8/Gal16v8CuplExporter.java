@@ -24,10 +24,12 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
+ * Creates a CUPL file
+ *
  * @author hneemann
  */
 public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExporter> {
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
     private final String projectName;
     private final String username;
@@ -78,6 +80,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
      *
      * @param out the stream to write to
      * @throws IOException IOException
+     * @throws FuseMapFillerException FuseMapFillerException
      */
     public void writeTo(Writer out) throws IOException, FuseMapFillerException {
         out
@@ -135,7 +138,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
     }
 
-    private class CuplBuilder extends BuilderCollector {
+    private static final class CuplBuilder extends BuilderCollector {
         private final NotAllowedVariablesVisitor notAllowedVariablesVisitor = new NotAllowedVariablesVisitor();
 
         @Override

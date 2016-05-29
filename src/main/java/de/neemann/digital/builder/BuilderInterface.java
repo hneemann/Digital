@@ -5,7 +5,8 @@ import de.neemann.digital.builder.circuit.CircuitBuilder;
 
 /**
  * Interface used to create a circuit
- * There are two implementations: {@link CircuitBuilder} creates a circuit and {@link CuplCreator} creates a CUPL file
+ * There are two implementations: {@link CircuitBuilder} creates a circuit and the
+ * {@link de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter} creates a CUPL file
  * which contains the circuit.
  *
  * @param <T> concrete Builder Type
