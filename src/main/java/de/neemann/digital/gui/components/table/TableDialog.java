@@ -12,10 +12,9 @@ import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
-import de.neemann.digital.draw.builder.BuilderException;
-import de.neemann.digital.draw.builder.BuilderInterface;
-import de.neemann.digital.draw.builder.CircuitBuilder;
-import de.neemann.digital.draw.builder.CuplCreator;
+import de.neemann.digital.draw.builder.*;
+import de.neemann.digital.draw.builder.Gal16v8.Gal16v8;
+import de.neemann.digital.draw.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
@@ -40,6 +39,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -179,6 +179,22 @@ public class TableDialog extends JDialog {
         }.setToolTip(Lang.get("menu_table_columnsAddVariable_tt")).createJMenuItem());
         bar.add(colsMenu);
 
+        JMenu createMenu = createCreateMenu();
+
+        bar.add(createMenu);
+
+
+        setJMenuBar(bar);
+
+        setModel(new TruthTableTableModel(truthTable));
+
+        getContentPane().add(new JScrollPane(table));
+        getContentPane().add(label, BorderLayout.SOUTH);
+        pack();
+        setLocationRelativeTo(parent);
+    }
+
+    private JMenu createCreateMenu() {
         JMenu createMenu = new JMenu(Lang.get("menu_table_create"));
         createMenu.add(new ToolTipAction(Lang.get("menu_table_create")) {
             @Override
@@ -223,24 +239,48 @@ public class TableDialog extends JDialog {
                 }
             }.setToolTip(Lang.get("menu_table_createNOrTwo_tt")).createJMenuItem());
 
-            createMenu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+        }
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCUPL();
+            }
+        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+
+        if (Main.enableExperimental()) {
+            JMenu hardware = new JMenu(Lang.get("menu_table_create_hardware"));
+            hardware.add(new ToolTipAction(Lang.get("menu_table_create_gal16v8")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    createCUPL();
+                    createHardware(new Gal16v8(), filename);
                 }
-            }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+            }.setToolTip(Lang.get("menu_table_create_gal16v8_tt")).createJMenuItem());
+
+            createMenu.add(hardware);
         }
-        bar.add(createMenu);
+        return createMenu;
+    }
 
-
-        setJMenuBar(bar);
-
-        setModel(new TruthTableTableModel(truthTable));
-
-        getContentPane().add(new JScrollPane(table));
-        getContentPane().add(label, BorderLayout.SOUTH);
-        pack();
-        setLocationRelativeTo(parent);
+    private void createHardware(JedecCreator jedecCreator, File filename) {
+        if (filename == null) {
+            filename = new File("circuit.jed");
+        } else {
+            String name = filename.getName();
+            if (filename.getName().endsWith(".dig")) {
+                name = name.substring(0, name.length() - 3) + "jed";
+            } else {
+                name += ".jed";
+            }
+            filename = new File(filename.getParentFile(), name);
+        }
+        try {
+            try (OutputStream out = new FileOutputStream(filename)) {
+                new BuiderExpressionCreator(jedecCreator.getBuilder(), ExpressionModifier.IDENTITY).create();
+                jedecCreator.writeTo(out);
+            }
+        } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException e) {
+            new ErrorMessage().addCause(e).show(this);
+        }
     }
 
     private void createCircuit(ExpressionModifier... modifier) {
@@ -283,7 +323,6 @@ public class TableDialog extends JDialog {
                 new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
             }
         }
-
     }
 
     private void editColumnAt(Point p) {

@@ -68,7 +68,7 @@ public class FuseMapFiller {
         }
 
         if (terms.size() > productTerms)
-            throw new FuseMapFillerException("only " + productTerms + " product terms supported!");
+            throw new FuseMapFillerException("only " + productTerms + " product terms supported but " + terms.size() + " needed!");
 
         int fusesInTerm = varsConnectedToMap * 2;
 

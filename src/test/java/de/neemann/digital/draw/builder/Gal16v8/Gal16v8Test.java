@@ -58,14 +58,14 @@ public class Gal16v8Test extends TestCase {
 
 
         Gal16v8 gal = new Gal16v8()
-                .setPin("D", 2)
-                .setPin("Q0", 16)
-                .setPin("Q1", 17)
-                .setPin("Q2", 18)
-                .setPin("P0", 12)
-                .setPin("P1", 13)
-                .setPin("P2", 14)
-                .setPin("P3", 15);
+                .assignPin("D", 2)
+                .assignPin("Q0", 16)
+                .assignPin("Q1", 17)
+                .assignPin("Q2", 18)
+                .assignPin("P0", 12)
+                .assignPin("P1", 13)
+                .assignPin("P2", 14)
+                .assignPin("P3", 15);
 
         gal.getBuilder()
                 .addState("Q0", Q0d)
@@ -79,7 +79,7 @@ public class Gal16v8Test extends TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         gal.writeTo(baos);
 
-        assertEquals("\u0002Digital assembler*\r\n" +
+        assertEquals("\u0002Digital GAL16v8 assembler*\r\n" +
                 "QF2194*\r\n" +
                 "G0*\r\n" +
                 "F0*\r\n" +
@@ -109,7 +109,7 @@ public class Gal16v8Test extends TestCase {
                 "L2144 11111111111111111111111111111111*\r\n" +
                 "L2176 111111111111111101*\r\n" +
                 "C56F7*\r\n" +
-                "\u0003C4AA", baos.toString());
+                "\u0003C6B3", baos.toString());
 
     }
 

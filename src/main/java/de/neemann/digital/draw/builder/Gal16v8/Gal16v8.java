@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.builder.Gal16v8;
 
 import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.draw.builder.JedecCreator;
 import de.neemann.digital.draw.builder.jedec.FuseMap;
 import de.neemann.digital.draw.builder.jedec.FuseMapFiller;
 import de.neemann.digital.draw.builder.jedec.FuseMapFillerException;
@@ -15,7 +16,7 @@ import java.util.HashMap;
  *
  * @author hneemann
  */
-public class Gal16v8 {
+public class Gal16v8 implements JedecCreator<Gal16v8> {
     private static final int SIG = 2056;
     private static final int SYN = 2192;
     private static final int AC0 = 2193;
@@ -57,9 +58,7 @@ public class Gal16v8 {
         }
     }
 
-    /**
-     * @return builder to add expressions
-     */
+    @Override
     public BuilderCollector getBuilder() {
         return builder;
     }
@@ -75,15 +74,10 @@ public class Gal16v8 {
         return this;
     }
 
-    /**
-     * Sets a pin number for a signal.
-     * If no pin is set a suited pin is chosen automatically
-     *
-     * @param name the signals name
-     * @param pin  the pin to use
-     * @return this for chained calls
-     */
-    public Gal16v8 setPin(String name, int pin) {
+    @Override
+    public Gal16v8 assignPin(String name, int pin) throws FuseMapFillerException {
+        if (pinMap.containsKey(name))
+            throw new FuseMapFillerException("Pin " + name + " assigned twice");
         pinMap.put(name, pin);
         return this;
     }
@@ -129,13 +123,7 @@ public class Gal16v8 {
     }
 
 
-    /**
-     * Writes the JEDEC file to the given output stream
-     *
-     * @param out the output stream
-     * @throws FuseMapFillerException FuseMapFillerException
-     * @throws IOException            IOException
-     */
+    @Override
     public void writeTo(OutputStream out) throws FuseMapFillerException, IOException {
         boolean registered = !builder.getRegistered().isEmpty();
         init(registered);
@@ -162,7 +150,7 @@ public class Gal16v8 {
 
         }
 
-        new JedecWriter(out).println("Digital assembler*").write(map).close();
+        new JedecWriter(out).println("Digital GAL16v8 assembler*").write(map).close();
     }
 
 }
