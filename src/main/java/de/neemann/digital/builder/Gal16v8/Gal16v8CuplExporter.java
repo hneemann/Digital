@@ -29,7 +29,7 @@ import java.util.Map;
  * @author hneemann
  */
 public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExporter> {
-    private final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     private final String projectName;
     private final String username;
@@ -86,7 +86,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         out
                 .append("Name     ").append(projectName).append(" ;\r\n")
                 .append("PartNo   00 ;\r\n")
-                .append("Date     ").append(DATE_FORMAT.format(date)).append(" ;\r\n")
+                .append("Date     ").append(dateFormat.format(date)).append(" ;\r\n")
                 .append("Revision 01 ;\r\n")
                 .append("Designer ").append(username).append(" ;\r\n")
                 .append("Company  unknown ;\r\n")
@@ -157,8 +157,8 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
     }
 
     private static final class NotAllowedVariablesVisitor implements ExpressionVisitor {
+        private static final String NOT_ALLOWED_CHARS = " &#()-+[]/:.*;,!'=@$^\"";
         private final HashSet<String> notAllowed;
-        private final String notAllowedChars = " &#()-+[]/:.*;,!'=@$^\"";
 
         NotAllowedVariablesVisitor() {
             notAllowed = new HashSet<>();
@@ -185,8 +185,8 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         }
 
         private void check(String v) {
-            for (int i = 0; i < notAllowedChars.length(); i++)
-                if (v.indexOf(notAllowedChars.charAt(i)) >= 0)
+            for (int i = 0; i < NOT_ALLOWED_CHARS.length(); i++)
+                if (v.indexOf(NOT_ALLOWED_CHARS.charAt(i)) >= 0)
                     throw new RuntimeException(Lang.get("err_varNotAllowedInCUPL_N", v));
             if (notAllowed.contains(v))
                 throw new RuntimeException(Lang.get("err_varNotAllowedInCUPL_N", v));

@@ -1,11 +1,10 @@
 package de.neemann.digital.builder;
 
 import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.builder.circuit.CircuitBuilder;
 
 /**
  * Interface used to create a circuit
- * There are two implementations: {@link CircuitBuilder} creates a circuit and the
+ * There are two implementations: the {@link de.neemann.digital.builder.circuit.CircuitBuilder} creates a circuit and the
  * {@link de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter} creates a CUPL file
  * which contains the circuit.
  *
