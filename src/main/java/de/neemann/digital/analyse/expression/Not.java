@@ -88,4 +88,9 @@ public final class Not implements Expression {
     public Expression getExpression() {
         return expression;
     }
+
+    @Override
+    public String toString() {
+        return "not(" + expression + ")";
+    }
 }

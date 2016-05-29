@@ -161,6 +161,18 @@ public abstract class Operation implements Expression {
      */
     protected abstract boolean calc(boolean a, boolean b);
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("(");
+        for (Expression e : expr) {
+            if (sb.length() > 1)
+                sb.append(", ");
+            sb.append(e.toString());
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+
     /**
      * The AND expression
      */
@@ -178,6 +190,11 @@ public abstract class Operation implements Expression {
         @Override
         protected boolean calc(boolean a, boolean b) {
             return a && b;
+        }
+
+        @Override
+        public String toString() {
+            return "and" + super.toString();
         }
     }
 
@@ -198,6 +215,11 @@ public abstract class Operation implements Expression {
         @Override
         protected boolean calc(boolean a, boolean b) {
             return a || b;
+        }
+
+        @Override
+        public String toString() {
+            return "or" + super.toString();
         }
     }
 }
