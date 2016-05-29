@@ -125,7 +125,7 @@ public class TableDialog extends JDialog {
             combinatorial.add(new JMenuItem(new SizeAction(i)));
         JMenu sequential = new JMenu(Lang.get("menu_table_new_sequential"));
         sizeMenu.add(sequential);
-        for (int i = 2; i <= 5; i++)
+        for (int i = 2; i <= 8; i++)
             sequential.add(new JMenuItem(new SizeSequentialAction(i)));
         bar.add(sizeMenu);
 
@@ -277,13 +277,19 @@ public class TableDialog extends JDialog {
             }
             filename = new File(filename.getParentFile(), name);
         }
-        try {
-            try (OutputStream out = new FileOutputStream(filename)) {
-                new BuiderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
-                expressionExporter.writeTo(out);
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("JEDEC", "jed"));
+        fileChooser.setSelectedFile(filename);
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                try (OutputStream out = new FileOutputStream(fileChooser.getSelectedFile())) {
+                    new BuiderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
+                    expressionExporter.writeTo(out);
+                }
+            } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException e) {
+                new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
             }
-        } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException e) {
-            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
         }
     }
 
