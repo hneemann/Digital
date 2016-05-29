@@ -12,9 +12,13 @@ import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
-import de.neemann.digital.draw.builder.*;
-import de.neemann.digital.draw.builder.Gal16v8.Gal16v8;
-import de.neemann.digital.draw.builder.jedec.FuseMapFillerException;
+import de.neemann.digital.builder.BuilderException;
+import de.neemann.digital.builder.BuilderInterface;
+import de.neemann.digital.builder.ExpressionExporter;
+import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
+import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
+import de.neemann.digital.builder.circuit.CircuitBuilder;
+import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
@@ -196,12 +200,12 @@ public class TableDialog extends JDialog {
 
     private JMenu createCreateMenu() {
         JMenu createMenu = new JMenu(Lang.get("menu_table_create"));
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_create")) {
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuit")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 createCircuit(ExpressionModifier.IDENTITY);
             }
-        }.setToolTip(Lang.get("menu_table_create_tt")).createJMenuItem());
+        }.setToolTip(Lang.get("menu_table_createCircuit_tt")).createJMenuItem());
 
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createTwo")) {
             @Override
@@ -252,7 +256,7 @@ public class TableDialog extends JDialog {
             hardware.add(new ToolTipAction(Lang.get("menu_table_create_gal16v8")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    createHardware(new Gal16v8(), filename);
+                    createHardware(new Gal16v8JEDECExporter(), filename);
                 }
             }.setToolTip(Lang.get("menu_table_create_gal16v8_tt")).createJMenuItem());
 
@@ -261,7 +265,7 @@ public class TableDialog extends JDialog {
         return createMenu;
     }
 
-    private void createHardware(JedecCreator jedecCreator, File filename) {
+    private void createHardware(ExpressionExporter expressionExporter, File filename) {
         if (filename == null) {
             filename = new File("circuit.jed");
         } else {
@@ -275,11 +279,11 @@ public class TableDialog extends JDialog {
         }
         try {
             try (OutputStream out = new FileOutputStream(filename)) {
-                new BuiderExpressionCreator(jedecCreator.getBuilder(), ExpressionModifier.IDENTITY).create();
-                jedecCreator.writeTo(out);
+                new BuiderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
+                expressionExporter.writeTo(out);
             }
         } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException e) {
-            new ErrorMessage().addCause(e).show(this);
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
         }
     }
 
@@ -314,12 +318,12 @@ public class TableDialog extends JDialog {
 
                 f = new File(f.getParentFile(), name);
 
-                CuplCreator cupl = new CuplCreator(name.substring(0, name.length() - 4));
-                new BuiderExpressionCreator(cupl, ExpressionModifier.IDENTITY).create();
+                Gal16v8CuplExporter cupl = new Gal16v8CuplExporter(name.substring(0, name.length() - 4));
+                new BuiderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
                 try (FileOutputStream out = new FileOutputStream(f)) {
                     cupl.writeTo(out);
                 }
-            } catch (ExpressionException | FormatterException | RuntimeException | IOException e) {
+            } catch (ExpressionException | FormatterException | RuntimeException | IOException | FuseMapFillerException e) {
                 new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
             }
         }
@@ -467,9 +471,9 @@ public class TableDialog extends JDialog {
                 try {
                     if (name.endsWith("n+1")) {
                         name = name.substring(0, name.length() - 2);
-                        builder.addState(name, ExpressionModifier.modifyExpression(expression, modifier));
+                        builder.addSequential(name, ExpressionModifier.modifyExpression(expression, modifier));
                     } else
-                        builder.addExpression(name, ExpressionModifier.modifyExpression(expression, modifier));
+                        builder.addCombinatorial(name, ExpressionModifier.modifyExpression(expression, modifier));
                 } catch (BuilderException e) {
                     throw new RuntimeException(e);
                 }
