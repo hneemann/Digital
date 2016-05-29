@@ -35,7 +35,7 @@ public class JedecWriter extends FilterOutputStream {
      * @throws IOException IOException
      */
     public JedecWriter print(String s) throws IOException {
-        write(s.getBytes());
+        write(s.getBytes("ISO-8859-1"));
         return this;
     }
 
@@ -100,7 +100,7 @@ public class JedecWriter extends FilterOutputStream {
     @Override
     public void close() throws IOException {
         write(ETX);
-        out.write(toHex(checksum & 0xffff, 4).getBytes());
+        out.write(toHex(checksum & 0xffff, 4).getBytes("ISO-8859-1"));
         super.close();
     }
 

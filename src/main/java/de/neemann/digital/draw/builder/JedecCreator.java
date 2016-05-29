@@ -10,6 +10,7 @@ import java.io.OutputStream;
  * Interface used to create Jedec files.
  * Every supported device implements this interface.
  *
+ * @param <T> concrete type of {@link JedecCreator}
  * @author hneemann
  */
 public interface JedecCreator<T extends JedecCreator> {

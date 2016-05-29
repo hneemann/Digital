@@ -8,15 +8,13 @@ import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.lang.Lang;
 
+import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static de.neemann.digital.analyse.expression.Not.not;
-import static de.neemann.digital.analyse.expression.Operation.and;
-import static de.neemann.digital.analyse.expression.Operation.or;
 
 /**
  * @author hneemann
@@ -93,11 +91,12 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
     }
 
     /**
-     * Writes code to given stream
+     * Writes code to given writer
      *
      * @param out the stream to write to
+     * @throws IOException IOException
      */
-    public void writeTo(PrintStream out) {
+    public void writeTo(Writer out) throws IOException {
         out
                 .append("Name     ").append(projectName).append(" ;\r\n")
                 .append("PartNo   00 ;\r\n")
@@ -136,9 +135,10 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
      * Writes code to given stream
      *
      * @param out the stream to write to
+     * @throws IOException IOException
      */
-    public void writeTo(OutputStream out) {
-        writeTo(new PrintStream(out));
+    public void writeTo(OutputStream out) throws IOException {
+        writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
     }
 
     private static final class NotAllowedVariablesVisitor implements ExpressionVisitor {
@@ -177,32 +177,5 @@ public class CuplCreator implements BuilderInterface<CuplCreator> {
                 throw new RuntimeException(Lang.get("err_varNotAllowedInCUPL_N", v));
         }
 
-    }
-
-    /**
-     * Only used for manual tests
-     *
-     * @param args args
-     * @throws BuilderException BuilderException
-     */
-    public static void main(String[] args) throws BuilderException {
-
-        Variable y0 = new Variable("Y_0");
-        Variable y1 = new Variable("Y_1");
-        Variable y2 = new Variable("Y_2");
-        Variable z = new Variable("A");
-
-        Expression y0s = and(not(y0), z);
-        Expression y1s = or(and(y0, not(y1)), and(y1, not(y0)));
-        Expression y2s = not(y2);
-        Expression p0 = and(y0, y1, z);
-
-        CuplCreator cupl = new CuplCreator("test")
-                .addState("Y_0", y0s)
-                .addState("Y_1", y1s)
-                .addState("Y_2", y2s)
-                .addExpression("P_0", p0);
-
-        cupl.writeTo(System.out);
     }
 }

@@ -332,7 +332,7 @@ public class TruthTable {
          * @param name   the name of the result
          * @param values the result values
          */
-        public Result(String name, BoolTable values) {
+        Result(String name, BoolTable values) {
             this.name = name;
             this.values = values;
         }
