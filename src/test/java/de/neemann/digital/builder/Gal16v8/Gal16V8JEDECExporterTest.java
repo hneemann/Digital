@@ -114,7 +114,7 @@ public class Gal16V8JEDECExporterTest extends TestCase {
     }
 
     // BitCount
-    public void testCommbinatorial() throws Exception {
+    public void testCombinatorial() throws Exception {
         Variable A = new Variable("A");
         Variable B = new Variable("B");
         Variable C = new Variable("C");
