@@ -2,7 +2,9 @@ package de.neemann.digital.builder;
 
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A PinMap.
@@ -117,5 +119,16 @@ public class PinMap {
         return p;
     }
 
-
+    /**
+     * Returns a list of unused output pins
+     *
+     * @return the list
+     */
+    public List<Integer> getUnusedOutputs() {
+        ArrayList<Integer> uo = new ArrayList<>();
+        for (int i : outputPins)
+            if (!pinMap.containsValue(i))
+                uo.add(i);
+        return uo;
+    }
 }
