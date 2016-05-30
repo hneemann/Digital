@@ -22,8 +22,9 @@ import static de.neemann.digital.analyse.expression.Operation.and;
 public class TableRow implements Comparable<TableRow> {
 
     private final TableItem[] items;
-    private boolean used = false;
     private final TreeSet<Integer> source;
+    private boolean used = false;
+    private long optimizedFlags;
 
     /**
      * Copies the given table row
@@ -34,10 +35,11 @@ public class TableRow implements Comparable<TableRow> {
         this(tr.size());
         for (int i = 0; i < size(); i++)
             items[i] = tr.get(i);
+        optimizedFlags = tr.optimizedFlags;
     }
 
     /**
-     * Creates a new tyble row
+     * Creates a new table row
      *
      * @param cols number of columns
      */
@@ -52,7 +54,7 @@ public class TableRow implements Comparable<TableRow> {
      * @param cols     the number of columns
      * @param bitValue the value representing the bits in the row
      * @param index    the index of the original source row
-     * @param dontCare dont care
+     * @param dontCare true if don't care
      */
     public TableRow(int cols, int bitValue, int index, boolean dontCare) {
         this(cols);
@@ -70,7 +72,7 @@ public class TableRow implements Comparable<TableRow> {
     }
 
     /**
-     * The item at the given indes
+     * The item at the given index
      *
      * @param index the comumns index
      * @return the value
@@ -80,12 +82,23 @@ public class TableRow implements Comparable<TableRow> {
     }
 
     /**
-     * Sets the given idex to optimized
+     * Sets the given index to optimized
      *
      * @param index the columns index
      */
     public void setToOptimized(int index) {
         items[index] = TableItem.optimized;
+        optimizedFlags |= 1L << index;
+    }
+
+    /**
+     * Returns the optimized flags.
+     * All Variables which are deleted/optimized in this row are marked by a one bit at their position.
+     *
+     * @return the flags
+     */
+    public long getOptimizedFlags() {
+        return optimizedFlags;
     }
 
     @Override
@@ -151,7 +164,7 @@ public class TableRow implements Comparable<TableRow> {
 
     @Override
     public int compareTo(TableRow tableRow) {
-        return Integer.compare(countOnes(), tableRow.countOnes());
+        return toString().compareTo(tableRow.toString());
     }
 
     /**

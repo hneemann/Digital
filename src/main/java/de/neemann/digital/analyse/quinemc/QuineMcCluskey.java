@@ -20,7 +20,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
  */
 public class QuineMcCluskey {
 
-    private final ArrayList<TableRow> rows;
+    private final TableRows rows;
     private final ArrayList<Variable> variables;
     private final ArrayList<TableRow> primes;
 
@@ -31,11 +31,11 @@ public class QuineMcCluskey {
      */
     public QuineMcCluskey(ArrayList<Variable> variables) {
         this.variables = variables;
-        this.rows = new ArrayList<>();
+        this.rows = new TableRows();
         this.primes = new ArrayList<>();
     }
 
-    private QuineMcCluskey(ArrayList<Variable> variables, ArrayList<TableRow> rows, ArrayList<TableRow> primes) {
+    private QuineMcCluskey(ArrayList<Variable> variables, TableRows rows, ArrayList<TableRow> primes) {
         this.variables = variables;
         this.rows = rows;
         this.primes = primes;
@@ -51,7 +51,7 @@ public class QuineMcCluskey {
     public QuineMcCluskey(Expression expression) throws ExpressionException {
         ContextFiller context = new ContextFiller(expression);
         variables = context.getVariables();
-        rows = new ArrayList<>();
+        rows = new TableRows();
         fillTableWith(new BoolTableExpression(expression, context));
         primes = new ArrayList<>();
     }
@@ -73,7 +73,6 @@ public class QuineMcCluskey {
                 add(i, value.equals(ThreeStateValue.dontCare));
             }
         }
-        Collections.sort(rows);
         return this;
     }
 
@@ -129,27 +128,29 @@ public class QuineMcCluskey {
 
 
     QuineMcCluskey simplifyStep() {
-        ArrayList<TableRow> newRows = new ArrayList<>();
-        for (int i = 0; i < rows.size() - 1; i++)
-            for (int j = i + 1; j < rows.size(); j++) {
+        TableRows newRows = new TableRows();
 
-                TableRow r1 = rows.get(i);
-                TableRow r2 = rows.get(j);
+        for (ArrayList<TableRow> list : rows.listIterable())
+            for (int i = 0; i < list.size() - 1; i++)
+                for (int j = i + 1; j < list.size(); j++) {
 
-                int index = checkCompatible(r1, r2);
-                if (index >= 0) {
-                    // can optimize;
-                    TableRow newRow = new TableRow(r1);
-                    newRow.setToOptimized(index);
-                    newRow.addSource(r1.getSource());
-                    newRow.addSource(r2.getSource());
+                    TableRow r1 = list.get(i);
+                    TableRow r2 = list.get(j);
 
-                    r1.setUsed();
-                    r2.setUsed();
+                    int index = checkCompatible(r1, r2);
+                    if (index >= 0) {
+                        // can optimize;
+                        TableRow newRow = new TableRow(r1);
+                        newRow.setToOptimized(index);
+                        newRow.addSource(r1.getSource());
+                        newRow.addSource(r2.getSource());
 
-                    newRows.add(newRow);
+                        r1.setUsed();
+                        r2.setUsed();
+
+                        newRows.add(newRow);
+                    }
                 }
-            }
 
         ArrayList<TableRow> np = new ArrayList<TableRow>();
         np.addAll(primes);
@@ -161,13 +162,13 @@ public class QuineMcCluskey {
     }
 
     QuineMcCluskey removeDuplicates() {
-        ArrayList<TableRow> newRows = new ArrayList<TableRow>();
+        TableRows newRows = new TableRows();
         for (TableRow r : rows) {
-            int i = newRows.indexOf(r);
-            if (i < 0) {
+            TableRow i = newRows.findRow(r);
+            if (i == null) {
                 newRows.add(r);
             } else {
-                newRows.get(i).addSource(r.getSource());
+                i.addSource(r.getSource());
             }
         }
 
@@ -185,12 +186,8 @@ public class QuineMcCluskey {
     }
 
     private int checkCompatible(TableRow r1, TableRow r2) {
-        for (int i = 0; i < r1.size(); i++) {
-            if (r1.get(i) == TableItem.optimized || r2.get(i) == TableItem.optimized) {
-                if (!r1.get(i).equals(r2.get(i)))
-                    return -1;
-            }
-        }
+        if (r1.getOptimizedFlags() != r2.getOptimizedFlags())
+            return -1;
 
         int difIndex = -1;
         for (int i = 0; i < r1.size(); i++) {
@@ -207,7 +204,12 @@ public class QuineMcCluskey {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        ArrayList<TableRow> newList = new ArrayList<TableRow>();
         for (TableRow r : rows) {
+            newList.add(r);
+        }
+        Collections.sort(newList);
+        for (TableRow r : newList) {
             sb.append(r.toString());
             sb.append("\n");
         }
@@ -240,7 +242,7 @@ public class QuineMcCluskey {
      * @param variables the variables to use to build the expression
      * @return the expression
      */
-    public static Expression addAnd(Expression e, ArrayList<TableRow> rows, ArrayList<Variable> variables) {
+    public static Expression addAnd(Expression e, Iterable<TableRow> rows, ArrayList<Variable> variables) {
         for (TableRow r : rows) {
             Expression n = r.getExpression(variables);
             if (e == null)

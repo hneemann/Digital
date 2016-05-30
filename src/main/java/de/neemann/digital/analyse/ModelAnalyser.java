@@ -58,8 +58,8 @@ public class ModelAnalyser {
 
         if (inputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoInputs"));
-        if (inputs.size() > 9)
-            throw new AnalyseException(Lang.get("err_toManyInputs_N", 9));
+        if (inputs.size() > 12)
+            throw new AnalyseException(Lang.get("err_toManyInputs_N", 12));
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
         rows = 1 << inputs.size();
