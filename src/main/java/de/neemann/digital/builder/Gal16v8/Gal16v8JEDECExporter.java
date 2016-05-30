@@ -98,10 +98,10 @@ public class Gal16v8JEDECExporter implements ExpressionExporter<Gal16v8JEDECExpo
         }
 
         for (String o : builder.getOutputs()) {
-            int OLMC = 19 - pinMap.getOutputFor(o);
-            int offs = OLMC * 256;
+            int olmc = 19 - pinMap.getOutputFor(o);
+            int offs = olmc * 256;
             if (builder.getCombinatorial().containsKey(o)) {
-                map.setFuse(XOR+OLMC);   // set XOR to compensate inverted driver
+                map.setFuse(XOR + olmc);   // set XOR to compensate inverted driver
                 if (registered) {
                     for (int j = 0; j < 32; j++) map.setFuse(offs + j);
                     filler.fillExpression(offs + 32, builder.getCombinatorial().get(o), 7);
@@ -109,8 +109,8 @@ public class Gal16v8JEDECExporter implements ExpressionExporter<Gal16v8JEDECExpo
                     filler.fillExpression(offs, builder.getCombinatorial().get(o), 8);
                 }
             } else if (builder.getRegistered().containsKey(o)) {
-                enableRegisterFor(OLMC);
-                map.setFuse(XOR+OLMC);   // set XOR to compensate inverted driver
+                enableRegisterFor(olmc);
+                map.setFuse(XOR + olmc);   // set XOR to compensate inverted driver
                 filler.fillExpression(offs, builder.getRegistered().get(o), 8);
             } else
                 throw new FuseMapFillerException("variable " + o + " not found!");
