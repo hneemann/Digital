@@ -15,8 +15,8 @@ import static de.neemann.digital.analyse.expression.Operation.or;
  */
 public class Gal16V8JEDECExporterTest extends TestCase {
 
-    // stepper control
-    public void testWriteTo() throws Exception {
+    // stepper control; sequential and combinatorial
+    public void testSequential() throws Exception {
         Variable D = new Variable("D");
 
         Variable Q0 = new Variable("Q0");
@@ -112,5 +112,62 @@ public class Gal16V8JEDECExporterTest extends TestCase {
                 "\u0003C6B3", baos.toString());
 
     }
+
+    // BitCount
+    public void testCommbinatorial() throws Exception {
+        Variable A = new Variable("A");
+        Variable B = new Variable("B");
+        Variable C = new Variable("C");
+
+        //Y_0 = (!A & !B & C) #
+        //      (!A & B & !C) #
+        //      (A & !B & !C) #
+        //      (A & B & C);
+        Expression Y_0 = or(
+                and(not(A), not(B), C),
+                and(not(A), B, not(C)),
+                and(A, not(B), not(C)),
+                and(A, B, C));
+
+        //Y_1 = (A & C) # (A & B) # (B & C);
+        Expression Y_1 = or(and(A, C), and(A, B), and(B, C));
+
+        Gal16v8JEDECExporter gal = new Gal16v8JEDECExporter()
+                .assignPin("A", 2)
+                .assignPin("B", 3)
+                .assignPin("C", 4)
+                .assignPin("Y_1", 12)
+                .assignPin("Y_0", 13);
+
+        gal.getBuilder()
+                .addCombinatorial("Y_0", Y_0)
+                .addCombinatorial("Y_1", Y_1);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        gal.writeTo(baos);
+
+        assertEquals("\u0002Digital GAL16v8 assembler*\r\n" +
+                "QF2194*\r\n" +
+                "G0*\r\n" +
+                "F0*\r\n" +
+                "L1536 10111011011111111111111111111111*\r\n" +
+                "L1568 10110111101111111111111111111111*\r\n" +
+                "L1600 01111011101111111111111111111111*\r\n" +
+                "L1632 01110111011111111111111111111111*\r\n" +
+                "L1792 01111111011111111111111111111111*\r\n" +
+                "L1824 01110111111111111111111111111111*\r\n" +
+                "L1856 11110111011111111111111111111111*\r\n" +
+              //"L2048 00000011001100000011000000100000*\r\n" + // WinCupl fills some bits to the signature! Don't know why!
+                "L2048 00000011000000000000000000000000*\r\n" +
+              //"L2112 00000000111111001111111111111111*\r\n" + // WinCupl sets AC1(n) for unused OLMC! Don't know why!
+                "L2112 00000000000000001111111111111111*\r\n" +
+                "L2144 11111111111111111111111111111111*\r\n" +
+                "L2176 111111111111111110*\r\n" +
+                "C240D*\r\n" +
+                "\u00035E1B", baos.toString());
+
+    }
+
+
 
 }
