@@ -168,7 +168,7 @@ public class Gal16V8JEDECExporterTest extends TestCase {
                 "L1856 11110111011111111111111111111111*\r\n" +
               //"L2048 00000011001100000011000000100000*\r\n" + // WinCupl fills some bits to the signature! Don't know why!
                 "L2048 00000011000000000000000000000000*\r\n" +
-                "L2112 00000000111111001111111111111111*\r\n" + // WinCupl sets AC1(n) for unused OLMC! Don't know why!
+                "L2112 00000000111111001111111111111111*\r\n" +
                 "L2144 11111111111111111111111111111111*\r\n" +
                 "L2176 111111111111111110*\r\n" +
                 "C244C*\r\n" +
