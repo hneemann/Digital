@@ -19,6 +19,9 @@ import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,6 +30,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -42,7 +46,6 @@ public class CircuitComponent extends JComponent {
     private static final String DEL_ACTION = "myDelAction";
 
     private final ElementLibrary library;
-    private final ShapeFactory shapeFactory;
     private final SavedListener parentsSavedListener;
     private final HashSet<Drawable> highLighted;
     private final ToolTipAction deleteAction;
@@ -53,14 +56,15 @@ public class CircuitComponent extends JComponent {
     private final MouseControllerWire mouseWire;
     private final MouseControllerSelect mouseSelect;
     private final MouseControllerMoveSelected mouseMoveSelected;
-    private final MouseControllerCopySelected mouseCopySelected;
     private final MouseController mouseRun;
+    private final MouseControllerInsertCopied mouseInsertList;
     private final Cursor moveCursor;
 
     private Circuit circuit;
     private MouseController activeMouseController;
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
+    private Vector lastMousePos;
 
     /**
      * Creates a new instance
@@ -70,9 +74,41 @@ public class CircuitComponent extends JComponent {
      */
     public CircuitComponent(ElementLibrary library, ShapeFactory shapeFactory, SavedListener parentsSavedListener) {
         this.library = library;
-        this.shapeFactory = shapeFactory;
         this.parentsSavedListener = parentsSavedListener;
         highLighted = new HashSet<>();
+
+        AbstractAction copyAction = new AbstractAction("Copy") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerSelect) {
+                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
+                    ArrayList<Moveable> elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
+                    Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clpbrd.setContents(new CircuitTransferable(elements), null);
+                    removeHighLighted();
+                    mouseNormal.activate();
+                }
+            }
+        };
+
+        AbstractAction pasteAction = new AbstractAction("Paste") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                try {
+                    Object data = clpbrd.getData(DataFlavor.stringFlavor);
+                    if (data instanceof String) {
+                        Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
+                        ArrayList<Moveable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
+                        if (elements != null) {
+                            mouseInsertList.activate(elements, posVector);
+                        }
+                    }
+                } catch (UnsupportedFlavorException | IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        };
 
         deleteAction = new ToolTipAction(Lang.get("menu_delete"), ICON_DELETE) {
             @Override
@@ -81,9 +117,13 @@ public class CircuitComponent extends JComponent {
             }
         }.setToolTip(Lang.get("menu_delete_tt"));
 
-        KeyStroke delKey = KeyStroke.getKeyStroke("DELETE");
-        getInputMap().put(delKey, DEL_ACTION);
+        getInputMap().put(KeyStroke.getKeyStroke("DELETE"), DEL_ACTION);
         getActionMap().put(DEL_ACTION, deleteAction);
+        getInputMap().put(KeyStroke.getKeyStroke("control C"), "myCopy");
+        getActionMap().put("myCopy", copyAction);
+        getInputMap().put(KeyStroke.getKeyStroke("control V"), "myPaste");
+        getActionMap().put("myPaste", pasteAction);
+
 
         setFocusable(true);
 
@@ -100,11 +140,11 @@ public class CircuitComponent extends JComponent {
         moveCursor = new Cursor(Cursor.MOVE_CURSOR);
         mouseNormal = new MouseControllerNormal(normalCursor);
         mouseInsertElement = new MouseControllerInsertElement(normalCursor);
+        mouseInsertList = new MouseControllerInsertCopied(normalCursor);
         mouseMoveElement = new MouseControllerMoveElement(normalCursor);
         mouseWire = new MouseControllerWire(normalCursor);
         mouseSelect = new MouseControllerSelect(new Cursor(Cursor.CROSSHAIR_CURSOR));
         mouseMoveSelected = new MouseControllerMoveSelected(moveCursor);
-        mouseCopySelected = new MouseControllerCopySelected(moveCursor);
         mouseRun = new MouseControllerRun(normalCursor);
 
         setCircuit(new Circuit());
@@ -256,7 +296,13 @@ public class CircuitComponent extends JComponent {
         }
     }
 
-    private Vector raster(Vector pos) {
+    /**
+     * rounds the given vector to the raster
+     *
+     * @param pos the vector
+     * @return pos round to raster
+     */
+    public static Vector raster(Vector pos) {
         return new Vector((int) Math.round((double) pos.x / SIZE) * SIZE,
                 (int) Math.round((double) pos.y / SIZE) * SIZE);
     }
@@ -370,6 +416,7 @@ public class CircuitComponent extends JComponent {
 
         @Override
         public void mouseMoved(MouseEvent e) {
+            lastMousePos = new Vector(e.getX(), e.getY());
             activeMouseController.moved(e);
         }
 
@@ -641,13 +688,8 @@ public class CircuitComponent extends JComponent {
         @Override
         boolean dragged(MouseEvent e) {
             if (wasReleased) {
-                if (downButton == MouseEvent.BUTTON1) {
-                    removeHighLighted();
-                    mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
-                } else if (downButton == MouseEvent.BUTTON3) {
-                    removeHighLighted();
-                    mouseCopySelected.activate(corner1, corner2, getPosVector(e));
-                }
+                removeHighLighted();
+                mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
             } else {
                 corner2 = getPosVector(e);
                 ArrayList<Drawable> elements = circuit.getElementsToHighlight(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
@@ -719,25 +761,23 @@ public class CircuitComponent extends JComponent {
         }
     }
 
-    private final class MouseControllerCopySelected extends MouseController {
+    private final class MouseControllerInsertCopied extends MouseController {
         private ArrayList<Moveable> elements;
         private Vector lastPos;
-        private Vector movement;
 
-        private MouseControllerCopySelected(Cursor cursor) {
+        private MouseControllerInsertCopied(Cursor cursor) {
             super(cursor);
         }
 
-        private void activate(Vector corner1, Vector corner2, Vector pos) {
+        private void activate(ArrayList<Moveable> elements, Vector pos) {
             super.activate();
+            this.elements = elements;
             lastPos = pos;
-            movement = new Vector(0, 0);
             deleteAction.setActive(true);
-            elements = circuit.getElementsToCopy(Vector.min(corner1, corner2), Vector.max(corner1, corner2), shapeFactory);
         }
 
         @Override
-        boolean dragged(MouseEvent e) {
+        void moved(MouseEvent e) {
             if (elements != null) {
                 Vector pos = getPosVector(e);
                 Vector delta = raster(pos.sub(lastPos));
@@ -746,13 +786,10 @@ public class CircuitComponent extends JComponent {
                     for (Moveable m : elements)
                         m.move(delta);
 
-                    movement = movement.add(delta);
-
                     repaint();
                     lastPos = lastPos.add(delta);
                 }
             }
-            return true;
         }
 
         @Override
@@ -769,8 +806,8 @@ public class CircuitComponent extends JComponent {
         }
 
         @Override
-        void released(MouseEvent e) {
-            if (elements != null && !movement.isZero()) {
+        void clicked(MouseEvent e) {
+            if (elements != null) {
                 for (Moveable m : elements) {
                     if (m instanceof Wire)
                         circuit.add((Wire) m);
@@ -781,6 +818,7 @@ public class CircuitComponent extends JComponent {
             mouseNormal.activate();
         }
     }
+
 
     private interface Actor {
         boolean interact(CircuitComponent cc, Point p);
