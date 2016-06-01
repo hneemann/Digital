@@ -79,7 +79,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
      * Writes code to given writer
      *
      * @param out the stream to write to
-     * @throws IOException IOException
+     * @throws IOException            IOException
      * @throws FuseMapFillerException FuseMapFillerException
      */
     public void writeTo(Writer out) throws IOException, FuseMapFillerException {
@@ -143,6 +143,9 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
 
         @Override
         public BuilderCollector addCombinatorial(String name, Expression expression) throws BuilderException {
+            if (expression instanceof Variable)
+                return this;  // ignore simple variables!
+
             expression.traverse(notAllowedVariablesVisitor);
             notAllowedVariablesVisitor.check(name);
             return super.addCombinatorial(name, expression);
