@@ -98,13 +98,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     /**
      * Adds a description to the library
      *
-     * @param description the descritpion
+     * @param description the description
      */
     public void addDescription(ElementTypeDescription description) {
         String name = description.getName();
-        if (map.containsKey(name))
-            throw new RuntimeException(Lang.get("err_duplicateElement_N", name));
-
         map.put(name, description);
     }
 
