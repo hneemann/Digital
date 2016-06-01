@@ -282,6 +282,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 .setShapeFactory(shapeFactory)
                 .setPos(new Vector(x, yMin - SIZE * 3));
         clock.getElementAttributes()
+                .set(Keys.LABEL, "C")
                 .set(Keys.ROTATE, new Rotation(3))
                 .set(Keys.RUN_AT_REAL_TIME, true);
         circuit.add(clock);
