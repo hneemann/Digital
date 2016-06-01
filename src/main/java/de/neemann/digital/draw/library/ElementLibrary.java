@@ -116,14 +116,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * @return the {@link ElementTypeDescription} ore null if not found
      */
     public ElementTypeDescription getElementType(String elementName) {
-        ElementTypeDescription pd = map.get(elementName);
-        if (pd == null) {
+        ElementTypeDescription description = map.get(elementName);
+        if (description == null) {
             if (elementNotFoundNotification != null)
-                pd = elementNotFoundNotification.elementNotFound(elementName);
-            if (pd == null)
+                description = elementNotFoundNotification.elementNotFound(elementName);
+            if (description == null)
                 throw new RuntimeException(Lang.get("err_element_N_notFound", elementName));
+            else
+                map.put(elementName, description);
         }
-        return pd;
+        return description;
     }
 
     @Override

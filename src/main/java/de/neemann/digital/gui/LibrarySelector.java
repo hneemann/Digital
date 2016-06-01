@@ -135,11 +135,25 @@ public class LibrarySelector implements ElementNotFoundNotification {
 
     @Override
     public ElementTypeDescription elementNotFound(String elementName) {
-        Imported imported = importElement(new File(filePath, elementName));
+        File file = new File(elementName);
+        // check if there is a file with the given name in the current directory
+        // if so, load this file!
+        File primary = new File(filePath, file.getName());
+        if (primary.exists())
+            file = primary;
+
+        Imported imported = importElement(file);
         if (imported == null)
             return null;
         else
             return imported.description;
+    }
+
+    private static String getActionName(ElementTypeDescription typeDescription) {
+        if (typeDescription instanceof ElementTypeDescriptionCustom)
+            return typeDescription.getShortName();
+        else
+            return typeDescription.getTranslatedName();
     }
 
     private final class InsertAction extends ToolTipAction {
@@ -149,11 +163,12 @@ public class LibrarySelector implements ElementNotFoundNotification {
         private final CircuitComponent circuitComponent;
 
         private InsertAction(ElementTypeDescription typeDescription, InsertHistory insertHistory, CircuitComponent circuitComponent) {
-            super(typeDescription.getTranslatedName(), new VisualElement(typeDescription.getName()).setShapeFactory(shapeFactory).createIcon(75));
+            super(getActionName(typeDescription), new VisualElement(typeDescription.getName()).setShapeFactory(shapeFactory).createIcon(75));
             this.name = typeDescription.getName();
             this.insertHistory = insertHistory;
             this.circuitComponent = circuitComponent;
         }
+
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -247,11 +262,12 @@ public class LibrarySelector implements ElementNotFoundNotification {
          * @param inputNames     the names of the input signals
          */
         public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, PinDescription... inputNames) {
-            super(file.getName(), elementFactory, inputNames);
+            super(file.getPath(), elementFactory, inputNames);
             this.file = file;
             this.attributes = attributes;
             if (attributes.contains(Keys.DESCRIPTION))
                 setDescription(attributes.get(Keys.DESCRIPTION));
+            setShortName(file.getName());
         }
 
         /**
