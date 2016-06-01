@@ -11,6 +11,7 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -443,7 +444,7 @@ public class Circuit {
     public PinDescription[] getInputNames() throws PinException {
         ArrayList<PinDescription> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
-            if (ve.getElementName().equals(In.DESCRIPTION.getName())) {
+            if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
                 String name = ve.getElementAttributes().getLabel();
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));

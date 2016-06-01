@@ -343,4 +343,14 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         this.shapeFactory = shapeFactory;
         return this;
     }
+
+    /**
+     * Returns true if this emenet is from the given type
+     *
+     * @param description the description of the type
+     * @return true if element is of the given type
+     */
+    public boolean equalsDescription(ElementTypeDescription description) {
+        return elementName.equals(description.getName());
+    }
 }

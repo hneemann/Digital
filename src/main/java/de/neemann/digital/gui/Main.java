@@ -7,6 +7,8 @@ import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
@@ -343,7 +345,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), "In");
+                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(),
+                        element -> element.equalsDescription(In.DESCRIPTION)
+                                || element.equalsDescription(Clock.DESCRIPTION));
                 new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).showDialog();
             }
         }.setToolTip(Lang.get("menu_orderInputs_tt"));
@@ -351,7 +355,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction orderOutputs = new ToolTipAction(Lang.get("menu_orderOutputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), "Out");
+                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), Out.DESCRIPTION);
                 new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).showDialog();
             }
         }.setToolTip(Lang.get("menu_orderOutputs_tt"));

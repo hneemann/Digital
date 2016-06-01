@@ -8,6 +8,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -88,7 +89,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
             // separate map to connect it with the parent!
             boolean isNotAIO = true;
             if (isNestedCircuit) {
-                if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION) {
+                if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION || elementType == Clock.DESCRIPTION) {
                     String label = ve.getElementAttributes().getLabel();
                     if (label == null || label.length() == 0)
                         throw new PinException(Lang.get("err_pinWithoutName", fileName));

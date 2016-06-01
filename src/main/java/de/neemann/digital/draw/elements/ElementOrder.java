@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.elements;
 
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.gui.components.ElementOrderer;
 
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
     /**
      * Creates a new instance
      *
-     * @param circuit the circuit witch components are to order
-     * @param name    the name of the elements to order
+     * @param circuit     the circuit witch components are to order
+     * @param description the description of the elements to order
      */
-    public ElementOrder(Circuit circuit, String name) {
+    public ElementOrder(Circuit circuit, ElementTypeDescription description) {
         this(circuit, element -> {
-            return element.getElementName().equals(name);
+            return element.equalsDescription(description);
         });
     }
 
