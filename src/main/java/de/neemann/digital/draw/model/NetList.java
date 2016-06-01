@@ -29,7 +29,7 @@ public class NetList implements Iterable<Net> {
             add(w);
 
         for (VisualElement ve : circuit.getElements())
-            if (ve.getElementName().equals(Tunnel.DESCRIPTION.getName())) {
+            if (ve.equalsDescription(Tunnel.DESCRIPTION)) {
                 Vector pos = ve.getPos();
                 Net found = null;
                 for (Net n : netList)

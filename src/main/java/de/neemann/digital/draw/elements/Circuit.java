@@ -470,7 +470,7 @@ public class Circuit {
     public ObservableValues getOutputNames() throws PinException {
         ArrayList<ObservableValue> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
-            if (ve.getElementName().equals(Out.DESCRIPTION.getName())) {
+            if (ve.equalsDescription(Out.DESCRIPTION)) {
                 String name = ve.getElementAttributes().getLabel();
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
