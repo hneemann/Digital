@@ -110,7 +110,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Returns a {@link ElementTypeDescription} by a given name.
-     * If not found its tryed to load it.
+     * If not found its tried to load it.
      *
      * @param elementName the elements name
      * @return the {@link ElementTypeDescription} ore null if not found
