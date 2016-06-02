@@ -51,8 +51,8 @@ public class PinMap {
      * @throws PinMapException FuseMapFillerException
      */
     public PinMap assignPin(String name, int pin) throws PinMapException {
-        if (name==null || name.length()==0)
-            throw new PinMapException("no name for pin " + pin);
+        if (name == null || name.length() == 0)
+            throw new PinMapException("No name for pin " + pin);
         if (pinMap.containsKey(name))
             throw new PinMapException("Pin " + name + " assigned twice");
         if (pinMap.containsValue(pin))
@@ -63,17 +63,18 @@ public class PinMap {
 
     /**
      * Assigns pins to names.
-     * Strings must have the form of "a=5, Q_0=6"
+     * Strings must have a form of "a=5, Q_0=6"
      *
      * @param assignment the assignment string
      * @return this for chained calls
+     * @throws PinMapException PinMapException
      */
     public PinMap parseString(String assignment) throws PinMapException {
         StringTokenizer st = new StringTokenizer(assignment, ";,");
         while (st.hasMoreTokens()) {
             String tok = st.nextToken();
             int p = tok.indexOf("=");
-            if (p < 0) throw new PinMapException("no = found!");
+            if (p < 0) throw new PinMapException("No = found!");
 
             String name = tok.substring(0, p).trim();
             String numStr = tok.substring(p + 1).trim();
@@ -117,9 +118,9 @@ public class PinMap {
         if (p == null)
             p = search(inputPins, in);
         if (p == null) {
-            throw new PinMapException("to manny inputs defined");
+            throw new PinMapException("To manny inputs defined!");
         } else if (!contains(inputPins, p)) {
-            throw new PinMapException("input " + p + " not allowed!");
+            throw new PinMapException("Input " + p + " not allowed!");
         }
         return p;
     }
@@ -137,9 +138,9 @@ public class PinMap {
         if (p == null)
             p = search(outputPins, out);
         if (p == null) {
-            throw new PinMapException("to manny outputs defined");
+            throw new PinMapException("To manny outputs defined!");
         } else if (!contains(outputPins, p)) {
-            throw new PinMapException("output " + p + " not allowed!");
+            throw new PinMapException("Output " + p + " not allowed!");
         }
         return p;
     }
