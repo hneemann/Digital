@@ -13,7 +13,7 @@ public class PinMapTest extends TestCase {
     public void setUp() throws Exception {
         pinMap = new PinMap()
                 .setAvailInputs(1, 2, 3)
-                .setAvailOutputs(1, 2);
+                .setAvailOutputs(4, 5, 6);
 
     }
 
@@ -55,11 +55,12 @@ public class PinMapTest extends TestCase {
     }
 
     public void testOutputs() throws PinMapException {
-        pinMap.assignPin("a", 2);
-        assertEquals(2, pinMap.getOutputFor("a"));
-        assertEquals(2, pinMap.getOutputFor("a"));
-        assertEquals(1, pinMap.getOutputFor("b"));
-        assertEquals(1, pinMap.getOutputFor("b"));
+        pinMap.assignPin("a", 5);
+        assertEquals(5, pinMap.getOutputFor("a"));
+        assertEquals(5, pinMap.getOutputFor("a"));
+        assertEquals(4, pinMap.getOutputFor("b"));
+        assertEquals(4, pinMap.getOutputFor("b"));
+        assertEquals(6, pinMap.getOutputFor("d"));
 
         try {
             pinMap.getOutputFor("c");
@@ -68,4 +69,40 @@ public class PinMapTest extends TestCase {
             assertTrue(true);
         }
     }
+
+    public void testParse() throws PinMapException {
+        pinMap.parseString("a=5, Q_0=6");
+        assertEquals(6, pinMap.getOutputFor("Q_0"));
+        assertEquals(5, pinMap.getOutputFor("a"));
+    }
+
+    public void testParse2() throws PinMapException {
+        pinMap.parseString("a=5").parseString("Q_0=6");
+        assertEquals(6, pinMap.getOutputFor("Q_0"));
+        assertEquals(5, pinMap.getOutputFor("a"));
+    }
+
+    public void testParse3() {
+        try {
+            pinMap.parseString("a0");
+            assertTrue(false);
+        } catch (PinMapException e) {
+            assertTrue(true);
+        }
+
+        try {
+            pinMap.parseString("a=");
+            assertTrue(false);
+        } catch (PinMapException e) {
+            assertTrue(true);
+        }
+
+        try {
+            pinMap.parseString("=7");
+            assertTrue(false);
+        } catch (PinMapException e) {
+            assertTrue(true);
+        }
+    }
+
 }
