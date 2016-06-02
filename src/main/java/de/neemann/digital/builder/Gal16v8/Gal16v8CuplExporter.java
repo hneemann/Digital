@@ -5,10 +5,7 @@ import de.neemann.digital.analyse.expression.ExpressionVisitor;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
-import de.neemann.digital.builder.BuilderCollector;
-import de.neemann.digital.builder.BuilderException;
-import de.neemann.digital.builder.ExpressionExporter;
-import de.neemann.digital.builder.PinMap;
+import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.lang.Lang;
 
@@ -70,9 +67,8 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
     }
 
     @Override
-    public Gal16v8CuplExporter assignPin(String name, int pin) throws FuseMapFillerException {
-        pinMap.assignPin(name, pin);
-        return this;
+    public PinMap getPinMapping() {
+        return pinMap;
     }
 
     /**
@@ -81,8 +77,9 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
      * @param out the stream to write to
      * @throws IOException            IOException
      * @throws FuseMapFillerException FuseMapFillerException
+     * @throws PinMapException        PinMapException
      */
-    public void writeTo(Writer out) throws IOException, FuseMapFillerException {
+    public void writeTo(Writer out) throws IOException, FuseMapFillerException, PinMapException {
         out
                 .append("Name     ").append(projectName).append(" ;\r\n")
                 .append("PartNo   00 ;\r\n")
@@ -134,7 +131,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
     }
 
     @Override
-    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException {
+    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
         writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
     }
 

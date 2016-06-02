@@ -2,10 +2,7 @@ package de.neemann.digital.builder.Gal16v8;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.builder.BuilderCollector;
-import de.neemann.digital.builder.BuilderException;
-import de.neemann.digital.builder.ExpressionExporter;
-import de.neemann.digital.builder.PinMap;
+import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.jedec.FuseMap;
 import de.neemann.digital.builder.jedec.FuseMapFiller;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
@@ -88,13 +85,12 @@ public class Gal16v8JEDECExporter implements ExpressionExporter<Gal16v8JEDECExpo
     }
 
     @Override
-    public Gal16v8JEDECExporter assignPin(String name, int pin) throws FuseMapFillerException {
-        pinMap.assignPin(name, pin);
-        return this;
+    public PinMap getPinMapping() {
+        return pinMap;
     }
 
     @Override
-    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException {
+    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
         boolean registered = !builder.getRegistered().isEmpty();
         init(registered);
 

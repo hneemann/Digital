@@ -57,7 +57,8 @@ public class Gal16V8JEDECExporterTest extends TestCase {
                 and(Q2, Q1));
 
 
-        Gal16v8JEDECExporter gal = new Gal16v8JEDECExporter()
+        Gal16v8JEDECExporter gal = new Gal16v8JEDECExporter();
+        gal.getPinMapping()
                 .assignPin("D", 2)
                 .assignPin("Q0", 12)
                 .assignPin("Q1", 13)
@@ -141,7 +142,8 @@ public class Gal16V8JEDECExporterTest extends TestCase {
         //Y_1 = (A & C) # (A & B) # (B & C);
         Expression Y_1 = or(and(A, C), and(A, B), and(B, C));
 
-        Gal16v8JEDECExporter gal = new Gal16v8JEDECExporter()
+        Gal16v8JEDECExporter gal = new Gal16v8JEDECExporter();
+        gal.getPinMapping()
                 .assignPin("A", 2)
                 .assignPin("B", 3)
                 .assignPin("C", 4)

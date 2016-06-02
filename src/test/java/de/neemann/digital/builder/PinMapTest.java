@@ -1,6 +1,5 @@
 package de.neemann.digital.builder;
 
-import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import junit.framework.TestCase;
 
 /**
@@ -18,27 +17,27 @@ public class PinMapTest extends TestCase {
 
     }
 
-    public void testDoubleAssignment() throws FuseMapFillerException {
+    public void testDoubleAssignment() throws PinMapException {
         pinMap.assignPin("a", 2);
         try {
             pinMap.assignPin("b", 2);
             assertTrue(false);
-        } catch (FuseMapFillerException e) {
+        } catch (PinMapException e) {
             assertTrue(true);
         }
     }
 
-    public void testDoubleAssignment2() throws FuseMapFillerException {
+    public void testDoubleAssignment2() throws PinMapException {
         pinMap.assignPin("a", 2);
         try {
             pinMap.assignPin("a", 3);
             assertTrue(false);
-        } catch (FuseMapFillerException e) {
+        } catch (PinMapException e) {
             assertTrue(true);
         }
     }
 
-    public void testInputs() throws FuseMapFillerException {
+    public void testInputs() throws PinMapException {
         pinMap.assignPin("a", 2);
         assertEquals(2, pinMap.getInputFor("a"));
         assertEquals(2, pinMap.getInputFor("a"));
@@ -50,12 +49,12 @@ public class PinMapTest extends TestCase {
         try {
             pinMap.getInputFor("d");
             assertTrue(false);
-        } catch (FuseMapFillerException e) {
+        } catch (PinMapException e) {
             assertTrue(true);
         }
     }
 
-    public void testOutputs() throws FuseMapFillerException {
+    public void testOutputs() throws PinMapException {
         pinMap.assignPin("a", 2);
         assertEquals(2, pinMap.getOutputFor("a"));
         assertEquals(2, pinMap.getOutputFor("a"));
@@ -65,7 +64,7 @@ public class PinMapTest extends TestCase {
         try {
             pinMap.getOutputFor("c");
             assertTrue(false);
-        } catch (FuseMapFillerException e) {
+        } catch (PinMapException e) {
             assertTrue(true);
         }
     }

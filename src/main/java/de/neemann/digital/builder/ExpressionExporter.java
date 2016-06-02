@@ -20,15 +20,13 @@ public interface ExpressionExporter<T extends ExpressionExporter> {
     BuilderInterface getBuilder();
 
     /**
-     * Sets a pin number for a signal.
-     * If no pin is set a suited pin is chosen automatically
+     * Gets the pin mapping which is to use/was used.
+     * You can modify the mapping before getBuilder is called.
+     * After the export you will find the used pin mapping.
      *
-     * @param name the signals name
-     * @param pin  the pin to use
-     * @return this for chained calls
-     * @throws FuseMapFillerException FuseMapFillerException
+     * @return the aktual pin mapping
      */
-    T assignPin(String name, int pin) throws FuseMapFillerException;
+    PinMap getPinMapping();
 
     /**
      * Writes the JEDEC file to the given output stream
@@ -37,5 +35,5 @@ public interface ExpressionExporter<T extends ExpressionExporter> {
      * @throws FuseMapFillerException FuseMapFillerException
      * @throws IOException            IOException
      */
-    void writeTo(OutputStream out) throws FuseMapFillerException, IOException;
+    void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException;
 }

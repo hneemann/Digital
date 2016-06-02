@@ -1,10 +1,9 @@
 package de.neemann.digital.builder;
 
-import de.neemann.digital.builder.jedec.FuseMapFillerException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A PinMap.
@@ -52,13 +51,13 @@ public class PinMap {
      * @param name the name
      * @param pin  the pin
      * @return this for chained calls
-     * @throws FuseMapFillerException FuseMapFillerException
+     * @throws PinMapException FuseMapFillerException
      */
-    public PinMap assignPin(String name, int pin) throws FuseMapFillerException {
+    public PinMap assignPin(String name, int pin) throws PinMapException {
         if (pinMap.containsKey(name))
-            throw new FuseMapFillerException("Pin " + name + " assigned twice");
+            throw new PinMapException("Pin " + name + " assigned twice");
         if (pinMap.containsValue(pin))
-            throw new FuseMapFillerException("Pin " + pin + " assigned twice");
+            throw new PinMapException("Pin " + pin + " assigned twice");
         pinMap.put(name, pin);
         return this;
     }
@@ -85,16 +84,16 @@ public class PinMap {
      *
      * @param in the name
      * @return the  pin number
-     * @throws FuseMapFillerException FuseMapFillerException
+     * @throws PinMapException PinMap
      */
-    public int getInputFor(String in) throws FuseMapFillerException {
+    public int getInputFor(String in) throws PinMapException {
         Integer p = pinMap.get(in);
         if (p == null)
             p = search(inputPins, in);
         if (p == null) {
-            throw new FuseMapFillerException("to manny inputs defined");
+            throw new PinMapException("to manny inputs defined");
         } else if (!contains(inputPins, p)) {
-            throw new FuseMapFillerException("input " + p + " not allowed!");
+            throw new PinMapException("input " + p + " not allowed!");
         }
         return p;
     }
@@ -105,16 +104,16 @@ public class PinMap {
      *
      * @param out the name
      * @return the  pin number
-     * @throws FuseMapFillerException FuseMapFillerException
+     * @throws PinMapException FuseMapFillerException
      */
-    public int getOutputFor(String out) throws FuseMapFillerException {
+    public int getOutputFor(String out) throws PinMapException {
         Integer p = pinMap.get(out);
         if (p == null)
             p = search(outputPins, out);
         if (p == null) {
-            throw new FuseMapFillerException("to manny outputs defined");
+            throw new PinMapException("to manny outputs defined");
         } else if (!contains(outputPins, p)) {
-            throw new FuseMapFillerException("output " + p + " not allowed!");
+            throw new PinMapException("output " + p + " not allowed!");
         }
         return p;
     }
@@ -130,5 +129,39 @@ public class PinMap {
             if (!pinMap.containsValue(i))
                 uo.add(i);
         return uo;
+    }
+
+    @Override
+    public String toString() {
+
+        HashMap<Integer, String> revMap = new HashMap<>();
+        for (Map.Entry<String, Integer> i : pinMap.entrySet())
+            revMap.put(i.getValue(), i.getKey());
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Inputs:\n");
+        for (int i : inputPins)
+            sb.append("Pin ")
+                    .append(i)
+                    .append(": ")
+                    .append(checkName(revMap.get(i)))
+                    .append("\n");
+
+
+        sb.append("\nOutputs:\n");
+        for (int i : outputPins)
+            sb.append("Pin ")
+                    .append(i)
+                    .append(": ")
+                    .append(checkName(revMap.get(i)))
+                    .append("\n");
+
+        return sb.toString();
+    }
+
+    private String checkName(String s) {
+        if (s == null) return "not used";
+        return s;
     }
 }
