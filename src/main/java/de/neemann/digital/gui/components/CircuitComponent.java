@@ -647,7 +647,6 @@ public class CircuitComponent extends JComponent {
         private static final int MIN_SIZE = 8;
         private Vector corner1;
         private Vector corner2;
-        private int downButton;
         private boolean wasReleased;
 
         private MouseControllerSelect(Cursor cursor) {
@@ -666,11 +665,6 @@ public class CircuitComponent extends JComponent {
         void clicked(MouseEvent e) {
             mouseNormal.activate();
             removeHighLighted();
-        }
-
-        @Override
-        void pressed(MouseEvent e) {
-            downButton = e.getButton();
         }
 
         @Override
