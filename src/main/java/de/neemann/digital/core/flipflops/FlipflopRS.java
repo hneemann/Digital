@@ -84,7 +84,7 @@ public class FlipflopRS extends Node implements Element {
     public void registerNodes(Model model) {
         super.registerNodes(model);
         if (isProbe)
-            model.addSignal(label, q);
+            model.addSignal(new Signal(label, q));
     }
 
 }

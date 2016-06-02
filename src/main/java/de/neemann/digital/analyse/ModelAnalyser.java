@@ -5,6 +5,7 @@ import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.lang.Lang;
 
@@ -20,8 +21,8 @@ import java.util.List;
 public class ModelAnalyser {
 
     private final Model model;
-    private final ArrayList<Model.Signal> inputs;
-    private final ArrayList<Model.Signal> outputs;
+    private final ArrayList<Signal> inputs;
+    private final ArrayList<Signal> outputs;
     private final int rows;
 
     /**
@@ -46,10 +47,10 @@ public class ModelAnalyser {
             if (!label.endsWith("n"))
                 label += "n";
 
-            outputs.add(i++, new Model.Signal(label + "+1", ff.getDInput()));
+            outputs.add(i++, new Signal(label + "+1", ff.getDInput()));
 
             ObservableValue q = ff.getOutputs().get(0);
-            inputs.add(new Model.Signal(label, q));
+            inputs.add(new Signal(label, q));
 
             ObservableValue notQ = ff.getOutputs().get(1);
             if (notQ.observerCount() > 0)
@@ -65,8 +66,8 @@ public class ModelAnalyser {
         rows = 1 << inputs.size();
     }
 
-    private ArrayList<Model.Signal> checkBinary(ArrayList<Model.Signal> list) throws AnalyseException {
-        for (Model.Signal s : list)
+    private ArrayList<Signal> checkBinary(ArrayList<Signal> list) throws AnalyseException {
+        for (Signal s : list)
             if (s.getValue().getBits() != 1)
                 throw new AnalyseException(Lang.get("err_analyseValue_N_IsNotBinary", s.getName()));
         return list;
@@ -88,11 +89,11 @@ public class ModelAnalyser {
         };
 
         TruthTable tt = new TruthTable();
-        for (Model.Signal s : inputs)
+        for (Signal s : inputs)
             tt.addVariable(s.getName());
 
         ArrayList<BoolTableIntArray> data = new ArrayList<>();
-        for (Model.Signal s : outputs) {
+        for (Signal s : outputs) {
             BoolTableIntArray e = new BoolTableIntArray(rows);
             data.add(e);
             tt.addResult(s.getName(), e);

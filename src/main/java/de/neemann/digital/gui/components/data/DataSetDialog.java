@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components.data;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
@@ -44,10 +45,10 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
-        ArrayList<Model.Signal> signals = model.getSignalsCopy();
-        new OrderMerger<String, Model.Signal>(ordering) {
+        ArrayList<Signal> signals = model.getSignalsCopy();
+        new OrderMerger<String, Signal>(ordering) {
             @Override
-            public boolean equals(Model.Signal a, String b) {
+            public boolean equals(Signal a, String b) {
                 return a.getName().equals(b);
             }
         }.order(signals);

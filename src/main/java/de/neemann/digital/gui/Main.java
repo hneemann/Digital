@@ -513,7 +513,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             Model m = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
             elementState.activate();
             ArrayList<String> names = new ArrayList<>();
-            for (Model.Signal s : m.getSignals())
+            for (Signal s : m.getSignals())
                 names.add(s.getName());
             new OrderMerger<String, String>(circuitComponent.getCircuit().getMeasurementOrdering()).order(names);
             ElementOrderer.ListOrder<String> o = new ElementOrderer.ListOrder<>(names);

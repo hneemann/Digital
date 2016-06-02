@@ -1,6 +1,6 @@
 package de.neemann.digital.gui.components.data;
 
-import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
@@ -18,7 +18,7 @@ import java.util.Iterator;
  * @author hneemann
  */
 public class DataSet implements Iterable<DataSample>, Drawable {
-    private final ArrayList<Model.Signal> signals;
+    private final ArrayList<Signal> signals;
     private final int maxSize;
     private final ArrayList<DataSample> samples;
     private final int maxTextLength;
@@ -34,11 +34,11 @@ public class DataSet implements Iterable<DataSample>, Drawable {
         add(new DataSample(1, signalSize()).setValue(1, 1));
     }
 
-    private static ArrayList<Model.Signal> createDummy() {
-        ArrayList<Model.Signal> list = new ArrayList<>();
-        list.add(new Model.Signal("A", null));
-        list.add(new Model.Signal("B", null));
-        list.add(new Model.Signal("C", null));
+    private static ArrayList<Signal> createDummy() {
+        ArrayList<Signal> list = new ArrayList<>();
+        list.add(new Signal("A", null));
+        list.add(new Signal("B", null));
+        list.add(new Signal("C", null));
         return list;
     }
 
@@ -48,7 +48,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
      * @param signals the signals used to collect DataSamples
      * @param maxSize max size of data elements
      */
-    public DataSet(ArrayList<Model.Signal> signals, int maxSize) {
+    public DataSet(ArrayList<Signal> signals, int maxSize) {
         this.signals = signals;
         this.maxSize = maxSize;
         samples = new ArrayList<>();
@@ -142,7 +142,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
      * @param i the index
      * @return the signal
      */
-    public Model.Signal getSignal(int i) {
+    public Signal getSignal(int i) {
         return signals.get(i);
     }
 
@@ -213,7 +213,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     /**
      * @return the signals stored
      */
-    public ArrayList<Model.Signal> getSignals() {
+    public ArrayList<Signal> getSignals() {
         return signals;
     }
 
@@ -236,7 +236,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     public void saveCSV(BufferedWriter w) throws IOException {
         try {
             w.write("\"step\"");
-            for (Model.Signal s : signals)
+            for (Signal s : signals)
                 w.write(",\"" + s.getName() + '"');
             w.write("\n");
             for (DataSample s : samples) {

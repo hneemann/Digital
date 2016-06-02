@@ -1,6 +1,6 @@
 package de.neemann.digital.gui.components.data;
 
-import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Signal;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class DataSample {
      * @param signals the signals to create a sample from
      * @return the sample to allow chained calls
      */
-    public DataSample fillWith(ArrayList<Model.Signal> signals) {
+    public DataSample fillWith(ArrayList<Signal> signals) {
         for (int i = 0; i < signals.size(); i++)
             values[i] = signals.get(i).getValue().getValueIgnoreBurn();
         return this;

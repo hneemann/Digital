@@ -1,9 +1,6 @@
 package de.neemann.digital.core.io;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -49,6 +46,6 @@ public class Button implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addSignal(label, output);
+        model.addSignal(new Signal(label, output));
     }
 }

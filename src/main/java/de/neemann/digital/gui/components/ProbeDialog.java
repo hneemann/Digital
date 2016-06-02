@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
@@ -36,10 +37,10 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.type = type;
 
-        ArrayList<Model.Signal> signals = model.getSignalsCopy();
-        new OrderMerger<String, Model.Signal>(ordering) {
+        ArrayList<Signal> signals = model.getSignalsCopy();
+        new OrderMerger<String, Signal>(ordering) {
             @Override
-            public boolean equals(Model.Signal a, String b) {
+            public boolean equals(Signal a, String b) {
                 return a.getName().equals(b);
             }
         }.order(signals);
@@ -75,10 +76,10 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
     }
 
     private static class SignalTableModel implements TableModel {
-        private final ArrayList<Model.Signal> signals;
+        private final ArrayList<Signal> signals;
         private ArrayList<TableModelListener> listeners = new ArrayList<>();
 
-        SignalTableModel(ArrayList<Model.Signal> signals) {
+        SignalTableModel(ArrayList<Signal> signals) {
             this.signals = signals;
         }
 

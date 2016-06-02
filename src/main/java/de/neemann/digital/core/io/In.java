@@ -1,9 +1,6 @@
 package de.neemann.digital.core.io;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -39,6 +36,7 @@ public class In implements Element {
 
     private final ObservableValue output;
     private final String label;
+    private final String description;
 
     /**
      * Create a new instance
@@ -50,6 +48,7 @@ public class In implements Element {
         output = new ObservableValue("out", attributes.get(Keys.BITS), highZ);
         output.setValue(attributes.get(Keys.DEFAULT));
         label = attributes.getCleanLabel();
+        description = attributes.get(Keys.DESCRIPTION);
     }
 
     @Override
@@ -64,6 +63,6 @@ public class In implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addInput(label, output);
+        model.addInput(new Signal(label, output).setDescription(description));
     }
 }

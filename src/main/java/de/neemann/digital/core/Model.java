@@ -372,27 +372,20 @@ public class Model {
     /**
      * registers a Signal to the model
      *
-     * @param name  the signals name
-     * @param value the signals value
+     * @param signal the signal
      */
-    public void addSignal(String name, ObservableValue value) {
-        if (isSignal(name, value))
-            signals.add(new Signal(name, value));
-    }
-
-    private static boolean isSignal(String name, ObservableValue value) {
-        return name != null && name.length() > 0 && value != null;
+    public void addSignal(Signal signal) {
+        if (signal.isValid())
+            signals.add(signal);
     }
 
     /**
      * registers a input to the model
      *
-     * @param name  the signals name
-     * @param value the signals value
+     * @param signal the signal
      */
-    public void addInput(String name, ObservableValue value) {
-        if (isSignal(name, value)) {
-            Signal signal = new Signal(name, value);
+    public void addInput(Signal signal) {
+        if (signal.isValid()) {
             signals.add(signal);
             inputs.add(signal);
         }
@@ -408,12 +401,10 @@ public class Model {
     /**
      * registers a output to the model
      *
-     * @param name  the signals name
-     * @param value the signals value
+     * @param signal the signal
      */
-    public void addOutput(String name, ObservableValue value) {
-        if (isSignal(name, value)) {
-            Signal signal = new Signal(name, value);
+    public void addOutput(Signal signal) {
+        if (signal.isValid()) {
             signals.add(signal);
             outputs.add(signal);
         }
@@ -471,65 +462,6 @@ public class Model {
      */
     public int size() {
         return nodes.size();
-    }
-
-    /**
-     * A simple storage bean for signals
-     */
-    public static final class Signal implements Comparable<Signal> {
-        private final String name;
-        private final ObservableValue value;
-
-        /**
-         * Creates a new Instance
-         *
-         * @param name  the name of the Signal
-         * @param value the signals value
-         */
-        public Signal(String name, ObservableValue value) {
-            this.name = name;
-            this.value = value;
-        }
-
-        /**
-         * @return the name
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         * @return the value
-         */
-        public ObservableValue getValue() {
-            return value;
-        }
-
-        @Override
-        public int compareTo(Signal o) {
-            return name.compareTo(o.name);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Signal signal = (Signal) o;
-
-            return name.equals(signal.name);
-
-        }
-
-        @Override
-        public int hashCode() {
-            return name.hashCode();
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
     }
 
     /**

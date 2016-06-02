@@ -2,6 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
@@ -68,10 +69,10 @@ public class DataShape implements Shape {
 
     @Override
     public void registerModel(ModelDescription modelDescription, Model model, ModelEntry element) {
-        ArrayList<Model.Signal> signals = model.getSignalsCopy();
-        new OrderMerger<String, Model.Signal>(modelDescription.getCircuit().getMeasurementOrdering()) {
+        ArrayList<Signal> signals = model.getSignalsCopy();
+        new OrderMerger<String, Signal>(modelDescription.getCircuit().getMeasurementOrdering()) {
             @Override
-            public boolean equals(Model.Signal a, String b) {
+            public boolean equals(Signal a, String b) {
                 return a.getName().equals(b);
             }
         }.order(signals);

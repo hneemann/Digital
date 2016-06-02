@@ -1,9 +1,6 @@
 package de.neemann.digital.core.io;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -27,7 +24,7 @@ public class Out implements Element {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
             String d = elementAttributes.get(Keys.DESCRIPTION);
-            if (d.length()>0)
+            if (d.length() > 0)
                 return d;
             else
                 return Lang.get("elem_Out");
@@ -72,6 +69,7 @@ public class Out implements Element {
 
     private final int[] bits;
     private final String label;
+    private final String description;
     private ObservableValue value;
 
     /**
@@ -82,6 +80,7 @@ public class Out implements Element {
     public Out(ElementAttributes attributes) {
         bits = new int[]{attributes.getBits()};
         label = attributes.getCleanLabel();
+        description = attributes.get(Keys.DESCRIPTION);
     }
 
     /**
@@ -92,6 +91,7 @@ public class Out implements Element {
     public Out(int... bits) {
         this.bits = bits;
         label = null;
+        description = null;
     }
 
     @Override
@@ -110,6 +110,6 @@ public class Out implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addOutput(label, value);
+        model.addOutput(new Signal(label, value).setDescription(description));
     }
 }

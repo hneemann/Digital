@@ -1,9 +1,6 @@
 package de.neemann.digital.core.wiring;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -57,7 +54,7 @@ public class Clock implements Element {
     @Override
     public void registerNodes(Model model) {
         model.addClock(this);
-        model.addSignal(label, output);
+        model.addSignal(new Signal(label, output));
     }
 
     /**
