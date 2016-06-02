@@ -1,5 +1,7 @@
 package de.neemann.digital.builder;
 
+import de.neemann.digital.lang.Lang;
+
 import java.util.*;
 
 /**
@@ -52,11 +54,11 @@ public class PinMap {
      */
     public PinMap assignPin(String name, int pin) throws PinMapException {
         if (name == null || name.length() == 0)
-            throw new PinMapException("No name for pin " + pin);
+            throw new PinMapException(Lang.get("err_pinMap_NoNameForPin_N", pin));
         if (pinMap.containsKey(name))
-            throw new PinMapException("Pin " + name + " assigned twice");
+            throw new PinMapException(Lang.get("err_pinMap_Pin_N_AssignedTwicerPin", name));
         if (pinMap.containsValue(pin))
-            throw new PinMapException("Pin " + pin + " assigned twice");
+            throw new PinMapException(Lang.get("err_pinMap_Pin_N_AssignedTwicerPin", pin));
         pinMap.put(name, pin);
         return this;
     }
@@ -74,7 +76,7 @@ public class PinMap {
         while (st.hasMoreTokens()) {
             String tok = st.nextToken();
             int p = tok.indexOf("=");
-            if (p < 0) throw new PinMapException("No = found!");
+            if (p < 0) throw new PinMapException(Lang.get("err_pinMap_noEqualsfound"));
 
             String name = tok.substring(0, p).trim();
             String numStr = tok.substring(p + 1).trim();
@@ -118,9 +120,9 @@ public class PinMap {
         if (p == null)
             p = search(inputPins, in);
         if (p == null) {
-            throw new PinMapException("To manny inputs defined!");
+            throw new PinMapException(Lang.get("err_pinMap_toMannyInputsDefined"));
         } else if (!contains(inputPins, p)) {
-            throw new PinMapException("Input " + p + " not allowed!");
+            throw new PinMapException(Lang.get("err_pinMap_input_N_notAllowed", p));
         }
         return p;
     }
@@ -138,9 +140,9 @@ public class PinMap {
         if (p == null)
             p = search(outputPins, out);
         if (p == null) {
-            throw new PinMapException("To manny outputs defined!");
+            throw new PinMapException(Lang.get("err_pinMap_toMannyOutputsDefined"));
         } else if (!contains(outputPins, p)) {
-            throw new PinMapException("Output " + p + " not allowed!");
+            throw new PinMapException(Lang.get("err_pinMap_Output_N_notAllowed", p));
         }
         return p;
     }
@@ -160,35 +162,26 @@ public class PinMap {
 
     @Override
     public String toString() {
-
         HashMap<Integer, String> revMap = new HashMap<>();
         for (Map.Entry<String, Integer> i : pinMap.entrySet())
             revMap.put(i.getValue(), i.getKey());
 
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Inputs:\n");
+        sb.append(Lang.get("msg_pinMap_inputs")).append(":\n");
         for (int i : inputPins)
-            sb.append("Pin ")
-                    .append(i)
-                    .append(": ")
-                    .append(checkName(revMap.get(i)))
-                    .append("\n");
+            sb.append(Lang.get("msg_pinMap_pin_N_is_N", i, checkName(revMap.get(i)))).append("\n");
 
 
-        sb.append("\nOutputs:\n");
+        sb.append("\n").append(Lang.get("msg_pinMap_outputs")).append(":\n");
         for (int i : outputPins)
-            sb.append("Pin ")
-                    .append(i)
-                    .append(": ")
-                    .append(checkName(revMap.get(i)))
-                    .append("\n");
+            sb.append(Lang.get("msg_pinMap_pin_N_is_N", i, checkName(revMap.get(i)))).append("\n");
 
         return sb.toString();
     }
 
     private String checkName(String s) {
-        if (s == null) return "not used";
+        if (s == null) return Lang.get("msg_pinMap_notUsed");
         return s;
     }
 }

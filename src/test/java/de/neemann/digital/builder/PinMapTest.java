@@ -105,4 +105,18 @@ public class PinMapTest extends TestCase {
         }
     }
 
+    // ToDo: fails if language is not german!
+    public void testToString() throws PinMapException {
+        pinMap.assignPin("A", 1);
+        pinMap.assignPin("B", 4);
+        assertEquals("Eingänge:\n" +
+                "Pin 1: A\n" +
+                "Pin 2: nicht verwendet\n" +
+                "Pin 3: nicht verwendet\n" +
+                "\n" +
+                "Ausgänge:\n" +
+                "Pin 4: B\n" +
+                "Pin 5: nicht verwendet\n" +
+                "Pin 6: nicht verwendet\n", pinMap.toString());
+    }
 }
