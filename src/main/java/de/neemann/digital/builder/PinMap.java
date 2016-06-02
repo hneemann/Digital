@@ -142,7 +142,7 @@ public class PinMap {
         if (p == null) {
             throw new PinMapException(Lang.get("err_pinMap_toMannyOutputsDefined"));
         } else if (!contains(outputPins, p)) {
-            throw new PinMapException(Lang.get("err_pinMap_Output_N_notAllowed", p));
+            throw new PinMapException(Lang.get("err_pinMap_output_N_notAllowed", p));
         }
         return p;
     }
