@@ -72,6 +72,9 @@ public class PinMap {
      * @throws PinMapException PinMapException
      */
     public PinMap parseString(String assignment) throws PinMapException {
+        if (assignment == null)
+            return this;
+
         StringTokenizer st = new StringTokenizer(assignment, ";,");
         while (st.hasMoreTokens()) {
             String tok = st.nextToken();

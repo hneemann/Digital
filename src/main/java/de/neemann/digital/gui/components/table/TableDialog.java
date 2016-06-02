@@ -65,6 +65,7 @@ public class TableDialog extends JDialog {
     private TableColumn column;
     private int columnIndex;
     private AllSolutionsDialog allSolutionsDialog;
+    private String pinDescription;
 
     /**
      * Creates a new instance
@@ -287,6 +288,7 @@ public class TableDialog extends JDialog {
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 try (OutputStream out = new FileOutputStream(fileChooser.getSelectedFile())) {
+                    expressionExporter.getPinMapping().parseString(pinDescription);
                     new BuiderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
                     expressionExporter.writeTo(out);
                 }
@@ -328,6 +330,7 @@ public class TableDialog extends JDialog {
                 f = new File(f.getParentFile(), name);
 
                 Gal16v8CuplExporter cupl = new Gal16v8CuplExporter(name.substring(0, name.length() - 4));
+                cupl.getPinMapping().parseString(pinDescription);
                 new BuiderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
                 try (FileOutputStream out = new FileOutputStream(f)) {
                     cupl.writeTo(out);
@@ -360,6 +363,17 @@ public class TableDialog extends JDialog {
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
         calculateExpressions();
+    }
+
+    /**
+     * Sets a pin description
+     *
+     * @param pinDescription the pin description
+     * @return this for chained calls
+     */
+    public TableDialog setPinDescription(String pinDescription) {
+        this.pinDescription = pinDescription;
+        return this;
     }
 
     private class CalculationTableModelListener implements TableModelListener {
