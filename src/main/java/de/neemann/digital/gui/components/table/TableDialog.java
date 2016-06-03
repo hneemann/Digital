@@ -12,12 +12,9 @@ import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
-import de.neemann.digital.builder.BuilderException;
-import de.neemann.digital.builder.BuilderInterface;
-import de.neemann.digital.builder.ExpressionExporter;
+import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
-import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.draw.elements.Circuit;
@@ -65,7 +62,7 @@ public class TableDialog extends JDialog {
     private TableColumn column;
     private int columnIndex;
     private AllSolutionsDialog allSolutionsDialog;
-    private String pinDescription;
+    private PinMap pinMap;
 
     /**
      * Creates a new instance
@@ -288,7 +285,7 @@ public class TableDialog extends JDialog {
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 try (OutputStream out = new FileOutputStream(fileChooser.getSelectedFile())) {
-                    expressionExporter.getPinMapping().parseString(pinDescription);
+                    expressionExporter.getPinMapping().addAll(pinMap);
                     new BuiderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
                     expressionExporter.writeTo(out);
                 }
@@ -330,7 +327,7 @@ public class TableDialog extends JDialog {
                 f = new File(f.getParentFile(), name);
 
                 Gal16v8CuplExporter cupl = new Gal16v8CuplExporter(name.substring(0, name.length() - 4));
-                cupl.getPinMapping().parseString(pinDescription);
+                cupl.getPinMapping().addAll(pinMap);
                 new BuiderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
                 try (FileOutputStream out = new FileOutputStream(f)) {
                     cupl.writeTo(out);
@@ -366,13 +363,13 @@ public class TableDialog extends JDialog {
     }
 
     /**
-     * Sets a pin description
+     * Sets a pin map
      *
-     * @param pinDescription the pin description
+     * @param pinMap the pin description
      * @return this for chained calls
      */
-    public TableDialog setPinDescription(String pinDescription) {
-        this.pinDescription = pinDescription;
+    public TableDialog setPinMap(PinMap pinMap) {
+        this.pinMap = pinMap;
         return this;
     }
 

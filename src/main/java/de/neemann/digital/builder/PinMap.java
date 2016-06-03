@@ -1,5 +1,9 @@
 package de.neemann.digital.builder;
 
+import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -14,12 +18,42 @@ public class PinMap {
     private final HashMap<String, Integer> pinMap;
     private int[] inputPins;
     private int[] outputPins;
+    private ArrayList<HashSet<String>> alias;
 
     /**
      * Creates a new instance
      */
     public PinMap() {
         pinMap = new HashMap<>();
+        alias = new ArrayList<>();
+    }
+
+    /**
+     * Reads the pin assignments from the given model
+     *
+     * @param model the model
+     * @return this for chained calls
+     * @throws PinMapException PinMapException
+     */
+    public PinMap addModel(Model model) throws PinMapException {
+        for (Signal p : model.getInputs())
+            addSignal(p);
+        for (Signal p : model.getOutputs())
+            addSignal(p);
+
+        return this;
+    }
+
+    private void addSignal(Signal signal) throws PinMapException {
+        if (signal.getDescription() != null && signal.getDescription().toLowerCase().startsWith("pin ")) {
+            String intStr = signal.getDescription().substring(4).trim();
+            try {
+                int pin = Integer.parseInt(intStr);
+                assignPin(signal.getName(), pin);
+            } catch (NumberFormatException e) {
+                throw new PinMapException("invalid assignment " + signal.getName() + "=" + intStr);
+            }
+        }
     }
 
     /**
@@ -59,6 +93,8 @@ public class PinMap {
             throw new PinMapException(Lang.get("err_pinMap_Pin_N_AssignedTwicerPin", name));
         if (pinMap.containsValue(pin))
             throw new PinMapException(Lang.get("err_pinMap_Pin_N_AssignedTwicerPin", pin));
+
+
         pinMap.put(name, pin);
         return this;
     }
@@ -93,8 +129,53 @@ public class PinMap {
         return this;
     }
 
+    /**
+     * returns true id the expression is a simple variable
+     * Checks if the assignment is a simple A=B. If true an alias for A is generated in the pin map.
+     * This is needed to void to assign two pins to the same logical signal.
+     *
+     * @param name       the name of the target
+     * @param expression the expression to check
+     * @return true if expression is a simple variable
+     */
+    public boolean isSimpleAlias(String name, Expression expression) {
+        if (expression instanceof Variable) {
+            String al = ((Variable) expression).getIdentifier();
 
-    private Integer search(int[] pins, String name) {
+            HashSet<String> found = null;
+            for (HashSet<String> s : alias)
+                if (s.contains(name) || s.contains(al)) {
+                    found = s;
+                    break;
+                }
+
+            if (found == null) {
+                found = new HashSet<>();
+                alias.add(found);
+            }
+
+            found.add(name);
+            found.add(al);
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Adds the given pin assignments to this pin map
+     *
+     * @param pinMap the given assignments
+     * @return this for chained calls
+     * @throws PinMapException PinMapException
+     */
+    public PinMap addAll(PinMap pinMap) throws PinMapException {
+        for (Map.Entry<String, Integer> e : pinMap.pinMap.entrySet())
+            assignPin(e.getKey(), e.getValue());
+        return this;
+    }
+
+    private Integer searchFirstFreePin(int[] pins, String name) {
         for (int i : pins) {
             if (!pinMap.containsValue(i)) {
                 pinMap.put(name, i);
@@ -119,15 +200,27 @@ public class PinMap {
      * @throws PinMapException PinMap
      */
     public int getInputFor(String in) throws PinMapException {
-        Integer p = pinMap.get(in);
+        Integer p = searchPinWithAlias(in);
         if (p == null)
-            p = search(inputPins, in);
+            p = searchFirstFreePin(inputPins, in);
         if (p == null) {
             throw new PinMapException(Lang.get("err_pinMap_toMannyInputsDefined"));
         } else if (!contains(inputPins, p)) {
             throw new PinMapException(Lang.get("err_pinMap_input_N_notAllowed", p));
         }
         return p;
+    }
+
+    private Integer searchPinWithAlias(String pinName) {
+        for (HashSet<String> aliasSet : alias)
+            if (aliasSet.contains(pinName)) { // the are aliases
+                for (String n : aliasSet) {
+                    Integer p = pinMap.get(n);
+                    if (p != null)
+                        return p;
+                }
+            }
+        return pinMap.get(pinName);
     }
 
     /**
@@ -139,9 +232,9 @@ public class PinMap {
      * @throws PinMapException FuseMapFillerException
      */
     public int getOutputFor(String out) throws PinMapException {
-        Integer p = pinMap.get(out);
+        Integer p = searchPinWithAlias(out);
         if (p == null)
-            p = search(outputPins, out);
+            p = searchFirstFreePin(outputPins, out);
         if (p == null) {
             throw new PinMapException(Lang.get("err_pinMap_toMannyOutputsDefined"));
         } else if (!contains(outputPins, p)) {

@@ -510,11 +510,4 @@ public class Circuit {
         this.measurementOrdering = measurementOrdering;
     }
 
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return getAttributes().get(Keys.DESCRIPTION);
-    }
-
 }

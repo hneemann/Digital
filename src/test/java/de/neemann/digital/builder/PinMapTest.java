@@ -1,5 +1,6 @@
 package de.neemann.digital.builder;
 
+import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
 
 /**
@@ -104,6 +105,40 @@ public class PinMapTest extends TestCase {
             assertTrue(true);
         }
     }
+
+    public void testAlias() throws PinMapException {
+        pinMap.assignPin("A", 4);
+        assertTrue(pinMap.isSimpleAlias("B", new Variable("A")));
+
+        assertEquals(4, pinMap.getOutputFor("A"));
+        assertEquals(4, pinMap.getOutputFor("B"));
+    }
+
+    public void testAliasSwap() throws PinMapException {
+        pinMap.assignPin("A", 4);
+        assertTrue(pinMap.isSimpleAlias("A", new Variable("B")));
+
+        assertEquals(4, pinMap.getOutputFor("A"));
+        assertEquals(4, pinMap.getOutputFor("B"));
+    }
+
+    public void testAliasReverseOrder() throws PinMapException {
+        assertTrue(pinMap.isSimpleAlias("B", new Variable("A")));
+        pinMap.assignPin("A", 4);
+
+        assertEquals(4, pinMap.getOutputFor("A"));
+        assertEquals(4, pinMap.getOutputFor("B"));
+    }
+
+
+    public void testAliasInput() throws PinMapException {
+        pinMap.assignPin("A", 2);
+        assertTrue(pinMap.isSimpleAlias("B", new Variable("A")));
+
+        assertEquals(2, pinMap.getInputFor("A"));
+        assertEquals(2, pinMap.getInputFor("B"));
+    }
+
 
     // ToDo: fails if language is not german!
     public void testToString() throws PinMapException {

@@ -135,12 +135,12 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
     }
 
-    private static final class CuplBuilder extends BuilderCollector {
+    private final class CuplBuilder extends BuilderCollector {
         private final NotAllowedVariablesVisitor notAllowedVariablesVisitor = new NotAllowedVariablesVisitor();
 
         @Override
         public BuilderCollector addCombinatorial(String name, Expression expression) throws BuilderException {
-            if (expression instanceof Variable)
+            if (pinMap.isSimpleAlias(name, expression))
                 return this;  // ignore simple variables!
 
             expression.traverse(notAllowedVariablesVisitor);

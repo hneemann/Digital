@@ -43,8 +43,8 @@ public class Gal16v8JEDECExporter implements ExpressionExporter<Gal16v8JEDECExpo
         builder = new BuilderCollector() {
             @Override
             public BuilderCollector addCombinatorial(String name, Expression expression) throws BuilderException {
-                if (expression instanceof Variable)
-                    return this;  // a simple variable is ignored!
+                if (pinMap.isSimpleAlias(name, expression))
+                    return this;
                 else
                     return super.addCombinatorial(name, expression);
             }
