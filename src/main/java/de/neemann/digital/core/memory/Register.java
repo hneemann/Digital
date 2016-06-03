@@ -42,6 +42,7 @@ public class Register extends Node implements Element {
      * @param attributes the elements attributes
      */
     public Register(ElementAttributes attributes) {
+        super(true);
         bits = attributes.getBits();
         this.q = new ObservableValue("Q", bits);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);

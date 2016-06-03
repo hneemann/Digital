@@ -43,6 +43,7 @@ public class FlipflopRS extends Node implements Element {
      * @param attributes the attributes
      */
     public FlipflopRS(ElementAttributes attributes) {
+        super(true);
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);

@@ -41,6 +41,7 @@ public class FlipflopT extends Node implements Element {
      * @param attributes the attributes
      */
     public FlipflopT(ElementAttributes attributes) {
+        super(true);
         this.q = new ObservableValue("Q", 1);
         this.qn = new ObservableValue("\u00ACQ", 1);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);

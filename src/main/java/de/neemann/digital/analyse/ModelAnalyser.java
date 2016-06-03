@@ -2,10 +2,7 @@ package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.expression.BitSetter;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Signal;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.lang.Lang;
 
@@ -35,6 +32,10 @@ public class ModelAnalyser {
         this.model = model;
         inputs = checkBinary(model.getInputs());
         outputs = checkBinary(model.getOutputs());
+
+        for (Node n : model)
+            if (n.hasState() && !(n instanceof FlipflopD))
+                throw new AnalyseException(Lang.get("err_cannotAnalyse_N", n.getClass().getSimpleName()));
 
         int i = 0;
         List<FlipflopD> flipflops = model.findNode(FlipflopD.class);

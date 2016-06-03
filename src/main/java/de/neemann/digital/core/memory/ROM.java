@@ -106,11 +106,11 @@ public class ROM extends Node implements Element {
         return listFile;
     }
 
-    @Override
-    public void setModel(Model model) {
-        super.setModel(model);
-        if (showList && listFile != null)
-            model.addRomListing(this);
+    /**
+     * @return true if there is a listing to show
+     */
+    public boolean showListing() {
+        return showList && listFile != null;
     }
 
     /**

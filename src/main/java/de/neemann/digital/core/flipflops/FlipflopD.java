@@ -44,6 +44,7 @@ public class FlipflopD extends Node implements Element {
      * @param attributes the attributes
      */
     public FlipflopD(ElementAttributes attributes) {
+        super(true);
         bits = attributes.getBits();
         this.q = new ObservableValue("Q", bits);
         this.qn = new ObservableValue("\u00ACQ", bits);

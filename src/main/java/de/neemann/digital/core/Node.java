@@ -9,8 +9,25 @@ package de.neemann.digital.core;
  */
 public abstract class Node implements Observer {
 
+    private final boolean hasState;
     private Model model;
     private int version;
+
+    /**
+     * Creates new stateless Node
+     */
+    public Node() {
+        this(false);
+    }
+
+    /**
+     * Creates a new node
+     *
+     * @param hasState true if node has a state
+     */
+    public Node(boolean hasState) {
+        this.hasState = hasState;
+    }
 
     /**
      * Sets the model for this node.
@@ -56,6 +73,13 @@ public abstract class Node implements Observer {
      */
     public void registerNodes(Model model) {
         model.add(this);
+    }
+
+    /**
+     * @return true if the element has a state and is not only combinatorial
+     */
+    public boolean hasState() {
+        return hasState;
     }
 
 }

@@ -625,12 +625,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
             if (settings.get(Keys.SHOW_LISTING)) {
                 int i = 0;
-                for (ROM rom : model.getRoms())
-                    try {
-                        windowPosManager.register("rom" + (i++), new ROMListingDialog(this, rom)).setVisible(true);
-                    } catch (IOException e) {
-                        new ErrorMessage(Lang.get("msg_errorReadingListing_N0", rom.getListFile().toString())).addCause(e).show(this);
-                    }
+                for (ROM rom : model.findNode(ROM.class))
+                    if (rom.showListing())
+                        try {
+                            windowPosManager.register("rom" + (i++), new ROMListingDialog(this, rom)).setVisible(true);
+                        } catch (IOException e) {
+                            new ErrorMessage(Lang.get("msg_errorReadingListing_N0", rom.getListFile().toString())).addCause(e).show(this);
+                        }
             }
 
 

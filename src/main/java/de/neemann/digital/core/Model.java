@@ -1,15 +1,11 @@
 package de.neemann.digital.core;
 
-import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Reset;
 import de.neemann.digital.lang.Lang;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * The Model contains all the nodes of the model.
@@ -38,7 +34,7 @@ import java.util.List;
  * @author hneemann
  * @see de.neemann.digital.core.element.Element#registerNodes(Model)
  */
-public class Model {
+public class Model implements Iterable<Node> {
     /**
      * Maximal number of calculation loops before oscillating behaviour is detected
      */
@@ -47,10 +43,10 @@ public class Model {
     private final ArrayList<Clock> clocks;
     private final ArrayList<Break> breaks;
     private final ArrayList<Reset> resets;
+
     private final ArrayList<Signal> signals;
     private final ArrayList<Signal> inputs;
     private final ArrayList<Signal> outputs;
-    private final ArrayList<ROM> roms;
 
     private final ArrayList<Node> nodes;
     private final ArrayList<ModelStateObserver> observers;
@@ -69,7 +65,6 @@ public class Model {
         this.signals = new ArrayList<>();
         this.outputs = new ArrayList<>();
         this.inputs = new ArrayList<>();
-        this.roms = new ArrayList<>();
         this.nodes = new ArrayList<>();
         this.nodesToUpdateAct = new ArrayList<>();
         this.nodesToUpdateNext = new ArrayList<>();
@@ -433,23 +428,6 @@ public class Model {
         return n;
     }
 
-
-    /**
-     * registers a ROM to the model
-     *
-     * @param rom the ROM
-     */
-    public void addRomListing(ROM rom) {
-        roms.add(rom);
-    }
-
-    /**
-     * @return all registered Roms
-     */
-    public ArrayList<ROM> getRoms() {
-        return roms;
-    }
-
     /**
      * fires a model changed event to all listeners
      */
@@ -477,5 +455,10 @@ public class Model {
             if (n.getClass() == nodeClass)
                 found.add((NODE) n);
         return found;
+    }
+
+    @Override
+    public Iterator<Node> iterator() {
+        return nodes.iterator();
     }
 }
