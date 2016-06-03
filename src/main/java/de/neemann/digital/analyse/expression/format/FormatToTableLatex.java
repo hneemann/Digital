@@ -52,10 +52,11 @@ public class FormatToTableLatex extends FormatToTable {
      * @param identifier the identifier
      * @return the formatted text
      */
-    protected static String formatIdentifier(String identifier) {
-        if (identifier.length() <= 1)
-            return identifier;
-        else
-            return identifier.charAt(0) + "_{" + identifier.substring(1) + "}";
+    public static String formatIdentifier(String identifier) {
+        int p = identifier.indexOf("_");
+        if (p < 0) return identifier;
+
+        String index = identifier.substring(p + 1);
+        return identifier.substring(0, p + 1) + "{" + index + "}";
     }
 }

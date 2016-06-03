@@ -1,7 +1,6 @@
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.builder.PinMap;
-import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 
@@ -10,18 +9,18 @@ import javax.swing.*;
  *
  * @author hneemann
  */
-public class ShowPinMapDialog extends JDialog {
+public class ShowStringDialog extends JDialog {
 
     /**
      * Creates a new instance
      *
-     * @param parent     the parent
-     * @param pinMapping the pin map to show
+     * @param parent the parent
+     * @param str    the pin map to show
      */
-    public ShowPinMapDialog(JFrame parent, PinMap pinMapping) {
-        super(parent, Lang.get("win_pinMapDialog"));
+    public ShowStringDialog(JFrame parent, String title, String str) {
+        super(parent, title);
 
-        JTextArea text = new JTextArea(pinMapping.toString());
+        JTextArea text = new JTextArea(str);
         text.setEditable(false);
         getContentPane().add(new JScrollPane(text));
 

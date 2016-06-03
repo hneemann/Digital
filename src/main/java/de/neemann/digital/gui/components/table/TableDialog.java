@@ -6,11 +6,13 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.analyse.expression.format.FormatToTableLatex;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
+import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
@@ -115,6 +117,23 @@ public class TableDialog extends JDialog {
         renamePopup.add(text);
 
         JMenuBar bar = new JMenuBar();
+
+        JMenu fileMenu = new JMenu(Lang.get("menu_file"));
+
+        fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportTableLaTeX")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String text = new TruthTableFormatterLaTeX().format(model.getTable());
+                    text += getExpressionsLaTeX();
+                    new ShowStringDialog(parent, Lang.get("win_table_exportDialog"), text).setVisible(true);
+                } catch (ExpressionException | FormatterException e1) {
+                    new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
+                }
+            }
+        });
+
+        bar.add(fileMenu);
 
         JMenu sizeMenu = new JMenu(Lang.get("menu_table_new"));
 
@@ -257,7 +276,7 @@ public class TableDialog extends JDialog {
                 public void actionPerformed(ActionEvent actionEvent) {
                     Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
                     createHardware(jedecExporter, filename);
-                    new ShowPinMapDialog(parent, jedecExporter.getPinMapping()).setVisible(true);
+                    new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
                 }
             }.setToolTip(Lang.get("menu_table_create_gal16v8_tt")).createJMenuItem());
 
@@ -286,7 +305,7 @@ public class TableDialog extends JDialog {
             try {
                 try (OutputStream out = new FileOutputStream(fileChooser.getSelectedFile())) {
                     expressionExporter.getPinMapping().addAll(pinMap);
-                    new BuiderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
+                    new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
                     expressionExporter.writeTo(out);
                 }
             } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
@@ -298,7 +317,7 @@ public class TableDialog extends JDialog {
     private void createCircuit(ExpressionModifier... modifier) {
         try {
             CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory);
-            new BuiderExpressionCreator(circuitBuilder, modifier).create();
+            new BuilderExpressionCreator(circuitBuilder, modifier).create();
             Circuit circuit = circuitBuilder.createCircuit();
             SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
         } catch (ExpressionException | FormatterException | RuntimeException e) {
@@ -328,7 +347,7 @@ public class TableDialog extends JDialog {
 
                 Gal16v8CuplExporter cupl = new Gal16v8CuplExporter(name.substring(0, name.length() - 4));
                 cupl.getPinMapping().addAll(pinMap);
-                new BuiderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
+                new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
                 try (FileOutputStream out = new FileOutputStream(f)) {
                     cupl.writeTo(out);
                 }
@@ -408,6 +427,22 @@ public class TableDialog extends JDialog {
         }
     }
 
+    private String getExpressionsLaTeX() throws ExpressionException, FormatterException {
+        StringBuilder sb = new StringBuilder();
+        new ExpressionCreator(model.getTable()) {
+            @Override
+            public void resultFound(String name, Expression expression) throws FormatterException {
+                sb
+                        .append(FormatToTableLatex.formatIdentifier(name))
+                        .append("=")
+                        .append(FormatToExpression.FORMATTER_LATEX.format(expression))
+                        .append("\n");
+            }
+        }.create();
+        return sb.toString();
+    }
+
+
     private final class SizeAction extends AbstractAction {
         private int n;
 
@@ -472,12 +507,12 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private class BuiderExpressionCreator extends ExpressionCreator {
+    private class BuilderExpressionCreator extends ExpressionCreator {
         private final HashSet<String> contained;
         private final BuilderInterface builder;
         private final ExpressionModifier[] modifier;
 
-        BuiderExpressionCreator(BuilderInterface builder, ExpressionModifier... modifier) {
+        BuilderExpressionCreator(BuilderInterface builder, ExpressionModifier... modifier) {
             super(TableDialog.this.model.getTable());
             contained = new HashSet<>();
             this.builder = builder;

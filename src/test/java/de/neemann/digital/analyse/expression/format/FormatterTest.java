@@ -45,10 +45,10 @@ public class FormatterTest extends TestCase {
 
 
     public void testFormatExpLaTeX() throws Exception, FormatterException {
-        Variable a = new Variable("An");
-        Variable b = new Variable("Bn");
+        Variable a = new Variable("A_n");
+        Variable b = new Variable("B_n");
         Expression e = and(a, not(b));
-        assertEquals("Y_{n+1}=A_{n} \\und \\nicht{B_{n}}", FormatToExpression.FORMATTER_LATEX.format("Yn+1", e));
+        assertEquals("Y_{n+1}=A_{n} \\und \\nicht{B_{n}}", FormatToExpression.FORMATTER_LATEX.format("Y_n+1", e));
     }
 
 
