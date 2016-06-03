@@ -15,6 +15,7 @@ public interface TruthTableFormatter {
      *
      * @param truthTable the table
      * @return the string representation
+     * @throws ExpressionException ExpressionException
      */
     String format(TruthTable truthTable) throws ExpressionException;
 }

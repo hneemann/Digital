@@ -66,7 +66,7 @@ public class TruthTableFormatterLaTeX implements TruthTableFormatter {
         return null;
     }
 
-    public static String formatVar(String var) {
+    private static String formatVar(String var) {
         return FormatToTableLatex.formatIdentifier(var);
     }
 }
