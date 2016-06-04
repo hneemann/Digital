@@ -429,16 +429,18 @@ public class TableDialog extends JDialog {
 
     private String getExpressionsLaTeX() throws ExpressionException, FormatterException {
         StringBuilder sb = new StringBuilder();
+        sb.append("\\begin{eqnarray*}\n");
         new ExpressionCreator(model.getTable()) {
             @Override
             public void resultFound(String name, Expression expression) throws FormatterException {
                 sb
                         .append(FormatToTableLatex.formatIdentifier(name))
-                        .append("=")
+                        .append("&=&")
                         .append(FormatToExpression.FORMATTER_LATEX.format(expression))
-                        .append("\n");
+                        .append("\\\\\n");
             }
         }.create();
+        sb.append("\\end{eqnarray*}\n");
         return sb.toString();
     }
 
