@@ -55,7 +55,11 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         this.username = username;
         this.date = date;
         builder = new CuplBuilder();
-        pinMap = new PinMap()
+        pinMap = createPinMap();
+    }
+
+    protected PinMap createPinMap() {
+        return new PinMap()
                 .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9)
                 .setAvailOutputs(12, 13, 14, 15, 16, 17, 18, 19);
     }
@@ -89,7 +93,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
                 .append("Company  unknown ;\r\n")
                 .append("Assembly None ;\r\n")
                 .append("Location unknown ;\r\n")
-                .append("Device   g16v8a ;\r\n");
+                .append("Device   " + "g16v8a ;\r\n");
 
         out.append("\r\n/* inputs */\r\n");
         if (!builder.getRegistered().isEmpty())
