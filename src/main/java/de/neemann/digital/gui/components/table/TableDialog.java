@@ -17,6 +17,8 @@ import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
+import de.neemann.digital.builder.Gal22v10.Gal22v10CuplExporter;
+import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.draw.elements.Circuit;
@@ -262,23 +264,42 @@ public class TableDialog extends JDialog {
             }.setToolTip(Lang.get("menu_table_createNOrTwo_tt")).createJMenuItem());
 
         }
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCUPL();
-            }
-        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
 
         if (Main.enableExperimental()) {
             JMenu hardware = new JMenu(Lang.get("menu_table_create_hardware"));
-            hardware.add(new ToolTipAction(Lang.get("menu_table_create_gal16v8")) {
+            JMenu gal16v8 = new JMenu("GAL16v8");
+            gal16v8.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCUPL(new Gal16v8CuplExporter());
+                }
+            }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+            gal16v8.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
                     createHardware(jedecExporter, filename);
                     new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
                 }
-            }.setToolTip(Lang.get("menu_table_create_gal16v8_tt")).createJMenuItem());
+            }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
+            hardware.add(gal16v8);
+
+            JMenu gal22v10 = new JMenu("GAL22v10");
+            gal22v10.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCUPL(new Gal22v10CuplExporter());
+                }
+            }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+            gal22v10.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Gal22v10JEDECExporter jedecExporter = new Gal22v10JEDECExporter();
+                    createHardware(jedecExporter, filename);
+                    new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
+                }
+            }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
+            hardware.add(gal22v10);
 
             createMenu.add(hardware);
         }
@@ -325,7 +346,7 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private void createCUPL() {
+    private void createCUPL(Gal16v8CuplExporter cupl) {
         JFileChooser fileChooser = new JFileChooser();
         if (filename != null && filename.getName().endsWith(".dig")) {
             String name = filename.getName();
@@ -345,7 +366,7 @@ public class TableDialog extends JDialog {
 
                 f = new File(f.getParentFile(), name);
 
-                Gal16v8CuplExporter cupl = new Gal16v8CuplExporter(name.substring(0, name.length() - 4));
+                cupl.setProjectName(name);
                 cupl.getPinMapping().addAll(pinMap);
                 new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
                 try (FileOutputStream out = new FileOutputStream(f)) {

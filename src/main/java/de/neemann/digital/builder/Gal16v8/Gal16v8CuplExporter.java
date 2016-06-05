@@ -28,42 +28,59 @@ import java.util.Map;
 public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExporter> {
     private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-    private final String projectName;
     private final String username;
     private final Date date;
     private final BuilderCollector builder;
+
     private final PinMap pinMap;
+    private final String devName;
+
+    private String projectName;
 
     /**
      * Creates a new project name
-     *
-     * @param projectName the project name
      */
-    public Gal16v8CuplExporter(String projectName) {
-        this(projectName, System.getProperty("user.name"), new Date());
+    public Gal16v8CuplExporter() {
+        this(System.getProperty("user.name"), new Date());
     }
 
     /**
      * Creates a new project name
      *
-     * @param projectName the project name
-     * @param username    user name
-     * @param date        date
+     * @param username user name
+     * @param date     date
      */
-    public Gal16v8CuplExporter(String projectName, String username, Date date) {
-        this.projectName = projectName;
+    public Gal16v8CuplExporter(String username, Date date) {
+        this(username, date, "g16v8a", new PinMap()
+                .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9)
+                .setAvailOutputs(12, 13, 14, 15, 16, 17, 18, 19));
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param username
+     * @param date
+     * @param devName
+     * @param pinMap
+     */
+    protected Gal16v8CuplExporter(String username, Date date, String devName, PinMap pinMap) {
         this.username = username;
         this.date = date;
+        this.devName = devName;
+        this.pinMap = pinMap;
         builder = new CuplBuilder();
-        pinMap = createPinMap();
     }
 
-    protected PinMap createPinMap() {
-        return new PinMap()
-                .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9)
-                .setAvailOutputs(12, 13, 14, 15, 16, 17, 18, 19);
+    /**
+     * Sets the project name
+     *
+     * @param projectName the project name
+     */
+    public Gal16v8CuplExporter setProjectName(String projectName) {
+        this.projectName = projectName;
+        return this;
     }
-
 
     @Override
     public BuilderCollector getBuilder() {
@@ -93,7 +110,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
                 .append("Company  unknown ;\r\n")
                 .append("Assembly None ;\r\n")
                 .append("Location unknown ;\r\n")
-                .append("Device   " + "g16v8a ;\r\n");
+                .append("Device   " + devName + " ;\r\n");
 
         out.append("\r\n/* inputs */\r\n");
         if (!builder.getRegistered().isEmpty())

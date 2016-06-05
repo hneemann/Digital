@@ -24,7 +24,8 @@ public class Gal16V8CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
-        Gal16v8CuplExporter ce = new Gal16v8CuplExporter("test", "user", new Date(0));
+        Gal16v8CuplExporter ce = new Gal16v8CuplExporter("user", new Date(0))
+                .setProjectName("test");
         ce.getBuilder()
                 .addSequential("Y_0", y0s)
                 .addSequential("Y_1", y1s)
@@ -65,7 +66,8 @@ public class Gal16V8CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
 
         try {
-            new Gal16v8CuplExporter("test", "user", new Date(0))
+            new Gal16v8CuplExporter("user", new Date(0))
+                    .setProjectName("test")
                     .getBuilder()
                     .addSequential("Y_0", y0s);
 
@@ -81,7 +83,8 @@ public class Gal16V8CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
 
         try {
-            new Gal16v8CuplExporter("test", "user", new Date(0))
+            new Gal16v8CuplExporter("user", new Date(0))
+                    .setProjectName("test")
                     .getBuilder()
                     .addCombinatorial("D", y0s);
 
