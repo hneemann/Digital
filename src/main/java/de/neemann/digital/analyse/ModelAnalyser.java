@@ -54,8 +54,7 @@ public class ModelAnalyser {
             inputs.add(new Signal(label, q));
 
             ObservableValue notQ = ff.getOutputs().get(1);
-            if (notQ.observerCount() > 0)
-                q.addObserver(() -> notQ.setValue(~q.getValue()));
+            q.addObserver(() -> notQ.setValue(~q.getValue()));
         }
 
         if (inputs.size() == 0)
