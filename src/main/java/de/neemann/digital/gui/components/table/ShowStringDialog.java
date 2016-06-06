@@ -19,6 +19,7 @@ public class ShowStringDialog extends JDialog {
      */
     public ShowStringDialog(JFrame parent, String title, String str) {
         super(parent, title);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTextArea text = new JTextArea(str);
         text.setEditable(false);
@@ -26,6 +27,6 @@ public class ShowStringDialog extends JDialog {
 
         pack();
         setLocationRelativeTo(parent);
-        toFront();
+        setAlwaysOnTop(true);
     }
 }
