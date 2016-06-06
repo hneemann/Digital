@@ -112,6 +112,9 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
                 .append("Location unknown ;\r\n")
                 .append("Device   " + devName + " ;\r\n");
 
+
+        headerWritten(out);
+
         out.append("\r\n/* inputs */\r\n");
         if (!builder.getRegistered().isEmpty())
             out.append("PIN 1 = CLK;\r\n");
@@ -127,12 +130,14 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         try {
             if (!builder.getRegistered().isEmpty()) {
                 out.append("\r\n/* sequential logic */\r\n");
-                for (Map.Entry<String, Expression> c : builder.getRegistered().entrySet())
+                for (Map.Entry<String, Expression> c : builder.getRegistered().entrySet()) {
                     out
                             .append(c.getKey())
                             .append(".D = ")
                             .append(FormatToExpression.FORMATTER_CUPL.format(c.getValue()))
                             .append(";\r\n");
+                    sequentialWritten(out, c.getKey());
+                }
             }
 
             if (!builder.getCombinatorial().isEmpty()) {
@@ -149,6 +154,23 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         }
 
         out.flush();
+    }
+
+    /**
+     * Is called if header is written
+     *
+     * @param out the writer
+     */
+    protected void headerWritten(Writer out) throws IOException {
+    }
+
+    /**
+     * Called is a sequential expression is written to the CUPL file
+     *
+     * @param out  Writer
+     * @param name name of variable
+     */
+    protected void sequentialWritten(Writer out, String name) throws IOException {
     }
 
     @Override
