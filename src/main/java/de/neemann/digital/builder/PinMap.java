@@ -170,8 +170,9 @@ public class PinMap {
      * @throws PinMapException PinMapException
      */
     public PinMap addAll(PinMap pinMap) throws PinMapException {
-        for (Map.Entry<String, Integer> e : pinMap.pinMap.entrySet())
-            assignPin(e.getKey(), e.getValue());
+        if (pinMap != null)
+            for (Map.Entry<String, Integer> e : pinMap.pinMap.entrySet())
+                assignPin(e.getKey(), e.getValue());
         return this;
     }
 
