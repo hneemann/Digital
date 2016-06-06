@@ -1,11 +1,9 @@
 package de.neemann.digital.gui.components.table;
 
-import de.neemann.digital.builder.PinMap;
-
 import javax.swing.*;
 
 /**
- * Shows a pin mapping instance {@link PinMap}
+ * Shows a simple string
  *
  * @author hneemann
  */
