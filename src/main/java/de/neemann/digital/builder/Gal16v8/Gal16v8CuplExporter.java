@@ -76,6 +76,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
      * Sets the project name
      *
      * @param projectName the project name
+     * @return this for call chaining
      */
     public Gal16v8CuplExporter setProjectName(String projectName) {
         this.projectName = projectName;
@@ -156,10 +157,16 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         out.flush();
     }
 
+    @Override
+    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
+        writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
+    }
+
     /**
      * Is called if header is written
      *
      * @param out the writer
+     * @throws IOException IOException
      */
     protected void headerWritten(Writer out) throws IOException {
     }
@@ -169,13 +176,9 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
      *
      * @param out  Writer
      * @param name name of variable
+     * @throws IOException IOException
      */
     protected void sequentialWritten(Writer out, String name) throws IOException {
-    }
-
-    @Override
-    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
-        writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
     }
 
     private final class CuplBuilder extends BuilderCollector {

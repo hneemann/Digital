@@ -35,13 +35,13 @@ public class Gal22v10CuplExporter extends Gal16v8CuplExporter {
 
     @Override
     protected void headerWritten(Writer out) throws IOException {
-        out.write("\r\nar = 'b'0 ;\r\n" +
-                "sp = 'b'0 ;\r\n");
+        out.write("\r\nar = 'b'0 ;\r\n"
+                + "sp = 'b'0 ;\r\n");
     }
 
     @Override
     protected void sequentialWritten(Writer out, String name) throws IOException {
-        out.write(name+".ar = ar ;\r\n");
-        out.write(name+".sp = sp ;\r\n");
+        out.write(name + ".ar = ar ;\r\n");
+        out.write(name + ".sp = sp ;\r\n");
     }
 }
