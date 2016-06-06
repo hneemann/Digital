@@ -26,5 +26,6 @@ public class ShowStringDialog extends JDialog {
 
         pack();
         setLocationRelativeTo(parent);
+        toFront();
     }
 }
