@@ -30,7 +30,7 @@ public class Gal22v10JEDECExporter implements ExpressionExporter<Gal22v10JEDECEx
      * Creates new instance
      */
     public Gal22v10JEDECExporter() {
-        map = new FuseMap(2194);
+        map = new FuseMap(5892);
         filler = new FuseMapFiller(map, 22);
 
         builder = new BuilderCollector() {
@@ -46,8 +46,6 @@ public class Gal22v10JEDECExporter implements ExpressionExporter<Gal22v10JEDECEx
                 .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
                 .setAvailOutputs(14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
 
-        for (int i = 0; i < 10; i++)   // set all OLMC to active high
-            map.setFuse(S0 + i * 2);
     }
 
     @Override
@@ -68,13 +66,14 @@ public class Gal22v10JEDECExporter implements ExpressionExporter<Gal22v10JEDECEx
         }
         for (String o : builder.getOutputs()) {
             int i = 23 - pinMap.getOutputFor(o);
-            filler.addVariable(i * 2 + 1, new Variable(o));
+            filler.addVariableReverse(i * 2 + 1, new Variable(o));
         }
 
         for (String o : builder.getOutputs()) {
             int olmc = 23 - pinMap.getOutputFor(o);
             int offs = oeFuseNumByOLMC[olmc];
             for (int j = 0; j < 44; j++) map.setFuse(offs + j); // turn on OE
+            map.setFuse(S0 + olmc * 2);                         // set olmc to active high
             if (builder.getCombinatorial().containsKey(o)) {
                 map.setFuse(S1 + olmc * 2);
                 filler.fillExpression(offs + 44, builder.getCombinatorial().get(o), productsByOLMC[olmc]);

@@ -19,7 +19,7 @@ public class FuseMapFiller {
 
     private final FuseMap fuseMap;
     private final int varsConnectedToMap;
-    private final HashMap<Variable, Integer> varMap;
+    private final HashMap<Variable, MapEntry> varMap;
 
     /**
      * Creates a new instance
@@ -43,7 +43,21 @@ public class FuseMapFiller {
      * @return this for chained calls
      */
     public FuseMapFiller addVariable(int index, Variable var) {
-        varMap.put(var, index);
+        varMap.put(var, new MapEntry(index, false));
+        return this;
+    }
+
+    /**
+     * Adds a variable to the matrix
+     * In difference to addVariable() the inverted column comes first and the non inverted column follows.
+     * So the both columns are in reverse order compared to addVariable()
+     *
+     * @param index number in matrix
+     * @param var   the variable
+     * @return this for chained calls
+     */
+    public FuseMapFiller addVariableReverse(int index, Variable var) {
+        varMap.put(var, new MapEntry(index, true));
         return this;
     }
 
@@ -104,13 +118,12 @@ public class FuseMapFiller {
                 } else
                     throw new FuseMapFillerException("only VAR or NOT VAR allowed!");
 
-                Integer i = varMap.get(var);
+                MapEntry entry = varMap.get(var);
 
-                if (i == null)
+                if (entry == null)
                     throw new FuseMapFillerException("VAR " + var + " not found in term list!");
 
-                int fuse = i * 2;
-                if (invert) fuse++;
+                int fuse = entry.getFuse(invert);
 
                 fuseMap.setFuse(offs + fuse, false);
             }
@@ -120,4 +133,22 @@ public class FuseMapFiller {
 
     }
 
+    private class MapEntry {
+        private final int index;
+        private final boolean swap;
+
+        public MapEntry(int index, boolean swap) {
+            this.index = index;
+            this.swap = swap;
+        }
+
+        public int getFuse(boolean invert) {
+            int fuse=index*2;
+            if (swap) {
+                if (!invert) fuse++;
+            } else
+                if (invert) fuse++;
+            return fuse;
+        }
+    }
 }
