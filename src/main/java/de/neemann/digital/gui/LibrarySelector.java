@@ -135,7 +135,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
 
     @Override
     public ElementTypeDescription elementNotFound(String elementName) {
-        File file = new File(elementName);
+        File file = new File(elementName.replace('\\', '/'));
         // check if there is a file with the given name in the current directory
         // if so, load this file!
         File primary = new File(filePath, file.getName());
