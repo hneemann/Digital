@@ -53,7 +53,17 @@ public class Driver extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.set(value, !sel);
+        output.set(value, isOutHigh(sel));
+    }
+
+    /**
+     * Returns the highZ state depending of the sel state
+     *
+     * @param sel the selected input
+     * @return the highZ state
+     */
+    protected boolean isOutHigh(boolean sel) {
+        return !sel;
     }
 
     @Override

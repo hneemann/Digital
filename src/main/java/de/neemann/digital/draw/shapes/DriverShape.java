@@ -22,6 +22,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class DriverShape implements Shape {
     private final boolean bottom;
+    private final boolean invertedInput;
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private Pins pins;
@@ -34,9 +35,21 @@ public class DriverShape implements Shape {
      * @param outputs the outputs
      */
     public DriverShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
+        this(attr, inputs, outputs, false);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param attr    the attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
+    public DriverShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs, boolean invertedInput) {
         this.inputs = inputs;
         this.outputs = outputs;
         this.bottom = attr.get(Keys.FLIP_SEL_POSITON);
+        this.invertedInput = invertedInput;
     }
 
     @Override
@@ -63,9 +76,16 @@ public class DriverShape implements Shape {
                         .add(SIZE - 1, 0)
                         .add(-SIZE + 1, SIZE2 + 2), Style.NORMAL
         );
-        if (bottom)
-            graphic.drawLine(new Vector(0, SIZE), new Vector(0, 7), Style.NORMAL);
-        else
-            graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -7), Style.NORMAL);
+        if (bottom) {
+            if (invertedInput)
+                graphic.drawCircle(new Vector(-SIZE2 + 4, SIZE), new Vector(SIZE2 - 4, 8), Style.NORMAL);
+            else
+                graphic.drawLine(new Vector(0, SIZE), new Vector(0, 7), Style.NORMAL);
+        } else {
+            if (invertedInput)
+                graphic.drawCircle(new Vector(-SIZE2 + 4, -SIZE), new Vector(SIZE2 - 4, -8), Style.NORMAL);
+            else
+                graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -7), Style.NORMAL);
+        }
     }
 }
