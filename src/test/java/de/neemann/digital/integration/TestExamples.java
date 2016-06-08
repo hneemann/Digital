@@ -22,7 +22,7 @@ public class TestExamples extends TestCase {
     }
 
     public void testSequential() throws Exception {
-        assertEquals(21, scan(new File(examples, "sequential")));
+        assertEquals(22, scan(new File(examples, "sequential")));
     }
 
     public void testProcessor() throws Exception {

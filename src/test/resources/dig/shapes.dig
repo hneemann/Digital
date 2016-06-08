@@ -193,13 +193,13 @@
     <visualElement>
       <elementName>Reset</elementName>
       <elementAttributes/>
-      <pos x="460" y="540"/>
+      <pos x="540" y="540"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Break</elementName>
       <elementAttributes/>
-      <pos x="500" y="540"/>
+      <pos x="580" y="540"/>
       <rotate>0</rotate>
     </visualElement>
     <visualElement>
@@ -322,7 +322,35 @@
     <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes/>
-      <pos x="580" y="540"/>
+      <pos x="660" y="540"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>DriverInvSel</elementName>
+      <elementAttributes/>
+      <pos x="720" y="540"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Driver</elementName>
+      <elementAttributes>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="540"/>
+      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>DriverInvSel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="540"/>
       <rotate>0</rotate>
     </visualElement>
   </visualElements>
