@@ -43,15 +43,13 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.prefs.Preferences;
 
 /**
  * The main frame of the Digital Simulator
  *
  * @author hneemann
  */
-public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper {
-    private static final Preferences PREFS = Preferences.userRoot().node("dig");
+public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface {
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
     private static boolean experimental;
 
@@ -99,6 +97,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     private File lastFilename;
     private File filename;
+    private FileHistory fileHistory;
+
     private Model model;
     private ModelDescription modelDescription;
 
@@ -148,6 +148,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         library = new ElementLibrary();
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
 
+        fileHistory = new FileHistory(this);
+
         final boolean normalMode = savedListener == null;
 
         if (circuit != null) {
@@ -158,9 +160,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             if (fileToOpen != null) {
                 SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
             } else {
-                String name = PREFS.get("name", null);
+                File name = fileHistory.getMostRecent();
                 if (name != null) {
-                    SwingUtilities.invokeLater(() -> loadFile(new File(name), false));
+                    SwingUtilities.invokeLater(() -> loadFile(name, false));
                 }
             }
         }
@@ -291,6 +293,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_openWin_tt")).setActive(normalMode);
 
+        JMenu openRecent = new JMenu(Lang.get("menu_openRecent"));
+        fileHistory.setMenu(openRecent);
+        openRecent.setEnabled(normalMode);
 
         ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
@@ -321,6 +326,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         JMenu file = new JMenu(Lang.get("menu_file"));
         menuBar.add(file);
         file.add(newFile);
+        file.add(openRecent);
         file.add(open);
         file.add(openWin);
         file.add(save);
@@ -687,6 +693,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         save.actionPerformed(null);
     }
 
+    @Override
+    public void open(File file) {
+        loadFile(file, true);
+    }
+
     private void loadFile(File filename, boolean toPrefs) {
         try {
             librarySelector.setFilePath(filename.getParentFile());
@@ -721,7 +732,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         if (filename != null) {
             this.lastFilename = filename;
             if (toPrefs)
-                PREFS.put("name", filename.getPath());
+                fileHistory.add(filename);
             setTitle(filename + " - " + Lang.get("digital"));
         } else
             setTitle(Lang.get("digital"));

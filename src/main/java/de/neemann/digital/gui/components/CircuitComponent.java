@@ -372,7 +372,7 @@ public class CircuitComponent extends JComponent {
                 public void saved(File filename) {
                     if (parentsSavedListener != null)
                         parentsSavedListener.saved(filename);
-                    library.removeElement(filename.getName());
+                    library.removeElement(filename.getPath());
                     circuit.clearState();
                     repaint();
                 }
