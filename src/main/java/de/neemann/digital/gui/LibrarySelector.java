@@ -90,7 +90,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (ImportedItem item : importedElements) {
-                    library.removeElement(item.name);
+                    library.removeElement(item.file);
                     customMenu.remove(item.menuEntry);
                 }
             }
@@ -134,8 +134,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
     }
 
     @Override
-    public ElementTypeDescription elementNotFound(String elementName) {
-        File file = new File(elementName.replace('\\', '/'));
+    public ElementTypeDescription elementNotFound(File file) {
         // check if there is a file with the given name in the current directory
         // if so, load this file!
         File primary = new File(filePath, file.getName());
@@ -188,7 +187,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                             attributes -> new CustomElement(circuit, library, file.getName()),
                             circuit.getAttributes(), circuit.getInputNames())
                             .setShortName(createShortName(file));
-            library.addDescription(description);
+            library.addDescription(description, file);
 
             InsertAction insertAction = new InsertAction(description, insertHistory, circuitComponent);
             String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
@@ -196,14 +195,14 @@ public class LibrarySelector implements ElementNotFoundNotification {
                 insertAction.setToolTip(descriptionText);
 
             JMenuItem menuEntry = insertAction.createJMenuItem();
-            ImportedItem item = findImportedItem(description.getName());
+            ImportedItem item = findImportedItem(file);
             if (item != null) {
                 if (customMenu != null) {
                     customMenu.remove(item.menuEntry);
                 }
                 importedElements.remove(item);
             }
-            importedElements.add(new ImportedItem(description.getName(), menuEntry));
+            importedElements.add(new ImportedItem(file, menuEntry));
             if (customMenu != null)
                 customMenu.add(menuEntry);
             return new Imported(description, insertAction);
@@ -213,9 +212,9 @@ public class LibrarySelector implements ElementNotFoundNotification {
         return null;
     }
 
-    private ImportedItem findImportedItem(String name) {
+    private ImportedItem findImportedItem(File file) {
         for (ImportedItem i : importedElements) {
-            if (i.name.equals(name))
+            if (i.file.equals(file))
                 return i;
         }
         return null;
@@ -236,11 +235,11 @@ public class LibrarySelector implements ElementNotFoundNotification {
     }
 
     private final static class ImportedItem {
-        private final String name;
+        private final File file;
         private final JMenuItem menuEntry;
 
-        private ImportedItem(String name, JMenuItem menuEntry) {
-            this.name = name;
+        private ImportedItem(File file, JMenuItem menuEntry) {
+            this.file = file;
             this.menuEntry = menuEntry;
         }
     }

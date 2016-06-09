@@ -58,13 +58,13 @@ public final class ShapeFactory {
             map.put(XNOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, true));
             map.put(Not.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEENotShape(inputs, outputs));
         } else {
-            map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", And.DESCRIPTION, false));
-            map.put(Or.DESCRIPTION.getName(), new CreatorSimple("\u22651", Or.DESCRIPTION, false));
-            map.put(NAnd.DESCRIPTION.getName(), new CreatorSimple("&", NAnd.DESCRIPTION, true));
-            map.put(NOr.DESCRIPTION.getName(), new CreatorSimple("\u22651", NOr.DESCRIPTION, true));
-            map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", XOr.DESCRIPTION, false));
-            map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", XNOr.DESCRIPTION, true));
-            map.put(Not.DESCRIPTION.getName(), new CreatorSimple("", Not.DESCRIPTION, true));
+            map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", false));
+            map.put(Or.DESCRIPTION.getName(), new CreatorSimple("\u22651", false));
+            map.put(NAnd.DESCRIPTION.getName(), new CreatorSimple("&", true));
+            map.put(NOr.DESCRIPTION.getName(), new CreatorSimple("\u22651", true));
+            map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", false));
+            map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", true));
+            map.put(Not.DESCRIPTION.getName(), new CreatorSimple("", true));
         }
 
 
@@ -150,12 +150,10 @@ public final class ShapeFactory {
     private static final class CreatorSimple implements Creator {
 
         private final String name;
-        private final ElementTypeDescription description;
         private final boolean invers;
 
-        private CreatorSimple(String name, ElementTypeDescription description, boolean invers) {
+        private CreatorSimple(String name, boolean invers) {
             this.name = name;
-            this.description = description;
             this.invers = invers;
         }
 

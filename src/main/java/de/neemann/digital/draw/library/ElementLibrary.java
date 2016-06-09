@@ -15,6 +15,7 @@ import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -92,7 +93,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     private void add(ElementTypeDescription description, String treePath) {
-        addDescription(description);
+        String name = description.getName();
+        map.put(name, description);
         list.add(new ElementContainer(description, treePath));
     }
 
@@ -100,11 +102,12 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * Adds a description to the library
      *
      * @param description the description
+     * @param file        the file which was loaded
      */
-    public void addDescription(ElementTypeDescription description) {
-        String name = description.getName();
-        map.put(name, description);
+    public void addDescription(ElementTypeDescription description, File file) {
+        map.put(file.getName(), description);
     }
+
 
     /**
      * Returns a {@link ElementTypeDescription} by a given name.
@@ -115,15 +118,24 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public ElementTypeDescription getElementType(String elementName) {
         ElementTypeDescription description = map.get(elementName);
-        if (description == null) {
-            if (elementNotFoundNotification != null)
-                description = elementNotFoundNotification.elementNotFound(elementName);
-            if (description == null)
-                throw new RuntimeException(Lang.get("err_element_N_notFound", elementName));
-            else
-                map.put(elementName, description);
-        }
-        return description;
+        if (description != null)
+            return description;
+
+        elementName = elementName.replace("\\", "/"); // effects only some old files!
+
+        File file = new File(elementName);
+
+        description = map.get(file.getName());
+        if (description != null)
+            return description;
+
+        if (elementNotFoundNotification != null)
+            description = elementNotFoundNotification.elementNotFound(file);
+
+        if (description != null)
+            return description;
+
+        throw new RuntimeException(Lang.get("err_element_N_notFound", elementName));
     }
 
     @Override
@@ -145,8 +157,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      *
      * @param name the elements name
      */
-    public void removeElement(String name) {
-        map.remove(name);
+    public void removeElement(File name) {
+        map.remove(name.getName());
     }
 
     /**
@@ -158,8 +170,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         /**
          * Creates anew instance
-         *  @param typeDescription     the elements typeDescription
-         * @param treePath the elements menu path
+         *
+         * @param typeDescription the elements typeDescription
+         * @param treePath        the elements menu path
          */
         public ElementContainer(ElementTypeDescription typeDescription, String treePath) {
             this.name = typeDescription;

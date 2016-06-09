@@ -713,9 +713,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     private void saveFile(File filename, boolean toPrefs) {
-        if (!filename.getName().endsWith(".dig"))
-            filename = new File(filename.getPath() + ".dig");
-
+        filename = checkSuffix(filename, "dig");
         try {
             circuitComponent.getCircuit().save(filename);
             if (savedListener != null)
@@ -736,6 +734,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             setTitle(filename + " - " + Lang.get("digital"));
         } else
             setTitle(Lang.get("digital"));
+    }
+
+    private static File checkSuffix(File filename, String suffix) {
+        String name = filename.getName();
+        int p = name.lastIndexOf('.');
+        if (p >= 0)
+            name = name.substring(0, p);
+        return new File(filename.getParentFile(), name + "." + suffix);
     }
 
     private class FullStepObserver implements Observer {
@@ -788,17 +794,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser fc = new JFileChooser();
-            if (filename != null) {
-                String name = filename.getName();
-                int p = name.lastIndexOf('.');
-                if (p >= 0)
-                    name = name.substring(0, p);
-                File f = new File(filename.getParentFile(), name + "." + suffix);
-                fc.setSelectedFile(f);
-            }
+            if (filename != null)
+                fc.setSelectedFile(checkSuffix(filename, suffix));
+
             fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
             if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                try (OutputStream out = new FileOutputStream(fc.getSelectedFile())) {
+                try (OutputStream out = new FileOutputStream(checkSuffix(fc.getSelectedFile(), suffix))) {
                     new Export(circuitComponent.getCircuit(), exportFactory).export(out);
                 } catch (IOException e1) {
                     new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(Main.this);
