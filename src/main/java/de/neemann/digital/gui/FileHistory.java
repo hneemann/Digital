@@ -1,5 +1,7 @@
 package de.neemann.digital.gui;
 
+import de.neemann.gui.ToolTipAction;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -81,7 +83,7 @@ public final class FileHistory {
         if (menu != null) {
             menu.removeAll();
             for (File f : files)
-                menu.add(new FileOpenEntry(f, opener));
+                menu.add(new FileOpenEntry(f, opener).createJMenuItem());
         }
     }
 
@@ -95,7 +97,7 @@ public final class FileHistory {
         updateMenu();
     }
 
-    private static class FileOpenEntry extends AbstractAction {
+    private static class FileOpenEntry extends ToolTipAction {
         private final File file;
         private final OpenInterface opener;
 
@@ -103,6 +105,7 @@ public final class FileHistory {
             super(file.getName());
             this.file = file;
             this.opener = opener;
+            setToolTip(file.getPath());
         }
 
         @Override
