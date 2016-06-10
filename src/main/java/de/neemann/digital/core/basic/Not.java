@@ -60,4 +60,10 @@ public class Not extends Node implements Element {
         return output.asList();
     }
 
+    /**
+     * @return the output
+     */
+    public ObservableValue getOutput() {
+        return output;
+    }
 }

@@ -80,4 +80,17 @@ public class FlipflopT extends Node implements Element {
             model.addSignal(new Signal(label, q));
     }
 
+    /**
+     * @return the clock value
+     */
+    public ObservableValue getClockVal() {
+        return clockVal;
+    }
+
+    /**
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
 }

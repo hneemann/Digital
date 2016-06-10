@@ -82,6 +82,34 @@ public class FlipflopJK extends Node implements Element {
         kVal = inputs.get(2).addObserverToValue(this).checkBits(1, this);
     }
 
+    /**
+     * @return the j value
+     */
+    public ObservableValue getjVal() {
+        return jVal;
+    }
+
+    /**
+     * @return the k value
+     */
+    public ObservableValue getkVal() {
+        return kVal;
+    }
+
+    /**
+     * @return the clock value
+     */
+    public ObservableValue getClockVal() {
+        return clockVal;
+    }
+
+    /**
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
+
     @Override
     public ObservableValues getOutputs() {
         return ovs(q, qn);

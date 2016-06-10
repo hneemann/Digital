@@ -14,4 +14,13 @@ public class AnalyseException extends Exception {
     public AnalyseException(String message) {
         super(message);
     }
+
+    /**
+     * Creates a new instance
+     *
+     * @param e the cause
+     */
+    public AnalyseException(Exception e) {
+        super(e);
+    }
 }

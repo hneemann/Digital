@@ -3,7 +3,14 @@ package de.neemann.digital.analyse;
 import de.neemann.digital.analyse.expression.BitSetter;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.basic.And;
+import de.neemann.digital.core.basic.Not;
+import de.neemann.digital.core.basic.Or;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.flipflops.FlipflopD;
+import de.neemann.digital.core.flipflops.FlipflopJK;
+import de.neemann.digital.core.flipflops.FlipflopT;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -30,6 +37,14 @@ public class ModelAnalyser {
      */
     public ModelAnalyser(Model model) throws AnalyseException {
         this.model = model;
+
+        try {
+            replaceJKFF();
+            replaceTFF();
+        } catch (NodeException e) {
+            throw new AnalyseException(e);
+        }
+
         inputs = checkBinary(model.getInputs());
         outputs = checkBinary(model.getOutputs());
 
@@ -40,6 +55,7 @@ public class ModelAnalyser {
         int i = 0;
         List<FlipflopD> flipflops = model.findNode(FlipflopD.class);
         for (FlipflopD ff : flipflops) {
+            checkClock(ff);
             ff.getDInput().removeObserver(ff); // turn off flipflop
             String label = ff.getLabel();
             if (label.length() == 0)
@@ -64,6 +80,18 @@ public class ModelAnalyser {
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
         rows = 1 << inputs.size();
+    }
+
+    private void checkClock(Node node) throws AnalyseException {
+        if (!getClock().hasObserver(node))
+            throw new AnalyseException(Lang.get("err_ffNeedsToBeConnectedToClock"));
+    }
+
+    private ObservableValue getClock() throws AnalyseException {
+        ArrayList<Clock> clocks = model.getClocks();
+        if (clocks.size() != 1)
+            throw new AnalyseException(Lang.get("err_aSingleClockNecessary"));
+        return clocks.get(0).getClockOutput();
     }
 
     private ArrayList<Signal> checkBinary(ArrayList<Signal> list) throws AnalyseException {
@@ -110,5 +138,64 @@ public class ModelAnalyser {
         }
         return tt;
     }
+
+    private void replaceJKFF() throws NodeException, AnalyseException {
+        List<FlipflopJK> jkList = model.findNode(FlipflopJK.class);
+
+        for (FlipflopJK jk : jkList) {
+            checkClock(jk);
+
+            // remove JK-ff from model
+            model.removeNode(jk);
+            jk.getClockVal().removeObserver(jk);
+            jk.getjVal().removeObserver(jk);
+            jk.getkVal().removeObserver(jk);
+
+            // create d ff
+            ObservableValue q = jk.getOutputs().get(0);
+            ObservableValue qn = jk.getOutputs().get(1);
+            FlipflopD d = new FlipflopD(jk.getLabel(), q, qn);
+
+            And a1 = new And(new ElementAttributes());
+            a1.setInputs(new ObservableValues(jk.getjVal(), qn));
+            And a2 = new And(new ElementAttributes());
+            Not nk = new Not(new ElementAttributes());
+            nk.setInputs(jk.getkVal().asList());
+            a2.setInputs(new ObservableValues(nk.getOutput(), q));
+
+            Or or = new Or(new ElementAttributes());
+            or.setInputs(new ObservableValues(a1.getOutput(), a2.getOutput()));
+
+            d.setInputs(new ObservableValues(or.getOutputs().get(0), jk.getClockVal()));
+
+            model.add(a1);
+            model.add(a2);
+            model.add(nk);
+            model.add(or);
+            model.add(d);
+        }
+    }
+
+    private void replaceTFF() throws NodeException, AnalyseException {
+        List<FlipflopT> jkList = model.findNode(FlipflopT.class);
+
+        for (FlipflopT tff : jkList) {
+            checkClock(tff);
+
+            // remove T-ff from model
+            model.removeNode(tff);
+            tff.getClockVal().removeObserver(tff);
+
+            // create d ff
+            ObservableValue q = tff.getOutputs().get(0);
+            ObservableValue qn = tff.getOutputs().get(1);
+            FlipflopD d = new FlipflopD(tff.getLabel(), q, qn);
+
+            d.setInputs(new ObservableValues(qn, getClock()));
+
+            model.add(d);
+        }
+    }
+
 
 }

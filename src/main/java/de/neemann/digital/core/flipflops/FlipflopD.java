@@ -44,10 +44,29 @@ public class FlipflopD extends Node implements Element {
      * @param attributes the attributes
      */
     public FlipflopD(ElementAttributes attributes) {
+        this(attributes,
+                new ObservableValue("Q", attributes.getBits()),
+                new ObservableValue("\u00ACQ", attributes.getBits()));
+    }
+
+    /**
+     * Creates a new D-FF with the given outputs!
+     *
+     * @param label the label
+     * @param q     output
+     * @param qn    inverted output
+     */
+    public FlipflopD(String label, ObservableValue q, ObservableValue qn) {
+        this(new ElementAttributes().set(Keys.LABEL, label).setBits(q.getBits()), q, qn);
+        if (qn.getBits() != q.getBits())
+            throw new RuntimeException("wrong bit count given!");
+    }
+
+    private FlipflopD(ElementAttributes attributes, ObservableValue q, ObservableValue qn) {
         super(true);
         bits = attributes.getBits();
-        this.q = new ObservableValue("Q", bits);
-        this.qn = new ObservableValue("\u00ACQ", bits);
+        this.q = q;
+        this.qn = qn;
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getCleanLabel();
 
@@ -100,5 +119,12 @@ public class FlipflopD extends Node implements Element {
      */
     public String getLabel() {
         return label;
+    }
+
+    /**
+     * @return the clock value
+     */
+    public ObservableValue getClock() {
+        return clockVal;
     }
 }

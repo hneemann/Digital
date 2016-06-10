@@ -42,12 +42,29 @@ public class ToBreakRunner {
     /**
      * Creates a new instance
      *
+     * @param file   the file to load
+     * @param doInit if true model is initialized
+     * @throws IOException
+     * @throws PinException
+     * @throws NodeException
+     */
+    public ToBreakRunner(String file, boolean doInit) throws IOException, PinException, NodeException {
+        this(new File(Resources.getRoot(), file), doInit);
+    }
+
+    /**
+     * Creates a new instance
+     *
      * @param filename the file to load
      * @throws IOException
      * @throws PinException
      * @throws NodeException
      */
     public ToBreakRunner(File filename) throws IOException, PinException, NodeException {
+        this(filename, true);
+    }
+
+    private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException {
         ElementLibrary library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library);
         circuit = Circuit.loadCircuit(filename, shapeFactory);
@@ -56,7 +73,8 @@ public class ToBreakRunner {
 
         ModelDescription md = new ModelDescription(circuit, library);
         model = md.createModel(false);
-        model.init(true);
+        if (doInit)
+            model.init(true);
     }
 
     /**

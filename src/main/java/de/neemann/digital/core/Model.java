@@ -461,4 +461,13 @@ public class Model implements Iterable<Node> {
     public Iterator<Node> iterator() {
         return nodes.iterator();
     }
+
+    /**
+     * removes a node from this model
+     *
+     * @param node the node to remove
+     */
+    public void removeNode(Node node) {
+        nodes.remove(node);
+    }
 }

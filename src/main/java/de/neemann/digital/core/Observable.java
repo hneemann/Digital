@@ -66,4 +66,13 @@ public class Observable {
     }
 
 
+    /**
+     * Returns true if the given observer observes this observable
+     *
+     * @param observer the observer
+     * @return true if the given observer observes this observable
+     */
+    public boolean hasObserver(Observer observer) {
+        return observers.contains(observer);
+    }
 }
