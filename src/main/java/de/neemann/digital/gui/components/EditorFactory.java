@@ -7,6 +7,8 @@ import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.lang.Language;
+import de.neemann.digital.lang.Languages;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
 
@@ -36,6 +38,7 @@ public final class EditorFactory {
         add(DataField.class, DataFieldEditor.class);
         add(Rotation.class, RotationEditor.class);
         add(IntFormat.class, IntFormatsEditor.class);
+        add(Language.class, LanguageEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -305,4 +308,22 @@ public final class EditorFactory {
         }
     }
 
+    private static class LanguageEditor extends LabelEditor<Language> {
+        private JComboBox comb;
+
+        public LanguageEditor(Language language, Key<Rotation> key) {
+            comb = new JComboBox<>(Languages.getInstance().getSupportedLanguages());
+            comb.setSelectedIndex(Languages.getInstance().getIndexOf(language));
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            return comb;
+        }
+
+        @Override
+        public Language getValue() {
+            return Languages.getInstance().getByIndex(comb.getSelectedIndex());
+        }
+    }
 }

@@ -2,6 +2,8 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.lang.Language;
+import de.neemann.digital.lang.Languages;
 
 import java.util.Locale;
 
@@ -200,6 +202,13 @@ public final class Keys {
      */
     public static final Key<Boolean> SETTINGS_IEEE_SHAPES
             = new Key<>("IEEEShapes", Locale.getDefault().getLanguage().equals(Locale.US.getLanguage()));
+
+    /**
+     * The Gui Language
+     */
+    public static final Key<Language> SETTINGS_LANGUAGE
+            = new Key<>("Language", Languages.getInstance().getDefault());
+
 
     /**
      * output format for numbers

@@ -386,8 +386,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction editSettings = new ToolTipAction(Lang.get("menu_editSettings")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog())
+                if (new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog()) {
+                    Lang.setLanguage(Settings.getInstance().getAttributes().get(Keys.SETTINGS_LANGUAGE));
                     JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
+                }
             }
         }.setToolTip(Lang.get("menu_editSettings_tt"));
 

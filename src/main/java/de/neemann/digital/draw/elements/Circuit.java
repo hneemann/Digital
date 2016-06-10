@@ -18,6 +18,7 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.lang.Language;
 
 import java.awt.*;
 import java.io.*;
@@ -60,6 +61,8 @@ public class Circuit {
         xStream.alias("intFormat", IntFormat.class);
         xStream.alias("rotation", Rotation.class);
         xStream.aliasAttribute(Rotation.class, "rotation", "rotation");
+        xStream.alias("language", Language.class);
+        xStream.aliasAttribute(Language.class, "name", "name");
         xStream.alias("vector", Vector.class);
         xStream.aliasAttribute(Vector.class, "x", "x");
         xStream.aliasAttribute(Vector.class, "y", "y");

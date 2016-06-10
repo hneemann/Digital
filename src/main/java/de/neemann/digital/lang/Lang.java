@@ -4,11 +4,14 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 /**
  * @author hneemann
  */
 public final class Lang {
+    private static final Preferences PREFS = Preferences.userRoot().node("dig");
+    private static final String LANGUAGE = "lang";
 
     private static class InstanceHolder {
         static final Lang INSTANCE = new Lang();
@@ -23,6 +26,16 @@ public final class Lang {
      */
     public static String get(String key, Object... params) {
         return InstanceHolder.INSTANCE.getKey(key, params);
+    }
+
+
+    /**
+     * Sets the GUI language
+     *
+     * @param language the language
+     */
+    public static void setLanguage(Language language) {
+        PREFS.put(LANGUAGE, language.getName());
     }
 
     /**
@@ -40,9 +53,10 @@ public final class Lang {
     private ResourceBundle localeBundle;
 
     private Lang() {
-        Locale currentLocale = Locale.getDefault();
         defaultBundle = ResourceBundle.getBundle("lang/lang", Locale.ENGLISH);
         try {
+            String lang = PREFS.get(LANGUAGE, null);
+            Locale currentLocale = Languages.getInstance().getLocaleByName(lang);
             localeBundle = ResourceBundle.getBundle("lang/lang", currentLocale);
         } catch (MissingResourceException e) {
         }
