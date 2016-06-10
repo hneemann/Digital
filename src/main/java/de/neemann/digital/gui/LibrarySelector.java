@@ -261,7 +261,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
          * @param inputNames     the names of the input signals
          */
         public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, PinDescription... inputNames) {
-            super(file.getPath(), elementFactory, inputNames);
+            super(file.getPath().replace('\\', '/'), elementFactory, inputNames);
             this.file = file;
             this.attributes = attributes;
             if (attributes.contains(Keys.DESCRIPTION))
