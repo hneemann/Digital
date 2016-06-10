@@ -267,6 +267,8 @@ public class LibrarySelector implements ElementNotFoundNotification {
             if (attributes.contains(Keys.DESCRIPTION))
                 setDescription(attributes.get(Keys.DESCRIPTION));
             setShortName(file.getName());
+            addAttribute(Keys.ROTATE);
+            addAttribute(Keys.LABEL);
         }
 
         /**

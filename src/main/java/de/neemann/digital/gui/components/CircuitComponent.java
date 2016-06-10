@@ -366,26 +366,39 @@ public class CircuitComponent extends JComponent {
     private void editAttributes(VisualElement vp, MouseEvent e) {
         String name = vp.getElementName();
         ElementTypeDescription elementType = library.getElementType(name);
-        if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
-            new Main(this, ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(), new SavedListener() {
-                @Override
-                public void saved(File filename) {
-                    if (parentsSavedListener != null)
-                        parentsSavedListener.saved(filename);
-                    library.removeElement(filename);
-                    circuit.clearState();
-                    repaint();
-                }
-            }).setVisible(true);
-        } else {
-            ArrayList<Key> list = elementType.getAttributeList();
-            if (list.size() > 0) {
-                Point p = new Point(e.getX(), e.getY());
-                SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                if (new AttributeDialog(this, p, list, vp.getElementAttributes()).showDialog()) {
-                    circuit.modified();
-                    repaint();
-                }
+        ArrayList<Key> list = elementType.getAttributeList();
+        if (list.size() > 0) {
+            Point p = new Point(e.getX(), e.getY());
+            SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+            AttributeDialog attributeDialog = new AttributeDialog(this, p, list, vp.getElementAttributes());
+            if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
+                attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        attributeDialog.dispose();
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                new Main(CircuitComponent.this,
+                                        ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(),
+                                        new SavedListener() {
+                                            @Override
+                                            public void saved(File filename) {
+                                                if (parentsSavedListener != null)
+                                                    parentsSavedListener.saved(filename);
+                                                library.removeElement(filename);
+                                                circuit.clearState();
+                                                repaint();
+                                            }
+                                        }).setVisible(true);
+                            }
+                        });
+                    }
+                }.setToolTip(Lang.get("attr_openCircuit_tt")));
+            }
+            if (attributeDialog.showDialog()) {
+                circuit.modified();
+                repaint();
             }
         }
     }

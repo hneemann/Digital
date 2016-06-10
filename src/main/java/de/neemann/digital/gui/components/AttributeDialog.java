@@ -4,6 +4,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class AttributeDialog extends JDialog {
 
     private final java.util.List<EditorHolder> editors;
+    private final JPanel panel;
+    private final Point pos;
     private boolean changed = false;
 
     /**
@@ -39,9 +42,10 @@ public class AttributeDialog extends JDialog {
      */
     public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
+        this.pos = pos;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JPanel panel = new JPanel(new DialogLayout());
+        panel = new JPanel(new DialogLayout());
 
         getContentPane().add(new JScrollPane(panel));
 
@@ -68,13 +72,19 @@ public class AttributeDialog extends JDialog {
         getContentPane().add(okButton, BorderLayout.SOUTH);
 
         getRootPane().setDefaultButton(okButton);
+    }
 
-        pack();
-
-        if (pos == null)
-            setLocationRelativeTo(null);
-        else
-            setLocation(pos.x, pos.y);
+    /**
+     * Adds a button to this dialog
+     *
+     * @param label  a label
+     * @param action the action
+     * @return this for chained calls
+     */
+    public AttributeDialog addButton(String label, ToolTipAction action) {
+        panel.add(new JLabel(label), DialogLayout.LABEL);
+        panel.add(action.createJButton(), DialogLayout.INPUT);
+        return this;
     }
 
     private void setEditedValues(ElementAttributes attr) {
@@ -88,6 +98,13 @@ public class AttributeDialog extends JDialog {
      * @return true if data was changed
      */
     public boolean showDialog() {
+        pack();
+
+        if (pos == null)
+            setLocationRelativeTo(null);
+        else
+            setLocation(pos.x, pos.y);
+
         setVisible(true);
         return changed;
     }
