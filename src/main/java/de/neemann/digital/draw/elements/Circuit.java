@@ -36,7 +36,6 @@ public class Circuit {
 
     static {
         ATTR_LIST.add(Keys.WIDTH);
-        ATTR_LIST.add(Keys.DESCRIPTION);
     }
 
     private int version = 1;

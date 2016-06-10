@@ -38,17 +38,18 @@ public class CustomElement implements Element {
 
     /**
      * Gets a {@link ModelDescription} of this circuit.
-     * Every tim this method is called a new {@link ModelDescription} is created.
+     * Every time this method is called a new {@link ModelDescription} is created.
      *
+     * @param subName name of the circuit, used to name unique elements
      * @return the {@link ModelDescription}
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public ModelDescription getModelDescription() throws PinException, NodeException {
+    public ModelDescription getModelDescription(String subName) throws PinException, NodeException {
         if (netList == null)
             netList = new NetList(circuit);
 
-        return new ModelDescription(circuit, library, true, name, new NetList(netList));
+        return new ModelDescription(circuit, library, true, name, new NetList(netList), subName);
     }
 
     @Override

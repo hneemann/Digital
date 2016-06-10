@@ -5,7 +5,9 @@ import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.Clock;
@@ -54,7 +56,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @throws NodeException NodeException
      */
     public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
-        this(circuit, library, readAsCustom, "unknown", new NetList(circuit));
+        this(circuit, library, readAsCustom, "unknown", new NetList(circuit), "");
     }
 
     /**
@@ -65,10 +67,11 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @param isNestedCircuit if true the model is created for use as nested element
      * @param fileName        only used for better messages in exceptions
      * @param netList         the NetList of the model. If known it is not necessary to create it.
+     * @param subName         name of the circuit, used to name unique elements
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public ModelDescription(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, String fileName, NetList netList) throws PinException, NodeException {
+    public ModelDescription(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, String fileName, NetList netList, String subName) throws PinException, NodeException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
@@ -80,7 +83,12 @@ public class ModelDescription implements Iterable<ModelEntry> {
         for (VisualElement ve : circuit.getElements()) {
             Pins pins = ve.getPins();
             ElementTypeDescription elementType = library.getElementType(ve.getElementName());
-            Element element = elementType.createElement(ve.getElementAttributes());
+            ElementAttributes attr = ve.getElementAttributes();
+            if (attr.getCleanLabel().contains("*")) {
+                attr = new ElementAttributes(attr);
+                attr.set(Keys.LABEL, attr.getCleanLabel().replace("*", subName));
+            }
+            Element element = elementType.createElement(attr);
             ve.setElement(element);
             pins.bindOutputsToOutputPins(element.getOutputs());
 
@@ -117,7 +125,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
             ModelEntry me = it.next();
             if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
                 CustomElement ce = (CustomElement) me.getElement();
-                ModelDescription child = ce.getModelDescription();
+                ModelDescription child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()));
                 cmdl.add(child);
 
                 for (Pin p : me.getPins()) {                     // connect the custom elements to the parents net
@@ -138,6 +146,17 @@ public class ModelDescription implements Iterable<ModelEntry> {
         for (ModelDescription md : cmdl) {       // put the elements of the custom element to the parent
             entries.addAll(md.entries);
             netList.add(md.netList);
+        }
+    }
+
+    private String combineNames(String s1, String s2) {
+        if (s1.length() > 0) {
+            if (s2.length() > 0) {
+                return s1 + "_" + s2;
+            } else
+                return s1;
+        } else {
+            return s2;
         }
     }
 
