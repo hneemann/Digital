@@ -363,7 +363,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction orderOutputs = new ToolTipAction(Lang.get("menu_orderOutputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(), Out.DESCRIPTION);
+                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(),
+                        element -> element.equalsDescription(Out.DESCRIPTION)
+                                || element.equalsDescription(Out.LEDDESCRIPTION));
                 new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).showDialog();
             }
         }.setToolTip(Lang.get("menu_orderOutputs_tt"));
