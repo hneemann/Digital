@@ -59,12 +59,15 @@ public class CircuitComponent extends JComponent {
     private final MouseController mouseRun;
     private final MouseControllerInsertCopied mouseInsertList;
     private final Cursor moveCursor;
+    private final AbstractAction copyAction;
+    private final AbstractAction pasteAction;
 
     private Circuit circuit;
     private MouseController activeMouseController;
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
     private Vector lastMousePos;
+
 
     /**
      * Creates a new instance
@@ -77,7 +80,7 @@ public class CircuitComponent extends JComponent {
         this.parentsSavedListener = parentsSavedListener;
         highLighted = new HashSet<>();
 
-        AbstractAction copyAction = new AbstractAction("Copy") {
+        copyAction = new AbstractAction(Lang.get("menu_copy")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (activeMouseController instanceof MouseControllerSelect) {
@@ -90,8 +93,9 @@ public class CircuitComponent extends JComponent {
                 }
             }
         };
+        copyAction.setEnabled(false);
 
-        AbstractAction pasteAction = new AbstractAction("Paste") {
+        pasteAction = new AbstractAction(Lang.get("menu_paste")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -182,6 +186,20 @@ public class CircuitComponent extends JComponent {
      */
     public ToolTipAction getDeleteAction() {
         return deleteAction;
+    }
+
+    /**
+     * @return the copy action
+     */
+    public AbstractAction getCopyAction() {
+        return copyAction;
+    }
+
+    /**
+     * @return the paste action
+     */
+    public AbstractAction getPasteAction() {
+        return pasteAction;
     }
 
     /**
@@ -460,6 +478,7 @@ public class CircuitComponent extends JComponent {
         private void activate() {
             activeMouseController = this;
             deleteAction.setActive(false);
+            copyAction.setEnabled(false);
             setCursor(mouseCursor);
             repaint();
         }
@@ -671,6 +690,7 @@ public class CircuitComponent extends JComponent {
             this.corner1 = corner1;
             this.corner2 = corner2;
             deleteAction.setActive(true);
+            copyAction.setEnabled(true);
             wasReleased = false;
         }
 

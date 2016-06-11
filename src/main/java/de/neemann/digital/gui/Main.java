@@ -395,11 +395,16 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_editSettings_tt"));
 
+        edit.add(editAttributes.createJMenuItem());
+        edit.addSeparator();
+        edit.add(circuitComponent.getCopyAction());
+        edit.add(circuitComponent.getPasteAction());
+        edit.addSeparator();
         edit.add(elementStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
-        edit.add(editAttributes.createJMenuItem());
+        edit.addSeparator();
         edit.add(editSettings.createJMenuItem());
     }
 
@@ -471,10 +476,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         JMenu run = new JMenu(Lang.get("menu_run"));
         menuBar.add(run);
         run.add(editRunAttributes.createJMenuItem());
+        run.addSeparator();
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runToBreak.createJMenuItem());
+        run.addSeparator();
         run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
