@@ -68,6 +68,7 @@ public class Circuit {
         xStream.addImplicitCollection(ElementAttributes.class, "attributes");
         xStream.alias("data", DataField.class);
         xStream.addImplicitCollection(DataField.class, "data");
+        xStream.ignoreUnknownElements();
         return xStream;
     }
 

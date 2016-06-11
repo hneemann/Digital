@@ -16,5 +16,8 @@ public interface Moveable {
      */
     void move(Vector delta);
 
+    /**
+     * @return the actual position
+     */
     Vector getPos();
 }

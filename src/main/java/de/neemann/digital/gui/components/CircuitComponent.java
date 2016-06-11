@@ -85,12 +85,7 @@ public class CircuitComponent extends JComponent {
         rotateAction = new AbstractAction(Lang.get("menu_rotate")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (activeMouseController instanceof MouseControllerSelect) {
-                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-                    ArrayList<Moveable> elements = circuit.getElementsToMove(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2));
-                    if (elements != null)
-                        rotateElements(elements, mcs);
-                }
+                activeMouseController.rotate();
             }
         };
         rotateAction.setEnabled(false);
@@ -225,37 +220,6 @@ public class CircuitComponent extends JComponent {
      */
     public AbstractAction getRotateAction() {
         return rotateAction;
-    }
-
-    private void rotateElements(ArrayList<Moveable> elements, MouseControllerSelect mcs) {
-        Vector p1 = Vector.min(mcs.corner1, mcs.corner2);
-        Vector p2 = Vector.max(mcs.corner1, mcs.corner2);
-
-        Transform transform = new TransformRotate(p1.add(0, p2.y - p1.y), 1) {
-            @Override
-            public Vector transform(Vector v) {
-                return super.transform(v.sub(p1));
-            }
-        };
-
-        for (Moveable m : elements) {
-            Vector p = m.getPos();
-            Vector t = transform.transform(p);
-            m.move(t.sub(p));
-
-            if (m instanceof VisualElement) {
-                VisualElement ve = (VisualElement) m;
-                int r = ve.getRotate() + 1;
-                if (r > 3) r -= 4;
-                ve.setRotate(r);
-            }
-
-        }
-
-        mcs.corner1 = transform.transform(mcs.corner1);
-        mcs.corner2 = transform.transform(mcs.corner2);
-        circuit.modified();
-        repaint();
     }
 
     /**
@@ -567,6 +531,9 @@ public class CircuitComponent extends JComponent {
 
         public void delete() {
         }
+
+        public void rotate() {
+        }
     }
 
     private final class MouseControllerNormal extends MouseController {
@@ -671,6 +638,7 @@ public class CircuitComponent extends JComponent {
             this.visualElement = visualElement;
             delta = visualElement.getPos().sub(pos);
             deleteAction.setActive(true);
+            rotateAction.setEnabled(true);
             repaint();
         }
 
@@ -697,6 +665,13 @@ public class CircuitComponent extends JComponent {
         public void delete() {
             circuit.delete(visualElement);
             mouseNormal.activate();
+        }
+
+        @Override
+        public void rotate() {
+            visualElement.rotate();
+            circuit.modified();
+            repaint();
         }
     }
 
@@ -827,7 +802,59 @@ public class CircuitComponent extends JComponent {
             circuit.delete(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
             mouseNormal.activate();
         }
+
+        public void rotate() {
+            ArrayList<Moveable> elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+            if (elements != null)
+                rotateElements(elements, this, null);
+        }
     }
+
+    private void rotateElements(ArrayList<Moveable> elements, MouseControllerSelect mcs, Vector pos) {
+        Vector p1;
+        Vector p2;
+        if (mcs != null) {
+            p1 = Vector.min(mcs.corner1, mcs.corner2);
+            p2 = Vector.max(mcs.corner1, mcs.corner2);
+            p2 = p1.add(0, p2.y - p1.y);
+        } else {
+            p1 = pos;
+            p2 = pos;
+        }
+
+        Transform transform = new TransformRotate(p2, 1) {
+            @Override
+            public Vector transform(Vector v) {
+                return super.transform(v.sub(p1));
+            }
+        };
+
+        for (Moveable m : elements) {
+
+            if (m instanceof VisualElement) {
+                VisualElement ve = (VisualElement) m;
+                ve.rotate();
+                ve.setPos(transform.transform(ve.getPos()));
+            } else if (m instanceof Wire) {
+                Wire w = (Wire) m;
+                w.p1 = transform.transform(w.p1);
+                w.p2 = transform.transform(w.p2);
+            } else {
+                Vector p = m.getPos();
+                Vector t = transform.transform(p);
+                m.move(t.sub(p));
+            }
+
+        }
+
+        if (mcs != null) {
+            mcs.corner1 = transform.transform(mcs.corner1);
+            mcs.corner2 = transform.transform(mcs.corner2);
+        }
+        circuit.modified();
+        repaint();
+    }
+
 
     private final class MouseControllerMoveSelected extends MouseController {
         private ArrayList<Moveable> elements;
@@ -884,6 +911,7 @@ public class CircuitComponent extends JComponent {
             this.elements = elements;
             lastPos = pos;
             deleteAction.setActive(true);
+            rotateAction.setEnabled(true);
         }
 
         @Override
@@ -926,6 +954,11 @@ public class CircuitComponent extends JComponent {
                 }
             }
             mouseNormal.activate();
+        }
+
+        @Override
+        public void rotate() {
+            rotateElements(elements, null, lastPos);
         }
     }
 

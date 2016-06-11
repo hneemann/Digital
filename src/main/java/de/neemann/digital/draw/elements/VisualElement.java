@@ -21,16 +21,17 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
  */
 public class VisualElement implements Drawable, Moveable, AttributeListener {
     private static final int PIN = 2;
-    private final String elementName;
-    private final ElementAttributes elementAttributes;
+
     private transient GraphicMinMax minMax;
     private transient Shape shape;
     private transient IOState ioState;
     private transient InteractorInterface interactor;
     private transient Element element;
     private transient ShapeFactory shapeFactory;
+
+    private final String elementName;
+    private final ElementAttributes elementAttributes;
     private Vector pos;
-    private int rotate;
 
     /**
      * creates a new instance
@@ -53,7 +54,6 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         this.elementName = proto.elementName;
         this.elementAttributes = new ElementAttributes(proto.elementAttributes);
         this.pos = new Vector(proto.pos);
-        this.rotate = proto.rotate;
     }
 
     /**
@@ -126,17 +126,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @return the rotation of this element
      */
     public int getRotate() {
-        return rotate;
-    }
-
-    /**
-     * sets the rotation of this element
-     *
-     * @param rotate the new value in the range 0-3
-     */
-    public void setRotate(int rotate) {
-        this.rotate = rotate;
-        minMax = null;
+        return elementAttributes.get(Keys.ROTATE).getRotation();
     }
 
     /**
@@ -176,6 +166,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     private Transform createTransform() {
+        int rotate = getRotate();
         if (rotate == 0)
             return v -> v.add(pos);
         else
@@ -311,7 +302,6 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     @Override
     public void attributeChanged(Key key) {
         shape = null;
-        rotate = elementAttributes.get(Keys.ROTATE).getRotation();
     }
 
     @Override
@@ -345,12 +335,23 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     /**
-     * Returns true if this emenet is from the given type
+     * Returns true if this element is from the given type
      *
      * @param description the description of the type
      * @return true if element is of the given type
      */
     public boolean equalsDescription(ElementTypeDescription description) {
         return elementName.equals(description.getName());
+    }
+
+    /**
+     * Rotates the element
+     */
+    public void rotate() {
+        int rotate = getRotate();
+        rotate += 1;
+        if (rotate > 3) rotate -= 4;
+        elementAttributes.set(Keys.ROTATE, new Rotation(rotate));
+        minMax = null;
     }
 }
