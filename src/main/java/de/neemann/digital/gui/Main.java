@@ -397,13 +397,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         edit.add(editAttributes.createJMenuItem());
         edit.addSeparator();
-        edit.add(circuitComponent.getCopyAction());
-        edit.add(circuitComponent.getPasteAction());
-        edit.addSeparator();
         edit.add(elementStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
+        edit.addSeparator();
+        edit.add(circuitComponent.getCopyAction());
+        edit.add(circuitComponent.getPasteAction());
         edit.addSeparator();
         edit.add(editSettings.createJMenuItem());
     }

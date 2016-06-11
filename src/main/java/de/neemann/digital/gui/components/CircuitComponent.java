@@ -452,6 +452,12 @@ public class CircuitComponent extends JComponent {
         }
 
         @Override
+        public void mouseEntered(MouseEvent e) {
+            lastMousePos = new Vector(e.getX(), e.getY());
+            activeMouseController.moved(e);
+        }
+
+        @Override
         public void mouseDragged(MouseEvent e) {
             if (wasMoved(e) || isMoved) {
                 isMoved = true;
