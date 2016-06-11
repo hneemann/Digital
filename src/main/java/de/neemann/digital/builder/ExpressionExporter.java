@@ -24,7 +24,7 @@ public interface ExpressionExporter<T extends ExpressionExporter> {
      * You can modify the mapping before getBuilder is called.
      * After the export you will find the used pin mapping.
      *
-     * @return the aktual pin mapping
+     * @return the actual pin mapping
      */
     PinMap getPinMapping();
 
@@ -34,6 +34,7 @@ public interface ExpressionExporter<T extends ExpressionExporter> {
      * @param out the output stream
      * @throws FuseMapFillerException FuseMapFillerException
      * @throws IOException            IOException
+     * @throws PinMapException        PinMapException
      */
     void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException;
 }
