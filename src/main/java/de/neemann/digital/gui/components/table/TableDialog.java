@@ -119,61 +119,7 @@ public class TableDialog extends JDialog {
         renamePopup.add(text);
 
         JMenuBar bar = new JMenuBar();
-
-        JMenu fileMenu = new JMenu(Lang.get("menu_file"));
-
-        fileMenu.add(new ToolTipAction(Lang.get("menu_open")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                if (TableDialog.this.filename != null)
-                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
-                if (fc.showOpenDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        File file = Main.checkSuffix(fc.getSelectedFile(), "tru");
-                        TruthTable truthTable = TruthTable.readFromFile(file);
-                        setModel(new TruthTableTableModel(truthTable));
-                        TableDialog.this.filename = file;
-                    } catch (IOException e1) {
-                        new ErrorMessage().addCause(e1).show(TableDialog.this);
-                    }
-                }
-            }
-        });
-
-        fileMenu.add(new ToolTipAction(Lang.get("menu_save")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                if (TableDialog.this.filename != null)
-                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
-                if (fc.showSaveDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        File file = Main.checkSuffix(fc.getSelectedFile(), "tru");
-                        model.getTable().save(file);
-                        TableDialog.this.filename = file;
-                    } catch (IOException e1) {
-                        new ErrorMessage().addCause(e1).show(TableDialog.this);
-                    }
-                }
-            }
-        });
-
-
-        fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportTableLaTeX")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String text = new TruthTableFormatterLaTeX().format(model.getTable());
-                    text += getExpressionsLaTeX();
-                    new ShowStringDialog(parent, Lang.get("win_table_exportDialog"), text).setVisible(true);
-                } catch (ExpressionException | FormatterException e1) {
-                    new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
-                }
-            }
-        });
-
-        bar.add(fileMenu);
+        bar.add(createFileMenu());
 
         JMenu sizeMenu = new JMenu(Lang.get("menu_table_new"));
 
@@ -241,10 +187,7 @@ public class TableDialog extends JDialog {
         }.setToolTip(Lang.get("menu_table_columnsAddVariable_tt")).createJMenuItem());
         bar.add(colsMenu);
 
-        JMenu createMenu = createCreateMenu(parent);
-
-        bar.add(createMenu);
-
+        bar.add(createCreateMenu(parent));
 
         setJMenuBar(bar);
 
@@ -254,6 +197,63 @@ public class TableDialog extends JDialog {
         getContentPane().add(label, BorderLayout.SOUTH);
         pack();
         setLocationRelativeTo(parent);
+    }
+
+    private JMenu createFileMenu() {
+        JMenu fileMenu = new JMenu(Lang.get("menu_file"));
+
+        fileMenu.add(new ToolTipAction(Lang.get("menu_open")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                if (TableDialog.this.filename != null)
+                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
+                if (fc.showOpenDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File file = Main.checkSuffix(fc.getSelectedFile(), "tru");
+                        TruthTable truthTable = TruthTable.readFromFile(file);
+                        setModel(new TruthTableTableModel(truthTable));
+                        TableDialog.this.filename = file;
+                    } catch (IOException e1) {
+                        new ErrorMessage().addCause(e1).show(TableDialog.this);
+                    }
+                }
+            }
+        });
+
+        fileMenu.add(new ToolTipAction(Lang.get("menu_save")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                if (TableDialog.this.filename != null)
+                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
+                if (fc.showSaveDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File file = Main.checkSuffix(fc.getSelectedFile(), "tru");
+                        model.getTable().save(file);
+                        TableDialog.this.filename = file;
+                    } catch (IOException e1) {
+                        new ErrorMessage().addCause(e1).show(TableDialog.this);
+                    }
+                }
+            }
+        });
+
+
+        fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportTableLaTeX")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String text = new TruthTableFormatterLaTeX().format(model.getTable());
+                    text += getExpressionsLaTeX();
+                    new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"), text).setVisible(true);
+                } catch (ExpressionException | FormatterException e1) {
+                    new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
+                }
+            }
+        });
+
+        return fileMenu;
     }
 
     private JMenu createCreateMenu(JFrame parent) {
@@ -345,11 +345,10 @@ public class TableDialog extends JDialog {
     }
 
     private void createHardware(ExpressionExporter expressionExporter, File filename) {
-        if (filename == null) {
+        if (filename == null)
             filename = new File("circuit.jed");
-        } else {
-            filename = Main.checkSuffix(filename.getParentFile(), "jed");
-        }
+        else
+            filename = Main.checkSuffix(filename, "jed");
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("JEDEC", "jed"));
