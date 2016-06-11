@@ -1,5 +1,8 @@
 package de.neemann.digital.analyse;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.analyse.expression.BitSetter;
 import de.neemann.digital.analyse.expression.Context;
 import de.neemann.digital.analyse.expression.ExpressionException;
@@ -7,6 +10,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +22,45 @@ public class TruthTable {
 
     private final ArrayList<Variable> variables;
     private final ArrayList<Result> results;
-    private BitSetter bitSetter;
+    private transient BitSetter bitSetter;
+
+    /**
+     * Load the given file and returns a truth table instance
+     *
+     * @param filename filename
+     * @return the {@link TruthTable}
+     * @throws IOException IOException
+     */
+    public static TruthTable readFromFile(File filename) throws IOException {
+        XStream xStream = getxStream();
+        try (InputStream in = new FileInputStream(filename)) {
+            return (TruthTable) xStream.fromXML(in);
+        }
+    }
+
+    /**
+     * Writes the table to the given file.
+     *
+     * @param filename the file
+     * @throws IOException IOException
+     */
+    public void save(File filename) throws IOException {
+        XStream xStream = getxStream();
+        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
+            out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            xStream.marshal(this, new PrettyPrintWriter(out));
+        }
+    }
+
+    private static XStream getxStream() {
+        XStream xStream = new XStream(new StaxDriver());
+        xStream.alias("truthTable", TruthTable.class);
+        xStream.alias("variable", Variable.class);
+        xStream.aliasAttribute(Variable.class, "identifier", "name");
+        xStream.alias("result", Result.class);
+        xStream.alias("BoolTable", BoolTableIntArray.class);
+        return xStream;
+    }
 
     /**
      * Creates a new instance

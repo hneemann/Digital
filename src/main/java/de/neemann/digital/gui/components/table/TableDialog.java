@@ -61,7 +61,7 @@ public class TableDialog extends JDialog {
     private final JPopupMenu renamePopup;
     private final Font font;
     private final ShapeFactory shapeFactory;
-    private final File filename;
+    private File filename;
     private TruthTableTableModel model;
     private TableColumn column;
     private int columnIndex;
@@ -121,6 +121,44 @@ public class TableDialog extends JDialog {
         JMenuBar bar = new JMenuBar();
 
         JMenu fileMenu = new JMenu(Lang.get("menu_file"));
+
+        fileMenu.add(new ToolTipAction(Lang.get("menu_open")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                if (TableDialog.this.filename != null)
+                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
+                if (fc.showOpenDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File file = Main.checkSuffix(fc.getSelectedFile(), "tru");
+                        TruthTable truthTable = TruthTable.readFromFile(file);
+                        setModel(new TruthTableTableModel(truthTable));
+                        TableDialog.this.filename = file;
+                    } catch (IOException e1) {
+                        new ErrorMessage().addCause(e1).show(TableDialog.this);
+                    }
+                }
+            }
+        });
+
+        fileMenu.add(new ToolTipAction(Lang.get("menu_save")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                if (TableDialog.this.filename != null)
+                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
+                if (fc.showSaveDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File file = Main.checkSuffix(fc.getSelectedFile(), "tru");
+                        model.getTable().save(file);
+                        TableDialog.this.filename = file;
+                    } catch (IOException e1) {
+                        new ErrorMessage().addCause(e1).show(TableDialog.this);
+                    }
+                }
+            }
+        });
+
 
         fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportTableLaTeX")) {
             @Override
@@ -310,13 +348,7 @@ public class TableDialog extends JDialog {
         if (filename == null) {
             filename = new File("circuit.jed");
         } else {
-            String name = filename.getName();
-            if (filename.getName().endsWith(".dig")) {
-                name = name.substring(0, name.length() - 3) + "jed";
-            } else {
-                name += ".jed";
-            }
-            filename = new File(filename.getParentFile(), name);
+            filename = Main.checkSuffix(filename.getParentFile(), "jed");
         }
 
         JFileChooser fileChooser = new JFileChooser();
@@ -324,7 +356,7 @@ public class TableDialog extends JDialog {
         fileChooser.setSelectedFile(filename);
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                try (OutputStream out = new FileOutputStream(fileChooser.getSelectedFile())) {
+                try (OutputStream out = new FileOutputStream(Main.checkSuffix(fileChooser.getSelectedFile(), "jed"))) {
                     expressionExporter.getPinMapping().addAll(pinMap);
                     new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
                     expressionExporter.writeTo(out);
@@ -359,14 +391,8 @@ public class TableDialog extends JDialog {
         fileChooser.setFileFilter(new FileNameExtensionFilter("PLD", "PLD"));
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                File f = fileChooser.getSelectedFile();
-                String name = f.getName();
-                if (!name.endsWith(".PLD"))
-                    name = name + ".PLD";
-
-                f = new File(f.getParentFile(), name);
-
-                cupl.setProjectName(name);
+                File f = Main.checkSuffix(fileChooser.getSelectedFile(), "PLD");
+                cupl.setProjectName(f.getName());
                 cupl.getPinMapping().addAll(pinMap);
                 new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
                 try (FileOutputStream out = new FileOutputStream(f)) {

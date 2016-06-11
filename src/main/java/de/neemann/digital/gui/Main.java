@@ -755,7 +755,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             setTitle(Lang.get("digital"));
     }
 
-    private static File checkSuffix(File filename, String suffix) {
+    /**
+     * Adds the given suffix to the file
+     *
+     * @param filename filename
+     * @param suffix   suffix
+     * @return the file name with the given suffix
+     */
+    public static File checkSuffix(File filename, String suffix) {
         String name = filename.getName();
         int p = name.lastIndexOf('.');
         if (p >= 0)
