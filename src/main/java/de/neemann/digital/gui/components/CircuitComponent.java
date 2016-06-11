@@ -814,12 +814,12 @@ public class CircuitComponent extends JComponent {
         Vector p1;
         Vector p2;
         if (mcs != null) {
-            p1 = Vector.min(mcs.corner1, mcs.corner2);
+            p1 = raster(Vector.min(mcs.corner1, mcs.corner2));
             p2 = Vector.max(mcs.corner1, mcs.corner2);
-            p2 = p1.add(0, p2.y - p1.y);
+            p2 = raster(p1.add(0, p2.y - p1.y));
         } else {
-            p1 = pos;
-            p2 = pos;
+            p1 = raster(pos);
+            p2 = p1;
         }
 
         Transform transform = new TransformRotate(p2, 1) {
