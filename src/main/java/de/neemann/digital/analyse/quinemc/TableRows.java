@@ -94,7 +94,7 @@ class TableRows implements Iterable<TableRow> {
         throw new IndexOutOfBoundsException();
     }
 
-    private class RowIterator implements Iterator<TableRow> {
+    private static class RowIterator implements Iterator<TableRow> {
         private final Iterator<ArrayList<TableRow>> listIter;
         private Iterator<TableRow> itemIter;
 

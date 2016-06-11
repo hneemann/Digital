@@ -133,16 +133,16 @@ public class FuseMapFiller {
 
     }
 
-    private class MapEntry {
+    private static class MapEntry {
         private final int index;
         private final boolean swap;
 
-        public MapEntry(int index, boolean swap) {
+        MapEntry(int index, boolean swap) {
             this.index = index;
             this.swap = swap;
         }
 
-        public int getFuse(boolean invert) {
+        int getFuse(boolean invert) {
             int fuse=index*2;
             if (swap) {
                 if (!invert) fuse++;
