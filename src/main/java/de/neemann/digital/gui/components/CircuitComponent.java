@@ -37,6 +37,7 @@ import java.util.HashSet;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
 /**
  * @author hneemann
@@ -61,6 +62,7 @@ public class CircuitComponent extends JComponent {
     private final Cursor moveCursor;
     private final AbstractAction copyAction;
     private final AbstractAction pasteAction;
+    private final AbstractAction rotateAction;
 
     private Circuit circuit;
     private MouseController activeMouseController;
@@ -79,6 +81,20 @@ public class CircuitComponent extends JComponent {
         this.library = library;
         this.parentsSavedListener = parentsSavedListener;
         highLighted = new HashSet<>();
+
+        rotateAction = new AbstractAction(Lang.get("menu_rotate")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerSelect) {
+                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
+                    ArrayList<Moveable> elements = circuit.getElementsToMove(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2));
+                    if (elements != null)
+                        rotateElements(elements, mcs);
+                }
+            }
+        };
+        rotateAction.setEnabled(false);
+
 
         copyAction = new AbstractAction(Lang.get("menu_copy")) {
             @Override
@@ -123,10 +139,12 @@ public class CircuitComponent extends JComponent {
 
         getInputMap().put(KeyStroke.getKeyStroke("DELETE"), DEL_ACTION);
         getActionMap().put(DEL_ACTION, deleteAction);
-        getInputMap().put(KeyStroke.getKeyStroke("control C"), "myCopy");
+        getInputMap().put(KeyStroke.getKeyStroke('C', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "myCopy");
         getActionMap().put("myCopy", copyAction);
-        getInputMap().put(KeyStroke.getKeyStroke("control V"), "myPaste");
+        getInputMap().put(KeyStroke.getKeyStroke('V', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "myPaste");
         getActionMap().put("myPaste", pasteAction);
+        getInputMap().put(KeyStroke.getKeyStroke("R"), "myRotate");
+        getActionMap().put("myRotate", rotateAction);
 
 
         setFocusable(true);
@@ -200,6 +218,44 @@ public class CircuitComponent extends JComponent {
      */
     public AbstractAction getPasteAction() {
         return pasteAction;
+    }
+
+    /**
+     * @return the rotate action
+     */
+    public AbstractAction getRotateAction() {
+        return rotateAction;
+    }
+
+    private void rotateElements(ArrayList<Moveable> elements, MouseControllerSelect mcs) {
+        Vector p1 = Vector.min(mcs.corner1, mcs.corner2);
+        Vector p2 = Vector.max(mcs.corner1, mcs.corner2);
+
+        Transform transform = new TransformRotate(p1.add(0, p2.y - p1.y), 1) {
+            @Override
+            public Vector transform(Vector v) {
+                return super.transform(v.sub(p1));
+            }
+        };
+
+        for (Moveable m : elements) {
+            Vector p = m.getPos();
+            Vector t = transform.transform(p);
+            m.move(t.sub(p));
+
+            if (m instanceof VisualElement) {
+                VisualElement ve = (VisualElement) m;
+                int r = ve.getRotate() + 1;
+                if (r > 3) r -= 4;
+                ve.setRotate(r);
+            }
+
+        }
+
+        mcs.corner1 = transform.transform(mcs.corner1);
+        mcs.corner2 = transform.transform(mcs.corner2);
+        circuit.modified();
+        repaint();
     }
 
     /**
@@ -485,6 +541,7 @@ public class CircuitComponent extends JComponent {
             activeMouseController = this;
             deleteAction.setActive(false);
             copyAction.setEnabled(false);
+            rotateAction.setEnabled(false);
             setCursor(mouseCursor);
             repaint();
         }
@@ -697,6 +754,7 @@ public class CircuitComponent extends JComponent {
             this.corner2 = corner2;
             deleteAction.setActive(true);
             copyAction.setEnabled(true);
+            rotateAction.setEnabled(true);
             wasReleased = false;
         }
 
@@ -724,7 +782,26 @@ public class CircuitComponent extends JComponent {
                 removeHighLighted();
                 mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
             } else {
+
                 corner2 = getPosVector(e);
+                if ((e.getModifiersEx() & CTRL_DOWN_MASK) != 0) {
+                    Vector dif = corner2.sub(corner1);
+                    int dx = dif.x;
+                    int dy = dif.y;
+                    int absDx = Math.abs(dx);
+                    int absDy = Math.abs(dy);
+                    if (absDx != absDy) {
+                        if (absDx > absDy) {
+                            if (dx > absDy) dx = absDy;
+                            else dx = -absDy;
+                        } else {
+                            if (dy > absDx) dy = absDx;
+                            else dy = -absDx;
+                        }
+                    }
+                    corner2 = corner1.add(dx, dy);
+                }
+
                 ArrayList<Drawable> elements = circuit.getElementsToHighlight(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
                 removeHighLighted();
                 if (elements != null)

@@ -76,6 +76,11 @@ public class Wire implements Drawable, Moveable {
         p2 = p2.add(delta);
     }
 
+    @Override
+    public Vector getPos() {
+        return p1;
+    }
+
     /**
      * Setter for point 2.
      * Is used to move the line with the mouse
@@ -178,14 +183,34 @@ public class Wire implements Drawable, Moveable {
      * @return a moveable representing point one
      */
     public Moveable getMovableP1() {
-        return delta -> p1 = p1.add(delta);
+        return new Moveable() {
+            @Override
+            public void move(Vector delta) {
+                p1 = p1.add(delta);
+            }
+
+            @Override
+            public Vector getPos() {
+                return p1;
+            }
+        };
     }
 
     /**
      * @return a moveable representing point two
      */
     public Moveable getMovableP2() {
-        return delta -> p2 = p2.add(delta);
+        return new Moveable() {
+            @Override
+            public void move(Vector delta) {
+                p2 = p2.add(delta);
+            }
+
+            @Override
+            public Vector getPos() {
+                return p2;
+            }
+        };
     }
 
     enum Orientation {horzontal, vertical, diagonal}

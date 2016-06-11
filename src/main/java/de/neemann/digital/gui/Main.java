@@ -402,8 +402,16 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
         edit.addSeparator();
-        edit.add(circuitComponent.getCopyAction());
-        edit.add(circuitComponent.getPasteAction());
+
+        JMenuItem copyItem = new JMenuItem(circuitComponent.getCopyAction());
+        copyItem.setAccelerator(KeyStroke.getKeyStroke('C', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        edit.add(copyItem);
+        JMenuItem pasteItem = new JMenuItem(circuitComponent.getPasteAction());
+        pasteItem.setAccelerator(KeyStroke.getKeyStroke('V', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        edit.add(pasteItem);
+        JMenuItem rotateItem = new JMenuItem(circuitComponent.getRotateAction());
+        rotateItem.setAccelerator(KeyStroke.getKeyStroke('R'));
+        edit.add(rotateItem);
         edit.addSeparator();
         edit.add(editSettings.createJMenuItem());
     }
