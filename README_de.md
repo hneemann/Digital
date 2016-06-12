@@ -32,9 +32,13 @@ Veränderungen mehr gibt und die Schaltung sich stabilisiert hat.
 Auf diese Weise stabiliert sich auch ein Master-Slave Flipflop ohne Probleme, jedoch ist der sich einstellende Zustand 
 nicht definert.
  
-Um eine Schaltung in einem definierten Zustand zu starten gibt es ein Reset-Gatter. 
+Um eine Schaltung in einem definierten Zustand zu Starten gibt es ein spezielles Reset-Gatter. 
 Dieses Gatter hat einen einzigen Ausgang welcher während der Stabilisierungsphase auf Low gehalten wird und 
 auf High wechselt sobald diese abgeschlossen ist.
+
+Ein Nachteil dieses Vorgehens ist die Tatsache, dass sich in einer laufenden Simulation die Schaltung nicht verändern
+läst. Diese muss zuerst ausgeschaltet werden, und nach der Modifikation ist sie wieder einzuschalten. Dieses Vorgehen ist 
+jedoch auch bei einer realen Schaltung ratsam. 
 
 ### Oszillationen ###
 
@@ -48,10 +52,22 @@ Es gibt jedoch einen "Einzelgattermodus" welcher es erlaubt die Propagation eine
 auf dem Weg durch die Schaltung zu verfolgen. 
 Auf diese Weise wird visualisiert, wie sich eine Signaländerung "im Kreis bewegt" und so zu der Oszillation führt.  
 
+### Eingebettete Schaltkreise ###
+
+Wie bei Logisim können auch mit Digital Schaltkreise in neue Schaltungen eingebettet werden. Auf diese Weise lassen sich 
+hierachische Schaltungen aufbauen. Jedoch werden in Digital Schaltungen, die eingebunden werden tatsächlich so oft 
+in die Schaltung aufgenommen, wie sie importiert werden. Das kann man sich vorstellen, als würden in einem C-Programm 
+alle Funktiosaufrufe per inline eingebunden. Es verhällt sich wie bei einer echten Schaltung. Da ist ja auch jeder 
+Schaltkreis so oft vorhanden, wie er verwendet wurde. Aus diesem Vorgehen folgt, dass sich in Digital z.B. ein UND-Gatter, 
+welches als Schaltkreis importiert wurde, genau so verhällt, als wäre es auf oberster Ebene eingefügt worden. Auf 
+Simulations ebene gibt es tatsächlich keinen unterschied zwischen diesen beiden Varianten.
+Logisim arbeitet hier etwas anders, was gelegentlich zu Problemen führt, z.B. durch unerwartete Verzögerungen bei der 
+Signalverarbeitung.
+
 ### Performance ###
 
 Werden komplette Prozessoren simuliert, ist es möglich die Simulation zu berechnen ohne die grafische Anzeige zu aktualisieren.
-Ein einfacher Prozessor (siehe Beispiel) lässt sich so mit 3MHz takten (Intel® Core™ i5-3230M CPU @ 2.60GHz) was auch für
+Ein einfacher Prozessor (siehe Beispiel) lässt sich so mit etwa 3MHz takten (Intel® Core™ i5-3230M CPU @ 2.60GHz) was auch für
 komplexere Übungen ausreichend ist.
 Es gibt ein Break-Gatter welches einen einzelnen Eingang hat. Wechselt dieser Eingang von low auf high wird dieser 
 schnelle Lauf beendet. Auf diese Weise lässt sich eine Assembler-Anweisung BRK implementieren, womit sich dann Break-Points 
@@ -66,26 +82,11 @@ So lässt sich im Simulator ein Assembler-Programm im Einzelschrittmodus ausfüh
 
 ### Schaltungssynthese ###
 
-Logisim kann Schaltungen aus einer Wahrheitstabelle erzeugen. In Digital ist dies auch möglich. Zudem lassen sich
-mit Digital auch Automaten aus einer geeigneten Zustandsübergangstabelle erzeugen. Dabei kann sowohl das 
-Übergangsschaltnetz als auch ein Ausgangsschaltnetz erzeugt werden. Die  Minimierung der Ausdrücke erfolgt dabei 
-nach dem Verfahren von Quine und McCluskey. Ebenso lässt sich aus einer Schaltung, die D-Flipflops enthält die
-Zustandsübergangstabelle ermitteln.
-Um die Schaltung zu realisieren kann eine CUPL-Datei erzeugt werden, welche dann mit [WinCUPL](http://www.atmel.com/tools/WINCUPL.aspx)
-compiliert und z.B. in ein GAL16v8 gebrannt werden kann.
+Logisim kann kombinatorische Schaltungen aus einer Wahrheitstabelle erzeugen. In Digital ist dies ebenfalls möglich. 
+Zudem lassen sich mit Digital auch Automaten aus einer geeigneten Zustandsübergangstabelle erzeugen. Dabei kann sowohl 
+das Übergangsschaltnetz als auch ein Ausgangsschaltnetz erzeugt werden. Die  Minimierung der Ausdrücke erfolgt dabei 
+nach dem Verfahren von Quine und McCluskey. Ebenso lässt sich aus einer Schaltung, die D-Flipflops oder JK-Flipflops 
+enthält die Zustandsübergangstabelle ermitteln.
 
-## Development ##
-
-### How do I get set up? ###
-
-* maven is used as a build system
-* So you can simply run `mvn install` to build Digital 
-* With `mvn site` you get a checkstyle, a findbugs and a cobertura code coverage report
-
-### Contribution guidelines ###
-
-* If you want to contribute send me just a pull request
-* Don't introduce new checkstyle errors
-* Don't introduce new findbugs errors
-* Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
-* Until now there are no GUI tests. Try to keep the amount of untested GUI code low. 
+Um die Schaltung tatsächlich zu realisieren kann eine CUPL-Datei erzeugt werden, welche dann mit 
+[WinCUPL](http://www.atmel.com/tools/WINCUPL.aspx) compiliert und z.B. in ein GAL16v8 gebrannt werden kann.
