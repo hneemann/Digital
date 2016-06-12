@@ -86,7 +86,9 @@ Logisim kann kombinatorische Schaltungen aus einer Wahrheitstabelle erzeugen. In
 Zudem lassen sich mit Digital auch Automaten aus einer geeigneten Zustandsübergangstabelle erzeugen. Dabei kann sowohl 
 das Übergangsschaltnetz als auch ein Ausgangsschaltnetz erzeugt werden. Die  Minimierung der Ausdrücke erfolgt dabei 
 nach dem Verfahren von Quine und McCluskey. Ebenso lässt sich aus einer Schaltung, die D-Flipflops oder JK-Flipflops 
-enthält die Zustandsübergangstabelle ermitteln.
+enthält die Zustandsübergangstabelle ermitteln. Zu beachten ist jedoch, dass ein FlipFlop z.B. aus NOr Gattern aufgebaut 
+nicht als solches erkannt wird. Die Analyse sequentieller Schaltungen funktioniert nur, wenn rein kombinatorische 
+Schaltungen mit D- oder JK-Flopflops kombiniert werden.     
 
 Um die Schaltung tatsächlich zu realisieren kann eine CUPL-Datei erzeugt werden, welche dann mit 
 [WinCUPL](http://www.atmel.com/tools/WINCUPL.aspx) compiliert und z.B. in ein GAL16v8 gebrannt werden kann.
