@@ -6,7 +6,7 @@ import de.neemann.digital.lang.Lang;
 import java.util.ArrayList;
 
 /**
- * This class performes a speed test, to determin how fast the model can run.
+ * This class performs a speed test, to determine how fast the model can run.
  *
  * @author hneemann
  */
