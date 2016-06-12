@@ -41,10 +41,10 @@ public class Bundle {
     }
 
     /**
-     * returnce the resources for the given language
+     * returns the resources for the given language
      *
      * @param lang the language
-     * @return the resources
+     * @return the resources or null if not available
      */
     public Resources getResources(String lang) {
         if (!languages.containsKey(lang))

@@ -84,20 +84,22 @@ public final class Lang {
     }
 
     private String getKey(String key, Object... params) {
-        String str = null;
-        if (localeBundle != null)
-            str = decodeString(localeBundle, key, params);
-        if (str == null) {
-            System.out.println(key + "=" + key.substring(key.indexOf("_") + 1));
-            str = decodeString(defaultBundle, key, params);
-            if (str == null)
-                str = key;
+        String str = getKeyNull(key, params);
+        if (str != null)
+            return str;
+        else {
+            System.out.println("<string name=\"" + key + "\">" + key.substring(key.indexOf("_") + 1) + "</string>");
+            return key;
         }
-        return str;
     }
 
     private String getKeyNull(String key, Object... params) {
-        return decodeString(localeBundle, key, params);
+        String str = null;
+        if (localeBundle != null)
+            str = decodeString(localeBundle, key, params);
+        if (str == null)
+            str = decodeString(defaultBundle, key, params);
+        return str;
     }
 
     private String decodeString(Resources resources, String key, Object[] params) {
