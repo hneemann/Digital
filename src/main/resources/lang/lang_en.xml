@@ -17,9 +17,8 @@
     <string name="elem_And">And</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_tt">If the input of this Element becomes high, the fast forward clocking is stopped.
-        You can use the element to implement a BRK assembly instruction.
-        Then you can execute the circuit to the next BRK instruction.
-    </string>
+You can use the element to implement a BRK assembly instruction.
+Then you can execute the circuit to the next BRK instruction.</string>
     <string name="elem_Button">Button</string>
     <string name="elem_Clock">Clock</string>
     <string name="elem_Clock_tt">A clock signal. Its possible to control it by the real time clock.</string>
@@ -30,8 +29,7 @@
     <string name="elem_D_FF">D_FF</string>
     <string name="elem_Data">Data graph</string>
     <string name="elem_Data_tt">Shows a data plot inside of the circuit panel.
-        You can plot complete clock steps or single gate changes.
-    </string>
+You can plot complete clock steps or single gate changes.</string>
     <string name="elem_Decode_pin_sel">This input selects the enabled output</string>
     <string name="elem_Decoder">Decoder</string>
     <string name="elem_Decoder_tt">One selectable output line is high, all other outputs are low.</string>
@@ -43,14 +41,12 @@
     <string name="elem_Driver">Driver</string>
     <string name="elem_DriverInvSel">Driver, inverted select</string>
     <string name="elem_In">In</string>
-    <string name="elem_In_tt">A input which can be used to connect the circuit if it is included in an other circuit.
-    </string>
+    <string name="elem_In_tt">A input which can be used to connect the circuit if it is included in an other circuit.</string>
     <string name="elem_JK_FF">JK_FF</string>
     <string name="elem_LED">LED</string>
     <string name="elem_LookUpTable">LookUpTable</string>
     <string name="elem_LookUpTable_tt">Gets the output value from a stored table.
-        So this gate can emulate every combinatorial gate.
-    </string>
+So this gate can emulate every combinatorial gate.</string>
     <string name="elem_Mul">Mul</string>
     <string name="elem_Multiplexer">Multiplexer</string>
     <string name="elem_Multiplexer_pin_sel">This pin selects the input</string>
@@ -60,9 +56,7 @@
     <string name="elem_Not">Not</string>
     <string name="elem_Or">Or</string>
     <string name="elem_Out">Out</string>
-    <string name="elem_Out_tt">A output which can be used to connect the circuit if it is included in an other
-        circuit.
-    </string>
+    <string name="elem_Out_tt">A output which can be used to connect the circuit if it is included in an other circuit.</string>
     <string name="elem_Probe">Probe</string>
     <string name="elem_Probe_tt">A measurement value which can be shown in the data graph.</string>
     <string name="elem_RAMDualPort">RAMDualPort</string>
@@ -70,39 +64,25 @@
     <string name="elem_RAMDualPort_pin_c">Clock</string>
     <string name="elem_RAMDualPort_pin_dataIn">The data to be stored in the RAM</string>
     <string name="elem_RAMDualPort_pin_dataOut">The data output pin</string>
-    <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the
-        output.
-    </string>
-    <string name="elem_RAMDualPort_pin_str">If this input is high when the clock becomes high, the the data is stored.
-    </string>
-    <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored
-        data.
-    </string>
+    <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
+    <string name="elem_RAMDualPort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
+    <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
     <string name="elem_RAMSinglePort">RAMSinglePort</string>
     <string name="elem_RAMSinglePort_pin_addr">The address to read and write</string>
     <string name="elem_RAMSinglePort_pin_c">Clock</string>
     <string name="elem_RAMSinglePort_pin_d">Bidirectional data connection.</string>
-    <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at
-        the output.
-    </string>
-    <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is
-        stored.
-    </string>
-    <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional connection for reading and writing the
-        data.
-    </string>
+    <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
+    <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
+    <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional connection for reading and writing the data.</string>
     <string name="elem_ROM">ROM</string>
     <string name="elem_ROM_pin_address">Address of data word to output.</string>
     <string name="elem_ROM_pin_data">The selected data word. Only readable if select input is high.</string>
-    <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in
-        high Z state.
-    </string>
+    <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
     <string name="elem_RS_FF">RS_FF</string>
     <string name="elem_Register">Register</string>
     <string name="elem_Reset">Reset</string>
     <string name="elem_Reset_tt">The output of this element is hold down during the initialisation of the circuit.
-        After the circuit has stabilized the output goes up.
-    </string>
+After the circuit has stabilized the output goes up.</string>
     <string name="elem_Seven-Seg">Seven-Seg</string>
     <string name="elem_Seven-Seg-Hex">Seven-Seg-Hex</string>
     <string name="elem_Seven-Seg-Hex_tt">Seven Segment Display with a 4 bit input</string>
@@ -115,8 +95,7 @@
     <string name="elem_Terminal_pin_C">If this pin becomes high the data is displayed</string>
     <string name="elem_Terminal_pin_D">The data to show in the terminal</string>
     <string name="elem_Terminal_tt">You can write ASCI characters to this terminal.
-        The terminal opens its own window.
-    </string>
+The terminal opens its own window.</string>
     <string name="elem_Text">Text</string>
     <string name="elem_Text_tt">Shows a text in the circuit</string>
     <string name="elem_XNOr">XNOr</string>
@@ -149,9 +128,7 @@
     <string name="err_noShapeFoundFor_N">No shape found for Element {0}</string>
     <string name="err_noValueSetFor_N0_atElement_N1">No value set for {0} at Element {1}</string>
     <string name="err_notAllOutputsSameBits">Not all connected outputs have the same bit count</string>
-    <string name="err_notAllOutputsSupportHighZ">If multiple outputs are connected together, all of them have to be
-        three-state outputs.
-    </string>
+    <string name="err_notAllOutputsSupportHighZ">If multiple outputs are connected together, all of them have to be three-state outputs.</string>
     <string name="err_notInitialized">Logic not initialized</string>
     <string name="err_onOutConnectedToWire">No output connected to a wire</string>
     <string name="err_oneResultIsRequired">Table to small: One result is required!</string>
@@ -170,8 +147,7 @@
     <string name="err_pin_N_unknown">Pin {0} unknown</string>
     <string name="err_readOfHighZ">Read of high Z value</string>
     <string name="err_seemsToOscillate">Logic seems to oscillate
-        To analyse you can run the circuit in single gate step mode.
-    </string>
+To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_selectorInputCountMismatch">Number of inputs does not match selector bit count</string>
     <string name="err_spitterDefSyntaxError">Syntax error in splitter definition {0}</string>
     <string name="err_splitterBitsMismatch">Bit count of splitter is not matching</string>
@@ -183,8 +159,7 @@
     <string name="key_Bits">Data Bits</string>
     <string name="key_Color">Color</string>
     <string name="key_Cycles">Timeout cycles</string>
-    <string name="key_Cycles_tt">If this ammount of cycles is reached without a break signal, an error is created.
-    </string>
+    <string name="key_Cycles_tt">If this ammount of cycles is reached without a break signal, an error is created.</string>
     <string name="key_Data">Data</string>
     <string name="key_Default">Default</string>
     <string name="key_Default_tt">Is set if the circuit is started</string>
@@ -194,18 +169,14 @@
     <string name="key_IEEEShapes">Use IEEE 91-1984 shapes</string>
     <string name="key_IEEEShapes_tt">Use IEEE 91-1984 shapes instead of rectangular shapes</string>
     <string name="key_InputSplitting">Input Splitting</string>
-    <string name="key_InputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16
-        single bits.
-    </string>
+    <string name="key_InputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16 single bits.</string>
     <string name="key_Inputs">Number of Inputs</string>
     <string name="key_Label">Label</string>
     <string name="key_Language">Language</string>
     <string name="key_NetName">Netname</string>
     <string name="key_NetName_tt">All nets with identical name are connected together.</string>
     <string name="key_OutputSplitting">Otput Splitting</string>
-    <string name="key_OutputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16
-        single bits.
-    </string>
+    <string name="key_OutputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16 single bits.</string>
     <string name="key_SelectorBits">Number of Selector Bits</string>
     <string name="key_Signed">Signed</string>
     <string name="key_Value">Value</string>
@@ -231,9 +202,7 @@
     <string name="key_termHeight">Lines</string>
     <string name="key_termWidth">Characters per line</string>
     <string name="key_valueIsProbe">Use as measurment value</string>
-    <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data
-        table.
-    </string>
+    <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.</string>
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
     <string name="lib_flipFlops">FlipFlops</string>
@@ -250,9 +219,7 @@
     <string name="menu_delete_tt">Delete selected single element or group of elements</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_editAttributes">Edit circuit attributes</string>
-    <string name="menu_editAttributes_tt">These attributes effect the behavior if the circuit is included in other
-        circuits.
-    </string>
+    <string name="menu_editAttributes_tt">These attributes effect the behavior if the circuit is included in other circuits.</string>
     <string name="menu_editRunAttributes">Simulation Settings</string>
     <string name="menu_editRunAttributes_tt">Settings used to start the simulation</string>
     <string name="menu_editSettings">Settings</string>
@@ -314,13 +281,11 @@
     <string name="menu_table_createNAnd">Circuit with NAnd gates</string>
     <string name="menu_table_createNAndTwo">Circuit with NAnd gates with two inputs</string>
     <string name="menu_table_createNAndTwo_tt">Use only NAnd gates with two inputs.</string>
-    <string name="menu_table_createNAnd_tt">Creates a circuit which reproduces the truth table only with NAnd gates.
-    </string>
+    <string name="menu_table_createNAnd_tt">Creates a circuit which reproduces the truth table only with NAnd gates.</string>
     <string name="menu_table_createNOr">Circuit with NOr gates</string>
     <string name="menu_table_createNOrTwo">Circuit with NOr gates with two inputs</string>
     <string name="menu_table_createNOrTwo_tt">Use only NOr gates with two inputs.</string>
-    <string name="menu_table_createNOr_tt">Creates a circuit which reproduces the truth table only with NOr gates.
-    </string>
+    <string name="menu_table_createNOr_tt">Creates a circuit which reproduces the truth table only with NOr gates.</string>
     <string name="menu_table_createTwo">Circuit with two input gates</string>
     <string name="menu_table_createTwo_tt">create circuit, use only gates with two inputs</string>
     <string name="menu_table_create_hardware">Device</string>
@@ -338,9 +303,8 @@
     <string name="menu_zoomIn">Zoom In</string>
     <string name="menu_zoomOut">Zoom Out</string>
     <string name="message">Digita
-        A simple simulator for digital circuits.
-        Written bei H.Neemann in 2016
-    </string>
+A simple simulator for digital circuits.
+Written bei H.Neemann in 2016</string>
     <string name="msg_N_nodes">{0} nodes</string>
     <string name="msg_annalyseErr">Error analysing the circuit</string>
     <string name="msg_clockError">Error during a clock state change</string>
