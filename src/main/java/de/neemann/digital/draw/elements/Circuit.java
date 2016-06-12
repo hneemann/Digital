@@ -18,7 +18,7 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.lang.Language;
+import de.neemann.gui.language.Language;
 
 import java.awt.*;
 import java.io.*;

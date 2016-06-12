@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="addr">Adresse</string>
+    <string name="attr_dialogTitle">Eigenschaften</string>
+    <string name="attr_openCircuit">Anzeigen</string>
+    <string name="attr_openCircuitLabel">Enthaltene Schaltung:</string>
+    <string name="attr_openCircuit_tt">Öffnet die Schaltung in einem neuen Fenster.</string>
+    <string name="btn_discard">Verwerfen</string>
+    <string name="btn_edit">Bearbeiten</string>
+    <string name="btn_editFurther">Weiter bearbeiten</string>
+    <string name="btn_load">Laden</string>
+    <string name="btn_reload">Neu Laden</string>
+    <string name="btn_reload_tt">Letzte Datei noch einmal laden</string>
+    <string name="btn_save">Speichern</string>
+    <string name="digital">Digital</string>
+    <string name="elem_Add">Addierer</string>
+    <string name="elem_And">Und</string>
+    <string name="elem_Break">Break</string>
+    <string name="elem_Break_tt">Wenn der Eingang dieses Elementes zu Eins wird, wird der schnelle Simulationslauf
+        beendet.
+        Dieses Element kann verwendet werden, um einen Assemblerbefehl BRK zu implementieren.
+        Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.
+    </string>
+    <string name="elem_Button">Taster</string>
+    <string name="elem_Clock">Takt</string>
+    <string name="elem_Clock_tt">Ein Takstignal. Dieses Taksignal kann über die Echtzeituhr gesteuert werden.</string>
+    <string name="elem_Comparator">Komparator</string>
+    <string name="elem_Const">Konstante</string>
+    <string name="elem_Const_tt">Eine einfache Konstante.</string>
+    <string name="elem_Counter">Zähler</string>
+    <string name="elem_D_FF">D_FF</string>
+    <string name="elem_Data">Messwertgraph</string>
+    <string name="elem_Data_tt">Zeigt einen Messwertgraphen innerhalb des Schaltkreisbereichs.
+        Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angezeigt werden.
+    </string>
+    <string name="elem_Decode_pin_sel">Mit dieser Leitung wird der zu aktivierende Ausgang ausgewählt</string>
+    <string name="elem_Decoder">Decoder</string>
+    <string name="elem_Decoder_tt">Eine wählbare Ausgangsleitung geht auf Eins, alle anderen sind Null.</string>
+    <string name="elem_Delay">Verzögerung</string>
+    <string name="elem_Delay_tt">Verzögert ein Signal für eine Gatterlaufzeit.</string>
+    <string name="elem_Demultiplexer">Demultiplexer</string>
+    <string name="elem_Demultiplexer_pin_sel">Mit dieser Leitung wird der Ausgang ausgewählt</string>
+    <string name="elem_Demultiplexer_tt">Gibt ein Eingangssignal auf einem wählbaren Ausgang aus, die anderen Ausgänge
+        sind Null.
+    </string>
+    <string name="elem_Driver">Treiber</string>
+    <string name="elem_DriverInvSel">Treiber, invertierte Auswahl</string>
+    <string name="elem_In">Eingang</string>
+    <string name="elem_In_tt">Ein Eingang der genutzt werden kann, um eine Verbindung zu einem eingebettetem Element
+        herzustellen.
+    </string>
+    <string name="elem_JK_FF">JK_FF</string>
+    <string name="elem_LED">LED</string>
+    <string name="elem_LookUpTable">LookUpTable</string>
+    <string name="elem_LookUpTable_tt">Erzeugt einen Ausgabewert aus einer Tabelle.
+        Auf diese Weise kann jedes kombinatorische Gatter erzeugt werden.
+    </string>
+    <string name="elem_Mul">Multiplikator</string>
+    <string name="elem_Multiplexer">Multiplexer</string>
+    <string name="elem_Multiplexer_pin_sel">Mit dieser Leitung wird der Eingang ausgewählt</string>
+    <string name="elem_Multiplexer_tt">Wählt eine der Eingangsleitungen aus, und gibt dessen Wert am Ausgang aus.
+    </string>
+    <string name="elem_NAnd">Nicht Und</string>
+    <string name="elem_NOr">Nicht Oder</string>
+    <string name="elem_Not">Nicht</string>
+    <string name="elem_Or">Oder</string>
+    <string name="elem_Out">Ausgang</string>
+    <string name="elem_Out_tt">Ein Ausgang der genutzt werden kann, um eine Verbindung zu einem eingebettetem Element
+        herzustellen.
+    </string>
+    <string name="elem_Probe">Messwert</string>
+    <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertgraphen dargestellt werden kann.</string>
+    <string name="elem_RAMDualPort">RAMDualPort</string>
+    <string name="elem_RAMDualPort_pin_addr">Die Adresse, an der gelesen und geschrieben wird.</string>
+    <string name="elem_RAMDualPort_pin_c">Der Takt</string>
+    <string name="elem_RAMDualPort_pin_dataIn">Der Daten die gespeichert werden sollen</string>
+    <string name="elem_RAMDualPort_pin_dataOut">Der Datenausgang</string>
+    <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort
+        an
+    </string>
+    <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high wird das Datenwort gespeichert, wenn der Takt
+        ansteigt.
+    </string>
+    <string name="elem_RAMDualPort_tt">Ein RAM Modul mit getrennten Anschlüssen für Lesen und Schreiben.
+        Ein gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.
+    </string>
+    <string name="elem_RAMSinglePort">RAMSinglePort</string>
+    <string name="elem_RAMSinglePort_pin_addr">Der Adresseingang.</string>
+    <string name="elem_RAMSinglePort_pin_c">Takt</string>
+    <string name="elem_RAMSinglePort_pin_d">Der bidirektionale Datenanschluß.</string>
+    <string name="elem_RAMSinglePort_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
+    <string name="elem_RAMSinglePort_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.
+    </string>
+    <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionellem Anschluss für das Lesen und Schreiben
+        von Daten.
+    </string>
+    <string name="elem_ROM">ROM</string>
+    <string name="elem_ROM_pin_address">Adresse des Datenwortes welches ausgelesen werden soll.</string>
+    <string name="elem_ROM_pin_data">Hier wird das Datenwort ausgegeben, wenn der Baustein aktiviert ist.</string>
+    <string name="elem_ROM_pin_sel">Ist dieser Pin high (1) ist der Ausgang aktiviert. Ist er low (0) ist der Ausgang
+        hochohmig.
+    </string>
+    <string name="elem_RS_FF">RS_FF</string>
+    <string name="elem_Register">Register</string>
+    <string name="elem_Reset">Reset</string>
+    <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
+        in der Stabilisierungsphase befindet.
+        Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.
+    </string>
+    <string name="elem_Seven-Seg">Siebensegmentanzeige</string>
+    <string name="elem_Seven-Seg-Hex">Siebensegmentanzeige Hex</string>
+    <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalem Eingang.</string>
+    <string name="elem_Seven-Seg_tt">Siebensegmentanzeige bei der jedes Segment über einen eigenen Eingang gesteuert
+        werden kann.
+    </string>
+    <string name="elem_Splitter">Splitter</string>
+    <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einer gemeinsamen Leitung zusammen, bzw. splittet diese
+        wieder auf.
+    </string>
+    <string name="elem_Sub">Subtrahierer</string>
+    <string name="elem_T_FF">T_FF</string>
+    <string name="elem_Terminal">Terminal</string>
+    <string name="elem_Terminal_pin_C">Terminal_pin_C</string>
+    <string name="elem_Terminal_pin_D">Terminal_pin_D</string>
+    <string name="elem_Terminal_tt">Ein Terminal auf dem ASCII-Zeichen ausgegeben werden können. Öffnet ein eigenes
+        Fenster.
+    </string>
+    <string name="elem_Text">Text</string>
+    <string name="elem_Text_tt">Zeigt einen einfachen Text in der Schaltung an.</string>
+    <string name="elem_XNOr">Nicht Exclusiv Oder</string>
+    <string name="elem_XOr">Exclusiv Oder</string>
+    <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>
+    <string name="err_N_isNotInputOrOutput">Pin {0} in Element {1} ist werder Eingang noch Ausgang</string>
+    <string name="err_aSingleClockNecessary">Es darf nur einen Takt geben.</string>
+    <string name="err_analyseNoInputs">Die Schaltung hat keine benannten Eingänge</string>
+    <string name="err_analyseNoOutputs">Die Schaltung hat keine benannten Ausgänge</string>
+    <string name="err_analyseValue_N_IsNotBinary">Der Wert {0} hat mehr als ein Bit.</string>
+    <string name="err_breakTimeOut">Nach {0} Zyklen ist kein Break aufgetreten</string>
+    <string name="err_builder_exprNotSupported">Ausdruck {0} wird nicht unterstützt.</string>
+    <string name="err_builder_operationNotSupported">Operation {0} wird nicht unterstützt.</string>
+    <string name="err_burnError">Es sind mehrere zusammengeschaltete Ausgänge gleichzeitig aktiv</string>
+    <string name="err_cannotAnalyse_N">Element {0} kann nicht analysiert werden.</string>
+    <string name="err_containsVarAndNotVar">Enthält [var] und [nicht var]</string>
+    <string name="err_duplicateElement_N">Doppeltes Element {0}</string>
+    <string name="err_duplicatePinLabel">Pin {0} in Element {1} exitiert mehrfach</string>
+    <string name="err_element_N_notFound">Element {0} nicht gefunden</string>
+    <string name="err_exact_N0_valuesNecessaryNot_N1">Es sind {0} Variablen erforderlich, nicht {1}</string>
+    <string name="err_ffNeedsToBeConnectedToClock">Flipflops müssen direkt mit dem Takt verbunden sein.</string>
+    <string name="err_invalidFileFormat">Ungültiges Dateiformat</string>
+    <string name="err_isAlreadyInitialized">Die Schaltung wurde bereits initialisiert</string>
+    <string name="err_labelNotConnectedToNet_N">Ein Tunnel {0} ist nicht verbunden!</string>
+    <string name="err_moreThenOneClocksFound">Es gibt mehr als einen Taktgeber</string>
+    <string name="err_needs_N0_bits_found_N2_bits">Es werden {0} Bits benötigt, aber es wurden {1} Bits gefunden
+    </string>
+    <string name="err_netOfPin_N_notFound">Das Netz von Pin {0} wurde nicht gefunden</string>
+    <string name="err_noClockFound">Kein Taktgeber in der Schaltung gefunden</string>
+    <string name="err_noInputsAvailable">Es sind keine Eingänge vorhanden</string>
+    <string name="err_noShapeFoundFor_N">Es wurde kein Diagramm für {0} gefunden.</string>
+    <string name="err_noValueSetFor_N0_atElement_N1">Kein Wert gesetzt für {0} an Element {1}</string>
+    <string name="err_notAllOutputsSameBits">Es haben nicht alle Ausgänge die gleiche Bitbreite</string>
+    <string name="err_notAllOutputsSupportHighZ">Wenn mehrere Ausgänge verbunden sind, müssen alle Ausgänge Tri-State
+        Ausgänge sein
+    </string>
+    <string name="err_notInitialized">Die Schaltung ist nicht initialisiert</string>
+    <string name="err_onOutConnectedToWire">Kein Ausgang mit der Leitung verbunden</string>
+    <string name="err_oneResultIsRequired">Table zu klein: Mindestens ein Ergebnis ist erforderlich!</string>
+    <string name="err_output_N_notDefined">Ausgang {0} ist nicht definiert</string>
+    <string name="err_pinMap_NoNameForPin_N">Kein Name für Pin {0}</string>
+    <string name="err_pinMap_Pin_N_AssignedTwicerPin">Pin {0} doppelt belegt!</string>
+    <string name="err_pinMap_input_N_notAllowed">Eingang {0} ist nicht erlaubt!</string>
+    <string name="err_pinMap_noEqualsfound">Kein &quot;=&quot; gefunden!</string>
+    <string name="err_pinMap_output_N_notAllowed">Ausgang {0} ist nicht erlaubt!</string>
+    <string name="err_pinMap_toMannyInputsDefined">Zu viele Eingänge definiert!</string>
+    <string name="err_pinMap_toMannyOutputsDefined">Zu viele Ausgänge definiert!</string>
+    <string name="err_pinNotPresent">Pin nicht vorhanden</string>
+    <string name="err_pinWithoutName">Es gibt einen Pin ohne einen Namen in {0}</string>
+    <string name="err_pin_N0_atElement_N1_notFound">Pin {0} von Element {1} wurde nicht gefunden</string>
+    <string name="err_pin_N_notFound">Pin {0} wurde nicht gefunden.</string>
+    <string name="err_pin_N_unknown">Pin {0} ist unbekannt</string>
+    <string name="err_readOfHighZ">Lesen einer hochohmigen Leitung</string>
+    <string name="err_seemsToOscillate">Die Schaltung scheint zu oszillieren!
+        Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.
+    </string>
+    <string name="err_selectorInputCountMismatch">Die Zahl der Eingänge passt nicht zur Bitbreite der Auswahlleitung
+    </string>
+    <string name="err_spitterDefSyntaxError">Fehler in der Definition {0} eines Splitters</string>
+    <string name="err_splitterBitsMismatch">Die Bitzahl am Spiltter passt nicht</string>
+    <string name="err_tableBecomesToSmall">Es sind mindestens zwei Eingänge erforderlich!</string>
+    <string name="err_toManyInputs_N">Zu viele Eingänge. Es sind nur {0} Eingänge erlaubt.</string>
+    <string name="err_varNotAllowedInCUPL_N">In CUPL ist die Variable {0} nicht erlaubt!</string>
+    <string name="err_varNotDefined_N">Variable {0} ist nicht definiert.</string>
+    <string name="key_AddrBits">Adress Bits</string>
+    <string name="key_Bits">Datenbits</string>
+    <string name="key_Color">Farbe</string>
+    <string name="key_Cycles">Timeout Zyklen</string>
+    <string name="key_Cycles_tt">Wenn nach dieser Anzahl von Takten kein Break eingegangen ist, wird ein Fehler
+        erzeugt
+    </string>
+    <string name="key_Data">Daten</string>
+    <string name="key_Default">Vorgabe</string>
+    <string name="key_Default_tt">Wird beim Schaltungsstart gesetzt</string>
+    <string name="key_Description">Beschreibung</string>
+    <string name="key_Frequency">Frequenz/Hz</string>
+    <string name="key_Frequency_tt">Gibt die Frequenz an, wenn der Echtzeittakt aktiviert ist</string>
+    <string name="key_IEEEShapes">Verwende US Symbole (IEEE 91-1984)</string>
+    <string name="key_IEEEShapes_tt">Verwende IEEE 91-1984 Symbole anstelle der rechteckige Symbole</string>
+    <string name="key_InputSplitting">Eingangsaufteilung</string>
+    <string name="key_InputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot;
+        für 16 einzelne Bits
+    </string>
+    <string name="key_Inputs">Anzahl der Eingänge</string>
+    <string name="key_Label">Bezeichnung</string>
+    <string name="key_Language">Sprache</string>
+    <string name="key_NetName">Netzname</string>
+    <string name="key_NetName_tt">Alle Netze mit identischem Namen werden miteinander verbunden.</string>
+    <string name="key_OutputSplitting">Ausgangsaufteilung</string>
+    <string name="key_OutputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot;
+        für 16 einzelne Bits
+    </string>
+    <string name="key_SelectorBits">Anzahl der Auswahlbits</string>
+    <string name="key_Signed">Vorzeichen</string>
+    <string name="key_Value">Wert</string>
+    <string name="key_Width">Breite</string>
+    <string name="key_Width_tt">Breite des Symbols wenn diese Schaltung in eine andere eingefügt wird.</string>
+    <string name="key_flipSelPos">Tausche Position des Selectors</string>
+    <string name="key_intFormat">Zahlenformat</string>
+    <string name="key_intFormat_ascii">ASCII</string>
+    <string name="key_intFormat_bin">Binär</string>
+    <string name="key_intFormat_dec">Dezimal</string>
+    <string name="key_intFormat_def">Vorgabe</string>
+    <string name="key_intFormat_hex">Hexadezimal</string>
+    <string name="key_isHighZ">Eingang kann hochohmig sein</string>
+    <string name="key_maxStepCount">Maximale Messpunktezahl</string>
+    <string name="key_microStep">Zeige Einzelgatterschritte</string>
+    <string name="key_rotation">Rotation</string>
+    <string name="key_runRealTime">Echtzeittakt starten</string>
+    <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet
+    </string>
+    <string name="key_showDataGraph">Zeige Messwertegraph</string>
+    <string name="key_showDataGraphMicro">Zeige Messwertgraph im Gatterschrittmodus</string>
+    <string name="key_showDataTable">Zeige Messwertetabelle</string>
+    <string name="key_showList">Zeige Listing an, wenn verfügbar</string>
+    <string name="key_termHeight">Zeilen</string>
+    <string name="key_termWidth">Zeichen pro Zeile</string>
+    <string name="key_valueIsProbe">Als Messwert verwenden</string>
+    <string name="key_valueIsProbe_tt">Wenn gesetzt, taucht der Wert als Messwert in Graph und Tabelle auf</string>
+    <string name="lib_Logic">Logisch</string>
+    <string name="lib_arithmetic">Arithmetik</string>
+    <string name="lib_flipFlops">FlipFlops</string>
+    <string name="lib_io">IO</string>
+    <string name="lib_memory">Speicher</string>
+    <string name="lib_mux">Multiplexer</string>
+    <string name="lib_wires">Leitungen</string>
+    <string name="menu_about">Über Digital</string>
+    <string name="menu_analyse">Analyse</string>
+    <string name="menu_analyse_tt">Analyse der aktuellen Schaltung</string>
+    <string name="menu_copy">Kopieren</string>
+    <string name="menu_custom">Benutzerdefiniert</string>
+    <string name="menu_delete">Löschen</string>
+    <string name="menu_delete_tt">Löscht ausgewählte Elemente</string>
+    <string name="menu_edit">Bearbeiten</string>
+    <string name="menu_editAttributes">Schaltungsattribute bearbeiten</string>
+    <string name="menu_editAttributes_tt">Diese Attribute beeinflussen die Schaltung, wenn sie in andere Schaltungen
+        eingebettet wird.
+    </string>
+    <string name="menu_editRunAttributes">Simulationseinstellungen</string>
+    <string name="menu_editRunAttributes_tt">Einstellungen für den Start der Simulation</string>
+    <string name="menu_editSettings">Einstellungen</string>
+    <string name="menu_editSettings_tt">Bearbeitet die globalen Einstellungen</string>
+    <string name="menu_element">Elemente bearbeiten</string>
+    <string name="menu_element_tt">Bearbeitet die vorhandenen Elemente oder dessen Eigenschaften</string>
+    <string name="menu_elements">Elemente</string>
+    <string name="menu_export">Export</string>
+    <string name="menu_exportPNGLarge">Export PNG groß</string>
+    <string name="menu_exportPNGSmall">Export PNG klein</string>
+    <string name="menu_exportSVG">Export SVG</string>
+    <string name="menu_exportSVGLaTex">Export SVG+LaTeX</string>
+    <string name="menu_fast">Schneller Lauf</string>
+    <string name="menu_fast_tt">Führt die Schaltung aus, bis ein Stopsignal über ein BRK-Element detektiert wird.
+    </string>
+    <string name="menu_file">Datei</string>
+    <string name="menu_help">Hilfe</string>
+    <string name="menu_import">Importieren</string>
+    <string name="menu_import_tt">Importiert eine Schaltung als verwendbares Bauteil</string>
+    <string name="menu_maximize">Maximieren</string>
+    <string name="menu_micro">Gatterschrittmodus</string>
+    <string name="menu_micro_tt">Startet die Schaltung im Gatterschrittmodus</string>
+    <string name="menu_new">Neu</string>
+    <string name="menu_open">Öffnen</string>
+    <string name="menu_openRecent">Zuletzt verwendet</string>
+    <string name="menu_openWin">Öffnen in neuem Fenster</string>
+    <string name="menu_openWin_tt">Öffnet eine Schaltung in einem neuen Fenster</string>
+    <string name="menu_orderInputs">Sortieren der Eingänge</string>
+    <string name="menu_orderInputs_tt">Sortiert die Eingänge für die Verwendung als eingebettete Schaltung</string>
+    <string name="menu_orderMeasurements">Sortieren der Messwerte</string>
+    <string name="menu_orderMeasurements_tt">Sortiert die Messwerte für die grafische Anzeige und die Tabellenansicht
+    </string>
+    <string name="menu_orderOutputs">Sortieren der Ausgänge</string>
+    <string name="menu_orderOutputs_tt">Sortiert die Ausgänge für die Verwendung als eingebettete Schaltung</string>
+    <string name="menu_paste">Einfügen</string>
+    <string name="menu_refresh">Alle neu laden</string>
+    <string name="menu_refresh_tt">Alle importierten Schaltungen werden neu geladen</string>
+    <string name="menu_rotate">Rotieren</string>
+    <string name="menu_run">Start</string>
+    <string name="menu_run_tt">Startet die Simulation der Schaltung</string>
+    <string name="menu_save">Speichern</string>
+    <string name="menu_saveAs">Speichern unter</string>
+    <string name="menu_saveData">Daten speichern</string>
+    <string name="menu_saveData_tt">Speichert die Daten als CSV Datei</string>
+    <string name="menu_speedTest">Geschwindigkeitstest</string>
+    <string name="menu_speedTest_tt">Führt einen Geschwindigkeitstest durch. Es wird die maximal mögliche Taktfrequenz
+        ermittelt
+    </string>
+    <string name="menu_step">Schritt</string>
+    <string name="menu_step_tt">Führt einen Einzelgatterschritt aus</string>
+    <string name="menu_synthesise">Synthese</string>
+    <string name="menu_synthesise_tt">Erzeugt minimale boolsche Ausdrücke, welche durch eine Wahrheitstabelle
+        beschrieben werden.
+    </string>
+    <string name="menu_table_N_variables">{0} Variablen</string>
+    <string name="menu_table_columnsAdd">Ergebnisspalte hinzufügen</string>
+    <string name="menu_table_columnsAddVariable">Variable hinzufügen</string>
+    <string name="menu_table_columnsAddVariable_tt">Fügt der Tabelle eine Variablenspalte hinzu.</string>
+    <string name="menu_table_columnsAdd_tt">Fügt der Tabelle eine Ergebnisspalte hinzu.</string>
+    <string name="menu_table_create">Erzeugen</string>
+    <string name="menu_table_createCUPL">CUPL</string>
+    <string name="menu_table_createCUPL_tt">Erzeugt eine CUPL Quelldatei welche die Schaltung beschreibt.</string>
+    <string name="menu_table_createCircuit">Schaltung</string>
+    <string name="menu_table_createCircuit_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht.</string>
+    <string name="menu_table_createNAnd">Schaltung mit NAnd-Gattern</string>
+    <string name="menu_table_createNAndTwo">Schaltung mit NAnd-Gattern mit zwei Eingängen</string>
+    <string name="menu_table_createNAndTwo_tt">Erzeugt eine Schaltung, welches der Wahrheitstabelle entspricht nur mit
+        NAnd-Gattern mit zwei Eingängen.
+    </string>
+    <string name="menu_table_createNAnd_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht nur mit
+        NAnd-Gattern.
+    </string>
+    <string name="menu_table_createNOr">Schaltung mit NOr-Gattern</string>
+    <string name="menu_table_createNOrTwo">Schaltung mit NOr-Gattern mit zwei Eingängen</string>
+    <string name="menu_table_createNOrTwo_tt">Erzeugt eine Schaltung, welches der Wahrheitstabelle entspricht nur mit
+        NOr-Gattern mit zwei Eingängen.
+    </string>
+    <string name="menu_table_createNOr_tt">Erzeugt eine Schaltung, welches der Wahrheitstabelle entspricht nur mit
+        NOr-Gattern.
+    </string>
+    <string name="menu_table_createTwo">Schaltung mit Gattern mit zwei Eingängen</string>
+    <string name="menu_table_createTwo_tt">Erzeugt eine Schaltung und verwendt nur Gatter mit zwei Eingängen</string>
+    <string name="menu_table_create_hardware">Bausteine</string>
+    <string name="menu_table_create_jedec">JEDEC (*.jed)</string>
+    <string name="menu_table_create_jedec_tt">Erzeugt eine JEDEC Datei für den Baustein</string>
+    <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
+    <string name="menu_table_inputs">Eingänge</string>
+    <string name="menu_table_new">Neu</string>
+    <string name="menu_table_newColumns">Spalten hinzufügen</string>
+    <string name="menu_table_new_combinatorial">Kombintorisch</string>
+    <string name="menu_table_new_sequential">Automat</string>
+    <string name="menu_table_outputs">Ausgänge</string>
+    <string name="menu_table_reorder">Umsortieren</string>
+    <string name="menu_view">Ansicht</string>
+    <string name="menu_zoomIn">Vergrößern</string>
+    <string name="menu_zoomOut">Verkleinern</string>
+    <string name="message">Digital
+
+        Ein einfacher Simulator für digitale Schaltkreise.
+
+        Geschrieben von Helmut Neemann 2016
+    </string>
+    <string name="msg_N_nodes">{0} aktive Elemente</string>
+    <string name="msg_annalyseErr">Fehler bei der Analyse der Schaltung</string>
+    <string name="msg_clockError">Fehler bei der Berechnung einer Taktänderung</string>
+    <string name="msg_color">Farbe</string>
+    <string name="msg_errorCalculatingStep">Fehler beim Berechnen eines Schrittes</string>
+    <string name="msg_errorCreatingModel">Fehler beim Erzeugen der Schaltung</string>
+    <string name="msg_errorDuringCalculation">Fehler während der Vereinfachung.</string>
+    <string name="msg_errorEditingValue">Fehler bei der Eingabe eines Wertes</string>
+    <string name="msg_errorImportingModel">Fehler beim Import einer Schaltung</string>
+    <string name="msg_errorReadingFile">Fehler beim Lesen einer Datei</string>
+    <string name="msg_errorReadingListing_N0">Fehler beim Laden des Listings {0}</string>
+    <string name="msg_errorWritingFile">Fehler beim Schreiben einer Datei</string>
+    <string name="msg_fastRunError">Ein Fehler beim schnellen Lauf</string>
+    <string name="msg_frequency_N">Die maximale Frequenz berägt {0}Hz.</string>
+    <string name="msg_missingShape_N">Es fehlt ein Diagramm für {0}</string>
+    <string name="msg_pinMap_inputs">Eingänge</string>
+    <string name="msg_pinMap_notUsed">nicht verwendet</string>
+    <string name="msg_pinMap_outputs">Ausgänge</string>
+    <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
+    <string name="msg_restartNeeded">Die Änderung erfordert einen Neustart!</string>
+    <string name="ok">Ok</string>
+    <string name="rot_0">0°</string>
+    <string name="rot_180">180°</string>
+    <string name="rot_270">270°</string>
+    <string name="rot_90">90°</string>
+    <string name="stat_clocks">{0} Halbzyklen</string>
+    <string name="tt_deleteItem">Eintrag löschen</string>
+    <string name="tt_moveItemDown">Eintrag nach unten schieben</string>
+    <string name="tt_moveItemUp">Eintrag nach oben schieben</string>
+    <string name="win_allSolutions">Alle möglichen Lösungen</string>
+    <string name="win_confirmExit">Beenden bestätigen!</string>
+    <string name="win_listing">Listing</string>
+    <string name="win_measures">Messwerte</string>
+    <string name="win_measures_fullstep">Messwerte im Vollschrittmodus</string>
+    <string name="win_measures_microstep">Messwerte im Einzelgattermodus</string>
+    <string name="win_pinMapDialog">Pin-Zuordnung</string>
+    <string name="win_saveChanges">Änderungen speichern?</string>
+    <string name="win_stateChanged">Die Datei wurde verändert!</string>
+    <string name="win_table">Tabelle</string>
+    <string name="win_table_exportDialog">Export</string>
+</resources>

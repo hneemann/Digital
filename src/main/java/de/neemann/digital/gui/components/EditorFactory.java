@@ -7,10 +7,10 @@ import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.lang.Language;
-import de.neemann.digital.lang.Languages;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
+import de.neemann.gui.language.Bundle;
+import de.neemann.gui.language.Language;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author hneemann
@@ -312,8 +313,10 @@ public final class EditorFactory {
         private JComboBox comb;
 
         public LanguageEditor(Language language, Key<Rotation> key) {
-            comb = new JComboBox<>(Languages.getInstance().getSupportedLanguages());
-            comb.setSelectedIndex(Languages.getInstance().getIndexOf(language));
+            Bundle b = Lang.getBundle();
+            List<Language> supLang = b.getSupportedLanguages();
+            comb = new JComboBox<>(supLang.toArray(new Language[supLang.size()]));
+            comb.setSelectedItem(Lang.currentLanguage());
         }
 
         @Override
@@ -323,7 +326,7 @@ public final class EditorFactory {
 
         @Override
         public Language getValue() {
-            return Languages.getInstance().getByIndex(comb.getSelectedIndex());
+            return (Language) comb.getSelectedItem();
         }
     }
 }

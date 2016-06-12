@@ -1,9 +1,11 @@
 package de.neemann.digital.lang;
 
+import de.neemann.gui.language.Bundle;
+import de.neemann.gui.language.Language;
+import de.neemann.gui.language.Resources;
+
 import java.text.MessageFormat;
 import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 /**
@@ -49,44 +51,58 @@ public final class Lang {
         return InstanceHolder.INSTANCE.getKeyNull(key, params);
     }
 
-    private final ResourceBundle defaultBundle;
-    private ResourceBundle localeBundle;
+    /**
+     * @return the resource bundle
+     */
+    public static Bundle getBundle() {
+        return InstanceHolder.INSTANCE.bundle;
+    }
+
+    /**
+     * @return the current language
+     */
+    public static Language currentLanguage() {
+        return InstanceHolder.INSTANCE.currentLanguage;
+    }
+
+
+    private final Bundle bundle;
+    private final Resources defaultBundle;
+    private final Resources localeBundle;
+    private final Language currentLanguage;
 
     private Lang() {
-        defaultBundle = ResourceBundle.getBundle("lang/lang", Locale.ENGLISH);
-        try {
-            String lang = PREFS.get(LANGUAGE, null);
-            Locale currentLocale = Languages.getInstance().getLocaleByName(lang);
-            localeBundle = ResourceBundle.getBundle("lang/lang", currentLocale);
-        } catch (MissingResourceException e) {
-        }
+        bundle = new Bundle("lang/lang");
+        defaultBundle = bundle.getResources("en");
+        String lang = PREFS.get(LANGUAGE, Locale.getDefault().getLanguage());
+        localeBundle = bundle.getResources(lang);
+
+        if (localeBundle != null)
+            currentLanguage = new Language(lang);
+        else
+            currentLanguage = new Language("en");
     }
 
     private String getKey(String key, Object... params) {
-        try {
-            return decodeString(localeBundle, key, params);
-        } catch (MissingResourceException e) {
+        String str = null;
+        if (localeBundle != null)
+            str = decodeString(localeBundle, key, params);
+        if (str == null) {
             System.out.println(key + "=" + key.substring(key.indexOf("_") + 1));
-            try {
-                return decodeString(defaultBundle, key, params);
-            } catch (MissingResourceException e1) {
-                return key;
-            }
+            str = decodeString(defaultBundle, key, params);
+            if (str == null)
+                str = key;
         }
+        return str;
     }
 
     private String getKeyNull(String key, Object... params) {
-        try {
-            return decodeString(localeBundle, key, params);
-        } catch (MissingResourceException e) {
-//            System.out.println(key + "=" + key.substring(key.indexOf("_") + 1));
-            return null;
-        }
+        return decodeString(localeBundle, key, params);
     }
 
-    private String decodeString(ResourceBundle bundle, String key, Object[] params) {
-        String str = bundle.getString(key);
-        if (params != null && params.length > 0)
+    private String decodeString(Resources resources, String key, Object[] params) {
+        String str = resources.get(key);
+        if (str != null && params != null && params.length > 0)
             str = MessageFormat.format(str, params);
         return str;
     }

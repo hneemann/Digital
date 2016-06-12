@@ -2,8 +2,7 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
-import de.neemann.digital.lang.Language;
-import de.neemann.digital.lang.Languages;
+import de.neemann.gui.language.Language;
 
 import java.util.Locale;
 
@@ -207,7 +206,7 @@ public final class Keys {
      * The Gui Language
      */
     public static final Key<Language> SETTINGS_LANGUAGE
-            = new Key<>("Language", Languages.getInstance().getDefault());
+            = new Key<>("Language", new Language());
 
 
     /**
