@@ -76,7 +76,7 @@
     <string name="elem_RAMDualPort_pin_dataIn">Der Daten die gespeichert werden sollen</string>
     <string name="elem_RAMDualPort_pin_dataOut">Der Datenausgang</string>
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort
-        an
+        an.
     </string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high wird das Datenwort gespeichert, wenn der Takt
         ansteigt.
@@ -104,8 +104,7 @@
     <string name="elem_Register">Register</string>
     <string name="elem_Reset">Reset</string>
     <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
-        in der Stabilisierungsphase befindet.
-        Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.
+        in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.
     </string>
     <string name="elem_Seven-Seg">Siebensegmentanzeige</string>
     <string name="elem_Seven-Seg-Hex">Siebensegmentanzeige Hex</string>
@@ -159,7 +158,7 @@
     <string name="err_noValueSetFor_N0_atElement_N1">Kein Wert gesetzt für {0} an Element {1}</string>
     <string name="err_notAllOutputsSameBits">Es haben nicht alle Ausgänge die gleiche Bitbreite</string>
     <string name="err_notAllOutputsSupportHighZ">Wenn mehrere Ausgänge verbunden sind, müssen alle Ausgänge Tri-State
-        Ausgänge sein
+        Ausgänge sein.
     </string>
     <string name="err_notInitialized">Die Schaltung ist nicht initialisiert</string>
     <string name="err_onOutConnectedToWire">Kein Ausgang mit der Leitung verbunden</string>
@@ -181,7 +180,7 @@
     <string name="err_seemsToOscillate">Die Schaltung scheint zu oszillieren!
         Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.
     </string>
-    <string name="err_selectorInputCountMismatch">Die Zahl der Eingänge passt nicht zur Bitbreite der Auswahlleitung
+    <string name="err_selectorInputCountMismatch">Die Zahl der Eingänge passt nicht zur Bitbreite der Auswahlleitung.
     </string>
     <string name="err_spitterDefSyntaxError">Fehler in der Definition {0} eines Splitters</string>
     <string name="err_splitterBitsMismatch">Die Bitzahl am Spiltter passt nicht</string>
@@ -206,7 +205,7 @@
     <string name="key_IEEEShapes_tt">Verwende IEEE 91-1984 Symbole anstelle der rechteckige Symbole</string>
     <string name="key_InputSplitting">Eingangsaufteilung</string>
     <string name="key_InputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot;
-        für 16 einzelne Bits
+        für 16 einzelne Bits.
     </string>
     <string name="key_Inputs">Anzahl der Eingänge</string>
     <string name="key_Label">Bezeichnung</string>
@@ -215,7 +214,7 @@
     <string name="key_NetName_tt">Alle Netze mit identischem Namen werden miteinander verbunden.</string>
     <string name="key_OutputSplitting">Ausgangsaufteilung</string>
     <string name="key_OutputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot;
-        für 16 einzelne Bits
+        für 16 einzelne Bits.
     </string>
     <string name="key_SelectorBits">Anzahl der Auswahlbits</string>
     <string name="key_Signed">Vorzeichen</string>
@@ -234,7 +233,7 @@
     <string name="key_microStep">Zeige Einzelgatterschritte</string>
     <string name="key_rotation">Rotation</string>
     <string name="key_runRealTime">Echtzeittakt starten</string>
-    <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet
+    <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet.
     </string>
     <string name="key_showDataGraph">Zeige Messwertegraph</string>
     <string name="key_showDataGraphMicro">Zeige Messwertgraph im Gatterschrittmodus</string>
@@ -362,7 +361,6 @@
     <string name="message">Digital
 
         Ein einfacher Simulator für digitale Schaltkreise.
-
         Geschrieben von Helmut Neemann 2016
     </string>
     <string name="msg_N_nodes">{0} aktive Elemente</string>
