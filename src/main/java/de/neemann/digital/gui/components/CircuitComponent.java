@@ -592,6 +592,7 @@ public class CircuitComponent extends JComponent {
             this.element = element;
             delta = null;
             deleteAction.setActive(true);
+            rotateAction.setEnabled(true);
         }
 
         @Override
@@ -622,6 +623,12 @@ public class CircuitComponent extends JComponent {
                 repaint();
             }
             mouseNormal.activate();
+        }
+
+        @Override
+        public void rotate() {
+            element.rotate();
+            repaint();
         }
     }
 
