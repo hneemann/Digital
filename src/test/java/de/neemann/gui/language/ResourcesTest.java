@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
 
 /**
  * @author hneemann
@@ -23,7 +24,7 @@ public class ResourcesTest extends TestCase {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         res.save(baos);
-        assertEquals(example.getBytes("utf-8"), baos.toByteArray());
+        assertTrue(Arrays.equals(example.getBytes("utf-8"), baos.toByteArray()));
     }
 
     public void testRead() throws Exception {
