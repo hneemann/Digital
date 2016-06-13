@@ -13,12 +13,12 @@ public class ResourcesTest extends TestCase {
             = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
             "<resources>\n" +
             "  <string name=\"menu_save\">Speichern</string>\n" +
-            "  <string name=\"menu_open\">Öffnen</string>\n" +
+            "  <string name=\"menu_open\">\u00D6ffnen</string>\n" +
             "</resources>";
 
     public void testWrite() throws Exception {
         Resources res = new Resources();
-        res.put("menu_open", "Öffnen");
+        res.put("menu_open", "\u00D6ffnen");
         res.put("menu_save", "Speichern");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -29,7 +29,7 @@ public class ResourcesTest extends TestCase {
     public void testRead() throws Exception {
         Resources res = new Resources(new ByteArrayInputStream(example.getBytes()));
 
-        assertEquals("Öffnen", res.get("menu_open"));
+        assertEquals("\u00D6ffnen", res.get("menu_open"));
         assertEquals("Speichern", res.get("menu_save"));
     }
 }
