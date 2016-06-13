@@ -28,7 +28,7 @@ public class ResourcesTest extends TestCase {
     }
 
     public void testRead() throws Exception {
-        Resources res = new Resources(new ByteArrayInputStream(example.getBytes()));
+        Resources res = new Resources(new ByteArrayInputStream(example.getBytes("utf-8")));
 
         assertEquals("\u00D6ffnen", res.get("menu_open"));
         assertEquals("Speichern", res.get("menu_save"));
