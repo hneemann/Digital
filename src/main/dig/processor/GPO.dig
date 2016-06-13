@@ -13,25 +13,6 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Addressbus</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>A</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="280" y="220"/>
-      <rotate>0</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
           <string>Datenbus</string>
         </entry>
         <entry>
@@ -44,7 +25,6 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -59,7 +39,24 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="340"/>
-      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Addressbus</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -74,7 +71,6 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Comparator</elementName>
@@ -85,7 +81,6 @@
         </entry>
       </elementAttributes>
       <pos x="380" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -100,13 +95,11 @@
         </entry>
       </elementAttributes>
       <pos x="360" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="480" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -117,7 +110,6 @@
         </entry>
       </elementAttributes>
       <pos x="600" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -132,7 +124,6 @@
         </entry>
       </elementAttributes>
       <pos x="720" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -143,7 +134,6 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -154,7 +144,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -165,7 +154,6 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -176,7 +164,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -187,7 +174,6 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -198,7 +184,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -209,7 +194,6 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -220,7 +204,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -231,7 +214,6 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -242,7 +224,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -253,7 +234,6 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="380"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -264,7 +244,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="400"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -275,7 +254,6 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -286,7 +264,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -297,7 +274,6 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -308,7 +284,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="480"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>
