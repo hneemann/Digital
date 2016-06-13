@@ -23,7 +23,7 @@ public class ResourcesTest extends TestCase {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         res.save(baos);
-        assertEquals(example, baos.toString());
+        assertEquals(example.getBytes("utf-8"), baos.toByteArray());
     }
 
     public void testRead() throws Exception {
