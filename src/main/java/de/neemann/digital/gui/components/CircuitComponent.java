@@ -558,11 +558,7 @@ public class CircuitComponent extends JComponent {
                     else
                         mouseMoveElement.activate(vp, pos);
                 } else {
-                    Wire w = circuit.getWireAt(pos, SIZE2);
-                    if (w == null)
-                        mouseWire.activate(pos);
-                    else
-                        mouseMoveSelected.activate(w, pos);
+                    mouseWire.activate(pos);
                 }
             }
         }
@@ -870,7 +866,6 @@ public class CircuitComponent extends JComponent {
         private ArrayList<Moveable> elements;
         private Vector lastPos;
         private boolean wasMoved;
-        private Wire remove;
 
         private MouseControllerMoveSelected(Cursor cursor) {
             super(cursor);
@@ -881,19 +876,6 @@ public class CircuitComponent extends JComponent {
             lastPos = pos;
             wasMoved = false;
             elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-            remove=null;
-        }
-
-        private void activate(Wire w, Vector pos) {
-            super.activate();
-            lastPos = pos;
-            wasMoved = false;
-            elements = new ArrayList<>();
-            elements.add(w.getMovableP1());
-            elements.add(w.getMovableP2());
-            deleteAction.setEnabled(true);
-            addHighLighted(w);
-            remove=w;
         }
 
         @Override
@@ -925,15 +907,6 @@ public class CircuitComponent extends JComponent {
                 circuit.elementsMoved();
             removeHighLighted();
             mouseNormal.activate();
-        }
-
-        @Override
-        public void delete() {
-            if (remove!=null) {
-                circuit.delete(remove);
-                removeHighLighted();
-                mouseNormal.activate();
-            }
         }
     }
 
