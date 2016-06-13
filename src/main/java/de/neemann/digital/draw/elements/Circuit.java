@@ -343,6 +343,20 @@ public class Circuit {
             modified();
     }
 
+    /**
+     * Deletes a single wire
+     *
+     * @param wireToDelete the wire to delete
+     */
+    public void delete(Wire wireToDelete) {
+        if (wires.remove(wireToDelete)) {
+            WireConsistencyChecker checker = new WireConsistencyChecker(wires);
+            wires = checker.check();
+            dotsPresent = false;
+            modified();
+        }
+    }
+
 
     /**
      * Returns the element at the given position
@@ -426,6 +440,20 @@ public class Circuit {
     public ArrayList<Wire> getWires() {
         return wires;
     }
+
+    /**
+     * Returns the matching wire
+     *
+     * @param pos the position
+     * @return the matching wire or null
+     */
+    public Wire getWireAt(Vector pos, int radius) {
+        for (Wire w : wires)
+            if (w.contains(pos, radius))
+                return w;
+        return null;
+    }
+
 
     /**
      * Deletes the references to the ObservableValues representing the elements or wire state.

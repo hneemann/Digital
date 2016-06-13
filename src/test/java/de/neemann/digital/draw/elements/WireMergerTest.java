@@ -51,14 +51,14 @@ public class WireMergerTest extends TestCase {
         wm.addTo(newWires);
 
         assertEquals(6, newWires.size());
-        assertTrue(newWires.contains(new Wire(new Vector(1, 3), new Vector(8, 3))));
-        assertTrue(newWires.contains(new Wire(new Vector(1, 4), new Vector(5, 4))));
-        assertTrue(newWires.contains(new Wire(new Vector(5, 5), new Vector(8, 5))));
+        assertTrue(new Wire(new Vector(1, 3), new Vector(8, 3)).isIncludedIn(newWires));
+        assertTrue(new Wire(new Vector(1, 4), new Vector(5, 4)).isIncludedIn(newWires));
+        assertTrue(new Wire(new Vector(5, 5), new Vector(8, 5)).isIncludedIn(newWires));
 
-        assertTrue(newWires.contains(new Wire(new Vector(1, 6), new Vector(8, 6))));
+        assertTrue(new Wire(new Vector(1, 6), new Vector(8, 6)).isIncludedIn(newWires));
 
-        assertTrue(newWires.contains(new Wire(new Vector(1, 7), new Vector(4, 7))));
-        assertTrue(newWires.contains(new Wire(new Vector(5, 7), new Vector(8, 7))));
+        assertTrue(new Wire(new Vector(1, 7), new Vector(4, 7)).isIncludedIn(newWires));
+        assertTrue(new Wire(new Vector(5, 7), new Vector(8, 7)).isIncludedIn(newWires));
     }
 
     public void testMerge2() {
@@ -70,6 +70,6 @@ public class WireMergerTest extends TestCase {
         ArrayList<Wire> newWires = new ArrayList<>();
         wm.addTo(newWires);
         assertEquals(1, newWires.size());
-        assertEquals(new Wire(new Vector(1, 3), new Vector(8, 3)), newWires.get(0));
+        assertTrue(new Wire(new Vector(1, 3), new Vector(8, 3)).equalsContent(newWires.get(0)));
     }
 }

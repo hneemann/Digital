@@ -68,13 +68,13 @@ public class WireConsistencyCheckerTest extends TestCase {
 
     public static void checkContains(ArrayList<Wire> wires, Wire wire) {
         for (Wire w : wires)
-            if (w.equals(wire))
+            if (wire.equalsContent(wire))
                 return;
 
         wire = new Wire(wire.p2, wire.p1);
 
         for (Wire w : wires)
-            if (w.equals(wire))
+            if (w.equalsContent(wire))
                 return;
 
         assertTrue(false);
