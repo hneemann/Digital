@@ -558,7 +558,11 @@ public class CircuitComponent extends JComponent {
                     else
                         mouseMoveElement.activate(vp, pos);
                 } else {
-                    mouseWire.activate(pos);
+                    Wire w = circuit.getWireAt(pos, SIZE2);
+                    if (w == null)
+                        mouseWire.activate(pos);
+                    else
+                        mouseMoveSelected.activate(w, pos);
                 }
             }
         }
@@ -592,6 +596,7 @@ public class CircuitComponent extends JComponent {
             this.element = element;
             delta = null;
             deleteAction.setActive(true);
+            rotateAction.setEnabled(true);
         }
 
         @Override
@@ -622,6 +627,12 @@ public class CircuitComponent extends JComponent {
                 repaint();
             }
             mouseNormal.activate();
+        }
+
+        @Override
+        public void rotate() {
+            element.rotate();
+            repaint();
         }
     }
 
@@ -757,7 +768,6 @@ public class CircuitComponent extends JComponent {
                 removeHighLighted();
                 mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
             } else {
-
                 corner2 = getPosVector(e);
                 if ((e.getModifiersEx() & CTRL_DOWN_MASK) != 0) {
                     Vector dif = corner2.sub(corner1);
@@ -860,6 +870,7 @@ public class CircuitComponent extends JComponent {
         private ArrayList<Moveable> elements;
         private Vector lastPos;
         private boolean wasMoved;
+        private Wire remove;
 
         private MouseControllerMoveSelected(Cursor cursor) {
             super(cursor);
@@ -870,6 +881,24 @@ public class CircuitComponent extends JComponent {
             lastPos = pos;
             wasMoved = false;
             elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+            remove=null;
+        }
+
+        private void activate(Wire w, Vector pos) {
+            super.activate();
+            lastPos = pos;
+            wasMoved = false;
+            elements = new ArrayList<>();
+            elements.add(w.getMovableP1());
+            elements.add(w.getMovableP2());
+            deleteAction.setEnabled(true);
+            addHighLighted(w);
+            remove=w;
+        }
+
+        @Override
+        void moved(MouseEvent e) {
+            lastPos = getPosVector(e);
         }
 
         @Override
@@ -894,7 +923,17 @@ public class CircuitComponent extends JComponent {
         void released(MouseEvent e) {
             if (wasMoved)
                 circuit.elementsMoved();
+            removeHighLighted();
             mouseNormal.activate();
+        }
+
+        @Override
+        public void delete() {
+            if (remove!=null) {
+                circuit.delete(remove);
+                removeHighLighted();
+                mouseNormal.activate();
+            }
         }
     }
 

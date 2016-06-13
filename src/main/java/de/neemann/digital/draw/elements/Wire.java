@@ -6,6 +6,8 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
 
+import java.util.Collection;
+
 /**
  * A simple wire described by two points
  *
@@ -108,6 +110,23 @@ public class Wire implements Drawable, Moveable {
     }
 
     /**
+     * Test if the given wire is matched by the given position.
+     * Returns true if distance to wire is smaller then the given radius.
+     *
+     * @param v      the position
+     * @param radius the matching radius
+     * @return true if matching
+     */
+    public boolean contains(Vector v, int radius) {
+        if (p1.x == p2.x && Math.abs(p1.x - v.x) <= radius)
+            return (p1.y < v.y && v.y < p2.y) || (p2.y < v.y && v.y < p1.y);
+        else if (p1.y == p2.y && Math.abs(p1.y - v.y) < radius)
+            return (p1.x < v.x && v.x < p2.x) || (p2.x < v.x && v.x < p1.x);
+        else
+            return false; // ToDo: should also work for diagonal wires
+    }
+
+    /**
      * @return the orientation of the wire
      */
     public Orientation getOrientation() {
@@ -118,23 +137,35 @@ public class Wire implements Drawable, Moveable {
         return Orientation.diagonal;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    /**
+     * Returns true if the given wire is included in the given collection.
+     * To compare the wires it calls equalsContent.
+     *
+     * @param col the collection of wires
+     * @return true if wire is included
+     * @see Wire#equalsContent(Wire)
+     */
+    public boolean isIncludedIn(Collection<Wire> col) {
+        for (Wire w : col)
+            if (equalsContent(w))
+                return true;
+        return false;
+    }
 
-        Wire wire = (Wire) o;
+    /**
+     * Returns true if wires are equal.
+     * It is not possible to overwrite Object.equals() because some algorithms
+     * (eg. highlighting) are depending on an object based equals!
+     *
+     * @param wire the other wire
+     * @return true if both wires are equal
+     */
+    public boolean equalsContent(Wire wire) {
+        if (this == wire) return true;
+        if (wire == null) return false;
 
         if (!p1.equals(wire.p1)) return false;
         return p2.equals(wire.p2);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = p1.hashCode();
-        result = 31 * result + p2.hashCode();
-        return result;
     }
 
     @Override
