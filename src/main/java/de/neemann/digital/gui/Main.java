@@ -727,6 +727,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             statusLabel.setText(" ");
         } catch (Exception e) {
             circuitComponent.setCircuit(new Circuit());
+            setFilename(null, false);
             new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e).show(this);
         }
     }
