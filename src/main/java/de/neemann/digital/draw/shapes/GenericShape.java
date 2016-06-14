@@ -6,6 +6,9 @@ import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Polygon;
+
+import java.awt.*;
 
 /**
  * Universal Shape. Used for most components.
@@ -28,8 +31,10 @@ public class GenericShape implements Shape {
     private final PinDescriptions outputs;
     private final int width;
     private final boolean symmetric;
-    private boolean invert = false;
     private final String label;
+
+    private boolean invert = false;
+    private Color color = Color.WHITE;
 
     private transient Pins pins;
     private boolean showPinLabels;
@@ -89,6 +94,18 @@ public class GenericShape implements Shape {
      */
     public GenericShape invert(boolean invert) {
         this.invert = invert;
+        return this;
+    }
+
+    /**
+     * Sets the background color
+     *
+     * @param color the color
+     * @return this for chained calls
+     */
+    public GenericShape setColor(Color color) {
+        if (color != null)
+            this.color = color;
         return this;
     }
 
@@ -165,11 +182,15 @@ public class GenericShape implements Shape {
 
         if (symmetric && ((inputs.size() & 1) == 0)) height += SIZE;
 
-        graphic.drawPolygon(new Polygon(true)
+        Polygon polygon = new Polygon(true)
                 .add(1, -SIZE2)
                 .add(SIZE * width - 1, -SIZE2)
                 .add(SIZE * width - 1, height)
-                .add(1, height), Style.NORMAL);
+                .add(1, height);
+
+        if (color != Color.WHITE)
+            graphic.drawPolygon(polygon, new Style(1, true, color));
+        graphic.drawPolygon(polygon, Style.NORMAL);
 
         if (invert) {
             int offs = symmetric ? inputs.size() / 2 * SIZE : 0;

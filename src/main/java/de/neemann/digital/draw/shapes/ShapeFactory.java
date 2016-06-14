@@ -122,7 +122,8 @@ public final class ShapeFactory {
                                 pt.getOutputDescriptions(elementAttributes),
                                 elementAttributes.getLabel(),
                                 true,
-                                customDescr.getAttributes().get(Keys.WIDTH));
+                                customDescr.getAttributes().get(Keys.WIDTH))
+                                .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
                     } else
                         return new GenericShape(
                                 pt.getShortName(),

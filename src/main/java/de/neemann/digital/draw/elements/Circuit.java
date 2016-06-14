@@ -36,6 +36,7 @@ public class Circuit {
 
     static {
         ATTR_LIST.add(Keys.WIDTH);
+        ATTR_LIST.add(Keys.BACKGROUND_COLOR);
     }
 
     private int version = 1;

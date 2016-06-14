@@ -4,6 +4,7 @@ import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.gui.language.Language;
 
+import java.awt.*;
 import java.util.Locale;
 
 /**
@@ -52,6 +53,13 @@ public final class Keys {
      */
     public static final Key<java.awt.Color> COLOR
             = new Key<>("Color", java.awt.Color.RED);
+
+    /**
+     * Background Color of nested circuits
+     */
+    public static final Key<java.awt.Color> BACKGROUND_COLOR
+            = new Key<>("Color", new Color(255, 255, 210));
+
     /**
      * The input splitting of a splitter
      */
