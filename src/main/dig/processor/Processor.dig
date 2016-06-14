@@ -155,29 +155,404 @@
         <entry>
           <string>Data</string>
           <data>
-            <size>15</size>
-            <long>5137</long>
+            <size>390</size>
             <long>5120</long>
-            <long>6145</long>
-            <long>15888</long>
-            <long>29521</long>
-            <long>31744</long>
-            <long>15375</long>
-            <long>26106</long>
+            <long>21088</long>
+            <long>21280</long>
+            <long>32802</long>
+            <long>20480</long>
+            <long>32800</long>
+            <long>4608</long>
+            <long>21072</long>
+            <long>21152</long>
+            <long>21440</long>
+            <long>32801</long>
+            <long>20480</long>
+            <long>32801</long>
+            <long>4608</long>
+            <long>21264</long>
+            <long>32826</long>
+            <long>4608</long>
+            <long>32800</long>
+            <long>20480</long>
+            <long>32838</long>
+            <long>4608</long>
+            <long>21376</long>
+            <long>32865</long>
+            <long>4608</long>
+            <long>21104</long>
+            <long>21184</long>
+            <long>21408</long>
+            <long>32868</long>
+            <long>4608</long>
+            <long>21248</long>
+            <long>32869</long>
+            <long>4608</long>
+            <long>20992</long>
+            <long>21232</long>
+            <long>21328</long>
+            <long>21472</long>
+            <long>32871</long>
+            <long>4608</long>
+            <long>21424</long>
+            <long>32876</long>
+            <long>4608</long>
+            <long>21120</long>
+            <long>21136</long>
+            <long>21392</long>
+            <long>32879</long>
+            <long>4608</long>
+            <long>21040</long>
+            <long>32880</long>
+            <long>4608</long>
+            <long>21168</long>
+            <long>32882</long>
+            <long>4608</long>
+            <long>21008</long>
+            <long>21024</long>
+            <long>21056</long>
+            <long>21344</long>
+            <long>21360</long>
+            <long>32883</long>
+            <long>4608</long>
+            <long>21200</long>
+            <long>21216</long>
+            <long>21456</long>
+            <long>32884</long>
+            <long>4608</long>
+            <long>21488</long>
+            <long>5232</long>
+            <long>4096</long>
+            <long>5125</long>
+            <long>15365</long>
+            <long>24066</long>
+            <long>33108</long>
+            <long>27648</long>
+            <long>15364</long>
+            <long>25602</long>
+            <long>33108</long>
+            <long>27648</long>
+            <long>15364</long>
+            <long>25602</long>
+            <long>33108</long>
+            <long>27648</long>
+            <long>5121</long>
             <long>8193</long>
-            <long>16400</long>
-            <long>29521</long>
+            <long>24066</long>
+            <long>33108</long>
+            <long>27648</long>
+            <long>5233</long>
+            <long>5127</long>
+            <long>5141</long>
+            <long>1025</long>
+            <long>15372</long>
+            <long>24065</long>
+            <long>28408</long>
+            <long>5390</long>
+            <long>5406</long>
+            <long>1025</long>
+            <long>32828</long>
+            <long>14848</long>
+            <long>24065</long>
+            <long>28401</long>
+            <long>5234</long>
+            <long>5127</long>
+            <long>5141</long>
+            <long>2049</long>
+            <long>15362</long>
+            <long>24065</long>
+            <long>28394</long>
+            <long>32803</long>
+            <long>4608</long>
+            <long>32801</long>
+            <long>4624</long>
+            <long>2049</long>
+            <long>15362</long>
+            <long>24065</long>
+            <long>28386</long>
+            <long>5235</long>
+            <long>5127</long>
+            <long>5141</long>
+            <long>5153</long>
+            <long>16416</long>
+            <long>1537</long>
+            <long>15373</long>
+            <long>24065</long>
+            <long>28377</long>
+            <long>5236</long>
+            <long>5127</long>
+            <long>5141</long>
+            <long>5153</long>
+            <long>16416</long>
+            <long>2561</long>
+            <long>15361</long>
+            <long>24065</long>
+            <long>28368</long>
+            <long>5237</long>
+            <long>65535</long>
+            <long>4864</long>
+            <long>17920</long>
+            <long>65535</long>
+            <long>15104</long>
+            <long>24065</long>
+            <long>28360</long>
+            <long>65535</long>
+            <long>4608</long>
+            <long>17920</long>
+            <long>49151</long>
+            <long>14848</long>
+            <long>24065</long>
+            <long>28353</long>
+            <long>5121</long>
+            <long>17920</long>
+            <long>23553</long>
+            <long>28349</long>
+            <long>17920</long>
+            <long>25089</long>
+            <long>28346</long>
+            <long>5238</long>
+            <long>37428</long>
+            <long>4608</long>
+            <long>18432</long>
+            <long>46098</long>
+            <long>14848</long>
+            <long>24065</long>
+            <long>28338</long>
+            <long>37428</long>
+            <long>4608</long>
+            <long>18944</long>
+            <long>41283</long>
+            <long>14848</long>
+            <long>24065</long>
+            <long>28331</long>
+            <long>5239</long>
+            <long>15488</long>
+            <long>24065</long>
+            <long>28327</long>
+            <long>5249</long>
+            <long>32944</long>
+            <long>26624</long>
+            <long>32944</long>
+            <long>4624</long>
+            <long>5248</long>
+            <long>14352</long>
+            <long>24065</long>
+            <long>28318</long>
+            <long>5240</long>
+            <long>15488</long>
+            <long>24065</long>
+            <long>28314</long>
+            <long>32959</long>
+            <long>4608</long>
+            <long>5250</long>
+            <long>27136</long>
+            <long>28309</long>
+            <long>5248</long>
+            <long>5241</long>
+            <long>5127</long>
+            <long>13827</long>
+            <long>15621</long>
+            <long>24065</long>
+            <long>28302</long>
+            <long>5127</long>
+            <long>32808</long>
+            <long>13312</long>
+            <long>33048</long>
+            <long>14848</long>
+            <long>24065</long>
+            <long>28295</long>
+            <long>5127</long>
+            <long>5139</long>
+            <long>12801</long>
+            <long>15621</long>
+            <long>24065</long>
+            <long>28289</long>
+            <long>5242</long>
+            <long>5125</long>
+            <long>21296</long>
+            <long>6145</long>
+            <long>21312</long>
+            <long>22291</long>
+            <long>15381</long>
+            <long>24065</long>
+            <long>28280</long>
+            <long>22292</long>
+            <long>15382</long>
+            <long>24065</long>
+            <long>28276</long>
+            <long>5427</long>
+            <long>20035</long>
+            <long>15429</long>
+            <long>24065</long>
+            <long>28271</long>
+            <long>6193</long>
+            <long>20035</long>
+            <long>15430</long>
+            <long>24065</long>
+            <long>28266</long>
+            <long>5243</long>
+            <long>5427</long>
+            <long>5125</long>
+            <long>19504</long>
+            <long>6145</long>
+            <long>6193</long>
+            <long>19504</long>
+            <long>22307</long>
+            <long>15397</long>
+            <long>24065</long>
+            <long>28255</long>
+            <long>22308</long>
+            <long>15398</long>
+            <long>24065</long>
+            <long>28251</long>
+            <long>5244</long>
+            <long>5135</long>
+            <long>21296</long>
+            <long>5135</long>
+            <long>32772</long>
+            <long>23056</long>
+            <long>15391</long>
+            <long>24065</long>
+            <long>28242</long>
+            <long>5245</long>
+            <long>5376</long>
+            <long>5392</long>
+            <long>32772</long>
+            <long>22544</long>
+            <long>22292</long>
+            <long>15632</long>
+            <long>24065</long>
+            <long>28233</long>
+            <long>5246</long>
+            <long>15488</long>
+            <long>24065</long>
+            <long>28229</long>
+            <long>5252</long>
+            <long>65534</long>
+            <long>4608</long>
+            <long>6145</long>
+            <long>26113</long>
+            <long>28223</long>
+            <long>6145</long>
+            <long>24577</long>
+            <long>28220</long>
+            <long>5248</long>
+            <long>5247</long>
+            <long>5249</long>
+            <long>5123</long>
+            <long>10248</long>
+            <long>24065</long>
+            <long>28213</long>
+            <long>5250</long>
+            <long>5123</long>
+            <long>10243</long>
+            <long>25601</long>
+            <long>28208</long>
+            <long>5248</long>
+            <long>5488</long>
+            <long>5249</long>
+            <long>5120</long>
+            <long>11264</long>
+            <long>24065</long>
+            <long>28201</long>
+            <long>5250</long>
+            <long>5123</long>
+            <long>11267</long>
+            <long>25601</long>
+            <long>28196</long>
+            <long>5248</long>
+            <long>5489</long>
+            <long>5249</long>
+            <long>5121</long>
+            <long>12289</long>
+            <long>24065</long>
+            <long>28189</long>
+            <long>5250</long>
+            <long>5123</long>
+            <long>12290</long>
+            <long>25601</long>
+            <long>28184</long>
+            <long>5248</long>
+            <long>15488</long>
+            <long>24078</long>
+            <long>5381</long>
+            <long>8417</long>
+            <long>33093</long>
+            <long>4848</long>
+            <long>19695</long>
+            <long>28189</long>
+            <long>520</long>
+            <long>8417</long>
+            <long>33099</long>
+            <long>4848</long>
+            <long>19695</long>
+            <long>28191</long>
             <long>31744</long>
-            <long>15360</long>
-            <long>26106</long>
-            <long>28659</long>
+            <long>28671</long>
+            <long>5127</long>
+            <long>8417</long>
+            <long>33107</long>
+            <long>4848</long>
+            <long>19695</long>
+            <long>28175</long>
+            <long>28671</long>
+            <long>5120</long>
+            <long>8417</long>
+            <long>33114</long>
+            <long>4848</long>
+            <long>19695</long>
+            <long>28168</long>
+            <long>519</long>
+            <long>8417</long>
+            <long>33120</long>
+            <long>4848</long>
+            <long>19695</long>
+            <long>28170</long>
+            <long>31744</long>
+            <long>28671</long>
+            <long>19984</long>
+            <long>29681</long>
+            <long>6145</long>
+            <long>15376</long>
+            <long>26107</long>
+            <long>20222</long>
+            <long>6369</long>
+            <long>27151</long>
+            <long>18432</long>
+            <long>18944</long>
+            <long>33147</long>
+            <long>26656</long>
+            <long>18944</long>
+            <long>33147</long>
+            <long>26656</long>
+            <long>18432</long>
+            <long>18944</long>
+            <long>33147</long>
+            <long>26656</long>
+            <long>18944</long>
+            <long>33147</long>
+            <long>26656</long>
+            <long>20222</long>
+            <long>6369</long>
+            <long>27151</long>
+            <long>528</long>
+            <long>10271</long>
+            <long>15386</long>
+            <long>25091</long>
+            <long>32816</long>
+            <long>5648</long>
+            <long>28162</long>
+            <long>32823</long>
+            <long>5648</long>
+            <long>29681</long>
+            <long>27138</long>
             <bits>16</bits>
           </data>
         </entry>
         <entry>
           <string>lastDataFile</string>
           <string>
-            /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/src/main/asm/lightChase.hex
+            /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/src/main/asm/test.hex
           </string>
         </entry>
       </elementAttributes>
@@ -342,6 +717,11 @@
       </elementAttributes>
       <pos x="1280" y="140"/>
     </visualElement>
+    <visualElement>
+      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Terminal.dig</elementName>
+      <elementAttributes/>
+      <pos x="1380" y="600"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -403,6 +783,10 @@
     <wire>
       <p1 x="1440" y="380"/>
       <p2 x="1480" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1260" y="640"/>
+      <p2 x="1380" y="640"/>
     </wire>
     <wire>
       <p1 x="740" y="320"/>
@@ -517,6 +901,10 @@
       <p2 x="480" y="-20"/>
     </wire>
     <wire>
+      <p1 x="1240" y="660"/>
+      <p2 x="1380" y="660"/>
+    </wire>
+    <wire>
       <p1 x="700" y="660"/>
       <p2 x="740" y="660"/>
     </wire>
@@ -533,12 +921,16 @@
       <p2 x="1360" y="20"/>
     </wire>
     <wire>
+      <p1 x="1300" y="600"/>
+      <p2 x="1380" y="600"/>
+    </wire>
+    <wire>
       <p1 x="900" y="280"/>
       <p2 x="980" y="280"/>
     </wire>
     <wire>
       <p1 x="1240" y="280"/>
-      <p2 x="1380" y="280"/>
+      <p2 x="1300" y="280"/>
     </wire>
     <wire>
       <p1 x="740" y="280"/>
@@ -551,6 +943,10 @@
     <wire>
       <p1 x="260" y="280"/>
       <p2 x="500" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="280"/>
+      <p2 x="1380" y="280"/>
     </wire>
     <wire>
       <p1 x="340" y="540"/>
@@ -651,6 +1047,10 @@
     <wire>
       <p1 x="1100" y="300"/>
       <p2 x="1120" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="1360" y="620"/>
+      <p2 x="1380" y="620"/>
     </wire>
     <wire>
       <p1 x="1360" y="240"/>
@@ -797,16 +1197,24 @@
       <p2 x="1100" y="320"/>
     </wire>
     <wire>
-      <p1 x="400" y="180"/>
-      <p2 x="400" y="500"/>
-    </wire>
-    <wire>
       <p1 x="1360" y="20"/>
       <p2 x="1360" y="180"/>
     </wire>
     <wire>
       <p1 x="1360" y="180"/>
       <p2 x="1360" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="1360" y="240"/>
+      <p2 x="1360" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="180"/>
+      <p2 x="400" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="280"/>
+      <p2 x="1300" y="600"/>
     </wire>
     <wire>
       <p1 x="980" y="180"/>
@@ -831,6 +1239,10 @@
     <wire>
       <p1 x="1240" y="300"/>
       <p2 x="1240" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1240" y="480"/>
+      <p2 x="1240" y="660"/>
     </wire>
     <wire>
       <p1 x="860" y="200"/>
@@ -927,6 +1339,10 @@
     <wire>
       <p1 x="1260" y="200"/>
       <p2 x="1260" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="1260" y="260"/>
+      <p2 x="1260" y="640"/>
     </wire>
     <wire>
       <p1 x="620" y="200"/>
