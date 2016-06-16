@@ -137,7 +137,7 @@ public class Net {
         }
 
         if (outputs.size() == 0)
-            throw new PinException(Lang.get("err_onOutConnectedToWire"), this);
+            throw new PinException(Lang.get("err_onOutConnectedToWire", this.toString()), this);
 
         ObservableValue value = null;
         if (outputs.size() == 1) {
@@ -218,6 +218,6 @@ public class Net {
 
     @Override
     public String toString() {
-        return "Net{" + labelSet + '}';
+        return labelSet + "/" + pins;
     }
 }

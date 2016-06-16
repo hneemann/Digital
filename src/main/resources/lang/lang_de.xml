@@ -130,7 +130,7 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="err_notAllOutputsSameBits">Es haben nicht alle Ausgänge die gleiche Bitbreite</string>
     <string name="err_notAllOutputsSupportHighZ">Wenn mehrere Ausgänge verbunden sind, müssen alle Ausgänge Tri-State Ausgänge sein.</string>
     <string name="err_notInitialized">Die Schaltung ist nicht initialisiert</string>
-    <string name="err_onOutConnectedToWire">Kein Ausgang mit der Leitung verbunden</string>
+    <string name="err_onOutConnectedToWire">Kein Ausgang mit der Leitung verbunden: {0}</string>
     <string name="err_oneResultIsRequired">Table zu klein: Mindestens ein Ergebnis ist erforderlich!</string>
     <string name="err_output_N_notDefined">Ausgang {0} ist nicht definiert</string>
     <string name="err_pinMap_NoNameForPin_N">Kein Name für Pin {0}</string>
