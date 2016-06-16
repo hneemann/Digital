@@ -88,41 +88,41 @@
           <data>
             <size>63</size>
             <long>0</long>
-            <long>192</long>
-            <long>1216</long>
-            <long>17600</long>
-            <long>2240</long>
-            <long>18624</long>
-            <long>3264</long>
-            <long>4288</long>
-            <long>5312</long>
+            <long>2097280</long>
+            <long>4195520</long>
+            <long>4211904</long>
+            <long>4196544</long>
+            <long>4212928</long>
+            <long>4197568</long>
+            <long>4198592</long>
+            <long>4199616</long>
             <long>196</long>
             <long>212</long>
-            <long>1220</long>
-            <long>1236</long>
-            <long>17604</long>
-            <long>17620</long>
-            <long>2244</long>
-            <long>2260</long>
-            <long>18628</long>
-            <long>18644</long>
-            <long>3268</long>
-            <long>3284</long>
-            <long>4292</long>
-            <long>4308</long>
-            <long>5316</long>
-            <long>5332</long>
-            <long>11456</long>
-            <long>11460</long>
-            <long>11476</long>
-            <long>2048</long>
-            <long>2052</long>
-            <long>2068</long>
-            <long>6336</long>
-            <long>7360</long>
-            <long>22720</long>
-            <long>23744</long>
-            <long>8384</long>
+            <long>4195524</long>
+            <long>4195540</long>
+            <long>4211908</long>
+            <long>4211924</long>
+            <long>4196548</long>
+            <long>4196564</long>
+            <long>4212932</long>
+            <long>4212948</long>
+            <long>4197572</long>
+            <long>4197588</long>
+            <long>4198596</long>
+            <long>4198612</long>
+            <long>4199620</long>
+            <long>4199636</long>
+            <long>4205760</long>
+            <long>4205764</long>
+            <long>4205780</long>
+            <long>4196352</long>
+            <long>4196356</long>
+            <long>4196372</long>
+            <long>4200640</long>
+            <long>4201664</long>
+            <long>4217024</long>
+            <long>4218048</long>
+            <long>4202688</long>
             <long>9408</long>
             <long>10432</long>
             <long>2098186</long>
@@ -323,6 +323,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Label</string>
+          <string>storeFlags</string>
+        </entry>
+      </elementAttributes>
+      <pos x="680" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
           <string>Description</string>
           <string>Art des bedingten Sprunges</string>
         </entry>
@@ -366,20 +376,6 @@
       <pos x="680" y="200"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Es wird auf die IO geschrieben</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>ioW</string>
-        </entry>
-      </elementAttributes>
-      <pos x="680" y="400"/>
-    </visualElement>
-    <visualElement>
       <elementName>Break</elementName>
       <elementAttributes>
         <entry>
@@ -392,6 +388,20 @@
         </entry>
       </elementAttributes>
       <pos x="680" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Es wird auf die IO geschrieben</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>ioW</string>
+        </entry>
+      </elementAttributes>
+      <pos x="680" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -420,6 +430,10 @@
     <wire>
       <p1 x="260" y="160"/>
       <p2 x="300" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="480"/>
+      <p2 x="680" y="480"/>
     </wire>
     <wire>
       <p1 x="620" y="260"/>
