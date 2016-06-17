@@ -69,7 +69,19 @@ public class AttributeDialog extends JDialog {
                 }
             }
         });
-        getContentPane().add(okButton, BorderLayout.SOUTH);
+
+        JButton cancelButton = new JButton(new AbstractAction(Lang.get("cancel")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(cancelButton);
+        buttonPanel.add(okButton);
+
+        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         getRootPane().setDefaultButton(okButton);
     }

@@ -12,6 +12,7 @@
     <string name="btn_reload">Reload</string>
     <string name="btn_reload_tt">Reload last hex file</string>
     <string name="btn_save">Save</string>
+    <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
     <string name="elem_Add">Add</string>
     <string name="elem_And">And</string>
