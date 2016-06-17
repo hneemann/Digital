@@ -40,7 +40,7 @@ public interface Element {
     /**
      * Is called after registerNodes is called on all Elements.
      */
-    default void init(Model model) {
+    default void init(Model model) throws NodeException {
     }
 
 }

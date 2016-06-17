@@ -64,7 +64,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
         ATTR_LIST.add(Keys.SHOW_DATA_GRAPH);
         ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
-        ATTR_LIST.add(Keys.SHOW_LISTING);
     }
 
     private static final String MESSAGE = Lang.get("message");
@@ -648,17 +647,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
                 windowPosManager.register("datasetMicro", new DataSetDialog(this, model, true, ordering)).setVisible(true);
 
-            if (settings.get(Keys.SHOW_LISTING)) {
-                int i = 0;
-                for (ROM rom : model.findNode(ROM.class))
-                    if (rom.showListing())
-                        try {
-                            windowPosManager.register("rom" + (i++), new ROMListingDialog(this, rom)).setVisible(true);
-                        } catch (IOException e) {
-                            new ErrorMessage(Lang.get("msg_errorReadingListing_N0", rom.getListFile().toString())).addCause(e).show(this);
-                        }
-            }
-
+            int i = 0;
+            for (ROM rom : model.findNode(ROM.class))
+                if (rom.showListing())
+                    try {
+                        windowPosManager.register("rom" + (i++), new ROMListingDialog(this, rom)).setVisible(true);
+                    } catch (IOException e) {
+                        new ErrorMessage(Lang.get("msg_errorReadingListing_N0", rom.getHexFile().toString())).addCause(e).show(this);
+                    }
 
             model.init();
 

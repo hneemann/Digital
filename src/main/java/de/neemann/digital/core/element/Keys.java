@@ -152,6 +152,12 @@ public final class Keys {
             = new Key<>("showList", false);
 
     /**
+     * flag to enable the ROMs auto load function
+     */
+    public static final Key<Boolean> AUTO_RELOAD_ROM
+            = new Key<>("autoReload", false);
+
+    /**
      * flag to show the data table window
      */
     public static final Key<Boolean> SHOW_DATA_TABLE

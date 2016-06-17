@@ -183,6 +183,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_Value">Wert</string>
     <string name="key_Width">Breite</string>
     <string name="key_Width_tt">Breite des Symbols wenn diese Schaltung in eine andere eingefügt wird.</string>
+    <string name="key_autoReload">Bei jedem Start neu Laden.</string>
+    <string name="key_autoReload_tt">Lädt das HEX-File bei jedem Modelstart neu.</string>
     <string name="key_flipSelPos">Tausche Position des Selectors</string>
     <string name="key_intFormat">Zahlenformat</string>
     <string name="key_intFormat_ascii">ASCII</string>

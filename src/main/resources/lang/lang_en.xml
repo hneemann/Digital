@@ -183,6 +183,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_Value">Value</string>
     <string name="key_Width">Width</string>
     <string name="key_Width_tt">With of symbol if this circuit is used in an element ins an other circuit.</string>
+    <string name="key_autoReload">Reload at model start</string>
+    <string name="key_autoReload_tt">Reloads the hex file every time the model is started.</string>
     <string name="key_flipSelPos">Flip selector position</string>
     <string name="key_intFormat">Number Format</string>
     <string name="key_intFormat_ascii">ascii</string>

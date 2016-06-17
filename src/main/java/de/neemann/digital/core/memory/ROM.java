@@ -8,6 +8,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
+import java.io.IOException;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -32,15 +33,17 @@ public class ROM extends Node implements Element {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.SHOW_LISTING)
-            .addAttribute(Keys.DATA);
+            .addAttribute(Keys.DATA)
+            .addAttribute(Keys.AUTO_RELOAD_ROM)
+            .addAttribute(Keys.SHOW_LISTING);
 
-    private final DataField data;
+    private DataField data;
     private final ObservableValue output;
     private final int addrBits;
     private final boolean showList;
-    private final File listFile;
+    private final File hexFile;
     private final Observable romObservable = new Observable();
+    private final boolean autoLoad;
     private ObservableValue addrIn;
     private ObservableValue selIn;
     private int addr;
@@ -58,10 +61,11 @@ public class ROM extends Node implements Element {
         data = attr.get(Keys.DATA);
         addrBits = attr.get(Keys.ADDR_BITS);
         showList = attr.get(Keys.SHOW_LISTING);
-        if (showList) {
-            listFile = attr.getFile(LAST_DATA_FILE_KEY);
+        autoLoad = attr.get(Keys.AUTO_RELOAD_ROM);
+        if (showList || autoLoad) {
+            hexFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else
-            listFile = null;
+            hexFile = null;
     }
 
     @Override
@@ -102,15 +106,26 @@ public class ROM extends Node implements Element {
      *
      * @return the file
      */
-    public File getListFile() {
-        return listFile;
+    public File getHexFile() {
+        return hexFile;
+    }
+
+    @Override
+    public void init(Model model) throws NodeException {
+        if (autoLoad) {
+            try {
+                data = new DataField(hexFile);
+            } catch (IOException e) {
+                throw new NodeException(e.getMessage(), this, null);
+            }
+        }
     }
 
     /**
      * @return true if there is a listing to show
      */
     public boolean showListing() {
-        return showList && listFile != null;
+        return showList && hexFile != null;
     }
 
     /**

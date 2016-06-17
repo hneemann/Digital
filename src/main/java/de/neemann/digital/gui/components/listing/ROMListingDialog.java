@@ -39,7 +39,7 @@ public class ROMListingDialog extends JDialog implements Observer {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
-        File filename = rom.getListFile();
+        File filename = rom.getHexFile();
         String name = filename.getName();
         int p = name.lastIndexOf('.');
         if (p >= 0) {
