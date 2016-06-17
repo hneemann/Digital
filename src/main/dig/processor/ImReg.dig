@@ -8,7 +8,7 @@
     </entry>
     <entry>
       <string>Width</string>
-      <int>5</int>
+      <int>4</int>
     </entry>
   </attributes>
   <visualElements>
@@ -29,7 +29,6 @@
         </entry>
       </elementAttributes>
       <pos x="240" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -40,7 +39,6 @@
         </entry>
       </elementAttributes>
       <pos x="360" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -55,7 +53,6 @@
         </entry>
       </elementAttributes>
       <pos x="320" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -70,7 +67,6 @@
         </entry>
       </elementAttributes>
       <pos x="500" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -85,7 +81,6 @@
         </entry>
       </elementAttributes>
       <pos x="620" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -104,7 +99,6 @@
         </entry>
       </elementAttributes>
       <pos x="720" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -119,7 +113,6 @@
         </entry>
       </elementAttributes>
       <pos x="240" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -134,7 +127,6 @@
         </entry>
       </elementAttributes>
       <pos x="240" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

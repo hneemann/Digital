@@ -13,25 +13,6 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Addressbus</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>A</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="360" y="160"/>
-      <rotate>0</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
           <string>Datenbus</string>
         </entry>
         <entry>
@@ -44,7 +25,24 @@
         </entry>
       </elementAttributes>
       <pos x="360" y="120"/>
-      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Addressbus</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Comparator</elementName>
@@ -55,7 +53,6 @@
         </entry>
       </elementAttributes>
       <pos x="440" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -70,7 +67,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Terminal</elementName>
@@ -81,7 +77,6 @@
         </entry>
       </elementAttributes>
       <pos x="660" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -96,7 +91,6 @@
         </entry>
       </elementAttributes>
       <pos x="360" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -107,7 +101,6 @@
         </entry>
       </elementAttributes>
       <pos x="560" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -122,7 +115,6 @@
         </entry>
       </elementAttributes>
       <pos x="360" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

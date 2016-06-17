@@ -31,20 +31,6 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Takt</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="280" y="340"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
           <string>Addressbus</string>
         </entry>
         <entry>
@@ -57,6 +43,20 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Takt</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
