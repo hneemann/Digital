@@ -58,7 +58,7 @@ public final class Keys {
      * Background Color of nested circuits
      */
     public static final Key<java.awt.Color> BACKGROUND_COLOR
-            = new Key<>("Color", new Color(255, 255, 210));
+            = new Key<>("Color", new Color(255, 255, 0, 64));
 
     /**
      * The input splitting of a splitter
