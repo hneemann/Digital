@@ -145,10 +145,6 @@
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
-          <string>showList</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
           <string>Bits</string>
           <int>16</int>
         </entry>
@@ -179,10 +175,6 @@
         <entry>
           <string>lastDataFile</string>
           <string>/home/hneemann/Dokumente/Java/assembler/assembler3/src/main/asm/lightChase.hex</string>
-        </entry>
-        <entry>
-          <string>autoReload</string>
-          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="380" y="460"/>
@@ -220,7 +212,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>10</int>
+          <int>100</int>
         </entry>
       </elementAttributes>
       <pos x="1100" y="480"/>

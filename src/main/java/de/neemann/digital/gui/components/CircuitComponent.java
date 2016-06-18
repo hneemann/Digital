@@ -761,7 +761,6 @@ public class CircuitComponent extends JComponent {
         @Override
         boolean dragged(MouseEvent e) {
             if (wasReleased) {
-                removeHighLighted();
                 mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
             } else {
                 corner2 = getPosVector(e);
@@ -810,25 +809,15 @@ public class CircuitComponent extends JComponent {
         }
 
         public void rotate() {
-            ArrayList<Moveable> elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-            if (elements != null)
-                rotateElements(elements, this, null);
+            mouseMoveSelected.activate(corner1, corner2, lastMousePos);
+            mouseMoveSelected.rotate();
         }
     }
 
-    private void rotateElements(ArrayList<Moveable> elements, MouseControllerSelect mcs, Vector pos) {
-        Vector p1;
-        Vector p2;
-        if (mcs != null) {
-            p1 = raster(Vector.min(mcs.corner1, mcs.corner2));
-            p2 = Vector.max(mcs.corner1, mcs.corner2);
-            p2 = raster(p1.add(0, p2.y - p1.y));
-        } else {
-            p1 = raster(pos);
-            p2 = p1;
-        }
+    private void rotateElements(ArrayList<Moveable> elements, Vector pos) {
+        Vector p1 = raster(pos);
 
-        Transform transform = new TransformRotate(p2, 1) {
+        Transform transform = new TransformRotate(p1, 1) {
             @Override
             public Vector transform(Vector v) {
                 return super.transform(v.sub(p1));
@@ -853,10 +842,6 @@ public class CircuitComponent extends JComponent {
 
         }
 
-        if (mcs != null) {
-            mcs.corner1 = transform.transform(mcs.corner1);
-            mcs.corner2 = transform.transform(mcs.corner2);
-        }
         circuit.modified();
         repaint();
     }
@@ -865,6 +850,7 @@ public class CircuitComponent extends JComponent {
     private final class MouseControllerMoveSelected extends MouseController {
         private ArrayList<Moveable> elements;
         private Vector lastPos;
+        private Vector center;
         private boolean wasMoved;
 
         private MouseControllerMoveSelected(Cursor cursor) {
@@ -873,7 +859,9 @@ public class CircuitComponent extends JComponent {
 
         private void activate(Vector corner1, Vector corner2, Vector pos) {
             super.activate();
+            rotateAction.setEnabled(true);
             lastPos = pos;
+            center = corner1.add(corner2).div(2);
             wasMoved = false;
             elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
         }
@@ -896,6 +884,7 @@ public class CircuitComponent extends JComponent {
 
                     repaint();
                     lastPos = lastPos.add(delta);
+                    center = center.add(delta);
                 }
             }
             return true;
@@ -907,6 +896,11 @@ public class CircuitComponent extends JComponent {
                 circuit.elementsMoved();
             removeHighLighted();
             mouseNormal.activate();
+        }
+
+        @Override
+        public void rotate() {
+            rotateElements(elements, center);
         }
     }
 
@@ -970,7 +964,7 @@ public class CircuitComponent extends JComponent {
 
         @Override
         public void rotate() {
-            rotateElements(elements, null, lastPos);
+            rotateElements(elements, lastPos);
         }
     }
 
