@@ -12,6 +12,7 @@ public class DigitalHandler implements HandlerInterface {
 
     /**
      * Creates a new server instance
+     *
      * @param digitalRemoteInterface the remote interface which is used by the server
      */
     public DigitalHandler(DigitalRemoteInterface digitalRemoteInterface) {
@@ -42,15 +43,19 @@ public class DigitalHandler implements HandlerInterface {
             case "run":
                 digitalRemoteInterface.runToBreak();
                 break;
+            case "stop":
+                digitalRemoteInterface.stop();
+                break;
             case "load":
                 File file = new File(args);
-                if (file.exists())
-                    digitalRemoteInterface.loadRom(file);
-                else
-                    return "file not found";
+                if (file.exists()) {
+                    if (!digitalRemoteInterface.loadRom(file))
+                        return "Simulator could not load hex file!";
+                } else
+                    return "file send by assembler not found!";
                 break;
             default:
-                return "unknown command: "+command;
+                return "unknown command: " + command;
         }
         return "ok";
     }

@@ -85,7 +85,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final Icon ICON_ZOOMOUT = IconCreator.create("ZoomOut24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
-    private ToolTipAction runModelAction;
     private ToolTipAction doStep;
     private ToolTipAction runToBreakAction;
     private final ElementLibrary library;
@@ -104,6 +103,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     private Model model;
     private ModelDescription modelDescription;
+    private boolean realtimeClockRunning;
 
     private State elementState;
     private State runModelState;
@@ -443,7 +443,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_step_tt"));
 
-        runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), ICON_RUN)
+        ToolTipAction runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), ICON_RUN)
                 .setToolTip(Lang.get("menu_run_tt"));
         ToolTipAction runModelMicroAction = runModelMicroState.createToolTipAction(Lang.get("menu_micro"), ICON_MICRO)
                 .setToolTip(Lang.get("menu_micro_tt"));
@@ -601,7 +601,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             try {
                 new RemoteSever(new DigitalHandler(main)).start(41114);
             } catch (IOException e) {
-                new ErrorMessage(Lang.get("err_portIsInUse")).show();
+                SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
             }
             main.setVisible(true);
         });
@@ -630,15 +630,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
-            boolean runClock = false;
+            realtimeClockRunning = false;
             if (globalRunClock)
                 for (Clock c : model.getClocks())
                     if (c.getFrequency() > 0) {
                         model.addObserver(new RealTimeClock(model, c, timerExecuter, this));
-                        runClock = true;
+                        realtimeClockRunning = true;
                     }
 
-            if (runClock) {
+            if (realtimeClockRunning) {
                 // if clock is running, enable automatic update of gui
                 GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
                 modelDescription.connectToGui(gmo);
@@ -648,7 +648,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 modelDescription.connectToGui(null);
 
             doStep.setEnabled(false);
-            runToBreakAction.setEnabled(!runClock && model.isFastRunModel());
+            runToBreakAction.setEnabled(!realtimeClockRunning && model.isFastRunModel());
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_TABLE))
@@ -683,8 +683,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     //**********************
 
     @Override
-    public void loadRom(File file) {
-        boolean found=false;
+    public boolean loadRom(File file) {
+        boolean found = false;
         ArrayList<VisualElement> el = circuitComponent.getCircuit().getElements();
         for (VisualElement e : el) {
             if (e.equalsDescription(ROM.DESCRIPTION)) {
@@ -692,17 +692,18 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 if (attr.get(Keys.SHOW_LISTING)
                         && attr.get(Keys.AUTO_RELOAD_ROM)) {
                     attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
-                    found=true;
+                    found = true;
                 }
             }
         }
         if (!found)
             new ErrorMessage(Lang.get("msg_noRomFound")).show(this);
+        return found;
     }
 
     @Override
     public void doSingleStep() {
-        if (model != null) {
+        if (model != null && !realtimeClockRunning) {
             ArrayList<Clock> cl = model.getClocks();
             if (cl.size() == 1) {
                 ObservableValue clkVal = cl.get(0).getClockOutput();
@@ -723,12 +724,19 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     @Override
     public void runToBreak() {
-        runToBreakAction.actionPerformed(null);
+        if (model != null && model.isFastRunModel() && !realtimeClockRunning)
+            runToBreakAction.actionPerformed(null);
     }
 
     @Override
     public void start() {
         runModelState.activate();
+        circuitComponent.repaint();
+    }
+
+    @Override
+    public void stop() {
+        elementState.activate();
         circuitComponent.repaint();
     }
     //**********************
