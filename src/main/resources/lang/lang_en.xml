@@ -149,6 +149,7 @@ The terminal opens its own window.</string>
     <string name="err_readOfHighZ">Read of high Z value</string>
     <string name="err_seemsToOscillate">Logic seems to oscillate
 To analyse you can run the circuit in single gate step mode.</string>
+    <string name="err_portIsInUse">The remote port is in use! Is there an other instance running?</string>
     <string name="err_selectorInputCountMismatch">Number of inputs does not match selector bit count</string>
     <string name="err_spitterDefSyntaxError">Syntax error in splitter definition {0}</string>
     <string name="err_splitterBitsMismatch">Bit count of splitter is not matching</string>
@@ -328,6 +329,7 @@ Written bei H.Neemann in 2016</string>
     <string name="msg_pinMap_outputs">Onputs</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Change needs a restart to take effect!</string>
+    <string name="msg_noRomFound">No ROM found! ROM needs to be set to auto load and listing mode.</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

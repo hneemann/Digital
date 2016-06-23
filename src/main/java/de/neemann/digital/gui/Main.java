@@ -16,6 +16,7 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.ElementOrder;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelDescription;
@@ -25,6 +26,8 @@ import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
+import de.neemann.digital.gui.remote.DigitalHandler;
+import de.neemann.digital.gui.remote.RemoteSever;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.lang.Lang;
@@ -49,7 +52,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  *
  * @author hneemann
  */
-public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface {
+public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface {
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
     private static boolean experimental;
 
@@ -82,8 +85,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final Icon ICON_ZOOMOUT = IconCreator.create("ZoomOut24.gif");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
+    private ToolTipAction runModelAction;
     private ToolTipAction doStep;
-    private ToolTipAction runToBreak;
+    private ToolTipAction runToBreakAction;
     private final ElementLibrary library;
     private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
@@ -439,11 +443,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_step_tt"));
 
-        ToolTipAction runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), ICON_RUN)
+        runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), ICON_RUN)
                 .setToolTip(Lang.get("menu_run_tt"));
         ToolTipAction runModelMicroAction = runModelMicroState.createToolTipAction(Lang.get("menu_micro"), ICON_MICRO)
                 .setToolTip(Lang.get("menu_micro_tt"));
-        runToBreak = new ToolTipAction(Lang.get("menu_fast"), ICON_FAST) {
+        runToBreakAction = new ToolTipAction(Lang.get("menu_fast"), ICON_FAST) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -487,13 +491,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
-        run.add(runToBreak.createJMenuItem());
+        run.add(runToBreakAction.createJMenuItem());
         run.addSeparator();
         run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
-        toolBar.add(runToBreak.createJButtonNoText());
+        toolBar.add(runToBreakAction.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(runModelMicroState.setIndicator(runModelMicroAction.createJButtonNoText()));
         toolBar.add(doStep.createJButtonNoText());
@@ -563,7 +567,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 clearModelDescription();
                 circuitComponent.setModeAndReset(false);
                 doStep.setEnabled(false);
-                runToBreak.setEnabled(false);
+                runToBreakAction.setEnabled(false);
             }
 
         });
@@ -592,7 +596,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      */
     public static void main(String[] args) {
         experimental = args.length == 1 && args[0].equals("experimental");
-        SwingUtilities.invokeLater(() -> new Main().setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            Main main = new Main();
+            try {
+                new RemoteSever(new DigitalHandler(main)).start(41114);
+            } catch (IOException e) {
+                new ErrorMessage(Lang.get("err_portIsInUse")).show();
+            }
+            main.setVisible(true);
+        });
     }
 
     private void clearModelDescription() {
@@ -636,7 +648,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 modelDescription.connectToGui(null);
 
             doStep.setEnabled(false);
-            runToBreak.setEnabled(!runClock && model.isFastRunModel());
+            runToBreakAction.setEnabled(!runClock && model.isFastRunModel());
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_TABLE))
@@ -664,6 +676,65 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         }
         return false;
     }
+
+
+    //**********************
+    // remote interface start
+    //**********************
+
+    @Override
+    public void loadRom(File file) {
+        boolean found=false;
+        ArrayList<VisualElement> el = circuitComponent.getCircuit().getElements();
+        for (VisualElement e : el) {
+            if (e.equalsDescription(ROM.DESCRIPTION)) {
+                ElementAttributes attr = e.getElementAttributes();
+                if (attr.get(Keys.SHOW_LISTING)
+                        && attr.get(Keys.AUTO_RELOAD_ROM)) {
+                    attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
+                    found=true;
+                }
+            }
+        }
+        if (!found)
+            new ErrorMessage(Lang.get("msg_noRomFound")).show(this);
+    }
+
+    @Override
+    public void doSingleStep() {
+        if (model != null) {
+            ArrayList<Clock> cl = model.getClocks();
+            if (cl.size() == 1) {
+                ObservableValue clkVal = cl.get(0).getClockOutput();
+                clkVal.setBool(!clkVal.getBool());
+                try {
+                    model.doStep();
+                    if (clkVal.getBool()) {
+                        clkVal.setBool(!clkVal.getBool());
+                        model.doStep();
+                    }
+                    circuitComponent.repaint();
+                } catch (NodeException e) {
+                    showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void runToBreak() {
+        runToBreakAction.actionPerformed(null);
+    }
+
+    @Override
+    public void start() {
+        runModelState.activate();
+        circuitComponent.repaint();
+    }
+    //**********************
+    // remote interface end
+    //**********************
+
 
     @Override
     public void showErrorAndStopModel(String message, Exception cause) {
