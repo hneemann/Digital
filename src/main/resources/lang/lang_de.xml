@@ -320,6 +320,8 @@ Geschrieben von Helmut Neemann 2016</string>
     <string name="msg_errorEditingValue">Fehler bei der Eingabe eines Wertes</string>
     <string name="msg_errorImportingModel">Fehler beim Import einer Schaltung</string>
     <string name="msg_errorReadingFile">Fehler beim Lesen einer Datei</string>
+    <string name="msg_errorFileNotFound">Die Datei {0} wurde nicht gefunden!</string>
+    <string name="msg_remoteUnknownCommand">Das Kommando {0} ist unbekannt!</string>
     <string name="msg_errorReadingListing_N0">Fehler beim Laden des Listings {0}</string>
     <string name="msg_errorWritingFile">Fehler beim Schreiben einer Datei</string>
     <string name="msg_fastRunError">Ein Fehler beim schnellen Lauf</string>
@@ -330,7 +332,9 @@ Geschrieben von Helmut Neemann 2016</string>
     <string name="msg_pinMap_outputs">Ausgänge</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Die Änderung erfordert einen Neustart!</string>
-    <string name="msg_noRomFound">Kein ROM gefunden! Automatisches Laden und Anzeige des Listing muss eingeschaltet sein!</string>
+    <string name="msg_noRomFound">Kein ROM im Model gefunden! Im ROM muss Automatisches Laden und Anzeige des Listing
+        eingeschaltet sein!
+    </string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

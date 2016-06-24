@@ -330,6 +330,8 @@ Written bei H.Neemann in 2016</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Change needs a restart to take effect!</string>
     <string name="msg_noRomFound">No ROM found! ROM needs to be set to auto load and listing mode.</string>
+    <string name="msg_errorFileNotFound">Could not find file: {0}</string>
+    <string name="msg_remoteUnknownCommand">Command {0} unknown!</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
