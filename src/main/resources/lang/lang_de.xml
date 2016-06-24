@@ -332,9 +332,7 @@ Geschrieben von Helmut Neemann 2016</string>
     <string name="msg_pinMap_outputs">Ausgänge</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Die Änderung erfordert einen Neustart!</string>
-    <string name="msg_noRomFound">Kein ROM im Model gefunden! Im ROM muss Automatisches Laden und Anzeige des Listing
-        eingeschaltet sein!
-    </string>
+    <string name="msg_noRomFound">Kein ROM im Model gefunden! Im ROM muss Automatisches Laden und Anzeige des Listing eingeschaltet sein!</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
