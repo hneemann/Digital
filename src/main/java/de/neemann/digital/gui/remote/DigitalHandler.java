@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.remote;
 
 import de.neemann.digital.gui.DigitalRemoteInterface;
+import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 
@@ -38,7 +39,8 @@ public class DigitalHandler implements HandlerInterface {
                 digitalRemoteInterface.doSingleStep();
                 break;
             case "start":
-                digitalRemoteInterface.start();
+                if (!digitalRemoteInterface.start())
+                    return Lang.get("msg_errorCreatingModel");
                 break;
             case "run":
                 digitalRemoteInterface.runToBreak();
@@ -50,12 +52,12 @@ public class DigitalHandler implements HandlerInterface {
                 File file = new File(args);
                 if (file.exists()) {
                     if (!digitalRemoteInterface.loadRom(file))
-                        return "Simulator could not load hex file!";
+                        return Lang.get("msg_noRomFound");
                 } else
-                    return "file send by assembler not found!";
+                    return Lang.get("msg_errorFileNotFound", args);
                 break;
             default:
-                return "unknown command: " + command;
+                return Lang.get("msg_remoteUnknownCommand", command);
         }
         return "ok";
     }

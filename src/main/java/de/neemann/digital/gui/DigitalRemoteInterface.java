@@ -19,8 +19,9 @@ public interface DigitalRemoteInterface {
 
     /**
      * Starts the model
+     * @return true if start was successful
      */
-    void start();
+    boolean start();
 
     /**
      * performs a single step

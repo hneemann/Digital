@@ -696,8 +696,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 }
             }
         }
-        if (!found)
-            new ErrorMessage(Lang.get("msg_noRomFound")).show(this);
         return found;
     }
 
@@ -729,9 +727,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     @Override
-    public void start() {
+    public boolean start() {
         runModelState.activate();
         circuitComponent.repaint();
+        return true;
     }
 
     @Override
