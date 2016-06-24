@@ -1,7 +1,8 @@
 package de.neemann.digital.gui.state;
 
 /**
- * Organizes the state switches
+ * Organizes the state switches.
+ * Simply holds the actual state, so that if can be disabled by a new state.
  *
  * @author hneemann
  */
@@ -20,12 +21,10 @@ public class StateManager {
      *
      * @param state the state to activate
      */
-    public void setState(StateInterface state) {
+    void leaveActualStateAndSet(StateInterface state) {
         if (actualState != null)
             actualState.leave();
         actualState = state;
-        if (actualState != null)
-            actualState.enter();
     }
 
     /**

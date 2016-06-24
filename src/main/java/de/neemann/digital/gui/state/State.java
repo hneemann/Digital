@@ -41,8 +41,11 @@ public class State implements StateInterface {
         this.stateManager = stateManager;
     }
 
-    @Override
+    /**
+     * Sets the state indicator to "activated"
+     */
     public void enter() {
+        stateManager.leaveActualStateAndSet(this);
         if (indicator != null)
             indicator.setBorder(ENABLED_BORDER);
     }
@@ -64,16 +67,9 @@ public class State implements StateInterface {
         return new ToolTipAction(name, icon) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                stateManager.setState(State.this);
+                enter();
             }
         };
-    }
-
-    /**
-     * Activates this state
-     */
-    public void activate() {
-        stateManager.setState(this);
     }
 
 }

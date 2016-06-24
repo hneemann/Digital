@@ -106,7 +106,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private boolean realtimeClockRunning;
 
     private State elementState;
-    private State runModelState;
+    private RunModelState runModelState;
     private State runModelMicroState;
 
     private Main() {
@@ -455,7 +455,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     circuitComponent.repaint();
                     statusLabel.setText(Lang.get("stat_clocks", i));
                 } catch (NodeException e1) {
-                    elementState.activate();
+                    elementState.enter();
                     new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
                 }
             }
@@ -519,7 +519,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     new TableDialog(Main.this, new ModelAnalyser(model).analyse(), shapeFactory, filename)
                             .setPinMap(new PinMap().addModel(model))
                             .setVisible(true);
-                    elementState.activate();
+                    elementState.enter();
                 } catch (PinException | PinMapException | NodeException | AnalyseException e1) {
                     showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
                 }
@@ -533,7 +533,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 TruthTable tt = new TruthTable(3).addResult();
                 new TableDialog(Main.this, tt, shapeFactory, null).setVisible(true);
-                elementState.activate();
+                elementState.enter();
             }
         }
                 .setToolTip(Lang.get("menu_synthesise_tt"))
@@ -543,7 +543,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private void orderMeasurements() {
         try {
             Model m = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
-            elementState.activate();
+            elementState.enter();
             ArrayList<String> names = new ArrayList<>();
             for (Signal s : m.getSignals())
                 names.add(s.getName());
@@ -571,14 +571,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
 
         });
-        runModelState = stateManager.register(new State() {
-            @Override
-            public void enter() {
-                super.enter();
-                if (createAndStartModel(true, ModelEvent.STEP))
-                    circuitComponent.setManualChangeObserver(new FullStepObserver(model));
-            }
-        });
+        runModelState = stateManager.register(new RunModelState());
         runModelMicroState = stateManager.register(new State() {
             @Override
             public void enter() {
@@ -677,72 +670,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         return false;
     }
 
-
-    //**********************
-    // remote interface start
-    //**********************
-
-    @Override
-    public boolean loadRom(File file) {
-        boolean found = false;
-        ArrayList<VisualElement> el = circuitComponent.getCircuit().getElements();
-        for (VisualElement e : el) {
-            if (e.equalsDescription(ROM.DESCRIPTION)) {
-                ElementAttributes attr = e.getElementAttributes();
-                if (attr.get(Keys.SHOW_LISTING)
-                        && attr.get(Keys.AUTO_RELOAD_ROM)) {
-                    attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
-                    found = true;
-                }
-            }
-        }
-        return found;
-    }
-
-    @Override
-    public void doSingleStep() {
-        if (model != null && !realtimeClockRunning) {
-            ArrayList<Clock> cl = model.getClocks();
-            if (cl.size() == 1) {
-                ObservableValue clkVal = cl.get(0).getClockOutput();
-                clkVal.setBool(!clkVal.getBool());
-                try {
-                    model.doStep();
-                    if (clkVal.getBool()) {
-                        clkVal.setBool(!clkVal.getBool());
-                        model.doStep();
-                    }
-                    circuitComponent.repaint();
-                } catch (NodeException e) {
-                    showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void runToBreak() {
-        if (model != null && model.isFastRunModel() && !realtimeClockRunning)
-            runToBreakAction.actionPerformed(null);
-    }
-
-    @Override
-    public boolean start() {
-        runModelState.activate();
-        circuitComponent.repaint();
-        return true;
-    }
-
-    @Override
-    public void stop() {
-        elementState.activate();
-        circuitComponent.repaint();
-    }
-    //**********************
-    // remote interface end
-    //**********************
-
-
     @Override
     public void showErrorAndStopModel(String message, Exception cause) {
         SwingUtilities.invokeLater(() -> {
@@ -762,7 +689,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
             circuitComponent.repaint();
             new ErrorMessage(message).addCause(cause).show(Main.this);
-            elementState.activate();
+            elementState.enter();
         });
     }
 
@@ -796,7 +723,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             librarySelector.setFilePath(filename.getParentFile());
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circ);
-            elementState.activate();
+            elementState.enter();
             setFilename(filename, toPrefs);
             statusLabel.setText(" ");
         } catch (Exception e) {
@@ -812,7 +739,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             circuitComponent.getCircuit().save(filename);
             if (savedListener != null)
                 savedListener.saved(filename);
-            elementState.activate();
+            elementState.enter();
             setFilename(filename, toPrefs);
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
@@ -908,4 +835,82 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }
     }
+
+    private class RunModelState extends State {
+        @Override
+        public void enter() {
+            enter(true);
+        }
+
+        void enter(boolean runRealTime) {
+            super.enter();
+            if (createAndStartModel(runRealTime, ModelEvent.STEP))
+                circuitComponent.setManualChangeObserver(new FullStepObserver(model));
+        }
+    }
+
+    //**********************
+    // remote interface start
+    //**********************
+
+    @Override
+    public boolean loadRom(File file) {
+        boolean found = false;
+        ArrayList<VisualElement> el = circuitComponent.getCircuit().getElements();
+        for (VisualElement e : el) {
+            if (e.equalsDescription(ROM.DESCRIPTION)) {
+                ElementAttributes attr = e.getElementAttributes();
+                if (attr.get(Keys.SHOW_LISTING)
+                        && attr.get(Keys.AUTO_RELOAD_ROM)) {
+                    attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
+                    found = true;
+                }
+            }
+        }
+        return found;
+    }
+
+    @Override
+    public void doSingleStep() {
+        if (model != null && !realtimeClockRunning) {
+            ArrayList<Clock> cl = model.getClocks();
+            if (cl.size() == 1) {
+                ObservableValue clkVal = cl.get(0).getClockOutput();
+                clkVal.setBool(!clkVal.getBool());
+                try {
+                    model.doStep();
+                    if (clkVal.getBool()) {
+                        clkVal.setBool(!clkVal.getBool());
+                        model.doStep();
+                    }
+                    circuitComponent.repaint();
+                } catch (NodeException e) {
+                    showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void runToBreak() {
+        if (model != null && model.isFastRunModel() && !realtimeClockRunning)
+            runToBreakAction.actionPerformed(null);
+    }
+
+    @Override
+    public boolean start() {
+        runModelState.enter(false);
+        circuitComponent.repaint();
+        return true;
+    }
+
+    @Override
+    public void stop() {
+        elementState.enter();
+        circuitComponent.repaint();
+    }
+    //**********************
+    // remote interface end
+    //**********************
+
 }
