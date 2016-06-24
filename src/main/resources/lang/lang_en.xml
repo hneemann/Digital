@@ -303,6 +303,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_table_new_sequential">Sequential</string>
     <string name="menu_table_outputs">Outputs</string>
     <string name="menu_table_reorder">Reorder</string>
+    <string name="menu_terminalDelete">Delete</string>
+    <string name="menu_terminalDelete_tt">Delete the terminals content.</string>
     <string name="menu_view">View</string>
     <string name="menu_zoomIn">Zoom In</string>
     <string name="menu_zoomOut">Zoom Out</string>

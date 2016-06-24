@@ -10,6 +10,8 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
+import javax.swing.*;
+
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
@@ -29,10 +31,11 @@ public class Terminal extends Node implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL);
 
+    private static TerminalDialog terminalDialog;
+
     private final ElementAttributes attr;
     private ObservableValue data;
     private ObservableValue clock;
-    private TerminalDialog terminalDialog;
     private boolean lastClock;
 
     /**
@@ -59,9 +62,12 @@ public class Terminal extends Node implements Element {
     public void readInputs() throws NodeException {
         boolean clockVal = clock.getBool();
         if (!lastClock && clockVal) {
-            if (terminalDialog == null)
-                terminalDialog = new TerminalDialog(attr);
-            terminalDialog.addChar((char) data.getValue());
+            long value = data.getValue();
+            SwingUtilities.invokeLater(() -> {
+                if (terminalDialog == null || !terminalDialog.isVisible())
+                    terminalDialog = new TerminalDialog(attr);
+                terminalDialog.addChar((char) value);
+            });
         }
         lastClock = clockVal;
     }

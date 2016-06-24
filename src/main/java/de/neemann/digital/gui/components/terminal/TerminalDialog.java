@@ -2,9 +2,13 @@ package de.neemann.digital.gui.components.terminal;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.lang.Lang;
+import de.neemann.gui.IconCreator;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 
 /**
@@ -30,6 +34,16 @@ public class TerminalDialog extends JDialog {
         textArea = new JTextArea(attr.get(Keys.TERM_HEIGHT), width);
         textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
         getContentPane().add(new JScrollPane(textArea));
+
+        JToolBar toolBar = new JToolBar();
+        toolBar.add(new ToolTipAction(Lang.get("menu_terminalDelete"), IconCreator.create("Delete24.gif")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea.setText("");
+            }
+        }.setToolTip(Lang.get("menu_terminalDelete_tt")).createJButtonNoText());
+        getContentPane().add(toolBar, BorderLayout.NORTH);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);

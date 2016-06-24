@@ -303,6 +303,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_table_new_sequential">Automat</string>
     <string name="menu_table_outputs">Ausgänge</string>
     <string name="menu_table_reorder">Umsortieren</string>
+    <string name="menu_terminalDelete">Löschen</string>
+    <string name="menu_terminalDelete_tt">Löschen des Terminal-Inhalts</string>
     <string name="menu_view">Ansicht</string>
     <string name="menu_zoomIn">Vergrößern</string>
     <string name="menu_zoomOut">Verkleinern</string>
