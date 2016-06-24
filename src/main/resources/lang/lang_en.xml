@@ -147,7 +147,7 @@ The terminal opens its own window.</string>
     <string name="err_pin_N_notFound">Pin {0} not found</string>
     <string name="err_pin_N_unknown">Pin {0} unknown</string>
     <string name="err_readOfHighZ">Read of high Z value</string>
-    <string name="err_seemsToOscillate">Logic seems to oscillate
+    <string name="err_seemsToOscillate">Logic seems to oscillate.
 To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_portIsInUse">The remote port is in use! Is there an other instance running?</string>
     <string name="err_selectorInputCountMismatch">Number of inputs does not match selector bit count</string>
@@ -308,7 +308,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_view">View</string>
     <string name="menu_zoomIn">Zoom In</string>
     <string name="menu_zoomOut">Zoom Out</string>
-    <string name="message">Digita
+    <string name="message">Digital
+
 A simple simulator for digital circuits.
 Written bei H.Neemann in 2016</string>
     <string name="msg_N_nodes">{0} nodes</string>
