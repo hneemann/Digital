@@ -242,7 +242,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_help">Hilfe</string>
     <string name="menu_import">Importieren</string>
     <string name="menu_import_tt">Importiert eine Schaltung als verwendbares Bauteil</string>
-    <string name="menu_maximize">Maximieren</string>
+    <string name="menu_maximize">Einpassen</string>
     <string name="menu_micro">Gatterschrittmodus</string>
     <string name="menu_micro_tt">Startet die Schaltung im Gatterschrittmodus</string>
     <string name="menu_new">Neu</string>

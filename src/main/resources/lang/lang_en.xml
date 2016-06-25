@@ -242,7 +242,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_help">Help</string>
     <string name="menu_import">Import</string>
     <string name="menu_import_tt">Imports a circuit as a useable Element!</string>
-    <string name="menu_maximize">Maximize</string>
+    <string name="menu_maximize">Fit to window</string>
     <string name="menu_micro">Single gate stepping</string>
     <string name="menu_micro_tt">Runs the circuit in single gate step mode</string>
     <string name="menu_new">New</string>
