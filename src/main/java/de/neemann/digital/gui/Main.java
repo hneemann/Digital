@@ -70,19 +70,19 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     private static final String MESSAGE = Lang.get("message");
-    private static final Icon ICON_RUN = IconCreator.create("run.gif");
-    private static final Icon ICON_MICRO = IconCreator.create("micro.gif");
-    private static final Icon ICON_STEP = IconCreator.create("step.gif");
-    private static final Icon ICON_ELEMENT = IconCreator.create("element.gif");
-    private static final Icon ICON_NEW = IconCreator.create("New24.gif");
-    private static final Icon ICON_OPEN = IconCreator.create("Open24.gif");
-    private static final Icon ICON_OPEN_WIN = IconCreator.create("OpenNew24.gif");
-    private static final Icon ICON_SAVE = IconCreator.create("Save24.gif");
-    private static final Icon ICON_SAVE_AS = IconCreator.create("SaveAs24.gif");
-    private static final Icon ICON_FAST = IconCreator.create("FastForward24.gif");
-    private static final Icon ICON_EXPAND = IconCreator.create("Expand24.gif");
-    private static final Icon ICON_ZOOMIN = IconCreator.create("ZoomIn24.gif");
-    private static final Icon ICON_ZOOMOUT = IconCreator.create("ZoomOut24.gif");
+    private static final Icon ICON_RUN = IconCreator.create("media-playback-start.png");
+    private static final Icon ICON_MICRO = IconCreator.create("media-playback-start-2.png");
+    private static final Icon ICON_STEP = IconCreator.create("media-seek-forward.png");
+    private static final Icon ICON_ELEMENT = IconCreator.create("preferences-system.png");
+    private static final Icon ICON_NEW = IconCreator.create("document-new.png");
+    private static final Icon ICON_OPEN = IconCreator.create("document-open.png");
+    private static final Icon ICON_OPEN_WIN = IconCreator.create("document-open-new.png");
+    private static final Icon ICON_SAVE = IconCreator.create("document-save.png");
+    private static final Icon ICON_SAVE_AS = IconCreator.create("document-save-as.png");
+    private static final Icon ICON_FAST = IconCreator.create("media-skip-forward.png");
+    private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
+    private static final Icon ICON_ZOOMIN = IconCreator.create("View-zoom-in.png");
+    private static final Icon ICON_ZOOMOUT = IconCreator.create("View-zoom-out.png");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private ToolTipAction doStep;
