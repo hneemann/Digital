@@ -36,7 +36,7 @@ public class TerminalDialog extends JDialog {
         getContentPane().add(new JScrollPane(textArea));
 
         JToolBar toolBar = new JToolBar();
-        toolBar.add(new ToolTipAction(Lang.get("menu_terminalDelete"), IconCreator.create("Delete24.gif")) {
+        toolBar.add(new ToolTipAction(Lang.get("menu_terminalDelete"), IconCreator.create("edit-delete.png")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textArea.setText("");
