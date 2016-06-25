@@ -78,8 +78,10 @@ public class ROMListingDialog extends JDialog implements Observer {
         if (addr != lastAddr) {
             Integer line = listing.getLine(addr);
             if (line != null) {
-                list.ensureIndexIsVisible(line);
-                list.setSelectedIndex(line);
+                SwingUtilities.invokeLater(() -> {
+                    list.ensureIndexIsVisible(line);
+                    list.setSelectedIndex(line);
+                });
             }
 
             lastAddr = addr;
