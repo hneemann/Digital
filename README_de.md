@@ -3,7 +3,7 @@
 Digital ist ein Simulator für digitale Schaltkreise. Er ist für Lehrzwecke entwickelt worden und
 wird von mir in meinen Vorlesungen eingesetzt.
 Bevor ich mit der Entwicklung von Digital begonnen habe, habe ich [Logisim](http://www.cburch.com/logisim/) von Carl Burch 
-eingesetzt. Daher rührt die Ähnlichkeit des verwendeten Farbschemas.
+eingesetzt. Zu erkennen ist das daran, das die Farbschemata sich ähneln.
 
 Logisim ist ein ganz hervorragendes Werkzeug welches sich beim Einsatz in der Lehre vielfach 
 bewährt hat. Dennoch hat es meiner Meinung nach einige Schwächen, die eine Neuentwicklung rechtfertigen.
@@ -18,19 +18,19 @@ starten:
 Logisim hat Schwierigkeiten mit dem "Einschalten" einer Schaltung. Ein einfaches Master-Slave Flipflop 
 lässt sich mit Logisim nicht realisieren, da die Schaltung nicht "eingeschaltet" wird, gibt es keine 
 Stabilierungsphase nach dessen Abschluss sich die Schaltung in einem stabilen Zustand befindet. 
-Ein MS-FF lässt sich nur mit einem Reset-Eingang simulieren, und dieser muss auch betätigt werden, um die 
+Ein Master-Slave Flipflop lässt sich nur mit einem Reset-Eingang simulieren, und dieser muss auch betätigt werden, um die 
 Schaltung verwenden zu können.
 
 Digital verwendet einen etwas anderen Ansatz, welcher an einen Event-Based Simulator erinnert: Jedes mal, wenn ein 
 Gatter eine Änderung an einem seiner Eingänge erfährt, werden zwar die Eingänge eingelesen, jedoch 
 werden die Ausgänge des Gatters nicht aktualisiert. Erst wenn alle betroffenen Gatter die Änderungen an 
-ihren Eingängen eingelesen haben, werden die Ausgänge aller Gatter aktualisiert. Alle Gatter scheienen 
+ihren Eingängen eingelesen haben, werden die Ausgänge aller Gatter aktualisiert. Alle Gatter scheinen 
 vollkommen synchron umzuschalten.
-Während der Einschaltphase, wird jedoch ein anderer Modus verwendet: Alle Gatter lesen ihre Eingänge ein und 
+Während der Einschaltphase wird jedoch ein anderer Modus verwendet: Alle Gatter lesen ihre Eingänge ein und 
 aktualisieren sofort ihre Ausgänge, dies geschieht Gatter für Gatter in zufälliger Reihenfolge der Gatter, bis es keine 
 Veränderungen mehr gibt und die Schaltung sich stabilisiert hat.
-Auf diese Weise stabilisiert sich auch ein Master-Slave Flipflop ohne Probleme, jedoch ist der sich einstellende Zustand 
-nicht definert.
+Auf diese Weise stabilisiert sich auch ein Master-Slave Flipflop nach dem "einschalten", jedoch ist der sich einstellende 
+Endzustand nicht definiert.
  
 Um eine Schaltung in einem definierten Zustand zu Starten gibt es ein spezielles Reset-Gatter. 
 Dieses Gatter hat einen einzigen Ausgang welcher während der Stabilisierungsphase auf Low gehalten wird und 
