@@ -43,7 +43,10 @@ import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
  * @author hneemann
  */
 public class CircuitComponent extends JComponent {
-    private static final Icon ICON_DELETE = IconCreator.create("edit-delete.png");
+    /**
+     * The delete icon, also used from {@link de.neemann.digital.gui.components.terminal.TerminalDialog}
+     */
+    public static final Icon ICON_DELETE = IconCreator.create("delete.png");
     private static final String DEL_ACTION = "myDelAction";
 
     private final ElementLibrary library;

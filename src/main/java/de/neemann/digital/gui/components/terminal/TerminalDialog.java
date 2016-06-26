@@ -2,8 +2,8 @@ package de.neemann.digital.gui.components.terminal;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.IconCreator;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -36,7 +36,7 @@ public class TerminalDialog extends JDialog {
         getContentPane().add(new JScrollPane(textArea));
 
         JToolBar toolBar = new JToolBar();
-        toolBar.add(new ToolTipAction(Lang.get("menu_terminalDelete"), IconCreator.create("edit-delete.png")) {
+        toolBar.add(new ToolTipAction(Lang.get("menu_terminalDelete"), CircuitComponent.ICON_DELETE) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textArea.setText("");
