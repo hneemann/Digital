@@ -21,7 +21,7 @@ Stabilierungsphase nach dessen Abschluss sich die Schaltung in einem stabilen Zu
 Ein MS-FF lässt sich nur mit einem Reset-Eingang simulieren, und dieser muss auch betätigt werden, um die 
 Schaltung verwenden zu können.
 
-Digital verwendet einen Ansatz, welcher an einen Event-Based Simulator erinnert: Jedes mal, wenn ein 
+Digital verwendet einen etwas anderen Ansatz, welcher an einen Event-Based Simulator erinnert: Jedes mal, wenn ein 
 Gatter eine Änderung an einem seiner Eingänge erfährt, werden zwar die Eingänge eingelesen, jedoch 
 werden die Ausgänge des Gatters nicht aktualisiert. Erst wenn alle betroffenen Gatter die Änderungen an 
 ihren Eingängen eingelesen haben, werden die Ausgänge aller Gatter aktualisiert. Alle Gatter scheienen 
@@ -29,7 +29,7 @@ vollkommen synchron umzuschalten.
 Während der Einschaltphase, wird jedoch ein anderer Modus verwendet: Alle Gatter lesen ihre Eingänge ein und 
 aktualisieren sofort ihre Ausgänge, dies geschieht Gatter für Gatter in zufälliger Reihenfolge der Gatter, bis es keine 
 Veränderungen mehr gibt und die Schaltung sich stabilisiert hat.
-Auf diese Weise stabiliert sich auch ein Master-Slave Flipflop ohne Probleme, jedoch ist der sich einstellende Zustand 
+Auf diese Weise stabilisiert sich auch ein Master-Slave Flipflop ohne Probleme, jedoch ist der sich einstellende Zustand 
 nicht definert.
  
 Um eine Schaltung in einem definierten Zustand zu Starten gibt es ein spezielles Reset-Gatter. 
@@ -57,10 +57,10 @@ Auf diese Weise wird visualisiert, wie sich eine Signaländerung "im Kreis beweg
 Wie bei Logisim können auch mit Digital Schaltkreise in neue Schaltungen eingebettet werden. Auf diese Weise lassen sich 
 hierachische Schaltungen aufbauen. Jedoch werden in Digital Schaltungen, die eingebunden werden tatsächlich so oft 
 in die Schaltung aufgenommen, wie sie importiert werden. Das kann man sich vorstellen, als würden in einem C-Programm 
-alle Funktiosaufrufe per inline eingebunden. Es verhällt sich wie bei einer echten Schaltung. Da ist ja auch jeder 
-Schaltkreis so oft vorhanden, wie er verwendet wurde. Aus diesem Vorgehen folgt, dass sich in Digital z.B. ein UND-Gatter, 
+alle Funktiosaufrufe per inline eingebunden. Es verhällt sich wie bei einer echten Schaltung: Jeder Schaltkreis ist tatsächlich 
+so oft vorhanden, wie er in der Schaltung verwendet wurde. Aus diesem Vorgehen folgt, dass sich in Digital z.B. ein UND-Gatter, 
 welches als Schaltkreis importiert wurde, genau so verhällt, als wäre es auf oberster Ebene eingefügt worden. Auf 
-Simulations ebene gibt es tatsächlich keinen unterschied zwischen diesen beiden Varianten.
+Simulationsebene gibt es tatsächlich keinen Unterschied zwischen diesen beiden Varianten.
 Logisim arbeitet hier etwas anders, was gelegentlich zu Problemen führt, z.B. durch unerwartete Verzögerungen bei der 
 Signalverarbeitung.
 
