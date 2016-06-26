@@ -58,11 +58,13 @@ Wie bei Logisim können auch mit Digital Schaltkreise in neue Schaltungen eingeb
 hierachische Schaltungen aufbauen. Jedoch werden in Digital Schaltungen, die eingebunden werden tatsächlich so oft 
 in die Schaltung aufgenommen, wie sie importiert werden. Das kann man sich vorstellen, als würden in einem C-Programm 
 alle Funktiosaufrufe per inline eingebunden. Es verhällt sich wie bei einer echten Schaltung: Jeder Schaltkreis ist tatsächlich 
-so oft vorhanden, wie er in der Schaltung verwendet wurde. Aus diesem Vorgehen folgt, dass sich in Digital z.B. ein UND-Gatter, 
-welches als Schaltkreis importiert wurde, genau so verhällt, als wäre es auf oberster Ebene eingefügt worden. Auf 
-Simulationsebene gibt es tatsächlich keinen Unterschied zwischen diesen beiden Varianten.
-Logisim arbeitet hier etwas anders, was gelegentlich zu Problemen führt, z.B. durch unerwartete Verzögerungen bei der 
-Signalverarbeitung.
+so oft vorhanden, wie er in der Schaltung verwendet wurde. Dieses Vorgehen vergrößert zwar die Datenstrukturen für die Simulation,
+vereinfacht diese aber zugleich sehr deutlich. So sind z.B. die Ein- und Ausgänge einer eingebetteten Schaltung nicht speziell
+zu behandeln, sie existieren nach der Modelbildung schlicht nicht mehr.
+Aus diesem Vorgehen folgt damit, dass sich in Digital z.B. ein UND-Gatter, welches als Schaltkreis eingebettet wurde, genau so 
+verhällt, als wäre es auf oberster Ebene eingefügt worden. Auf Simulationsebene gibt es tatsächlich keinen Unterschied zwischen 
+diesen beiden Varianten.
+Logisim arbeitet hier etwas anders, was gelegentlich zu Überraschungen führt, z.B. durch unerwartete Signallaufzeiten.
 
 ### Performance ###
 
@@ -78,7 +80,9 @@ in Assembler-Programme einfügen lassen.
 In Logisim gibt es keine geeignete Möglichkeit um ein Assembler-Programm in einem simulierten Prozessor zu debuggen.
 Steht ein Assembler zur Verfügung welcher ein List-File des Source-Codes erzeugt (Code-Adresse gefolgt vom Source-Code)
 kann Digital dieses Listing in einem Trace-Fenster anzeigen, wobei der aktuelle Befehl hervorgehoben ist. 
-So lässt sich im Simulator ein Assembler-Programm im Einzelschrittmodus ausführen.
+So lässt sich im Simulator ein Assembler-Programm im Einzelschrittmodus ausführen und debuggen. 
+Da Digital über eine TCP basierte Schittstelle zur Steuerung verfügt, kann auch die Assembler-IDE den Simulator steuern, 
+und auf diese Weise Anwendungen in den simulierten Prozessor laden, den Prozessor starten und beenden usw..     
 
 ### Schaltungssynthese ###
 
