@@ -2,11 +2,36 @@
 
 Digital ist ein Simulator für digitale Schaltkreise. Er ist für Lehrzwecke entwickelt worden und
 wird von mir in meinen Vorlesungen eingesetzt.
-Bevor ich mit der Entwicklung von Digital begonnen habe, habe ich [Logisim](http://www.cburch.com/logisim/) von Carl Burch 
+Bevor ich mit der Entwicklung von Digital begonnen habe, habe ich
+[Logisim](http://www.cburch.com/logisim/) von Carl Burch
 eingesetzt. Zu erkennen ist das daran, dass die Farbschemata sich ähneln.
 
 Logisim ist ein ganz hervorragendes Werkzeug welches sich beim Einsatz in der Lehre vielfach 
-bewährt hat. Dennoch hat es meiner Meinung nach einige Schwächen, die eine Neuentwicklung rechtfertigen.
+bewährt hat. Leider hat Carl Burch die Entwicklung von Logisim 2014 eingestellt.
+Es gibt eine Reihe von Forks, über welche eine Weiterentwicklung betrieben wird:
+
+- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) aus der Schweiz
+- [Logisim](https://github.com/lawrancej/logisim) von Joseph Lawrance
+- [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) aus Indien
+- [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) des CS3410 Kurses der Cornell Universität
+
+Dennoch bin ich der Meinung, das es gute Gründe für eine komplette Neuentwicklung gibt.
+
+## Features ##
+
+Folgende Features zeichnen Digital aus:
+
+- Messwertegraph zur Anzeige von Signalzuständen.
+- Gatterschrittmodus zu Analyse von Oszillationen.
+- Analyse und Synthese von kombinatorischen Schaltungen und Schaltwerken.
+- Viele Beispiele: Vom Transmision-Gate D-FF bis zum kompletten MIPS-ähnlichem Prozessor.
+- Fast-Run-Mode um eine Simulation ohne Aktualisierung des HMI durchzuführen.
+  Ein einfacher Prozessor kann mit 3MHz getaktet werden.
+- Anzeige von LST-Files bei der Ausführung von Assembler-Programmen.
+- Einfache Remote TCP-Schnittstelle um z.B. mit einer Assembler-IDE den Simulator zu steuern.
+- SVG-Export von Schaltungen, incl. einer LaTeX-tauglichen SVG-Variante (siehe [ctan](ftp://ftp.fau.de/ctan/info/svg-inkscape/InkscapePDFLaTeX.pdf))
+- Keine Altlasten im Code
+- hohe Testabdeckung (exclusiv der GUI-Klassen etwa 80%)
 
 ## Motivation ##
 
