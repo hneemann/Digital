@@ -10,7 +10,7 @@ Logisim is a excellent tool which has proven itself as well suited for the use i
 Unfortunately, Carl Burch has discontinued the development of Logisim in 2014.
 There are a number of forks, which are created to continue the work of Carl Burch:
 
-- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) from a group of swiss institutes
+- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) von Joseph Lawrance
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
@@ -22,7 +22,7 @@ Nevertheless, I believe that there are good reasons for a completely new develop
 This are the features of Digital:
 
 - Measurement graph to visualize signal states.
-- Sinble gate mode to analyse oscillations.
+- Single gate mode to analyse oscillations.
 - Analysis and synthesis of combinational ans sequential circuits.
 - Many examples: From a transmision gate D-flipflop to a complete (simple) MIPS-like processor.
 - Fast-run mode to a perform a simulation without updating the HMI.
@@ -76,15 +76,15 @@ understand what happens.
 The simultaneous update of all gates, which have seen a change to one of their inputs, can also cause
 a oscillation in Digital. Here again, the oscillation is detected and the simulation is stopped.
 However, there is a single gate mode which allows to propagate a signal change gate by gate. So you can
-follow the way through the circuit. After each step it is displayed, which gate circuit
-have seen a change at one of its inputs.
-In this way it is visualized how a signal change moves in a circle and thus leads to the oscillation.
+follow the way through the circuit. After each step, it is displayed, which gates have seen a change at one 
+of its inputs.
+In this way you can see how a signal change moves around in a circle and thus leads to the oscillation.
 
 ### Embedded circuits ###
 
 As with Logisim also with Digital circuits can be embedded in new circuits. In this way,
-you can build hierarchical circuits. However, in digital circuits that are embedded are in fact as often
-included in the circuit as they are used. This is similar to a C program in which all
+you can build hierarchical circuits. However, in digital circuits that are embedded are in fact included as often
+the circuit is used. This is similar to a C program in which all
 function calls are compiled like inlined functions. It behaves like a real circuit: Each circuit is actually
 present as often, as used in the circuit. Although this approach increases the size of the data structure for the simulation,
 but at the same time it simplifies teh simulation. Thus, for example, the inputs and outputs of an embedded circuit not specifically
