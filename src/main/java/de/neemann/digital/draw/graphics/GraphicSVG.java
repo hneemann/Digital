@@ -109,7 +109,7 @@ public class GraphicSVG implements Graphic, Closeable {
 //            if (style.isDashed())
 //                addStrokeDash(w, style.getDashArray());
             if (style.isFilled() && p.isClosed())
-                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\"/>\n");
+                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" fill-opacity=\""+getOpacity(style)+"\"/>\n");
             else
                 w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
         } catch (IOException e) {
@@ -202,6 +202,12 @@ public class GraphicSVG implements Graphic, Closeable {
     protected String getColor(Style style) {
         return "#" + Integer.toHexString(style.getColor().getRGB()).substring(2);
     }
+
+    private String getOpacity(Style style) {
+        double op = style.getColor().getAlpha() / 255.0;
+        return Double.toString(op);
+    }
+
 
     /**
      * Escapes a given string to XML
