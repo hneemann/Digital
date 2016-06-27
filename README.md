@@ -5,7 +5,7 @@ by wires. If your circuit is complete you can turn it on and interact with it.
 
 There are two modes of how to run the circuit:
 
-* At first there is the normal or full step mode started by clicking ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/run.gif). 
+* At first there is the normal or full step mode started by clicking ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/media-playback-start.png). 
   In most cases this mode is suitable. If you modify the running circuit by
   turning on an input or entering an input value, this modification is propagated along all elements in the circuit.
   What you end up with is the state of the circuit after all changes are calculated and this state is shown in the main panel.
@@ -13,11 +13,11 @@ There are two modes of how to run the circuit:
   In short: All calculations are done until the circuit became stable again. But sometimes this will never happen: Sometimes 
   the circuit starts to oscillate. In this case an error message is shown. To find out whats going on in this case you can use 
   the single gate mode.
-* The single gate mode is started by clicking ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/micro.gif).
+* The single gate mode is started by clicking ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/media-playback-start-2.png).
   In the single gate mode the elements are highlighted which had a change at on of their inputs. But the reaction on this change 
-  is not calculated, the outputs are not updated. To calculate the reaction on the modification you have to click the single step button ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/step.gif). 
+  is not calculated, the outputs are not updated. To calculate the reaction on the modification you have to click the single step button ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/media-seek-forward.png). 
   Clicking this button the outputs of all highlighted elements are updated. Now maybe some other gates have changes on their inputs. 
-  But again the outputs are not updated until the step button ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/step.gif)
+  But again the outputs are not updated until the step button ![Alt text](https://bitbucket.org/hneemann/digital/raw/master/src/main/resources/media-seek-forward.png)
   is clicked. So you can follow the propagation of an input modification gate by gate.
   
 In the examples folder you will find a lot of examples of different combinatorial and sequential circuits. Play around 
