@@ -1,5 +1,7 @@
 package de.neemann.gui;
 
+import de.neemann.digital.lang.Lang;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -61,7 +63,7 @@ public class ErrorMessage implements Runnable {
      * @return this for call chaining
      */
     public ErrorMessage show(Component parent) {
-        JOptionPane.showMessageDialog(parent, message.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(parent, message.toString(), Lang.get("error"), JOptionPane.ERROR_MESSAGE);
         return this;
     }
 

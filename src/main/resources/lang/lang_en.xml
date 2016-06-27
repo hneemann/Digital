@@ -101,6 +101,7 @@ The terminal opens its own window.</string>
     <string name="elem_Text_tt">Shows a text in the circuit</string>
     <string name="elem_XNOr">XNOr</string>
     <string name="elem_XOr">XOr</string>
+    <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-Flipflop has no label set</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in element {1} is not a input or output</string>
     <string name="err_aSingleClockNecessary">A single clock is necessary.</string>

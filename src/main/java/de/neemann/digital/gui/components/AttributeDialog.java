@@ -18,6 +18,7 @@ public class AttributeDialog extends JDialog {
 
     private final java.util.List<EditorHolder> editors;
     private final JPanel panel;
+    private final Component parent;
     private final Point pos;
     private boolean changed = false;
 
@@ -42,6 +43,7 @@ public class AttributeDialog extends JDialog {
      */
     public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
+        this.parent = parent;
         this.pos = pos;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -113,7 +115,7 @@ public class AttributeDialog extends JDialog {
         pack();
 
         if (pos == null)
-            setLocationRelativeTo(null);
+            setLocationRelativeTo(parent);
         else
             setLocation(pos.x, pos.y);
 
