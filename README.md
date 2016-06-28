@@ -29,7 +29,7 @@ This are the main features of Digital:
   A simple processor can be clocked at 3MHz.
 - Display of LST files when executing assembler programs within such a processor.
 - Simple remote TCP interface to allow e.g. an assembler IDE to control the simulator.
-- SVG export of circuits, including a LaTeX-compatible SVG version (see [ctan] (ftp://ftp.fau.de/ctan/info/svg-inkscape/InkscapePDFLaTeX.pdf))
+- SVG export of circuits, including a LaTeX-compatible SVG version (see [ctan](ftp://ftp.fau.de/ctan/info/svg-inkscape/InkscapePDFLaTeX.pdf))
 - No legacy code
 - Good test coverage (exclusive of GUI classes about 80%)
 
