@@ -1,0 +1,23 @@
+Name     GAL22v10_Pin13.PLD ;
+PartNo   00 ;
+Date     28.06.2016 ;
+Revision 01 ;
+Designer helmut.neemann ;
+Company  unknown ;
+Assembly None ;
+Location unknown ;
+Device   g22v10 ;
+
+ar = 'b'0 ;
+sp = 'b'0 ;
+
+/* inputs */
+PIN 10 = A;
+PIN 11 = B;
+PIN 13 = C;
+
+/* outputs */
+PIN 23 = Y;
+
+/* combinatorial logic */
+Y = A & B & C;
