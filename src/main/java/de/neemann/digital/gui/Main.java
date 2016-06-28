@@ -860,8 +860,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         for (VisualElement e : el) {
             if (e.equalsDescription(ROM.DESCRIPTION)) {
                 ElementAttributes attr = e.getElementAttributes();
-                if (attr.get(Keys.SHOW_LISTING)
-                        && attr.get(Keys.AUTO_RELOAD_ROM)) {
+                if (attr.get(Keys.AUTO_RELOAD_ROM)) {
                     attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
                     found = true;
                 }

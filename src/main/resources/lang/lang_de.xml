@@ -185,7 +185,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_Value">Wert</string>
     <string name="key_Width">Breite</string>
     <string name="key_Width_tt">Breite des Symbols wenn diese Schaltung in eine andere eingefügt wird.</string>
-    <string name="key_autoReload">Bei jedem Start neu Laden.</string>
+    <string name="key_autoReload">Bei jedem Start automatisch neu laden.</string>
     <string name="key_autoReload_tt">Lädt das HEX-File bei jedem Modelstart neu.</string>
     <string name="key_flipSelPos">Tausche Position des Selectors</string>
     <string name="key_intFormat">Zahlenformat</string>
@@ -335,7 +335,7 @@ Geschrieben von Helmut Neemann 2016</string>
     <string name="msg_pinMap_outputs">Ausgänge</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Die Änderung erfordert einen Neustart!</string>
-    <string name="msg_noRomFound">Kein ROM im Model gefunden! Im ROM muss Automatisches Laden und Anzeige des Listing eingeschaltet sein!</string>
+    <string name="msg_noRomFound">Kein ROM im Model gefunden! Im ROM muss Automatisches Laden eingeschaltet sein!</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
