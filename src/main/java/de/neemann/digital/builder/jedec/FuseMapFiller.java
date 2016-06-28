@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Fills a equation in a fuse map
- * Assumes that all product terms follow each other derectly in the fuse map.
+ * Fills an equation into a fuse map
+ * Assumes that all product terms follow each other directly in the fuse map.
  * Assumes that the fuse and not fuse follow each other.
  *
  * @author hneemann
