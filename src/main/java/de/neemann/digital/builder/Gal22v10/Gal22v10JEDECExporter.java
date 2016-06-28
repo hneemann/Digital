@@ -43,9 +43,8 @@ public class Gal22v10JEDECExporter implements ExpressionExporter<Gal22v10JEDECEx
             }
         };
         pinMap = new PinMap()
-                .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+                .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13)
                 .setAvailOutputs(14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
-
     }
 
     @Override
@@ -61,8 +60,11 @@ public class Gal22v10JEDECExporter implements ExpressionExporter<Gal22v10JEDECEx
     @Override
     public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
         for (String in : builder.getInputs()) {
-            int i = pinMap.getInputFor(in) - 1;
-            filler.addVariable(i * 2, new Variable(in));
+            int i = pinMap.getInputFor(in);
+            if (i==13)
+                filler.addVariable(21, new Variable(in));
+            else
+                filler.addVariable((i-1) * 2, new Variable(in));
         }
         for (String o : builder.getOutputs()) {
             int i = 23 - pinMap.getOutputFor(o);

@@ -29,7 +29,7 @@ public class Gal22v10CuplExporter extends Gal16v8CuplExporter {
      */
     public Gal22v10CuplExporter(String username, Date date) {
         super(username, date, "g22v10", new PinMap()
-                .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+                .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13)
                 .setAvailOutputs(14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
     }
 

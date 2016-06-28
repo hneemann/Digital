@@ -119,7 +119,7 @@ public class Gal22v10JEDECExporterTest extends TestCase {
                 "L4928 11111011111111111111111111111111*\r\n" +
 
                 "L4960 11011110111111111011111111111111*\r\n" +
-                "L4992 11111111111111101101111111110111*\r\n"+
+                "L4992 11111111111111101101111111110111*\r\n" +
 
                 /* CUPL uses other product term ordering
                 "L4960 11101101111111111011111111111111*\r\n" +
@@ -139,6 +139,41 @@ public class Gal22v10JEDECExporterTest extends TestCase {
                 */
                 "C8241*\r\n" +
                 "\u000353C9", baos.toString());
+
+    }
+
+
+    public void testPin13() throws Exception {
+        Variable Q0 = new Variable("Q0");
+        Variable Q1 = new Variable("Q1");
+        Variable Q2 = new Variable("Q2");
+
+        Expression Y = and(Q0, Q1, Q2);
+
+        Gal22v10JEDECExporter gal = new Gal22v10JEDECExporter();
+        gal.getPinMapping()
+                .assignPin("Q0", 10)
+                .assignPin("Q1", 11)
+                .assignPin("Q2", 13)
+                .assignPin("Y", 23);
+        gal.getBuilder().addCombinatorial("Y", Y);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        gal.writeTo(baos);
+
+
+        assertEquals("\u0002Digital GAL22v10 assembler*\r\n" +
+                "QF5892*\r\n" +
+                "G0*\r\n" +
+                "F0*\r\n" +
+                "L32 00000000000011111111111111111111*\r\n" +
+                "L64 11111111111111111111111111111111*\r\n" +
+                "L96 11111111111111111111111111110111*\r\n" +
+                "L128 01010000000000000000000000000000*\r\n" +
+                "L5792 00000000000000001100000000000000*\r\n" +
+                //"L5824 00000011000000110000001000000000*\r\n" +  // CUPL writes data to the signature bytes, don't know why
+                "C0AE3*\r\n" +
+                "\u00033205", baos.toString());
 
     }
 
