@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/hneemann/Digital.svg?branch=master)](https://travis-ci.org/hneemann/Digital)
 
+[Download latest Release](https://github.com/hneemann/Digital/releases/latest)
+
 # Digital #
 
 Digital is a simulator for digital circuits. It is designed for educational purposes and
