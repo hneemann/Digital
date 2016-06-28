@@ -3,7 +3,7 @@
 Digital is a simulator for digital circuits. It is designed for educational purposes and
 is used by me in my lectures.
 Before I started the development of Digital, I have
-used [Logisim] (http://www.cburch.com/logisim/) developed by Carl Burch. 
+used [Logisim](http://www.cburch.com/logisim/) developed by Carl Burch. 
 If you are familiar with Logisim you will recognize the color scheme.
 
 Logisim is a excellent tool which has proven itself as well suited for the use in teaching. 
