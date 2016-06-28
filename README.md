@@ -1,6 +1,6 @@
-![Build Status](https://travis-ci.org/hneemann/Digital.svg?branch=master)
+[![Build Status](https://travis-ci.org/hneemann/Digital.svg?branch=master)](https://travis-ci.org/hneemann/Digital)
 
-# Digital # 
+# Digital #
 
 Digital is a simulator for digital circuits. It is designed for educational purposes and
 is used by me in my lectures.
