@@ -15,7 +15,7 @@ Unfortunately, Carl Burch has discontinued the development of Logisim in 2014.
 There are a number of forks, which are created to continue the work of Carl Burch:
 
 - [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
-- [Logisim](https://github.com/lawrancej/logisim) von Joseph Lawrance
+- [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
