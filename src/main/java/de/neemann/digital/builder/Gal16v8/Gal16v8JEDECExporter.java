@@ -109,7 +109,9 @@ public class Gal16v8JEDECExporter implements ExpressionExporter<Gal16v8JEDECExpo
                 throw new FuseMapFillerException("variable " + o + " not found!");
         }
 
-        new JedecWriter(out).println("Digital GAL16v8 assembler*").write(map).close();
+        try (JedecWriter w=new JedecWriter(out)) {
+            w.println("Digital GAL16v8 assembler*").write(map);
+        }
     }
 
 }
