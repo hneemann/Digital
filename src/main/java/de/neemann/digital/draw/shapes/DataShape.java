@@ -10,7 +10,7 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.OrderMerger;
@@ -68,9 +68,9 @@ public class DataShape implements Shape {
     }
 
     @Override
-    public void registerModel(ModelDescription modelDescription, Model model, ModelEntry element) {
+    public void registerModel(ModelCreator modelCreator, Model model, ModelEntry element) {
         ArrayList<Signal> signals = model.getSignalsCopy();
-        new OrderMerger<String, Signal>(modelDescription.getCircuit().getMeasurementOrdering()) {
+        new OrderMerger<String, Signal>(modelCreator.getCircuit().getMeasurementOrdering()) {
             @Override
             public boolean equals(Signal a, String b) {
                 return a.getName().equals(b);

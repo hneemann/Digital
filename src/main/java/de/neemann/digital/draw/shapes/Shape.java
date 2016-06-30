@@ -4,7 +4,7 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 
 /**
@@ -43,10 +43,10 @@ public interface Shape extends Drawable {
      * Allows the shape to make its drawing dependent of the model by registering a Observer to the model.
      * It is used by {@link DataShape} to create and show the data graph.
      *
-     * @param modelDescription the models description
+     * @param modelCreator the models description
      * @param model            the model itself
      * @param element          the ModelElement this shape belongs to
      */
-    default void registerModel(ModelDescription modelDescription, Model model, ModelEntry element) {
+    default void registerModel(ModelCreator modelCreator, Model model, ModelEntry element) {
     }
 }

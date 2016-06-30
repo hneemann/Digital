@@ -24,7 +24,7 @@ import java.util.*;
  *
  * @author hneemann
  */
-public class ModelDescription implements Iterable<ModelEntry> {
+public class ModelCreator implements Iterable<ModelEntry> {
 
     private final Circuit circuit;
     private final NetList netList;
@@ -42,7 +42,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public ModelDescription(Circuit circuit, ElementLibrary library) throws PinException, NodeException {
+    public ModelCreator(Circuit circuit, ElementLibrary library) throws PinException, NodeException {
         this(circuit, library, false);
     }
 
@@ -55,7 +55,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public ModelDescription(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
+    public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
         this(circuit, library, readAsCustom, "unknown", new NetList(circuit), "");
     }
 
@@ -71,7 +71,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public ModelDescription(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, String fileName, NetList netList, String subName) throws PinException, NodeException {
+    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, String fileName, NetList netList, String subName) throws PinException, NodeException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
@@ -119,13 +119,13 @@ public class ModelDescription implements Iterable<ModelEntry> {
         }
 
         // connect all custom elements to the parents net
-        ArrayList<ModelDescription> cmdl = new ArrayList<>();
+        ArrayList<ModelCreator> cmdl = new ArrayList<>();
         Iterator<ModelEntry> it = entries.iterator();
         while (it.hasNext()) {
             ModelEntry me = it.next();
             if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
                 CustomElement ce = (CustomElement) me.getElement();
-                ModelDescription child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()));
+                ModelCreator child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()));
                 cmdl.add(child);
 
                 for (Pin p : me.getPins()) {                     // connect the custom elements to the parents net
@@ -143,7 +143,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
                 it.remove();
             }
         }
-        for (ModelDescription md : cmdl) {       // put the elements of the custom element to the parent
+        for (ModelCreator md : cmdl) {       // put the elements of the custom element to the parent
             entries.addAll(md.entries);
             netList.add(md.netList);
         }
@@ -207,10 +207,11 @@ public class ModelDescription implements Iterable<ModelEntry> {
     }
 
     /**
-     * Needs to be called after create model is called!
+     * Needs to be called after createModel is called!
      * Connects the gui to the model
      *
-     * @param guiObserver
+     * @param guiObserver the observer which can be attached to {@link de.neemann.digital.core.ObservableValue}s
+     *                    which have a state dependant graphical representation.
      */
     public void connectToGui(Observer guiObserver) {
         for (ModelEntry e : entries)
@@ -242,7 +243,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
     }
 
     /**
-     * Returns a list of all ModelEntries which contain a element of the given name
+     * Returns a list of all ModelEntries which contain an element of the given name
      *
      * @param elementName the name of the element
      * @return the list
@@ -256,7 +257,7 @@ public class ModelDescription implements Iterable<ModelEntry> {
     }
 
     /**
-     * @return the circuit whih was used to create this model description
+     * @return the circuit which was used to create this model description
      */
     public Circuit getCircuit() {
         return circuit;

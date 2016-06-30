@@ -6,7 +6,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
 
@@ -71,7 +71,7 @@ public class ToBreakRunner {
         LibrarySelector librarySelector = new LibrarySelector(library, shapeFactory, null);
         librarySelector.setFilePath(filename.getParentFile());
 
-        ModelDescription md = new ModelDescription(circuit, library);
+        ModelCreator md = new ModelCreator(circuit, library);
         model = md.createModel(false);
         if (doInit)
             model.init(true);

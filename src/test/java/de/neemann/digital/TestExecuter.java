@@ -8,7 +8,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.integration.Resources;
@@ -37,7 +37,7 @@ public class TestExecuter {
         File filename = new File(Resources.getRoot(), name);
         Circuit circuit = Circuit.loadCircuit(filename, new ShapeFactory(library));
 
-        ModelDescription mb = new ModelDescription(circuit, library);
+        ModelCreator mb = new ModelCreator(circuit, library);
 
         return new TestExecuter(mb.createModel(false), true).setUp(mb);
     }
@@ -99,9 +99,9 @@ public class TestExecuter {
         setOutputs(me.getIoState().getInputs());
     }
 
-    public TestExecuter setUp(ModelDescription modelDescription) {
-        List<ModelEntry> inputs = modelDescription.getEntries("In");
-        List<ModelEntry> outputs = modelDescription.getEntries("Out");
+    public TestExecuter setUp(ModelCreator modelCreator) {
+        List<ModelEntry> inputs = modelCreator.getEntries("In");
+        List<ModelEntry> outputs = modelCreator.getEntries("Out");
 
         for (ModelEntry input : inputs) {
             assertEquals(0, input.getIoState().inputCount());

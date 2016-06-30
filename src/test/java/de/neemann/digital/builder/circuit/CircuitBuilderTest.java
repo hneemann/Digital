@@ -5,7 +5,7 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
 
@@ -31,7 +31,7 @@ public class CircuitBuilderTest extends TestCase {
                 .addCombinatorial("y", y)
                 .createCircuit();
 
-        ModelDescription m = new ModelDescription(circuit, library);
+        ModelCreator m = new ModelCreator(circuit, library);
 
         TestExecuter te = new TestExecuter(m.createModel(false)).setUp(m);
         te.check(0, 0, 0);
@@ -56,7 +56,7 @@ public class CircuitBuilderTest extends TestCase {
                 .addCombinatorial("Y_1", y1)
                 .createCircuit();
 
-        ModelDescription m = new ModelDescription(circuit, library);
+        ModelCreator m = new ModelCreator(circuit, library);
         TestExecuter te = new TestExecuter(m.createModel(false)).setUp(m);
         te.check(0, 0);
         te.checkC(1, 0);

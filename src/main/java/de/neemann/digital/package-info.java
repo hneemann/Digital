@@ -16,7 +16,7 @@
  * classes which you can find in the core package.
  * This classes form the simulation model represented by the {@link de.neemann.digital.core.Model} class.
  * Furthermore this representation is called the model.
- * In the package draw.model you can find the class {@link de.neemann.digital.draw.model.ModelDescription}.
+ * In the package draw.model you can find the class {@link de.neemann.digital.draw.model.ModelCreator}.
  * This class takes a circuit represented by a Circuit instance and creates
  * a Model instance representation.
  * Some of the elements out of the Circuit representation you can also find

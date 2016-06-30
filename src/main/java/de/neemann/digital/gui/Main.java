@@ -19,7 +19,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.*;
@@ -102,7 +102,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private FileHistory fileHistory;
 
     private Model model;
-    private ModelDescription modelDescription;
+    private ModelCreator modelCreator;
     private boolean realtimeClockRunning;
 
     private State elementState;
@@ -432,7 +432,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 try {
                     model.doMicroStep(false);
                     circuitComponent.removeHighLighted();
-                    modelDescription.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+                    modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
                     circuitComponent.repaint();
                     doStep.setEnabled(model.needsUpdate());
                 } catch (Exception e1) {
@@ -465,7 +465,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
+                    Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
 
                     SpeedTest speedTest = new SpeedTest(model);
                     double frequency = speedTest.calculate();
@@ -515,7 +515,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Model model = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
+                    Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                     new TableDialog(Main.this, new ModelAnalyser(model).analyse(), shapeFactory, filename)
                             .setPinMap(new PinMap().addModel(model))
                             .setVisible(true);
@@ -542,7 +542,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     private void orderMeasurements() {
         try {
-            Model m = new ModelDescription(circuitComponent.getCircuit(), library).createModel(false);
+            Model m = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
             elementState.enter();
             ArrayList<String> names = new ArrayList<>();
             for (Signal s : m.getSignals())
@@ -605,7 +605,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         if (model != null)
             model.close();
 
-        modelDescription = null;
+        modelCreator = null;
         model = null;
     }
 
@@ -614,12 +614,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             circuitComponent.removeHighLighted();
             circuitComponent.setModeAndReset(true);
 
-            modelDescription = new ModelDescription(circuitComponent.getCircuit(), library);
+            modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
             if (model != null)
                 model.close();
 
-            model = modelDescription.createModel(true);
+            model = modelCreator.createModel(true);
 
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
@@ -634,11 +634,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             if (realtimeClockRunning) {
                 // if clock is running, enable automatic update of gui
                 GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
-                modelDescription.connectToGui(gmo);
+                modelCreator.connectToGui(gmo);
                 model.addObserver(gmo);
             } else
                 // all repainting is initiated by user actions!
-                modelDescription.connectToGui(null);
+                modelCreator.connectToGui(null);
 
             doStep.setEnabled(false);
             runToBreakAction.setEnabled(!realtimeClockRunning && model.isFastRunModel());
@@ -676,8 +676,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             if (cause instanceof NodeException) {
                 NodeException e = (NodeException) cause;
                 circuitComponent.addHighLightedWires(e.getValues());
-                if (modelDescription != null)
-                    modelDescription.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
+                if (modelCreator != null)
+                    modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
             } else if (cause instanceof PinException) {
                 PinException e = (PinException) cause;
                 circuitComponent.addHighLighted(e.getVisualElement());
@@ -800,7 +800,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         @Override
         public void hasChanged() {
-            modelDescription.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+            modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             model.fireManualChangeEvent();
             circuitComponent.repaint();
             doStep.setEnabled(model.needsUpdate());

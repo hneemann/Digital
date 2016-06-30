@@ -6,7 +6,7 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.NetList;
 
 /**
@@ -37,19 +37,19 @@ public class CustomElement implements Element {
     }
 
     /**
-     * Gets a {@link ModelDescription} of this circuit.
-     * Every time this method is called a new {@link ModelDescription} is created.
+     * Gets a {@link ModelCreator} of this circuit.
+     * Every time this method is called a new {@link ModelCreator} is created.
      *
      * @param subName name of the circuit, used to name unique elements
-     * @return the {@link ModelDescription}
+     * @return the {@link ModelCreator}
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public ModelDescription getModelDescription(String subName) throws PinException, NodeException {
+    public ModelCreator getModelDescription(String subName) throws PinException, NodeException {
         if (netList == null)
             netList = new NetList(circuit);
 
-        return new ModelDescription(circuit, library, true, name, new NetList(netList), subName);
+        return new ModelCreator(circuit, library, true, name, new NetList(netList), subName);
     }
 
     @Override

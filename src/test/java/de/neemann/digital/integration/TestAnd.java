@@ -5,7 +5,7 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.model.ModelDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
@@ -30,7 +30,7 @@ public class TestAnd extends TestCase {
         File filename = new File(Resources.getRoot(), "dig/and.dig");
         Circuit circuit = Circuit.loadCircuit(filename, new ShapeFactory(new ElementLibrary()));
 
-        ModelDescription md = new ModelDescription(circuit, library);
+        ModelCreator md = new ModelCreator(circuit, library);
         Model model = md.createModel(false);
 
         List<Node> nodes = model.getNodes();
