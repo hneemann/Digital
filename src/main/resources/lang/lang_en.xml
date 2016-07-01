@@ -12,8 +12,11 @@
     <string name="btn_reload">Reload</string>
     <string name="btn_reload_tt">Reload last hex file</string>
     <string name="btn_save">Save</string>
+    <string name="btn_create">Create</string>
+    <string name="btn_create_tt">Create a circuit in a seperate window</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
+    <string name="expression">Expression</string>
     <string name="elem_Add">Add</string>
     <string name="elem_And">And</string>
     <string name="elem_Break">Break</string>
@@ -312,6 +315,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_view">View</string>
     <string name="menu_zoomIn">Zoom In</string>
     <string name="menu_zoomOut">Zoom Out</string>
+    <string name="menu_expression">Expression</string>
+    <string name="menu_expression_tt">Create a circuit from an expression.</string>
     <string name="message">Digital
 
 A simple simulator for digital circuits.
@@ -339,6 +344,7 @@ Written bei H.Neemann in 2016</string>
     <string name="msg_noRomFound">No ROM found! ROM needs to be set to auto reload mode.</string>
     <string name="msg_errorFileNotFound">Could not find file: {0}</string>
     <string name="msg_remoteUnknownCommand">Command {0} unknown!</string>
+    <string name="msg_enterAnExpression">Enter an expression:</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

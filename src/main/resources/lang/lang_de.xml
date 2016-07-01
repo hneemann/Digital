@@ -12,8 +12,11 @@
     <string name="btn_reload">Neu Laden</string>
     <string name="btn_reload_tt">Letzte Datei noch einmal laden</string>
     <string name="btn_save">Speichern</string>
+    <string name="btn_create">Erzeugen</string>
+    <string name="btn_create_tt">Erzeugt eine Schaltung in einem eigenen Fenster.</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
+    <string name="expression">Ausdruck</string>
     <string name="elem_Add">Addierer</string>
     <string name="elem_And">Und</string>
     <string name="elem_Break">Break</string>
@@ -312,6 +315,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_view">Ansicht</string>
     <string name="menu_zoomIn">Vergrößern</string>
     <string name="menu_zoomOut">Verkleinern</string>
+    <string name="menu_expression">Ausdruck</string>
+    <string name="menu_expression_tt">Erzeugt eine Schaltung aus einem Ausdruck.</string>
     <string name="message">Digital
 
 Ein einfacher Simulator für digitale Schaltkreise.
@@ -339,6 +344,7 @@ Geschrieben von Helmut Neemann 2016</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Die Änderung erfordert einen Neustart!</string>
     <string name="msg_noRomFound">Kein ROM im Model gefunden! Im ROM muss Automatisches Laden eingeschaltet sein!</string>
+    <string name="msg_enterAnExpression">Geben Sie einen Ausdruck ein:</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
