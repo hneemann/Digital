@@ -40,6 +40,8 @@ public class Parser {
         tokenizer.wordChars('_', '_');
         tokenizer.wordChars('^', '^');
         tokenizer.wordChars('0', '9');
+//        tokenizer.ordinaryChar('∧'); StreamTokenizer can not handle ordinary chars > 255
+//        tokenizer.ordinaryChar('∨');
     }
 
     private boolean isNext(String str) throws IOException {
@@ -76,7 +78,7 @@ public class Parser {
 
     private Expression parseOr() throws IOException, ParseException {
         Expression ex = parseAnd();
-        while (isNext('+') || isNext("∨")) {
+        while (isNext('+') || isNext("∨") || isNext('|')) {
             ex = Operation.or(ex, parseAnd());
         }
         return ex;
@@ -84,7 +86,7 @@ public class Parser {
 
     private Expression parseAnd() throws IOException, ParseException {
         Expression ex = parseSimpleExp();
-        while (isNext('*') || isNext("∧")) {
+        while (isNext('*') || isNext("∧") || isNext('&')) {
             ex = Operation.and(ex, parseSimpleExp());
         }
         return ex;

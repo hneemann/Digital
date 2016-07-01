@@ -21,15 +21,15 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseOr() throws Exception {
-        Parser p = new Parser("a+b");
-        Expression exp = p.parse();
-        assertTrue(exp instanceof Operation.Or);
+        assertTrue(new Parser("a+b").parse() instanceof Operation.Or);
+        assertTrue(new Parser("a ∨ b").parse() instanceof Operation.Or);
+        assertTrue(new Parser("a|b").parse() instanceof Operation.Or);
     }
 
     public void testParseAnd() throws Exception {
-        Parser p = new Parser("a*b");
-        Expression exp = p.parse();
-        assertTrue(exp instanceof Operation.And);
+        assertTrue(new Parser("a*b").parse() instanceof Operation.And);
+        assertTrue(new Parser("a ∧ b").parse() instanceof Operation.And);
+        assertTrue(new Parser("a&b").parse() instanceof Operation.And);
     }
 
     public void testParseParenthesis() throws Exception {
