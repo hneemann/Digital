@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
+ * Simple tokenizer to tokenize boolean expressions.
+ *
  * @author hneemann
  */
 public class Tokenizer {
