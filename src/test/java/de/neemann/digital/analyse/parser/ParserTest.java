@@ -65,7 +65,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseRegression2() throws Exception {
-        Parser p = new Parser("(C ∨ B) ∧ (A ∨ C) ∧ (B ∨ !C) ∧ (C ∨ !A)");
+        Parser p = new Parser("(C ∨ B) ∧ (A ∨ C) ∧ (B ∨ ¬C) ∧ (C ∨ ¬A)");
         Expression e = p.parse();
         Expression simplified = QuineMcCluskey.simplify(e);
         assertTrue(simplified instanceof Operation.And);

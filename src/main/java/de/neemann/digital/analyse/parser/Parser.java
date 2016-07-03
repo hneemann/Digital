@@ -53,7 +53,7 @@ public class Parser {
     private Expression parseOr() throws IOException, ParseException {
         Expression ex = parseAnd();
         while (tokenizer.peek() == OR) {
-            tokenizer.next();
+            tokenizer.consume();
             ex = Operation.or(ex, parseAnd());
         }
         return ex;
@@ -62,7 +62,7 @@ public class Parser {
     private Expression parseAnd() throws IOException, ParseException {
         Expression ex = parseSimpleExp();
         while (tokenizer.peek() == AND) {
-            tokenizer.next();
+            tokenizer.consume();
             ex = Operation.and(ex, parseSimpleExp());
         }
         return ex;

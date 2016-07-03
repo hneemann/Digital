@@ -39,14 +39,21 @@ public class Tokenizer {
      * @throws IOException IOException
      */
     public Token next() throws IOException {
-        peek();
-        isToken = false;
+        Token token = peek();
+        consume();
         return token;
     }
 
     /**
-     * peeks the next token.
-     * The token is kept in the stream, so next will return this token again!
+     * Consumes the token after a peek call
+     */
+    public void consume() {
+        isToken = false;
+    }
+
+    /**
+     * Peeks the next token.
+     * The token is kept in the stream, so next() or peek() will return this token again!
      *
      * @return the token
      * @throws IOException IOException
