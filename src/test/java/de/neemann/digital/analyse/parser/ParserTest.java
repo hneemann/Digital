@@ -1,9 +1,6 @@
 package de.neemann.digital.analyse.parser;
 
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.expression.Not;
-import de.neemann.digital.analyse.expression.Operation;
-import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 import junit.framework.TestCase;
 
@@ -18,6 +15,11 @@ public class ParserTest extends TestCase {
         assertEquals(new Variable("C"), new Parser("C").parse());
         assertEquals(new Variable("A_1"), new Parser("A_1").parse());
         assertEquals(new Variable("A^1"), new Parser("A^1").parse());
+    }
+
+    public void testConst() throws Exception {
+        assertEquals(Constant.ZERO, new Parser("0").parse());
+        assertEquals(Constant.ONE, new Parser("1").parse());
     }
 
     public void testParseOr() throws Exception {

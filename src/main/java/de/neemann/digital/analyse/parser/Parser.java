@@ -1,9 +1,6 @@
 package de.neemann.digital.analyse.parser;
 
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.expression.Not;
-import de.neemann.digital.analyse.expression.Operation;
-import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
@@ -82,6 +79,10 @@ public class Parser {
                 return exp;
             case IDENT:
                 return new Variable(tokenizer.getIdent());
+            case ONE:
+                return Constant.ONE;
+            case ZERO:
+                return Constant.ZERO;
             default:
                 throw new ParseException(Lang.get("err_parserUnexpectedToken_N", tokenizer.toString()));
         }

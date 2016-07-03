@@ -11,7 +11,7 @@ import java.io.Reader;
 public class Tokenizer {
 
 
-    enum Token {UNKNOWN, IDENT, AND, OR, NOT, OPEN, CLOSE, EOF}
+    enum Token {UNKNOWN, IDENT, AND, OR, NOT, OPEN, CLOSE, ONE, ZERO, EOF}
 
     private final Reader in;
     private Token token;
@@ -63,6 +63,12 @@ public class Tokenizer {
         switch (c) {
             case -1:
                 token = Token.EOF;
+                break;
+            case '0':
+                token = Token.ZERO;
+                break;
+            case '1':
+                token = Token.ONE;
                 break;
             case '(':
                 token = Token.OPEN;
