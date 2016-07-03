@@ -212,7 +212,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>100</int>
+          <int>50</int>
         </entry>
       </elementAttributes>
       <pos x="1100" y="480"/>
