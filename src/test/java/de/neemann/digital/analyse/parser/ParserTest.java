@@ -22,14 +22,16 @@ public class ParserTest extends TestCase {
 
     public void testParseOr() throws Exception {
         assertTrue(new Parser("a+b").parse() instanceof Operation.Or);
-        assertTrue(new Parser("a ∨ b").parse() instanceof Operation.Or);
+        assertTrue(new Parser("a∨b").parse() instanceof Operation.Or);
         assertTrue(new Parser("a|b").parse() instanceof Operation.Or);
+        assertTrue(new Parser("a||b").parse() instanceof Operation.Or);
     }
 
     public void testParseAnd() throws Exception {
         assertTrue(new Parser("a*b").parse() instanceof Operation.And);
-        assertTrue(new Parser("a ∧ b").parse() instanceof Operation.And);
+        assertTrue(new Parser("a∧b").parse() instanceof Operation.And);
         assertTrue(new Parser("a&b").parse() instanceof Operation.And);
+        assertTrue(new Parser("a&&b").parse() instanceof Operation.And);
     }
 
     public void testParseParenthesis() throws Exception {
@@ -103,6 +105,16 @@ public class ParserTest extends TestCase {
 
     public void testParseException4() throws Exception {
         Parser p = new Parser("A )");
+        try {
+            p.parse();
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(true);
+        }
+    }
+
+    public void testParseException5() throws Exception {
+        Parser p = new Parser("ö");
         try {
             p.parse();
             assertTrue(false);
