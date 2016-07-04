@@ -19,7 +19,7 @@ public class TestRunToBreak extends TestCase {
     }
 
     /**
-     * Runs two 5 bit cascaded counters up to a overflow of second counter
+     * Runs two 5 bit cascaded counters up to an overflow of second counter
      * The 10 bit value is stored in a register.
      *
      * @throws IOException
