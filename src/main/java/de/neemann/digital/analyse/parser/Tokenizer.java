@@ -83,6 +83,7 @@ public class Tokenizer {
             case ')':
                 token = Token.CLOSE;
                 break;
+            case '⊻':
             case '^':
                 token = Token.XOR;
                 break;

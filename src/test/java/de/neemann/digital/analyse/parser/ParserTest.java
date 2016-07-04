@@ -30,6 +30,7 @@ public class ParserTest extends TestCase {
 
     public void testParseXOr() throws Exception {
         assertTrue(new Parser("a^b").parse() instanceof Operation.XOr);
+        assertTrue(new Parser("a⊻b").parse() instanceof Operation.XOr);
     }
 
     public void testParseAnd() throws Exception {
