@@ -3,8 +3,7 @@ package de.neemann.digital.analyse.expression;
 import junit.framework.TestCase;
 
 import static de.neemann.digital.analyse.expression.Not.not;
-import static de.neemann.digital.analyse.expression.Operation.and;
-import static de.neemann.digital.analyse.expression.Operation.or;
+import static de.neemann.digital.analyse.expression.Operation.*;
 import static de.neemann.digital.analyse.expression.Variable.v;
 
 /**
@@ -52,4 +51,19 @@ public class OperationTest extends TestCase {
         i = and(not(a));
         assertTrue(i instanceof Not);
     }
+
+    public void testXOr() throws Exception {
+        Variable a = v("a");
+        Variable b = v("b");
+
+        Expression i = xor(a,b);
+        assertTrue(i instanceof Operation.XOr);
+        assertEquals(2, ((Operation.XOr) i).getExpressions().size());
+
+        assertEquals(false, ((Operation)i).calc(false,false));
+        assertEquals(true, ((Operation)i).calc(true,false));
+        assertEquals(true, ((Operation)i).calc(false,true));
+        assertEquals(false, ((Operation)i).calc(true,true));
+    }
+
 }

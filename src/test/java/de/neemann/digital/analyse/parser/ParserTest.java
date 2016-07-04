@@ -14,7 +14,6 @@ public class ParserTest extends TestCase {
     public void testIdent() throws Exception {
         assertEquals(new Variable("C"), new Parser("C").parse());
         assertEquals(new Variable("A_1"), new Parser("A_1").parse());
-        assertEquals(new Variable("A^1"), new Parser("A^1").parse());
     }
 
     public void testConst() throws Exception {
@@ -27,6 +26,10 @@ public class ParserTest extends TestCase {
         assertTrue(new Parser("a∨b").parse() instanceof Operation.Or);
         assertTrue(new Parser("a|b").parse() instanceof Operation.Or);
         assertTrue(new Parser("a||b").parse() instanceof Operation.Or);
+    }
+
+    public void testParseXOr() throws Exception {
+        assertTrue(new Parser("a^b").parse() instanceof Operation.XOr);
     }
 
     public void testParseAnd() throws Exception {
@@ -51,10 +54,11 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseNot() throws Exception {
-        Parser p = new Parser("!a");
-        Expression exp = p.parse();
+        Expression exp = new Parser("!a").parse();
         assertTrue(exp instanceof Not);
         assertTrue(((Not)exp).getExpression() instanceof Variable);
+        assertTrue(new Parser("~a").parse() instanceof Not);
+        assertTrue(new Parser("¬a").parse() instanceof Not);
     }
 
     public void testParseRegression() throws Exception {
@@ -124,6 +128,5 @@ public class ParserTest extends TestCase {
             assertTrue(true);
         }
     }
-
 
 }

@@ -52,9 +52,11 @@ public class Parser {
 
     private Expression parseOr() throws IOException, ParseException {
         Expression ex = parseAnd();
-        while (tokenizer.peek() == OR) {
-            tokenizer.consume();
-            ex = Operation.or(ex, parseAnd());
+        while (tokenizer.peek() == OR || tokenizer.peek() == XOR) {
+            if (tokenizer.next() == OR)
+                ex = Operation.or(ex, parseAnd());
+            else
+                ex = Operation.xor(ex, parseAnd());
         }
         return ex;
     }

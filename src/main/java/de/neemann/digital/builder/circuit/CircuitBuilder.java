@@ -1,12 +1,10 @@
 package de.neemann.digital.builder.circuit;
 
 import de.neemann.digital.analyse.expression.*;
+import de.neemann.digital.analyse.expression.Not;
 import de.neemann.digital.builder.BuilderException;
 import de.neemann.digital.builder.BuilderInterface;
-import de.neemann.digital.core.basic.And;
-import de.neemann.digital.core.basic.NAnd;
-import de.neemann.digital.core.basic.NOr;
-import de.neemann.digital.core.basic.Or;
+import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.flipflops.FlipflopD;
@@ -19,20 +17,14 @@ import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import static de.neemann.digital.analyse.expression.Not.not;
-import static de.neemann.digital.analyse.expression.Operation.and;
-import static de.neemann.digital.analyse.expression.Operation.or;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
@@ -107,6 +99,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 return new FragmentExpression(frags, new FragmentVisualElement(And.DESCRIPTION, frags.size(), shapeFactory));
             else if (op instanceof Operation.Or)
                 return new FragmentExpression(frags, new FragmentVisualElement(Or.DESCRIPTION, frags.size(), shapeFactory));
+            else if (op instanceof Operation.XOr)
+                return new FragmentExpression(frags, new FragmentVisualElement(XOr.DESCRIPTION, frags.size(), shapeFactory));
             else
                 throw new BuilderException(Lang.get("err_builder_operationNotSupported", op.getClass().getSimpleName()));
         } else if (expression instanceof Not) {
@@ -121,6 +115,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             } else if (n.getExpression() instanceof Operation.Or) {
                 ArrayList<Fragment> frags = getOperationFragments((Operation) n.getExpression());
                 return new FragmentExpression(frags, new FragmentVisualElement(NOr.DESCRIPTION, frags.size(), shapeFactory));
+            } else if (n.getExpression() instanceof Operation.XOr) {
+                ArrayList<Fragment> frags = getOperationFragments((Operation) n.getExpression());
+                return new FragmentExpression(frags, new FragmentVisualElement(XNOr.DESCRIPTION, frags.size(), shapeFactory));
             }
             return new FragmentExpression(createFragment(n.getExpression()), new FragmentVisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION, shapeFactory));
         } else if (expression instanceof Variable) {
@@ -287,34 +284,5 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 .set(Keys.RUN_AT_REAL_TIME, true);
         circuit.add(clock);
     }
-
-    /**
-     * Only used for manual tests
-     *
-     * @param args args
-     * @throws BuilderException BuilderException
-     */
-    public static void main(String[] args) throws BuilderException {
-
-        Variable y0 = new Variable("Y_0");
-        Variable y1 = new Variable("Y_1");
-        Variable y2 = new Variable("Y_2");
-        Variable z = new Variable("A");
-
-        Expression y0s = and(not(y0), z);
-        Expression y1s = or(and(y0, not(y1)), and(y1, not(y0)));
-        Expression y2s = not(y2);
-        Expression p0 = and(y0, y1, z);
-
-        Circuit circuit = new CircuitBuilder(new ShapeFactory(new ElementLibrary()))
-                .addSequential("Y_0", y0s)
-                .addSequential("Y_1", y1s)
-                .addSequential("Y_2", y2s)
-                .addCombinatorial("P_0", p0)
-                .createCircuit();
-
-        SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
-    }
-
 
 }

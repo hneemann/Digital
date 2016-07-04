@@ -40,6 +40,18 @@ public abstract class Operation implements Expression {
     }
 
     /**
+     * Creates a new XOR expression
+     *
+     * @param a the expression to XOR
+     * @param b the expression to XOR
+     * @return the created expression
+     */
+    public static Expression xor(Expression a, Expression b) {
+        return simplify(new XOr(a, b));
+    }
+
+
+    /**
      * Creates a new OR expression
      *
      * @param exp the expressions to OR
@@ -222,4 +234,30 @@ public abstract class Operation implements Expression {
             return "or" + super.toString();
         }
     }
+
+    /**
+     * The XOR expression
+     */
+    public static final class XOr extends Operation {
+
+        private XOr(Expression a, Expression b) {
+            super(Arrays.asList(a, b), false);
+        }
+
+        @Override
+        protected boolean getNeutral() {
+            return false;
+        }
+
+        @Override
+        protected boolean calc(boolean a, boolean b) {
+            return (a || b) && (!a || !b);
+        }
+
+        @Override
+        public String toString() {
+            return "xor" + super.toString();
+        }
+    }
+
 }
