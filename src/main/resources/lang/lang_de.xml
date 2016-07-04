@@ -320,7 +320,9 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="message">Digital
 
 Ein einfacher Simulator für digitale Schaltkreise.
-Geschrieben von Helmut Neemann 2016</string>
+Geschrieben von Helmut Neemann 2016
+
+Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_N_nodes">{0} aktive Elemente</string>
     <string name="msg_annalyseErr">Fehler bei der Analyse der Schaltung</string>
     <string name="msg_clockError">Fehler bei der Berechnung einer Taktänderung</string>
