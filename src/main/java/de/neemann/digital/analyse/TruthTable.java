@@ -362,6 +362,19 @@ public class TruthTable {
     }
 
     /**
+     * Sets the don't cares to a given value
+     *
+     * @param b the value to set
+     */
+    public void setXto(boolean b) {
+        for (Result r : results) {
+            BoolTable bt = r.getValues();
+            if (bt instanceof BoolTableIntArray)
+                ((BoolTableIntArray) bt).setXTo(b ? 1 : 0);
+        }
+    }
+
+    /**
      * A single result column
      */
     private static final class Result {

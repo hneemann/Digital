@@ -74,4 +74,15 @@ public class BoolTableIntArray implements BoolTable {
         }
         return t;
     }
+
+    /**
+     * Sets the don't cares to the given value
+     *
+     * @param value the value
+     */
+    public void setXTo(int value) {
+        for (int i = 0; i < table.length; i++)
+            if (table[i] > 1)
+                table[i] = value;
+    }
 }

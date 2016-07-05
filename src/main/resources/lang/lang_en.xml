@@ -310,6 +310,11 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_table_new_sequential">Sequential</string>
     <string name="menu_table_outputs">Outputs</string>
     <string name="menu_table_reorder">Reorder</string>
+    <string name="menu_table_set">Set</string>
+    <string name="menu_table_setXTo0">Set X to 0</string>
+    <string name="menu_table_setXTo0_tt">Sets the Don't Cares to 0.</string>
+    <string name="menu_table_setXTo1">Set X to 1</string>
+    <string name="menu_table_setXTo1_tt">Sets the Don't Cares to 1.</string>
     <string name="menu_terminalDelete">Delete</string>
     <string name="menu_terminalDelete_tt">Delete the terminals content.</string>
     <string name="menu_view">View</string>

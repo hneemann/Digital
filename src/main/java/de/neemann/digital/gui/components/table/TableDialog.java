@@ -187,6 +187,8 @@ public class TableDialog extends JDialog {
         }.setToolTip(Lang.get("menu_table_columnsAddVariable_tt")).createJMenuItem());
         bar.add(colsMenu);
 
+        bar.add(createSetMenu());
+
         bar.add(createCreateMenu(parent));
 
         setJMenuBar(bar);
@@ -255,6 +257,28 @@ public class TableDialog extends JDialog {
 
         return fileMenu;
     }
+
+    private JMenu createSetMenu() {
+        JMenu setMenu = new JMenu(Lang.get("menu_table_set"));
+        setMenu.add(new ToolTipAction(Lang.get("menu_table_setXTo0")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TruthTable t = model.getTable();
+                t.setXto(false);
+                setModel(new TruthTableTableModel(t));
+            }
+        }.setToolTip(Lang.get("menu_table_setXTo0_tt")).createJMenuItem());
+        setMenu.add(new ToolTipAction(Lang.get("menu_table_setXTo1")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TruthTable t = model.getTable();
+                t.setXto(true);
+                setModel(new TruthTableTableModel(t));
+            }
+        }.setToolTip(Lang.get("menu_table_setXTo1_tt")).createJMenuItem());
+        return setMenu;
+    }
+
 
     private JMenu createCreateMenu(JFrame parent) {
         JMenu createMenu = new JMenu(Lang.get("menu_table_create"));
