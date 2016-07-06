@@ -98,6 +98,7 @@ public class Tokenizer {
                 c = readChar();
                 if (c != '|') unreadChar(c);
             case '+':
+            case '#':
             case '∨':
                 token = Token.OR;
                 break;

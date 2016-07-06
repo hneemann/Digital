@@ -377,7 +377,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_expressionHelp">To define an expression you can use all most common notations:
 
 And: &quot;&amp;&quot;, &quot;&amp;&amp;&quot;, &quot;*&quot;, &quot;∧&quot;
-Or: &quot;|&quot;, &quot;||&quot;, &quot;+&quot;, &quot;∨&quot;
+Or: &quot;|&quot;, &quot;||&quot;, &quot;+&quot;, &quot;∨&quot;, &quot;#&quot;
 XOr: &quot;^&quot;, &quot;⊻&quot;
 Not: &quot;!&quot;, &quot;~&quot;, &quot;&#172;&quot;
 

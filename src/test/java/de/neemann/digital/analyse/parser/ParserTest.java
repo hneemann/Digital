@@ -31,6 +31,7 @@ public class ParserTest extends TestCase {
 
     public void testParseOr() throws Exception {
         assertTrue(createSingle("a+b") instanceof Operation.Or);
+        assertTrue(createSingle("a#b") instanceof Operation.Or);
         assertTrue(createSingle("a∨b") instanceof Operation.Or);
         assertTrue(createSingle("a|b") instanceof Operation.Or);
         assertTrue(createSingle("a||b") instanceof Operation.Or);
