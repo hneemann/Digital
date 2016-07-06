@@ -363,6 +363,8 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_enterAnExpression">Geben Sie einen Ausdruck ein:</string>
     <string name="msg_runningTestError">Fehler bei der Ausführung der Tests:</string>
     <string name="msg_testResult">Testergebnis</string>
+    <string name="msg_test_N_Passed">{0}: ok</string>
+    <string name="msg_test_N_Failed">{0}: Fehler</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

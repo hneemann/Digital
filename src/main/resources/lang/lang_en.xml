@@ -364,6 +364,8 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_enterAnExpression">Enter an expression:</string>
     <string name="msg_runningTestError">Error running the tests:</string>
     <string name="msg_testResult">Test result</string>
+    <string name="msg_test_N_Passed">{0} passed</string>
+    <string name="msg_test_N_Failed">{0} failed</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

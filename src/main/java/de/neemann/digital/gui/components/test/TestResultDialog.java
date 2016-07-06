@@ -19,7 +19,12 @@ public class TestResultDialog extends JDialog {
         JTabbedPane tp = new JTabbedPane();
         for (TestSet ts : tsl) {
             TestResult tr = new TestResult(ts.data).create(model);
-            tp.addTab(ts.name, new JScrollPane(new JTable(tr)));
+            String tabName;
+            if (tr.isAllPassed())
+                tabName = Lang.get("msg_test_N_Passed", ts.name);
+            else
+                tabName = Lang.get("msg_test_N_Failed", ts.name);
+            tp.addTab(tabName, new JScrollPane(new JTable(tr)));
         }
 
         getContentPane().add(tp);
