@@ -19,7 +19,7 @@ public class TestData implements Iterable<int[]> {
     private transient ArrayList<int[]> lines;
     private transient ArrayList<String> names;
 
-    private TestData(String data) {
+    TestData(String data) {
         this.dataString = data;
     }
 
