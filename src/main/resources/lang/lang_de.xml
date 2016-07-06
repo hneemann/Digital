@@ -372,4 +372,19 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="win_stateChanged">Die Datei wurde verändert!</string>
     <string name="win_table">Tabelle</string>
     <string name="win_table_exportDialog">Export</string>
+
+    <string name="btn_help">Hilfe</string>
+    <string name="msg_help">Ausdrücke</string>
+    <string name="msg_expressionHelp">Zur Definition eines Ausdruckes können alle üblichen
+Notationen verwendet werden:
+
+Und: &quot;&amp;&quot;, &quot;&amp;&amp;&quot;, &quot;*&quot;, &quot;∧&quot;
+Oder: &quot;|&quot;, &quot;||&quot;, &quot;+&quot;, &quot;∨&quot;
+Exkl. Oder: &quot;^&quot;, &quot;⊻&quot;
+Nicht: &quot;!&quot;, &quot;~&quot;, &quot;&#172;&quot;
+
+UND hat Vorrang vor ODER bzw. Exkl. ODER.
+Mehrere Ausdrücke können durch "," oder ";" getrennt werden.
+Sollen die Ausdrücke benannt werden, kann die let-Anweisung verwendet
+werden: "let U=A+B"</string>
 </resources>

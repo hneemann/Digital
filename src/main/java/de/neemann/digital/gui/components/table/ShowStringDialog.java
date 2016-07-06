@@ -37,6 +37,8 @@ public class ShowStringDialog extends JDialog {
 
         JTextArea text = new JTextArea(str);
         text.setEditable(false);
+        text.setFont(new JLabel().getFont());
+        text.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         getContentPane().add(new JScrollPane(text));
 
         pack();

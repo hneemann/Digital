@@ -372,4 +372,18 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="win_stateChanged">State Changed!</string>
     <string name="win_table">Table</string>
     <string name="win_table_exportDialog">Export</string>
+    <string name="btn_help">Help</string>
+    <string name="msg_help">Expressions</string>
+    <string name="msg_expressionHelp">To define an expression you can use all most common notations:
+
+And: &quot;&amp;&quot;, &quot;&amp;&amp;&quot;, &quot;*&quot;, &quot;∧&quot;
+Or: &quot;|&quot;, &quot;||&quot;, &quot;+&quot;, &quot;∨&quot;
+XOr: &quot;^&quot;, &quot;⊻&quot;
+Not: &quot;!&quot;, &quot;~&quot;, &quot;&#172;&quot;
+
+As usual AND precedes OR and XOr.
+
+Multiple expressions can be separated by "," or ";".
+If you want to name the expressions you can use the
+let-command: "let U=A+B"</string>
 </resources>

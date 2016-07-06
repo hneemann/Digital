@@ -6,6 +6,7 @@ import de.neemann.digital.lang.Lang;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import static de.neemann.digital.analyse.parser.Tokenizer.Token.*;
 
@@ -39,15 +40,34 @@ public class Parser {
     /**
      * Parses the the string expression and returns a expression instance
      *
-     * @return the expresion instance
+     * @return the expression instance
      * @throws IOException    IOException
      * @throws ParseException ParseException
      */
-    public Expression parse() throws IOException, ParseException {
-        Expression expr = parseOr();
-        if (!(tokenizer.next() == EOF))
-            throw new ParseException(Lang.get("err_parserUnexpectedEndOfExpression"));
-        return expr;
+    public ArrayList<Expression> parse() throws IOException, ParseException {
+        ArrayList<Expression> list = new ArrayList<>();
+        while (true) {
+            list.add(parseLet());
+            switch (tokenizer.next()) {
+                case EOF:
+                    return list;
+                case COMMA:
+                    break;
+                default:
+                    throw new ParseException(Lang.get("err_parserUnexpectedToken_N", tokenizer.toString()));
+            }
+        }
+    }
+
+    private Expression parseLet() throws IOException, ParseException {
+        if (tokenizer.peek() == IDENT && tokenizer.getIdent().equals("let")) {
+            tokenizer.consume();
+            consume(IDENT);
+            String name = tokenizer.getIdent();
+            consume(EQUAL);
+            return new NamedExpression(name, parseOr());
+        } else
+            return parseOr();
     }
 
     private Expression parseOr() throws IOException, ParseException {
@@ -89,4 +109,10 @@ public class Parser {
                 throw new ParseException(Lang.get("err_parserUnexpectedToken_N", tokenizer.toString()));
         }
     }
+
+    private void consume(Tokenizer.Token token) throws IOException, ParseException {
+        if (!tokenizer.next().equals(token))
+            throw new ParseException(Lang.get("err_parserUnexpectedToken_N", tokenizer.toString()));
+    }
+
 }

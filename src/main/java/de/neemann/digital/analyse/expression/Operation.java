@@ -178,7 +178,7 @@ public abstract class Operation implements Expression {
         StringBuilder sb = new StringBuilder("(");
         for (Expression e : expr) {
             if (sb.length() > 1)
-                sb.append(", ");
+                sb.append(",");
             sb.append(e.toString());
         }
         sb.append(")");

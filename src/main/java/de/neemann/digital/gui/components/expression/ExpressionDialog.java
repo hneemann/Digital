@@ -6,6 +6,7 @@ import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -13,9 +14,11 @@ import de.neemann.gui.ToolTipAction;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /**
  * Dialog to enter an expression
+ *
  * @author hneemann
  */
 public class ExpressionDialog extends JDialog {
@@ -36,13 +39,32 @@ public class ExpressionDialog extends JDialog {
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         getContentPane().add(buttons, BorderLayout.SOUTH);
 
+        buttons.add(new ToolTipAction(Lang.get("btn_help")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new ShowStringDialog(
+                            ExpressionDialog.this,
+                            Lang.get("msg_help"),
+                            Lang.get("msg_expressionHelp"))
+                            .setVisible(true);
+                } catch (Exception ex) {
+                    new ErrorMessage().addCause(ex).show(ExpressionDialog.this);
+                }
+            }
+        }.createJButton());
+
         buttons.add(new ToolTipAction(Lang.get("btn_create")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Expression exp = new Parser(text.getText()).parse();
+                    ArrayList<Expression> expList = new Parser(text.getText()).parse();
                     CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory);
-                    circuitBuilder.addCombinatorial("Y", exp);
+                    if (expList.size() == 1)
+                        circuitBuilder.addCombinatorial("Y", expList.get(0));
+                    else
+                        for (Expression exp : expList)
+                            circuitBuilder.addCombinatorial(exp.toString(), exp);
                     Circuit circuit = circuitBuilder.createCircuit();
                     SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
                 } catch (Exception ex) {

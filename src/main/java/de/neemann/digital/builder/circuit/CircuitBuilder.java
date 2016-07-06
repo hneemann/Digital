@@ -65,6 +65,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
      */
     @Override
     public CircuitBuilder addCombinatorial(String name, Expression expression) throws BuilderException {
+        if (expression instanceof NamedExpression) {
+            name = ((NamedExpression) expression).getName();
+            expression=((NamedExpression) expression).getExpression();
+        }
         Fragment fr = createFragment(expression);
         fragments.add(new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name)));
         expression.traverse(variableVisitor);
