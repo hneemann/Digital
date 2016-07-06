@@ -1,0 +1,59 @@
+package de.neemann.digital.draw.shapes;
+
+import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.draw.elements.IOState;
+import de.neemann.digital.draw.elements.Pins;
+import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Polygon;
+
+import java.awt.*;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+
+/**
+ * The shape to visualize a test case
+ *
+ * @author hneemann
+ */
+public class TestCaseShape implements Shape {
+
+    private static final Style TESTSTYLE = new Style(0, true, new Color(0, 255, 0, 40));
+    private final String label;
+
+    /**
+     * Creates a new instance
+     *
+     * @param attributes the attributes
+     * @param inputs     inputs
+     * @param outputs    ans autputs
+     */
+    public TestCaseShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
+        label = attributes.getCleanLabel();
+    }
+
+    @Override
+    public Pins getPins() {
+        return new Pins();
+    }
+
+    @Override
+    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+        return null;
+    }
+
+    @Override
+    public void drawTo(Graphic graphic, boolean highLight) {
+        Polygon pol = new Polygon(true)
+                .add(SIZE2, SIZE2)
+                .add(SIZE2 + SIZE * 4, SIZE2)
+                .add(SIZE2 + SIZE * 4, SIZE * 2 + SIZE2)
+                .add(SIZE2, SIZE * 2 + SIZE2);
+        graphic.drawPolygon(pol, TESTSTYLE);
+        graphic.drawPolygon(pol, Style.THIN);
+        graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), new Vector(SIZE * 4, SIZE + SIZE2), "Test", Orientation.CENTERCENTER, Style.NORMAL);
+        graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), new Vector(SIZE * 4, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
+    }
+}

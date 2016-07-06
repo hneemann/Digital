@@ -18,6 +18,7 @@ import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEXOrShape;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.gui.components.test.TestCaseElement;
 import de.neemann.digital.lang.Lang;
 
 import java.util.HashMap;
@@ -96,6 +97,7 @@ public final class ShapeFactory {
         map.put(Tunnel.DESCRIPTION.getName(), TunnelShape::new);
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
+        map.put(TestCaseElement.TESTCASEDESCRIPTION.getName(), TestCaseShape::new);
     }
 
     /**
@@ -139,6 +141,7 @@ public final class ShapeFactory {
                         pt.getOutputDescriptions(elementAttributes));
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return new MissingShape(elementName, e);
         }
     }

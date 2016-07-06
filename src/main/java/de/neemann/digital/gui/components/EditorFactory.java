@@ -6,6 +6,8 @@ import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.gui.components.test.TestData;
+import de.neemann.digital.gui.components.test.TestDataEditor;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -40,6 +42,7 @@ public final class EditorFactory {
         add(Rotation.class, RotationEditor.class);
         add(IntFormat.class, IntFormatsEditor.class);
         add(Language.class, LanguageEditor.class);
+        add(TestData.class, TestDataEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -67,7 +70,12 @@ public final class EditorFactory {
         }
     }
 
-    private static abstract class LabelEditor<T> implements Editor<T> {
+    /**
+     * Simple single component editor
+     *
+     * @param <T> the type to edit
+     */
+    public static abstract class LabelEditor<T> implements Editor<T> {
         @Override
         public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes) {
             JLabel label = new JLabel(key.getName() + ":  ");
@@ -78,6 +86,12 @@ public final class EditorFactory {
             panel.add(component, DialogLayout.INPUT);
         }
 
+        /**
+         * returns the editor component
+         *
+         * @param elementAttributes the elements attributes
+         * @return the component
+         */
         protected abstract JComponent getComponent(ElementAttributes elementAttributes);
     }
 
@@ -241,7 +255,7 @@ public final class EditorFactory {
                             }
                         }
                     }
-                    .setActive(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
+                            .setActive(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
                             .setToolTip(Lang.get("btn_reload_tt"))
                             .createJButton()
             );

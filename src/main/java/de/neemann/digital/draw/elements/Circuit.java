@@ -17,6 +17,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
+import de.neemann.digital.gui.components.test.TestData;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.language.Language;
 
@@ -70,6 +71,7 @@ public class Circuit {
         xStream.addImplicitCollection(ElementAttributes.class, "attributes");
         xStream.alias("data", DataField.class);
         xStream.addImplicitCollection(DataField.class, "data");
+        xStream.alias("testData", TestData.class);
         xStream.ignoreUnknownElements();
         return xStream;
     }

@@ -14,7 +14,13 @@ public class Key<VALUE> {
     private final String name;
     private final String description;
 
-    Key(String key, VALUE def) {
+    /**
+     * Creates a new Key
+     *
+     * @param key the key
+     * @param def the default value
+     */
+    public Key(String key, VALUE def) {
         this.key = key;
         String langName = "key_" + key.replace(" ", "");
         this.name = Lang.get(langName);

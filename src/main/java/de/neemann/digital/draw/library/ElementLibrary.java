@@ -13,6 +13,7 @@ import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.terminal.Terminal;
+import de.neemann.digital.gui.components.test.TestCaseElement;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
@@ -90,6 +91,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Mul.DESCRIPTION, menu);
         add(Comparator.DESCRIPTION, menu);
         add(Neg.DESCRIPTION, menu);
+
+        menu = Lang.get("lib_test");
+        add(TestCaseElement.TESTCASEDESCRIPTION, menu);
     }
 
     private void add(ElementTypeDescription description, String treePath) {
