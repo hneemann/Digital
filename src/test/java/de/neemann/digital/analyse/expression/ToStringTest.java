@@ -21,7 +21,6 @@ public class ToStringTest extends TestCase {
         //Q1.d = !D & !Q1 & Q0 # !D & Q1 & !Q0 # D & !Q1 & !Q0 # D & Q1 & Q0;
         Expression Q1d = or(and(not(D), not(Q1), Q0), and(not(D), Q1, not(Q0)), and(D, not(Q1), not(Q0)), and(D, Q1, Q0));
 
-
-        assertEquals("or(and(not(D), Q0, not(Q1)), and(not(D), not(Q0), Q1), and(D, not(Q0), not(Q1)), and(D, Q0, Q1))", Q1d.toString());
+        assertEquals("or(and(not(D),Q0,not(Q1)),and(not(D),not(Q0),Q1),and(D,not(Q0),not(Q1)),and(D,Q0,Q1))", Q1d.toString());
     }
 }
