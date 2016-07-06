@@ -53,6 +53,8 @@ public class TestResult implements TableModel {
         for (Signal s : model.getOutputs())
             outputs.add(new TestSignal(s, getIndexOf(s.getName())));
 
+        model.init();
+
         for (int[] row : values) {
             for (TestInput in : inputs)
                 in.setFrom(row);

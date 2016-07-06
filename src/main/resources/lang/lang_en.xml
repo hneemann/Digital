@@ -168,6 +168,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_parserUnexpectedEndOfExpression">Unexpected end of expression</string>
     <string name="err_notANumber_N0_inLine_N1">Value {0} in line {1} is not a number!</string>
     <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">Expected {0} but found {1} values in line {2}!</string>
+    <string name="err_signal_N_notInTextVector">Signal {0} is not present in test vector!</string>
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_Bits">Data Bits</string>
     <string name="key_Color">Color</string>
@@ -328,6 +329,9 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_zoomOut">Zoom Out</string>
     <string name="menu_expression">Expression</string>
     <string name="menu_expression_tt">Create a circuit from an expression.</string>
+    <string name="menu_runTests">Run Tests</string>
+    <string name="menu_runTests_tt">Runs all test cases in the circuit</string>
+
     <string name="message">Digital
 
 A simple simulator for digital circuits.
@@ -358,6 +362,8 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_errorFileNotFound">Could not find file: {0}</string>
     <string name="msg_remoteUnknownCommand">Command {0} unknown!</string>
     <string name="msg_enterAnExpression">Enter an expression:</string>
+    <string name="msg_runningTestError">Error running the tests:</string>
+    <string name="msg_testResult">Test result</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
@@ -379,6 +385,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="win_table">Table</string>
     <string name="win_table_exportDialog">Export</string>
     <string name="btn_help">Help</string>
+
     <string name="msg_help">Expressions</string>
     <string name="msg_expressionHelp">To define an expression you can use all most common notations:
 

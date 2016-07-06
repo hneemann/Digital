@@ -27,6 +27,9 @@ import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
+import de.neemann.digital.gui.components.test.DataException;
+import de.neemann.digital.gui.components.test.TestCaseElement;
+import de.neemann.digital.gui.components.test.TestResultDialog;
 import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteSever;
 import de.neemann.digital.gui.state.State;
@@ -462,6 +465,31 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_fast_tt")).setActive(false);
 
+
+        ToolTipAction runTests = new ToolTipAction(Lang.get("menu_runTests")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ArrayList<TestResultDialog.TestSet> tsl = new ArrayList<>();
+                    for (VisualElement el : circuitComponent.getCircuit().getElements())
+                        if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
+                            tsl.add(new TestResultDialog.TestSet(
+                                    el.getElementAttributes().get(TestCaseElement.TESTDATA),
+                                    el.getElementAttributes().getCleanLabel()));
+
+                    if (tsl.isEmpty())
+                        throw new DataException(Lang.get("err_noTestData"));
+
+                    Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
+                    new TestResultDialog(Main.this, tsl, model).setVisible(true);
+
+                    circuitComponent.getCircuit().clearState();
+                } catch (Exception e1) {
+                    new ErrorMessage(Lang.get("msg_runningTestError")).addCause(e1).show();
+                }
+            }
+        }.setToolTip(Lang.get("menu_runTests_tt"));
+
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -494,6 +522,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         run.add(doStep.createJMenuItem());
         run.add(runToBreakAction.createJMenuItem());
         run.addSeparator();
+        run.add(runTests.createJMenuItem());
         run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
