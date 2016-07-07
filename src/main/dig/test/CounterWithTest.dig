@@ -89,7 +89,7 @@ C  0   1
 C  1   0
 C  1   1
 
-# this is an error, counter resets to zero
+# this is an error, the counter resets to zero
 C  1   1
 </dataString>
           </testData>
