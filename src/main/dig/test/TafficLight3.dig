@@ -130,7 +130,7 @@ C 0  1 1 0
 # Fire signal goes high
 C 1  0 0 1
 C 1  0 1 0
-# TL runs to read and then stops
+# TL runs to red and then stops
 C 1  1 0 0
 C 1  1 0 0
 C 1  1 0 0
