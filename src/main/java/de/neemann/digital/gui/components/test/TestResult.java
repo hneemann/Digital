@@ -22,7 +22,7 @@ public class TestResult implements TableModel {
 
     private final ArrayList<String> names;
     private final ArrayList<Value[]> lines;
-    private final ArrayList<MatchedValue[]> results;
+    private final ArrayList<Value[]> results;
     private boolean allPassed;
 
     /**
@@ -60,11 +60,11 @@ public class TestResult implements TableModel {
 
         for (Value[] row : lines) {
 
-            MatchedValue[] res = new MatchedValue[row.length];
+            Value[] res = new Value[row.length];
 
             for (TestSignal in : inputs) {
                 row[in.index].setTo(in.value);
-                res[in.index] = new MatchedValue(row[in.index], in.value);
+                res[in.index] = row[in.index];
             }
 
             model.doStep();
@@ -89,6 +89,9 @@ public class TestResult implements TableModel {
     }
 
     private int getIndexOf(String name) throws DataException {
+        if (name==null || name.length()==0)
+            throw new DataException(Lang.get("err_unnamedSignal", name));
+
         for (int i = 0; i < names.size(); i++) {
             String n = names.get(i);
             if (n.equals(name))
@@ -144,7 +147,7 @@ public class TestResult implements TableModel {
      * @param columnIndex columnIndex
      * @return the value
      */
-    public MatchedValue getValue(int rowIndex, int columnIndex) {
+    public Value getValue(int rowIndex, int columnIndex) {
         return results.get(rowIndex)[columnIndex];
     }
 

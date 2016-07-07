@@ -168,8 +168,9 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_parserUnexpectedEndOfExpression">Unerwartetes Ende des Ausdrucks</string>
     <string name="err_notANumber_N0_inLine_N1">Wert {0} in Zeile {1} ist keine Zahl!</string>
     <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">Erwarte {0} anstelle von {1} Werten in Zeile {2}!</string>
-    <string name="err_signal_N_notInTextVector">Signal {0} ist im Testvector nicht vorhanden!</string>
+    <string name="err_signal_N_notInTextVector">Signal {0} ist im Testvektor nicht vorhanden!</string>
     <string name="err_noTestData">Keine Testdaten vorhanden.</string>
+    <string name="err_unnamedSignal">Es gibt ein unbenanntes Signal</string>
     <string name="key_AddrBits">Adress Bits</string>
     <string name="key_Bits">Datenbits</string>
     <string name="key_Color">Farbe</string>

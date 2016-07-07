@@ -21,6 +21,7 @@ import java.util.Collections;
  */
 public class TestResultDialog extends JDialog {
     private static final Color FAILED_COLOR = new Color(255, 200, 200);
+    private static final Color PASSED_COLOR = new Color(200, 255, 200);
 
     /**
      * Creates a new result dialog.
@@ -31,7 +32,7 @@ public class TestResultDialog extends JDialog {
      * @param library the library to use
      * @throws NodeException NodeException
      * @throws DataException DataException
-     * @throws PinException PinException
+     * @throws PinException  PinException
      */
     public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, DataException, PinException {
         super(owner, Lang.get("msg_testResult"), false);
@@ -92,15 +93,18 @@ public class TestResultDialog extends JDialog {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            MatchedValue v = (MatchedValue) value;
+            Value v = (Value) value;
 
             comp.setText(v.toString());
             comp.setHorizontalAlignment(JLabel.CENTER);
 
-            if (v.isPassed())
+            if (v instanceof MatchedValue) {
+                if (((MatchedValue) v).isPassed())
+                    comp.setBackground(PASSED_COLOR);
+                else
+                    comp.setBackground(FAILED_COLOR);
+            } else
                 comp.setBackground(Color.WHITE);
-            else
-                comp.setBackground(FAILED_COLOR);
 
             return comp;
         }
