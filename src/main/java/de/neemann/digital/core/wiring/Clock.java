@@ -38,7 +38,7 @@ public class Clock implements Element {
             frequency = f;
         } else
             frequency = 0;
-        label = attributes.get(Keys.LABEL);
+        label = attributes.getCleanLabel();
     }
 
     @Override
