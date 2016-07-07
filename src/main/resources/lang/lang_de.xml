@@ -388,7 +388,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="win_table_exportDialog">Export</string>
 
     <string name="btn_help">Hilfe</string>
-    <string name="msg_help">Ausdrücke</string>
+    <string name="msg_expressionHelpTitle">Ausdrücke</string>
     <string name="msg_expressionHelp">Zur Definition eines Ausdruckes können alle üblichen
 Notationen verwendet werden:
 
@@ -401,4 +401,23 @@ UND hat Vorrang vor ODER bzw. Exkl. ODER.
 Mehrere Ausdrücke können durch "," oder ";" getrennt werden.
 Sollen die Ausdrücke benannt werden, kann die let-Anweisung verwendet
 werden: "let U=A+B"</string>
+    <string name="msg_testVectorHelpTitle">Testvektoren</string>
+    <string name="msg_testVectorHelp">Die erste Zeile muss, durch ein Leerzeichen getrennt, die
+Ein- und Ausgänge auflisten. In den folgenden Zeilen stehen dann die Sollwerte.
+Dabei steht ein 'X' für Don't Care, und ein 'Z' für hochohmig.
+Wird der Wert 'C' verwendet, wird die entsprechende Zeile durch zwei Zeilen ersetzt:
+Zunächst wird das 'C' durch eine '1' ersetzt, in der folgenden Zeile durch eine '0'.
+Auf diese Weise können Schaltwerke einfacher getestet werden.
+
+Ein Test für einen 2-Bit Zähler könnte damit wie folgt aussehen:
+
+C Q1 Q0
+0 0  0
+C 0  1
+C 1  0
+C 1  1
+C 0  0
+
+Gestartet werden die Tests über Start->Tests ausführen.</string>
+
 </resources>

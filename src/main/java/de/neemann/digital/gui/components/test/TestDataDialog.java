@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components.test;
 
+import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -25,13 +26,26 @@ public class TestDataDialog extends JDialog {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("key_Testdata"), ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JTextArea text = new JTextArea(data.getDataString(), 30, 30);
+        JTextArea text = new JTextArea(data.getDataString(), 30, 50);
+        text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 
         JScrollPane scrollPane = new JScrollPane(text);
         getContentPane().add(scrollPane);
         scrollPane.setRowHeaderView(new TextLineNumber(text, 3));
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+        buttons.add(new ToolTipAction(Lang.get("btn_help")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ShowStringDialog(
+                        TestDataDialog.this,
+                        Lang.get("msg_testVectorHelpTitle"),
+                        Lang.get("msg_testVectorHelp"))
+                        .setVisible(true);
+            }
+        }.createJButton());
+
         buttons.add(new ToolTipAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent e) {

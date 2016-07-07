@@ -42,15 +42,11 @@ public class ExpressionDialog extends JDialog {
         buttons.add(new ToolTipAction(Lang.get("btn_help")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    new ShowStringDialog(
-                            ExpressionDialog.this,
-                            Lang.get("msg_help"),
-                            Lang.get("msg_expressionHelp"))
-                            .setVisible(true);
-                } catch (Exception ex) {
-                    new ErrorMessage().addCause(ex).show(ExpressionDialog.this);
-                }
+                new ShowStringDialog(
+                        ExpressionDialog.this,
+                        Lang.get("msg_expressionHelpTitle"),
+                        Lang.get("msg_expressionHelp"))
+                        .setVisible(true);
             }
         }.createJButton());
 

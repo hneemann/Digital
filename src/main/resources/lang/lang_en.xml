@@ -389,7 +389,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="win_table_exportDialog">Export</string>
     <string name="btn_help">Help</string>
 
-    <string name="msg_help">Expressions</string>
+    <string name="msg_expressionHelpTitle">Expressions</string>
     <string name="msg_expressionHelp">To define an expression you can use all most common notations:
 
 And: &quot;&amp;&quot;, &quot;&amp;&amp;&quot;, &quot;*&quot;, &quot;∧&quot;
@@ -402,4 +402,24 @@ As usual AND precedes OR and XOr.
 Multiple expressions can be separated by "," or ";".
 If you want to name the expressions you can use the
 let-command: "let U=A+B"</string>
+    <string name="msg_testVectorHelpTitle">Test vectors</string>
+    <string name="msg_testVectorHelp">The first line has to contain the names of inputs and outputs.
+The following lines contain the expected values.
+A 'X' represents a don't care, and a 'Z' represents a high Z value.
+If a 'C' is used, the containing line is replaced by two lines:
+In the first line the 'C' is replaced by a '1' and in the second line the
+'C' is replaced by a '0'.
+So it's easier to test sequential logic.
+
+So a test for a 2-bit counter could look like this:
+
+C Q1 Q0
+0 0  0
+C 0  1
+C 1  0
+C 1  1
+C 0  0
+
+The tests are executed by Run->Run Tests.</string>
+
 </resources>

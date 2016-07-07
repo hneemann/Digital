@@ -50,8 +50,8 @@ public class TestDataParser {
                 String line;
                 while ((line = readNonEmptyLine(r)) != null) {
                     line = line.toUpperCase();
-                    if (addLine(line, 0))
-                        addLine(line, 1);
+                    if (addLine(line, 1))
+                        addLine(line, 0);
                 }
             }
 
