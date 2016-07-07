@@ -8,7 +8,7 @@ import java.util.Iterator;
  *
  * @author hneemann
  */
-public class TestData implements Iterable<int[]> {
+public class TestData implements Iterable<Value[]> {
 
     /**
      * the default instance
@@ -16,7 +16,7 @@ public class TestData implements Iterable<int[]> {
     public static final TestData DEFAULT = new TestData("");
 
     private String dataString;
-    private transient ArrayList<int[]> lines;
+    private transient ArrayList<Value[]> lines;
     private transient ArrayList<String> names;
 
     TestData(String data) {
@@ -33,7 +33,7 @@ public class TestData implements Iterable<int[]> {
     }
 
     @Override
-    public Iterator<int[]> iterator() {
+    public Iterator<Value[]> iterator() {
         return lines.iterator();
     }
 
@@ -74,7 +74,7 @@ public class TestData implements Iterable<int[]> {
     /**
      * @return the data lines
      */
-    public ArrayList<int[]> getLines() {
+    public ArrayList<Value[]> getLines() {
         check();
         return lines;
     }

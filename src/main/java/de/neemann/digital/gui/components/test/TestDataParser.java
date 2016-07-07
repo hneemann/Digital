@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 public class TestDataParser {
 
     private final BufferedReader r;
-    private final ArrayList<int[]> lines;
+    private final ArrayList<Value[]> lines;
     private final ArrayList<String> names;
     private int lineNumber;
 
@@ -46,7 +46,7 @@ public class TestDataParser {
 
                 String line;
                 while ((line = readNonEmptyLine(r)) != null) {
-                    int[] row = new int[names.size()];
+                    Value[] row = new Value[names.size()];
                     tok = new StringTokenizer(line);
                     int cols = tok.countTokens();
                     if (cols != names.size())
@@ -56,10 +56,7 @@ public class TestDataParser {
                         String num = null;
                         try {
                             num = tok.nextToken();
-                            if (num.toUpperCase().equals("X"))
-                                row[i] = -1;
-                            else
-                                row[i] = Integer.parseInt(num);
+                            row[i]=new Value(num);
                         } catch (NumberFormatException e) {
                             throw new DataException(Lang.get("err_notANumber_N0_inLine_N1", num, lineNumber));
                         }
@@ -86,7 +83,7 @@ public class TestDataParser {
     /**
      * @return Returns the data lines
      */
-    public ArrayList<int[]> getLines() {
+    public ArrayList<Value[]> getLines() {
         return lines;
     }
 

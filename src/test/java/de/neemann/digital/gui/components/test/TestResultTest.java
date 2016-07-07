@@ -55,10 +55,10 @@ public class TestResultTest extends TestCase {
                         + "1 1 0\n");
         TestResult tr = new TestResult(data).create(model);
         assertFalse(tr.isAllPassed());
-        assertEquals(true, tr.getValueAt(0,4));
-        assertEquals(true, tr.getValueAt(1,4));
-        assertEquals(true, tr.getValueAt(2,4));
-        assertEquals(false, tr.getValueAt(3,4));
+        assertEquals(true, tr.getValue(0,2).isPassed());
+        assertEquals(true, tr.getValue(1,2).isPassed());
+        assertEquals(true, tr.getValue(2,2).isPassed());
+        assertEquals(false, tr.getValue(3,2).isPassed());
     }
 
     public void testResultErrorDC() throws Exception {

@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components.test;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.lang.Lang;
@@ -16,10 +17,10 @@ import java.util.ArrayList;
 public class TestResult implements TableModel {
 
     private final ArrayList<String> names;
-    private final ArrayList<Line> lines;
-    private final ArrayList<int[]> values;
-    private ArrayList<TestInput> inputs;
-    private ArrayList<TestOutput> outputs;
+    private final ArrayList<Value[]> lines;
+    private final ArrayList<MatchedValue[]> results;
+    private ArrayList<TestSignal> inputs;
+    private ArrayList<TestSignal> outputs;
     private boolean allPassed;
 
     /**
@@ -29,8 +30,8 @@ public class TestResult implements TableModel {
      */
     public TestResult(TestData testData) {
         names = testData.getNames();
-        values = testData.getLines();
-        lines = new ArrayList<>();
+        lines = testData.getLines();
+        results = new ArrayList<>();
     }
 
     /**
@@ -46,29 +47,33 @@ public class TestResult implements TableModel {
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
         for (Signal s : model.getInputs())
-            inputs.add(new TestSignal(s, getIndexOf(s.getName())));
+            inputs.add(new TestSignal(getIndexOf(s.getName()), s.getValue()));
         for (Clock c : model.getClocks())
-            inputs.add(new TestClock(c, getIndexOf(c.getClockOutput().getName())));
+            inputs.add(new TestSignal(getIndexOf(c.getClockOutput().getName()), c.getClockOutput()));
 
         for (Signal s : model.getOutputs())
-            outputs.add(new TestSignal(s, getIndexOf(s.getName())));
+            outputs.add(new TestSignal(getIndexOf(s.getName()), s.getValue()));
 
         model.init();
 
-        for (int[] row : values) {
-            for (TestInput in : inputs)
-                in.setFrom(row);
+        for (Value[] row : lines) {
+
+            MatchedValue[] res = new MatchedValue[row.length];
+
+            for (TestSignal in : inputs) {
+                row[in.index].setTo(in.value);
+                res[in.index]=new MatchedValue(row[in.index], in.value);
+            }
 
             model.doStep();
 
-            boolean ok = true;
-            for (TestOutput out : outputs) {
-                if (!out.check(row)) {
-                    ok = false;
+            for (TestSignal out : outputs) {
+                MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
+                res[out.index]= matchedValue;
+                if (!matchedValue.isPassed())
                     allPassed = false;
-                }
             }
-            lines.add(new Line(row, ok));
+            results.add(res);
         }
 
         return this;
@@ -107,75 +112,34 @@ public class TestResult implements TableModel {
         }
     }
 
-    private interface TestInput {
-        void setFrom(int[] row);
-    }
-
-    private interface TestOutput {
-        boolean check(int[] row);
-    }
-
-    private class TestSignal implements TestInput, TestOutput {
-        private final Signal s;
+    private class TestSignal {
         private final int index;
+        private final ObservableValue value;
 
-        TestSignal(Signal s, int index) {
-            this.s = s;
+        TestSignal(int index, ObservableValue value) {
             this.index = index;
-        }
-
-        @Override
-        public void setFrom(int[] row) {
-            s.getValue().setValue(row[index]);
-        }
-
-        @Override
-        public boolean check(int[] row) {
-            int val = row[index];
-            return val < 0 || val == s.getValue().getValue();
+            this.value = value;
         }
     }
-
-    private class TestClock implements TestInput {
-        private final Clock c;
-        private final int index;
-
-        TestClock(Clock c, int index) {
-            this.c = c;
-            this.index = index;
-        }
-
-        @Override
-        public void setFrom(int[] row) {
-            c.getClockOutput().setValue(row[index]);
-        }
-    }
-
 
     @Override
     public int getRowCount() {
-        return lines.size();
+        return results.size();
     }
 
     @Override
     public int getColumnCount() {
-        return names.size() + 1;
+        return names.size();
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        if (columnIndex < names.size())
-            return names.get(columnIndex);
-        else
-            return "";
+        return names.get(columnIndex);
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        if (columnIndex < names.size())
-            return Integer.class;
-        else
-            return Boolean.class;
+        return MatchedValue.class;
     }
 
     @Override
@@ -185,7 +149,17 @@ public class TestResult implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return lines.get(rowIndex).getCol(columnIndex);
+        return getValue(rowIndex, columnIndex);
+    }
+
+    /**
+     * Returns the typed value
+     * @param rowIndex rowIndex
+     * @param columnIndex columnIndex
+     * @return the value
+     */
+    public MatchedValue getValue(int rowIndex, int columnIndex) {
+        return results.get(rowIndex)[columnIndex];
     }
 
     @Override

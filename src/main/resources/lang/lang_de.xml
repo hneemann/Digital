@@ -365,6 +365,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_testResult">Testergebnis</string>
     <string name="msg_test_N_Passed">{0}: ok</string>
     <string name="msg_test_N_Failed">{0}: Fehler</string>
+    <string name="msg_testExp_N0_found_N1">E: {0} / F: {1}</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
