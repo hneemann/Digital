@@ -76,6 +76,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final String MESSAGE = Lang.get("message");
     private static final Icon ICON_RUN = IconCreator.create("media-playback-start.png");
     private static final Icon ICON_MICRO = IconCreator.create("media-playback-start-2.png");
+    private static final Icon ICON_TEST = IconCreator.create("media-playback-start-T.png");
     private static final Icon ICON_STEP = IconCreator.create("media-seek-forward.png");
     private static final Icon ICON_ELEMENT = IconCreator.create("preferences-system.png");
     private static final Icon ICON_NEW = IconCreator.create("document-new.png");
@@ -466,7 +467,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         }.setToolTip(Lang.get("menu_fast_tt")).setActive(false);
 
 
-        ToolTipAction runTests = new ToolTipAction(Lang.get("menu_runTests")) {
+        ToolTipAction runTests = new ToolTipAction(Lang.get("menu_runTests"), ICON_TEST) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -521,11 +522,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runToBreakAction.createJMenuItem());
-        run.addSeparator();
         run.add(runTests.createJMenuItem());
+        run.addSeparator();
         run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
+        toolBar.add(runTests.createJButtonNoText());
+        toolBar.addSeparator();
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
         toolBar.add(runToBreakAction.createJButtonNoText());
         toolBar.addSeparator();
