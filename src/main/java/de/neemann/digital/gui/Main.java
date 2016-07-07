@@ -526,13 +526,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);
 
-        toolBar.add(runTests.createJButtonNoText());
-        toolBar.addSeparator();
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
         toolBar.add(runToBreakAction.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(runModelMicroState.setIndicator(runModelMicroAction.createJButtonNoText()));
         toolBar.add(doStep.createJButtonNoText());
+        toolBar.addSeparator();
+        toolBar.add(runTests.createJButtonNoText());
     }
 
     /**
