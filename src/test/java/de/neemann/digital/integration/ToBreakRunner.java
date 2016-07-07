@@ -26,6 +26,7 @@ public class ToBreakRunner {
 
     private final Model model;
     private final Circuit circuit;
+    private final ElementLibrary library;
 
     /**
      * Creates a new instance
@@ -65,7 +66,7 @@ public class ToBreakRunner {
     }
 
     private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException {
-        ElementLibrary library = new ElementLibrary();
+        library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library);
         circuit = Circuit.loadCircuit(filename, shapeFactory);
         LibrarySelector librarySelector = new LibrarySelector(library, shapeFactory, null);
@@ -116,5 +117,12 @@ public class ToBreakRunner {
      */
     public Circuit getCircuit() {
         return circuit;
+    }
+
+    /**
+     * @return the library
+     */
+    public ElementLibrary getLibrary() {
+        return library;
     }
 }

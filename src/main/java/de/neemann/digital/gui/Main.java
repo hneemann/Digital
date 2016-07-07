@@ -481,8 +481,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     if (tsl.isEmpty())
                         throw new DataException(Lang.get("err_noTestData"));
 
-                    Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-                    new TestResultDialog(Main.this, tsl, model).setVisible(true);
+                    new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library).setVisible(true);
 
                     circuitComponent.getCircuit().clearState();
                 } catch (Exception e1) {

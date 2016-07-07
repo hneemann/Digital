@@ -1,6 +1,8 @@
 package de.neemann.digital.integration;
 
+import de.neemann.digital.core.Model;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.gui.components.test.TestCaseElement;
 import de.neemann.digital.gui.components.test.TestData;
 import de.neemann.digital.gui.components.test.TestResult;
@@ -34,7 +36,8 @@ public class TestTestableExamples extends TestCase {
                 String label = el.getElementAttributes().getCleanLabel();
                 TestData td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
 
-                TestResult tr = new TestResult(td).create(br.getModel());
+                Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
+                TestResult tr = new TestResult(td).create(model);
 
                 if (label.contains("Failing"))
                     assertFalse(dig.getName() + ":" + label, tr.allPassed());

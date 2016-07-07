@@ -2,6 +2,10 @@ package de.neemann.digital.gui.components.test;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
@@ -20,18 +24,22 @@ public class TestResultDialog extends JDialog {
     /**
      * Creates a new result dialog.
      *
-     * @param owner the parent frame
-     * @param tsl   list of test sets
-     * @param model the model to test
+     * @param owner   the parent frame
+     * @param tsl     list of test sets
+     * @param circuit the circuit
+     * @param library the library to use
      * @throws NodeException NodeException
      * @throws DataException DataException
+     * @throws PinException PinException
      */
-    public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Model model) throws NodeException, DataException {
+    public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, DataException, PinException {
         super(owner, Lang.get("msg_testResult"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTabbedPane tp = new JTabbedPane();
         for (TestSet ts : tsl) {
+            Model model = new ModelCreator(circuit, library).createModel(false);
+
             TestResult tr = new TestResult(ts.data).create(model);
 
             JTable table = new JTable(tr);
