@@ -19,7 +19,7 @@ There are a number of forks, which are created to continue the work of Carl Burc
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
-Nevertheless, I believe that there are good reasons for a completely new development from scratch.
+Nevertheless, I believe that there are good reasons for a complete new development from scratch.
 
 ## Features ##
 
@@ -28,10 +28,11 @@ This are the main features of Digital:
 - Measurement graph to visualize signal states.
 - Single gate mode to analyse oscillations.
 - Analysis and synthesis of combinatorial and sequential circuits.
-- Many examples: From a transmision gate D-flipflop to a complete (simple) MIPS-like processor.
+- You can test your design by creating test cases and execute them. 
+- Many examples: From a transmission gate D-flipflop to a complete (simple) MIPS-like processor.
 - Fast-run mode to perform a simulation without updating the HMI.
   A simple processor can be clocked at 3MHz.
-- Display of LST files when executing assembler programs within such a processor.
+- Displaying a LST file when executing assembler programs within such a processor.
 - Simple remote TCP interface to allow e.g. an assembler IDE to control the simulator.
 - SVG export of circuits, including a LaTeX-compatible SVG version (see [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code
@@ -39,7 +40,8 @@ This are the main features of Digital:
 
 ## Motivation ##
 
-Below I would like to explain briefly the points that have motivated me to start a new development:
+Below I would like to explain briefly the points that have motivated me to start a new development instead of using
+one of the available Logisim forks:
 
 ### Switch On ###
 
