@@ -33,7 +33,7 @@ public class TestResultDialog extends JDialog {
      * @throws PinException PinException
      */
     public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, DataException, PinException {
-        super(owner, Lang.get("msg_testResult"), true);
+        super(owner, Lang.get("msg_testResult"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTabbedPane tp = new JTabbedPane();
