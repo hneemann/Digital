@@ -6,6 +6,8 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.*;
 
 /**
+ * Dummy to represent the testdata in the circuit.
+ *
  * @author hneemann
  */
 public class TestCaseElement implements Element {

@@ -46,4 +46,14 @@ public class TestDataParserTest extends TestCase {
         }
     }
 
+    public void testClock() throws Exception {
+        TestDataParser td = new TestDataParser("A B\nC 1\nC 0").parse();
+        assertEquals(2,td.getNames().size());
+        assertEquals(4,td.getLines().size());
+
+        assertEquals(0, td.getLines().get(0)[0].getValue());
+        assertEquals(1, td.getLines().get(1)[0].getValue());
+        assertEquals(0, td.getLines().get(2)[0].getValue());
+        assertEquals(1, td.getLines().get(3)[0].getValue());
+    }
 }

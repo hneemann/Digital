@@ -12,6 +12,10 @@ import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
 /**
+ * Stores the test results created by a single {@link TestData} instance.
+ * The class also performs the tests.
+ * Implemements {@link TableModel}, so the result can easily be shown in a {@link javax.swing.JTable}.
+ *
  * @author hneemann
  */
 public class TestResult implements TableModel {
@@ -19,8 +23,6 @@ public class TestResult implements TableModel {
     private final ArrayList<String> names;
     private final ArrayList<Value[]> lines;
     private final ArrayList<MatchedValue[]> results;
-    private ArrayList<TestSignal> inputs;
-    private ArrayList<TestSignal> outputs;
     private boolean allPassed;
 
     /**
@@ -44,13 +46,13 @@ public class TestResult implements TableModel {
      */
     public TestResult create(Model model) throws DataException, NodeException {
         allPassed = true;
-        inputs = new ArrayList<>();
-        outputs = new ArrayList<>();
+        ArrayList<TestSignal> inputs = new ArrayList<>();
         for (Signal s : model.getInputs())
             inputs.add(new TestSignal(getIndexOf(s.getName()), s.getValue()));
         for (Clock c : model.getClocks())
             inputs.add(new TestSignal(getIndexOf(c.getClockOutput().getName()), c.getClockOutput()));
 
+        ArrayList<TestSignal> outputs = new ArrayList<>();
         for (Signal s : model.getOutputs())
             outputs.add(new TestSignal(getIndexOf(s.getName()), s.getValue()));
 
@@ -62,14 +64,14 @@ public class TestResult implements TableModel {
 
             for (TestSignal in : inputs) {
                 row[in.index].setTo(in.value);
-                res[in.index]=new MatchedValue(row[in.index], in.value);
+                res[in.index] = new MatchedValue(row[in.index], in.value);
             }
 
             model.doStep();
 
             for (TestSignal out : outputs) {
                 MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
-                res[out.index]= matchedValue;
+                res[out.index] = matchedValue;
                 if (!matchedValue.isPassed())
                     allPassed = false;
             }
@@ -93,23 +95,6 @@ public class TestResult implements TableModel {
                 return i;
         }
         throw new DataException(Lang.get("err_signal_N_notInTextVector", name));
-    }
-
-    private class Line {
-        private final int[] data;
-        private final boolean passed;
-
-        Line(int[] data, boolean passed) {
-            this.data = data;
-            this.passed = passed;
-        }
-
-        Object getCol(int columnIndex) {
-            if (columnIndex < names.size())
-                return data[columnIndex];
-            else
-                return passed;
-        }
     }
 
     private class TestSignal {
@@ -154,7 +139,8 @@ public class TestResult implements TableModel {
 
     /**
      * Returns the typed value
-     * @param rowIndex rowIndex
+     *
+     * @param rowIndex    rowIndex
      * @param columnIndex columnIndex
      * @return the value
      */

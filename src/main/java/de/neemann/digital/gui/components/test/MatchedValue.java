@@ -5,7 +5,7 @@ import de.neemann.digital.lang.Lang;
 
 /**
  * A matched value.
- * The value itself represents the result and the expected value is contained as a member variable
+ * The value itself represents the result and the expected value is contained as a member variable.
  *
  * @author hneemann
  */

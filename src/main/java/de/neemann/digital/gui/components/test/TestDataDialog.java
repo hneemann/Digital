@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
+ * Dialog to show and edit the test data source.
+ *
  * @author hneemann
  */
 public class TestDataDialog extends JDialog {

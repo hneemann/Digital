@@ -1,14 +1,13 @@
 package de.neemann.digital.gui.components.test;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
- * The test data
+ * The test data.
  *
  * @author hneemann
  */
-public class TestData implements Iterable<Value[]> {
+public class TestData {
 
     /**
      * the default instance
@@ -32,12 +31,7 @@ public class TestData implements Iterable<Value[]> {
         this(valueToCopy.dataString);
     }
 
-    @Override
-    public Iterator<Value[]> iterator() {
-        return lines.iterator();
-    }
-
-    /**
+     /**
      * @return the data string
      */
     public String getDataString() {

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 /**
+ * The Parser used to read the test vector string.
+ *
  * @author hneemann
  */
 public class TestDataParser {
@@ -31,7 +33,8 @@ public class TestDataParser {
     }
 
     /**
-     * Parses the string
+     * Parses the string.
+     * The data then can be found in lines and names.
      *
      * @return this for chained calls
      * @throws DataException DataException
@@ -46,22 +49,9 @@ public class TestDataParser {
 
                 String line;
                 while ((line = readNonEmptyLine(r)) != null) {
-                    Value[] row = new Value[names.size()];
-                    tok = new StringTokenizer(line);
-                    int cols = tok.countTokens();
-                    if (cols != names.size())
-                        throw new DataException(Lang.get("err_testDataExpected_N0_found_N1_numbersInLine_N2", names.size(), cols, lineNumber));
-
-                    for (int i = 0; i < cols; i++) {
-                        String num = null;
-                        try {
-                            num = tok.nextToken();
-                            row[i]=new Value(num);
-                        } catch (NumberFormatException e) {
-                            throw new DataException(Lang.get("err_notANumber_N0_inLine_N1", num, lineNumber));
-                        }
-                    }
-                    lines.add(row);
+                    line = line.toUpperCase();
+                    if (addLine(line, 0))
+                        addLine(line, 1);
                 }
             }
 
@@ -69,6 +59,32 @@ public class TestDataParser {
             throw new DataException(e);
         }
         return this;
+    }
+
+    private boolean addLine(String line, int clockValue) throws DataException {
+        boolean isClock = false;
+        StringTokenizer tok;
+        tok = new StringTokenizer(line);
+        Value[] row = new Value[names.size()];
+        int cols = tok.countTokens();
+        if (cols != names.size())
+            throw new DataException(Lang.get("err_testDataExpected_N0_found_N1_numbersInLine_N2", names.size(), cols, lineNumber));
+
+        for (int i = 0; i < cols; i++) {
+            String numStr = null;
+            try {
+                numStr = tok.nextToken();
+                if (numStr.equals("C")) {
+                    row[i] = new Value(clockValue);
+                    isClock = true;
+                } else
+                    row[i] = new Value(numStr);
+            } catch (NumberFormatException e) {
+                throw new DataException(Lang.get("err_notANumber_N0_inLine_N1", numStr, lineNumber));
+            }
+        }
+        lines.add(row);
+        return isClock;
     }
 
     private String readNonEmptyLine(BufferedReader r) throws IOException {
