@@ -51,9 +51,9 @@ public class TestDataParserTest extends TestCase {
         assertEquals(2,td.getNames().size());
         assertEquals(4,td.getLines().size());
 
-        assertEquals(0, td.getLines().get(0)[0].getValue());
-        assertEquals(1, td.getLines().get(1)[0].getValue());
-        assertEquals(0, td.getLines().get(2)[0].getValue());
-        assertEquals(1, td.getLines().get(3)[0].getValue());
+        assertEquals(1, td.getLines().get(0)[0].getValue());
+        assertEquals(0, td.getLines().get(1)[0].getValue());
+        assertEquals(1, td.getLines().get(2)[0].getValue());
+        assertEquals(0, td.getLines().get(3)[0].getValue());
     }
 }
