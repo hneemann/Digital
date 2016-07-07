@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Dialog to show the test results.
@@ -35,6 +36,8 @@ public class TestResultDialog extends JDialog {
     public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, DataException, PinException {
         super(owner, Lang.get("msg_testResult"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        Collections.sort(tsl);
 
         JTabbedPane tp = new JTabbedPane();
         for (TestSet ts : tsl) {
@@ -62,7 +65,7 @@ public class TestResultDialog extends JDialog {
      * A TestSet contains the {@link TestData} and the name of the TestData.
      * Is only a value bean
      */
-    public static class TestSet {
+    public static class TestSet implements Comparable<TestSet> {
 
         private final TestData data;
         private final String name;
@@ -76,6 +79,11 @@ public class TestResultDialog extends JDialog {
         public TestSet(TestData data, String name) {
             this.data = data;
             this.name = name;
+        }
+
+        @Override
+        public int compareTo(TestSet o) {
+            return name.compareTo(o.name);
         }
     }
 
