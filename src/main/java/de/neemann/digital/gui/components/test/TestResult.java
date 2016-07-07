@@ -84,7 +84,7 @@ public class TestResult implements TableModel {
     /**
      * @return true if all tests have passed
      */
-    public boolean isAllPassed() {
+    public boolean allPassed() {
         return allPassed;
     }
 

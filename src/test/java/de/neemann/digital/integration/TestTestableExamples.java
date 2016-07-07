@@ -17,7 +17,7 @@ public class TestTestableExamples extends TestCase {
     private static final File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/test");
 
     public void testTestable() throws Exception {
-        assertEquals(3, new FileScanner(this::check).scan(examples));
+        assertEquals(4, new FileScanner(this::check).scan(examples));
     }
 
     /**
@@ -37,9 +37,9 @@ public class TestTestableExamples extends TestCase {
                 TestResult tr = new TestResult(td).create(br.getModel());
 
                 if (label.contains("Failing"))
-                    assertFalse(dig.getName() + ":" + label, tr.isAllPassed());
+                    assertFalse(dig.getName() + ":" + label, tr.allPassed());
                 else
-                    assertTrue(dig.getName() + ":" + label, tr.isAllPassed());
+                    assertTrue(dig.getName() + ":" + label, tr.allPassed());
             }
     }
 }

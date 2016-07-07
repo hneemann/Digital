@@ -38,7 +38,7 @@ public class TestResultDialog extends JDialog {
             table.setDefaultRenderer(MatchedValue.class, new MyRenderer());
 
             String tabName;
-            if (tr.isAllPassed())
+            if (tr.allPassed())
                 tabName = Lang.get("msg_test_N_Passed", ts.name);
             else
                 tabName = Lang.get("msg_test_N_Failed", ts.name);
