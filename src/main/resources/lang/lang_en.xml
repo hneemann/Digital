@@ -14,6 +14,9 @@
     <string name="btn_save">Save</string>
     <string name="btn_create">Create</string>
     <string name="btn_create_tt">Create a circuit in a seperate window</string>
+    <string name="btn_editDetached">Edit detached</string>
+    <string name="btn_editDetached_tt">Opens the dialog as a non modal dialog</string>
+    <string name="apply">apply</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
     <string name="expression">Expression</string>

@@ -1,5 +1,8 @@
 package de.neemann.digital.gui.components.test;
 
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
@@ -22,8 +25,23 @@ public class TestDataDialog extends JDialog {
      * @param parent the parent component
      * @param data   the data to edit
      */
-    public TestDataDialog(JComponent parent, TestData data) {
-        super(SwingUtilities.getWindowAncestor(parent), Lang.get("key_Testdata"), ModalityType.APPLICATION_MODAL);
+    public TestDataDialog(Component parent, TestData data) {
+        this(parent, data, null, null);
+    }
+
+
+    /**
+     * Creates a new data dialog
+     *
+     * @param parent            the parent component
+     * @param data              the data to edit
+     * @param key               the key for the apply button
+     * @param elementAttributes the attributes to store the values
+     */
+    public TestDataDialog(Component parent, TestData data, Key<TestData> key, ElementAttributes elementAttributes) {
+        super(SwingUtilities.getWindowAncestor(parent),
+                Lang.get("key_Testdata"),
+                key == null ? ModalityType.APPLICATION_MODAL : ModalityType.MODELESS);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTextArea text = new JTextArea(data.getDataString(), 30, 50);
@@ -46,6 +64,25 @@ public class TestDataDialog extends JDialog {
             }
         }.createJButton());
 
+        if (key!=null && elementAttributes!=null) {
+            buttons.add(new ToolTipAction(Lang.get("menu_runTests")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        data.setDataString(text.getText());
+                        elementAttributes.set(key, data);
+                        if (parent instanceof CircuitComponent) {
+                            CircuitComponent cc = (CircuitComponent) parent;
+                            cc.getMain().startTests();
+                        }
+                    } catch (DataException e1) {
+                        new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
+                    }
+                }
+            }.createJButton());
+
+        }
+
         buttons.add(new ToolTipAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,4 +100,5 @@ public class TestDataDialog extends JDialog {
         pack();
         setLocationRelativeTo(parent);
     }
+
 }

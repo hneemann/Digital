@@ -76,14 +76,24 @@ public final class EditorFactory {
      * @param <T> the type to edit
      */
     public static abstract class LabelEditor<T> implements Editor<T> {
+        private AttributeDialog attributeDialog;
+
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
+            this.attributeDialog = attributeDialog;
             JLabel label = new JLabel(key.getName() + ":  ");
             label.setToolTipText(key.getDescription());
             panel.add(label, DialogLayout.LABEL);
             JComponent component = getComponent(elementAttributes);
             component.setToolTipText(key.getDescription());
             panel.add(component, DialogLayout.INPUT);
+        }
+
+        /**
+         * @return the containing dialog
+         */
+        public AttributeDialog getAttributeDialog() {
+            return attributeDialog;
         }
 
         /**
@@ -174,7 +184,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
             panel.add(bool, DialogLayout.BOTH);
         }
     }

@@ -14,6 +14,9 @@
     <string name="btn_save">Speichern</string>
     <string name="btn_create">Erzeugen</string>
     <string name="btn_create_tt">Erzeugt eine Schaltung in einem eigenen Fenster.</string>
+    <string name="btn_editDetached">Permanent Bearbeiten</string>
+    <string name="btn_editDetached_tt">Öffnet den Bearbeitendialog nicht modal.</string>
+    <string name="apply">Übernehmen</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
     <string name="expression">Ausdruck</string>

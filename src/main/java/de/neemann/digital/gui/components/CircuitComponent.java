@@ -49,6 +49,7 @@ public class CircuitComponent extends JComponent {
     public static final Icon ICON_DELETE = IconCreator.create("delete.png");
     private static final String DEL_ACTION = "myDelAction";
 
+    private final Main parent;
     private final ElementLibrary library;
     private final SavedListener parentsSavedListener;
     private final HashSet<Drawable> highLighted;
@@ -80,7 +81,8 @@ public class CircuitComponent extends JComponent {
      * @param library      the library used to edit the attributes of the elements
      * @param shapeFactory the shapeFactory used for copied elements
      */
-    public CircuitComponent(ElementLibrary library, ShapeFactory shapeFactory, SavedListener parentsSavedListener) {
+    public CircuitComponent(Main parent, ElementLibrary library, ShapeFactory shapeFactory, SavedListener parentsSavedListener) {
+        this.parent = parent;
         this.library = library;
         this.parentsSavedListener = parentsSavedListener;
         highLighted = new HashSet<>();
@@ -174,6 +176,13 @@ public class CircuitComponent extends JComponent {
         addMouseListener(disp);
 
         setToolTipText("");
+    }
+
+    /**
+     * @return the main frame
+     */
+    public Main getMain() {
+        return parent;
     }
 
     @Override

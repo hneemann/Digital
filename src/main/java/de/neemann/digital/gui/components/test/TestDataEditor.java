@@ -2,12 +2,12 @@ package de.neemann.digital.gui.components.test;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.gui.components.EditorFactory;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
 
     private final TestData data;
-    private JButton editButton;
+    private final Key<TestData> key;
 
     /**
      * Creates a new editor
@@ -24,8 +24,9 @@ public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
      * @param data the data to edit
      * @param key  the data key
      */
-    public TestDataEditor(TestData data, Key<DataField> key) {
+    public TestDataEditor(TestData data, Key<TestData> key) {
         this.data = new TestData(data);
+        this.key = key;
     }
 
     @Override
@@ -35,12 +36,24 @@ public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
 
     @Override
     protected JComponent getComponent(ElementAttributes elementAttributes) {
-        editButton = new ToolTipAction(Lang.get("btn_edit")) {
+        JPanel panel = new JPanel(new FlowLayout());
+
+        panel.add(new ToolTipAction(Lang.get("btn_edit")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TestDataDialog(editButton, data).setVisible(true);
+                new TestDataDialog(panel, data).setVisible(true);
             }
-        }.createJButton();
-        return editButton;
+        }.createJButton());
+
+        panel.add(new ToolTipAction(Lang.get("btn_editDetached")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getAttributeDialog().dispose();
+                new TestDataDialog(getAttributeDialog().getDialogParent(), data, key, elementAttributes).setVisible(true);
+            }
+        }.setToolTip(Lang.get("btn_editDetached_tt"))
+                .createJButton());
+
+        return panel;
     }
 }

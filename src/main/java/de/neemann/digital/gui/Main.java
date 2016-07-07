@@ -161,10 +161,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         final boolean normalMode = savedListener == null;
 
         if (circuit != null) {
-            circuitComponent = new CircuitComponent(library, shapeFactory, savedListener);
+            circuitComponent = new CircuitComponent(this, library, shapeFactory, savedListener);
             SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(circuit));
         } else {
-            circuitComponent = new CircuitComponent(library, shapeFactory, savedListener);
+            circuitComponent = new CircuitComponent(this, library, shapeFactory, savedListener);
             if (fileToOpen != null) {
                 SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
             } else {
@@ -470,23 +470,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction runTests = new ToolTipAction(Lang.get("menu_runTests"), ICON_TEST) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    ArrayList<TestResultDialog.TestSet> tsl = new ArrayList<>();
-                    for (VisualElement el : circuitComponent.getCircuit().getElements())
-                        if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
-                            tsl.add(new TestResultDialog.TestSet(
-                                    el.getElementAttributes().get(TestCaseElement.TESTDATA),
-                                    el.getElementAttributes().getCleanLabel()));
-
-                    if (tsl.isEmpty())
-                        throw new DataException(Lang.get("err_noTestData"));
-
-                    windowPosManager.register("testcase", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
-
-                    circuitComponent.getCircuit().clearState();
-                } catch (Exception e1) {
-                    new ErrorMessage(Lang.get("msg_runningTestError")).addCause(e1).show();
-                }
+                startTests();
             }
         }.setToolTip(Lang.get("menu_runTests_tt"));
 
@@ -533,6 +517,29 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         toolBar.add(doStep.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(runTests.createJButtonNoText());
+    }
+
+    /**
+     * starts the tests
+     */
+    public void startTests() {
+        try {
+            ArrayList<TestResultDialog.TestSet> tsl = new ArrayList<>();
+            for (VisualElement el : circuitComponent.getCircuit().getElements())
+                if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
+                    tsl.add(new TestResultDialog.TestSet(
+                            el.getElementAttributes().get(TestCaseElement.TESTDATA),
+                            el.getElementAttributes().getCleanLabel()));
+
+            if (tsl.isEmpty())
+                throw new DataException(Lang.get("err_noTestData"));
+
+            windowPosManager.register("testcase", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
+
+            circuitComponent.getCircuit().clearState();
+        } catch (Exception e1) {
+            new ErrorMessage(Lang.get("msg_runningTestError")).addCause(e1).show();
+        }
     }
 
     /**

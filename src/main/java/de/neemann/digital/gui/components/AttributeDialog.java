@@ -56,7 +56,7 @@ public class AttributeDialog extends JDialog {
         for (Key key : list) {
             Editor e = EditorFactory.INSTANCE.create(key, elementAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            e.addToPanel(panel, key, elementAttributes);
+            e.addToPanel(panel, key, elementAttributes, this);
         }
 
         JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
@@ -121,6 +121,13 @@ public class AttributeDialog extends JDialog {
 
         setVisible(true);
         return changed;
+    }
+
+    /**
+     * @return the dialogs parent
+     */
+    public Component getDialogParent() {
+        return parent;
     }
 
     private static final class EditorHolder<T> {
