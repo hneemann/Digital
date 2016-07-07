@@ -50,7 +50,7 @@ public class TestResult implements TableModel {
         for (Signal s : model.getInputs())
             inputs.add(new TestSignal(getIndexOf(s.getName()), s.getValue()));
         for (Clock c : model.getClocks())
-            inputs.add(new TestSignal(getIndexOf(c.getClockOutput().getName()), c.getClockOutput()));
+            inputs.add(new TestSignal(getIndexOf(c.getLabel()), c.getClockOutput()));
 
         ArrayList<TestSignal> outputs = new ArrayList<>();
         for (Signal s : model.getOutputs())

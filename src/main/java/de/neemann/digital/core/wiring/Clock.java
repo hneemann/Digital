@@ -71,4 +71,10 @@ public class Clock implements Element {
         return frequency;
     }
 
+    /**
+     * @return the clocks label
+     */
+    public String getLabel() {
+        return label;
+    }
 }
