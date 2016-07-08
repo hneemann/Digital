@@ -30,15 +30,15 @@ import java.util.HashMap;
 public class TextLineNumber extends JPanel
         implements CaretListener, DocumentListener, PropertyChangeListener {
     /**
-     * Constant to left align the numbers
+     * Constant to left align the digits
      */
     public final static float LEFT = 0.0f;
     /**
-     * Constant to center the numbers
+     * Constant to center the digits
      */
     public final static float CENTER = 0.5f;
     /**
-     * Constant to right align the numbers
+     * Constant to right align the digits
      */
     public final static float RIGHT = 1.0f;
 
