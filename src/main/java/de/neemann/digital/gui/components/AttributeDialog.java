@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -128,6 +129,17 @@ public class AttributeDialog extends JDialog {
      */
     public Component getDialogParent() {
         return parent;
+    }
+
+    /**
+     * @return the containing Main instance or null
+     */
+    public Main getMain() {  // ToDo: is a hack! find a better solution for getting the main frame
+        if (parent instanceof Main)
+            return (Main) parent;
+        if (parent instanceof CircuitComponent)
+            return ((CircuitComponent)parent).getMain();
+        return null;
     }
 
     private static final class EditorHolder<T> {

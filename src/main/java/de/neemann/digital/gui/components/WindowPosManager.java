@@ -39,4 +39,12 @@ public class WindowPosManager {
         windows.put(id, window);
         return window;
     }
+
+    /**
+     * Closes all registered windows
+     */
+    public void closeAll() {
+        for (Window w : windows.values())
+            w.dispose();
+    }
 }

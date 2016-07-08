@@ -273,6 +273,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
                     setFilename(null, true);
                     circuitComponent.setCircuit(new Circuit());
+                    windowPosManager.closeAll();
                 }
             }
         }.setActive(normalMode);
@@ -534,7 +535,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             if (tsl.isEmpty())
                 throw new DataException(Lang.get("err_noTestData"));
 
-            windowPosManager.register("testcase", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
+            windowPosManager.register("testresult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
 
             circuitComponent.getCircuit().clearState();
         } catch (Exception e1) {
@@ -773,6 +774,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circ);
             elementState.enter();
+            windowPosManager.closeAll();
             setFilename(filename, toPrefs);
             statusLabel.setText(" ");
         } catch (Exception e) {
@@ -819,6 +821,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         if (p >= 0)
             name = name.substring(0, p);
         return new File(filename.getParentFile(), name + "." + suffix);
+    }
+
+    /**
+     * @return the window position manager
+     */
+    public WindowPosManager getWindowPosManager() {
+        return windowPosManager;
     }
 
     private class FullStepObserver implements Observer {

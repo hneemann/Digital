@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components.test;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.EditorFactory;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ToolTipAction;
@@ -49,7 +50,11 @@ public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
             @Override
             public void actionPerformed(ActionEvent e) {
                 getAttributeDialog().dispose();
-                new TestDataDialog(getAttributeDialog().getDialogParent(), data, key, elementAttributes).setVisible(true);
+                TestDataDialog dialog = new TestDataDialog(getAttributeDialog().getDialogParent(), data, key, elementAttributes);
+                Main main = getAttributeDialog().getMain();
+                if (main!=null)
+                    main.getWindowPosManager().register("testdata", dialog);
+                dialog.setVisible(true);
             }
         }.setToolTip(Lang.get("btn_editDetached_tt"))
                 .createJButton());
