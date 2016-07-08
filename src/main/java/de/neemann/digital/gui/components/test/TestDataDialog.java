@@ -64,7 +64,7 @@ public class TestDataDialog extends JDialog {
             }
         }.createJButton());
 
-        if (key!=null && elementAttributes!=null) {
+        if (key != null && elementAttributes != null) {
             buttons.add(new ToolTipAction(Lang.get("menu_runTests")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -81,36 +81,27 @@ public class TestDataDialog extends JDialog {
                     }
                 }
             }.createJButton());
-            buttons.add(new ToolTipAction(Lang.get("ok")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        data.setDataString(text.getText());
+        }
+
+        buttons.add(new ToolTipAction(Lang.get("ok")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    data.setDataString(text.getText());
+                    if (key != null && elementAttributes != null) {
                         elementAttributes.set(key, data);
                         if (parent instanceof CircuitComponent) {
                             CircuitComponent cc = (CircuitComponent) parent;
                             cc.getCircuit().modified();
                         }
-                        dispose();
-                    } catch (DataException e1) {
-                        new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
                     }
+                    dispose();
+                } catch (DataException e1) {
+                    new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
                 }
-            }.createJButton());
+            }
+        }.createJButton());
 
-        } else {
-            buttons.add(new ToolTipAction(Lang.get("ok")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        data.setDataString(text.getText());
-                        dispose();
-                    } catch (DataException e1) {
-                        new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
-                    }
-                }
-            }.createJButton());
-        }
 
         getContentPane().add(buttons, BorderLayout.SOUTH);
 
