@@ -82,7 +82,7 @@ Ein gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen 
     <string name="elem_RAMSinglePort_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
     <string name="elem_RAMSinglePort_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
     <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.</string>
-    <string name="elem_GraphicCard">Grafikkarte</string>
+    <string name="elem_GraphicCard">Grafik-RAM</string>
     <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen.</string>
     <string name="elem_GraphicCard_pin_B">Auswahl der anzuzeigenden Seite.</string>
     <string name="elem_ROM">ROM</string>
@@ -228,6 +228,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_valueIsProbe">Als Messwert verwenden</string>
     <string name="key_valueIsProbe_tt">Wenn gesetzt, taucht der Wert als Messwert in Graph und Tabelle auf</string>
     <string name="key_Testdata">Testdaten</string>
+    <string name="key_graphicWidth">Breite in Pixel</string>
+    <string name="key_graphicHeight">Höhe in Pixel</string>
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
     <string name="lib_flipFlops">FlipFlops</string>

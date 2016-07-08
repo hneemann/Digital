@@ -19,6 +19,7 @@ public class GraphicDialog extends JDialog {
         getContentPane().add(graphicComponent);
         pack();
 
+        setAlwaysOnTop(true);
         setLocationRelativeTo(null);
         setVisible(true);
     }
