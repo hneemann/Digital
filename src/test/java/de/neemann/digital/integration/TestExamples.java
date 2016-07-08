@@ -23,7 +23,7 @@ public class TestExamples extends TestCase {
     }
 
     public void testProcessor() throws Exception {
-        assertEquals(18, new FileScanner(this::check).scan(new File(examples, "processor")));
+        assertEquals(19, new FileScanner(this::check).scan(new File(examples, "processor")));
     }
 
     public void testHazard() throws Exception {
