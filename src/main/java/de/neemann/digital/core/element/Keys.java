@@ -229,4 +229,19 @@ public final class Keys {
     public static final Key.KeyEnum<IntFormat> INTFORMAT
             = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values());
 
+
+    /**
+     * width of the terminal
+     */
+    public static final Key.KeyInteger GRAPHIC_WIDTH
+            = new Key.KeyInteger("graphicWidth", 160)
+            .setMin(5);
+
+    /**
+     * height of the terminal
+     */
+    public static final Key.KeyInteger GRAPHIC_HEIGHT
+            = new Key.KeyInteger("graphicHeight", 100)
+            .setMin(5);
+
 }

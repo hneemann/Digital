@@ -82,6 +82,9 @@ Ein gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen 
     <string name="elem_RAMSinglePort_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
     <string name="elem_RAMSinglePort_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
     <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.</string>
+    <string name="elem_GraphicCard">Grafikkarte</string>
+    <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen.</string>
+    <string name="elem_GraphicCard_pin_B">Auswahl der anzuzeigenden Seite.</string>
     <string name="elem_ROM">ROM</string>
     <string name="elem_ROM_pin_address">Adresse des Datenwortes welches ausgelesen werden soll.</string>
     <string name="elem_ROM_pin_data">Hier wird das Datenwort ausgegeben, wenn der Baustein aktiviert ist.</string>

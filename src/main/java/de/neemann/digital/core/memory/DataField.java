@@ -201,4 +201,11 @@ public class DataField {
          */
         void valueChanged(int addr);
     }
+
+    /**
+     * @return the raw data
+     */
+    public long[] getData() {
+        return data;
+    }
 }

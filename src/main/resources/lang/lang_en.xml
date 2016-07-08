@@ -81,6 +81,9 @@ So this gate can emulate every combinatorial gate.</string>
     <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
     <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional connection for reading and writing the data.</string>
+    <string name="elem_GraphicCard">GraphicCard</string>
+    <string name="elem_GraphicCard_tt">Used to show bitmap graphic</string>
+    <string name="elem_GraphicCard_pin_B">Selects the buffer to show</string>
     <string name="elem_ROM">ROM</string>
     <string name="elem_ROM_pin_address">Address of data word to output.</string>
     <string name="elem_ROM_pin_data">The selected data word. Only readable if select input is high.</string>
@@ -225,6 +228,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_valueIsProbe">Use as measurment value</string>
     <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.</string>
     <string name="key_Testdata">Testdata</string>
+    <string name="key_graphicWidth">Width in pixels</string>
+    <string name="key_graphicHeight">Height in pixels</string>
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
     <string name="lib_flipFlops">FlipFlops</string>

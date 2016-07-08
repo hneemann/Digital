@@ -12,6 +12,7 @@ import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.gui.components.test.TestCaseElement;
 import de.neemann.digital.lang.Lang;
@@ -83,6 +84,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(ROM.DESCRIPTION, menu);
         add(RAMDualPort.DESCRIPTION, menu);
         add(RAMSinglePort.DESCRIPTION, menu);
+        add(GraphicCard.DESCRIPTION, menu);
         add(Counter.DESCRIPTION, menu);
 
         menu = Lang.get("lib_arithmetic");
