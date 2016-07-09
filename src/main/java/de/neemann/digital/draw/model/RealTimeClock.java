@@ -110,16 +110,23 @@ public class RealTimeClock implements ModelStateObserver {
                 @Override
                 public void run() {
                     System.out.println("thread start");
+                    long time= System.currentTimeMillis();
+                    long counter=0;
                     try {
                         while (!interrupted()) {
                             modelSync.accessNEx(() -> {
                                 output.setValue(1 - output.getValue());
                                 model.doStep();
                             });
+                            counter++;
                         }
                     } catch (NodeException e1) {
                         stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e1);
                     }
+                    time=System.currentTimeMillis()-time;
+
+                    System.out.println(counter/time/2+"kHz");
+
                     System.out.println("thread end");
                 }
             };

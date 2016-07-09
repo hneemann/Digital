@@ -255,10 +255,11 @@ public class CircuitComponent extends JComponent {
         this.modelSync = modelSync;
         if (runMode)
             mouseRun.activate();
-        else
+        else {
             mouseNormal.activate();
+            circuit.clearState();
+        }
         requestFocusInWindow();
-        circuit.clearState();
     }
 
     /**

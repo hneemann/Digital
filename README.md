@@ -31,7 +31,7 @@ This are the main features of Digital:
 - You can test your design by creating test cases and execute them. 
 - Many examples: From a transmission gate D-flipflop to a complete (simple) MIPS-like processor.
 - Fast-run mode to perform a simulation without updating the HMI.
-  A simple processor can be clocked at 3MHz.
+  A simple processor can be clocked at 100kHz.
 - Displaying a LST file when executing assembler programs within such a processor.
 - Simple remote TCP interface to allow e.g. an assembler IDE to control the simulator.
 - SVG export of circuits, including a LaTeX-compatible SVG version (see [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
@@ -105,7 +105,7 @@ Logisim works somewhat different, which sometimes leads to surprises like unexpe
 
 If a complete processors is simulated, it is possible to calculate the simulation without an update of the 
 graphical representation.
-A simple processor (see example) can so simulated with a roughly 3MHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz) 
+A simple processor (see example) can so simulated with a roughly 100kHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz) 
 which is suitable also for more complex exercises.
 There is a break gate having a single input. If this input changes from low to high this quick run is stopped. 
 In this way, an assembler instruction BRK can be implemented, which then can be used to insert break points
