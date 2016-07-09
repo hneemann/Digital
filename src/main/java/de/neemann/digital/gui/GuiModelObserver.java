@@ -44,8 +44,8 @@ public class GuiModelObserver implements Observer, ModelStateObserver {
             if (!paintPending) {
                 paintPending = true;
                 SwingUtilities.invokeLater(() -> {
-                    component.paintImmediately(0, 0, component.getWidth(), component.getHeight());
                     paintPending = false;
+                    component.paintImmediately(0, 0, component.getWidth(), component.getHeight());
                 });
             }
             changed = false;
