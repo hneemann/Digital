@@ -8,6 +8,7 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.gui.components.test.TestData;
 import de.neemann.digital.gui.components.test.TestDataEditor;
+import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -15,6 +16,7 @@ import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -234,7 +236,7 @@ public final class EditorFactory {
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    DataEditor de = new DataEditor(panel, data, attr);
+                    DataEditor de = new DataEditor(panel, data, attr, NoSync.INST);
                     if (de.showDialog()) {
                         data = de.getDataField();
                     }
@@ -245,6 +247,7 @@ public final class EditorFactory {
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new JFileChooser();
                     fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
+                    fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
                     if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
                         attr.setFile(ROM.LAST_DATA_FILE_KEY, fc.getSelectedFile());
                         try {

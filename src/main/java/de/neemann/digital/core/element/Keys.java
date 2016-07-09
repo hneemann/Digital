@@ -77,7 +77,7 @@ public final class Keys {
      */
     public static final Key<Integer> FREQUENCY
             = new Key.KeyInteger("Frequency", 1)
-            .setComboBoxValues(new Integer[]{1, 2, 5, 10, 20, 50, 100, 200, 500})
+            .setComboBoxValues(new Integer[]{1, 2, 5, 10, 20, 50, 100, 200, 500, 5000, 50000, 500000})
             .setMin(1);
     /**
      * the bit count of a muxer or decoder

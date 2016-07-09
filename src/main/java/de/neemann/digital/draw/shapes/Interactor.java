@@ -3,6 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -17,12 +18,12 @@ import java.awt.*;
 public abstract class Interactor implements InteractorInterface {
 
     @Override
-    public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+    public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
         return false;
     }
 
     @Override
-    public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+    public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
         return false;
     }
 }

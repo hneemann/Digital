@@ -6,6 +6,7 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.draw.shapes.Shape;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.sync.Sync;
 
 import javax.swing.*;
 import java.awt.*;
@@ -261,9 +262,9 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @param pos the position
      * @return true if model is changed
      */
-    public boolean elementClicked(CircuitComponent cc, Point pos) {
+    public boolean elementClicked(CircuitComponent cc, Point pos, Sync modelSync) {
         if (interactor != null)
-            return interactor.clicked(cc, pos, ioState, element);
+            return interactor.clicked(cc, pos, ioState, element, modelSync);
         else
             return false;
     }
@@ -276,9 +277,9 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @param pos the position
      * @return true if model is changed
      */
-    public boolean elementPressed(CircuitComponent cc, Point pos) {
+    public boolean elementPressed(CircuitComponent cc, Point pos, Sync modelSync) {
         if (interactor != null)
-            return interactor.pressed(cc, pos, ioState, element);
+            return interactor.pressed(cc, pos, ioState, element, modelSync);
         else
             return false;
     }
@@ -291,9 +292,9 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @param pos the position
      * @return true if model is changed
      */
-    public boolean elementReleased(CircuitComponent cc, Point pos) {
+    public boolean elementReleased(CircuitComponent cc, Point pos, Sync modelSync) {
         if (interactor != null)
-            return interactor.released(cc, pos, ioState, element);
+            return interactor.released(cc, pos, ioState, element, modelSync);
         else
             return false;
     }

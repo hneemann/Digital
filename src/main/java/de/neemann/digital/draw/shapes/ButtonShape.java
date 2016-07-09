@@ -11,6 +11,7 @@ import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -52,21 +53,25 @@ public class ButtonShape implements Shape {
         ioState.getOutput(0).addObserverToValue(guiObserver);
         return new InteractorInterface() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
                 return false;
             }
 
             @Override
-            public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element) {
-                ObservableValue value = ioState.getOutput(0);
-                value.setValue(1);
+            public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
+                modelSync.access(() -> {
+                    ObservableValue value = ioState.getOutput(0);
+                    value.setValue(1);
+                });
                 return true;
             }
 
             @Override
-            public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element) {
-                ObservableValue value = ioState.getOutput(0);
-                value.setValue(0);
+            public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
+                modelSync.access(() -> {
+                    ObservableValue value = ioState.getOutput(0);
+                    value.setValue(0);
+                });
                 return true;
             }
         };

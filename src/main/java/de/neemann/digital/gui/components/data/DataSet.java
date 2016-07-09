@@ -75,7 +75,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
      *
      * @param sample the DataSample
      */
-    public void add(DataSample sample) {
+    synchronized void add(DataSample sample) {
         while (samples.size() >= maxSize)
             samples.remove(0);
 
@@ -154,7 +154,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
 
 
     @Override
-    public void drawTo(Graphic g, boolean highLight) {
+    synchronized public void drawTo(Graphic g, boolean highLight) {
         int x = getTextBorder();
 
         int yOffs = SIZE / 2;

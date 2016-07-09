@@ -16,6 +16,7 @@ import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.components.data.DataSet;
 import de.neemann.digital.gui.components.data.DataSetObserver;
+import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class DataShape implements Shape {
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         return new Interactor() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
                 dataSet.clear();
                 return false;
             }

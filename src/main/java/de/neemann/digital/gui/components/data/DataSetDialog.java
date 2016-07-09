@@ -5,6 +5,7 @@ import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.gui.components.OrderMerger;
+import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -29,6 +30,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
     private static final int MAX_SAMPLE_SIZE = 1000;
     private final DataSetComponent dsc;
     private final JScrollPane scrollPane;
+    private final Sync modelSync;
     private DataSet dataSet;
     private DataSetObserver dataSetObserver;
 
@@ -40,8 +42,9 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
      * @param microStep true     the event type which triggers a new DataSample
      * @param ordering  the ordering of the measurement values
      */
-    public DataSetDialog(Frame owner, Model model, boolean microStep, List<String> ordering) {
+    public DataSetDialog(Frame owner, Model model, boolean microStep, List<String> ordering, Sync modelSync) {
         super(owner, createTitle(microStep), false);
+        this.modelSync = modelSync;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
@@ -64,12 +67,12 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                model.addObserver(DataSetDialog.this);
+                modelSync.access(() -> model.addObserver(DataSetDialog.this));
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                model.removeObserver(DataSetDialog.this);
+                modelSync.access(() -> model.removeObserver(DataSetDialog.this));
             }
         });
 
@@ -111,10 +114,14 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        dataSetObserver.handleEvent(event);
-        dsc.revalidate();
-        dsc.repaint();
-        JScrollBar bar = scrollPane.getHorizontalScrollBar();
-        SwingUtilities.invokeLater(() -> bar.setValue(bar.getMaximum()));
+        modelSync.access(() -> {
+            dataSetObserver.handleEvent(event);
+        });
+        SwingUtilities.invokeLater(() -> {
+            dsc.revalidate();
+            dsc.repaint();
+            JScrollBar bar = scrollPane.getHorizontalScrollBar();
+            bar.setValue(bar.getMaximum());
+        });
     }
 }
