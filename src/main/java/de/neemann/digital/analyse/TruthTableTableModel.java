@@ -17,7 +17,7 @@ public class TruthTableTableModel implements TableModel {
     public static final String[] STATENAMES = new String[]{"0", "1", "x"};
 
     private final TruthTable truthTable;
-    private ArrayList<TableModelListener> listeners = new ArrayList<>();
+    private final ArrayList<TableModelListener> listeners = new ArrayList<>();
 
     /**
      * Creates a new instance

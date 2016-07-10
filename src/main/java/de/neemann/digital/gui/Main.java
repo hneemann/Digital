@@ -59,7 +59,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  *
  * @author hneemann
  */
-public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface {
+public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface {
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
     private static boolean experimental;
 
@@ -678,17 +678,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
             realtimeClockRunning = false;
-            modelSync=null;
+            modelSync = null;
             if (globalRunClock)
                 for (Clock c : model.getClocks())
                     if (c.getFrequency() > 0) {
-                        if (modelSync==null)
-                            modelSync=new LockSync();
-                        model.addObserver(new RealTimeClock(model, c, timerExecuter, this, modelSync));
+                        if (modelSync == null)
+                            modelSync = new LockSync();
+                        model.addObserver(new RealTimeClock(model, c, timerExecuter, this, modelSync, this));
                         realtimeClockRunning = true;
                     }
-            if (modelSync==null)
-                modelSync= NoSync.INST;
+            if (modelSync == null)
+                modelSync = NoSync.INST;
 
             circuitComponent.setModeAndReset(true, modelSync);
 
@@ -839,6 +839,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      */
     public WindowPosManager getWindowPosManager() {
         return windowPosManager;
+    }
+
+    @Override
+    public void setStatus(String message) {
+        SwingUtilities.invokeLater(() -> statusLabel.setText(message));
     }
 
     private class FullStepObserver implements Observer {
