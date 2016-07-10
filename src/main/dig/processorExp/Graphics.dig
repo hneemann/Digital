@@ -70,7 +70,7 @@
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>33568</int>
+          <int>42768</int>
         </entry>
         <entry>
           <string>Bits</string>
@@ -83,12 +83,8 @@
       <elementName>GraphicCard</elementName>
       <elementAttributes>
         <entry>
-          <string>graphicHeight</string>
-          <int>20</int>
-        </entry>
-        <entry>
           <string>graphicWidth</string>
-          <int>20</int>
+          <int>100</int>
         </entry>
       </elementAttributes>
       <pos x="720" y="360"/>
