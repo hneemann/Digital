@@ -20,7 +20,7 @@ public class DataField {
     private long[] data;
     private final int bits;
 
-    private transient ArrayList<DataListener> listeners;
+    private final transient ArrayList<DataListener> listeners = new ArrayList<>();
 
     /**
      * Creates a new DataField
@@ -158,9 +158,9 @@ public class DataField {
      * @param l the listener
      */
     public void addListener(DataListener l) {
-        if (listeners == null)
-            listeners = new ArrayList<>();
-        listeners.add(l);
+        synchronized (listeners) {
+            listeners.add(l);
+        }
     }
 
     /**
@@ -169,12 +169,9 @@ public class DataField {
      * @param l the listener to remove
      */
     public void removeListener(DataListener l) {
-        if (listeners == null)
-            return;
-
-        listeners.remove(l);
-        if (listeners.isEmpty())
-            listeners = null;
+        synchronized (listeners) {
+            listeners.remove(l);
+        }
     }
 
     /**
@@ -183,11 +180,10 @@ public class DataField {
      * @param addr the address which value has changed
      */
     public void fireChanged(int addr) {
-        if (listeners == null)
-            return;
-
-        for (DataListener l : listeners)
-            l.valueChanged(addr);
+        synchronized (listeners) {
+            for (DataListener l : listeners)
+                l.valueChanged(addr);
+        }
     }
 
     /**

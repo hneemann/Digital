@@ -83,7 +83,6 @@ public class ROMListingDialog extends JDialog implements Observer {
                     list.setSelectedIndex(line);
                 });
             }
-
             lastAddr = addr;
         }
     }

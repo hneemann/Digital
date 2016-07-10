@@ -11,6 +11,7 @@ import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -18,6 +19,7 @@ import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
  * The Clock shape
+ *
  * @author hneemann
  */
 public class ClockShape implements Shape {
@@ -49,10 +51,12 @@ public class ClockShape implements Shape {
         ioState.getOutput(0).addObserverToValue(guiObserver); // necessary to replot wires also if component itself does not depend on state
         return new Interactor() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
-                    value.setValue(1 - value.getValue());
+                    modelSync.access(() -> {
+                        value.setValue(1 - value.getValue());
+                    });
                     return true;
                 }
                 return false;

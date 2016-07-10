@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
@@ -32,8 +33,8 @@ public class DataEditor extends JDialog {
      * @param parent    the parent
      * @param dataField the data to edit
      */
-    public DataEditor(JComponent parent, DataField dataField) {
-        this(parent, dataField, null);
+    public DataEditor(JComponent parent, DataField dataField, Sync modelSync) {
+        this(parent, dataField, null, modelSync);
     }
 
     /**
@@ -43,7 +44,7 @@ public class DataEditor extends JDialog {
      * @param dataField the data to edit
      * @param attr      uset to get bit sizes
      */
-    public DataEditor(JComponent parent, DataField dataField, ElementAttributes attr) {
+    public DataEditor(JComponent parent, DataField dataField, ElementAttributes attr, Sync modelSync) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), attr == null ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -70,7 +71,7 @@ public class DataEditor extends JDialog {
         if (size <= 16) cols = 1;
         else if (size <= 128) cols = 8;
 
-        MyTableModel dm = new MyTableModel(this.dataField, cols);
+        MyTableModel dm = new MyTableModel(this.dataField, cols, modelSync);
         JTable table = new JTable(dm);
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(bits));
         getContentPane().add(new JScrollPane(table));
@@ -122,12 +123,14 @@ public class DataEditor extends JDialog {
     private final static class MyTableModel implements TableModel, DataField.DataListener {
         private final DataField dataField;
         private final int cols;
+        private final Sync modelSync;
         private final int rows;
         private ArrayList<TableModelListener> listener = new ArrayList<>();
 
-        private MyTableModel(DataField dataField, int cols) {
+        private MyTableModel(DataField dataField, int cols, Sync modelSync) {
             this.dataField = dataField;
             this.cols = cols;
+            this.modelSync = modelSync;
             rows = (dataField.size() - 1) / cols + 1;
         }
 
@@ -171,7 +174,9 @@ public class DataEditor extends JDialog {
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            dataField.setData(rowIndex * cols + (columnIndex - 1), ((MyLong) aValue).getValue());
+            modelSync.access(()->{
+                dataField.setData(rowIndex * cols + (columnIndex - 1), ((MyLong) aValue).getValue());
+            });
         }
 
         private void fireEvent(TableModelEvent e) {

@@ -5,6 +5,8 @@ import de.neemann.digital.core.ModelStateObserver;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.components.CircuitComponent;
 
+import javax.swing.*;
+
 /**
  * This observer is added to the model if real time timers are started.
  * This observer paints the CircuitComponent after a step is calculated.
@@ -18,6 +20,7 @@ public class GuiModelObserver implements Observer, ModelStateObserver {
     private final CircuitComponent component;
     private final ModelEvent type;
     private boolean changed = false;
+    private volatile boolean paintPending;
 
     /**
      * Creates a new instance.
@@ -38,7 +41,13 @@ public class GuiModelObserver implements Observer, ModelStateObserver {
     @Override
     public void handleEvent(ModelEvent event) {
         if (changed && event == type) {
-            component.paintImmediately(0, 0, component.getWidth(), component.getHeight());
+            if (!paintPending) {
+                paintPending = true;
+                SwingUtilities.invokeLater(() -> {
+                    paintPending = false;
+                    component.paintImmediately(0, 0, component.getWidth(), component.getHeight());
+                });
+            }
             changed = false;
         }
     }

@@ -12,6 +12,7 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.SingleValueDialog;
+import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -52,17 +53,19 @@ public class InputShape implements Shape {
         ioState.getOutput(0).addObserverToValue(guiObserver);
         return new Interactor() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
-                    if (value.supportsHighZ()) {
-                        if (value.isHighZ()) value.set(0, false);
-                        else if (value.getValue() == 0) value.setValue(1);
-                        else value.set(0, true);
-                    } else
-                        value.setValue(1 - value.getValue());
+                    modelSync.access(() -> {
+                        if (value.supportsHighZ()) {
+                            if (value.isHighZ()) value.set(0, false);
+                            else if (value.getValue() == 0) value.setValue(1);
+                            else value.set(0, true);
+                        } else
+                            value.setValue(1 - value.getValue());
+                    });
                 } else {
-                    SingleValueDialog.editValue(pos, value);
+                    SingleValueDialog.editValue(pos, value, modelSync);
                 }
                 return true;
             }

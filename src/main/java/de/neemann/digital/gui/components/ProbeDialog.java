@@ -4,6 +4,7 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
@@ -27,12 +28,13 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
     /**
      * Creates a new instance
      *
-     * @param owner    the owner
-     * @param model    the model to run
-     * @param type     the event type which fires a dialog repaint
-     * @param ordering the names list used to order the measurement values
+     * @param owner     the owner
+     * @param model     the model to run
+     * @param type      the event type which fires a dialog repaint
+     * @param ordering  the names list used to order the measurement values
+     * @param modelSync
      */
-    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering) {
+    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering, Sync modelSync) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.type = type;
@@ -53,12 +55,12 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                model.addObserver(ProbeDialog.this);
+                modelSync.access(() -> model.addObserver(ProbeDialog.this));
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                model.removeObserver(ProbeDialog.this);
+                modelSync.access(() -> model.removeObserver(ProbeDialog.this));
             }
         });
 
@@ -71,7 +73,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
     @Override
     public void handleEvent(ModelEvent event) {
         if (event == type || event == ModelEvent.MANUALCHANGE) {
-            tableModel.fireChanged();
+            SwingUtilities.invokeLater(tableModel::fireChanged);
         }
     }
 

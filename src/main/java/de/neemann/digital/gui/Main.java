@@ -34,6 +34,9 @@ import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteSever;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
+import de.neemann.digital.gui.sync.LockSync;
+import de.neemann.digital.gui.sync.NoSync;
+import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
 
@@ -56,7 +59,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  *
  * @author hneemann
  */
-public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface {
+public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface {
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
     private static boolean experimental;
 
@@ -106,7 +109,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private File filename;
     private FileHistory fileHistory;
 
+    private Sync modelSync;
     private Model model;
+
     private ModelCreator modelCreator;
     private boolean realtimeClockRunning;
 
@@ -615,7 +620,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void enter() {
                 super.enter();
                 clearModelDescription();
-                circuitComponent.setModeAndReset(false);
+                circuitComponent.setModeAndReset(false, NoSync.INST);
                 doStep.setEnabled(false);
                 runToBreakAction.setEnabled(false);
             }
@@ -662,7 +667,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private boolean createAndStartModel(boolean globalRunClock, ModelEvent updateEvent) {
         try {
             circuitComponent.removeHighLighted();
-            circuitComponent.setModeAndReset(true);
 
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
@@ -674,12 +678,19 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
             realtimeClockRunning = false;
+            modelSync = null;
             if (globalRunClock)
                 for (Clock c : model.getClocks())
                     if (c.getFrequency() > 0) {
-                        model.addObserver(new RealTimeClock(model, c, timerExecuter, this));
+                        if (modelSync == null)
+                            modelSync = new LockSync();
+                        model.addObserver(new RealTimeClock(model, c, timerExecuter, this, modelSync, this));
                         realtimeClockRunning = true;
                     }
+            if (modelSync == null)
+                modelSync = NoSync.INST;
+
+            circuitComponent.setModeAndReset(true, modelSync);
 
             if (realtimeClockRunning) {
                 // if clock is running, enable automatic update of gui
@@ -695,12 +706,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_TABLE))
-                windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering)).setVisible(true);
+                windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync)).setVisible(true);
 
             if (settings.get(Keys.SHOW_DATA_GRAPH))
-                windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering)).setVisible(true);
+                windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
-                windowPosManager.register("datasetMicro", new DataSetDialog(this, model, true, ordering)).setVisible(true);
+                windowPosManager.register("datasetMicro", new DataSetDialog(this, model, true, ordering, modelSync)).setVisible(true);
 
             int i = 0;
             for (ROM rom : model.findNode(ROM.class))
@@ -830,6 +841,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         return windowPosManager;
     }
 
+    @Override
+    public void setStatus(String message) {
+        SwingUtilities.invokeLater(() -> statusLabel.setText(message));
+    }
+
     private class FullStepObserver implements Observer {
         private final Model model;
 
@@ -840,8 +856,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         @Override
         public void hasChanged() {
             try {
-                model.fireManualChangeEvent();
-                model.doStep();
+                modelSync.accessNEx(() -> {
+                    model.fireManualChangeEvent();
+                    model.doStep();
+                });
                 circuitComponent.repaint();
             } catch (NodeException | RuntimeException e) {
                 showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);

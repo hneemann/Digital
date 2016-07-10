@@ -13,6 +13,8 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SavedListener;
+import de.neemann.digital.gui.sync.NoSync;
+import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.IconCreator;
 import de.neemann.gui.ToolTipAction;
@@ -73,6 +75,7 @@ public class CircuitComponent extends JComponent {
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
     private Vector lastMousePos;
+    private Sync modelSync;
 
 
     /**
@@ -248,13 +251,15 @@ public class CircuitComponent extends JComponent {
      *
      * @param runMode true if running, false if editing
      */
-    public void setModeAndReset(boolean runMode) {
+    public void setModeAndReset(boolean runMode, Sync modelSync) {
+        this.modelSync = modelSync;
         if (runMode)
             mouseRun.activate();
-        else
+        else {
             mouseNormal.activate();
+            circuit.clearState();
+        }
         requestFocusInWindow();
-        circuit.clearState();
     }
 
     /**
@@ -372,7 +377,7 @@ public class CircuitComponent extends JComponent {
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
         fitCircuit();
-        setModeAndReset(false);
+        setModeAndReset(false, NoSync.INST);
     }
 
     /**
@@ -982,7 +987,7 @@ public class CircuitComponent extends JComponent {
 
 
     private interface Actor {
-        boolean interact(CircuitComponent cc, Point p);
+        boolean interact(CircuitComponent cc, Point p, Sync modelSync);
     }
 
     private final class MouseControllerRun extends MouseController {
@@ -1016,7 +1021,7 @@ public class CircuitComponent extends JComponent {
         private void interact(MouseEvent e, Actor actor) {
             Point p = new Point(e.getX(), e.getY());
             SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-            boolean modelHasChanged = actor.interact(CircuitComponent.this, p);
+            boolean modelHasChanged = actor.interact(CircuitComponent.this, p, modelSync);
             if (modelHasChanged) {
                 if (manualChangeObserver != null)
                     manualChangeObserver.hasChanged();

@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
@@ -60,16 +61,20 @@ public final class SingleValueDialog extends JDialog {
      * @param pos   the position to pop up the dialog
      * @param value the value to edit
      */
-    public static void editValue(Point pos, ObservableValue value) {
+    public static void editValue(Point pos, ObservableValue value, Sync modelSync) {
         String ret = new SingleValueDialog(pos, value.getValueString()).showDialog();
         if (ret != null) {
             ret = ret.trim();
             if (ret.equals("?") && value.supportsHighZ()) {
-                value.setHighZ(true);
+                modelSync.access(() -> {
+                    value.setHighZ(true);
+                });
             } else {
                 try {
                     long l = Long.decode(ret);
-                    value.set(l, false);
+                    modelSync.access(() -> {
+                        value.set(l, false);
+                    });
                 } catch (NumberFormatException e) {
 
                 }

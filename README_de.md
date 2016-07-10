@@ -26,7 +26,7 @@ Folgende Features zeichnen Digital aus:
 - Analyse und Synthese von kombinatorischen Schaltungen und Schaltwerken.
 - Viele Beispiele: Vom Transmision-Gate D-FF bis zum kompletten MIPS-ähnlichem Prozessor.
 - Fast-Run-Mode um eine Simulation ohne Aktualisierung des HMI durchzuführen.
-  Ein einfacher Prozessor kann mit 3MHz getaktet werden.
+  Ein einfacher Prozessor kann mit 100kHz getaktet werden.
 - Anzeige von LST-Files bei der Ausführung von Assembler-Programmen.
 - Einfache Remote TCP-Schnittstelle um z.B. mit einer Assembler-IDE den Simulator zu steuern.
 - SVG-Export von Schaltungen, incl. einer LaTeX-tauglichen SVG-Variante (siehe [ctan](ftp://ftp.fau.de/ctan/info/svg-inkscape/InkscapePDFLaTeX.pdf))
@@ -97,7 +97,7 @@ Logisim arbeitet hier etwas anders, was gelegentlich zu Überraschungen führt, 
 ### Performance ###
 
 Werden komplette Prozessoren simuliert, ist es möglich die Simulation zu berechnen ohne die grafische Anzeige zu aktualisieren.
-Ein einfacher Prozessor (siehe Beispiel) lässt sich so mit etwa 3MHz takten (Intel® Core™ i5-3230M CPU @ 2.60GHz) was auch für
+Ein einfacher Prozessor (siehe Beispiel) lässt sich so mit etwa 100kHz takten (Intel® Core™ i5-3230M CPU @ 2.60GHz) was auch für
 komplexere Übungen ausreichend ist.
 Es gibt ein Break-Gatter welches einen einzelnen Eingang hat. Wechselt dieser Eingang von low auf high wird dieser 
 schnelle Lauf beendet. Auf diese Weise lässt sich eine Assembler-Anweisung BRK implementieren, womit sich dann Break-Points 

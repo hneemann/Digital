@@ -49,6 +49,7 @@ public class SpeedTest {
             for (int i = 0; i < LOOPCOUNTER; i++) {
                 state = 1 - state;
                 clockValue.setValue(state);
+                model.doStep();
             }
             loops++;
             aktTime = System.currentTimeMillis();
