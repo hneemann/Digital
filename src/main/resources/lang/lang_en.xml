@@ -112,6 +112,9 @@ The terminal opens its own window.</string>
     <string name="elem_XOr">XOr</string>
     <string name="elem_Testcase">Test case</string>
     <string name="elem_Testcase_tt">Describes a single test case.</string>
+    <string name="elem_Keyboard">Keyboard</string>
+    <string name="elem_Keyboard_pin_sel">If high the output D is active</string>
+    <string name="elem_Keyboard_pin_D">The last pressed key, or null if no key is typed.</string>
     <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-Flipflop has no label set</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in element {1} is not a input or output</string>

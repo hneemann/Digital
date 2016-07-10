@@ -13,6 +13,7 @@ import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
+import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.gui.components.test.TestCaseElement;
 import de.neemann.digital.lang.Lang;
@@ -56,6 +57,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Terminal.DESCRIPTION, menu);
         add(DummyElement.DATADESCRIPTION, menu);
         add(DummyElement.TEXTDESCRIPTION, menu);
+        add(Keyboard.DESCRIPTION, menu);
 
         menu = Lang.get("lib_mux");
         add(Multiplexer.DESCRIPTION, menu);

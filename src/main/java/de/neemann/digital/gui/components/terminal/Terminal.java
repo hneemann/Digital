@@ -63,11 +63,12 @@ public class Terminal extends Node implements Element {
         boolean clockVal = clock.getBool();
         if (!lastClock && clockVal) {
             long value = data.getValue();
-            SwingUtilities.invokeLater(() -> {
-                if (terminalDialog == null || !terminalDialog.isVisible())
-                    terminalDialog = new TerminalDialog(attr);
-                terminalDialog.addChar((char) value);
-            });
+            if (value != 0)
+                SwingUtilities.invokeLater(() -> {
+                    if (terminalDialog == null || !terminalDialog.isVisible())
+                        terminalDialog = new TerminalDialog(attr);
+                    terminalDialog.addChar((char) value);
+                });
         }
         lastClock = clockVal;
     }
