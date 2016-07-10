@@ -1,6 +1,9 @@
 package de.neemann.digital.gui.components.terminal;
 
-import de.neemann.digital.core.*;
+import de.neemann.digital.core.Node;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -21,20 +24,17 @@ public class Keyboard extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Keyboard.class,
-            input("C"),
             input("sel", Lang.get("elem_Keyboard_pin_sel")))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .setShortName(Lang.get("elem_Keyboard"));
 
-    private static final Object KEYBOARD_LOCK = new Object();
     private static KeyboardDialog keyboardDialog;
 
     private ObservableValue data;
-    private ObservableValue clock;
     private ObservableValue select;
-    private boolean lastClock = false;
     private boolean sel;
+    private boolean lastSel = false;
     private int keyData;
 
     /**
@@ -48,8 +48,7 @@ public class Keyboard extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        clock = inputs.get(0).addObserverToValue(this).checkBits(1, this);
-        select = inputs.get(1).addObserverToValue(this).checkBits(1, this);
+        select = inputs.get(0).addObserverToValue(this).checkBits(1, this);
     }
 
     @Override
@@ -59,20 +58,15 @@ public class Keyboard extends Node implements Element {
 
     @Override
     public void readInputs() throws NodeException {
-        KeyboardDialog kbd;
-        synchronized (KEYBOARD_LOCK) {
-            kbd = keyboardDialog;
-        }
-        boolean clockVal = clock.getBool();
         sel = select.getBool();
-        if (!lastClock && clockVal && sel) {
+        if (!lastSel && sel) {
+            KeyboardDialog kbd = getKeyboard();
             if (kbd != null)
-                kbd.consumeChar();
+                keyData = kbd.getChar();
+            else
+                keyData = 0;
         }
-        lastClock = clockVal;
-
-        if (sel && kbd!=null)
-            keyData=kbd.getChar();
+        lastSel = sel;
     }
 
     @Override
@@ -80,26 +74,15 @@ public class Keyboard extends Node implements Element {
         data.set(keyData, !sel);
     }
 
-    @Override
-    public void init(Model model) throws NodeException {
-        SwingUtilities.invokeLater(() -> {
-            if (keyboardDialog == null || !keyboardDialog.isVisible()) {
-                synchronized (KEYBOARD_LOCK) {
+    private KeyboardDialog getKeyboard() {
+        if (keyboardDialog == null || !keyboardDialog.isVisible()) {
+            SwingUtilities.invokeLater(() -> {
+                if (keyboardDialog == null || !keyboardDialog.isVisible()) {
                     keyboardDialog = new KeyboardDialog(null);
+                    keyboardDialog.setVisible(true);
                 }
-                keyboardDialog.setVisible(true);
-            }
-        });
-        model.addObserver(event -> {
-            if (event.equals(ModelEvent.STOPPED)) {
-                if (keyboardDialog != null) {
-                    KeyboardDialog kd = keyboardDialog;
-                    SwingUtilities.invokeLater(kd::dispose);
-                    synchronized (KEYBOARD_LOCK) {
-                        keyboardDialog = null;
-                    }
-                }
-            }
-        });
+            });
+        }
+        return keyboardDialog;
     }
 }

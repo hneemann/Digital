@@ -24,7 +24,7 @@ public class KeyboardDialog extends JDialog {
      */
     public KeyboardDialog(Frame owner) {
         super(owner, Lang.get("elem_Keyboard"), false);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         textLabel = new JLabel("Enter Text       ");
         textLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -53,24 +53,18 @@ public class KeyboardDialog extends JDialog {
      * @return the oldest char
      */
     public int getChar() {
-        if (text.length() == 0)
-            return 0;
-        else {
-            return text.charAt(0);
+        synchronized (textLock) {
+            if (text.length() == 0)
+                return 0;
+            else {
+                int c = text.charAt(0);
+                String t;
+                text = text.substring(1);
+                t = text;
+                SwingUtilities.invokeLater(() -> textLabel.setText(t));
+                return c;
+            }
         }
     }
 
-    /**
-     * consumes the oldest char
-     */
-    public void consumeChar() {
-        if (text.length() > 0) {
-            String t;
-            synchronized (textLock) {
-                text = text.substring(1);
-                t = text;
-            }
-            SwingUtilities.invokeLater(() -> textLabel.setText(t));
-        }
-    }
 }

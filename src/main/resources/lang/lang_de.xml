@@ -113,7 +113,7 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="elem_Testcase">Testfall</string>
     <string name="elem_Testcase_tt">Beschreibt einen Testfall</string>
     <string name="elem_Keyboard">Tastatur</string>
-    <string name="elem_Keyboard_pin_sel">Wenn gesetzt is der Ausgang D aktiv.</string>
+    <string name="elem_Keyboard_pin_sel">Wenn gesetzt ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
     <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
     <string name="error">Fehler</string>
     <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>
