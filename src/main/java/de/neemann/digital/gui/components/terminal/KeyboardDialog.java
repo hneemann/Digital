@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.components.terminal;
 
+import de.neemann.digital.lang.Lang;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -21,7 +23,7 @@ public class KeyboardDialog extends JDialog {
      * @param owner the owner frame
      */
     public KeyboardDialog(Frame owner) {
-        super(owner);
+        super(owner, Lang.get("elem_Keyboard"), false);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         textLabel = new JLabel("Enter Text       ");
@@ -42,6 +44,7 @@ public class KeyboardDialog extends JDialog {
             }
         });
 
+        setAlwaysOnTop(true);
         pack();
         setLocationRelativeTo(owner);
     }
@@ -53,15 +56,21 @@ public class KeyboardDialog extends JDialog {
         if (text.length() == 0)
             return 0;
         else {
-            int c;
+            return text.charAt(0);
+        }
+    }
+
+    /**
+     * consumes the oldest char
+     */
+    public void consumeChar() {
+        if (text.length() > 0) {
             String t;
             synchronized (textLock) {
-                c = text.charAt(0);
                 text = text.substring(1);
                 t = text;
             }
             SwingUtilities.invokeLater(() -> textLabel.setText(t));
-            return c;
         }
     }
 }

@@ -33,9 +33,9 @@ public class Keyboard extends Node implements Element {
     private ObservableValue data;
     private ObservableValue clock;
     private ObservableValue select;
-    private boolean lastClock;
-    private int keyData;
+    private boolean lastClock = false;
     private boolean sel;
+    private int keyData;
 
     /**
      * Creates a new terminal instance
@@ -43,7 +43,7 @@ public class Keyboard extends Node implements Element {
      * @param attributes the attributes
      */
     public Keyboard(ElementAttributes attributes) {
-        data = new ObservableValue("D", 16).setDescription(Lang.get("elem_Keyboard_pin_D"));
+        data = new ObservableValue("D", 16, true).setDescription(Lang.get("elem_Keyboard_pin_D"));
     }
 
     @Override
@@ -59,19 +59,20 @@ public class Keyboard extends Node implements Element {
 
     @Override
     public void readInputs() throws NodeException {
+        KeyboardDialog kbd;
+        synchronized (KEYBOARD_LOCK) {
+            kbd = keyboardDialog;
+        }
         boolean clockVal = clock.getBool();
         sel = select.getBool();
-        if (!lastClock && clockVal) {
-            KeyboardDialog kbd;
-            synchronized (KEYBOARD_LOCK) {
-                kbd = keyboardDialog;
-            }
-            if (kbd==null)
-                keyData=0;
-            else
-                keyData = keyboardDialog.getChar();
+        if (!lastClock && clockVal && sel) {
+            if (kbd != null)
+                kbd.consumeChar();
         }
         lastClock = clockVal;
+
+        if (sel && kbd!=null)
+            keyData=kbd.getChar();
     }
 
     @Override
