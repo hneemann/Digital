@@ -16,10 +16,15 @@ import java.io.File;
  * @author hneemann
  */
 public class TestTestableExamples extends TestCase {
-    private static final File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/test");
 
-    public void testTestable() throws Exception {
+    public void testTestableDist() throws Exception {
+        File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/test");
         assertEquals(6, new FileScanner(this::check).scan(examples));
+    }
+
+    public void testTestableTest() throws Exception {
+        File examples = new File(Resources.getRoot(), "/dig/test");
+        assertEquals(1, new FileScanner(this::check).scan(examples));
     }
 
     /**
@@ -28,6 +33,7 @@ public class TestTestableExamples extends TestCase {
      * @param dig the model file
      */
     private void check(File dig) throws Exception {
+        System.out.println("test "+dig);
         ToBreakRunner br = new ToBreakRunner(dig);
 
         for (VisualElement el : br.getCircuit().getElements())
