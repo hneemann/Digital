@@ -279,6 +279,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     setFilename(null, true);
                     circuitComponent.setCircuit(new Circuit());
                     windowPosManager.closeAll();
+                    librarySelector.removeCustomElements();
                 }
             }
         }.setActive(normalMode);
@@ -289,6 +290,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
                     JFileChooser fc = getJFileChooser(lastFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+                        librarySelector.removeCustomElements();
                         loadFile(fc.getSelectedFile(), true);
                     }
                 }
@@ -776,6 +778,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     @Override
     public void open(File file) {
+        librarySelector.removeCustomElements();
         loadFile(file, true);
     }
 

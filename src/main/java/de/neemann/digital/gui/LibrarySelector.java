@@ -89,10 +89,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         customMenu.add(new ToolTipAction(Lang.get("menu_refresh")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (ImportedItem item : importedElements) {
-                    library.removeElement(item.file);
-                    customMenu.remove(item.menuEntry);
-                }
+                removeCustomElements();
             }
         }.setToolTip(Lang.get("menu_refresh_tt")).createJMenuItem());
 
@@ -112,6 +109,16 @@ public class LibrarySelector implements ElementNotFoundNotification {
         }
 
         return parts;
+    }
+
+    /**
+     * removes all custom elements
+     */
+    public void removeCustomElements() {
+        for (ImportedItem item : importedElements) {
+            library.removeElement(item.file);
+            customMenu.remove(item.menuEntry);
+        }
     }
 
     private String createToolTipText(String elementName) {
