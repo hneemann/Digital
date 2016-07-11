@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author hneemann
  */
-public abstract class ExpressionCreator {
+public class ExpressionCreator {
 
     private final TruthTable theTable;
 
@@ -36,7 +36,7 @@ public abstract class ExpressionCreator {
      * @throws ExpressionException ExpressionException
      * @throws FormatterException  FormatterException
      */
-    public void create() throws ExpressionException, FormatterException {
+    public void create(ExpressionListener listener) throws ExpressionException, FormatterException {
         ArrayList<Variable> vars = theTable.getVars();
         for (int table = 0; table < theTable.getResultCount(); table++) {
             PrimeSelector ps = new PrimeSelectorDefault();
@@ -47,20 +47,20 @@ public abstract class ExpressionCreator {
 
             if (ps.getAllSolutions() != null) {
                 for (ArrayList<TableRow> i : ps.getAllSolutions()) {
-                    resultFoundInt(theTable.getResultName(table), QuineMcCluskey.addAnd(null, i, vars));
+                    listener.resultFound(theTable.getResultName(table), QuineMcCluskey.addAnd(null, i, vars));
                 }
             } else {
-                resultFoundInt(theTable.getResultName(table), e);
+                listener.resultFound(theTable.getResultName(table), e);
             }
         }
     }
 
 
+        /*
     private void resultFoundInt(String name, Expression expression) throws FormatterException, ExpressionException {
         resultFound(name, expression);
 
-        /*
-        if (name.endsWith("n+1")) {
+        if (name.endsWith("n+1") && createJK) {
             String detName = name.substring(0, name.length() - 2);
             DetermineJKStateMachine jk = new DetermineJKStateMachine(detName, expression);
             Expression j = jk.getJ();
@@ -75,17 +75,7 @@ public abstract class ExpressionCreator {
             if (s != k) {
                 resultFound("", s);
             }
-        }*/
+        }
     }
-
-    /**
-     * Method to overload to handle all found solutions
-     *
-     * @param name       the results name
-     * @param expression the calculated expressdion
-     * @throws FormatterException  FormatterException
-     * @throws ExpressionException ExpressionException
-     */
-    public abstract void resultFound(String name, Expression expression) throws FormatterException, ExpressionException;
-
+    */
 }

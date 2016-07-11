@@ -61,6 +61,7 @@ public class TableDialog extends JDialog {
     private final JPopupMenu renamePopup;
     private final Font font;
     private final ShapeFactory shapeFactory;
+    private JCheckBoxMenuItem createJK;
     private File filename;
     private TruthTableTableModel model;
     private TableColumn column;
@@ -185,6 +186,7 @@ public class TableDialog extends JDialog {
                 setModel(new TruthTableTableModel(t));
             }
         }.setToolTip(Lang.get("menu_table_columnsAddVariable_tt")).createJMenuItem());
+
         bar.add(colsMenu);
 
         bar.add(createSetMenu());
@@ -254,6 +256,10 @@ public class TableDialog extends JDialog {
                 }
             }
         });
+
+        createJK = new JCheckBoxMenuItem(Lang.get("menu_table_JK"));
+        createJK.addActionListener(e -> calculateExpressions());
+        fileMenu.add(createJK);
 
         return fileMenu;
     }
@@ -472,11 +478,11 @@ public class TableDialog extends JDialog {
     private void calculateExpressions() {
         try {
             final StringBuilder sb = new StringBuilder();
-            new ExpressionCreator(model.getTable()) {
+            ExpressionListener expressionListener = new ExpressionListener() {
                 private int count = 0;
 
                 @Override
-                public void resultFound(String name, Expression expression) throws FormatterException {
+                public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
                     String expr = name + "\t=" + FormatToExpression.FORMATTER_UNICODE.format(expression);
                     if (count == 0)
                         label.setText(expr);
@@ -486,7 +492,12 @@ public class TableDialog extends JDialog {
                     if (count == 2)
                         allSolutionsDialog.setVisible(true);
                 }
-            }.create();
+            };
+
+            if (createJK.isSelected())
+                expressionListener=new ExpressionListenerJK(expressionListener);
+
+            new ExpressionCreator(model.getTable()).create(expressionListener);
 
             if (sb.length() == 0)
                 label.setText("");
@@ -499,17 +510,17 @@ public class TableDialog extends JDialog {
 
     private String getExpressionsLaTeX() throws ExpressionException, FormatterException {
         StringBuilder sb = new StringBuilder();
+        ExpressionListener expressionListener = (name2, expression) -> sb
+                .append(FormatToTableLatex.formatIdentifier(name2))
+                .append("&=&")
+                .append(FormatToExpression.FORMATTER_LATEX.format(expression))
+                .append("\\\\\n");
+
+        if (createJK.isSelected())
+            expressionListener=new ExpressionListenerJK(expressionListener);
+
         sb.append("\\begin{eqnarray*}\n");
-        new ExpressionCreator(model.getTable()) {
-            @Override
-            public void resultFound(String name, Expression expression) throws FormatterException {
-                sb
-                        .append(FormatToTableLatex.formatIdentifier(name))
-                        .append("&=&")
-                        .append(FormatToExpression.FORMATTER_LATEX.format(expression))
-                        .append("\\\\\n");
-            }
-        }.create();
+        new ExpressionCreator(model.getTable()).create(expressionListener);
         sb.append("\\end{eqnarray*}\n");
         return sb.toString();
     }
@@ -591,20 +602,21 @@ public class TableDialog extends JDialog {
             this.modifier = modifier;
         }
 
-        @Override
-        public void resultFound(String name, Expression expression) throws FormatterException {
-            if (!contained.contains(name)) {
-                contained.add(name);
-                try {
-                    if (name.endsWith("n+1")) {
-                        name = name.substring(0, name.length() - 2);
-                        builder.addSequential(name, ExpressionModifier.modifyExpression(expression, modifier));
-                    } else
-                        builder.addCombinatorial(name, ExpressionModifier.modifyExpression(expression, modifier));
-                } catch (BuilderException e) {
-                    throw new RuntimeException(e);
+        public void create() throws ExpressionException, FormatterException {
+            create((name, expression) -> {
+                if (!contained.contains(name)) {
+                    contained.add(name);
+                    try {
+                        if (name.endsWith("n+1")) {
+                            name = name.substring(0, name.length() - 2);
+                            builder.addSequential(name, ExpressionModifier.modifyExpression(expression, modifier));
+                        } else
+                            builder.addCombinatorial(name, ExpressionModifier.modifyExpression(expression, modifier));
+                    } catch (BuilderException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
+            });
         }
     }
 
