@@ -100,7 +100,7 @@ public class TestResult implements TableModel {
         throw new DataException(Lang.get("err_signal_N_notInTextVector", name));
     }
 
-    private class TestSignal {
+    private static class TestSignal {
         private final int index;
         private final ObservableValue value;
 

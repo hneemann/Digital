@@ -86,9 +86,25 @@ public class TestResultDialog extends JDialog {
         public int compareTo(TestSet o) {
             return name.compareTo(o.name);
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            TestSet testSet = (TestSet) o;
+
+            return name.equals(testSet.name);
+
+        }
+
+        @Override
+        public int hashCode() {
+            return name.hashCode();
+        }
     }
 
-    private class MyRenderer extends DefaultTableCellRenderer {
+    private static class MyRenderer extends DefaultTableCellRenderer {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
