@@ -236,13 +236,13 @@ public class TextLineNumber extends JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //	Determine the width of the space available to draw the line number
+        // Determine the width of the space available to draw the line number
 
         FontMetrics fontMetrics = component.getFontMetrics(component.getFont());
         Insets insets = getInsets();
         int availableWidth = getSize().width - insets.left - insets.right;
 
-        //  Determine the rows to draw within the clipped bounds.
+        // Determine the rows to draw within the clipped bounds.
 
         Rectangle clip = g.getClipBounds();
         int rowStartOffset = component.viewToModel(new Point(0, clip.y));
@@ -274,8 +274,8 @@ public class TextLineNumber extends JPanel
     }
 
     /**
-     *  We need to know if the caret is currently positioned on the line we
-     *  are about to paint so the line number can be highlighted.
+     * We need to know if the caret is currently positioned on the line we
+     * are about to paint so the line number can be highlighted.
      */
     private boolean isCurrentLine(int rowStartOffset) {
         int caretPosition = component.getCaretPosition();
@@ -302,14 +302,14 @@ public class TextLineNumber extends JPanel
     }
 
     /**
-     *  Determine the X offset to properly align the line number when drawn
+     * Determine the X offset to properly align the line number when drawn
      */
     private int getOffsetX(int availableWidth, int stringWidth) {
         return (int) ((availableWidth - stringWidth) * digitAlignment);
     }
 
     /**
-     *  Determine the Y offset for the current row
+     * Determine the Y offset for the current row
      */
     private int getOffsetY(int rowStartOffset, FontMetrics fontMetrics)
             throws BadLocationException {
@@ -393,8 +393,8 @@ public class TextLineNumber extends JPanel
     }
 
     /**
-     *  A document change may affect the number of displayed lines of text.
-     *  Therefore the lines numbers will also change.
+     * A document change may affect the number of displayed lines of text.
+     * Therefore the lines numbers will also change.
      */
     private void documentChanged() {
         //  View of the component has not been updated at the time

@@ -138,7 +138,7 @@ public class AttributeDialog extends JDialog {
         if (parent instanceof Main)
             return (Main) parent;
         if (parent instanceof CircuitComponent)
-            return ((CircuitComponent)parent).getMain();
+            return ((CircuitComponent) parent).getMain();
         return null;
     }
 
