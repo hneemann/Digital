@@ -7,11 +7,20 @@ import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 
 /**
+ * Expression listener which sends all result tu its parent.
+ * If the expression is a stata expression it creates the J and K control equations
+ * and alos sends the calculated control expressions to its parent.
+ *
  * @author hneemann
  */
 public class ExpressionListenerJK implements ExpressionListener {
     private final ExpressionListener parent;
 
+    /**
+     * Creates a new instance
+     *
+     * @param parent the parent ExpressionListener
+     */
     public ExpressionListenerJK(ExpressionListener parent) {
         this.parent = parent;
     }
