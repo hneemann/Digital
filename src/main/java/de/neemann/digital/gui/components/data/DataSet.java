@@ -64,7 +64,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     /**
      * Deletes all data
      */
-    public void clear() {
+    synchronized public void clear() {
         samples.clear();
         min = null;
         max = null;
@@ -113,26 +113,12 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     }
 
     /**
-     * @return a sample which contains all the minimum values
-     */
-    public DataSample getMin() {
-        return min;
-    }
-
-    /**
-     * @return a sample which contains all the maximum values
-     */
-    public DataSample getMax() {
-        return max;
-    }
-
-    /**
      * Gets the width of the signal with the given index
      *
      * @param i the index of the signal
      * @return max-min
      */
-    public long getWidth(int i) {
+    private long getWidth(int i) {
         return max.getValue(i) - min.getValue(i);
     }
 
