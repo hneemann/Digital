@@ -40,7 +40,7 @@ public class DetermineJKStateMachineTest extends TestCase {
         DetermineJKStateMachine jk = new DetermineJKStateMachine("a", e);
         assertEquals(toStr(notb), toStr(jk.getJ()));
         assertEquals(toStr(notc), toStr(jk.getK()));
-
+        assertFalse(jk.isDFF());
     }
 
     private String toStr(Expression expression) throws FormatterException {
@@ -54,7 +54,7 @@ public class DetermineJKStateMachineTest extends TestCase {
         DetermineJKStateMachine jk = new DetermineJKStateMachine("a", e);
         assertEquals("(b ∧ c) ∨ ¬b", toStr(jk.getJ()));
         assertEquals("¬((b ∧ c) ∨ c)", toStr(jk.getK()));
-
+        assertFalse(jk.isDFF());
     }
 
     public void testSimple3() throws Exception {
@@ -63,6 +63,7 @@ public class DetermineJKStateMachineTest extends TestCase {
         DetermineJKStateMachine jk = new DetermineJKStateMachine("a", e);
         assertEquals("1", toStr(jk.getJ()));
         assertEquals("1", toStr(jk.getK()));
+        assertFalse(jk.isDFF());
     }
 
     public void testSimple4() throws Exception {
@@ -71,6 +72,16 @@ public class DetermineJKStateMachineTest extends TestCase {
         DetermineJKStateMachine jk = new DetermineJKStateMachine("a", e);
         assertEquals("0", toStr(jk.getJ()));
         assertEquals("0", toStr(jk.getK()));
+        assertFalse(jk.isDFF());
+    }
+
+    public void testSimpleD() throws Exception {
+        Expression e = or(and(a, b), and(nota, notb));
+
+        DetermineJKStateMachine jk = new DetermineJKStateMachine("c", e);
+        assertEquals("(¬a ∧ ¬b) ∨ (a ∧ b)", toStr(jk.getJ()));
+        assertEquals("(¬a ∧ ¬b) ∨ (a ∧ b)", toStr(jk.getNK()));
+        assertTrue(jk.isDFF());
     }
 
 }

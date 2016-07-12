@@ -1,9 +1,6 @@
 package de.neemann.digital.analyse;
 
-import de.neemann.digital.analyse.expression.Constant;
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.expression.ExpressionException;
-import de.neemann.digital.analyse.expression.Operation;
+import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.lang.Lang;
@@ -23,6 +20,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 public class DetermineJKStateMachine {
     private Expression j = null;
     private Expression nk = null;
+    private boolean isDFF;
 
     /**
      * Creates a new instance
@@ -33,7 +31,7 @@ public class DetermineJKStateMachine {
      * @throws FormatterException  FormatterException
      */
     public DetermineJKStateMachine(String name, Expression e) throws ExpressionException, FormatterException {
-        String notName = "¬" + name;
+        String notName = FormatToExpression.FORMATTER_UNICODE.format(Not.not(new Variable(name)));
 
         boolean wasK = false;
         boolean wasJ = false;
@@ -77,6 +75,7 @@ public class DetermineJKStateMachine {
             if (wasK) nk = Constant.ONE;
             else nk = Constant.ZERO;
         }
+        isDFF = !wasJ && !wasK;
     }
 
     private Iterable<Expression> getOrs(Expression e) {
@@ -112,6 +111,16 @@ public class DetermineJKStateMachine {
      */
     public Expression getK() {
         return not(nk);
+    }
+
+    /**
+     * Returns true if it is logical a D flipflop.
+     * This means that K = not(J).
+     *
+     * @return true if it is logical a D flipflop
+     */
+    public boolean isDFF() {
+        return isDFF;
     }
 
     private static final class AsIterable<T> implements Iterable<T> {
