@@ -546,7 +546,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
             circuitComponent.getCircuit().clearState();
         } catch (Exception e1) {
-            new ErrorMessage(Lang.get("msg_runningTestError")).addCause(e1).show();
+            showErrorAndStopModel(Lang.get("msg_runningTestError"), e1);
         }
     }
 
