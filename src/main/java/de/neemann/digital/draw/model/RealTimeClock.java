@@ -13,7 +13,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The real time clock which is used to fire the models clocks with realtime signals
+ * The real time clock which is used to fire the models clocks with real time signals
+ * If the maximum frequency is selected a dedicated thread is started which runs the model.
+ * So you get the highest speed but no real time. The model runs as fast as possible.
  *
  * @author hneemann
  */
@@ -103,7 +105,7 @@ public class RealTimeClock implements ModelStateObserver {
     }
 
     /**
-     * runs at fast as possible!
+     * runs as fast as possible!
      */
     private class ThreadRunner implements Runner {
 
