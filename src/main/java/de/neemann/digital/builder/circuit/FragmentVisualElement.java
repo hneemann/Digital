@@ -60,7 +60,7 @@ public class FragmentVisualElement implements Fragment {
     }
 
     /**
-     * Used to ignore the c input at the JK flipflop
+     * Used to ignore the c input at a JK flipflop
      *
      * @param n number of pin to ignore
      * @return this for call chaining
@@ -75,7 +75,7 @@ public class FragmentVisualElement implements Fragment {
      *
      * @param key     the key
      * @param value   the value
-     * @param <VALUE> the tyype of the value
+     * @param <VALUE> the type of the value
      * @return this for call chaining
      */
     public <VALUE> FragmentVisualElement setAttr(Key<VALUE> key, VALUE value) {
