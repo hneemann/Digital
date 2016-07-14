@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * The Model contains all the nodes of the model.
  * Every time the circuit is started a new model is created.
- * The model has the possibility to run the model in full step mode (all changes of values are propagated to a stable state)
+ * The model has the possibility to be run in full step mode (all changes of values are propagated to a stable state)
  * or in micro stepping mode: Only the gates which had a change on one of the input signals are updated. Then the
  * calculation is stopped.
  * <br>
@@ -24,8 +24,8 @@ import java.util.*;
  * </li>
  * <li>
  * If noise is turned on, all the nodes to update a updated in a random order. So the startup of a RS-FF is no problem.
- * But the initial state of the model is undefined. To bring the model a defined initial state you can use the
- * Reset element. Its output is hold at zero during startup, and when a stable state is reached it becomes one.
+ * But the initial state of the model is undefined. To bring the model to a defined initial state you can use the
+ * Reset element. Its output is hold down at zero during startup, and when a stable state is reached it becomes one.
  * </li>
  * </ol>
  * There are also some lists to store special elements. These lists are populated by the elements during the
