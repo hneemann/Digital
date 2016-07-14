@@ -55,7 +55,7 @@ public class ExpressionDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     ArrayList<Expression> expList = new Parser(text.getText()).parse();
-                    CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory);
+                    CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, false);
                     if (expList.size() == 1)
                         circuitBuilder.addCombinatorial("Y", expList.get(0));
                     else

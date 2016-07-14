@@ -294,6 +294,14 @@ public class TableDialog extends JDialog {
                 createCircuit(ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_createCircuit_tt")).createJMenuItem());
+        if (Main.enableExperimental()) {
+            createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitJK")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCircuit(true, ExpressionModifier.IDENTITY);
+                }
+            }.setToolTip(Lang.get("menu_table_createCircuitJK_tt")).createJMenuItem());
+        }
 
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createTwo")) {
             @Override
@@ -397,8 +405,12 @@ public class TableDialog extends JDialog {
     }
 
     private void createCircuit(ExpressionModifier... modifier) {
+        createCircuit(false, modifier);
+    }
+
+    private void createCircuit(boolean useJKff, ExpressionModifier... modifier) {
         try {
-            CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory);
+            CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff);
             new BuilderExpressionCreator(circuitBuilder, modifier).create();
             Circuit circuit = circuitBuilder.createCircuit();
             SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));

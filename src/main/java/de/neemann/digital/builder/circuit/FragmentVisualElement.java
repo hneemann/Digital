@@ -60,6 +60,17 @@ public class FragmentVisualElement implements Fragment {
     }
 
     /**
+     * Used to ignore the c input at the JK flipflop
+     *
+     * @param n number of pin to ignore
+     * @return this for call chaining
+     */
+    public FragmentVisualElement ignoreInput(int n) {
+        inputs.remove(n);
+        return this;
+    }
+
+    /**
      * Sets an attribute to this VisualElement
      *
      * @param key     the key

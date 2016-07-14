@@ -1,5 +1,6 @@
 package de.neemann.digital.builder.circuit;
 
+import de.neemann.digital.analyse.DetermineJKStateMachine;
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.Not;
 import de.neemann.digital.builder.BuilderException;
@@ -8,6 +9,7 @@ import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.flipflops.FlipflopD;
+import de.neemann.digital.core.flipflops.FlipflopJK;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
@@ -20,10 +22,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
@@ -41,6 +40,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private ArrayList<Fragment> fragments;
     private HashSet<String> createdNets = new HashSet<>();
     private ArrayList<FragmentVisualElement> flipflops;
+    private boolean useJKff;
 
     /**
      * Creates a new builder
@@ -48,7 +48,18 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
      * @param shapeFactory ShapeFactory which is set to the created VisualElements
      */
     public CircuitBuilder(ShapeFactory shapeFactory) {
+        this(shapeFactory, false);
+    }
+
+    /**
+     * Creates a new builder
+     *
+     * @param shapeFactory ShapeFactory which is set to the created VisualElements
+     * @param useJKff      true if build circuit with JK ff
+     */
+    public CircuitBuilder(ShapeFactory shapeFactory, boolean useJKff) {
         this.shapeFactory = shapeFactory;
+        this.useJKff = useJKff;
         variableVisitor = new VariableVisitor();
         fragmentVariables = new ArrayList<>();
         fragments = new ArrayList<>();
@@ -67,7 +78,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     public CircuitBuilder addCombinatorial(String name, Expression expression) throws BuilderException {
         if (expression instanceof NamedExpression) {
             name = ((NamedExpression) expression).getName();
-            expression=((NamedExpression) expression).getExpression();
+            expression = ((NamedExpression) expression).getExpression();
         }
         Fragment fr = createFragment(expression);
         fragments.add(new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name)));
@@ -85,12 +96,44 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
      */
     @Override
     public CircuitBuilder addSequential(String name, Expression expression) throws BuilderException {
-        Fragment fr = createFragment(expression);
-        FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
-        flipflops.add(ff);
-        FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
-        createdNets.add(name);
-        fragments.add(new FragmentExpression(fr, fe));
+        boolean useDff = true;
+        if (useJKff) {
+            try {
+                DetermineJKStateMachine jk = new DetermineJKStateMachine(name, expression);
+                useDff = jk.isDFF();
+                if (!useDff) {
+                    boolean isJequalK =new Equals(jk.getJ(),jk.getK()).isEqual();
+                    if (isJequalK) {
+                        Fragment frJ = createFragment(jk.getJ());
+                        FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory).ignoreInput(1).setAttr(Keys.LABEL, name);
+                        flipflops.add(ff);
+                        FragmentSameInValue fsv = new FragmentSameInValue(ff);
+                        FragmentExpression fe = new FragmentExpression(fsv, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
+                        createdNets.add(name);
+
+                        fragments.add(new FragmentExpression(frJ, fe));
+                    } else {
+                        Fragment frJ = createFragment(jk.getJ());
+                        Fragment frK = createFragment(jk.getK());
+                        FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory).ignoreInput(1).setAttr(Keys.LABEL, name);
+                        flipflops.add(ff);
+                        FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
+                        createdNets.add(name);
+                        fragments.add(new FragmentExpression(Arrays.asList(frJ, frK), fe));
+                    }
+                }
+            } catch (Exception e) {
+                throw new BuilderException(e.getMessage());
+            }
+        }
+        if (useDff) {
+            Fragment fr = createFragment(expression);
+            FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
+            flipflops.add(ff);
+            FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
+            createdNets.add(name);
+            fragments.add(new FragmentExpression(fr, fe));
+        }
         expression.traverse(variableVisitor);
         return this;
     }
@@ -271,8 +314,12 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             if (p.y > yMax) yMax = p.y;
         }
         x -= SIZE;
+        if (useJKff) x -= SIZE;
 
-        circuit.add(new Wire(new Vector(x, yMin - SIZE * 3), new Vector(x, yMax + SIZE)));
+        int yPos = yMin - SIZE * 3;
+        if (useJKff) yPos = -SIZE;
+
+        circuit.add(new Wire(new Vector(x, yPos), new Vector(x, yMax + SIZE)));
 
         for (FragmentVisualElement ff : flipflops) {
             Vector p = ff.getVisualElement().getPos();
@@ -281,7 +328,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         VisualElement clock = new VisualElement(Clock.DESCRIPTION.getName())
                 .setShapeFactory(shapeFactory)
-                .setPos(new Vector(x, yMin - SIZE * 3));
+                .setPos(new Vector(x, yPos));
         clock.getElementAttributes()
                 .set(Keys.LABEL, "C")
                 .set(Keys.ROTATE, new Rotation(3))

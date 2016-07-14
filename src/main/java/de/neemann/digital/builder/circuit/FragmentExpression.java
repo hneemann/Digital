@@ -45,7 +45,7 @@ public class FragmentExpression implements Fragment {
      * @param frags  the fragments to merge
      * @param merger the merger
      */
-    public FragmentExpression(ArrayList<Fragment> frags, Fragment merger) {
+    public FragmentExpression(List<Fragment> frags, Fragment merger) {
         this.merger = merger;
         fragments = new ArrayList<>();
         for (Fragment fr : frags)

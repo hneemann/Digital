@@ -309,6 +309,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_table_createCUPL_tt">Creates a CUPL source file containing the define circuit.</string>
     <string name="menu_table_createCircuit">Circuit</string>
     <string name="menu_table_createCircuit_tt">Creates a circuit which reproduces the truth table.</string>
+    <string name="menu_table_createCircuitJK">Circuit JK</string>
+    <string name="menu_table_createCircuitJK_tt">Creates a circuit which reproduces the truth table. Uses JK flipflops.</string>
     <string name="menu_table_createNAnd">Circuit with NAnd gates</string>
     <string name="menu_table_createNAndTwo">Circuit with NAnd gates with two inputs</string>
     <string name="menu_table_createNAndTwo_tt">Use only NAnd gates with two inputs.</string>
