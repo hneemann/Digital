@@ -24,7 +24,8 @@ Folgende Features zeichnen Digital aus:
 - Messwertegraph zur Anzeige von Signalzuständen.
 - Gatterschrittmodus zu Analyse von Oszillationen.
 - Analyse und Synthese von kombinatorischen Schaltungen und Schaltwerken.
-- Viele Beispiele: Vom Transmision-Gate D-FF bis zum kompletten MIPS-ähnlichem Prozessor.
+- Einfaches Testen von Schaltungen: Es können Testfälle erstellt und aussgeführt werden.
+- Viele Beispiele: Vom Transmission-Gate D-FF bis zum kompletten MIPS-ähnlichem Prozessor.
 - Fast-Run-Mode um eine Simulation ohne Aktualisierung des HMI durchzuführen.
   Ein einfacher Prozessor kann mit 100kHz getaktet werden.
 - Anzeige von LST-Files bei der Ausführung von Assembler-Programmen.

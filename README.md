@@ -28,9 +28,9 @@ This are the main features of Digital:
 - Measurement graph to visualize signal states.
 - Single gate mode to analyse oscillations.
 - Analysis and synthesis of combinatorial and sequential circuits.
-- You can test your design by creating test cases and execute them. 
+- Simple testing of circuits: You can create test cases and execute them to verify your design.
 - Many examples: From a transmission gate D-flipflop to a complete (simple) MIPS-like processor.
-- Fast-run mode to perform a simulation without updating the HMI.
+- Fast-run mode to perform a simulation without updating the GUI.
   A simple processor can be clocked at 100kHz.
 - Displaying a LST file when executing assembler programs within such a processor.
 - Simple remote TCP interface to allow e.g. an assembler IDE to control the simulator.
@@ -145,4 +145,5 @@ circuits combined with the built-in D or JK flop flops.
 * Don't introduce new checkstyle issues
 * Don't introduce new findbugs issues
 * Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
-* Until now there are no GUI tests. Try to keep the amount of untested GUI code low. 
+* Up to now there are no GUI tests so the overall test coverage is only somewhat above 50%.
+  Try to keep the amount of untested GUI code as low as possible.
