@@ -102,7 +102,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 DetermineJKStateMachine jk = new DetermineJKStateMachine(name, expression);
                 useDff = jk.isDFF();
                 if (!useDff) {
-                    boolean isJequalK =new Equals(jk.getJ(),jk.getK()).isEqual();
+                    boolean isJequalK = new Equals(jk.getJ(), jk.getK()).isEqual();
                     if (isJequalK) {
                         Fragment frJ = createFragment(jk.getJ());
                         FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory).ignoreInput(1).setAttr(Keys.LABEL, name);
