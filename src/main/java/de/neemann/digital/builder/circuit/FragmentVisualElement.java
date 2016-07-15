@@ -4,6 +4,8 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.flipflops.FlipflopD;
+import de.neemann.digital.core.flipflops.FlipflopJK;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -14,6 +16,8 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
  * A fragment describing a VisualElement
@@ -91,7 +95,11 @@ public class FragmentVisualElement implements Fragment {
         for (Vector p : outputs)
             mm.check(p);
         Vector delta = mm.getMax().sub(mm.getMin());
-        return new Box(delta.x, delta.y);
+        if (visualElement.equalsDescription(FlipflopJK.DESCRIPTION)
+                || visualElement.equalsDescription(FlipflopD.DESCRIPTION))
+            return new Box(delta.x, delta.y + SIZE);   // Space for label
+        else
+            return new Box(delta.x, delta.y);
     }
 
     @Override

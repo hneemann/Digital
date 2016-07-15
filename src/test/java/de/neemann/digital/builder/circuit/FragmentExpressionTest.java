@@ -1,13 +1,31 @@
 package de.neemann.digital.builder.circuit;
 
+import de.neemann.digital.core.flipflops.FlipflopJK;
+import de.neemann.digital.draw.elements.Tunnel;
+import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
  * @author hneemann
  */
 public class FragmentExpressionTest extends TestCase {
 
-    public void testCalcBackOffset1() throws Exception {
+    public void testBox() throws Exception {
+        ShapeFactory shapeFactory = new ShapeFactory(new ElementLibrary());
+        FragmentVisualElement ve = new FragmentVisualElement(FlipflopJK.DESCRIPTION,shapeFactory);
+        FragmentExpression fe = new FragmentExpression(ve, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory));
+
+        fe.setPos(new Vector(0,0));
+        Box box = fe.doLayout();
+        assertEquals(SIZE*3, box.getHeight());
+        assertEquals(SIZE*4, box.getWidth());
+    }
+
+    public void testCalcBackOffset() throws Exception {
         assertEquals(0, FragmentExpression.calcBackOffset(1, 0));
 
         assertEquals(1, FragmentExpression.calcBackOffset(2, 0));

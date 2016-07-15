@@ -13,6 +13,8 @@ import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -48,6 +50,7 @@ public class Circuit {
     private List<String> measurementOrdering;
     private transient boolean dotsPresent = false;
     private transient boolean modified = false;
+    private transient ArrayList<CircRect> recs;
 
     /**
      * Creates a proper configurated XStream instance
@@ -183,6 +186,11 @@ public class Circuit {
             p.drawTo(graphic, highLighted.contains(p));
             graphic.closeGroup();
         }
+
+        // plot debugging rectangles
+        if (recs != null)
+            for (CircRect r : recs)
+                r.drawTo(graphic);
     }
 
     /**
@@ -545,4 +553,37 @@ public class Circuit {
         this.measurementOrdering = measurementOrdering;
     }
 
+    /**
+     * Add a rectangle  to the circuit.
+     * Only used to debug the {@link de.neemann.digital.builder.circuit.CircuitBuilder}.
+     *
+     * @param pos  pos of rectangle
+     * @param size size of rectangle
+     */
+    public void addRect(Vector pos, Vector size) {
+        if (recs == null)
+            recs = new ArrayList<>();
+        recs.add(new CircRect(pos, size));
+    }
+
+    private static final class CircRect {
+        private final Vector pos;
+        private final Vector size;
+
+        private CircRect(Vector pos, Vector size) {
+            this.pos = pos;
+            this.size = size;
+        }
+
+        private void drawTo(Graphic graphic) {
+
+            Polygon p = new Polygon(true)
+                    .add(pos)
+                    .add(pos.add(size.x, 0))
+                    .add(pos.add(size))
+                    .add(pos.add(0, size.y));
+
+            graphic.drawPolygon(p, Style.DASH);
+        }
+    }
 }

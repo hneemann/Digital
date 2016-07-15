@@ -243,7 +243,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
     private void addFragmentToCircuit(Fragment fr, Circuit circuit) {
         fr.setPos(new Vector(0, 0));
-        de.neemann.digital.builder.circuit.Box b = fr.doLayout();
+        Box b = fr.doLayout();
 
         fr.addToCircuit(new Vector(0, pos), circuit);
         pos += b.getHeight() + SIZE * 2;
