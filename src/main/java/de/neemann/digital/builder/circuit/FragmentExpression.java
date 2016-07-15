@@ -77,21 +77,21 @@ public class FragmentExpression implements Fragment {
         }
 
         int centerIndex = fragments.size() / 2;
+        int y;
         if ((fragments.size() & 1) == 0) {
             // even number of inputs
             int y1 = fragments.get(centerIndex - 1).fragment.getOutputs().get(0).y;
             int y2 = fragments.get(centerIndex).fragment.getOutputs().get(0).y;
-            int y = raster((y1 + y2) / 2) - centerIndex * SIZE;
-            merger.setPos(new Vector(width, y));
+            y = raster((y1 + y2) / 2) - centerIndex * SIZE;
         } else {
             // odd number of inputs
-            int y = fragments.get(centerIndex).fragment.getOutputs().get(0).y - centerIndex * SIZE;
-            merger.setPos(new Vector(width, y));
+            y = fragments.get(centerIndex).fragment.getOutputs().get(0).y - centerIndex * SIZE;
         }
+        merger.setPos(new Vector(width, y));
 
         width += mergerBox.getWidth();
 
-        return new Box(width, Math.max(height, mergerBox.getHeight()));
+        return new Box(width, Math.max(height, y + mergerBox.getHeight()));
     }
 
     private Box doLayoutOnlyVariables() {

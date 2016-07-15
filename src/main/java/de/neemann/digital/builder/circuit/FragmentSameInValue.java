@@ -30,8 +30,8 @@ public class FragmentSameInValue implements Fragment {
 
     @Override
     public Box doLayout() {
-        Box b = fragment.doLayout();
         fragment.setPos(new Vector(SIZE * 2, 0));
+        Box b = fragment.doLayout();
         return new Box(2 * SIZE + b.getWidth(), b.getHeight());
     }
 
