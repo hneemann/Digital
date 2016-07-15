@@ -31,7 +31,7 @@ public class DetermineJKStateMachine {
      * @throws FormatterException  FormatterException
      */
     public DetermineJKStateMachine(String name, Expression e) throws ExpressionException, FormatterException {
-        String notName = FormatToExpression.FORMATTER_UNICODE.format(Not.not(new Variable(name)));
+        String notName = FormatToExpression.FORMATTER_UNICODE.format(not(new Variable(name)));
 
         boolean wasK = false;
         boolean wasJ = false;
