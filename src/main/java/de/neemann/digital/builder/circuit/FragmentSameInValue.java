@@ -10,7 +10,7 @@ import java.util.List;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
- * Takes a fragment ans sets all inputs to a single value.
+ * Takes a fragment and sets all inputs to a single value.
  * Used to create a circuit with a JK ff with J==K.
  *
  * @author hneemann
@@ -22,7 +22,7 @@ public class FragmentSameInValue implements Fragment {
     /**
      * Creates a new instance
      *
-     * @param fragment the fragment with all imputs are the same value
+     * @param fragment the fragment with all inputs are the same value
      */
     public FragmentSameInValue(Fragment fragment) {
         this.fragment = fragment;
