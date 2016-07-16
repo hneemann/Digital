@@ -29,8 +29,8 @@ public class FlipflopRS extends Node implements Element {
     private final boolean isProbe;
     private final String label;
 
-    private ObservableValue jVal;
-    private ObservableValue kVal;
+    private ObservableValue sVal;
+    private ObservableValue rVal;
     private ObservableValue clockVal;
     private ObservableValue q;
     private ObservableValue qn;
@@ -54,11 +54,11 @@ public class FlipflopRS extends Node implements Element {
     public void readInputs() throws NodeException {
         boolean clock = clockVal.getBool();
         if (clock && !lastClock) {
-            boolean j = jVal.getBool();
-            boolean k = kVal.getBool();
+            boolean s = sVal.getBool();
+            boolean r = rVal.getBool();
 
-            if (j && !k) out = true;
-            else if (!j && k) out = false;
+            if (s && !r) out = true;
+            else if (!s && r) out = false;
         }
         lastClock = clock;
     }
@@ -71,9 +71,9 @@ public class FlipflopRS extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        jVal = inputs.get(0).addObserverToValue(this).checkBits(1, this);
+        sVal = inputs.get(0).addObserverToValue(this).checkBits(1, this);
         clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this);
-        kVal = inputs.get(2).addObserverToValue(this).checkBits(1, this);
+        rVal = inputs.get(2).addObserverToValue(this).checkBits(1, this);
     }
 
     @Override
