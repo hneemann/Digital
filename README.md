@@ -129,7 +129,7 @@ You can specify both the transition circuit and the output circuit. The minimiza
 by the method of Quine and McCluskey. 
 Also the truth table, can be derived from a circuit which contains simple combinatorial logic, 
 D flip-flops or JK flip-flops, including the generation of the state transition table. 
-Note, however, that a flip-flop which is constructed of Nor gates is not recognized as such.
+Note, however, that a flip-flop which is constructed of Nor gates is not recognized as a such.
 The analysis of sequential circuits works only with purely combinatorial
 circuits combined with the built-in D or JK flop flops.
 
