@@ -309,7 +309,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_table_createCUPL_tt">Erzeugt eine CUPL Quelldatei welche die Schaltung beschreibt.</string>
     <string name="menu_table_createCircuit">Schaltung</string>
     <string name="menu_table_createCircuit_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht.</string>
-    <string name="menu_table_createCircuitJK">Schaltung JK</string>
+    <string name="menu_table_createCircuitJK">Schaltung mit JK Flipflops</string>
     <string name="menu_table_createCircuitJK_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht, Verwendet JK-Flipflops.</string>
     <string name="menu_table_createNAnd">Schaltung mit NAnd-Gattern</string>
     <string name="menu_table_createNAndTwo">Schaltung mit NAnd-Gattern mit zwei Eingängen</string>

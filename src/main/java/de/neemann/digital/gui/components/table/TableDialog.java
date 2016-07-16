@@ -294,14 +294,12 @@ public class TableDialog extends JDialog {
                 createCircuit(ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_createCircuit_tt")).createJMenuItem());
-        if (Main.enableExperimental()) {
-            createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitJK")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    createCircuit(true, ExpressionModifier.IDENTITY);
-                }
-            }.setToolTip(Lang.get("menu_table_createCircuitJK_tt")).createJMenuItem());
-        }
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitJK")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCircuit(true, ExpressionModifier.IDENTITY);
+            }
+        }.setToolTip(Lang.get("menu_table_createCircuitJK_tt")).createJMenuItem());
 
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createTwo")) {
             @Override
@@ -341,44 +339,43 @@ public class TableDialog extends JDialog {
 
         }
 
-        if (Main.enableExperimental()) {
-            JMenu hardware = new JMenu(Lang.get("menu_table_create_hardware"));
-            JMenu gal16v8 = new JMenu("GAL16v8");
-            gal16v8.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    createCUPL(new Gal16v8CuplExporter());
-                }
-            }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
-            gal16v8.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
-                    createHardware(jedecExporter, filename);
-                    new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
-                }
-            }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
-            hardware.add(gal16v8);
+        JMenu hardware = new JMenu(Lang.get("menu_table_create_hardware"));
+        JMenu gal16v8 = new JMenu("GAL16v8");
+        gal16v8.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCUPL(new Gal16v8CuplExporter());
+            }
+        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+        gal16v8.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
+                createHardware(jedecExporter, filename);
+                new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
+            }
+        }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
+        hardware.add(gal16v8);
 
-            JMenu gal22v10 = new JMenu("GAL22v10");
-            gal22v10.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    createCUPL(new Gal22v10CuplExporter());
-                }
-            }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
-            gal22v10.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    Gal22v10JEDECExporter jedecExporter = new Gal22v10JEDECExporter();
-                    createHardware(jedecExporter, filename);
-                    new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
-                }
-            }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
-            hardware.add(gal22v10);
+        JMenu gal22v10 = new JMenu("GAL22v10");
+        gal22v10.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCUPL(new Gal22v10CuplExporter());
+            }
+        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+        gal22v10.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Gal22v10JEDECExporter jedecExporter = new Gal22v10JEDECExporter();
+                createHardware(jedecExporter, filename);
+                new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
+            }
+        }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
+        hardware.add(gal22v10);
 
-            createMenu.add(hardware);
-        }
+        createMenu.add(hardware);
+
         return createMenu;
     }
 
@@ -507,7 +504,7 @@ public class TableDialog extends JDialog {
             };
 
             if (createJK.isSelected())
-                expressionListener=new ExpressionListenerJK(expressionListener);
+                expressionListener = new ExpressionListenerJK(expressionListener);
 
             new ExpressionCreator(model.getTable()).create(expressionListener);
 
@@ -529,7 +526,7 @@ public class TableDialog extends JDialog {
                 .append("\\\\\n");
 
         if (createJK.isSelected())
-            expressionListener=new ExpressionListenerJK(expressionListener);
+            expressionListener = new ExpressionListenerJK(expressionListener);
 
         sb.append("\\begin{eqnarray*}\n");
         new ExpressionCreator(model.getTable()).create(expressionListener);

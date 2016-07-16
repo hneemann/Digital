@@ -116,7 +116,7 @@ The terminal opens its own window.</string>
     <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is outputed.</string>
     <string name="elem_Keyboard_pin_D">The last pressed key, or null if no key is typed.</string>
     <string name="error">Error</string>
-    <string name="err_DFlipflopWithoutALabel">D-Flipflop has no label set</string>
+    <string name="err_DFlipflopWithoutALabel">D-flip-flop has no label set</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in element {1} is not a input or output</string>
     <string name="err_aSingleClockNecessary">A single clock is necessary.</string>
     <string name="err_analyseNoInputs">The circuit has no Inputs</string>
@@ -132,7 +132,7 @@ The terminal opens its own window.</string>
     <string name="err_duplicatePinLabel">Pin {0} in element {1} exists twice</string>
     <string name="err_element_N_notFound">Element {0} not found</string>
     <string name="err_exact_N0_valuesNecessaryNot_N1">Exact {0} variables necessary, not {1}</string>
-    <string name="err_ffNeedsToBeConnectedToClock">Flipflop needs to be connected to the clock.</string>
+    <string name="err_ffNeedsToBeConnectedToClock">Flip-flop needs to be connected to the clock.</string>
     <string name="err_invalidFileFormat">Invalid file format</string>
     <string name="err_isAlreadyInitialized">Logic is already initialized</string>
     <string name="err_labelNotConnectedToNet_N">A tunnel {0} is not connected!</string>
@@ -309,8 +309,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_table_createCUPL_tt">Creates a CUPL source file containing the define circuit.</string>
     <string name="menu_table_createCircuit">Circuit</string>
     <string name="menu_table_createCircuit_tt">Creates a circuit which reproduces the truth table.</string>
-    <string name="menu_table_createCircuitJK">Circuit JK</string>
-    <string name="menu_table_createCircuitJK_tt">Creates a circuit which reproduces the truth table. Uses JK flipflops.</string>
+    <string name="menu_table_createCircuitJK">Circuit with JK flip-flops</string>
+    <string name="menu_table_createCircuitJK_tt">Creates a circuit which reproduces the truth table. Uses JK flip-flops.</string>
     <string name="menu_table_createNAnd">Circuit with NAnd gates</string>
     <string name="menu_table_createNAndTwo">Circuit with NAnd gates with two inputs</string>
     <string name="menu_table_createNAndTwo_tt">Use only NAnd gates with two inputs.</string>
