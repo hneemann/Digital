@@ -27,7 +27,8 @@ import java.util.*;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
- * Builder to create a circuit from an expression
+ * Builder to create a circuit from a set off expression
+ * Is also able to create a state machine.
  *
  * @author hneemann
  */
@@ -43,7 +44,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private boolean useJKff;
 
     /**
-     * Creates a new builder
+     * Creates a new builder.
+     * Creates a state machine with D flip-flops
      *
      * @param shapeFactory ShapeFactory which is set to the created VisualElements
      */
@@ -52,10 +54,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     }
 
     /**
-     * Creates a new builder
+     * Creates a new builder.
      *
      * @param shapeFactory ShapeFactory which is set to the created VisualElements
-     * @param useJKff      true if build circuit with JK ff
+     * @param useJKff      true if JK flip-flops should be used to create state machines instead of D flip-flops.
      */
     public CircuitBuilder(ShapeFactory shapeFactory, boolean useJKff) {
         this.shapeFactory = shapeFactory;
@@ -87,7 +89,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     }
 
     /**
-     * Add a state of a state machine
+     * Add a transition function of a state machine
      *
      * @param name       name of the state
      * @param expression the expression describing next state
@@ -258,7 +260,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         // determine maximum width
         int maxWidth = 0;
         for (Fragment f : fragments) {
-            de.neemann.digital.builder.circuit.Box b = f.doLayout();
+            Box b = f.doLayout();
             if (maxWidth < b.getWidth()) maxWidth = b.getWidth();
         }
         // add space for clock wire!

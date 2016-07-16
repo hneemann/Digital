@@ -1,5 +1,6 @@
 package de.neemann.digital.builder.circuit;
 
+import de.neemann.digital.core.io.Const;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
@@ -53,10 +54,13 @@ public class FragmentExpression implements Fragment {
     }
 
     private Box doLayoutNormal() {
+        ArrayList<ConstExpression> constExpr = new ArrayList<>();
         int height = 0;
         int width = 0;
         for (FragmentHolder fr : fragments) {
             fr.fragment.setPos(new Vector(0, height));
+            if (isConst(fr.fragment))
+                constExpr.add(new ConstExpression(fr.fragment, height));
             fr.box = fr.fragment.doLayout();
 
             height += fr.box.getHeight();
@@ -76,6 +80,9 @@ public class FragmentExpression implements Fragment {
             width = alignedWidth - mergerBox.getWidth();
         }
 
+        for (ConstExpression ce : constExpr)
+            ce.setXPos(width);
+
         int centerIndex = fragments.size() / 2;
         int y;
         if ((fragments.size() & 1) == 0) {
@@ -92,6 +99,11 @@ public class FragmentExpression implements Fragment {
         width += mergerBox.getWidth();
 
         return new Box(width, Math.max(height, y + mergerBox.getHeight()));
+    }
+
+    private boolean isConst(Fragment fragment) {
+        return fragment instanceof FragmentVisualElement
+                && ((FragmentVisualElement) fragment).getVisualElement().equalsDescription(Const.DESCRIPTION);
     }
 
     private Box doLayoutOnlyVariables() {
@@ -205,6 +217,21 @@ public class FragmentExpression implements Fragment {
 
         FragmentHolder(Fragment fragment) {
             this.fragment = fragment;
+        }
+    }
+
+    private static final class ConstExpression {
+
+        private final Fragment fragment;
+        private final int height;
+
+        ConstExpression(Fragment fragment, int height) {
+            this.fragment = fragment;
+            this.height = height;
+        }
+
+        void setXPos(int xPos) {
+            fragment.setPos(new Vector(xPos - SIZE, height));
         }
     }
 }
