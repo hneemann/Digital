@@ -5,6 +5,8 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 
 /**
+ * Interface used by the {@link ExpressionCreator} to deliver the found expressions.
+ *
  * @author hneemann
  */
 public interface ExpressionListener {

@@ -34,7 +34,7 @@ public class AllSolutionsDialog extends JDialog {
     }
 
     /**
-     * Sets the gicen text to the frame
+     * Sets the given text to the frame
      *
      * @param text the text
      * @return this for call chaining

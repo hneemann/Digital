@@ -55,27 +55,4 @@ public class ExpressionCreator {
         }
     }
 
-
-        /*
-    private void resultFoundInt(String name, Expression expression) throws FormatterException, ExpressionException {
-        resultFound(name, expression);
-
-        if (name.endsWith("n+1") && createJK) {
-            String detName = name.substring(0, name.length() - 2);
-            DetermineJKStateMachine jk = new DetermineJKStateMachine(detName, expression);
-            Expression j = jk.getJ();
-            resultFound("J" + detName, j);
-            Expression s = QuineMcCluskey.simplify(j);
-            if (s != j) {
-                resultFound("", s);
-            }
-            Expression k = jk.getK();
-            resultFound("K" + detName, k);
-            s = QuineMcCluskey.simplify(k);
-            if (s != k) {
-                resultFound("", s);
-            }
-        }
-    }
-    */
 }
