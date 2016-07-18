@@ -10,7 +10,7 @@ If you are familiar with Logisim you will recognize the color scheme.
 
 Logisim is an excellent and proven tool for teaching purposes. Unfortunately, Carl Burch discontinued the development of 
 Logisim in 2014.
-But he has made Logisim open source so there are a number of forks to continue the work of Carl Burch:
+He has released it as open source so there are a number of forks to continue his work:
 
 - [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance
