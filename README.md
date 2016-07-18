@@ -26,7 +26,7 @@ These are the main features of Digital:
 - Single gate mode to analyze oscillations.
 - Analysis and synthesis of combinatorial and sequential circuits.
 - Simple testing of circuits: You can create test cases and execute them to verify your design.
-- Many examples: From a transmission gate D-flipflop to a complete (simple) MIPS-like processor.
+- Many examples: From a transmission gate D-flip-flop to a complete (simple) MIPS-like processor.
 - Fast-run mode to perform a simulation without updating the GUI.
   A simple processor can be clocked at 100kHz.
 - Display of LST files when executing assembler programs within such a processor.
@@ -48,11 +48,13 @@ A master-slave flip-flop can only be implemented with a reset input. This
 reset input needs to be activated to make the circuit operational.
 
 To understand how Digital deals with this issue, you have to look at how the simulation works in Digital:
-Digital uses an event based simulator approach, i.e. each time a gate undergoes a change at one of its inputs,
-the new input states are read, however, the outputs of the gate are not updated instantly. Only when all gates
-involved have read their inputs, the outputs of all gates are updated. All gates seem to change synchronously, i.e.
+Digital uses an event based simulator approach, i.e. each time a 
+gate undergoes a change at one of its inputs, the new input states are read, however, 
+the outputs of the gate are not updated instantly. Only when all gates involved have read their inputs, 
+the outputs of all gates are updated. All gates seem to change synchronously, i.e.
 they seem to have all the exact same gate delay time.
-However, an undesirable feature of this approach is that even a simple RS flip-flop might not be able to reach a stable state.
+However, an undesirable feature of this approach is that even a simple RS flip-flop might not be able to 
+reach a stable state.
 For that reason, another mode is used during settling time: Each time a
 gate undergoes a change at one of its inputs all gate inputs are read and their outputs are updated immediately.
 This happens gatewise in random order until no further changes occur and the circuit reaches a stable state.
@@ -60,7 +62,8 @@ The gates appear to have random delay times now.
 This way, a master-slave flip-flop reaches a stable state after "switch on", however, the final state is still undefined.
 
 To start a circuit in a defined state a special reset gate is used.
-This gate has a single output which is low during settling time and goes high when settling time is over.
+This gate has a single output which is low during settling time and goes 
+high when settling time is over.
 
 A disadvantage of this approach is the fact that a running simulation cannot be changed.
 In  order to do so, the circuit needs be switched off, modified and switched on again.
@@ -82,10 +85,11 @@ This way you can see how a signal change propagates in a circuit, thus you are a
 ### Embedded circuits ###
 
 Similar to Logisim, Digital also allows to embed previously saved circuits in new designs, so hierarchical
-circuits can be created. However, in Digital embedded circuits are included as often as the circuit is used.
-This is similar to a C program in which all function calls are compiled as inlined functions.
-This is similar to a real circuit: Each circuit is "physically present" as often as it is used in the circuit.
-Although this approach increases the size of the data structure, it simplifies the simulation itself.
+circuits can be created. However, in Digital embedded circuits are included as often as 
+the circuit is used. This is similar to a C program in which all 
+function calls are compiled as inlined functions. This is similar to a real circuit: Each circuit is "physically present" 
+as often as it is used in the circuit. Although this approach increases the size of the data structure, 
+it simplifies the simulation itself.
 Thus, for example, the inputs and outputs of an embedded circuit not specifically treat, they simply don't exist anymore
 after the formation of the simulations model. Even bidirectional connections can be implemented.
 Because of that approach for instance a separately embedded AND gate behaves exactly like an AND gate inserted at top
@@ -95,9 +99,10 @@ Logisim works somewhat different, which sometimes leads to surprises like unexpe
 
 ### Performance ###
 
-If a complete processor is simulated, it is possible to calculate the simulation without an update of the graphical representation.
-A simple processor (see example) can be simulated with a 100kMHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz),
-which is suitable also for more complex exercises like Conway's game of live.
+If a complete processor is simulated, it is possible to calculate the simulation without an update of the 
+graphical representation.
+A simple processor (see example) can be simulated with a 100kHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz),
+which is suitable also for more complex exercises like Conway's Game of Live.
 There is a break gate having a single input. If this input changes from low to high this quick run is stopped.
 This way, an assembler instruction BRK can be implemented, which then can be used to insert break points
 in assembly language programs. So the debugging of assembly programs becomes very simple.
@@ -119,9 +124,9 @@ You can specify both the transition circuit and the output circuit. The minimiza
 by the method of Quine and McCluskey.
 Also the truth table, can be derived from a circuit which contains simple combinatorial logic,
 D flip-flops or JK flip-flops, including the generation of the state transition table.
-Note, however, that a NOR-Gate-flipflop is not recognized as such.
+Note, however, that a NOR-Gate-flip-flop is not recognized as such.
 The analysis of sequential circuits only works with purely combinatorial
-circuits combined with the built-in D or JK flop flops.
+circuits combined with the built-in D or JK flop-flops.
 
 ## How do I get set up? ##
 
@@ -136,4 +141,4 @@ circuits combined with the built-in D or JK flop flops.
 * Don't introduce new findbugs issues
 * Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
 * Up to now there are no GUI tests so the overall test coverage is only somewhat above 50%.
-  Try to keep the amount of untested GUI code as low as possible.
+  Try to keep the amount of untested GUI code low.
