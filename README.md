@@ -133,9 +133,15 @@ circuits combined with the built-in D or JK flop-flops.
 
 ## How do I get set up? ##
 
-* maven is used as a build system
-* So you can simply run `mvn install` to build Digital
-* With `mvn site` you can create a checkstyle, a findbugs and a cobertura code coverage report
+The easiest way is to download the [latest release](https://github.com/hneemann/Digital/releases/latest). 
+In the ZIP file you will find the binary and all examples.
+Digital is implemented in Java, so if you like to build Digital from source code:
+ 
+* At first clone the repository.  
+* maven is used as build system, so the easiest way is to install maven.
+* After that you can simply run `mvn install` to build Digital.
+* With `mvn site` you can create a checkstyle, a findbugs and a cobertura code coverage report.
+* Most IDEs (Eclipse, NetBeans, IntelliJ) are able to import the `pom.xml` to setup a project.
 
 ## Contribution guidelines ##
 
