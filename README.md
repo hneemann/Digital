@@ -129,7 +129,7 @@ Also the truth table, can be derived from a circuit which contains simple combin
 D flip-flops or JK flip-flops, including the generation of the state transition table.
 Note, however, that a NOR-Gate-flip-flop is not recognized as such.
 The analysis of sequential circuits only works with purely combinatorial
-circuits combined with the built-in D or JK flop-flops.
+circuits combined with the build-in D or JK flop-flops.
 
 ## How do I get set up? ##
 
