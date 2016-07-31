@@ -24,10 +24,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
@@ -76,6 +73,7 @@ public class CircuitComponent extends JComponent {
     private Observer manualChangeObserver;
     private Vector lastMousePos;
     private Sync modelSync;
+    private boolean isManualScale;
 
 
     /**
@@ -158,7 +156,16 @@ public class CircuitComponent extends JComponent {
             transform.translate(pos.x, pos.y);
             transform.scale(f, f);
             transform.translate(-pos.x, -pos.y);
+            isManualScale=true;
             repaint();
+        });
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent componentEvent) {
+                if (!isManualScale)
+                    fitCircuit();
+            }
         });
 
         Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
@@ -403,6 +410,7 @@ public class CircuitComponent extends JComponent {
         } else
             transform = new AffineTransform();
         repaint();
+        isManualScale=false;
     }
 
     /**
@@ -415,6 +423,7 @@ public class CircuitComponent extends JComponent {
         transform.translate(dif.x, dif.y);
         transform.scale(f, f);
         transform.translate(-dif.x, -dif.y);
+        isManualScale=true;
         repaint();
     }
 
@@ -504,6 +513,7 @@ public class CircuitComponent extends JComponent {
                     double s = transform.getScaleX();
                     transform.translate(delta.x / s, delta.y / s);
                     pos = newPos;
+                    isManualScale=true;
                     repaint();
                 }
             }
