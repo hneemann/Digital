@@ -81,8 +81,8 @@ understand what happens.
 The synchronous update of all gates, which have seen a change at one of their inputs may also cause
 oscillations in Digital. In such a case, the oscillation is detected and simulation stops.
 However, there is also a single gate mode which allows to propagate a signal change gate by gate. This feature allows to
-follow the way through the circuit. After each step, it all gates with a change at one
-of its inputs is highlighted.
+follow the way through the circuit. After each step, all gates with a change at one
+of their inputs are highlighted.
 This way you can see how a signal change propagates in a circuit, thus you are able to find the root cause of an oscillation.
 
 ### Embedded circuits ###
@@ -134,7 +134,7 @@ circuits combined with the build-in D or JK flop-flops.
 ## How do I get set up? ##
 
 The easiest way is to download the [latest release](https://github.com/hneemann/Digital/releases/latest). 
-In the ZIP file you will find the binary and all examples.
+In the ZIP file you will find the binary (Digital.jar) and all examples.
 Digital is implemented in Java, so if you like to build Digital from source code:
  
 * At first clone the repository.  
