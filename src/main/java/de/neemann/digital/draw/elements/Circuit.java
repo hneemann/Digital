@@ -172,6 +172,7 @@ public class Circuit {
      *
      * @param graphic     the graphic instance used
      * @param highLighted a list of Drawables to highlight
+     * @param modelSync   sync interface to access the model. Is locked while drawing circuit
      */
     public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Sync modelSync) {
         if (!dotsPresent) {
