@@ -778,8 +778,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     @Override
     public void open(File file) {
-        librarySelector.removeCustomElements();
-        loadFile(file, true);
+        if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
+            librarySelector.removeCustomElements();
+            loadFile(file, true);
+        }
     }
 
     private void loadFile(File filename, boolean toPrefs) {
