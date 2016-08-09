@@ -338,7 +338,7 @@ public class CircuitComponent extends JComponent {
         gr2.transform(transform);
 
         GraphicSwing gr = new GraphicSwing(gr2);
-        circuit.drawTo(gr, highLighted);
+        circuit.drawTo(gr, highLighted, modelSync);
 
         activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);

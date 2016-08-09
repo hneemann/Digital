@@ -20,6 +20,8 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.test.TestData;
+import de.neemann.digital.gui.sync.NoSync;
+import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.language.Language;
 
@@ -162,7 +164,7 @@ public class Circuit {
      * @param graphic the graphic instance used
      */
     public void drawTo(Graphic graphic) {
-        drawTo(graphic, EMPTY_SET);
+        drawTo(graphic, EMPTY_SET, NoSync.INST);
     }
 
     /**
@@ -171,21 +173,23 @@ public class Circuit {
      * @param graphic     the graphic instance used
      * @param highLighted a list of Drawables to highlight
      */
-    public void drawTo(Graphic graphic, Collection<Drawable> highLighted) {
+    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Sync modelSync) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
             dotsPresent = true;
         }
 
-        graphic.openGroup();
-        for (Wire w : wires)
-            w.drawTo(graphic, highLighted.contains(w));
-        graphic.closeGroup();
-        for (VisualElement p : visualElements) {
+        modelSync.access(() -> {
             graphic.openGroup();
-            p.drawTo(graphic, highLighted.contains(p));
+            for (Wire w : wires)
+                w.drawTo(graphic, highLighted.contains(w));
             graphic.closeGroup();
-        }
+            for (VisualElement p : visualElements) {
+                graphic.openGroup();
+                p.drawTo(graphic, highLighted.contains(p));
+                graphic.closeGroup();
+            }
+        });
 
         // plot debugging rectangles
         if (recs != null)
