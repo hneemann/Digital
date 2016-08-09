@@ -407,10 +407,12 @@ public class CircuitComponent extends JComponent {
 
             Vector dif = new Vector(getWidth(), getHeight()).div(2);
             transform.translate(dif.x / s, dif.y / s);  // move drawing center to frame center
-        } else
+            isManualScale=false;
+        } else {
             transform = new AffineTransform();
+            isManualScale=true;
+        }
         repaint();
-        isManualScale=false;
     }
 
     /**
