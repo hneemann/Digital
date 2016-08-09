@@ -201,6 +201,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_InputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16 single bits.</string>
     <string name="key_Inputs">Number of Inputs</string>
     <string name="key_Label">Label</string>
+    <string name="key_Size">Size</string>
     <string name="key_Language">Language</string>
     <string name="key_NetName">Netname</string>
     <string name="key_NetName_tt">All nets with identical name are connected together.</string>

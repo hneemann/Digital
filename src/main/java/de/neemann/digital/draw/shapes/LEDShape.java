@@ -21,10 +21,9 @@ import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
  * @author hneemann
  */
 public class LEDShape implements Shape {
-    private static final Vector RAD = new Vector(SIZE - 2, SIZE - 2);
-    private static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
     private final PinDescriptions inputs;
+    private final int size;
     private Style onStyle;
     private IOState ioState;
 
@@ -38,6 +37,7 @@ public class LEDShape implements Shape {
     public LEDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
+        this.size = attr.get(Keys.SIZE) * SIZE;
         onStyle = new Style(1, true, attr.get(Keys.COLOR));
     }
 
@@ -63,11 +63,15 @@ public class LEDShape implements Shape {
                 fill = true;
         }
 
-        Vector center = new Vector(1 + SIZE, 0);
-        graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.FILLED);
+        Vector rad = new Vector(size - 2, size - 2);
+        Vector radL = new Vector(size, size);
+
+
+        Vector center = new Vector(1 + size, 0);
+        graphic.drawCircle(center.sub(radL), center.add(radL), Style.FILLED);
         if (fill)
-            graphic.drawCircle(center.sub(RAD), center.add(RAD), onStyle);
-        Vector textPos = new Vector(SIZE * 3, 0);
+            graphic.drawCircle(center.sub(rad), center.add(rad), onStyle);
+        Vector textPos = new Vector(2 * size + SIZE, 0);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
     }
 }

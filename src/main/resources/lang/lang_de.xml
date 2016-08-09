@@ -201,6 +201,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_InputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot; für 16 einzelne Bits.</string>
     <string name="key_Inputs">Anzahl der Eingänge</string>
     <string name="key_Label">Bezeichnung</string>
+    <string name="key_Size">Größe</string>
     <string name="key_Language">Sprache</string>
     <string name="key_NetName">Netzname</string>
     <string name="key_NetName_tt">Alle Netze mit identischem Namen werden miteinander verbunden.</string>
