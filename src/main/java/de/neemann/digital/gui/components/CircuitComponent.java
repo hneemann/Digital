@@ -1019,21 +1019,30 @@ public class CircuitComponent extends JComponent {
 
         @Override
         void pressed(MouseEvent e) {
-            VisualElement ve = circuit.getElementAt(getPosVector(e));
+            VisualElement ve = getIntractableElementAt(e);
             if (ve != null)
                 interact(e, ve::elementPressed);
         }
 
+        private VisualElement getIntractableElementAt(MouseEvent e) {
+            List<VisualElement> elementList = circuit.getElementListAt(getPosVector(e));
+            for (VisualElement ve : elementList) {
+                if (ve.isIntractable())
+                    return ve;
+            }
+            return null;
+        }
+
         @Override
         void released(MouseEvent e) {
-            VisualElement ve = circuit.getElementAt(getPosVector(e));
+            VisualElement ve = getIntractableElementAt(e);
             if (ve != null)
                 interact(e, ve::elementReleased);
         }
 
         @Override
         void clicked(MouseEvent e) {
-            VisualElement ve = circuit.getElementAt(getPosVector(e));
+            VisualElement ve = getIntractableElementAt(e);
             if (ve != null)
                 interact(e, ve::elementClicked);
         }

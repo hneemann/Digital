@@ -355,4 +355,11 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         elementAttributes.set(Keys.ROTATE, new Rotation(rotate));
         minMax = null;
     }
+
+    /**
+     * @return true if you can interact with this element
+     */
+    public boolean isIntractable() {
+        return interactor != null;
+    }
 }
