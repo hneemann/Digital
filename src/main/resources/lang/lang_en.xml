@@ -61,6 +61,10 @@ So this gate can emulate every combinatorial gate.</string>
     <string name="elem_NAnd">NAnd</string>
     <string name="elem_NOr">NOr</string>
     <string name="elem_Not">Not</string>
+    <string name="elem_Neg">Negation</string>
+    <string name="elem_Neg_tt">Negation in the 2th complement</string>
+    <string name="elem_BitCount">Bit counter</string>
+    <string name="elem_BitCount_tt">Returns the number of 1-bits in the input value.</string>
     <string name="elem_Or">Or</string>
     <string name="elem_Out">Out</string>
     <string name="elem_Out_tt">A output which can be used to connect the circuit if it is included in an other circuit.</string>

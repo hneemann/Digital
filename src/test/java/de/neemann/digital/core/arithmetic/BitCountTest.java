@@ -3,6 +3,7 @@ package de.neemann.digital.core.arithmetic;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
@@ -11,9 +12,9 @@ import junit.framework.TestCase;
  */
 public class BitCountTest extends TestCase {
 
+
     public void testBitCount() throws Exception {
         ObservableValue a = new ObservableValue("a", 6);
-        ObservableValue b = new ObservableValue("b", 3);
 
 
         Model model = new Model();
@@ -21,7 +22,11 @@ public class BitCountTest extends TestCase {
         node.setInputs(a.asList());
         model.add(node);
 
-        TestExecuter sc = new TestExecuter(model).setInputs(a).setOutputs(node.getOutputs());
+        ObservableValues outputs = node.getOutputs();
+        assertEquals(1, outputs.size());
+        assertEquals(3, outputs.get(0).getBits());
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a).setOutputs(outputs);
         sc.check(0, 0);
         sc.check(1, 1);
         sc.check(2, 1);
@@ -38,5 +43,13 @@ public class BitCountTest extends TestCase {
         sc.check(255, 6);
     }
 
+
+    public void testBits() {
+        assertEquals(1, new BitCount(new ElementAttributes().setBits(1)).getOutputs().get(0).getBits());
+        assertEquals(2, new BitCount(new ElementAttributes().setBits(2)).getOutputs().get(0).getBits());
+        assertEquals(3, new BitCount(new ElementAttributes().setBits(6)).getOutputs().get(0).getBits());
+        assertEquals(3, new BitCount(new ElementAttributes().setBits(7)).getOutputs().get(0).getBits());
+        assertEquals(4, new BitCount(new ElementAttributes().setBits(8)).getOutputs().get(0).getBits());
+    }
 
 }

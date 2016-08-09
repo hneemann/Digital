@@ -12,7 +12,7 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * Negation, twos complement
+ * Bit count
  *
  * @author hneemann
  */
@@ -38,8 +38,8 @@ public class BitCount extends Node implements Element {
     public BitCount(ElementAttributes attributes) {
         inBits = attributes.get(Keys.BITS);
         int outBits = 1;
-        while (outBits < inBits)
-            outBits *= 2;
+        while ((1 << outBits) <= inBits)
+            outBits++;
         output = new ObservableValue("out", outBits);
     }
 

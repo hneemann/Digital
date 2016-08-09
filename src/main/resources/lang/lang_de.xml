@@ -61,6 +61,10 @@ Auf diese Weise kann jedes kombinatorische Gatter erzeugt werden.</string>
     <string name="elem_NAnd">Nicht Und</string>
     <string name="elem_NOr">Nicht Oder</string>
     <string name="elem_Not">Nicht</string>
+    <string name="elem_Neg">Negation</string>
+    <string name="elem_Neg_tt">Negation im 2-er Komplement</string>
+    <string name="elem_BitCount">Bitzähler</string>
+    <string name="elem_BitCount_tt">Gibt die Anzahl der 1-Bits im Eingangswert aus.</string>
     <string name="elem_Or">Oder</string>
     <string name="elem_Out">Ausgang</string>
     <string name="elem_Out_tt">Ein Ausgang der genutzt werden kann, um eine Verbindung zu einem eingebettetem Element herzustellen.</string>
