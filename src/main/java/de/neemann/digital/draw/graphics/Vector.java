@@ -158,10 +158,9 @@ public class Vector {
 
     @Override
     public String toString() {
-        return "Vector{"
-                + "x=" + x
+        return "(x=" + x
                 + ", y=" + y
-                + '}';
+                + ')';
     }
 
     /**

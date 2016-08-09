@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -30,9 +31,8 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
+import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -576,7 +576,16 @@ public class CircuitComponent extends JComponent {
         @Override
         void clicked(MouseEvent e) {
             Vector pos = getPosVector(e);
-            VisualElement vp = circuit.getElementAt(pos);
+            VisualElement vp = null;
+
+            List<VisualElement> list = circuit.getElementListAt(pos);
+            if (list.size()==1)
+                vp=list.get(0);
+            else if (list.size()>1) {
+                ItemPicker<VisualElement> picker = new ItemPicker<VisualElement>(CircuitComponent.this, list);
+                vp=picker.select();
+            }
+
             if (e.getButton() == MouseEvent.BUTTON3) {
                 if (vp != null)
                     editAttributes(vp, e);

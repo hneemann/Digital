@@ -408,6 +408,8 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="win_stateChanged">State Changed!</string>
     <string name="win_table">Table</string>
     <string name="win_table_exportDialog">Export</string>
+    <string name="win_itempicker_title">Select</string>
+
     <string name="btn_help">Help</string>
 
     <string name="msg_expressionHelpTitle">Expressions</string>
