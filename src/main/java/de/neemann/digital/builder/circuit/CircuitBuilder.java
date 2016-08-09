@@ -3,6 +3,7 @@ package de.neemann.digital.builder.circuit;
 import de.neemann.digital.analyse.DetermineJKStateMachine;
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.Not;
+import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.builder.BuilderException;
 import de.neemann.digital.builder.BuilderInterface;
 import de.neemann.digital.core.basic.*;
@@ -124,7 +125,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                         fragments.add(new FragmentExpression(Arrays.asList(frJ, frK), fe));
                     }
                 }
-            } catch (Exception e) {
+            } catch (ExpressionException | FormatterException e) {
                 throw new BuilderException(e.getMessage());
             }
         }

@@ -40,7 +40,7 @@ public final class Keys {
      */
     public static final Key.KeyInteger SIZE
             = new Key.KeyInteger("Size", 1)
-            .setComboBoxValues(new Integer[]{1,2, 3, 4, 5})
+            .setComboBoxValues(new Integer[]{1, 2, 3, 4, 5})
             .setMin(1);
     /**
      * The value of constants
