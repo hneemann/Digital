@@ -357,9 +357,9 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     /**
-     * @return true if you can interact with this element
+     * @return true if one can interact with this element
      */
-    public boolean isIntractable() {
+    public boolean isInteractable() {
         return interactor != null;
     }
 }
