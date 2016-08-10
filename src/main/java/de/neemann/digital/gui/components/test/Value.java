@@ -9,6 +9,9 @@ import de.neemann.digital.core.ObservableValue;
  */
 public class Value {
 
+    /**
+     * Types of values
+     */
     public enum Type {NORMAL, DONTCARE, HIGHZ, CLOCK}
 
     private final long value;
@@ -48,7 +51,7 @@ public class Value {
                 type = Type.CLOCK;
                 break;
             default:
-                value = Long.parseLong(val);
+                value = Long.decode(val);
                 type = Type.NORMAL;
                 break;
         }
