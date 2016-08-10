@@ -156,7 +156,7 @@ public class CircuitComponent extends JComponent {
             transform.translate(pos.x, pos.y);
             transform.scale(f, f);
             transform.translate(-pos.x, -pos.y);
-            isManualScale=true;
+            isManualScale = true;
             repaint();
         });
 
@@ -407,10 +407,10 @@ public class CircuitComponent extends JComponent {
 
             Vector dif = new Vector(getWidth(), getHeight()).div(2);
             transform.translate(dif.x / s, dif.y / s);  // move drawing center to frame center
-            isManualScale=false;
+            isManualScale = false;
         } else {
             transform = new AffineTransform();
-            isManualScale=true;
+            isManualScale = true;
         }
         repaint();
     }
@@ -425,7 +425,7 @@ public class CircuitComponent extends JComponent {
         transform.translate(dif.x, dif.y);
         transform.scale(f, f);
         transform.translate(-dif.x, -dif.y);
-        isManualScale=true;
+        isManualScale = true;
         repaint();
     }
 
@@ -515,7 +515,7 @@ public class CircuitComponent extends JComponent {
                     double s = transform.getScaleX();
                     transform.translate(delta.x / s, delta.y / s);
                     pos = newPos;
-                    isManualScale=true;
+                    isManualScale = true;
                     repaint();
                 }
             }
@@ -579,11 +579,11 @@ public class CircuitComponent extends JComponent {
             VisualElement vp = null;
 
             List<VisualElement> list = circuit.getElementListAt(pos);
-            if (list.size()==1)
-                vp=list.get(0);
-            else if (list.size()>1) {
+            if (list.size() == 1)
+                vp = list.get(0);
+            else if (list.size() > 1) {
                 ItemPicker<VisualElement> picker = new ItemPicker<VisualElement>(CircuitComponent.this, list);
-                vp=picker.select();
+                vp = picker.select();
             }
 
             if (e.getButton() == MouseEvent.BUTTON3) {
@@ -710,6 +710,7 @@ public class CircuitComponent extends JComponent {
         public void delete() {
             circuit.delete(visualElement);
             mouseNormal.activate();
+            isManualScale = true;
         }
 
         @Override
@@ -844,6 +845,7 @@ public class CircuitComponent extends JComponent {
         public void delete() {
             circuit.delete(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
             mouseNormal.activate();
+            isManualScale = true;
         }
 
         public void rotate() {
