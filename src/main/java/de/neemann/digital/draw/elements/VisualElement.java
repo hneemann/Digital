@@ -29,6 +29,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     private transient InteractorInterface interactor;
     private transient Element element;
     private transient ShapeFactory shapeFactory;
+    private transient Transform transform;
 
     private final String elementName;
     private final ElementAttributes elementAttributes;
@@ -43,7 +44,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public VisualElement(String elementName) {
         this.elementName = elementName;
         elementAttributes = new ElementAttributes();
-        pos = new Vector(0, 0);
+        setPos(new Vector(0, 0));
     }
 
     /**
@@ -54,7 +55,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public VisualElement(VisualElement proto) {
         this.elementName = proto.elementName;
         this.elementAttributes = new ElementAttributes(proto.elementAttributes);
-        this.pos = new Vector(proto.pos);
+        setPos(new Vector(proto.pos));
     }
 
     /**
@@ -91,6 +92,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public VisualElement setPos(Vector pos) {
         this.pos = pos;
         minMax = null;
+        transform=null;
         return this;
     }
 
@@ -167,11 +169,14 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     private Transform createTransform() {
-        int rotate = getRotate();
-        if (rotate == 0)
-            return v -> v.add(pos);
-        else
-            return new TransformRotate(pos, rotate);
+        if (transform==null) {
+            int rotate = getRotate();
+            if (rotate == 0)
+                transform = v -> v.add(pos);
+            else
+                transform = new TransformRotate(pos, rotate);
+        }
+        return transform;
     }
 
     /**
@@ -188,8 +193,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
     @Override
     public void move(Vector delta) {
-        pos = pos.add(delta);
-        minMax = null;
+        setPos(pos.add(delta));
     }
 
     /**
@@ -303,6 +307,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     @Override
     public void attributeChanged(Key key) {
         shape = null;
+        transform=null;
     }
 
     @Override

@@ -337,8 +337,10 @@ public class CircuitComponent extends JComponent {
         AffineTransform oldTrans = gr2.getTransform();
         gr2.transform(transform);
 
-        GraphicSwing gr = new GraphicSwing(gr2);
+        GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
+//        long time = System.currentTimeMillis();
         circuit.drawTo(gr, highLighted, modelSync);
+//        System.out.println(System.currentTimeMillis()-time);  // -agentlib:hprof=cpu=samples
 
         activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);
