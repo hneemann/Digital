@@ -62,9 +62,35 @@ public class TestResult implements TableModel {
 
             Value[] res = new Value[row.length];
 
+            boolean isClockValue = false;
             for (TestSignal in : inputs) {
-                row[in.index].setTo(in.value);
+                if (row[in.index].getType() != Value.Type.CLOCK) {
+                    row[in.index].setTo(in.value);
+                } else {
+                    isClockValue = true;
+                }
                 res[in.index] = row[in.index];
+            }
+            if (isClockValue) {
+
+                model.doStep();  // propagate all except clock
+
+                for (TestSignal in : inputs) {
+                    if (row[in.index].getType() == Value.Type.CLOCK) {
+                        row[in.index].setTo(in.value);
+                    }
+                }
+
+                model.doStep();  // propagate clock high
+
+                for (TestSignal in : inputs) {  // reset clock values
+                    if (row[in.index].getType() == Value.Type.CLOCK) {
+                        if (row[in.index].getValue() != 0)
+                            in.value.set(0, false);
+                        else
+                            in.value.set(1, false);
+                    }
+                }
             }
 
             model.doStep();
@@ -89,7 +115,7 @@ public class TestResult implements TableModel {
     }
 
     private int getIndexOf(String name) throws DataException {
-        if (name==null || name.length()==0)
+        if (name == null || name.length() == 0)
             throw new DataException(Lang.get("err_unnamedSignal", name));
 
         for (int i = 0; i < names.size(); i++) {

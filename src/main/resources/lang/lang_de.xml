@@ -426,8 +426,8 @@ werden: "let U=A+B"</string>
     <string name="msg_testVectorHelp">Die erste Zeile muss, durch ein Leerzeichen getrennt, die
 Ein- und Ausgänge auflisten. In den folgenden Zeilen stehen dann die Sollwerte.
 Dabei steht ein 'X' für Don't Care, und ein 'Z' für hochohmig.
-Wird der Wert 'C' verwendet, wird die entsprechende Zeile durch zwei Zeilen ersetzt:
-Zunächst wird das 'C' durch eine '1' ersetzt, in der folgenden Zeile durch eine '0'.
+Wird der Wert 'C' verwendet, werden zunächst alle anderen Werte gesetzt, dann wird ein
+Taktzyklus durchgeführt, und erst daran anschließend werden die Werte verglichen.
 Auf diese Weise können Schaltwerke einfacher getestet werden.
 
 Ein Test für einen 2-Bit Zähler könnte damit wie folgt aussehen:

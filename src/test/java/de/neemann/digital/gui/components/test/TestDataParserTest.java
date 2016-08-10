@@ -13,19 +13,19 @@ public class TestDataParserTest extends TestCase {
         assertEquals(3,td.getLines().size());
 
         assertEquals(0, td.getLines().get(0)[0].getValue());
-        assertFalse(td.getLines().get(0)[0].isDontCare());
+        assertEquals(Value.Type.NORMAL,td.getLines().get(0)[0].getType());
 
         assertEquals(1, td.getLines().get(0)[1].getValue());
-        assertFalse(td.getLines().get(0)[1].isDontCare());
+        assertEquals(Value.Type.NORMAL,td.getLines().get(0)[1].getType());
 
         assertEquals(1, td.getLines().get(1)[0].getValue());
-        assertFalse(td.getLines().get(1)[0].isDontCare());
+        assertEquals(Value.Type.NORMAL,td.getLines().get(1)[0].getType());
 
         assertEquals(0, td.getLines().get(1)[1].getValue());
-        assertFalse(td.getLines().get(1)[0].isDontCare());
+        assertEquals(Value.Type.NORMAL,td.getLines().get(1)[1].getType());
 
-        assertTrue(td.getLines().get(2)[0].isDontCare());
-        assertTrue(td.getLines().get(2)[1].isDontCare());
+        assertEquals(Value.Type.DONTCARE,td.getLines().get(2)[0].getType());
+        assertEquals(Value.Type.DONTCARE,td.getLines().get(2)[1].getType());
     }
 
     public void testMissingValue()  {
@@ -49,11 +49,11 @@ public class TestDataParserTest extends TestCase {
     public void testClock() throws Exception {
         TestDataParser td = new TestDataParser("A B\nC 1\nC 0").parse();
         assertEquals(2,td.getNames().size());
-        assertEquals(4,td.getLines().size());
+        assertEquals(2,td.getLines().size());
 
-        assertEquals(1, td.getLines().get(0)[0].getValue());
-        assertEquals(0, td.getLines().get(1)[0].getValue());
-        assertEquals(1, td.getLines().get(2)[0].getValue());
-        assertEquals(0, td.getLines().get(3)[0].getValue());
+        assertEquals(Value.Type.CLOCK, td.getLines().get(0)[0].getType());
+        assertEquals(1, td.getLines().get(0)[1].getValue());
+        assertEquals(Value.Type.CLOCK, td.getLines().get(1)[0].getType());
+        assertEquals(0, td.getLines().get(1)[1].getValue());
     }
 }

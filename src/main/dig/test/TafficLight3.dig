@@ -134,7 +134,6 @@ C 1  0 1 0
 C 1  1 0 0
 C 1  1 0 0
 C 1  1 0 0
-C 0  1 0 0
 # If fire signal goes low TL runs in the normal way
 C 0  1 1 0
 </dataString>

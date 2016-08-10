@@ -24,7 +24,7 @@ public class TestTestableExamples extends TestCase {
 
     public void testTestableTest() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(1, new FileScanner(this::check).scan(examples));
+        assertEquals(2, new FileScanner(this::check).scan(examples));
     }
 
     /**

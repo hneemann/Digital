@@ -9,9 +9,10 @@ import de.neemann.digital.core.ObservableValue;
  */
 public class Value {
 
+    public enum Type {NORMAL, DONTCARE, HIGHZ, CLOCK}
+
     private final long value;
-    private final boolean highZ;
-    private final boolean dontCare;
+    private final Type type;
 
     /**
      * Creates a new value based on the given {@link ObservableValue}
@@ -20,8 +21,10 @@ public class Value {
      */
     public Value(ObservableValue ov) {
         this.value = ov.getValue();
-        this.highZ = ov.isHighZ();
-        this.dontCare = false;
+        if (ov.isHighZ())
+            this.type = Type.HIGHZ;
+        else
+            this.type = Type.NORMAL;
     }
 
     /**
@@ -31,32 +34,24 @@ public class Value {
      */
     public Value(String val) {
         val = val.trim();
-        if (val.equals("X")) {
-            highZ = false;
-            value = 0;
-            dontCare = true;
-        } else {
-            dontCare = false;
-            if (val.equals("Z")) {
-                highZ = true;
+        switch (val) {
+            case "X":
                 value = 0;
-            } else {
-                highZ = false;
+                type = Type.DONTCARE;
+                break;
+            case "Z":
+                value = 0;
+                type = Type.HIGHZ;
+                break;
+            case "C":
+                value = 1;
+                type = Type.CLOCK;
+                break;
+            default:
                 value = Long.parseLong(val);
-            }
+                type = Type.NORMAL;
+                break;
         }
-    }
-
-    /**
-     * Creates a new instance with the given value.
-     * highZ and dontCare are set to false.
-     *
-     * @param clockValue the value
-     */
-    public Value(int clockValue) {
-        this.value = clockValue;
-        this.highZ = false;
-        this.dontCare = false;
     }
 
     /**
@@ -69,35 +64,39 @@ public class Value {
         if (this == v) return true;
         if (v == null) return false;
 
-        if (dontCare || v.dontCare) return true;
+        if (v.type == Type.DONTCARE || type == Type.DONTCARE) return true;
 
-        if (highZ && v.highZ) return true;
-        if (highZ != v.highZ) return false;
+        if (v.type != type) return false;
 
         return value == v.value;
     }
 
     @Override
     public String toString() {
-        if (dontCare)
-            return "X";
-        if (highZ)
-            return "Z";
-        return ObservableValue.getHexString(value);
+        switch (type) {
+            case HIGHZ:
+                return "Z";
+            case DONTCARE:
+                return "X";
+            case CLOCK:
+                return "C";
+            default:
+                return ObservableValue.getHexString(value);
+        }
     }
 
     /**
-     * @return true if value is a dont care
+     * @return type of value
      */
-    public boolean isDontCare() {
-        return dontCare;
+    public Type getType() {
+        return type;
     }
 
     /**
      * @return true if value is a high Z value
      */
     public boolean isHighZ() {
-        return highZ;
+        return type == Type.HIGHZ;
     }
 
     /**

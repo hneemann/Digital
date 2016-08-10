@@ -50,8 +50,7 @@ public class TestDataParser {
                 String line;
                 while ((line = readNonEmptyLine(r)) != null) {
                     line = line.toUpperCase();
-                    if (addLine(line, 1))
-                        addLine(line, 0);
+                    addLine(line);
                 }
             }
 
@@ -61,8 +60,7 @@ public class TestDataParser {
         return this;
     }
 
-    private boolean addLine(String line, int clockValue) throws DataException {
-        boolean isClock = false;
+    private void addLine(String line) throws DataException {
         StringTokenizer tok;
         tok = new StringTokenizer(line);
         Value[] row = new Value[names.size()];
@@ -74,17 +72,12 @@ public class TestDataParser {
             String numStr = null;
             try {
                 numStr = tok.nextToken();
-                if (numStr.equals("C")) {
-                    row[i] = new Value(clockValue);
-                    isClock = true;
-                } else
-                    row[i] = new Value(numStr);
+                row[i] = new Value(numStr);
             } catch (NumberFormatException e) {
                 throw new DataException(Lang.get("err_notANumber_N0_inLine_N1", numStr, lineNumber));
             }
         }
         lines.add(row);
-        return isClock;
     }
 
     private String readNonEmptyLine(BufferedReader r) throws IOException {

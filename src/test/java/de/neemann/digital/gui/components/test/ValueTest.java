@@ -9,15 +9,17 @@ public class ValueTest extends TestCase {
 
     public void testSimple() throws Exception {
         Value v = new Value("X");
-        assertTrue(v.isDontCare());
+        assertEquals(Value.Type.DONTCARE, v.getType());
 
         v = new Value("Z");
-        assertTrue(v.isHighZ());
-        assertFalse(v.isDontCare());
+        assertEquals(Value.Type.HIGHZ, v.getType());
+
+        v = new Value("C");
+        assertEquals(Value.Type.CLOCK, v.getType());
+        assertEquals(1, v.getValue());
 
         v = new Value("8");
-        assertFalse(v.isHighZ());
-        assertFalse(v.isDontCare());
+        assertEquals(Value.Type.NORMAL, v.getType());
         assertEquals(8, v.getValue());
     }
 
