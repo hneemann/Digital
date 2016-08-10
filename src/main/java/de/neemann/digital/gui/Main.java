@@ -411,7 +411,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_editSettings_tt"));
 
+
+        ToolTipAction actualToDefault = new ToolTipAction(Lang.get("menu_actualToDefault")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.getCircuit().actualToDefault();
+                elementState.enter();
+            }
+        }.setToolTip(Lang.get("menu_actualToDefault_tt"));
+
         edit.add(editAttributes.createJMenuItem());
+        edit.add(actualToDefault.createJMenuItem());
         edit.addSeparator();
         edit.add(elementStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());

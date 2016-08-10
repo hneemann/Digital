@@ -352,6 +352,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_expression_tt">Erzeugt eine Schaltung aus einem Ausdruck.</string>
     <string name="menu_runTests">Tests ausführen</string>
     <string name="menu_runTests_tt">Führt alle Tests in der Schaltung aus!</string>
+    <string name="menu_actualToDefault">Eingänge übernehmen</string>
+    <string name="menu_actualToDefault_tt">Aktuelle Eingangswerte als neue Vorgabewerte übernehmen.</string>
     <string name="message">Digital
 
 Ein einfacher Simulator für digitale Schaltkreise.

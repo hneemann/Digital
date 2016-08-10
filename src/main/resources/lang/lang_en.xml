@@ -352,6 +352,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_expression_tt">Create a circuit from an expression.</string>
     <string name="menu_runTests">Run Tests</string>
     <string name="menu_runTests_tt">Runs all test cases in the circuit</string>
+    <string name="menu_actualToDefault">Set Inputs</string>
+    <string name="menu_actualToDefault_tt">Use actual input values as new default values.</string>
 
     <string name="message">Digital
 

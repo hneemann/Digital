@@ -17,6 +17,7 @@ import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.test.TestData;
@@ -572,6 +573,20 @@ public class Circuit {
      */
     public void setMeasurementOrdering(List<String> measurementOrdering) {
         this.measurementOrdering = measurementOrdering;
+    }
+
+    /**
+     * Makes actual input values to the default value
+     */
+    public void actualToDefault() {
+        for (VisualElement ve : visualElements)
+            if (ve.equalsDescription(In.DESCRIPTION)) {
+                ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
+                if (ov != null) {
+                    ve.getElementAttributes().set(Keys.DEFAULT, (int) ov.getValue());
+                    modified=true;
+                }
+            }
     }
 
     /**

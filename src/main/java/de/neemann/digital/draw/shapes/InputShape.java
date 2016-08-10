@@ -72,6 +72,16 @@ public class InputShape implements Shape {
         };
     }
 
+    /**
+     * @return the output connected to this shape
+     */
+    public ObservableValue getObservableValue() {
+        if (ioState == null)
+            return null;
+        else
+            return ioState.getOutput(0);
+    }
+
     @Override
     public void drawTo(Graphic graphic, boolean heighLight) {
         Style style = Style.NORMAL;
