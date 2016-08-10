@@ -330,6 +330,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_table_create_jedec">JEDEC (*.jed)</string>
     <string name="menu_table_create_jedec_tt">Creates a JEDEC file for the device</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
+    <string name="menu_table_exportHex">Export HEX</string>
+    <string name="menu_table_exportHex_tt">You can load the HEX file to a ROM or a LUT.</string>
     <string name="menu_table_inputs">Inputs</string>
     <string name="menu_table_new">New</string>
     <string name="menu_table_newColumns">Add Columns</string>

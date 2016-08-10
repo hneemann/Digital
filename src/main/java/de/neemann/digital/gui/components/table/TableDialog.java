@@ -257,6 +257,24 @@ public class TableDialog extends JDialog {
             }
         });
 
+        fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportHex")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                if (TableDialog.this.filename != null)
+                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "hex"));
+                if (fc.showSaveDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File file = Main.checkSuffix(fc.getSelectedFile(), "hex");
+                        model.getTable().saveHex(file);
+                    } catch (IOException e1) {
+                        new ErrorMessage().addCause(e1).show(TableDialog.this);
+                    }
+                }
+            }
+        }.setToolTip(Lang.get("menu_table_exportHex_tt")).createJMenuItem());
+
+
         createJK = new JCheckBoxMenuItem(Lang.get("menu_table_JK"));
         createJK.addActionListener(e -> calculateExpressions());
         fileMenu.add(createJK);

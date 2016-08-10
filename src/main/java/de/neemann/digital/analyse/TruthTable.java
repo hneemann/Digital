@@ -9,6 +9,7 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -51,6 +52,42 @@ public class TruthTable {
             xStream.marshal(this, new PrettyPrintWriter(out));
         }
     }
+
+    /**
+     * Save the table as hex file to be loaded in a ROM or LUT element.
+     *
+     * @param filename filename
+     * @throws IOException IOException
+     */
+    public void saveHex(File filename) throws IOException {
+        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
+            saveHex(out);
+        }
+    }
+
+    /**
+     * Save the table as hex file to be loaded in a ROM or LUT element.
+     *
+     * @param writer the filename to use
+     * @throws IOException IOException
+     */
+    public void saveHex(Writer writer) throws IOException {
+        writer.write("v2.0 raw\n");
+        int count = results.get(0).getValues().size();
+        for (int i = 0; i < count; i++) {
+            int val = 0;
+            int mask = 1;
+            for (Result r : results) {
+                ThreeStateValue v = r.getValues().get(i);
+                if (v == ThreeStateValue.one)
+                    val |= mask;
+                mask *= 2;
+            }
+            writer.write(Integer.toHexString(val));
+            writer.write('\n');
+        }
+    }
+
 
     private static XStream getxStream() {
         XStream xStream = new XStream(new StaxDriver());
