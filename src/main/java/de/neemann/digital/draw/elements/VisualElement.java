@@ -149,6 +149,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         if (shape == null) {
             shape = shapeFactory.getShape(elementName, elementAttributes);
             minMax = null;
+            transform = null;
         }
         return shape;
     }
