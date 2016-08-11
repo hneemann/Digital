@@ -40,8 +40,9 @@ public class ElementOrderer<T> extends JDialog {
 
         listModel = new MyListModel<T>(data);
         list = new JList<T>(listModel);
-        list.setPreferredSize(new Dimension(100, 150));
-        getContentPane().add(new JScrollPane(list));
+        JScrollPane scrollPane = new JScrollPane(list);
+        getContentPane().add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(100, 150));
 
         buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
@@ -68,6 +69,7 @@ public class ElementOrderer<T> extends JDialog {
         }.setToolTip(Lang.get("tt_moveItemDown")).createJButton());
         getContentPane().add(buttons, BorderLayout.EAST);
 
+        pack();
         setLocationRelativeTo(owner);
     }
 
