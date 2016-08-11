@@ -359,6 +359,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         if (rotate > 3) rotate -= 4;
         elementAttributes.set(Keys.ROTATE, new Rotation(rotate));
         minMax = null;
+        transform = null;
     }
 
     /**
