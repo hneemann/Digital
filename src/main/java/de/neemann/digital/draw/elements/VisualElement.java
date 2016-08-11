@@ -76,6 +76,13 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         return elementAttributes;
     }
 
+    @Override
+    public void attributeChanged(Key key) {
+        shape = null;
+        transform = null;
+        minMax = null;
+    }
+
     /**
      * @return the position of this element
      */
@@ -92,7 +99,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public VisualElement setPos(Vector pos) {
         this.pos = pos;
         minMax = null;
-        transform=null;
+        transform = null;
         return this;
     }
 
@@ -169,7 +176,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     private Transform createTransform() {
-        if (transform==null) {
+        if (transform == null) {
             int rotate = getRotate();
             if (rotate == 0)
                 transform = v -> v.add(pos);
@@ -303,13 +310,6 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
             return false;
     }
 
-
-    @Override
-    public void attributeChanged(Key key) {
-        shape = null;
-        transform=null;
-    }
-
     @Override
     public String toString() {
         String lab = elementAttributes.getCleanLabel();
@@ -357,9 +357,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         int rotate = getRotate();
         rotate += 1;
         if (rotate > 3) rotate -= 4;
-        elementAttributes.set(Keys.ROTATE, new Rotation(rotate));
-        minMax = null;
-        transform = null;
+        getElementAttributes().set(Keys.ROTATE, new Rotation(rotate));
     }
 
     /**
