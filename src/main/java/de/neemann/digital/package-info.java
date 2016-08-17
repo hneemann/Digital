@@ -33,13 +33,14 @@
  * The model class also has the ability to run the model. Sometime there maybe will be
  * an other simulation algorithm. Up to now there is only a very simple algorithm available.
  * <p>
- * The model consists only of {@link de.neemann.digital.core.Node}s. This nodes contain one or more
- * {@link de.neemann.digital.core.ObservableValue} instances which represent the inputs and outputs of the nodes.
+ * The model consists only of {@link de.neemann.digital.core.Node}s. Such a nodes contain one or more
+ * {@link de.neemann.digital.core.ObservableValue} instances which represent the inputs and outputs of the node.
  * To the ObservableValue you can register a {@link de.neemann.digital.core.Observer} instances. Every node
- * implements the Observer interface. So every node can be notified on a state change of a ObservableValue.
+ * implements the Observer interface. So every node can be registered to a ObservableValue an so it is notified
+ * on a state change of the ObservableValue.
  * <p>
- * An example: An AND gate with two inputs is registered to two
- * ObservableValues. So, if one of the input values changes, the AND gate gets a
+ * An example: An AND gate with two inputs is registered to the two
+ * ObservableValues representing ther inputs. So, if one of the input values changes, the AND gate gets a
  * notification. But the AND gate does not directly react on this notification. It only informs the
  * model that there was a change at one of the inputs. If the model has collected all the
  * nodes which had seen an input change, it asks all this nodes
