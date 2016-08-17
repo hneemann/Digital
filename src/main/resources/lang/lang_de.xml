@@ -100,7 +100,7 @@ Ein gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen 
 in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.</string>
     <string name="elem_Seven-Seg">Siebensegmentanzeige</string>
     <string name="elem_Seven-Seg-Hex">Siebensegmentanzeige Hex</string>
-    <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalem Eingang.</string>
+    <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
     <string name="elem_Seven-Seg_tt">Siebensegmentanzeige bei der jedes Segment über einen eigenen Eingang gesteuert werden kann.</string>
     <string name="elem_Splitter">Splitter</string>
     <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einer gemeinsamen Leitung zusammen, bzw. splittet diese wieder auf.</string>
