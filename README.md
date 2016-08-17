@@ -13,7 +13,7 @@ Logisim in 2014.
 He has released it as open source so there are a number of forks to continue his work:
 
 - [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
-- [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance
+- [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance at Wentworth Institute of Technology, Boston, MA 
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
@@ -23,7 +23,7 @@ Nevertheless, I believe that there are good reasons for a completely new develop
 
 These are the main features of Digital:
 
-- Visualization of signal states with measurement graphs
+- Visualization of signal states with measurement graphs.
 - Single gate mode to analyze oscillations.
 - Analysis and synthesis of combinatorial and sequential circuits.
 - Simple testing of circuits: You can create test cases and execute them to verify your design.
@@ -33,7 +33,8 @@ These are the main features of Digital:
 - Display of LST files when executing assembler programs within such a processor.
 - Simple remote TCP interface which  e.g. enables an assembler IDE to control the simulator.
 - Direct export of JEDEC files which you can flash to a [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
-  or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx). 
+  or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx). These chips are somewhat outdated (introduced in 1985!) but 
+  sufficient for beginners exercises, easy to understand and well documented.
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code
 - Good test coverage (exclusive of GUI classes about 80%)
