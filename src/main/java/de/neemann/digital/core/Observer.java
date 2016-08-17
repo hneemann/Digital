@@ -7,7 +7,7 @@ package de.neemann.digital.core;
  */
 public interface Observer {
     /**
-     * is called if observable has changes
+     * is called if observable has changed
      */
     void hasChanged();
 }

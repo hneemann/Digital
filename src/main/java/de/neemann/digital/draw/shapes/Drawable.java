@@ -3,7 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.draw.graphics.Graphic;
 
 /**
- * Interface implemented by the elements which can draw itself at a {@link Graphic} instance.
+ * Interface implemented by the elements which can draw itself to a {@link Graphic} instance.
  *
  * @author hneemann
  */

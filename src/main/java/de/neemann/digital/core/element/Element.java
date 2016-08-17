@@ -25,7 +25,7 @@ public interface Element {
      * by calling this method. After the interconnection they are set to the inputs
      * by calling <code>setInputs()</code>
      *
-     * @return the list of outputs wich are set by this element
+     * @return the list of outputs which are set by this element
      */
     ObservableValues getOutputs();
 

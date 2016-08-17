@@ -135,11 +135,12 @@ circuits combined with the build-in D or JK flop-flops.
 ## How do I get set up? ##
 
 The easiest way is to download the [latest release](https://github.com/hneemann/Digital/releases/latest). 
-In the ZIP file you will find the binary (Digital.jar) and all examples.
+In the ZIP file you will find the binary (Digital.jar) and all examples. A Java JRE 1.8 is needed to execute Digital.
 
-Digital is written in Java, so if you like to build Digital from the source code:
+If you like to build Digital from the source code:
  
-* At first clone the repository.  
+* At first clone the repository.
+* JDK 1.8 is needed (either the Oracle JDK 1.8 or OpenJDK 1.8)  
 * maven is used as build system, so the easiest way is to install [maven](https://maven.apache.org/).
 * After that you can simply run `mvn install` to build Digital.
 * With `mvn site` you can create a checkstyle, a findbugs and a cobertura code coverage report.
