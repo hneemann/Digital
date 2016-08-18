@@ -54,6 +54,7 @@ public class Circuit {
     private transient boolean dotsPresent = false;
     private transient boolean modified = false;
     private transient ArrayList<CircRect> recs;
+    private transient ArrayList<ChangedListener> listeners;
 
     /**
      * Creates a proper configurated XStream instance
@@ -451,6 +452,7 @@ public class Circuit {
      */
     public void modified() {
         modified = true;
+        fireChangedEvent();
     }
 
     /**
@@ -584,7 +586,7 @@ public class Circuit {
                 ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
                 if (ov != null) {
                     ve.getElementAttributes().set(Keys.DEFAULT, (int) ov.getValue());
-                    modified=true;
+                    modified = true;
                 }
             }
     }
@@ -621,5 +623,42 @@ public class Circuit {
 
             graphic.drawPolygon(p, Style.DASH);
         }
+    }
+
+    /**
+     * Add a listener for circuit changes to this circuit
+     *
+     * @param listener the listener
+     */
+    public void addListener(ChangedListener listener) {
+        if (listeners == null) listeners = new ArrayList<>();
+        listeners.add(listener);
+    }
+
+    /**
+     * Remove a listener for circuit changes from this circuit
+     *
+     * @param listener the listener
+     */
+    public void removeListener(ChangedListener listener) {
+        if (listeners != null)
+            listeners.remove(listener);
+    }
+
+    private void fireChangedEvent() {
+        if (listeners != null)
+            for (ChangedListener l : listeners)
+                l.circuitHasChanged();
+    }
+
+
+    /**
+     * Interface to register a listener for model changes.
+     */
+    public interface ChangedListener {
+        /**
+         * called if circuit has changed
+         */
+        void circuitHasChanged();
     }
 }

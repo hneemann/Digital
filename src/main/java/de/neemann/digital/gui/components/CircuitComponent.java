@@ -7,7 +7,6 @@ import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -29,9 +28,12 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
@@ -41,7 +43,7 @@ import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 /**
  * @author hneemann
  */
-public class CircuitComponent extends JComponent {
+public class CircuitComponent extends JComponent implements Circuit.ChangedListener {
     /**
      * The delete icon, also used from {@link de.neemann.digital.gui.components.terminal.TerminalDialog}
      */
@@ -74,6 +76,7 @@ public class CircuitComponent extends JComponent {
     private Vector lastMousePos;
     private Sync modelSync;
     private boolean isManualScale;
+    private boolean hasChanged = true;
 
 
     /**
@@ -157,7 +160,7 @@ public class CircuitComponent extends JComponent {
             transform.scale(f, f);
             transform.translate(-pos.x, -pos.y);
             isManualScale = true;
-            repaint();
+            hasChanged();
         });
 
         addComponentListener(new ComponentAdapter() {
@@ -186,6 +189,14 @@ public class CircuitComponent extends JComponent {
         addMouseListener(disp);
 
         setToolTipText("");
+    }
+
+    /**
+     * invalidates the image buffer and calls repaint();
+     */
+    public void hasChanged() {
+        hasChanged = true;
+        repaint();
     }
 
     /**
@@ -328,23 +339,55 @@ public class CircuitComponent extends JComponent {
         mouseInsertElement.activate(element);
     }
 
+
+    private BufferedImage buffer;
+    private int highlightedNumPainted;
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        if (highLighted.size() != highlightedNumPainted)
+            hasChanged = true;
+
+        if (hasChanged || buffer == null || getWidth() != buffer.getWidth() || getHeight() != buffer.getHeight()) {
+            long time = System.currentTimeMillis();
+            buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
+            Graphics2D gr2 = buffer.createGraphics();
+            gr2.setColor(Color.WHITE);
+            gr2.fillRect(0, 0, getWidth(), getHeight());
+            gr2.transform(transform);
+
+            GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
+            circuit.drawTo(gr, highLighted, modelSync);
+            highlightedNumPainted = highLighted.size();
+            hasChanged = false;
+            System.out.println(System.currentTimeMillis() - time);  // -agentlib:hprof=cpu=samples
+        }
+
+        g.drawImage(buffer, 0, 0, null);
+
         Graphics2D gr2 = (Graphics2D) g;
-        gr2.setColor(Color.WHITE);
-        gr2.fillRect(0, 0, getWidth(), getHeight());
         AffineTransform oldTrans = gr2.getTransform();
         gr2.transform(transform);
-
         GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
-//        long time = System.currentTimeMillis();
-        circuit.drawTo(gr, highLighted, modelSync);
-//        System.out.println(System.currentTimeMillis()-time);  // -agentlib:hprof=cpu=samples
-
         activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);
     }
+
+    @Override
+    public void circuitHasChanged() {
+        hasChanged = true;
+    }
+
+    /**
+     * forces a immediately repaint
+     */
+    public void paintImmediately() {
+        hasChanged = true;
+        paintImmediately(0, 0, getWidth(), getHeight());
+    }
+
 
     private Vector getPosVector(MouseEvent e) {
         return getPosVector(e.getX(), e.getY());
@@ -384,7 +427,15 @@ public class CircuitComponent extends JComponent {
      * @param circuit the circuit
      */
     public void setCircuit(Circuit circuit) {
+
+        if (this.circuit != null) {
+            this.circuit.removeListener(this);
+        }
+
         this.circuit = circuit;
+
+        circuit.addListener(this);
+
         fitCircuit();
         setModeAndReset(false, NoSync.INST);
     }
@@ -414,7 +465,7 @@ public class CircuitComponent extends JComponent {
             transform = new AffineTransform();
             isManualScale = true;
         }
-        repaint();
+        hasChanged();
     }
 
     /**
@@ -428,7 +479,7 @@ public class CircuitComponent extends JComponent {
         transform.scale(f, f);
         transform.translate(-dif.x, -dif.y);
         isManualScale = true;
-        repaint();
+        hasChanged();
     }
 
     private void editAttributes(VisualElement vp, MouseEvent e) {
@@ -456,7 +507,7 @@ public class CircuitComponent extends JComponent {
                                                     parentsSavedListener.saved(filename);
                                                 library.removeElement(filename);
                                                 circuit.clearState();
-                                                repaint();
+                                                hasChanged();
                                             }
                                         }).setVisible(true);
                             }
@@ -466,7 +517,7 @@ public class CircuitComponent extends JComponent {
             }
             if (attributeDialog.showDialog()) {
                 circuit.modified();
-                repaint();
+                hasChanged();
             }
         }
     }
@@ -518,7 +569,7 @@ public class CircuitComponent extends JComponent {
                     transform.translate(delta.x / s, delta.y / s);
                     pos = newPos;
                     isManualScale = true;
-                    repaint();
+                    hasChanged();
                 }
             }
         }
@@ -538,7 +589,7 @@ public class CircuitComponent extends JComponent {
             copyAction.setEnabled(false);
             rotateAction.setEnabled(false);
             setCursor(mouseCursor);
-            repaint();
+            hasChanged();
         }
 
         void clicked(MouseEvent e) {
@@ -660,7 +711,7 @@ public class CircuitComponent extends JComponent {
         void clicked(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 circuit.add(element);
-                repaint();
+                hasChanged();
             }
             mouseNormal.activate();
         }
@@ -686,7 +737,7 @@ public class CircuitComponent extends JComponent {
             delta = visualElement.getPos().sub(pos);
             deleteAction.setActive(true);
             rotateAction.setEnabled(true);
-            repaint();
+            hasChanged();
         }
 
         @Override
@@ -700,7 +751,7 @@ public class CircuitComponent extends JComponent {
             Vector pos = getPosVector(e);
             visualElement.setPos(raster(pos.add(delta)));
             circuit.modified();
-            repaint();
+            hasChanged();
         }
 
         @Override
@@ -719,7 +770,7 @@ public class CircuitComponent extends JComponent {
         public void rotate() {
             visualElement.rotate();
             circuit.modified();
-            repaint();
+            hasChanged();
         }
     }
 
@@ -885,7 +936,7 @@ public class CircuitComponent extends JComponent {
         }
 
         circuit.modified();
-        repaint();
+        hasChanged();
     }
 
 
@@ -924,7 +975,7 @@ public class CircuitComponent extends JComponent {
                         m.move(delta);
                     wasMoved = true;
 
-                    repaint();
+                    hasChanged();
                     lastPos = lastPos.add(delta);
                     center = center.add(delta);
                 }
@@ -1060,7 +1111,7 @@ public class CircuitComponent extends JComponent {
                 if (manualChangeObserver != null)
                     manualChangeObserver.hasChanged();
             } else
-                repaint();
+                hasChanged();
         }
     }
 

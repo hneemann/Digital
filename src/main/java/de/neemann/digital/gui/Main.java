@@ -456,7 +456,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     model.doMicroStep(false);
                     circuitComponent.removeHighLighted();
                     modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
-                    circuitComponent.repaint();
+                    circuitComponent.hasChanged();
                     doStep.setEnabled(model.needsUpdate());
                 } catch (Exception e1) {
                     SwingUtilities.invokeLater(
@@ -475,7 +475,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 try {
                     int i = model.runToBreak();
-                    circuitComponent.repaint();
+                    circuitComponent.hasChanged();
                     statusLabel.setText(Lang.get("stat_clocks", i));
                 } catch (NodeException e1) {
                     elementState.enter();
@@ -760,7 +760,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 BurnException e = (BurnException) cause;
                 circuitComponent.addHighLightedWires(e.getValue().asList());
             }
-            circuitComponent.repaint();
+            circuitComponent.hasChanged();
             new ErrorMessage(message).addCause(cause).show(Main.this);
             elementState.enter();
         });
@@ -875,7 +875,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     model.fireManualChangeEvent();
                     model.doStep();
                 });
-                circuitComponent.repaint();
+                circuitComponent.hasChanged();
             } catch (NodeException | RuntimeException e) {
                 showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
             }
@@ -893,7 +893,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         public void hasChanged() {
             modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             model.fireManualChangeEvent();
-            circuitComponent.repaint();
+            circuitComponent.hasChanged();
             doStep.setEnabled(model.needsUpdate());
         }
     }
@@ -973,7 +973,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                         clkVal.setBool(!clkVal.getBool());
                         model.doStep();
                     }
-                    circuitComponent.repaint();
+                    circuitComponent.hasChanged();
                 } catch (NodeException e) {
                     showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                 }
@@ -990,14 +990,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     @Override
     public boolean start() {
         runModelState.enter(false);
-        circuitComponent.repaint();
+        circuitComponent.hasChanged();
         return true;
     }
 
     @Override
     public void stop() {
         elementState.enter();
-        circuitComponent.repaint();
+        circuitComponent.hasChanged();
     }
     //**********************
     // remote interface end
