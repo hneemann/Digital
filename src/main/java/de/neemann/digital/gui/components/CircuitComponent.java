@@ -41,6 +41,9 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
 /**
+ * Component which shows the circuit.
+ * ToDo: refactoring of repaint logic. Its to complex now.
+ *
  * @author hneemann
  */
 public class CircuitComponent extends JComponent implements Circuit.ChangedListener {
@@ -341,16 +344,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
 
     private BufferedImage buffer;
-    private int highlightedNumPainted;
+    private int highlightedPaintedCount;
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (highLighted.size() != highlightedNumPainted)
-            hasChanged = true;
+        if (hasChanged
+                || buffer == null
+                || getWidth() != buffer.getWidth()
+                || getHeight() != buffer.getHeight()
+                || highLighted.size() != highlightedPaintedCount) {
 
-        if (hasChanged || buffer == null || getWidth() != buffer.getWidth() || getHeight() != buffer.getHeight()) {
 //            long time = System.currentTimeMillis();
             buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
             Graphics2D gr2 = buffer.createGraphics();
@@ -360,7 +365,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
             GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
             circuit.drawTo(gr, highLighted, modelSync);
-            highlightedNumPainted = highLighted.size();
+            highlightedPaintedCount = highLighted.size();
             hasChanged = false;
 //            System.out.println(System.currentTimeMillis() - time);  // -agentlib:hprof=cpu=samples
         }
@@ -382,6 +387,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     /**
      * forces a immediately repaint
+     * Is called from {@link de.neemann.digital.gui.GuiModelObserver} if the models data has changed.
+     * Therefore the double buffer is invalidated.
      */
     public void paintImmediately() {
         hasChanged = true;
