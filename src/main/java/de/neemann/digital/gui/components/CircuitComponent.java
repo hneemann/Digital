@@ -351,7 +351,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             hasChanged = true;
 
         if (hasChanged || buffer == null || getWidth() != buffer.getWidth() || getHeight() != buffer.getHeight()) {
-            long time = System.currentTimeMillis();
+//            long time = System.currentTimeMillis();
             buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
             Graphics2D gr2 = buffer.createGraphics();
             gr2.setColor(Color.WHITE);
@@ -362,7 +362,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             circuit.drawTo(gr, highLighted, modelSync);
             highlightedNumPainted = highLighted.size();
             hasChanged = false;
-            System.out.println(System.currentTimeMillis() - time);  // -agentlib:hprof=cpu=samples
+//            System.out.println(System.currentTimeMillis() - time);  // -agentlib:hprof=cpu=samples
         }
 
         g.drawImage(buffer, 0, 0, null);
