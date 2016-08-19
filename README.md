@@ -117,8 +117,9 @@ In Logisim there is no way to debug an assembly program in a simulated processor
 If an assembler is available which creates a LST file of the source code (code address followed by the source code line)
 Digital can view this listing in a trace window with the current instruction being highlighted.
 So the simulator can run an assembly program in a debug friendly single step mode.
-Since Digital has a simple TCP-based remote control interface, also an assembler IDE can be used to control the simulator
-and load assembly programs in the simulated processor, start the program, perform single steps and so on.
+Since Digital has a simple TCP-based remote control interface, also an [assembler IDE](https://github.com/hneemann/Assembler) 
+can be used to control the simulator and load assembly programs in the simulated processor, start the program, perform 
+single steps and so on.
 
 ### Circuit Synthesis ###
 
