@@ -56,11 +56,11 @@ public class RAMSinglePort extends RAMDualPort {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
-        strIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
-        clkIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
-        ldIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
-        dataIn = inputs.get(4).checkBits(bits, this).addObserverToValue(this); // additional input to read the port
+        setAddrIn(inputs.get(0));
+        setStrIn(inputs.get(1));
+        setClkIn(inputs.get(2));
+        setLdIn(inputs.get(3));
+        setDataIn(inputs.get(4)); // additional input to read the port
     }
 
 }

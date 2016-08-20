@@ -1,9 +1,6 @@
 package de.neemann.digital.core.memory;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -36,13 +33,13 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
 
     private final DataField memory;
     private final ObservableValue output;
-    protected final int addrBits;
-    protected final int bits;
-    protected ObservableValue addrIn;
-    protected ObservableValue dataIn;
-    protected ObservableValue strIn;
-    protected ObservableValue clkIn;
-    protected ObservableValue ldIn;
+    private final int addrBits;
+    private final int bits;
+    private ObservableValue addrIn;
+    private ObservableValue dataIn;
+    private ObservableValue strIn;
+    private ObservableValue clkIn;
+    private ObservableValue ldIn;
     private int addr;
     private boolean lastClk = false;
     private boolean ld;
@@ -57,7 +54,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
         bits = attr.get(Keys.BITS);
         output = createOutput();
         addrBits = attr.get(Keys.ADDR_BITS);
-        memory = new DataField(1 << addrBits, bits);
+        memory = new DataField(1 << addrBits);
     }
 
     /**
@@ -71,11 +68,61 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
-        dataIn = inputs.get(1).checkBits(bits, this).addObserverToValue(this);
-        strIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
-        clkIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
-        ldIn = inputs.get(4).checkBits(1, this).addObserverToValue(this);
+        setAddrIn(inputs.get(0));
+        setDataIn(inputs.get(1));
+        setStrIn(inputs.get(2));
+        setClkIn(inputs.get(3));
+        setLdIn(inputs.get(4));
+    }
+
+    /**
+     * Sets the addrIn input value
+     *
+     * @param addrIn addrIn
+     * @throws BitsException BitsException
+     */
+    protected void setAddrIn(ObservableValue addrIn) throws BitsException {
+        this.addrIn = addrIn.checkBits(addrBits, this).addObserverToValue(this);
+    }
+
+    /**
+     * Sets the dataIn input value
+     *
+     * @param dataIn dataIn
+     * @throws BitsException BitsException
+     */
+    protected void setDataIn(ObservableValue dataIn) throws BitsException {
+        this.dataIn = dataIn.checkBits(bits, this).addObserverToValue(this);
+    }
+
+    /**
+     * Sets the strIn input value
+     *
+     * @param strIn strIn
+     * @throws BitsException BitsException
+     */
+    protected void setStrIn(ObservableValue strIn) throws BitsException {
+        this.strIn = strIn.checkBits(1, this).addObserverToValue(this);
+    }
+
+    /**
+     * Sets the clkIn input value
+     *
+     * @param clkIn clkIn
+     * @throws BitsException BitsException
+     */
+    protected void setClkIn(ObservableValue clkIn) throws BitsException {
+        this.clkIn = clkIn.checkBits(1, this).addObserverToValue(this);
+    }
+
+    /**
+     * Sets the ldIn input value
+     *
+     * @param ldIn ldIn
+     * @throws BitsException BitsException
+     */
+    protected void setLdIn(ObservableValue ldIn) throws BitsException {
+        this.ldIn = ldIn.checkBits(1, this).addObserverToValue(this);
     }
 
     @Override

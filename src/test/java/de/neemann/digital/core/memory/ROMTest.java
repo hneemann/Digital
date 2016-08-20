@@ -19,7 +19,7 @@ public class ROMTest extends TestCase {
         ObservableValue sel = new ObservableValue("sel", 1);
 
         Model model = new Model();
-        DataField data = new DataField(8, 8);
+        DataField data = new DataField(8);
         data.setData(3, 17);
         data.setData(7, 200);
         ROM out = model.add(new ROM(

@@ -197,7 +197,7 @@
           <string>1,15</string>
         </entry>
       </elementAttributes>
-      <pos x="600" y="600"/>
+      <pos x="700" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -312,12 +312,12 @@
       <p2 x="720" y="440"/>
     </wire>
     <wire>
-      <p1 x="600" y="600"/>
+      <p1 x="700" y="600"/>
       <p2 x="820" y="600"/>
     </wire>
     <wire>
       <p1 x="540" y="600"/>
-      <p2 x="580" y="600"/>
+      <p2 x="680" y="600"/>
     </wire>
     <wire>
       <p1 x="520" y="280"/>

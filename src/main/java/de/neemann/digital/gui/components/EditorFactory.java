@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
@@ -236,9 +237,11 @@ public final class EditorFactory {
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    DataEditor de = new DataEditor(panel, data, attr, NoSync.INST);
+                    int bits = attr.get(Keys.BITS);
+                    int size = 1 << attr.get(Keys.ADDR_BITS);
+                    DataEditor de = new DataEditor(panel, data, size, bits, false, NoSync.INST);
                     if (de.showDialog()) {
-                        data = de.getDataField();
+                        data = de.getModifiedDataField();
                     }
                 }
             }.createJButton());

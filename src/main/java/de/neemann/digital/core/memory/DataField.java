@@ -14,11 +14,10 @@ public class DataField {
     /***
      * Simple default data field
      */
-    public static final DataField DEFAULT = new DataField(0, 8);
+    public static final DataField DEFAULT = new DataField(0);
 
     private final int size;
     private long[] data;
-    private final int bits;
 
     private final transient ArrayList<DataListener> listeners = new ArrayList<>();
 
@@ -26,16 +25,14 @@ public class DataField {
      * Creates a new DataField
      *
      * @param size size
-     * @param bits number of bits
      */
-    public DataField(int size, int bits) {
-        this(new long[size], size, bits);
+    public DataField(int size) {
+        this(new long[size], size);
     }
 
-    private DataField(long[] data, int size, int bits) {
+    private DataField(long[] data, int size) {
         this.size = size;
         this.data = data;
-        this.bits = bits;
     }
 
     /**
@@ -44,10 +41,9 @@ public class DataField {
      *
      * @param dataField the data to use
      * @param newSize   new size
-     * @param bits      number og bits
      */
-    public DataField(DataField dataField, int newSize, int bits) {
-        this(Arrays.copyOf(dataField.data, newSize), newSize, bits);
+    public DataField(DataField dataField, int newSize) {
+        this(Arrays.copyOf(dataField.data, newSize), newSize);
     }
 
     /**
@@ -87,7 +83,6 @@ public class DataField {
             }
             size = pos;
         }
-        bits = 16;
     }
 
     /**
@@ -142,14 +137,7 @@ public class DataField {
         if (pos == data.length)
             return this;
         else
-            return new DataField(Arrays.copyOf(data, pos), size, bits);
-    }
-
-    /**
-     * @return the number of bits
-     */
-    public int getBits() {
-        return bits;
+            return new DataField(Arrays.copyOf(data, pos), size);
     }
 
     /**

@@ -67,7 +67,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         width = attr.get(Keys.GRAPHIC_WIDTH);
         height = attr.get(Keys.GRAPHIC_HEIGHT);
         bankSize = width * height;
-        memory = new DataField(bankSize * 2, 8);
+        memory = new DataField(bankSize * 2);
 
         dataOut = new ObservableValue("D", 16, true)
                 .setDescription(Lang.get("elem_RAMSinglePort_pin_d"))

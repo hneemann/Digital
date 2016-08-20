@@ -69,8 +69,8 @@ public final class ShapeFactory {
         }
 
 
-        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr), attr.getLabel()));
-        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape("RAM", RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr), attr.getLabel()));
+        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr)));
+        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr)));
 
         map.put(In.DESCRIPTION.getName(), InputShape::new);
         map.put(Reset.DESCRIPTION.getName(), ResetShape::new);

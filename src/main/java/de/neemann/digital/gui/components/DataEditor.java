@@ -1,7 +1,5 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class DataEditor extends JDialog {
-    private final DataField dataField;
+    private final DataField localDataField;
     private boolean ok = false;
 
     /**
@@ -33,70 +31,43 @@ public class DataEditor extends JDialog {
      * @param parent    the parent
      * @param dataField the data to edit
      */
-    public DataEditor(JComponent parent, DataField dataField, Sync modelSync) {
-        this(parent, dataField, null, modelSync);
-    }
-
-    /**
-     * Creates a new instance
-     *
-     * @param parent    the parent
-     * @param dataField the data to edit
-     * @param attr      uset to get bit sizes
-     */
-    public DataEditor(JComponent parent, DataField dataField, ElementAttributes attr, Sync modelSync) {
-        super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), attr == null ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
+    public DataEditor(JComponent parent, DataField dataField, int size, int bits, boolean modelIsRunning, Sync modelSync) {
+        super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        int size;
-        int bits;
-        boolean register;
-        if (attr != null) {
-            bits = attr.getBits();
-            if (attr.contains(Keys.ADDR_BITS))
-                size = 1 << attr.get(Keys.ADDR_BITS);
-            else
-                size = 1 << attr.get(Keys.INPUT_COUNT);
-
-            this.dataField = new DataField(dataField, size, bits);
-            register = false;
-        } else {
-            this.dataField = dataField;
-            size = this.dataField.size();
-            bits = this.dataField.getBits();
-            register = true;
-        }
+        if (modelIsRunning)
+            localDataField = dataField;
+        else
+            localDataField = new DataField(dataField, size);
 
         int cols = 16;
         if (size <= 16) cols = 1;
         else if (size <= 128) cols = 8;
 
-        MyTableModel dm = new MyTableModel(this.dataField, cols, modelSync);
+        MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
         JTable table = new JTable(dm);
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(bits));
         getContentPane().add(new JScrollPane(table));
 
-        if (register) {
-            this.dataField.addListener(dm);
-
+        if (modelIsRunning) {
+            dataField.addListener(dm);
             addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    DataEditor.this.dataField.removeListener(dm);
+                    dataField.removeListener(dm);
                 }
             });
+        } else {
+            JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ok = true;
+                    dispose();
+                }
+            }));
+            getContentPane().add(buttons, BorderLayout.SOUTH);
         }
-
-
-        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ok = true;
-                dispose();
-            }
-        }));
-        getContentPane().add(buttons, BorderLayout.SOUTH);
 
         setPreferredSize(new Dimension((cols + 1) * 50, getPreferredSize().height));
 
@@ -108,8 +79,8 @@ public class DataEditor extends JDialog {
     /**
      * @return the data field
      */
-    public DataField getDataField() {
-        return dataField;
+    public DataField getModifiedDataField() {
+        return localDataField;
     }
 
     /**
@@ -174,7 +145,7 @@ public class DataEditor extends JDialog {
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            modelSync.access(()->{
+            modelSync.access(() -> {
                 dataField.setData(rowIndex * cols + (columnIndex - 1), ((MyLong) aValue).getValue());
             });
         }
