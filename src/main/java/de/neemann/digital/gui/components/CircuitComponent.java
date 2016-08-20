@@ -344,7 +344,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
 
     private BufferedImage buffer;
-    private int highlightedPaintedCount;
+    private int highlightedPaintedSize;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -354,7 +354,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 || buffer == null
                 || getWidth() != buffer.getWidth()
                 || getHeight() != buffer.getHeight()
-                || highLighted.size() != highlightedPaintedCount) {
+                || highLighted.size() != highlightedPaintedSize) {
 
 //            long time = System.currentTimeMillis();
             buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
@@ -365,7 +365,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
             GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
             circuit.drawTo(gr, highLighted, modelSync);
-            highlightedPaintedCount = highLighted.size();
+            highlightedPaintedSize = highLighted.size();
             hasChanged = false;
 //            System.out.println(System.currentTimeMillis() - time);  // -agentlib:hprof=cpu=samples
         }
