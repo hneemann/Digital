@@ -942,11 +942,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         }
     }
 
-    //**********************
+    //***********************
     // remote interface start
-    //**********************
+    //***********************
 
-    public VisualElement getProgramRomFromCircuit() throws RemoteException {
+    private VisualElement getProgramRomFromCircuit() throws RemoteException {
         VisualElement rom = null;
         ArrayList<VisualElement> el = circuitComponent.getCircuit().getElements();
         for (VisualElement e : el) {
