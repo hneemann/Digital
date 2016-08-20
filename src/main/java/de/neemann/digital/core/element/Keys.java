@@ -158,6 +158,12 @@ public final class Keys {
             = new Key<>("showList", false);
 
     /**
+     * flag to set a ROM as programm memory
+     */
+    public static final Key<Boolean> IS_PROGRAM_MEMORY
+            = new Key<>("isProgramMemory", false);
+
+    /**
      * flag to enable the ROMs auto load function
      */
     public static final Key<Boolean> AUTO_RELOAD_ROM

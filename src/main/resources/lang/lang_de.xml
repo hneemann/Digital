@@ -238,6 +238,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_Testdata">Testdaten</string>
     <string name="key_graphicWidth">Breite in Pixel</string>
     <string name="key_graphicHeight">Höhe in Pixel</string>
+    <string name="key_isProgramMemory">Programmspeicher</string>
+    <string name="key_isProgramMemory_tt">Zeichnet dieses ROM als Programmspeicher aus. Es kann damit von einer externen IDE beschrieben werden.</string>
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
     <string name="lib_flipFlops">FlipFlops</string>
@@ -384,7 +386,8 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_pinMap_outputs">Ausgänge</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Die Änderung erfordert einen Neustart!</string>
-    <string name="msg_noRomFound">Kein ROM im Model gefunden! Im ROM muss Automatisches Laden eingeschaltet sein!</string>
+    <string name="msg_noRomFound">Kein ROM im Model gefunden! Ein ROM muss als Programmspeicher gewählt werden!</string>
+    <string name="msg_moreThenOneRomFound">Mehr als einen Programmspeicher gefunden. Es darf nur einen Programmspeicher geben.</string>
     <string name="msg_enterAnExpression">Geben Sie einen Ausdruck ein:</string>
     <string name="msg_runningTestError">Fehler bei der Ausführung der Tests:</string>
     <string name="msg_testResult">Testergebnis</string>

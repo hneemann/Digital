@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
@@ -31,6 +32,7 @@ import de.neemann.digital.gui.components.test.DataException;
 import de.neemann.digital.gui.components.test.TestCaseElement;
 import de.neemann.digital.gui.components.test.TestResultDialog;
 import de.neemann.digital.gui.remote.DigitalHandler;
+import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.gui.remote.RemoteSever;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
@@ -729,7 +731,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             for (ROM rom : model.findNode(ROM.class))
                 if (rom.showListing())
                     try {
-                        windowPosManager.register("rom" + (i++), new ROMListingDialog(this, rom)).setVisible(true);
+                        windowPosManager.register("rom" + (i++), new ROMListingDialog(this, rom, model, modelSync)).setVisible(true);
                     } catch (IOException e) {
                         new ErrorMessage(Lang.get("msg_errorReadingListing_N0", rom.getHexFile().toString())).addCause(e).show(this);
                     }
@@ -944,20 +946,36 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     // remote interface start
     //**********************
 
-    @Override
-    public boolean loadRom(File file) {
-        boolean found = false;
+    public VisualElement getProgramRomFromCircuit() throws RemoteException {
+        VisualElement rom = null;
         ArrayList<VisualElement> el = circuitComponent.getCircuit().getElements();
         for (VisualElement e : el) {
             if (e.equalsDescription(ROM.DESCRIPTION)) {
                 ElementAttributes attr = e.getElementAttributes();
-                if (attr.get(Keys.AUTO_RELOAD_ROM)) {
-                    attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
-                    found = true;
+                if (attr.get(Keys.IS_PROGRAM_MEMORY)) {
+                    if (rom != null)
+                        throw new RemoteException(Lang.get("msg_moreThenOneRomFound"));
+                    rom = e;
                 }
             }
         }
-        return found;
+        if (rom == null)
+            throw new RemoteException(Lang.get("msg_noRomFound"));
+
+        return rom;
+    }
+
+    @Override
+    public void loadRom(File file) throws RemoteException {
+        VisualElement rom = getProgramRomFromCircuit();
+        ElementAttributes attr = rom.getElementAttributes();
+        try {
+            DataField df = new DataField(file);
+            attr.set(Keys.DATA, df);
+            attr.setFile(ROM.LAST_DATA_FILE_KEY, file);  // needed in debug mode to load listing!
+        } catch (IOException e) {
+            throw new RemoteException(e.getMessage());
+        }
     }
 
     @Override
@@ -987,11 +1005,23 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             runToBreakAction.actionPerformed(null);
     }
 
+    private void setDebug(boolean debug) throws RemoteException {
+        VisualElement rom = getProgramRomFromCircuit();
+        rom.getElementAttributes().set(Keys.SHOW_LISTING, debug);
+    }
+
     @Override
-    public boolean start() {
+    public void debug() throws RemoteException {
+        setDebug(true);
         runModelState.enter(false);
         circuitComponent.hasChanged();
-        return true;
+    }
+
+    @Override
+    public void start() throws RemoteException {
+        setDebug(false);
+        runModelState.enter(true);
+        circuitComponent.hasChanged();
     }
 
     @Override

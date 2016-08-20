@@ -231,6 +231,7 @@ public class Model implements Iterable<Node> {
 
         int count = aBreak.getCycles() * 2;
         boolean lastIn = brVal.getBool();
+        fireEvent(ModelEvent.FASTRUN);
         for (int i = 0; i < count; i++) {
             clkVal.setBool(!clkVal.getBool());
             doStep();

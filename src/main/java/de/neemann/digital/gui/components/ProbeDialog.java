@@ -24,6 +24,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
 
     private final ModelEvent type;
     private final SignalTableModel tableModel;
+    private boolean tableUpdateEnable = true;
 
     /**
      * Creates a new instance
@@ -73,7 +74,18 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
     @Override
     public void handleEvent(ModelEvent event) {
         if (event == type || event == ModelEvent.MANUALCHANGE) {
-            SwingUtilities.invokeLater(tableModel::fireChanged);
+            if (tableUpdateEnable)
+                SwingUtilities.invokeLater(tableModel::fireChanged);
+        }
+        switch (event) {
+            case FASTRUN:
+                tableUpdateEnable = false;
+                break;
+            case BREAK:
+            case STOPPED:
+                tableUpdateEnable = true;
+                SwingUtilities.invokeLater(tableModel::fireChanged);
+                break;
         }
     }
 

@@ -30,17 +30,24 @@ public class DigitalHandler implements HandlerInterface {
             args = request.substring(p + 1);
         }
 
-        return handle(command.toLowerCase(), args);
+        try {
+            handle(command.toLowerCase(), args);
+            return "ok";
+        } catch (RemoteException e) {
+            return e.getMessage();
+        }
     }
 
-    private String handle(String command, String args) {
+    private void handle(String command, String args) throws RemoteException {
         switch (command) {
             case "step":
                 digitalRemoteInterface.doSingleStep();
                 break;
             case "start":
-                if (!digitalRemoteInterface.start())
-                    return Lang.get("msg_errorCreatingModel");
+                digitalRemoteInterface.start();
+                break;
+            case "debug":
+                digitalRemoteInterface.debug();
                 break;
             case "run":
                 digitalRemoteInterface.runToBreak();
@@ -50,15 +57,10 @@ public class DigitalHandler implements HandlerInterface {
                 break;
             case "load":
                 File file = new File(args);
-                if (file.exists()) {
-                    if (!digitalRemoteInterface.loadRom(file))
-                        return Lang.get("msg_noRomFound");
-                } else
-                    return Lang.get("msg_errorFileNotFound", args);
+                digitalRemoteInterface.loadRom(file);
                 break;
             default:
-                return Lang.get("msg_remoteUnknownCommand", command);
+                throw new RemoteException(Lang.get("msg_remoteUnknownCommand", command));
         }
-        return "ok";
     }
 }

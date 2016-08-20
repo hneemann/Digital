@@ -238,6 +238,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_Testdata">Testdata</string>
     <string name="key_graphicWidth">Width in pixels</string>
     <string name="key_graphicHeight">Height in pixels</string>
+    <string name="key_isProgramMemory">Program Memory</string>
+    <string name="key_isProgramMemory_tt">Makes this ROM to program memory. So it can be accessed by an external IDE.</string>
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
     <string name="lib_flipFlops">FlipFlops</string>
@@ -383,7 +385,8 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_pinMap_outputs">Onputs</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Change needs a restart to take effect!</string>
-    <string name="msg_noRomFound">No ROM found! ROM needs to be set to auto reload mode.</string>
+    <string name="msg_noRomFound">No ROM found! ROM needs to be set to be program memory.</string>
+    <string name="msg_moreThenOneRomFound">More then one ROM found! Only one ROM must be set to be program memory.</string>
     <string name="msg_errorFileNotFound">Could not find file: {0}</string>
     <string name="msg_remoteUnknownCommand">Command {0} unknown!</string>
     <string name="msg_enterAnExpression">Enter an expression:</string>

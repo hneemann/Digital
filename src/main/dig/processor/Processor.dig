@@ -145,6 +145,10 @@
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
+          <string>isProgramMemory</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>Bits</string>
           <int>16</int>
         </entry>

@@ -1,5 +1,7 @@
 package de.neemann.digital.gui;
 
+import de.neemann.digital.gui.remote.RemoteException;
+
 import java.io.File;
 
 /**
@@ -13,28 +15,37 @@ public interface DigitalRemoteInterface {
      * Loads the given file to the data rom
      *
      * @param file the file to load
-     * @return true if loading was successful
+     * @throws RemoteException RemoteException
      */
-    boolean loadRom(File file);
+    void loadRom(File file) throws RemoteException;
 
     /**
      * Starts the model
-     * @return true if start was successful
+     * @throws RemoteException RemoteException
      */
-    boolean start();
+    void start() throws RemoteException;
+
+    /**
+     * Starts the model in debug mode
+     * @throws RemoteException RemoteException
+     */
+    void debug() throws RemoteException;
 
     /**
      * performs a single step
+     * @throws RemoteException RemoteException
      */
-    void doSingleStep();
+    void doSingleStep() throws RemoteException;
 
     /**
      * runs model to the next BRK instruction
+     * @throws RemoteException RemoteException
      */
-    void runToBreak();
+    void runToBreak() throws RemoteException;
 
     /**
      * stops the model
+     * @throws RemoteException RemoteException
      */
-    void stop();
+    void stop() throws RemoteException;
 }

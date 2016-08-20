@@ -34,6 +34,7 @@ public class ROM extends Node implements Element {
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DATA)
+            .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.AUTO_RELOAD_ROM)
             .addAttribute(Keys.SHOW_LISTING);
 

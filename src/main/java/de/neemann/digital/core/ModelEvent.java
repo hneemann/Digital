@@ -25,6 +25,11 @@ public enum ModelEvent {
     STEP,
 
     /**
+     * Fast run is started.
+     */
+    FASTRUN,
+
+    /**
      * A break is detected.
      */
     BREAK,
