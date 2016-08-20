@@ -29,10 +29,10 @@ public class Add extends Node implements Element {
     private final ObservableValue sum;
     private final ObservableValue cOut;
     private final long mask;
-    protected ObservableValue a;
-    protected ObservableValue b;
-    protected ObservableValue cIn;
-    protected long value;
+    private ObservableValue a;
+    private ObservableValue b;
+    private ObservableValue cIn;
+    private long value;
 
     /**
      * Create a new instance
@@ -49,7 +49,19 @@ public class Add extends Node implements Element {
 
     @Override
     public void readInputs() throws NodeException {
-        value = a.getValue() + b.getValue() + cIn.getValue();
+        value = calc(a.getValue(), b.getValue(), cIn.getValue());
+    }
+
+    /**
+     * Performs the add operation
+     *
+     * @param a a
+     * @param b b
+     * @param c carry
+     * @return the result
+     */
+    protected long calc(long a, long b, long c) {
+        return a + b + c;
     }
 
     @Override
