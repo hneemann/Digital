@@ -8,6 +8,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * The XNOr
+ *
  * @author hneemann
  */
 public class XNOr extends XOr {
@@ -31,6 +32,6 @@ public class XNOr extends XOr {
 
     @Override
     protected long calc(long a, long b) {
-        return ~super.calc(a, b);
+        return ~(a ^ b);
     }
 }
