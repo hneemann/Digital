@@ -123,20 +123,20 @@ single steps and so on.
 
 ### Circuit Synthesis ###
 
-Logisim can generate combinatorial circuits from a truth table. In Digital, this is also possible.
+Logisim is able to generate combinatorial circuits from a truth table. In Digital, this is also possible.
 In addition, also a sequential circuit can be generated from an appropriate state transition table.
 You can specify both the transition circuit and the output circuit. The minimization of the expressions is done
 by the method of Quine and McCluskey.
 Also the truth table, can be derived from a circuit which contains simple combinatorial logic,
 D flip-flops or JK flip-flops, including the generation of the state transition table.
-Note, however, that a NOR-Gate-flip-flop is not recognized as such.
+Note, however, that a flip-flop build of NOR gates is not recognized as such.
 The analysis of sequential circuits only works with purely combinatorial
-circuits combined with the build-in D or JK flop-flops.
+logic combined with the build-in D or JK flop-flops.
 
 ## How do I get set up? ##
 
 The easiest way is to download the [latest release](https://github.com/hneemann/Digital/releases/latest). 
-In the ZIP file you will find the binary (Digital.jar) and all examples. A Java JRE 1.8 is needed to execute Digital.
+In the ZIP file you will find the binary (Digital.jar) and all examples. A Java JRE 1.8 is needed to run Digital.
 
 If you like to build Digital from the source code:
  
