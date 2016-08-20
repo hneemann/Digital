@@ -23,9 +23,9 @@ public class XOr extends Node implements Element {
 
     private final int bits;
     private final ObservableValue out;
-    protected ObservableValue a;
-    protected ObservableValue b;
-    protected long value;
+    private ObservableValue a;
+    private ObservableValue b;
+    private long value;
 
     /**
      * Creates a new instance
@@ -39,7 +39,18 @@ public class XOr extends Node implements Element {
 
     @Override
     public void readInputs() throws NodeException {
-        value = a.getValue() ^ b.getValue();
+        value = calc(a.getValue(), b.getValue());
+    }
+
+    /**
+     * Performs the operation
+     *
+     * @param a a
+     * @param b b
+     * @return result
+     */
+    protected long calc(long a, long b) {
+        return a ^ b;
     }
 
     @Override

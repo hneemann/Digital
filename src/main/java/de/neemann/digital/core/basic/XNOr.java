@@ -1,6 +1,5 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
@@ -31,7 +30,7 @@ public class XNOr extends XOr {
     }
 
     @Override
-    public void readInputs() throws NodeException {
-        value = ~(a.getValue() ^ b.getValue());
+    protected long calc(long a, long b) {
+        return ~super.calc(a, b);
     }
 }
