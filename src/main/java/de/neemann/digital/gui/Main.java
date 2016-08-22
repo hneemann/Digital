@@ -1008,6 +1008,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private void setDebug(boolean debug) throws RemoteException {
         VisualElement rom = getProgramRomFromCircuit();
         rom.getElementAttributes().set(Keys.SHOW_LISTING, debug);
+        settings.set(Keys.SHOW_DATA_TABLE, debug);
     }
 
     @Override
