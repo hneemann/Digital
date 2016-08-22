@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <visualElements>
+    <visualElement>
+      <elementName>Driver</elementName>
+      <elementAttributes>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>I</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>en</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>O</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>High Z</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>I en O
+1 1  1
+0 1  0
+1 0  Z
+0 0  Z
+1 0  X
+0 0  X
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="420"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="300" y="340"/>
+      <p2 x="360" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="300"/>
+      <p2 x="340" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="300"/>
+      <p2 x="420" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="320"/>
+      <p2 x="360" y="340"/>
+    </wire>
+  </wires>
+</circuit>

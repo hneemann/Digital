@@ -61,7 +61,7 @@ public class TestResultTest extends TestCase {
         assertEquals(false, ((MatchedValue)tr.getValue(3,2)).isPassed());
     }
 
-    public void testResultErrorDC() throws Exception {
+    public void testResultDontCare() throws Exception {
         Model model = getModel("A+B");
         TestData data = new TestData(
                 "A B Y\n"
@@ -69,6 +69,18 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 x\n");
+        TestResult tr = new TestResult(data).create(model);
+        assertTrue(tr.allPassed());
+    }
+
+    public void testResultDontCare2() throws Exception {
+        Model model = getModel("A+B");
+        TestData data = new TestData(
+                "A B Y\n"
+                        + "0 0 x\n"
+                        + "0 1 1\n"
+                        + "1 0 1\n"
+                        + "1 1 1\n");
         TestResult tr = new TestResult(data).create(model);
         assertTrue(tr.allPassed());
     }

@@ -24,8 +24,12 @@ public class TestTestableExamples extends TestCase {
 
     public void testTestableTest() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(2, new FileScanner(this::check).scan(examples));
+        assertEquals(3, new FileScanner(this::check).scan(examples));
     }
+
+//    public void testFile() throws Exception {
+//        check(new File(Resources.getRoot(), "/dig/test/highz.dig"));
+//    }
 
     /**
      * Loads the model and initializes and tests it

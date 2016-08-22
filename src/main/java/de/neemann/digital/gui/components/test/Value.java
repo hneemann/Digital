@@ -12,7 +12,24 @@ public class Value {
     /**
      * Types of values
      */
-    public enum Type {NORMAL, DONTCARE, HIGHZ, CLOCK}
+    public enum Type {
+        /**
+         * normal value, value is stored in member variable value
+         */
+        NORMAL,
+        /**
+         * Value don't care in test
+         */
+        DONTCARE,
+        /**
+         * value is "high impedance"
+         */
+        HIGHZ,
+        /**
+         * its a clock value which is handled as a 0-1-0 sequence
+         */
+        CLOCK
+    }
 
     private final long value;
     private final Type type;
@@ -70,6 +87,9 @@ public class Value {
         if (v.type == Type.DONTCARE || type == Type.DONTCARE) return true;
 
         if (v.type != type) return false;
+
+        // both types are equal!
+        if (type == Type.HIGHZ) return true;
 
         return value == v.value;
     }
