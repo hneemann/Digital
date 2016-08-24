@@ -8,6 +8,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.*;
+import de.neemann.gui.IconCreator;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -23,6 +24,8 @@ import java.util.Collections;
 public class TestResultDialog extends JDialog {
     private static final Color FAILED_COLOR = new Color(255, 200, 200);
     private static final Color PASSED_COLOR = new Color(200, 255, 200);
+    private static final Icon ICON_FAILED = IconCreator.create("testFailed.png");
+    private static final Icon ICON_PASSED = IconCreator.create("testPassed.png");
 
     /**
      * Creates a new result dialog.
@@ -51,11 +54,16 @@ public class TestResultDialog extends JDialog {
             table.setDefaultRenderer(MatchedValue.class, new MyRenderer());
 
             String tabName;
-            if (tr.allPassed())
+            Icon tabIcon;
+            if (tr.allPassed()) {
                 tabName = Lang.get("msg_test_N_Passed", ts.name);
-            else
+                tabIcon = ICON_PASSED;
+            }
+            else {
                 tabName = Lang.get("msg_test_N_Failed", ts.name);
-            tp.addTab(tabName, new JScrollPane(table));
+                tabIcon = ICON_FAILED;
+            }
+            tp.addTab(tabName, tabIcon, new JScrollPane(table));
         }
 
         getContentPane().add(tp);
