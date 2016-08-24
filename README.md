@@ -17,7 +17,7 @@ He has released it as open source so there are a number of forks to continue his
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
-Nevertheless, I believe that there are good reasons for a completely new development from scratch.
+Nevertheless, I believe that there were good reasons for a completely new development from scratch.
 
 ## Features ##
 
@@ -138,7 +138,7 @@ logic combined with the build-in D or JK flop-flops.
 The easiest way is to download the [latest release](https://github.com/hneemann/Digital/releases/latest). 
 In the ZIP file you will find the binary (Digital.jar) and all examples. A Java JRE 1.8 is needed to run Digital.
 
-If you like to build Digital from the source code:
+If you would like to build Digital from the source code:
  
 * At first clone the repository.
 * JDK 1.8 is needed (either the Oracle JDK 1.8 or OpenJDK 1.8)  
