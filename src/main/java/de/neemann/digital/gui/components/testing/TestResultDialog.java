@@ -34,9 +34,9 @@ public class TestResultDialog extends JDialog {
      * @param tsl     list of test sets
      * @param circuit the circuit
      * @param library the library to use
-     * @throws NodeException NodeException
+     * @throws NodeException        NodeException
      * @throws TestingDataException DataException
-     * @throws PinException  PinException
+     * @throws PinException         PinException
      */
     public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, TestingDataException, PinException {
         super(owner, Lang.get("msg_testResult"), false);
@@ -58,8 +58,7 @@ public class TestResultDialog extends JDialog {
             if (tr.allPassed()) {
                 tabName = Lang.get("msg_test_N_Passed", ts.name);
                 tabIcon = ICON_PASSED;
-            }
-            else {
+            } else {
                 tabName = Lang.get("msg_test_N_Failed", ts.name);
                 tabIcon = ICON_FAILED;
             }
