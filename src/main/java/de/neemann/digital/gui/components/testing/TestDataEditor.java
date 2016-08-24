@@ -1,10 +1,11 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.EditorFactory;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestData;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;

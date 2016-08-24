@@ -28,9 +28,9 @@ import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
-import de.neemann.digital.gui.components.test.DataException;
-import de.neemann.digital.gui.components.test.TestCaseElement;
-import de.neemann.digital.gui.components.test.TestResultDialog;
+import de.neemann.digital.testing.TestingDataException;
+import de.neemann.digital.testing.TestCaseElement;
+import de.neemann.digital.gui.components.testing.TestResultDialog;
 import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.gui.remote.RemoteSever;
@@ -552,7 +552,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                             el.getElementAttributes().getCleanLabel()));
 
             if (tsl.isEmpty())
-                throw new DataException(Lang.get("err_noTestData"));
+                throw new TestingDataException(Lang.get("err_noTestData"));
 
             windowPosManager.register("testresult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
 

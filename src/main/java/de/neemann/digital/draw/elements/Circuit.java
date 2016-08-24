@@ -20,7 +20,7 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
-import de.neemann.digital.gui.components.test.TestData;
+import de.neemann.digital.testing.TestData;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;

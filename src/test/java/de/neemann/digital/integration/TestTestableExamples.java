@@ -3,9 +3,9 @@ package de.neemann.digital.integration;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.gui.components.test.TestCaseElement;
-import de.neemann.digital.gui.components.test.TestData;
-import de.neemann.digital.gui.components.test.TestResult;
+import de.neemann.digital.testing.TestCaseElement;
+import de.neemann.digital.testing.TestData;
+import de.neemann.digital.testing.TestResult;
 import junit.framework.TestCase;
 
 import java.io.File;

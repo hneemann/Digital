@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
 import de.neemann.digital.lang.Lang;
 
@@ -37,9 +37,9 @@ public class TestDataParser {
      * The data then can be found in lines and names.
      *
      * @return this for chained calls
-     * @throws DataException DataException
+     * @throws TestingDataException DataException
      */
-    public TestDataParser parse() throws DataException {
+    public TestDataParser parse() throws TestingDataException {
         try {
             String header = readNonEmptyLine(r);
             if (header != null) {
@@ -55,18 +55,18 @@ public class TestDataParser {
             }
 
         } catch (IOException e) {
-            throw new DataException(e);
+            throw new TestingDataException(e);
         }
         return this;
     }
 
-    private void addLine(String line) throws DataException {
+    private void addLine(String line) throws TestingDataException {
         StringTokenizer tok;
         tok = new StringTokenizer(line);
         Value[] row = new Value[names.size()];
         int cols = tok.countTokens();
         if (cols != names.size())
-            throw new DataException(Lang.get("err_testDataExpected_N0_found_N1_numbersInLine_N2", names.size(), cols, lineNumber));
+            throw new TestingDataException(Lang.get("err_testDataExpected_N0_found_N1_numbersInLine_N2", names.size(), cols, lineNumber));
 
         for (int i = 0; i < cols; i++) {
             String numStr = null;
@@ -74,7 +74,7 @@ public class TestDataParser {
                 numStr = tok.nextToken();
                 row[i] = new Value(numStr);
             } catch (NumberFormatException e) {
-                throw new DataException(Lang.get("err_notANumber_N0_inLine_N1", numStr, lineNumber));
+                throw new TestingDataException(Lang.get("err_notANumber_N0_inLine_N1", numStr, lineNumber));
             }
         }
         lines.add(row);

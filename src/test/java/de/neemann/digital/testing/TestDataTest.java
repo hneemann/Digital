@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
 import junit.framework.TestCase;
 
@@ -19,7 +19,7 @@ public class TestDataTest extends TestCase {
         try {
             td.setDataString(DATA3);
             assertTrue(false);
-        } catch (DataException e) {
+        } catch (TestingDataException e) {
             assertTrue(true);
         }
         // TestData remains unchanged!

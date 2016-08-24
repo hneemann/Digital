@@ -1,5 +1,6 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
+import de.neemann.digital.testing.Value;
 import junit.framework.TestCase;
 
 /**
@@ -43,5 +44,6 @@ public class ValueTest extends TestCase {
         assertEquals("X",new Value("X").toString());
         assertEquals("Z",new Value("Z").toString());
         assertEquals("2",new Value("2").toString());
+        assertEquals("C",new Value("C").toString());
     }
 }

@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
 import junit.framework.TestCase;
 
@@ -7,7 +7,7 @@ import junit.framework.TestCase;
  */
 public class TestDataParserTest extends TestCase {
 
-    public void testOk() throws DataException {
+    public void testOk() throws TestingDataException {
         TestDataParser td = new TestDataParser("A B\n0 1\n1 0\nX x").parse();
         assertEquals(2,td.getNames().size());
         assertEquals(3,td.getLines().size());
@@ -32,7 +32,7 @@ public class TestDataParserTest extends TestCase {
         try {
             new TestDataParser("A B\n0 0\n1").parse();
             assertTrue(false);
-        } catch (DataException e) {
+        } catch (TestingDataException e) {
             assertTrue(true);
         }
     }
@@ -41,7 +41,7 @@ public class TestDataParserTest extends TestCase {
         try {
             new TestDataParser("A B\n0 0\n1 u").parse();
             assertTrue(false);
-        } catch (DataException e) {
+        } catch (TestingDataException e) {
             assertTrue(true);
         }
     }

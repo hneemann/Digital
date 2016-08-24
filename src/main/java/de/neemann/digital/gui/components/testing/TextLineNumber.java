@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.gui.components.testing;
 
 import javax.swing.*;
 import javax.swing.border.Border;

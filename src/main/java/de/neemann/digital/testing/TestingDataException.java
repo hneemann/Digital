@@ -1,15 +1,15 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
 /**
  * @author hneemann
  */
-public class DataException extends Exception {
+public class TestingDataException extends Exception {
     /**
      * creates a new instance
      *
      * @param cause the cause
      */
-    public DataException(Exception cause) {
+    public TestingDataException(Exception cause) {
         super(cause);
     }
 
@@ -18,7 +18,7 @@ public class DataException extends Exception {
      *
      * @param message the message
      */
-    public DataException(String message) {
+    public TestingDataException(String message) {
         super(message);
     }
 }

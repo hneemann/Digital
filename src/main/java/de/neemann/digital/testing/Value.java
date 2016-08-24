@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
 import de.neemann.digital.core.ObservableValue;
 
@@ -130,11 +130,11 @@ public class Value {
     }
 
     /**
-     * Sets this value to a copy of the given {@link ObservableValue}
+     * Sets this value to the given {@link ObservableValue}
      *
-     * @param ov the ObservableValue to copy
+     * @param ov the ObservableValue to update
      */
-    public void setTo(ObservableValue ov) {
+    public void copyTo(ObservableValue ov) {
         ov.set(value, isHighZ());
     }
 }

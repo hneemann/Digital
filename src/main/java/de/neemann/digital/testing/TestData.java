@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
 import java.util.ArrayList;
 
@@ -42,9 +42,9 @@ public class TestData {
      * Sets the data and checks its validity
      *
      * @param data the data
-     * @throws DataException thrown if data is not valid
+     * @throws TestingDataException thrown if data is not valid
      */
-    public void setDataString(String data) throws DataException {
+    public void setDataString(String data) throws TestingDataException {
         if (!data.equals(dataString)) {
             TestDataParser tdp = new TestDataParser(data).parse();
             dataString = data;
@@ -59,7 +59,7 @@ public class TestData {
                 TestDataParser tdp = new TestDataParser(dataString).parse();
                 lines = tdp.getLines();
                 names = tdp.getNames();
-            } catch (DataException e) {
+            } catch (TestingDataException e) {
                 e.printStackTrace();
             }
         }

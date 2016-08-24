@@ -18,7 +18,7 @@ import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEXOrShape;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.components.data.DummyElement;
-import de.neemann.digital.gui.components.test.TestCaseElement;
+import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.lang.Lang;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
@@ -7,6 +7,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Dialog to show the test results.
+ * Dialog to show the testing results.
  *
  * @author hneemann
  */
@@ -31,10 +32,10 @@ public class TestResultDialog extends JDialog {
      * @param circuit the circuit
      * @param library the library to use
      * @throws NodeException NodeException
-     * @throws DataException DataException
+     * @throws TestingDataException DataException
      * @throws PinException  PinException
      */
-    public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, DataException, PinException {
+    public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, TestingDataException, PinException {
         super(owner, Lang.get("msg_testResult"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -46,7 +47,7 @@ public class TestResultDialog extends JDialog {
 
             TestResult tr = new TestResult(ts.data).create(model);
 
-            JTable table = new JTable(tr);
+            JTable table = new JTable(new TestResultModel(tr));
             table.setDefaultRenderer(MatchedValue.class, new MyRenderer());
 
             String tabName;

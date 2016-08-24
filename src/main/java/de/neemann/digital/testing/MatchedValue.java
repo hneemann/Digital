@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.lang.Lang;

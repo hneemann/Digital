@@ -1,4 +1,4 @@
-package de.neemann.digital.gui.components.test;
+package de.neemann.digital.testing;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
@@ -7,18 +7,15 @@ import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.lang.Lang;
 
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
 /**
  * Stores the test results created by a single {@link TestData} instance.
  * The class also performs the tests.
- * Implemements {@link TableModel}, so the result can easily be shown in a {@link javax.swing.JTable}.
  *
  * @author hneemann
  */
-public class TestResult implements TableModel {
+public class TestResult {
 
     private final ArrayList<String> names;
     private final ArrayList<Value[]> lines;
@@ -26,9 +23,9 @@ public class TestResult implements TableModel {
     private boolean allPassed;
 
     /**
-     * Creates a new test result
+     * Creates a new testing result
      *
-     * @param testData the test data
+     * @param testData the testing data
      */
     public TestResult(TestData testData) {
         names = testData.getNames();
@@ -37,14 +34,14 @@ public class TestResult implements TableModel {
     }
 
     /**
-     * Creates the result by comparing the test vector with the given model-
+     * Creates the result by comparing the testing vector with the given model-
      *
      * @param model the model to check
      * @return this for chained calls
-     * @throws DataException DataException
+     * @throws TestingDataException DataException
      * @throws NodeException NodeException
      */
-    public TestResult create(Model model) throws DataException, NodeException {
+    public TestResult create(Model model) throws TestingDataException, NodeException {
         allPassed = true;
         ArrayList<TestSignal> inputs = new ArrayList<>();
         for (Signal s : model.getInputs())
@@ -62,35 +59,32 @@ public class TestResult implements TableModel {
 
             Value[] res = new Value[row.length];
 
-            boolean isClockValue = false;
+            boolean clockIsUsed = false;
+            // set all values except the clocks
             for (TestSignal in : inputs) {
                 if (row[in.index].getType() != Value.Type.CLOCK) {
-                    row[in.index].setTo(in.value);
+                    row[in.index].copyTo(in.value);
                 } else {
-                    isClockValue = true;
+                    clockIsUsed = true;
                 }
                 res[in.index] = row[in.index];
             }
-            if (isClockValue) {
 
+            if (clockIsUsed) {  // a clock signal is used
                 model.doStep();  // propagate all except clock
 
-                for (TestSignal in : inputs) {
-                    if (row[in.index].getType() == Value.Type.CLOCK) {
-                        row[in.index].setTo(in.value);
-                    }
-                }
+                // set clock
+                for (TestSignal in : inputs)
+                    if (row[in.index].getType() == Value.Type.CLOCK)
+                        row[in.index].copyTo(in.value);
 
-                model.doStep();  // propagate clock high
+                // propagate clock change
+                model.doStep();
 
-                for (TestSignal in : inputs) {  // reset clock values
-                    if (row[in.index].getType() == Value.Type.CLOCK) {
-                        if (row[in.index].getValue() != 0)
-                            in.value.set(0, false);
-                        else
-                            in.value.set(1, false);
-                    }
-                }
+                // restore clock
+                for (TestSignal in : inputs)   // invert the clock values
+                    if (row[in.index].getType() == Value.Type.CLOCK)
+                        in.value.setBool(!in.value.getBool());
             }
 
             model.doStep();
@@ -114,16 +108,51 @@ public class TestResult implements TableModel {
         return allPassed;
     }
 
-    private int getIndexOf(String name) throws DataException {
+    private int getIndexOf(String name) throws TestingDataException {
         if (name == null || name.length() == 0)
-            throw new DataException(Lang.get("err_unnamedSignal", name));
+            throw new TestingDataException(Lang.get("err_unnamedSignal", name));
 
         for (int i = 0; i < names.size(); i++) {
             String n = names.get(i);
             if (n.equals(name))
                 return i;
         }
-        throw new DataException(Lang.get("err_signal_N_notInTextVector", name));
+        throw new TestingDataException(Lang.get("err_signal_N_notInTestVector", name));
+    }
+
+    /**
+     * @return the number of rows
+     */
+    public int getRows() {
+        return results.size();
+    }
+
+    /**
+     * @return the number of signals
+     */
+    public int getSignalCount() {
+        return names.size();
+    }
+
+    /**
+     * returns a signal name
+     *
+     * @param index the index of the requested signals name
+     * @return the signals name
+     */
+    public String getSignalName(int index) {
+        return names.get(index);
+    }
+
+    /**
+     * Returns the typed value
+     *
+     * @param rowIndex    rowIndex
+     * @param columnIndex columnIndex
+     * @return the value
+     */
+    public Value getResultValue(int rowIndex, int columnIndex) {
+        return results.get(rowIndex)[columnIndex];
     }
 
     private static class TestSignal {
@@ -136,56 +165,4 @@ public class TestResult implements TableModel {
         }
     }
 
-    @Override
-    public int getRowCount() {
-        return results.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return names.size();
-    }
-
-    @Override
-    public String getColumnName(int columnIndex) {
-        return names.get(columnIndex);
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return MatchedValue.class;
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return false;
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        return getValue(rowIndex, columnIndex);
-    }
-
-    /**
-     * Returns the typed value
-     *
-     * @param rowIndex    rowIndex
-     * @param columnIndex columnIndex
-     * @return the value
-     */
-    public Value getValue(int rowIndex, int columnIndex) {
-        return results.get(rowIndex)[columnIndex];
-    }
-
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-    }
-
-    @Override
-    public void addTableModelListener(TableModelListener l) {
-    }
-
-    @Override
-    public void removeTableModelListener(TableModelListener l) {
-    }
 }

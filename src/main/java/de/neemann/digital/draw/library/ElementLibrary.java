@@ -15,7 +15,7 @@ import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.Terminal;
-import de.neemann.digital.gui.components.test.TestCaseElement;
+import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
