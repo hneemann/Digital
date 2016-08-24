@@ -556,7 +556,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
             windowPosManager.register("testresult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
 
-            circuitComponent.getCircuit().clearState();
+            elementState.enter();
         } catch (Exception e1) {
             showErrorAndStopModel(Lang.get("msg_runningTestError"), e1);
         }
