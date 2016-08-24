@@ -30,7 +30,7 @@ These are the main features of Digital:
 - Many examples: From a transmission gate D-flip-flop to a complete (simple) MIPS-like single cycle CPU.
 - Fast-run mode to perform a simulation without updating the GUI.
   A simple processor can be clocked at 100kHz.
-- Display of LST files when executing [assembler](https://github.com/hneemann/Assembler) programs within such a processor.
+- Display of LST files when executing assembly programs within such a processor.
 - Simple remote TCP interface which  e.g. enables an [assembler IDE](https://github.com/hneemann/Assembler) to control the simulator.
 - Direct export of JEDEC files which you can flash to a [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
   or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx). These chips are somewhat outdated (introduced in 1985!) but 
@@ -91,15 +91,17 @@ This way you can see how a signal change propagates in a circuit, thus you are a
 Similar to Logisim, Digital also allows to embed previously saved circuits in new designs, so hierarchical
 circuits can be created. However, in Digital embedded circuits are included as often as 
 the circuit is used. This is similar to a C program in which all 
-function calls are compiled as inlined functions. This is similar to a real circuit: Each circuit is "physically present" 
-as often as it is used in the circuit. Although this approach increases the size of the data structure, 
+function calls are compiled as inlined functions. And this is also similar to a real circuit: 
+Each sub circuit is "physically present" as often as it is used in the design. 
+Although this approach increases the size of the data structure of the simulation model in memory, 
 it simplifies the simulation itself.
-Thus, for example, the inputs and outputs of an embedded circuit not specifically treat, they simply don't exist anymore
-after the formation of the simulations model. Even bidirectional connections can be implemented.
-Because of that approach for instance a separately embedded AND gate behaves exactly like an AND gate inserted at top
-level although there is actually no difference between these two variants from the simulation perspective.
-
-Logisim works somewhat different, which sometimes leads to surprises like unexpected signal propagation times.
+Thus, for example, the inputs and outputs of an embedded circuit are not specifically treat, they simply don't 
+exist anymore after the formation of the simulation model. Even bidirectional connections can be implemented easily.
+Because of that approach for instance a embedded AND gate in a sub circuit behaves exactly like an AND gate 
+inserted at top level although there is actually no difference between these two variants from the 
+simulation models perspective.
+Logisim works somewhat different, which sometimes leads to surprises like unexpected signal propagation times and
+which makes it difficult to use bidirectional pins. 
 
 ### Performance ###
 
