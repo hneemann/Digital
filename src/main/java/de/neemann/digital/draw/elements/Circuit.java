@@ -34,10 +34,10 @@ import java.util.List;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * This class contains all the visual elements which form the visual representation of a citcuit.
+ * This class contains all the visual elements which form the visual representation of a circuit.
  * Such a Circuit instance is used by the {@link de.neemann.digital.draw.model.ModelCreator} to
  * create a runnable model representation (see {@link de.neemann.digital.core.Model}).
- * This class is serialized to store a circuit on disk.
+ * This class is also serialized to store a circuit on disk.
  *
  * @author hneemann
  */
