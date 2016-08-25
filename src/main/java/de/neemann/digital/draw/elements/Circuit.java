@@ -34,6 +34,11 @@ import java.util.List;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * This class contains all the visual elements which form the visual representation of a citcuit.
+ * Such a Circuit instance is used by the {@link de.neemann.digital.draw.model.ModelCreator} to
+ * create a runnable model representation (see {@link de.neemann.digital.core.Model}).
+ * This class is serialized to store a circuit on disk.
+ *
  * @author hneemann
  */
 public class Circuit {
@@ -57,7 +62,7 @@ public class Circuit {
     private transient ArrayList<ChangedListener> listeners;
 
     /**
-     * Creates a proper configurated XStream instance
+     * Creates a proper configured XStream instance
      *
      * @return the XStream instance
      */
@@ -129,7 +134,7 @@ public class Circuit {
     }
 
     /**
-     * Creates a ne empty circuit instance
+     * Creates a new empty circuit instance
      */
     public Circuit() {
         visualElements = new ArrayList<>();
