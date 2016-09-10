@@ -31,7 +31,7 @@ These are the main features of Digital:
 - Fast-run mode to perform a simulation without updating the GUI.
   A simple processor can be clocked at 100kHz.
 - Display of LST files when executing assembly programs within such a processor.
-- Simple remote TCP interface which  e.g. enables an [assembler IDE](https://github.com/hneemann/Assembler) to control the simulator.
+- Simple remote TCP interface which  e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control the simulator.
 - Direct export of JEDEC files which you can flash to a [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
   or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx). These chips are somewhat outdated (introduced in 1985!) but 
   sufficient for beginners exercises, easy to understand and well documented.
@@ -147,7 +147,7 @@ If you would like to build Digital from the source code:
 * maven is used as build system, so the easiest way is to install [maven](https://maven.apache.org/).
 * After that you can simply run `mvn install` to build Digital.
 * With `mvn site` you can create a checkstyle, a findbugs and a cobertura code coverage report.
-* Most IDEs (Eclipse, NetBeans, IntelliJ) are able to import the `pom.xml` to setup a project.
+* Most IDEs (Eclipse, NetBeans, IntelliJ) are able to import the `pom.xml` to create a project.
 
 ## Contribution guidelines ##
 
