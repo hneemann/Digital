@@ -138,7 +138,7 @@
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="1160"/>
+      <pos x="-20" y="1100"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -152,7 +152,7 @@
           <string>4,1</string>
         </entry>
       </elementAttributes>
-      <pos x="20" y="1160"/>
+      <pos x="20" y="1100"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -373,12 +373,12 @@
       <p2 x="880" y="200"/>
     </wire>
     <wire>
-      <p1 x="-20" y="1160"/>
-      <p2 x="20" y="1160"/>
+      <p1 x="-20" y="1100"/>
+      <p2 x="20" y="1100"/>
     </wire>
     <wire>
-      <p1 x="40" y="1160"/>
-      <p2 x="900" y="1160"/>
+      <p1 x="40" y="1100"/>
+      <p2 x="900" y="1100"/>
     </wire>
     <wire>
       <p1 x="740" y="780"/>
@@ -505,8 +505,8 @@
       <p2 x="1100" y="220"/>
     </wire>
     <wire>
-      <p1 x="40" y="1180"/>
-      <p2 x="80" y="1180"/>
+      <p1 x="40" y="1120"/>
+      <p2 x="80" y="1120"/>
     </wire>
     <wire>
       <p1 x="300" y="800"/>
@@ -694,7 +694,7 @@
     </wire>
     <wire>
       <p1 x="900" y="780"/>
-      <p2 x="900" y="1160"/>
+      <p2 x="900" y="1100"/>
     </wire>
     <wire>
       <p1 x="520" y="580"/>
@@ -706,7 +706,7 @@
     </wire>
     <wire>
       <p1 x="80" y="1060"/>
-      <p2 x="80" y="1180"/>
+      <p2 x="80" y="1120"/>
     </wire>
     <wire>
       <p1 x="400" y="120"/>
