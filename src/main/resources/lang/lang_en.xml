@@ -23,8 +23,8 @@
     <string name="elem_Add">Add</string>
     <string name="elem_And">And</string>
     <string name="elem_Break">Break</string>
-    <string name="elem_Break_tt">If the input of this Element becomes high, the fast forward clocking is stopped.
-You can use the element to implement a BRK assembly instruction.
+    <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
+You can use the component to implement a BRK assembly instruction.
 Then you can execute the circuit to the next BRK instruction.</string>
     <string name="elem_Button">Button</string>
     <string name="elem_Clock">Clock</string>
@@ -95,7 +95,7 @@ So this gate can emulate every combinatorial gate.</string>
     <string name="elem_RS_FF">RS_FF</string>
     <string name="elem_Register">Register</string>
     <string name="elem_Reset">Reset</string>
-    <string name="elem_Reset_tt">The output of this element is hold down during the initialisation of the circuit.
+    <string name="elem_Reset_tt">The output of this component is hold down during the initialisation of the circuit.
 After the circuit has stabilized the output goes up.</string>
     <string name="elem_Seven-Seg">Seven-Seg</string>
     <string name="elem_Seven-Seg-Hex">Seven-Seg-Hex</string>
@@ -121,7 +121,7 @@ The terminal opens its own window.</string>
     <string name="elem_Keyboard_pin_D">The last pressed key, or null if no key is typed.</string>
     <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-flip-flop has no label set</string>
-    <string name="err_N_isNotInputOrOutput">Pin {0} in element {1} is not a input or output</string>
+    <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>
     <string name="err_aSingleClockNecessary">A single clock is necessary.</string>
     <string name="err_analyseNoInputs">The circuit has no Inputs</string>
     <string name="err_analyseNoOutputs">The circuit has no outputs</string>
@@ -132,9 +132,9 @@ The terminal opens its own window.</string>
     <string name="err_burnError">More then one output is active on a wire</string>
     <string name="err_cannotAnalyse_N">Cannot analyse Node {0}</string>
     <string name="err_containsVarAndNotVar">Contains [var] and [not var]</string>
-    <string name="err_duplicateElement_N">Duplicate element {0}</string>
-    <string name="err_duplicatePinLabel">Pin {0} in element {1} exists twice</string>
-    <string name="err_element_N_notFound">Element {0} not found</string>
+    <string name="err_duplicateElement_N">Duplicate component {0}</string>
+    <string name="err_duplicatePinLabel">Pin {0} in component {1} exists twice</string>
+    <string name="err_element_N_notFound">Component {0} not found</string>
     <string name="err_exact_N0_valuesNecessaryNot_N1">Exact {0} variables necessary, not {1}</string>
     <string name="err_ffNeedsToBeConnectedToClock">Flip-flop needs to be connected to the clock.</string>
     <string name="err_invalidFileFormat">Invalid file format</string>
@@ -145,8 +145,8 @@ The terminal opens its own window.</string>
     <string name="err_netOfPin_N_notFound">Net of pin {0} not found</string>
     <string name="err_noClockFound">No clock found in logic</string>
     <string name="err_noInputsAvailable">No inputs available to set</string>
-    <string name="err_noShapeFoundFor_N">No shape found for Element {0}</string>
-    <string name="err_noValueSetFor_N0_atElement_N1">No value set for {0} at Element {1}</string>
+    <string name="err_noShapeFoundFor_N">No shape found for component {0}</string>
+    <string name="err_noValueSetFor_N0_atElement_N1">No value set for {0} at component {1}</string>
     <string name="err_notAllOutputsSameBits">Not all connected outputs have the same bit count</string>
     <string name="err_notAllOutputsSupportHighZ">If multiple outputs are connected together, all of them have to be three-state outputs.</string>
     <string name="err_notInitialized">Logic not initialized</string>
@@ -162,7 +162,7 @@ The terminal opens its own window.</string>
     <string name="err_pinMap_toMannyOutputsDefined">To manny outputs defined</string>
     <string name="err_pinNotPresent">Pin not present</string>
     <string name="err_pinWithoutName">Found a pin without a name in {0}</string>
-    <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at Element {1}</string>
+    <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at component {1}</string>
     <string name="err_pin_N_notFound">Pin {0} not found</string>
     <string name="err_pin_N_unknown">Pin {0} unknown</string>
     <string name="err_readOfHighZ">Read of high Z value</string>
@@ -211,7 +211,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_Signed">Signed</string>
     <string name="key_Value">Value</string>
     <string name="key_Width">Width</string>
-    <string name="key_Width_tt">With of symbol if this circuit is used in an element ins an other circuit.</string>
+    <string name="key_Width_tt">With of symbol if this circuit is used as an component in an other circuit.</string>
     <string name="key_autoReload">Reload at model start</string>
     <string name="key_autoReload_tt">Reloads the hex file every time the model is started.</string>
     <string name="key_flipSelPos">Flip selector position</string>
@@ -253,8 +253,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_analyse_tt">Analyses the actual circuit</string>
     <string name="menu_copy">Copy</string>
     <string name="menu_custom">Custom</string>
-    <string name="menu_delete">Delete elements</string>
-    <string name="menu_delete_tt">Delete selected single element or group of elements</string>
+    <string name="menu_delete">Delete components</string>
+    <string name="menu_delete_tt">Delete selected single component or group of components.</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_editAttributes">Edit circuit attributes</string>
     <string name="menu_editAttributes_tt">These attributes effect the behavior if the circuit is included in other circuits.</string>
@@ -262,20 +262,20 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_editRunAttributes_tt">Settings used to start the simulation</string>
     <string name="menu_editSettings">Settings</string>
     <string name="menu_editSettings_tt">Edits Digitals Preferences</string>
-    <string name="menu_element">Edit Elements</string>
-    <string name="menu_element_tt">Edits the circuit. Moves a single Element or edits its properties</string>
-    <string name="menu_elements">Elements</string>
+    <string name="menu_element">Edit components</string>
+    <string name="menu_element_tt">Edits the circuit. Moves a single component or edits its properties.</string>
+    <string name="menu_elements">Components</string>
     <string name="menu_export">Export</string>
     <string name="menu_exportPNGLarge">Export PNG large</string>
     <string name="menu_exportPNGSmall">Export PNG small</string>
     <string name="menu_exportSVG">Export SVG</string>
     <string name="menu_exportSVGLaTex">Export SVG+LaTeX</string>
     <string name="menu_fast">Run Fast</string>
-    <string name="menu_fast_tt">Runs the circuit until a break is detected by the BRK element.</string>
+    <string name="menu_fast_tt">Runs the circuit until a break is detected by the BRK component.</string>
     <string name="menu_file">File</string>
     <string name="menu_help">Help</string>
     <string name="menu_import">Import</string>
-    <string name="menu_import_tt">Imports a circuit as a useable Element!</string>
+    <string name="menu_import_tt">Imports a circuit as a usable component!</string>
     <string name="menu_maximize">Fit to window</string>
     <string name="menu_micro">Single gate stepping</string>
     <string name="menu_micro_tt">Runs the circuit in single gate step mode</string>
