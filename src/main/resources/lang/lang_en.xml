@@ -249,7 +249,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="lib_wires">Wires</string>
     <string name="lib_test">Test</string>
     <string name="menu_about">About</string>
-    <string name="menu_analyse">Analyse</string>
+    <string name="menu_analyse">Analysis</string>
     <string name="menu_analyse_tt">Analyses the actual circuit</string>
     <string name="menu_copy">Copy</string>
     <string name="menu_custom">Custom</string>
