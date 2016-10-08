@@ -19,6 +19,8 @@ He has released it as open source so there are a number of forks to continue his
 
 Nevertheless, I believe that there were good reasons for a completely new development from scratch.
 
+![screnshot](screenshot.png)
+
 ## Features ##
 
 These are the main features of Digital:
