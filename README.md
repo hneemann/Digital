@@ -4,6 +4,8 @@
 
 # Digital #
 
+![screnshot](screenshot.png)
+
 Digital is a simulator for digital circuits. It is designed for educational purposes and I use it in my lectures.
 Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logisim/), developed by Carl Burch.
 If you are familiar with Logisim you will recognize the color scheme.
@@ -18,8 +20,6 @@ He has released it as open source so there are a number of forks to continue his
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
 Nevertheless, I believe that there were good reasons for a completely new development from scratch.
-
-![screnshot](screenshot.png)
 
 ## Features ##
 
