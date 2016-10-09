@@ -1,0 +1,12 @@
+# This is a sample build configuration for Maven.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: maven:3.3.3
+
+pipelines:
+  default:
+    - step:
+        script: # Modify the commands below to build your repository.
+          - mvn --version
+          - mvn clean install
