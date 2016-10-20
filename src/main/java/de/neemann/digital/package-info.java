@@ -40,7 +40,7 @@
  * on a state change of the ObservableValue.
  * <p>
  * An example: An AND gate with two inputs is registered to the two
- * ObservableValues representing ther inputs. So, if one of the input values changes, the AND gate gets a
+ * ObservableValues representing their inputs. So, if one of the input values changes, the AND gate gets a
  * notification. But the AND gate does not directly react on this notification. It only informs the
  * model that there was a change at one of the inputs. If the model has collected all the
  * nodes which had seen an input change, it asks all this nodes
