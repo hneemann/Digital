@@ -189,6 +189,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_signal_N_notInTestVector">Signal {0} is not present in test vector!</string>
     <string name="err_noTestData">Not test data found.</string>
     <string name="err_unnamedSignal">There is a unnamed signal!</string>
+    <string name="err_remoteExecution">Error during execution of a remote command</string>
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_Bits">Data Bits</string>
     <string name="key_Color">Color</string>
@@ -400,6 +401,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_test_N_Passed">{0} passed</string>
     <string name="msg_test_N_Failed">{0} failed</string>
     <string name="msg_testExp_N0_found_N1">E: {0} / F: {1}</string>
+    <string name="msg_errorSavingData">Error writing the data!</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

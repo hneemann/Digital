@@ -99,6 +99,10 @@
                             <name>testdata</name>
                             <value>${basedir}/src/test/resources</value>
                         </property>
+                        <property>
+                            <name>sources</name>
+                            <value>${basedir}/src/main/java</value>
+                        </property>
                     </systemProperties>
                 </configuration>
             </plugin>

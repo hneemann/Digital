@@ -27,11 +27,7 @@ public class Resources {
     private final Map<String, String> resourceMap;
 
     Resources() {
-        this(new HashMap<String, String>());
-    }
-
-    private Resources(ResourceBundle bundle) {
-        this(createMap(bundle));
+        this(new HashMap<>());
     }
 
     private static Map<String, String> createMap(ResourceBundle bundle) {
@@ -84,6 +80,13 @@ public class Resources {
      */
     public String get(String key) {
         return resourceMap.get(key);
+    }
+
+    /**
+     * @return a set containing all keys
+     */
+    public Set<String> getKeys() {
+        return resourceMap.keySet();
     }
 
     static class MapEntryConverter implements Converter {
