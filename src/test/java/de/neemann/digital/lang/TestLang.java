@@ -36,13 +36,17 @@ public class TestLang extends TestCase {
         }
     }
 
+    /**
+     * Finds usages of keys which are not present in the language xml files
+     *
+     * @throws IOException IOException
+     */
     public void testUsages() throws IOException {
         String sources = System.getProperty("sources");
         if (sources == null) {
             System.out.println("environment variable sources not set!!!");
             System.out.println("Try to use hardcoded " + SOURCEPATH);
             sources = SOURCEPATH;
-
         }
 
         parseTree(new File(sources));
