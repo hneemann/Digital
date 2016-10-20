@@ -21,12 +21,14 @@
     <string name="digital">Digital</string>
     <string name="expression">Ausdruck</string>
     <string name="elem_Add">Addierer</string>
+    <string name="elem_Add_tt">Addiert zwei ganzzahlige Werte und gibt die Summe aus.</string>
     <string name="elem_Add_input1">Erster Eingang für die Addition</string>
     <string name="elem_Add_input2">Zweiter Eingang für die Addition</string>
     <string name="elem_Add_carryIn">Carry-Eingang. Wenn gesetzt wird das Ergebnis um eins erhöht.</string>
     <string name="elem_Add_output">Das Ergebnis der Addition</string>
     <string name="elem_Add_carryOut">Ist gesetzt, wenn bei der Addition ein Übertrag aufgetreten ist.</string>
     <string name="elem_And">Und</string>
+    <string name="elem_And_tt">Binäres Und-Gatter</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_tt">Wenn der Eingang dieses Elementes zu Eins wird, wird der schnelle Simulationslauf beendet.
 Dieses Element kann verwendet werden, um einen Assemblerbefehl BRK zu implementieren.

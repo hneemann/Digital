@@ -21,12 +21,14 @@
     <string name="digital">Digital</string>
     <string name="expression">Expression</string>
     <string name="elem_Add">Add</string>
+    <string name="elem_Add_tt">Adds two integer values.</string>
     <string name="elem_Add_input1">First input to add</string>
     <string name="elem_Add_input2">Second input to add</string>
     <string name="elem_Add_carryIn">Carry input, if set the result is incremented by one.</string>
     <string name="elem_Add_output">The result of the addition</string>
     <string name="elem_Add_carryOut">If set there was an overflow.</string>
     <string name="elem_And">And</string>
+    <string name="elem_And_tt">Binary AND gate</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
 You can use the component to implement a BRK assembly instruction.
