@@ -127,15 +127,19 @@ single steps and so on.
 
 ### Circuit Synthesis ###
 
-Logisim is able to generate combinatorial circuits from a truth table. In Digital, this is also possible.
+Logisim is able to generate combinatorial circuits from a truth table and vice versa. In Digital, this is also possible.
 In addition, also a sequential circuit can be generated from an appropriate state transition table.
 You can specify both the transition circuit and the output circuit. The minimization of the expressions is done
 by the method of Quine and McCluskey.
-Also the truth table, can be derived from a circuit which contains simple combinatorial logic,
+The truth table also can derived from a circuit which contains simple combinatorial logic,
 D flip-flops or JK flip-flops, including the generation of the state transition table.
-Note, however, that a flip-flop build of NOR gates is not recognized as such.
+Note, however, that a flip-flop build of combinatorial gates is not recognized as such.
 The analysis of sequential circuits only works with purely combinatorial
 logic combined with the build-in D or JK flip-flops.
+After you have created the truth table or state transition table you can create a JEDEC file for a 
+[GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx).
+After that you can simply flash this file to the appropriate GAL and test the circuit on a bred board.
+As mentioned above theses GALSs are quite old but with 8 (10) macrocells sufficient for beginners exercises.
 
 ## How do I get set up? ##
 
