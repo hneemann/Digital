@@ -16,7 +16,6 @@
     <string name="btn_create_tt">Create a circuit in a seperate window</string>
     <string name="btn_editDetached">Edit detached</string>
     <string name="btn_editDetached_tt">Opens the dialog as a non modal dialog</string>
-    <string name="apply">apply</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
     <string name="expression">Expression</string>
@@ -139,7 +138,6 @@ The terminal opens its own window.</string>
     <string name="err_burnError">More then one output is active on a wire</string>
     <string name="err_cannotAnalyse_N">Cannot analyse Node {0}</string>
     <string name="err_containsVarAndNotVar">Contains [var] and [not var]</string>
-    <string name="err_duplicateElement_N">Duplicate component {0}</string>
     <string name="err_duplicatePinLabel">Pin {0} in component {1} exists twice</string>
     <string name="err_element_N_notFound">Component {0} not found</string>
     <string name="err_exact_N0_valuesNecessaryNot_N1">Exact {0} variables necessary, not {1}</string>
@@ -185,7 +183,6 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_varNotDefined_N">Variable {0} not defined</string>
     <string name="err_parserUnexpectedToken_N">Unexpected Token {0}</string>
     <string name="err_parserMissingClosedParenthesis">Missing closed parenthesis</string>
-    <string name="err_parserUnexpectedEndOfExpression">Unexpected end of expression</string>
     <string name="err_notANumber_N0_inLine_N1">Value {0} in line {1} is not a number!</string>
     <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">Expected {0} but found {1} values in line {2}!</string>
     <string name="err_signal_N_notInTestVector">Signal {0} is not present in test vector!</string>
@@ -395,7 +392,6 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_restartNeeded">Change needs a restart to take effect!</string>
     <string name="msg_noRomFound">No ROM found! ROM needs to be set to be program memory.</string>
     <string name="msg_moreThenOneRomFound">More then one ROM found! Only one ROM must be set to be program memory.</string>
-    <string name="msg_errorFileNotFound">Could not find file: {0}</string>
     <string name="msg_remoteUnknownCommand">Command {0} unknown!</string>
     <string name="msg_enterAnExpression">Enter an expression:</string>
     <string name="msg_runningTestError">Error running the tests:</string>

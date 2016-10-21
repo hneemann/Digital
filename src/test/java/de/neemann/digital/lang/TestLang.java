@@ -48,19 +48,32 @@ public class TestLang extends TestCase {
             System.out.println("Try to use hardcoded " + SOURCEPATH);
             sources = SOURCEPATH;
         }
+        HashSet<String> keys = new HashSet<>();
+        parseTree(new File(sources), keys);
 
-        parseTree(new File(sources));
+        StringBuilder sb = new StringBuilder();
+        for (String key : map.keySet()) {
+            if (!keys.contains(key)) {
+                if (!(key.startsWith("key_") || key.startsWith("elem_"))) {
+                    if (sb.length() > 0)
+                        sb.append(", ");
+                    sb.append('"').append(key).append('"');
+                }
+            }
+        }
+        if (sb.length()>0)
+            fail("there are unused language keys: "+sb.toString());
     }
 
-    private void parseTree(File file) throws IOException {
+    private void parseTree(File file, HashSet<String> keys) throws IOException {
         File[] files = file.listFiles();
         if (files != null)
             for (File f : files) {
                 if (f.isDirectory() && f.getName().charAt(0) != '.')
-                    parseTree(f);
+                    parseTree(f, keys);
                 if (f.isFile() && f.getName().endsWith(".java")) {
                     try {
-                        checkSourceFile(f);
+                        checkSourceFile(f, keys);
                     } catch (AssertionFailedError e) {
                         throw new AssertionFailedError(e.getMessage() + " in file " + f);
                     }
@@ -68,14 +81,14 @@ public class TestLang extends TestCase {
             }
     }
 
-    private void checkSourceFile(File f) throws IOException {
+    private void checkSourceFile(File f, HashSet<String> keys) throws IOException {
         try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f), "utf-8"))) {
             int linecount = 0;
             String line;
             while ((line = r.readLine()) != null) {
                 linecount++;
                 try {
-                    checkSourceLine(line);
+                    checkSourceLine(line, keys);
                 } catch (AssertionFailedError e) {
                     throw new AssertionFailedError(e.getMessage() + " in line " + linecount);
                 }
@@ -85,7 +98,7 @@ public class TestLang extends TestCase {
 
     private static final String PATTERN = "Lang.get(\"";
 
-    private void checkSourceLine(String line) {
+    private void checkSourceLine(String line, HashSet<String> keys) {
         if (line.contains(PATTERN)) {
             int pos = line.indexOf(PATTERN, 0);
             while (pos >= 0) {
@@ -100,8 +113,11 @@ public class TestLang extends TestCase {
                 while (line.charAt(pos) == ' ') pos++;
                 char nextChar = line.charAt(pos);
 
-                if (nextChar != '+')
-                    checkSourceKey(sb.toString());
+                if (nextChar != '+') {
+                    final String key = sb.toString();
+                    keys.add(key);
+                    checkSourceKey(key);
+                }
                 pos = line.indexOf(PATTERN, pos);
             }
         }

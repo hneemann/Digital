@@ -253,23 +253,12 @@ public class ObservableValue extends Observable implements PinDescription {
         return bidirectional;
     }
 
-
     @Override
     public String getDescription() {
         if (description != null)
             return description;
         else
             return getName();
-    }
-
-    /**
-     * Sets the description of this value.
-     *
-     * @param descriptionKey the descriptions key
-     * @return this for call chaining
-     */
-    public ObservableValue setDescriptionKey(String descriptionKey) {
-        return setDescription(Lang.get(descriptionKey));
     }
 
     /**

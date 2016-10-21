@@ -63,6 +63,7 @@ public class ElementTypeDescription {
     public ElementTypeDescription(String name, ElementFactory elementFactory, PinDescription... inputPins) {
         this.name = name;
         this.shortName = null;
+        this.description = Lang.getNull("elem_" + name + "_tt");
         String n = Lang.getNull("elem_" + name);
         if (n != null) this.translatedName = n;
         else this.translatedName = name;
