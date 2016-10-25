@@ -13,6 +13,13 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 /**
+ * Dialog used to edit Attributes.
+ * The Dialog is configured by a list of {@link Key} instances, which are defined in the
+ * {@link de.neemann.digital.core.element.Keys} class. The values are stored in an instance of
+ * {@link ElementAttributes} which is a mostly a observable hash map.
+ * This class is used to create the dialogs used to edit the element attributes but also to edit the
+ * system settings, the model settings and the models attributes,
+ *
  * @author hneemann
  */
 public class AttributeDialog extends JDialog {
