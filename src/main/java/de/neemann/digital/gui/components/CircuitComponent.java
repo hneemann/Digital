@@ -522,6 +522,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     }
                 }.setToolTip(Lang.get("attr_openCircuit_tt")));
             }
+            attributeDialog.addButton(new ToolTipAction(Lang.get("attr_help")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    new ElementHelpDialog(attributeDialog, elementType, vp.getElementAttributes()).setVisible(true);
+                }
+            }.setToolTip(Lang.get("attr_help_tt")));
             if (attributeDialog.showDialog()) {
                 circuit.modified();
                 hasChanged();

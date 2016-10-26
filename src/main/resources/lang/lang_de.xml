@@ -5,6 +5,8 @@
     <string name="attr_openCircuit">Anzeigen</string>
     <string name="attr_openCircuitLabel">Enthaltene Schaltung:</string>
     <string name="attr_openCircuit_tt">Öffnet die Schaltung in einem neuen Fenster.</string>
+    <string name="attr_help">Hilfe</string>
+    <string name="attr_help_tt">Zeigt eine Beschreibung dieses Elements.</string>
     <string name="btn_discard">Verwerfen</string>
     <string name="btn_edit">Bearbeiten</string>
     <string name="btn_editFurther">Weiter bearbeiten</string>
@@ -19,6 +21,9 @@
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
     <string name="expression">Ausdruck</string>
+    <string name="elem_Help_inputs">Eingänge</string>
+    <string name="elem_Help_outputs">Ausgänge</string>
+    <string name="elem_Help_attributes">Attribute</string>
     <string name="elem_Add">Addierer</string>
     <string name="elem_Add_tt">Addiert zwei ganzzahlige Werte und gibt die Summe aus.</string>
     <string name="elem_Add_input1">Erster Eingang für die Addition</string>

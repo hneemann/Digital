@@ -28,6 +28,7 @@ public class AttributeDialog extends JDialog {
     private final JPanel panel;
     private final Component parent;
     private final Point pos;
+    private final JPanel buttonPanel;
     private boolean changed = false;
 
     /**
@@ -87,7 +88,7 @@ public class AttributeDialog extends JDialog {
             }
         });
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(cancelButton);
         buttonPanel.add(okButton);
 
@@ -106,6 +107,17 @@ public class AttributeDialog extends JDialog {
     public AttributeDialog addButton(String label, ToolTipAction action) {
         panel.add(new JLabel(label), DialogLayout.LABEL);
         panel.add(action.createJButton(), DialogLayout.INPUT);
+        return this;
+    }
+
+    /**
+     * Adds a button to the bottom of this dialog
+     *
+     * @param action the action
+     * @return this for chained calls
+     */
+    public AttributeDialog addButton(ToolTipAction action) {
+        buttonPanel.add(action.createJButton(), 0);
         return this;
     }
 

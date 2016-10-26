@@ -199,4 +199,51 @@ public class ElementTypeDescription {
         return elementFactory.create(elementAttributes);
     }
 
+    /**
+     * Creates a detailed human readable description of this element
+     *
+     * @param elementAttributes the actual attributes of the element to describe
+     * @return the human readable description of this element
+     */
+    public String getDetailedDescription(ElementAttributes elementAttributes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getTranslatedName()).append("\n\n");
+        String descr = getDescription(elementAttributes);
+        if (!descr.equals(getTranslatedName()))
+            sb.append(getDescription(elementAttributes)).append("\n\n");
+
+        try {
+            PinDescriptions inputs = getInputDescription(elementAttributes);
+            if (inputs != null && inputs.size() > 0) {
+                sb.append(Lang.get("elem_Help_inputs")).append(":\n");
+                for (PinDescription i : inputs)
+                    appendNameAndDescription(sb, i.getName(), i.getDescription());
+            }
+        } catch (NodeException e) {
+            e.printStackTrace();
+        }
+
+        PinDescriptions outputs = getOutputDescriptions(elementAttributes);
+        if (outputs != null && outputs.size() > 0) {
+            sb.append(Lang.get("elem_Help_outputs")).append(":\n");
+            for (PinDescription i : outputs)
+                appendNameAndDescription(sb, i.getName(), i.getDescription());
+        }
+
+        if (attributeList.size() > 0) {
+            sb.append(Lang.get("elem_Help_attributes")).append(":\n");
+            for (Key k : attributeList) {
+                appendNameAndDescription(sb, k.getName(), k.getDescription());
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private static void appendNameAndDescription(StringBuilder sb, String name, String description) {
+        sb.append("  ").append(name);
+        if (!name.equals(description))
+            sb.append(": ").append(description);
+        sb.append("\n");
+    }
 }

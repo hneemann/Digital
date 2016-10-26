@@ -5,6 +5,8 @@
     <string name="attr_openCircuit">Show</string>
     <string name="attr_openCircuitLabel">Included circuit:</string>
     <string name="attr_openCircuit_tt">Opens the circuit in a new window.</string>
+    <string name="attr_help">Help</string>
+    <string name="attr_help_tt">Shows a short description of this element.</string>
     <string name="btn_discard">Discard Changes</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_editFurther">Continue editing</string>
@@ -19,6 +21,9 @@
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
     <string name="expression">Expression</string>
+    <string name="elem_Help_inputs">Inputs</string>
+    <string name="elem_Help_outputs">Outputs</string>
+    <string name="elem_Help_attributes">Attributes</string>
     <string name="elem_Add">Add</string>
     <string name="elem_Add_tt">Adds two integer values.</string>
     <string name="elem_Add_input1">First input to add</string>
