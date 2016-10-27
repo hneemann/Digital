@@ -207,31 +207,35 @@ public class ElementTypeDescription {
      */
     public String getDetailedDescription(ElementAttributes elementAttributes) {
         StringBuilder sb = new StringBuilder();
-        sb.append(getTranslatedName()).append("\n\n");
+        sb.append(getTranslatedName()).append("\n");
         String descr = getDescription(elementAttributes);
         if (!descr.equals(getTranslatedName()))
-            sb.append(getDescription(elementAttributes)).append("\n\n");
+            sb.append("\n").append(getDescription(elementAttributes)).append("\n");
 
         try {
             PinDescriptions inputs = getInputDescription(elementAttributes);
+            sb.append("\n").append(Lang.get("elem_Help_inputs")).append(":\n");
             if (inputs != null && inputs.size() > 0) {
-                sb.append(Lang.get("elem_Help_inputs")).append(":\n");
                 for (PinDescription i : inputs)
                     appendNameAndDescription(sb, i.getName(), i.getDescription());
+            } else {
+                sb.append("  -\n");
             }
         } catch (NodeException e) {
             e.printStackTrace();
         }
 
         PinDescriptions outputs = getOutputDescriptions(elementAttributes);
+        sb.append("\n").append(Lang.get("elem_Help_outputs")).append(":\n");
         if (outputs != null && outputs.size() > 0) {
-            sb.append(Lang.get("elem_Help_outputs")).append(":\n");
             for (PinDescription i : outputs)
                 appendNameAndDescription(sb, i.getName(), i.getDescription());
+        } else {
+            sb.append("  -\n");
         }
 
         if (attributeList.size() > 0) {
-            sb.append(Lang.get("elem_Help_attributes")).append(":\n");
+            sb.append("\n").append(Lang.get("elem_Help_attributes")).append(":\n");
             for (Key k : attributeList) {
                 appendNameAndDescription(sb, k.getName(), k.getDescription());
             }
