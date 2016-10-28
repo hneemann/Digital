@@ -2,13 +2,11 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Key;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 /**
  * Simple Dialog to show an elements help text.

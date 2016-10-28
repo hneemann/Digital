@@ -65,7 +65,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
     private static boolean experimental;
 
-    private static File LAST_EXPORT_DIRECTORY;
+    private static File lastExportDirectory;
 
     /**
      * @return true if experimental features are enabled
@@ -920,13 +920,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             if (filename != null)
                 fc.setSelectedFile(checkSuffix(filename, suffix));
 
-            if (LAST_EXPORT_DIRECTORY != null)
-                fc.setCurrentDirectory(LAST_EXPORT_DIRECTORY);
+            if (lastExportDirectory != null)
+                fc.setCurrentDirectory(lastExportDirectory);
 
             fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
             if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
 
-                LAST_EXPORT_DIRECTORY=fc.getSelectedFile().getParentFile();
+                lastExportDirectory =fc.getSelectedFile().getParentFile();
 
                 try (OutputStream out = new FileOutputStream(checkSuffix(fc.getSelectedFile(), suffix))) {
                     new Export(circuitComponent.getCircuit(), exportFactory).export(out);
