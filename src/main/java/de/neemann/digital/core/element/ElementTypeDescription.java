@@ -2,6 +2,7 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -210,7 +211,7 @@ public class ElementTypeDescription {
         sb.append(getTranslatedName()).append("\n");
         String descr = getDescription(elementAttributes);
         if (!descr.equals(getTranslatedName()))
-            sb.append("\n").append(getDescription(elementAttributes)).append("\n");
+            sb.append("\n").append(StringUtils.breakLines(getDescription(elementAttributes))).append("\n");
 
         try {
             PinDescriptions inputs = getInputDescription(elementAttributes);

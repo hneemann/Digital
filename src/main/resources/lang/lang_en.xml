@@ -97,7 +97,9 @@ So this gate can emulate every combinatorial gate.</string>
     <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
     <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional connection for reading and writing the data.</string>
     <string name="elem_GraphicCard">Graphic RAM</string>
-    <string name="elem_GraphicCard_tt">Used to show bitmap graphic</string>
+    <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element works similar to a RAM. In addition it
+    shows its content on a grahic screen. Every pixel is represented by a memory address. There are to screens supported
+    to implement screen switching (See input B).</string>
     <string name="elem_GraphicCard_pin_B">Selects the buffer to show</string>
     <string name="elem_ROM">ROM</string>
     <string name="elem_ROM_pin_address">Address of data word to output.</string>

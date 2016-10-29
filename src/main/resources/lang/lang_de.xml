@@ -98,7 +98,10 @@ Ein gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen 
     <string name="elem_RAMSinglePort_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
     <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.</string>
     <string name="elem_GraphicCard">Grafik-RAM</string>
-    <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen.</string>
+    <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
+RAM-Baustein mit dem unterschied, dass der RAM-Inhalt als Grafik angezeigt wird. Jede Speicherstelle definiert die Farbe
+eines Pixels. Es werden zwei Grafikseiten abgelegt, so das ein Screen-Switching möglich ist (Siehe Eingang B).
+Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherzellen.</string>
     <string name="elem_GraphicCard_pin_B">Auswahl der anzuzeigenden Seite.</string>
     <string name="elem_ROM">ROM</string>
     <string name="elem_ROM_pin_address">Adresse des Datenwortes welches ausgelesen werden soll.</string>

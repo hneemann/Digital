@@ -12,6 +12,7 @@ import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.StringUtils;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -121,14 +122,8 @@ public class LibrarySelector implements ElementNotFoundNotification {
         }
     }
 
-    private String createToolTipText(String elementName) {
-        String toolTipText = Lang.getNull("elem_" + elementName + "_tt");
-        if (toolTipText == null)
-            return null;
-
-        if (toolTipText.indexOf('\n') >= 0)
-            toolTipText = "<html>" + toolTipText.replace("\n", "<br>") + "</html>";
-        return toolTipText;
+    private static String createToolTipText(String elementName) {
+        return StringUtils.textToHTML(Lang.getNull("elem_" + elementName + "_tt"));
     }
 
     /**

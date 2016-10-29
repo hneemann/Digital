@@ -4,7 +4,7 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Programmzähler</string>
+      <string>Programmzähler. Hier wird der aktuelle Programmzähler gespeicher. Über die verschiedenen Eingänge kann beeinflußt werden, wie der Programmzähler mit dem Takt verändert wird.</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -29,7 +29,6 @@
         </entry>
       </elementAttributes>
       <pos x="260" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -48,7 +47,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Add</elementName>
@@ -63,7 +61,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -74,7 +71,6 @@
         </entry>
       </elementAttributes>
       <pos x="400" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -85,7 +81,6 @@
         </entry>
       </elementAttributes>
       <pos x="400" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -104,7 +99,6 @@
         </entry>
       </elementAttributes>
       <pos x="640" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -127,7 +121,6 @@
         </entry>
       </elementAttributes>
       <pos x="340" y="420"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>Add</elementName>
@@ -142,7 +135,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -157,7 +149,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -168,7 +159,6 @@
         </entry>
       </elementAttributes>
       <pos x="560" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -179,7 +169,6 @@
         </entry>
       </elementAttributes>
       <pos x="680" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -190,7 +179,6 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -209,7 +197,6 @@
         </entry>
       </elementAttributes>
       <pos x="780" y="420"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -228,13 +215,11 @@
         </entry>
       </elementAttributes>
       <pos x="700" y="420"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
       <pos x="180" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Reset</elementName>
@@ -245,7 +230,6 @@
         </entry>
       </elementAttributes>
       <pos x="220" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

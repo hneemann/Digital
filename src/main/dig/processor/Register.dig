@@ -4,7 +4,7 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Die 16 Prozessorregister</string>
+      <string>In diesem Block befinden sich die Die 16 Prozessorregister.</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -29,7 +29,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -48,7 +47,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -67,7 +65,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -86,7 +83,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -105,7 +101,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="480"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -124,7 +119,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="600"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -143,7 +137,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="720"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -162,7 +155,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="840"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -181,7 +173,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="960"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -200,7 +191,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="1080"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -219,7 +209,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="1220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -238,7 +227,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="1340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -257,7 +245,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="1460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -276,7 +263,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="1580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -295,7 +281,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="1700"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -314,7 +299,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="1820"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -333,7 +317,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="1940"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Demultiplexer</elementName>
@@ -344,7 +327,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -359,7 +341,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="620"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -382,7 +363,6 @@
         </entry>
       </elementAttributes>
       <pos x="1000" y="1000"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -397,7 +377,6 @@
         </entry>
       </elementAttributes>
       <pos x="980" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -412,7 +391,6 @@
         </entry>
       </elementAttributes>
       <pos x="980" y="640"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -431,7 +409,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="560"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -446,7 +423,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -465,7 +441,6 @@
         </entry>
       </elementAttributes>
       <pos x="1040" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -484,7 +459,6 @@
         </entry>
       </elementAttributes>
       <pos x="1040" y="800"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>
