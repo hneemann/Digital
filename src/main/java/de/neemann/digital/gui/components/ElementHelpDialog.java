@@ -1,8 +1,9 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +30,7 @@ public class ElementHelpDialog extends JDialog {
         super(parent, Lang.get("attr_help"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        final String description = elementType.getDetailedDescription(elementAttributes);
+        final String description = getDetailedDescription(elementType, elementAttributes);
         JTextArea textfield = new JTextArea(description);
         textfield.setEditable(false);
         textfield.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
@@ -51,4 +52,59 @@ public class ElementHelpDialog extends JDialog {
         setSize(r);
         setLocationRelativeTo(parent);
     }
+
+    /**
+     * Creates a detailed human readable description of this element
+     *
+     *
+     * @param et the element to describe
+     * @param elementAttributes the actual attributes of the element to describe
+     * @return the human readable description of this element
+     */
+    private String getDetailedDescription(ElementTypeDescription et, ElementAttributes elementAttributes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(et.getTranslatedName()).append("\n");
+        String descr = et.getDescription(elementAttributes);
+        if (!descr.equals(et.getTranslatedName()))
+            sb.append("\n").append(StringUtils.breakLines(et.getDescription(elementAttributes))).append("\n");
+
+        try {
+            PinDescriptions inputs = et.getInputDescription(elementAttributes);
+            sb.append("\n").append(Lang.get("elem_Help_inputs")).append(":\n");
+            if (inputs != null && inputs.size() > 0) {
+                for (PinDescription i : inputs)
+                    appendNameAndDescription(sb, i.getName(), i.getDescription());
+            } else {
+                sb.append("  -\n");
+            }
+        } catch (NodeException e) {
+            e.printStackTrace();
+        }
+
+        PinDescriptions outputs = et.getOutputDescriptions(elementAttributes);
+        sb.append("\n").append(Lang.get("elem_Help_outputs")).append(":\n");
+        if (outputs != null && outputs.size() > 0) {
+            for (PinDescription i : outputs)
+                appendNameAndDescription(sb, i.getName(), i.getDescription());
+        } else {
+            sb.append("  -\n");
+        }
+
+        if (et.getAttributeList().size() > 0) {
+            sb.append("\n").append(Lang.get("elem_Help_attributes")).append(":\n");
+            for (Key k : et.getAttributeList()) {
+                appendNameAndDescription(sb, k.getName(), k.getDescription());
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private static void appendNameAndDescription(StringBuilder sb, String name, String description) {
+        sb.append("  ").append(name);
+        if (!name.equals(description))
+            sb.append(": ").append(description);
+        sb.append("\n");
+    }
+
 }
