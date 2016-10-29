@@ -1,11 +1,11 @@
 package de.neemann.gui;
 
-import de.neemann.digital.lang.Lang;
-
 /**
  * Some helper functions concerning strings
  */
 public final class StringUtils {
+
+    private static final int DEF_COLS = 60;
 
     private StringUtils() {
     }
@@ -74,7 +74,7 @@ public final class StringUtils {
      * @return the formatted text
      */
     public static String breakLines(String text) {
-        return breakLines(text, 60);
+        return breakLines(text, DEF_COLS);
     }
 
     /**
@@ -85,11 +85,39 @@ public final class StringUtils {
      * @return the formatted text
      */
     public static String breakLines(String text, int cols) {
+        return breakLinesLabel("", 0, text, cols);
+    }
+
+    /**
+     * Format a text width indentation
+     *
+     * @param label  label to print in front of the text
+     * @param indent cols to indent the label
+     * @param text   the text
+     * @return the formatted text
+     */
+    public static String breakLinesLabel(String label, int indent, String text) {
+        return breakLinesLabel(label, indent, text, DEF_COLS);
+    }
+
+    /**
+     * Format a text width indentation
+     *
+     * @param label  label to print in front of the text
+     * @param indent cols to indent the label
+     * @param text   the text
+     * @param cols   the number of columns
+     * @return the formatted text
+     */
+    public static String breakLinesLabel(String label, int indent, String text, int cols) {
         if (text == null)
             return null;
 
-        StringBuilder sb = new StringBuilder();
-        int pos = 0;
+        StringBuilder sb = new StringBuilder(label);
+        for (int i = 0; i < indent - label.length(); i++)
+            sb.append(" ");
+
+        int pos = indent;
         boolean wasBlank = false;
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
@@ -100,7 +128,10 @@ public final class StringUtils {
                     if (!wasBlank) {
                         if (pos > cols) {
                             sb.append('\n');
-                            pos = 0;
+                            for (int j = 0; j < indent; j++)
+                                sb.append(" ");
+
+                            pos = indent;
                         } else {
                             sb.append(' ');
                         }

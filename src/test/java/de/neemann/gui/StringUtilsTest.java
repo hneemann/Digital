@@ -18,4 +18,10 @@ public class StringUtilsTest extends TestCase {
                 "test string.", StringUtils.breakLines("This is a test string. This is a test string. This is a test string.", 20));
     }
 
+    public void testBreakLinesLabel() throws Exception {
+        assertEquals("a) This is a test string. This\n" +
+                "   is a test string. This is\n" +
+                "   a test string.", StringUtils.breakLinesLabel("a)", 3, "This is a test string. This is a test string. This is a test string.", 22));
+    }
+
 }

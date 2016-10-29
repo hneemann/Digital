@@ -150,7 +150,6 @@
             <long>524948</long>
             <long>525960</long>
             <long>1048576</long>
-            <bits>16</bits>
           </data>
         </entry>
         <entry>
@@ -322,6 +321,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Wenn gesetzt führt die ALU eine arithmetische Operation aus, so dass die Flags gespeichert werden müssen.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>storeFlags</string>

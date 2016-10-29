@@ -4,7 +4,7 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Programmzähler. Hier wird der aktuelle Programmzähler gespeicher. Über die verschiedenen Eingänge kann beeinflußt werden, wie der Programmzähler mit dem Takt verändert wird.</string>
+      <string>Der Programmzähler. Hier wird der aktuelle Programmzähler gespeichert. Über die verschiedenen Eingänge kann beeinflußt werden, wie der Programmzähler mit dem Takt weitergeschaltet wird.</string>
     </entry>
     <entry>
       <string>Width</string>

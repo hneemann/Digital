@@ -8,6 +8,7 @@ import de.neemann.gui.StringUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /**
  * Simple Dialog to show an elements help text.
@@ -32,6 +33,7 @@ public class ElementHelpDialog extends JDialog {
 
         final String description = getDetailedDescription(elementType, elementAttributes);
         JTextArea textfield = new JTextArea(description);
+        textfield.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         textfield.setEditable(false);
         textfield.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
         getContentPane().add(new JScrollPane(textfield));
@@ -56,12 +58,11 @@ public class ElementHelpDialog extends JDialog {
     /**
      * Creates a detailed human readable description of this element
      *
-     *
-     * @param et the element to describe
+     * @param et                the element to describe
      * @param elementAttributes the actual attributes of the element to describe
      * @return the human readable description of this element
      */
-    private String getDetailedDescription(ElementTypeDescription et, ElementAttributes elementAttributes) {
+    private static String getDetailedDescription(ElementTypeDescription et, ElementAttributes elementAttributes) {
         StringBuilder sb = new StringBuilder();
         sb.append(et.getTranslatedName()).append("\n");
         String descr = et.getDescription(elementAttributes);
@@ -72,8 +73,10 @@ public class ElementHelpDialog extends JDialog {
             PinDescriptions inputs = et.getInputDescription(elementAttributes);
             sb.append("\n").append(Lang.get("elem_Help_inputs")).append(":\n");
             if (inputs != null && inputs.size() > 0) {
+                Indenter ind = new Indenter();
                 for (PinDescription i : inputs)
-                    appendNameAndDescription(sb, i.getName(), i.getDescription());
+                    ind.add(i.getName(), i.getDescription());
+                ind.create(sb);
             } else {
                 sb.append("  -\n");
             }
@@ -84,27 +87,58 @@ public class ElementHelpDialog extends JDialog {
         PinDescriptions outputs = et.getOutputDescriptions(elementAttributes);
         sb.append("\n").append(Lang.get("elem_Help_outputs")).append(":\n");
         if (outputs != null && outputs.size() > 0) {
+            Indenter ind = new Indenter();
             for (PinDescription i : outputs)
-                appendNameAndDescription(sb, i.getName(), i.getDescription());
+                ind.add(i.getName(), i.getDescription());
+            ind.create(sb);
         } else {
             sb.append("  -\n");
         }
 
         if (et.getAttributeList().size() > 0) {
             sb.append("\n").append(Lang.get("elem_Help_attributes")).append(":\n");
+            Indenter ind = new Indenter();
             for (Key k : et.getAttributeList()) {
-                appendNameAndDescription(sb, k.getName(), k.getDescription());
+                ind.add(k.getName(), k.getDescription());
             }
+            ind.create(sb);
         }
 
         return sb.toString();
     }
 
-    private static void appendNameAndDescription(StringBuilder sb, String name, String description) {
-        sb.append("  ").append(name);
-        if (!name.equals(description))
-            sb.append(": ").append(description);
-        sb.append("\n");
-    }
+    private static class Indenter {
+        private final ArrayList<Item> items;
+        private int labelLen;
 
+        Indenter() {
+            items = new ArrayList<>();
+        }
+
+        public void add(String name, String description) {
+            items.add(new Item("  " + name + ": ", description));
+        }
+
+        public void create(StringBuilder sb) {
+            for (Item i : items)
+                i.addTo(sb, labelLen);
+        }
+
+        private final class Item {
+            private final String name;
+            private final String description;
+
+            private Item(String name, String description) {
+                this.name = name;
+                this.description = description;
+                if (name.length() > labelLen)
+                    labelLen = name.length();
+            }
+
+            private void addTo(StringBuilder sb, int labelLen) {
+                sb.append(StringUtils.breakLinesLabel(name, labelLen, description));
+                sb.append('\n');
+            }
+        }
+    }
 }
