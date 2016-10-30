@@ -5,7 +5,7 @@ package de.neemann.gui;
  */
 public final class StringUtils {
 
-    private static final int DEF_COLS = 60;
+    private static final int DEF_COLS = 70;
 
     private StringUtils() {
     }
@@ -113,38 +113,49 @@ public final class StringUtils {
         if (text == null)
             return null;
 
-        StringBuilder sb = new StringBuilder(label);
+        StringBuilder outText = new StringBuilder(label);
         for (int i = 0; i < indent - label.length(); i++)
-            sb.append(" ");
+            outText.append(" ");
 
+        StringBuilder word = new StringBuilder();
+        boolean isFirst = true;
         int pos = indent;
-        boolean wasBlank = false;
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             switch (c) {
                 case '\n':
                 case '\r':
                 case ' ':
-                    if (!wasBlank) {
-                        if (pos > cols) {
-                            sb.append('\n');
-                            for (int j = 0; j < indent; j++)
-                                sb.append(" ");
-
-                            pos = indent;
-                        } else {
-                            sb.append(' ');
-                        }
-                    }
-                    wasBlank = true;
+                    pos = addWord(indent, cols, outText, word, pos, isFirst);
+                    isFirst = false;
                     break;
                 default:
-                    sb.append(c);
-                    wasBlank = false;
-                    pos++;
+                    word.append(c);
             }
         }
-        return sb.toString();
+        addWord(indent, cols, outText, word, pos, isFirst);
+        return outText.toString();
+    }
+
+    private static int addWord(int indent, int cols, StringBuilder outText, StringBuilder word, int pos, boolean isFirst) {
+        if (word.length() > 0) {
+            if (pos + (isFirst ? word.length() : word.length() + 1) > cols) {
+                outText.append('\n');
+                for (int j = 0; j < indent; j++)
+                    outText.append(" ");
+
+                pos = indent;
+            } else {
+                if (!isFirst) {
+                    outText.append(" ");
+                    pos++;
+                }
+            }
+            outText.append(word);
+            pos += word.length();
+            word.setLength(0);
+        }
+        return pos;
     }
 
 }
