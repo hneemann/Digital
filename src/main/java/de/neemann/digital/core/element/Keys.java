@@ -158,7 +158,7 @@ public final class Keys {
             = new Key<>("showList", false);
 
     /**
-     * flag to set a ROM as programm memory
+     * flag to set a ROM as program memory
      */
     public static final Key<Boolean> IS_PROGRAM_MEMORY
             = new Key<>("isProgramMemory", false);
@@ -213,8 +213,8 @@ public final class Keys {
     /**
      * the description of an element
      */
-    public static final Key<String> DESCRIPTION
-            = new Key<>("Description", "");
+    public static final Key.LongString DESCRIPTION
+            = new Key.LongString("Description");
 
     /**
      * A net name

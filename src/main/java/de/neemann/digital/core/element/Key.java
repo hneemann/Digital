@@ -160,4 +160,18 @@ public class Key<VALUE> {
             return names;
         }
     }
+
+    /**
+     * A special string key to flag long multi line strings.
+     */
+    public static final class LongString extends Key<String> {
+        /**
+         * Creates a new Key
+         *
+         * @param key the key
+         */
+        public LongString(String key) {
+            super(key, "");
+        }
+    }
 }

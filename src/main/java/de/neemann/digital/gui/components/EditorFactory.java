@@ -18,6 +18,7 @@ import de.neemann.gui.language.Language;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -110,16 +111,23 @@ public final class EditorFactory {
 
     private final static class StringEditor extends LabelEditor<String> {
 
-        private final JTextField text;
+        private final JTextComponent text;
+        private final JComponent compToAdd;
 
         public StringEditor(String value, Key<String> key) {
-            text = new JTextField(10);
+            if (key instanceof Key.LongString) {
+                text = new JTextArea(6, 30);
+                compToAdd = new JScrollPane(text);
+            } else {
+                text = new JTextField(10);
+                compToAdd = text;
+            }
             text.setText(value);
         }
 
         @Override
         public JComponent getComponent(ElementAttributes attr) {
-            return text;
+            return compToAdd;
         }
 
         @Override
