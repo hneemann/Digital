@@ -116,7 +116,10 @@ public class ElementHelpDialog extends JDialog {
         }
 
         public void add(String name, String description) {
-            items.add(new Item("  " + name + ": ", description));
+            if (description==null || description.length()==0 || name.equals(description))
+                items.add(new Item("  " + name, ""));
+            else
+                items.add(new Item("  " + name + ": ", description));
         }
 
         public void create(StringBuilder sb) {
