@@ -4,7 +4,10 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Eine einfache &quot;Grafikkarte&quot;. Sie enthält ein Grafik-RAM um die eigentliche Grafik anzuzeigen.</string>
+      <string>Eine einfache &quot;Grafikkarte&quot;. 
+Sie enthält ein Grafik-RAM um die eigentliche Grafik 
+anzuzeigen. Dieses Grafik-RAM ist auf die 
+Darstellung von 20x20 Pixel konfiguriert.</string>
     </entry>
   </attributes>
   <visualElements>

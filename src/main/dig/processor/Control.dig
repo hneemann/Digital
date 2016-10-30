@@ -4,7 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Leitwerk für einen einfachen Prozessor.</string>
+      <string>Leitwerk für einen einfachen Prozessor.
+Es arbeitet rein kombinatorisch, es handelt sich 
+also um ein einfaches Schaltwerk. 
+Da es vergleichsweise komplex ist (24 
+Ausgangsbits), wird es durch einen 
+entsprechenden ROM-Baustein 
+realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
     </entry>
     <entry>
       <string>Width</string>

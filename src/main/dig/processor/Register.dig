@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>In diesem Block befinden sich die Die 16 Prozessorregister.</string>
+      <string>In diesem Block befinden sich die 16 
+Prozessorregister.</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -35,7 +36,9 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Daten die gespeichert werden sollen</string>
+          <string>Daten die gespeichert werden sollen.
+Der hier anliegende Wert wird gespeichert, wenn 
+der Eingang WE auf 1 geschaltet wird.</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -333,7 +336,9 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Takt</string>
+          <string>Takt. Geht der Takt auf High, und ist WE auf High 
+wird der Wert an WD im dem Register gespeichert,
+welches in dest angegeben ist.</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -347,7 +352,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Nummer des Source Registers</string>
+          <string>Nummer des Source Registers. Legt fest, welches 
+Register an Rsrc ausgegeben werden soll.</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -397,7 +403,10 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Nummer des Destignation Registers</string>
+          <string>Nummer des Destignation Registers. Legt fest, 
+welches Register an Rdest ausgegeben werden soll.
+Zudem wird dieses Register beschrieben, wenn
+WE auf 1 gesetzt wird.</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -415,7 +424,9 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Speichern aktivieren</string>
+          <string>Das Speichern aktivieren. Wenn dieser Eingang auf 
+High geht, wird der Wert an WD in dem Register 
+gespeichert, welches in dest angegeben ist.</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -429,7 +440,9 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Inhalt des Destignation Registers</string>
+          <string>Inhalt des Destignation Registers.
+Welches Register ausgegeben wird, wird mittels 
+des Eingangs dest festgelegt.</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -447,7 +460,9 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Inhalt des Source Registers</string>
+          <string>Inhalt des Source Registers. Welches Register
+ausgegeben wird, wird mittels des Einganges src
+festgelegt.</string>
         </entry>
         <entry>
           <string>Label</string>

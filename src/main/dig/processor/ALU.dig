@@ -4,7 +4,11 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Arithmetisch Logische Einheit.</string>
+      <string>Arithmetisch Logische Einheit. 
+Führt alle arithmetischen Operationen durch. 
+WIrd sowohl für arithmetische Prozessorbefehle 
+als auch für die Berechnung von Speicheradressen 
+verwendet.</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -17,7 +21,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>EIngang A</string>
+          <string>Erster Operand</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -35,7 +39,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Eingang B</string>
+          <string>Zweiter Operand</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -164,7 +168,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Ergebnis</string>
+          <string>Ergebnis der Operation</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -209,6 +213,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Zero-Flag; Ist High wenn das Ergebnis Null ist.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Zero</string>
         </entry>
@@ -219,6 +227,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Ist High wenn das Ergebnis negativ ist.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Neg</string>
         </entry>
@@ -228,6 +240,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Ist High wenn es einen Übertrag gegeben hat.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Carry</string>
@@ -303,7 +319,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Takt</string>
+          <string>Der Eingang für den Übertrag</string>
         </entry>
         <entry>
           <string>Label</string>

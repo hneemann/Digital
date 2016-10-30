@@ -4,7 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Register zum Speichern von großen Konstanten</string>
+      <string>Register zum Speichern von großen Konstanten.
+Es existiert ein 1-Bit Befehl, welcher dieses Register
+beschreibt. Auf diese Weise können 15 Bits 
+gespeichert werden (das 16. Bit aktiviert das 
+Beschreiben dieses Registers und ist daher immer 
+Eins) Um das fehlende 16. Bit zu speichern, steht ein 
+spezielles Bit in jedem Befehlswort zur Verfügung.</string>
     </entry>
     <entry>
       <string>Width</string>

@@ -4,7 +4,11 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Extrahiert kleine Konstanten aus dem Befehlswort</string>
+      <string>Extrahiert kleine Konstanten aus dem Befehlswort.
+Es können zwei 5-Bit Konstanten (Die 4 Bits eines 
+Registers zusammen mit Bit 8 des Befehlswortes)
+und eine 9-Bit Konstante (Die 8 Bits beider Register
+zusammen mit Bit 8 des Befehlswortes)</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -29,7 +33,6 @@
         </entry>
       </elementAttributes>
       <pos x="200" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -44,7 +47,6 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -59,7 +61,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -78,7 +79,6 @@
         </entry>
       </elementAttributes>
       <pos x="500" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -93,7 +93,6 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -108,7 +107,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -123,7 +121,6 @@
         </entry>
       </elementAttributes>
       <pos x="380" y="380"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -142,7 +139,6 @@
         </entry>
       </elementAttributes>
       <pos x="500" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -157,7 +153,6 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -172,7 +167,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -187,7 +181,6 @@
         </entry>
       </elementAttributes>
       <pos x="380" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -206,7 +199,6 @@
         </entry>
       </elementAttributes>
       <pos x="500" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

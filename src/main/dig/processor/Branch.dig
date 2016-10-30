@@ -4,7 +4,10 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einheit für bedingte Verzweigungen.</string>
+      <string>Einheit für bedingte Verzweigungen. 
+Je nach Zustand der Flags und des ctrl-Eingangs 
+wird ein bedingter Sprung ausgelößt oder eben 
+nicht.</string>
     </entry>
   </attributes>
   <visualElements>
@@ -80,7 +83,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>relativen Sprung ausführen</string>
+          <string>Ist dieser Ausgang High, soll ein bedingter relativer Sprung ausgeführt werden.</string>
         </entry>
         <entry>
           <string>Label</string>

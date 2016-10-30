@@ -4,13 +4,21 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Speichert die Prozessorflags</string>
+      <string>Speichert die Prozessor-Flags. 
+Über den store-Eingang, kann der aktuelle Zustand
+der Flags gespeichert werden. Das Carry-Flag kann 
+dann für arithmetische Funktion genutzt werden,
+alle Flags für eine bedingte Verzweigung.</string>
     </entry>
   </attributes>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Zero-Flag welches gespeichert werden soll.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Zi</string>
@@ -21,6 +29,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Gibt das gespeicherte Zero-Flag aus.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Zo</string>
@@ -46,6 +58,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Das Negative-Flag welches gespeichert werden soll.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Ni</string>
         </entry>
@@ -55,6 +71,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Gibt das gespeicherte Negative-Flag aus.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>No</string>
@@ -80,6 +100,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Das Carry-Flag welches gespeichert werden soll.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Ci</string>
         </entry>
@@ -89,6 +113,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Gibt das gespeicherte Carry-Flag aus.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Co</string>
@@ -114,6 +142,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>der Takteingang</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
@@ -123,6 +155,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Der Eingang welcher das Speichern aktiviert. Es wird auf Eins gesetzt, wenn eine arithmetische Operation ausgeführt wird.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>store</string>
