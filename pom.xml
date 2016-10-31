@@ -143,7 +143,7 @@
                 </configuration>
             </plugin>
 
-            <!--plugin>  is not working on Bitbucket! Tries to start "/root/.m2/repository/net/sf/launch4j/launch4j/3.9/launch4j-3.9-workdir-linux/bin/windres" which is not working
+            <!--plugin>  is not working on Bitbucket! Tries to start "/root/.m2/repository/net/sf/launch4j/launch4j/3.9/launch4j-3.9-workdir-linux/bin/windres"! A bad idea!
                 <groupId>com.akathist.maven.plugins.launch4j</groupId>
                 <artifactId>launch4j-maven-plugin</artifactId>
                 <version>1.7.12</version>
