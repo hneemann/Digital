@@ -235,6 +235,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         setPreferredSize(new Dimension(1024, 768));
         pack();
         setLocationRelativeTo(parent);
+        ToolTipManager.sharedInstance().setDismissDelay(10000);
     }
 
     private void createViewMenu(JMenuBar menuBar, JToolBar toolBar) {
