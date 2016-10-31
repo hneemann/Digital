@@ -234,6 +234,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_autoReload">Reload at model start</string>
     <string name="key_autoReload_tt">Reloads the hex file every time the model is started.</string>
     <string name="key_flipSelPos">Flip selector position</string>
+    <string name="key_flipSelPos_tt">This option allows you to move te selector pin to the opposite side of the plexer.</string>
     <string name="key_intFormat">Number Format</string>
     <string name="key_intFormat_ascii">ascii</string>
     <string name="key_intFormat_bin">bin</string>

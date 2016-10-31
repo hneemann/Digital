@@ -234,7 +234,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_Width_tt">Breite des Symbols wenn diese Schaltung in eine andere eingefügt wird.</string>
     <string name="key_autoReload">Bei jedem Start automatisch neu laden.</string>
     <string name="key_autoReload_tt">Lädt das HEX-File bei jedem Modelstart neu.</string>
-    <string name="key_flipSelPos">Tausche Position des Selectors</string>
+    <string name="key_flipSelPos">Tausche Selektorsposition</string>
+    <string name="key_flipSelPos_tt">Mit dieser Option kann der Anschluss des Selektors auf die andere Seite des Multiplexers verschoben werden.</string>
     <string name="key_intFormat">Zahlenformat</string>
     <string name="key_intFormat_ascii">ASCII</string>
     <string name="key_intFormat_bin">Binär</string>
