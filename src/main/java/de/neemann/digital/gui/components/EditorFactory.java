@@ -81,11 +81,14 @@ public final class EditorFactory {
      */
     public static abstract class LabelEditor<T> implements Editor<T> {
         private AttributeDialog attributeDialog;
+        private boolean labelAtTop = false;
 
         @Override
         public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
             this.attributeDialog = attributeDialog;
             JLabel label = new JLabel(key.getName() + ":  ");
+            if (labelAtTop)
+                label.setVerticalAlignment(JLabel.TOP);
             label.setToolTipText(key.getDescription());
             panel.add(label, DialogLayout.LABEL);
             JComponent component = getComponent(elementAttributes);
@@ -107,6 +110,15 @@ public final class EditorFactory {
          * @return the component
          */
         protected abstract JComponent getComponent(ElementAttributes elementAttributes);
+
+        /**
+         * Sets the position of the label
+         *
+         * @param labelAtTop if true the label is placed at the top of the editing component.
+         */
+        public void setLabelAtTop(boolean labelAtTop) {
+            this.labelAtTop = labelAtTop;
+        }
     }
 
     private final static class StringEditor extends LabelEditor<String> {
@@ -118,6 +130,7 @@ public final class EditorFactory {
             if (key instanceof Key.LongString) {
                 text = new JTextArea(6, 30);
                 compToAdd = new JScrollPane(text);
+                setLabelAtTop(true);
             } else {
                 text = new JTextField(10);
                 compToAdd = text;
