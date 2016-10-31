@@ -11,6 +11,10 @@
             <outputDirectory>/</outputDirectory>
         </file>
         <file>
+            <source>${basedir}/target/Digital.exe</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+        <file>
             <source>${basedir}/Version.txt</source>
             <outputDirectory>/</outputDirectory>
             <filtered>true</filtered>

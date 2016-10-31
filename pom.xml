@@ -144,6 +144,43 @@
             </plugin>
 
             <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.12</version>
+                <executions>
+                    <execution>
+                        <id>l4j-clui</id>
+                        <phase>install</phase>
+                        <goals><goal>launch4j</goal></goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <outfile>${basedir}/target/Digital.exe</outfile>
+                            <jar>${basedir}/target/Digital.jar</jar>
+                            <icon>${basedir}/src/main/resources/icon48.ico</icon>
+                            <errTitle>Digital</errTitle>
+                            <classPath>
+                                <mainClass>de.neemann.digital.gui.Main</mainClass>
+                            </classPath>
+                            <jre>
+                                <minVersion>1.8.0</minVersion>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>0.0.0.0</fileVersion>
+                                <txtFileVersion>git: ${buildNumber}</txtFileVersion>
+                                <productVersion>0.0.0.0</productVersion>
+                                <txtProductVersion>git: ${buildNumber}</txtProductVersion>
+                                <fileDescription>A digital circuit simulator</fileDescription>
+                                <copyright>copyright by H.Neemann</copyright>
+                                <productName>Digital</productName>
+                                <originalFilename>Digital.exe</originalFilename>
+                                <internalName>Digital</internalName>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -168,7 +205,7 @@
                 <executions>
                     <execution>
                         <id>make-assembly</id>
-                        <phase>install</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
