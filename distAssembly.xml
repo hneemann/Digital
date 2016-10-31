@@ -10,10 +10,10 @@
             <source>${basedir}/target/Digital.jar</source>
             <outputDirectory>/</outputDirectory>
         </file>
-        <!--file>
-            <source>${basedir}/target/Digital.exe</source>
+        <file>
+            <source>${basedir}/Digital.exe</source>
             <outputDirectory>/</outputDirectory>
-        </file-->
+        </file>
         <file>
             <source>${basedir}/Version.txt</source>
             <outputDirectory>/</outputDirectory>
