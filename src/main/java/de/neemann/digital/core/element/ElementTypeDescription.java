@@ -2,7 +2,6 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
