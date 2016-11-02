@@ -51,16 +51,16 @@ public class DiodeForewardShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
-        if (!blown) {
-            graphic.drawPolygon(
-                    new Polygon(true)
-                            .add(-SIZE2, 1)
-                            .add(SIZE2, 1)
-                            .add(0, SIZE - 1),
-                    Style.NORMAL
-            );
-            graphic.drawLine(new Vector(-SIZE2, SIZE - 1), new Vector(SIZE2, SIZE - 1), Style.NORMAL);
-        }
+        Style style = blown ? Style.DASH : Style.NORMAL;
+
+        graphic.drawPolygon(
+                new Polygon(true)
+                        .add(-SIZE2, 1)
+                        .add(SIZE2, 1)
+                        .add(0, SIZE - 1),
+                style
+        );
+        graphic.drawLine(new Vector(-SIZE2, SIZE - 1), new Vector(SIZE2, SIZE - 1), style);
     }
 
 }
