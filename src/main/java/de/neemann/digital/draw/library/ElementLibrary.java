@@ -9,6 +9,10 @@ import de.neemann.digital.core.flipflops.FlipflopRS;
 import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
+import de.neemann.digital.core.pld.DiodeBackward;
+import de.neemann.digital.core.pld.DiodeForeward;
+import de.neemann.digital.core.pld.PullDown;
+import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.gui.components.data.DummyElement;
@@ -96,6 +100,12 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Comparator.DESCRIPTION, menu);
         add(Neg.DESCRIPTION, menu);
         add(BitCount.DESCRIPTION, menu);
+
+        menu = Lang.get("lib_pld");
+        add(DiodeForeward.DESCRIPTION, menu);
+        add(DiodeBackward.DESCRIPTION, menu);
+        add(PullUp.DESCRIPTION, menu);
+        add(PullDown.DESCRIPTION, menu);
 
         menu = Lang.get("lib_test");
         add(TestCaseElement.TESTCASEDESCRIPTION, menu);

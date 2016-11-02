@@ -33,7 +33,7 @@ public class JedecWriterTest extends TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         JedecWriter w = new JedecWriter(baos);
         w.println("Test*");
-        w.write(FuseMapTest.createFuseMap());
+        w.write(DiodeForewardMapTest.createFuseMap());
         w.close();
 
         assertEquals("\u0002Test*\r\n" +

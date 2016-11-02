@@ -132,6 +132,16 @@ The terminal opens its own window.</string>
     <string name="elem_Keyboard">Keyboard</string>
     <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is outputed.</string>
     <string name="elem_Keyboard_pin_D">The last pressed key, or null if no key is typed.</string>
+
+    <string name="elem_DiodeBackward">Diode to Ground</string>
+    <string name="elem_DiodeBackward_tt">This diode can be used, to pull a wire to ground. Is used to implement a wired And.</string>
+    <string name="elem_DiodeForeward">Diode to VDD</string>
+    <string name="elem_DiodeForeward_tt">This diode can be used, to pull a wire to VDD. Is used to implement a wired Or.</string>
+    <string name="elem_PullUp">Pull-Up Resistor</string>
+    <string name="elem_PullUp_tt">If a wire in a HighZ state, this resistor pulls the wire to high.</string>
+    <string name="elem_PullDown">Pull-Down Resistor</string>
+    <string name="elem_PullDown_tt">If a wire in a HighZ state, this resistor pulls the wire to ground.</string>
+
     <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-flip-flop has no label set</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>
@@ -196,6 +206,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_noTestData">Not test data found.</string>
     <string name="err_unnamedSignal">There is a unnamed signal!</string>
     <string name="err_remoteExecution">Error during execution of a remote command</string>
+    <string name="err_pullUpAndDownNotAllowed">It's not allowed to connect a pull up and a pull down resistor to a single wire.</string>
+
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
     <string name="key_Bits">Data Bits</string>
@@ -258,12 +270,15 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_valueIsProbe">Use as measurment value</string>
     <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.</string>
     <string name="key_Testdata">Testdata</string>
+    <string name="key_Testdata_tt">The description of the test case. Details of the syntax can be found in the help dialog of the test data editor.</string>
     <string name="key_graphicWidth">Width in pixels</string>
     <string name="key_graphicWidth_tt">The screen width in pixels.</string>
     <string name="key_graphicHeight">Height in pixels</string>
     <string name="key_graphicHeight_tt">The screen height in pixels.</string>
     <string name="key_isProgramMemory">Program Memory</string>
     <string name="key_isProgramMemory_tt">Makes this ROM to program memory. So it can be accessed by an external IDE.</string>
+    <string name="key_Blown">Programmed</string>
+    <string name="key_Blown_tt">If set the diode is treated as a "blown" or "programmed" diode or fuse.</string>
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
     <string name="lib_flipFlops">FlipFlops</string>
@@ -272,6 +287,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="lib_mux">Plexers</string>
     <string name="lib_wires">Wires</string>
     <string name="lib_test">Test</string>
+    <string name="lib_pld">PLDs</string>
     <string name="menu_about">About</string>
     <string name="menu_analyse">Analysis</string>
     <string name="menu_analyse_tt">Analyses the actual circuit</string>

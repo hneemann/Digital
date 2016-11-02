@@ -99,6 +99,12 @@ public final class Keys {
     /**
      * signed flag for comparator element
      */
+    public static final Key<Boolean> BLOWN
+            = new Key<>("Blown", false);
+
+    /**
+     * signed flag for comparator element
+     */
     public static final Key<Boolean> SIGNED
             = new Key<>("Signed", false);
 

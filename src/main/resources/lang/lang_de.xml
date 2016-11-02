@@ -133,6 +133,16 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="elem_Keyboard">Tastatur</string>
     <string name="elem_Keyboard_pin_sel">Wenn gesetzt ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
     <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
+
+    <string name="elem_DiodeBackward">Diode zu Masse</string>
+    <string name="elem_DiodeBackward_tt">Diese Diode kann genutzt werden, um eine Leitung auf Masse zu ziehen. Wird verwendet um ein "Wired And" zu implementieren.</string>
+    <string name="elem_DiodeForeward">Diode zu Plus</string>
+    <string name="elem_DiodeForeward_tt">Diese Diode kann genutzt werden, um eine Leitung auf Plus zu ziehen. Wird verwendet um ein "Wired Or" zu implementieren.</string>
+    <string name="elem_PullUp">Pull-Up Widerstand</string>
+    <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.</string>
+    <string name="elem_PullDown">Pull-Down Widerstand</string>
+    <string name="elem_PullDown_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Down Widerstand zu Low.</string>
+
     <string name="error">Fehler</string>
     <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in Element {1} ist werder Eingang noch Ausgang</string>
@@ -197,6 +207,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_noTestData">Keine Testdaten vorhanden.</string>
     <string name="err_unnamedSignal">Es gibt ein unbenanntes Signal</string>
     <string name="err_remoteExecution">Fehler beim Ausführen eines Befehls</string>
+    <string name="err_pullUpAndDownNotAllowed">Es kann nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
     <string name="key_AddrBits">Adress Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
     <string name="key_Bits">Datenbits</string>
@@ -259,12 +270,15 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_valueIsProbe">Als Messwert verwenden</string>
     <string name="key_valueIsProbe_tt">Wenn gesetzt, taucht der Wert als Messwert in Graph und Tabelle auf</string>
     <string name="key_Testdata">Testdaten</string>
+    <string name="key_Testdata_tt">Hier wird der eigentliche Testfall angelegt. Details dazu finden sich in der Hilfe des Testdateneditors.</string>
     <string name="key_graphicWidth">Breite in Pixel</string>
     <string name="key_graphicWidth_tt">Breite des Grafik-Bildschirmes in Pixel</string>
     <string name="key_graphicHeight">Höhe in Pixel</string>
     <string name="key_graphicHeight_tt">Höhe des Grafik-Bildschirmes in Pixel</string>
     <string name="key_isProgramMemory">Programmspeicher</string>
     <string name="key_isProgramMemory_tt">Zeichnet dieses ROM als Programmspeicher aus. Es kann damit von einer externen IDE beschrieben werden.</string>
+    <string name="key_Blown">Programmiert</string>
+    <string name="key_Blown_tt">Wenn gesetzt wird die Diode als "Durchgebrannt" bzw "Programmiert" betrachtet.</string>
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
     <string name="lib_flipFlops">FlipFlops</string>
@@ -273,6 +287,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="lib_mux">Multiplexer</string>
     <string name="lib_wires">Leitungen</string>
     <string name="lib_test">Test</string>
+    <string name="lib_pld">PLDs</string>
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>
     <string name="menu_analyse_tt">Analyse der aktuellen Schaltung</string>

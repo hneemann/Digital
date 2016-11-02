@@ -1,6 +1,7 @@
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.model.Net;
@@ -50,6 +51,7 @@ public class DataBus {
      */
     public DataBus(Net net, Model model, ObservableValue... outputs) throws PinException {
         int bits = 0;
+        PinDescription.PullResistor resistor = PinDescription.PullResistor.none;
         for (ObservableValue o : outputs) {
             int b = o.getBits();
             if (bits == 0) bits = b;
@@ -59,6 +61,19 @@ public class DataBus {
             }
             if (!o.supportsHighZ())
                 throw new PinException(Lang.get("err_notAllOutputsSupportHighZ"), net);
+
+            switch (o.getPullResistor()) {
+                case pullDown:
+                    if (resistor == PinDescription.PullResistor.pullUp)
+                        throw new PinException(Lang.get("err_pullUpAndDownNotAllowed"), net);
+                    resistor = PinDescription.PullResistor.pullDown;
+                    break;
+                case pullUp:
+                    if (resistor == PinDescription.PullResistor.pullDown)
+                        throw new PinException(Lang.get("err_pullUpAndDownNotAllowed"), net);
+                    resistor = PinDescription.PullResistor.pullUp;
+                    break;
+            }
         }
         commonOut = new ObservableValue("common", bits);
 
@@ -68,7 +83,7 @@ public class DataBus {
             model.addObserver(obs);
         }
 
-        CommonBusObserver observer = new CommonBusObserver(commonOut, obs, outputs);
+        CommonBusObserver observer = new CommonBusObserver(commonOut, obs, outputs, resistor);
         for (ObservableValue p : outputs)
             p.addObserverToValue(observer);
         observer.hasChanged();
@@ -91,13 +106,15 @@ public class DataBus {
         private final ObservableValue commonOut;
         private final BusModelStateObserver obs;
         private final ObservableValue[] inputs;
+        private final PinDescription.PullResistor resistor;
         private boolean burn;
         private int addedVersion = -1;
 
-        CommonBusObserver(ObservableValue commonOut, BusModelStateObserver obs, ObservableValue[] outputs) {
+        CommonBusObserver(ObservableValue commonOut, BusModelStateObserver obs, ObservableValue[] outputs, PinDescription.PullResistor resistor) {
             this.commonOut = commonOut;
             this.obs = obs;
             inputs = outputs;
+            this.resistor = resistor;
         }
 
         @Override
@@ -116,7 +133,19 @@ public class DataBus {
                     }
                 }
             }
-            commonOut.set(value, highz);
+            if (highz) {
+                switch (resistor) {
+                    case pullUp:
+                        commonOut.set(-1, false);
+                        break;
+                    case pullDown:
+                        commonOut.set(0, false);
+                        break;
+                    default:
+                        commonOut.set(value, highz);
+                }
+            } else
+                commonOut.set(value, highz);
 
             // if burn condition and not yet added for post step check add for post step check
             if (burn && (obs.version != addedVersion)) {

@@ -11,7 +11,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 /**
  * @author hneemann
  */
-public class FuseMapFillerTest extends TestCase {
+public class DiodeForewardMapFillerTest extends TestCase {
     public void testFillExpression() throws Exception {
 
         FuseMap fuseMap = new FuseMap(16);

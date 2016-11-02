@@ -53,6 +53,7 @@ public class PinInfo implements PinDescription {
     private final String description;
     private final String name;
     private Direction direction;
+    private PullResistor pullResistor;
 
     /**
      * Creates a copy of the given {@link PinDescription}
@@ -60,7 +61,7 @@ public class PinInfo implements PinDescription {
      * @param description the description to copy
      */
     public PinInfo(PinDescription description) {
-        this(description.getName(), description.getDescription(), description.getDirection());
+        this(description.getName(), description.getDescription(), description.getDirection(), description.getPullResistor());
     }
 
     /**
@@ -71,9 +72,21 @@ public class PinInfo implements PinDescription {
      * @param direction   the pins direction
      */
     public PinInfo(String name, String description, Direction direction) {
+        this(name, description, direction, PullResistor.none);
+    }
+
+    /**
+     * Creates a new pin
+     *
+     * @param name        the pins name
+     * @param description the pins description
+     * @param direction   the pins direction
+     */
+    public PinInfo(String name, String description, Direction direction, PullResistor pullResistor) {
         this.description = description;
         this.name = name;
         this.direction = direction;
+        this.pullResistor = pullResistor;
     }
 
     @Override
@@ -97,5 +110,21 @@ public class PinInfo implements PinDescription {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public PullResistor getPullResistor() {
+        return pullResistor;
+    }
+
+    /**
+     * Sets the pull resistor config
+     *
+     * @param pullResistor the pull resistor config
+     * @return this for chained calls
+     */
+    public PinInfo setPullResistor(PullResistor pullResistor) {
+        this.pullResistor = pullResistor;
+        return this;
     }
 }

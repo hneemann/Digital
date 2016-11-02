@@ -8,9 +8,18 @@ package de.neemann.digital.core.element;
 public interface PinDescription {
 
     /**
+     * The possible pull resistor configurations
+     */
+    enum PullResistor {
+        none, pullUp, pullDown
+    }
+
+    /**
      * The possible directions of a pin
      */
-    enum Direction {input, output, both}
+    enum Direction {
+        input, output, both
+    }
 
     /**
      * @return the pins name
@@ -26,5 +35,12 @@ public interface PinDescription {
      * @return the Pins direction
      */
     Direction getDirection();
+
+    /**
+     * @return The possible pull resistor configuration of this pin
+     */
+    default PullResistor getPullResistor() {
+        return PullResistor.none;
+    }
 
 }
