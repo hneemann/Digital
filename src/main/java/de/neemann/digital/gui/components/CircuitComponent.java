@@ -149,7 +149,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }.setToolTip(Lang.get("menu_delete_tt"));
 
 
-        AbstractAction programAction = new AbstractAction(Lang.get("menu_program")) {
+        AbstractAction programAction = new AbstractAction(Lang.get("menu_programDiode")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (activeMouseController instanceof MouseControllerNormal) {
