@@ -479,6 +479,7 @@ Dabei steht ein 'X' für Don't Care, und ein 'Z' für hochohmig.
 Wird der Wert 'C' verwendet, werden zunächst alle anderen Werte gesetzt, dann wird ein
 Taktzyklus durchgeführt, und erst daran anschließend werden die Werte verglichen.
 Auf diese Weise können Schaltwerke einfacher getestet werden.
+Eine Zeile, die mit einem Doppelkreuz ('#') beginnt ist ein Kommentar.
 
 Ein Test für einen 2-Bit Zähler könnte damit wie folgt aussehen:
 

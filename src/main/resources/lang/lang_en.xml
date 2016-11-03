@@ -481,6 +481,7 @@ The following lines contain the expected values.
 A 'X' represents a don't care, and a 'Z' represents a high Z value.
 If a 'C' is used, at first all other values are set, after that a clock cycle is performed and than the
 values are compared. So it's easier to test sequential logic.
+A line which starts with a number sign ('#') is a comment.
 
 So a test for a 2-bit counter could look like this:
 
