@@ -5,6 +5,9 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.pld.DiodeBackward;
+import de.neemann.digital.core.pld.DiodeForeward;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -145,6 +148,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setToolTip(Lang.get("menu_delete_tt"));
 
+
+        AbstractAction programAction = new AbstractAction(Lang.get("menu_program")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerNormal) {
+                    Vector pos = ((MouseControllerNormal) activeMouseController).getActMousePos();
+                    programDiodeAt(pos);
+                }
+            }
+        };
+
         getInputMap().put(KeyStroke.getKeyStroke("DELETE"), DEL_ACTION);
         getActionMap().put(DEL_ACTION, deleteAction);
         getInputMap().put(KeyStroke.getKeyStroke('C', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "myCopy");
@@ -153,7 +167,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         getActionMap().put("myPaste", pasteAction);
         getInputMap().put(KeyStroke.getKeyStroke("R"), "myRotate");
         getActionMap().put("myRotate", rotateAction);
-
+        getInputMap().put(KeyStroke.getKeyStroke("P"), "myProgram");
+        getActionMap().put("myProgram", programAction);
 
         setFocusable(true);
 
@@ -193,6 +208,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         addMouseListener(disp);
 
         setToolTipText("");
+    }
+
+    private void programDiodeAt(Vector pos) {
+        VisualElement ve = circuit.getElementAt(pos);
+        if (ve != null && (ve.equalsDescription(DiodeBackward.DESCRIPTION) || ve.equalsDescription(DiodeForeward.DESCRIPTION))) {
+            boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
+            ve.getElementAttributes().set(Keys.BLOWN, !blown);
+            hasChanged();
+        }
     }
 
     /**
@@ -633,6 +657,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
     private final class MouseControllerNormal extends MouseController {
+        private int actXPos;
+        private int actYPos;
         private Vector pos;
         private int downButton;
 
@@ -669,6 +695,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         @Override
+        void moved(MouseEvent e) {
+            actXPos = e.getX();
+            actYPos = e.getY();
+        }
+
+        @Override
         void pressed(MouseEvent e) {
             downButton = e.getButton();
             pos = getPosVector(e);
@@ -681,6 +713,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 return true;
             }
             return false;
+        }
+
+        Vector getActMousePos() {
+            return getPosVector(actXPos, actYPos);
         }
     }
 
