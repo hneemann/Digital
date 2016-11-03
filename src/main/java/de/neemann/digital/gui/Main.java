@@ -28,8 +28,6 @@ import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
-import de.neemann.digital.testing.TestingDataException;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.gui.components.testing.TestResultDialog;
 import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteException;
@@ -40,6 +38,8 @@ import de.neemann.digital.gui.sync.LockSync;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseElement;
+import de.neemann.digital.testing.TestingDataException;
 import de.neemann.gui.*;
 
 import javax.swing.*;
@@ -425,8 +425,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_actualToDefault_tt"));
 
+        ToolTipAction unprogramAlFuses = new ToolTipAction(Lang.get("menu_unprogramAllFuses")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.getCircuit().unprogramAllFuses();
+                elementState.enter();
+            }
+        }.setToolTip(Lang.get("menu_unprogramAllFuses_tt"));
+
         edit.add(editAttributes.createJMenuItem());
         edit.add(actualToDefault.createJMenuItem());
+        edit.add(unprogramAlFuses.createJMenuItem());
         edit.addSeparator();
         edit.add(elementStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());

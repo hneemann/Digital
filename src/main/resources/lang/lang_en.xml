@@ -398,6 +398,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_runTests_tt">Runs all test cases in the circuit</string>
     <string name="menu_actualToDefault">Set Inputs</string>
     <string name="menu_actualToDefault_tt">Use actual input values as new default values.</string>
+    <string name="menu_unprogramAllFuses">Reset all diodes</string>
+    <string name="menu_unprogramAllFuses_tt">Resets all diodes (fuses) to the unprogramed state. The actual fuse configuration is lost!</string>
 
     <string name="message">Digital
 

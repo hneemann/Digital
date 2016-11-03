@@ -11,6 +11,8 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.pld.DiodeBackward;
+import de.neemann.digital.core.pld.DiodeForeward;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
@@ -20,10 +22,10 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
-import de.neemann.digital.testing.TestData;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestData;
 import de.neemann.gui.language.Language;
 
 import java.awt.*;
@@ -595,6 +597,18 @@ public class Circuit {
                 }
             }
     }
+
+    /**
+     * All fuses (diodes) are set to unprogramed so that they are working again.
+     */
+    public void unprogramAllFuses() {
+        for (VisualElement ve : visualElements)
+            if (ve.equalsDescription(DiodeForeward.DESCRIPTION) || ve.equalsDescription(DiodeBackward.DESCRIPTION)) {
+                ve.getElementAttributes().set(Keys.BLOWN, false);
+            }
+
+    }
+
 
     /**
      * Add a rectangle  to the circuit.
