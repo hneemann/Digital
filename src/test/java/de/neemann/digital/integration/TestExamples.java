@@ -20,7 +20,7 @@ public class TestExamples extends TestCase {
     }
 
     public void testSequential() throws Exception {
-        assertEquals(24, new FileScanner(this::check).scan(new File(examples, "sequential")));
+        assertEquals(25, new FileScanner(this::check).scan(new File(examples, "sequential")));
     }
 
     public void testProcessor() throws Exception {
