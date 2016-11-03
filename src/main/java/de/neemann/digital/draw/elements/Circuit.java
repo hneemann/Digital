@@ -605,6 +605,7 @@ public class Circuit {
         for (VisualElement ve : visualElements)
             if (ve.equalsDescription(DiodeForeward.DESCRIPTION) || ve.equalsDescription(DiodeBackward.DESCRIPTION)) {
                 ve.getElementAttributes().set(Keys.BLOWN, false);
+                modified = true;
             }
 
     }
