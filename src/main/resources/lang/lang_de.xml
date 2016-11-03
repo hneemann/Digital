@@ -278,7 +278,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_isProgramMemory">Programmspeicher</string>
     <string name="key_isProgramMemory_tt">Zeichnet dieses ROM als Programmspeicher aus. Es kann damit von einer externen IDE beschrieben werden.</string>
     <string name="key_Blown">Programmiert</string>
-    <string name="key_Blown_tt">Wenn gesetzt wird die Diode als "Durchgebrannt" bzw "Programmiert" betrachtet.</string>
+    <string name="key_Blown_tt">Wenn gesetzt wird die Diode als "Durchgebrannt" bzw "Programmiert" betrachtet. Diese Einstellung kann direkt über die Taste 'P' verändert werden.</string>
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
     <string name="lib_flipFlops">FlipFlops</string>
