@@ -24,7 +24,7 @@ public class TestTestableExamples extends TestCase {
 
     public void testTestableTest() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(3, new FileScanner(this::check).scan(examples));
+        assertEquals(9, new FileScanner(this::check).scan(examples));
     }
 
 //    public void testFile() throws Exception {
@@ -38,7 +38,17 @@ public class TestTestableExamples extends TestCase {
      */
     private void check(File dig) throws Exception {
         System.out.println("test "+dig);
-        ToBreakRunner br = new ToBreakRunner(dig);
+        boolean shouldFail = dig.getName().endsWith("Error.dig");
+        ToBreakRunner br=null;
+        try {
+            br = new ToBreakRunner(dig);
+            assertFalse("File should fail but does'ent!", shouldFail);
+        } catch (Exception e) {
+            if (shouldFail)
+                return;
+             else
+                throw e;
+        }
 
         for (VisualElement el : br.getCircuit().getElements())
             if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {

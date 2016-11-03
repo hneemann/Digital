@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * @author hneemann
  */
-public class DiodeForewardMapTest extends TestCase {
+public class FuseMapTest extends TestCase {
 
     public void testInit() throws Exception {
         FuseMap fm = new FuseMap(8);
