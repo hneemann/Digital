@@ -55,8 +55,12 @@ public class DiodeForeward implements Element, Observer {
     @Override
     public void hasChanged() {
         if (!blown) {
-            final boolean in = input.getBool();
-            setOutValue(output, in);
+            if (input.isHighZ()) {
+                output.set(0, true);
+            } else {
+                final boolean in = input.getBool();
+                setOutValue(output, in);
+            }
         }
     }
 

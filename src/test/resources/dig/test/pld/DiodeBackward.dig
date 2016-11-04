@@ -30,7 +30,8 @@
           <testData>
             <dataString>A Y
 1 Z
-0 0</dataString>
+0 0
+Z Z</dataString>
           </testData>
         </entry>
       </elementAttributes>
