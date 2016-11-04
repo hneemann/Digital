@@ -66,12 +66,18 @@
             <dataString>A B Y
 0 0 0
 0 1 0
+0 Z 0
 1 0 0
-1 1 1</dataString>
+1 1 1
+1 Z 1
+Z 0 0
+Z 1 1
+Z Z 1
+</dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="340" y="260"/>
+      <pos x="340" y="240"/>
     </visualElement>
   </visualElements>
   <wires>
