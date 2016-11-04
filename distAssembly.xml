@@ -50,6 +50,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${basedir}/src/main/dig/pld</directory>
+            <outputDirectory>/examples/pld/</outputDirectory>
+            <includes>
+                <include>*.dig</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${basedir}/src/main/dig/test</directory>
             <outputDirectory>/examples/test/</outputDirectory>
             <includes>

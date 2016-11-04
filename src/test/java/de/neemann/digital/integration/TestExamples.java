@@ -1,5 +1,11 @@
 package de.neemann.digital.integration;
 
+import de.neemann.digital.core.Model;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.testing.TestCaseElement;
+import de.neemann.digital.testing.TestData;
+import de.neemann.digital.testing.TestResult;
 import junit.framework.TestCase;
 
 import java.io.File;
@@ -7,37 +13,61 @@ import java.io.File;
 /**
  * Reads all examples and tries to create the model.
  * Makes sure that all examples are creatable (one can build the model)
- * Does not ensure that they work correctly!
- * Correctness is tested by {@link TestTestableExamples}.
+ * Does not ensure that they work correctly if no tests are present in the model!
  *
  * @author hneemann
  */
 public class TestExamples extends TestCase {
-    private static final File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
 
-    public void testCombinatorial() throws Exception {
-        assertEquals(28, new FileScanner(this::check).scan(new File(examples, "combinatorial")));
+    private int testCasesInFiles=0;
+
+    public void testDistExamples() throws Exception {
+        File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
+        assertEquals(85, new FileScanner(this::check).scan(examples));
+        assertEquals(11,testCasesInFiles);
     }
 
-    public void testSequential() throws Exception {
-        assertEquals(25, new FileScanner(this::check).scan(new File(examples, "sequential")));
+    public void testTestExamples() throws Exception {
+        File examples = new File(Resources.getRoot(), "/dig/test");
+        assertEquals(9, new FileScanner(this::check).scan(examples));
+        assertEquals(9,testCasesInFiles);
     }
 
-    public void testProcessor() throws Exception {
-        assertEquals(19, new FileScanner(this::check).scan(new File(examples, "processor")));
-    }
-
-    public void testHazard() throws Exception {
-        assertEquals(4, new FileScanner(this::check).scan(new File(examples, "hazard")));
-    }
 
     /**
-     * Loads the model and initializes it
+     * Loads the model and initializes and tests it if test cases are present
      *
      * @param dig the model file
      */
     private void check(File dig) throws Exception {
-        new ToBreakRunner(dig);
-        assertTrue(true);
+        System.out.println("test "+dig);
+        boolean shouldFail = dig.getName().endsWith("Error.dig");
+        ToBreakRunner br=null;
+        try {
+            br = new ToBreakRunner(dig);
+            assertFalse("File should fail but doesn't!", shouldFail);
+        } catch (Exception e) {
+            if (shouldFail)
+                return;
+            else
+                throw e;
+        }
+
+        for (VisualElement el : br.getCircuit().getElements())
+            if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
+
+                String label = el.getElementAttributes().getCleanLabel();
+                TestData td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+
+                Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
+                TestResult tr = new TestResult(td).create(model);
+
+                if (label.contains("Failing"))
+                    assertFalse(dig.getName() + ":" + label, tr.allPassed());
+                else
+                    assertTrue(dig.getName() + ":" + label, tr.allPassed());
+
+                testCasesInFiles++;
+            }
     }
 }
