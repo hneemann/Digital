@@ -21,12 +21,20 @@ public class TestExamples extends TestCase {
 
     private int testCasesInFiles=0;
 
+    /**
+     * Tests the examples which are distributed
+     * @throws Exception
+     */
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
-        assertEquals(85, new FileScanner(this::check).scan(examples));
-        assertEquals(11,testCasesInFiles);
+        assertEquals(86, new FileScanner(this::check).scan(examples));
+        assertEquals(12,testCasesInFiles);
     }
 
+    /**
+     * Tests the examples which are only test cases
+     * @throws Exception
+     */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
         assertEquals(9, new FileScanner(this::check).scan(examples));
