@@ -84,6 +84,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private Sync modelSync;
     private boolean isManualScale;
     private boolean hasChanged = true;
+    private boolean focusWasLost = false;
 
 
     /**
@@ -153,8 +154,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (activeMouseController instanceof MouseControllerNormal) {
-                    Vector pos = ((MouseControllerNormal) activeMouseController).getActMousePos();
-                    programDiodeAt(pos);
+                    programDiodeAt(getPosVector(lastMousePos.x, lastMousePos.y));
                 }
             }
         };
@@ -187,6 +187,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void componentResized(ComponentEvent componentEvent) {
                 if (!isManualScale)
                     fitCircuit();
+            }
+        });
+
+        addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent focusEvent) {
+                focusWasLost = true;
             }
         });
 
@@ -621,7 +628,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             this.mouseCursor = mouseCursor;
         }
 
-        private void activate() {
+        public void activate() {
             activeMouseController = this;
             deleteAction.setActive(false);
             copyAction.setEnabled(false);
@@ -657,8 +664,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
     private final class MouseControllerNormal extends MouseController {
-        private int actXPos;
-        private int actYPos;
         private Vector pos;
         private int downButton;
 
@@ -689,15 +694,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     else
                         mouseMoveElement.activate(vp, pos);
                 } else {
-                    mouseWire.activate(pos);
+                    if (!focusWasLost)
+                        mouseWire.activate(pos);
                 }
             }
-        }
-
-        @Override
-        void moved(MouseEvent e) {
-            actXPos = e.getX();
-            actYPos = e.getY();
+            focusWasLost = false;
         }
 
         @Override
@@ -715,9 +716,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             return false;
         }
 
-        Vector getActMousePos() {
-            return getPosVector(actXPos, actYPos);
-        }
     }
 
     private final class MouseControllerInsertElement extends MouseController {
