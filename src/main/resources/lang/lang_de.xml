@@ -145,9 +145,11 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
         Ist der Eingang 1 ist auch der Ausgang 1. In den anderen Fällen (0 und Hochohmig) ist der Ausgang Hochohmig (High Z).
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_PullUp">Pull-Up Widerstand</string>
-    <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.</string>
+    <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.
+        Ist eine Leitung nicht hochohmig, hat das Element keine Wirkung.</string>
     <string name="elem_PullDown">Pull-Down Widerstand</string>
-    <string name="elem_PullDown_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Down Widerstand zu Low.</string>
+    <string name="elem_PullDown_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Down Widerstand zu Low.
+        Ist eine Leitung nicht hochohmig, hat das Element keine Wirkung.</string>
 
     <string name="error">Fehler</string>
     <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>
