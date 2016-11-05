@@ -762,6 +762,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 hasChanged();
             }
             mouseNormal.activate();
+            focusWasLost = false;
         }
 
         @Override
@@ -1101,6 +1102,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 }
             }
             mouseNormal.activate();
+            focusWasLost = false;
         }
 
         @Override
