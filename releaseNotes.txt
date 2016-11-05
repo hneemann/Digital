@@ -1,0 +1,55 @@
+Release Notes
+
+head, planed as v0.8:
+- added pull up & pull down resistors and programmable Diodes
+- added some PLD examples like a simple PLA and GAL
+- added a help dialog for components
+- improved documentation
+- fixed "sometimes unwanted drawing a wire" problem (hopefully)
+- some minor bug fixes
+
+v0.7:
+- fixed a bug which causes two HighZ values to be not equal during test execution.
+- added double buffer to CircuitComponent to make it more responsive
+- improved debugging of processors
+- some minor bug fixes
+
+v0.6.2:
+- fixed scrolling bug in input/output orderer
+- fixed redraw bug at element rotation
+- fixed auto scale bug if element is deleted
+
+v0.6.1:
+- fixed auto scaling bug which can occur if a new circuit is created
+- added missing check for unsaved modifications
+- fixed unexpected behaviour of 'C' character in test cases
+- some minor bug fixes
+
+v0.6: 
+- fixed sync problems while drawing the circuit
+- added Conway's Game of Life example
+- some minor bug fixes
+
+v0.5
+- creation of state machines with JK-flip-flops
+- added creation of JEDEC and CUPL files for GAL16v8 and GAL22v10
+- some minor bug fixes
+
+v0.4
+- added a graphics card
+- some minor bug fixes
+
+v0.3.1
+- some minor bug fixes
+
+v0.3
+- added testing functions
+- some minor bug fixes
+
+v0.2
+- added expression parser
+- creation of circuits from expressions
+- some bug fixes
+
+v0.1
+- initial release
