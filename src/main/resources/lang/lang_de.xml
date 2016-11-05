@@ -135,9 +135,15 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
 
     <string name="elem_DiodeBackward">Diode zu Masse</string>
-    <string name="elem_DiodeBackward_tt">Diese Diode kann genutzt werden, um eine Leitung auf Masse zu ziehen. Wird verwendet um ein "Wired And" zu implementieren.</string>
+    <string name="elem_DiodeBackward_tt">Diese Diode kann genutzt werden, um eine Leitung auf Masse zu ziehen.
+        Wird verwendet um ein "Wired And" zu implementieren.
+        Ist der Eingang 0 ist auch der Ausgang 0. In den anderen Fällen (1 und hochohmig) ist der Ausgang hochohmig (High Z).
+        Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeForeward">Diode zu Plus</string>
-    <string name="elem_DiodeForeward_tt">Diese Diode kann genutzt werden, um eine Leitung auf Plus zu ziehen. Wird verwendet um ein "Wired Or" zu implementieren.</string>
+    <string name="elem_DiodeForeward_tt">Diese Diode kann genutzt werden, um eine Leitung auf Plus zu ziehen.
+        Wird verwendet um ein "Wired Or" zu implementieren.
+        Ist der Eingang 1 ist auch der Ausgang 1. In den anderen Fällen (0 und Hochohmig) ist der Ausgang Hochohmig (High Z).
+        Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_PullUp">Pull-Up Widerstand</string>
     <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.</string>
     <string name="elem_PullDown">Pull-Down Widerstand</string>

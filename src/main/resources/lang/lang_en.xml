@@ -134,9 +134,13 @@ The terminal opens its own window.</string>
     <string name="elem_Keyboard_pin_D">The last pressed key, or null if no key is typed.</string>
 
     <string name="elem_DiodeBackward">Diode to Ground</string>
-    <string name="elem_DiodeBackward_tt">This diode can be used, to pull a wire to ground. Is used to implement a wired And.</string>
+    <string name="elem_DiodeBackward_tt">This diode can be used, to pull a wire to ground. Is used to implement a wired And.
+        Is the input low, also the output is low. In the other cases (input is high or high z) the output is in high z state.
+        So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeForeward">Diode to VDD</string>
-    <string name="elem_DiodeForeward_tt">This diode can be used, to pull a wire to VDD. Is used to implement a wired Or.</string>
+    <string name="elem_DiodeForeward_tt">This diode can be used, to pull a wire to VDD. Is used to implement a wired Or.
+        Is the input high, also the output is high. In the other cases (input is low or high z) the output is in high z state.
+        So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_PullUp">Pull-Up Resistor</string>
     <string name="elem_PullUp_tt">If a wire in a HighZ state, this resistor pulls the wire to high.</string>
     <string name="elem_PullDown">Pull-Down Resistor</string>
