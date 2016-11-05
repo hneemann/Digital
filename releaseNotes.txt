@@ -1,7 +1,7 @@
 Release Notes
 
 head, planed as v0.8:
-- added pull up & pull down resistors and programmable Diodes
+- added pull up & pull down resistors and programmable diodes
 - added some PLD examples like a simple PLA and GAL
 - added a help dialog for components
 - improved documentation
