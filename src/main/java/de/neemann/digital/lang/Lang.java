@@ -89,6 +89,13 @@ public final class Lang {
             return str;
         else {
             System.out.println("<string name=\"" + key + "\">" + key.substring(key.indexOf("_") + 1) + "</string>");
+
+            // If there is a missing language key and we are in testing mode which is the case
+            // if the 'testdata' system property is set, let the test fail!
+            // If we are in production usage, don't let the program  crash, simply return the key itself instead!
+            if (System.getProperty("testdata") != null)
+                throw new Error("missing laguage key '" + key + "'");
+
             return key;
         }
     }
