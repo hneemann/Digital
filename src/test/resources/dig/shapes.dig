@@ -6,49 +6,41 @@
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="40" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NAnd</elementName>
       <elementAttributes/>
       <pos x="140" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="260" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="360" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="480" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XNOr</elementName>
       <elementAttributes/>
       <pos x="580" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
       <pos x="700" y="60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LookUpTable</elementName>
       <elementAttributes/>
       <pos x="780" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -59,7 +51,6 @@
         </entry>
       </elementAttributes>
       <pos x="40" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -70,73 +61,66 @@
         </entry>
       </elementAttributes>
       <pos x="40" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes/>
       <pos x="80" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
       <pos x="140" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
       <pos x="200" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Button</elementName>
       <elementAttributes/>
       <pos x="320" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Probe</elementName>
-      <elementAttributes/>
-      <pos x="360" y="200"/>
-      <rotate>0</rotate>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>MW</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg</elementName>
       <elementAttributes/>
-      <pos x="400" y="160"/>
-      <rotate>0</rotate>
+      <pos x="420" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg-Hex</elementName>
       <elementAttributes/>
       <pos x="520" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
       <elementAttributes/>
       <pos x="620" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
       <elementAttributes/>
-      <pos x="60" y="380"/>
-      <rotate>0</rotate>
+      <pos x="1000" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Demultiplexer</elementName>
       <elementAttributes/>
-      <pos x="140" y="380"/>
-      <rotate>0</rotate>
+      <pos x="1080" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Decoder</elementName>
       <elementAttributes/>
-      <pos x="220" y="380"/>
-      <rotate>0</rotate>
+      <pos x="1160" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -146,8 +130,7 @@
           <string>Multiplexer</string>
         </entry>
       </elementAttributes>
-      <pos x="40" y="300"/>
-      <rotate>0</rotate>
+      <pos x="980" y="20"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -157,50 +140,42 @@
           <string>Leitungen</string>
         </entry>
       </elementAttributes>
-      <pos x="20" y="480"/>
-      <rotate>0</rotate>
+      <pos x="20" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
-      <pos x="80" y="540"/>
-      <rotate>0</rotate>
+      <pos x="80" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
       <elementAttributes/>
-      <pos x="140" y="540"/>
-      <rotate>0</rotate>
+      <pos x="140" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
       <elementAttributes/>
-      <pos x="240" y="540"/>
-      <rotate>0</rotate>
+      <pos x="240" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Delay</elementName>
       <elementAttributes/>
-      <pos x="280" y="540"/>
-      <rotate>0</rotate>
+      <pos x="280" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
       <elementAttributes/>
-      <pos x="380" y="540"/>
-      <rotate>0</rotate>
+      <pos x="380" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Reset</elementName>
       <elementAttributes/>
-      <pos x="540" y="540"/>
-      <rotate>0</rotate>
+      <pos x="540" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Break</elementName>
       <elementAttributes/>
-      <pos x="580" y="540"/>
-      <rotate>0</rotate>
+      <pos x="580" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -210,32 +185,27 @@
           <string>Flipflops</string>
         </entry>
       </elementAttributes>
-      <pos x="20" y="580"/>
-      <rotate>0</rotate>
+      <pos x="980" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>RS_FF</elementName>
       <elementAttributes/>
-      <pos x="40" y="660"/>
-      <rotate>0</rotate>
+      <pos x="1000" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
       <elementAttributes/>
-      <pos x="140" y="660"/>
-      <rotate>0</rotate>
+      <pos x="1100" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
       <elementAttributes/>
-      <pos x="240" y="660"/>
-      <rotate>0</rotate>
+      <pos x="1200" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>T_FF</elementName>
       <elementAttributes/>
-      <pos x="340" y="660"/>
-      <rotate>0</rotate>
+      <pos x="1300" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -245,38 +215,32 @@
           <string>Speicher</string>
         </entry>
       </elementAttributes>
-      <pos x="20" y="760"/>
-      <rotate>0</rotate>
+      <pos x="20" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
       <elementAttributes/>
-      <pos x="40" y="820"/>
-      <rotate>0</rotate>
+      <pos x="40" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
       <elementAttributes/>
-      <pos x="120" y="820"/>
-      <rotate>0</rotate>
+      <pos x="120" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>RAMDualPort</elementName>
       <elementAttributes/>
-      <pos x="220" y="820"/>
-      <rotate>0</rotate>
+      <pos x="220" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>RAMSinglePort</elementName>
       <elementAttributes/>
-      <pos x="340" y="820"/>
-      <rotate>0</rotate>
+      <pos x="340" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Counter</elementName>
       <elementAttributes/>
-      <pos x="460" y="820"/>
-      <rotate>0</rotate>
+      <pos x="460" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -286,50 +250,42 @@
           <string>Arithmetik</string>
         </entry>
       </elementAttributes>
-      <pos x="20" y="960"/>
-      <rotate>0</rotate>
+      <pos x="20" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>Add</elementName>
       <elementAttributes/>
-      <pos x="40" y="1020"/>
-      <rotate>0</rotate>
+      <pos x="40" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Sub</elementName>
       <elementAttributes/>
-      <pos x="160" y="1020"/>
-      <rotate>0</rotate>
+      <pos x="160" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Mul</elementName>
       <elementAttributes/>
-      <pos x="280" y="1020"/>
-      <rotate>0</rotate>
+      <pos x="280" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Comparator</elementName>
       <elementAttributes/>
-      <pos x="420" y="1020"/>
-      <rotate>0</rotate>
+      <pos x="420" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Neg</elementName>
       <elementAttributes/>
-      <pos x="520" y="1020"/>
-      <rotate>0</rotate>
+      <pos x="520" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes/>
-      <pos x="660" y="540"/>
-      <rotate>0</rotate>
+      <pos x="660" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
       <elementAttributes/>
-      <pos x="720" y="540"/>
-      <rotate>0</rotate>
+      <pos x="720" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -339,8 +295,7 @@
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="460" y="540"/>
-      <rotate>0</rotate>
+      <pos x="460" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
@@ -350,8 +305,72 @@
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="800" y="540"/>
-      <rotate>0</rotate>
+      <pos x="800" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>PLD</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1000" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>DiodeForeward</elementName>
+      <elementAttributes/>
+      <pos x="1020" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>DiodeBackward</elementName>
+      <elementAttributes/>
+      <pos x="1060" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullUp</elementName>
+      <elementAttributes/>
+      <pos x="1120" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullDown</elementName>
+      <elementAttributes/>
+      <pos x="1180" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Test</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1000" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes/>
+      <pos x="980" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Terminal</elementName>
+      <elementAttributes/>
+      <pos x="740" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Keyboard</elementName>
+      <elementAttributes/>
+      <pos x="740" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GraphicCard</elementName>
+      <elementAttributes/>
+      <pos x="580" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BitCount</elementName>
+      <elementAttributes/>
+      <pos x="640" y="740"/>
     </visualElement>
   </visualElements>
   <wires/>

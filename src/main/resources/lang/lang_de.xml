@@ -215,7 +215,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_noTestData">Keine Testdaten vorhanden.</string>
     <string name="err_unnamedSignal">Es gibt ein unbenanntes Signal</string>
     <string name="err_remoteExecution">Fehler beim Ausführen eines Befehls</string>
-    <string name="err_pullUpAndDownNotAllowed">Es kann nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
+    <string name="err_pullUpAndDownNotAllowed">Es können nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
     <string name="key_AddrBits">Adress Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
     <string name="key_Bits">Datenbits</string>
