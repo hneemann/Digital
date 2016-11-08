@@ -154,7 +154,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             try {
                 description = elementNotFoundNotification.elementNotFound(file);
             } catch (IOException e) {
-                throw new ElementNotFoundException(Lang.get("err_element_N_notFound", elementName));
+                throw new ElementNotFoundException(Lang.get("msg_errorImportingModel", elementName));
             }
 
         if (description != null)

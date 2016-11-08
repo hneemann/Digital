@@ -87,7 +87,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
                             insertHistory.add(imp.insertAction);
                         }
                     } catch (IOException e1) {
-                        new ErrorMessage().addCause(e1).show();
+                        new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e1).show();
                     }
                 }
             }
