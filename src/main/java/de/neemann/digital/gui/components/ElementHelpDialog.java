@@ -88,7 +88,7 @@ public class ElementHelpDialog extends JDialog {
             sb.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
             if (inputs != null && inputs.size() > 0) {
                 for (PinDescription i : inputs)
-                    sb.append("<dt><i>").append(i.getName()).append("</i></dt><dd>").append(i.getDescription()).append("</dd>\n");
+                    addEntry(sb, i.getName(), i.getDescription());
             }
             sb.append("</dl>\n");
         } catch (NodeException e) {
@@ -99,15 +99,22 @@ public class ElementHelpDialog extends JDialog {
         sb.append("<h4>").append(Lang.get("elem_Help_outputs")).append(":</h4>\n<dl>\n");
         if (outputs != null && outputs.size() > 0) {
             for (PinDescription i : outputs)
-                sb.append("<dt><i>").append(i.getName()).append("</i></dt><dd>").append(i.getDescription()).append("</dd>\n");
+                addEntry(sb, i.getName(), i.getDescription());
         }
         sb.append("</dl>\n");
 
         if (et.getAttributeList().size() > 0) {
             sb.append("<h4>").append(Lang.get("elem_Help_attributes")).append(":</h4>\n<dl>\n");
             for (Key k : et.getAttributeList())
-                sb.append("<dt><i>").append(k.getName()).append("</i></dt><dd>").append(k.getDescription()).append("</dd>\n");
+                addEntry(sb, k.getName(), k.getDescription());
             sb.append("</dl>\n");
         }
+    }
+
+    private static void addEntry(StringBuilder sb, String name, String description) {
+        if (description == null || description.length() == 0 || name.equals(description))
+            sb.append("<dt><i>").append(name).append("</i></dt>\n");
+        else
+            sb.append("<dt><i>").append(name).append("</i></dt><dd>").append(description).append("</dd>\n");
     }
 }
