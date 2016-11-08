@@ -8,7 +8,6 @@ import de.neemann.gui.StringUtils;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -81,9 +80,9 @@ public class ElementHelpDialog extends JDialog {
         editorPane.setEditable(false);
         editorPane.setCaretPosition(0);
 
-        editorPane.addHyperlinkListener(pE -> {
-            if (HyperlinkEvent.EventType.ACTIVATED == pE.getEventType()) {
-                String desc = pE.getDescription();
+        editorPane.addHyperlinkListener(hyperlinkEvent -> {
+            if (HyperlinkEvent.EventType.ACTIVATED == hyperlinkEvent.getEventType()) {
+                String desc = hyperlinkEvent.getDescription();
                 if (desc == null || !desc.startsWith("#")) return;
                 desc = desc.substring(1);
                 editorPane.scrollToReference(desc);
