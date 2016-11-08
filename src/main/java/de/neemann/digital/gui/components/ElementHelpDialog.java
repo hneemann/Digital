@@ -7,9 +7,12 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.gui.StringUtils;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Simple Dialog to show an elements help text.
@@ -45,25 +48,48 @@ public class ElementHelpDialog extends JDialog {
         super(parent, Lang.get("attr_help"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        ArrayList<String> chapter = new ArrayList<>();
+
         String actPath = null;
-        StringBuilder sb = new StringBuilder("<html><body>");
+        StringBuilder content = new StringBuilder();
         for (ElementLibrary.ElementContainer e : library) {
             String p = e.getTreePath();
             if (!p.equals(actPath)) {
                 actPath = p;
-                sb.append("<h2>").append(actPath).append("</h2>\n");
-                sb.append("<hr/>");
+                chapter.add(actPath);
+                content.append("<h2><a name=\"").append(actPath).append("\">").append(actPath).append("</a></h2>\n");
+                content.append("<hr/>");
             }
-            addHTMLDescription(sb, e.getDescription(), new ElementAttributes());
-            sb.append("<hr/>");
+            addHTMLDescription(content, e.getDescription(), new ElementAttributes());
+            content.append("<hr/>");
         }
-        init(parent, sb.append("</body></html>").toString());
+
+
+        StringBuilder sb = new StringBuilder("<html><body>");
+        sb.append("<h1>").append(Lang.get("digital")).append("</h1>\n");
+        for (String chap : chapter) {
+            sb.append("<a href=\"#").append(chap).append("\">").append(chap).append("</a><br/>\n");
+        }
+        sb.append(content);
+        sb.append("</body></html>");
+
+        init(parent, sb.toString());
     }
 
     private void init(Component parent, String description) {
         JEditorPane editorPane = new JEditorPane("text/html", description);
         editorPane.setEditable(false);
         editorPane.setCaretPosition(0);
+
+        editorPane.addHyperlinkListener(pE -> {
+            if (HyperlinkEvent.EventType.ACTIVATED == pE.getEventType()) {
+                String desc = pE.getDescription();
+                if (desc == null || !desc.startsWith("#")) return;
+                desc = desc.substring(1);
+                editorPane.scrollToReference(desc);
+            }
+        });
+
         getContentPane().add(new JScrollPane(editorPane));
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
