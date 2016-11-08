@@ -8,6 +8,7 @@ import de.neemann.gui.StringUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 /**
  * Simple Dialog to show an elements help text.
@@ -33,6 +34,7 @@ public class ElementHelpDialog extends JDialog {
         final String description = getDetailedDescription(elementType, elementAttributes);
         JEditorPane editorPane = new JEditorPane("text/html", description);
         editorPane.setEditable(false);
+        editorPane.setCaretPosition(0);
         getContentPane().add(new JScrollPane(editorPane));
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -73,9 +75,12 @@ public class ElementHelpDialog extends JDialog {
      * @param elementAttributes the actual attributes of the element to describe
      */
     public static void addHTMLDescription(StringBuilder sb, ElementTypeDescription et, ElementAttributes elementAttributes) {
-        sb.append("<h3>").append(et.getTranslatedName()).append("</h3>\n");
+        String translatedName = et.getTranslatedName();
+        if (translatedName.endsWith(".dig"))
+            translatedName = new File(translatedName).getName();
+        sb.append("<h3>").append(translatedName).append("</h3>\n");
         String descr = et.getDescription(elementAttributes);
-        if (!descr.equals(et.getTranslatedName()))
+        if (!descr.equals(translatedName))
             sb.append("<p>").append(StringUtils.breakLines(et.getDescription(elementAttributes))).append("</p>\n");
 
         try {
