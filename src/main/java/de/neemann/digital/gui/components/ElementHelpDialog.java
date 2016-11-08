@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.StringUtils;
 
@@ -30,8 +31,36 @@ public class ElementHelpDialog extends JDialog {
     public ElementHelpDialog(JDialog parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) {
         super(parent, Lang.get("attr_help"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        String description = getDetailedDescription(elementType, elementAttributes);
+        init(parent, description);
+    }
 
-        final String description = getDetailedDescription(elementType, elementAttributes);
+    /**
+     * Creates a new instance
+     *
+     * @param parent  the parents dialog
+     * @param library the elements library
+     */
+    public ElementHelpDialog(JFrame parent, ElementLibrary library) {
+        super(parent, Lang.get("attr_help"), true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        String actPath = null;
+        StringBuilder sb = new StringBuilder("<html><body>");
+        for (ElementLibrary.ElementContainer e : library) {
+            String p = e.getTreePath();
+            if (!p.equals(actPath)) {
+                actPath = p;
+                sb.append("<h2>").append(actPath).append("</h2>\n");
+                sb.append("<hr/>");
+            }
+            addHTMLDescription(sb, e.getDescription(), new ElementAttributes());
+            sb.append("<hr/>");
+        }
+        init(parent, sb.append("</body></html>").toString());
+    }
+
+    private void init(Component parent, String description) {
         JEditorPane editorPane = new JEditorPane("text/html", description);
         editorPane.setEditable(false);
         editorPane.setCaretPosition(0);

@@ -405,6 +405,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_unprogramAllFuses">Reset all diodes</string>
     <string name="menu_unprogramAllFuses_tt">Resets all diodes (fuses) to the unprogramed state. The actual fuse configuration is lost!</string>
     <string name="menu_programDiode">Program diode</string>
+    <string name="menu_help_elements">Components</string>
+    <string name="menu_help_elements_tt">Shows a list of all available components.</string>
 
     <string name="message">Digital
 

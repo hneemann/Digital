@@ -231,7 +231,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         setJMenuBar(menuBar);
-        InfoDialog.getInstance().addToFrame(this, MESSAGE);
+        JMenu help=InfoDialog.getInstance().addToFrame(this, MESSAGE);
+        help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new ElementHelpDialog(Main.this, library).setVisible(true);
+            }
+        }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
 
         setPreferredSize(new Dimension(1024, 768));
         pack();

@@ -409,6 +409,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_unprogramAllFuses">Alle Dioden zurücksetzen</string>
     <string name="menu_unprogramAllFuses_tt">Setzt alle Dioden (Fuses) in den unprogrammierten Zustand zurück. Die Konfiguration geht dabei verloren!</string>
     <string name="menu_programDiode">Diode programmieren</string>
+    <string name="menu_help_elements">Elemente</string>
+    <string name="menu_help_elements_tt">Zeigt eine Liste der vorhandenen Elemente.</string>
     <string name="message">Digital
 
 Ein einfacher Simulator für digitale Schaltkreise.
