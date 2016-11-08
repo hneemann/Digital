@@ -8,7 +8,6 @@ import de.neemann.gui.StringUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 /**
  * Simple Dialog to show an elements help text.
@@ -17,8 +16,8 @@ import java.util.ArrayList;
  */
 public class ElementHelpDialog extends JDialog {
 
-    private static final int MIN_WIDTH = 300;
-    private static final int MIN_HEIGHT = 400;
+    private static final int MAX_WIDTH = 600;
+    private static final int MAX_HEIGHT = 800;
 
     /**
      * Creates a new instance
@@ -32,11 +31,9 @@ public class ElementHelpDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         final String description = getDetailedDescription(elementType, elementAttributes);
-        JTextArea textfield = new JTextArea(description);
-        textfield.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        textfield.setEditable(false);
-        textfield.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
-        getContentPane().add(new JScrollPane(textfield));
+        JEditorPane editorPane = new JEditorPane("text/html", description);
+        editorPane.setEditable(false);
+        getContentPane().add(new JScrollPane(editorPane));
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
@@ -49,8 +46,8 @@ public class ElementHelpDialog extends JDialog {
 
         pack();
         Dimension r = getSize();
-        if (r.width < MIN_WIDTH) r.width = MIN_WIDTH;
-        if (r.height < MIN_HEIGHT) r.height = MIN_HEIGHT;
+        if (r.width > MAX_WIDTH) r.width = MAX_WIDTH;
+        if (r.height > MAX_HEIGHT) r.height = MAX_HEIGHT;
         setSize(r);
         setLocationRelativeTo(parent);
     }
@@ -63,85 +60,49 @@ public class ElementHelpDialog extends JDialog {
      * @return the human readable description of this element
      */
     private static String getDetailedDescription(ElementTypeDescription et, ElementAttributes elementAttributes) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(et.getTranslatedName()).append("\n");
+        StringBuilder sb = new StringBuilder("<html><body>");
+        addHTMLDescription(sb, et, elementAttributes);
+        return sb.append("</body></html>").toString();
+    }
+
+    /**
+     * Adds the description of the given element to the given StringBuilder.
+     *
+     * @param sb                the StringBuilder to use
+     * @param et                the element to describe
+     * @param elementAttributes the actual attributes of the element to describe
+     */
+    public static void addHTMLDescription(StringBuilder sb, ElementTypeDescription et, ElementAttributes elementAttributes) {
+        sb.append("<h3>").append(et.getTranslatedName()).append("</h3>\n");
         String descr = et.getDescription(elementAttributes);
         if (!descr.equals(et.getTranslatedName()))
-            sb.append("\n").append(StringUtils.breakLines(et.getDescription(elementAttributes))).append("\n");
+            sb.append("<p>").append(StringUtils.breakLines(et.getDescription(elementAttributes))).append("</p>\n");
 
         try {
             PinDescriptions inputs = et.getInputDescription(elementAttributes);
-            sb.append("\n").append(Lang.get("elem_Help_inputs")).append(":\n");
+            sb.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
             if (inputs != null && inputs.size() > 0) {
-                Indenter ind = new Indenter();
                 for (PinDescription i : inputs)
-                    ind.add(i.getName(), i.getDescription());
-                ind.create(sb);
-            } else {
-                sb.append("  -\n");
+                    sb.append("<dt><i>").append(i.getName()).append("</i></dt><dd>").append(i.getDescription()).append("</dd>\n");
             }
+            sb.append("</dl>\n");
         } catch (NodeException e) {
             e.printStackTrace();
         }
 
         PinDescriptions outputs = et.getOutputDescriptions(elementAttributes);
-        sb.append("\n").append(Lang.get("elem_Help_outputs")).append(":\n");
+        sb.append("<h4>").append(Lang.get("elem_Help_outputs")).append(":</h4>\n<dl>\n");
         if (outputs != null && outputs.size() > 0) {
-            Indenter ind = new Indenter();
             for (PinDescription i : outputs)
-                ind.add(i.getName(), i.getDescription());
-            ind.create(sb);
-        } else {
-            sb.append("  -\n");
+                sb.append("<dt><i>").append(i.getName()).append("</i></dt><dd>").append(i.getDescription()).append("</dd>\n");
         }
+        sb.append("</dl>\n");
 
         if (et.getAttributeList().size() > 0) {
-            sb.append("\n").append(Lang.get("elem_Help_attributes")).append(":\n");
-            Indenter ind = new Indenter();
-            for (Key k : et.getAttributeList()) {
-                ind.add(k.getName(), k.getDescription());
-            }
-            ind.create(sb);
-        }
-
-        return sb.toString();
-    }
-
-    private static class Indenter {
-        private final ArrayList<Item> items;
-        private int labelLen;
-
-        Indenter() {
-            items = new ArrayList<>();
-        }
-
-        public void add(String name, String description) {
-            if (description == null || description.length() == 0 || name.equals(description))
-                items.add(new Item("  " + name + " ", ""));
-            else
-                items.add(new Item("  " + name + ": ", description));
-        }
-
-        public void create(StringBuilder sb) {
-            for (Item i : items)
-                i.addTo(sb, labelLen);
-        }
-
-        private final class Item {
-            private final String name;
-            private final String description;
-
-            private Item(String name, String description) {
-                this.name = name;
-                this.description = description;
-                if (name.length() > labelLen)
-                    labelLen = name.length();
-            }
-
-            private void addTo(StringBuilder sb, int labelLen) {
-                sb.append(StringUtils.breakLinesLabel(name, labelLen, description));
-                sb.append('\n');
-            }
+            sb.append("<h4>").append(Lang.get("elem_Help_attributes")).append(":</h4>\n<dl>\n");
+            for (Key k : et.getAttributeList())
+                sb.append("<dt><i>").append(k.getName()).append("</i></dt><dd>").append(k.getDescription()).append("</dd>\n");
+            sb.append("</dl>\n");
         }
     }
 }
