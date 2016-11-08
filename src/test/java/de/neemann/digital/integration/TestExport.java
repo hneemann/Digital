@@ -4,6 +4,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
@@ -17,14 +18,14 @@ import java.io.IOException;
  */
 public class TestExport extends TestCase {
 
-    private static ByteArrayOutputStream export(String file, ExportFactory creator) throws NodeException, PinException, IOException {
+    private static ByteArrayOutputStream export(String file, ExportFactory creator) throws NodeException, PinException, IOException, ElementNotFoundException {
         Circuit circuit = new ToBreakRunner(file).getCircuit();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new Export(circuit, creator).export(baos);
         return baos;
     }
 
-    public void testSVGExport() throws NodeException, PinException, IOException {
+    public void testSVGExport() throws NodeException, PinException, IOException, ElementNotFoundException {
         ByteArrayOutputStream baos
                 = export("dig/processor/Processor_fibonacci.dig",
                 (out, min, max) -> new GraphicSVGIndex(out, min, max, null, 15));
@@ -32,7 +33,7 @@ public class TestExport extends TestCase {
         assertTrue(baos.size() > 20000);
     }
 
-    public void testSVGExportLaTeX() throws NodeException, PinException, IOException {
+    public void testSVGExportLaTeX() throws NodeException, PinException, IOException, ElementNotFoundException {
         ByteArrayOutputStream baos
                 = export("dig/processor/Processor_fibonacci.dig",
                 (out, min, max) -> new GraphicSVGLaTeX(out, min, max, null, 15));
@@ -40,7 +41,7 @@ public class TestExport extends TestCase {
         assertTrue(baos.size() > 15000);
     }
 
-    public void testPNGExport() throws NodeException, PinException, IOException {
+    public void testPNGExport() throws NodeException, PinException, IOException, ElementNotFoundException {
         ByteArrayOutputStream baos
                 = export("dig/processor/Processor_fibonacci.dig",
                 (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1));

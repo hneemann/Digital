@@ -14,6 +14,7 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.lang.Lang;
 
@@ -39,10 +40,11 @@ public class ModelCreator implements Iterable<ModelEntry> {
      *
      * @param circuit the circuit
      * @param library the library used to create the Element instances
-     * @throws PinException  PinException
-     * @throws NodeException NodeException
+     * @throws PinException             PinException
+     * @throws NodeException            NodeException
+     * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library) throws PinException, NodeException {
+    public ModelCreator(Circuit circuit, ElementLibrary library) throws PinException, NodeException, ElementNotFoundException {
         this(circuit, library, false);
     }
 
@@ -52,10 +54,11 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @param circuit      the circuit to use
      * @param library      the library to use
      * @param readAsCustom if true the model is created for use as nested element
-     * @throws PinException  PinException
-     * @throws NodeException NodeException
+     * @throws PinException             PinException
+     * @throws NodeException            NodeException
+     * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException {
+    public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
         this(circuit, library, readAsCustom, "unknown", new NetList(circuit), "");
     }
 
@@ -68,10 +71,11 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @param fileName        only used for better messages in exceptions
      * @param netList         the NetList of the model. If known it is not necessary to create it.
      * @param subName         name of the circuit, used to name unique elements
-     * @throws PinException  PinException
-     * @throws NodeException NodeException
+     * @throws PinException             PinException
+     * @throws NodeException            NodeException
+     * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, String fileName, NetList netList, String subName) throws PinException, NodeException {
+    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, String fileName, NetList netList, String subName) throws PinException, NodeException, ElementNotFoundException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();

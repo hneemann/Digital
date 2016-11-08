@@ -4,6 +4,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.memory.RAMSinglePort;
 import de.neemann.digital.core.memory.Register;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import junit.framework.TestCase;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.io.IOException;
  */
 public class TestRunToBreak extends TestCase {
 
-    public void testRunToBreak() throws IOException, NodeException, PinException {
+    public void testRunToBreak() throws IOException, NodeException, PinException, ElementNotFoundException {
         new ToBreakRunner("dig/runToBreak.dig")
                 .runToBreak(511);
     }
@@ -26,7 +27,7 @@ public class TestRunToBreak extends TestCase {
      * @throws NodeException
      * @throws PinException
      */
-    public void testCounterSplitter() throws IOException, NodeException, PinException {
+    public void testCounterSplitter() throws IOException, NodeException, PinException, ElementNotFoundException {
         Register r = new ToBreakRunner("dig/CounterSplitter.dig")
                 .runToBreak(2047)
                 .getSingleNode(Register.class);
@@ -42,7 +43,7 @@ public class TestRunToBreak extends TestCase {
      * @throws NodeException NodeException
      * @throws PinException  PinException
      */
-    public void testFibonacci() throws IOException, NodeException, PinException {
+    public void testFibonacci() throws IOException, NodeException, PinException, ElementNotFoundException {
         RAMSinglePort ram = new ToBreakRunner("dig/processor/Processor_fibonacci.dig")
                 .runToBreak(98644)
                 .getSingleNode(RAMSinglePort.class);

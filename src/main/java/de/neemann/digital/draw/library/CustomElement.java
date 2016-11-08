@@ -42,10 +42,11 @@ public class CustomElement implements Element {
      *
      * @param subName name of the circuit, used to name unique elements
      * @return the {@link ModelCreator}
-     * @throws PinException  PinException
-     * @throws NodeException NodeException
+     * @throws PinException             PinException
+     * @throws NodeException            NodeException
+     * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator getModelDescription(String subName) throws PinException, NodeException {
+    public ModelCreator getModelDescription(String subName) throws PinException, NodeException, ElementNotFoundException {
         if (netList == null)
             netList = new NetList(circuit);
 

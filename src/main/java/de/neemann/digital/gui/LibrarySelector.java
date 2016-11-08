@@ -2,6 +2,7 @@ package de.neemann.digital.gui;
 
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.CustomElement;
@@ -19,6 +20,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -76,12 +78,16 @@ public class LibrarySelector implements ElementNotFoundNotification {
                 JFileChooser fc = new JFileChooser(filePath);
                 fc.setFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
                 if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    Imported imp = importElement(fc.getSelectedFile());
-                    if (imp != null) {
-                        VisualElement visualElement = new VisualElement(imp.description.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
-                        elementState.enter();
-                        circuitComponent.setPartToInsert(visualElement);
-                        insertHistory.add(imp.insertAction);
+                    try {
+                        Imported imp = importElement(fc.getSelectedFile());
+                        if (imp != null) {
+                            VisualElement visualElement = new VisualElement(imp.description.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
+                            elementState.enter();
+                            circuitComponent.setPartToInsert(visualElement);
+                            insertHistory.add(imp.insertAction);
+                        }
+                    } catch (IOException e1) {
+                        new ErrorMessage().addCause(e1).show();
                     }
                 }
             }
@@ -136,18 +142,14 @@ public class LibrarySelector implements ElementNotFoundNotification {
     }
 
     @Override
-    public ElementTypeDescription elementNotFound(File file) {
+    public ElementTypeDescription elementNotFound(File file) throws IOException {
         // check if there is a file with the given name in the current directory
         // if so, load this file!
         File primary = new File(filePath, file.getName());
         if (primary.exists())
             file = primary;
 
-        Imported imported = importElement(file);
-        if (imported == null)
-            return null;
-        else
-            return imported.description;
+        return importElement(file).description;
     }
 
     private static String getActionName(ElementTypeDescription typeDescription) {
@@ -180,7 +182,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
         }
     }
 
-    private Imported importElement(File file) {
+    private Imported importElement(File file) throws IOException {
         try {
             System.out.println("load element " + file);
             Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
@@ -210,10 +212,9 @@ public class LibrarySelector implements ElementNotFoundNotification {
             if (customMenu != null)
                 customMenu.add(menuEntry);
             return new Imported(description, insertAction);
-        } catch (Exception e) {
-            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e));
+        } catch (PinException e) {
+            throw new IOException(e);
         }
-        return null;
     }
 
     private ImportedItem findImportedItem(File file) {

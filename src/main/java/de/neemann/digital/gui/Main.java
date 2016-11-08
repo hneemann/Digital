@@ -20,6 +20,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -591,7 +592,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                             .setPinMap(new PinMap().addModel(model))
                             .setVisible(true);
                     elementState.enter();
-                } catch (PinException | PinMapException | NodeException | AnalyseException e1) {
+                } catch (PinException | PinMapException | NodeException | AnalyseException | ElementNotFoundException e1) {
                     showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
                 }
             }
@@ -751,7 +752,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             model.init();
 
             return true;
-        } catch (NodeException | PinException | RuntimeException e) {
+        } catch (NodeException | PinException | RuntimeException| ElementNotFoundException e) {
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;

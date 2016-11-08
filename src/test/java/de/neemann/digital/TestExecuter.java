@@ -8,6 +8,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -33,7 +34,7 @@ public class TestExecuter {
     private ArrayList<ObservableValue> inputs;
     private ArrayList<ObservableValue> outputs;
 
-    public static TestExecuter createFromFile(String name, ElementLibrary library) throws IOException, NodeException, PinException {
+    public static TestExecuter createFromFile(String name, ElementLibrary library) throws IOException, NodeException, PinException, ElementNotFoundException {
         File filename = new File(Resources.getRoot(), name);
         Circuit circuit = Circuit.loadCircuit(filename, new ShapeFactory(library));
 

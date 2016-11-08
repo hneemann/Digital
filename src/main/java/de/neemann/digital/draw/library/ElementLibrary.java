@@ -19,10 +19,11 @@ import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.Terminal;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseElement;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -134,8 +135,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      *
      * @param elementName the elements name
      * @return the {@link ElementTypeDescription} ore null if not found
+     * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ElementTypeDescription getElementType(String elementName) {
+    public ElementTypeDescription getElementType(String elementName) throws ElementNotFoundException {
         ElementTypeDescription description = map.get(elementName);
         if (description != null)
             return description;
@@ -149,12 +151,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             return description;
 
         if (elementNotFoundNotification != null)
-            description = elementNotFoundNotification.elementNotFound(file);
+            try {
+                description = elementNotFoundNotification.elementNotFound(file);
+            } catch (IOException e) {
+                throw new ElementNotFoundException(Lang.get("err_element_N_notFound", elementName));
+            }
 
         if (description != null)
             return description;
 
-        throw new RuntimeException(Lang.get("err_element_N_notFound", elementName));
+        throw new ElementNotFoundException(Lang.get("err_element_N_notFound", elementName));
     }
 
     @Override

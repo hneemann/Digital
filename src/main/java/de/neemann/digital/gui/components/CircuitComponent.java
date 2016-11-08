@@ -11,6 +11,7 @@ import de.neemann.digital.core.pld.DiodeForeward;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
@@ -251,8 +252,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (p != null)
             return checkToolTip(p.getDescription());
 
-        ElementTypeDescription etd = library.getElementType(ve.getElementName());
-        return checkToolTip(etd.getDescription(ve.getElementAttributes()));
+        try {
+            ElementTypeDescription etd = library.getElementType(ve.getElementName());
+            return checkToolTip(etd.getDescription(ve.getElementAttributes()));
+        } catch (ElementNotFoundException e) {
+            return null;
+        }
     }
 
     private String checkToolTip(String tt) {
@@ -523,47 +528,51 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private void editAttributes(VisualElement vp, MouseEvent e) {
         String name = vp.getElementName();
-        ElementTypeDescription elementType = library.getElementType(name);
-        ArrayList<Key> list = elementType.getAttributeList();
-        if (list.size() > 0) {
-            Point p = new Point(e.getX(), e.getY());
-            SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-            AttributeDialog attributeDialog = new AttributeDialog(this, p, list, vp.getElementAttributes());
-            if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
-                attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        attributeDialog.dispose();
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                new Main(CircuitComponent.this,
-                                        ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(),
-                                        new SavedListener() {
-                                            @Override
-                                            public void saved(File filename) {
-                                                if (parentsSavedListener != null)
-                                                    parentsSavedListener.saved(filename);
-                                                library.removeElement(filename);
-                                                circuit.clearState();
-                                                hasChanged();
-                                            }
-                                        }).setVisible(true);
-                            }
-                        });
-                    }
-                }.setToolTip(Lang.get("attr_openCircuit_tt")));
-            }
-            attributeDialog.addButton(new ToolTipAction(Lang.get("attr_help")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    new ElementHelpDialog(attributeDialog, elementType, vp.getElementAttributes()).setVisible(true);
+        try {
+            ElementTypeDescription elementType = library.getElementType(name);
+            ArrayList<Key> list = elementType.getAttributeList();
+            if (list.size() > 0) {
+                Point p = new Point(e.getX(), e.getY());
+                SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
+                AttributeDialog attributeDialog = new AttributeDialog(this, p, list, vp.getElementAttributes());
+                if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
+                    attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            attributeDialog.dispose();
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    new Main(CircuitComponent.this,
+                                            ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(),
+                                            new SavedListener() {
+                                                @Override
+                                                public void saved(File filename) {
+                                                    if (parentsSavedListener != null)
+                                                        parentsSavedListener.saved(filename);
+                                                    library.removeElement(filename);
+                                                    circuit.clearState();
+                                                    hasChanged();
+                                                }
+                                            }).setVisible(true);
+                                }
+                            });
+                        }
+                    }.setToolTip(Lang.get("attr_openCircuit_tt")));
                 }
-            }.setToolTip(Lang.get("attr_help_tt")));
-            if (attributeDialog.showDialog()) {
-                circuit.modified();
-                hasChanged();
+                attributeDialog.addButton(new ToolTipAction(Lang.get("attr_help")) {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        new ElementHelpDialog(attributeDialog, elementType, vp.getElementAttributes()).setVisible(true);
+                    }
+                }.setToolTip(Lang.get("attr_help_tt")));
+                if (attributeDialog.showDialog()) {
+                    circuit.modified();
+                    hasChanged();
+                }
             }
+        } catch (ElementNotFoundException ex) {
+            // do nothing if element not found!
         }
     }
 

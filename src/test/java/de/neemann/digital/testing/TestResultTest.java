@@ -10,6 +10,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
@@ -17,15 +18,12 @@ import junit.framework.TestCase;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static de.neemann.digital.analyse.expression.Not.not;
-import static de.neemann.digital.analyse.expression.Variable.v;
-
 /**
  * @author hneemann
  */
 public class TestResultTest extends TestCase {
 
-    private Model getModel(String func) throws IOException, ParseException, BuilderException, PinException, NodeException {
+    private Model getModel(String func) throws IOException, ParseException, BuilderException, PinException, NodeException, ElementNotFoundException {
         ArrayList<Expression> exp = new Parser(func).parse();
         ElementLibrary library = new ElementLibrary();
         CircuitBuilder cb = new CircuitBuilder(new ShapeFactory(library));

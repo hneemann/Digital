@@ -5,6 +5,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.*;
@@ -34,11 +35,12 @@ public class TestResultDialog extends JDialog {
      * @param tsl     list of test sets
      * @param circuit the circuit
      * @param library the library to use
-     * @throws NodeException        NodeException
-     * @throws TestingDataException DataException
-     * @throws PinException         PinException
+     * @throws NodeException            NodeException
+     * @throws TestingDataException     DataException
+     * @throws PinException             PinException
+     * @throws ElementNotFoundException ElementNotFoundException
      */
-    public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, TestingDataException, PinException {
+    public TestResultDialog(JFrame owner, ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws NodeException, TestingDataException, PinException, ElementNotFoundException {
         super(owner, Lang.get("msg_testResult"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 

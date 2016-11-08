@@ -6,6 +6,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
@@ -35,8 +36,9 @@ public class ToBreakRunner {
      * @throws IOException
      * @throws PinException
      * @throws NodeException
+     * @throws ElementNotFoundException
      */
-    public ToBreakRunner(String file) throws IOException, PinException, NodeException {
+    public ToBreakRunner(String file) throws IOException, PinException, NodeException, ElementNotFoundException {
         this(new File(Resources.getRoot(), file));
     }
 
@@ -48,8 +50,9 @@ public class ToBreakRunner {
      * @throws IOException
      * @throws PinException
      * @throws NodeException
+     * @throws ElementNotFoundException
      */
-    public ToBreakRunner(String file, boolean doInit) throws IOException, PinException, NodeException {
+    public ToBreakRunner(String file, boolean doInit) throws IOException, PinException, NodeException, ElementNotFoundException {
         this(new File(Resources.getRoot(), file), doInit);
     }
 
@@ -61,11 +64,11 @@ public class ToBreakRunner {
      * @throws PinException
      * @throws NodeException
      */
-    public ToBreakRunner(File filename) throws IOException, PinException, NodeException {
+    public ToBreakRunner(File filename) throws IOException, PinException, NodeException, ElementNotFoundException {
         this(filename, true);
     }
 
-    private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException {
+    private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException, ElementNotFoundException {
         library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library);
         circuit = Circuit.loadCircuit(filename, shapeFactory);

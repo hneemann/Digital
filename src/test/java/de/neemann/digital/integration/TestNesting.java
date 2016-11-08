@@ -4,6 +4,7 @@ import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.LibrarySelector;
 import junit.framework.TestCase;
@@ -47,7 +48,7 @@ public class TestNesting extends TestCase {
      * @throws NodeException
      * @throws PinException
      */
-    private void runTheAndTest(String file) throws IOException, NodeException, PinException {
+    private void runTheAndTest(String file) throws IOException, NodeException, PinException, ElementNotFoundException {
         TestExecuter te = createTestExecuterForNesting(file);
         te.check(0, 0, 0);
         te.check(0, 1, 0);
@@ -61,7 +62,7 @@ public class TestNesting extends TestCase {
         assertEquals(4, te.getModel().getStepCounter());
     }
 
-    private TestExecuter createTestExecuterForNesting(String file) throws IOException, NodeException, PinException {
+    private TestExecuter createTestExecuterForNesting(String file) throws IOException, NodeException, PinException, ElementNotFoundException {
         ElementLibrary library = new ElementLibrary();
         LibrarySelector librarySelector = new LibrarySelector(library, new ShapeFactory(library), null);
         librarySelector.setFilePath(new File(Resources.getRoot(), "dig"));
@@ -91,7 +92,7 @@ public class TestNesting extends TestCase {
      * Imports the same model two times.
      * A simple traffic light build with two nested MS-JK flip flops.
      */
-    public void testMultipleNesting() throws NodeException, PinException, IOException {
+    public void testMultipleNesting() throws NodeException, PinException, IOException, ElementNotFoundException {
         TestExecuter te = createTestExecuterForNesting("dig/trafficLight.dig");
         te.clockUntil(1, 0, 0);  // runs the sequential logic up to the given state, its necessary because initial state is undefined
         //       C  R  Y  G
