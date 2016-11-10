@@ -148,23 +148,23 @@ public class ElementHelpDialog extends JDialog {
 
         try {
             PinDescriptions inputs = et.getInputDescription(elementAttributes);
-            sb.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
             if (inputs != null && inputs.size() > 0) {
+                sb.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
                 for (PinDescription i : inputs)
                     addEntry(sb, i.getName(), i.getDescription());
+                sb.append("</dl>\n");
             }
-            sb.append("</dl>\n");
         } catch (NodeException e) {
             e.printStackTrace();
         }
 
         PinDescriptions outputs = et.getOutputDescriptions(elementAttributes);
-        sb.append("<h4>").append(Lang.get("elem_Help_outputs")).append(":</h4>\n<dl>\n");
         if (outputs != null && outputs.size() > 0) {
+            sb.append("<h4>").append(Lang.get("elem_Help_outputs")).append(":</h4>\n<dl>\n");
             for (PinDescription i : outputs)
                 addEntry(sb, i.getName(), i.getDescription());
+            sb.append("</dl>\n");
         }
-        sb.append("</dl>\n");
 
         if (et.getAttributeList().size() > 0) {
             sb.append("<h4>").append(Lang.get("elem_Help_attributes")).append(":</h4>\n<dl>\n");
