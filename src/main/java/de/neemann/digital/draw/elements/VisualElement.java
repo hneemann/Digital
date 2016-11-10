@@ -212,10 +212,21 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @return the created icon
      */
     public ImageIcon createIcon(int maxHeight) {
+        BufferedImage bi = getBufferedImage(0.5, maxHeight);
+        return new ImageIcon(bi);
+    }
+
+    /**
+     * Creates an image representing this element
+     *
+     * @param scale     the scaling
+     * @param maxHeight th maximal height
+     * @return the BufferedImage
+     */
+    public BufferedImage getBufferedImage(double scale, int maxHeight) {
         GraphicMinMax mm = new GraphicMinMax();
         drawShape(mm, false);
 
-        double scale = 0.5;
         if (mm.getMax().y - mm.getMin().y > maxHeight / scale)
             scale = (double) (maxHeight - 1) / (mm.getMax().y - mm.getMin().y + 4);
 
@@ -235,7 +246,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
         gr.translate(2 - mm.getMin().x, 2 - mm.getMin().y);
         GraphicSwing grs = new GraphicSwing(gr);
         drawTo(grs, false);
-        return new ImageIcon(bi);
+        return bi;
     }
 
     /**

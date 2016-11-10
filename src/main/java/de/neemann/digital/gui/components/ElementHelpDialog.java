@@ -2,20 +2,28 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.StringUtils;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLStreamHandler;
+import java.net.URLStreamHandlerFactory;
 import java.util.ArrayList;
 
 /**
  * Simple Dialog to show an elements help text.
- * <p>
+ * <p/>
  * Created by hneemann on 25.10.16.
  */
 public class ElementHelpDialog extends JDialog {
@@ -59,6 +67,7 @@ public class ElementHelpDialog extends JDialog {
                 content.append("<h2><a name=\"").append(actPath).append("\">").append(actPath).append("</a></h2>\n");
                 content.append("<hr/>");
             }
+            content.append("<center><img src=\"image:").append(e.getDescription().getName()).append(".png\"/></center>\n");
             addHTMLDescription(content, e.getDescription(), new ElementAttributes());
             content.append("<hr/>");
         }
@@ -170,5 +179,65 @@ public class ElementHelpDialog extends JDialog {
             sb.append("<dt><i>").append(name).append("</i></dt>\n");
         else
             sb.append("<dt><i>").append(name).append("</i></dt><dd>").append(description).append("</dd>\n");
+    }
+
+    /**
+     * @return factory which catches 'image' protocol requests to deliver images via an URL.
+     */
+    public static URLStreamHandlerFactory createURLStreamHandlerFactory() {
+        return new MyURLStreamHandlerFactory();
+
+    }
+
+    /**
+     * Sets the shapeFactory used to create the images.
+     *
+     * @param shapeFactory the ShapeFactory
+     */
+    public static void setShapeFactory(ShapeFactory shapeFactory) {
+        MyURLStreamHandlerFactory.shapeFactory = shapeFactory;
+    }
+
+    private static class MyURLStreamHandlerFactory implements URLStreamHandlerFactory {
+
+        private static ShapeFactory shapeFactory;
+
+        @Override
+        public URLStreamHandler createURLStreamHandler(String protocol) {
+            if (protocol.equals("image"))
+                return new URLStreamHandler() {
+                    @Override
+                    protected URLConnection openConnection(URL u) throws IOException {
+                        return new ImageConnection(shapeFactory, u);
+                    }
+                };
+            else
+                return null;
+        }
+    }
+
+    private static class ImageConnection extends URLConnection {
+
+        private final ShapeFactory shapeFactory;
+
+        ImageConnection(ShapeFactory shapeFactory, URL url) {
+            super(url);
+            this.shapeFactory = shapeFactory;
+        }
+
+        @Override
+        public void connect() throws IOException {
+        }
+
+        @Override
+        public InputStream getInputStream() throws IOException {
+            String path = url.getPath();
+            if (path.endsWith(".png"))
+                path = path.substring(0, path.length() - 4);
+            BufferedImage bi = new VisualElement(path).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bi, "png", baos);
+            return new ByteArrayInputStream(baos.toByteArray());
+        }
     }
 }

@@ -53,6 +53,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -165,6 +166,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         library = new ElementLibrary();
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
+        ElementHelpDialog.setShapeFactory(shapeFactory); // set shape factory for help texts
 
         fileHistory = new FileHistory(this);
 
@@ -231,7 +233,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         setJMenuBar(menuBar);
-        JMenu help=InfoDialog.getInstance().addToFrame(this, MESSAGE);
+        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE);
         help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -676,6 +678,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * @param args the arguments
      */
     public static void main(String[] args) {
+        URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
         experimental = args.length == 1 && args[0].equals("experimental");
         SwingUtilities.invokeLater(() -> {
             Main main = new Main();
@@ -758,7 +761,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             model.init();
 
             return true;
-        } catch (NodeException | PinException | RuntimeException| ElementNotFoundException e) {
+        } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
@@ -943,7 +946,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
             if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
 
-                lastExportDirectory =fc.getSelectedFile().getParentFile();
+                lastExportDirectory = fc.getSelectedFile().getParentFile();
 
                 try (OutputStream out = new FileOutputStream(checkSuffix(fc.getSelectedFile(), suffix))) {
                     new Export(circuitComponent.getCircuit(), exportFactory).export(out);
