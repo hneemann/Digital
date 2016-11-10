@@ -47,6 +47,8 @@ public class TestResultDialog extends JDialog {
         Collections.sort(tsl);
 
         JTabbedPane tp = new JTabbedPane();
+        int i=0;
+        int errorTabIndex=-1;
         for (TestSet ts : tsl) {
             Model model = new ModelCreator(circuit, library).createModel(false);
 
@@ -63,9 +65,13 @@ public class TestResultDialog extends JDialog {
             } else {
                 tabName = Lang.get("msg_test_N_Failed", ts.name);
                 tabIcon = ICON_FAILED;
+                errorTabIndex=i;
             }
             tp.addTab(tabName, tabIcon, new JScrollPane(table));
+            i++;
         }
+        if (errorTabIndex>=0)
+            tp.setSelectedIndex(errorTabIndex);
 
         getContentPane().add(tp);
         pack();
