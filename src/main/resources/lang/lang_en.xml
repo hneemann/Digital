@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="addr">Address</string>
+    <string name="name">Name</string>
     <string name="attr_dialogTitle">Attributes</string>
     <string name="attr_openCircuit">Show</string>
     <string name="attr_openCircuitLabel">Included circuit:</string>

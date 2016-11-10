@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="addr">Adresse</string>
+    <string name="name">Name</string>
     <string name="attr_dialogTitle">Eigenschaften</string>
     <string name="attr_openCircuit">Anzeigen</string>
     <string name="attr_openCircuitLabel">Enthaltene Schaltung:</string>

@@ -13,9 +13,11 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.lang.Lang;
 
 /**
  * The probe shape
+ *
  * @author hneemann
  */
 public class ProbeShape implements Shape {
@@ -35,7 +37,10 @@ public class ProbeShape implements Shape {
      */
     public ProbeShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
-        this.label = attr.getLabel();
+        String label = attr.getLabel();
+        if (label == null || label.length() == 0)
+            label = Lang.get("name");
+        this.label = label;
         this.format = attr.get(Keys.INTFORMAT);
     }
 
