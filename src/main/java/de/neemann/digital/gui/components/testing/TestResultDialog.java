@@ -120,18 +120,18 @@ public class TestResultDialog extends JDialog {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             Value v = (Value) value;
+            if (v != null) {
+                comp.setText(v.toString());
+                comp.setHorizontalAlignment(JLabel.CENTER);
 
-            comp.setText(v.toString());
-            comp.setHorizontalAlignment(JLabel.CENTER);
-
-            if (v instanceof MatchedValue) {
-                if (((MatchedValue) v).isPassed())
-                    comp.setBackground(PASSED_COLOR);
-                else
-                    comp.setBackground(FAILED_COLOR);
-            } else
-                comp.setBackground(Color.WHITE);
-
+                if (v instanceof MatchedValue) {
+                    if (((MatchedValue) v).isPassed())
+                        comp.setBackground(PASSED_COLOR);
+                    else
+                        comp.setBackground(FAILED_COLOR);
+                } else
+                    comp.setBackground(Color.WHITE);
+            }
             return comp;
         }
     }
