@@ -70,13 +70,13 @@ public final class Keys {
      * The input splitting of a splitter
      */
     public static final Key<String> INPUT_SPLIT
-            = new Key<>("Input Splitting", "");
+            = new Key<>("Input Splitting", "8,8");
 
     /**
      * The output splitting of a splitter
      */
     public static final Key<String> OUTPUT_SPLIT
-            = new Key<>("Output Splitting", "");
+            = new Key<>("Output Splitting", "16");
 
     /**
      * The real time frequency of the clock
