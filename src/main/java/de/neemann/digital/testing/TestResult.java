@@ -39,19 +39,34 @@ public class TestResult {
      * @param model the model to check
      * @return this for chained calls
      * @throws TestingDataException DataException
-     * @throws NodeException NodeException
+     * @throws NodeException        NodeException
      */
     public TestResult create(Model model) throws TestingDataException, NodeException {
         allPassed = true;
         ArrayList<TestSignal> inputs = new ArrayList<>();
-        for (Signal s : model.getInputs())
-            inputs.add(new TestSignal(getIndexOf(s.getName()), s.getValue()));
-        for (Clock c : model.getClocks())
-            inputs.add(new TestSignal(getIndexOf(c.getLabel()), c.getClockOutput()));
+        for (Signal s : model.getInputs()) {
+            final int index = getIndexOf(s.getName());
+            if (index >= 0)
+                inputs.add(new TestSignal(index, s.getValue()));
+        }
+        for (Clock c : model.getClocks()) {
+            final int index = getIndexOf(c.getLabel());
+            if (index >= 0)
+                inputs.add(new TestSignal(index, c.getClockOutput()));
+        }
 
         ArrayList<TestSignal> outputs = new ArrayList<>();
-        for (Signal s : model.getOutputs())
-            outputs.add(new TestSignal(getIndexOf(s.getName()), s.getValue()));
+        for (Signal s : model.getOutputs()) {
+            final int index = getIndexOf(s.getName());
+            if (index >= 0)
+                outputs.add(new TestSignal(index, s.getValue()));
+        }
+
+        if (inputs.size()==0)
+            throw new TestingDataException(Lang.get("err_noTestInputSignalsDefined"));
+
+        if (outputs.size()==0)
+            throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
 
         model.init();
 
@@ -110,14 +125,14 @@ public class TestResult {
 
     private int getIndexOf(String name) throws TestingDataException {
         if (name == null || name.length() == 0)
-            throw new TestingDataException(Lang.get("err_unnamedSignal", name));
+            return -1;
 
         for (int i = 0; i < names.size(); i++) {
             String n = names.get(i);
             if (n.equals(name))
                 return i;
         }
-        throw new TestingDataException(Lang.get("err_signal_N_notInTestVector", name));
+        return -1;
     }
 
     /**
