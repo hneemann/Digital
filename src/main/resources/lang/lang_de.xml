@@ -19,6 +19,8 @@
     <string name="btn_create_tt">Erzeugt eine Schaltung in einem eigenen Fenster.</string>
     <string name="btn_editDetached">Permanent Bearbeiten</string>
     <string name="btn_editDetached_tt">Öffnet den Bearbeitendialog nicht modal.</string>
+    <string name="btn_openInBrowser">Browser</string>
+    <string name="btn_openInBrowser_tt">Hilfetext im Browser öffnen, um dann z.B. zu drucken.</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
     <string name="expression">Ausdruck</string>
@@ -217,6 +219,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_noTestData">Keine Testdaten vorhanden.</string>
     <string name="err_remoteExecution">Fehler beim Ausführen eines Befehls</string>
     <string name="err_pullUpAndDownNotAllowed">Es können nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
+    <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
     <string name="key_Bits">Daten-Bits</string>

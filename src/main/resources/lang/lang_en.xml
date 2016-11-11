@@ -19,6 +19,8 @@
     <string name="btn_create_tt">Create a circuit in a seperate window</string>
     <string name="btn_editDetached">Edit detached</string>
     <string name="btn_editDetached_tt">Opens the dialog as a non modal dialog</string>
+    <string name="btn_openInBrowser">Browser</string>
+    <string name="btn_openInBrowser_tt">Opens help text in the browser. Allows to print the text.</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
     <string name="expression">Expression</string>
@@ -212,6 +214,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_noTestData">Not test data found.</string>
     <string name="err_remoteExecution">Error during execution of a remote command</string>
     <string name="err_pullUpAndDownNotAllowed">It's not allowed to connect a pull up and a pull down resistor to a single wire.</string>
+    <string name="err_openingDocumentation">Could not open the browser.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>

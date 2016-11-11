@@ -6,7 +6,9 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.StringUtils;
+import de.neemann.gui.ToolTipAction;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,10 +17,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLStreamHandler;
-import java.net.URLStreamHandlerFactory;
+import java.net.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +31,8 @@ public class ElementHelpDialog extends JDialog {
     private static final int MAX_WIDTH = 600;
     private static final int MAX_HEIGHT = 800;
 
+    private JPanel buttons;
+
     /**
      * Creates a new instance
      *
@@ -41,8 +43,13 @@ public class ElementHelpDialog extends JDialog {
     public ElementHelpDialog(JDialog parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) {
         super(parent, Lang.get("attr_help"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        String description = getDetailedDescription(elementType, elementAttributes);
-        init(parent, description);
+        StringWriter w = new StringWriter();
+        try {
+            writeDetailedDescription(w, elementType, elementAttributes);
+        } catch (IOException e) {
+            // can not happen because writing to memory
+        }
+        init(parent, w.toString());
     }
 
     /**
@@ -51,14 +58,48 @@ public class ElementHelpDialog extends JDialog {
      * @param parent  the parents dialog
      * @param library the elements library
      */
-    public ElementHelpDialog(JFrame parent, ElementLibrary library) {
+    public ElementHelpDialog(JFrame parent, ElementLibrary library, ShapeFactory shapeFactory) {
         super(parent, Lang.get("attr_help"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        MyURLStreamHandlerFactory.shapeFactory = shapeFactory;
+        StringWriter w = new StringWriter();
+        try {
+            w.write("<html><body>");
+            writeFullHTMLDocumentation(w, library, description -> "image:" + description.getName() + ".png");
+            w.write("</body></html>");
+        } catch (IOException e) {
+            // can not happen because writing to memory
+        }
+        init(parent, w.toString());
 
+        buttons.add(
+                new ToolTipAction(Lang.get("btn_openInBrowser")) {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        try {
+                            File tmp = Files.createTempDirectory("digital").toFile();
+                            exportHTMLDocumentation(tmp, library, shapeFactory);
+                            File index = new File(tmp, "index.html");
+                            openWebpage(index.toURI());
+                        } catch (IOException e) {
+                            new ErrorMessage(Lang.get("err_openingDocumentation")).addCause(e).show(ElementHelpDialog.this);
+                        }
+                    }
+                }.setToolTip(Lang.get("btn_openInBrowser_tt")).createJButton(), 0);
+    }
+
+    /**
+     * Creates a full HTML documentation of all elements
+     *
+     * @param library      the library which parts are documented
+     * @param imageHandler the imageHandler creates the url to get the image representing a concrete part
+     * @throws IOException IOException
+     */
+    public static void writeFullHTMLDocumentation(Writer w, ElementLibrary library, ImageHandler imageHandler) throws IOException {
         ArrayList<String> chapter = new ArrayList<>();
 
         String actPath = null;
-        StringBuilder content = new StringBuilder();
+        StringWriter content = new StringWriter();
         for (ElementLibrary.ElementContainer e : library) {
             String p = e.getTreePath();
             if (!p.equals(actPath)) {
@@ -67,21 +108,20 @@ public class ElementHelpDialog extends JDialog {
                 content.append("<h2><a name=\"").append(actPath).append("\">").append(actPath).append("</a></h2>\n");
                 content.append("<hr/>");
             }
-            content.append("<center><img src=\"image:").append(e.getDescription().getName()).append(".png\"/></center>\n");
-            addHTMLDescription(content, e.getDescription(), new ElementAttributes());
+            String url = imageHandler.getUrl(e.getDescription());
+            content.append("<center><img src=\"").append(url).append("\"/></center>\n");
+            writeHTMLDescription(content, e.getDescription(), new ElementAttributes());
             content.append("<hr/>");
         }
+        content.flush();
 
 
-        StringBuilder sb = new StringBuilder("<html><body>");
-        sb.append("<h1>").append(Lang.get("digital")).append("</h1>\n");
+        w.append("<h1>").append(Lang.get("digital")).append("</h1>\n");
         for (String chap : chapter) {
-            sb.append("<a href=\"#").append(chap).append("\">").append(chap).append("</a><br/>\n");
+            w.append("<a href=\"#").append(chap).append("\">").append(chap).append("</a><br/>\n");
         }
-        sb.append(content);
-        sb.append("</body></html>");
 
-        init(parent, sb.toString());
+        w.write(content.toString());
     }
 
     private void init(Component parent, String description) {
@@ -100,7 +140,7 @@ public class ElementHelpDialog extends JDialog {
 
         getContentPane().add(new JScrollPane(editorPane));
 
-        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -122,37 +162,37 @@ public class ElementHelpDialog extends JDialog {
      *
      * @param et                the element to describe
      * @param elementAttributes the actual attributes of the element to describe
-     * @return the human readable description of this element
      */
-    private static String getDetailedDescription(ElementTypeDescription et, ElementAttributes elementAttributes) {
-        StringBuilder sb = new StringBuilder("<html><body>");
-        addHTMLDescription(sb, et, elementAttributes);
-        return sb.append("</body></html>").toString();
+    private static void writeDetailedDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException {
+        w.write("<html><body>");
+        writeHTMLDescription(w, et, elementAttributes);
+        w.write("</body></html>");
     }
 
     /**
      * Adds the description of the given element to the given StringBuilder.
      *
-     * @param sb                the StringBuilder to use
+     * @param w                 the StringBuilder to use
      * @param et                the element to describe
      * @param elementAttributes the actual attributes of the element to describe
+     * @throws IOException IOException
      */
-    public static void addHTMLDescription(StringBuilder sb, ElementTypeDescription et, ElementAttributes elementAttributes) {
+    public static void writeHTMLDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException {
         String translatedName = et.getTranslatedName();
         if (translatedName.endsWith(".dig"))
             translatedName = new File(translatedName).getName();
-        sb.append("<h3>").append(translatedName).append("</h3>\n");
+        w.append("<h3>").append(translatedName).append("</h3>\n");
         String descr = et.getDescription(elementAttributes);
         if (!descr.equals(translatedName))
-            sb.append("<p>").append(StringUtils.breakLines(et.getDescription(elementAttributes))).append("</p>\n");
+            w.append("<p>").append(StringUtils.breakLines(et.getDescription(elementAttributes))).append("</p>\n");
 
         try {
             PinDescriptions inputs = et.getInputDescription(elementAttributes);
             if (inputs != null && inputs.size() > 0) {
-                sb.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
+                w.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
                 for (PinDescription i : inputs)
-                    addEntry(sb, i.getName(), i.getDescription());
-                sb.append("</dl>\n");
+                    writeEntry(w, i.getName(), i.getDescription());
+                w.append("</dl>\n");
             }
         } catch (NodeException e) {
             e.printStackTrace();
@@ -160,25 +200,25 @@ public class ElementHelpDialog extends JDialog {
 
         PinDescriptions outputs = et.getOutputDescriptions(elementAttributes);
         if (outputs != null && outputs.size() > 0) {
-            sb.append("<h4>").append(Lang.get("elem_Help_outputs")).append(":</h4>\n<dl>\n");
+            w.append("<h4>").append(Lang.get("elem_Help_outputs")).append(":</h4>\n<dl>\n");
             for (PinDescription i : outputs)
-                addEntry(sb, i.getName(), i.getDescription());
-            sb.append("</dl>\n");
+                writeEntry(w, i.getName(), i.getDescription());
+            w.append("</dl>\n");
         }
 
         if (et.getAttributeList().size() > 0) {
-            sb.append("<h4>").append(Lang.get("elem_Help_attributes")).append(":</h4>\n<dl>\n");
+            w.append("<h4>").append(Lang.get("elem_Help_attributes")).append(":</h4>\n<dl>\n");
             for (Key k : et.getAttributeList())
-                addEntry(sb, k.getName(), k.getDescription());
-            sb.append("</dl>\n");
+                writeEntry(w, k.getName(), k.getDescription());
+            w.append("</dl>\n");
         }
     }
 
-    private static void addEntry(StringBuilder sb, String name, String description) {
+    private static void writeEntry(Writer w, String name, String description) throws IOException {
         if (description == null || description.length() == 0 || name.equals(description))
-            sb.append("<dt><i>").append(name).append("</i></dt>\n");
+            w.append("<dt><i>").append(name).append("</i></dt>\n");
         else
-            sb.append("<dt><i>").append(name).append("</i></dt><dd>").append(description).append("</dd>\n");
+            w.append("<dt><i>").append(name).append("</i></dt><dd>").append(description).append("</dd>\n");
     }
 
     /**
@@ -187,15 +227,6 @@ public class ElementHelpDialog extends JDialog {
     public static URLStreamHandlerFactory createURLStreamHandlerFactory() {
         return new MyURLStreamHandlerFactory();
 
-    }
-
-    /**
-     * Sets the shapeFactory used to create the images.
-     *
-     * @param shapeFactory the ShapeFactory
-     */
-    public static void setShapeFactory(ShapeFactory shapeFactory) {
-        MyURLStreamHandlerFactory.shapeFactory = shapeFactory;
     }
 
     private static class MyURLStreamHandlerFactory implements URLStreamHandlerFactory {
@@ -240,4 +271,51 @@ public class ElementHelpDialog extends JDialog {
             return new ByteArrayInputStream(baos.toByteArray());
         }
     }
+
+    private interface ImageHandler {
+        String getUrl(ElementTypeDescription description) throws IOException;
+    }
+
+    /**
+     * Writes the html documentation to a file
+     *
+     * @param targetPath   the target folder to store the documentation
+     * @param library      the library to use
+     * @param shapeFactory the shapeFactory to export the shapes
+     * @throws IOException IOException
+     */
+    public static void exportHTMLDocumentation(File targetPath, ElementLibrary library, ShapeFactory shapeFactory) throws IOException {
+        File images = new File(targetPath, "img");
+        images.mkdir();
+        try (BufferedWriter w =
+                     new BufferedWriter(
+                             new OutputStreamWriter(
+                                     new FileOutputStream(
+                                             new File(targetPath, "index.html")), "UTF-8"))) {
+            w.write("<!DOCTYPE html>\n"
+                    + "<html lang=\"en\">\n"
+                    + "<head>\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n"
+                    + "</head><body>");
+
+            writeFullHTMLDocumentation(w, library, new ImageHandler() {
+                @Override
+                public String getUrl(ElementTypeDescription description) throws IOException {
+                    BufferedImage bi = new VisualElement(description.getName()).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
+                    ImageIO.write(bi, "png", new File(images, description.getName() + ".png"));
+                    return "img/" + description.getName() + ".png";
+                }
+            });
+            w.write("</body></html>");
+        }
+    }
+
+    private static void openWebpage(URI uri) throws IOException {
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE))
+            desktop.browse(uri);
+        else
+            throw new IOException("could not open browser");
+    }
+
 }

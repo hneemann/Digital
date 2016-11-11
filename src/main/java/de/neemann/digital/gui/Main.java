@@ -166,7 +166,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         library = new ElementLibrary();
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
-        ElementHelpDialog.setShapeFactory(shapeFactory); // set shape factory for help texts
 
         fileHistory = new FileHistory(this);
 
@@ -237,7 +236,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                new ElementHelpDialog(Main.this, library).setVisible(true);
+                new ElementHelpDialog(Main.this, library, shapeFactory).setVisible(true);
             }
         }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
 
