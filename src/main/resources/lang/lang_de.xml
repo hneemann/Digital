@@ -45,7 +45,11 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Clock_tt">Ein Takstignal. Dieses Taksignal kann über die Echtzeituhr gesteuert werden.</string>
     <string name="elem_Comparator">Komparator</string>
     <string name="elem_Const">Konstante</string>
-    <string name="elem_Const_tt">Eine einfache Konstante.</string>
+    <string name="elem_Const_tt">Es wird eine einfache Konstante ausgegeben.</string>
+    <string name="elem_Ground">Masse</string>
+    <string name="elem_Ground_tt">Eine Messeverbindung. Gibt immer Null aus.</string>
+    <string name="elem_VDD">Betriebsspannung</string>
+    <string name="elem_VDD_tt">Anschluss zur Betriebsspannung. Gibt immer Eins aus.</string>
     <string name="elem_Counter">Zähler</string>
     <string name="elem_D_FF">D_FF</string>
     <string name="elem_Data">Messwertgraph</string>

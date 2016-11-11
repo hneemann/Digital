@@ -69,6 +69,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         menu = Lang.get("lib_wires");
         add(Const.DESCRIPTION, menu);
+        add(Ground.DESCRIPTION, menu);
+        add(VDD.DESCRIPTION, menu);
         add(Splitter.DESCRIPTION, menu);
         add(Clock.DESCRIPTION, menu);
         add(Delay.DESCRIPTION, menu);
