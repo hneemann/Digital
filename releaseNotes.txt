@@ -3,9 +3,10 @@ Release Notes
 head, planed as v0.8:
 - added pull up & pull down resistors and programmable diodes
 - added some PLD examples like a simple PLA and GAL
-- added a help dialog for components
 - improved documentation
-- fixed "sometimes unwanted drawing a wire" problem (hopefully)
+- added a help dialog for components
+- added a simple documentation viewable via the help menu
+- fixed "sometimes unwanted start of drawing a wire" problem (hopefully)
 - some minor bug fixes
 
 v0.7:
