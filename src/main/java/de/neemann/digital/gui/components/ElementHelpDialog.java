@@ -47,7 +47,7 @@ public class ElementHelpDialog extends JDialog {
         try {
             writeDetailedDescription(w, elementType, elementAttributes);
         } catch (IOException e) {
-            // can not happen because writing to memory
+            // can not happen because of writing to memory
         }
         init(parent, w.toString());
     }
@@ -68,7 +68,7 @@ public class ElementHelpDialog extends JDialog {
             writeFullHTMLDocumentation(w, library, description -> "image:" + description.getName() + ".png");
             w.write("</body></html>");
         } catch (IOException e) {
-            // can not happen because writing to memory
+            // can not happen because of writing to memory
         }
         init(parent, w.toString());
 
@@ -106,12 +106,12 @@ public class ElementHelpDialog extends JDialog {
                 actPath = p;
                 chapter.add(actPath);
                 content.append("<h2><a name=\"").append(actPath).append("\">").append(actPath).append("</a></h2>\n");
-                content.append("<hr/>");
+                content.append("<hr/>\n");
             }
             String url = imageHandler.getUrl(e.getDescription());
             content.append("<center><img src=\"").append(url).append("\"/></center>\n");
             writeHTMLDescription(content, e.getDescription(), new ElementAttributes());
-            content.append("<hr/>");
+            content.append("<hr/>\n");
         }
         content.flush();
 
@@ -286,27 +286,26 @@ public class ElementHelpDialog extends JDialog {
      */
     public static void exportHTMLDocumentation(File targetPath, ElementLibrary library, ShapeFactory shapeFactory) throws IOException {
         File images = new File(targetPath, "img");
-        images.mkdir();
+        if (!images.mkdir())
+            throw new IOException("could not create image folder " + images);
         try (BufferedWriter w =
                      new BufferedWriter(
                              new OutputStreamWriter(
                                      new FileOutputStream(
                                              new File(targetPath, "index.html")), "UTF-8"))) {
             w.write("<!DOCTYPE html>\n"
-                    + "<html lang=\"en\">\n"
+                    + "<html>\n"
                     + "<head>\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n"
-                    + "</head><body>");
+                    + "</head>\n<body>\n");
 
-            writeFullHTMLDocumentation(w, library, new ImageHandler() {
-                @Override
-                public String getUrl(ElementTypeDescription description) throws IOException {
-                    BufferedImage bi = new VisualElement(description.getName()).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
-                    ImageIO.write(bi, "png", new File(images, description.getName() + ".png"));
-                    return "img/" + description.getName() + ".png";
-                }
+            writeFullHTMLDocumentation(w, library, description -> {
+                final String name = description.getName();
+                BufferedImage bi = new VisualElement(name).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
+                ImageIO.write(bi, "png", new File(images, name + ".png"));
+                return "img/" + name + ".png";
             });
-            w.write("</body></html>");
+            w.write("</body>\n</html>");
         }
     }
 
