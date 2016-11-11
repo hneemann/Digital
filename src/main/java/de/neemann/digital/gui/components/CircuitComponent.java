@@ -6,6 +6,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.pld.Diode;
 import de.neemann.digital.core.pld.DiodeBackward;
 import de.neemann.digital.core.pld.DiodeForeward;
 import de.neemann.digital.draw.elements.*;
@@ -220,7 +221,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private void programDiodeAt(Vector pos) {
         VisualElement ve = circuit.getElementAt(pos);
-        if (ve != null && (ve.equalsDescription(DiodeBackward.DESCRIPTION) || ve.equalsDescription(DiodeForeward.DESCRIPTION))) {
+        if (ve != null && (ve.equalsDescription(DiodeBackward.DESCRIPTION)
+                || ve.equalsDescription(DiodeForeward.DESCRIPTION)
+                || ve.equalsDescription(Diode.DESCRIPTION))) {
             boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
             ve.getElementAttributes().set(Keys.BLOWN, !blown);
             hasChanged();

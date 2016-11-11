@@ -137,13 +137,17 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="elem_Keyboard_pin_sel">Wenn gesetzt ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
     <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
 
+    <string name="elem_Diode">Diode</string>
+    <string name="elem_Diode_tt">Echt bidirektionelle Diode.
+        Kann verwendet werden, um ein "Wired AND" oder ein "Wired OR" zu implementieren.
+        Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeBackward">Diode zu Masse</string>
-    <string name="elem_DiodeBackward_tt">Diese Diode kann genutzt werden, um eine Leitung auf Masse zu ziehen.
+    <string name="elem_DiodeBackward_tt">Vereinfachte unidirektionale Diode, die nur genutzt werden kann, um eine Leitung auf Masse zu ziehen.
         Wird verwendet um ein "Wired And" zu implementieren.
         Ist der Eingang 0 ist auch der Ausgang 0. In den anderen Fällen (1 und hochohmig) ist der Ausgang hochohmig (High Z).
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeForeward">Diode zu Plus</string>
-    <string name="elem_DiodeForeward_tt">Diese Diode kann genutzt werden, um eine Leitung auf Plus zu ziehen.
+    <string name="elem_DiodeForeward_tt">Vereinfachte unidirektionale Diode, die nur genutzt werden kann, um eine Leitung auf Plus zu ziehen.
         Wird verwendet um ein "Wired Or" zu implementieren.
         Ist der Eingang 1 ist auch der Ausgang 1. In den anderen Fällen (0 und Hochohmig) ist der Ausgang Hochohmig (High Z).
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>

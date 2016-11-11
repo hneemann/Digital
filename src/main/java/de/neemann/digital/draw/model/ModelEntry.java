@@ -55,31 +55,31 @@ public class ModelEntry {
         HashMap<String, Pin> ins = pins.getInputs();
 
         ObservableValues values = ObservableValues.EMPTY_LIST;
-        if (inputNames.size() > 0) {
-            ArrayList<ObservableValue> inputs = new ArrayList<>();
-            for (PinDescription inputName : inputNames) {
-                Pin pin = ins.get(inputName.getName());
-                if (pin == null)
-                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputName, visualElement), visualElement);
+        ArrayList<ObservableValue> inputs = new ArrayList<>();
+        for (PinDescription inputName : inputNames) {
+            Pin pin = ins.get(inputName.getName());
+            if (pin == null)
+                throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputName, visualElement), visualElement);
 
-                ObservableValue value = pin.getValue();
-                if (value == null)
-                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputName, visualElement), visualElement);
+            ObservableValue value = pin.getValue();
+            if (value == null)
+                throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputName, visualElement), visualElement);
 
-                inputs.add(value);
+            inputs.add(value);
+        }
+
+        ArrayList<ObservableValue> bidirect = null;
+        for (Pin p : pins) {
+            if (p.getDirection() == Pin.Direction.both) {
+                if (bidirect == null)
+                    bidirect = new ArrayList<>();
+                bidirect.add(p.getReaderValue());
             }
+        }
+        if (bidirect != null)
+            inputs.addAll(bidirect);
 
-            ArrayList<ObservableValue> bidirect = null;
-            for (Pin p : pins) {
-                if (p.getDirection() == Pin.Direction.both) {
-                    if (bidirect == null)
-                        bidirect = new ArrayList<>();
-                    bidirect.add(p.getReaderValue());
-                }
-            }
-            if (bidirect != null)
-                inputs.addAll(bidirect);
-
+        if (inputs.size() > 0) {
             values = new ObservableValues(inputs);
             element.setInputs(values);
         }

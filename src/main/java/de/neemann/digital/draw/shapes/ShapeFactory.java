@@ -9,10 +9,7 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
-import de.neemann.digital.core.pld.DiodeBackward;
-import de.neemann.digital.core.pld.DiodeForeward;
-import de.neemann.digital.core.pld.PullDown;
-import de.neemann.digital.core.pld.PullUp;
+import de.neemann.digital.core.pld.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -103,6 +100,7 @@ public final class ShapeFactory {
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
         map.put(TestCaseElement.TESTCASEDESCRIPTION.getName(), TestCaseShape::new);
 
+        map.put(Diode.DESCRIPTION.getName(), DiodeShape::new);
         map.put(DiodeForeward.DESCRIPTION.getName(), DiodeForewardShape::new);
         map.put(DiodeBackward.DESCRIPTION.getName(), DiodeBackwardShape::new);
         map.put(PullUp.DESCRIPTION.getName(), PullUpShape::new);

@@ -671,25 +671,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         });
     }
 
-    /**
-     * Starts the main app
-     *
-     * @param args the arguments
-     */
-    public static void main(String[] args) {
-        URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
-        experimental = args.length == 1 && args[0].equals("experimental");
-        SwingUtilities.invokeLater(() -> {
-            Main main = new Main();
-            try {
-                new RemoteSever(new DigitalHandler(main)).start(41114);
-            } catch (IOException e) {
-                SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
-            }
-            main.setVisible(true);
-        });
-    }
-
     private void clearModelDescription() {
         circuitComponent.removeHighLighted();
         if (model != null)
@@ -1061,5 +1042,24 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     //**********************
     // remote interface end
     //**********************
+
+    /**
+     * Starts the main app
+     *
+     * @param args the arguments
+     */
+    public static void main(String[] args) {
+        URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
+        experimental = args.length == 1 && args[0].equals("experimental");
+        SwingUtilities.invokeLater(() -> {
+            Main main = new Main();
+            try {
+                new RemoteSever(new DigitalHandler(main)).start(41114);
+            } catch (IOException e) {
+                SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
+            }
+            main.setVisible(true);
+        });
+    }
 
 }

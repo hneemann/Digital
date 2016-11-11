@@ -9,12 +9,10 @@ import de.neemann.digital.core.flipflops.FlipflopRS;
 import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
-import de.neemann.digital.core.pld.DiodeBackward;
-import de.neemann.digital.core.pld.DiodeForeward;
-import de.neemann.digital.core.pld.PullDown;
-import de.neemann.digital.core.pld.PullUp;
+import de.neemann.digital.core.pld.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Tunnel;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.terminal.Keyboard;
@@ -103,6 +101,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(BitCount.DESCRIPTION, menu);
 
         menu = Lang.get("lib_pld");
+        if (Main.enableExperimental())
+            add(Diode.DESCRIPTION, menu);
         add(DiodeForeward.DESCRIPTION, menu);
         add(DiodeBackward.DESCRIPTION, menu);
         add(PullUp.DESCRIPTION, menu);

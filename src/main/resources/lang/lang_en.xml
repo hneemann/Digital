@@ -136,12 +136,15 @@ The terminal opens its own window.</string>
     <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is outputed.</string>
     <string name="elem_Keyboard_pin_D">The last pressed key, or null if no key is typed.</string>
 
+    <string name="elem_Diode">Diode</string>
+    <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR..
+        This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeBackward">Diode to Ground</string>
-    <string name="elem_DiodeBackward_tt">This diode can be used, to pull a wire to ground. Is used to implement a wired And.
+    <string name="elem_DiodeBackward_tt">A simplified unidirectional diode, used to pull a wire to ground. It is used to implement a wired AND.
         Is the input low, also the output is low. In the other cases (input is high or high z) the output is in high z state.
         So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeForeward">Diode to VDD</string>
-    <string name="elem_DiodeForeward_tt">This diode can be used, to pull a wire to VDD. Is used to implement a wired Or.
+    <string name="elem_DiodeForeward_tt">A simplified unidirectional diode, used to pull a wire to VDD. It is used to implement a wired OR.
         Is the input high, also the output is high. In the other cases (input is low or high z) the output is in high z state.
         So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_PullUp">Pull-Up Resistor</string>
