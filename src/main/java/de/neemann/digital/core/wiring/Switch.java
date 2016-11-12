@@ -1,10 +1,7 @@
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -18,10 +15,12 @@ public class Switch implements Element, Observer {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Switch.class, input("in"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.CLOSED);
 
     private final ObservableValue output;
+    private final int bits;
     private boolean closed;
     private ObservableValue input;
 
@@ -31,15 +30,16 @@ public class Switch implements Element, Observer {
      * @param attr the elements attributes
      */
     public Switch(ElementAttributes attr) {
-        output = new ObservableValue("out", 1, true);
+        bits = attr.getBits();
         closed = attr.get(Keys.CLOSED);
+        output = new ObservableValue("out", bits, true);
         if (!closed)
-            output.set(1, true);
+            output.set(0, true);
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        input = inputs.get(0).addObserverToValue(this).checkBits(1, null);
+        input = inputs.get(0).addObserverToValue(this).checkBits(bits, null);
     }
 
     @Override

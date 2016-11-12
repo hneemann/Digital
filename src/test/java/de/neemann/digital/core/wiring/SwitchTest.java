@@ -47,4 +47,25 @@ public class SwitchTest extends TestCase {
         assertTrue(out.isHighZ());
     }
 
+    public void testSwitchOn4Bits() throws NodeException {
+        ObservableValue in = new ObservableValue("a", 4);
+
+        Switch aSwitch = new Switch(new ElementAttributes().set(Keys.CLOSED, true).setBits(4));
+        aSwitch.setInputs(in.asList());
+        ObservableValue out = aSwitch.getOutputs().get(0);
+        assertEquals(4, out.getBits());
+
+        in.set(5,false);
+        assertEquals(5, out.getValue());
+        assertFalse(out.isHighZ());
+
+        in.set(10,false);
+        assertEquals(10, out.getValue());
+        assertFalse(out.isHighZ());
+
+        in.set(0,true);
+        assertTrue(out.isHighZ());
+    }
+
+
 }
