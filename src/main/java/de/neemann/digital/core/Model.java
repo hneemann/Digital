@@ -471,4 +471,30 @@ public class Model implements Iterable<Node> {
     public void removeNode(Node node) {
         nodes.remove(node);
     }
+
+    /**
+     * Returns the input with the given name
+     *
+     * @param name the name
+     * @return the input value
+     */
+    public ObservableValue getInput(String name) {
+        for (Signal i : inputs)
+            if (i.getName().equals(name))
+                return i.getValue();
+        return null;
+    }
+
+    /**
+     * Returns the output with the given name
+     *
+     * @param name the name
+     * @return the input value
+     */
+    public ObservableValue getOutput(String name) {
+        for (Signal i : outputs)
+            if (i.getName().equals(name))
+                return i.getValue();
+        return null;
+    }
 }

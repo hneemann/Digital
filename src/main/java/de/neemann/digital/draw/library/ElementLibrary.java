@@ -103,8 +103,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(BitCount.DESCRIPTION, menu);
 
         menu = Lang.get("lib_pld");
-        if (Main.enableExperimental())
-            add(Diode.DESCRIPTION, menu);
+        //  add(Diode.DESCRIPTION, menu); // see class DiodeTest for further information
         add(DiodeForeward.DESCRIPTION, menu);
         add(DiodeBackward.DESCRIPTION, menu);
         add(PullUp.DESCRIPTION, menu);

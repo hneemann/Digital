@@ -1,52 +1,50 @@
 package de.neemann.digital.core.pld;
 
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
-import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.testing.Value;
 import junit.framework.TestCase;
 
+import java.io.IOException;
+
 /**
- * Created by hneemann on 01.11.16.
+ * Created by hneemann on 12.11.16.
  */
 public class DiodeTest extends TestCase {
 
-    public void testDiodeForeward() throws Exception {
-        ObservableValue a = new ObservableValue("a", 1);
+    /**
+     * Two antiparallel unidirectional diodes are able to hold each other either in low or in
+     * high state, depending on which diode is processed first.
+     * The current simulation model which is build up on inputs which are modifing the outputs
+     * is not suited to handle bidirectional passive diodes.
+     * For the same reason also bidirectional switches are impossible to implement.
+     *
+     * To make this possible the simulation core needs a significant improvement.
+     */
 
-        DiodeForeward diodeForeward = new DiodeForeward(new ElementAttributes());
-        diodeForeward.setInputs(a.asList());
-        diodeForeward.init(null);
+    private static final Value[] values = new Value[]{new Value("0"),new Value("1"), new Value("Z")};
 
-        ObservableValues outputs = diodeForeward.getOutputs();
-        assertEquals(1, outputs.size());
+    public void testAntiParallelDiodes() throws IOException, ElementNotFoundException, PinException, NodeException {
+        /*
+        final ElementLibrary library = new ElementLibrary(true);
+        Circuit c = Circuit.loadCircuit(new File(Resources.getRoot(),"dig/DiodeTest.dig"), new ShapeFactory(library));
+        Model m = new ModelCreator(c, library).createModel(false);
 
-        ObservableValue output = outputs.get(0);
+        ObservableValue a3 = m.getInput("A3");
+        ObservableValue y3 = m.getOutput("Y3");
 
-        a.setBool(true);
-        assertEquals(false, output.isHighZ());
-        assertEquals(1, output.getValue());
-        a.setBool(false);
-        assertEquals(true, output.isHighZ());
+        for (Value vFinal : values) {
+            for (Value vInitial : values) {
+                vInitial.copyTo(a3);
+                assertTrue("set initial"+vInitial, vInitial.isEqualTo(new Value(y3)));
+                // switch from initial to v
+                System.out.println("test from "+vInitial+" to "+vFinal);
+                vFinal.copyTo(a3);
+                assertTrue("from "+vInitial+" to "+vFinal, vFinal.isEqualTo(new Value(y3)));
+            }
+        }
+         */
     }
-
-    public void testDiodeBackward() throws Exception {
-        ObservableValue a = new ObservableValue("a", 1);
-
-        DiodeBackward diodeBackward = new DiodeBackward(new ElementAttributes());
-        diodeBackward.setInputs(a.asList());
-        diodeBackward.init(null);
-
-        ObservableValues outputs = diodeBackward.getOutputs();
-        assertEquals(1, outputs.size());
-
-        ObservableValue output = outputs.get(0);
-
-        a.setBool(true);
-        assertEquals(true, output.isHighZ());
-        a.setBool(false);
-        assertEquals(false, output.isHighZ());
-        assertEquals(0, output.getValue());
-    }
-
 
 }
