@@ -45,6 +45,7 @@ public class ROM extends Node implements Element {
     private final File hexFile;
     private final Observable romObservable = new Observable();
     private final boolean autoLoad;
+    private final boolean isProgramMemory;
     private ObservableValue addrIn;
     private ObservableValue selIn;
     private int addr;
@@ -63,6 +64,7 @@ public class ROM extends Node implements Element {
         addrBits = attr.get(Keys.ADDR_BITS);
         showList = attr.get(Keys.SHOW_LISTING);
         autoLoad = attr.get(Keys.AUTO_RELOAD_ROM);
+        isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
         if (showList || autoLoad) {
             hexFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else
@@ -120,6 +122,22 @@ public class ROM extends Node implements Element {
                 throw new NodeException(e.getMessage(), this, null);
             }
         }
+    }
+
+    /**
+     * @return true if this is program memory
+     */
+    public boolean isProgramMemory() {
+        return isProgramMemory;
+    }
+
+    /**
+     * Sets the data for this ROM element
+     *
+     * @param data data to use
+     */
+    public void setData(DataField data) {
+        this.data = data;
     }
 
     /**

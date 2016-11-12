@@ -34,21 +34,4 @@ public class TestRunToBreak extends TestCase {
 
         assertEquals(0x3ff, r.getOutputs().get(0).getValue());
     }
-
-    /**
-     * Loads a simulated processor, which has already stored a machine program that calculates the 15th
-     * fibonacci number with a simple recursive algorithm. The result (610) is stored in the first RAM word.
-     *
-     * @throws IOException   IOException
-     * @throws NodeException NodeException
-     * @throws PinException  PinException
-     */
-    public void testFibonacci() throws IOException, NodeException, PinException, ElementNotFoundException {
-        RAMSinglePort ram = new ToBreakRunner("dig/processor/Processor_fibonacci.dig")
-                .runToBreak(98644)
-                .getSingleNode(RAMSinglePort.class);
-
-        assertEquals(610, ram.getMemory().getDataWord(0));
-    }
-
 }
