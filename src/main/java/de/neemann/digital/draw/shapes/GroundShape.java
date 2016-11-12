@@ -48,6 +48,6 @@ public class GroundShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, boolean heighLight) {
-        graphic.drawLine(new Vector(-SIZE2, 0), new Vector(SIZE2, 0), Style.NORMAL);
+        graphic.drawLine(new Vector(-SIZE2, 0), new Vector(SIZE2, 0), Style.THICK);
     }
 }

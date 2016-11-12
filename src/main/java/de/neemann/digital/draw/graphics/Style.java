@@ -28,6 +28,10 @@ public class Style {
      */
     public static final Style THIN = new Style(LINETHIN, false, Color.BLACK);
     /**
+     * thick line used for the ground line
+     */
+    public static final Style THICK = new Style(LINETHICK + LINETHIN, false, Color.BLACK);
+    /**
      * Used for wires in editing mode
      */
     public static final Style WIRE = new Style(WIRETHICK, true, Color.BLUE.darker());

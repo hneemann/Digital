@@ -6,31 +6,26 @@
       <elementName>Multiply.dig</elementName>
       <elementAttributes/>
       <pos x="340" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg-Hex</elementName>
       <elementAttributes/>
       <pos x="320" y="-80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg-Hex</elementName>
       <elementAttributes/>
       <pos x="160" y="-80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg-Hex</elementName>
       <elementAttributes/>
       <pos x="560" y="-80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg-Hex</elementName>
       <elementAttributes/>
       <pos x="480" y="-80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -49,7 +44,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -64,7 +58,6 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -79,7 +72,6 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -98,7 +90,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -113,7 +104,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -128,67 +118,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="200"/>
-      <rotate>0</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
-          <string>Value</string>
-          <int>0</int>
-        </entry>
-      </elementAttributes>
-      <pos x="220" y="80"/>
-      <rotate>1</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation reference="../../../../visualElement[12]/elementAttributes/entry/rotation"/>
-        </entry>
-        <entry>
-          <string>Value</string>
-          <int>0</int>
-        </entry>
-      </elementAttributes>
-      <pos x="380" y="80"/>
-      <rotate>1</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation reference="../../../../visualElement[12]/elementAttributes/entry/rotation"/>
-        </entry>
-        <entry>
-          <string>Value</string>
-          <int>0</int>
-        </entry>
-      </elementAttributes>
-      <pos x="540" y="80"/>
-      <rotate>1</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation reference="../../../../visualElement[12]/elementAttributes/entry/rotation"/>
-        </entry>
-        <entry>
-          <string>Value</string>
-          <int>0</int>
-        </entry>
-      </elementAttributes>
-      <pos x="620" y="80"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -199,7 +128,6 @@
         </entry>
       </elementAttributes>
       <pos x="260" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -210,7 +138,26 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="-20"/>
-      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="620" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="540" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="380" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="220" y="80"/>
     </visualElement>
   </visualElements>
   <wires>

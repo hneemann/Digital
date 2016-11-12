@@ -54,12 +54,13 @@ public class PullUpShape implements Shape {
                         .add(SIZE4, -1),
                 Style.NORMAL
         );
-        graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -SIZE - SIZE2), Style.NORMAL);
+        int o = 4;
+        graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -SIZE - SIZE2 - o), Style.NORMAL);
         graphic.drawPolygon(
                 new Polygon(true)
-                        .add(-SIZE4, -SIZE - SIZE2)
-                        .add(SIZE4, -SIZE - SIZE2)
-                        .add(0, -SIZE * 2),
+                        .add(-SIZE2, -SIZE - SIZE2 - o)
+                        .add(SIZE2, -SIZE - SIZE2 - o)
+                        .add(0, -SIZE - o - SIZE2 - SIZE * 2 / 3),
                 Style.NORMAL
         );
     }
