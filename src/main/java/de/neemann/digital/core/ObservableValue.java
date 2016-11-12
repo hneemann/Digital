@@ -106,9 +106,10 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return the value
      */
     public long getValue() {
-//        if (highZ)      // ToDo: how to handle highZ read?
-//            throw new HighZException(this);
-        return value;
+        if (highZ)      // ToDo: how to handle highZ read?
+            return 0;
+        else
+            return value;
     }
 
     /**
