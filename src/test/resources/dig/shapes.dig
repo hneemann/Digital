@@ -372,6 +372,21 @@
       <elementAttributes/>
       <pos x="640" y="740"/>
     </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="600" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="660" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Switch</elementName>
+      <elementAttributes/>
+      <pos x="720" y="460"/>
+    </visualElement>
   </visualElements>
   <wires/>
 </circuit>

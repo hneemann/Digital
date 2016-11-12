@@ -50,6 +50,10 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Ground_tt">Eine Messeverbindung. Gibt immer Null aus.</string>
     <string name="elem_VDD">Betriebsspannung</string>
     <string name="elem_VDD_tt">Anschluss zur Betriebsspannung. Gibt immer Eins aus.</string>
+    <string name="elem_Tunnel">Tunnel</string>
+    <string name="elem_Tunnel_tt">Verbindet Elemente, ohne eine Leitung zu ziehen. Alle Tunnelelemente, welche den selben Netznamen tragen, sind miteinander verbunden. Der Tunnel ist immer lokal, es können keine Verbindungen über Schaltungsgrenzen hinaus erzeugt werden.</string>
+    <string name="elem_Switch">Schalter</string>
+    <string name="elem_Switch_tt">Einfacher unidirektionaler Schalter.</string>
     <string name="elem_Counter">Zähler</string>
     <string name="elem_D_FF">D_FF</string>
     <string name="elem_Data">Messwertgraph</string>
@@ -124,7 +128,7 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
     <string name="elem_Seven-Seg_tt">Siebensegmentanzeige bei der jedes Segment über einen eigenen Eingang gesteuert werden kann.</string>
     <string name="elem_Splitter">Splitter</string>
-    <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einer gemeinsamen Leitung zusammen, bzw. splittet diese wieder auf.</string>
+    <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.</string>
     <string name="elem_Sub">Subtrahierer</string>
     <string name="elem_T_FF">T_FF</string>
     <string name="elem_Terminal">Terminal</string>
@@ -260,6 +264,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_SelectorBits">Anzahl der Auswahlbits</string>
     <string name="key_SelectorBits_tt">Anzahl der Bits, die in der Auswahlleitung vorhanden sind.</string>
     <string name="key_Signed">Vorzeichen</string>
+    <string name="key_Closed">Geschlossen</string>
+    <string name="key_Closed_tt">Gibt an, ob der Schalter bei Modelstart offen oder geschlossen ist.</string>
     <string name="key_Value">Wert</string>
     <string name="key_Width">Breite</string>
     <string name="key_Width_tt">Breite des Symbols wenn diese Schaltung in eine andere eingefügt wird.</string>

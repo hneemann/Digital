@@ -97,10 +97,16 @@ public final class Keys {
             = new Key.KeyBits("Addr Bits");
 
     /**
-     * signed flag for comparator element
+     * indicates a diode as blown fuse or as programmed
      */
     public static final Key<Boolean> BLOWN
             = new Key<>("Blown", false);
+
+    /**
+     * indicates a switch as closed or not
+     */
+    public static final Key<Boolean> CLOSED
+            = new Key<>("Closed", false);
 
     /**
      * signed flag for comparator element

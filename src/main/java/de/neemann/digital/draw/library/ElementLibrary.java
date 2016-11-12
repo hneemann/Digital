@@ -72,9 +72,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Ground.DESCRIPTION, menu);
         add(VDD.DESCRIPTION, menu);
         add(Splitter.DESCRIPTION, menu);
+        add(Tunnel.DESCRIPTION, menu);
+        add(Switch.DESCRIPTION, menu);
         add(Clock.DESCRIPTION, menu);
         add(Delay.DESCRIPTION, menu);
-        add(Tunnel.DESCRIPTION, menu);
         add(Driver.DESCRIPTION, menu);
         add(DriverInvSel.DESCRIPTION, menu);
         add(Reset.DESCRIPTION, menu);

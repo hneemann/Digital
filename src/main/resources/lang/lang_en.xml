@@ -50,6 +50,10 @@ Then you can execute the circuit to the next BRK instruction.</string>
     <string name="elem_Ground_tt">A connection to ground. Output is always zero.</string>
     <string name="elem_VDD">Supply voltage</string>
     <string name="elem_VDD_tt">A connection to the supply voltage. Output is always one.</string>
+    <string name="elem_Tunnel">Tunnel</string>
+    <string name="elem_Tunnel_tt">Connects parts without a wire. All tunnel elements, which have the same net name, are connected together. Works only local, so it is not possible to connect different circuits.</string>
+    <string name="elem_Switch">Switch</string>
+    <string name="elem_Switch_tt">Simple unidirectional switch.</string>
     <string name="elem_Counter">Counter</string>
     <string name="elem_D_FF">D_FF</string>
     <string name="elem_Data">Data graph</string>
@@ -255,6 +259,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_SelectorBits">Number of Selector Bits</string>
     <string name="key_SelectorBits_tt">Number of bits used for the selector input.</string>
     <string name="key_Signed">Signed</string>
+    <string name="key_Closed">Closed</string>
+    <string name="key_Closed_tt">Sets the initial state of the switch.</string>
     <string name="key_Value">Value</string>
     <string name="key_Width">Width</string>
     <string name="key_Width_tt">With of symbol if this circuit is used as an component in an other circuit.</string>

@@ -78,6 +78,7 @@ public final class ShapeFactory {
         map.put(Const.DESCRIPTION.getName(), ConstShape::new);
         map.put(Ground.DESCRIPTION.getName(), GroundShape::new);
         map.put(VDD.DESCRIPTION.getName(), VDDShape::new);
+        map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(Button.DESCRIPTION.getName(), ButtonShape::new);

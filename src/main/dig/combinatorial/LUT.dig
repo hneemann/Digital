@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <visualElements>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="-60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="100" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Switch</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Closed</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>S_3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="40" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Switch</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>S_2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="40" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="-20" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Switch</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>S_1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-20" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="-80" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Switch</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Closed</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>S_0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullUp</elementName>
+      <elementAttributes/>
+      <pos x="-80" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullUp</elementName>
+      <elementAttributes/>
+      <pos x="-20" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullUp</elementName>
+      <elementAttributes/>
+      <pos x="40" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullUp</elementName>
+      <elementAttributes/>
+      <pos x="100" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A B Y
+0 0 0
+0 1 1
+1 0 1
+1 1 0</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="-120"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="-20" y="80"/>
+      <p2 x="140" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="-100"/>
+      <p2 x="160" y="-100"/>
+    </wire>
+    <wire>
+      <p1 x="40" y="100"/>
+      <p2 x="140" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="100"/>
+      <p2 x="220" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="120"/>
+      <p2 x="140" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="-60"/>
+      <p2 x="140" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="60"/>
+      <p2 x="140" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="-100"/>
+      <p2 x="160" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="-20"/>
+      <p2 x="160" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="180"/>
+      <p2 x="-20" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="40"/>
+      <p2 x="-20" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="80"/>
+      <p2 x="-20" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="180"/>
+      <p2 x="100" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="40"/>
+      <p2 x="100" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="120"/>
+      <p2 x="100" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="40" y="180"/>
+      <p2 x="40" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="40" y="40"/>
+      <p2 x="40" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="40" y="100"/>
+      <p2 x="40" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="-60"/>
+      <p2 x="140" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="180"/>
+      <p2 x="-80" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="40"/>
+      <p2 x="-80" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="60"/>
+      <p2 x="-80" y="140"/>
+    </wire>
+  </wires>
+</circuit>
