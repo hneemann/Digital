@@ -18,7 +18,8 @@ public class PullDown implements Element {
      * The pull down description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("PullDown", PullDown.class)
-            .addAttribute(Keys.ROTATE);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS);
 
 
     private final ObservableValue output;

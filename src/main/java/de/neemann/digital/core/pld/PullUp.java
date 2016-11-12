@@ -18,7 +18,8 @@ public class PullUp implements Element {
      * The pull up description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("PullUp", PullUp.class)
-            .addAttribute(Keys.ROTATE);
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS);
 
     private final ObservableValue output;
 
