@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Einfaches GAL mit zwei EIngängen und drei
+Makrozellen. Jede Zelle kann kombinatorisch oder
+als mit Flip-Flop gepuffert (combinatorial, registered)
+verwendet werden. Programmiert wird der Baustein
+über die Dioden, die &quot;durchgebrannt&quot; werden 
+können.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Not</elementName>
@@ -46,6 +57,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Erster frei konfigurierbarer Eingang.</string>
+        </entry>
+        <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
         </entry>
@@ -59,6 +74,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Zweiter frei konfigurierbarer Eingang.</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -83,6 +102,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 0. Ausgangsbit.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Y_0</string>
@@ -543,6 +566,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Das 1. Ausgangsbit.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Y_1</string>
         </entry>
@@ -966,6 +993,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 2. Ausgangsbit.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Y_2</string>

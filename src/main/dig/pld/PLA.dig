@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Typischer PLA Baustein mit einer UND und einer 
+ODER Matrix.
+Programmiert wird der Baustein über die Dioden, 
+die &quot;durchgebrannt&quot; werden können.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Not</elementName>
@@ -46,6 +55,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Erster frei konfigurierbarer Eingang.</string>
+        </entry>
+        <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
         </entry>
@@ -59,6 +72,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Zweiter frei konfigurierbarer Eingang.</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -74,6 +91,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Dritter frei konfigurierbarer Eingang.</string>
+        </entry>
+        <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
         </entry>
@@ -87,6 +108,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Vierter frei konfigurierbarer Eingang.</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -639,17 +664,16 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     </visualElement>
     <visualElement>
       <elementName>PullDown</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="1120" y="720"/>
+      <elementAttributes/>
+      <pos x="1080" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 0. Ausgangsbit.</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -663,17 +687,16 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     </visualElement>
     <visualElement>
       <elementName>PullDown</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="1200" y="720"/>
+      <elementAttributes/>
+      <pos x="1160" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 1. Ausgangsbit.</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -687,17 +710,16 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     </visualElement>
     <visualElement>
       <elementName>PullDown</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="1280" y="720"/>
+      <elementAttributes/>
+      <pos x="1240" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 2. Ausgangsbit.</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -711,17 +733,16 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     </visualElement>
     <visualElement>
       <elementName>PullDown</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="1360" y="720"/>
+      <elementAttributes/>
+      <pos x="1320" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 3. Ausgangsbit.</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -1069,6 +1090,22 @@ A B C D  Y_0 Y_1 Y_2 Y_3
       <p2 x="760" y="640"/>
     </wire>
     <wire>
+      <p1 x="1080" y="640"/>
+      <p2 x="1100" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="640"/>
+      <p2 x="1180" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1240" y="640"/>
+      <p2 x="1260" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1320" y="640"/>
+      <p2 x="1340" y="640"/>
+    </wire>
+    <wire>
       <p1 x="460" y="100"/>
       <p2 x="480" y="100"/>
     </wire>
@@ -1339,22 +1376,6 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     <wire>
       <p1 x="1320" y="520"/>
       <p2 x="1340" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="720"/>
-      <p2 x="1120" y="720"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="720"/>
-      <p2 x="1200" y="720"/>
-    </wire>
-    <wire>
-      <p1 x="1260" y="720"/>
-      <p2 x="1280" y="720"/>
-    </wire>
-    <wire>
-      <p1 x="1340" y="720"/>
-      <p2 x="1360" y="720"/>
     </wire>
     <wire>
       <p1 x="460" y="240"/>
@@ -1869,6 +1890,10 @@ A B C D  Y_0 Y_1 Y_2 Y_3
       <p2 x="520" y="640"/>
     </wire>
     <wire>
+      <p1 x="1160" y="640"/>
+      <p2 x="1160" y="660"/>
+    </wire>
+    <wire>
       <p1 x="460" y="100"/>
       <p2 x="460" y="240"/>
     </wire>
@@ -1897,10 +1922,6 @@ A B C D  Y_0 Y_1 Y_2 Y_3
       <p2 x="1100" y="280"/>
     </wire>
     <wire>
-      <p1 x="1100" y="720"/>
-      <p2 x="1100" y="740"/>
-    </wire>
-    <wire>
       <p1 x="1100" y="280"/>
       <p2 x="1100" y="360"/>
     </wire>
@@ -1918,7 +1939,11 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     </wire>
     <wire>
       <p1 x="1100" y="600"/>
-      <p2 x="1100" y="720"/>
+      <p2 x="1100" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="640"/>
+      <p2 x="1100" y="740"/>
     </wire>
     <wire>
       <p1 x="720" y="80"/>
@@ -2073,6 +2098,10 @@ A B C D  Y_0 Y_1 Y_2 Y_3
       <p2 x="600" y="640"/>
     </wire>
     <wire>
+      <p1 x="1240" y="640"/>
+      <p2 x="1240" y="660"/>
+    </wire>
+    <wire>
       <p1 x="540" y="100"/>
       <p2 x="540" y="240"/>
     </wire>
@@ -2114,10 +2143,10 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     </wire>
     <wire>
       <p1 x="1180" y="600"/>
-      <p2 x="1180" y="720"/>
+      <p2 x="1180" y="640"/>
     </wire>
     <wire>
-      <p1 x="1180" y="720"/>
+      <p1 x="1180" y="640"/>
       <p2 x="1180" y="740"/>
     </wire>
     <wire>
@@ -2277,6 +2306,10 @@ A B C D  Y_0 Y_1 Y_2 Y_3
       <p2 x="680" y="640"/>
     </wire>
     <wire>
+      <p1 x="1320" y="640"/>
+      <p2 x="1320" y="660"/>
+    </wire>
+    <wire>
       <p1 x="1260" y="200"/>
       <p2 x="1260" y="280"/>
     </wire>
@@ -2290,10 +2323,10 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     </wire>
     <wire>
       <p1 x="1260" y="600"/>
-      <p2 x="1260" y="720"/>
+      <p2 x="1260" y="640"/>
     </wire>
     <wire>
-      <p1 x="1260" y="720"/>
+      <p1 x="1260" y="640"/>
       <p2 x="1260" y="740"/>
     </wire>
     <wire>
@@ -2481,6 +2514,10 @@ A B C D  Y_0 Y_1 Y_2 Y_3
       <p2 x="760" y="640"/>
     </wire>
     <wire>
+      <p1 x="1080" y="640"/>
+      <p2 x="1080" y="660"/>
+    </wire>
+    <wire>
       <p1 x="1340" y="200"/>
       <p2 x="1340" y="280"/>
     </wire>
@@ -2490,10 +2527,10 @@ A B C D  Y_0 Y_1 Y_2 Y_3
     </wire>
     <wire>
       <p1 x="1340" y="600"/>
-      <p2 x="1340" y="720"/>
+      <p2 x="1340" y="640"/>
     </wire>
     <wire>
-      <p1 x="1340" y="720"/>
+      <p1 x="1340" y="640"/>
       <p2 x="1340" y="740"/>
     </wire>
     <wire>

@@ -13,7 +13,9 @@ einen der vier ROM-Bausteine auszuwählen, welcher dann
 sein Datenwort an den Datenbus legt. Durch den 
 Adressdecoder verhalten sich die vier ROM-Bausteine wie
 ein einziger viermal so großer ROM-Baustein.
-</string>
+Alle Ausgänge der ROMs liegen auf einem Datenbus. Dies ist
+möglich, da immer nur der Ausgang eines der vier ROMs aktiv 
+ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
     </entry>
   </attributes>
   <visualElements>
