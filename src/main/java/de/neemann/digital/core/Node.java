@@ -2,8 +2,8 @@ package de.neemann.digital.core;
 
 /**
  * Implements a node.
- * A node represents a part in the circuit which was a non zero propagation time.
- * So every gate is a extension of a node.
+ * A node represents a part in the circuit which has a non zero propagation time.
+ * So every gate inherits from node.
  * <br/>
  * During the simulation the method {@link #readInputs()} is called.
  * This method has to read all necessary inputs to perform the operation, but is not allowed to update one
