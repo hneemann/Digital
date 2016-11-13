@@ -11,11 +11,15 @@
             <outputDirectory>/</outputDirectory>
         </file>
         <file>
-            <source>${basedir}/Digital.exe</source>
+            <source>${basedir}/distribution/Digital.exe</source>
             <outputDirectory>/</outputDirectory>
         </file>
         <file>
-            <source>${basedir}/Version.txt</source>
+            <source>${basedir}/distribution/ReleaseNotes.txt</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+        <file>
+            <source>${basedir}/distribution/Version.txt</source>
             <outputDirectory>/</outputDirectory>
             <filtered>true</filtered>
         </file>
