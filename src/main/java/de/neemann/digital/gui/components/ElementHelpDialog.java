@@ -54,6 +54,25 @@ public class ElementHelpDialog extends JDialog {
     /**
      * Creates a new instance
      *
+     * @param parent            the parents frame
+     * @param elementType       the type of the element
+     * @param elementAttributes the attributes of this element
+     */
+    public ElementHelpDialog(JFrame parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) {
+        super(parent, Lang.get("attr_help"), true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        StringWriter w = new StringWriter();
+        try {
+            writeDetailedDescription(w, elementType, elementAttributes);
+        } catch (IOException e) {
+            // can not happen because of writing to memory
+        }
+        init(parent, w.toString());
+    }
+
+    /**
+     * Creates a new instance
+     *
      * @param parent  the parents dialog
      * @param library the elements library
      */

@@ -6,9 +6,7 @@ import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.builder.PinMap;
 import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
@@ -19,6 +17,7 @@ import de.neemann.digital.draw.elements.ElementOrder;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
@@ -97,6 +96,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
     private static final Icon ICON_ZOOMIN = IconCreator.create("View-zoom-in.png");
     private static final Icon ICON_ZOOMOUT = IconCreator.create("View-zoom-out.png");
+    private static final Icon ICON_HELP = IconCreator.create("help.png");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private ToolTipAction doStep;
@@ -265,6 +265,30 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 circuitComponent.scaleCircuit(0.8);
             }
         };
+
+        ToolTipAction viewHelp = new ToolTipAction(Lang.get("menu_viewHelp"), ICON_HELP) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                final Circuit circuit = circuitComponent.getCircuit();
+                final String name = Lang.get("msg_actualCircuit");
+                File file = filename;
+                if (file == null)
+                    file = new File(name);
+                try {
+                    ElementTypeDescription description =
+                            new LibrarySelector.ElementTypeDescriptionCustom(file,
+                                    attributes -> new CustomElement(circuit, library, name),
+                                    circuit.getAttributes(), circuit.getInputNames())
+                                    .setShortName(name);
+                    description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));
+                    new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);
+                } catch (PinException e1) {
+                    new ErrorMessage().addCause(e1).show(Main.this);
+                }
+            }
+        }.setToolTip(Lang.get("menu_viewHelp_tt"));
+
+        toolBar.add(viewHelp.createJButtonNoText());
         toolBar.add(zoomIn.createJButtonNoText());
         toolBar.add(zoomOut.createJButtonNoText());
         toolBar.add(maximize.createJButtonNoText());
@@ -274,6 +298,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         view.add(maximize.createJMenuItem());
         view.add(zoomOut.createJMenuItem());
         view.add(zoomIn.createJMenuItem());
+        view.addSeparator();
+        view.add(viewHelp.createJMenuItem());
     }
 
     /**

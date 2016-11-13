@@ -429,6 +429,10 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_programDiode">Diode programmieren</string>
     <string name="menu_help_elements">Hilfe</string>
     <string name="menu_help_elements_tt">Zeigt eine Dokumentation der vorhandenen Elemente.</string>
+    <string name="menu_viewHelp">Hilfedialog</string>
+    <string name="menu_viewHelp_tt">Zeigt den Hilfedialog der aktuellen Schaltung an.</string>
+    <string name="msg_actualCircuit">Aktuelle Schaltung</string>
+
     <string name="message">Digital
 
 Ein einfacher Simulator für digitale Schaltkreise.

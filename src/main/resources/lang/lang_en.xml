@@ -424,6 +424,9 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_programDiode">Program diode</string>
     <string name="menu_help_elements">Components</string>
     <string name="menu_help_elements_tt">Shows a list of all available components.</string>
+    <string name="menu_viewHelp">Help Dialog</string>
+    <string name="menu_viewHelp_tt">Shows the help dialog describing the actual circuit.</string>
+    <string name="msg_actualCircuit">Actual Circuit</string>
 
     <string name="message">Digital
 
