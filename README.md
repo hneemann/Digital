@@ -139,7 +139,7 @@ logic combined with the build-in D or JK flip-flops.
 After you have created the truth table or state transition table you can create a JEDEC file for a 
 [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx).
 After that you can simply flash this file to the appropriate GAL and test the circuit on a bred board.
-As mentioned above theses GALSs are quite old but with 8 (10) macrocells sufficient for beginners exercises.
+As mentioned above these GALs are quite old but with 8 (10) macrocells sufficient for beginners exercises.
 
 ## How do I get set up? ##
 
