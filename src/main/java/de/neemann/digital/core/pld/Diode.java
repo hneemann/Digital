@@ -6,8 +6,6 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
-import static de.neemann.digital.core.element.PinInfo.input;
-
 /**
  * A diode needed to create wired elements
  * Used to build a wired OR or AND.

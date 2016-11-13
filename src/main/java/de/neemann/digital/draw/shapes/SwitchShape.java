@@ -9,8 +9,10 @@ import de.neemann.digital.core.wiring.Switch;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Orientation;
+import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.sync.Sync;
 
