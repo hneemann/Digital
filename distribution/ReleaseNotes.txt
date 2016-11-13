@@ -10,48 +10,48 @@ head, planed as v0.8:
 - fixed "sometimes unwanted start of drawing a wire" problem (hopefully)
 - some minor bug fixes
 
-v0.7:
+v0.7, released on 22. Aug 2016
 - fixed a bug which causes two HighZ values to be not equal during test execution.
 - added double buffer to CircuitComponent to make it more responsive
 - improved debugging of processors
 - some minor bug fixes
 
-v0.6.2:
+v0.6.2, released on 16. Aug 2016
 - fixed scrolling bug in input/output orderer
 - fixed redraw bug at element rotation
 - fixed auto scale bug if element is deleted
 
-v0.6.1:
+v0.6.1, released on 10. Aug 2016
 - fixed auto scaling bug which can occur if a new circuit is created
 - added missing check for unsaved modifications
 - fixed unexpected behaviour of 'C' character in test cases
 - some minor bug fixes
 
-v0.6: 
+v0.6, released on 09. Aug 2016
 - fixed sync problems while drawing the circuit
 - added Conway's Game of Life example
 - some minor bug fixes
 
-v0.5
+v0.5, released on 16. Jul 2016
 - creation of state machines with JK-flip-flops
 - added creation of JEDEC and CUPL files for GAL16v8 and GAL22v10
 - some minor bug fixes
 
-v0.4
+v0.4, released on 12. Jul 2016
 - added a graphics card
 - some minor bug fixes
 
-v0.3.1
+v0.3.1, released on 07. Jul 2016
 - some minor bug fixes
 
-v0.3
+v0.3, released on 07. Jul 2016
 - added testing functions
 - some minor bug fixes
 
-v0.2
+v0.2, released on 02. Jul 2016
 - added expression parser
 - creation of circuits from expressions
 - some bug fixes
 
-v0.1
+v0.1, released on 28. Jun 2016
 - initial release
