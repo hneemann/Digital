@@ -7,7 +7,6 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.StringUtils;
 import de.neemann.gui.ToolTipAction;
 
 import javax.imageio.ImageIO;
@@ -181,17 +180,17 @@ public class ElementHelpDialog extends JDialog {
         String translatedName = et.getTranslatedName();
         if (translatedName.endsWith(".dig"))
             translatedName = new File(translatedName).getName();
-        w.append("<h3>").append(translatedName).append("</h3>\n");
+        w.append("<h3>").append(escapeHTML(translatedName)).append("</h3>\n");
         String descr = et.getDescription(elementAttributes);
         if (!descr.equals(translatedName))
-            w.append("<p>").append(StringUtils.breakLines(et.getDescription(elementAttributes))).append("</p>\n");
+            w.append("<p>").append(escapeHTML(et.getDescription(elementAttributes))).append("</p>\n");
 
         try {
             PinDescriptions inputs = et.getInputDescription(elementAttributes);
             if (inputs != null && inputs.size() > 0) {
                 w.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
                 for (PinDescription i : inputs)
-                    writeEntry(w, i.getName(), i.getDescription());
+                    writeEntry(w, ElementAttributes.cleanLabel(i.getName()), i.getDescription());
                 w.append("</dl>\n");
             }
         } catch (NodeException e) {
@@ -202,7 +201,7 @@ public class ElementHelpDialog extends JDialog {
         if (outputs != null && outputs.size() > 0) {
             w.append("<h4>").append(Lang.get("elem_Help_outputs")).append(":</h4>\n<dl>\n");
             for (PinDescription i : outputs)
-                writeEntry(w, i.getName(), i.getDescription());
+                writeEntry(w, ElementAttributes.cleanLabel(i.getName()), i.getDescription());
             w.append("</dl>\n");
         }
 
@@ -215,10 +214,9 @@ public class ElementHelpDialog extends JDialog {
     }
 
     private static void writeEntry(Writer w, String name, String description) throws IOException {
-        if (description == null || description.length() == 0 || name.equals(description))
-            w.append("<dt><i>").append(name).append("</i></dt>\n");
-        else
-            w.append("<dt><i>").append(name).append("</i></dt><dd>").append(description).append("</dd>\n");
+        w.append("<dt><i>").append(escapeHTML(name)).append("</i></dt>\n");
+        if (description != null && description.length() > 0 && !name.equals(description))
+            w.append("<dd>").append(escapeHTML(description)).append("</dd>\n");
     }
 
     /**
@@ -317,4 +315,51 @@ public class ElementHelpDialog extends JDialog {
             throw new IOException("could not open browser");
     }
 
+    private static String escapeHTML(String text) {
+        StringBuilder sb = new StringBuilder(text.length() * 2);
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            switch (c) {
+                case 'ä':
+                    sb.append("&auml;");
+                    break;
+                case 'ö':
+                    sb.append("&ouml;");
+                    break;
+                case 'ü':
+                    sb.append("&uuml;");
+                    break;
+                case 'Ä':
+                    sb.append("&Auml;");
+                    break;
+                case 'Ö':
+                    sb.append("&Ouml;");
+                    break;
+                case 'Ü':
+                    sb.append("&Uuml;");
+                    break;
+                case 'ß':
+                    sb.append("&szlig;");
+                    break;
+                case '<':
+                    sb.append("&lt;");
+                    break;
+                case '>':
+                    sb.append("&gt;");
+                    break;
+                case '&':
+                    sb.append("&amp;");
+                    break;
+                case '"':
+                    sb.append("&quot;");
+                    break;
+                case '\'':
+                    sb.append("&apos;");
+                    break;
+                default:
+                    sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 }
