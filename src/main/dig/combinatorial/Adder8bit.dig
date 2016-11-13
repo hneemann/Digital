@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Ein 8-Bit Addierer, welcher aus zwei 4-Bit 
+CLA-Addierern aufgebaut ist.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -15,11 +22,14 @@
         </entry>
       </elementAttributes>
       <pos x="340" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Erstes zu addierendes 8-Bit Wort.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A</string>
@@ -34,19 +44,16 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>FullAdderCLA.dig</elementName>
       <elementAttributes/>
       <pos x="540" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>FullAdderCLA.dig</elementName>
       <elementAttributes/>
       <pos x="540" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -61,11 +68,14 @@
         </entry>
       </elementAttributes>
       <pos x="340" y="380"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Zweites zu addierendes 8-Bit Wort.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>B</string>
@@ -80,7 +90,6 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="380"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -95,11 +104,14 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Die 8-Bit der Summe.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S</string>
@@ -110,29 +122,34 @@
         </entry>
       </elementAttributes>
       <pos x="820" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Übertrag der Addition</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="820" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Übertrag aus dem vorhergehenden Addierer.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>C_i-1</string>
         </entry>
       </elementAttributes>
       <pos x="300" y="100"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Vereinfachter 4-Bit Ripple-Carry-Addierer, bestehend
+aus vier Volladdierern.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>FullAdder.dig</elementName>
       <elementAttributes/>
       <pos x="400" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -17,7 +23,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -28,7 +33,6 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -39,13 +43,11 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>FullAdder.dig</elementName>
       <elementAttributes/>
       <pos x="400" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -56,7 +58,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -67,7 +68,6 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -78,13 +78,11 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>FullAdder.dig</elementName>
       <elementAttributes/>
       <pos x="400" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -95,7 +93,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -106,7 +103,6 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -117,13 +113,11 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>FullAdder.dig</elementName>
       <elementAttributes/>
       <pos x="400" y="20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -134,7 +128,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -145,7 +138,6 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -156,7 +148,6 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -167,7 +158,6 @@
         </entry>
       </elementAttributes>
       <pos x="580" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -178,7 +168,6 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

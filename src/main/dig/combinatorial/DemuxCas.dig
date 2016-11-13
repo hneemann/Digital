@@ -1,91 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Ein 16-Bit Demultiplexer der aus fünf 4-Bit 
+Demultiplexern aufgebaut ist.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>demux.dig</elementName>
       <elementAttributes/>
       <pos x="100" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Eingangsbit welches auf einen der 16
+Ausgänge ausgegeben wird.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>E</string>
         </entry>
       </elementAttributes>
       <pos x="60" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 0. Auswahlbit.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A_0</string>
         </entry>
       </elementAttributes>
       <pos x="60" y="-40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 1. Auswahlbit.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A_1</string>
         </entry>
       </elementAttributes>
       <pos x="60" y="0"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>demux.dig</elementName>
       <elementAttributes/>
       <pos x="280" y="-40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>demux.dig</elementName>
       <elementAttributes/>
       <pos x="280" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>demux.dig</elementName>
       <elementAttributes/>
       <pos x="280" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>demux.dig</elementName>
       <elementAttributes/>
       <pos x="280" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 2. Auswahlbit.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A_2</string>
         </entry>
       </elementAttributes>
       <pos x="60" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 3. Auswahlbit.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A_3</string>
         </entry>
       </elementAttributes>
       <pos x="60" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -96,7 +114,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="-60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -107,7 +124,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -118,7 +134,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -129,7 +144,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -140,7 +154,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -151,7 +164,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -162,7 +174,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -173,7 +184,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -184,7 +194,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -195,7 +204,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -206,7 +214,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -217,7 +224,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="380"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -228,7 +234,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -239,7 +244,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -250,7 +254,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="500"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -261,7 +264,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="540"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

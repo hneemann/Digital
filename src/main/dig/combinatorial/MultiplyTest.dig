@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Einfache Schaltung um den Multiplikator
+auszuprobieren.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Multiply.dig</elementName>
@@ -30,6 +37,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Erste zu multiplizierende 4-Bit Zahl.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>P</string>
@@ -76,6 +87,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Zweite zu multiplizierende 4-Bit Zahl.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Q</string>

@@ -3,6 +3,11 @@
   <version>1</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>Ein Addierer der nach den carry-look-ahead 
+Verfahren implementiert ist.</string>
+    </entry>
+    <entry>
       <string>Width</string>
       <int>5</int>
     </entry>
@@ -12,16 +17,26 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Der Übetrag vom Addierer welcher die 
+niederwertigeren Bits addiert. Werden die 
+niederwertigsten Bits addiert, ist dieser Eingang 
+Null.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C_i-1</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="480"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 0. Bit des ersten zu addierenden Wertes.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A_0</string>
@@ -32,68 +47,76 @@
         </entry>
       </elementAttributes>
       <pos x="440" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="500" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="500" y="380"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="760" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="960" y="380"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 1. Bit des ersten zu addierenden Wertes.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A_1</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 0. Bit der Summe.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S_0</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="400"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 2. Bit des ersten zu addierenden Wertes.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A_2</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="-180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 3. Bit des ersten zu addierenden Wertes.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A_3</string>
@@ -104,60 +127,55 @@
         </entry>
       </elementAttributes>
       <pos x="440" y="-580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="500" y="100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="500" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="760" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="860" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="760" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="960" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 1. Bit der Summe.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S_1</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="760" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -168,7 +186,6 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="-40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -179,39 +196,47 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="960" y="-100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 2. Bit der Summe.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S_2</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="-80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 0. Bit des zweiten zu addierenden Wertes.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>B_0</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 1. Bit des zweiten zu addierenden Wertes.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>B_1</string>
@@ -222,31 +247,26 @@
         </entry>
       </elementAttributes>
       <pos x="440" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="500" y="-180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="500" y="-100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="760" y="-120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="760" y="-240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -257,7 +277,6 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="-320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -268,7 +287,6 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="-440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -279,11 +297,14 @@
         </entry>
       </elementAttributes>
       <pos x="880" y="-280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 2. Bit des zweiten zu addierenden Wertes.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>B_2</string>
@@ -294,59 +315,59 @@
         </entry>
       </elementAttributes>
       <pos x="440" y="-60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 3. Bit des zweiten zu addierenden Wertes.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>B_3</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="-460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="500" y="-580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="500" y="-500"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="760" y="-520"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="980" y="-500"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 3. Bit der Summe.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S_3</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="-480"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="760" y="-640"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -357,18 +378,21 @@
         </entry>
       </elementAttributes>
       <pos x="900" y="-680"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Übertragsbit, welches an den Adiierer für die
+nächst höherwertigen Bits weitergegeben wird.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>C_i</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="-640"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -379,7 +403,6 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="-720"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -390,7 +413,6 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="-840"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -401,7 +423,6 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="-960"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

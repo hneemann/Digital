@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Einfache Schaltung die eine Adressdecodierung 
+zeigt. Der Zähler erzeugt eine 5-Bit Zahl.
+Die unteren drei Bit werden als Adresse an alle 
+ROM-Bausteine ausgegeben. Die oberen zwei Bits
+werden verwendet um über den Adressdecoder 
+einen der vier ROM-Bausteine auszuwählen, welcher dann
+sein Datenwort an den Datenbus legt. Durch den 
+Adressdecoder verhalten sich die vier ROM-Bausteine wie
+ein einziger viermal so großer ROM-Baustein.
+</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>ROM</elementName>
@@ -21,7 +36,6 @@
             <long>105</long>
             <long>115</long>
             <long>116</long>
-            <bits>8</bits>
           </data>
         </entry>
         <entry>
@@ -30,7 +44,6 @@
         </entry>
       </elementAttributes>
       <pos x="660" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -51,7 +64,6 @@
             <long>108</long>
             <long>97</long>
             <long>110</long>
-            <bits>8</bits>
           </data>
         </entry>
         <entry>
@@ -60,7 +72,6 @@
         </entry>
       </elementAttributes>
       <pos x="660" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -75,7 +86,6 @@
         </entry>
       </elementAttributes>
       <pos x="480" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Decoder</elementName>
@@ -90,7 +100,6 @@
         </entry>
       </elementAttributes>
       <pos x="520" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -111,7 +120,6 @@
             <long>101</long>
             <long>115</long>
             <long>116</long>
-            <bits>8</bits>
           </data>
         </entry>
         <entry>
@@ -120,7 +128,6 @@
         </entry>
       </elementAttributes>
       <pos x="660" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -141,7 +148,6 @@
             <long>32</long>
             <long>32</long>
             <long>32</long>
-            <bits>8</bits>
           </data>
         </entry>
         <entry>
@@ -150,7 +156,6 @@
         </entry>
       </elementAttributes>
       <pos x="660" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Counter</elementName>
@@ -165,7 +170,6 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -175,12 +179,15 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Label</string>
+          <string>Clock</string>
+        </entry>
+        <entry>
           <string>Frequency</string>
           <int>2</int>
         </entry>
       </elementAttributes>
       <pos x="260" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -191,14 +198,13 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Probe</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>D</string>
+          <string>Data</string>
         </entry>
         <entry>
           <string>intFormat</string>
@@ -206,7 +212,6 @@
         </entry>
       </elementAttributes>
       <pos x="800" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

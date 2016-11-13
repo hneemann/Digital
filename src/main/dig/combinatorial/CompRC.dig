@@ -3,6 +3,16 @@
   <version>1</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>4-Bit Vergleicher der nach dem ripple-carry Prinzip
+Aufgebaut ist. Jedoch wird hier das Enable-Bit
+vom höher wertigem Bit an das niederwertige Bit
+herabgereicht wird, also in der umgekehrten 
+Richtung wie das Carry-Bit des ripple-carry 
+Addierers.
+</string>
+    </entry>
+    <entry>
       <string>Width</string>
       <int>4</int>
     </entry>
@@ -12,25 +22,21 @@
       <elementName>CompEN.dig</elementName>
       <elementAttributes/>
       <pos x="300" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>CompEN.dig</elementName>
       <elementAttributes/>
       <pos x="300" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>CompEN.dig</elementName>
       <elementAttributes/>
       <pos x="300" y="80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>CompEN.dig</elementName>
       <elementAttributes/>
       <pos x="300" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -41,7 +47,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="0"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -52,7 +57,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -63,7 +67,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -74,7 +77,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -85,7 +87,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -96,7 +97,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -107,7 +107,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -118,7 +117,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -129,7 +127,6 @@
         </entry>
       </elementAttributes>
       <pos x="520" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -140,46 +137,53 @@
         </entry>
       </elementAttributes>
       <pos x="520" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
       <pos x="280" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Bit ist Eins, wenn P&lt;Q gilt.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>$P&lt;Q$</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Bit ist Eins, wenn P=Q gilt.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>$P=Q$</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Bit ist Eins, wenn P&gt;Q gilt.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>$P&gt;Q$</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

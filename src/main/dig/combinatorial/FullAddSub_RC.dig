@@ -6,7 +6,6 @@
       <elementName>FullAdder.dig</elementName>
       <elementAttributes/>
       <pos x="340" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -17,7 +16,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -32,7 +30,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -43,13 +40,11 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>FullAdder.dig</elementName>
       <elementAttributes/>
       <pos x="340" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -60,7 +55,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -71,7 +65,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -86,13 +79,11 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>FullAdder.dig</elementName>
       <elementAttributes/>
       <pos x="340" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -103,7 +94,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -114,7 +104,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -125,13 +114,11 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>FullAdder.dig</elementName>
       <elementAttributes/>
       <pos x="340" y="20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -142,7 +129,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -153,7 +139,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -164,42 +149,41 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="220" y="60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="220" y="160"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="220" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="220" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Eingang mit welchem zwischen Addition (S=0) und 
+Subtraction (S=1) umgeschaltet werden kann.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>$S$</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

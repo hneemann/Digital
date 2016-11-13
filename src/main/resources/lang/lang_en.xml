@@ -201,7 +201,7 @@ The terminal opens its own window.</string>
     <string name="err_pinMap_toMannyInputsDefined">To manny inputs defined</string>
     <string name="err_pinMap_toMannyOutputsDefined">To manny outputs defined</string>
     <string name="err_pinNotPresent">Pin not present</string>
-    <string name="err_pinWithoutName">Found a pin without a name in {0}</string>
+    <string name="err_pinWithoutName">Found a pin without a name.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at component {1}</string>
     <string name="err_pin_N_notFound">Pin {0} not found</string>
     <string name="err_pin_N_unknown">Pin {0} unknown</string>

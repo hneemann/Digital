@@ -207,7 +207,7 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="err_pinMap_toMannyInputsDefined">Zu viele Eingänge definiert!</string>
     <string name="err_pinMap_toMannyOutputsDefined">Zu viele Ausgänge definiert!</string>
     <string name="err_pinNotPresent">Pin nicht vorhanden</string>
-    <string name="err_pinWithoutName">Es gibt einen Pin ohne einen Namen in {0}</string>
+    <string name="err_pinWithoutName">Es gibt einen Pin ohne einen Namen.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} von Element {1} wurde nicht gefunden</string>
     <string name="err_pin_N_notFound">Pin {0} wurde nicht gefunden.</string>
     <string name="err_pin_N_unknown">Pin {0} ist unbekannt</string>

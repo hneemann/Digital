@@ -6,31 +6,26 @@
       <elementName>Comp7485.dig</elementName>
       <elementAttributes/>
       <pos x="480" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Comp7485.dig</elementName>
       <elementAttributes/>
       <pos x="180" y="-100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Comp7485.dig</elementName>
       <elementAttributes/>
       <pos x="180" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Comp7485.dig</elementName>
       <elementAttributes/>
       <pos x="180" y="580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
       <pos x="160" y="680"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -41,7 +36,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="660"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -52,7 +46,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="700"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -63,7 +56,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -74,7 +66,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -85,7 +76,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -96,7 +86,6 @@
         </entry>
       </elementAttributes>
       <pos x="460" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -107,7 +96,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="540"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -118,7 +106,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -129,7 +116,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="620"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -140,7 +126,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="660"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -151,7 +136,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="700"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -162,7 +146,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="740"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -173,7 +156,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="780"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -184,13 +166,11 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="820"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
       <pos x="160" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -201,7 +181,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -212,7 +191,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -223,7 +201,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -234,7 +211,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -245,7 +221,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -256,7 +231,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -267,7 +241,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -278,7 +251,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="400"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -289,7 +261,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -300,13 +271,11 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="480"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
       <pos x="160" y="0"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -317,7 +286,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -328,7 +296,6 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -339,7 +306,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="-140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -350,7 +316,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="-100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -361,7 +326,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="-60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -372,7 +336,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="-20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -383,7 +346,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="20"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -394,7 +356,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="60"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -405,7 +366,6 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -416,40 +376,48 @@
         </entry>
       </elementAttributes>
       <pos x="100" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Bit ist Eins, wenn P=Q gilt.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>P=Q</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Bit ist Eins, wenn P&lt;Q gilt.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>P&lt;Q</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Bit ist Eins, wenn P&gt;Q gilt.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>P&gt;Q</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="300"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

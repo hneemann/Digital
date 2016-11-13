@@ -1,58 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Eine einfache Look Up Table. Je nach Stellung der 
+vier Schalter kann diese Schaltung jede mögliche 
+logische Funktion mit zwei Eingängen nachbilden.</string>
+    </entry>
+  </attributes>
   <visualElements>
-    <visualElement>
-      <elementName>Multiplexer</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Selector Bits</string>
-          <int>2</int>
-        </entry>
-        <entry>
-          <string>flipSelPos</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
-      <pos x="140" y="60"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Input Splitting</string>
-          <string>1,1</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-40"/>
-    </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Erstes Eingangsbit</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="-80" y="-100"/>
+      <pos x="-60" y="-100"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Zweites Eingangsbit.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>B</string>
         </entry>
       </elementAttributes>
-      <pos x="-80" y="-60"/>
+      <pos x="-60" y="-60"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
@@ -162,11 +146,17 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Ausgangsbit der Schaltung. Die Funktion die
+ausgegeben wird, wird über die vier Schalter
+definiert.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Y</string>
         </entry>
       </elementAttributes>
-      <pos x="220" y="100"/>
+      <pos x="300" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -184,43 +174,56 @@
       </elementAttributes>
       <pos x="240" y="-120"/>
     </visualElement>
+    <visualElement>
+      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/combinatorial/mux.dig</elementName>
+      <elementAttributes/>
+      <pos x="200" y="0"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
       <p1 x="-20" y="80"/>
-      <p2 x="140" y="80"/>
+      <p2 x="200" y="80"/>
     </wire>
     <wire>
-      <p1 x="-80" y="-100"/>
-      <p2 x="160" y="-100"/>
+      <p1 x="180" y="0"/>
+      <p2 x="200" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="-60" y="-100"/>
+      <p2 x="180" y="-100"/>
     </wire>
     <wire>
       <p1 x="40" y="100"/>
-      <p2 x="140" y="100"/>
+      <p2 x="200" y="100"/>
     </wire>
     <wire>
-      <p1 x="180" y="100"/>
-      <p2 x="220" y="100"/>
+      <p1 x="160" y="20"/>
+      <p2 x="200" y="20"/>
     </wire>
     <wire>
       <p1 x="100" y="120"/>
-      <p2 x="140" y="120"/>
+      <p2 x="200" y="120"/>
     </wire>
     <wire>
-      <p1 x="-80" y="-60"/>
-      <p2 x="140" y="-60"/>
+      <p1 x="180" y="40"/>
+      <p2 x="200" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="-60" y="-60"/>
+      <p2 x="160" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="60"/>
+      <p2 x="300" y="60"/>
     </wire>
     <wire>
       <p1 x="-80" y="60"/>
-      <p2 x="140" y="60"/>
+      <p2 x="180" y="60"/>
     </wire>
     <wire>
-      <p1 x="160" y="-100"/>
-      <p2 x="160" y="-40"/>
-    </wire>
-    <wire>
-      <p1 x="160" y="-20"/>
-      <p2 x="160" y="60"/>
+      <p1 x="160" y="-60"/>
+      <p2 x="160" y="20"/>
     </wire>
     <wire>
       <p1 x="-20" y="180"/>
@@ -247,6 +250,14 @@
       <p2 x="100" y="140"/>
     </wire>
     <wire>
+      <p1 x="180" y="40"/>
+      <p2 x="180" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="-100"/>
+      <p2 x="180" y="0"/>
+    </wire>
+    <wire>
       <p1 x="40" y="180"/>
       <p2 x="40" y="200"/>
     </wire>
@@ -257,10 +268,6 @@
     <wire>
       <p1 x="40" y="100"/>
       <p2 x="40" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="140" y="-60"/>
-      <p2 x="140" y="-40"/>
     </wire>
     <wire>
       <p1 x="-80" y="180"/>
