@@ -11,6 +11,7 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.pld.Diode;
 import de.neemann.digital.core.pld.DiodeBackward;
 import de.neemann.digital.core.pld.DiodeForeward;
 import de.neemann.digital.core.wiring.Clock;
@@ -603,11 +604,12 @@ public class Circuit {
      */
     public void unprogramAllFuses() {
         for (VisualElement ve : visualElements)
-            if (ve.equalsDescription(DiodeForeward.DESCRIPTION) || ve.equalsDescription(DiodeBackward.DESCRIPTION)) {
+            if (ve.equalsDescription(DiodeForeward.DESCRIPTION)
+                    || ve.equalsDescription(DiodeBackward.DESCRIPTION)
+                    || ve.equalsDescription(Diode.DESCRIPTION)) {
                 ve.getElementAttributes().set(Keys.BLOWN, false);
                 modified = true;
             }
-
     }
 
 
