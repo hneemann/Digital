@@ -40,6 +40,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${basedir}/src/main/dig/sequential/conway</directory>
+            <outputDirectory>/examples/sequential/conway/</outputDirectory>
+            <includes>
+                <include>*.dig</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${basedir}/src/main/dig/processor</directory>
             <outputDirectory>/examples/processor/</outputDirectory>
             <includes>
