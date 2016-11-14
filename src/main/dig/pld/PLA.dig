@@ -6,8 +6,11 @@
       <string>Description</string>
       <string>Typischer PLA Baustein mit einer UND und einer 
 ODER Matrix.
-Programmiert wird der Baustein über die Dioden, 
-die &quot;durchgebrannt&quot; werden können.</string>
+Programmiert wird der Baustein
+über die Dioden, die &quot;durchgebrannt&quot; bzw. 
+Programmiert werden können. Zur Vereinfachung 
+können die Dioden mit der Taste [P] programmiert 
+werden.</string>
     </entry>
   </attributes>
   <visualElements>

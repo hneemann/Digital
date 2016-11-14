@@ -4,12 +4,14 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfaches GAL mit zwei EIngängen und drei
+      <string>Einfaches GAL mit zwei Eingängen und drei
 Makrozellen. Jede Zelle kann kombinatorisch oder
 als mit Flip-Flop gepuffert (combinatorial, registered)
 verwendet werden. Programmiert wird der Baustein
-über die Dioden, die &quot;durchgebrannt&quot; werden 
-können.</string>
+über die Dioden, die &quot;durchgebrannt&quot; bzw. 
+Programmiert werden können. Zur Vereinfachung 
+können die Dioden mit der Taste [P] programmiert 
+werden.</string>
     </entry>
   </attributes>
   <visualElements>
@@ -361,7 +363,7 @@ können.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>C</string>
+          <string>Clock</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="240"/>
@@ -1453,16 +1455,16 @@ können.</string>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>A B C   Y_2 Y_1 Y_0
-0 0 0   0   0   0
-0 0 C   0   0   1
-0 0 C   0   1   0
-0 0 C   0   1   1
-0 0 C   1   0   0
-0 0 C   1   0   1
-0 0 C   1   1   0
-0 0 C   1   1   1
-0 0 C   0   0   0
+            <dataString>A B Clock Y_2 Y_1 Y_0
+0 0 0     0   0   0
+0 0 C     0   0   1
+0 0 C     0   1   0
+0 0 C     0   1   1
+0 0 C     1   0   0
+0 0 C     1   0   1
+0 0 C     1   1   0
+0 0 C     1   1   1
+0 0 C     0   0   0
 </dataString>
           </testData>
         </entry>

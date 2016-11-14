@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Sogenanntes Wired-AND. Ein Und-Gatter welches 
+mit Dioden und einem Pull-Up Widerstand 
+aufgebaut ist.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Erster Eingang des AND-Gatters.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A</string>
@@ -15,6 +27,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Zweiter Eingang des AND-Gatters.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>B</string>
@@ -45,6 +61,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Ergebnis der Und-Verknüpfung.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Y</string>
