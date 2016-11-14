@@ -11,6 +11,7 @@ import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
 import de.neemann.digital.core.pld.*;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ieee.IEEEAndShape;
@@ -157,7 +158,7 @@ public final class ShapeFactory {
     }
 
     private interface Creator {
-        Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException;
+        Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException, PinException;
     }
 
 

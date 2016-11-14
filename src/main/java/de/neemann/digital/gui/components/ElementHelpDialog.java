@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -38,8 +39,10 @@ public class ElementHelpDialog extends JDialog {
      * @param parent            the parents dialog
      * @param elementType       the type of the element
      * @param elementAttributes the attributes of this element
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
      */
-    public ElementHelpDialog(JDialog parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) {
+    public ElementHelpDialog(JDialog parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) throws NodeException, PinException {
         super(parent, Lang.get("attr_help"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         StringWriter w = new StringWriter();
@@ -57,8 +60,10 @@ public class ElementHelpDialog extends JDialog {
      * @param parent            the parents frame
      * @param elementType       the type of the element
      * @param elementAttributes the attributes of this element
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
      */
-    public ElementHelpDialog(JFrame parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) {
+    public ElementHelpDialog(JFrame parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) throws NodeException, PinException {
         super(parent, Lang.get("attr_help"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         StringWriter w = new StringWriter();
@@ -75,8 +80,10 @@ public class ElementHelpDialog extends JDialog {
      *
      * @param parent  the parents dialog
      * @param library the elements library
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
      */
-    public ElementHelpDialog(JFrame parent, ElementLibrary library, ShapeFactory shapeFactory) {
+    public ElementHelpDialog(JFrame parent, ElementLibrary library, ShapeFactory shapeFactory) throws NodeException, PinException {
         super(parent, Lang.get("attr_help"), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         MyURLStreamHandlerFactory.shapeFactory = shapeFactory;
@@ -99,7 +106,7 @@ public class ElementHelpDialog extends JDialog {
                             exportHTMLDocumentation(tmp, library, shapeFactory);
                             File index = new File(tmp, "index.html");
                             openWebpage(index.toURI());
-                        } catch (IOException e) {
+                        } catch (IOException | PinException | NodeException e) {
                             new ErrorMessage(Lang.get("err_openingDocumentation")).addCause(e).show(ElementHelpDialog.this);
                         }
                     }
@@ -111,9 +118,11 @@ public class ElementHelpDialog extends JDialog {
      *
      * @param library      the library which parts are documented
      * @param imageHandler the imageHandler creates the url to get the image representing a concrete part
-     * @throws IOException IOException
+     * @throws IOException   IOException
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
      */
-    public static void writeFullHTMLDocumentation(Writer w, ElementLibrary library, ImageHandler imageHandler) throws IOException {
+    public static void writeFullHTMLDocumentation(Writer w, ElementLibrary library, ImageHandler imageHandler) throws IOException, NodeException, PinException {
         ArrayList<String> chapter = new ArrayList<>();
 
         String actPath = null;
@@ -181,7 +190,7 @@ public class ElementHelpDialog extends JDialog {
      * @param et                the element to describe
      * @param elementAttributes the actual attributes of the element to describe
      */
-    private static void writeDetailedDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException {
+    private static void writeDetailedDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException, NodeException, PinException {
         w.write("<html><body>");
         writeHTMLDescription(w, et, elementAttributes);
         w.write("</body></html>");
@@ -193,9 +202,11 @@ public class ElementHelpDialog extends JDialog {
      * @param w                 the StringBuilder to use
      * @param et                the element to describe
      * @param elementAttributes the actual attributes of the element to describe
-     * @throws IOException IOException
+     * @throws IOException   IOException
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
      */
-    public static void writeHTMLDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException {
+    public static void writeHTMLDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException, NodeException, PinException {
         String translatedName = et.getTranslatedName();
         if (translatedName.endsWith(".dig"))
             translatedName = new File(translatedName).getName();
@@ -204,16 +215,12 @@ public class ElementHelpDialog extends JDialog {
         if (!descr.equals(translatedName))
             w.append("<p>").append(escapeHTML(et.getDescription(elementAttributes))).append("</p>\n");
 
-        try {
-            PinDescriptions inputs = et.getInputDescription(elementAttributes);
-            if (inputs != null && inputs.size() > 0) {
-                w.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
-                for (PinDescription i : inputs)
-                    writeEntry(w, ElementAttributes.cleanLabel(i.getName()), i.getDescription());
-                w.append("</dl>\n");
-            }
-        } catch (NodeException e) {
-            e.printStackTrace();
+        PinDescriptions inputs = et.getInputDescription(elementAttributes);
+        if (inputs != null && inputs.size() > 0) {
+            w.append("<h4>").append(Lang.get("elem_Help_inputs")).append(":</h4>\n<dl>\n");
+            for (PinDescription i : inputs)
+                writeEntry(w, ElementAttributes.cleanLabel(i.getName()), i.getDescription());
+            w.append("</dl>\n");
         }
 
         PinDescriptions outputs = et.getOutputDescriptions(elementAttributes);
@@ -290,7 +297,7 @@ public class ElementHelpDialog extends JDialog {
     }
 
     private interface ImageHandler {
-        String getUrl(ElementTypeDescription description) throws IOException;
+        String getUrl(ElementTypeDescription description) throws IOException, PinException, NodeException;
     }
 
     /**
@@ -299,9 +306,11 @@ public class ElementHelpDialog extends JDialog {
      * @param targetPath   the target folder to store the documentation
      * @param library      the library to use
      * @param shapeFactory the shapeFactory to export the shapes
-     * @throws IOException IOException
+     * @throws IOException   IOException
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
      */
-    public static void exportHTMLDocumentation(File targetPath, ElementLibrary library, ShapeFactory shapeFactory) throws IOException {
+    public static void exportHTMLDocumentation(File targetPath, ElementLibrary library, ShapeFactory shapeFactory) throws IOException, NodeException, PinException {
         File images = new File(targetPath, "img");
         if (!images.mkdir())
             throw new IOException("could not create image folder " + images);
@@ -317,10 +326,10 @@ public class ElementHelpDialog extends JDialog {
                     + "</head>\n<body>\n");
 
             writeFullHTMLDocumentation(w, library, description -> {
-                final String name = description.getName();
-                BufferedImage bi = new VisualElement(name).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
-                ImageIO.write(bi, "png", new File(images, name + ".png"));
-                return "img/" + name + ".png";
+                final String name1 = description.getName();
+                BufferedImage bi = new VisualElement(name1).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
+                ImageIO.write(bi, "png", new File(images, name1 + ".png"));
+                return "img/" + name1 + ".png";
             });
             w.write("</body>\n</html>");
         }

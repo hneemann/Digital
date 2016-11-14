@@ -236,7 +236,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                new ElementHelpDialog(Main.this, library, shapeFactory).setVisible(true);
+                try {
+                    new ElementHelpDialog(Main.this, library, shapeFactory).setVisible(true);
+                } catch (NodeException|PinException e) {
+                    new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e).show(Main.this);
+                }
             }
         }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
 
@@ -282,8 +286,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                                     .setShortName(name);
                     description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));
                     new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);
-                } catch (PinException e1) {
-                    new ErrorMessage().addCause(e1).show(Main.this);
+                } catch (PinException | NodeException e1) {
+                    new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(Main.this);
                 }
             }
         }.setToolTip(Lang.get("menu_viewHelp_tt"));

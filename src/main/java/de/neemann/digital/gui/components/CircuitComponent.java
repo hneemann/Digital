@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -21,6 +22,7 @@ import de.neemann.digital.gui.SavedListener;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.IconCreator;
 import de.neemann.gui.StringUtils;
 import de.neemann.gui.ToolTipAction;
@@ -566,7 +568,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 attributeDialog.addButton(new ToolTipAction(Lang.get("attr_help")) {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        new ElementHelpDialog(attributeDialog, elementType, vp.getElementAttributes()).setVisible(true);
+                        try {
+                            new ElementHelpDialog(attributeDialog, elementType, vp.getElementAttributes()).setVisible(true);
+                        } catch (PinException|NodeException e1) {
+                            new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(CircuitComponent.this);
+                        }
                     }
                 }.setToolTip(Lang.get("attr_help_tt")));
                 if (attributeDialog.showDialog()) {

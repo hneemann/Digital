@@ -1,6 +1,7 @@
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 
 import java.lang.reflect.Constructor;
@@ -184,8 +185,9 @@ public class ElementTypeDescription {
      *
      * @param elementAttributes the elements attributs
      * @return the list of input descriptions
+     * @throws PinException PinException
      */
-    public PinDescriptions getOutputDescriptions(ElementAttributes elementAttributes) {
+    public PinDescriptions getOutputDescriptions(ElementAttributes elementAttributes) throws PinException {
         return new PinDescriptions(elementFactory.create(elementAttributes).getOutputs());
     }
 

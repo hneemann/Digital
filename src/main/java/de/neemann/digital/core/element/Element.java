@@ -3,6 +3,7 @@ package de.neemann.digital.core.element;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.draw.elements.PinException;
 
 /**
  * A concrete element used for the simulation
@@ -26,8 +27,9 @@ public interface Element {
      * by calling <code>setInputs()</code>
      *
      * @return the list of outputs which are set by this element
+     * @throws PinException PinException
      */
-    ObservableValues getOutputs();
+    ObservableValues getOutputs() throws PinException;
 
     /**
      * The element has to register its nodes to the model.

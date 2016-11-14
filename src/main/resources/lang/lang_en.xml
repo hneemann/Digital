@@ -464,6 +464,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_test_N_Failed">{0} failed</string>
     <string name="msg_testExp_N0_found_N1">E: {0} / F: {1}</string>
     <string name="msg_errorSavingData">Error writing the data!</string>
+    <string name="msg_creatingHelp">Error creating the help!</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

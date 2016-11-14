@@ -118,7 +118,7 @@ public class TestExecuter {
         return this;
     }
 
-    public TestExecuter setOutputsOf(Element element) {
+    public TestExecuter setOutputsOf(Element element) throws PinException {
         setOutputs(element.getOutputs());
         return this;
     }
