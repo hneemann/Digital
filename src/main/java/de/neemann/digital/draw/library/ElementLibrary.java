@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.arithmetic.*;
+import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.flipflops.FlipflopD;
@@ -24,9 +25,7 @@ import de.neemann.digital.testing.TestCaseElement;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author hneemann
@@ -169,7 +168,24 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     @Override
     public Iterator<ElementContainer> iterator() {
-        return list.iterator();
+        HashSet<String> baseElements = new HashSet<>();
+        for (ElementContainer ec : list) {
+            baseElements.add(ec.getDescription().getName());
+        }
+        ArrayList<ElementContainer> custom = new ArrayList<>();
+        for (Map.Entry<String, ElementTypeDescription> entry : map.entrySet()) {
+            if (!baseElements.contains(entry.getValue().getName())) {
+                custom.add(new ElementContainer(entry.getValue(), Lang.get("menu_custom")));
+            }
+        }
+
+        if (custom.isEmpty())
+            return list.iterator();
+        else {
+            Collections.sort(custom, (c1, c2) -> c1.getDescription().getTranslatedName().compareToIgnoreCase(c2.getDescription().getTranslatedName()));
+            custom.addAll(list);
+            return custom.iterator();
+        }
     }
 
     /**

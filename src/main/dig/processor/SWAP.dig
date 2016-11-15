@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Tauscht High-Byte und Low-Byte.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Dateneingang</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Di</string>
@@ -19,7 +29,6 @@
         </entry>
       </elementAttributes>
       <pos x="320" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -34,7 +43,6 @@
         </entry>
       </elementAttributes>
       <pos x="380" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -49,11 +57,14 @@
         </entry>
       </elementAttributes>
       <pos x="520" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Datenausgang</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Do</string>
@@ -64,7 +75,6 @@
         </entry>
       </elementAttributes>
       <pos x="620" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

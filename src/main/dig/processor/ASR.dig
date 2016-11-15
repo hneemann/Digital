@@ -1,118 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-    <visualElements>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>Di</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>16</int>
-                </entry>
-            </elementAttributes>
-            <pos x="180" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Splitter</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Input Splitting</string>
-                    <string>16</string>
-                </entry>
-                <entry>
-                    <string>Output Splitting</string>
-                    <string>1,14,1</string>
-                </entry>
-            </elementAttributes>
-            <pos x="210" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>C</string>
-                </entry>
-            </elementAttributes>
-            <pos x="320" y="120"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Splitter</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Input Splitting</string>
-                    <string>14,1,1</string>
-                </entry>
-                <entry>
-                    <string>Output Splitting</string>
-                    <string>16</string>
-                </entry>
-            </elementAttributes>
-            <pos x="270" y="130"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>Do</string>
-                </entry>
-                <entry>
-                    <string>Bits</string>
-                    <int>16</int>
-                </entry>
-            </elementAttributes>
-            <pos x="320" y="150"/>
-            <rotate>0</rotate>
-        </visualElement>
-    </visualElements>
-    <wires>
-        <wire>
-            <p1 x="220" y="130"/>
-            <p2 x="270" y="130"/>
-        </wire>
-        <wire>
-            <p1 x="280" y="130"/>
-            <p2 x="310" y="130"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="150"/>
-            <p2 x="320" y="150"/>
-        </wire>
-        <wire>
-            <p1 x="250" y="150"/>
-            <p2 x="270" y="150"/>
-        </wire>
-        <wire>
-            <p1 x="220" y="120"/>
-            <p2 x="320" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="180" y="120"/>
-            <p2 x="210" y="120"/>
-        </wire>
-        <wire>
-            <p1 x="220" y="140"/>
-            <p2 x="250" y="140"/>
-        </wire>
-        <wire>
-            <p1 x="250" y="140"/>
-            <p2 x="270" y="140"/>
-        </wire>
-        <wire>
-            <p1 x="310" y="130"/>
-            <p2 x="310" y="150"/>
-        </wire>
-        <wire>
-            <p1 x="250" y="140"/>
-            <p2 x="250" y="150"/>
-        </wire>
-    </wires>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Arithmetisches schieben. Ein vorzeichenrichtige 
+Division durch Zwei. Dabei wird das untere Bit als 
+Carry-Bit ausgegeben, während das oberste Bit 
+unverändert bleibt, um das Vorzeichen zu erhalten.</string>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Dateneingang</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Di</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>16</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>1,14,1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Carry-Ausgang</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>14,1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Datenausgang</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Do</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="300"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="440" y="260"/>
+      <p2 x="540" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="260"/>
+      <p2 x="620" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="300"/>
+      <p2 x="640" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="300"/>
+      <p2 x="540" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="240"/>
+      <p2 x="640" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="240"/>
+      <p2 x="420" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="280"/>
+      <p2 x="500" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="280"/>
+      <p2 x="540" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="260"/>
+      <p2 x="620" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="280"/>
+      <p2 x="500" y="300"/>
+    </wire>
+  </wires>
 </circuit>

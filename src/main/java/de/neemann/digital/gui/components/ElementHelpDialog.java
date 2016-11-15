@@ -330,10 +330,10 @@ public class ElementHelpDialog extends JDialog {
                     + "</head>\n<body>\n");
 
             writeFullHTMLDocumentation(w, library, description -> {
-                final String name1 = description.getName();
-                BufferedImage bi = new VisualElement(name1).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
-                ImageIO.write(bi, "png", new File(images, name1 + ".png"));
-                return "img/" + name1 + ".png";
+                BufferedImage bi = new VisualElement(description.getName()).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
+                final String filename = description.getName().replace('\\', '_').replace('/', '_');
+                ImageIO.write(bi, "png", new File(images, filename + ".png"));
+                return "img/" + filename + ".png";
             });
             w.write("</body>\n</html>");
         }
