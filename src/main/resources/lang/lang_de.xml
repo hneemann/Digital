@@ -2,6 +2,7 @@
 <resources>
     <string name="addr">Adresse</string>
     <string name="name">Name</string>
+    <string name="tableOfContent">Inhaltsverzeichnis</string>
     <string name="attr_dialogTitle">Eigenschaften</string>
     <string name="attr_openCircuit">Anzeigen</string>
     <string name="attr_openCircuitLabel">Enthaltene Schaltung:</string>
@@ -140,7 +141,9 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="elem_XNOr">Nicht Exclusiv Oder</string>
     <string name="elem_XOr">Exclusiv Oder</string>
     <string name="elem_Testcase">Testfall</string>
-    <string name="elem_Testcase_tt">Beschreibt einen Testfall</string>
+    <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
+        Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
+        dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.</string>
     <string name="elem_Keyboard">Tastatur</string>
     <string name="elem_Keyboard_pin_sel">Wenn gesetzt ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
     <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>

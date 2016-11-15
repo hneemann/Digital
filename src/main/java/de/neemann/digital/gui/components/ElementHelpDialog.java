@@ -127,12 +127,14 @@ public class ElementHelpDialog extends JDialog {
 
         String actPath = null;
         StringWriter content = new StringWriter();
+        int chapNum = 0;
         for (ElementLibrary.ElementContainer e : library) {
             String p = e.getTreePath();
             if (!p.equals(actPath)) {
                 actPath = p;
                 chapter.add(actPath);
-                content.append("<h2><a name=\"").append(actPath).append("\">").append(actPath).append("</a></h2>\n");
+                chapNum++;
+                content.append("<h2>").append(Integer.toString(chapNum)).append(". <a name=\"").append(actPath).append("\">").append(actPath).append("</a></h2>\n");
                 content.append("<hr/>\n");
             }
             String url = imageHandler.getUrl(e.getDescription());
@@ -142,10 +144,12 @@ public class ElementHelpDialog extends JDialog {
         }
         content.flush();
 
-
         w.append("<h1>").append(Lang.get("digital")).append("</h1>\n");
+        w.append("<h2>").append(Lang.get("tableOfContent")).append("</h2>\n");
+        chapNum = 0;
         for (String chap : chapter) {
-            w.append("<a href=\"#").append(chap).append("\">").append(chap).append("</a><br/>\n");
+            chapNum++;
+            w.append(Integer.toString(chapNum)).append(". <a href=\"#").append(chap).append("\">").append(chap).append("</a><br/>\n");
         }
 
         w.write(content.toString());

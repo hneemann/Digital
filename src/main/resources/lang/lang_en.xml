@@ -2,6 +2,7 @@
 <resources>
     <string name="addr">Address</string>
     <string name="name">Name</string>
+    <string name="tableOfContent">Table of Content</string>
     <string name="attr_dialogTitle">Attributes</string>
     <string name="attr_openCircuit">Show</string>
     <string name="attr_openCircuitLabel">Included circuit:</string>
@@ -139,7 +140,10 @@ The terminal opens its own window.</string>
     <string name="elem_XNOr">XNOr</string>
     <string name="elem_XOr">XOr</string>
     <string name="elem_Testcase">Test case</string>
-    <string name="elem_Testcase_tt">Describes a single test case.</string>
+    <string name="elem_Testcase_tt">Describes a test case.
+        In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
+        behavior of the circuit actually corresponds to this description. If this is not the case, a corresponding
+        error message is shown. </string>
     <string name="elem_Keyboard">Keyboard</string>
     <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is outputed.</string>
     <string name="elem_Keyboard_pin_D">The last pressed key, or null if no key is typed.</string>
