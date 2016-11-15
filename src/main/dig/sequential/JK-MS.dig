@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Diskret aufgebautes Master-Slave JK-Flipflop.
+Das Master-Flipflop speichert bei einem High am 
+Taktsignal, das Slave-Flipflop bei Low am Taktsignal.
+Die obere und untere Rückkoppelleitung verhindern,
+das der verbotenen Zustand am Master-Flipflop
+auftritt..</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>And</elementName>
@@ -31,6 +42,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Eingang zum Setzen des Flipflops.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>J</string>
         </entry>
@@ -44,6 +59,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Takteingang</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
@@ -85,6 +104,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Das im Flipflop gespeicherte Bit.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Q</string>
         </entry>
@@ -95,6 +118,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Das inverse gespeicherte Bit.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>~Q</string>
         </entry>
@@ -104,6 +131,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Eingang zum Löschen des Flipflops.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>K</string>

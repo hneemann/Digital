@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Taktflanken gesteuerters JK-Flipflop. Eine steigende
+Flanke am Takteingang wird in einem Impuls 
+umgeformt, der gerade ausreicht, um das Flipflop
+umzuschalten.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>And</elementName>
@@ -46,6 +55,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Eingang zum Setzen des Flipflops.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>J</string>
         </entry>
@@ -60,6 +73,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Das im Flipflop gespeicherte Bit.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Q</string>
         </entry>
@@ -69,6 +86,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das inverse gespeicherte Bit.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>~Q</string>
@@ -85,6 +106,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Taktsignal. Bei einer steigenden Flanke wird ein 
+kurzer Impuls am Flipflop erzeugt, der gerade 
+ausreicht, um das Flopflop umzuschalten.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
@@ -94,6 +121,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Eingang zum Löschen des Flipflops.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>K</string>
