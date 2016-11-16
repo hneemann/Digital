@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>A LUT optimized implementation of a single cell of
+&quot;Conways Game of Life&quot;. To understand the LUT, 
+look at the discrete.dig circuit.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>LookUpTable</elementName>
@@ -2057,7 +2065,6 @@
             <long>0</long>
             <long>1</long>
             <long>1</long>
-            <bits>16</bits>
           </data>
         </entry>
         <entry>
@@ -2080,6 +2087,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Value used to initialize the cell.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Val</string>
         </entry>
@@ -2089,6 +2100,11 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>If this input is true, the value val is used to initialize 
+the cell.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Sel</string>
@@ -2100,6 +2116,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Clock</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
@@ -2110,6 +2130,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>The actual state of the cell</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Out</string>
         </entry>
@@ -2119,6 +2143,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>neighbour</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>n1</string>
