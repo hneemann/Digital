@@ -28,7 +28,7 @@ import java.util.HashMap;
  * Created by hneemann on 25.10.16.
  */
 public class ElementHelpDialog extends JDialog {
-    private static int IMAGE_SCALE = 2;
+    private static final int IMAGE_SCALE = 2;
 
     private static final int MAX_WIDTH = 600;
     private static final int MAX_HEIGHT = 800;
@@ -366,27 +366,6 @@ public class ElementHelpDialog extends JDialog {
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             switch (c) {
-                case 'ä':
-                    sb.append("&auml;");
-                    break;
-                case 'ö':
-                    sb.append("&ouml;");
-                    break;
-                case 'ü':
-                    sb.append("&uuml;");
-                    break;
-                case 'Ä':
-                    sb.append("&Auml;");
-                    break;
-                case 'Ö':
-                    sb.append("&Ouml;");
-                    break;
-                case 'Ü':
-                    sb.append("&Uuml;");
-                    break;
-                case 'ß':
-                    sb.append("&szlig;");
-                    break;
                 case '<':
                     sb.append("&lt;");
                     break;
@@ -398,9 +377,6 @@ public class ElementHelpDialog extends JDialog {
                     break;
                 case '"':
                     sb.append("&quot;");
-                    break;
-                case '\'':
-                    sb.append("&apos;");
                     break;
                 default:
                     sb.append(c);
