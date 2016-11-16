@@ -261,7 +261,14 @@ public final class EditorFactory {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int bits = attr.get(Keys.BITS);
-                    int size = 1 << attr.get(Keys.ADDR_BITS);
+                    int size;
+                    if (attr.contains(Keys.INPUT_COUNT)) {
+                        // used to handle the LUT
+                        size = 1 << attr.get(Keys.INPUT_COUNT);
+                    } else {
+                        // memory, RAM/ROM
+                        size = 1 << attr.get(Keys.ADDR_BITS);
+                    }
                     DataEditor de = new DataEditor(panel, data, size, bits, false, NoSync.INST);
                     if (de.showDialog()) {
                         data = de.getModifiedDataField();

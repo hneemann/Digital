@@ -24,7 +24,7 @@ public class LookUpTable extends Node implements Element {
             int size = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[size];
             for (int i = 0; i < size; i++)
-                names[i] = input("in_" + i);
+                names[i] = input(Integer.toString(i));
             return new PinDescriptions(names);
         }
     }
