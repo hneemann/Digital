@@ -20,6 +20,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Simple Dialog to show an elements help text.
@@ -27,6 +28,7 @@ import java.util.ArrayList;
  * Created by hneemann on 25.10.16.
  */
 public class ElementHelpDialog extends JDialog {
+    private static int IMAGE_SCALE = 2;
 
     private static final int MAX_WIDTH = 600;
     private static final int MAX_HEIGHT = 800;
@@ -138,7 +140,12 @@ public class ElementHelpDialog extends JDialog {
                 content.append("<hr/>\n");
             }
             String url = imageHandler.getUrl(e.getDescription());
-            content.append("<center><img src=\"").append(url).append("\"/></center>\n");
+            BufferedImage bi = MyURLStreamHandlerFactory.getImage(e.getDescription().getName());
+            content.append("<center><img src=\"")
+                    .append(url)
+                    .append("\" width=\"").append(Integer.toString(bi.getWidth() / IMAGE_SCALE))
+                    .append("\" height=\"").append(Integer.toString(bi.getHeight() / IMAGE_SCALE))
+                    .append("\"/></center>\n");
             writeHTMLDescription(content, e.getDescription(), new ElementAttributes());
             content.append("<hr/>\n");
         }
@@ -260,6 +267,7 @@ public class ElementHelpDialog extends JDialog {
     private static class MyURLStreamHandlerFactory implements URLStreamHandlerFactory {
 
         private static ShapeFactory shapeFactory;
+        private static HashMap<String, BufferedImage> imageMap = new HashMap<>();
 
         @Override
         public URLStreamHandler createURLStreamHandler(String protocol) {
@@ -267,21 +275,27 @@ public class ElementHelpDialog extends JDialog {
                 return new URLStreamHandler() {
                     @Override
                     protected URLConnection openConnection(URL u) throws IOException {
-                        return new ImageConnection(shapeFactory, u);
+                        return new ImageConnection(u);
                     }
                 };
             else
                 return null;
         }
+
+        static BufferedImage getImage(String name) {
+            BufferedImage bi = imageMap.get(name);
+            if (bi == null) {
+                bi = new VisualElement(name).setShapeFactory(shapeFactory).getBufferedImage(0.75 * IMAGE_SCALE, 250 * IMAGE_SCALE);
+                imageMap.put(name, bi);
+            }
+            return bi;
+        }
     }
 
     private static class ImageConnection extends URLConnection {
 
-        private final ShapeFactory shapeFactory;
-
-        ImageConnection(ShapeFactory shapeFactory, URL url) {
+        ImageConnection(URL url) {
             super(url);
-            this.shapeFactory = shapeFactory;
         }
 
         @Override
@@ -293,7 +307,7 @@ public class ElementHelpDialog extends JDialog {
             String path = url.getPath();
             if (path.endsWith(".png"))
                 path = path.substring(0, path.length() - 4);
-            BufferedImage bi = new VisualElement(path).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
+            BufferedImage bi = MyURLStreamHandlerFactory.getImage(path);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(bi, "png", baos);
             return new ByteArrayInputStream(baos.toByteArray());
@@ -330,8 +344,8 @@ public class ElementHelpDialog extends JDialog {
                     + "</head>\n<body>\n");
 
             writeFullHTMLDocumentation(w, library, description -> {
-                BufferedImage bi = new VisualElement(description.getName()).setShapeFactory(shapeFactory).getBufferedImage(0.75, 150);
-                final String filename = description.getName().replace('\\', '_').replace('/', '_');
+                BufferedImage bi = MyURLStreamHandlerFactory.getImage(description.getName());
+                final String filename = description.getName().replace('\\', '_').replace('/', '_').replace(':', '_');
                 ImageIO.write(bi, "png", new File(images, filename + ".png"));
                 return "img/" + filename + ".png";
             });
