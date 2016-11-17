@@ -11,7 +11,6 @@ import java.awt.*;
 public class GraphicComponent extends JComponent {
     private static final Color[] PALETTE = createPalette();
 
-    private final int pixSize;
     private final int width;
     private final int height;
     private long[] data;
@@ -28,13 +27,13 @@ public class GraphicComponent extends JComponent {
         this.height = height;
 
         int pw = 640 / width;
+        if (pw < 2) pw = 2;
         int ph = 400 / height;
-        pixSize = (pw + ph) / 2;
+        if (ph < 2) ph = 2;
+        int pixSize = (pw + ph) / 2;
 
         Dimension size = new Dimension(width * pixSize, height * pixSize);
         setPreferredSize(size);
-        setMinimumSize(size);
-        setMinimumSize(size);
         setOpaque(true);
     }
 
@@ -55,13 +54,20 @@ public class GraphicComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++) {
+            int xPos = x * getWidth() / width;
+            int dx = (x + 1) * getWidth() / width - xPos;
             for (int y = 0; y < height; y++) {
                 int p = (int) data[offs + y * width + x];
                 if (p >= PALETTE.length) p = 1;
                 g.setColor(PALETTE[p]);
-                g.fillRect(x * pixSize, y * pixSize, pixSize, pixSize);
+
+                int ypos = y * getHeight() / height;
+                int dy = (y + 1) * getHeight() / height - ypos;
+
+                g.fillRect(xPos, ypos, dx, dy);
             }
+        }
     }
 
     private static Color[] createPalette() {
@@ -81,7 +87,7 @@ public class GraphicComponent extends JComponent {
         col[9] = Color.PINK;
 
         for (int g = 0; g < 32; g++) {
-            int in = (255 * (31-g)) / 31;
+            int in = (255 * (31 - g)) / 31;
             col[10 + g] = new Color(in, in, in);
         }
 
