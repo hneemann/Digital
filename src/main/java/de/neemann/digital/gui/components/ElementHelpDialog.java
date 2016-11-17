@@ -28,7 +28,7 @@ import java.util.HashMap;
  * Created by hneemann on 25.10.16.
  */
 public class ElementHelpDialog extends JDialog {
-    private static int IMAGE_SCALE = 2;
+    private static final int IMAGE_SCALE = 2;
 
     private static final int MAX_WIDTH = 600;
     private static final int MAX_HEIGHT = 800;
