@@ -6,9 +6,9 @@
       <string>Description</string>
       <string>Arithmetisch Logische Einheit. 
 Führt alle arithmetischen Operationen durch. 
-WIrd sowohl für arithmetische Prozessorbefehle 
-als auch für die Berechnung von Speicheradressen 
-verwendet.</string>
+Wird sowohl für arithmetische Prozessorbefehle 
+als auch für die Berechnung der Adressen 
+bei der Speicheradressierung verwendet.</string>
     </entry>
     <entry>
       <string>Width</string>

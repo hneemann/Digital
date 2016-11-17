@@ -84,7 +84,7 @@ public class ElementHelpDialog extends JDialog {
                     public void actionPerformed(ActionEvent actionEvent) {
                         try {
                             File tmp = Files.createTempDirectory("digital").toFile();
-                            exportHTMLDocumentation(tmp, library, shapeFactory);
+                            exportHTMLDocumentation(tmp, library);
                             File index = new File(tmp, "index.html");
                             openWebpage(index.toURI());
                         } catch (IOException | PinException | NodeException e) {
@@ -136,7 +136,7 @@ public class ElementHelpDialog extends JDialog {
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public static void writeFullHTMLDocumentation(Writer w, ElementLibrary library, ImageHandler imageHandler) throws IOException, NodeException, PinException {
+    private static void writeFullHTMLDocumentation(Writer w, ElementLibrary library, ImageHandler imageHandler) throws IOException, NodeException, PinException {
         ArrayList<String> chapter = new ArrayList<>();
 
         String actPath = null;
@@ -196,7 +196,7 @@ public class ElementHelpDialog extends JDialog {
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public static void writeHTMLDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException, NodeException, PinException {
+    private static void writeHTMLDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException, NodeException, PinException {
         String translatedName = et.getTranslatedName();
         if (translatedName.endsWith(".dig"))
             translatedName = new File(translatedName).getName();
@@ -305,14 +305,13 @@ public class ElementHelpDialog extends JDialog {
     /**
      * Writes the html documentation to a file
      *
-     * @param targetPath   the target folder to store the documentation
-     * @param library      the library to use
-     * @param shapeFactory the shapeFactory to export the shapes
+     * @param targetPath the target folder to store the documentation
+     * @param library    the library to use
      * @throws IOException   IOException
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public static void exportHTMLDocumentation(File targetPath, ElementLibrary library, ShapeFactory shapeFactory) throws IOException, NodeException, PinException {
+    private static void exportHTMLDocumentation(File targetPath, ElementLibrary library) throws IOException, NodeException, PinException {
         File images = new File(targetPath, "img");
         if (!images.mkdir())
             throw new IOException("could not create image folder " + images);
@@ -324,7 +323,7 @@ public class ElementHelpDialog extends JDialog {
             w.write("<!DOCTYPE html>\n"
                     + "<html>\n"
                     + "<head>\n"
-                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html\" charset=\"utf-8\"/>\n"
                     + "</head>\n<body>\n");
 
             writeFullHTMLDocumentation(w, library, description -> {
@@ -350,27 +349,6 @@ public class ElementHelpDialog extends JDialog {
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             switch (c) {
-                case 'ä':
-                    sb.append("&auml;");
-                    break;
-                case 'ö':
-                    sb.append("&ouml;");
-                    break;
-                case 'ü':
-                    sb.append("&uuml;");
-                    break;
-                case 'Ä':
-                    sb.append("&Auml;");
-                    break;
-                case 'Ö':
-                    sb.append("&Ouml;");
-                    break;
-                case 'Ü':
-                    sb.append("&Uuml;");
-                    break;
-                case 'ß':
-                    sb.append("&szlig;");
-                    break;
                 case '<':
                     sb.append("&lt;");
                     break;
@@ -382,9 +360,6 @@ public class ElementHelpDialog extends JDialog {
                     break;
                 case '"':
                     sb.append("&quot;");
-                    break;
-                case '\'':
-                    sb.append("&apos;");
                     break;
                 default:
                     sb.append(c);
