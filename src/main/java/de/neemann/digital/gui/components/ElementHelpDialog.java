@@ -38,35 +38,14 @@ public class ElementHelpDialog extends JDialog {
     /**
      * Creates a new instance
      *
-     * @param parent            the parents dialog
-     * @param elementType       the type of the element
-     * @param elementAttributes the attributes of this element
-     * @throws PinException  PinException
-     * @throws NodeException NodeException
-     */
-    public ElementHelpDialog(JDialog parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) throws NodeException, PinException {
-        super(parent, Lang.get("attr_help"), true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        StringWriter w = new StringWriter();
-        try {
-            writeDetailedDescription(w, elementType, elementAttributes);
-        } catch (IOException e) {
-            // can not happen because of writing to memory
-        }
-        init(parent, w.toString());
-    }
-
-    /**
-     * Creates a new instance
-     *
      * @param parent            the parents frame
      * @param elementType       the type of the element
      * @param elementAttributes the attributes of this element
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public ElementHelpDialog(JFrame parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) throws NodeException, PinException {
-        super(parent, Lang.get("attr_help"), true);
+    public ElementHelpDialog(Component parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) throws NodeException, PinException {
+        super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_help"), ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         StringWriter w = new StringWriter();
         try {
@@ -115,6 +94,39 @@ public class ElementHelpDialog extends JDialog {
                 }.setToolTip(Lang.get("btn_openInBrowser_tt")).createJButton(), 0);
     }
 
+    private void init(Component parent, String description) {
+        JEditorPane editorPane = new JEditorPane("text/html", description);
+        editorPane.setEditable(false);
+        editorPane.setCaretPosition(0);
+
+        editorPane.addHyperlinkListener(hyperlinkEvent -> {
+            if (HyperlinkEvent.EventType.ACTIVATED == hyperlinkEvent.getEventType()) {
+                String desc = hyperlinkEvent.getDescription();
+                if (desc == null || !desc.startsWith("#")) return;
+                desc = desc.substring(1);
+                editorPane.scrollToReference(desc);
+            }
+        });
+
+        getContentPane().add(new JScrollPane(editorPane));
+
+        buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+            }
+        }));
+        getContentPane().add(buttons, BorderLayout.SOUTH);
+
+        pack();
+        Dimension r = getSize();
+        if (r.width > MAX_WIDTH) r.width = MAX_WIDTH;
+        if (r.height > MAX_HEIGHT) r.height = MAX_HEIGHT;
+        setSize(r);
+        setLocationRelativeTo(parent);
+    }
+
     /**
      * Creates a full HTML documentation of all elements
      *
@@ -160,39 +172,6 @@ public class ElementHelpDialog extends JDialog {
         }
 
         w.write(content.toString());
-    }
-
-    private void init(Component parent, String description) {
-        JEditorPane editorPane = new JEditorPane("text/html", description);
-        editorPane.setEditable(false);
-        editorPane.setCaretPosition(0);
-
-        editorPane.addHyperlinkListener(hyperlinkEvent -> {
-            if (HyperlinkEvent.EventType.ACTIVATED == hyperlinkEvent.getEventType()) {
-                String desc = hyperlinkEvent.getDescription();
-                if (desc == null || !desc.startsWith("#")) return;
-                desc = desc.substring(1);
-                editorPane.scrollToReference(desc);
-            }
-        });
-
-        getContentPane().add(new JScrollPane(editorPane));
-
-        buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                dispose();
-            }
-        }));
-        getContentPane().add(buttons, BorderLayout.SOUTH);
-
-        pack();
-        Dimension r = getSize();
-        if (r.width > MAX_WIDTH) r.width = MAX_WIDTH;
-        if (r.height > MAX_HEIGHT) r.height = MAX_HEIGHT;
-        setSize(r);
-        setLocationRelativeTo(parent);
     }
 
     /**
