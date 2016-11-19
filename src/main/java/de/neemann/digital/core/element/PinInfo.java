@@ -1,12 +1,13 @@
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.lang.Lang;
+
 /**
  * A simple pin
  *
  * @author hneemann
  */
 public class PinInfo implements PinDescription {
-
 
     /**
      * Helper to create an input
@@ -39,19 +40,9 @@ public class PinInfo implements PinDescription {
         return new PinInfo(name, null, Direction.output);
     }
 
-    /**
-     * Helper to create an input
-     *
-     * @param name        the pins name
-     * @param description the pins description
-     * @return the new output
-     */
-    public static PinInfo output(String name, String description) {
-        return new PinInfo(name, description, Direction.output);
-    }
-
     private final String description;
     private final String name;
+    private String langKey;
     private Direction direction;
     private PullResistor pullResistor;
 
@@ -96,10 +87,15 @@ public class PinInfo implements PinDescription {
 
     @Override
     public String getDescription() {
-        if (description == null)
-            return name;
-        else
+        if (description != null)
             return description;
+
+        if (langKey != null) {
+            String d = Lang.getNull(langKey);
+            if (d != null) return d;
+        }
+
+        return name;
     }
 
     @Override
@@ -126,5 +122,9 @@ public class PinInfo implements PinDescription {
     public PinInfo setPullResistor(PullResistor pullResistor) {
         this.pullResistor = pullResistor;
         return this;
+    }
+
+    public void setLangKey(String key) {
+        this.langKey = key + name;
     }
 }

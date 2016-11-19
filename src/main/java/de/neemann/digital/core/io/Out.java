@@ -27,7 +27,7 @@ public class Out implements Element {
             if (d.length() > 0)
                 return d;
             else
-                return Lang.get("elem_Out");
+                return super.getDescription(elementAttributes);
         }
     }
             .addAttribute(Keys.ROTATE)

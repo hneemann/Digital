@@ -279,11 +279,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 if (file == null)
                     file = new File(name);
                 try {
-                    ElementTypeDescription description =
+                    LibrarySelector.ElementTypeDescriptionCustom description =
                             new LibrarySelector.ElementTypeDescriptionCustom(file,
                                     attributes -> new CustomElement(circuit, library, name),
-                                    circuit.getAttributes(), circuit.getInputNames())
-                                    .setShortName(name);
+                                    circuit.getAttributes(), circuit.getInputNames());
+                    description.setShortName(name);
                     description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));
                     new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);
                 } catch (PinException | NodeException e1) {

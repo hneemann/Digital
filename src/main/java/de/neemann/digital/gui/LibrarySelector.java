@@ -186,11 +186,11 @@ public class LibrarySelector implements ElementNotFoundNotification {
         try {
             System.out.println("load element " + file);
             Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
-            ElementTypeDescription description =
+            ElementTypeDescriptionCustom description =
                     new ElementTypeDescriptionCustom(file,
                             attributes -> new CustomElement(circuit, library, file.getName()),
-                            circuit.getAttributes(), circuit.getInputNames())
-                            .setShortName(createShortName(file));
+                            circuit.getAttributes(), circuit.getInputNames());
+            description.setShortName(createShortName(file));
             library.addDescription(description, file);
 
             InsertAction insertAction = new InsertAction(description, insertHistory, circuitComponent);
@@ -256,6 +256,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
     public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
         private final File file;
         private final ElementAttributes attributes;
+        private String description;
 
         /**
          * Creates a new element
@@ -289,6 +290,23 @@ public class LibrarySelector implements ElementNotFoundNotification {
          */
         public ElementAttributes getAttributes() {
             return attributes;
+        }
+
+        /**
+         * Sets a custom description for this field
+         *
+         * @param description the description
+         */
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        @Override
+        public String getDescription(ElementAttributes elementAttributes) {
+            if (description != null)
+                return description;
+            else
+                return super.getDescription(elementAttributes);
         }
     }
 

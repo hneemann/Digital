@@ -1,6 +1,7 @@
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 
@@ -16,12 +17,11 @@ import java.util.ArrayList;
  */
 public class ElementTypeDescription {
     private final String name;
-    private final String translatedName;
+    private final String langKey;
     private String shortName;
     private final ElementFactory elementFactory;
     private final PinDescriptions inputPins;
     private final ArrayList<Key> attributeList;
-    private String description;
 
     /**
      * Creates a new ElementTypeDescription
@@ -41,15 +41,12 @@ public class ElementTypeDescription {
      * @param inputPins names of the input signals
      */
     public ElementTypeDescription(String name, Class<? extends Element> clazz, PinDescription... inputPins) {
-        this(name, new ElementFactory() {
-            @Override
-            public Element create(ElementAttributes attributes) {
-                try {
-                    Constructor<?> constructor = clazz.getConstructor(ElementAttributes.class);
-                    return (Element) constructor.newInstance(attributes);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+        this(name, attributes -> {
+            try {
+                Constructor<?> constructor = clazz.getConstructor(ElementAttributes.class);
+                return (Element) constructor.newInstance(attributes);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }, inputPins);
     }
@@ -64,12 +61,9 @@ public class ElementTypeDescription {
     public ElementTypeDescription(String name, ElementFactory elementFactory, PinDescription... inputPins) {
         this.name = name;
         this.shortName = null;
-        this.description = Lang.getNull("elem_" + name + "_tt");
-        String n = Lang.getNull("elem_" + name);
-        if (n != null) this.translatedName = n;
-        else this.translatedName = name;
+        langKey = "elem_"+name;
         this.elementFactory = elementFactory;
-        this.inputPins = new PinDescriptions(inputPins);
+        this.inputPins = new PinDescriptions(inputPins).setLangKey(langKey+"_pin_");
         for (PinDescription p : inputPins)
             if (p.getDirection() != PinDescription.Direction.input)
                 throw new RuntimeException("pin direction error");
@@ -93,7 +87,9 @@ public class ElementTypeDescription {
      * @return returns the translated element name
      */
     public String getTranslatedName() {
-        return translatedName;
+        String n = Lang.getNull(langKey);
+        if (n != null) return n;
+        else return name;
     }
 
     /**
@@ -108,17 +104,6 @@ public class ElementTypeDescription {
     }
 
     /**
-     * Sets the description of this element
-     *
-     * @param description the description
-     * @return this for call chaining
-     */
-    public ElementTypeDescription setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    /**
      * Returns a description of this element.
      * If no description is set, the name is returned
      *
@@ -126,10 +111,12 @@ public class ElementTypeDescription {
      * @return the description
      */
     public String getDescription(ElementAttributes elementAttributes) {
-        if (description == null) {
-            return translatedName;
-        } else
-            return description;
+        String d = Lang.getNull(langKey + "_tt");
+        if (d == null) {
+            return getTranslatedName();
+        } else {
+            return d;
+        }
     }
 
     /**

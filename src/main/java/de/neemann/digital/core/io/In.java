@@ -24,7 +24,7 @@ public class In implements Element {
             if (d.length()>0)
                 return d;
             else
-                return Lang.get("elem_In");
+                return super.getDescription(elementAttributes);
         }
     }
             .addAttribute(Keys.ROTATE)
