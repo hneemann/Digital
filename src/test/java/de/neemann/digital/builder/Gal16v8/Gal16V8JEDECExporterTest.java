@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
 import static de.neemann.digital.analyse.expression.Operation.or;
+import static de.neemann.digital.analyse.expression.Variable.v;
 
 /**
  * @author hneemann
@@ -168,7 +169,7 @@ public class Gal16V8JEDECExporterTest extends TestCase {
                 "L1792 01111111011111111111111111111111*\r\n" +
                 "L1824 01110111111111111111111111111111*\r\n" +
                 "L1856 11110111011111111111111111111111*\r\n" +
-              //"L2048 00000011001100000011000000100000*\r\n" + // WinCupl fills some bits to the signature! Don't know why!
+              //"L2048 00000011001100000011000000100000*\r\n" + // this is cupls line; WinCupl fills some bits to the signature! Don't know why!
                 "L2048 00000011000000000000000000000000*\r\n" +
                 "L2112 00000000111111001111111111111111*\r\n" +
                 "L2144 11111111111111111111111111111111*\r\n" +
@@ -178,6 +179,64 @@ public class Gal16V8JEDECExporterTest extends TestCase {
 
     }
 
+    /**
+     * Simple test that uses most of the pins.
+     * In test/resources/testGAL/cupl/GALTest.jed you can find the original CUPL generated jed file.
+     * Here only the fuses are taken from that CUPL generated file to compare them with the Digital
+     * generated fuses.
+     * @throws Exception
+     */
+    public void testCombinatorial2() throws Exception {
+        Gal16v8JEDECExporter gal = new Gal16v8JEDECExporter();
+        gal.getBuilder()
+                .addCombinatorial("Y_1", and(v("A_1"),v("A_2")))
+                .addCombinatorial("Y_2", and(v("A_2"),v("A_3")))
+                .addCombinatorial("Y_3", and(v("A_3"),v("A_4")))
+                .addCombinatorial("Y_4", and(v("A_4"),v("A_5")))
+                .addCombinatorial("Y_5", and(v("A_5"),v("A_6")))
+                .addCombinatorial("Y_6", and(v("A_6"),v("A_7")))
+                .addCombinatorial("Y_7", and(v("A_7"),v("A_8")));
+
+        gal.getPinMapping()
+                .assignPin("A_1", 2)
+                .assignPin("A_2", 3)
+                .assignPin("A_3", 4)
+                .assignPin("A_4", 5)
+                .assignPin("A_5", 6)
+                .assignPin("A_6", 7)
+                .assignPin("A_7", 8)
+                .assignPin("A_8", 9)
+                .assignPin("Y_1", 12)
+                .assignPin("Y_2", 13)
+                .assignPin("Y_3", 14)
+                .assignPin("Y_4", 15)
+                .assignPin("Y_5", 16)
+                .assignPin("Y_6", 17)
+                .assignPin("Y_7", 18);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        gal.writeTo(baos);
+
+        assertEquals("\u0002Digital GAL16v8 assembler*\r\n" +
+                "QF2194*\r\n" +
+                "G0*\r\n" +
+                "F0*\r\n" +
+                "L256 11111111111111111111111101110111*\r\n" +
+                "L512 11111111111111111111011101111111*\r\n" +
+                "L768 11111111111111110111011111111111*\r\n" +
+                "L1024 11111111111101110111111111111111*\r\n" +
+                "L1280 11111111011101111111111111111111*\r\n" +
+                "L1536 11110111011111111111111111111111*\r\n" +
+                "L1792 01110111111111111111111111111111*\r\n" +
+                //"L2048 01111111001100000011000000100000*\r\n" + // this is cupls line, WinCupl fills some bits to the signature! Don't know why!
+                "L2048 01111111000000000000000000000000*\r\n" +
+                "L2112 00000000100000001111111111111111*\r\n" +
+                "L2144 11111111111111111111111111111111*\r\n" +
+                "L2176 111111111111111110*\r\n" +
+                "C2465*\r\n" +
+                "\u00035D7E", baos.toString());
+
+    }
 
 
 }
