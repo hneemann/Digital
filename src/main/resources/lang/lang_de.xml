@@ -30,9 +30,9 @@
     <string name="elem_Help_attributes">Veränderbare Attribute</string>
     <string name="elem_Add">Addierer</string>
     <string name="elem_Add_tt">Addiert zwei ganzzahlige Werte und gibt die Summe aus.</string>
-    <string name="elem_Add_input1">Erster Eingang für die Addition</string>
-    <string name="elem_Add_input2">Zweiter Eingang für die Addition</string>
-    <string name="elem_Add_carryIn">Carry-Eingang. Wenn gesetzt wird das Ergebnis um eins erhöht.</string>
+    <string name="elem_Add_pin_a">Erster Eingang für die Addition</string>
+    <string name="elem_Add_pin_b">Zweiter Eingang für die Addition</string>
+    <string name="elem_Add_pin_c_i">Carry-Eingang. Wenn gesetzt wird das Ergebnis um eins erhöht.</string>
     <string name="elem_Add_output">Das Ergebnis der Addition</string>
     <string name="elem_Add_carryOut">Ist gesetzt, wenn bei der Addition ein Übertrag aufgetreten ist.</string>
     <string name="elem_And">Und</string>

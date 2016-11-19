@@ -21,10 +21,7 @@ public class Add extends Node implements Element {
      * The adders description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Add.class,
-            input("a", Lang.get("elem_Add_input1")),
-            input("b", Lang.get("elem_Add_input2")),
-            input("c_i", Lang.get("elem_Add_carryIn")))
+            = new ElementTypeDescription(Add.class, input("a"), input("b"), input("c_i"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.BITS);

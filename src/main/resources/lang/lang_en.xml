@@ -30,9 +30,9 @@
     <string name="elem_Help_attributes">Attributes</string>
     <string name="elem_Add">Add</string>
     <string name="elem_Add_tt">Adds two integer values.</string>
-    <string name="elem_Add_input1">First input to add</string>
-    <string name="elem_Add_input2">Second input to add</string>
-    <string name="elem_Add_carryIn">Carry input, if set the result is incremented by one.</string>
+    <string name="elem_Add_pin_a">First input to add</string>
+    <string name="elem_Add_pin_b">Second input to add</string>
+    <string name="elem_Add_pin_c_i">Carry input, if set the result is incremented by one.</string>
     <string name="elem_Add_output">The result of the addition</string>
     <string name="elem_Add_carryOut">If set there was an overflow.</string>
     <string name="elem_And">And</string>
