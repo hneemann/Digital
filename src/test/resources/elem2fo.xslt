@@ -39,10 +39,11 @@
                     </fo:block>
 				</fo:static-content>
 				<fo:flow flow-name="xsl-region-body">
+                    <!-- large title -->
 					<fo:block font-size="80pt" font-weight="bold">
 						<xsl:value-of select="@titel"/>
 					</fo:block>
-
+                    <!-- image on title page -->
                     <fo:block margin-top="20mm" text-align="center">
                         <xsl:element name="fo:external-graphic">
                             <xsl:attribute name="src">url('file:<xsl:value-of select="@titleImage"/>')</xsl:attribute>
@@ -50,12 +51,14 @@
                             <xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
                         </xsl:element>
                     </fo:block>
-
+                    <!-- table of contents text -->
                     <fo:block page-break-before="always" margin-bottom="5mm" font-size="18pt" >
 						<xsl:value-of select="@inhalt"/>
 					</fo:block>
+                    <!-- table of contents -->
 					<xsl:apply-templates select="lib" mode="inhalt"/>
 					<fo:block page-break-before="always"/>
+                    <!-- the content -->
 					<xsl:apply-templates select="lib" mode="full"/>
 					<fo:block id="LastPage"/>
 				</fo:flow>
@@ -65,7 +68,7 @@
 
 	<xsl:template match="lib" mode="inhalt">
 		<fo:block>
-		<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
+		    <xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
 		</fo:block>
         <xsl:apply-templates select="element" mode="inhalt">
 			<xsl:with-param name="number" select="position()"/>
