@@ -1,0 +1,37 @@
+Name     GALTest.PLD ;
+PartNo   00 ;
+Date     19.11.2016 ;
+Revision 01 ;
+Designer hneemann ;
+Company  unknown ;
+Assembly None ;
+Location unknown ;
+Device   g16v8a ;
+
+/* inputs */
+PIN 2 = A_1;
+PIN 3 = A_2;
+PIN 4 = A_3;
+PIN 5 = A_4;
+PIN 6 = A_5;
+PIN 7 = A_6;
+PIN 8 = A_7;
+PIN 9 = A_8;
+
+/* outputs */
+PIN 12 = Y_1;
+PIN 13 = Y_2;
+PIN 14 = Y_3;
+PIN 15 = Y_4;
+PIN 16 = Y_5;
+PIN 17 = Y_6;
+PIN 18 = Y_7;
+
+/* combinatorial logic */
+Y_1 = A_1 & A_2;
+Y_2 = A_2 & A_3;
+Y_3 = A_3 & A_4;
+Y_4 = A_4 & A_5;
+Y_5 = A_5 & A_6;
+Y_6 = A_6 & A_7;
+Y_7 = A_7 & A_8;
