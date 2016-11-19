@@ -66,8 +66,9 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_Delay">Verzögerung</string>
     <string name="elem_Delay_tt">Verzögert ein Signal für eine Gatterlaufzeit.</string>
     <string name="elem_Demultiplexer">Demultiplexer</string>
-    <string name="elem_Demultiplexer_pin_sel">Mit dieser Leitung wird der Ausgang ausgewählt</string>
-    <string name="elem_Demultiplexer_tt">Gibt ein Eingangssignal auf einem wählbaren Ausgang aus, die anderen Ausgänge sind Null.</string>
+    <string name="elem_Demultiplexer_tt">Gibt ein Eingangssignal auf einem wählbaren Ausgang aus, die anderen Ausgänge werden auf den Vorgabewert gesetzt.</string>
+    <string name="elem_Demultiplexer_pin_sel">Mit dieser Leitung wird der Ausgang ausgewählt, auf welchen der Eingang geschaltet wird.</string>
+    <string name="elem_Demultiplexer_pin_in">Der Wert dieses Eingangs wird auf einen der Ausgänge geschaltet.</string>
     <string name="elem_Driver">Treiber</string>
     <string name="elem_DriverInvSel">Treiber, invertierte Auswahl</string>
     <string name="elem_In">Eingang</string>

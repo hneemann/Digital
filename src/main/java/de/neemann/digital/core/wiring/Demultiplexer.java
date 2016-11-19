@@ -36,9 +36,7 @@ public class Demultiplexer extends Node implements Element {
     /**
      * The Demultiplexer description
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class,
-            input("sel", Lang.get("elem_Demultiplexer_pin_sel")),
-            input("in"))
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class, input("sel"), input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.SELECTOR_BITS)

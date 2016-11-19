@@ -66,8 +66,9 @@ You can plot complete clock steps or single gate changes.</string>
     <string name="elem_Delay">Delay</string>
     <string name="elem_Delay_tt">Delays the signal by on gate delay</string>
     <string name="elem_Demultiplexer">Demultiplexer</string>
+    <string name="elem_Demultiplexer_tt">Outputs the input to one of the outputs. The other outputs are set to the default value.</string>
     <string name="elem_Demultiplexer_pin_sel">Selects the output</string>
-    <string name="elem_Demultiplexer_tt">Outputs the input to on of the outputs. The other outputs are zero.</string>
+    <string name="elem_Demultiplexer_pin_in">The value of this input is set to the selected output.</string>
     <string name="elem_Driver">Driver</string>
     <string name="elem_DriverInvSel">Driver, inverted select</string>
     <string name="elem_In">In</string>
