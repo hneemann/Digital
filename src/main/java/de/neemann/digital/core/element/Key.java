@@ -11,8 +11,7 @@ import de.neemann.digital.lang.Lang;
 public class Key<VALUE> {
     private final String key;
     private final VALUE def;
-    private final String name;
-    private final String description;
+    private final String langKey;
 
     /**
      * Creates a new Key
@@ -22,9 +21,7 @@ public class Key<VALUE> {
      */
     public Key(String key, VALUE def) {
         this.key = key;
-        String langName = "key_" + key.replace(" ", "");
-        this.name = Lang.get(langName);
-        this.description = Lang.getNull(langName + "_tt");
+        langKey = "key_" + key.replace(" ", "");
         if (def == null)
             throw new NullPointerException();
         this.def = def;
@@ -45,7 +42,7 @@ public class Key<VALUE> {
      * @return thr name
      */
     public String getName() {
-        return name;
+        return Lang.get(langKey);
     }
 
     /**
@@ -64,17 +61,18 @@ public class Key<VALUE> {
 
     @Override
     public String toString() {
-        return name;
+        return getName();
     }
 
     /**
      * @return the keys description
      */
     public String getDescription() {
-        if (description != null)
-            return description;
+        String d=Lang.getNull(langKey + "_tt");
+        if (d != null)
+            return d;
         else
-            return name;
+            return getName();
     }
 
     /**
