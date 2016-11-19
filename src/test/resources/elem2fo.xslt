@@ -42,7 +42,16 @@
 					<fo:block font-size="80pt" font-weight="bold">
 						<xsl:value-of select="@titel"/>
 					</fo:block>
-					<fo:block margin-top="5mm" margin-bottom="5mm" font-size="18pt" >
+
+                    <fo:block margin-top="20mm" text-align="center">
+                        <xsl:element name="fo:external-graphic">
+                            <xsl:attribute name="src">url('file:<xsl:value-of select="@titleImage"/>')</xsl:attribute>
+                            <xsl:attribute name="width">100%</xsl:attribute>
+                            <xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
+                        </xsl:element>
+                    </fo:block>
+
+                    <fo:block page-break-before="always" margin-bottom="5mm" font-size="18pt" >
 						<xsl:value-of select="@inhalt"/>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="inhalt"/>

@@ -31,6 +31,8 @@ public class DocuTest extends TestCase {
         w.append("<?xml-stylesheet type=\"text/xsl\" href=\"elem2html.xslt\"?>\n");
         w.append("<root titel=\"")
                 .append(Lang.get("digital"))
+                .append("\" titleImage=\"")
+                .append(new File(Resources.getRoot(),"../../../screenshot.png").toString())
                 .append("\" inhalt=\"")
                 .append(Lang.get("tableOfContent"))
                 .append("\">\n");
