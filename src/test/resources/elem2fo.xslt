@@ -52,7 +52,7 @@
                         </xsl:element>
                     </fo:block>
                     <!-- table of contents text -->
-                    <fo:block page-break-before="always" margin-bottom="5mm" font-size="18pt" >
+                    <fo:block page-break-before="always" margin-bottom="5mm" font-size="18pt" font-weight="bold">
 						<xsl:value-of select="@inhalt"/>
 					</fo:block>
                     <!-- table of contents -->
@@ -66,6 +66,7 @@
 		</fo:root>
 	</xsl:template>
 
+	<!-- Creation of the table of content-->
 	<xsl:template match="lib" mode="inhalt">
 		<fo:block>
 		    <xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
@@ -91,6 +92,7 @@
 		</fo:block>
   	</xsl:template>
 
+	<!-- Creation of the text -->
 	<xsl:template match="lib" mode="full">
 		<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
 			<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
