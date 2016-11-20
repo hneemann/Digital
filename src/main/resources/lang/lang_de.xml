@@ -173,7 +173,7 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="error">Fehler</string>
     <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in Element {1} ist werder Eingang noch Ausgang</string>
-    <string name="err_aSingleClockNecessary">Es muss genau einen Takt geben.</string>
+    <string name="err_aSingleClockNecessary">Es muss genau ein Taktelement geben. Alle Flipflops müssen an diesem Takt hängen.</string>
     <string name="err_analyseNoInputs">Die Schaltung hat keine benannten Eingänge</string>
     <string name="err_analyseNoOutputs">Die Schaltung hat keine benannten Ausgänge</string>
     <string name="err_analyseValue_N_IsNotBinary">Der Wert {0} hat mehr als ein Bit.</string>

@@ -168,7 +168,7 @@ The terminal opens its own window.</string>
     <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-flip-flop has no label set</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>
-    <string name="err_aSingleClockNecessary">A single clock is necessary.</string>
+    <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock signal.</string>
     <string name="err_analyseNoInputs">The circuit has no Inputs</string>
     <string name="err_analyseNoOutputs">The circuit has no outputs</string>
     <string name="err_analyseValue_N_IsNotBinary">The value {0} has more the one bit.</string>
