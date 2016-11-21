@@ -46,7 +46,7 @@
                     <!-- image on title page -->
                     <fo:block margin-top="20mm" text-align="center">
                         <xsl:element name="fo:external-graphic">
-                            <xsl:attribute name="src">url('file:<xsl:value-of select="@titleImage"/>')</xsl:attribute>
+                            <xsl:attribute name="src">url('<xsl:value-of select="@titleImage"/>')</xsl:attribute>
                             <xsl:attribute name="width">100%</xsl:attribute>
                             <xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
                         </xsl:element>
@@ -109,7 +109,7 @@
 			<fo:block margin-top="6mm">
 				<fo:inline>
 					<xsl:element name="fo:external-graphic">
-                	    <xsl:attribute name="src">url('file:<xsl:value-of select="@img"/>.png')</xsl:attribute>
+                	    <xsl:attribute name="src">url('<xsl:value-of select="@img"/>')</xsl:attribute>
 						<xsl:attribute name="content-width">20%</xsl:attribute>
 						<xsl:attribute name="content-height">20%</xsl:attribute>
 						<xsl:attribute name="id"><xsl:value-of select="$number"/>_<xsl:value-of select="position()"/></xsl:attribute>

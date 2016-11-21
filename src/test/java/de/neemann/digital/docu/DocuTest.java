@@ -10,7 +10,10 @@ import de.neemann.digital.integration.Resources;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.language.Language;
 import junit.framework.TestCase;
-import org.apache.fop.apps.*;
+import org.apache.fop.apps.FOPException;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.MimeConstants;
 import org.xml.sax.SAXException;
 
 import javax.imageio.ImageIO;
@@ -38,7 +41,7 @@ public class DocuTest extends TestCase {
         w.append("<root titel=\"")
                 .append(Lang.get("digital"))
                 .append("\" titleImage=\"")
-                .append(new File(Resources.getRoot(),"../../../screenshot.png").toString())
+                .append(new File(Resources.getRoot(),"../../../screenshot.png").toURI().toString())
                 .append("\" inhalt=\"")
                 .append(Lang.get("tableOfContent"))
                 .append("\">\n");
@@ -58,14 +61,15 @@ public class DocuTest extends TestCase {
 
             final ElementTypeDescription etd = e.getDescription();
             String imageName=etd.getName()+"_"+language;
+            File imageFile = new File(images, imageName + ".png");
             w.append("    <element name=\"")
                     .append(escapeHTML(etd.getTranslatedName()))
                     .append("\" img=\"")
-                    .append(new File(images,imageName).toString())
+                    .append(imageFile.toURI().toString())
                     .append("\">\n");
 
             BufferedImage bi = new VisualElement(etd.getName()).setShapeFactory(shapeFactory).getBufferedImage(0.75 * IMAGE_SCALE, 250 * IMAGE_SCALE);
-            ImageIO.write(bi, "png", new File(images, imageName + ".png"));
+            ImageIO.write(bi, "png", imageFile);
 
             final ElementAttributes attr = new ElementAttributes();
             w.append("      <descr>").append(escapeHTML(etd.getDescription(attr))).append("</descr>\n");
