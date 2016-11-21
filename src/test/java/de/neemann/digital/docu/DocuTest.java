@@ -26,9 +26,9 @@ import java.io.*;
 /**
  * This is not a real test case.
  * This piece of code reads the elements from the library and creates an XML document containing all descriptive
- * information used to create th tooltips in teh program.  After that Xalan is used to transform the XML document
+ * information used to create the tooltips in the program.  After that Xalan is used to transform the XML document
  * to a XSL-FO document. Then FOP is used to read the XSL-FO file and to compile it to a PDF document.
- * The PDF document is then included in the distribution ZIP.
+ * The PDF document is then included in the distribution ZIP. This done for all supported languages.
  *
  * Created by hneemann on 17.11.16.
  */
