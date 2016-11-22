@@ -48,7 +48,7 @@ public class DocuTest extends TestCase {
                 .append(Lang.get("general"))
                 .append("\" components=\"")
                 .append(Lang.get("menu_elements"))
-                .append("\" static=\"").append(new File(Resources.getRoot(), "static_"+language+".xml").toURI().toString())
+                .append("\" static=\"").append(new File(Resources.getRoot(), "docu/static_"+language+".xml").toURI().toString())
                 .append("\">\n");
         ElementLibrary library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library, language.equals("en"));
