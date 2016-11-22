@@ -47,6 +47,31 @@
                     <fo:block margin-top="20mm" text-align="center">
                         <fo:external-graphic content-width="scale-to-fit" width="100%" src="url('{@titleImage}')"/>
                     </fo:block>
+
+
+                    <fo:table table-layout="fixed" margin-top="3cm" width="100%">
+                        <fo:table-column column-number="1" column-width="2.5cm"/>
+                        <fo:table-column column-number="2" column-width="8cm"/>
+                        <fo:table-body>
+                            <fo:table-row>
+                                <fo:table-cell column-number="1">
+                                    <fo:block text-align="left"><xsl:value-of select="@revt"/>:</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell column-number="2">
+                                    <fo:block text-align="left"><xsl:value-of select="@rev"/></fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row>
+                                <fo:table-cell column-number="1">
+                                    <fo:block text-align="left"><xsl:value-of select="@datet"/>:</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell column-number="2">
+                                    <fo:block text-align="left"><xsl:value-of select="@date"/></fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </fo:table-body>
+                    </fo:table>
+
                     <!-- table of contents text -->
                     <fo:block page-break-before="always" margin-bottom="5mm" font-size="18pt" font-weight="bold">
 						<xsl:value-of select="@toc"/>
