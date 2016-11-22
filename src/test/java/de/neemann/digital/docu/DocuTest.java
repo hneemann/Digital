@@ -186,7 +186,7 @@ public class DocuTest extends TestCase {
     }
 
     public void testDocu() throws IOException, NodeException, PinException, TransformerException, SAXException {
-        FopFactory fopFactory = FopFactory.newInstance(new File(Resources.getRoot(), "fop.xconf"));
+        FopFactory fopFactory = FopFactory.newInstance(new File(Resources.getRoot(), "docu/fop.xconf"));
 
         File maven = Resources.getRoot().getParentFile().getParentFile().getParentFile();
         File target = new File(maven,"target/xslt");
@@ -204,7 +204,7 @@ public class DocuTest extends TestCase {
 
             // start xslt transformation
             File xslFO = new File(target, basename + ".fo");
-            File xslt = new File(Resources.getRoot(), "elem2fo.xslt");
+            File xslt = new File(Resources.getRoot(), "docu/elem2fo.xslt");
             startXalan(xml, xslt, xslFO);
 
             // write pdf

@@ -13,7 +13,7 @@
             für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat genau diese Laufzeit,
             unabhäng von dessen Komplexität. Ein Und-Gatter hat also die selbe Signalverzögerung, wie ein RAM-Baustein.
             Ausgenommen davon sind die Dioden, der Leitungssplitter für die Erzeugung von Datenbussen und der Schalter.
-            Diese Elemente haben eine Gatterlaufzeit von Null.
+            Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
         </par>
         <par>
             Wird eine Schaltung in eine andere Schaltung eingebettet um ein hirachisches Design zu erstellen, behalten die
