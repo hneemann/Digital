@@ -4,7 +4,7 @@
 				xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 	<xsl:template match="root">
-		<fo:root font-family="SansSerif" font-size="11pt">
+		<fo:root font-family="SansSerif" font-size="11pt" xml:lang="{@lang}">
 			<fo:layout-master-set>
 				<fo:simple-page-master master-name="DIN-A4"
 									   page-height="29.7cm" page-width="21cm"
@@ -45,11 +45,7 @@
 					</fo:block>
                     <!-- image on title page -->
                     <fo:block margin-top="20mm" text-align="center">
-                        <xsl:element name="fo:external-graphic">
-                            <xsl:attribute name="src">url('<xsl:value-of select="@titleImage"/>')</xsl:attribute>
-                            <xsl:attribute name="width">100%</xsl:attribute>
-                            <xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
-                        </xsl:element>
+                        <fo:external-graphic content-width="scale-to-fit" width="100%" src="url('{@titleImage}')"/>
                     </fo:block>
                     <!-- table of contents text -->
                     <fo:block page-break-before="always" margin-bottom="5mm" font-size="18pt" font-weight="bold">
@@ -83,16 +79,12 @@
 	<!-- Creation of the table of content-->
 	<xsl:template match="chapter" mode="toc">
 		<fo:block text-align-last="justify">
-            <xsl:element name="fo:basic-link">
-                <xsl:attribute name="internal-destination">chap_<xsl:value-of select="@name"/></xsl:attribute>
-                <xsl:attribute name="show-destination">replace</xsl:attribute>
+            <fo:basic-link show-destination="replace" internal-destination="chap_{@name}">
                 <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
-            </xsl:element>
+            </fo:basic-link>
 			<xsl:text> </xsl:text>
 			<fo:leader leader-pattern="dots" />
-			<xsl:element name="fo:page-number-citation">
-				<xsl:attribute name="ref-id">chap_<xsl:value-of select="@name"/></xsl:attribute>
-			</xsl:element>
+            <fo:page-number-citation ref-id="chap_{@name}"/>
 		</fo:block>
 	</xsl:template>
 
@@ -108,34 +100,25 @@
 	<xsl:template match="element" mode="toc">
 		<xsl:param name="number" />
 		<fo:block margin-left="3mm" text-align-last="justify">
-			<xsl:element name="fo:basic-link">
-				<xsl:attribute name="internal-destination"><xsl:value-of select="$number"/>_<xsl:value-of select="position()"/></xsl:attribute>
-				<xsl:attribute name="show-destination">replace</xsl:attribute>
-				<xsl:value-of select="$number"/>.<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
-			</xsl:element>
+            <fo:basic-link show-destination="replace" internal-destination="{$number}_{position()}">
+                <xsl:value-of select="$number"/>.<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
+            </fo:basic-link>
 			<xsl:text> </xsl:text>
 			<fo:leader leader-pattern="dots" />
-			<xsl:element name="fo:page-number-citation">
-				<xsl:attribute name="ref-id"><xsl:value-of select="$number"/>_<xsl:value-of select="position()"/></xsl:attribute>
-			</xsl:element>
+            <fo:page-number-citation ref-id="{$number}_{position()}"/>
 		</fo:block>
   	</xsl:template>
 
     <!-- Creation of the text -->
 	<xsl:template match="chapter" mode="full">
-        <xsl:element name="fo:block">
-            <xsl:attribute name="id">chap_<xsl:value-of select="@name"/></xsl:attribute>
-            <xsl:attribute name="margin-top">4mm</xsl:attribute>
-            <xsl:attribute name="margin-bottom">4mm</xsl:attribute>
-            <xsl:attribute name="font-size">14pt</xsl:attribute>
-            <xsl:attribute name="font-weight">bold</xsl:attribute>
+        <fo:block margin-top="4mm" margin-bottom="4mm" font-size="14pt" font-weight="bold" id="chap_{@name}">
             <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
-        </xsl:element>
+        </fo:block>
         <xsl:apply-templates/>
 	</xsl:template>
 
     <xsl:template match="par">
-        <fo:block text-align="justify" hyphenate="true" xml:lang="de" >
+        <fo:block text-align="justify" hyphenate="true" >
 			<xsl:apply-templates/>
         </fo:block>
     </xsl:template>
@@ -147,13 +130,15 @@
 	</xsl:template>
 
     <xsl:template match="faq">
-        <fo:block font-weight="bold" margin-top="2mm" margin-bottom="2mm">
-            <xsl:apply-templates select="question"/>
-        </fo:block>
-        <fo:block margin-left="4mm">
-            <xsl:apply-templates select="answer"/>
-        </fo:block>
-    </xsl:template>
+		<fo:block keep-together.within-page="always">
+			<fo:block font-weight="bold" margin-top="2mm" margin-bottom="2mm">
+				<xsl:apply-templates select="question"/>
+			</fo:block>
+			<fo:block margin-left="4mm">
+				<xsl:apply-templates select="answer"/>
+			</fo:block>
+		</fo:block>
+	</xsl:template>
 
 	<xsl:template match="lib" mode="full">
 		<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
@@ -169,16 +154,8 @@
 
 		<fo:block keep-together.within-page="always">
 			<fo:block margin-top="6mm">
-				<fo:inline>
-					<xsl:element name="fo:external-graphic">
-                	    <xsl:attribute name="src">url('<xsl:value-of select="@img"/>')</xsl:attribute>
-						<xsl:attribute name="content-width">20%</xsl:attribute>
-						<xsl:attribute name="content-height">20%</xsl:attribute>
-						<xsl:attribute name="id"><xsl:value-of select="$number"/>_<xsl:value-of select="position()"/></xsl:attribute>
-        	        </xsl:element>
-				</fo:inline>
+                <fo:external-graphic content-width="20%" src="url('{@img}')" id="{$number}_{position()}"/>
 			</fo:block>
-
 			<fo:block margin-top="4mm" margin-bottom="4mm" font-size="12pt" font-weight="bold">
 				<xsl:value-of select="$number"/>.<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
 			</fo:block>

@@ -44,6 +44,8 @@ public class DocuTest extends TestCase {
                 .append(new File(Resources.getRoot(), "../../../screenshot.png").toURI().toString())
                 .append("\" toc=\"")
                 .append(Lang.get("tableOfContent"))
+                .append("\" lang=\"")
+                .append(language)
                 .append("\" general=\"")
                 .append(Lang.get("general"))
                 .append("\" components=\"")
