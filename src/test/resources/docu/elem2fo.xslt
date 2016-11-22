@@ -70,7 +70,7 @@
 						A <xsl:value-of select="@general"/>
 					</fo:block>
 					<xsl:apply-templates select="document(@static)/*" mode="full"/>
-					<fo:block margin-top="6mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
+					<fo:block page-break-before="always" margin-bottom="4mm" font-size="16pt" font-weight="bold">
 						B <xsl:value-of select="@components"/>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="full"/>
@@ -135,10 +135,16 @@
 	</xsl:template>
 
     <xsl:template match="par">
-        <fo:block  text-align="justify">
-            <xsl:value-of select="."/>
+        <fo:block  text-align="justify" hyphenate="true" xml:lang="de" >
+			<xsl:apply-templates/>
         </fo:block>
     </xsl:template>
+
+	<xsl:template match="e">
+		<fo:inline font-style="italic" >
+			<xsl:apply-templates/>
+		</fo:inline>
+	</xsl:template>
 
 	<xsl:template match="lib" mode="full">
 		<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">

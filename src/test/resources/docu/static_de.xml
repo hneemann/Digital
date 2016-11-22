@@ -1,27 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <root>
     <chapter name="Digital">
         <par>
-            Digital ist ein Simulator für digitale Schaltkreise. Diese Schaltkreise können miteinander verbunden werden und
-            das Verhalten der Schaltung wird dabei simmuliert. Der Anwender kann mit der laufenden Simulation über bestimmte
-            Elemente interagieren, indem z.B Schalter betätigt oder Eingänge gesetzt werden.
+            Digital ist ein Simulator für digitale Schaltkreise. Die einzelnen Gatter eines Schaltkreise können
+            miteinander durch Leitungen verbunden werden und das Verhalten der Gesamtschaltung wird simuliert.
+            Der Anwender kann mit der laufenden Simulation über bestimmte Elemente interagieren, indem z.B Knöpfe
+            betätigt oder Eingänge gesetzt werden.
+        </par>
+        <par>
+            Auf diese Weise könne die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
+            <e>examples</e> finden sich viele Beispiele bis hin zum funktionsfähigen Single Cycle Harvard 16Bit Prozessor.
         </par>
     </chapter>
     <chapter name="Gatterlaufzeiten">
         <par>
-            Bei der Simulation wird davon ausgegangen, das jedes Gatter eine endliche Laufzeit hat, und das diese Laufzeit
+            Bei der Simulation wird davon ausgegangen, dass jedes Gatter eine endliche Laufzeit hat, und dass diese Laufzeit
             für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat genau diese Laufzeit,
-            unabhäng von dessen Komplexität. Ein Und-Gatter hat also die selbe Signalverzögerung, wie ein RAM-Baustein.
+            unabhängig von dessen Komplexität. Ein Und-Gatter hat also die selbe Signalverzögerung wie ein RAM-Baustein.
             Ausgenommen davon sind die Dioden, der Leitungssplitter für die Erzeugung von Datenbussen und der Schalter.
             Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
         </par>
         <par>
-            Wird eine Schaltung in eine andere Schaltung eingebettet um ein hirachisches Design zu erstellen, behalten die
+            Wird eine Schaltung in eine andere Schaltung eingebettet um ein hierarchisches Design zu erstellen, behalten die
             eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet, ist dessen Laufzeit
             entsprechend groß, verglichen mit einem einfachen Und-Gatter. Es gibt keine zusätzlichen Verzögerungen durch
             das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich schnell,
             werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
-            Generell veändert das einbetten einer Schaltung in eine andrere das Laufzeitverhalten nicht.
+            Generell verändert das Einbetten einer Schaltung in eine andere dessen Laufzeitverhalten nicht. Die Schaltung
+            verhält sich exakt so, als befänden sich alle Elemente auf der selben Ebene.
         </par>
     </chapter>
     <chapter name="Verbindungsleitungen">
@@ -36,6 +42,40 @@
             tatsächlich enden.
             Selbst wenn das Tunnel-Element verwendet wird, muss es eine Leitung zwischen dem Pin und dem Tunnel-Element
             geben.
+        </par>
+        <par>
+            Soll ein Element incl. der angeschlossenen Verbindungsleitungen verschoben werden, muss das Element mit der
+            Rechteckauswahl ausgewählt werden. Danach kann es mit der Maus verschoben werden. Wenn ein Element per
+            Mausklick selektiert wird, kann nur das Bauteil allein - also ohne die angeschlossenen Leitungen
+            mitzunehmen - verschoben werden.
+        </par>
+    </chapter>
+    <chapter name="Schaltungsanalyse und Synthese">
+        <par>
+            Eine vorliegende Schaltung kann über den Menüeintrag <e>Analyse</e> analysiert werden. Bei rein
+            kombinatorischen Schaltungen wird eine Wertetabelle erzeugt. Diese Wertetabelle kann beliebig bearbeitet werden.
+            Aus dieser Wertetabelle lässt sich nach einer Bearbeitung eine neue Schaltung erzeugen.
+            Im Menü der Schaltungserzeugung finden sich auch Funktionen um so gen. JEDEC Dateien zu erzeugen.
+            Dabei handelt es sich
+            um ein spezielles Dateiformat, welches die Fuse-Map eines PLD beschreibt. Diese JEDEC Datei kann
+            mit Hilfe eines speziellen Programmers in ein entsprechendes PLD geschrieben werden, um dieses zu konfigurieren.
+            Zur Zeit werden Bausteine des Typs <e>GAL16v8</e> und <e>GAL22v10</e> bzw. Fuse-Map-Kompatible
+            Bausteine unterstützt.
+        </par>
+        <par>
+            Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen. Anstelle einer
+            einfachen Wertetabelle entsteht eine so gen. Zustandsfolgetabelle. Jedes Flipflop taucht dabei auf der
+            Eingangsseite und der Ausgangsseite der Zustandsfolgetabelle auf. In dieser Tabelle findet sich auf der
+            rechten Seite der anhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird
+            abhängig vom aktuellen Zustand der Flipflops. Damit eine Analyse möglich ist, müssen die Flipflops benannt
+            werden.
+        </par>
+        <par>
+            Zu beachten ist dabei, dass die zu analysierende Schaltung neben den eingebauten D- und JK-Flipflops nur
+            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus Nor-Gattern aufgebaut, wird diese
+            Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend behandelt. In diesem Falle wird
+            die Schaltung nicht korrekt analysiert, was bedeutet, das eine nicht korrekte Zustandsfolgetabelle
+            erzeugt wird.
         </par>
     </chapter>
 </root>
