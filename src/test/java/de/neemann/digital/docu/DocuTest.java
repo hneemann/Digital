@@ -35,7 +35,7 @@ import java.io.*;
 public class DocuTest extends TestCase {
     private static final int IMAGE_SCALE = 4;
 
-    public void writeXML(Writer w, File images, String language) throws IOException, NodeException, PinException {
+    private void writeXML(Writer w, File images, String language) throws IOException, NodeException, PinException {
         w.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         w.append("<?xml-stylesheet type=\"text/xsl\" href=\"elem2html.xslt\"?>\n");
         w.append("<root titel=\"")
@@ -169,9 +169,7 @@ public class DocuTest extends TestCase {
     }
 
     private void startFOP(FopFactory fopFactory, File fopFile, File outFile) throws IOException, TransformerException, FOPException {
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(outFile));
-
-        try {
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(outFile))) {
             // Step 3: Construct fop with desired output format
             Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
 
@@ -189,9 +187,6 @@ public class DocuTest extends TestCase {
             // Step 6: Start XSLT transformation and FOP processing
             transformer.transform(src, res);
 
-        } finally {
-            //Clean-up
-            out.close();
         }
     }
 

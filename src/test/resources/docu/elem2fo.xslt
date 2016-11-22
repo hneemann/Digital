@@ -156,7 +156,7 @@
 
     <xsl:template match="faq">
 		<fo:block keep-together.within-page="always">
-			<fo:block font-weight="bold" margin-top="2mm" margin-bottom="2mm">
+			<fo:block font-weight="bold" margin-top="3mm" margin-bottom="1mm">
 				<xsl:apply-templates select="question"/>
 			</fo:block>
 			<fo:block margin-left="4mm">
