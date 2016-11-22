@@ -78,4 +78,30 @@
             erzeugt wird.
         </par>
     </chapter>
+    <chapter name="Häufig gestellte Fragen">
+        <faq>
+            <question>Wie kann ich eine Leitung verschieben?</question>
+            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann mit der Maus verschieben.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich eine Leitung löschen?</question>
+            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann ENTF drücken bzw. auf den Papierkorb klicken.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich ein Element verschieben und dabei alle angeschlossenen Leitungen mitnehmen?</question>
+            <answer>Das Bauteil mit der Rechteckauswahl auswählen. Die Auswahl muss das Bauteil komplett enthalten.
+            Dann kann das Bauteil zusammen mit den Leitungen verschoben werden.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich aus einer Schaltung eine JEDEC-Datei erzeugen?</question>
+            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Analyse</e> auswählen und dann im Menü <e>Erzeugen</e> des
+            neuen Fensters unter <e>Bausteine</e> den entsprechenden Baustein auswählen.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich bei der Erzeugung einer JEDEC-Datei die Pinnummern der Signale festlegen?</question>
+            <answer>Bei den entsprechenden Eingängen und Ausgängen in der Schaltung kann unter <e>Beschreibung</e> der
+            Text 'Pin [n]' eingetragen werden, wobei mit [n] die Pinnummer angegeben ist. Findet sich hier kein
+            entsprechender Text, wird der nächste freie Pin zugewiesen.</answer>
+        </faq>
+    </chapter>
 </root>

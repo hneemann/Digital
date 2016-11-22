@@ -131,11 +131,11 @@
             <xsl:attribute name="font-weight">bold</xsl:attribute>
             <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
         </xsl:element>
-        <xsl:apply-templates select="par"/>
+        <xsl:apply-templates/>
 	</xsl:template>
 
     <xsl:template match="par">
-        <fo:block  text-align="justify" hyphenate="true" xml:lang="de" >
+        <fo:block text-align="justify" hyphenate="true" xml:lang="de" >
 			<xsl:apply-templates/>
         </fo:block>
     </xsl:template>
@@ -145,6 +145,15 @@
 			<xsl:apply-templates/>
 		</fo:inline>
 	</xsl:template>
+
+    <xsl:template match="faq">
+        <fo:block font-weight="bold" margin-top="2mm" margin-bottom="2mm">
+            <xsl:apply-templates select="question"/>
+        </fo:block>
+        <fo:block margin-left="4mm">
+            <xsl:apply-templates select="answer"/>
+        </fo:block>
+    </xsl:template>
 
 	<xsl:template match="lib" mode="full">
 		<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
