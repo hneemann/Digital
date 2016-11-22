@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <chapter name="Digital">
+        <par>
+            Digital ist ein Simulator für digitale Schaltkreise. Diese Schaltkreise können miteinander verbunden werden und
+            das Verhalten der Schaltung wird dabei simmuliert. Der Anwender kann mit der laufenden Simulation über bestimmte
+            Elemente interagieren, indem z.B Schalter betätigt oder Eingänge gesetzt werden.
+        </par>
+    </chapter>
+    <chapter name="Gatterlaufzeiten">
+        <par>
+            Bei der Simulation wird davon ausgegangen, das jedes Gatter eine endliche Laufzeit hat, und das diese Laufzeit
+            für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat genau diese Laufzeit,
+            unabhäng von dessen Komplexität. Ein Und-Gatter hat also die selbe Signalverzögerung, wie ein RAM-Baustein.
+            Ausgenommen davon sind die Dioden, der Leitungssplitter für die Erzeugung von Datenbussen und der Schalter.
+            Diese Elemente haben eine Gatterlaufzeit von Null.
+        </par>
+        <par>
+            Wird eine Schaltung in eine andere Schaltung eingebettet um ein hirachisches Design zu erstellen, behalten die
+            eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet, ist dessen Laufzeit
+            entsprechend groß, verglichen mit einem einfachen Und-Gatter. Es gibt keine zusätzlichen Verzögerungen durch
+            das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich schnell,
+            werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
+            Generell veändert das einbetten einer Schaltung in eine andrere das Laufzeitverhalten nicht.
+        </par>
+    </chapter>
+    <chapter name="Verbindungsleitungen">
+        <par>
+            Alle Elemente müssen über Leitungen verbunden werden. Es ist nicht möglich, zwei Elemente direkt miteinander
+            zu verbinden, indem man sie direkt nebeneinander platziert.
+        </par>
+        <par>
+            Zudem gibt es nur Verbindungen zwischen einem Leitungsende und einem Bauteil. Wird ein Bauteil mitten auf eine Leitung
+            gesetzt, wird keine Verbindung zwischen dem Bauteil und der Leitung hergestellt.
+            Daher muss an jedem Bauteileanschluss, welcher mit einem anderen Verbunden werden soll, eine Leitung
+            tatsächlich enden.
+            Selbst wenn das Tunnel-Element verwendet wird, muss es eine Leitung zwischen dem Pin und dem Tunnel-Element
+            geben.
+        </par>
+    </chapter>
+</root>

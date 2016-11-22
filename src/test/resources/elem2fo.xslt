@@ -53,12 +53,26 @@
                     </fo:block>
                     <!-- table of contents text -->
                     <fo:block page-break-before="always" margin-bottom="5mm" font-size="18pt" font-weight="bold">
-						<xsl:value-of select="@inhalt"/>
+						<xsl:value-of select="@toc"/>
 					</fo:block>
                     <!-- table of contents -->
-					<xsl:apply-templates select="lib" mode="inhalt"/>
+					<fo:block>
+						A <xsl:value-of select="@general"/>
+					</fo:block>
+					<xsl:apply-templates select="document(@static)/*" mode="toc"/>
+					<fo:block margin-top="2mm">
+						B <xsl:value-of select="@components"/>
+					</fo:block>
+					<xsl:apply-templates select="lib" mode="toc"/>
 					<fo:block page-break-before="always"/>
                     <!-- the content -->
+					<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
+						A <xsl:value-of select="@general"/>
+					</fo:block>
+					<xsl:apply-templates select="document(@static)/*" mode="full"/>
+					<fo:block margin-top="6mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
+						B <xsl:value-of select="@components"/>
+					</fo:block>
 					<xsl:apply-templates select="lib" mode="full"/>
 					<fo:block id="LastPage"/>
 				</fo:flow>
@@ -67,16 +81,31 @@
 	</xsl:template>
 
 	<!-- Creation of the table of content-->
-	<xsl:template match="lib" mode="inhalt">
+	<xsl:template match="chapter" mode="toc">
+		<fo:block text-align-last="justify">
+            <xsl:element name="fo:basic-link">
+                <xsl:attribute name="internal-destination">chap_<xsl:value-of select="@name"/></xsl:attribute>
+                <xsl:attribute name="show-destination">replace</xsl:attribute>
+                <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
+            </xsl:element>
+			<xsl:text> </xsl:text>
+			<fo:leader leader-pattern="dots" />
+			<xsl:element name="fo:page-number-citation">
+				<xsl:attribute name="ref-id">chap_<xsl:value-of select="@name"/></xsl:attribute>
+			</xsl:element>
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="lib" mode="toc">
 		<fo:block>
 		    <xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
 		</fo:block>
-        <xsl:apply-templates select="element" mode="inhalt">
+        <xsl:apply-templates select="element" mode="toc">
 			<xsl:with-param name="number" select="position()"/>
         </xsl:apply-templates>
   	</xsl:template>
 
-	<xsl:template match="element" mode="inhalt">
+	<xsl:template match="element" mode="toc">
 		<xsl:param name="number" />
 		<fo:block margin-left="3mm" text-align-last="justify">
 			<xsl:element name="fo:basic-link">
@@ -92,7 +121,25 @@
 		</fo:block>
   	</xsl:template>
 
-	<!-- Creation of the text -->
+    <!-- Creation of the text -->
+	<xsl:template match="chapter" mode="full">
+        <xsl:element name="fo:block">
+            <xsl:attribute name="id">chap_<xsl:value-of select="@name"/></xsl:attribute>
+            <xsl:attribute name="margin-top">4mm</xsl:attribute>
+            <xsl:attribute name="margin-bottom">4mm</xsl:attribute>
+            <xsl:attribute name="font-size">14pt</xsl:attribute>
+            <xsl:attribute name="font-weight">bold</xsl:attribute>
+            <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
+        </xsl:element>
+        <xsl:apply-templates select="par"/>
+	</xsl:template>
+
+    <xsl:template match="par">
+        <fo:block  text-align="justify">
+            <xsl:value-of select="."/>
+        </fo:block>
+    </xsl:template>
+
 	<xsl:template match="lib" mode="full">
 		<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
 			<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>

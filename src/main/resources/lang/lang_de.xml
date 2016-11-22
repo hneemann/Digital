@@ -3,6 +3,7 @@
     <string name="addr">Adresse</string>
     <string name="name">Name</string>
     <string name="tableOfContent">Inhaltsverzeichnis</string>
+    <string name="general">Allgemein</string>
     <string name="attr_dialogTitle">Eigenschaften</string>
     <string name="attr_openCircuit">Anzeigen</string>
     <string name="attr_openCircuitLabel">Enthaltene Schaltung:</string>

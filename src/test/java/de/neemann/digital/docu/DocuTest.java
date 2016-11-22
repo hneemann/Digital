@@ -41,9 +41,14 @@ public class DocuTest extends TestCase {
         w.append("<root titel=\"")
                 .append(Lang.get("digital"))
                 .append("\" titleImage=\"")
-                .append(new File(Resources.getRoot(),"../../../screenshot.png").toURI().toString())
-                .append("\" inhalt=\"")
+                .append(new File(Resources.getRoot(), "../../../screenshot.png").toURI().toString())
+                .append("\" toc=\"")
                 .append(Lang.get("tableOfContent"))
+                .append("\" general=\"")
+                .append(Lang.get("general"))
+                .append("\" components=\"")
+                .append(Lang.get("menu_elements"))
+                .append("\" static=\"").append(new File(Resources.getRoot(), "static_"+language+".xml").toURI().toString())
                 .append("\">\n");
         ElementLibrary library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library, language.equals("en"));

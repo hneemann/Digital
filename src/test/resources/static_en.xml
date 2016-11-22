@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <chapter name="Digital">
+        <par>
+            Digital is a simple simpulator used to simulate digital circuits.
+        </par>
+    </chapter>
+    <chapter id="wires" name="Wires">
+        <par>
+            There are only connections between the end of a wire and a components pin. If you draw a straight wire across
+            many component pins, there wil be no connection between the pins and the wire at all.
+        </par>
+    </chapter>
+</root>
