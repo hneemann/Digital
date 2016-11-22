@@ -103,6 +103,14 @@
                             <name>sources</name>
                             <value>${basedir}/src/main/java</value>
                         </property>
+                        <property>
+                            <name>buildnumber</name>
+                            <value>${buildNumber}</value>
+                        </property>
+                        <property>
+                            <name>buildtime</name>
+                            <value>${maven.build.timestamp}</value>
+                        </property>
                     </systemProperties>
                 </configuration>
             </plugin>

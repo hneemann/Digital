@@ -4,6 +4,8 @@
     <string name="name">Name</string>
     <string name="tableOfContent">Inhaltsverzeichnis</string>
     <string name="general">Allgemein</string>
+    <string name="revision">Version</string>
+    <string name="date">Datum</string>
     <string name="attr_dialogTitle">Eigenschaften</string>
     <string name="attr_openCircuit">Anzeigen</string>
     <string name="attr_openCircuitLabel">Enthaltene Schaltung:</string>
