@@ -104,12 +104,12 @@
 	<!-- Creation of the table of content-->
 	<xsl:template match="chapter" mode="toc">
 		<fo:block text-align-last="justify">
-            <fo:basic-link show-destination="replace" internal-destination="chap_{@name}">
+            <fo:basic-link show-destination="replace" internal-destination="chap_{position()}">
                 <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
             </fo:basic-link>
 			<xsl:text> </xsl:text>
 			<fo:leader leader-pattern="dots" />
-            <fo:page-number-citation ref-id="chap_{@name}"/>
+            <fo:page-number-citation ref-id="chap_{position()}"/>
 		</fo:block>
 	</xsl:template>
 
@@ -136,7 +136,7 @@
 
     <!-- Creation of the text -->
 	<xsl:template match="chapter" mode="full">
-        <fo:block margin-top="4mm" margin-bottom="4mm" font-size="14pt" font-weight="bold" id="chap_{@name}">
+        <fo:block margin-top="4mm" margin-bottom="4mm" font-size="14pt" font-weight="bold" id="chap_{position()}">
             <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
         </fo:block>
         <xsl:apply-templates/>
