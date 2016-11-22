@@ -51,7 +51,7 @@
 
                     <fo:table table-layout="fixed" margin-top="3cm" width="100%">
                         <fo:table-column column-number="1" column-width="2.5cm"/>
-                        <fo:table-column column-number="2" column-width="8cm"/>
+                        <fo:table-column column-number="2" column-width="17cm"/>
                         <fo:table-body>
                             <fo:table-row>
                                 <fo:table-cell column-number="1">
