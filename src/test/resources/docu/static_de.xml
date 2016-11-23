@@ -150,13 +150,13 @@
         <faq>
             <question>Wie kann ich aus einer Schaltung eine JEDEC-Datei erzeugen?</question>
             <answer>Im Menü <e>Analyse</e> den Eintrag <e>Analyse</e> auswählen und dann im Menü <e>Erzeugen</e> des
-            neuen Fensters unter <e>Bausteine</e> den entsprechenden Baustein auswählen.</answer>
+                neuen Fensters unter <e>Bausteine</e> den entsprechenden Baustein auswählen.</answer>
         </faq>
         <faq>
             <question>Wie kann ich bei der Erzeugung einer JEDEC-Datei die Pinnummern der Signale festlegen?</question>
             <answer>Bei den entsprechenden Eingängen und Ausgängen in der Schaltung kann unter <e>Beschreibung</e> der
-            Text 'Pin [n]' eingetragen werden, wobei mit [n] die Pinnummer angegeben ist. Findet sich hier kein
-            entsprechender Text, wird der nächste freie Pin zugewiesen.</answer>
+                Text 'Pin [n]' eingetragen werden, wobei mit [n] die Pinnummer anzugeben ist. Findet sich hier kein
+                entsprechender Text, wird der nächste freie Pin zugewiesen.</answer>
         </faq>
         <faq>
             <question>Ich habe eine JEDEC Datei erzeugt. Wie bekomme ich diese in ein <e>GAL16v8</e> bzw. <e>GAL22v10</e>?</question>
