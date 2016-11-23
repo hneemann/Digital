@@ -15,6 +15,7 @@ public class PinMapTest extends TestCase {
 
     @Override
     public void setUp() throws Exception {
+        super.setUp();
         pinMap = new PinMap()
                 .setAvailInputs(1, 2, 3)
                 .setAvailOutputs(4, 5, 6);
@@ -25,7 +26,7 @@ public class PinMapTest extends TestCase {
         pinMap.assignPin("a", 2);
         try {
             pinMap.assignPin("b", 2);
-            assertTrue(false);
+            fail();
         } catch (PinMapException e) {
             assertTrue(true);
         }
@@ -35,7 +36,7 @@ public class PinMapTest extends TestCase {
         pinMap.assignPin("a", 2);
         try {
             pinMap.assignPin("a", 3);
-            assertTrue(false);
+            fail();
         } catch (PinMapException e) {
             assertTrue(true);
         }
@@ -52,7 +53,7 @@ public class PinMapTest extends TestCase {
 
         try {
             pinMap.getInputFor("d");
-            assertTrue(false);
+            fail();
         } catch (PinMapException e) {
             assertTrue(true);
         }
@@ -68,7 +69,7 @@ public class PinMapTest extends TestCase {
 
         try {
             pinMap.getOutputFor("c");
-            assertTrue(false);
+            fail();
         } catch (PinMapException e) {
             assertTrue(true);
         }
@@ -89,21 +90,21 @@ public class PinMapTest extends TestCase {
     public void testParse3() {
         try {
             pinMap.parseString("a0");
-            assertTrue(false);
+            fail();
         } catch (PinMapException e) {
             assertTrue(true);
         }
 
         try {
             pinMap.parseString("a=");
-            assertTrue(false);
+            fail();
         } catch (PinMapException e) {
             assertTrue(true);
         }
 
         try {
             pinMap.parseString("=7");
-            assertTrue(false);
+            fail();
         } catch (PinMapException e) {
             assertTrue(true);
         }
