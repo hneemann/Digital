@@ -1,6 +1,9 @@
 package de.neemann.digital.builder;
 
 import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Signal;
 import junit.framework.TestCase;
 
 /**
@@ -157,5 +160,27 @@ public class PinMapTest extends TestCase {
                 "Pin 4: B\n" +
                 "Pin 5: nicht verwendet\n" +
                 "Pin 6: nicht verwendet\n", );*/
+    }
+
+    public void testModelInputs() throws PinMapException {
+        Model m = new Model();
+        m.addInput(new Signal("A_1", new ObservableValue("A_1", 1)).setDescription("Pin 3"));
+        m.addInput(new Signal("A_2", new ObservableValue("A_2", 1)).setDescription("Pin 1"));
+        pinMap.addModel(m);
+
+        assertEquals(3, pinMap.getInputFor("A_1"));
+        assertEquals(1, pinMap.getInputFor("A_2"));
+        assertEquals(2, pinMap.getInputFor("A_3"));
+    }
+
+    public void testModelOutputs() throws PinMapException {
+        Model m = new Model();
+        m.addOutput(new Signal("A_1", new ObservableValue("A_1", 1)).setDescription("Pin 6\nTest documentation"));
+        m.addOutput(new Signal("A_2", new ObservableValue("A_2", 1)).setDescription("Test documentation\nPin 4"));
+        pinMap.addModel(m);
+
+        assertEquals(6, pinMap.getOutputFor("A_1"));
+        assertEquals(4, pinMap.getOutputFor("A_2"));
+        assertEquals(5, pinMap.getOutputFor("A_3"));
     }
 }

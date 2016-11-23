@@ -6,6 +6,9 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.lang.Lang;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.*;
 
 /**
@@ -45,13 +48,20 @@ public class PinMap {
     }
 
     private void addSignal(Signal signal) throws PinMapException {
-        if (signal.getDescription() != null && signal.getDescription().toLowerCase().startsWith("pin ")) {
-            String intStr = signal.getDescription().substring(4).trim();
-            try {
-                int pin = Integer.parseInt(intStr);
-                assignPin(signal.getName(), pin);
-            } catch (NumberFormatException e) {
-                throw new PinMapException("invalid assignment " + signal.getName() + "=" + intStr);
+        if (signal.getDescription() != null && signal.getDescription().length()>0) {
+            StringTokenizer st = new StringTokenizer(signal.getDescription(), "\n\r");
+            while (st.hasMoreTokens()) {
+                String line = st.nextToken();
+                if (line.toLowerCase().startsWith("pin ")) {
+                    String intStr = line.substring(4).trim();
+                    try {
+                        int pin = Integer.parseInt(intStr);
+                        assignPin(signal.getName(), pin);
+                        return;
+                    } catch (NumberFormatException e) {
+                        throw new PinMapException("invalid assignment " + signal.getName() + "=" + intStr);
+                    }
+                }
             }
         }
     }
