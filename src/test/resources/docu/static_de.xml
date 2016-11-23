@@ -8,7 +8,7 @@
             betätigt oder Eingänge gesetzt werden.
         </par>
         <par>
-            Auf diese Weise könne die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
+            Auf diese Weise können die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
             <e>examples</e> finden sich viele Beispiele bis hin zum funktionsfähigen Single Cycle Harvard 16Bit Prozessor.
         </par>
     </chapter>
@@ -21,9 +21,10 @@
             Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
         </par>
         <par>
-            Wird eine Schaltung in eine andere Schaltung eingebettet um ein hierarchisches Design zu erstellen, behalten die
-            eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet, ist dessen Laufzeit
-            entsprechend groß, verglichen mit einem einfachen Und-Gatter. Es gibt keine zusätzlichen Verzögerungen durch
+            Wird eine Schaltung in eine andere Schaltung eingebettet, um ein hierarchisches Design zu erstellen, behalten die
+            eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet bei welchem ein Signal
+            von einam Eingang bis zu einem Ausgang drei Gatter passiern muss, beträgt dessen Laufzeit auch als eingebettete
+            Schaltung drei Gatterlaufzeiten. Es gibt keine zusätzlichen Verzögerungen durch
             das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich schnell,
             werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
             Generell verändert das Einbetten einer Schaltung in eine andere dessen Laufzeitverhalten nicht. Die Schaltung
@@ -36,10 +37,10 @@
             zu verbinden, indem man sie direkt nebeneinander platziert.
         </par>
         <par>
-            Zudem gibt es nur Verbindungen zwischen einem Leitungsende und einem Bauteil. Wird ein Bauteil mitten auf eine Leitung
-            gesetzt, wird keine Verbindung zwischen dem Bauteil und der Leitung hergestellt.
+            Zudem gibt es nur Verbindungen zwischen einem Leitungsende und einem Bauteil. Wird ein Bauteil mitten auf
+            eine Leitung gesetzt, wird keine Verbindung zwischen dem Bauteil und der Leitung hergestellt.
             Daher muss an jedem Bauteileanschluss, welcher mit einem anderen Verbunden werden soll, eine Leitung
-            tatsächlich enden.
+            tatsächlich enden bzw. beginnen.
             Selbst wenn das Tunnel-Element verwendet wird, muss es eine Leitung zwischen dem Pin und dem Tunnel-Element
             geben.
         </par>
@@ -69,6 +70,14 @@
             rechten Seite der anhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird
             abhängig vom aktuellen Zustand der Flipflops. Damit eine Analyse möglich ist, müssen die Flipflops benannt
             werden.
+        </par>
+        <par>
+            Dabei gilt folgenden Namenskonvention: Der Folgezustand eines Bits auf der rechten Seite der Tabelle wird
+            durch ein angähngtes kleines 'n' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
+            angehängtes 'n+1' ausgezeichnet. Gibt es also eine Zustandsvariable 'A', dann kennzeichnet 'An' den aktuellen
+            Zustand und 'An+1' den Folgezustand. Finden sich in der Wertetabelle auf der linken und rechten Seite Signale,
+            die diesem Muster entsprechen, wird davon ausgegeangen, dass es sich um eine Zustandsfolgetabelle handelt und
+            bei der Synthese wird entsprechend ein Schaltwerk anstelle eines Schaltnetzes erzeugt.
         </par>
         <par>
             Zu beachten ist dabei, dass die zu analysierende Schaltung neben den eingebauten D- und JK-Flipflops nur
@@ -105,10 +114,29 @@
             <answer>Mit Hellgrün und Dunkelgrün wird eine logische 1 bzw. 0 dargestellt. Grau bedeutet, dass die Leitung hochohmig ist.</answer>
         </faq>
         <faq>
+            <question>Ich habe eine Wertetabelle. Wie kann ich daraus die minimalen Schaltfunktionen erzeugen?</question>
+            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Synthese</e> auswählen und dann die Wertetabelle eingeben.
+                In der Statusleiste des Fensters findet sich die Schaltfunktion. Geben mehr als eine abhängige Größe ein,
+                öffnet sich ein neues Fenster, in welchem alle Schaltfunktionen angegeben sind.</answer>
+        </faq>
+        <faq>
+            <question>Ich habe eine Wertetabelle eingegeben, es wird jedoch mehr als eine Schaltfunktion für
+                das gesuchte Signal angezeigt. Welche ist die Richtige?</question>
+            <answer>Wenn eine Schaltfunktion minimiert wird, kann es mehrere minimierte Schaltfunktionen gleicher
+                Komplexität geben (gleiche Anzahl von Termen). Dies tritt besonders leicht auf, wenn es viele Don't Cares gibt.
+                Digital zeigt alle möglichen Lösungen an und alle liefern die selbe Wertetabelle.
+                In den Don't Care-Zeilen der Wertetabelle kann es natürlich Unterschiede zwischen den verschiednen
+                Funktionen geben.</answer>
+        </faq>
+        <faq>
             <question>Ich habe eine Wertetabelle. Wie kann ich daraus eine Schaltung erzeugen?</question>
             <answer>Im Menü <e>Analyse</e> den Eintrag <e>Synthese</e> auswählen und dann die Wertetabelle eingeben.
                 Unter <e>Neu</e> bzw. mit <e>Spalten hinzufügen</e> können Variablen hinzugefügt werden.
                 Im Menü <e>Erzeugen</e> kann mit dem mit dem Eintag <e>Schaltung</e> eine Schaltung erzeugt werden.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich die Signalnamen in der Wertetabelle verändern?</question>
+            <answer>Mit einem Doppelklick auf den Signalnamen im Tabellenkopf kann der Name bearbeitet werden.</answer>
         </faq>
         <faq>
             <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Schaltung erzeugen?</question>
@@ -132,7 +160,8 @@
         </faq>
         <faq>
             <question>Ich habe eine JEDEC Datei erzeugt. Wie bekomme ich diese in ein <e>GAL16v8</e> bzw. <e>GAL22v10</e>?</question>
-            <answer>Für die Programmierung von GAL's ist eine entsprechende Zusatzhardware, ein so gen. Programmer erforderlich.</answer>
+            <answer>Für die Programmierung von GAL's ist eine entsprechende Zusatz-Hardware, ein so gen. GAL-Programmer
+                erforderlich.</answer>
         </faq>
     </chapter>
 </root>

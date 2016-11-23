@@ -11,7 +11,7 @@
 									   margin-top="2cm"     margin-bottom="1cm"
 									   margin-left="2.5cm"  margin-right="2.5cm">
 					<fo:region-body
-							margin-top="1.5cm" margin-bottom="1.8cm"
+							margin-top="1.3cm" margin-bottom="1.8cm"
 							margin-left="0cm"  margin-right="0cm"/>
 					<fo:region-before region-name="header" extent="1.3cm"/>
 					<fo:region-after  region-name="footer" extent="1.5cm"/>
@@ -40,7 +40,7 @@
 				</fo:static-content>
 				<fo:flow flow-name="xsl-region-body">
                     <!-- large title -->
-					<fo:block font-size="80pt" font-weight="bold">
+					<fo:block margin-top="10mm" font-size="80pt" font-weight="bold">
 						<xsl:value-of select="@titel"/>
 					</fo:block>
                     <!-- image on title page -->
@@ -136,7 +136,7 @@
 
     <!-- Creation of the text -->
 	<xsl:template match="chapter" mode="full">
-        <fo:block margin-top="4mm" margin-bottom="4mm" font-size="14pt" font-weight="bold" id="chap_{position()}">
+        <fo:block page-break-after="avoid" margin-top="4mm" margin-bottom="4mm" font-size="14pt" font-weight="bold" id="chap_{position()}">
             <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
         </fo:block>
         <xsl:apply-templates/>
@@ -166,7 +166,7 @@
 	</xsl:template>
 
 	<xsl:template match="lib" mode="full">
-		<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
+		<fo:block page-break-after="avoid" margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
 			<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
 		</fo:block>
 		<xsl:apply-templates select="element" mode="full">
