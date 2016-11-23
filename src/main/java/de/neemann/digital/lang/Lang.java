@@ -65,11 +65,19 @@ public final class Lang {
         return InstanceHolder.INSTANCE.currentLanguage;
     }
 
+    /**
+     * Sets the GUI language
+     *
+     * @param language the language
+     */
+    public static void setActualRuntimeLanguage(Language language) {
+        InstanceHolder.INSTANCE.setRuntimeLanguage(language);
+    }
 
     private final Bundle bundle;
     private final Resources defaultBundle;
-    private final Resources localeBundle;
-    private final Language currentLanguage;
+    private Resources localeBundle;
+    private Language currentLanguage;
 
     private Lang() {
         bundle = new Bundle("lang/lang");
@@ -81,6 +89,15 @@ public final class Lang {
             currentLanguage = new Language(lang);
         else
             currentLanguage = new Language("en");
+    }
+    /**
+     * Only used for generation of documentation
+     *
+     * @param lang the language to use
+     */
+    private void setRuntimeLanguage(Language lang) {
+        currentLanguage = lang;
+        localeBundle = bundle.getResources(lang.getName());
     }
 
     private String getKey(String key, Object... params) {

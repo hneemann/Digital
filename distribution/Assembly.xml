@@ -74,6 +74,13 @@
                 <include>*.dig</include>
             </includes>
         </fileSet>
+        <fileSet>
+            <directory>${basedir}/target/xslt</directory>
+            <outputDirectory>/docu/</outputDirectory>
+            <includes>
+                <include>*.pdf</include>
+            </includes>
+        </fileSet>
     </fileSets>
 </assembly>
 

@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <chapter name="Digital">
+        <par>
+            Digital ist ein Simulator für digitale Schaltkreise. Die einzelnen Gatter eines Schaltkreise können
+            miteinander durch Leitungen verbunden werden und das Verhalten der Gesamtschaltung wird simuliert.
+            Der Anwender kann mit der laufenden Simulation über bestimmte Elemente interagieren, indem z.B Knöpfe
+            betätigt oder Eingänge gesetzt werden.
+        </par>
+        <par>
+            Auf diese Weise können die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
+            <e>examples</e> finden sich viele Beispiele bis hin zum funktionsfähigen Single Cycle Harvard 16Bit Prozessor.
+        </par>
+    </chapter>
+    <chapter name="Gatterlaufzeiten">
+        <par>
+            Bei der Simulation wird davon ausgegangen, dass jedes Gatter eine endliche Laufzeit hat, und dass diese Laufzeit
+            für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat genau diese Laufzeit,
+            unabhängig von dessen Komplexität. Ein Und-Gatter hat also die selbe Signalverzögerung wie ein RAM-Baustein.
+            Ausgenommen davon sind die Dioden, der Leitungssplitter für die Erzeugung von Datenbussen und der Schalter.
+            Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
+        </par>
+        <par>
+            Wird eine Schaltung in eine andere Schaltung eingebettet, um ein hierarchisches Design zu erstellen, behalten die
+            eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet bei welchem ein Signal
+            von einam Eingang bis zu einem Ausgang drei Gatter passiern muss, beträgt dessen Laufzeit auch als eingebettete
+            Schaltung drei Gatterlaufzeiten. Es gibt keine zusätzlichen Verzögerungen durch
+            das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich schnell,
+            werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
+            Generell verändert das Einbetten einer Schaltung in eine andere dessen Laufzeitverhalten nicht. Die Schaltung
+            verhält sich exakt so, als befänden sich alle Elemente auf der selben Ebene.
+        </par>
+    </chapter>
+    <chapter name="Verbindungsleitungen">
+        <par>
+            Alle Elemente müssen über Leitungen verbunden werden. Es ist nicht möglich, zwei Elemente direkt miteinander
+            zu verbinden, indem man sie direkt nebeneinander platziert.
+        </par>
+        <par>
+            Zudem gibt es nur Verbindungen zwischen einem Leitungsende und einem Bauteil. Wird ein Bauteil mitten auf
+            eine Leitung gesetzt, wird keine Verbindung zwischen dem Bauteil und der Leitung hergestellt.
+            Daher muss an jedem Bauteileanschluss, welcher mit einem anderen Verbunden werden soll, eine Leitung
+            tatsächlich enden bzw. beginnen.
+            Selbst wenn das Tunnel-Element verwendet wird, muss es eine Leitung zwischen dem Pin und dem Tunnel-Element
+            geben.
+        </par>
+        <par>
+            Soll ein Element incl. der angeschlossenen Verbindungsleitungen verschoben werden, muss das Element mit der
+            Rechteckauswahl ausgewählt werden. Danach kann es mit der Maus verschoben werden. Wenn ein Element per
+            Mausklick selektiert wird, kann nur das Bauteil allein - also ohne die angeschlossenen Leitungen
+            mitzunehmen - verschoben werden.
+        </par>
+    </chapter>
+    <chapter name="Schaltungsanalyse und Synthese">
+        <par>
+            Eine vorliegende Schaltung kann über den Menüeintrag <e>Analyse</e> analysiert werden. Bei rein
+            kombinatorischen Schaltungen wird eine Wertetabelle erzeugt. Diese Wertetabelle kann beliebig bearbeitet werden.
+            Aus dieser Wertetabelle lässt sich nach einer Bearbeitung eine neue Schaltung erzeugen.
+            Im Menü der Schaltungserzeugung finden sich auch Funktionen um so gen. JEDEC Dateien zu erzeugen.
+            Dabei handelt es sich
+            um ein spezielles Dateiformat, welches die Fuse-Map eines PLD beschreibt. Diese JEDEC Datei kann
+            mit Hilfe eines speziellen Programmers in ein entsprechendes PLD geschrieben werden, um dieses zu konfigurieren.
+            Zur Zeit werden Bausteine des Typs <e>GAL16v8</e> und <e>GAL22v10</e> bzw. Fuse-Map-Kompatible
+            Bausteine unterstützt.
+        </par>
+        <par>
+            Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen. Anstelle einer
+            einfachen Wertetabelle entsteht eine so gen. Zustandsfolgetabelle. Jedes Flipflop taucht dabei auf der
+            Eingangsseite und der Ausgangsseite der Zustandsfolgetabelle auf. In dieser Tabelle findet sich auf der
+            rechten Seite der anhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird
+            abhängig vom aktuellen Zustand der Flipflops. Damit eine Analyse möglich ist, müssen die Flipflops benannt
+            werden.
+        </par>
+        <par>
+            Dabei gilt folgenden Namenskonvention: Der Folgezustand eines Bits auf der rechten Seite der Tabelle wird
+            durch ein angähngtes kleines 'n' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
+            angehängtes 'n+1' ausgezeichnet. Gibt es also eine Zustandsvariable 'A', dann kennzeichnet 'An' den aktuellen
+            Zustand und 'An+1' den Folgezustand. Finden sich in der Wertetabelle auf der linken und rechten Seite Signale,
+            die diesem Muster entsprechen, wird davon ausgegeangen, dass es sich um eine Zustandsfolgetabelle handelt und
+            bei der Synthese wird entsprechend ein Schaltwerk anstelle eines Schaltnetzes erzeugt.
+        </par>
+        <par>
+            Zu beachten ist dabei, dass die zu analysierende Schaltung neben den eingebauten D- und JK-Flipflops nur
+            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus Nor-Gattern aufgebaut, wird diese
+            Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend behandelt. In diesem Falle wird
+            die Schaltung nicht korrekt analysiert, was bedeutet, das eine nicht korrekte Zustandsfolgetabelle
+            erzeugt wird.
+        </par>
+    </chapter>
+    <chapter name="Häufig gestellte Fragen">
+        <faq>
+            <question>Wie kann ich eine Leitung verschieben?</question>
+            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann mit der Maus verschieben.</answer>
+        </faq>
+        <faq>
+            <question>Warum kann ich keine Leitung anklicken?</question>
+            <answer>Es können mit der Rechteckauswahl nur die Endpunkte einer Leitung ausgewählt werden.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich eine Leitung löschen?</question>
+            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann <e>Entfernen</e> drücken bzw. auf den Papierkorb klicken.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich ein Element verschieben und dabei alle angeschlossenen Leitungen mitnehmen?</question>
+            <answer>Das Bauteil mit der Rechteckauswahl auswählen. Die Auswahl muss das Bauteil komplett enthalten.
+            Dann kann das Bauteil zusammen mit den Leitungen verschoben werden.</answer>
+        </faq>
+        <faq>
+            <question>Ich habe ein Element, das nicht mit einer Leitung verbunden ist, obwohl die Pins auf der Leitung liegen.</question>
+            <answer>Pins werden nur mit einer Leitungen verbunden, wenn die Leitung an dem Pin endet bzw. beginnt.</answer>
+        </faq>
+        <faq>
+            <question>Wenn die Simulation gestartet wird, ist die Leitung grau. Was bedeutet das?</question>
+            <answer>Mit Hellgrün und Dunkelgrün wird eine logische 1 bzw. 0 dargestellt. Grau bedeutet, dass die Leitung hochohmig ist.</answer>
+        </faq>
+        <faq>
+            <question>Ich habe eine Wertetabelle. Wie kann ich daraus die minimalen Schaltfunktionen erzeugen?</question>
+            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Synthese</e> auswählen und dann die Wertetabelle eingeben.
+                In der Statusleiste des Fensters findet sich die Schaltfunktion. Geben mehr als eine abhängige Größe ein,
+                öffnet sich ein neues Fenster, in welchem alle Schaltfunktionen angegeben sind.</answer>
+        </faq>
+        <faq>
+            <question>Ich habe eine Wertetabelle eingegeben, es wird jedoch mehr als eine Schaltfunktion für
+                das gesuchte Signal angezeigt. Welche ist die Richtige?</question>
+            <answer>Wenn eine Schaltfunktion minimiert wird, kann es mehrere minimierte Schaltfunktionen gleicher
+                Komplexität geben (gleiche Anzahl von Termen). Dies tritt besonders leicht auf, wenn es viele Don't Cares gibt.
+                Digital zeigt alle möglichen Lösungen an und alle liefern die selbe Wertetabelle.
+                In den Don't Care-Zeilen der Wertetabelle kann es natürlich Unterschiede zwischen den verschiednen
+                Funktionen geben.</answer>
+        </faq>
+        <faq>
+            <question>Ich habe eine Wertetabelle. Wie kann ich daraus eine Schaltung erzeugen?</question>
+            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Synthese</e> auswählen und dann die Wertetabelle eingeben.
+                Unter <e>Neu</e> bzw. mit <e>Spalten hinzufügen</e> können Variablen hinzugefügt werden.
+                Im Menü <e>Erzeugen</e> kann mit dem mit dem Eintag <e>Schaltung</e> eine Schaltung erzeugt werden.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich die Signalnamen in der Wertetabelle verändern?</question>
+            <answer>Mit einem Doppelklick auf den Signalnamen im Tabellenkopf kann der Name bearbeitet werden.</answer>
+        </faq>
+        <faq>
+            <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Schaltung erzeugen?</question>
+            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Ausdruck</e> auswählen und dann die Funktion eingeben.</answer>
+        </faq>
+        <faq>
+            <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Wertetabelle erzeugen?</question>
+            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Ausdruck</e> auswählen und dann die Funktion eingeben.
+                Dann die Schaltung erzeugen und im Menü <e>Analyse</e> mit dem Eintrag <e>Analyse</e> die Wertetabelle erzeugen.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich aus einer Schaltung eine JEDEC-Datei erzeugen?</question>
+            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Analyse</e> auswählen und dann im Menü <e>Erzeugen</e> des
+                neuen Fensters unter <e>Bausteine</e> den entsprechenden Baustein auswählen.</answer>
+        </faq>
+        <faq>
+            <question>Wie kann ich bei der Erzeugung einer JEDEC-Datei die Pinnummern der Signale festlegen?</question>
+            <answer>Bei den entsprechenden Eingängen und Ausgängen in der Schaltung kann unter <e>Beschreibung</e> der
+                Text 'Pin [n]' eingetragen werden, wobei mit [n] die Pinnummer anzugeben ist. Findet sich hier kein
+                entsprechender Text, wird der nächste freie Pin zugewiesen.</answer>
+        </faq>
+        <faq>
+            <question>Ich habe eine JEDEC Datei erzeugt. Wie bekomme ich diese in ein <e>GAL16v8</e> bzw. <e>GAL22v10</e>?</question>
+            <answer>Für die Programmierung von GAL's ist eine entsprechende Zusatz-Hardware, ein so gen. GAL-Programmer
+                erforderlich.</answer>
+        </faq>
+    </chapter>
+</root>

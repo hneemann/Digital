@@ -1,5 +1,6 @@
 package de.neemann.digital.lang;
 
+import de.neemann.digital.integration.Resources;
 import de.neemann.gui.language.Bundle;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -50,6 +51,8 @@ public class TestLang extends TestCase {
         }
         HashSet<String> keys = new HashSet<>();
         parseTree(new File(sources), keys);
+        // check also test code. Is needed because documentation generation uses language key also.
+        parseTree(new File(Resources.getRoot(),"../java"), keys);
 
         StringBuilder sb = new StringBuilder();
         for (String key : map.keySet()) {

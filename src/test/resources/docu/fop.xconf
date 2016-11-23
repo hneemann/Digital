@@ -1,0 +1,466 @@
+<?xml version="1.0"?>
+<!-- $Id: fop.xconf 1616312 2014-08-06 19:19:31Z gadams $ -->
+
+<!--
+
+This is an example configuration file for FOP.
+This file contains the same settings as the default values
+and will have no effect if used unchanged.
+
+Relative config url's will be resolved relative to
+the location of this file.
+
+-->
+
+<!-- NOTE: This is the version of the configuration -->
+<fop version="1.0">
+
+  <!-- Base URL for resolving relative URLs -->
+  <base>.</base>
+  
+  <!-- Source resolution in dpi (dots/pixels per inch) for determining the size of pixels in SVG and bitmap images, default: 72dpi -->
+  <source-resolution>72</source-resolution>
+  <!-- Target resolution in dpi (dots/pixels per inch) for specifying the target resolution for generated bitmaps, default: 72dpi -->
+  <target-resolution>72</target-resolution>
+  
+  <!-- Default page-height and page-width, in case value is specified as auto -->
+  <default-page-settings height="11.00in" width="8.50in"/>
+  
+  <!-- Information for specific renderers -->
+  <!-- Uses renderer mime type for renderers -->
+  <renderers>
+    <renderer mime="application/pdf">
+      <filterList>
+        <!-- provides compression using zlib flate (default is on) -->
+        <value>flate</value>
+  
+        <!-- encodes binary data into printable ascii characters (default off)
+             This provides about a 4:5 expansion of data size -->
+        <!-- <value>ascii-85</value> -->
+  
+        <!-- encodes binary data with hex representation (default off)
+             This filter is not recommended as it doubles the data size -->
+        <!-- <value>ascii-hex</value> -->
+      </filterList>
+
+      <fonts>
+        <!-- embedded fonts -->
+        <!--
+        This information must exactly match the font specified
+        in the fo file. Otherwise it will use a default font.
+
+        For example,
+        <fo:inline font-family="Arial" font-weight="bold" font-style="normal">
+            Arial-normal-normal font
+        </fo:inline>
+        for the font triplet specified by:
+        <font-triplet name="Arial" style="normal" weight="bold"/>
+
+        If you do not want to embed the font in the pdf document
+        then do not include the "embed-url" attribute.
+        The font will be needed where the document is viewed
+        for it to be displayed properly.
+
+        possible styles: normal | italic | oblique | backslant
+        possible weights: normal | bold | 100 | 200 | 300 | 400
+                          | 500 | 600 | 700 | 800 | 900
+        (normal = 400, bold = 700)
+        -->
+
+        <!--
+        <font metrics-url="arial.xml" kerning="yes" embed-url="arial.ttf">
+          <font-triplet name="Arial" style="normal" weight="normal"/>
+          <font-triplet name="ArialMT" style="normal" weight="normal"/>
+        </font>
+        <font metrics-url="arialb.xml" kerning="yes" embed-url="arialb.ttf">
+          <font-triplet name="Arial" style="normal" weight="bold"/>
+          <font-triplet name="ArialMT" style="normal" weight="bold"/>
+        </font>
+        -->
+
+        <!-- auto-detect fonts -->
+        <auto-detect/>
+
+      </fonts>
+
+      <!-- This option lets you specify additional options on an XML handler -->
+      <!--xml-handler namespace="http://www.w3.org/2000/svg">
+        <stroke-text>false</stroke-text>
+      </xml-handler-->
+
+    </renderer>
+
+    <renderer mime="application/x-afp">
+      <!--
+           The bit depth and type of images produced
+           (this is the default setting)
+      -->
+      <images mode="b+w" bits-per-pixel="8"/>
+      <renderer-resolution>240</renderer-resolution>
+      <line-width-correction>2.5</line-width-correction>
+      <resource-group-file>resources.afp</resource-group-file>
+
+      <fonts>
+      <!--
+           Below is an example using raster font configuration using FOP builtin base-14 font metrics.
+           for Times Roman, Helvetica and Courier.
+
+           Depending on AFP raster and outline font availability on your installation you will
+           most likely need to modify the configuration provided below.
+
+           See http://xmlgraphics.apache.org/fop/trunk/output.html#afp-configuration
+           for details of FOP configuration for AFP
+      -->
+
+        <!-- Times Roman -->
+        <font>
+          <afp-font name="Times Roman" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0N20060" base14-font="TimesRoman"/>
+            <afp-raster-font size="7" characterset="C0N20070" base14-font="TimesRoman"/>
+            <afp-raster-font size="8" characterset="C0N20080" base14-font="TimesRoman"/>
+            <afp-raster-font size="9" characterset="C0N20090" base14-font="TimesRoman"/>
+            <afp-raster-font size="10" characterset="C0N20000" base14-font="TimesRoman"/>
+            <afp-raster-font size="11" characterset="C0N200A0" base14-font="TimesRoman"/>
+            <afp-raster-font size="12" characterset="C0N200B0" base14-font="TimesRoman"/>
+            <afp-raster-font size="14" characterset="C0N200D0" base14-font="TimesRoman"/>
+            <afp-raster-font size="16" characterset="C0N200F0" base14-font="TimesRoman"/>
+            <afp-raster-font size="18" characterset="C0N200H0" base14-font="TimesRoman"/>
+            <afp-raster-font size="20" characterset="C0N200J0" base14-font="TimesRoman"/>
+            <afp-raster-font size="24" characterset="C0N200N0" base14-font="TimesRoman"/>
+            <afp-raster-font size="30" characterset="C0N200T0" base14-font="TimesRoman"/>
+            <afp-raster-font size="36" characterset="C0N200Z0" base14-font="TimesRoman"/>
+          </afp-font>
+          <font-triplet name="Times" style="normal" weight="normal"/>
+          <font-triplet name="TimesRoman" style="normal" weight="normal"/>
+          <font-triplet name="Times Roman" style="normal" weight="normal"/>
+          <font-triplet name="Times-Roman" style="normal" weight="normal"/>
+          <font-triplet name="Times New Roman" style="normal" weight="normal"/>
+          <font-triplet name="TimesNewRoman" style="normal" weight="normal"/>
+          <font-triplet name="serif" style="normal" weight="normal"/>
+        </font>
+ 
+        <!-- Times Roman Italic -->
+        <font>
+          <afp-font name="Times Roman Italic" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0N30060" base14-font="TimesItalic"/>
+            <afp-raster-font size="7" characterset="C0N30070" base14-font="TimesItalic"/>
+            <afp-raster-font size="8" characterset="C0N30080" base14-font="TimesItalic"/>
+            <afp-raster-font size="9" characterset="C0N30090" base14-font="TimesItalic"/>
+            <afp-raster-font size="10" characterset="C0N30000" base14-font="TimesItalic"/>
+            <afp-raster-font size="11" characterset="C0N300A0" base14-font="TimesItalic"/>
+            <afp-raster-font size="12" characterset="C0N300B0" base14-font="TimesItalic"/>
+            <afp-raster-font size="14" characterset="C0N300D0" base14-font="TimesItalic"/>
+            <afp-raster-font size="16" characterset="C0N300F0" base14-font="TimesItalic"/>
+            <afp-raster-font size="18" characterset="C0N300H0" base14-font="TimesItalic"/>
+            <afp-raster-font size="20" characterset="C0N300J0" base14-font="TimesItalic"/>
+            <afp-raster-font size="24" characterset="C0N300N0" base14-font="TimesItalic"/>
+            <afp-raster-font size="30" characterset="C0N300T0" base14-font="TimesItalic"/>
+            <afp-raster-font size="36" characterset="C0N300Z0" base14-font="TimesItalic"/>
+          </afp-font>
+          <font-triplet name="Times" style="italic" weight="normal"/>
+          <font-triplet name="TimesRoman" style="italic" weight="normal"/>
+          <font-triplet name="Times Roman" style="italic" weight="normal"/>
+          <font-triplet name="Times-Roman" style="italic" weight="normal"/>
+          <font-triplet name="Times New Roman" style="italic" weight="normal"/>
+          <font-triplet name="TimesNewRoman" style="italic" weight="normal"/>
+          <font-triplet name="serif" style="italic" weight="normal"/>
+        </font>
+ 
+        <!-- Times Roman Bold -->
+        <font>
+          <afp-font name="Times Roman Bold" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0N40060" base14-font="TimesBold"/>
+            <afp-raster-font size="7" characterset="C0N40070" base14-font="TimesBold"/>
+            <afp-raster-font size="8" characterset="C0N40080" base14-font="TimesBold"/>
+            <afp-raster-font size="9" characterset="C0N40090" base14-font="TimesBold"/>
+            <afp-raster-font size="10" characterset="C0N40000" base14-font="TimesBold"/>
+            <afp-raster-font size="11" characterset="C0N400A0" base14-font="TimesBold"/>
+            <afp-raster-font size="12" characterset="C0N400B0" base14-font="TimesBold"/>
+            <afp-raster-font size="14" characterset="C0N400D0" base14-font="TimesBold"/>
+            <afp-raster-font size="16" characterset="C0N400F0" base14-font="TimesBold"/>
+            <afp-raster-font size="18" characterset="C0N400H0" base14-font="TimesBold"/>
+            <afp-raster-font size="20" characterset="C0N400J0" base14-font="TimesBold"/>
+            <afp-raster-font size="24" characterset="C0N400N0" base14-font="TimesBold"/>
+            <afp-raster-font size="30" characterset="C0N400T0" base14-font="TimesBold"/>
+            <afp-raster-font size="36" characterset="C0N400Z0" base14-font="TimesBold"/>
+          </afp-font>
+          <font-triplet name="Times" style="normal" weight="bold"/>
+          <font-triplet name="TimesRoman" style="normal" weight="bold"/>
+          <font-triplet name="Times Roman" style="normal" weight="bold"/>
+          <font-triplet name="Times-Roman" style="normal" weight="bold"/>
+          <font-triplet name="Times New Roman" style="normal" weight="bold"/>
+          <font-triplet name="TimesNewRoman" style="normal" weight="bold"/>
+          <font-triplet name="serif" style="normal" weight="bold"/>
+        </font>
+
+        <!-- Times Roman Italic Bold -->
+        <font>
+          <afp-font name="Times Roman Italic Bold" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0N50060" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="7" characterset="C0N50070" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="8" characterset="C0N50080" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="9" characterset="C0N50090" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="10" characterset="C0N50000" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="11" characterset="C0N500A0" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="12" characterset="C0N500B0" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="14" characterset="C0N500D0" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="16" characterset="C0N500F0" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="18" characterset="C0N500H0" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="20" characterset="C0N500J0" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="24" characterset="C0N500N0" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="30" characterset="C0N500T0" base14-font="TimesBoldItalic"/>
+            <afp-raster-font size="36" characterset="C0N500Z0" base14-font="TimesBoldItalic"/>
+          </afp-font>
+          <font-triplet name="Times" style="italic" weight="bold"/>
+          <font-triplet name="TimesRoman" style="italic" weight="bold"/>
+          <font-triplet name="Times Roman" style="italic" weight="bold"/>
+          <font-triplet name="Times-Roman" style="italic" weight="bold"/>
+          <font-triplet name="Times New Roman" style="italic" weight="bold"/>
+          <font-triplet name="TimesNewRoman" style="italic" weight="bold"/>
+          <font-triplet name="serif" style="italic" weight="bold"/>
+        </font>
+
+        <!-- Helvetica -->
+        <font>
+          <afp-font name="Helvetica" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0H20060" base14-font="Helvetica"/>
+            <afp-raster-font size="7" characterset="C0H20070" base14-font="Helvetica"/>
+            <afp-raster-font size="8" characterset="C0H20080" base14-font="Helvetica"/>
+            <afp-raster-font size="9" characterset="C0H20090" base14-font="Helvetica"/>
+            <afp-raster-font size="10" characterset="C0H20000" base14-font="Helvetica"/>
+            <afp-raster-font size="11" characterset="C0H200A0" base14-font="Helvetica"/>
+            <afp-raster-font size="12" characterset="C0H200B0" base14-font="Helvetica"/>
+            <afp-raster-font size="14" characterset="C0H200D0" base14-font="Helvetica"/>
+            <afp-raster-font size="16" characterset="C0H200F0" base14-font="Helvetica"/>
+            <afp-raster-font size="18" characterset="C0H200H0" base14-font="Helvetica"/>
+            <afp-raster-font size="20" characterset="C0H200J0" base14-font="Helvetica"/>
+            <afp-raster-font size="24" characterset="C0H200N0" base14-font="Helvetica"/>
+            <afp-raster-font size="30" characterset="C0H200T0" base14-font="Helvetica"/>
+            <afp-raster-font size="36" characterset="C0H200Z0" base14-font="Helvetica"/>
+          </afp-font>
+          <font-triplet name="Helvetica" style="normal" weight="normal"/>
+          <font-triplet name="Arial" style="normal" weight="normal"/>
+          <font-triplet name="sans-serif" style="normal" weight="normal"/>
+          <font-triplet name="any" style="normal" weight="normal"/>
+        </font>
+
+        <!-- Helvetica Italic -->
+        <font>
+          <afp-font name="Helvetica Italic" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0H30060" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="7" characterset="C0H30070" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="8" characterset="C0H30080" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="9" characterset="C0H30090" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="10" characterset="C0H30000" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="11" characterset="C0H300A0" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="12" characterset="C0H300B0" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="14" characterset="C0H300D0" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="16" characterset="C0H300F0" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="18" characterset="C0H300H0" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="20" characterset="C0H300J0" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="24" characterset="C0H300N0" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="30" characterset="C0H300T0" base14-font="HelveticaOblique"/>
+            <afp-raster-font size="36" characterset="C0H300Z0" base14-font="HelveticaOblique"/>
+          </afp-font>
+          <font-triplet name="Helvetica" style="italic" weight="normal"/>
+          <font-triplet name="Arial" style="italic" weight="normal"/>
+          <font-triplet name="sans-serif" style="italic" weight="normal"/>
+        </font>
+
+        <!-- Helvetica (Semi) Bold -->
+        <font>
+          <afp-font name="Helvetica (Semi) Bold" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0H40060" base14-font="HelveticaBold"/>
+            <afp-raster-font size="7" characterset="C0H40070" base14-font="HelveticaBold"/>
+            <afp-raster-font size="8" characterset="C0H40080" base14-font="HelveticaBold"/>
+            <afp-raster-font size="9" characterset="C0H40090" base14-font="HelveticaBold"/>
+            <afp-raster-font size="10" characterset="C0H40000" base14-font="HelveticaBold"/>
+            <afp-raster-font size="11" characterset="C0H400A0" base14-font="HelveticaBold"/>
+            <afp-raster-font size="12" characterset="C0H400B0" base14-font="HelveticaBold"/>
+            <afp-raster-font size="14" characterset="C0H400D0" base14-font="HelveticaBold"/>
+            <afp-raster-font size="16" characterset="C0H400F0" base14-font="HelveticaBold"/>
+            <afp-raster-font size="18" characterset="C0H400H0" base14-font="HelveticaBold"/>
+            <afp-raster-font size="20" characterset="C0H400J0" base14-font="HelveticaBold"/>
+            <afp-raster-font size="24" characterset="C0H400N0" base14-font="HelveticaBold"/>
+            <afp-raster-font size="30" characterset="C0H400T0" base14-font="HelveticaBold"/>
+            <afp-raster-font size="36" characterset="C0H400Z0" base14-font="HelveticaBold"/>
+          </afp-font>
+          <font-triplet name="Helvetica" style="normal" weight="bold"/>
+          <font-triplet name="Arial" style="normal" weight="bold"/>
+          <font-triplet name="sans-serif" style="normal" weight="bold"/>
+        </font>
+
+        <!-- Helvetica Italic (Semi) Bold -->
+        <font>
+          <afp-font name="Helvetica Italic (Semi) Bold" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0H50060" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="7" characterset="C0H50070" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="8" characterset="C0H50080" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="9" characterset="C0H50090" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="10" characterset="C0H50000" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="11" characterset="C0H500A0" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="12" characterset="C0H500B0" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="14" characterset="C0H500D0" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="16" characterset="C0H500F0" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="18" characterset="C0H500H0" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="20" characterset="C0H500J0" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="24" characterset="C0H500N0" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="30" characterset="C0H500T0" base14-font="HelveticaBoldOblique"/>
+            <afp-raster-font size="36" characterset="C0H500Z0" base14-font="HelveticaBoldOblique"/>
+          </afp-font>
+          <font-triplet name="Helvetica" style="italic" weight="bold"/>
+          <font-triplet name="Arial" style="italic" weight="bold"/>
+          <font-triplet name="sans-serif" style="italic" weight="bold"/>
+        </font>
+
+        <!-- Courier -->
+        <font>
+          <afp-font name="Courier" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0420060" base14-font="Courier"/>
+            <afp-raster-font size="7" characterset="C0420070" base14-font="Courier"/>
+            <afp-raster-font size="8" characterset="C0420080" base14-font="Courier"/>
+            <afp-raster-font size="9" characterset="C0420090" base14-font="Courier"/>
+            <afp-raster-font size="10" characterset="C0420000" base14-font="Courier"/>
+            <afp-raster-font size="11" characterset="C04200A0" base14-font="Courier"/>
+            <afp-raster-font size="12" characterset="C04200B0" base14-font="Courier"/>
+            <afp-raster-font size="14" characterset="C04200D0" base14-font="Courier"/>
+            <afp-raster-font size="16" characterset="C04200F0" base14-font="Courier"/>
+            <afp-raster-font size="18" characterset="C04200H0" base14-font="Courier"/>
+            <afp-raster-font size="20" characterset="C04200J0" base14-font="Courier"/>
+            <afp-raster-font size="24" characterset="C04200N0" base14-font="Courier"/>
+            <afp-raster-font size="30" characterset="C04200T0" base14-font="Courier"/>
+            <afp-raster-font size="36" characterset="C04200Z0" base14-font="Courier"/>
+          </afp-font>
+          <font-triplet name="Courier" style="normal" weight="normal"/>
+          <font-triplet name="monospace" style="normal" weight="normal"/>
+        </font>
+
+        <!-- Courier Italic -->
+        <font>
+          <afp-font name="Courier Italic" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0430060" base14-font="CourierOblique"/>
+            <afp-raster-font size="7" characterset="C0430070" base14-font="CourierOblique"/>
+            <afp-raster-font size="8" characterset="C0430080" base14-font="CourierOblique"/>
+            <afp-raster-font size="9" characterset="C0430090" base14-font="CourierOblique"/>
+            <afp-raster-font size="10" characterset="C0430000" base14-font="CourierOblique"/>
+            <afp-raster-font size="11" characterset="C04300A0" base14-font="CourierOblique"/>
+            <afp-raster-font size="12" characterset="C04300B0" base14-font="CourierOblique"/>
+            <afp-raster-font size="14" characterset="C04300D0" base14-font="CourierOblique"/>
+            <afp-raster-font size="16" characterset="C04300F0" base14-font="CourierOblique"/>
+            <afp-raster-font size="18" characterset="C04300H0" base14-font="CourierOblique"/>
+            <afp-raster-font size="20" characterset="C04300J0" base14-font="CourierOblique"/>
+            <afp-raster-font size="24" characterset="C04300N0" base14-font="CourierOblique"/>
+            <afp-raster-font size="30" characterset="C04300T0" base14-font="CourierOblique"/>
+            <afp-raster-font size="36" characterset="C04300Z0" base14-font="CourierOblique"/>
+          </afp-font>
+          <font-triplet name="Courier" style="italic" weight="normal"/>
+          <font-triplet name="monospace" style="italic" weight="normal"/>
+        </font>
+
+        <!-- Courier Bold -->
+        <font>
+          <afp-font name="Courier Bold" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0440060" base14-font="CourierBold"/>
+            <afp-raster-font size="7" characterset="C0440070" base14-font="CourierBold"/>
+            <afp-raster-font size="8" characterset="C0440080" base14-font="CourierBold"/>
+            <afp-raster-font size="9" characterset="C0440090" base14-font="CourierBold"/>
+            <afp-raster-font size="10" characterset="C0440000" base14-font="CourierBold"/>
+            <afp-raster-font size="11" characterset="C04400A0" base14-font="CourierBold"/>
+            <afp-raster-font size="12" characterset="C04400B0" base14-font="CourierBold"/>
+            <afp-raster-font size="14" characterset="C04400D0" base14-font="CourierBold"/>
+            <afp-raster-font size="16" characterset="C04400F0" base14-font="CourierBold"/>
+            <afp-raster-font size="18" characterset="C04400H0" base14-font="CourierBold"/>
+            <afp-raster-font size="20" characterset="C04400J0" base14-font="CourierBold"/>
+            <afp-raster-font size="24" characterset="C04400N0" base14-font="CourierBold"/>
+            <afp-raster-font size="30" characterset="C04400T0" base14-font="CourierBold"/>
+            <afp-raster-font size="36" characterset="C04400Z0" base14-font="CourierBold"/>
+          </afp-font>
+          <font-triplet name="Courier" style="normal" weight="bold"/>
+          <font-triplet name="monospace" style="normal" weight="bold"/>
+        </font>
+
+        <!-- Courier Italic Bold -->
+        <font>
+          <afp-font name="Courier Italic Bold" type="raster" codepage="T1V10500" encoding="Cp500">
+            <afp-raster-font size="6" characterset="C0450060" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="7" characterset="C0450070" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="8" characterset="C0450080" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="9" characterset="C0450090" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="10" characterset="C0450000" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="11" characterset="C04500A0" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="12" characterset="C04500B0" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="14" characterset="C04500D0" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="16" characterset="C04500F0" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="18" characterset="C04500H0" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="20" characterset="C04500J0" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="24" characterset="C04500N0" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="30" characterset="C04500T0" base14-font="CourierBoldOblique"/>
+            <afp-raster-font size="36" characterset="C04500Z0" base14-font="CourierBoldOblique"/>
+          </afp-font>
+          <font-triplet name="Courier" style="italic" weight="bold"/>
+          <font-triplet name="monospace" style="italic" weight="bold"/>
+        </font>
+        
+         <!-- 
+        Configure double-byte (CID Keyed font (Type 0)) AFP fonts with type="CIDKeyed".  
+        
+        example:
+         <font>
+                <afp-font type="CIDKeyed" encoding="UnicodeBigUnmarked"  
+                codepage="T1120000" characterset="CZJHMNU" 
+                base-uri="fonts" />
+                <font-triplet name="J-Heisei Mincho" style="normal" weight="normal" />
+         </font>
+        -->
+        
+        
+      </fonts>
+    </renderer>
+
+    <renderer mime="application/postscript">
+      <!-- This option forces the PS renderer to rotate landscape pages -->
+      <!--auto-rotate-landscape>true</auto-rotate-landscape-->
+      
+      <!-- This option lets you specify additional options on an XML handler -->
+      <!--xml-handler namespace="http://www.w3.org/2000/svg">
+        <stroke-text>false</stroke-text>
+      </xml-handler-->
+    </renderer>
+
+    <renderer mime="application/vnd.hp-PCL">
+    </renderer>
+
+    <!-- MIF does not have a renderer
+    <renderer mime="application/vnd.mif">
+    </renderer>
+    -->
+
+    <renderer mime="image/svg+xml">
+      <format type="paginated"/>
+      <link value="true"/>
+      <strokeText value="false"/>
+    </renderer>
+
+    <renderer mime="application/awt">
+    </renderer>
+
+    <renderer mime="image/png">
+      <!--transparent-page-background>true</transparent-page-background-->
+    </renderer>
+
+    <renderer mime="image/tiff">
+      <!--transparent-page-background>true</transparent-page-background-->
+      <!--compression>CCITT T.6</compression-->
+    </renderer>
+
+    <renderer mime="text/xml">
+    </renderer>
+
+    <!-- RTF does not have a renderer
+    <renderer mime="text/rtf">
+    </renderer>
+    -->
+
+  </renderers>
+
+</fop>

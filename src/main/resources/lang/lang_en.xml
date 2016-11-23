@@ -2,7 +2,10 @@
 <resources>
     <string name="addr">Address</string>
     <string name="name">Name</string>
-    <string name="tableOfContent">Table of Content</string>
+    <string name="tableOfContent">Table of Contents</string>
+    <string name="general">General</string>
+    <string name="revision">Revision</string>
+    <string name="date">Date</string>
     <string name="attr_dialogTitle">Attributes</string>
     <string name="attr_openCircuit">Show</string>
     <string name="attr_openCircuitLabel">Included circuit:</string>
