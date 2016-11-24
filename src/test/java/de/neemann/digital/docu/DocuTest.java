@@ -4,6 +4,8 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.graphics.GraphicMinMax;
+import de.neemann.digital.draw.graphics.GraphicSVGIndex;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.integration.Resources;
@@ -29,7 +31,7 @@ import java.io.*;
  * information used to create the tooltips in the program.  After that Xalan is used to transform the XML document
  * to a XSL-FO document. Then FOP is used to read the XSL-FO file and to compile it to a PDF document.
  * The PDF document is then included in the distribution ZIP. This done for all supported languages.
- *
+ * <p>
  * Created by hneemann on 17.11.16.
  */
 public class DocuTest extends TestCase {
@@ -58,7 +60,7 @@ public class DocuTest extends TestCase {
                 .append(Lang.get("general"))
                 .append("\" components=\"")
                 .append(Lang.get("menu_elements"))
-                .append("\" static=\"").append(new File(Resources.getRoot(), "docu/static_"+language+".xml").toURI().toString())
+                .append("\" static=\"").append(new File(Resources.getRoot(), "docu/static_" + language + ".xml").toURI().toString())
                 .append("\">\n");
         ElementLibrary library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library, language.equals("en"));
@@ -75,16 +77,19 @@ public class DocuTest extends TestCase {
 
 
             final ElementTypeDescription etd = e.getDescription();
-            String imageName=etd.getName()+"_"+language;
-            File imageFile = new File(images, imageName + ".png");
+            String imageName = etd.getName() + "_" + language;
+            File imageFile = new File(images, imageName + ".svg");
             w.append("    <element name=\"")
                     .append(escapeHTML(etd.getTranslatedName()))
                     .append("\" img=\"")
                     .append(imageFile.toURI().toString())
                     .append("\">\n");
 
-            BufferedImage bi = new VisualElement(etd.getName()).setShapeFactory(shapeFactory).getBufferedImage(0.75 * IMAGE_SCALE, 250 * IMAGE_SCALE);
-            ImageIO.write(bi, "png", imageFile);
+            VisualElement ve = new VisualElement(etd.getName()).setShapeFactory(shapeFactory);
+            writeSVG(imageFile, ve);
+
+//            BufferedImage bi = new VisualElement(etd.getName()).setShapeFactory(shapeFactory).getBufferedImage(0.75 * IMAGE_SCALE, 250 * IMAGE_SCALE);
+//            ImageIO.write(bi, "png", imageFile);
 
             final ElementAttributes attr = new ElementAttributes();
             w.append("      <descr>").append(escapeHTML(etd.getDescription(attr))).append("</descr>\n");
@@ -115,6 +120,16 @@ public class DocuTest extends TestCase {
         }
         w.append("  </lib>\n");
         w.append("</root>");
+    }
+
+    private void writeSVG(File imageFile, VisualElement ve) throws IOException {
+        GraphicMinMax minMax = new GraphicMinMax(false);
+        ve.drawTo(minMax, false);
+        try (FileOutputStream out = new FileOutputStream(imageFile)) {
+            try (GraphicSVGIndex svg = new GraphicSVGIndex(out, minMax.getMin(), minMax.getMax(), null, 100)) {
+                ve.drawTo(svg, false);
+            }
+        }
     }
 
     private void writePins(Writer w, PinDescriptions pinDescriptions) throws IOException {
@@ -164,7 +179,7 @@ public class DocuTest extends TestCase {
         //    output to a Result object.
         transformer.transform
                 (new javax.xml.transform.stream.StreamSource(xmlIn),
-                        new javax.xml.transform.stream.StreamResult( new
+                        new javax.xml.transform.stream.StreamResult(new
                                 java.io.FileOutputStream(xmlOut)));
     }
 
@@ -194,7 +209,7 @@ public class DocuTest extends TestCase {
         FopFactory fopFactory = FopFactory.newInstance(new File(Resources.getRoot(), "docu/fop.xconf"));
 
         File maven = Resources.getRoot().getParentFile().getParentFile().getParentFile();
-        File target = new File(maven,"target/xslt");
+        File target = new File(maven, "target/xslt");
         File images = new File(target, "img");
         images.mkdirs();
         for (Language l : Lang.getBundle().getSupportedLanguages()) {
