@@ -123,7 +123,7 @@
             <question>Ich habe eine Wertetabelle eingegeben, es wird jedoch mehr als eine Schaltfunktion für
                 das gesuchte Signal angezeigt. Welche ist die Richtige?</question>
             <answer>Wenn eine Schaltfunktion minimiert wird, kann es mehrere minimierte Schaltfunktionen gleicher
-                Komplexität geben (gleiche Anzahl von Termen). Dies tritt besonders leicht auf, wenn es viele Don't Cares gibt.
+                Komplexität geben (gleiche Anzahl von Termen).
                 Digital zeigt alle möglichen Lösungen an und alle liefern die selbe Wertetabelle.
                 In den Don't Care-Zeilen der Wertetabelle kann es natürlich Unterschiede zwischen den verschiednen
                 Funktionen geben.</answer>
