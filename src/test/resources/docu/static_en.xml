@@ -8,13 +8,13 @@
     <chapter name="Wires">
         <par>
             There are only connections between the end of a wire and a components pin. If you draw a straight wire across
-            many component pins, there wil be no connection between the pins and the wire at all.
+            many component pins, there will be no connection between the pins and the wire at all.
         </par>
     </chapter>
     <chapter name="Frequently asked Questions">
         <faq>
             <question>How to move a wire?</question>
-            <answer>Selct on of the end points with the rectangular selection. The move this point using the mouse.</answer>
+            <answer>Select on of the end points with the rectangular selection. The move this point using the mouse.</answer>
         </faq>
         <faq>
             <question>How to select a single wire?</question>
@@ -22,26 +22,27 @@
         </faq>
         <faq>
             <question>How to delete a wire?</question>
-            <answer>Select on ot the end points and press <e>DEL</e> or click on the trashcan.</answer>
+            <answer>Select on of the end points and press <e>DEL</e> or click on the trashcan.</answer>
         </faq>
         <faq>
             <question>How to move a component including all the connected wires?</question>
             <answer>Select the component with the rectangular selection. The selection must include the entire component.
-                The move the component including the wires using the mouse.</answer>
+                Then move the component including the wires using the mouse.</answer>
         </faq>
         <faq>
             <question>There is a component not connected to a wire, even though the pins are on the wire.</question>
-            <answer>A pin is only connnected to a wire if the wire has an endpoint at the pin.</answer>
+            <answer>A pin is only connected to a wire if the wire has an endpoint at the pin.</answer>
         </faq>
         <faq>
             <question>When the simulation is started, a wire becomes gray. What does that mean?</question>
-            <answer>The colors light green and dark green are used to represent high and low state. Gray means the wire is in high Z state.</answer>
+            <answer>The colors light green and dark green are used to represent high and low state.
+                Gray means the wire is in high Z state.</answer>
         </faq>
         <faq>
             <question>I have a truth table. How to calculate the minimized boolean equations?</question>
-            <answer>In the menu <e>Analysis</e> selct the entry <e>Synthesise</e>. Then enter the truth table.
+            <answer>In the menu <e>Analysis</e> select the entry <e>Synthesise</e>. Then enter the truth table.
                 At the bottom of the window you can find the matching boolean equation. If you enter more than one
-                dependent variable, a new window opens, in which all boolean functions are shown.</answer>
+                dependent variable, a new window opens in which all boolean equations are shown.</answer>
         </faq>
         <faq>
             <question>I have entered a truth table, but there are more then one boolean equation shown.
