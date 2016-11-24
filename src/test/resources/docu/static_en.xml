@@ -2,13 +2,87 @@
 <root>
     <chapter name="Digital">
         <par>
-            Digital is a simple simpulator used to simulate digital circuits.
+            Digital is a simple simulator used to simulate digital circuits.
         </par>
     </chapter>
-    <chapter id="wires" name="Wires">
+    <chapter name="Wires">
         <par>
             There are only connections between the end of a wire and a components pin. If you draw a straight wire across
             many component pins, there wil be no connection between the pins and the wire at all.
         </par>
+    </chapter>
+    <chapter name="Frequently asked Questions">
+        <faq>
+            <question>How to move a wire?</question>
+            <answer>Selct on of the end points with the rectangular selection. The move this point using the mouse.</answer>
+        </faq>
+        <faq>
+            <question>How to select a single wire?</question>
+            <answer>You have to select the end points of the wire using the rectangular selection.</answer>
+        </faq>
+        <faq>
+            <question>How to delete a wire?</question>
+            <answer>Select on ot the end points and press <e>DEL</e> or click on the trashcan.</answer>
+        </faq>
+        <faq>
+            <question>How to move a component including all the connected wires?</question>
+            <answer>Select the component with the rectangular selection. The selection must include the entire component.
+                The move the component including the wires using the mouse.</answer>
+        </faq>
+        <faq>
+            <question>There is a component not connected to a wire, even though the pins are on the wire.</question>
+            <answer>A pin is only connnected to a wire if the wire has an endpoint at the pin.</answer>
+        </faq>
+        <faq>
+            <question>When the simulation is started, a wire becomes gray. What does that mean?</question>
+            <answer>The colors light green and dark green are used to represent high and low state. Gray means the wire is in high Z state.</answer>
+        </faq>
+        <faq>
+            <question>I have a truth table. How to calculate the minimized boolean equations?</question>
+            <answer>In the menu <e>Analysis</e> selct the entry <e>Synthesise</e>. Then enter the truth table.
+                At the bottom of the window you can find the matching boolean equation. If you enter more than one
+                dependent variable, a new window opens, in which all boolean functions are shown.</answer>
+        </faq>
+        <faq>
+            <question>I have entered a truth table, but there are more then one boolean equation shown.
+                Which of them is the correct one?</question>
+            <answer>Minimizing a boolean equation can result in many equations, describing the same function.
+                Digital shows all of them and they all create the same truth table.
+                There may be differences according the don't cares in the truth table.</answer>
+        </faq>
+        <faq>
+            <question>I have a truth table. How to create a circuit representing the truth table?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Synthesise</e>. Then enter the truth table.
+                You can edit the table using the <e>New</e> or <e>Add Columns</e> menus.
+                In the menu <e>Create</e> you can create a circuit using the <e>Circuit</e> item.</answer>
+        </faq>
+        <faq>
+            <question>How to edit a signals name in the truth table?</question>
+            <answer>Double click the name in the table header and edit the name.</answer>
+        </faq>
+        <faq>
+            <question>I have a boolean equation. How to create a circuit?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the expression.</answer>
+        </faq>
+        <faq>
+            <question>How to create a truth table from an boolean equation?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the expression.
+                Then create a circuit and in the menu <e>Analysis</e> use the entry <e>Analysis</e> to create the truth table.</answer>
+        </faq>
+        <faq>
+            <question>How to create a JEDEC file from a given circuit?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Analysis</e>. Then in the menu <e>Create</e> of the new
+                window choose the correct device in the sub menu <e>Device</e>.</answer>
+        </faq>
+        <faq>
+            <question>When creating a JEDEC file: How to assign a pin number to a certain signal?</question>
+            <answer>At the according inputs and outputs you can enter a <e>Description</e>. In this description you can
+                add a line 'Pin [n]', where [n] gives the pin number. If there is no such line, the next available pin
+                is assigned to the signal.</answer>
+        </faq>
+        <faq>
+            <question>I have created a JEDEC file. How to program it to a <e>GAL16v8</e> or <e>GAL22v10</e>?</question>
+            <answer>To programm such a chip a special programmer hardware is necessary.</answer>
+        </faq>
     </chapter>
 </root>
