@@ -5,7 +5,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 

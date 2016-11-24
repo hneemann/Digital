@@ -6,9 +6,6 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.lang.Lang;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.*;
 
 /**

@@ -1,7 +1,6 @@
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 

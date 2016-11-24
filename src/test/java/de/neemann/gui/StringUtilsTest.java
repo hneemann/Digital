@@ -1,9 +1,6 @@
 package de.neemann.gui;
 
 import junit.framework.TestCase;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by hneemann on 29.10.16.

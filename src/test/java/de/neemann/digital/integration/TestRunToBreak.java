@@ -1,7 +1,6 @@
 package de.neemann.digital.integration;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.memory.RAMSinglePort;
 import de.neemann.digital.core.memory.Register;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;

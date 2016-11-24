@@ -24,12 +24,18 @@ public class PinDescriptions extends ImmutableList<PinDescription> {
         super(observableValues);
     }
 
-    public PinDescriptions setLangKey(String key) {
+    /**
+     * Sets this key to the PinInfo instances of this list
+     *
+     * @param key the key to set
+     * @return this for chained calls
+     */
+    PinDescriptions setLangKey(String key) {
         for (PinDescription pd : this) {
             if (pd instanceof PinInfo) {
-                ((PinInfo)pd).setLangKey(key);
+                ((PinInfo) pd).setLangKey(key);
             } else {
-                System.out.println("no PinInfo: "+pd.getClass().getSimpleName());
+                System.out.println("PinDescription id not a PinInfo but " + pd.getClass().getSimpleName());
             }
         }
         return this;

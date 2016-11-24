@@ -8,7 +8,6 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 /**

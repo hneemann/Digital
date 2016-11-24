@@ -124,7 +124,12 @@ public class PinInfo implements PinDescription {
         return this;
     }
 
-    public void setLangKey(String key) {
+    /**
+     * Sets the language key for this pin.
+     *
+     * @param key the key
+     */
+    void setLangKey(String key) {
         this.langKey = key + name;
     }
 }
