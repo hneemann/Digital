@@ -177,9 +177,9 @@
 	<xsl:template match="element" mode="full">
 		<xsl:param name="number" />
 
-		<fo:block keep-together.within-page="always">
-			<fo:block margin-top="6mm">
-                <fo:external-graphic content-width="20%" src="url('{@img}')" id="{$number}_{position()}"/>
+		<fo:block keep-together.within-page="always" page-break-after="avoid">
+			<fo:block margin-top="6mm" >
+                <fo:external-graphic src="url('{@img}')" id="{$number}_{position()}"/>
 			</fo:block>
 			<fo:block margin-top="4mm" margin-bottom="4mm" font-size="12pt" font-weight="bold">
 				<xsl:value-of select="$number"/>.<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>

@@ -5,7 +5,7 @@ import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.GraphicMinMax;
-import de.neemann.digital.draw.graphics.GraphicSVGIndex;
+import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.integration.Resources;
@@ -18,11 +18,9 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.xml.sax.SAXException;
 
-import javax.imageio.ImageIO;
 import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -123,10 +121,10 @@ public class DocuTest extends TestCase {
     }
 
     private void writeSVG(File imageFile, VisualElement ve) throws IOException {
-        GraphicMinMax minMax = new GraphicMinMax(false);
+        GraphicMinMax minMax = new GraphicMinMax(true);
         ve.drawTo(minMax, false);
         try (FileOutputStream out = new FileOutputStream(imageFile)) {
-            try (GraphicSVGIndex svg = new GraphicSVGIndex(out, minMax.getMin(), minMax.getMax(), null, 100)) {
+            try (GraphicSVG svg = new GraphicSVG(out, minMax.getMin(), minMax.getMax(), null, 20)) {
                 ve.drawTo(svg, false);
             }
         }
