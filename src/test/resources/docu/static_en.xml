@@ -2,9 +2,36 @@
 <root>
     <chapter name="Digital">
         <par>
-            Digital is a simple simulator used to simulate digital circuits.
+            Digital is a simple simulator used to simulate digital circuits. The single logic gates are connected
+            to each other by wires and the behaviour of the whole circuit is simulated.
+            The user is able to interact with the circuit while it is running by pressing buttons or setting values
+            to the inputs of the circuit.
+        </par>
+        <par>
+            In this way you can build and simulate most of the fundamental circuits used in digital electronics.
+            In the folder <e>examples</e> you can find many examples including a working single cycle harvard 16 bit
+            processor.
         </par>
     </chapter>
+    <chapter name="Propagation Delay">
+        <par>
+            During the simulation every logic gate has the same propagation delay. Every component from the library
+            has the same propagation delay regardless of its complexity.
+            So an AND gate has the same propagation delay as a RAM component.
+            The only exceptions are diodes, switches and splitters which are used to create data buses.
+            These components have no propagation delay at all.
+        </par>
+        <par>
+            If a circuit is included in an other parent circuit, the included circuit keep its timing behaviour.
+            So if you include a complex circuit which has a large propagation delay because on of the inputt signals has
+            to pass three gates until it reaches the output, this behaviour is conserved while including this circuit.
+            There are no additional delays coming up by including a circuit. If not all outputs of a circuit have
+            the same propagation delay this is also the case if it is included in a parent circuit.
+            In general, including a circuit into an other circuit does not modify its timing behaviour at all. A included
+            circuit behave in exact the same way as if all components had been inserted in the same circuit level.
+        </par>
+    </chapter>
+
     <chapter name="Wires">
         <par>
             There are only connections between the end of a wire and a components pin. If you draw a straight wire across
