@@ -78,21 +78,21 @@
 					</fo:block>
                     <!-- table of contents -->
 					<fo:block>
-						A <xsl:value-of select="@general"/>
+						A <fo:inline padding-left="1mm"><xsl:value-of select="@general"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="document(@static)/*" mode="toc"/>
 					<fo:block margin-top="2mm">
-						B <xsl:value-of select="@components"/>
+						B <fo:inline padding-left="1mm"><xsl:value-of select="@components"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="toc"/>
 					<fo:block page-break-before="always"/>
                     <!-- the content -->
 					<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
-						A <xsl:value-of select="@general"/>
+						A <fo:inline padding-left="2mm"><xsl:value-of select="@general"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="document(@static)/*" mode="full"/>
 					<fo:block page-break-before="always" margin-bottom="4mm" font-size="16pt" font-weight="bold">
-						B <xsl:value-of select="@components"/>
+						B <fo:inline padding-left="2mm"><xsl:value-of select="@components"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="full"/>
 					<fo:block id="LastPage"/>
@@ -153,6 +153,12 @@
 			<xsl:apply-templates/>
 		</fo:inline>
 	</xsl:template>
+
+	<xsl:template match="arrow">
+		<fo:inline padding-left="2pt" font-family="ZapfDingbats">&#x2192;</fo:inline>
+	</xsl:template>
+
+
 
     <xsl:template match="faq">
 		<fo:block keep-together.within-page="always">

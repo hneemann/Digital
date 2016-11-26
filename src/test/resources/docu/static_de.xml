@@ -107,7 +107,7 @@
         </faq>
         <faq>
             <question>Ich habe ein Element, das nicht mit einer Leitung verbunden ist, obwohl die Pins auf der Leitung liegen.</question>
-            <answer>Pins werden nur mit einer Leitungen verbunden, wenn die Leitung an dem Pin endet bzw. beginnt.</answer>
+            <answer>Pins werden nur mit einer Leitung verbunden, wenn ein Endpunkt der Leitung auf dem Pin liegt.</answer>
         </faq>
         <faq>
             <question>Wenn die Simulation gestartet wird, ist die Leitung grau. Was bedeutet das?</question>
@@ -115,7 +115,7 @@
         </faq>
         <faq>
             <question>Ich habe eine Wertetabelle. Wie kann ich daraus die minimalen Schaltfunktionen erzeugen?</question>
-            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Synthese</e> auswählen und dann die Wertetabelle eingeben.
+            <answer>Im Menü <e>Analyse<arrow/>Synthese</e> auswählen und dann die Wertetabelle eingeben.
                 In der Statusleiste des Fensters findet sich die Schaltfunktion. Geben mehr als eine abhängige Größe ein,
                 öffnet sich ein neues Fenster, in welchem alle Schaltfunktionen angegeben sind.</answer>
         </faq>
@@ -130,9 +130,9 @@
         </faq>
         <faq>
             <question>Ich habe eine Wertetabelle. Wie kann ich daraus eine Schaltung erzeugen?</question>
-            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Synthese</e> auswählen und dann die Wertetabelle eingeben.
+            <answer>Im Menü <e>Analyse<arrow/>Synthese</e> auswählen und dann die Wertetabelle eingeben.
                 Unter <e>Neu</e> bzw. mit <e>Spalten hinzufügen</e> können Variablen hinzugefügt werden.
-                Im Menü <e>Erzeugen</e> kann mit dem mit dem Eintag <e>Schaltung</e> eine Schaltung erzeugt werden.</answer>
+                Im Menü mit <e>Erzeugen<arrow/>Schaltung</e> dann eine Schaltung erzeugen.</answer>
         </faq>
         <faq>
             <question>Wie kann ich die Signalnamen in der Wertetabelle verändern?</question>
@@ -140,17 +140,17 @@
         </faq>
         <faq>
             <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Schaltung erzeugen?</question>
-            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Ausdruck</e> auswählen und dann die Funktion eingeben.</answer>
+            <answer>Im Menü <e>Analyse<arrow/>Ausdruck</e> auswählen und dann die Funktion eingeben.</answer>
         </faq>
         <faq>
             <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Wertetabelle erzeugen?</question>
-            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Ausdruck</e> auswählen und dann die Funktion eingeben.
-                Dann die Schaltung erzeugen und im Menü <e>Analyse</e> mit dem Eintrag <e>Analyse</e> die Wertetabelle erzeugen.</answer>
+            <answer>Im Menü <e>Analyse<arrow/>Ausdruck</e> auswählen und dann die Funktion eingeben.
+                Dann die Schaltung erzeugen und im Menü <e>Analyse<arrow/>Analyse</e> die Wertetabelle erzeugen.</answer>
         </faq>
         <faq>
             <question>Wie kann ich aus einer Schaltung eine JEDEC-Datei erzeugen?</question>
-            <answer>Im Menü <e>Analyse</e> den Eintrag <e>Analyse</e> auswählen und dann im Menü <e>Erzeugen</e> des
-                neuen Fensters unter <e>Bausteine</e> den entsprechenden Baustein auswählen.</answer>
+            <answer>Im Menü <e>Analyse<arrow/>Analyse</e> auswählen und dann im neuen Fenster im Menü
+                <e>Erzeugen<arrow/>Bausteine</e> den entsprechenden Baustein auswählen.</answer>
         </faq>
         <faq>
             <question>Wie kann ich bei der Erzeugung einer JEDEC-Datei die Pinnummern der Signale festlegen?</question>
