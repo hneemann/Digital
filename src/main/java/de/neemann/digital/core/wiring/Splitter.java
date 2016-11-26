@@ -68,6 +68,8 @@ public class Splitter implements Element {
             Port inPort = inPorts.getPort(i);
             if (inPort.getBits() != inputs.get(i).getBits())
                 throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, inputs);
+            if (inputs.get(i).supportsHighZ())
+                throw new BitsException(Lang.get("err_splitterDoesNotSupportHighZInputs"), null, inputs);
         }
 
         for (Port out : outPorts)

@@ -75,7 +75,11 @@ public class DataBus {
                     break;
             }
         }
-        commonOut = new ObservableValue("common", bits);
+
+        if (resistor == PinDescription.PullResistor.none)
+            commonOut = new ObservableValue("common", bits, true);
+        else
+            commonOut = new ObservableValue("common", bits);
 
         BusModelStateObserver obs = model.getObserver(BusModelStateObserver.class);
         if (obs == null) {

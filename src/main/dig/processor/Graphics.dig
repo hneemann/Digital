@@ -5,15 +5,22 @@
     <entry>
       <string>Description</string>
       <string>Eine einfache &quot;Grafikkarte&quot;. 
-Sie enthält ein Grafik-RAM um die eigentliche Grafik 
-anzuzeigen. Dieses Grafik-RAM ist auf die 
-Darstellung von 20x20 Pixel konfiguriert.</string>
+Sie enthält ein Grafik-RAM um die eigentliche 
+Grafik anzuzeigen. Dieses Grafik-RAM ist auf die 
+Darstellung von 20x20 Pixel konfiguriert. 
+Die erforderlichen 800 Bytes Speicher  werden 
+ab Adresse 0x8000 in den Adressbereich 
+eingeblendet.</string>
     </entry>
   </attributes>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Adresse</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A</string>
@@ -28,6 +35,10 @@ Darstellung von 20x20 Pixel konfiguriert.</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Read enable</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>R</string>
@@ -105,6 +116,10 @@ Darstellung von 20x20 Pixel konfiguriert.</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Takt</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
@@ -184,6 +199,10 @@ Darstellung von 20x20 Pixel konfiguriert.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Write enable</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>W</string>
         </entry>
@@ -212,6 +231,10 @@ Darstellung von 20x20 Pixel konfiguriert.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Bidirektionaler Datenanschluss</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D</string>
         </entry>
@@ -221,6 +244,16 @@ Darstellung von 20x20 Pixel konfiguriert.</string>
         </entry>
       </elementAttributes>
       <pos x="840" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullDown</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="420"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -290,7 +323,7 @@ Darstellung von 20x20 Pixel konfiguriert.</string>
     </wire>
     <wire>
       <p1 x="780" y="400"/>
-      <p2 x="820" y="400"/>
+      <p2 x="800" y="400"/>
     </wire>
     <wire>
       <p1 x="340" y="400"/>
@@ -299,6 +332,10 @@ Darstellung von 20x20 Pixel konfiguriert.</string>
     <wire>
       <p1 x="820" y="400"/>
       <p2 x="840" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="400"/>
+      <p2 x="820" y="400"/>
     </wire>
     <wire>
       <p1 x="640" y="180"/>
@@ -387,6 +424,10 @@ Darstellung von 20x20 Pixel konfiguriert.</string>
     <wire>
       <p1 x="240" y="220"/>
       <p2 x="240" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="400"/>
+      <p2 x="800" y="420"/>
     </wire>
     <wire>
       <p1 x="820" y="400"/>

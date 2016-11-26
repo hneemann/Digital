@@ -239,6 +239,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_remoteExecution">Fehler beim Ausführen eines Befehls</string>
     <string name="err_pullUpAndDownNotAllowed">Es können nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
     <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
+    <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge!</string>
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
     <string name="key_Bits">Daten-Bits</string>

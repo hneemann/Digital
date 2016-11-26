@@ -426,6 +426,16 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       </elementAttributes>
       <pos x="860" y="420"/>
     </visualElement>
+    <visualElement>
+      <elementName>PullDown</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="220"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -458,11 +468,15 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
     </wire>
     <wire>
       <p1 x="540" y="200"/>
-      <p2 x="600" y="200"/>
+      <p2 x="580" y="200"/>
     </wire>
     <wire>
       <p1 x="620" y="200"/>
       <p2 x="680" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="200"/>
+      <p2 x="600" y="200"/>
     </wire>
     <wire>
       <p1 x="620" y="360"/>
@@ -531,6 +545,10 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
     <wire>
       <p1 x="340" y="240"/>
       <p2 x="340" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="200"/>
+      <p2 x="580" y="220"/>
     </wire>
   </wires>
 </circuit>

@@ -864,6 +864,16 @@ Single-Cycle CPU.</string>
       </elementAttributes>
       <pos x="1340" y="380"/>
     </visualElement>
+    <visualElement>
+      <elementName>PullDown</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="400"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -1139,10 +1149,6 @@ Single-Cycle CPU.</string>
       <p2 x="1360" y="380"/>
     </wire>
     <wire>
-      <p1 x="420" y="380"/>
-      <p2 x="460" y="380"/>
-    </wire>
-    <wire>
       <p1 x="500" y="380"/>
       <p2 x="540" y="380"/>
     </wire>
@@ -1155,8 +1161,16 @@ Single-Cycle CPU.</string>
       <p2 x="680" y="380"/>
     </wire>
     <wire>
+      <p1 x="420" y="380"/>
+      <p2 x="440" y="380"/>
+    </wire>
+    <wire>
       <p1 x="460" y="380"/>
       <p2 x="480" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="380"/>
+      <p2 x="460" y="380"/>
     </wire>
     <wire>
       <p1 x="1340" y="220"/>
@@ -1333,6 +1347,10 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="440" y="600"/>
       <p2 x="440" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="380"/>
+      <p2 x="440" y="400"/>
     </wire>
     <wire>
       <p1 x="380" y="600"/>
