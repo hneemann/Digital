@@ -1,6 +1,8 @@
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.TestExecuter;
+import de.neemann.digital.core.BitsException;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -13,6 +15,22 @@ import static de.neemann.digital.core.ObservableValues.ovs;
  * @author hneemann
  */
 public class Splitter1Test extends TestCase {
+
+    public void testBitMismatch() throws NodeException {
+        ObservableValue a = new ObservableValue("a", 1);
+        ObservableValue b = new ObservableValue("b", 1);
+
+        Splitter splitter = new Splitter(new ElementAttributes()
+                .set(Keys.INPUT_SPLIT, "1,1")
+                .set(Keys.OUTPUT_SPLIT, "3"));
+
+        try {
+            splitter.setInputs(ovs(a, b));
+            fail("splitter bit mismatch not detected!");
+        } catch (BitsException e) {
+            assertTrue(true);
+        }
+    }
 
     public void testBits() throws Exception {
         ObservableValue a = new ObservableValue("a", 1);
