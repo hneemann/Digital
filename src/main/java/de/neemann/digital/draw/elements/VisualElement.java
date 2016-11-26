@@ -24,13 +24,16 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     private static final int PIN = 2;
 
     private transient GraphicMinMax minMax;
-    private transient Shape shape;
     private transient IOState ioState;
     private transient InteractorInterface interactor;
     private transient Element element;
+    // shape is set to null and recreated if needed if attributes are changed
+    private transient Shape shape;
+    // shapes are recreated if attributes are changed, therefore a factory is necessary and not only a simple shape!
     private transient ShapeFactory shapeFactory;
     private transient Transform transform;
 
+    // these fields are stored to disk
     private final String elementName;
     private final ElementAttributes elementAttributes;
     private Vector pos;
