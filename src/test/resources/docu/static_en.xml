@@ -15,9 +15,9 @@
     </chapter>
     <chapter name="Propagation Delay">
         <par>
-            During the simulation every logic gate has the same propagation delay. Every component from the library
+            During the simulation every logic gate has a propagation delay. Every component from the library
             has the same propagation delay regardless of its complexity.
-            So an AND gate has the same propagation delay as a RAM component.
+            So a NOT gate has the same propagation delay as a RAM component or a flipflop.
             The only exceptions are diodes, switches and splitters which are used to create data buses.
             These components have no propagation delay at all.
         </par>
