@@ -33,7 +33,6 @@ import java.io.*;
  * Created by hneemann on 17.11.16.
  */
 public class DocuTest extends TestCase {
-    private static final int IMAGE_SCALE = 4;
 
     private void writeXML(Writer w, File images, String language) throws IOException, NodeException, PinException {
         w.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
@@ -83,11 +82,7 @@ public class DocuTest extends TestCase {
                     .append(imageFile.toURI().toString())
                     .append("\">\n");
 
-            VisualElement ve = new VisualElement(etd.getName()).setShapeFactory(shapeFactory);
-            writeSVG(imageFile, ve);
-
-//            BufferedImage bi = new VisualElement(etd.getName()).setShapeFactory(shapeFactory).getBufferedImage(0.75 * IMAGE_SCALE, 250 * IMAGE_SCALE);
-//            ImageIO.write(bi, "png", imageFile);
+            writeSVG(imageFile, new VisualElement(etd.getName()).setShapeFactory(shapeFactory));
 
             final ElementAttributes attr = new ElementAttributes();
             w.append("      <descr>").append(escapeHTML(etd.getDescription(attr))).append("</descr>\n");
@@ -181,8 +176,8 @@ public class DocuTest extends TestCase {
                                 java.io.FileOutputStream(xmlOut)));
     }
 
-    private void startFOP(FopFactory fopFactory, File fopFile, File outFile) throws IOException, TransformerException, FOPException {
-        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(outFile))) {
+    private void startFOP(FopFactory fopFactory, File xslfo, File pdfOut) throws IOException, TransformerException, FOPException {
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(pdfOut))) {
             // Step 3: Construct fop with desired output format
             Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
 
@@ -192,7 +187,7 @@ public class DocuTest extends TestCase {
 
             // Step 5: Setup input and output for XSLT transformation
             // Setup input stream
-            Source src = new StreamSource(fopFile);
+            Source src = new StreamSource(xslfo);
 
             // Resulting SAX events (the generated FO) must be piped through to FOP
             Result res = new SAXResult(fop.getDefaultHandler());
