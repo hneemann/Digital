@@ -54,8 +54,9 @@
     <chapter name="Schaltungsanalyse und Synthese">
         <par>
             Eine vorliegende Schaltung kann über den Menüeintrag <e>Analyse</e> analysiert werden. Bei rein
-            kombinatorischen Schaltungen wird eine Wertetabelle erzeugt. Diese Wertetabelle kann beliebig bearbeitet werden.
-            Aus dieser Wertetabelle lässt sich nach einer Bearbeitung eine neue Schaltung erzeugen.
+            kombinatorischen Schaltungen wird eine Wahrheitstabelle erzeugt. Diese Wahrheitstabelle kann beliebig
+            bearbeitet werden.
+            Aus dieser Wahrheitstabelle lässt sich nach einer Bearbeitung eine neue Schaltung erzeugen.
             Im Menü der Schaltungserzeugung finden sich auch Funktionen um so gen. JEDEC Dateien zu erzeugen.
             Dabei handelt es sich
             um ein spezielles Dateiformat, welches die Fuse-Map eines PLD beschreibt. Diese JEDEC Datei kann
@@ -65,7 +66,7 @@
         </par>
         <par>
             Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen. Anstelle einer
-            einfachen Wertetabelle entsteht eine so gen. Zustandsfolgetabelle. Jedes Flipflop taucht dabei auf der
+            einfachen Wahrheitstabelle entsteht eine so gen. Zustandsfolgetabelle. Jedes Flipflop taucht dabei auf der
             Eingangsseite und der Ausgangsseite der Zustandsfolgetabelle auf. In dieser Tabelle findet sich auf der
             rechten Seite der anhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird
             abhängig vom aktuellen Zustand der Flipflops. Damit eine Analyse möglich ist, müssen die Flipflops benannt
@@ -75,7 +76,7 @@
             Dabei gilt folgenden Namenskonvention: Der Folgezustand eines Bits auf der rechten Seite der Tabelle wird
             durch ein angähngtes kleines 'n' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
             angehängtes 'n+1' ausgezeichnet. Gibt es also eine Zustandsvariable 'A', dann kennzeichnet 'An' den aktuellen
-            Zustand und 'An+1' den Folgezustand. Finden sich in der Wertetabelle auf der linken und rechten Seite Signale,
+            Zustand und 'An+1' den Folgezustand. Finden sich in der Wahrheitstabelle auf der linken und rechten Seite Signale,
             die diesem Muster entsprechen, wird davon ausgegeangen, dass es sich um eine Zustandsfolgetabelle handelt und
             bei der Synthese wird entsprechend ein Schaltwerk anstelle eines Schaltnetzes erzeugt.
         </par>
@@ -114,28 +115,28 @@
             <answer>Mit Hellgrün und Dunkelgrün wird eine logische 1 bzw. 0 dargestellt. Grau bedeutet, dass die Leitung hochohmig ist.</answer>
         </faq>
         <faq>
-            <question>Ich habe eine Wertetabelle. Wie kann ich daraus die minimalen Schaltfunktionen erzeugen?</question>
-            <answer>Im Menü <e>Analyse<arrow/>Synthese</e> auswählen und dann die Wertetabelle eingeben.
+            <question>Ich habe eine Wahrheitstabelle. Wie kann ich daraus die minimalen Schaltfunktionen erzeugen?</question>
+            <answer>Im Menü <e>Analyse<arrow/>Synthese</e> auswählen und dann die Wahrheitstabelle eingeben.
                 In der Statusleiste des Fensters findet sich die Schaltfunktion. Geben mehr als eine abhängige Größe ein,
                 öffnet sich ein neues Fenster, in welchem alle Schaltfunktionen angegeben sind.</answer>
         </faq>
         <faq>
-            <question>Ich habe eine Wertetabelle eingegeben, es wird jedoch mehr als eine Schaltfunktion für
+            <question>Ich habe eine Wahrheitstabelle eingegeben, es wird jedoch mehr als eine Schaltfunktion für
                 das gesuchte Signal angezeigt. Welche ist die Richtige?</question>
             <answer>Wenn eine Schaltfunktion minimiert wird, kann es mehrere minimierte Schaltfunktionen gleicher
                 Komplexität geben (gleiche Anzahl von Termen).
-                Digital zeigt alle möglichen Lösungen an und alle liefern die selbe Wertetabelle.
-                In den Don't Care-Zeilen der Wertetabelle kann es natürlich Unterschiede zwischen den verschiednen
+                Digital zeigt alle möglichen Lösungen an und alle liefern die selbe Wahrheitstabelle.
+                In den Don't Care-Zeilen der Wahrheitstabelle kann es natürlich Unterschiede zwischen den verschiednen
                 Funktionen geben.</answer>
         </faq>
         <faq>
-            <question>Ich habe eine Wertetabelle. Wie kann ich daraus eine Schaltung erzeugen?</question>
-            <answer>Im Menü <e>Analyse<arrow/>Synthese</e> auswählen und dann die Wertetabelle eingeben.
+            <question>Ich habe eine Wahrheitstabelle. Wie kann ich daraus eine Schaltung erzeugen?</question>
+            <answer>Im Menü <e>Analyse<arrow/>Synthese</e> auswählen und dann die Wahrheitstabelle eingeben.
                 Unter <e>Neu</e> bzw. mit <e>Spalten hinzufügen</e> können Variablen hinzugefügt werden.
                 Im Menü mit <e>Erzeugen<arrow/>Schaltung</e> dann eine Schaltung erzeugen.</answer>
         </faq>
         <faq>
-            <question>Wie kann ich die Signalnamen in der Wertetabelle verändern?</question>
+            <question>Wie kann ich die Signalnamen in der Wahrheitstabelle verändern?</question>
             <answer>Mit einem Doppelklick auf den Signalnamen im Tabellenkopf kann der Name bearbeitet werden.</answer>
         </faq>
         <faq>
@@ -143,9 +144,9 @@
             <answer>Im Menü <e>Analyse<arrow/>Ausdruck</e> auswählen und dann die Funktion eingeben.</answer>
         </faq>
         <faq>
-            <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Wertetabelle erzeugen?</question>
+            <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Wahrheitstabelle erzeugen?</question>
             <answer>Im Menü <e>Analyse<arrow/>Ausdruck</e> auswählen und dann die Funktion eingeben.
-                Dann die Schaltung erzeugen und im Menü <e>Analyse<arrow/>Analyse</e> die Wertetabelle erzeugen.</answer>
+                Dann die Schaltung erzeugen und im Menü <e>Analyse<arrow/>Analyse</e> die Wahrheitstabelle erzeugen.</answer>
         </faq>
         <faq>
             <question>Wie kann ich aus einer Schaltung eine JEDEC-Datei erzeugen?</question>
