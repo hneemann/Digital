@@ -11,7 +11,7 @@ public class PortsTest extends TestCase {
 
     public void testPortsSimple() throws Exception {
         Splitter.Ports p = new Splitter.Ports("1,2,1,4");
-        ObservableValues outs = p.getOutputs();
+        ObservableValues outs = p.getOutputs(false);
         assertEquals(4, outs.size());
         assertEquals(1, outs.get(0).getBits());
         assertEquals(2, outs.get(1).getBits());
@@ -21,7 +21,7 @@ public class PortsTest extends TestCase {
 
     public void testPortsMult() throws Exception {
         Splitter.Ports p = new Splitter.Ports("1*4,4*2");
-        ObservableValues outs = p.getOutputs();
+        ObservableValues outs = p.getOutputs(false);
         assertEquals(6, outs.size());
         assertEquals(1, outs.get(0).getBits());
         assertEquals(1, outs.get(1).getBits());

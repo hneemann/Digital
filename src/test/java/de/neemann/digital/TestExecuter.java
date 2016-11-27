@@ -132,7 +132,10 @@ public class TestExecuter {
     }
     public void check(int... val) throws NodeException {
         for (int i = 0; i < inputs.size(); i++) {
-            inputs.get(i).setValue(val[i]);
+            if (val[i]==HIGHZ)
+                inputs.get(i).set(0, true);
+            else
+                inputs.get(i).set(val[i], false);
         }
         if (model != null)
             model.doStep();

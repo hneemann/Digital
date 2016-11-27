@@ -24,11 +24,13 @@ public class Splitter implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.INPUT_SPLIT)
             .addAttribute(Keys.OUTPUT_SPLIT)
+            .addAttribute(Keys.IS_HIGH_Z)
             .setShortName("");
 
     private final ObservableValues outputs;
     private final Ports inPorts;
     private final Ports outPorts;
+    private final boolean highZIn;
     private ObservableValues inputs;
 
 
@@ -53,7 +55,8 @@ public class Splitter implements Element {
      */
     public Splitter(ElementAttributes attributes) throws BitsException {
         outPorts = new Ports(attributes.get(Keys.OUTPUT_SPLIT));
-        outputs = outPorts.getOutputs();
+        highZIn = attributes.get(Keys.IS_HIGH_Z);
+        outputs = outPorts.getOutputs(highZIn);
         inPorts = new Ports(attributes.get(Keys.INPUT_SPLIT));
     }
 
@@ -68,9 +71,18 @@ public class Splitter implements Element {
             Port inPort = inPorts.getPort(i);
             if (inPort.getBits() != inputs.get(i).getBits())
                 throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, inputs);
-            if (inputs.get(i).supportsHighZ())
-                throw new BitsException(Lang.get("err_splitterDoesNotSupportHighZInputs"), null, inputs);
         }
+
+        if (highZIn) {
+            if (inputs.size() != 1)
+                throw new BitsException(Lang.get("err_splitterAllowsOnlyOneHighZInput"), null, inputs);
+        } else {
+            for (int i = 0; i < inputs.size(); i++) {
+                if (inputs.get(i).supportsHighZ())
+                    throw new BitsException(Lang.get("err_splitterDoesNotSupportHighZInputs"), null, inputs);
+            }
+        }
+
 
         for (Port out : outPorts)
             fillOutput(out);
@@ -88,14 +100,22 @@ public class Splitter implements Element {
                 final int bitPos = out.getPos() - in.getPos();
                 final ObservableValue inValue = inputs.get(in.number);
                 final ObservableValue outValue = outputs.get(out.number);
-                inValue.addObserverToValue(new Observer() {
-                    @Override
-                    public void hasChanged() {
-                        outValue.setValue(inValue.getValue() >> bitPos);
-                    }
-                });
+                if (highZIn)
+                    inValue.addObserverToValue(() -> {
+                        if (inValue.isHighZ())
+                            outValue.set(0, true);
+                        else
+                            outValue.set(inValue.getValue() >> bitPos, false);
+                    });
+                else
+                    inValue.addObserverToValue(() -> outValue.setValue(inValue.getValue() >> bitPos));
                 break; // done!! out is completely filled!
             }
+
+            // Highz is not allowed a this point so throw an exception!
+            // Can not happen because of input checking in constructor!
+            // so no translation is necessary
+            if (highZIn) throw new NodeException("invalid splitter input configuration!");
 
             // complete in value needs to be copied to a part of the output
             if (out.getPos() <= in.getPos() && in.getPos() + in.getBits() <= out.getPos() + out.getBits()) {
@@ -103,13 +123,10 @@ public class Splitter implements Element {
                 final long mask = ~(((1L << in.bits) - 1) << bitPos);
                 final ObservableValue inValue = inputs.get(in.number);
                 final ObservableValue outValue = outputs.get(out.number);
-                inputs.get(in.number).addObserverToValue(new Observer() {
-                    @Override
-                    public void hasChanged() {
-                        long in = inValue.getValue();
-                        long out = outValue.getValue();
-                        outValue.setValue((out & mask) | (in << bitPos));
-                    }
+                inputs.get(in.number).addObserverToValue(() -> {
+                    long in1 = inValue.getValue();
+                    long out1 = outValue.getValue();
+                    outValue.setValue((out1 & mask) | (in1 << bitPos));
                 });
                 continue; // done with this input, its completely copied to the output!
             }
@@ -123,13 +140,10 @@ public class Splitter implements Element {
                 final int shift = out.getPos() - in.getPos();
                 final ObservableValue inValue = inputs.get(in.number);
                 final ObservableValue outValue = outputs.get(out.number);
-                inputs.get(in.number).addObserverToValue(new Observer() {
-                    @Override
-                    public void hasChanged() {
-                        long in = inValue.getValue();
-                        long out = outValue.getValue();
-                        outValue.setValue((out & mask) | (in >> shift));
-                    }
+                inputs.get(in.number).addObserverToValue(() -> {
+                    long in12 = inValue.getValue();
+                    long out12 = outValue.getValue();
+                    outValue.setValue((out12 & mask) | (in12 >> shift));
                 });
                 continue;
             }
@@ -140,13 +154,10 @@ public class Splitter implements Element {
             final long mask = ~(((1L << bitsToCopy) - 1) << shift);
             final ObservableValue inValue = inputs.get(in.number);
             final ObservableValue outValue = outputs.get(out.number);
-            inputs.get(in.number).addObserverToValue(new Observer() {
-                @Override
-                public void hasChanged() {
-                    long in = inValue.getValue();
-                    long out = outValue.getValue();
-                    outValue.setValue((out & mask) | (in << shift));
-                }
+            inputs.get(in.number).addObserverToValue(() -> {
+                long in13 = inValue.getValue();
+                long out13 = outValue.getValue();
+                outValue.setValue((out13 & mask) | (in13 << shift));
             });
 
         }
@@ -216,10 +227,10 @@ public class Splitter implements Element {
             return new PinDescriptions(name);
         }
 
-        public ObservableValues getOutputs() {
+        public ObservableValues getOutputs(boolean isHighZ) {
             ArrayList<ObservableValue> outputs = new ArrayList<>(ports.size());
             for (Port p : ports)
-                outputs.add(new ObservableValue(p.getName(), p.getBits()));
+                outputs.add(new ObservableValue(p.getName(), p.getBits(), isHighZ));
             return new ObservableValues(outputs);
         }
 
