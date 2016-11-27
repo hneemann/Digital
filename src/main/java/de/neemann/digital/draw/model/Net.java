@@ -2,6 +2,7 @@ package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.wiring.DataBus;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
@@ -122,7 +123,7 @@ public class Net {
      * <p>
      * At the end all wires get a reference to the {@link ObservableValue} the represent
      *
-     * @param m the model is needed to create the {@link DataBus}
+     * @param m           the model is needed to create the {@link DataBus}
      * @param attachWires if true, the values are attached to the wires
      * @throws PinException PinException
      */
@@ -140,7 +141,7 @@ public class Net {
             throw new PinException(Lang.get("err_onOutConnectedToWire", this.toString()), this);
 
         ObservableValue value = null;
-        if (outputs.size() == 1) {
+        if (outputs.size() == 1 && outputs.get(0).getPullResistor() == PinDescription.PullResistor.none) {
             value = outputs.get(0).getValue();
         } else {
             value = new DataBus(this, m, outputs).getReadableOutput();
