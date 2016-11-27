@@ -45,7 +45,7 @@
 You can use the component to implement a BRK assembly instruction.
 Then you can execute the circuit to the next BRK instruction.</string>
     <string name="elem_Button">Button</string>
-    <string name="elem_Clock">Clock</string>
+    <string name="elem_Clock">Clock Input</string>
     <string name="elem_Clock_tt">A clock signal. Its possible to control it by the real time clock.</string>
     <string name="elem_Comparator">Comparator</string>
     <string name="elem_Const">Const</string>
@@ -245,7 +245,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_remoteExecution">Error during execution of a remote command</string>
     <string name="err_pullUpAndDownNotAllowed">It's not allowed to connect a pull up and a pull down resistor to a single wire.</string>
     <string name="err_openingDocumentation">Could not open the browser.</string>
-    <string name="err_splitterDoesNotSupportHighZInputs">The splitter does not support high z inputs!</string>
+    <string name="err_splitterDoesNotSupportHighZInputs">The splitter does not support high z inputs! Use a pull up or pull down resisitor.</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">A splitter which allows high z inputs can only have one input!</string>
 
     <string name="key_AddrBits">Address Bits</string>
@@ -329,7 +329,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="lib_mux">Plexers</string>
     <string name="lib_wires">Wires</string>
     <string name="lib_test">Test</string>
-    <string name="lib_pld">PLDs</string>
+    <string name="lib_cplx">Complex</string>
     <string name="menu_about">About</string>
     <string name="menu_analyse">Analysis</string>
     <string name="menu_analyse_tt">Analyses the actual circuit</string>

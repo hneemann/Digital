@@ -45,7 +45,7 @@
 Dieses Element kann verwendet werden, um einen Assemblerbefehl BRK zu implementieren.
 Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</string>
     <string name="elem_Button">Taster</string>
-    <string name="elem_Clock">Takt</string>
+    <string name="elem_Clock">Takteingang</string>
     <string name="elem_Clock_tt">Ein Takstignal. Dieses Taksignal kann über die Echtzeituhr gesteuert werden.</string>
     <string name="elem_Comparator">Komparator</string>
     <string name="elem_Const">Konstante</string>
@@ -252,7 +252,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_remoteExecution">Fehler beim Ausführen eines Befehls</string>
     <string name="err_pullUpAndDownNotAllowed">Es können nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
     <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
-    <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge!</string>
+    <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge! Verwenden Sie einen PullUp- oder PullDown-Widerstand</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -335,7 +335,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="lib_mux">Multiplexer</string>
     <string name="lib_wires">Leitungen</string>
     <string name="lib_test">Test</string>
-    <string name="lib_pld">PLDs</string>
+    <string name="lib_cplx">Komplex</string>
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>
     <string name="menu_analyse_tt">Analyse der aktuellen Schaltung</string>

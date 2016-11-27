@@ -49,38 +49,37 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(XNOr.DESCRIPTION, menu);
         add(Not.DESCRIPTION, menu);
         add(LookUpTable.DESCRIPTION, menu);
+        add(Delay.DESCRIPTION, menu);
 
         menu = Lang.get("lib_io");
-        add(In.DESCRIPTION, menu);
         add(Out.DESCRIPTION, menu);
         add(Out.LEDDESCRIPTION, menu);
+        add(In.DESCRIPTION, menu);
+        add(Clock.DESCRIPTION, menu);
         add(Button.DESCRIPTION, menu);
         add(Probe.DESCRIPTION, menu);
         add(Out.SEVENDESCRIPTION, menu);
         add(Out.SEVENHEXDESCRIPTION, menu);
-        add(Terminal.DESCRIPTION, menu);
         add(DummyElement.DATADESCRIPTION, menu);
         add(DummyElement.TEXTDESCRIPTION, menu);
         add(Keyboard.DESCRIPTION, menu);
-
-        menu = Lang.get("lib_mux");
-        add(Multiplexer.DESCRIPTION, menu);
-        add(Demultiplexer.DESCRIPTION, menu);
-        add(Decoder.DESCRIPTION, menu);
+        add(Terminal.DESCRIPTION, menu);
 
         menu = Lang.get("lib_wires");
         add(Const.DESCRIPTION, menu);
         add(Ground.DESCRIPTION, menu);
         add(VDD.DESCRIPTION, menu);
-        add(Splitter.DESCRIPTION, menu);
         add(Tunnel.DESCRIPTION, menu);
-        add(Switch.DESCRIPTION, menu);
-        add(Clock.DESCRIPTION, menu);
-        add(Delay.DESCRIPTION, menu);
+        add(Splitter.DESCRIPTION, menu);
+        add(PullUp.DESCRIPTION, menu);
+        add(PullDown.DESCRIPTION, menu);
         add(Driver.DESCRIPTION, menu);
         add(DriverInvSel.DESCRIPTION, menu);
-        add(Reset.DESCRIPTION, menu);
-        add(Break.DESCRIPTION, menu);
+
+        menu = Lang.get("lib_mux");
+        add(Multiplexer.DESCRIPTION, menu);
+        add(Demultiplexer.DESCRIPTION, menu);
+        add(Decoder.DESCRIPTION, menu);
 
         menu = Lang.get("lib_flipFlops");
         add(FlipflopRS.DESCRIPTION, menu);
@@ -104,12 +103,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(Neg.DESCRIPTION, menu);
         add(BitCount.DESCRIPTION, menu);
 
-        menu = Lang.get("lib_pld");
+        menu = Lang.get("lib_cplx");
         //  add(Diode.DESCRIPTION, menu); // see class DiodeTest for further information
         add(DiodeForeward.DESCRIPTION, menu);
         add(DiodeBackward.DESCRIPTION, menu);
-        add(PullUp.DESCRIPTION, menu);
-        add(PullDown.DESCRIPTION, menu);
+        add(Switch.DESCRIPTION, menu);
+        add(Reset.DESCRIPTION, menu);
+        add(Break.DESCRIPTION, menu);
 
         menu = Lang.get("lib_test");
         add(TestCaseElement.TESTCASEDESCRIPTION, menu);
