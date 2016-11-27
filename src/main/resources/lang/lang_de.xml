@@ -55,9 +55,16 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_VDD">Betriebsspannung</string>
     <string name="elem_VDD_tt">Anschluss zur Betriebsspannung. Gibt immer Eins aus.</string>
     <string name="elem_Tunnel">Tunnel</string>
-    <string name="elem_Tunnel_tt">Verbindet Elemente, ohne eine Leitung zu ziehen. Alle Tunnelelemente, welche den selben Netznamen tragen, sind miteinander verbunden. Der Tunnel ist immer lokal, es können keine Verbindungen über Schaltungsgrenzen hinaus erzeugt werden.</string>
+    <string name="elem_Tunnel_tt">Verbindet Elemente, ohne eine Leitung zu ziehen. Alle Tunnelelemente, welche den selben
+        Netznamen tragen, sind miteinander verbunden. Der Tunnel ist immer lokal, es können keine Verbindungen über
+        Schaltungsgrenzen hinaus erzeugt werden.</string>
     <string name="elem_Switch">Schalter</string>
-    <string name="elem_Switch_tt">Einfacher unidirektionaler Schalter.</string>
+    <string name="elem_Switch_tt">Einfacher unidirektionaler Schalter.
+        Innerhalb der Simulation verhält sich ein Schalter wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
+        Ist der Schalter offen, ist der Ausgang hochohmig, ist der Schalter geschlossen, entspricht der Ausgang dem
+        Eingang incl. des Zustandes hochohmig.
+        Damit können sich antiparall verbundene Schalter gegenseiting im low- oder high-Zustand halten, was mit realen
+        Schaltern nicht möglich ist.</string>
     <string name="elem_Counter">Zähler</string>
     <string name="elem_D_FF">D_FF</string>
     <string name="elem_Data">Messwertgraph</string>
@@ -159,12 +166,18 @@ in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird d
     <string name="elem_DiodeBackward">Diode zu Masse</string>
     <string name="elem_DiodeBackward_tt">Vereinfachte unidirektionale Diode, die nur genutzt werden kann, um eine Leitung auf Masse zu ziehen.
         Wird verwendet um ein "Wired And" zu implementieren.
+        Innerhalb der Simulation verhält sich eine Diode wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
         Ist der Eingang 0 ist auch der Ausgang 0. In den anderen Fällen (1 und hochohmig) ist der Ausgang hochohmig (High Z).
+        Damit können sich antiparallele zusammen geschaltete Dioden gegenseiting im low-Zustand halten, was mit realen
+        Dioden nicht möglich ist.
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeForeward">Diode zu Plus</string>
     <string name="elem_DiodeForeward_tt">Vereinfachte unidirektionale Diode, die nur genutzt werden kann, um eine Leitung auf Plus zu ziehen.
         Wird verwendet um ein "Wired Or" zu implementieren.
-        Ist der Eingang 1 ist auch der Ausgang 1. In den anderen Fällen (0 und Hochohmig) ist der Ausgang Hochohmig (High Z).
+        Innerhalb der Simulation verhält sich eine Diode wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
+        Ist der Eingang 1 ist auch der Ausgang 1. In den anderen Fällen (0 und hochohmig) ist der Ausgang hochohmig (High Z).
+        Damit können sich antiparallel zusammen geschaltete Dioden gegenseiting im high-Zustand halten, was mit realen
+        Dioden nicht möglich ist.
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_PullUp">Pull-Up Widerstand</string>
     <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.

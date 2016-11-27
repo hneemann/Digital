@@ -55,9 +55,15 @@ Then you can execute the circuit to the next BRK instruction.</string>
     <string name="elem_VDD">Supply voltage</string>
     <string name="elem_VDD_tt">A connection to the supply voltage. Output is always one.</string>
     <string name="elem_Tunnel">Tunnel</string>
-    <string name="elem_Tunnel_tt">Connects parts without a wire. All tunnel elements, which have the same net name, are connected together. Works only local, so it is not possible to connect different circuits.</string>
+    <string name="elem_Tunnel_tt">Connects parts without a wire. All tunnel elements, which have the same net name,
+        are connected together. Works only local, so it is not possible to connect different circuits.</string>
     <string name="elem_Switch">Switch</string>
-    <string name="elem_Switch_tt">Simple unidirectional switch.</string>
+    <string name="elem_Switch_tt">Simple unidirectional switch.
+        In the simulation the switch behaves like an active gate with a trivalent truth table.
+        If the switch is open, the output is in high z state. If the switch is closed, the output state is equal to
+        the input state incl. high z state.
+        So two antiparallel connected switches can keep each other in high or low state, which is not possible
+        with real switches.</string>
     <string name="elem_Counter">Counter</string>
     <string name="elem_D_FF">D_FF</string>
     <string name="elem_Data">Data graph</string>
@@ -69,7 +75,8 @@ You can plot complete clock steps or single gate changes.</string>
     <string name="elem_Delay">Delay</string>
     <string name="elem_Delay_tt">Delays the signal by on gate delay</string>
     <string name="elem_Demultiplexer">Demultiplexer</string>
-    <string name="elem_Demultiplexer_tt">Outputs the input to one of the outputs. The other outputs are set to the default value.</string>
+    <string name="elem_Demultiplexer_tt">Outputs the input to one of the outputs.
+        The other outputs are set to the default value.</string>
     <string name="elem_Demultiplexer_pin_sel">Selects the output</string>
     <string name="elem_Demultiplexer_pin_in">The value of this input is set to the selected output.</string>
     <string name="elem_Driver">Driver</string>
@@ -157,12 +164,16 @@ The terminal opens its own window.</string>
         This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeBackward">Diode to Ground</string>
     <string name="elem_DiodeBackward_tt">A simplified unidirectional diode, used to pull a wire to ground. It is used to implement a wired AND.
-        Is the input low, also the output is low. In the other cases (input is high or high z) the output is in high z state.
-        So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
+        In the simulation the diode behaves like an active gate with a trivalent truth table:
+        Is the input low, also the output is low. In all other cases (input is high or high z) the output is in high z state.
+        So two antiparallel connected diodes can keep each other in low state, which is not possible with real diodes.
+        This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeForeward">Diode to VDD</string>
     <string name="elem_DiodeForeward_tt">A simplified unidirectional diode, used to pull a wire to VDD. It is used to implement a wired OR.
-        Is the input high, also the output is high. In the other cases (input is low or high z) the output is in high z state.
-        So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
+        In the simulation the diode behaves like an active gate with a trivalent truth table:
+        Is the input high, also the output is high. In all other cases (input is low or high z) the output is in high z state.
+        So two antiparallel connected diodes can keep each other in high state, which is not possible with real diodes.
+        This is an ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_PullUp">Pull-Up Resistor</string>
     <string name="elem_PullUp_tt">If a wire in a HighZ state, this resistor pulls the wire to high.</string>
     <string name="elem_PullDown">Pull-Down Resistor</string>

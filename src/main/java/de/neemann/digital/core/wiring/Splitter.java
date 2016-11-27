@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 public class Splitter implements Element {
 
     /**
-     * Th splitters type description
+     * The splitters type description
      */
     public static final ElementTypeDescription DESCRIPTION
             = new SplitterTypeDescription()
@@ -82,7 +82,6 @@ public class Splitter implements Element {
                     throw new BitsException(Lang.get("err_splitterDoesNotSupportHighZInputs"), null, inputs);
             }
         }
-
 
         for (Port out : outPorts)
             fillOutput(out);

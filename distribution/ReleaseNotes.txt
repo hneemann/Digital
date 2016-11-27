@@ -2,6 +2,7 @@ Release Notes
 
 planed as v0.9:
 - improved documentation
+- cleanup of splitter behaviour in respect of high z inputs
 
 v0.8, released on 20. Nov 2016
 - added pull up & pull down resistors and programmable diodes
