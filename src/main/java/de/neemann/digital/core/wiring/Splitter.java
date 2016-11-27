@@ -113,7 +113,7 @@ public class Splitter implements Element {
             }
 
             // Highz is not allowed a this point so throw an exception!
-            // Can not happen because of input checking in constructor!
+            // Can not happen because of input checking in setInputs method!
             // so no translation is necessary
             if (highZIn) throw new NodeException("invalid splitter input configuration!");
 
