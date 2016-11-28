@@ -29,7 +29,7 @@ public class SplitterHighZ extends TestCase {
         try {
             splitter.setInputs(ovs(a, b));
             fail("splitter high z input not detected!");
-        } catch (BitsException e) {
+        } catch (NodeException e) {
             assertTrue(true);
         }
     }
@@ -44,7 +44,7 @@ public class SplitterHighZ extends TestCase {
         try {
             splitter.setInputs(ovs(a));
             fail("splitter high z input not detected!");
-        } catch (BitsException e) {
+        } catch (NodeException e) {
             assertTrue(true);
         }
     }
