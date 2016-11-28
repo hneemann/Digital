@@ -23,12 +23,12 @@
         </par>
         <par>
             If a circuit is included in an other parent circuit, the included circuit keep its timing behaviour.
-            So if you include a complex circuit which has a large propagation delay because on of the inputt signals has
+            So if you include a complex circuit which has a large propagation delay because on of the input signals has
             to pass three gates until it reaches the output, this behaviour is conserved while including this circuit.
             There are no additional delays coming up by including a circuit. If not all outputs of a circuit have
             the same propagation delay this is also the case if it is included in a parent circuit.
             In general, including a circuit into an other circuit does not modify its timing behaviour at all. A included
-            circuit behave in exact the same way as if all components had been inserted in the same circuit level.
+            circuit behave in exact the same way as if all components had been inserted at the same circuit level.
         </par>
     </chapter>
 

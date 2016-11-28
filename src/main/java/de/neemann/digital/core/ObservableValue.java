@@ -1,5 +1,6 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
@@ -290,4 +291,14 @@ public class ObservableValue extends Observable implements PinDescription {
         return new ObservableValues(this);
     }
 
+    /**
+     * sets this description to the appropriate language entry which is determined by the
+     * given descriptions language key.
+     *
+     * @param description the {@link ElementTypeDescription}
+     */
+    public ObservableValue setPinDescription(ElementTypeDescription description) {
+        setDescription(Lang.get(description.getPinLangKey()+name));
+        return this;
+    }
 }

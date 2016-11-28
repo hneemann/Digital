@@ -36,8 +36,8 @@
     <string name="elem_Add_pin_a">First input to add</string>
     <string name="elem_Add_pin_b">Second input to add</string>
     <string name="elem_Add_pin_c_i">Carry input, if set the result is incremented by one.</string>
-    <string name="elem_Add_output">The result of the addition</string>
-    <string name="elem_Add_carryOut">If set there was an overflow.</string>
+    <string name="elem_Add_pin_s">The result of the addition</string>
+    <string name="elem_Add_pin_c_o">If set there was an overflow.</string>
     <string name="elem_And">And</string>
     <string name="elem_And_tt">Binary AND gate</string>
     <string name="elem_Break">Break</string>

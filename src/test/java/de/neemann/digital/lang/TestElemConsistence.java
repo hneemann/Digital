@@ -5,6 +5,7 @@ import de.neemann.digital.core.basic.FanIn;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.core.wiring.Splitter;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import junit.framework.TestCase;
 
@@ -18,7 +19,7 @@ public class TestElemConsistence extends TestCase {
      *
      * @throws NodeException
      */
-    public void testConsistence() throws NodeException {
+    public void testConsistence() throws NodeException, PinException {
         ElementLibrary library = new ElementLibrary();
         for (ElementLibrary.ElementContainer e : library) {
             ElementTypeDescription etd = e.getDescription();
@@ -31,16 +32,20 @@ public class TestElemConsistence extends TestCase {
                 System.out.println("missing key " + key + "_tt");
 
             if (isNormalElement(etd)) {
-                PinDescriptions inputs = etd.getInputDescription(new ElementAttributes());
-                for (PinDescription in : inputs) {
-                    final String inputKey = key + "_pin_" + in.getName();
-                    String str = Lang.getNull(inputKey);
-                    //assertNotNull("missing key " + inputKey, str);
-                    if (str == null)
-                        System.out.println("missing key " + inputKey);
-
-                }
+                checkPins(key, etd.getInputDescription(new ElementAttributes()));
+                checkPins(key, etd.getOutputDescriptions(new ElementAttributes()));
             }
+        }
+    }
+
+    private void checkPins(String key, PinDescriptions pins) {
+        for (PinDescription in : pins) {
+            final String inputKey = key + "_pin_" + in.getName();
+            String str = Lang.getNull(inputKey);
+            //assertNotNull("missing key " + inputKey, str);
+            if (str == null)
+                System.out.println("missing key " + inputKey);
+
         }
     }
 
