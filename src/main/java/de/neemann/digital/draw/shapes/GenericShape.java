@@ -175,12 +175,7 @@ public class GenericShape implements Shape {
         int max = Math.max(inputs.size(), outputs.size());
         int height = (max - 1) * SIZE + SIZE2;
 
-//        if (symmetric && state != null) {
-//            graphic.drawText(new Vector(width * SIZE, 0), new Vector((width + 1) * SIZE, 0), Long.toString(state.getOutput(0).getValue()));
-//        }
-
-
-        if (symmetric && ((inputs.size() & 1) == 0)) height += SIZE;
+        if (symmetric && inputs.size() > 0 && ((inputs.size() & 1) == 0)) height += SIZE;
 
         Polygon polygon = new Polygon(true)
                 .add(1, -SIZE2)
