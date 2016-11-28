@@ -5,7 +5,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.ObservableValues.ovs;
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -44,8 +43,8 @@ public class Add extends Node implements Element {
         bits = attributes.get(Keys.BITS);
         this.mask = 1 << bits;
 
-        this.sum = new ObservableValue("s", bits).setDescription(Lang.get("elem_Add_output"));
-        this.cOut = new ObservableValue("c_o", 1).setDescription(Lang.get("elem_Add_carryOut"));
+        this.sum = new ObservableValue("s", bits).setPinDescription(DESCRIPTION);
+        this.cOut = new ObservableValue("c_o", 1).setPinDescription(DESCRIPTION);
     }
 
     @Override

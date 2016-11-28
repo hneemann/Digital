@@ -36,8 +36,8 @@
     <string name="elem_Add_pin_a">Erster Eingang für die Addition</string>
     <string name="elem_Add_pin_b">Zweiter Eingang für die Addition</string>
     <string name="elem_Add_pin_c_i">Carry-Eingang. Wenn gesetzt wird das Ergebnis um eins erhöht.</string>
-    <string name="elem_Add_output">Das Ergebnis der Addition</string>
-    <string name="elem_Add_carryOut">Ist gesetzt, wenn bei der Addition ein Übertrag aufgetreten ist.</string>
+    <string name="elem_Add_pin_s">Das Ergebnis der Addition</string>
+    <string name="elem_Add_pin_c_o">Ist gesetzt, wenn bei der Addition ein Übertrag aufgetreten ist.</string>
     <string name="elem_And">Und</string>
     <string name="elem_And_tt">Binäres Und-Gatter</string>
     <string name="elem_Break">Break</string>

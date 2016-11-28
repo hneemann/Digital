@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class ElementTypeDescription {
+    public static final String PINSEPARATOR = "_pin_";
     private final String name;
     private final String langKey;
     private String shortName;
@@ -60,9 +61,9 @@ public class ElementTypeDescription {
     public ElementTypeDescription(String name, ElementFactory elementFactory, PinDescription... inputPins) {
         this.name = name;
         this.shortName = null;
-        langKey = "elem_"+name;
+        langKey = "elem_" + name;
         this.elementFactory = elementFactory;
-        this.inputPins = new PinDescriptions(inputPins).setLangKey(langKey+"_pin_");
+        this.inputPins = new PinDescriptions(inputPins).setLangKey(getPinLangKey());
         for (PinDescription p : inputPins)
             if (p.getDirection() != PinDescription.Direction.input)
                 throw new RuntimeException("pin direction error");
@@ -80,6 +81,13 @@ public class ElementTypeDescription {
             return getTranslatedName();
         else
             return shortName;
+    }
+
+    /**
+     * @return the language key pin prefix
+     */
+    public String getPinLangKey() {
+        return langKey + PINSEPARATOR;
     }
 
     /**
