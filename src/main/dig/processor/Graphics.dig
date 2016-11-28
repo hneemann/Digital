@@ -221,6 +221,10 @@ eingeblendet.</string>
           <string>16</string>
         </entry>
         <entry>
+          <string>isHighZ</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>Output Splitting</string>
           <string>1,15</string>
         </entry>
@@ -244,16 +248,6 @@ eingeblendet.</string>
         </entry>
       </elementAttributes>
       <pos x="840" y="400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>PullDown</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="800" y="420"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -322,20 +316,16 @@ eingeblendet.</string>
       <p2 x="460" y="560"/>
     </wire>
     <wire>
-      <p1 x="780" y="400"/>
-      <p2 x="800" y="400"/>
-    </wire>
-    <wire>
       <p1 x="340" y="400"/>
       <p2 x="720" y="400"/>
     </wire>
     <wire>
-      <p1 x="820" y="400"/>
-      <p2 x="840" y="400"/>
+      <p1 x="780" y="400"/>
+      <p2 x="820" y="400"/>
     </wire>
     <wire>
-      <p1 x="800" y="400"/>
-      <p2 x="820" y="400"/>
+      <p1 x="820" y="400"/>
+      <p2 x="840" y="400"/>
     </wire>
     <wire>
       <p1 x="640" y="180"/>
@@ -424,10 +414,6 @@ eingeblendet.</string>
     <wire>
       <p1 x="240" y="220"/>
       <p2 x="240" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="800" y="400"/>
-      <p2 x="800" y="420"/>
     </wire>
     <wire>
       <p1 x="820" y="400"/>

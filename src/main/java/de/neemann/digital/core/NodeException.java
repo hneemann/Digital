@@ -4,6 +4,7 @@ import de.neemann.digital.core.element.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Exception is thrown if the was a problem creating or running the model.
@@ -70,10 +71,9 @@ public class NodeException extends Exception {
 
     @Override
     public String getMessage() {
-        if (values == null || values.size() == 0)
-            return super.getMessage();
-        else {
-            StringBuilder sb = new StringBuilder(super.getMessage());
+        StringBuilder sb = new StringBuilder(super.getMessage());
+
+        if (values != null && values.size() > 0) {
             sb.append(": ");
             boolean first = true;
             for (ObservableValue ov : values) {
@@ -83,8 +83,21 @@ public class NodeException extends Exception {
                     sb.append(", ");
                 sb.append(ov.getName());
             }
-            return sb.toString();
         }
+
+        if (nodes != null && nodes.size()>0) {
+            HashSet<String> origins = new HashSet<>();
+            for (Node node : nodes) {
+                if (node!=null && node.getOrigin()!=null && node.getOrigin().length()>0)
+                    origins.add(node.getOrigin());
+            }
+            if (origins.size()>0) {
+                sb.append(" in ");
+                sb.append(origins.toString());
+            }
+        }
+
+        return sb.toString();
     }
 
     /**

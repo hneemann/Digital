@@ -75,11 +75,11 @@ public class Splitter implements Element {
 
         if (highZIn) {
             if (inputs.size() != 1)
-                throw new BitsException(Lang.get("err_splitterAllowsOnlyOneHighZInput"), null, inputs);
+                throw new NodeException(Lang.get("err_splitterAllowsOnlyOneHighZInput"), null, inputs);
         } else {
             for (int i = 0; i < inputs.size(); i++) {
                 if (inputs.get(i).supportsHighZ())
-                    throw new BitsException(Lang.get("err_splitterDoesNotSupportHighZInputs"), null, inputs);
+                    throw new NodeException(Lang.get("err_splitterDoesNotSupportHighZInputs"), null, inputs);
             }
         }
 

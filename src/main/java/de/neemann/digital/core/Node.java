@@ -19,6 +19,9 @@ public abstract class Node implements Observer {
     private final boolean hasState;
     private Model model;
     private int version;
+    // used to store the origin of this node
+    // only used to create better error messages
+    private String origin;
 
     /**
      * Creates new stateless Node
@@ -89,4 +92,23 @@ public abstract class Node implements Observer {
         return hasState;
     }
 
+    /**
+     * Returns the origin of this node
+     * Only used to show better error messages.
+     *
+     * @return the origin of this node
+     */
+    public String getOrigin() {
+        return origin;
+    }
+
+    /**
+     * Sets the origin of this node
+     * Only used to show better error messages.
+     *
+     * @param origin the origin of this node
+     */
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
 }

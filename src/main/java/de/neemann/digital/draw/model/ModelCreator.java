@@ -59,7 +59,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
-        this(circuit, library, readAsCustom, "unknown", new NetList(circuit), "");
+        this(circuit, library, readAsCustom, "", new NetList(circuit), "");
     }
 
     /**
@@ -96,6 +96,9 @@ public class ModelCreator implements Iterable<ModelEntry> {
             ve.setElement(element);
             pins.bindOutputsToOutputPins(element.getOutputs());
 
+            // sets the nodes origin to create better error messages
+            if (element instanceof Node)
+                ((Node) element).setOrigin(fileName);
 
             // if handled as nested element, don't put pins in EntryList, but put the pins in a
             // separate map to connect it with the parent!
