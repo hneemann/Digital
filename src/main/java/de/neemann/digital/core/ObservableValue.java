@@ -296,9 +296,10 @@ public class ObservableValue extends Observable implements PinDescription {
      * given descriptions language key.
      *
      * @param description the {@link ElementTypeDescription}
+     * @return this for chained calls
      */
     public ObservableValue setPinDescription(ElementTypeDescription description) {
-        setDescription(Lang.get(description.getPinLangKey()+name));
+        setDescription(Lang.get(description.getPinLangKey() + name));
         return this;
     }
 }

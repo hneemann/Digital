@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class ElementTypeDescription {
-    public static final String PINSEPARATOR = "_pin_";
+    private static final String PINSEPARATOR = "_pin_";
     private final String name;
     private final String langKey;
     private String shortName;
