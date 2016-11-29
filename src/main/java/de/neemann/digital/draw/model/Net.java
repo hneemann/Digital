@@ -115,6 +115,17 @@ public class Net {
     }
 
     /**
+     * Add all given pins to the net
+     *
+     * @param otherNet the other net
+     */
+    public void addNet(Net otherNet) {
+        pins.addAll(otherNet.getPins());
+        wires.addAll(otherNet.getWires());
+        labelSet.addAll(otherNet.labelSet);
+    }
+
+    /**
      * Do the interconnection.
      * All inputs and outputs in the net are connected together.
      * If there is no output an exception is thrown.

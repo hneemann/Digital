@@ -135,18 +135,48 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 ModelCreator child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()));
                 cmdl.add(child);
 
+                HashMap<Net, Net> netMatch = new HashMap<>();
+
                 for (Pin p : me.getPins()) {                     // connect the custom elements to the parents net
                     Net childNet = child.getNetOfIOandRemove(p.getName());
-                    Net thisNet = netList.getNetOfPin(p);
-                    if (thisNet != null) {
-                        // Disconnect the parents net from the pin
-                        thisNet.removePin(p);
-                        // and connect it to the nested inner net!
-                        thisNet.addAll(childNet.getPins());
-                        // remove connected net form child
-                        child.remove(childNet);
+
+                    Net otherParentNet = netMatch.get(childNet);
+                    if (otherParentNet != null) {
+                        // direct connection!
+                        // two nets in the parent are connected directly by the nested circuit
+                        // merge the nets in the parent!
+
+                        // remove the childs inner pin which is already added to the other net
+                        Pin insertedPin = child.getPinOfIO(p.getName());
+                        otherParentNet.removePin(insertedPin);
+
+                        Net parentNet = netList.getNetOfPin(p);
+                        if (parentNet != null) {
+                            // Disconnect the parents net from the pin
+                            parentNet.removePin(p);
+
+                            // connect the two parent nets
+                            otherParentNet.addNet(parentNet);
+                            netList.remove(parentNet);
+                        }
+                    } else {
+                        Net parentNet = netList.getNetOfPin(p);
+                        if (parentNet != null) {
+                            // Disconnect the parents net from the pin
+                            parentNet.removePin(p);
+                            // and connect it to the nested inner net!
+                            parentNet.addAll(childNet.getPins());
+
+                            // store net connection
+                            netMatch.put(childNet, parentNet);
+                        }
                     }
                 }
+
+                // remove connected nets form child
+                for (Net childNet : netMatch.keySet())
+                    child.remove(childNet);
+
                 it.remove();
             }
         }
@@ -171,10 +201,15 @@ public class ModelCreator implements Iterable<ModelEntry> {
         netList.remove(childNet);
     }
 
-    private Net getNetOfIOandRemove(String name) throws PinException {
+    private Pin getPinOfIO(String name) throws PinException {
         Pin pin = ioMap.get(name);
         if (pin == null)
             throw new PinException(Lang.get("err_pin_N_notFound", name));
+        return pin;
+    }
+
+    private Net getNetOfIOandRemove(String name) throws PinException {
+        Pin pin = getPinOfIO(name);
         Net netOfPin = netList.getNetOfPin(pin);
         if (netOfPin == null)
             throw new PinException(Lang.get("err_netOfPin_N_notFound", name));
