@@ -2,6 +2,7 @@ package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ImmutableList;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -86,7 +87,7 @@ public class NodeException extends Exception {
         }
 
         if (nodes != null && nodes.size()>0) {
-            HashSet<String> origins = new HashSet<>();
+            HashSet<File> origins = new HashSet<>();
             for (Node node : nodes) {
                 if (node!=null && node.getOrigin()!=null && node.getOrigin().length()>0)
                     origins.add(node.getOrigin());

@@ -1,5 +1,7 @@
 package de.neemann.digital.core;
 
+import java.io.File;
+
 /**
  * Implements a node.
  * A node represents a part in the circuit which has a non zero propagation time.
@@ -21,7 +23,7 @@ public abstract class Node implements Observer {
     private int version;
     // used to store the origin of this node
     // only used to create better error messages
-    private String origin;
+    private File origin;
 
     /**
      * Creates new stateless Node
@@ -98,7 +100,7 @@ public abstract class Node implements Observer {
      *
      * @return the origin of this node
      */
-    public String getOrigin() {
+    public File getOrigin() {
         return origin;
     }
 
@@ -108,7 +110,7 @@ public abstract class Node implements Observer {
      *
      * @param origin the origin of this node
      */
-    public void setOrigin(String origin) {
+    public void setOrigin(File origin) {
         this.origin = origin;
     }
 }

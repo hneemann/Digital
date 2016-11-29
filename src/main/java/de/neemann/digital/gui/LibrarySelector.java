@@ -188,7 +188,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
             ElementTypeDescriptionCustom description =
                     new ElementTypeDescriptionCustom(file,
-                            attributes -> new CustomElement(circuit, library, file.getName()),
+                            attributes -> new CustomElement(circuit, library, file),
                             circuit.getAttributes(), circuit.getInputNames());
             description.setShortName(createShortName(file));
             library.addDescription(description, file);

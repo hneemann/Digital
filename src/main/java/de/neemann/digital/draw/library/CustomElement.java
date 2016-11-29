@@ -9,6 +9,8 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.NetList;
 
+import java.io.File;
+
 /**
  * This class represents a custom, nested element.
  * So it is possible to use an element in the circuit witch is made from an
@@ -20,7 +22,7 @@ public class CustomElement implements Element {
 
     private final Circuit circuit;
     private final ElementLibrary library;
-    private final String name;
+    private final File name;
     private NetList netList;
 
     /**
@@ -30,7 +32,7 @@ public class CustomElement implements Element {
      * @param library the library to use.
      * @param name    the name of the element
      */
-    public CustomElement(Circuit circuit, ElementLibrary library, String name) {
+    public CustomElement(Circuit circuit, ElementLibrary library, File name) {
         this.circuit = circuit;
         this.library = library;
         this.name = name;

@@ -18,6 +18,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -59,7 +60,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
-        this(circuit, library, readAsCustom, "", new NetList(circuit), "");
+        this(circuit, library, readAsCustom, null, new NetList(circuit), "");
     }
 
     /**
@@ -75,7 +76,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, String fileName, NetList netList, String subName) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, File fileName, NetList netList, String subName) throws PinException, NodeException, ElementNotFoundException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
