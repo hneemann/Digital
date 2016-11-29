@@ -861,6 +861,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         this.filename = filename;
         if (filename != null) {
             this.lastFilename = filename;
+            librarySelector.setFilePath(filename.getParentFile());
             if (toPrefs)
                 fileHistory.add(filename);
             setTitle(filename + " - " + Lang.get("digital"));
