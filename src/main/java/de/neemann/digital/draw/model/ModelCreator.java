@@ -156,7 +156,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                             // Disconnect the parents net from the pin
                             parentNet.removePin(p);
 
-                            // connect the two parent nets is they are not already the same
+                            // connect the two parent nets if they are not already the same
                             if (otherParentNet!=parentNet) {
                                 otherParentNet.addNet(parentNet);
                                 netList.remove(parentNet);
