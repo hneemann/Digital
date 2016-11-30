@@ -5,6 +5,7 @@ planed as v0.9:
 - rearrangement of the elements in the element menu
 - cleanup of splitter behaviour in respect of high z inputs
 - fixed a bug which occurs if a net contains only a single output and this output is a pull resistor
+- fixed an error that caused an exception if an embedded circuit directly connects an input to an output.
 
 v0.8, released on 20. Nov 2016
 - added pull up & pull down resistors and programmable diodes
