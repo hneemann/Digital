@@ -120,6 +120,27 @@ Funktion.</string>
       </elementAttributes>
       <pos x="140" y="240"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>EN P Q P&lt;Q P=Q P&gt;Q
+1  0 0  0   1   0
+1  0 1  1   0   0
+1  1 0  0   0   1
+1  1 1  0   1   0
+0  0 0  0   0   0
+0  0 1  0   0   0
+0  1 0  0   0   0
+0  1 1  0   0   0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="300"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
