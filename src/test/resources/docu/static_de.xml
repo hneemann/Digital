@@ -74,8 +74,8 @@
         </par>
         <par>
             Dabei gilt folgenden Namenskonvention: Der Folgezustand eines Bits auf der rechten Seite der Tabelle wird
-            durch ein angähngtes kleines 'n' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
-            angehängtes 'n+1' ausgezeichnet. Gibt es also eine Zustandsvariable 'A', dann kennzeichnet 'An' den aktuellen
+            durch ein angähngtes kleines 'n+1' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
+            angehängtes 'n' ausgezeichnet. Gibt es also eine Zustandsvariable 'A', dann kennzeichnet 'An' den aktuellen
             Zustand und 'An+1' den Folgezustand. Finden sich in der Wahrheitstabelle auf der linken und rechten Seite Signale,
             die diesem Muster entsprechen, wird davon ausgegeangen, dass es sich um eine Zustandsfolgetabelle handelt und
             bei der Synthese wird entsprechend ein Schaltwerk anstelle eines Schaltnetzes erzeugt.

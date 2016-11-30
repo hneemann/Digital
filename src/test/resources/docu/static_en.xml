@@ -34,10 +34,59 @@
 
     <chapter name="Wires">
         <par>
-            There are only connections between the end of a wire and a components pin. If you draw a straight wire across
-            many component pins, there will be no connection between the pins and the wire at all.
+            All components must be connected via wires. It is not possible to connect two components to each other by
+            placing them directly next to each other.
+        </par>
+        <par>
+            In addition, there are only connections between a endpoint of a wire and a component.
+            If a pin of a component is placed in the middle of a wire, no connection is made between the component
+            and the wire.
+            Therefore, a wire must actually terminate at each pin which is to be connected to another.
+            Even if the tunnel component is used, there must be a wire between the pin and the tunnel element.
+        </par>
+        <par>
+            If a component is to be moved including the connected wires, the component needs to be selected
+            with the rectangular selection. The rectangular selection must contain the whole component.
+            Then it can be moved with the mouse.  If an element is selected by a mouse click, only the component
+            itself can be moved - without the connected wires.
         </par>
     </chapter>
+    <chapter name="Circuit analysis and synthesis">
+        <par>
+            A circuit can be analyzed via the menu entry <e>Analysis</e>. A truth table is generated for purely
+            combinatorial circuits. This truth table can be edited as desired.
+            A new circuit can be generated from this truth table after editing.
+            In the menu of the circuit generation there are also functions to generate so-called JEDEC files.
+            This is a special file format that describes the fuse map of a PLD.
+            This JEDEC file can be written into a corresponding PLD using a special programmer.
+            At the moment, circuits of the type <e>GAL16v8</e> and <e>GAL22v10</e> or fuse map compatible
+            devices are supported.
+        </par>
+        <par>
+            In addition to purely combinatorial circuits, it is also possible to analyze or generate sequential cicuits.
+            Instead of a simple truth table a so-called state transition table is created.
+            Each flip-flop thereby appears on the input side and the output side of the state transition table.
+            In this table, on the right-hand side, you can find the next state, which will
+            occur after the next clock signal. This next state depends on the current state of the flip-flops as found
+            at the left-hand side of the table.
+            For an analysis to be possible, the flipflops must be named.
+        </par>
+        <par>
+            The following naming convention applies: The following next state of a bit on the right side of the table
+            is indicated by a descended small 'n+1'. The corresponding current state is indicated by an appended 'n'.
+            If there is a state variable 'A', 'An' indicates the current state and 'An+1' indicates the next state.
+            If, in the truth table on the left and right side, signals are present, which correspond to this pattern
+            it is assumed that the table is a state transition table, and a sequential circuit is generated instead of
+            a combinatorial circuit.
+        </par>
+        <par>
+            It should be noted that the circuit to be analyzed may contain only purely combinatorial elements in
+            addition to the built-in D and JK flipflops. If a flip-flop is e.g. made from Nor gates, this
+            circuit is not recognized as a flip-flop and therefore not treated accordingly. In this case, the
+            circuit is not analyzed correctly, which means that an incorrect state transition table is generated.
+        </par>
+    </chapter>
+
     <chapter name="Frequently asked Questions">
         <faq>
             <question>How to move a wire?</question>
