@@ -64,7 +64,7 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
         Ist der Schalter offen, ist der Ausgang hochohmig, ist der Schalter geschlossen, entspricht der Ausgang dem
         Eingang incl. des Zustandes hochohmig.
         Damit können sich antiparall verbundene Schalter gegenseiting im low- oder high-Zustand halten, was mit realen
-        Schaltern nicht möglich ist.</string>
+        Schaltern nicht möglich ist. Zudem gibt es - anders als bei realen Schaltern - keine Rückwirkung des Ausgangs auf den Eingang.</string>
     <string name="elem_Counter">Zähler</string>
     <string name="elem_D_FF">D_FF</string>
     <string name="elem_Data">Messwertgraph</string>
