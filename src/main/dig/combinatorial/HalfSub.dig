@@ -6,13 +6,11 @@
       <elementName>XOr</elementName>
       <elementAttributes/>
       <pos x="620" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="620" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -23,7 +21,6 @@
         </entry>
       </elementAttributes>
       <pos x="500" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -34,7 +31,6 @@
         </entry>
       </elementAttributes>
       <pos x="500" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -45,7 +41,6 @@
         </entry>
       </elementAttributes>
       <pos x="720" y="260"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -56,13 +51,28 @@
         </entry>
       </elementAttributes>
       <pos x="720" y="340"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
       <pos x="540" y="320"/>
-      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A B BO S
+0 0 0  0
+0 1 1  1
+1 0 0  1
+1 1 0  0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="700" y="380"/>
     </visualElement>
   </visualElements>
   <wires>

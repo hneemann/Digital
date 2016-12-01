@@ -21,7 +21,6 @@
         </entry>
       </elementAttributes>
       <pos x="220" y="80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -32,7 +31,6 @@
         </entry>
       </elementAttributes>
       <pos x="220" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -43,19 +41,16 @@
         </entry>
       </elementAttributes>
       <pos x="220" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>HalfSub.dig</elementName>
       <elementAttributes/>
       <pos x="360" y="80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>HalfAdder.dig</elementName>
       <elementAttributes/>
       <pos x="260" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -66,13 +61,11 @@
         </entry>
       </elementAttributes>
       <pos x="540" y="140"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="460" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -83,7 +76,27 @@
         </entry>
       </elementAttributes>
       <pos x="540" y="80"/>
-      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A_i B_i BO_i-1  BO_i S_i
+ 0   0   0        0   0
+ 0   0   1        1   1
+ 0   1   0        1   1
+ 0   1   1        1   0
+ 1   0   0        0   1
+ 1   0   1        0   0
+ 1   1   0        0   0
+ 1   1   1        1   1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="220"/>
     </visualElement>
   </visualElements>
   <wires>
