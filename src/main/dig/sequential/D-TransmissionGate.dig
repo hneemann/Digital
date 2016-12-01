@@ -82,6 +82,25 @@
       </elementAttributes>
       <pos x="460" y="80"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C D Q ~Q
+C 1 1  0
+0 1 1  0
+0 0 1  0
+C 0 0  1
+0 0 0  1
+0 1 0  1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="160"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

@@ -95,6 +95,23 @@ Inverter.</string>
       <elementAttributes/>
       <pos x="1360" y="540"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>R C S Q ~Q
+1 C 0 0  1
+X 0 X 0  1
+0 C 1 1  0
+X 0 X 1  0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1500" y="540"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

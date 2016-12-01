@@ -1,119 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-    <visualElements>
-        <visualElement>
-            <elementName>NOr</elementName>
-            <elementAttributes/>
-            <pos x="740" y="230"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>NOr</elementName>
-            <elementAttributes/>
-            <pos x="740" y="300"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>R</string>
-                </entry>
-            </elementAttributes>
-            <pos x="700" y="230"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>In</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>S</string>
-                </entry>
-            </elementAttributes>
-            <pos x="700" y="320"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>Q</string>
-                </entry>
-            </elementAttributes>
-            <pos x="820" y="240"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Out</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Label</string>
-                    <string>~Q</string>
-                </entry>
-            </elementAttributes>
-            <pos x="820" y="310"/>
-            <rotate>0</rotate>
-        </visualElement>
-    </visualElements>
-    <wires>
-        <wire>
-            <p1 x="730" y="290"/>
-            <p2 x="790" y="260"/>
-        </wire>
-        <wire>
-            <p1 x="790" y="290"/>
-            <p2 x="730" y="260"/>
-        </wire>
-        <wire>
-            <p1 x="700" y="320"/>
-            <p2 x="740" y="320"/>
-        </wire>
-        <wire>
-            <p1 x="780" y="240"/>
-            <p2 x="790" y="240"/>
-        </wire>
-        <wire>
-            <p1 x="790" y="240"/>
-            <p2 x="820" y="240"/>
-        </wire>
-        <wire>
-            <p1 x="780" y="310"/>
-            <p2 x="790" y="310"/>
-        </wire>
-        <wire>
-            <p1 x="790" y="310"/>
-            <p2 x="820" y="310"/>
-        </wire>
-        <wire>
-            <p1 x="700" y="230"/>
-            <p2 x="740" y="230"/>
-        </wire>
-        <wire>
-            <p1 x="730" y="250"/>
-            <p2 x="740" y="250"/>
-        </wire>
-        <wire>
-            <p1 x="730" y="300"/>
-            <p2 x="740" y="300"/>
-        </wire>
-        <wire>
-            <p1 x="790" y="240"/>
-            <p2 x="790" y="260"/>
-        </wire>
-        <wire>
-            <p1 x="790" y="290"/>
-            <p2 x="790" y="310"/>
-        </wire>
-        <wire>
-            <p1 x="730" y="290"/>
-            <p2 x="730" y="300"/>
-        </wire>
-        <wire>
-            <p1 x="730" y="250"/>
-            <p2 x="730" y="260"/>
-        </wire>
-    </wires>
+  <version>1</version>
+  <visualElements>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes/>
+      <pos x="1480" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes/>
+      <pos x="1480" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1400" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>S</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1400" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1640" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>~Q</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1640" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>R S Q ~Q
+1 0 0  1
+0 0 0  1
+0 1 1  0
+0 0 1  0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1620" y="660"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="1460" y="580"/>
+      <p2 x="1580" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1580" y="580"/>
+      <p2 x="1460" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1400" y="640"/>
+      <p2 x="1480" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1560" y="480"/>
+      <p2 x="1580" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1580" y="480"/>
+      <p2 x="1640" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1560" y="620"/>
+      <p2 x="1580" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1580" y="620"/>
+      <p2 x="1640" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1400" y="460"/>
+      <p2 x="1480" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1460" y="500"/>
+      <p2 x="1480" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1460" y="600"/>
+      <p2 x="1480" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="1580" y="480"/>
+      <p2 x="1580" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1580" y="580"/>
+      <p2 x="1580" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1460" y="580"/>
+      <p2 x="1460" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="1460" y="500"/>
+      <p2 x="1460" y="520"/>
+    </wire>
+  </wires>
 </circuit>
