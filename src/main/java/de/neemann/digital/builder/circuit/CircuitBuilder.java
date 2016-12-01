@@ -105,9 +105,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 DetermineJKStateMachine jk = new DetermineJKStateMachine(name, expression);
                 useDff = jk.isDFF();
                 if (!useDff) {
-                    boolean isJequalK = new Equals(jk.getJ(), jk.getK()).isEqual();
+                    boolean isJequalK = new Equals(jk.getSimplifiedJ(), jk.getSimplifiedK()).isEqual();
                     if (isJequalK) {
-                        Fragment frJ = createFragment(jk.getJ());
+                        Fragment frJ = createFragment(jk.getSimplifiedJ());
                         FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory).ignoreInput(1).setAttr(Keys.LABEL, name);
                         flipflops.add(ff);
                         FragmentSameInValue fsv = new FragmentSameInValue(ff);
@@ -116,8 +116,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
                         fragments.add(new FragmentExpression(frJ, fe));
                     } else {
-                        Fragment frJ = createFragment(jk.getJ());
-                        Fragment frK = createFragment(jk.getK());
+                        Fragment frJ = createFragment(jk.getSimplifiedJ());
+                        Fragment frK = createFragment(jk.getSimplifiedK());
                         FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory).ignoreInput(1).setAttr(Keys.LABEL, name);
                         flipflops.add(ff);
                         FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));

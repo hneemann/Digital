@@ -4,7 +4,6 @@ import de.neemann.digital.analyse.DetermineJKStateMachine;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.format.FormatterException;
-import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 
 /**
  * Expression listener which sends all result to its parent.
@@ -34,17 +33,21 @@ public class ExpressionListenerJK implements ExpressionListener {
             DetermineJKStateMachine jk = new DetermineJKStateMachine(detName, expression);
             Expression j = jk.getJ();
             parent.resultFound("J_" + detName, j);
-            Expression s = QuineMcCluskey.simplify(j);
-            if (s != j) {
+            Expression s = jk.getSimplifiedJ();
+            if (!s.toString().equals(j.toString())) {
                 parent.resultFound("", s);
             }
             Expression k = jk.getK();
             parent.resultFound("K_" + detName, k);
-            s = QuineMcCluskey.simplify(k);
-            if (s != k) {
+            s = jk.getSimplifiedK();
+            if (!s.toString().equals(k.toString())) {
                 parent.resultFound("", s);
             }
         }
 
+    }
+
+    @Override
+    public void close() {
     }
 }

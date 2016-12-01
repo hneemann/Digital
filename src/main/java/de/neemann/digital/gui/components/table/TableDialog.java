@@ -426,7 +426,7 @@ public class TableDialog extends JDialog {
     private void createCircuit(boolean useJKff, ExpressionModifier... modifier) {
         try {
             CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff);
-            new BuilderExpressionCreator(circuitBuilder, modifier).create();
+            new BuilderExpressionCreator(circuitBuilder, modifier).setUseJKOptimizer(useJKff).create();
             Circuit circuit = circuitBuilder.createCircuit();
             SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
         } catch (ExpressionException | FormatterException | RuntimeException e) {
@@ -519,6 +519,10 @@ public class TableDialog extends JDialog {
                     if (count == 2)
                         allSolutionsDialog.setVisible(true);
                 }
+
+                @Override
+                public void close() {
+                }
             };
 
             if (createJK.isSelected())
@@ -537,11 +541,19 @@ public class TableDialog extends JDialog {
 
     private String getExpressionsLaTeX() throws ExpressionException, FormatterException {
         StringBuilder sb = new StringBuilder();
-        ExpressionListener expressionListener = (name2, expression) -> sb
-                .append(FormatToTableLatex.formatIdentifier(name2))
-                .append("&=&")
-                .append(FormatToExpression.FORMATTER_LATEX.format(expression))
-                .append("\\\\\n");
+        ExpressionListener expressionListener = new ExpressionListener() {
+            @Override
+            public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+                sb.append(FormatToTableLatex.formatIdentifier(name))
+                        .append("&=&")
+                        .append(FormatToExpression.FORMATTER_LATEX.format(expression))
+                        .append("\\\\\n");
+            }
+
+            @Override
+            public void close() {
+            }
+        };
 
         if (createJK.isSelected())
             expressionListener = new ExpressionListenerJK(expressionListener);
@@ -621,6 +633,7 @@ public class TableDialog extends JDialog {
         private final HashSet<String> contained;
         private final BuilderInterface builder;
         private final ExpressionModifier[] modifier;
+        private boolean useJKOptimizer = false;
 
         BuilderExpressionCreator(BuilderInterface builder, ExpressionModifier... modifier) {
             super(TableDialog.this.model.getTable());
@@ -630,20 +643,36 @@ public class TableDialog extends JDialog {
         }
 
         public void create() throws ExpressionException, FormatterException {
-            create((name, expression) -> {
-                if (!contained.contains(name)) {
-                    contained.add(name);
-                    try {
-                        if (name.endsWith("n+1")) {
-                            name = name.substring(0, name.length() - 2);
-                            builder.addSequential(name, ExpressionModifier.modifyExpression(expression, modifier));
-                        } else
-                            builder.addCombinatorial(name, ExpressionModifier.modifyExpression(expression, modifier));
-                    } catch (BuilderException e) {
-                        throw new RuntimeException(e);
+            ExpressionListener el = new ExpressionListener() {
+                @Override
+                public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+                    if (!contained.contains(name)) {
+                        contained.add(name);
+                        try {
+                            if (name.endsWith("n+1")) {
+                                name = name.substring(0, name.length() - 2);
+                                builder.addSequential(name, ExpressionModifier.modifyExpression(expression, modifier));
+                            } else
+                                builder.addCombinatorial(name, ExpressionModifier.modifyExpression(expression, modifier));
+                        } catch (BuilderException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
-            });
+
+                @Override
+                public void close() {
+                }
+            };
+            if (useJKOptimizer)
+                el = new ExpressionListenerOptimizeJK(el);
+
+            create(el);
+        }
+
+        BuilderExpressionCreator setUseJKOptimizer(boolean useJKOptimizer) {
+            this.useJKOptimizer = useJKOptimizer;
+            return this;
         }
     }
 

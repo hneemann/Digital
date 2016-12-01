@@ -526,7 +526,7 @@ Nicht: &quot;!&quot;, &quot;~&quot;, &quot;&#172;&quot;
 UND hat Vorrang vor ODER bzw. Exkl. ODER.
 Mehrere Ausdrücke können durch "," oder ";" getrennt werden.
 Sollen die Ausdrücke benannt werden, kann die let-Anweisung verwendet
-werden: "let U=A+B"</string>
+werden: "let U=A+B, let V=A*B"</string>
     <string name="msg_testVectorHelpTitle">Testvektoren</string>
     <string name="msg_testVectorHelp">Die erste Zeile muss, durch ein Leerzeichen getrennt, die
 Ein- und Ausgänge auflisten. In den folgenden Zeilen stehen dann die Sollwerte.

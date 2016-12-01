@@ -3,6 +3,7 @@ package de.neemann.digital.analyse;
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 import de.neemann.digital.lang.Lang;
 
 import java.util.Iterator;
@@ -20,6 +21,8 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 public class DetermineJKStateMachine {
     private Expression j = null;
     private Expression nk = null;
+    private Expression simpj = null;
+    private Expression simpk = null;
     private boolean isDFF;
 
     /**
@@ -78,6 +81,15 @@ public class DetermineJKStateMachine {
         isDFF = !wasJ && !wasK;
     }
 
+    /**
+     * @return returns a measure of the complexity of the JK expressions.
+     * @throws ExpressionException ExpressionException
+     */
+    public int getComplexity() throws ExpressionException {
+        return getSimplifiedJ().traverse(new ComplexityVisitor()).getComplexity()
+                + getSimplifiedK().traverse(new ComplexityVisitor()).getComplexity();
+    }
+
     private Iterable<Expression> getOrs(Expression e) {
         if (e instanceof Operation.Or) {
             return ((Operation.Or) e).getExpressions();
@@ -121,6 +133,26 @@ public class DetermineJKStateMachine {
      */
     public boolean isDFF() {
         return isDFF;
+    }
+
+    /**
+     * @return simplified J
+     * @throws ExpressionException ExpressionException
+     */
+    public Expression getSimplifiedJ() throws ExpressionException {
+        if (simpj == null)
+            simpj = QuineMcCluskey.simplify(getJ());
+        return simpj;
+    }
+
+    /**
+     * @return simplified K
+     * @throws ExpressionException ExpressionException
+     */
+    public Expression getSimplifiedK() throws ExpressionException {
+        if (simpk == null)
+            simpk = QuineMcCluskey.simplify(getK());
+        return simpk;
     }
 
     private static final class AsIterable<T> implements Iterable<T> {

@@ -53,6 +53,7 @@ public class ExpressionCreator {
                 listener.resultFound(theTable.getResultName(table), e);
             }
         }
+        listener.close();
     }
 
 }

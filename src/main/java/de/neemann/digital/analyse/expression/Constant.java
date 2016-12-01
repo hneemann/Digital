@@ -46,4 +46,9 @@ public final class Constant implements Expression {
     public boolean getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return Boolean.toString(value);
+    }
 }

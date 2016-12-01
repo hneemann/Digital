@@ -522,7 +522,7 @@ As usual AND precedes OR and XOr.
 
 Multiple expressions can be separated by "," or ";".
 If you want to name the expressions you can use the
-let-command: "let U=A+B"</string>
+let-command: "let U=A+B, let V=A*B"</string>
     <string name="msg_testVectorHelpTitle">Test vectors</string>
     <string name="msg_testVectorHelp">The first line has to contain the names of inputs and outputs.
 The following lines contain the expected values.

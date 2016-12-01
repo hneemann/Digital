@@ -65,4 +65,54 @@ public class CircuitBuilderTest extends TestCase {
         te.checkC(0, 0);
     }
 
+    public void testBuilderSequentialJK_JequalsK() throws Exception {
+        Variable y0 = new Variable("Y_0");
+        Variable y1 = new Variable("Y_1");
+
+        // counter
+        Expression y0s = not(y0);
+        Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
+
+        ElementLibrary library = new ElementLibrary();
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library), true)
+                .addSequential("Y_0", y0s)
+                .addSequential("Y_1", y1s)
+                .addCombinatorial("Y_0", y0)
+                .addCombinatorial("Y_1", y1)
+                .createCircuit();
+
+        ModelCreator m = new ModelCreator(circuit, library);
+        TestExecuter te = new TestExecuter(m.createModel(false)).setUp(m);
+        te.check(0, 0);
+        te.checkC(1, 0);
+        te.checkC(0, 1);
+        te.checkC(1, 1);
+        te.checkC(0, 0);
+    }
+
+    public void testBuilderSequentialJK() throws Exception {
+        Variable y0 = new Variable("Y_0");
+        Variable y1 = new Variable("Y_1");
+
+        // counter
+        Expression y0s = not(y0);
+        Expression y1s = or(not(y0), not(y1));
+
+        ElementLibrary library = new ElementLibrary();
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library), true)
+                .addSequential("Y_0", y0s)
+                .addSequential("Y_1", y1s)
+                .addCombinatorial("Y_0", y0)
+                .addCombinatorial("Y_1", y1)
+                .createCircuit();
+
+        ModelCreator m = new ModelCreator(circuit, library);
+        TestExecuter te = new TestExecuter(m.createModel(false)).setUp(m);
+        te.check(0, 0);
+        te.checkC(1, 1);
+        te.checkC(0, 0);
+        te.checkC(1, 1);
+        te.checkC(0, 0);
+    }
+
 }

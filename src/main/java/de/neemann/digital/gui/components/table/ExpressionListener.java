@@ -19,4 +19,12 @@ public interface ExpressionListener {
      * @throws ExpressionException ExpressionException
      */
     void resultFound(String name, Expression expression) throws FormatterException, ExpressionException;
+
+    /**
+     * Called if last expression was created
+     *
+     * @throws FormatterException  FormatterException
+     * @throws ExpressionException ExpressionException
+     */
+    void close() throws FormatterException, ExpressionException;
 }
