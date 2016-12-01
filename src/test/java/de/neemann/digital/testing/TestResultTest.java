@@ -43,6 +43,7 @@ public class TestResultTest extends TestCase {
                         + "1 0 1\n"
                         + "1 1 0\n");
         TestResult tr = new TestResult(data).create(model);
+        assertEquals(4,tr.getRows());
         assertTrue(tr.allPassed());
     }
 
@@ -55,6 +56,7 @@ public class TestResultTest extends TestCase {
                         + "1 0 1\n"
                         + "1 1 0\n");
         TestResult tr = new TestResult(data).create(model);
+        assertEquals(4,tr.getRows());
         assertFalse(tr.allPassed());
         assertEquals(true, ((MatchedValue) tr.getResultValue(0, 2)).isPassed());
         assertEquals(true, ((MatchedValue) tr.getResultValue(1, 2)).isPassed());
@@ -71,6 +73,7 @@ public class TestResultTest extends TestCase {
                         + "1 0 1\n"
                         + "1 1 x\n");
         TestResult tr = new TestResult(data).create(model);
+        assertEquals(4,tr.getRows());
         assertTrue(tr.allPassed());
     }
 
@@ -83,6 +86,7 @@ public class TestResultTest extends TestCase {
                         + "1 0 1\n"
                         + "1 1 1\n");
         TestResult tr = new TestResult(data).create(model);
+        assertEquals(4,tr.getRows());
         assertTrue(tr.allPassed());
     }
 
