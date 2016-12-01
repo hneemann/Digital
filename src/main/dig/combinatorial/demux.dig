@@ -174,6 +174,27 @@ ausgegeben wird.</string>
       </elementAttributes>
       <pos x="460" y="460"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A_1 A_0 D Y_3 Y_2 Y_1 Y_0
+ 0   0  0  0   0   0   0
+ 0   0  1  0   0   0   1
+ 0   1  0  0   0   0   0
+ 0   1  1  0   0   1   0
+ 1   0  0  0   0   0   0
+ 1   0  1  0   1   0   0
+ 1   1  0  0   0   0   0
+ 1   1  1  1   0   0   0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="60"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

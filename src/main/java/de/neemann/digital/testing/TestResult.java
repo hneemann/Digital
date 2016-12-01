@@ -8,6 +8,7 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Stores the test results created by a single {@link TestData} instance.
@@ -62,58 +63,77 @@ public class TestResult {
                 outputs.add(new TestSignal(index, s.getValue()));
         }
 
-        if (inputs.size()==0)
+        if (inputs.size() == 0)
             throw new TestingDataException(Lang.get("err_noTestInputSignalsDefined"));
 
-        if (outputs.size()==0)
+        if (outputs.size() == 0)
             throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
 
         model.init();
 
-        for (Value[] row : lines) {
+        for (Value[] rowWithDontCare : lines) {
 
-            Value[] res = new Value[row.length];
+            for (Value[] row : resolveDontCares(inputs, rowWithDontCare)) {
 
-            boolean clockIsUsed = false;
-            // set all values except the clocks
-            for (TestSignal in : inputs) {
-                if (row[in.index].getType() != Value.Type.CLOCK) {
-                    row[in.index].copyTo(in.value);
-                } else {
-                    clockIsUsed = true;
-                }
-                res[in.index] = row[in.index];
-            }
+                Value[] res = new Value[row.length];
 
-            if (clockIsUsed) {  // a clock signal is used
-                model.doStep();  // propagate all except clock
-
-                // set clock
-                for (TestSignal in : inputs)
-                    if (row[in.index].getType() == Value.Type.CLOCK)
+                boolean clockIsUsed = false;
+                // set all values except the clocks
+                for (TestSignal in : inputs) {
+                    if (row[in.index].getType() != Value.Type.CLOCK) {
                         row[in.index].copyTo(in.value);
+                    } else {
+                        clockIsUsed = true;
+                    }
+                    res[in.index] = row[in.index];
+                }
 
-                // propagate clock change
+                if (clockIsUsed) {  // a clock signal is used
+                    model.doStep();  // propagate all except clock
+
+                    // set clock
+                    for (TestSignal in : inputs)
+                        if (row[in.index].getType() == Value.Type.CLOCK)
+                            row[in.index].copyTo(in.value);
+
+                    // propagate clock change
+                    model.doStep();
+
+                    // restore clock
+                    for (TestSignal in : inputs)   // invert the clock values
+                        if (row[in.index].getType() == Value.Type.CLOCK)
+                            in.value.setBool(!in.value.getBool());
+                }
+
                 model.doStep();
 
-                // restore clock
-                for (TestSignal in : inputs)   // invert the clock values
-                    if (row[in.index].getType() == Value.Type.CLOCK)
-                        in.value.setBool(!in.value.getBool());
+                for (TestSignal out : outputs) {
+                    MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
+                    res[out.index] = matchedValue;
+                    if (!matchedValue.isPassed())
+                        allPassed = false;
+                }
+                results.add(res);
             }
-
-            model.doStep();
-
-            for (TestSignal out : outputs) {
-                MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
-                res[out.index] = matchedValue;
-                if (!matchedValue.isPassed())
-                    allPassed = false;
-            }
-            results.add(res);
         }
 
         return this;
+    }
+
+    private Iterable<Value[]> resolveDontCares(ArrayList<TestSignal> inputs, Value[] rowWithDontCare) {
+        ArrayList<Integer> dcIndex = null;
+        for (TestSignal in : inputs) {
+            if (rowWithDontCare[in.index].getType() == Value.Type.DONTCARE) {
+                if (dcIndex == null)
+                    dcIndex = new ArrayList<Integer>();
+                dcIndex.add(in.index);
+            }
+        }
+        if (dcIndex == null)
+            return new SingleItemIterator<>(rowWithDontCare);
+        else {
+            return new VariantsIterator(dcIndex, rowWithDontCare);
+        }
     }
 
     /**
@@ -180,4 +200,85 @@ public class TestResult {
         }
     }
 
+    private static class SingleItemIterator<T> implements Iterable<T> {
+        private final T value;
+
+        SingleItemIterator(T value) {
+            this.value = value;
+        }
+
+        @Override
+        public Iterator<T> iterator() {
+            return new SingleItemIterable<T>(value);
+        }
+    }
+
+    private static class SingleItemIterable<T> implements Iterator<T> {
+        private T value;
+
+        SingleItemIterable(T value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return value != null;
+        }
+
+        @Override
+        public T next() {
+            T r = value;
+            value = null;
+            return r;
+        }
+    }
+
+    private class VariantsIterator implements Iterable<Value[]> {
+        private final ArrayList<Integer> dcIndex;
+        private final Value[] rowWithDontCare;
+
+        VariantsIterator(ArrayList<Integer> dcIndex, Value[] rowWithDontCare) {
+            this.dcIndex = dcIndex;
+            this.rowWithDontCare = rowWithDontCare;
+        }
+
+        @Override
+        public Iterator<Value[]> iterator() {
+            Value[] copy = new Value[rowWithDontCare.length];
+            for (int i = 0; i < copy.length; i++)
+                copy[i] = new Value(rowWithDontCare[i]);
+            return new VariantsIterable(dcIndex, copy);
+        }
+    }
+
+    private class VariantsIterable implements Iterator<Value[]> {
+        private final ArrayList<Integer> dcIndex;
+        private final Value[] row;
+        private final int count;
+        private int n;
+
+        VariantsIterable(ArrayList<Integer> dcIndex, Value[] row) {
+            this.dcIndex = dcIndex;
+            this.row = row;
+            count = 1 << dcIndex.size();
+            n = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return n < count;
+        }
+
+        @Override
+        public Value[] next() {
+            int mask = 1;
+            for (int in : dcIndex) {
+                boolean val = (n & mask) != 0;
+                row[in] = new Value(val ? 1 : 0);
+                mask *= 2;
+            }
+            n++;
+            return row;
+        }
+    }
 }

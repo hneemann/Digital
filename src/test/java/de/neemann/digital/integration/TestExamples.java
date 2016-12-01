@@ -19,26 +19,28 @@ import java.io.File;
  */
 public class TestExamples extends TestCase {
 
-    private int testCasesInFiles=0;
+    private int testCasesInFiles = 0;
 
     /**
      * Tests the examples which are distributed
+     *
      * @throws Exception
      */
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
         assertEquals(88, new FileScanner(this::check).scan(examples));
-        assertEquals(25,testCasesInFiles);
+        assertEquals(31, testCasesInFiles);
     }
 
     /**
      * Tests the examples which are only test cases
+     *
      * @throws Exception
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
         assertEquals(27, new FileScanner(this::check).scan(examples));
-        assertEquals(19,testCasesInFiles);
+        assertEquals(19, testCasesInFiles);
     }
 
 
@@ -48,9 +50,9 @@ public class TestExamples extends TestCase {
      * @param dig the model file
      */
     private void check(File dig) throws Exception {
-        System.out.println("test "+dig);
+        System.out.println("test " + dig);
         boolean shouldFail = dig.getName().endsWith("Error.dig");
-        ToBreakRunner br=null;
+        ToBreakRunner br = null;
         try {
             br = new ToBreakRunner(dig);
             assertFalse("File should fail but doesn't!", shouldFail);

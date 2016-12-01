@@ -181,6 +181,27 @@ Eingänge A_0 und A_1 fest.</string>
       </elementAttributes>
       <pos x="560" y="340"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A_1 A_0 D_3 D_2 D_1 D_0 Y
+ 0   0   X   X   X   0  0
+ 0   0   X   X   X   1  1
+ 0   1   X   X   0   X  0
+ 0   1   X   X   1   X  1
+ 1   0   X   0   X   X  0
+ 1   0   X   1   X   X  1
+ 1   1   0   X   X   X  0
+ 1   1   1   X   X   X  1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="40"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

@@ -35,6 +35,26 @@ public class Value {
     private final Type type;
 
     /**
+     * Copy constructor
+     *
+     * @param value value to copy
+     */
+    public Value(Value value) {
+        this.value = value.value;
+        this.type = value.type;
+    }
+
+    /**
+     * Create a simple int value
+     *
+     * @param val the value
+     */
+    public Value(int val) {
+        this.value = val;
+        this.type = Type.NORMAL;
+    }
+
+    /**
      * Creates a new value based on the given {@link ObservableValue}
      *
      * @param ov the value to copy

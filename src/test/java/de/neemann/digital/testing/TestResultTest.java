@@ -86,4 +86,26 @@ public class TestResultTest extends TestCase {
         assertTrue(tr.allPassed());
     }
 
+    public void testResultDontCareInput() throws Exception {
+        Model model = getModel("A*0+B");
+        TestData data = new TestData(
+                "A B Y\n"
+                        + "x 0 0\n"
+                        + "x 1 1\n");
+        TestResult tr = new TestResult(data).create(model);
+        assertEquals(4,tr.getRows());
+        assertTrue(tr.allPassed());
+    }
+
+    public void testResultDontCareInput2() throws Exception {
+        Model model = getModel("A*0+B*0+C");
+        TestData data = new TestData(
+                "A B C Y\n"
+                        + "x x 0 0\n"
+                        + "x x 1 1\n");
+        TestResult tr = new TestResult(data).create(model);
+        assertEquals(8,tr.getRows());
+        assertTrue(tr.allPassed());
+    }
+
 }

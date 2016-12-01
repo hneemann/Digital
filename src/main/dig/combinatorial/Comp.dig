@@ -108,6 +108,23 @@ vergleicht.</string>
       </elementAttributes>
       <pos x="500" y="220"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>P Q P&lt;Q P=Q P&gt;Q
+0 0  0   1   0
+0 1  1   0   0
+1 0  0   0   1
+1 1  0   1   0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="260"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
