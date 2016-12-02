@@ -1,5 +1,6 @@
 package de.neemann.digital.testing.parser;
 
+import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.Value;
 
 import java.io.BufferedReader;
@@ -41,16 +42,9 @@ public class Parser {
      * @throws ParserException ParserException
      */
     public Parser parse() throws IOException, ParserException {
-        try {
-            parseHeader();
-
-            parseValues();
-
-            return this;
-        } catch (NumberFormatException e) {
-            throw new ParserException("Invalid number:" + e.getMessage(), Tokenizer.Token.NUMBER, tok.getLine(), e);
-        }
-
+        parseHeader();
+        parseValues();
+        return this;
     }
 
     private void parseHeader() throws IOException, ParserException {
@@ -64,9 +58,14 @@ public class Parser {
                 case EOL:
                     return;
                 default:
-                    throw new ParserException("unexpected token", token, tok.getLine());
+                    throw newUnexpectedToken(token);
             }
         }
+    }
+
+    private ParserException newUnexpectedToken(Tokenizer.Token token) {
+        String name = token == Tokenizer.Token.IDENT ? tok.getIdent() : token.name();
+        return new ParserException(Lang.get("err_unexpectedToken_N0_inLine_N1", name, tok.getLine()));
     }
 
     private void parseValues() throws IOException, ParserException {
@@ -85,7 +84,7 @@ public class Parser {
                         tok.consume();
                         expect(Tokenizer.Token.OPEN);
                         expect(Tokenizer.Token.NUMBER);
-                        int count = Integer.parseInt(tok.getIdent());
+                        int count = parseInt(tok.getIdent());
                         expect(Tokenizer.Token.CLOSE);
                         parseForLine(count);
                     } else {
@@ -109,7 +108,7 @@ public class Parser {
                     if (tok.getIdent().equals("bits")) {
                         expect(Tokenizer.Token.OPEN);
                         expect(Tokenizer.Token.NUMBER);
-                        int bitCount = Integer.parseInt(tok.getIdent());
+                        int bitCount = parseInt(tok.getIdent());
                         expect(Tokenizer.Token.COMMA);
                         Expression exp = parseExpression();
                         entries.add(n -> n.addBits(bitCount, exp.value(n)));
@@ -132,8 +131,16 @@ public class Parser {
                     }
                     return;
                 default:
-                    throw new ParserException("unexpected token", token, tok.getLine());
+                    throw newUnexpectedToken(token);
             }
+        }
+    }
+
+    private int parseInt(String numStr) throws ParserException {
+        try {
+            return Integer.parseInt(numStr);
+        } catch (NumberFormatException e) {
+            throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", numStr, tok.getLine()));
         }
     }
 
@@ -143,14 +150,18 @@ public class Parser {
             switch (token) {
                 case IDENT:
                 case NUMBER:
-                    values.add(new Value(tok.getIdent().toUpperCase()));
+                    try {
+                        values.add(new Value(tok.getIdent().toUpperCase()));
+                    } catch (NumberFormatException e) {
+                        throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
+                    }
                     break;
                 case EOF:
                 case EOL:
                     addLine();
                     return token;
                 default:
-                    throw new ParserException("unexpected token", token, tok.getLine());
+                    throw newUnexpectedToken(token);
             }
         }
     }
@@ -159,7 +170,7 @@ public class Parser {
         if (values.size() > 0) {
 
             if (values.size() != names.size())
-                throw new ParserException("unexpected number of values "+values.size()+" vs "+names.size(), tok.getLine());
+                throw new ParserException(Lang.get("err_testDataExpected_N0_found_N1_numbersInLine_N2", names.size(), values.size(), tok.getLine()));
 
             lines.add(values.toArray(new Value[names.size()]));
             values.clear();
@@ -169,7 +180,7 @@ public class Parser {
     private void expect(Tokenizer.Token token) throws IOException, ParserException {
         Tokenizer.Token t = tok.next();
         if (t != token)
-            throw new ParserException("unexpected token", token, tok.getLine());
+            throw newUnexpectedToken(token);
 
     }
 
@@ -327,9 +338,9 @@ public class Parser {
                 if (tok.getIdent().equals("n")) {
                     return Context::getN;
                 } else
-                    throw new ParserException("only var n allowed!, not " + tok.getIdent(), t, tok.getLine());
+                    throw new ParserException(Lang.get("err_var_N0_notAllowedInLine_N1", tok.getIdent(), tok.getLine()));
             case NUMBER:
-                long num = Long.parseLong(tok.getIdent());
+                long num = parseInt(tok.getIdent());
                 return (n) -> num;
             case SUB:
                 Expression negExp = parseIdent();
@@ -342,7 +353,7 @@ public class Parser {
                 expect(Tokenizer.Token.CLOSE);
                 return exp;
             default:
-                throw new ParserException("invalid token", t, tok.getLine());
+                throw newUnexpectedToken(t);
         }
     }
 }

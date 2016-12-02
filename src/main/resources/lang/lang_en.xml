@@ -239,6 +239,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_parserMissingClosedParenthesis">Missing closed parenthesis</string>
     <string name="err_notANumber_N0_inLine_N1">Value {0} in line {1} is not a number!</string>
     <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">Expected {0} but found {1} values in line {2}!</string>
+    <string name="err_unexpectedToken_N0_inLine_N1">Unexpected token '{0}' in line {1}.</string>
+    <string name="err_var_N0_notAllowedInLine_N1">Variable {0} in line {1} not allowed.</string>
     <string name="err_noTestInputSignalsDefined">No input signals defined in test vector!</string>
     <string name="err_noTestOutputSignalsDefined">No output signals defined in test vector!</string>
     <string name="err_noTestData">Not test data found.</string>
