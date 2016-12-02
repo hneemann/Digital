@@ -1,5 +1,9 @@
 package de.neemann.digital.testing;
 
+import de.neemann.digital.testing.parser.Parser;
+import de.neemann.digital.testing.parser.ParserException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -44,9 +48,9 @@ public class TestData {
      * @param data the data
      * @throws TestingDataException thrown if data is not valid
      */
-    public void setDataString(String data) throws TestingDataException {
+    public void setDataString(String data) throws IOException, ParserException {
         if (!data.equals(dataString)) {
-            TestDataParser tdp = new TestDataParser(data).parse();
+            Parser tdp = new Parser(data).parse();
             dataString = data;
             lines = tdp.getLines();
             names = tdp.getNames();
@@ -56,10 +60,10 @@ public class TestData {
     private void check() {
         if (lines == null) {
             try {
-                TestDataParser tdp = new TestDataParser(dataString).parse();
+                Parser tdp = new Parser(dataString).parse();
                 lines = tdp.getLines();
                 names = tdp.getNames();
-            } catch (TestingDataException e) {
+            } catch (ParserException | IOException e) {
                 e.printStackTrace();
             }
         }

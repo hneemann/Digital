@@ -48,9 +48,25 @@ public class Parser {
 
             return this;
         } catch (NumberFormatException e) {
-            throw new ParserException("Invalid number:" + e.getMessage(), Tokenizer.Token.NUMBER, tok.getLine());
+            throw new ParserException("Invalid number:" + e.getMessage(), Tokenizer.Token.NUMBER, tok.getLine(), e);
         }
 
+    }
+
+    private void parseHeader() throws IOException, ParserException {
+        tok.skipEmptyLines();
+        while (true) {
+            Tokenizer.Token token = tok.simpleIdent();
+            switch (token) {
+                case IDENT:
+                    names.add(tok.getIdent());
+                    break;
+                case EOL:
+                    return;
+                default:
+                    throw new ParserException("unexpected token", token, tok.getLine());
+            }
+        }
     }
 
     private void parseValues() throws IOException, ParserException {
@@ -86,19 +102,32 @@ public class Parser {
             Tokenizer.Token token = tok.next();
             switch (token) {
                 case NUMBER:
+                    Value num = new Value(tok.getIdent());
+                    entries.add(n -> n.addValue(num));
+                    break;
                 case IDENT:
-                    Value v = new Value(tok.getIdent().toUpperCase());
-                    entries.add(n -> v);
+                    if (tok.getIdent().equals("bits")) {
+                        expect(Tokenizer.Token.OPEN);
+                        expect(Tokenizer.Token.NUMBER);
+                        int bitCount = Integer.parseInt(tok.getIdent());
+                        expect(Tokenizer.Token.COMMA);
+                        Expression exp = parseExpression();
+                        entries.add(n -> n.addBits(bitCount, exp.value(n)));
+                        expect(Tokenizer.Token.CLOSE);
+                    } else {
+                        Value v = new Value(tok.getIdent().toUpperCase());
+                        entries.add(n -> n.addValue(v));
+                    }
                     break;
                 case OPEN:
                     Expression exp = parseExpression();
-                    entries.add(n -> new Value((int) exp.value(n)));
+                    entries.add(n -> n.addValue(new Value((int) exp.value(n))));
                     expect(Tokenizer.Token.CLOSE);
                     break;
                 case EOF:
                 case EOL:
                     for (int n = 0; n < count; n++) {
-                        for (Entry entry : entries) values.add(entry.getValue(n));
+                        for (Entry entry : entries) entry.calculate(new Context(n, values));
                         addLine();
                     }
                     return;
@@ -130,28 +159,10 @@ public class Parser {
         if (values.size() > 0) {
 
             if (values.size() != names.size())
-                throw new ParserException("unexpected number of values", tok.getLine());
+                throw new ParserException("unexpected number of values "+values.size()+" vs "+names.size(), tok.getLine());
 
             lines.add(values.toArray(new Value[names.size()]));
             values.clear();
-        }
-    }
-
-    private void parseHeader() throws IOException, ParserException {
-        while (tok.peek() == Tokenizer.Token.EOL) {
-            tok.consume();
-        }
-        while (true) {
-            Tokenizer.Token token = tok.next();
-            switch (token) {
-                case IDENT:
-                    names.add(tok.getIdent());
-                    break;
-                case EOL:
-                    return;
-                default:
-                    throw new ParserException("unexpected token", token, tok.getLine());
-            }
         }
     }
 
@@ -177,7 +188,7 @@ public class Parser {
     }
 
     private interface Entry {
-        Value getValue(long n);
+        void calculate(Context c);
     }
 
     private boolean isToken(Tokenizer.Token t) throws IOException {
@@ -188,6 +199,10 @@ public class Parser {
         return false;
     }
 
+    long parseForValue(long n) throws IOException, ParserException {
+        return parseExpression().value(new Context(n, null));
+    }
+
     /**
      * Parses a string to a simple expression
      *
@@ -195,7 +210,7 @@ public class Parser {
      * @throws IOException     IOException
      * @throws ParserException IOException
      */
-    Expression parseExpression() throws IOException, ParserException {
+    private Expression parseExpression() throws IOException, ParserException {
         Expression ac = parseGreater();
         while (isToken(Tokenizer.Token.SMALER)) {
             Expression a = ac;
@@ -310,7 +325,7 @@ public class Parser {
         switch (t) {
             case IDENT:
                 if (tok.getIdent().equals("n")) {
-                    return (n) -> n;
+                    return Context::getN;
                 } else
                     throw new ParserException("only var n allowed!, not " + tok.getIdent(), t, tok.getLine());
             case NUMBER:

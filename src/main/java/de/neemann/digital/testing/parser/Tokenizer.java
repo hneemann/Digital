@@ -177,12 +177,22 @@ public class Tokenizer {
         return builder.toString();
     }
 
-    private int readChar() throws IOException {
+    private int readIntChar() throws IOException {
         if (isUnreadChar) {
             isUnreadChar = false;
             return unreadChar;
         } else
             return in.read();
+    }
+
+    private int readChar() throws IOException {
+        int c = readIntChar();
+        if (c == '#') {
+            do {
+                c = readIntChar();
+            } while (c != '\n');
+        }
+        return c;
     }
 
     private void unreadChar(int c) {
@@ -218,5 +228,39 @@ public class Tokenizer {
     public int getLine() {
         return line;
     }
+
+    public void skipEmptyLines() throws IOException {
+        int c;
+        do {
+            c = readChar();
+        } while (c == '\n' || c == '\r' || c == ' ');
+        unreadChar(c);
+    }
+
+    public Token simpleIdent() throws IOException {
+        builder.setLength(0);
+        while (true) {
+            int c = readChar();
+            switch (c) {
+                case -1:
+                    return Token.EOF;
+                case '\n':
+                case '\r':
+                    if (builder.length() > 0) {
+                        unreadChar(c);
+                        return Token.IDENT;
+                    } else
+                        return Token.EOL;
+                case ' ':
+                    if (builder.length() > 0) {
+                        return Token.IDENT;
+                    }
+                    break;
+                default:
+                    builder.append((char) c);
+            }
+        }
+    }
+
 
 }

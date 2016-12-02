@@ -16,8 +16,8 @@ public class ParserException extends Exception {
      * @param tok     the token which causes the error
      * @param line    the line number
      */
-    public ParserException(String message, Tokenizer.Token tok, int line) {
-        super(message);
+    public ParserException(String message, Tokenizer.Token tok, int line, Throwable cause) {
+        super(message, cause);
         this.tok = tok;
         this.line = line;
     }
@@ -29,7 +29,11 @@ public class ParserException extends Exception {
      * @param line    the line number
      */
     public ParserException(String message, int line) {
-        this(message, null, line);
+        this(message, null, line, null);
+    }
+
+    public ParserException(String message, Tokenizer.Token token, int line) {
+        this(message, token, line, null);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package de.neemann.digital.testing;
 
+import de.neemann.digital.testing.parser.ParserException;
 import junit.framework.TestCase;
+
+import java.io.IOException;
 
 /**
  * @author hneemann
@@ -19,7 +22,7 @@ public class TestDataTest extends TestCase {
         try {
             td.setDataString(DATA3);
             assertTrue(false);
-        } catch (TestingDataException e) {
+        } catch (IOException | ParserException e) {
             assertTrue(true);
         }
         // TestData remains unchanged!

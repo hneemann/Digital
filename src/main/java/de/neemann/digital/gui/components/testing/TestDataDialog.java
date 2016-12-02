@@ -7,12 +7,14 @@ import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.digital.testing.TestData;
+import de.neemann.digital.testing.parser.ParserException;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 /**
  * Dialog to show and edit the testing data source.
@@ -78,7 +80,7 @@ public class TestDataDialog extends JDialog {
                             cc.getCircuit().modified();
                             cc.getMain().startTests();
                         }
-                    } catch (TestingDataException e1) {
+                    } catch (ParserException | IOException e1) {
                         new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
                     }
                 }
@@ -98,7 +100,7 @@ public class TestDataDialog extends JDialog {
                         }
                     }
                     dispose();
-                } catch (TestingDataException e1) {
+                } catch (ParserException | IOException e1) {
                     new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
                 }
             }
