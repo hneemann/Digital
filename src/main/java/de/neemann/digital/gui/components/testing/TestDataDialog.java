@@ -5,7 +5,6 @@ import de.neemann.digital.core.element.Key;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.TestingDataException;
 import de.neemann.digital.testing.TestData;
 import de.neemann.digital.testing.parser.ParserException;
 import de.neemann.gui.ErrorMessage;

@@ -1,5 +1,6 @@
 package de.neemann.digital.testing;
 
+import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.Parser;
 import de.neemann.digital.testing.parser.ParserException;
 
@@ -35,7 +36,7 @@ public class TestData {
         this(valueToCopy.dataString);
     }
 
-     /**
+    /**
      * @return the data string
      */
     public String getDataString() {
@@ -46,7 +47,8 @@ public class TestData {
      * Sets the data and checks its validity
      *
      * @param data the data
-     * @throws TestingDataException thrown if data is not valid
+     * @throws IOException     thrown if data is not valid
+     * @throws ParserException thrown if data is not valid
      */
     public void setDataString(String data) throws IOException, ParserException {
         if (!data.equals(dataString)) {

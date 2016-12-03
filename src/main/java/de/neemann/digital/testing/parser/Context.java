@@ -34,11 +34,19 @@ public class Context {
 
     /**
      * @return the actual loop value
+     * @throws ParserException Thrown if variable not present
      */
     public long getN() throws ParserException {
         return getVar("n");
     }
 
+    /**
+     * Returns the value of a variable
+     *
+     * @param name the variables name
+     * @return the long value
+     * @throws ParserException Thrown if variable not present
+     */
     public long getVar(String name) throws ParserException {
         Long l = vars.get(name);
         if (l == null)
