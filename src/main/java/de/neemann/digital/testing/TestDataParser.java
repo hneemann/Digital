@@ -10,9 +10,10 @@ import java.util.StringTokenizer;
 
 /**
  * The Parser used to read the test vector string.
- *
+ * Is replaced by {@link de.neemann.digital.testing.parser.Parser}.
  * @author hneemann
  */
+@Deprecated
 public class TestDataParser {
 
     private final BufferedReader r;

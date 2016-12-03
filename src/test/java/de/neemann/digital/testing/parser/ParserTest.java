@@ -118,4 +118,12 @@ public class ParserTest extends TestCase {
         assertEquals("C_i-1", td.getNames().get(2));
     }
 
+    public void testBUG1() throws IOException, ParserException {
+        Parser td = new Parser("C_i-1 A B    C   S\n" +
+                "for(1<<16) 0 (n>>8) (n&255) ((n>>8)*(n&255)) 0").parse();
+        assertEquals(5, td.getNames().size());
+        assertEquals(1<<16, td.getLines().size());
+
+    }
+
 }

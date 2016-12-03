@@ -10,6 +10,7 @@ public interface Expression {
      *
      * @param c the context of the calculation
      * @return the long value result
+     * @throws ParserException ParserException
      */
-    long value(Context c);
+    long value(Context c) throws ParserException;
 }

@@ -1,33 +1,49 @@
 package de.neemann.digital.testing.parser;
 
+import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.Value;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
- * The context of the calculations
+ * The context of the calculations.
+ * Containf the variables to use and the test values list.
  * Created by hneemann on 02.12.16.
  */
 public class Context {
-    private final long n;
+    private final HashMap<String, Long> vars;
     private final ArrayList<Value> values;
 
     /**
      * Creates a new instance
+     */
+    public Context() {
+        this(null);
+    }
+
+    /**
+     * Creates a new instance
      *
-     * @param n      the actual loop value
      * @param values the values array to fill
      */
-    public Context(long n, ArrayList<Value> values) {
-        this.n = n;
+    public Context(ArrayList<Value> values) {
+        vars = new HashMap<>();
         this.values = values;
     }
 
     /**
      * @return the actual loop value
      */
-    public long getN() {
-        return n;
+    public long getN() throws ParserException {
+        return getVar("n");
+    }
+
+    public long getVar(String name) throws ParserException {
+        Long l = vars.get(name);
+        if (l == null)
+            throw new ParserException(Lang.get("err_variable_N0_notFound", name));
+        return l;
     }
 
     /**
@@ -53,5 +69,17 @@ public class Context {
             values.add(new Value(v ? 1 : 0));
             mask >>= 1;
         }
+    }
+
+    /**
+     * Sets a variable value to the context
+     *
+     * @param name  name of the variable
+     * @param value value
+     * @return this for chained calls
+     */
+    public Context setVar(String name, long value) {
+        vars.put(name, value);
+        return this;
     }
 }

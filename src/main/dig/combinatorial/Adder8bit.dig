@@ -151,6 +151,21 @@ CLA-Addierern aufgebaut ist.</string>
       </elementAttributes>
       <pos x="300" y="100"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C_i-1 A B    C   S
+for(1&lt;&lt;16) 0 (n&gt;&gt;8) (n&amp;255) ((n&gt;&gt;8)+(n&amp;255)&gt;255) (((n&gt;&gt;8)+(n&amp;255))&amp;255)
+for(1&lt;&lt;16) 1 (n&gt;&gt;8) (n&amp;255) ((n&gt;&gt;8)+(n&amp;255)+1&gt;255) (((n&gt;&gt;8)+(n&amp;255)+1)&amp;255)
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="760" y="480"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

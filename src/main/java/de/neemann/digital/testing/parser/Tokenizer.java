@@ -73,7 +73,6 @@ public class Tokenizer {
                 break;
             case '\n':
             case '\r':
-                line++;
                 return Token.EOL;
             case '(':
                 token = Token.OPEN;
@@ -144,7 +143,7 @@ public class Tokenizer {
                     boolean wasChar = true;
                     do {
                         c = readChar();
-                        if (isNumberChar(c)) {
+                        if (isNumberChar(c) || c == 'x' || c == 'X') {
                             builder.append((char) c);
                         } else {
                             unreadChar(c);
@@ -181,8 +180,11 @@ public class Tokenizer {
         if (isUnreadChar) {
             isUnreadChar = false;
             return unreadChar;
-        } else
-            return in.read();
+        } else {
+            final int c = in.read();
+            if (c=='\n') line++;
+            return c;
+        }
     }
 
     private int readChar() throws IOException {

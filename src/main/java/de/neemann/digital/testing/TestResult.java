@@ -125,7 +125,7 @@ public class TestResult {
         for (TestSignal in : inputs) {
             if (rowWithDontCare[in.index].getType() == Value.Type.DONTCARE) {
                 if (dcIndex == null)
-                    dcIndex = new ArrayList<Integer>();
+                    dcIndex = new ArrayList<>();
                 dcIndex.add(in.index);
             }
         }
@@ -143,7 +143,7 @@ public class TestResult {
         return allPassed;
     }
 
-    private int getIndexOf(String name) throws TestingDataException {
+    private int getIndexOf(String name) {
         if (name == null || name.length() == 0)
             return -1;
 
@@ -209,7 +209,7 @@ public class TestResult {
 
         @Override
         public Iterator<T> iterator() {
-            return new SingleItemIterable<T>(value);
+            return new SingleItemIterable<>(value);
         }
     }
 

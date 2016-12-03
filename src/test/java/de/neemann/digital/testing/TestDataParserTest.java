@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 /**
  * @author hneemann
  */
+@Deprecated
 public class TestDataParserTest extends TestCase {
 
     public void testOk() throws TestingDataException {
