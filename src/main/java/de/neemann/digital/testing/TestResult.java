@@ -9,6 +9,7 @@ import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Stores the test results created by a single {@link TestData} instance.
@@ -227,13 +228,15 @@ public class TestResult {
 
         @Override
         public T next() {
+            if (value==null)
+                throw new NoSuchElementException();
             T r = value;
             value = null;
             return r;
         }
     }
 
-    private class VariantsIterator implements Iterable<Value[]> {
+    private static class VariantsIterator implements Iterable<Value[]> {
         private final ArrayList<Integer> dcIndex;
         private final Value[] rowWithDontCare;
 
@@ -251,7 +254,7 @@ public class TestResult {
         }
     }
 
-    private class VariantsIterable implements Iterator<Value[]> {
+    private static class VariantsIterable implements Iterator<Value[]> {
         private final ArrayList<Integer> dcIndex;
         private final Value[] row;
         private final int count;
@@ -271,6 +274,8 @@ public class TestResult {
 
         @Override
         public Value[] next() {
+            if (n>=count)
+                throw new NoSuchElementException();
             int mask = 1;
             for (int in : dcIndex) {
                 boolean val = (n & mask) != 0;

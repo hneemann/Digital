@@ -12,6 +12,9 @@ import java.util.ArrayList;
  * Parser to parse test data.
  * The constructor takes a string, and after a call to parse()
  * the names of the signals and the test vectors are generated.
+ * Via the {@link #getValue()} or the {@link #getValue(Context)} functions you can utilize
+ * the parser to evaluate integer functions.
+ * If you want to evaluate an expression several times you should use the {@link #parseExpression()} function.
  * <p>
  * Created by Helmut.Neemann on 02.12.2016.
  */
@@ -90,6 +93,8 @@ public class Parser {
                         parseLine();
                     }
                     break;
+                default:
+                    throw newUnexpectedToken(t);
             }
         }
     }
@@ -109,7 +114,7 @@ public class Parser {
                         int bitCount = (int) parseInt();
                         expect(Tokenizer.Token.COMMA);
                         Expression exp = parseExpression();
-                        entries.add(n -> n.addBits(bitCount, exp.value(n)));
+                        entries.add(c -> c.addBits(bitCount, exp.value(c)));
                         expect(Tokenizer.Token.CLOSE);
                     } else {
                         Value v = new Value(tok.getIdent().toUpperCase());
@@ -118,7 +123,7 @@ public class Parser {
                     break;
                 case OPEN:
                     Expression exp = parseExpression();
-                    entries.add(n -> n.addValue(new Value((int) exp.value(n))));
+                    entries.add(c -> c.addValue(new Value((int) exp.value(c))));
                     expect(Tokenizer.Token.CLOSE);
                     break;
                 case EOF:
@@ -241,7 +246,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SMALER)) {
             Expression a = ac;
             Expression b = parseGreater();
-            ac = (n) -> a.value(n) < b.value(n) ? 1 : 0;
+            ac = (c) -> a.value(c) < b.value(c) ? 1 : 0;
         }
         return ac;
     }
@@ -251,7 +256,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.GREATER)) {
             Expression a = ac;
             Expression b = parseEquals();
-            ac = (n) -> a.value(n) > b.value(n) ? 1 : 0;
+            ac = (c) -> a.value(c) > b.value(c) ? 1 : 0;
         }
         return ac;
     }
@@ -261,7 +266,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.EQUAL)) {
             Expression a = ac;
             Expression b = parseOR();
-            ac = (n) -> a.value(n) == b.value(n) ? 1 : 0;
+            ac = (c) -> a.value(c) == b.value(c) ? 1 : 0;
         }
         return ac;
     }
@@ -271,7 +276,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.OR)) {
             Expression a = ac;
             Expression b = parseAND();
-            ac = (n) -> a.value(n) | b.value(n);
+            ac = (c) -> a.value(c) | b.value(c);
         }
         return ac;
     }
@@ -281,7 +286,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.AND)) {
             Expression a = ac;
             Expression b = parseShiftRight();
-            ac = (n) -> a.value(n) & b.value(n);
+            ac = (c) -> a.value(c) & b.value(c);
         }
         return ac;
     }
@@ -291,7 +296,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SHIFTRIGHT)) {
             Expression a = ac;
             Expression b = parseShiftLeft();
-            ac = (n) -> a.value(n) >> b.value(n);
+            ac = (c) -> a.value(c) >> b.value(c);
         }
         return ac;
     }
@@ -301,7 +306,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SHIFTLEFT)) {
             Expression a = ac;
             Expression b = parseAdd();
-            ac = (n) -> a.value(n) << b.value(n);
+            ac = (c) -> a.value(c) << b.value(c);
         }
         return ac;
     }
@@ -311,7 +316,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.ADD)) {
             Expression a = ac;
             Expression b = parseSub();
-            ac = (n) -> a.value(n) + b.value(n);
+            ac = (c) -> a.value(c) + b.value(c);
         }
         return ac;
     }
@@ -321,7 +326,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SUB)) {
             Expression a = ac;
             Expression b = parseMul();
-            ac = (n) -> a.value(n) - b.value(n);
+            ac = (c) -> a.value(c) - b.value(c);
         }
         return ac;
     }
@@ -331,7 +336,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.MUL)) {
             Expression a = ac;
             Expression b = parseDiv();
-            ac = (n) -> a.value(n) * b.value(n);
+            ac = (c) -> a.value(c) * b.value(c);
         }
         return ac;
     }
@@ -341,7 +346,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.DIV)) {
             Expression a = ac;
             Expression b = parseIdent();
-            ac = (n) -> a.value(n) / b.value(n);
+            ac = (c) -> a.value(c) / b.value(c);
         }
         return ac;
     }
@@ -351,20 +356,20 @@ public class Parser {
         switch (t) {
             case IDENT:
                 String name = tok.getIdent();
-                return (n) -> n.getVar(name);
+                return (c) -> c.getVar(name);
             case NUMBER:
                 try {
                     long num = Long.decode(tok.getIdent());
-                    return (n) -> num;
+                    return (c) -> num;
                 } catch (NumberFormatException e) {
                     throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
                 }
             case SUB:
                 Expression negExp = parseIdent();
-                return (n) -> -negExp.value(n);
+                return (c) -> -negExp.value(c);
             case NOT:
                 Expression notExp = parseIdent();
-                return (n) -> ~notExp.value(n);
+                return (c) -> ~notExp.value(c);
             case OPEN:
                 Expression exp = parseExpression();
                 expect(Tokenizer.Token.CLOSE);
