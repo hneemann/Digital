@@ -182,7 +182,7 @@ public class Tokenizer {
             return unreadChar;
         } else {
             final int c = in.read();
-            if (c=='\n') line++;
+            if (c == '\n') line++;
             return c;
         }
     }
@@ -231,6 +231,11 @@ public class Tokenizer {
         return line;
     }
 
+    /**
+     * Skips empty lines in the beginning of the file
+     *
+     * @throws IOException IOException
+     */
     public void skipEmptyLines() throws IOException {
         int c;
         do {
@@ -239,6 +244,13 @@ public class Tokenizer {
         unreadChar(c);
     }
 
+    /**
+     * Special reader to parse the header.
+     * For the identifiers in the header apply other rules as for identifiers in the test data.
+     *
+     * @return the Token
+     * @throws IOException IOException
+     */
     public Token simpleIdent() throws IOException {
         builder.setLength(0);
         while (true) {

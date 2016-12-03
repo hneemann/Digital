@@ -1,6 +1,5 @@
 package de.neemann.digital.testing;
 
-import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.Parser;
 import de.neemann.digital.testing.parser.ParserException;
 
