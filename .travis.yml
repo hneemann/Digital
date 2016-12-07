@@ -10,7 +10,6 @@ addons:
       - gsfonts-x11
 
 before_script:
-  - fc-cache -fv
   - fc-list
 
 script: mvn clean install
@@ -21,5 +20,5 @@ deploy:
   file: target/Digital.zip
   skip_cleanup: true
   on:
-    tags: true
+    branch: master
 
