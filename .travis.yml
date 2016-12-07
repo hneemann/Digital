@@ -6,9 +6,12 @@ sudo: true
 addons:
   apt:
     packages:
+      - gsfonts
       - gsfonts-x11
+      -	fonts-dejavu
 
 before_script:
+  - fc-cache -fv
   - fc-list
 
 script: mvn clean install
