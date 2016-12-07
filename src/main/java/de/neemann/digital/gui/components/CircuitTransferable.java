@@ -30,7 +30,7 @@ public class CircuitTransferable implements Transferable {
      *
      * @param data the data to copy
      */
-    public CircuitTransferable(ArrayList<Moveable> data) {
+    CircuitTransferable(ArrayList<Moveable> data) {
         XStream xStream = Circuit.getxStream();
         try (StringWriter out = new StringWriter()) {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
@@ -61,13 +61,15 @@ public class CircuitTransferable implements Transferable {
 
     /**
      * Creates a list of objects from inserted data
+     * Can also throw a {@link ClassCastException}!
      *
      * @param data         the inserted data
      * @param shapeFactory the shapeFactory to set to the elements
      * @param lastMousePos the actual mouse position
      * @return the elements or null
+     * @throws IOException IOException
      */
-    public static ArrayList<Moveable> createList(Object data, ShapeFactory shapeFactory, Vector lastMousePos) {
+    static ArrayList<Moveable> createList(Object data, ShapeFactory shapeFactory, Vector lastMousePos) throws IOException {
         if (!(data instanceof String))
             return null;
 
@@ -92,9 +94,6 @@ public class CircuitTransferable implements Transferable {
             }
 
             return elements;
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return null;
     }
 }

@@ -157,9 +157,15 @@ CLA-Addierern aufgebaut ist.</string>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>C_i-1 A B    C   S
-for(1&lt;&lt;16) 0 (n&gt;&gt;8) (n&amp;255) ((n&gt;&gt;8)+(n&amp;255)&gt;255) (((n&gt;&gt;8)+(n&amp;255))&amp;255)
-for(1&lt;&lt;16) 1 (n&gt;&gt;8) (n&amp;255) ((n&gt;&gt;8)+(n&amp;255)+1&gt;255) (((n&gt;&gt;8)+(n&amp;255)+1)&amp;255)
+            <dataString># this test case checks all 2^17 possible additions to be correct
+# The for statement repeats the following line 65536 times with the
+# variable n going from 0 to 65535. The values to be used for A, B, C and S
+# are calculated depending on n.
+# Test test result contains all calculated test vectors so you can investigate them.
+
+           C_i-1    A       B            C                      S
+for(1&lt;&lt;16)   0    (n&gt;&gt;8) (n&amp;255) ((n&gt;&gt;8)+(n&amp;255)&gt;255)   (((n&gt;&gt;8)+(n&amp;255))&amp;255)
+for(1&lt;&lt;16)   1    (n&gt;&gt;8) (n&amp;255) ((n&gt;&gt;8)+(n&amp;255)+1&gt;255) (((n&gt;&gt;8)+(n&amp;255)+1)&amp;255)
 </dataString>
           </testData>
         </entry>

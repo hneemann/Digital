@@ -31,14 +31,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -140,8 +138,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                             mouseInsertList.activate(elements, posVector);
                         }
                     }
-                } catch (UnsupportedFlavorException | IOException e1) {
+                } catch (Exception e1) {
                     e1.printStackTrace();
+                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_clipboardContainsNoImportableData")).setComponent(CircuitComponent.this));
                 }
             }
         };
