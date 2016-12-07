@@ -8,7 +8,7 @@ addons:
     packages:
       - gsfonts
       - gsfonts-x11
-      -	fonts-dejavu
+      - fonts-dejavu
 
 before_script:
   - fc-cache -fv
