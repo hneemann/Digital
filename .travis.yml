@@ -1,17 +1,7 @@
 language: java
 jdk:
   - oraclejdk8
-sudo: true
-
-addons:
-  apt:
-    packages:
-      - gsfonts
-      - gsfonts-x11
-
-before_script:
-  - fc-list
-
+sudo: false
 script: mvn clean install
 deploy:
   provider: releases
@@ -20,5 +10,5 @@ deploy:
   file: target/Digital.zip
   skip_cleanup: true
   on:
-    branch: master
+    tags: true
 
