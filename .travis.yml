@@ -6,7 +6,10 @@ sudo: true
 addons:
   apt:
     packages:
-      - gsfonts
+      - gsfonts-x11
+
+before_script:
+  - fc-list
 
 script: mvn clean install
 deploy:
