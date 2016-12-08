@@ -63,7 +63,9 @@ Then you can execute the circuit to the next BRK instruction.</string>
         If the switch is open, the output is in high z state. If the switch is closed, the output state is equal to
         the input state incl. high z state.
         So two antiparallel connected switches can keep each other in high or low state, which is not possible
-        with real switches.</string>
+        with real switches. In addition - unlike real switches - there is no feedback from the output to the input.
+        These restrictions do not have any effect when the input of the switch is connected directly to GND, VDD or a
+        constant. In such a circuit, the simulated switch corresponds to a real switch.</string>
     <string name="elem_Counter">Counter</string>
     <string name="elem_D_FF">D_FF</string>
     <string name="elem_Data">Data graph</string>
