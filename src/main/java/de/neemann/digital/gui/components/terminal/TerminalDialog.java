@@ -21,13 +21,21 @@ public class TerminalDialog extends JDialog {
     private final int width;
     private int pos;
 
+
+    private static String getDialogTitle(ElementAttributes attr) {
+        String t = attr.getCleanLabel();
+        if (t.length() > 0) return t;
+
+        return Lang.get("elem_Terminal");
+    }
+
     /**
      * Creates a new instance
      *
      * @param attr the terminals attributes
      */
     public TerminalDialog(ElementAttributes attr) {
-        super((JFrame) null, attr.getLabel(), false);
+        super((JFrame) null, getDialogTitle(attr), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         width = attr.get(Keys.TERM_WIDTH);
