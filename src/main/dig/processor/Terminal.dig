@@ -70,12 +70,7 @@
     </visualElement>
     <visualElement>
       <elementName>Terminal</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>Terminal</string>
-        </entry>
-      </elementAttributes>
+      <elementAttributes/>
       <pos x="660" y="120"/>
     </visualElement>
     <visualElement>

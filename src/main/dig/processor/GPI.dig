@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Element für ein allgemeines EIngaberegister.</string>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Addressbus</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Raed Enable</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>R</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Comparator</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <int>20</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes/>
+      <pos x="480" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Output</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1*4, 12</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Driver</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>12</int>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="180"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="360" y="240"/>
+      <p2 x="380" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="240"/>
+      <p2 x="480" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="80"/>
+      <p2 x="460" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="80"/>
+      <p2 x="540" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="80"/>
+      <p2 x="640" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="160"/>
+      <p2 x="460" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="260"/>
+      <p2 x="560" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="100"/>
+      <p2 x="460" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="120"/>
+      <p2 x="460" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="280"/>
+      <p2 x="480" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="220"/>
+      <p2 x="380" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="140"/>
+      <p2 x="460" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="100"/>
+      <p2 x="560" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="160"/>
+      <p2 x="440" y="180"/>
+    </wire>
+  </wires>
+</circuit>
