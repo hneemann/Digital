@@ -238,7 +238,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     new ElementHelpDialog(Main.this, library, shapeFactory).setVisible(true);
-                } catch (NodeException|PinException e) {
+                } catch (NodeException | PinException e) {
                     new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e).show(Main.this);
                 }
             }
@@ -1021,28 +1021,32 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     @Override
     public void doSingleStep() {
         if (model != null && !realtimeClockRunning) {
-            ArrayList<Clock> cl = model.getClocks();
-            if (cl.size() == 1) {
-                ObservableValue clkVal = cl.get(0).getClockOutput();
-                clkVal.setBool(!clkVal.getBool());
-                try {
-                    model.doStep();
-                    if (clkVal.getBool()) {
-                        clkVal.setBool(!clkVal.getBool());
+            SwingUtilities.invokeLater(() -> {
+                ArrayList<Clock> cl = model.getClocks();
+                if (cl.size() == 1) {
+                    ObservableValue clkVal = cl.get(0).getClockOutput();
+                    clkVal.setBool(!clkVal.getBool());
+                    try {
                         model.doStep();
+                        if (clkVal.getBool()) {
+                            clkVal.setBool(!clkVal.getBool());
+                            model.doStep();
+                        }
+                        circuitComponent.hasChanged();
+                    } catch (NodeException e) {
+                        showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                     }
-                    circuitComponent.hasChanged();
-                } catch (NodeException e) {
-                    showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                 }
-            }
+            });
         }
     }
 
     @Override
     public void runToBreak() {
-        if (model != null && model.isFastRunModel() && !realtimeClockRunning)
-            runToBreakAction.actionPerformed(null);
+        SwingUtilities.invokeLater(() -> {
+            if (model != null && model.isFastRunModel() && !realtimeClockRunning)
+                runToBreakAction.actionPerformed(null);
+        });
     }
 
     private void setDebug(boolean debug) throws RemoteException {
@@ -1054,21 +1058,27 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     @Override
     public void debug() throws RemoteException {
         setDebug(true);
-        runModelState.enter(false);
-        circuitComponent.hasChanged();
+        SwingUtilities.invokeLater(() -> {
+            runModelState.enter(false);
+            circuitComponent.hasChanged();
+        });
     }
 
     @Override
     public void start() throws RemoteException {
         setDebug(false);
-        runModelState.enter(true);
-        circuitComponent.hasChanged();
+        SwingUtilities.invokeLater(() -> {
+            runModelState.enter(true);
+            circuitComponent.hasChanged();
+        });
     }
 
     @Override
     public void stop() {
-        elementState.enter();
-        circuitComponent.hasChanged();
+        SwingUtilities.invokeLater(() -> {
+            elementState.enter();
+            circuitComponent.hasChanged();
+        });
     }
     //**********************
     // remote interface end
