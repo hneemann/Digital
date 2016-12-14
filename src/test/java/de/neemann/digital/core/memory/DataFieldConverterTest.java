@@ -1,0 +1,134 @@
+package de.neemann.digital.core.memory;
+
+import com.thoughtworks.xstream.XStream;
+import junit.framework.TestCase;
+
+/**
+ * Created by hneemann on 14.12.16.
+ */
+public class DataFieldConverterTest extends TestCase {
+
+    private XStream getxStream() {
+        XStream xStream = new XStream();
+        xStream.registerConverter(new DataFieldConverter());
+        xStream.alias("dataField", DataField.class);
+        xStream.alias("test", Test.class);
+        return xStream;
+    }
+
+    public void testMarshal() throws Exception {
+        DataField d = new DataField(1000);
+        for (int i = 0; i < 10; i++)
+            d.setData(i, i);
+
+        XStream xStream = getxStream();
+
+        String xml = xStream.toXML(d);
+        assertEquals("<dataField size=\"1000\">0,1,2,3,4,5,6,7,8,9</dataField>", xml);
+    }
+
+    public void testUnmarshal() throws Exception {
+        XStream xStream = getxStream();
+
+        DataField df = (DataField) xStream.fromXML("<dataField size=\"1000\">0,1,2,3,4,5,6,7,8,9</dataField>");
+
+        assertEquals(1000, df.size());
+        for (int i = 0; i < 10; i++)
+            assertEquals(i, df.getDataWord(i));
+    }
+
+    private static class Test {
+        private DataField d1;
+        private DataField d2;
+
+        public Test(DataField d1, DataField d2) {
+            this.d1 = d1;
+            this.d2 = d2;
+        }
+    }
+
+    public void testMarshalObj() throws Exception {
+        final DataField d1 = new DataField(20);
+        d1.setData(0, 1);
+        d1.setData(5, 2);
+
+        final DataField d2 = new DataField(20);
+        d2.setData(0, 3);
+        d2.setData(8, 4);
+        Test t = new Test(d1, d2);
+
+        XStream xs = getxStream();
+        String xml = xs.toXML(t);
+        assertEquals("<test>\n" +
+                "  <d1 size=\"20\">1,0,0,0,0,2</d1>\n" +
+                "  <d2 size=\"20\">3,0,0,0,0,0,0,0,4</d2>\n" +
+                "</test>", xml);
+
+    }
+
+    public void testUnarshalObj() throws Exception {
+        XStream xs = getxStream();
+        Test t = (Test) xs.fromXML("<test>\n" +
+                "  <d1 size=\"20\">1,0,0,0,0,2</d1>\n" +
+                "  <d2 size=\"20\">3,0,0,0,0,0,0,0,4</d2>\n" +
+                "</test>");
+
+        assertEquals(20, t.d1.size());
+        assertEquals(1, t.d1.getDataWord(0));
+        assertEquals(2, t.d1.getDataWord(5));
+        assertEquals(20, t.d2.size());
+        assertEquals(3, t.d2.getDataWord(0));
+        assertEquals(4, t.d2.getDataWord(8));
+    }
+
+
+    public void testMarshalMuch() throws Exception {
+        DataField d = new DataField(1000);
+        for (int i = 0; i < 100; i++)
+            d.setData(i, i);
+
+        XStream xStream = getxStream();
+
+        String xml = xStream.toXML(d);
+        assertEquals("<dataField size=\"1000\">0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,\n" +
+                "31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,\n" +
+                "58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,\n" +
+                "85,86,87,88,89,90,91,92,93,94,95,96,97,98,99</dataField>", xml);
+    }
+
+    public void testUnmarshalMuch() throws Exception {
+        XStream xStream = getxStream();
+
+        DataField df = (DataField) xStream.fromXML("<dataField size=\"1000\">0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30\n" +
+                ",31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57\n" +
+                ",58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84\n" +
+                ",85,86,87,88,89,90,91,92,93,94,95,96,97,98,99</dataField>");
+
+        assertEquals(1000, df.size());
+        for (int i = 0; i < 100; i++)
+            assertEquals(i, df.getDataWord(i));
+    }
+
+
+    public void testUnmarchalOld() {
+        XStream xStream = getxStream();
+
+        DataField df = (DataField) xStream.fromXML("<dataField>\n" +
+                "  <size>1000</size>\n" +
+                "  <long>0</long>\n" +
+                "  <long>1</long>\n" +
+                "  <long>2</long>\n" +
+                "  <long>3</long>\n" +
+                "  <long>4</long>\n" +
+                "  <long>5</long>\n" +
+                "  <long>6</long>\n" +
+                "  <long>7</long>\n" +
+                "  <long>8</long>\n" +
+                "  <long>9</long>\n" +
+                "</dataField>");
+        assertEquals(1000, df.size());
+        for (int i = 0; i < 10; i++)
+            assertEquals(i, df.getDataWord(i));
+    }
+
+}

@@ -11,6 +11,7 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.DataFieldConverter;
 import de.neemann.digital.core.pld.Diode;
 import de.neemann.digital.core.pld.DiodeBackward;
 import de.neemann.digital.core.pld.DiodeForeward;
@@ -85,7 +86,7 @@ public class Circuit {
         xStream.aliasAttribute(Vector.class, "y", "y");
         xStream.addImplicitCollection(ElementAttributes.class, "attributes");
         xStream.alias("data", DataField.class);
-        xStream.addImplicitCollection(DataField.class, "data");
+        xStream.registerConverter(new DataFieldConverter());
         xStream.alias("testData", TestData.class);
         xStream.ignoreUnknownElements();
         return xStream;
