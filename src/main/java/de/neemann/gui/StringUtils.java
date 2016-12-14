@@ -38,8 +38,11 @@ public final class StringUtils {
         StringBuilder sb = new StringBuilder();
 
         while (e != null) {
-//            sb.append(e.getClass().getSimpleName()).append(": ").append(e.getMessage());
-            sb.append(e.getMessage());
+            final String m = e.getMessage();
+            if (m != null && m.length() > 0)
+                sb.append(m);
+            else
+                sb.append(e.getClass().getSimpleName());
             e = e.getCause();
             if (e != null)
                 sb.append("\ncaused by: ");
