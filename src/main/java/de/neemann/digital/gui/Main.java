@@ -1068,6 +1068,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     public void start() throws RemoteException {
         setDebug(false);
         SwingUtilities.invokeLater(() -> {
+            windowPosManager.closeAll();
             runModelState.enter(true);
             circuitComponent.hasChanged();
         });
