@@ -28,17 +28,7 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>
-            <size>8</size>
-            <long>68</long>
-            <long>105</long>
-            <long>101</long>
-            <long>115</long>
-            <long>32</long>
-            <long>105</long>
-            <long>115</long>
-            <long>116</long>
-          </data>
+          <data size="8">44,69,65,73,20,69,73,74</data>
         </entry>
         <entry>
           <string>Addr Bits</string>
@@ -56,17 +46,7 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>
-            <size>8</size>
-            <long>32</long>
-            <long>101</long>
-            <long>105</long>
-            <long>110</long>
-            <long>32</long>
-            <long>108</long>
-            <long>97</long>
-            <long>110</long>
-          </data>
+          <data size="8">20,65,69,6e,20,6c,61,6e</data>
         </entry>
         <entry>
           <string>Addr Bits</string>
@@ -112,17 +92,7 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>
-            <size>8</size>
-            <long>103</long>
-            <long>101</long>
-            <long>114</long>
-            <long>32</long>
-            <long>84</long>
-            <long>101</long>
-            <long>115</long>
-            <long>116</long>
-          </data>
+          <data size="8">67,65,72,20,54,65,73,74</data>
         </entry>
         <entry>
           <string>Addr Bits</string>
@@ -140,17 +110,7 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>
-            <size>8</size>
-            <long>116</long>
-            <long>101</long>
-            <long>120</long>
-            <long>116</long>
-            <long>46</long>
-            <long>32</long>
-            <long>32</long>
-            <long>32</long>
-          </data>
+          <data size="8">74,65,78,74,2e,20,20,20</data>
         </entry>
         <entry>
           <string>Addr Bits</string>
@@ -202,18 +162,76 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <pos x="280" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>Probe</elementName>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>Clock Data
+  0    0x44
+  c    0x69
+  c    0x65
+  c    0x73
+  c    0x20
+  c    0x69
+  c    0x73
+  c    0x74
+
+  c    0x20
+  c    0x65
+  c    0x69
+  c    0x6E
+  c    0x20
+  c    0x6C
+  c    0x61
+  c    0x6E
+
+  c    0x67
+  c    0x65
+  c    0x72
+  c    0x20
+  c    0x54
+  c    0x65
+  c    0x73
+  c    0x74
+
+  c    0x74
+  c    0x65
+  c    0x78
+  c    0x74
+  c    0x2E
+  c    0x20
+  c    0x20
+  c    0x20
+
+# repeat first block
+  c    0x44
+  c    0x69
+  c    0x65
+  c    0x73
+  c    0x20
+  c    0x69
+  c    0x73
+  c    0x74
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
           <string>Data</string>
         </entry>
         <entry>
-          <string>intFormat</string>
-          <intFormat>ascii</intFormat>
+          <string>Bits</string>
+          <int>8</int>
         </entry>
       </elementAttributes>
-      <pos x="800" y="160"/>
+      <pos x="760" y="160"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -231,7 +249,7 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
     </wire>
     <wire>
       <p1 x="740" y="160"/>
-      <p2 x="800" y="160"/>
+      <p2 x="760" y="160"/>
     </wire>
     <wire>
       <p1 x="580" y="480"/>
