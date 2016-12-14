@@ -41,7 +41,16 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>valueIsProbe</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Carry</string>
+        </entry>
+      </elementAttributes>
       <pos x="360" y="140"/>
     </visualElement>
     <visualElement>
@@ -74,7 +83,16 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>valueIsProbe</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Zero</string>
+        </entry>
+      </elementAttributes>
       <pos x="360" y="220"/>
     </visualElement>
     <visualElement>
@@ -107,7 +125,16 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>valueIsProbe</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Neg</string>
+        </entry>
+      </elementAttributes>
       <pos x="360" y="300"/>
     </visualElement>
     <visualElement>
