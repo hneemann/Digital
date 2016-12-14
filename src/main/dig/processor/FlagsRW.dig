@@ -4,13 +4,20 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Speichert die Prozessorflags</string>
+      <string>Speichert die Prozessorflags. Im Gegensatz zur 
+einfachen Variante können bei diesem Modul
+die Flags per IO Operation gelesen und geschrieben
+werden. Die Flags finden sich an IO Adresse 0.</string>
     </entry>
   </attributes>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Zero In</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Zi</string>
@@ -21,6 +28,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Zero Out</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Zo</string>
@@ -37,6 +48,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Negative In</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Ni</string>
         </entry>
@@ -46,6 +61,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Negative Out</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>No</string>
@@ -62,6 +81,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Carry In</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Ci</string>
         </entry>
@@ -71,6 +94,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Carry Out</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Co</string>
@@ -87,6 +114,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Takt</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
@@ -96,6 +127,14 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Speicherfreigabe für die Flags. Geht auf High, wenn
+eine arithmetische Funktion in der ALU ausgeführt
+wird. Nur diese setzen die Flags. Wird die ALU für
+die Adressbildung verwendet, werden die Flags nicht
+gespeichert.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>store</string>
@@ -139,6 +178,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Adresse</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A</string>
@@ -198,7 +241,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>IOR</string>
+          <string>IO Read</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -210,6 +253,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>IO Write</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>IOW</string>
