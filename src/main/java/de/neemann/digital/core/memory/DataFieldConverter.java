@@ -51,7 +51,7 @@ public class DataFieldConverter implements Converter {
         if (reader.getAttribute("size") == null) {
             // old type
             reader.moveDown();
-            DataField df = new DataField(Integer.valueOf(reader.getValue()));
+            DataField df = new DataField(Integer.parseInt(reader.getValue()));
             reader.moveUp();
             int i = 0;
             while (reader.hasMoreChildren()) {
@@ -68,7 +68,7 @@ public class DataFieldConverter implements Converter {
             StringTokenizer st = new StringTokenizer(reader.getValue(), ",");
             int i = 0;
             while (st.hasMoreTokens()) {
-                df.setData(i, Long.parseLong(st.nextToken().trim(),16));
+                df.setData(i, Long.parseLong(st.nextToken().trim(), 16));
                 i++;
             }
             return df;
