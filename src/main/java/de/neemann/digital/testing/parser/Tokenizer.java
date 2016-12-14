@@ -143,7 +143,7 @@ public class Tokenizer {
                     boolean wasChar = true;
                     do {
                         c = readChar();
-                        if (isNumberChar(c) || c == 'x' || c == 'X') {
+                        if (isNumberChar(c) || isHexChar(c) || c == 'x' || c == 'X') {
                             builder.append((char) c);
                         } else {
                             unreadChar(c);
@@ -206,6 +206,11 @@ public class Tokenizer {
         return (c >= 'a' && c <= 'z')
                 || (c >= 'A' && c <= 'Z')
                 || (c == '_');
+    }
+
+    private boolean isHexChar(int c) {
+        return (c >= 'a' && c <= 'f')
+                || (c >= 'A' && c <= 'F');
     }
 
     private boolean isNumberChar(int c) {
