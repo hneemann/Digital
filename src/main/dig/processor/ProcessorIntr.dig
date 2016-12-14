@@ -165,9 +165,9 @@ Single-Cycle CPU.</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data size="4131">39339,4608,32782,26864,32800,4608,29680,36746,4608,32782,26864,5130,29680,28658,18432,
-18944,32797,26656,18944,32797,26656,18432,18944,32797,26656,18944,32797,26656,27151,
-528,10271,15386,25091,32816,5648,28162,32823,5648,29681,27138,0,0,0,0,0,0,0,0,0,0,
+          <data size="4131">99ab,1200,800e,68f0,8020,1200,73f0,8f8a,1200,800e,68f0,140a,73f0,6ff2,4800,4a00,801d,
+6820,4a00,801d,6820,4800,4a00,801d,6820,4a00,801d,6820,6a0f,210,281f,3c1a,6203,8030,
+1610,6e02,8037,1610,73f1,6a02,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -266,10 +266,9 @@ Single-Cycle CPU.</string>
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30912,8417,19692,8417,19680,
-31744,22017,22208,15552,25602,5313,5120,29532,15360,25607,16064,32768,15296,25608,
-5121,21008,28165,16576,15553,25602,5120,21008,21004,19982,6369,20174,6369,29196,30913,
-27148</data>
+0,0,0,0,0,0,0,0,0,0,0,0,78c0,20e1,4cec,20e1,4ce0,7c00,5601,56c0,3cc0,6402,14c1,1400,
+735c,3c00,6407,3ec0,8000,3bc0,6408,1401,5210,6e05,40c0,3cc1,6402,1400,5210,520c,4e0e,
+18e1,4ece,18e1,720c,78c1,6a0c</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
@@ -345,7 +344,7 @@ Single-Cycle CPU.</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="1360" y="140"/>
+      <pos x="1340" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -707,7 +706,7 @@ Single-Cycle CPU.</string>
           <string>st</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="160"/>
+      <pos x="1320" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -721,7 +720,7 @@ Single-Cycle CPU.</string>
           <string>ld</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="220"/>
+      <pos x="1320" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -797,7 +796,7 @@ Single-Cycle CPU.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="200"/>
+      <pos x="1320" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Intr.dig</elementName>
@@ -952,20 +951,6 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>A</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1280" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
           <rotation rotation="2"/>
         </entry>
         <entry>
@@ -973,7 +958,7 @@ Single-Cycle CPU.</string>
           <string>D</string>
         </entry>
       </elementAttributes>
-      <pos x="1420" y="80"/>
+      <pos x="1400" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1022,34 +1007,6 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Terminal.dig</elementName>
       <elementAttributes/>
-      <pos x="1360" y="640"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>ioW</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1340" y="700"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>D</string>
-        </entry>
-      </elementAttributes>
       <pos x="1340" y="640"/>
     </visualElement>
     <visualElement>
@@ -1061,43 +1018,10 @@ Single-Cycle CPU.</string>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>A</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1340" y="660"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1340" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/GPO.dig</elementName>
-      <elementAttributes/>
-      <pos x="1360" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
           <string>ioW</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="340"/>
+      <pos x="1320" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1111,7 +1035,7 @@ Single-Cycle CPU.</string>
           <string>D</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="280"/>
+      <pos x="1320" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1125,7 +1049,7 @@ Single-Cycle CPU.</string>
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="300"/>
+      <pos x="1320" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1139,87 +1063,148 @@ Single-Cycle CPU.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="320"/>
+      <pos x="1320" y="680"/>
+    </visualElement>
+    <visualElement>
+      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/GPO.dig</elementName>
+      <elementAttributes/>
+      <pos x="1340" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ioW</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1320" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>D</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1320" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1320" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1320" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="120"/>
+      <pos x="1480" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="160"/>
+      <pos x="1480" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="200"/>
+      <pos x="1480" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="240"/>
+      <pos x="1480" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="280"/>
+      <pos x="1480" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="320"/>
+      <pos x="1480" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="360"/>
+      <pos x="1480" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="400"/>
+      <pos x="1480" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="440"/>
+      <pos x="1480" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="480"/>
+      <pos x="1480" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="520"/>
+      <pos x="1480" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="560"/>
+      <pos x="1480" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="600"/>
+      <pos x="1480" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="640"/>
+      <pos x="1480" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="680"/>
+      <pos x="1480" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="1500" y="720"/>
+      <pos x="1480" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>Counter</elementName>
@@ -1250,71 +1235,81 @@ Single-Cycle CPU.</string>
       <elementAttributes/>
       <pos x="980" y="700"/>
     </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="80"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="1500" y="120"/>
-      <p2 x="1420" y="280"/>
+      <p1 x="1480" y="120"/>
+      <p2 x="1400" y="280"/>
     </wire>
     <wire>
-      <p1 x="1420" y="300"/>
-      <p2 x="1500" y="160"/>
+      <p1 x="1400" y="300"/>
+      <p2 x="1480" y="160"/>
     </wire>
     <wire>
-      <p1 x="1420" y="320"/>
-      <p2 x="1500" y="200"/>
+      <p1 x="1400" y="320"/>
+      <p2 x="1480" y="200"/>
     </wire>
     <wire>
-      <p1 x="1500" y="240"/>
-      <p2 x="1420" y="340"/>
+      <p1 x="1480" y="240"/>
+      <p2 x="1400" y="340"/>
     </wire>
     <wire>
-      <p1 x="1420" y="360"/>
-      <p2 x="1500" y="280"/>
+      <p1 x="1400" y="360"/>
+      <p2 x="1480" y="280"/>
     </wire>
     <wire>
-      <p1 x="1500" y="320"/>
-      <p2 x="1420" y="380"/>
+      <p1 x="1480" y="320"/>
+      <p2 x="1400" y="380"/>
     </wire>
     <wire>
-      <p1 x="1500" y="400"/>
-      <p2 x="1420" y="420"/>
+      <p1 x="1480" y="400"/>
+      <p2 x="1400" y="420"/>
     </wire>
     <wire>
-      <p1 x="1500" y="480"/>
-      <p2 x="1420" y="460"/>
+      <p1 x="1480" y="480"/>
+      <p2 x="1400" y="460"/>
     </wire>
     <wire>
-      <p1 x="1420" y="480"/>
-      <p2 x="1500" y="520"/>
+      <p1 x="1400" y="480"/>
+      <p2 x="1480" y="520"/>
     </wire>
     <wire>
-      <p1 x="1500" y="560"/>
-      <p2 x="1420" y="500"/>
+      <p1 x="1480" y="560"/>
+      <p2 x="1400" y="500"/>
     </wire>
     <wire>
-      <p1 x="1500" y="640"/>
-      <p2 x="1420" y="540"/>
+      <p1 x="1480" y="640"/>
+      <p2 x="1400" y="540"/>
     </wire>
     <wire>
-      <p1 x="1420" y="580"/>
-      <p2 x="1500" y="720"/>
+      <p1 x="1400" y="580"/>
+      <p2 x="1480" y="720"/>
     </wire>
     <wire>
-      <p1 x="1420" y="560"/>
-      <p2 x="1500" y="680"/>
+      <p1 x="1400" y="560"/>
+      <p2 x="1480" y="680"/>
     </wire>
     <wire>
-      <p1 x="1420" y="520"/>
-      <p2 x="1500" y="600"/>
+      <p1 x="1400" y="520"/>
+      <p2 x="1480" y="600"/>
     </wire>
     <wire>
-      <p1 x="1420" y="400"/>
-      <p2 x="1500" y="360"/>
+      <p1 x="1400" y="400"/>
+      <p2 x="1480" y="360"/>
     </wire>
     <wire>
-      <p1 x="1340" y="640"/>
-      <p2 x="1360" y="640"/>
+      <p1 x="1320" y="640"/>
+      <p2 x="1340" y="640"/>
     </wire>
     <wire>
       <p1 x="1080" y="640"/>
@@ -1326,7 +1321,7 @@ Single-Cycle CPU.</string>
     </wire>
     <wire>
       <p1 x="1240" y="0"/>
-      <p2 x="1440" y="0"/>
+      <p2 x="1420" y="0"/>
     </wire>
     <wire>
       <p1 x="800" y="0"/>
@@ -1337,8 +1332,8 @@ Single-Cycle CPU.</string>
       <p2 x="1160" y="320"/>
     </wire>
     <wire>
-      <p1 x="1340" y="320"/>
-      <p2 x="1360" y="320"/>
+      <p1 x="1320" y="320"/>
+      <p2 x="1340" y="320"/>
     </wire>
     <wire>
       <p1 x="760" y="580"/>
@@ -1377,8 +1372,8 @@ Single-Cycle CPU.</string>
       <p2 x="640" y="200"/>
     </wire>
     <wire>
-      <p1 x="1340" y="200"/>
-      <p2 x="1360" y="200"/>
+      <p1 x="1320" y="200"/>
+      <p2 x="1340" y="200"/>
     </wire>
     <wire>
       <p1 x="340" y="200"/>
@@ -1429,12 +1424,8 @@ Single-Cycle CPU.</string>
       <p2 x="1240" y="140"/>
     </wire>
     <wire>
-      <p1 x="1280" y="140"/>
-      <p2 x="1360" y="140"/>
-    </wire>
-    <wire>
       <p1 x="1240" y="140"/>
-      <p2 x="1280" y="140"/>
+      <p2 x="1340" y="140"/>
     </wire>
     <wire>
       <p1 x="340" y="400"/>
@@ -1457,20 +1448,24 @@ Single-Cycle CPU.</string>
       <p2 x="1240" y="80"/>
     </wire>
     <wire>
-      <p1 x="1420" y="80"/>
-      <p2 x="1440" y="80"/>
+      <p1 x="1400" y="80"/>
+      <p2 x="1420" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="1240" y="80"/>
+      <p2 x="1280" y="80"/>
     </wire>
     <wire>
       <p1 x="980" y="660"/>
       <p2 x="1000" y="660"/>
     </wire>
     <wire>
-      <p1 x="1340" y="660"/>
-      <p2 x="1360" y="660"/>
+      <p1 x="1320" y="660"/>
+      <p2 x="1340" y="660"/>
     </wire>
     <wire>
-      <p1 x="1340" y="340"/>
-      <p2 x="1360" y="340"/>
+      <p1 x="1320" y="340"/>
+      <p2 x="1340" y="340"/>
     </wire>
     <wire>
       <p1 x="1140" y="340"/>
@@ -1481,8 +1476,8 @@ Single-Cycle CPU.</string>
       <p2 x="460" y="20"/>
     </wire>
     <wire>
-      <p1 x="1340" y="280"/>
-      <p2 x="1360" y="280"/>
+      <p1 x="1320" y="280"/>
+      <p2 x="1340" y="280"/>
     </wire>
     <wire>
       <p1 x="1140" y="280"/>
@@ -1509,8 +1504,8 @@ Single-Cycle CPU.</string>
       <p2 x="840" y="540"/>
     </wire>
     <wire>
-      <p1 x="1340" y="220"/>
-      <p2 x="1360" y="220"/>
+      <p1 x="1320" y="220"/>
+      <p2 x="1340" y="220"/>
     </wire>
     <wire>
       <p1 x="760" y="480"/>
@@ -1545,8 +1540,8 @@ Single-Cycle CPU.</string>
       <p2 x="1260" y="160"/>
     </wire>
     <wire>
-      <p1 x="1340" y="160"/>
-      <p2 x="1360" y="160"/>
+      <p1 x="1320" y="160"/>
+      <p2 x="1340" y="160"/>
     </wire>
     <wire>
       <p1 x="540" y="160"/>
@@ -1569,8 +1564,8 @@ Single-Cycle CPU.</string>
       <p2 x="1000" y="680"/>
     </wire>
     <wire>
-      <p1 x="1340" y="680"/>
-      <p2 x="1360" y="680"/>
+      <p1 x="1320" y="680"/>
+      <p2 x="1340" y="680"/>
     </wire>
     <wire>
       <p1 x="1140" y="360"/>
@@ -1589,8 +1584,8 @@ Single-Cycle CPU.</string>
       <p2 x="1280" y="40"/>
     </wire>
     <wire>
-      <p1 x="1340" y="300"/>
-      <p2 x="1360" y="300"/>
+      <p1 x="1320" y="300"/>
+      <p2 x="1340" y="300"/>
     </wire>
     <wire>
       <p1 x="1140" y="300"/>
@@ -1637,8 +1632,8 @@ Single-Cycle CPU.</string>
       <p2 x="840" y="500"/>
     </wire>
     <wire>
-      <p1 x="1420" y="180"/>
-      <p2 x="1440" y="180"/>
+      <p1 x="1400" y="180"/>
+      <p2 x="1420" y="180"/>
     </wire>
     <wire>
       <p1 x="1160" y="180"/>
@@ -1657,8 +1652,8 @@ Single-Cycle CPU.</string>
       <p2 x="360" y="180"/>
     </wire>
     <wire>
-      <p1 x="1420" y="440"/>
-      <p2 x="1500" y="440"/>
+      <p1 x="1400" y="440"/>
+      <p2 x="1480" y="440"/>
     </wire>
     <wire>
       <p1 x="1000" y="440"/>
@@ -1697,8 +1692,8 @@ Single-Cycle CPU.</string>
       <p2 x="640" y="120"/>
     </wire>
     <wire>
-      <p1 x="1340" y="700"/>
-      <p2 x="1360" y="700"/>
+      <p1 x="1320" y="700"/>
+      <p2 x="1340" y="700"/>
     </wire>
     <wire>
       <p1 x="1000" y="380"/>
@@ -1711,10 +1706,6 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="320" y="240"/>
       <p2 x="320" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="1280" y="140"/>
-      <p2 x="1280" y="160"/>
     </wire>
     <wire>
       <p1 x="580" y="460"/>
@@ -1747,6 +1738,14 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="460" y="680"/>
       <p2 x="460" y="700"/>
+    </wire>
+    <wire>
+      <p1 x="1420" y="0"/>
+      <p2 x="1420" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="1420" y="80"/>
+      <p2 x="1420" y="180"/>
     </wire>
     <wire>
       <p1 x="400" y="680"/>
@@ -1839,14 +1838,6 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="800" y="160"/>
       <p2 x="800" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="1440" y="0"/>
-      <p2 x="1440" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="1440" y="80"/>
-      <p2 x="1440" y="180"/>
     </wire>
     <wire>
       <p1 x="1060" y="200"/>

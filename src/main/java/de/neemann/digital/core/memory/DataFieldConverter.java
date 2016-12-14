@@ -38,7 +38,7 @@ public class DataFieldConverter implements Converter {
                 pos = 0;
             }
 
-            final String s = Long.toString(d);
+            final String s = Long.toHexString(d);
             data.append(s);
             pos += s.length();
         }
@@ -68,7 +68,7 @@ public class DataFieldConverter implements Converter {
             StringTokenizer st = new StringTokenizer(reader.getValue(), ",");
             int i = 0;
             while (st.hasMoreTokens()) {
-                df.setData(i, Long.parseLong(st.nextToken().trim()));
+                df.setData(i, Long.parseLong(st.nextToken().trim(),16));
                 i++;
             }
             return df;
