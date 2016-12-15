@@ -324,6 +324,10 @@ gespeichert.</string>
           <string>16</string>
         </entry>
         <entry>
+          <string>isHighZ</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>Output Splitting</string>
           <string>1,1,1,13</string>
         </entry>
@@ -348,16 +352,6 @@ gespeichert.</string>
       </elementAttributes>
       <pos x="-100" y="380"/>
     </visualElement>
-    <visualElement>
-      <elementName>PullDown</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="-40" y="340"/>
-    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -374,10 +368,6 @@ gespeichert.</string>
     </wire>
     <wire>
       <p1 x="-60" y="320"/>
-      <p2 x="-40" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="-40" y="320"/>
       <p2 x="-20" y="320"/>
     </wire>
     <wire>
@@ -571,10 +561,6 @@ gespeichert.</string>
     <wire>
       <p1 x="100" y="240"/>
       <p2 x="100" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="-40" y="320"/>
-      <p2 x="-40" y="340"/>
     </wire>
     <wire>
       <p1 x="40" y="240"/>
