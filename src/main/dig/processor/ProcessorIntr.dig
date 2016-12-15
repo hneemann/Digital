@@ -165,9 +165,9 @@ Single-Cycle CPU.</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data size="4131">99ab,1200,800e,68f0,8020,1200,73f0,8f8a,1200,800e,68f0,140a,73f0,6ff2,4800,4a00,801d,
-6820,4a00,801d,6820,4800,4a00,801d,6820,4a00,801d,6820,6a0f,210,281f,3c1a,6203,8030,
-1610,6e02,8037,1610,73f1,6a02,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+          <data size="4131">99ab,1200,8015,68f0,8020,1200,73f0,8f8a,1200,8015,68f0,8020,1200,73f0,1831,203,8015,
+68f0,140a,73f0,6feb,4800,4a00,8024,6820,4a00,8024,6820,4800,4a00,8024,6820,4a00,8024,
+6820,6a0f,210,281f,3c1a,6203,8030,1610,6e02,8037,1610,73f1,6a02,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -266,9 +266,9 @@ Single-Cycle CPU.</string>
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,78c0,20e1,4cec,20e1,4ce0,7c00,5601,56c0,3cc0,6402,14c1,1400,
-735c,3c00,6407,3ec0,8000,3bc0,6408,1401,5210,6e05,40c0,3cc1,6402,1400,5210,520c,4e0e,
-18e1,4ece,18e1,720c,78c1,6a0c</data>
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,78c0,20e1,4cec,20e1,4ce0,7c00,5601,56c0,
+3cc0,6402,14c1,1400,735c,3c00,6407,3ec0,8000,3bc0,6408,1401,5210,6e05,40c0,3cc1,6402,
+1400,5210,520c,4e0e,18e1,4ece,18e1,720c,78c1,6a0c</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
@@ -801,7 +801,7 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Intr.dig</elementName>
       <elementAttributes/>
-      <pos x="1100" y="500"/>
+      <pos x="1120" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -815,7 +815,7 @@ Single-Cycle CPU.</string>
           <string>ioR</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="520"/>
+      <pos x="1100" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -829,7 +829,7 @@ Single-Cycle CPU.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="540"/>
+      <pos x="1100" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -843,7 +843,7 @@ Single-Cycle CPU.</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="580"/>
+      <pos x="1100" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -857,7 +857,7 @@ Single-Cycle CPU.</string>
           <string>next</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="560"/>
+      <pos x="1100" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -881,7 +881,7 @@ Single-Cycle CPU.</string>
           <string>iEn</string>
         </entry>
       </elementAttributes>
-      <pos x="1200" y="520"/>
+      <pos x="1220" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -909,7 +909,7 @@ Single-Cycle CPU.</string>
           <string>abs</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="600"/>
+      <pos x="1100" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/FlagsRW.dig</elementName>
@@ -978,7 +978,7 @@ Single-Cycle CPU.</string>
           <string>D</string>
         </entry>
       </elementAttributes>
-      <pos x="1200" y="500"/>
+      <pos x="1220" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1002,7 +1002,7 @@ Single-Cycle CPU.</string>
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="500"/>
+      <pos x="1100" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Terminal.dig</elementName>
@@ -1214,7 +1214,7 @@ Single-Cycle CPU.</string>
           <int>11</int>
         </entry>
       </elementAttributes>
-      <pos x="1000" y="660"/>
+      <pos x="1020" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1228,12 +1228,12 @@ Single-Cycle CPU.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="980" y="660"/>
+      <pos x="940" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="980" y="700"/>
+      <pos x="1000" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1244,6 +1244,11 @@ Single-Cycle CPU.</string>
         </entry>
       </elementAttributes>
       <pos x="1280" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="960" y="660"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -1312,8 +1317,8 @@ Single-Cycle CPU.</string>
       <p2 x="1340" y="640"/>
     </wire>
     <wire>
-      <p1 x="1080" y="640"/>
-      <p2 x="1100" y="640"/>
+      <p1 x="1100" y="640"/>
+      <p2 x="1120" y="640"/>
     </wire>
     <wire>
       <p1 x="600" y="0"/>
@@ -1340,8 +1345,8 @@ Single-Cycle CPU.</string>
       <p2 x="840" y="580"/>
     </wire>
     <wire>
-      <p1 x="1080" y="580"/>
-      <p2 x="1100" y="580"/>
+      <p1 x="1100" y="580"/>
+      <p2 x="1120" y="580"/>
     </wire>
     <wire>
       <p1 x="500" y="520"/>
@@ -1352,12 +1357,12 @@ Single-Cycle CPU.</string>
       <p2 x="840" y="520"/>
     </wire>
     <wire>
-      <p1 x="1080" y="520"/>
-      <p2 x="1100" y="520"/>
+      <p1 x="1100" y="520"/>
+      <p2 x="1120" y="520"/>
     </wire>
     <wire>
-      <p1 x="1180" y="520"/>
-      <p2 x="1200" y="520"/>
+      <p1 x="1200" y="520"/>
+      <p2 x="1220" y="520"/>
     </wire>
     <wire>
       <p1 x="1160" y="200"/>
@@ -1456,12 +1461,16 @@ Single-Cycle CPU.</string>
       <p2 x="1280" y="80"/>
     </wire>
     <wire>
-      <p1 x="980" y="660"/>
-      <p2 x="1000" y="660"/>
-    </wire>
-    <wire>
       <p1 x="1320" y="660"/>
       <p2 x="1340" y="660"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="660"/>
+      <p2 x="960" y="660"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="660"/>
+      <p2 x="1020" y="660"/>
     </wire>
     <wire>
       <p1 x="1320" y="340"/>
@@ -1484,16 +1493,16 @@ Single-Cycle CPU.</string>
       <p2 x="1160" y="280"/>
     </wire>
     <wire>
-      <p1 x="1080" y="600"/>
-      <p2 x="1100" y="600"/>
+      <p1 x="1100" y="600"/>
+      <p2 x="1120" y="600"/>
     </wire>
     <wire>
       <p1 x="760" y="600"/>
       <p2 x="840" y="600"/>
     </wire>
     <wire>
-      <p1 x="1080" y="540"/>
-      <p2 x="1100" y="540"/>
+      <p1 x="1100" y="540"/>
+      <p2 x="1120" y="540"/>
     </wire>
     <wire>
       <p1 x="880" y="540"/>
@@ -1556,12 +1565,12 @@ Single-Cycle CPU.</string>
       <p2 x="1240" y="420"/>
     </wire>
     <wire>
-      <p1 x="1060" y="680"/>
-      <p2 x="1080" y="680"/>
+      <p1 x="1080" y="680"/>
+      <p2 x="1100" y="680"/>
     </wire>
     <wire>
-      <p1 x="980" y="680"/>
-      <p2 x="1000" y="680"/>
+      <p1 x="1000" y="680"/>
+      <p2 x="1020" y="680"/>
     </wire>
     <wire>
       <p1 x="1320" y="680"/>
@@ -1593,11 +1602,11 @@ Single-Cycle CPU.</string>
     </wire>
     <wire>
       <p1 x="920" y="620"/>
-      <p2 x="1100" y="620"/>
+      <p2 x="1120" y="620"/>
     </wire>
     <wire>
-      <p1 x="1080" y="560"/>
-      <p2 x="1100" y="560"/>
+      <p1 x="1100" y="560"/>
+      <p2 x="1120" y="560"/>
     </wire>
     <wire>
       <p1 x="760" y="560"/>
@@ -1616,12 +1625,12 @@ Single-Cycle CPU.</string>
       <p2 x="480" y="240"/>
     </wire>
     <wire>
-      <p1 x="1180" y="500"/>
-      <p2 x="1200" y="500"/>
+      <p1 x="1200" y="500"/>
+      <p2 x="1220" y="500"/>
     </wire>
     <wire>
-      <p1 x="1080" y="500"/>
-      <p2 x="1100" y="500"/>
+      <p1 x="1100" y="500"/>
+      <p2 x="1120" y="500"/>
     </wire>
     <wire>
       <p1 x="660" y="500"/>
@@ -1748,12 +1757,12 @@ Single-Cycle CPU.</string>
       <p2 x="1420" y="180"/>
     </wire>
     <wire>
-      <p1 x="400" y="680"/>
-      <p2 x="400" y="700"/>
+      <p1 x="1100" y="640"/>
+      <p2 x="1100" y="680"/>
     </wire>
     <wire>
-      <p1 x="980" y="680"/>
-      <p2 x="980" y="700"/>
+      <p1 x="400" y="680"/>
+      <p2 x="400" y="700"/>
     </wire>
     <wire>
       <p1 x="340" y="200"/>
@@ -1766,6 +1775,10 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="340" y="680"/>
       <p2 x="340" y="700"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="400"/>
+      <p2 x="920" y="620"/>
     </wire>
     <wire>
       <p1 x="1240" y="60"/>
@@ -1790,10 +1803,6 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="600" y="680"/>
       <p2 x="600" y="700"/>
-    </wire>
-    <wire>
-      <p1 x="920" y="400"/>
-      <p2 x="920" y="620"/>
     </wire>
     <wire>
       <p1 x="540" y="160"/>
@@ -1852,6 +1861,10 @@ Single-Cycle CPU.</string>
       <p2 x="420" y="700"/>
     </wire>
     <wire>
+      <p1 x="1000" y="680"/>
+      <p2 x="1000" y="700"/>
+    </wire>
+    <wire>
       <p1 x="360" y="680"/>
       <p2 x="360" y="700"/>
     </wire>
@@ -1882,10 +1895,6 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="440" y="680"/>
       <p2 x="440" y="700"/>
-    </wire>
-    <wire>
-      <p1 x="1080" y="640"/>
-      <p2 x="1080" y="680"/>
     </wire>
     <wire>
       <p1 x="380" y="680"/>
