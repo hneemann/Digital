@@ -31,34 +31,35 @@ public class DigitalHandler implements HandlerInterface {
         }
 
         try {
-            handle(command.toLowerCase(), args);
-            return "ok";
+            String ret = handle(command.toLowerCase(), args);
+            if (ret != null)
+                return "ok:"+ret;
+            else
+                return "ok";
         } catch (RemoteException e) {
             return e.getMessage();
         }
     }
 
-    private void handle(String command, String args) throws RemoteException {
+    private String handle(String command, String args) throws RemoteException {
         switch (command) {
             case "step":
-                digitalRemoteInterface.doSingleStep();
-                break;
+                return digitalRemoteInterface.doSingleStep();
             case "start":
                 digitalRemoteInterface.start();
-                break;
+                return null;
             case "debug":
                 digitalRemoteInterface.debug();
-                break;
+                return null;
             case "run":
-                digitalRemoteInterface.runToBreak();
-                break;
+                return digitalRemoteInterface.runToBreak();
             case "stop":
                 digitalRemoteInterface.stop();
-                break;
+                return null;
             case "load":
                 File file = new File(args);
                 digitalRemoteInterface.loadRom(file);
-                break;
+                return null;
             default:
                 throw new RemoteException(Lang.get("msg_remoteUnknownCommand", command));
         }

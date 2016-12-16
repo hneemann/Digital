@@ -52,6 +52,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -1019,39 +1020,57 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     @Override
-    public void doSingleStep() {
+    public String doSingleStep() throws RemoteException {
         if (model != null && !realtimeClockRunning) {
-            SwingUtilities.invokeLater(() -> {
-                ArrayList<Clock> cl = model.getClocks();
-                if (cl.size() == 1) {
-                    ObservableValue clkVal = cl.get(0).getClockOutput();
-                    clkVal.setBool(!clkVal.getBool());
-                    try {
-                        model.doStep();
-                        if (clkVal.getBool()) {
-                            clkVal.setBool(!clkVal.getBool());
+            try {
+                SwingUtilities.invokeAndWait(() -> {
+                    ArrayList<Clock> cl = model.getClocks();
+                    if (cl.size() == 1) {
+                        ObservableValue clkVal = cl.get(0).getClockOutput();
+                        clkVal.setBool(!clkVal.getBool());
+                        try {
                             model.doStep();
+                            if (clkVal.getBool()) {
+                                clkVal.setBool(!clkVal.getBool());
+                                model.doStep();
+                            }
+                            circuitComponent.hasChanged();
+                        } catch (NodeException e) {
+                            showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                         }
-                        circuitComponent.hasChanged();
-                    } catch (NodeException e) {
-                        showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                     }
-                }
-            });
+                });
+                return getProgRomAddr();
+            } catch (InterruptedException | InvocationTargetException e) {
+                throw new RemoteException("error performing a single step "+e.getMessage());
+            }
         }
+        return null;
+    }
+
+    private String getProgRomAddr() {
+        ArrayList<ROM> roms = model.getProgRoms();
+        if (roms.size()==1)
+            return Long.toHexString(roms.get(0).getRomAddress());
+        return null;
     }
 
     @Override
-    public void runToBreak() {
-        SwingUtilities.invokeLater(() -> {
-            if (model != null && model.isFastRunModel() && !realtimeClockRunning)
-                runToBreakAction.actionPerformed(null);
-        });
+    public String runToBreak() throws RemoteException {
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                if (model != null && model.isFastRunModel() && !realtimeClockRunning)
+                    runToBreakAction.actionPerformed(null);
+            });
+            return getProgRomAddr();
+        } catch (InterruptedException | InvocationTargetException e) {
+            throw new RemoteException("error performing a run to break "+e.getMessage());
+        }
     }
 
     private void setDebug(boolean debug) throws RemoteException {
         VisualElement rom = getProgramRomFromCircuit();
-        rom.getElementAttributes().set(Keys.SHOW_LISTING, debug);
+        //rom.getElementAttributes().set(Keys.SHOW_LISTING, debug);
         settings.set(Keys.SHOW_DATA_TABLE, debug);
     }
 

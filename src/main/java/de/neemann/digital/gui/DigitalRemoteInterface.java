@@ -21,30 +21,37 @@ public interface DigitalRemoteInterface {
 
     /**
      * Starts the model
+     *
      * @throws RemoteException RemoteException
      */
     void start() throws RemoteException;
 
     /**
      * Starts the model in debug mode
+     *
      * @throws RemoteException RemoteException
      */
     void debug() throws RemoteException;
 
     /**
      * performs a single step
+     *
+     * @return actual position
      * @throws RemoteException RemoteException
      */
-    void doSingleStep() throws RemoteException;
+    String doSingleStep() throws RemoteException;
 
     /**
      * runs model to the next BRK instruction
+     *
+     * @return actual position
      * @throws RemoteException RemoteException
      */
-    void runToBreak() throws RemoteException;
+    String runToBreak() throws RemoteException;
 
     /**
      * stops the model
+     *
      * @throws RemoteException RemoteException
      */
     void stop() throws RemoteException;

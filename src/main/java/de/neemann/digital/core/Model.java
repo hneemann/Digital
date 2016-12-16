@@ -1,5 +1,6 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Reset;
@@ -43,6 +44,7 @@ public class Model implements Iterable<Node> {
     private final ArrayList<Clock> clocks;
     private final ArrayList<Break> breaks;
     private final ArrayList<Reset> resets;
+    private final ArrayList<ROM> progRoms;
 
     private final ArrayList<Signal> signals;
     private final ArrayList<Signal> inputs;
@@ -62,6 +64,7 @@ public class Model implements Iterable<Node> {
         this.clocks = new ArrayList<>();
         this.breaks = new ArrayList<>();
         this.resets = new ArrayList<>();
+        this.progRoms = new ArrayList<>();
         this.signals = new ArrayList<>();
         this.outputs = new ArrayList<>();
         this.inputs = new ArrayList<>();
@@ -427,6 +430,15 @@ public class Model implements Iterable<Node> {
         ArrayList<Signal> n = new ArrayList<>(signals.size());
         n.addAll(signals);
         return n;
+    }
+
+
+    public void addProgRom(ROM rom) {
+        progRoms.add(rom);
+    }
+
+    public ArrayList<ROM> getProgRoms() {
+        return progRoms;
     }
 
     /**
