@@ -348,6 +348,10 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
       <p2 x="400" y="140"/>
     </wire>
     <wire>
+      <p1 x="640" y="300"/>
+      <p2 x="680" y="300"/>
+    </wire>
+    <wire>
       <p1 x="360" y="80"/>
       <p2 x="400" y="80"/>
     </wire>
@@ -420,15 +424,15 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
       <p2 x="640" y="380"/>
     </wire>
     <wire>
-      <p1 x="640" y="380"/>
-      <p2 x="680" y="380"/>
-    </wire>
-    <wire>
       <p1 x="240" y="80"/>
       <p2 x="240" y="280"/>
     </wire>
     <wire>
       <p1 x="640" y="-40"/>
+      <p2 x="640" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="300"/>
       <p2 x="640" y="380"/>
     </wire>
     <wire>
@@ -449,7 +453,7 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
     </wire>
     <wire>
       <p1 x="680" y="280"/>
-      <p2 x="680" y="380"/>
+      <p2 x="680" y="300"/>
     </wire>
     <wire>
       <p1 x="360" y="260"/>

@@ -799,7 +799,7 @@ Single-Cycle CPU.</string>
       <pos x="1320" y="200"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Intr.dig</elementName>
+      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Interrupt.dig</elementName>
       <elementAttributes/>
       <pos x="1120" y="500"/>
     </visualElement>
