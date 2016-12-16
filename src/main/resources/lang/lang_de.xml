@@ -476,7 +476,6 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_errorImportingModel">Fehler beim Import einer Schaltung</string>
     <string name="msg_errorReadingFile">Fehler beim Lesen einer Datei</string>
     <string name="msg_remoteUnknownCommand">Das Kommando {0} ist unbekannt!</string>
-    <string name="msg_errorReadingListing_N0">Fehler beim Laden des Listings {0}</string>
     <string name="msg_errorWritingFile">Fehler beim Schreiben einer Datei</string>
     <string name="msg_fastRunError">Ein Fehler beim schnellen Lauf</string>
     <string name="msg_frequency_N">Die maximale Frequenz berägt {0}Hz.</string>
@@ -508,7 +507,6 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="tt_moveItemUp">Eintrag nach oben schieben</string>
     <string name="win_allSolutions">Alle möglichen Lösungen</string>
     <string name="win_confirmExit">Beenden bestätigen!</string>
-    <string name="win_listing">Listing</string>
     <string name="win_measures">Messwerte</string>
     <string name="win_measures_fullstep">Messwerte im Vollschrittmodus</string>
     <string name="win_measures_microstep">Messwerte im Einzelgattermodus</string>

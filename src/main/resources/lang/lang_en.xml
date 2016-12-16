@@ -469,7 +469,6 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_errorEditingValue">Error editing a atribute value</string>
     <string name="msg_errorImportingModel">Error importing a circuit</string>
     <string name="msg_errorReadingFile">Error reading a file</string>
-    <string name="msg_errorReadingListing_N0">Error reading the listing {0}</string>
     <string name="msg_errorWritingFile">Error writing a file</string>
     <string name="msg_fastRunError">Error at fast run</string>
     <string name="msg_frequency_N">The maximum frequency is {0}Hz</string>
@@ -502,7 +501,6 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="tt_moveItemUp">Move the item up</string>
     <string name="win_allSolutions">All possible solutions</string>
     <string name="win_confirmExit">Confirm Exit!</string>
-    <string name="win_listing">Listing</string>
     <string name="win_measures">Measurements</string>
     <string name="win_measures_fullstep">Measurements full clock step</string>
     <string name="win_measures_microstep">Measurements single gate step</string>

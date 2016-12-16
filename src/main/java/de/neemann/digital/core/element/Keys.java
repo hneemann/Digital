@@ -164,12 +164,6 @@ public final class Keys {
             = new Key<>("valueIsProbe", false);
 
     /**
-     * flag to enable the ROMs listings view
-     */
-    public static final Key<Boolean> SHOW_LISTING
-            = new Key<>("showList", false);
-
-    /**
      * flag to set a ROM as program memory
      */
     public static final Key<Boolean> IS_PROGRAM_MEMORY

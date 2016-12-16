@@ -35,15 +35,12 @@ public class ROM extends Node implements Element {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DATA)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
-            .addAttribute(Keys.AUTO_RELOAD_ROM)
-            .addAttribute(Keys.SHOW_LISTING);
+            .addAttribute(Keys.AUTO_RELOAD_ROM);
 
     private DataField data;
     private final ObservableValue output;
     private final int addrBits;
-    private final boolean showList;
     private final File hexFile;
-    private final Observable romObservable = new Observable();
     private final boolean autoLoad;
     private final boolean isProgramMemory;
     private ObservableValue addrIn;
@@ -62,10 +59,9 @@ public class ROM extends Node implements Element {
         output = new ObservableValue("D", bits, true).setDescription(Lang.get("elem_ROM_pin_data"));
         data = attr.get(Keys.DATA);
         addrBits = attr.get(Keys.ADDR_BITS);
-        showList = attr.get(Keys.SHOW_LISTING);
         autoLoad = attr.get(Keys.AUTO_RELOAD_ROM);
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
-        if (showList || autoLoad) {
+        if (autoLoad) {
             hexFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else
             hexFile = null;
@@ -88,7 +84,6 @@ public class ROM extends Node implements Element {
         sel = selIn.getBool();
         if (sel) {
             romAddr = addr;
-            romObservable.hasChanged();
         }
     }
 
@@ -102,15 +97,6 @@ public class ROM extends Node implements Element {
      */
     public long getRomAddress() {
         return romAddr;
-    }
-
-    /**
-     * The file used to fill this ROM module.
-     *
-     * @return the file
-     */
-    public File getHexFile() {
-        return hexFile;
     }
 
     @Override
@@ -143,28 +129,4 @@ public class ROM extends Node implements Element {
         this.data = data;
     }
 
-    /**
-     * @return true if there is a listing to show
-     */
-    public boolean showListing() {
-        return showList && hexFile != null;
-    }
-
-    /**
-     * Adds an observer to this ROM
-     *
-     * @param observer the observer to add
-     */
-    public void addObserver(Observer observer) {
-        romObservable.addObserver(observer);
-    }
-
-    /**
-     * Removes an observer from this ROM
-     *
-     * @param observer the observer to remove
-     */
-    public void removeObserver(Observer observer) {
-        romObservable.removeObserver(observer);
-    }
 }

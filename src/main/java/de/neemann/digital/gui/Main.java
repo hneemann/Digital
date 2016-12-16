@@ -26,7 +26,6 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
-import de.neemann.digital.gui.components.listing.ROMListingDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.TestResultDialog;
 import de.neemann.digital.gui.remote.DigitalHandler;
@@ -759,15 +758,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
                 windowPosManager.register("datasetMicro", new DataSetDialog(this, model, true, ordering, modelSync)).setVisible(true);
-
-            int i = 0;
-            for (ROM rom : model.findNode(ROM.class))
-                if (rom.showListing())
-                    try {
-                        windowPosManager.register("rom" + (i++), new ROMListingDialog(this, rom, model, modelSync)).setVisible(true);
-                    } catch (IOException e) {
-                        new ErrorMessage(Lang.get("msg_errorReadingListing_N0", rom.getHexFile().toString())).addCause(e).show(this);
-                    }
 
             model.init();
 
