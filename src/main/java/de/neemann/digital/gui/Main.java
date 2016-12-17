@@ -982,7 +982,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     //***********************
 
     private static class AddressPicker {
-
         private long addr;
 
         private void getProgRomAddr(Model model) {
@@ -1001,14 +1000,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         }
     }
 
-    private void setDebug(boolean debug) throws RemoteException {
+    private void setDebug(boolean debug) {
         settings.set(Keys.SHOW_DATA_TABLE, debug);
     }
 
     @Override
     public void start(File romHex) throws RemoteException {
-        setDebug(false);
         SwingUtilities.invokeLater(() -> {
+            setDebug(false);
             windowPosManager.closeAll();
             runModelState.enter(true, new RomLoader(romHex));
             circuitComponent.hasChanged();
@@ -1017,8 +1016,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     @Override
     public void debug(File romHex) throws RemoteException {
-        setDebug(true);
         SwingUtilities.invokeLater(() -> {
+            setDebug(true);
             runModelState.enter(false, new RomLoader(romHex));
             circuitComponent.hasChanged();
         });
