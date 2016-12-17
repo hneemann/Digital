@@ -46,19 +46,15 @@ public class DigitalHandler implements HandlerInterface {
             case "step":
                 return digitalRemoteInterface.doSingleStep();
             case "start":
-                digitalRemoteInterface.start();
+                digitalRemoteInterface.start(new File(args));
                 return null;
             case "debug":
-                digitalRemoteInterface.debug();
+                digitalRemoteInterface.debug(new File(args));
                 return null;
             case "run":
                 return digitalRemoteInterface.runToBreak();
             case "stop":
                 digitalRemoteInterface.stop();
-                return null;
-            case "load":
-                File file = new File(args);
-                digitalRemoteInterface.loadRom(file);
                 return null;
             default:
                 throw new RemoteException(Lang.get("msg_remoteUnknownCommand", command));

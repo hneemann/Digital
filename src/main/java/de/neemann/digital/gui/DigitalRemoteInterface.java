@@ -12,26 +12,20 @@ import java.io.File;
 public interface DigitalRemoteInterface {
 
     /**
-     * Loads the given file to the data rom
-     *
-     * @param file the file to load
-     * @throws RemoteException RemoteException
-     */
-    void loadRom(File file) throws RemoteException;
-
-    /**
      * Starts the model
      *
+     * @param file the file to load to program rom
      * @throws RemoteException RemoteException
      */
-    void start() throws RemoteException;
+    void start(File file) throws RemoteException;
 
     /**
      * Starts the model in debug mode
      *
+     * @param file the file to load to program rom
      * @throws RemoteException RemoteException
      */
-    void debug() throws RemoteException;
+    void debug(File file) throws RemoteException;
 
     /**
      * performs a single step

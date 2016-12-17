@@ -6,10 +6,11 @@ import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.builder.PinMap;
 import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
@@ -695,7 +696,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void enter() {
                 super.enter();
-                if (createAndStartModel(false, ModelEvent.MICROSTEP))
+                if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
         });
@@ -710,7 +711,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         model = null;
     }
 
-    private boolean createAndStartModel(boolean globalRunClock, ModelEvent updateEvent) {
+    private boolean createAndStartModel(boolean globalRunClock, ModelEvent updateEvent, ModelModifier modelModifier) {
         try {
             circuitComponent.removeHighLighted();
 
@@ -758,6 +759,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
                 windowPosManager.register("datasetMicro", new DataSetDialog(this, model, true, ordering, modelSync)).setVisible(true);
+
+            if (modelModifier != null)
+                modelModifier.preInit(model);
 
             model.init();
 
@@ -963,12 +967,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private class RunModelState extends State {
         @Override
         public void enter() {
-            enter(true);
+            enter(true, null);
         }
 
-        void enter(boolean runRealTime) {
+        void enter(boolean runRealTime, ModelModifier modelModifier) {
             super.enter();
-            if (createAndStartModel(runRealTime, ModelEvent.STEP))
+            if (createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier))
                 circuitComponent.setManualChangeObserver(new FullStepObserver(model));
         }
     }
@@ -977,35 +981,23 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     // remote interface start
     //***********************
 
-    private VisualElement getProgramRomFromCircuit() throws RemoteException {
-        VisualElement rom = null;
-        ArrayList<VisualElement> el = circuitComponent.getCircuit().getElements();
-        for (VisualElement e : el) {
-            if (e.equalsDescription(ROM.DESCRIPTION)) {
-                ElementAttributes attr = e.getElementAttributes();
-                if (attr.get(Keys.IS_PROGRAM_MEMORY)) {
-                    if (rom != null)
-                        throw new RemoteException(Lang.get("msg_moreThenOneRomFound"));
-                    rom = e;
-                }
-            }
+    private static class AddressPicker {
+
+        private long addr;
+
+        private void getProgRomAddr(Model model) {
+            ArrayList<ROM> roms = model.getProgRoms();
+            if (roms.size() == 1)
+                addr = roms.get(0).getRomAddress();
+            else
+                addr = -1;
         }
-        if (rom == null)
-            throw new RemoteException(Lang.get("msg_noRomFound"));
 
-        return rom;
-    }
-
-    @Override
-    public void loadRom(File file) throws RemoteException {
-        VisualElement rom = getProgramRomFromCircuit();
-        ElementAttributes attr = rom.getElementAttributes();
-        try {
-            DataField df = new DataField(file);
-            attr.set(Keys.DATA, df);
-            attr.setFile(ROM.LAST_DATA_FILE_KEY, file);  // needed in debug mode to load listing!
-        } catch (IOException e) {
-            throw new RemoteException(e.getMessage());
+        String getAddrString() {
+            if (addr < 0)
+                return null;
+            else
+                return Long.toHexString(addr);
         }
     }
 
@@ -1013,6 +1005,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     public String doSingleStep() throws RemoteException {
         if (model != null && !realtimeClockRunning) {
             try {
+                AddressPicker addressPicker = new AddressPicker();
                 SwingUtilities.invokeAndWait(() -> {
                     ArrayList<Clock> cl = model.getClocks();
                     if (cl.size() == 1) {
@@ -1025,60 +1018,54 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                                 model.doStep();
                             }
                             circuitComponent.hasChanged();
+                            addressPicker.getProgRomAddr(model);
                         } catch (NodeException e) {
                             showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                         }
                     }
                 });
-                return getProgRomAddr();
+                return addressPicker.getAddrString();
             } catch (InterruptedException | InvocationTargetException e) {
-                throw new RemoteException("error performing a single step "+e.getMessage());
+                throw new RemoteException("error performing a single step " + e.getMessage());
             }
         }
-        return null;
-    }
-
-    private String getProgRomAddr() {
-        ArrayList<ROM> roms = model.getProgRoms();
-        if (roms.size()==1)
-            return Long.toHexString(roms.get(0).getRomAddress());
         return null;
     }
 
     @Override
     public String runToBreak() throws RemoteException {
         try {
+            AddressPicker addressPicker = new AddressPicker();
             SwingUtilities.invokeAndWait(() -> {
                 if (model != null && model.isFastRunModel() && !realtimeClockRunning)
                     runToBreakAction.actionPerformed(null);
+                addressPicker.getProgRomAddr(model);
             });
-            return getProgRomAddr();
+            return addressPicker.getAddrString();
         } catch (InterruptedException | InvocationTargetException e) {
-            throw new RemoteException("error performing a run to break "+e.getMessage());
+            throw new RemoteException("error performing a run to break " + e.getMessage());
         }
     }
 
     private void setDebug(boolean debug) throws RemoteException {
-        VisualElement rom = getProgramRomFromCircuit();
-        //rom.getElementAttributes().set(Keys.SHOW_LISTING, debug);
         settings.set(Keys.SHOW_DATA_TABLE, debug);
     }
 
     @Override
-    public void debug() throws RemoteException {
+    public void debug(File romHex) throws RemoteException {
         setDebug(true);
         SwingUtilities.invokeLater(() -> {
-            runModelState.enter(false);
+            runModelState.enter(false, new RomLoader(romHex));
             circuitComponent.hasChanged();
         });
     }
 
     @Override
-    public void start() throws RemoteException {
+    public void start(File romHex) throws RemoteException {
         setDebug(false);
         SwingUtilities.invokeLater(() -> {
             windowPosManager.closeAll();
-            runModelState.enter(true);
+            runModelState.enter(true, new RomLoader(romHex));
             circuitComponent.hasChanged();
         });
     }
