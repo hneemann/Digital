@@ -118,7 +118,7 @@ in assembly language programs. So the debugging of assembly programs becomes ver
 ### Debugging ###
 
 In Logisim there is no easy way to debug an assembly program in a simulated processor.
-Digital has a simple TCP-based remote control interface, so an [assembler IDE](https://github.com/hneemann/Assembler) 
+Digital offers a simple TCP-based remote control interface, so an [assembler IDE](https://github.com/hneemann/Assembler) 
 can be used to control the simulator and load assembly programs into the simulated processor, start the program, perform 
 single steps and so on. If a "single step" or a "run to next BRK instruction" is triggered by the assembly IDE, the
 actual used address of the program memory is returned to the assembler IDE. 
