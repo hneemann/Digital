@@ -432,15 +432,6 @@ public class Model implements Iterable<Node> {
         return n;
     }
 
-
-    public void addProgRom(ROM rom) {
-        progRoms.add(rom);
-    }
-
-    public ArrayList<ROM> getProgRoms() {
-        return progRoms;
-    }
-
     /**
      * fires a model changed event to all listeners
      */
@@ -463,11 +454,39 @@ public class Model implements Iterable<Node> {
      * @return the list, not null, but maybe empty
      */
     public <NODE extends Node> List<NODE> findNode(Class<NODE> nodeClass) {
+        return findNode(nodeClass, n -> true);
+    }
+
+    /**
+     * Returns all nodes of the given class.
+     * A filter cann be used to narrow down the amount of nodes found.
+     *
+     * @param nodeClass the class
+     * @param filter    filter to filter the nodes
+     * @param <NODE>    the node type
+     * @return the list, not null, but maybe empty
+     */
+    public <NODE extends Node> List<NODE> findNode(Class<NODE> nodeClass, NodeFilter<NODE> filter) {
         ArrayList<NODE> found = new ArrayList<>();
         for (Node n : nodes)
-            if (n.getClass() == nodeClass)
+            if (n.getClass() == nodeClass && filter.accept((NODE) n))
                 found.add((NODE) n);
         return found;
+    }
+
+    /**
+     * A filter for nodes
+     *
+     * @param <NODE>
+     */
+    public interface NodeFilter<NODE extends Node> {
+        /**
+         * Accepts the node
+         *
+         * @param n the node
+         * @return true if accepted
+         */
+        boolean accept(NODE n);
     }
 
     @Override

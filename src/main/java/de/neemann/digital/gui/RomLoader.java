@@ -8,7 +8,7 @@ import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Modifier that loads a given rom file to the program memory of the model.
@@ -28,7 +28,7 @@ public class RomLoader implements ModelModifier {
 
     @Override
     public void preInit(Model model) throws NodeException {
-        ArrayList<ROM> roms = model.getProgRoms();
+        List<ROM> roms = model.findNode(ROM.class, ROM::isProgramMemory);
         if (roms.isEmpty())
             throw new NodeException(Lang.get("msg_noRomFound"));
         if (roms.size() > 1)

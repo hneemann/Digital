@@ -101,9 +101,6 @@ public class ROM extends Node implements Element {
 
     @Override
     public void init(Model model) throws NodeException {
-        if (isProgramMemory) {
-            model.addProgRom(this);
-        }
         if (autoLoad) {
             try {
                 data = new DataField(hexFile);

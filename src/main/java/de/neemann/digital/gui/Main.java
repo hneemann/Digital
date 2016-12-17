@@ -986,7 +986,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         private long addr;
 
         private void getProgRomAddr(Model model) {
-            ArrayList<ROM> roms = model.getProgRoms();
+            List<ROM> roms = model.findNode(ROM.class, ROM::isProgramMemory);
             if (roms.size() == 1)
                 addr = roms.get(0).getRomAddress();
             else
@@ -999,6 +999,29 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             else
                 return Long.toHexString(addr);
         }
+    }
+
+    private void setDebug(boolean debug) throws RemoteException {
+        settings.set(Keys.SHOW_DATA_TABLE, debug);
+    }
+
+    @Override
+    public void start(File romHex) throws RemoteException {
+        setDebug(false);
+        SwingUtilities.invokeLater(() -> {
+            windowPosManager.closeAll();
+            runModelState.enter(true, new RomLoader(romHex));
+            circuitComponent.hasChanged();
+        });
+    }
+
+    @Override
+    public void debug(File romHex) throws RemoteException {
+        setDebug(true);
+        SwingUtilities.invokeLater(() -> {
+            runModelState.enter(false, new RomLoader(romHex));
+            circuitComponent.hasChanged();
+        });
     }
 
     @Override
@@ -1045,29 +1068,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         } catch (InterruptedException | InvocationTargetException e) {
             throw new RemoteException("error performing a run to break " + e.getMessage());
         }
-    }
-
-    private void setDebug(boolean debug) throws RemoteException {
-        settings.set(Keys.SHOW_DATA_TABLE, debug);
-    }
-
-    @Override
-    public void debug(File romHex) throws RemoteException {
-        setDebug(true);
-        SwingUtilities.invokeLater(() -> {
-            runModelState.enter(false, new RomLoader(romHex));
-            circuitComponent.hasChanged();
-        });
-    }
-
-    @Override
-    public void start(File romHex) throws RemoteException {
-        setDebug(false);
-        SwingUtilities.invokeLater(() -> {
-            windowPosManager.closeAll();
-            runModelState.enter(true, new RomLoader(romHex));
-            circuitComponent.hasChanged();
-        });
     }
 
     @Override
