@@ -6,7 +6,11 @@
       <string>Description</string>
       <string>Einfacher Prozessor, der an die MIPS-Architektur 
 angelehnt ist. Es handelt sich um eine Harvard 
-Single-Cycle CPU.</string>
+Single-Cycle CPU. Er verfügt über einen Interrupt 
+Controller, der gesteuert durch einen Zähler, alle
+2048 Zyklen einen Interrupt auslöst, und dabei die
+feste Adresse 0x1000 anspringt.
+An dieser Adresse muss sich die ISR befinden.</string>
     </entry>
   </attributes>
   <visualElements>
@@ -1349,6 +1353,10 @@ Single-Cycle CPU.</string>
       <p2 x="1120" y="580"/>
     </wire>
     <wire>
+      <p1 x="320" y="260"/>
+      <p2 x="480" y="260"/>
+    </wire>
+    <wire>
       <p1 x="500" y="520"/>
       <p2 x="620" y="520"/>
     </wire>
@@ -1621,10 +1629,6 @@ Single-Cycle CPU.</string>
       <p2 x="680" y="560"/>
     </wire>
     <wire>
-      <p1 x="320" y="240"/>
-      <p2 x="480" y="240"/>
-    </wire>
-    <wire>
       <p1 x="1200" y="500"/>
       <p2 x="1220" y="500"/>
     </wire>
@@ -1713,7 +1717,7 @@ Single-Cycle CPU.</string>
       <p2 x="1160" y="380"/>
     </wire>
     <wire>
-      <p1 x="320" y="240"/>
+      <p1 x="320" y="260"/>
       <p2 x="320" y="440"/>
     </wire>
     <wire>
@@ -1822,7 +1826,7 @@ Single-Cycle CPU.</string>
     </wire>
     <wire>
       <p1 x="480" y="140"/>
-      <p2 x="480" y="240"/>
+      <p2 x="480" y="260"/>
     </wire>
     <wire>
       <p1 x="480" y="680"/>
