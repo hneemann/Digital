@@ -83,8 +83,7 @@ public class GraphicSVG implements Graphic, Closeable {
     public void drawLine(Vector p1, Vector p2, Style style) {
         try {
             w.write("<line x1=\"" + p1.x + "\" y1=\"" + p1.y + "\" x2=\"" + p2.x + "\" y2=\"" + p2.y + "\" stroke=\"" + getColor(style) + "\" stroke-linecap=\"square\" stroke-width=\"" + getStrokeWidth(style) + "\"");
-//            if (style.isDashed())
-//                addStrokeDash(w, style.getDashArray());
+            addStrokeDash(w, style.getDash());
             w.write(" />\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -106,10 +105,9 @@ public class GraphicSVG implements Graphic, Closeable {
                 w.write(" Z");
 
             w.write("\"");
-//            if (style.isDashed())
-//                addStrokeDash(w, style.getDashArray());
+            addStrokeDash(w, style.getDash());
             if (style.isFilled() && p.isClosed())
-                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" fill-opacity=\""+getOpacity(style)+"\"/>\n");
+                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" fill-opacity=\"" + getOpacity(style) + "\"/>\n");
             else
                 w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"/>\n");
         } catch (IOException e) {
@@ -130,8 +128,7 @@ public class GraphicSVG implements Graphic, Closeable {
                 w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" />\n");
             else {
                 w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"");
-//                if (style.isDashed())
-//                    addStrokeDash(w, style.getDashArray());
+                addStrokeDash(w, style.getDash());
                 w.write(" />\n");
             }
         } catch (IOException e) {
@@ -270,13 +267,15 @@ public class GraphicSVG implements Graphic, Closeable {
     }
 
 
-    private static void addStrokeDash(Writer w, int[] dashArray) throws IOException {
-        w.write(" stroke-dasharray=\"");
-        for (int i = 0; i < dashArray.length; i++) {
-            if (i != 0) w.write(',');
-            w.write(Integer.toString(dashArray[i]));
+    private static void addStrokeDash(Writer w, float[] dashArray) throws IOException {
+        if (dashArray != null) {
+            w.write(" stroke-dasharray=\"");
+            for (int i = 0; i < dashArray.length; i++) {
+                if (i != 0) w.write(',');
+                w.write(Float.toString(dashArray[i]));
+            }
+            w.write('"');
         }
-        w.write('"');
     }
 
     private String str(Vector p) {
