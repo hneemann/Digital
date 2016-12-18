@@ -956,8 +956,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             Vector p2 = new Vector(corner2.x, corner1.y);
             gr.drawLine(corner1, p1, Style.DASH);
             gr.drawLine(p1, corner2, Style.DASH);
-            gr.drawLine(corner2, p2, Style.DASH);
-            gr.drawLine(p2, corner1, Style.DASH);
+            gr.drawLine(p2, corner2, Style.DASH);
+            gr.drawLine(corner1, p2, Style.DASH);
         }
 
         @Override
