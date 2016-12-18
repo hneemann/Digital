@@ -2,6 +2,7 @@ Release Notes
 
 planed as v0.9:
 - improved documentation
+- moved "show listing" functions to the assembly IDE.
 - rearrangement of the elements in the element menu
 - made "don't care" in test case input values functional
 - added a better test data parser which supports a "for([n])" statement.
