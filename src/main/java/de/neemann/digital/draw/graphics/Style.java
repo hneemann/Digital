@@ -64,6 +64,10 @@ public class Style {
      */
     public static final Style SHAPE_PIN = new Style(LINETHICK, false, Color.GRAY, 18, null);
     /**
+     * Used to draw the pin description text
+     */
+    public static final Style WIRE_VALUE = new Style(LINETHICK, false, new Color(50, 162, 50), 18, null);
+    /**
      * highlight color used for the circles to mark an element
      */
     public static final Style HIGHLIGHT = new Style(WIRETHICK, false, Color.CYAN);

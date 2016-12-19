@@ -14,7 +14,7 @@ import java.util.Collection;
  * @author hneemann
  */
 public class Wire implements Drawable, Moveable {
-    private static final int MIN_LABEL_LEN = 100;
+    private static final int MIN_LABEL_LEN = 80;
     /**
      * The first endpoint of the line
      */
@@ -60,7 +60,7 @@ public class Wire implements Drawable, Moveable {
 
         if (value != null && p1.y == p2.y && Math.abs(p1.x - p2.x) > MIN_LABEL_LEN && value.getBits() > 1) {
             Vector pos = p1.add(p2).div(2).add(0, -3);
-            graphic.drawText(pos, pos.add(1, 0), value.getValueString(), de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
+            graphic.drawText(pos, pos.add(1, 0), value.getValueString(), de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM, Style.WIRE_VALUE);
         }
 
         if (p1Dot || p2Dot) {
