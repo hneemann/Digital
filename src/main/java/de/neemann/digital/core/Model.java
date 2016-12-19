@@ -29,7 +29,9 @@ import java.util.*;
  * </li>
  * </ol>
  * There are also some lists to store special elements. These lists are populated by the elements during the
- * call of the registerNodes method.
+ * call of the registerNodes method. These lists are necessary to keep track of all elements which are not a node like
+ * inputs and outputs. All elements which are nodes can be obtained by {@link #findNode(Class, NodeFilter)} or
+ * {@link #findNode(Class)}.
  *
  * @author hneemann
  * @see de.neemann.digital.core.element.Element#registerNodes(Model)
@@ -72,8 +74,8 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Returns the actual step counter
-     * This counter is increased by every micro step
+     * Returns the actual step counter.
+     * This counter is incremented by every micro step
      *
      * @return the step counter
      */
@@ -99,6 +101,7 @@ public class Model implements Iterable<Node> {
 
     /**
      * Needs to be called after all nodes are added.
+     * Resets and initializes the model.
      * Calls <code>init(true);</code>
      *
      * @throws NodeException NodeException
@@ -109,6 +112,7 @@ public class Model implements Iterable<Node> {
 
     /**
      * Needs to be called after all nodes are added.
+     * Resets and initializes the model.
      *
      * @param noise setup with ore without noise
      * @throws NodeException NodeException
@@ -143,7 +147,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Performes a step without noise.
+     * Performs a step without noise.
      *
      * @throws NodeException NodeException
      */
@@ -153,8 +157,8 @@ public class Model implements Iterable<Node> {
 
     /**
      * Performs a step.
-     * This means all Nodes which needs a update are updated, and all further nudes to
-     * update are also updated until the is no further Node to update.
+     * This means all nodes which needs a update are updated, and all further nodes to
+     * update are also updated until there is no further node to update.
      * So this method propagates a value change through the whole model.
      *
      * @param noise calculation is performed using noise
@@ -183,7 +187,7 @@ public class Model implements Iterable<Node> {
      *     doMicroStep(noise);
      * </pre>
      *
-     * @param noise if true the microstep is performed with noise
+     * @param noise if true the micro step is performed with noise
      * @throws NodeException NodeException
      */
     public void doMicroStep(boolean noise) throws NodeException {
@@ -219,7 +223,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Runs the model until a positive edge at the Break element is detected.
+     * Runs the model until a positive edge at the break element is detected.
      *
      * @return The number of clock cycles necessary to get the positive edge
      * @throws NodeException NodeException
@@ -282,7 +286,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Adds a observer to this model
+     * Adds an observer to this model.
      *
      * @param observer the observer to add
      */
@@ -291,7 +295,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Removes a observer to this model
+     * Removes an observer to this model.
      *
      * @param observer the observer to remove
      */
@@ -300,7 +304,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Returns the first observer of the given class
+     * Returns the first observer of the given class.
      *
      * @param observerClass the observer class
      * @return the found observer or null if not present
@@ -318,7 +322,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * registers a Clock to the model
+     * Registers a Clock to the model.
      *
      * @param clock the clock
      */
@@ -334,7 +338,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * registers a Break to the model
+     * Registers a Break to the model
      *
      * @param aBreak the break
      */
@@ -350,7 +354,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * registers a Reset to the model
+     * Registers a Reset to the model.
      *
      * @param reset the Reset
      */
@@ -366,7 +370,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * registers a Signal to the model
+     * Registers a signal to the model.
      *
      * @param signal the signal
      */
@@ -376,7 +380,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * registers a input to the model
+     * Registers an input to the model.
      *
      * @param signal the signal
      */
@@ -395,7 +399,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * registers a output to the model
+     * Registers a output to the model.
      *
      * @param signal the signal
      */
@@ -414,14 +418,14 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * @return all registered Signals
+     * @return all registered signals
      */
     public ArrayList<Signal> getSignals() {
         return signals;
     }
 
     /**
-     * @return a copy of all registered Signals
+     * @return a copy of all registered signals
      */
     public ArrayList<Signal> getSignalsCopy() {
         ArrayList<Signal> n = new ArrayList<>(signals.size());
@@ -430,7 +434,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * fires a model changed event to all listeners
+     * Fires a model changed event to all listeners.
      */
     public void fireManualChangeEvent() {
         fireEvent(ModelEvent.MANUALCHANGE);
@@ -444,7 +448,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Returns all nodes of the given class
+     * Returns all nodes of the given class.
      *
      * @param nodeClass the class
      * @param <NODE>    the node type
@@ -472,7 +476,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * A filter for nodes
+     * A filter for nodes.
      *
      * @param <NODE>
      */
@@ -492,7 +496,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * removes a node from this model
+     * Removes a node from this model.
      *
      * @param node the node to remove
      */
@@ -501,7 +505,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Returns the input with the given name
+     * Returns the input with the given name.
      *
      * @param name the name
      * @return the input value
@@ -514,7 +518,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * Returns the output with the given name
+     * Returns the output with the given name.
      *
      * @param name the name
      * @return the input value
