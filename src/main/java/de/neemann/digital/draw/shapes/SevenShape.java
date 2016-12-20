@@ -40,7 +40,7 @@ public abstract class SevenShape implements Shape {
     private static final Polygon C = F.transform(v -> v.add(LH + 4 - SL, LV + 4));
     private static final Polygon E = F.transform(v -> v.add(-SL, LV + 4));
 
-    private static final Vector DOT = new Vector(X0 + LH + 4, Y0 + LV * 2 + 8);
+    private static final Vector DOT = new Vector(X0 + LH + 4, Y0 + LV * 2 + 9);
     private static final Vector DOTPOS1 = DOT.add(-3, -3);
     private static final Vector DOTPOS2 = DOT.add(3, 3);
 
