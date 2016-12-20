@@ -25,22 +25,22 @@ public abstract class SevenShape implements Shape {
     private static final int LH = 55;
     private static final int LV = 55;
     private static final int X0 = 4;
-    private static final int Y0 = 13;
-    private static final int X1 = X0 - 1;
-    private static final int Y1 = Y0 + 1;
+    private static final int Y0 = 11;
+    private static final int X1 = X0 - 2;
+    private static final int Y1 = Y0 + 2;
     private static final int SL = 2;
 
     private static final Polygon A = new Polygon(true)
             .add(X0, Y0).add(X0 + TH, Y0 - TH).add(X0 + LH - TH, Y0 - TH).add(X0 + LH, Y0).add(X0 + LH - TH, Y0 + TH).add(X0 + TH, Y0 + TH);
-    private static final Polygon G = A.transform(v -> v.add(-SL, LV + 2));
-    private static final Polygon D = A.transform(v -> v.add(-SL * 2, 2 * LV + 4));
+    private static final Polygon G = A.transform(v -> v.add(-SL, LV + 4));
+    private static final Polygon D = A.transform(v -> v.add(-SL * 2, 2 * LV + 8));
     private static final Polygon F = new Polygon(true)
             .add(X1, Y1).add(X1 + TH, Y1 + TH).add(X1 + TH - SL, Y1 + LV - TH).add(X1 - SL, Y1 + LV).add(X1 - TH - SL, Y1 + LV - TH).add(X1 - TH, Y1 + TH);
-    private static final Polygon B = F.transform(v -> v.add(LH + 2, 0));
-    private static final Polygon C = F.transform(v -> v.add(LH + 2 - SL, LV + 2));
-    private static final Polygon E = F.transform(v -> v.add(-SL, LV + 2));
+    private static final Polygon B = F.transform(v -> v.add(LH + 4, 0));
+    private static final Polygon C = F.transform(v -> v.add(LH + 4 - SL, LV + 4));
+    private static final Polygon E = F.transform(v -> v.add(-SL, LV + 4));
 
-    private static final Vector DOT = new Vector(X0 + LH + 4, Y0 + LV * 2 + 4);
+    private static final Vector DOT = new Vector(X0 + LH + 4, Y0 + LV * 2 + 8);
     private static final Vector DOTPOS1 = DOT.add(-3, -3);
     private static final Vector DOTPOS2 = DOT.add(3, 3);
 
