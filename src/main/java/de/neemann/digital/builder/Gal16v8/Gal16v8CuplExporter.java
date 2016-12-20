@@ -36,6 +36,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
     private final String devName;
 
     private String projectName;
+    private int clockPin = 1;
 
     /**
      * Creates a new project name
@@ -54,6 +55,15 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         this(username, date, "g16v8a", new PinMap()
                 .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9)
                 .setAvailOutputs(12, 13, 14, 15, 16, 17, 18, 19));
+    }
+
+    /**
+     * Sets the clock pin.
+     *
+     * @param clockPin the clock pin
+     */
+    protected void setClockPin(int clockPin) {
+        this.clockPin = clockPin;
     }
 
     /**
@@ -118,7 +128,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
 
         out.append("\r\n/* inputs */\r\n");
         if (!builder.getRegistered().isEmpty())
-            out.append("PIN 1 = CLK;\r\n");
+            out.append("PIN " + clockPin + " = CLK;\r\n");
 
         for (String in : builder.getInputs())
             out.append("PIN ").append(Integer.toString(pinMap.getInputFor(in))).append(" = ").append(in).append(";\r\n");

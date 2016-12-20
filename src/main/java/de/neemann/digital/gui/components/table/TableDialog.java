@@ -14,6 +14,7 @@ import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.builder.ATF1502.ATF1502CuplExporter;
 import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
@@ -86,7 +87,7 @@ public class TableDialog extends JDialog {
         font = label.getFont().deriveFont(20.0f);
         label.setFont(font);
         table = new JTable(model);
-        JComboBox<String> comboBox = new JComboBox<String>(TruthTableTableModel.STATENAMES);
+        JComboBox<String> comboBox = new JComboBox<>(TruthTableTableModel.STATENAMES);
         table.setDefaultEditor(Integer.class, new DefaultCellEditor(comboBox));
         table.setDefaultRenderer(Integer.class, new CenterDefaultTableCellRenderer());
         table.setRowHeight(25);
@@ -392,6 +393,17 @@ public class TableDialog extends JDialog {
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
         hardware.add(gal22v10);
 
+
+        JMenu atf1502 = new JMenu("ATF1502");
+        atf1502.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCUPL(new ATF1502CuplExporter());
+            }
+        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+        hardware.add(atf1502);
+
+
         createMenu.add(hardware);
 
         return createMenu;
@@ -435,28 +447,27 @@ public class TableDialog extends JDialog {
     }
 
     private void createCUPL(Gal16v8CuplExporter cupl) {
-        JFileChooser fileChooser = new JFileChooser();
-        if (filename != null && filename.getName().endsWith(".dig")) {
+        try {
+            if (filename == null)
+                throw new IOException(Lang.get("err_noFileNameAvailable"));
+
             String name = filename.getName();
-            File cuplPath = new File(filename.getParentFile(), "cupl");
-            File file = new File(cuplPath, name.substring(0, name.length() - 3) + "PLD");
-            if (!cuplPath.exists())
-                cuplPath.mkdirs();
-            fileChooser.setSelectedFile(file);
-        }
-        fileChooser.setFileFilter(new FileNameExtensionFilter("PLD", "PLD"));
-        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
-                File f = Main.checkSuffix(fileChooser.getSelectedFile(), "PLD");
-                cupl.setProjectName(f.getName());
-                cupl.getPinMapping().addAll(pinMap);
-                new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
-                try (FileOutputStream out = new FileOutputStream(f)) {
-                    cupl.writeTo(out);
-                }
-            } catch (ExpressionException | FormatterException | RuntimeException | IOException | FuseMapFillerException | PinMapException e) {
-                new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
+            if (name.endsWith(".dig")) name = name.substring(0, name.length() - 4);
+            File cuplPath = new File(filename.getParentFile(), "CUPL_" + name);
+
+            if (!cuplPath.mkdirs())
+                if (!cuplPath.exists())
+                    throw new IOException(Lang.get("err_couldNotCreateFolder_N0", cuplPath.getPath()));
+
+            File f = new File(cuplPath, "CUPL.PLD");
+            cupl.setProjectName(f.getName());
+            cupl.getPinMapping().addAll(pinMap);
+            new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
+            try (FileOutputStream out = new FileOutputStream(f)) {
+                cupl.writeTo(out);
             }
+        } catch (ExpressionException | FormatterException | RuntimeException | IOException | FuseMapFillerException | PinMapException e) {
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
         }
     }
 
@@ -675,5 +686,4 @@ public class TableDialog extends JDialog {
             return this;
         }
     }
-
 }

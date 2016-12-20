@@ -258,6 +258,9 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
     <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge! Verwenden Sie einen PullUp- oder PullDown-Widerstand</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
+    <string name="err_noFileNameAvailable">Die Datei wurde noch nicht gespeichert!</string>
+    <string name="err_couldNotCreateFolder_N0">Konnte den Order '{0}' nicht erzeugen!</string>
+
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
     <string name="key_Bits">Daten-Bits</string>
