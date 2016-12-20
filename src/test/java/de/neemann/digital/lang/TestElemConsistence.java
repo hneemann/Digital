@@ -6,6 +6,7 @@ import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.library.ElementLibrary;
 import junit.framework.TestCase;
 
@@ -27,9 +28,8 @@ public class TestElemConsistence extends TestCase {
             String key = "elem_" + etd.getName();
             assertNotNull(Lang.getNull(key));
 
-            //assertNotNull("Missing tooltip for "+key, Lang.getNull(key+"_tt"));
             if (Lang.getNull(key + "_tt") == null)
-                System.out.println("missing key " + key + "_tt");
+                missing(key + "_tt");
 
             if (isNormalElement(etd)) {
                 checkPins(key, etd.getInputDescription(new ElementAttributes()));
@@ -40,13 +40,17 @@ public class TestElemConsistence extends TestCase {
 
     private void checkPins(String key, PinDescriptions pins) {
         for (PinDescription in : pins) {
-            final String inputKey = key + "_pin_" + in.getName();
-            String str = Lang.getNull(inputKey);
-            //assertNotNull("missing key " + inputKey, str);
+            final String pinKey = key + "_pin_" + in.getName();
+            String str = Lang.getNull(pinKey);
             if (str == null)
-                System.out.println("missing key " + inputKey);
-
+                missing(pinKey);
         }
+    }
+
+    private void missing(String key) {
+        final String xml = GraphicSVG.escapeXML(key);
+        System.out.println("<string name=\"" + xml + "\">" + xml + "</string>");
+        //fail("key '" + key + "' is missing!");
     }
 
     private boolean isNormalElement(ElementTypeDescription etd) {

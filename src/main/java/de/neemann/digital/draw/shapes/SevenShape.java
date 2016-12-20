@@ -19,11 +19,31 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * @author hneemann
  */
 public abstract class SevenShape implements Shape {
-    static final int HEIGHT = 7;
-    private static final Vector OFS = new Vector(1, 12);
-    private static final int LEN = 56;
 
-    private final String label;
+    static final int HEIGHT = 7;
+    private static final int TH = 4;
+    private static final int LH = 55;
+    private static final int LV = 55;
+    private static final int X0 = 4;
+    private static final int Y0 = 13;
+    private static final int X1 = X0 - 1;
+    private static final int Y1 = Y0 + 1;
+    private static final int SL = 2;
+
+    private static final Polygon A = new Polygon(true)
+            .add(X0, Y0).add(X0 + TH, Y0 - TH).add(X0 + LH - TH, Y0 - TH).add(X0 + LH, Y0).add(X0 + LH - TH, Y0 + TH).add(X0 + TH, Y0 + TH);
+    private static final Polygon G = A.transform(v -> v.add(-SL, LV + 2));
+    private static final Polygon D = A.transform(v -> v.add(-SL * 2, 2 * LV + 4));
+    private static final Polygon F = new Polygon(true)
+            .add(X1, Y1).add(X1 + TH, Y1 + TH).add(X1 + TH - SL, Y1 + LV - TH).add(X1 - SL, Y1 + LV).add(X1 - TH - SL, Y1 + LV - TH).add(X1 - TH, Y1 + TH);
+    private static final Polygon B = F.transform(v -> v.add(LH + 2, 0));
+    private static final Polygon C = F.transform(v -> v.add(LH + 2 - SL, LV + 2));
+    private static final Polygon E = F.transform(v -> v.add(-SL, LV + 2));
+
+    private static final Vector DOT = new Vector(X0 + LH + 4, Y0 + LV * 2 + 4);
+    private static final Vector DOTPOS1 = DOT.add(-3, -3);
+    private static final Vector DOTPOS2 = DOT.add(3, 3);
+
     private final Style onStyle;
     private final Style offStyle;
 
@@ -33,9 +53,8 @@ public abstract class SevenShape implements Shape {
      * @param attr the attributes
      */
     public SevenShape(ElementAttributes attr) {
-        this.label = attr.getLabel();
-        onStyle = new Style(8, true, attr.get(Keys.COLOR));
-        offStyle = new Style(8, true, new Color(230, 230, 230));
+        onStyle = new Style(1, true, attr.get(Keys.COLOR));
+        offStyle = new Style(1, true, new Color(230, 230, 230));
     }
 
     @Override
@@ -46,18 +65,15 @@ public abstract class SevenShape implements Shape {
                 .add(SIZE * 3 + SIZE2, HEIGHT * SIZE - 1)
                 .add(-SIZE2, HEIGHT * SIZE - 1), Style.NORMAL);
 
-        int th = onStyle.getThickness() + 1;
-        int slant = 2;
-        int dot = 4;
-        int o = 4;
-        graphic.drawLine(new Vector(th + slant, 0).add(OFS), new Vector(LEN - th + slant, 0).add(OFS), getStyleInt(0));
-        graphic.drawLine(new Vector(LEN + slant, th - o).add(OFS), new Vector(LEN, LEN - th + o).add(OFS), getStyleInt(1));
-        graphic.drawLine(new Vector(LEN, LEN + th - o).add(OFS), new Vector(LEN - slant, 2 * LEN - th + o).add(OFS), getStyleInt(2));
-        graphic.drawLine(new Vector(th - slant, 2 * LEN).add(OFS), new Vector(LEN - th - slant, 2 * LEN).add(OFS), getStyleInt(3));
-        graphic.drawLine(new Vector(0, LEN + th - o).add(OFS), new Vector(-slant, 2 * LEN - th + o).add(OFS), getStyleInt(4));
-        graphic.drawLine(new Vector(slant, th - o).add(OFS), new Vector(0, LEN - th + o).add(OFS), getStyleInt(5));
-        graphic.drawLine(new Vector(th, LEN).add(OFS), new Vector(LEN - th, LEN).add(OFS), getStyleInt(6));
-        graphic.drawCircle(new Vector(LEN + dot - 1, LEN * 2 - slant - 1).add(OFS), new Vector(LEN + slant * 2 + dot + 1, LEN * 2 + slant + 1).add(OFS), getStyleInt(7));
+        graphic.drawPolygon(A, getStyleInt(0));
+        graphic.drawPolygon(B, getStyleInt(1));
+        graphic.drawPolygon(C, getStyleInt(2));
+        graphic.drawPolygon(D, getStyleInt(3));
+        graphic.drawPolygon(E, getStyleInt(4));
+        graphic.drawPolygon(F, getStyleInt(5));
+        graphic.drawPolygon(G, getStyleInt(6));
+
+        graphic.drawCircle(DOTPOS1, DOTPOS2, getStyleInt(7));
     }
 
     private Style getStyleInt(int i) {
