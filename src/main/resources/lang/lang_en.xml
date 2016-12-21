@@ -251,7 +251,6 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_openingDocumentation">Could not open the browser.</string>
     <string name="err_splitterDoesNotSupportHighZInputs">The splitter does not support high z inputs! Use a pull up or pull down resisitor.</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">A splitter which allows high z inputs can only have one input!</string>
-    <string name="err_noFileNameAvailable">File not saved already! There is no filename avaiable!</string>
     <string name="err_couldNotCreateFolder_N0">Could not create folder '{0}'!</string>
 
     <string name="key_AddrBits">Address Bits</string>
@@ -492,6 +491,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_errorSavingData">Error writing the data!</string>
     <string name="msg_creatingHelp">Error creating the help!</string>
     <string name="msg_clipboardContainsNoImportableData">The clipboard contains no importable data!</string>
+    <string name="msg_selectAnEmptyFolder">Select an empty folder!</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

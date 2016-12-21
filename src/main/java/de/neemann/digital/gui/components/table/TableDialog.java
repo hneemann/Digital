@@ -448,12 +448,27 @@ public class TableDialog extends JDialog {
 
     private void createCUPL(Gal16v8CuplExporter cupl) {
         try {
-            if (filename == null)
-                throw new IOException(Lang.get("err_noFileNameAvailable"));
-
-            String name = filename.getName();
-            if (name.endsWith(".dig")) name = name.substring(0, name.length() - 4);
-            File cuplPath = new File(filename.getParentFile(), "CUPL_" + name);
+            File cuplPath;
+            if (filename == null) {
+                JFileChooser fc = new JFileChooser();
+                fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                fc.setDialogTitle(Lang.get("msg_selectAnEmptyFolder"));
+                if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                    cuplPath = fc.getSelectedFile();
+                    filename = cuplPath;
+                } else {
+                    return;
+                }
+            } else {
+                if (filename.isDirectory()) {
+                    cuplPath = filename;
+                } else {
+                    String name = filename.getName();
+                    if (name.length() > 3 && name.charAt(name.length() - 4) == '.')
+                        name = name.substring(0, name.length() - 4);
+                    cuplPath = new File(filename.getParentFile(), "CUPL_" + name);
+                }
+            }
 
             if (!cuplPath.mkdirs())
                 if (!cuplPath.exists())

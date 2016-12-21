@@ -258,7 +258,6 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
     <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge! Verwenden Sie einen PullUp- oder PullDown-Widerstand</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
-    <string name="err_noFileNameAvailable">Die Datei wurde noch nicht gespeichert!</string>
     <string name="err_couldNotCreateFolder_N0">Konnte den Order '{0}' nicht erzeugen!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
@@ -499,6 +498,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_errorSavingData">Speichern der Daten fehlgeschlagen!</string>
     <string name="msg_creatingHelp">Fehler bei der Erzeugung der Hilfe!</string>
     <string name="msg_clipboardContainsNoImportableData">In der Zwischenablage befinden sich keine importierbaren Daten!</string>
+    <string name="msg_selectAnEmptyFolder">Wählen Sie einen leeren Ordner aus!</string>
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
