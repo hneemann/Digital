@@ -1564,16 +1564,16 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <p2 x="1240" y="420"/>
     </wire>
     <wire>
-      <p1 x="1040" y="680"/>
-      <p2 x="1080" y="680"/>
-    </wire>
-    <wire>
       <p1 x="960" y="680"/>
       <p2 x="980" y="680"/>
     </wire>
     <wire>
       <p1 x="1320" y="680"/>
       <p2 x="1340" y="680"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="680"/>
+      <p2 x="1080" y="680"/>
     </wire>
     <wire>
       <p1 x="1140" y="360"/>
@@ -1884,12 +1884,12 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <p2 x="500" y="700"/>
     </wire>
     <wire>
-      <p1 x="1080" y="640"/>
-      <p2 x="1080" y="680"/>
-    </wire>
-    <wire>
       <p1 x="440" y="680"/>
       <p2 x="440" y="700"/>
+    </wire>
+    <wire>
+      <p1 x="1080" y="640"/>
+      <p2 x="1080" y="680"/>
     </wire>
     <wire>
       <p1 x="380" y="680"/>

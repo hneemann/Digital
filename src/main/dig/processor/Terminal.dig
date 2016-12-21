@@ -4,7 +4,7 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Terminal</string>
+      <string>Terminal. Die Adresse ist 0x1F.</string>
     </entry>
   </attributes>
   <visualElements>

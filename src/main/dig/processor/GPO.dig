@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Element für ein allgemeines Ausgaberegister.</string>
+      <string>Element für ein allgemeines Ausgaberegister.
+Seine Adresse ist 0x15</string>
     </entry>
   </attributes>
   <visualElements>
