@@ -32,6 +32,7 @@ public class Counter extends Node implements Element {
     private ObservableValue clrIn;
     private boolean lastClock;
     private int counter;
+    private boolean ovfOut=false;
 
     /**
      * Creates a new instance
@@ -51,6 +52,11 @@ public class Counter extends Node implements Element {
         boolean clock = clockIn.getBool();
         if (clock && !lastClock) {
             counter++;
+            if (counter == ovfValue) {
+                counter = 0;
+                ovfOut = true;
+            } else
+                ovfOut = false;
         }
         lastClock = clock;
         if (clrIn.getBool())
@@ -59,12 +65,7 @@ public class Counter extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        if (counter == ovfValue) {
-            counter = 0;
-            ovf.setValue(1);
-        } else
-            ovf.setValue(0);
-
+        ovf.setBool(ovfOut);
         out.setValue(counter);
     }
 

@@ -40,7 +40,7 @@ public class CounterTest extends TestCase {
         }
         sc.check(0, 0, 255, 0);
         sc.check(1, 0, 0, 1);
-        sc.check(0, 0, 0, 0);
+        sc.check(0, 0, 0, 1);
         sc.check(1, 0, 1, 0);
     }
 

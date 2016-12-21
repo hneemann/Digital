@@ -1218,7 +1218,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <int>11</int>
         </entry>
       </elementAttributes>
-      <pos x="1020" y="660"/>
+      <pos x="980" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1232,12 +1232,12 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="660"/>
+      <pos x="960" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="1000" y="700"/>
+      <pos x="960" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1248,11 +1248,6 @@ An dieser Adresse muss sich die ISR befinden.</string>
         </entry>
       </elementAttributes>
       <pos x="1280" y="80"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="960" y="660"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -1321,7 +1316,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <p2 x="1340" y="640"/>
     </wire>
     <wire>
-      <p1 x="1100" y="640"/>
+      <p1 x="1080" y="640"/>
       <p2 x="1120" y="640"/>
     </wire>
     <wire>
@@ -1473,12 +1468,8 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <p2 x="1340" y="660"/>
     </wire>
     <wire>
-      <p1 x="940" y="660"/>
-      <p2 x="960" y="660"/>
-    </wire>
-    <wire>
-      <p1 x="1000" y="660"/>
-      <p2 x="1020" y="660"/>
+      <p1 x="960" y="660"/>
+      <p2 x="980" y="660"/>
     </wire>
     <wire>
       <p1 x="1320" y="340"/>
@@ -1573,12 +1564,12 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <p2 x="1240" y="420"/>
     </wire>
     <wire>
-      <p1 x="1080" y="680"/>
-      <p2 x="1100" y="680"/>
+      <p1 x="1040" y="680"/>
+      <p2 x="1080" y="680"/>
     </wire>
     <wire>
-      <p1 x="1000" y="680"/>
-      <p2 x="1020" y="680"/>
+      <p1 x="960" y="680"/>
+      <p2 x="980" y="680"/>
     </wire>
     <wire>
       <p1 x="1320" y="680"/>
@@ -1721,6 +1712,10 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <p2 x="320" y="440"/>
     </wire>
     <wire>
+      <p1 x="960" y="680"/>
+      <p2 x="960" y="700"/>
+    </wire>
+    <wire>
       <p1 x="580" y="460"/>
       <p2 x="580" y="560"/>
     </wire>
@@ -1759,10 +1754,6 @@ An dieser Adresse muss sich die ISR befinden.</string>
     <wire>
       <p1 x="1420" y="80"/>
       <p2 x="1420" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="640"/>
-      <p2 x="1100" y="680"/>
     </wire>
     <wire>
       <p1 x="400" y="680"/>
@@ -1865,10 +1856,6 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <p2 x="420" y="700"/>
     </wire>
     <wire>
-      <p1 x="1000" y="680"/>
-      <p2 x="1000" y="700"/>
-    </wire>
-    <wire>
       <p1 x="360" y="680"/>
       <p2 x="360" y="700"/>
     </wire>
@@ -1895,6 +1882,10 @@ An dieser Adresse muss sich die ISR befinden.</string>
     <wire>
       <p1 x="500" y="680"/>
       <p2 x="500" y="700"/>
+    </wire>
+    <wire>
+      <p1 x="1080" y="640"/>
+      <p2 x="1080" y="680"/>
     </wire>
     <wire>
       <p1 x="440" y="680"/>
