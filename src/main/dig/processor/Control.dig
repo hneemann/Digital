@@ -91,72 +91,11 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>
-            <size>63</size>
-            <long>0</long>
-            <long>2097280</long>
-            <long>4195520</long>
-            <long>4211904</long>
-            <long>4196544</long>
-            <long>4212928</long>
-            <long>4197568</long>
-            <long>4198592</long>
-            <long>4199616</long>
-            <long>196</long>
-            <long>212</long>
-            <long>4195524</long>
-            <long>4195540</long>
-            <long>4211908</long>
-            <long>4211924</long>
-            <long>4196548</long>
-            <long>4196564</long>
-            <long>4212932</long>
-            <long>4212948</long>
-            <long>4197572</long>
-            <long>4197588</long>
-            <long>4198596</long>
-            <long>4198612</long>
-            <long>4199620</long>
-            <long>4199636</long>
-            <long>4205760</long>
-            <long>4205764</long>
-            <long>4205780</long>
-            <long>4196352</long>
-            <long>4196356</long>
-            <long>4196372</long>
-            <long>4200640</long>
-            <long>4201664</long>
-            <long>4217024</long>
-            <long>4218048</long>
-            <long>4202688</long>
-            <long>9408</long>
-            <long>10432</long>
-            <long>2098186</long>
-            <long>1673</long>
-            <long>2097158</long>
-            <long>2097182</long>
-            <long>133</long>
-            <long>149</long>
-            <long>2098182</long>
-            <long>1669</long>
-            <long>32792</long>
-            <long>65560</long>
-            <long>98328</long>
-            <long>163864</long>
-            <long>196632</long>
-            <long>229400</long>
-            <long>420</long>
-            <long>32</long>
-            <long>36</long>
-            <long>131096</long>
-            <long>2359300</long>
-            <long>2359324</long>
-            <long>2360328</long>
-            <long>524932</long>
-            <long>524948</long>
-            <long>525960</long>
-            <long>1048576</long>
-          </data>
+          <data size="64">0,200080,4004c0,4044c0,4008c0,4048c0,400cc0,4010c0,4014c0,c4,d4,4004c4,4004d4,4044c4,
+4044d4,4008c4,4008d4,4048c4,4048d4,400cc4,400cd4,4010c4,4010d4,4014c4,4014d4,402cc0,
+402cc4,402cd4,400800,400804,400814,4018c0,401cc0,4058c0,405cc0,4020c0,24c0,28c0,20040a,
+689,200006,20001e,85,95,200406,685,8018,10018,18018,28018,30018,38018,1a4,20,24,20018,
+240004,24001c,240408,80284,80294,80688,100000,800020</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
@@ -436,6 +375,20 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       </elementAttributes>
       <pos x="580" y="220"/>
     </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>return from interrupt</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>reti</string>
+        </entry>
+      </elementAttributes>
+      <pos x="860" y="500"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -513,6 +466,10 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
     <wire>
       <p1 x="620" y="340"/>
       <p2 x="860" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="500"/>
+      <p2 x="860" y="500"/>
     </wire>
     <wire>
       <p1 x="620" y="280"/>
