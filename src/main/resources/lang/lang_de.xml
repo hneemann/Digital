@@ -186,7 +186,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
     <string name="elem_RAMDualPort_pin_c">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
     <string name="elem_RAMDualPort_pin_D_in">Die Daten die gespeichert werden sollen</string>
-    <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten daten.</string>
+    <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
     <string name="elem_RAMDualPort_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
