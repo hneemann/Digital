@@ -15,16 +15,6 @@ An dieser Adresse muss sich die ISR befinden.</string>
   </attributes>
   <visualElements>
     <visualElement>
-      <elementName>Control.dig</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="620" y="580"/>
-    </visualElement>
-    <visualElement>
       <elementName>Register.dig</elementName>
       <elementAttributes/>
       <pos x="640" y="120"/>
@@ -1282,6 +1272,16 @@ An dieser Adresse muss sich die ISR befinden.</string>
         </entry>
       </elementAttributes>
       <pos x="380" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>C:/_daten/sourcen/digital/src/main/dig/processor/ControlIntr.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+      </elementAttributes>
+      <pos x="620" y="580"/>
     </visualElement>
   </visualElements>
   <wires>
