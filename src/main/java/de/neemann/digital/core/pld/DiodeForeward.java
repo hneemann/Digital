@@ -31,7 +31,17 @@ public class DiodeForeward implements Element, Observer {
      * @param attr the elements attributes
      */
     public DiodeForeward(ElementAttributes attr) {
-        output = new ObservableValue("out", 1, true);
+        this(attr, DESCRIPTION);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param attr        the elements attributes
+     * @param description used to set the output pin description
+     */
+    protected DiodeForeward(ElementAttributes attr, ElementTypeDescription description) {
+        output = new ObservableValue("out", 1, true).setPinDescription(description);
         blown = attr.get(Keys.BLOWN);
         if (blown)
             output.set(1, true);

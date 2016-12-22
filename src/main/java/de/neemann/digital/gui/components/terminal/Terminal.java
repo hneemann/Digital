@@ -8,7 +8,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 
@@ -24,8 +23,8 @@ public class Terminal extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Terminal.class,
-            input("D", Lang.get("elem_Terminal_pin_D")),
-            input("C", Lang.get("elem_Terminal_pin_C")))
+            input("D"),
+            input("C"))
             .addAttribute(Keys.TERM_WIDTH)
             .addAttribute(Keys.TERM_HEIGHT)
             .addAttribute(Keys.ROTATE)

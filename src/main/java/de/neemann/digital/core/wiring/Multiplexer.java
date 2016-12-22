@@ -31,7 +31,7 @@ public class Multiplexer extends FanIn {
             PinDescription[] names = new PinDescription[size + 1];
             names[0] = input("sel", Lang.get("elem_Multiplexer_pin_sel"));
             for (int i = 0; i < size; i++)
-                names[i + 1] = input("in_" + i);
+                names[i + 1] = input("in_" + i, Lang.get("elem_Multiplexer_input", i));
             return new PinDescriptions(names);
         }
     }
@@ -48,6 +48,7 @@ public class Multiplexer extends FanIn {
     public Multiplexer(ElementAttributes attributes) {
         super(attributes.get(Keys.BITS));
         this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
+        getOutput().setDescription(Lang.get("elem_Multiplexer_output"));
     }
 
     @Override

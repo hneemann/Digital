@@ -31,7 +31,7 @@ public class PullDown implements Element {
      */
     public PullDown(ElementAttributes attr) {
         int bits = attr.getBits();
-        output = new PullObservableValue(bits, PinDescription.PullResistor.pullDown);
+        output = new PullObservableValue(bits, PinDescription.PullResistor.pullDown).setPinDescription(DESCRIPTION);
     }
 
     @Override

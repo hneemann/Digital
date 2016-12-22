@@ -5,6 +5,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -24,7 +25,7 @@ public class LookUpTable extends Node implements Element {
             int size = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[size];
             for (int i = 0; i < size; i++)
-                names[i] = input(Integer.toString(i));
+                names[i] = input(Integer.toString(i), Lang.get("elem_LookUpTable_pin_in", i));
             return new PinDescriptions(names);
         }
     }
@@ -46,7 +47,7 @@ public class LookUpTable extends Node implements Element {
      */
     public LookUpTable(ElementAttributes attr) {
         int bits = attr.get(Keys.BITS);
-        output = new ObservableValue("out", bits);
+        output = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
         data = attr.get(Keys.DATA);
     }
 

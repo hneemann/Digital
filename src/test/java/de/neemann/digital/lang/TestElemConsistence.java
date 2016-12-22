@@ -4,6 +4,8 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.FanIn;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.memory.LookUpTable;
+import de.neemann.digital.core.wiring.Decoder;
+import de.neemann.digital.core.wiring.Demultiplexer;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.GraphicSVG;
@@ -50,13 +52,15 @@ public class TestElemConsistence extends TestCase {
     private void missing(String key) {
         final String xml = GraphicSVG.escapeXML(key);
         System.out.println("<string name=\"" + xml + "\">" + xml + "</string>");
-        //fail("key '" + key + "' is missing!");
+        fail("key '" + key + "' is missing!");
     }
 
     private boolean isNormalElement(ElementTypeDescription etd) {
         Element e = etd.createElement(new ElementAttributes());
 
         return !(e instanceof FanIn
+                || e instanceof Demultiplexer
+                || e instanceof Decoder
                 || e instanceof Splitter
                 || e instanceof LookUpTable);
     }

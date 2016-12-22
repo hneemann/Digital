@@ -32,7 +32,7 @@ public class Reset implements Element {
      * @param attributes the attributes
      */
     public Reset(ElementAttributes attributes) {
-        output = new ObservableValue("Reset", 1);
+        output = new ObservableValue("Reset", 1).setPinDescription(DESCRIPTION);
     }
 
     @Override

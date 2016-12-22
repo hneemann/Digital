@@ -44,8 +44,8 @@ public class FlipflopRS extends Node implements Element {
      */
     public FlipflopRS(ElementAttributes attributes) {
         super(true);
-        this.q = new ObservableValue("Q", 1);
-        this.qn = new ObservableValue("\u00ACQ", 1);
+        this.q = new ObservableValue("Q", 1).setPinDescription(DESCRIPTION);
+        this.qn = new ObservableValue("\u00ACQ", 1).setPinDescription(DESCRIPTION);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getCleanLabel();
     }

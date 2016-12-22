@@ -10,7 +10,6 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.RAMInterface;
-import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 
@@ -30,11 +29,11 @@ public class GraphicCard extends Node implements Element, RAMInterface {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(GraphicCard.class,
-            input("A", Lang.get("elem_RAMSinglePort_pin_addr")),
-            input("str", Lang.get("elem_RAMSinglePort_pin_str")),
-            input("C", Lang.get("elem_RAMSinglePort_pin_c")),
-            input("ld", Lang.get("elem_RAMSinglePort_pin_ld")),
-            input("B", Lang.get("elem_GraphicCard_pin_B")))
+            input("A"),
+            input("str"),
+            input("C"),
+            input("ld"),
+            input("B"))
             .addAttribute(Keys.GRAPHIC_WIDTH)
             .addAttribute(Keys.GRAPHIC_HEIGHT)
             .addAttribute(Keys.ROTATE)
@@ -70,7 +69,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         memory = new DataField(bankSize * 2);
 
         dataOut = new ObservableValue("D", 16, true)
-                .setDescription(Lang.get("elem_RAMSinglePort_pin_d"))
+                .setPinDescription(DESCRIPTION)
                 .setBidirectional(true);
     }
 

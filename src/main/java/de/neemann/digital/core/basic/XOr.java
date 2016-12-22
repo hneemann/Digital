@@ -34,7 +34,7 @@ public class XOr extends Node implements Element {
      */
     public XOr(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        this.out = new ObservableValue("out", bits);
+        this.out = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
     }
 
     @Override

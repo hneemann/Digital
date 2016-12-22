@@ -42,8 +42,8 @@ public class Counter extends Node implements Element {
     public Counter(ElementAttributes attributes) {
         super(true);
         int bits = attributes.getBits();
-        this.out = new ObservableValue("out", bits);
-        this.ovf = new ObservableValue("ovf", 1);
+        this.out = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
+        this.ovf = new ObservableValue("ovf", 1).setPinDescription(DESCRIPTION);
         ovfValue = 1 << bits;
     }
 

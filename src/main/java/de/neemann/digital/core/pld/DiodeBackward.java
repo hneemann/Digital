@@ -27,7 +27,7 @@ public class DiodeBackward extends DiodeForeward {
      * @param attr the elements attributes
      */
     public DiodeBackward(ElementAttributes attr) {
-        super(attr);
+        super(attr, DESCRIPTION);
     }
 
     @Override

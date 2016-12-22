@@ -40,7 +40,7 @@ public class BitCount extends Node implements Element {
         int outBits = 1;
         while ((1 << outBits) <= inBits)
             outBits++;
-        output = new ObservableValue("out", outBits);
+        output = new ObservableValue("out", outBits).setPinDescription(DESCRIPTION);
     }
 
     @Override

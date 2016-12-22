@@ -42,7 +42,7 @@ public class Driver extends Node implements Element {
      */
     public Driver(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        output = new ObservableValue("out", bits, true);
+        output = new ObservableValue("out", bits, true).setPinDescription(DESCRIPTION);
     }
 
     @Override

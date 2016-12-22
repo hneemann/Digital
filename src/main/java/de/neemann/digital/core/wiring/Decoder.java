@@ -23,7 +23,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 public class Decoder extends Node implements Element {
 
     private final int selectorBits;
-    private final long defaultValue;
     private final ObservableValues output;
     private ObservableValue selector;
 
@@ -34,11 +33,10 @@ public class Decoder extends Node implements Element {
      * The Decoder description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Decoder.class,
-            input("sel", Lang.get("elem_Decode_pin_sel")))
+            input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.SELECTOR_BITS)
-            .addAttribute(Keys.FLIP_SEL_POSITON)
-            .addAttribute(Keys.DEFAULT);
+            .addAttribute(Keys.FLIP_SEL_POSITON);
 
     /**
      * Creates a new instance
@@ -47,11 +45,10 @@ public class Decoder extends Node implements Element {
      */
     public Decoder(ElementAttributes attributes) {
         this.selectorBits = attributes.get(Keys.SELECTOR_BITS);
-        this.defaultValue = attributes.get(Keys.DEFAULT);
         int outputs = 1 << selectorBits;
         ArrayList<ObservableValue> o = new ArrayList<>(outputs);
         for (int i = 0; i < outputs; i++)
-            o.add(new ObservableValue("out_" + i, 1).setValue(defaultValue));
+            o.add(new ObservableValue("out_" + i, 1).setValue(0).setDescription(Lang.get("elem_Decoder_output", i)));
         output = new ObservableValues(o);
     }
 
@@ -67,7 +64,7 @@ public class Decoder extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.get(oldSelectorValue).setValue(defaultValue);
+        output.get(oldSelectorValue).setValue(0);
         output.get(selectorValue).setValue(1);
         oldSelectorValue = selectorValue;
     }
