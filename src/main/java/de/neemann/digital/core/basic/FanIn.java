@@ -5,6 +5,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 
@@ -29,13 +30,13 @@ public abstract class FanIn extends Node implements Element {
     public FanIn(int bits) {
         this.bits = bits;
         inputs = new ArrayList<>();
-        output = new ObservableValue("out", bits);
+        output = new ObservableValue("out", bits).setDescription(Lang.get("elem_Basic_Out"));
     }
 
     @Override
     public void setInputs(ObservableValues in) throws NodeException {
         for (ObservableValue v : in)
-            inputs.add(v.checkBits(bits, this).addObserverToValue(this));
+            inputs.add(v.checkBits(bits, this).setDescription(Lang.get("elem_Basic_In")).addObserverToValue(this));
     }
 
     /**
@@ -77,7 +78,7 @@ public abstract class FanIn extends Node implements Element {
             int count = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
-                names[i] = input("in_" + i);
+                names[i] = input("in_" + i, Lang.get("elem_Basic_In"));
             return new PinDescriptions(names);
         }
     }

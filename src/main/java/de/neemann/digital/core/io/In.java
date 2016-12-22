@@ -45,7 +45,7 @@ public class In implements Element {
      */
     public In(ElementAttributes attributes) {
         boolean highZ = attributes.get(Keys.IS_HIGH_Z);
-        output = new ObservableValue("out", attributes.get(Keys.BITS), highZ);
+        output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION);
         output.setValue(attributes.get(Keys.DEFAULT));
         label = attributes.getCleanLabel();
         description = attributes.get(Keys.DESCRIPTION);

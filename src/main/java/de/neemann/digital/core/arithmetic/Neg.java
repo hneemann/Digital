@@ -37,7 +37,7 @@ public class Neg extends Node implements Element {
      */
     public Neg(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        output = new ObservableValue("out", bits);
+        output = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
     }
 
     @Override

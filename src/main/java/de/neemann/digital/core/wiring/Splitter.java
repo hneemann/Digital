@@ -220,16 +220,25 @@ public class Splitter implements Element {
 
         public PinDescriptions getNames(PinDescription.Direction dir) {
             PinInfo[] name = new PinInfo[ports.size()];
-            for (int i = 0; i < name.length; i++)
-                name[i] = new PinInfo(ports.get(i).getName(), null, dir);
+            for (int i = 0; i < name.length; i++) {
+                final Port port = ports.get(i);
+                if (port.getBits()==1)
+                    name[i] = new PinInfo(port.getName(), Lang.get("elem_Splitter_pin_in_one", port.getName()), dir);
+                else
+                    name[i] = new PinInfo(port.getName(), Lang.get("elem_Splitter_pin_in", port.getName()), dir);
+            }
 
             return new PinDescriptions(name);
         }
 
         public ObservableValues getOutputs(boolean isHighZ) {
             ArrayList<ObservableValue> outputs = new ArrayList<>(ports.size());
-            for (Port p : ports)
-                outputs.add(new ObservableValue(p.getName(), p.getBits(), isHighZ));
+            for (Port p : ports) {
+                if (p.getBits()==1)
+                    outputs.add(new ObservableValue(p.getName(), p.getBits(), isHighZ).setDescription(Lang.get("elem_Splitter_pin_out_one", p.getName())));
+                else
+                    outputs.add(new ObservableValue(p.getName(), p.getBits(), isHighZ).setDescription(Lang.get("elem_Splitter_pin_out", p.getName())));
+            }
             return new ObservableValues(outputs);
         }
 

@@ -18,7 +18,8 @@ public class Comparator extends Node implements Element {
     /**
      * The comparators description
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Comparator.class, input("a"), input("b"))
+    public static final ElementTypeDescription DESCRIPTION =
+            new ElementTypeDescription(Comparator.class, input("a"), input("b"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.BITS)
@@ -48,9 +49,9 @@ public class Comparator extends Node implements Element {
         this.maskAnd = 1 << (bits - 1);
         this.maskOr = ~((1 << bits) - 1);
 
-        this.agrb = new ObservableValue(">", 1);
-        this.equals = new ObservableValue("=", 1);
-        this.aklb = new ObservableValue("<", 1);
+        this.agrb = new ObservableValue(">", 1).setPinDescription(DESCRIPTION);
+        this.equals = new ObservableValue("=", 1).setPinDescription(DESCRIPTION);
+        this.aklb = new ObservableValue("<", 1).setPinDescription(DESCRIPTION);
     }
 
     @Override

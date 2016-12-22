@@ -32,7 +32,7 @@ public class Switch implements Element, Observer {
     public Switch(ElementAttributes attr) {
         bits = attr.getBits();
         closed = attr.get(Keys.CLOSED);
-        output = new ObservableValue("out", bits, true);
+        output = new ObservableValue("out", bits, true).setPinDescription(DESCRIPTION);
         if (!closed)
             output.set(0, true);
     }

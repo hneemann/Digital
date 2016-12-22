@@ -37,7 +37,7 @@ public class Not extends Node implements Element {
      */
     public Not(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        output = new ObservableValue("out", bits);
+        output = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
     }
 
     @Override

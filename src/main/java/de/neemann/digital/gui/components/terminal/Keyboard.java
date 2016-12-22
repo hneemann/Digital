@@ -24,7 +24,7 @@ public class Keyboard extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Keyboard.class,
-            input("sel", Lang.get("elem_Keyboard_pin_sel")))
+            input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .setShortName(Lang.get("elem_Keyboard"));
@@ -43,7 +43,7 @@ public class Keyboard extends Node implements Element {
      * @param attributes the attributes
      */
     public Keyboard(ElementAttributes attributes) {
-        data = new ObservableValue("D", 16, true).setDescription(Lang.get("elem_Keyboard_pin_D"));
+        data = new ObservableValue("D", 16, true).setPinDescription(DESCRIPTION);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class Button implements Element {
      * @param attributes the attributes
      */
     public Button(ElementAttributes attributes) {
-        output = new ObservableValue("out", 1);
+        output = new ObservableValue("out", 1).setPinDescription(DESCRIPTION);
         label = attributes.get(Keys.LABEL);
     }
 

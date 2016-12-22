@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
+
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
@@ -40,7 +41,7 @@ public class Mul extends Node implements Element {
      */
     public Mul(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        this.mul = new ObservableValue("mul", bits * 2);
+        this.mul = new ObservableValue("mul", bits * 2).setPinDescription(DESCRIPTION);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class Clock implements Element {
      * @param attributes the clocks attributes
      */
     public Clock(ElementAttributes attributes) {
-        output = new ObservableValue("C", 1);
+        output = new ObservableValue("C", 1).setPinDescription(DESCRIPTION);
         if (attributes.get(Keys.RUN_AT_REAL_TIME)) {
             int f = attributes.get(Keys.FREQUENCY);
             if (f < 1) f = 1;

@@ -32,31 +32,51 @@
     <string name="elem_Help_outputs">Outputs</string>
     <string name="elem_Help_attributes">Attributes</string>
     <string name="elem_Add">Add</string>
-    <string name="elem_Add_tt">Adds two integer values.</string>
-    <string name="elem_Add_pin_a">First input to add</string>
-    <string name="elem_Add_pin_b">Second input to add</string>
+    <string name="elem_Add_tt">A component for simple add caluclations. Adds the two integer values from input a and input b (a+b). The result will be incremented by one if the carry input is set. </string>
+    <string name="elem_Add_pin_a">First input to add.</string>
+    <string name="elem_Add_pin_b">Second input to add.</string>
     <string name="elem_Add_pin_c_i">Carry input, if set the result is incremented by one.</string>
     <string name="elem_Add_pin_s">The result of the addition</string>
     <string name="elem_Add_pin_c_o">If set there was an overflow.</string>
+    <string name="elem_BitCount">Bit counter</string>
+    <string name="elem_BitCount_tt">Returns the number of 1-bits in the input value.</string>
+    <string name="elem_BitCount_pin_in">The input which 1-bits are counted.</string>
+    <string name="elem_BitCount_pin_out">Outputs the number of 1-bits.</string>
     <string name="elem_And">And</string>
-    <string name="elem_And_tt">Binary AND gate</string>
+    <string name="elem_And_tt">Binary AND gate. Returns high only if all inputs are also set high.</string>
+    <string name="elem_Basic_In">One of the input values for the logic operation.</string>
+    <string name="elem_Basic_Out">Returns the result of the logic operation.</string>
     <string name="elem_Break">Break</string>
+    <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
     <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
-You can use the component to implement a BRK assembly instruction.
-Then you can execute the circuit to the next BRK instruction.</string>
+        You can use the component to implement a BRK assembly instruction.
+        Then you can run a simulated processor until a BRK instruction is reached.</string>
     <string name="elem_Button">Button</string>
+    <string name="elem_Button_tt">A simple button which resets back to its original state (0) when not held down. Outputs a 1 if held down.</string>
+    <string name="elem_Button_pin_out">Returns 1 if pressed else 0. Resets back to 0 when not held down.</string>
     <string name="elem_Clock">Clock Input</string>
-    <string name="elem_Clock_tt">A clock signal. Its possible to control it by the real time clock.</string>
+    <string name="elem_Clock_pin_C">Alternates 0 and 1 with the set clock speed.</string>
+    <string name="elem_Clock_tt">A clock signal. Its possible to control it by the real time clock. Clock speed (in Hz) can be set in attributes dialog.</string>
     <string name="elem_Comparator">Comparator</string>
-    <string name="elem_Const">Const</string>
-    <string name="elem_Const_tt">A simple constant value.</string>
+    <string name="elem_Comparator_tt">A component for comparing bit values. Compares the binary numbers on input pin a and input pin b and sets the corresponding outputs.</string>
+    <string name="elem_Comparator_pin_a">Input a to compare.</string>
+    <string name="elem_Comparator_pin_b">Input b to compare.</string>
+    <string name="elem_Comparator_pin_=">Output is 1 if input a equals input b</string>
+    <string name="elem_Comparator_pin_&gt;">Output is 1 if input a is greater then input b</string>
+    <string name="elem_Comparator_pin_&lt;">Output is 1 if input a is less then input b</string>
+    <string name="elem_Const">Constant value</string>
+    <string name="elem_Const_pin_out">Returns the given value as a constant.</string>
+    <string name="elem_Const_tt">A component which returns a given value as a simple constant value. The value can be set in the attributes dialog.</string>
     <string name="elem_Ground">Ground</string>
     <string name="elem_Ground_tt">A connection to ground. Output is always zero.</string>
+    <string name="elem_Ground_pin_out">Output always returns 0.</string>
     <string name="elem_VDD">Supply voltage</string>
     <string name="elem_VDD_tt">A connection to the supply voltage. Output is always one.</string>
+    <string name="elem_VDD_pin_out">This output always returns 1.</string>
     <string name="elem_Tunnel">Tunnel</string>
     <string name="elem_Tunnel_tt">Connects parts without a wire. All tunnel elements, which have the same net name,
         are connected together. Works only local, so it is not possible to connect different circuits.</string>
+    <string name="elem_Tunnel_pin_in">The connection to the tunnel.</string>
     <string name="elem_Switch">Switch</string>
     <string name="elem_Switch_tt">Simple unidirectional switch.
         In the simulation the switch behaves like an active gate with a trivalent truth table.
@@ -66,58 +86,111 @@ Then you can execute the circuit to the next BRK instruction.</string>
         with real switches. In addition - unlike real switches - there is no feedback from the output to the input.
         These restrictions do not have any effect when the input of the switch is connected directly to GND, VDD or a
         constant. In such a circuit, the simulated switch corresponds to a real switch.</string>
+    <string name="elem_Switch_pin_in">Switch input</string>
+    <string name="elem_Switch_pin_out">This output returns the input value if the switch is closed, and outputs a high z value if the switch is open.</string>
     <string name="elem_Counter">Counter</string>
-    <string name="elem_D_FF">D_FF</string>
+    <string name="elem_Counter_tt">A simple counter component. The clock input increases the counter. Can be reset back to 0 with the clr pin.
+        The number of bits can be set in the attribute-dialog.</string>
+    <string name="elem_Counter_pin_C">The clock input. A rising edge increases the counter.</string>
+    <string name="elem_Counter_pin_clr">Resets the counter value if set to 1.</string>
+    <string name="elem_Counter_pin_out">Returns the counted value.</string>
+    <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter has an overflow and returns to zero.</string>
+    <string name="elem_D_FF">D-FlipFlop</string>
+    <string name="elem_D_FF_tt">A component used to save two states (one bit). The bit on pin D is stored on a rising edge of pin C.</string>
+    <string name="elem_D_FF_pin_D">Input of the bit to be stored.</string>
+    <string name="elem_D_FF_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
+    <string name="elem_D_FF_pin_Q">Returns the stored value.</string>
+    <string name="elem_D_FF_pin_¬Q">Returns the negated stored value.</string>
     <string name="elem_Data">Data graph</string>
     <string name="elem_Data_tt">Shows a data plot inside of the circuit panel.
-You can plot complete clock steps or single gate changes.</string>
-    <string name="elem_Decode_pin_sel">This input selects the enabled output</string>
+        You can plot complete clock steps or single gate changes.</string>
+    <string name="elem_Decoder_pin_sel">This input selects the enabled output. The selected output is set to 1. All other outputs are set to 0.</string>
     <string name="elem_Decoder">Decoder</string>
-    <string name="elem_Decoder_tt">One selectable output line is high, all other outputs are low.</string>
+    <string name="elem_Decoder_output">Output {0}. This output is 1 if selected by the sel input.</string>
+    <string name="elem_Decoder_tt">One selectable output line is 1, all other outputs are set to 0.</string>
     <string name="elem_Delay">Delay</string>
+    <string name="elem_Delay_pin_in">Input of the signal to be delayed.</string>
+    <string name="elem_Delay_pin_out">Delays the signal by one gate delay</string>
     <string name="elem_Delay_tt">Delays the signal by on gate delay</string>
     <string name="elem_Demultiplexer">Demultiplexer</string>
-    <string name="elem_Demultiplexer_tt">Outputs the input to one of the outputs.
+    <string name="elem_Demultiplexer_tt">A component witch can output the input value to one of the outputs.
         The other outputs are set to the default value.</string>
-    <string name="elem_Demultiplexer_pin_sel">Selects the output</string>
-    <string name="elem_Demultiplexer_pin_in">The value of this input is set to the selected output.</string>
+    <string name="elem_Demultiplexer_pin_sel">This pin selects the output to use.</string>
+    <string name="elem_Demultiplexer_pin_in">The value of this input is given to the selected output.</string>
+    <string name="elem_Demultiplexer_output">Output {0}.</string>
     <string name="elem_Driver">Driver</string>
+    <string name="elem_Driver_tt">A driver can be used to connect a signal value to another line.
+        The driver is controlled by the sel input. If the sel input is low, the output is in high z state.</string>
+    <string name="elem_Driver_pin_in">The input value of the driver.</string>
+    <string name="elem_Driver_pin_sel">Pin to control the driver. If its value is 1 the input is given to the output. If the value is 0, the output is in high z state.</string>
+    <string name="elem_Driver_pin_out">If the sel input is 1 the input is given to this output. If the sel input is 0, this output is in high z state.</string>
     <string name="elem_DriverInvSel">Driver, inverted select</string>
-    <string name="elem_In">In</string>
+    <string name="elem_DriverInvSel_tt">A driver can be used to connect a data word to another line.
+        The driver is controlled by the sel input.</string>
+    <string name="elem_DriverInvSel_pin_in">The input value of the driver.</string>
+    <string name="elem_DriverInvSel_pin_sel">Pin to control the driver. If its value is 0 the input is given to the output. If the value is 1, the output is in high z state.</string>
+    <string name="elem_DriverInvSel_pin_out">If the sel input is 0 the input is given to this output. If the sel input is 1, this output is in high z state.</string>
+    <string name="elem_In">Input</string>
+    <string name="elem_In_pin_out">This connection outputs the given value.</string>
     <string name="elem_In_tt">A input which can be used to connect the circuit if it is included in an other circuit.</string>
     <string name="elem_JK_FF">JK_FF</string>
+    <string name="elem_JK_FF_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value. The input values act with a rising edge at input C.</string>
+    <string name="elem_JK_FF_pin_J">The set input of the flipflop.</string>
+    <string name="elem_JK_FF_pin_C">The Clock input. A rising edge initiates a state change.</string>
+    <string name="elem_JK_FF_pin_K">The reset input of the flipflop.</string>
+    <string name="elem_JK_FF_pin_Q">Returns the stored value.</string>
+    <string name="elem_JK_FF_pin_¬Q">Returns the negated stored value.</string>
     <string name="elem_LED">LED</string>
+    <string name="elem_LED_tt">A simple LED can be used to visualize an output value. Accepts a single bit. Lights up when the input is set to 1.</string>
+    <string name="elem_LED_pin_in">LED Input. LED shines when input is set to 1.</string>
     <string name="elem_LookUpTable">LookUpTable</string>
+    <string name="elem_LookUpTable_pin_in">Input {0}. This input in combination with all other inputs define the address of the stored value to be returned.</string>
+    <string name="elem_LookUpTable_pin_out">Returns the stored value at the address set via the inputs.</string>
     <string name="elem_LookUpTable_tt">Gets the output value from a stored table.
-So this gate can emulate every combinatorial gate.</string>
+        So this gate can emulate every combinatorial gate.
+        The configuration of the LookUpTable like number of bits or number of inputs can be set up in the attributes dialog.</string>
     <string name="elem_Mul">Mul</string>
+    <string name="elem_Mul_tt">A component for multiplication. Multiplies the integer numbers on input pin a and input pin b.</string>
+    <string name="elem_Mul_pin_a">Input a for multiplication.</string>
+    <string name="elem_Mul_pin_b">Input b for multiplication.</string>
+    <string name="elem_Mul_pin_mul">Output for the result of the multiplication.</string>
     <string name="elem_Multiplexer">Multiplexer</string>
-    <string name="elem_Multiplexer_pin_sel">This pin selects the input</string>
-    <string name="elem_Multiplexer_tt">Selects on of the input lines</string>
+    <string name="elem_Multiplexer_input">The {0}. input of the multiplexer.</string>
+    <string name="elem_Multiplexer_output">The value of the selected input.</string>
+    <string name="elem_Multiplexer_pin_sel">This pin selects the input which value is to output.</string>
+    <string name="elem_Multiplexer_tt">A component which uses the value of the sel pin to decide which input value is set to the output.</string>
     <string name="elem_NAnd">NAnd</string>
+    <string name="elem_NAnd_tt">A combiation of AND and NOT. Returns 0 only if all inputs are set to 1. If on of the inputs is set to 0 the output is set to 1.</string>
     <string name="elem_NOr">NOr</string>
+    <string name="elem_NOr_tt">A combination of OR and NOT. Returns a 0 if one of the inputs is set to 1. If all inputs are set to 0 the output is also set to 1.</string>
     <string name="elem_Not">Not</string>
+    <string name="elem_Not_tt">Returns the negated value. A 1 becomes a 0 and a 0 becomes 1.</string>
+    <string name="elem_Not_pin_in">The input of the NOT gate.</string>
+    <string name="elem_Not_pin_out">Returns the negated value of the input value. All bits are inverted.</string>
     <string name="elem_Neg">Negation</string>
+    <string name="elem_Neg_pin_in">Input of the data word to be negated in 2th complement</string>
+    <string name="elem_Neg_pin_out">Returns the result of the negation in 2th complement.</string>
     <string name="elem_Neg_tt">Negation in the 2th complement</string>
-    <string name="elem_BitCount">Bit counter</string>
-    <string name="elem_BitCount_tt">Returns the number of 1-bits in the input value.</string>
     <string name="elem_Or">Or</string>
+    <string name="elem_Or_tt">Binary OR gate. Returns a 1 if one of the inputs is set to 1. If all inputs are set to 0 the output is also set to 0.</string>
     <string name="elem_Out">Out</string>
     <string name="elem_Out_tt">A output which can be used to connect the circuit if it is included in an other circuit.</string>
+    <string name="elem_Out_pin_in">This value is used for te output connection.</string>
     <string name="elem_Probe">Probe</string>
     <string name="elem_Probe_tt">A measurement value which can be shown in the data graph.</string>
+    <string name="elem_Probe_pin_in">The measurement value.</string>
     <string name="elem_RAMDualPort">RAMDualPort</string>
-    <string name="elem_RAMDualPort_pin_addr">The address to read and write</string>
+    <string name="elem_RAMDualPort_pin_A">The address to read and write</string>
     <string name="elem_RAMDualPort_pin_c">Clock</string>
-    <string name="elem_RAMDualPort_pin_dataIn">The data to be stored in the RAM</string>
-    <string name="elem_RAMDualPort_pin_dataOut">The data output pin</string>
+    <string name="elem_RAMDualPort_pin_D_in">The data to be stored in the RAM</string>
+    <string name="elem_RAMDualPort_pin_D">The data output pin</string>
     <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMDualPort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
     <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
     <string name="elem_RAMSinglePort">RAMSinglePort</string>
-    <string name="elem_RAMSinglePort_pin_addr">The address to read and write</string>
+    <string name="elem_RAMSinglePort_pin_A">The address to read and write.</string>
     <string name="elem_RAMSinglePort_pin_c">Clock</string>
-    <string name="elem_RAMSinglePort_pin_d">Bidirectional data connection.</string>
+    <string name="elem_RAMSinglePort_pin_D">The bidirectional data connection.</string>
     <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
     <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional connection for reading and writing the data.</string>
@@ -125,61 +198,117 @@ So this gate can emulate every combinatorial gate.</string>
     <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element works similar to a RAM. In addition it
     shows its content on a grahic screen. Every pixel is represented by a memory address. There are to screens supported
     to implement screen switching (See input B).</string>
+    <string name="elem_GraphicCard_pin_A">The address to read and write.</string>
+    <string name="elem_GraphicCard_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
+    <string name="elem_GraphicCard_pin_C">Clock</string>
+    <string name="elem_GraphicCard_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_GraphicCard_pin_B">Selects the buffer to show</string>
+    <string name="elem_GraphicCard_pin_D">The bidirectional data connection.</string>
     <string name="elem_ROM">ROM</string>
-    <string name="elem_ROM_pin_address">Address of data word to output.</string>
-    <string name="elem_ROM_pin_data">The selected data word. Only readable if select input is high.</string>
+    <string name="elem_ROM_tt">A non-volatile memory component.</string>
+    <string name="elem_ROM_pin_A">This pin defines the address of data word to be output.</string>
+    <string name="elem_ROM_pin_D">The selected data word. Only readable if "select" input is high.</string>
     <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
-    <string name="elem_RS_FF">RS_FF</string>
+    <string name="elem_RS_FF">RS-FlipFlop</string>
+    <string name="elem_RS_FF_tt">A component to save a single bit for an undefined duration.
+        Provides the functions "set" and "reset" the stored bit.</string>
+    <string name="elem_RS_FF_pin_S">The set input.</string>
+    <string name="elem_RS_FF_pin_C">The Control input. A rising edge initiates a state transition.</string>
+    <string name="elem_RS_FF_pin_R">The reset input.</string>
+    <string name="elem_RS_FF_pin_Q">Returns the stored value.</string>
+    <string name="elem_RS_FF_pin_¬Q">Returns the negated stored value.</string>
     <string name="elem_Register">Register</string>
+    <string name="elem_Register_tt">A component to store integers. The length of the data word can be set in the attributes dialog.</string>
+    <string name="elem_Register_pin_D">Input pin of the data word to be stored.</string>
+    <string name="elem_Register_pin_C">Clock. A rising edge stores the value at the D pin.</string>
+    <string name="elem_Register_pin_en">Enable pin. Storing a value works only if this pin is set high.</string>
+    <string name="elem_Register_pin_Q">Returns the stored value.</string>
     <string name="elem_Reset">Reset</string>
-    <string name="elem_Reset_tt">The output of this component is hold down during the initialisation of the circuit.
-After the circuit has stabilized the output goes up.</string>
-    <string name="elem_Seven-Seg">Seven-Seg</string>
-    <string name="elem_Seven-Seg-Hex">Seven-Seg-Hex</string>
+    <string name="elem_Reset_pin_Reset">Reset Output. Is zero while the circuit is stabilizing.</string>
+    <string name="elem_Reset_tt">The output of this component is held low during the initialisation of the circuit.
+        After the circuit has stabilized the output goes to high.</string>
+    <string name="elem_Seven-Seg">Seven-Segment Display</string>
+    <string name="elem_Seven-Seg_pin_a">This input controls the upper, horizontal line.</string>
+    <string name="elem_Seven-Seg_pin_b">This input controls the upper, right, vertical line.</string>
+    <string name="elem_Seven-Seg_pin_c">This input controls the lower, right, vertical line.</string>
+    <string name="elem_Seven-Seg_pin_d">This input controls the lower horizontal line.</string>
+    <string name="elem_Seven-Seg_pin_e">This input controls the lower, left, vertical line.</string>
+    <string name="elem_Seven-Seg_pin_f">This input controls the upper, left, vertical line.</string>
+    <string name="elem_Seven-Seg_pin_g">This input controls the middle, horizontal line.</string>
+    <string name="elem_Seven-Seg_pin_dp">This input controls the decimal point.</string>
+    <string name="elem_Seven-Seg-Hex">Seven-Segment-Hex Display</string>
     <string name="elem_Seven-Seg-Hex_tt">Seven Segment Display with a 4 bit input</string>
+    <string name="elem_Seven-Seg-Hex_pin_d">The value at this input is visualized at the display.</string>
+    <string name="elem_Seven-Seg-Hex_pin_dp">This input controls the decimal point.</string>
     <string name="elem_Seven-Seg_tt">Seven Segment Display, every segment has its own input.</string>
     <string name="elem_Splitter">Splitter</string>
     <string name="elem_Splitter_tt">Splits or creates a wire bundle or a data bus with more than one bit.</string>
+    <string name="elem_Splitter_pin_in">The input bits {0}.</string>
+    <string name="elem_Splitter_pin_in_one">The input bit {0}.</string>
+    <string name="elem_Splitter_pin_out">The output bits {0}.</string>
+    <string name="elem_Splitter_pin_out_one">The output bit {0}.</string>
     <string name="elem_Sub">Sub</string>
-    <string name="elem_T_FF">T_FF</string>
+    <string name="elem_Sub_tt">A component for simple substractions. Substracts binary numbers on input a and input b (a-b). If the carry input is set to 1 the result is decremented by 1.</string>
+    <string name="elem_Sub_pin_c_i">Carry input, if set the result is decremented by one.</string>
+    <string name="elem_Sub_pin_a">Input a for substraction.</string>
+    <string name="elem_Sub_pin_b">Input b for substraction.</string>
+    <string name="elem_Sub_pin_s">Output returns the result of the substraction.</string>
+    <string name="elem_Sub_pin_c_o">Output returns 1 if an overflow occured.</string>
+    <string name="elem_T_FF">T-FlipFlop</string>
+    <string name="elem_T_FF_tt">A component with one input. Toggles the state of the output on a rising edge at the input.</string>
+    <string name="elem_T_FF_pin_C">Clock. A rising edgt toggles the output.</string>
+    <string name="elem_T_FF_pin_Q">Returns the stored value.</string>
+    <string name="elem_T_FF_pin_¬Q">Returns the negated stored value.</string>
     <string name="elem_Terminal">Terminal</string>
-    <string name="elem_Terminal_pin_C">If this pin becomes high the data is displayed</string>
-    <string name="elem_Terminal_pin_D">The data to show in the terminal</string>
+    <string name="elem_Terminal_pin_C">Clock. A risig edge writes the value at the input to the terminal window.</string>
+    <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
     <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
-The terminal opens its own window.</string>
+        The terminal opens its own window to visualize the output.</string>
     <string name="elem_Text">Text</string>
-    <string name="elem_Text_tt">Shows a text in the circuit</string>
+    <string name="elem_Text_tt">Shows a text in the circuit. The text can be changed in the attributes dialog.</string>
     <string name="elem_XNOr">XNOr</string>
+    <string name="elem_XNOr_tt">A combination of XOR and NOT. The output is 1 if both input bits are equal.</string>
+    <string name="elem_XNOr_pin_a">Input a for Exclusive Not Or.</string>
+    <string name="elem_XNOr_pin_b">Input b for Exclusive Not Or.</string>
+    <string name="elem_XNOr_pin_out">Returns the result of the XNOr operation.</string>
     <string name="elem_XOr">XOr</string>
+    <string name="elem_XOr_tt">The output is 0 if both input bits are equal.</string>
+    <string name="elem_XOr_pin_a">Input a for Exclusive Or.</string>
+    <string name="elem_XOr_pin_b">Input b for Exclusive Or.</string>
+    <string name="elem_XOr_pin_out">Returns result of Exclusive Or.</string>
     <string name="elem_Testcase">Test case</string>
     <string name="elem_Testcase_tt">Describes a test case.
         In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
         behavior of the circuit actually corresponds to this description. If this is not the case, a corresponding
         error message is shown. </string>
     <string name="elem_Keyboard">Keyboard</string>
-    <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is outputed.</string>
-    <string name="elem_Keyboard_pin_D">The last pressed key, or null if no key is typed.</string>
+    <string name="elem_Keyboard_tt">A simple keyboard which can be used to input symbols.</string>
+    <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is output.</string>
+    <string name="elem_Keyboard_pin_D">The last pressed key, or zero if no key is typed.</string>
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR..
         This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeBackward">Diode to Ground</string>
     <string name="elem_DiodeBackward_tt">A simplified unidirectional diode, used to pull a wire to ground. It is used to implement a wired AND.
-        In the simulation the diode behaves like an active gate with a trivalent truth table:
-        Is the input low, also the output is low. In all other cases (input is high or high z) the output is in high z state.
-        So two antiparallel connected diodes can keep each other in low state, which is not possible with real diodes.
-        This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
+        Is the input low, also the output is low. In the other cases (input is high or high z) the output is in high z state.
+        So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
+    <string name="elem_DiodeBackward_pin_in">If the input is low also the output is low. In all other cases the output is in high z state.</string>
+    <string name="elem_DiodeBackward_pin_out">If the input is low also the output is low. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeForeward">Diode to VDD</string>
     <string name="elem_DiodeForeward_tt">A simplified unidirectional diode, used to pull a wire to VDD. It is used to implement a wired OR.
         In the simulation the diode behaves like an active gate with a trivalent truth table:
         Is the input high, also the output is high. In all other cases (input is low or high z) the output is in high z state.
         So two antiparallel connected diodes can keep each other in high state, which is not possible with real diodes.
         This is an ideal diode: There is no voltage drop across a forward-biased diode.</string>
+    <string name="elem_DiodeForeward_pin_in">If the input is high also the output is high. In all other cases the output is in high z state.</string>
+    <string name="elem_DiodeForeward_pin_out">If the input is high also the output is high. In all other cases the output is in high z state.</string>
     <string name="elem_PullUp">Pull-Up Resistor</string>
-    <string name="elem_PullUp_tt">If a wire in a HighZ state, this resistor pulls the wire to high.</string>
+    <string name="elem_PullUp_tt">If a net is in a HighZ state, this resistor pulls the net to high. In any other case this component has no effect.</string>
+    <string name="elem_PullUp_pin_out">A "weak high".</string>
     <string name="elem_PullDown">Pull-Down Resistor</string>
-    <string name="elem_PullDown_tt">If a wire in a HighZ state, this resistor pulls the wire to ground.</string>
+    <string name="elem_PullDown_tt">If the net is in a HighZ state, this resistor pulls the net to ground. In any other case this component has no effect.</string>
+    <string name="elem_PullDown_pin_out">A "weak low".</string>
 
     <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-flip-flop has no label set</string>
@@ -262,6 +391,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_Cycles">Timeout cycles</string>
     <string name="key_Cycles_tt">If this ammount of cycles is reached without a break signal, an error is created.</string>
     <string name="key_Data">Data</string>
+    <string name="key_Data_tt">The values stored in this element.</string>
     <string name="key_Default">Default</string>
     <string name="key_Default_tt">This value is set if the circuit is started</string>
     <string name="key_Description">Description</string>
@@ -277,6 +407,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_Label">Label</string>
     <string name="key_Label_tt">The name of this element.</string>
     <string name="key_Size">Size</string>
+    <string name="key_Size_tt">The size of the component in the circuit.</string>
     <string name="key_Language">Language</string>
     <string name="key_NetName">Netname</string>
     <string name="key_NetName_tt">All nets with identical name are connected together.</string>
@@ -285,9 +416,11 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_SelectorBits">Number of Selector Bits</string>
     <string name="key_SelectorBits_tt">Number of bits used for the selector input.</string>
     <string name="key_Signed">Signed</string>
+    <string name="key_Signed_tt">If selected the comparison is performed with signed (2th complement) values.</string>
     <string name="key_Closed">Closed</string>
     <string name="key_Closed_tt">Sets the initial state of the switch.</string>
     <string name="key_Value">Value</string>
+    <string name="key_Value_tt">The value of the constant.</string>
     <string name="key_Width">Width</string>
     <string name="key_Width_tt">With of symbol if this circuit is used as an component in an other circuit.</string>
     <string name="key_autoReload">Reload at model start</string>
@@ -295,6 +428,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_flipSelPos">Flip selector position</string>
     <string name="key_flipSelPos_tt">This option allows you to move te selector pin to the opposite side of the plexer.</string>
     <string name="key_intFormat">Number Format</string>
+    <string name="key_intFormat_tt">The format used to show the numbers.</string>
     <string name="key_intFormat_ascii">ascii</string>
     <string name="key_intFormat_bin">bin</string>
     <string name="key_intFormat_dec">decimal</string>
@@ -303,6 +437,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_isHighZ">Is three-state input</string>
     <string name="key_isHighZ_tt">If set the input is allowed to be in high-z state.</string>
     <string name="key_maxStepCount">Max number of steps to show</string>
+    <string name="key_maxStepCount_tt">The maximal number of values stored. If the maximum number is reached, the oldest values are discarded.</string>
     <string name="key_microStep">Show single gate steps</string>
     <string name="key_rotation">Rotation</string>
     <string name="key_rotation_tt">The orientation of the Element in the circuit.</string>
@@ -313,7 +448,9 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_showDataTable">Show measurement values</string>
     <string name="key_showList">Show list file if available</string>
     <string name="key_termHeight">Lines</string>
+    <string name="key_termHeight_tt">The number of lines to show.</string>
     <string name="key_termWidth">Characters per line</string>
+    <string name="key_termWidth_tt">The number of characters shown in a single line.</string>
     <string name="key_valueIsProbe">Use as measurment value</string>
     <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.</string>
     <string name="key_Testdata">Testdata</string>

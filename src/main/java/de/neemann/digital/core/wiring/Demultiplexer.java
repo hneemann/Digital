@@ -8,6 +8,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class Demultiplexer extends Node implements Element {
     /**
      * The Demultiplexer description
      */
+
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Demultiplexer.class, input("sel"), input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
@@ -54,7 +56,7 @@ public class Demultiplexer extends Node implements Element {
         int outputs = 1 << selectorBits;
         ArrayList<ObservableValue> o = new ArrayList<>(outputs);
         for (int i = 0; i < outputs; i++)
-            o.add(new ObservableValue("out_" + i, bits).setValue(defaultValue));
+            o.add(new ObservableValue("out_" + i, bits).setValue(defaultValue).setDescription(Lang.get("elem_Demultiplexer_output", i)));
         output = new ObservableValues(o);
     }
 

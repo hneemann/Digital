@@ -5,7 +5,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,8 +26,8 @@ public class ROM extends Node implements Element {
      * The ROMs {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(ROM.class,
-            input("A", Lang.get("elem_ROM_pin_address")),
-            input("sel", Lang.get("elem_ROM_pin_sel")))
+            input("A"),
+            input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
@@ -56,7 +55,7 @@ public class ROM extends Node implements Element {
      */
     public ROM(ElementAttributes attr) {
         int bits = attr.get(Keys.BITS);
-        output = new ObservableValue("D", bits, true).setDescription(Lang.get("elem_ROM_pin_data"));
+        output = new ObservableValue("D", bits, true).setPinDescription(DESCRIPTION);
         data = attr.get(Keys.DATA);
         addrBits = attr.get(Keys.ADDR_BITS);
         autoLoad = attr.get(Keys.AUTO_RELOAD_ROM);

@@ -44,7 +44,7 @@ public class Register extends Node implements Element {
     public Register(ElementAttributes attributes) {
         super(true);
         bits = attributes.getBits();
-        this.q = new ObservableValue("Q", bits);
+        this.q = new ObservableValue("Q", bits).setPinDescription(DESCRIPTION);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.get(Keys.LABEL);
     }
