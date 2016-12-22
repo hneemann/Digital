@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Ein Baustein zum asynchronen Speichern.
+Sobald der Set Eingang auf 1 geht, wird der 
+Ausgang auf 1 geschaltet. Der Ausgang geht 
+erst wieder auf 0 zurück, wenn Reset auf 1 
+gesetzt wird.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Or</elementName>
@@ -10,6 +20,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Setzt den Ausgang zurück auf 0.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Reset</string>
@@ -26,6 +40,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Setzt den Ausgang auf 1.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Set</string>
         </entry>
@@ -40,6 +58,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Wechselt auf 1 sobald Set auf 1 wechselt.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Out</string>

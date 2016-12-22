@@ -191,7 +191,9 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>return from interrupt</string>
+          <string>return from interrupt. Über dieses Signal werden
+die Interrupts wieder freigegeben.
+</string>
         </entry>
         <entry>
           <string>rotation</string>
