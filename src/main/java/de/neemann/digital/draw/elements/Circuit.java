@@ -525,7 +525,11 @@ public class Circuit {
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                String descr = ve.getElementAttributes().get(Keys.DESCRIPTION);
+                String descr;
+                if (ve.equalsDescription(Clock.DESCRIPTION))
+                    descr = Lang.get("elem_Clock");
+                else
+                    descr = ve.getElementAttributes().get(Keys.DESCRIPTION);
                 pinList.add(input(name, descr));
             }
         }
