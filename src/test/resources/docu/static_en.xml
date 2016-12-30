@@ -12,6 +12,17 @@
             In the folder <e>examples</e> you can find many examples including a working single cycle harvard 16 bit
             processor.
         </par>
+        <par>
+            The simulator has two modes of operation: In the editing mode it is possible to modify the circuit.
+            You can add components or connect components by wires. The simulation is not active in this mode.
+            The editing mode can be activated by pressing <e>Edit components</e>.
+            The simulation mode is activated by pressing <e>Start</e>. While starting the simulation the circuit
+            is checked for consistency. If the are errors in the circuit an error message is shown. If possible
+            the affected components or wires are highlighted. If there are no errors, the simulation is activated.
+            Now you can interact with the running simulation.
+            In the simulation mode it is not possible to modify the circuit. To do so you have to activate the
+            editing mode again.
+        </par>
     </chapter>
     <chapter name="Propagation Delay">
         <par>
