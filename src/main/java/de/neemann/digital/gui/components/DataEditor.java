@@ -31,7 +31,7 @@ public class DataEditor extends JDialog {
      * @param parent    the parent
      * @param dataField the data to edit
      */
-    public DataEditor(JComponent parent, DataField dataField, int size, int bits, boolean modelIsRunning, Sync modelSync) {
+    public DataEditor(Component parent, DataField dataField, int size, int bits, boolean modelIsRunning, Sync modelSync) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 

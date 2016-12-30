@@ -4,13 +4,7 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Prozessor, der an die MIPS-Architektur 
-angelehnt ist. Es handelt sich um eine Harvard 
-Single-Cycle CPU. Er verfügt über einen Interrupt 
-Controller, der gesteuert durch einen Zähler, alle
-2048 Zyklen einen Interrupt auslöst, und dabei die
-feste Adresse 0x1000 anspringt.
-An dieser Adresse muss sich die ISR befinden.</string>
+      <string>Beispielschaltung incl. Prozessor</string>
     </entry>
   </attributes>
   <visualElements>
@@ -314,7 +308,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>D</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="520"/>
+      <pos x="1080" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -324,7 +318,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="500"/>
+      <pos x="1080" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -496,20 +490,20 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <p2 x="1240" y="500"/>
     </wire>
     <wire>
-      <p1 x="1060" y="500"/>
-      <p2 x="1080" y="500"/>
-    </wire>
-    <wire>
       <p1 x="980" y="500"/>
       <p2 x="1000" y="500"/>
     </wire>
     <wire>
-      <p1 x="1220" y="520"/>
-      <p2 x="1240" y="520"/>
+      <p1 x="1060" y="500"/>
+      <p2 x="1080" y="500"/>
     </wire>
     <wire>
       <p1 x="1060" y="520"/>
       <p2 x="1080" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="520"/>
+      <p2 x="1240" y="520"/>
     </wire>
     <wire>
       <p1 x="840" y="520"/>

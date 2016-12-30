@@ -1033,24 +1033,6 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Adressbus</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>A</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="1320" y="640"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
           <string>Datenbus</string>
         </entry>
         <entry>
@@ -1063,6 +1045,24 @@ An dieser Adresse muss sich die ISR befinden.</string>
         </entry>
       </elementAttributes>
       <pos x="1320" y="580"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Adressbus</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1320" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>

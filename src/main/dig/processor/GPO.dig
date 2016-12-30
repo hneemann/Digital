@@ -25,7 +25,7 @@ Seine Adresse ist 0x15</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="280" y="160"/>
+      <pos x="280" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -57,7 +57,7 @@ Seine Adresse ist 0x15</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="280" y="340"/>
+      <pos x="280" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -289,12 +289,12 @@ Seine Adresse ist 0x15</string>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="740" y="320"/>
-      <p2 x="780" y="320"/>
+      <p1 x="560" y="160"/>
+      <p2 x="600" y="160"/>
     </wire>
     <wire>
-      <p1 x="280" y="160"/>
-      <p2 x="600" y="160"/>
+      <p1 x="740" y="320"/>
+      <p2 x="780" y="320"/>
     </wire>
     <wire>
       <p1 x="740" y="480"/>
@@ -333,6 +333,10 @@ Seine Adresse ist 0x15</string>
       <p2 x="860" y="300"/>
     </wire>
     <wire>
+      <p1 x="280" y="140"/>
+      <p2 x="560" y="140"/>
+    </wire>
+    <wire>
       <p1 x="740" y="400"/>
       <p2 x="780" y="400"/>
     </wire>
@@ -349,15 +353,7 @@ Seine Adresse ist 0x15</string>
       <p2 x="780" y="240"/>
     </wire>
     <wire>
-      <p1 x="280" y="340"/>
-      <p2 x="580" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="740" y="340"/>
-      <p2 x="860" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="580" y="180"/>
+      <p1 x="280" y="180"/>
       <p2 x="600" y="180"/>
     </wire>
     <wire>
@@ -367,6 +363,10 @@ Seine Adresse ist 0x15</string>
     <wire>
       <p1 x="740" y="180"/>
       <p2 x="860" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="740" y="340"/>
+      <p2 x="860" y="340"/>
     </wire>
     <wire>
       <p1 x="280" y="280"/>
@@ -397,8 +397,8 @@ Seine Adresse ist 0x15</string>
       <p2 x="560" y="260"/>
     </wire>
     <wire>
-      <p1 x="580" y="180"/>
-      <p2 x="580" y="340"/>
+      <p1 x="560" y="140"/>
+      <p2 x="560" y="160"/>
     </wire>
   </wires>
 </circuit>

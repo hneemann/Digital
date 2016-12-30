@@ -34,10 +34,12 @@ public class GraphicCard extends Node implements Element, RAMInterface {
             input("C"),
             input("ld"),
             input("B"))
-            .addAttribute(Keys.GRAPHIC_WIDTH)
-            .addAttribute(Keys.GRAPHIC_HEIGHT)
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.ADDR_BITS)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.GRAPHIC_WIDTH)
+            .addAttribute(Keys.GRAPHIC_HEIGHT);
 
     private final DataField memory;
     private final int width;
@@ -45,6 +47,10 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     private final int bankSize;
 
     private static GraphicDialog graphicDialog;
+    private final int size;
+    private final String label;
+    private final int bits;
+    private final int addrBits;
     private ObservableValue dataOut;
     private ObservableValue addrIn;
     private ObservableValue strIn;
@@ -63,24 +69,28 @@ public class GraphicCard extends Node implements Element, RAMInterface {
      * @param attr the attributes
      */
     public GraphicCard(ElementAttributes attr) {
+        label = attr.getCleanLabel();
         width = attr.get(Keys.GRAPHIC_WIDTH);
         height = attr.get(Keys.GRAPHIC_HEIGHT);
         bankSize = width * height;
-        memory = new DataField(bankSize * 2);
+        bits = attr.get(Keys.BITS);
+        addrBits = attr.get(Keys.ADDR_BITS);
+        size = bankSize * 2;
+        memory = new DataField(size);
 
-        dataOut = new ObservableValue("D", 16, true)
+        dataOut = new ObservableValue("D", bits, true)
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional(true);
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        addrIn = inputs.get(0).checkBits(16, this).addObserverToValue(this);
+        addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
         strIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
         clkIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
         ldIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
         bankIn = inputs.get(4).checkBits(1, this).addObserverToValue(this);
-        dataIn = inputs.get(5).checkBits(16, this).addObserverToValue(this); // additional input to read the port
+        dataIn = inputs.get(5).checkBits(bits, this).addObserverToValue(this); // additional input to read the port
     }
 
     @Override
@@ -142,4 +152,18 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         });
     }
 
+    @Override
+    public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public int getBits() {
+        return bits;
+    }
 }

@@ -460,7 +460,7 @@ public class Model implements Iterable<Node> {
 
     /**
      * Returns all nodes of the given class.
-     * A filter cann be used to narrow down the amount of nodes found.
+     * A filter can be used to narrow down the amount of nodes found.
      *
      * @param nodeClass the class
      * @param filter    filter to filter the nodes
@@ -472,6 +472,20 @@ public class Model implements Iterable<Node> {
         for (Node n : nodes)
             if (n.getClass() == nodeClass && filter.accept((NODE) n))
                 found.add((NODE) n);
+        return found;
+    }
+
+    /**
+     * Returns all nodes witch match the given filter.
+     *
+     * @param filter filter to filter the nodes
+     * @return the list, not null, but maybe empty
+     */
+    public List<Node> findNode(NodeFilter<Node> filter) {
+        ArrayList<Node> found = new ArrayList<>();
+        for (Node n : nodes)
+            if (filter.accept(n))
+                found.add(n);
         return found;
     }
 

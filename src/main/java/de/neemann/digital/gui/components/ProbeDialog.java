@@ -1,17 +1,17 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserver;
-import de.neemann.digital.core.Signal;
+import de.neemann.digital.core.*;
+import de.neemann.digital.core.memory.RAMInterface;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -64,6 +64,34 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
                 modelSync.access(() -> model.removeObserver(ProbeDialog.this));
             }
         });
+
+        List<Node> memoryList = model.findNode(n -> n instanceof RAMInterface);
+        if (memoryList.size() > 0) {
+            JMenuBar bar = new JMenuBar();
+            final JMenu memory = new JMenu(Lang.get("menu_probe_memory"));
+            memory.setToolTipText(Lang.get("menu_probe_memory_tt"));
+            for (Node n : memoryList) {
+                if (n instanceof RAMInterface) {
+                    RAMInterface ram = (RAMInterface) n;
+                    String name = ram.getLabel();
+                    if (name == null || name.length() == 0)
+                        name = ram.getClass().getSimpleName();
+                    memory.add(new JMenuItem(new ToolTipAction(name) {
+                        @Override
+                        public void actionPerformed(ActionEvent actionEvent) {
+                            new DataEditor(ProbeDialog.this,
+                                    ram.getMemory(),
+                                    ram.getSize(),
+                                    ram.getBits(),
+                                    true,
+                                    modelSync).showDialog();
+                        }
+                    }));
+                }
+            }
+            bar.add(memory);
+            setJMenuBar(bar);
+        }
 
         setPreferredSize(new Dimension(150, getPreferredSize().height));
 

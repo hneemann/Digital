@@ -110,6 +110,14 @@ eingeblendet.</string>
           <string>graphicWidth</string>
           <int>20</int>
         </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>Addr Bits</string>
+          <int>16</int>
+        </entry>
       </elementAttributes>
       <pos x="720" y="360"/>
     </visualElement>

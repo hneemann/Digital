@@ -602,6 +602,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_help_elements_tt">Zeigt eine Dokumentation der vorhandenen Elemente.</string>
     <string name="menu_viewHelp">Hilfedialog</string>
     <string name="menu_viewHelp_tt">Zeigt den Hilfedialog der aktuellen Schaltung an.</string>
+    <string name="menu_probe_memory">Speicher</string>
+    <string name="menu_probe_memory_tt">Zeigt den Inhalt der Speicherbausteine an.</string>
     <string name="msg_actualCircuit">Aktuelle Schaltung</string>
 
     <string name="message">Digital
