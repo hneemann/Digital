@@ -11,6 +11,17 @@
             Auf diese Weise können die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
             <e>examples</e> finden sich viele Beispiele bis hin zum funktionsfähigen Single Cycle Harvard 16Bit Prozessor.
         </par>
+        <par>
+            Der Simulator kennt dabei zwei Modi: Im Bearbeitungsmodus kann die Schaltung bearbeitet werden. Es können
+            Elemente hinzugefügt oder durch Leitungen verbunden werden. In diesem Modus ist die eigentliche Simulation
+            nicht aktiv. Der Bearbeitungsmodus wird durch die Funktion <e>Elemente Bearbeiten</e> aktiviert.
+            Der Simulationsmodus wird durch <e>Start</e> aktiviert. Beim Wechsel in diesen Modus wird die Schaltung
+            auf Konsistenz überprüft. Gibt es in der Schaltung noch Fehler, wird eine entsprechende Meldung angezeigt.
+            Wenn möglich werden die betroffenen Element bzw. Leitungen hervorgehoben. Enthält die Schaltung keine
+            Fehler mehr, wird die Simulation aktiviert. Jetzt kann mit der laufenden Simulation interagiert werden.
+            Die Bearbeitung der Elemente ist dann jedoch nicht mehr möglich. Dazu muss erneut in den
+            Bearbeitungsmodus gewechselt werden.
+        </par>
     </chapter>
     <chapter name="Gatterlaufzeiten">
         <par>
@@ -23,7 +34,7 @@
         <par>
             Wird eine Schaltung in eine andere Schaltung eingebettet, um ein hierarchisches Design zu erstellen, behalten die
             eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet bei welchem ein Signal
-            von einam Eingang bis zu einem Ausgang drei Gatter passiern muss, beträgt dessen Laufzeit auch als eingebettete
+            von einem Eingang bis zu einem Ausgang drei Gatter passiern muss, beträgt dessen Laufzeit auch als eingebettete
             Schaltung drei Gatterlaufzeiten. Es gibt keine zusätzlichen Verzögerungen durch
             das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich schnell,
             werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
@@ -45,10 +56,10 @@
             geben.
         </par>
         <par>
-            Soll ein Element incl. der angeschlossenen Verbindungsleitungen verschoben werden, muss das Element mit der
+            Soll ein Element incl. der angeschlossenen Verbindungsleitungen verschoben werden, kann das Element mit der
             Rechteckauswahl ausgewählt werden. Danach kann es mit der Maus verschoben werden. Wenn ein Element per
-            Mausklick selektiert wird, kann nur das Bauteil allein - also ohne die angeschlossenen Leitungen
-            mitzunehmen - verschoben werden.
+            Mausklick selektiert wird, wird nur das Bauteil allein - also ohne die angeschlossenen Leitungen
+            mitzunehmen - verschoben.
         </par>
     </chapter>
     <chapter name="Schaltungsanalyse und Synthese">
@@ -68,16 +79,16 @@
             Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen. Anstelle einer
             einfachen Wahrheitstabelle entsteht eine so gen. Zustandsfolgetabelle. Jedes Flipflop taucht dabei auf der
             Eingangsseite und der Ausgangsseite der Zustandsfolgetabelle auf. In dieser Tabelle findet sich auf der
-            rechten Seite der anhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird
+            rechten Seite der abhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird,
             abhängig vom aktuellen Zustand der Flipflops. Damit eine Analyse möglich ist, müssen die Flipflops benannt
             werden.
         </par>
         <par>
-            Dabei gilt folgenden Namenskonvention: Der Folgezustand eines Bits auf der rechten Seite der Tabelle wird
+            Dabei gilt folgende Namenskonvention: Der Folgezustand eines Bits auf der rechten Seite der Tabelle wird
             durch ein angähngtes kleines 'n+1' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
             angehängtes 'n' ausgezeichnet. Gibt es also eine Zustandsvariable 'A', dann kennzeichnet 'An' den aktuellen
             Zustand und 'An+1' den Folgezustand. Finden sich in der Wahrheitstabelle auf der linken und rechten Seite Signale,
-            die diesem Muster entsprechen, wird davon ausgegeangen, dass es sich um eine Zustandsfolgetabelle handelt und
+            die diesem Muster entsprechen, wird davon ausgegegangen, dass es sich um eine Zustandsfolgetabelle handelt und
             bei der Synthese wird entsprechend ein Schaltwerk anstelle eines Schaltnetzes erzeugt.
         </par>
         <par>
