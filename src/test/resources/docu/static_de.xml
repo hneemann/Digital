@@ -9,7 +9,7 @@
         </par>
         <par>
             Auf diese Weise können die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
-            <e>examples</e> finden sich viele Beispiele bis hin zum funktionsfähigen Single Cycle Harvard 16Bit Prozessor.
+            <e>examples</e> finden sich viele Beispiele bis hin zum funktionsfähigen 16-Bit Single Cycle Harvard Prozessor.
         </par>
         <par>
             Der Simulator kennt dabei zwei Modi: Im Bearbeitungsmodus kann die Schaltung bearbeitet werden. Es können

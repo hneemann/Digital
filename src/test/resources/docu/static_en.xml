@@ -9,7 +9,7 @@
         </par>
         <par>
             In this way you can build and simulate most of the fundamental circuits used in digital electronics.
-            In the folder <e>examples</e> you can find many examples including a working single cycle harvard 16 bit
+            In the folder <e>examples</e> you can find many examples including a working 16 bit single cycle harvard
             processor.
         </par>
         <par>
