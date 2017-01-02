@@ -311,11 +311,11 @@ werden.</string>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>A B Y_0
-0 0 0
-0 1 1  
-1 0 1  
-1 1 0  
+            <dataString>A B C Y_0
+0 0 x  0
+0 1 x  1  
+1 0 x  1  
+1 1 x  0  
 </dataString>
           </testData>
         </entry>
@@ -536,11 +536,11 @@ werden.</string>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>A B Y_1
-0 0 1  
-0 1 0  
-1 0 0  
-1 1 1  
+            <dataString>A B C Y_1
+0 0 x  1  
+0 1 x  0  
+1 0 x  0  
+1 1 x  1  
 </dataString>
           </testData>
         </entry>

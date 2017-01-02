@@ -435,35 +435,24 @@ werden.</string>
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
+          <string>Label</string>
+          <string>Y_3 = A or C</string>
+        </entry>
+        <entry>
           <string>Testdata</string>
           <testData>
-            <dataString># y_0 = A xor B
-# y_1 = C and D
-# y_2 = A or (C and D)
-# y_3 = A or C
+            <dataString># y_3 = A or C
 
-A B C D  Y_0 Y_1 Y_2 Y_3
-0 0 0 0  0   0   0   0
-0 0 0 1  0   0   0   0
-0 0 1 0  0   0   0   1
-0 0 1 1  0   1   1   1
-0 1 0 0  1   0   0   0
-0 1 0 1  1   0   0   0
-0 1 1 0  1   0   0   1
-0 1 1 1  1   1   1   1
-1 0 0 0  1   0   1   1
-1 0 0 1  1   0   1   1
-1 0 1 0  1   0   1   1
-1 0 1 1  1   1   1   1
-1 1 0 0  0   0   1   1
-1 1 0 1  0   0   1   1
-1 1 1 0  0   0   1   1
-1 1 1 1  0   1   1   1
+A B C D  Y_3
+0 x 0 x   0
+0 x 1 x   1
+1 x 0 x   1
+1 x 1 x   1
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="860" y="760"/>
+      <pos x="780" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>DiodeForeward</elementName>
@@ -993,6 +982,79 @@ A B C D  Y_0 Y_1 Y_2 Y_3
         </entry>
       </elementAttributes>
       <pos x="1120" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y_0=A xor B</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># y_0 = A xor B
+
+A B C D  Y_0
+0 0 x x  0 
+0 1 x x  1 
+1 0 x x  1 
+1 1 x x  0 
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="740"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y_1 = C and D</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># y_1 = C and D
+
+A B C D  Y_1
+x x 0 0   0
+x x 0 1   0
+x x 1 0   0
+x x 1 1   1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="820"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y_2 = A or (C and D)</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># Y_2 = A or (C and D)
+
+A B C D  Y_2
+0 x 0 0   0  
+0 x 0 1   0  
+0 x 1 0   0   
+0 x 1 1   1   
+1 x 0 0   1  
+1 x 0 1   1  
+1 x 1 0   1   
+1 x 1 1   1   
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="740"/>
     </visualElement>
   </visualElements>
   <wires>
