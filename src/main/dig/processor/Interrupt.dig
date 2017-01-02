@@ -136,6 +136,21 @@ Interrupt-Controller wieder frei.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
+          <string>relativer Sprung: 
+Wenn gesetzt, wird Interrupt verhindert.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>rel</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
           <string>Immediate Register:
 Wenn gesetzt, wird Interrupt verhindert.</string>
         </entry>
@@ -144,7 +159,12 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="220" y="140"/>
+      <pos x="220" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="300" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -160,26 +180,6 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="300" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>relativer Sprung: 
-Wenn gesetzt, wird Interrupt verhindert.</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>rel</string>
-        </entry>
-      </elementAttributes>
-      <pos x="220" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
@@ -223,7 +223,7 @@ die Interrupts wieder freigegeben.
     <visualElement>
       <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Rising.dig</elementName>
       <elementAttributes/>
-      <pos x="260" y="20"/>
+      <pos x="260" y="0"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -285,7 +285,7 @@ die Interrupts wieder freigegeben.
           <string>intr</string>
         </entry>
       </elementAttributes>
-      <pos x="220" y="60"/>
+      <pos x="220" y="40"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -296,6 +296,10 @@ die Interrupts wieder freigegeben.
     <wire>
       <p1 x="460" y="0"/>
       <p2 x="480" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="0"/>
+      <p2 x="260" y="0"/>
     </wire>
     <wire>
       <p1 x="260" y="160"/>
@@ -322,8 +326,8 @@ die Interrupts wieder freigegeben.
       <p2 x="520" y="260"/>
     </wire>
     <wire>
-      <p1 x="320" y="40"/>
-      <p2 x="340" y="40"/>
+      <p1 x="220" y="40"/>
+      <p2 x="260" y="40"/>
     </wire>
     <wire>
       <p1 x="220" y="140"/>
@@ -350,8 +354,8 @@ die Interrupts wieder freigegeben.
       <p2 x="520" y="-20"/>
     </wire>
     <wire>
-      <p1 x="240" y="20"/>
-      <p2 x="260" y="20"/>
+      <p1 x="320" y="20"/>
+      <p2 x="340" y="20"/>
     </wire>
     <wire>
       <p1 x="460" y="20"/>
@@ -398,12 +402,8 @@ die Interrupts wieder freigegeben.
       <p2 x="660" y="-60"/>
     </wire>
     <wire>
-      <p1 x="220" y="60"/>
-      <p2 x="260" y="60"/>
-    </wire>
-    <wire>
       <p1 x="240" y="-60"/>
-      <p2 x="240" y="20"/>
+      <p2 x="240" y="0"/>
     </wire>
     <wire>
       <p1 x="660" y="-60"/>
@@ -426,7 +426,7 @@ die Interrupts wieder freigegeben.
       <p2 x="260" y="180"/>
     </wire>
     <wire>
-      <p1 x="340" y="40"/>
+      <p1 x="340" y="20"/>
       <p2 x="340" y="100"/>
     </wire>
     <wire>
