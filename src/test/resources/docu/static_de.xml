@@ -17,7 +17,7 @@
             nicht aktiv. Der Bearbeitungsmodus wird durch die Funktion <e>Elemente Bearbeiten</e> aktiviert.
             Der Simulationsmodus wird durch <e>Start</e> aktiviert. Beim Wechsel in diesen Modus wird die Schaltung
             auf Konsistenz überprüft. Gibt es in der Schaltung noch Fehler, wird eine entsprechende Meldung angezeigt.
-            Wenn möglich werden die betroffenen Element bzw. Leitungen hervorgehoben. Enthält die Schaltung keine
+            Wenn möglich werden die betroffenen Elemente bzw. Leitungen hervorgehoben. Enthält die Schaltung keine
             Fehler mehr, wird die Simulation aktiviert. Jetzt kann mit der laufenden Simulation interagiert werden.
             Die Bearbeitung der Elemente ist dann jedoch nicht mehr möglich. Dazu muss erneut in den
             Bearbeitungsmodus gewechselt werden.
