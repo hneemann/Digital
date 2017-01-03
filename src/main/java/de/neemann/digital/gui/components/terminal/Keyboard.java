@@ -8,7 +8,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 
@@ -26,8 +25,7 @@ public class Keyboard extends Node implements Element {
             = new ElementTypeDescription(Keyboard.class,
             input("sel"))
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.LABEL)
-            .setShortName(Lang.get("elem_Keyboard"));
+            .addAttribute(Keys.LABEL);
 
     private static KeyboardDialog keyboardDialog;
 
