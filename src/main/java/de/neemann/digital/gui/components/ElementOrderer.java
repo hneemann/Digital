@@ -97,7 +97,7 @@ public class ElementOrderer<T> extends JDialog {
      * @return this for chained calls
      */
     public ElementOrderer<T> addDeleteButton() {
-        buttons.add(new ToolTipAction("\u2421") { // \u274C is not visible on Windows
+        buttons.add(new ToolTipAction("\u2717") { // 274C is not visible on Windows, 2715,2716,2717,2718 works an linux
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i = list.getSelectedIndex();
