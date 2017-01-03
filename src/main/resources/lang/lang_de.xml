@@ -679,23 +679,51 @@ Mehrere Ausdrücke können durch "," oder ";" getrennt werden.
 Sollen die Ausdrücke benannt werden, kann die let-Anweisung verwendet
 werden: "let U=A+B, let V=A*B"</string>
     <string name="msg_testVectorHelpTitle">Testvektoren</string>
-    <string name="msg_testVectorHelp">Die erste Zeile muss, durch ein Leerzeichen getrennt, die
+    <string name="msg_testVectorHelp"><![CDATA[<html><body>
+<p>Die erste Zeile muss, durch ein Leerzeichen getrennt, die
 Ein- und Ausgänge auflisten. In den folgenden Zeilen stehen dann die Sollwerte.
 Dabei steht ein 'X' für Don't Care, und ein 'Z' für hochohmig.
 Wird der Wert 'C' verwendet, werden zunächst alle anderen Werte gesetzt, dann wird ein
 Taktzyklus durchgeführt, und erst daran anschließend werden die Werte verglichen.
 Auf diese Weise können Schaltwerke einfacher getestet werden.
-Eine Zeile, die mit einem Doppelkreuz ('#') beginnt ist ein Kommentar.
-
-Ein Test für einen 2-Bit Zähler könnte damit wie folgt aussehen:
-
-C Q1 Q0
-0 0  0
-C 0  1
-C 1  0
-C 1  1
+Eine Zeile, die mit einem Doppelkreuz ('#') beginnt ist ein Kommentar.</p>
+<p>Ein Test für einen 2-Bit Zähler könnte damit wie folgt aussehen:</p>
+<p>
+<code>
+C Q1 Q0<br/>
+0 0  0<br/>
+C 0  1<br/>
+C 1  0<br/>
+C 1  1<br/>
 C 0  0
+</code>
+</p>
+<p>
+Gestartet werden die Tests über Start->Tests ausführen.
+</p>
+<p>
+Um vereinfacht sehr viele Tests durchzuführen existiert die 'for([n])' Anweisung:
+Beginnt eine Zeile mit 'for([n])' werden [n] Testzeilen erzeugt. Dabei kann die
+Variable 'n' verwendet werden, um die Testdaten zu erzeugen. Bei 'for(16)' werden
+16 Zeilen erzeugt, wobei n von 0 bis 15 läuft. Wenn es mehrere Bit-Eingänge gibt,
+und diese sollen gemeinsam auf einen binären Wert gesetzt werden, vereinfacht dies die
+bits([bits],[value]) Anweisung. Mit dieser werden [bits] Bits des Wertes [value] erzeugt.</p>
 
-Gestartet werden die Tests über Start->Tests ausführen.</string>
+<p>Im folgenden ein Beispiel, welches einen 4-Bit Addierer testet:</p>
+
+<p>
+<code>
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
+for(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))<br/>
+for(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
+</code>
+</p>
+<p>Die Eingangssignale sind das Carry-In (C_i-1) und die acht Eingangsbits A_3-A_0
+und B_3-B_0. Erzeugt werden die jeweils 4 Eingangsbits mit der 'bits'Anweisung.
+Das Ergebnis (C_i,S_3-S_0) wird ebenfalls durch eine 'bits'-Anweisung erzeugt.
+Das ganze geschieht einmal mit C_i-1=0 und in der nächsten Zeile mit C_i-1=1.
+Auf diese Weise werden 512 Testzeilen erzeugt, welche alle möglichen
+Eingangskonfigurationen abdecken.</p>
+</body></html>]]></string>
 
 </resources>

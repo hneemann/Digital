@@ -668,22 +668,48 @@ Multiple expressions can be separated by "," or ";".
 If you want to name the expressions you can use the
 let-command: "let U=A+B, let V=A*B"</string>
     <string name="msg_testVectorHelpTitle">Test vectors</string>
-    <string name="msg_testVectorHelp">The first line has to contain the names of inputs and outputs.
+    <string name="msg_testVectorHelp"><![CDATA[<html><body>
+<p>The first line has to contain the names of inputs and outputs.
 The following lines contain the expected values.
 A 'X' represents a don't care, and a 'Z' represents a high Z value.
 If a 'C' is used, at first all other values are set, after that a clock cycle is performed and than the
 values are compared. So it's easier to test sequential logic.
-A line which starts with a number sign ('#') is a comment.
+A line which starts with a number sign ('#') is a comment.</p>
 
-So a test for a 2-bit counter could look like this:
+<p>So a test for a 2-bit counter could look like this:</p>
 
-C Q1 Q0
-0 0  0
-C 0  1
-C 1  0
-C 1  1
+<p><code>
+C Q1 Q0<br/>
+0 0  0<br/>
+C 0  1<br/>
+C 1  0<br/>
+C 1  1<br/>
 C 0  0
+</code></p>
 
-The tests are executed by Run->Run Tests.</string>
+<p>The tests are executed by Run->Run Tests.</p>
+<p>
+To make it easier to create a lot of test vectors there is the 'for([n])' statement:
+If a line begins with 'for ([n])', [n] test lines are generated. The
+Variable 'n' can be used to generate the test data. With 'for (16)'
+16 lines are created, where n goes from 0 to 15. If there are multiple bit inputs,
+and these are to be set together to a binary value, this can be done with the
+'bits([bits], [value])' statement. This is used to create [bits] bits of the value [value].</p>
+
+<p>The following is an example that tests a 4-bit adder:</p>
+
+<p>
+<code>
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
+for(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))<br/>
+for(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
+</code>
+</p>
+<p>The input signals are the carry-in (C_i-1) and the eight input bits A_3-A_0 and B_3-B_0.
+The 4 input bits are generated with the 'bits' instruction. The result (C_i, S_3-S_0) is also generated
+by a 'bits' instruction.
+This happens once with C_i-1 = 0 and in the next line with C_i-1 = 1.
+In this way, 512 test rows are generated which cover all possible input configurations.</p>
+</body></html>]]></string>
 
 </resources>

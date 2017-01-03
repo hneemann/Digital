@@ -62,7 +62,7 @@ public class TestDataDialog extends JDialog {
                 new ShowStringDialog(
                         TestDataDialog.this,
                         Lang.get("msg_testVectorHelpTitle"),
-                        Lang.get("msg_testVectorHelp"))
+                        Lang.get("msg_testVectorHelp"), true)
                         .setVisible(true);
             }
         }.createJButton());
