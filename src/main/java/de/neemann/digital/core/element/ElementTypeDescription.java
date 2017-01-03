@@ -60,8 +60,8 @@ public class ElementTypeDescription {
      */
     public ElementTypeDescription(String name, ElementFactory elementFactory, PinDescription... inputPins) {
         this.name = name;
-        this.shortName = null;
         langKey = "elem_" + name;
+        this.shortName = Lang.getNull(langKey + "_short");
         this.elementFactory = elementFactory;
         this.inputPins = new PinDescriptions(inputPins).setLangKey(getPinLangKey());
         for (PinDescription p : inputPins)

@@ -25,8 +25,7 @@ public class FlipflopD extends Node implements Element {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
-            .addAttribute(Keys.VALUE_IS_PROBE)
-            .setShortName("D");
+            .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final int bits;
     private final boolean isProbe;

@@ -23,8 +23,7 @@ public class Register extends Node implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.VALUE_IS_PROBE)
-            .setShortName("Reg");
+            .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final int bits;
     private final boolean isProbe;

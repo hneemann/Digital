@@ -23,8 +23,7 @@ public class FlipflopRS extends Node implements Element {
             = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("S"), input("C"), input("R"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.VALUE_IS_PROBE)
-            .setShortName("RS");
+            .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final boolean isProbe;
     private final String label;

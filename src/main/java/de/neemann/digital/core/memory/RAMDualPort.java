@@ -27,8 +27,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
-            .addAttribute(Keys.LABEL)
-            .setShortName("RAM");
+            .addAttribute(Keys.LABEL);
 
     private final DataField memory;
     private final ObservableValue output;

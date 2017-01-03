@@ -96,6 +96,7 @@
     <string name="elem_Counter_pin_out">Returns the counted value.</string>
     <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter has an overflow and returns to zero.</string>
     <string name="elem_D_FF">D-FlipFlop</string>
+    <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">A component used to save two states (one bit). The bit on pin D is stored on a rising edge of pin C.</string>
     <string name="elem_D_FF_pin_D">Input of the bit to be stored.</string>
     <string name="elem_D_FF_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
@@ -133,7 +134,8 @@
     <string name="elem_In">Input</string>
     <string name="elem_In_pin_out">This connection outputs the given value.</string>
     <string name="elem_In_tt">A input which can be used to connect the circuit if it is included in an other circuit.</string>
-    <string name="elem_JK_FF">JK_FF</string>
+    <string name="elem_JK_FF">JK-Flipflop</string>
+    <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value. The input values act with a rising edge at input C.</string>
     <string name="elem_JK_FF_pin_J">The set input of the flipflop.</string>
     <string name="elem_JK_FF_pin_C">The Clock input. A rising edge initiates a state change.</string>
@@ -144,6 +146,7 @@
     <string name="elem_LED_tt">A simple LED can be used to visualize an output value. Accepts a single bit. Lights up when the input is set to 1.</string>
     <string name="elem_LED_pin_in">LED Input. LED shines when input is set to 1.</string>
     <string name="elem_LookUpTable">LookUpTable</string>
+    <string name="elem_LookUpTable_short">LUT</string>
     <string name="elem_LookUpTable_pin_in">Input {0}. This input in combination with all other inputs define the address of the stored value to be returned.</string>
     <string name="elem_LookUpTable_pin_out">Returns the stored value at the address set via the inputs.</string>
     <string name="elem_LookUpTable_tt">Gets the output value from a stored table.
@@ -180,6 +183,7 @@
     <string name="elem_Probe_tt">A measurement value which can be shown in the data graph.</string>
     <string name="elem_Probe_pin_in">The measurement value.</string>
     <string name="elem_RAMDualPort">RAMDualPort</string>
+    <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_pin_A">The address to read and write</string>
     <string name="elem_RAMDualPort_pin_c">Clock</string>
     <string name="elem_RAMDualPort_pin_D_in">The data to be stored in the RAM</string>
@@ -188,6 +192,7 @@
     <string name="elem_RAMDualPort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
     <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
     <string name="elem_RAMSinglePort">RAMSinglePort</string>
+    <string name="elem_RAMSinglePort_short">RAM</string>
     <string name="elem_RAMSinglePort_pin_A">The address to read and write.</string>
     <string name="elem_RAMSinglePort_pin_c">Clock</string>
     <string name="elem_RAMSinglePort_pin_D">The bidirectional data connection.</string>
@@ -210,6 +215,7 @@
     <string name="elem_ROM_pin_D">The selected data word. Only readable if "select" input is high.</string>
     <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
     <string name="elem_RS_FF">RS-FlipFlop</string>
+    <string name="elem_RS_FF_short">RS</string>
     <string name="elem_RS_FF_tt">A component to save a single bit for an undefined duration.
         Provides the functions "set" and "reset" the stored bit.</string>
     <string name="elem_RS_FF_pin_S">The set input.</string>
@@ -255,6 +261,7 @@
     <string name="elem_Sub_pin_s">Output returns the result of the substraction.</string>
     <string name="elem_Sub_pin_c_o">Output returns 1 if an overflow occured.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
+    <string name="elem_T_FF_short">T</string>
     <string name="elem_T_FF_tt">A component with one input. Toggles the state of the output on a rising edge at the input.</string>
     <string name="elem_T_FF_pin_C">Clock. A rising edgt toggles the output.</string>
     <string name="elem_T_FF_pin_Q">Returns the stored value.</string>

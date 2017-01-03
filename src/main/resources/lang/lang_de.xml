@@ -97,6 +97,7 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Counter_pin_ovf">Overflow Ausgang. Hat der Zähler das Maximum erreicht hat wird dieser Ausgang für eine Taktdauer 1.</string>
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
     <string name="elem_D_FF">D-FlipFLop</string>
+    <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">Ein Baustein zum Speichern von zwei Zuständen (ein Bit). Der an Eingang D anliegende Wert wird abgespeichert wenn Eingang C auf 1 wechselt.</string>
     <string name="elem_D_FF_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
@@ -137,6 +138,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_In_pin_out">An diesem Ausgang wird der anliegende Wert ausgegeben.</string>
     <string name="elem_In_tt">Ein Eingang der genutzt werden kann, um eine Verbindung zu einem eingebettetem Element herzustellen.</string>
     <string name="elem_JK_FF">JK-FlipFlop</string>
+    <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Bietet die Funktionen zum
         Speichern (J=K=0), Setzen (J=1, K=0), Rücksetzen (J=0, K=1) und Wechseln (J=K=1). Übernommen werden die Eingänge bei einer steigenden Flanke am Eingang C.</string>
     <string name="elem_JK_FF_pin_J">Der Setzen-Eingang des Flipflops.</string>
@@ -148,6 +150,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_LED_tt">Eine Leuchtdiode welche beispielsweise zur Visualisierung eines Ausgangswertes verwendet werden kann. Nimmt ein Bit entgegen. Leuchtet wenn der Eingang auf 1 gesetzt ist.</string>
     <string name="elem_LED_pin_in">LED Eingang. LED leuchtet wenn Eingang auf 1 gesetzt ist.</string>
     <string name="elem_LookUpTable">LookUpTable</string>
+    <string name="elem_LookUpTable_short">LUT</string>
     <string name="elem_LookUpTable_tt">Erzeugt einen Ausgabewert aus einer Tabelle.
         Auf diese Weise kann jedes kombinatorische Gatter erzeugt werden. Die Konfiguration der LookUpTable, wie Anzahl der Bits pro Eingang und Anzahl der Eingänge, kann im Attribute-Dialog eingestellt werden.</string>
     <string name="elem_LookUpTable_pin_in">Eingang {0}. Dieser Eingang legt, in Kombination mit den anderen Eingängen, die Addresse des gewünschten Ausgabewertes fest.</string>
@@ -183,6 +186,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertgraphen dargestellt werden kann.</string>
     <string name="elem_Probe_pin_in">Hier wird der Messwert angeschlossen.</string>
     <string name="elem_RAMDualPort">RAMDualPort</string>
+    <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
     <string name="elem_RAMDualPort_pin_c">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
     <string name="elem_RAMDualPort_pin_D_in">Die Daten die gespeichert werden sollen</string>
@@ -192,6 +196,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_RAMDualPort_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
             Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
     <string name="elem_RAMSinglePort">RAMSinglePort</string>
+    <string name="elem_RAMSinglePort_short">RAM</string>
     <string name="elem_RAMSinglePort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
     <string name="elem_RAMSinglePort_pin_c">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
     <string name="elem_RAMSinglePort_pin_D">Der bidirektionale Datenanschluß.</string>
@@ -216,6 +221,7 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherzellen.</strin
     <string name="elem_ROM_pin_D">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang eine 1 anliegt.</string>
     <string name="elem_ROM_pin_sel">Ist dieser Pin high (1) ist der Ausgang aktiviert. Ist er low (0) ist der Ausgang hochohmig.</string>
     <string name="elem_RS_FF">RS-FlipFlop</string>
+    <string name="elem_RS_FF_short">RS</string>
     <string name="elem_RS_FF_tt">Ein Baustein welcher ein einzelnes Bit über einen unbestimmten Zeitraum abspeichern kann.
         Bietet die Funktionen "Setzen" und "Rücksetzen".</string>
     <string name="elem_RS_FF_pin_S">Der Setzen-Eingang.  Mit diesem Eingang wird das gespeicherte Bit gesetzt.</string>
@@ -261,6 +267,7 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherzellen.</strin
     <string name="elem_Sub_pin_s">Ausgang gibt das Ergebnis der Substraktion aus.</string>
     <string name="elem_Sub_pin_c_o">Ausgang gibt 1 aus wenn bei der Substraktion ein Überlauf aufgetreten ist.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
+    <string name="elem_T_FF_short">T</string>
     <string name="elem_T_FF_tt">Ein Baustein mit einem Eingang. Wechselt den Status der Ausgänge mit jeder 1 am Eingang.</string>
     <string name="elem_T_FF_pin_C">Dieser Eingang nimmt ein Bit entgegen und wechselt jedes mal die Ausgänge wenn er auf 1 gesetzt wird (toggle).</string>
     <string name="elem_T_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>

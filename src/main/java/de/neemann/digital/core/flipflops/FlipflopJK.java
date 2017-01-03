@@ -24,8 +24,7 @@ public class FlipflopJK extends Node implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
-            .addAttribute(Keys.VALUE_IS_PROBE)
-            .setShortName("JK");
+            .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final Boolean isProbe;
     private final String label;
