@@ -28,8 +28,9 @@ public class TestResult {
      * Creates a new testing result
      *
      * @param testData the testing data
+     * @throws TestingDataException DataException
      */
-    public TestResult(TestData testData) {
+    public TestResult(TestData testData) throws TestingDataException {
         names = testData.getNames();
         lines = testData.getLines();
         results = new ArrayList<>();

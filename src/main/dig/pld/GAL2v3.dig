@@ -1457,14 +1457,7 @@ werden.</string>
           <testData>
             <dataString>A B Clock Y_2 Y_1 Y_0
 0 0 0     0   0   0
-0 0 C     0   0   1
-0 0 C     0   1   0
-0 0 C     0   1   1
-0 0 C     1   0   0
-0 0 C     1   0   1
-0 0 C     1   1   0
-0 0 C     1   1   1
-0 0 C     0   0   0
+repeat(8) 0 0 C bits(3,n+1)
 </dataString>
           </testData>
         </entry>

@@ -696,9 +696,9 @@ C 0  0
 
 <p>The tests are executed by Run->Run Tests.</p>
 <p>
-To make it easier to create a lot of test vectors there is the 'for([n])' statement:
-If a line begins with 'for ([n])', [n] test lines are generated. The
-Variable 'n' can be used to generate the test data. With 'for (16)'
+To make it easier to create a lot of test vectors there is the 'repeat([n])' statement:
+If a line begins with 'repeat([n])', [n] test lines are generated. The
+Variable 'n' can be used to generate the test data. With 'repeat(16)'
 16 lines are created, where n goes from 0 to 15. If there are multiple bit inputs,
 and these are to be set together to a binary value, this can be done with the
 'bits([bits], [value])' statement. This is used to create [bits] bits of the value [value].</p>
@@ -708,8 +708,8 @@ and these are to be set together to a binary value, this can be done with the
 <p>
 <code>
            C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
-for(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))<br/>
-for(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
+repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))<br/>
+repeat(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
 </code>
 </p>
 <p>The input signals are the carry-in (C_i-1) and the eight input bits A_3-A_0 and B_3-B_0.

@@ -709,9 +709,9 @@ C 0  0
 Gestartet werden die Tests über Start->Tests ausführen.
 </p>
 <p>
-Um vereinfacht sehr viele Tests durchzuführen existiert die 'for([n])' Anweisung:
-Beginnt eine Zeile mit 'for([n])' werden [n] Testzeilen erzeugt. Dabei kann die
-Variable 'n' verwendet werden, um die Testdaten zu erzeugen. Bei 'for(16)' werden
+Um vereinfacht sehr viele Tests durchzuführen existiert die 'repeat([n])' Anweisung:
+Beginnt eine Zeile mit 'repeat([n])' werden [n] Testzeilen erzeugt. Dabei kann die
+Variable 'n' verwendet werden, um die Testdaten zu erzeugen. Bei 'repeat(16)' werden
 16 Zeilen erzeugt, wobei n von 0 bis 15 läuft. Wenn es mehrere Bit-Eingänge gibt,
 und diese sollen gemeinsam auf einen binären Wert gesetzt werden, vereinfacht dies die
 bits([bits],[value]) Anweisung. Mit dieser werden [bits] Bits des Wertes [value] erzeugt.</p>
@@ -721,8 +721,8 @@ bits([bits],[value]) Anweisung. Mit dieser werden [bits] Bits des Wertes [value]
 <p>
 <code>
            C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
-for(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))<br/>
-for(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
+repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))<br/>
+repeat(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
 </code>
 </p>
 <p>Die Eingangssignale sind das Carry-In (C_i-1) und die acht Eingangsbits A_3-A_0

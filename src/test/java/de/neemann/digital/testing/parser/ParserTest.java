@@ -78,7 +78,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testFor() throws IOException, ParserException {
-        Parser td = new Parser("A B\nfor(10) C (n*2)\n").parse();
+        Parser td = new Parser("A B\nrepeat(10) C (n*2)\n").parse();
         assertEquals(2, td.getNames().size());
         assertEquals(10, td.getLines().size());
 
@@ -89,7 +89,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testForBits() throws IOException, ParserException {
-        Parser td = new Parser("A B C D \nfor(8) X bits(3,n)\n").parse();
+        Parser td = new Parser("A B C D \nrepeat(8) X bits(3,n)\n").parse();
         assertEquals(4, td.getNames().size());
         assertEquals(8, td.getLines().size());
 
@@ -133,7 +133,7 @@ public class ParserTest extends TestCase {
 
     public void testBUG1() throws IOException, ParserException {
         Parser td = new Parser("C_i-1 A B    C   S\n" +
-                "for(1<<16) 0 (n>>8) (n&255) ((n>>8)*(n&255)) 0").parse();
+                "repeat(1<<16) 0 (n>>8) (n&255) ((n>>8)*(n&255)) 0").parse();
         assertEquals(5, td.getNames().size());
         assertEquals(1<<16, td.getLines().size());
 

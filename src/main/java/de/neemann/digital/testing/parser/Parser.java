@@ -83,7 +83,7 @@ public class Parser {
                     parseLine();
                     break;
                 case IDENT:
-                    if (tok.getIdent().equals("for")) {
+                    if (tok.getIdent().equals("repeat")) {
                         tok.consume();
                         expect(Tokenizer.Token.OPEN);
                         int count = (int) parseInt();

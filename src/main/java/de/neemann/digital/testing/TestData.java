@@ -58,30 +58,32 @@ public class TestData {
         }
     }
 
-    private void check() {
+    private void check() throws TestingDataException {
         if (lines == null) {
             try {
                 Parser tdp = new Parser(dataString).parse();
                 lines = tdp.getLines();
                 names = tdp.getNames();
             } catch (ParserException | IOException e) {
-                e.printStackTrace();
+                throw new TestingDataException(e);
             }
         }
     }
 
     /**
      * @return the data lines
+     * @throws TestingDataException TestingDataException
      */
-    public ArrayList<Value[]> getLines() {
+    public ArrayList<Value[]> getLines() throws TestingDataException {
         check();
         return lines;
     }
 
     /**
      * @return the signal names
+     * @throws TestingDataException TestingDataException
      */
-    public ArrayList<String> getNames() {
+    public ArrayList<String> getNames() throws TestingDataException {
         check();
         return names;
     }

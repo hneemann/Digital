@@ -177,8 +177,8 @@ aus vier Volladdierern.</string>
           <testData>
             <dataString># complete test of all 512 possible additions
 C_-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_3 S_3 S_2 S_1 S_0
-for(256) 0 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15))
-for(256) 1 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+repeat(256) 0 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15))
+repeat(256) 1 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
 </dataString>
           </testData>
         </entry>
