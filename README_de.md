@@ -4,18 +4,18 @@ Digital ist ein Simulator für digitale Schaltkreise. Er ist für Lehrzwecke ent
 wird von mir in meinen Vorlesungen eingesetzt.
 Bevor ich mit der Entwicklung von Digital begonnen habe, habe ich
 [Logisim](http://www.cburch.com/logisim/) von Carl Burch
-eingesetzt. Zu erkennen ist das daran, dass die Farbschemata sich ähneln.
+eingesetzt. Zu erkennen noch daran, dass die Farbschemata der Leitungen sich ähneln.
 
 Logisim ist ein ganz hervorragendes Werkzeug welches sich beim Einsatz in der Lehre vielfach 
 bewährt hat. Leider hat Carl Burch die Entwicklung von Logisim 2014 eingestellt.
 Es gibt eine Reihe von Forks, über welche eine Weiterentwicklung betrieben wird:
 
-- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) aus der Schweiz
-- [Logisim](https://github.com/lawrancej/logisim) von Joseph Lawrance
-- [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) aus Indien
+- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) von Mitarbeitern dreier schweizer Institute (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
+- [Logisim](https://github.com/lawrancej/logisim) von Joseph Lawrance vom Wentworth Institute of Technology, Boston, MA
+- [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) vom Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) des CS3410 Kurses der Cornell Universität
 
-Dennoch bin ich der Meinung, das es gute Gründe für eine komplette Neuentwicklung gibt.
+Dennoch bin ich der Meinung, das es gute Gründe für eine komplette Neuentwicklung gab.
 
 ## Features ##
 
@@ -28,8 +28,11 @@ Folgende Features zeichnen Digital aus:
 - Viele Beispiele: Vom Transmission-Gate D-FF bis zum kompletten MIPS-ähnlichem Prozessor.
 - Fast-Run-Mode um eine Simulation ohne Aktualisierung des HMI durchzuführen.
   Ein einfacher Prozessor kann mit 100kHz getaktet werden.
-- Anzeige von LST-Files bei der Ausführung von Assembler-Programmen.
 - Einfache Remote TCP-Schnittstelle um z.B. mit einer Assembler-IDE den Simulator zu steuern.
+- Direkter Export von JEDEC Datien welche in ein [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
+  oder [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx) geschrieben werden können. 
+  Diese Bausteine sind zwar schon sehr alt (vorgestellt 1985!) jedoch sind sie ausreichend für Anfängerübungen, 
+  einfach zu verstehen und sehr gut dokumentiert.
 - SVG-Export von Schaltungen, incl. einer LaTeX-tauglichen SVG-Variante (siehe [ctan](ftp://ftp.fau.de/ctan/info/svg-inkscape/InkscapePDFLaTeX.pdf))
 - Keine Altlasten im Code
 - hohe Testabdeckung (exclusiv der GUI-Klassen etwa 80%)
@@ -99,24 +102,23 @@ Logisim arbeitet hier etwas anders, was gelegentlich zu Überraschungen führt, 
 
 Werden komplette Prozessoren simuliert, ist es möglich die Simulation zu berechnen ohne die grafische Anzeige zu aktualisieren.
 Ein einfacher Prozessor (siehe Beispiel) lässt sich so mit etwa 100kHz takten (Intel® Core™ i5-3230M CPU @ 2.60GHz) was auch für
-komplexere Übungen ausreichend ist.
+komplexere Übungen wie z.B. Conway's Game of Live ausreichend ist.
 Es gibt ein Break-Gatter welches einen einzelnen Eingang hat. Wechselt dieser Eingang von low auf high wird dieser 
 schnelle Lauf beendet. Auf diese Weise lässt sich eine Assembler-Anweisung BRK implementieren, womit sich dann Break-Points 
 in Assembler-Programme einfügen lassen. 
 
 ### Debugging ###
 
-In Logisim gibt es keine geeignete Möglichkeit um ein Assembler-Programm in einem simulierten Prozessor zu debuggen.
-Steht ein Assembler zur Verfügung welcher ein List-File des Source-Codes erzeugt (Code-Adresse gefolgt vom Source-Code)
-kann Digital dieses Listing in einem Trace-Fenster anzeigen, wobei der aktuelle Befehl hervorgehoben ist. 
-So lässt sich im Simulator ein Assembler-Programm im Einzelschrittmodus ausführen und debuggen. 
-Da Digital über eine einfache, TCP basierte Schnittstelle zur Steuerung verfügt, kann auch eine Assembler-IDE den Simulator 
-steuern, und auf diese Weise Anwendungen in den simulierten Prozessor laden, den Prozessor starten und beenden, Einzelschritte 
-ausführen usw..     
+In Logisim gibt es keine einfache Möglichkeit um ein Assembler-Programm in einem simulierten Prozessor zu debuggen.
+Digital bietet eine einfache TCP-basierte Schnittstelle, so dass eine [assembler IDE](https://github.com/hneemann/Assembler)
+den Simulator steuern kann. Ein solche IDE kann Anwendungen in den simulierten Prozessor laden, den Prozessor starten und beenden, 
+Einzelschritte ausführen usw..
+Nach jeder Aktion wird die aktuelle Code-Adresse an die IDE zurückgegeben. Auf diese Weise kann in der IDE der aktuell 
+ausgeführte Befehl hervorgehoben werden. Auf diese Weise kann ein Assembler-Programm sehr einfach analysiert werden.   
 
 ### Schaltungssynthese ###
 
-Logisim kann kombinatorische Schaltungen aus einer Wahrheitstabelle erzeugen. In Digital ist dies ebenfalls möglich. 
+Logisim kann kombinatorische Schaltungen aus einer Wahrheitstabelle erzeugen und umgekehrt. In Digital ist dies ebenfalls möglich. 
 Zudem lassen sich mit Digital auch Automaten aus einer geeigneten Zustandsübergangstabelle erzeugen. Dabei kann sowohl 
 das Übergangsschaltnetz als auch ein Ausgangsschaltnetz erzeugt werden. Die  Minimierung der Ausdrücke erfolgt dabei 
 nach dem Verfahren von Quine und McCluskey. Ebenso lässt sich aus einer Schaltung, die D-Flipflops oder JK-Flipflops 
@@ -124,3 +126,30 @@ enthält die Zustandsübergangstabelle ermitteln. Zu beachten ist jedoch, dass d
 Ein FlipFlop welches z.B. aus NOr Gattern aufgebaut wurde, wird nicht als solches erkannt. 
 Die Analyse sequentieller Schaltungen funktioniert nur, wenn rein kombinatorische 
 Schaltungen mit den eingebauten D- oder JK-Flopflops kombiniert werden.     
+Nach der Erzeugung der Wahrheitstabelle kann eine JEDEC-Datei für ein 
+[GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) oder ein [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx).
+Danach kann diese Datei in einen entsprechenden Baustein geschrieben werden, um sie in einem realen Aufbau zu testen.
+Wie erwähnt sind diese Bausteine zwar schon sehr alt, jedoch mit 8 bzw. 10 Macrozellen ausreichend für einfache Übungen. 
+
+## Wie fange ich an? ##
+
+Am einfachsten ist es, das [letzte Release](https://github.com/hneemann/Digital/releases/latest) herunter zu laden. 
+In der ZIP-Datei findet sich das Binary (Digital.jar) und alle Beispiele. Ein Java JRE 1.8 wird benötigt, um Digital zu starten.
+
+Wenn Digital direkt aus dem Source Code gebaut werden soll:
+ 
+* Zunächst ist dieses Repository zu clonen.
+* Ein JDK 1.8 wird benötigt (entweder Oracle JDK 1.8 oder OpenJDK 1.8)  
+* maven wird als Build-System verwendet, daher ist es das einfachste [maven](https://maven.apache.org/) zu installieren.
+* Danach kann mit `mvn install` Digital gebaut werden.
+* Mit `mvn site` kann ein checkstyle, ein findbugs und ein cobertura code coverage report erzeugt werden.
+* Die meisten IDEs (Eclipse, NetBeans, IntelliJ) könne die Datei `pom.xml` importieren im ein Projekt zu erzeugen.
+
+## Contribution guidelines ##
+
+* Wer beitragen möchte kann mir einen pull request schicken.
+* Es sollten keine neuen checkstyle Fehler hinzugefügt werden.
+* Es sollten keine neuen findbugs Fehler hinzugefügt werden.
+* Die Testabdeckung sollte noch gehalten werden. Das Ziel ist 80% Testabdeckung in allen nicht GUI Komponenten.
+* Bis jetzt gibt es keine GUI Tests. Dahier liegt die gesamte Testabdeckung nur bei etwas über 50%.
+  Versuche den Anteil an ungetestetem GUI-Code so gering wie möglich zu halten.
