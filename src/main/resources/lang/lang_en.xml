@@ -44,7 +44,7 @@
     <string name="elem_BitCount_pin_out">Outputs the number of 1-bits.</string>
     <string name="elem_And">And</string>
     <string name="elem_And_tt">Binary AND gate. Returns high only if all inputs are also set high.</string>
-    <string name="elem_Basic_In">One of the input values for the logic operation.</string>
+    <string name="elem_Basic_In">The {0}. input value for the logic operation.</string>
     <string name="elem_Basic_Out">Returns the result of the logic operation.</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>

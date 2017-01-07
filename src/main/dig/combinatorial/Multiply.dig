@@ -104,12 +104,12 @@ werden durch die Und-Gatter implementiert. </string>
           <string>S_0</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="80"/>
+      <pos x="1400" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>FullAdderCLA.dig</elementName>
       <elementAttributes/>
-      <pos x="800" y="200"/>
+      <pos x="800" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -149,12 +149,12 @@ werden durch die Und-Gatter implementiert. </string>
           <string>S_1</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="120"/>
+      <pos x="1400" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>FullAdderCLA.dig</elementName>
       <elementAttributes/>
-      <pos x="1000" y="200"/>
+      <pos x="1000" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -164,7 +164,7 @@ werden durch die Und-Gatter implementiert. </string>
           <int>0</int>
         </entry>
       </elementAttributes>
-      <pos x="980" y="200"/>
+      <pos x="980" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -174,7 +174,7 @@ werden durch die Und-Gatter implementiert. </string>
           <string>S_2</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="160"/>
+      <pos x="1400" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -209,7 +209,7 @@ werden durch die Und-Gatter implementiert. </string>
     <visualElement>
       <elementName>FullAdderCLA.dig</elementName>
       <elementAttributes/>
-      <pos x="1200" y="200"/>
+      <pos x="1200" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -219,7 +219,7 @@ werden durch die Und-Gatter implementiert. </string>
           <int>0</int>
         </entry>
       </elementAttributes>
-      <pos x="1180" y="200"/>
+      <pos x="1180" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -259,7 +259,7 @@ werden durch die Und-Gatter implementiert. </string>
           <string>S_3</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="200"/>
+      <pos x="1400" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -269,7 +269,7 @@ werden durch die Und-Gatter implementiert. </string>
           <string>S_4</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="240"/>
+      <pos x="1400" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -279,7 +279,7 @@ werden durch die Und-Gatter implementiert. </string>
           <string>S_5</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="280"/>
+      <pos x="1400" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -289,7 +289,7 @@ werden durch die Und-Gatter implementiert. </string>
           <string>S_6</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="320"/>
+      <pos x="1400" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -299,17 +299,7 @@ werden durch die Und-Gatter implementiert. </string>
           <string>S_7</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="360"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <int>0</int>
-        </entry>
-      </elementAttributes>
-      <pos x="780" y="200"/>
+      <pos x="1400" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -320,6 +310,16 @@ werden durch die Und-Gatter implementiert. </string>
         </entry>
       </elementAttributes>
       <pos x="780" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <int>0</int>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -337,8 +337,40 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
   </visualElements>
   <wires>
     <wire>
+      <p1 x="720" y="320"/>
+      <p2 x="800" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="320"/>
+      <p2 x="280" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1380" y="320"/>
+      <p2 x="1400" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="320"/>
+      <p2 x="1000" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="320"/>
+      <p2 x="1200" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="320"/>
+      <p2 x="1360" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="320"/>
+      <p2 x="620" y="320"/>
+    </wire>
+    <wire>
       <p1 x="440" y="640"/>
       <p2 x="920" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="960"/>
+      <p2 x="460" y="960"/>
     </wire>
     <wire>
       <p1 x="260" y="900"/>
@@ -349,22 +381,6 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="380" y="900"/>
     </wire>
     <wire>
-      <p1 x="700" y="260"/>
-      <p2 x="800" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="900" y="260"/>
-      <p2 x="1000" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="260"/>
-      <p2 x="1200" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="1300" y="260"/>
-      <p2 x="1340" y="260"/>
-    </wire>
-    <wire>
       <p1 x="260" y="260"/>
       <p2 x="300" y="260"/>
     </wire>
@@ -373,8 +389,28 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="540" y="260"/>
     </wire>
     <wire>
+      <p1 x="680" y="580"/>
+      <p2 x="780" y="580"/>
+    </wire>
+    <wire>
       <p1 x="600" y="520"/>
       <p2 x="760" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="200"/>
+      <p2 x="320" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="200"/>
+      <p2 x="1400" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="200"/>
+      <p2 x="460" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="840"/>
+      <p2 x="620" y="840"/>
     </wire>
     <wire>
       <p1 x="360" y="780"/>
@@ -389,12 +425,52 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="380" y="140"/>
     </wire>
     <wire>
+      <p1 x="520" y="460"/>
+      <p2 x="740" y="460"/>
+    </wire>
+    <wire>
       <p1 x="280" y="1040"/>
       <p2 x="620" y="1040"/>
     </wire>
     <wire>
       <p1 x="440" y="400"/>
       <p2 x="720" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="740" y="400"/>
+      <p2 x="800" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="400"/>
+      <p2 x="1200" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="400"/>
+      <p2 x="1000" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1340" y="400"/>
+      <p2 x="1400" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="720"/>
+      <p2 x="460" y="720"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="340"/>
+      <p2 x="800" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="340"/>
+      <p2 x="1000" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="340"/>
+      <p2 x="1200" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="340"/>
+      <p2 x="1340" y="340"/>
     </wire>
     <wire>
       <p1 x="260" y="660"/>
@@ -405,24 +481,32 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="380" y="660"/>
     </wire>
     <wire>
+      <p1 x="300" y="980"/>
+      <p2 x="540" y="980"/>
+    </wire>
+    <wire>
       <p1 x="600" y="280"/>
-      <p2 x="620" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="1300" y="280"/>
-      <p2 x="1320" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="280"/>
-      <p2 x="1200" y="280"/>
+      <p2 x="720" y="280"/>
     </wire>
     <wire>
       <p1 x="900" y="280"/>
+      <p2 x="940" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="280"/>
+      <p2 x="1200" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="280"/>
+      <p2 x="1400" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="980" y="280"/>
       <p2 x="1000" y="280"/>
     </wire>
     <wire>
-      <p1 x="1360" y="280"/>
-      <p2 x="1400" y="280"/>
+      <p1 x="1100" y="280"/>
+      <p2 x="1140" y="280"/>
     </wire>
     <wire>
       <p1 x="780" y="280"/>
@@ -433,20 +517,32 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="460" y="920"/>
     </wire>
     <wire>
+      <p1 x="360" y="600"/>
+      <p2 x="620" y="600"/>
+    </wire>
+    <wire>
       <p1 x="360" y="540"/>
       <p2 x="540" y="540"/>
     </wire>
     <wire>
-      <p1 x="440" y="160"/>
-      <p2 x="740" y="160"/>
+      <p1 x="340" y="860"/>
+      <p2 x="380" y="860"/>
     </wire>
     <wire>
-      <p1 x="1140" y="160"/>
+      <p1 x="520" y="220"/>
+      <p2 x="740" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="160"/>
       <p2 x="1400" y="160"/>
     </wire>
     <wire>
       <p1 x="280" y="800"/>
       <p2 x="620" y="800"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="480"/>
+      <p2 x="460" y="480"/>
     </wire>
     <wire>
       <p1 x="680" y="1060"/>
@@ -457,36 +553,104 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="360" y="420"/>
     </wire>
     <wire>
+      <p1 x="760" y="420"/>
+      <p2 x="800" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="420"/>
+      <p2 x="1200" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="420"/>
+      <p2 x="1000" y="420"/>
+    </wire>
+    <wire>
       <p1 x="360" y="420"/>
       <p2 x="380" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="740"/>
+      <p2 x="540" y="740"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="360"/>
+      <p2 x="1320" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="360"/>
+      <p2 x="1200" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="360"/>
+      <p2 x="1000" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1360" y="360"/>
+      <p2 x="1400" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="780" y="360"/>
+      <p2 x="800" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="360"/>
+      <p2 x="360" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="360"/>
+      <p2 x="620" y="360"/>
     </wire>
     <wire>
       <p1 x="320" y="680"/>
       <p2 x="460" y="680"/>
     </wire>
     <wire>
-      <p1 x="720" y="300"/>
+      <p1 x="600" y="1000"/>
+      <p2 x="1160" y="1000"/>
+    </wire>
+    <wire>
+      <p1 x="740" y="300"/>
       <p2 x="800" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="1120" y="300"/>
-      <p2 x="1200" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="920" y="300"/>
-      <p2 x="1000" y="300"/>
     </wire>
     <wire>
       <p1 x="360" y="300"/>
       <p2 x="540" y="300"/>
     </wire>
     <wire>
+      <p1 x="900" y="300"/>
+      <p2 x="1000" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="300"/>
+      <p2 x="1200" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="300"/>
+      <p2 x="1380" y="300"/>
+    </wire>
+    <wire>
       <p1 x="520" y="940"/>
       <p2 x="1140" y="940"/>
     </wire>
     <wire>
+      <p1 x="340" y="620"/>
+      <p2 x="380" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="240"/>
+      <p2 x="1400" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="240"/>
+      <p2 x="460" y="240"/>
+    </wire>
+    <wire>
       <p1 x="280" y="560"/>
       <p2 x="620" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="880"/>
+      <p2 x="1120" y="880"/>
     </wire>
     <wire>
       <p1 x="360" y="180"/>
@@ -497,6 +661,10 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="980" y="820"/>
     </wire>
     <wire>
+      <p1 x="300" y="500"/>
+      <p2 x="540" y="500"/>
+    </wire>
+    <wire>
       <p1 x="360" y="1080"/>
       <p2 x="620" y="1080"/>
     </wire>
@@ -505,216 +673,44 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="460" y="440"/>
     </wire>
     <wire>
-      <p1 x="520" y="700"/>
-      <p2 x="940" y="700"/>
+      <p1 x="980" y="440"/>
+      <p2 x="1000" y="440"/>
     </wire>
     <wire>
-      <p1 x="740" y="320"/>
-      <p2 x="800" y="320"/>
+      <p1 x="780" y="440"/>
+      <p2 x="800" y="440"/>
     </wire>
     <wire>
-      <p1 x="1140" y="320"/>
-      <p2 x="1200" y="320"/>
+      <p1 x="1180" y="440"/>
+      <p2 x="1200" y="440"/>
     </wire>
     <wire>
-      <p1 x="940" y="320"/>
-      <p2 x="1000" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="320"/>
-      <p2 x="280" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="1340" y="320"/>
-      <p2 x="1400" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="320"/>
-      <p2 x="620" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="960"/>
-      <p2 x="460" y="960"/>
-    </wire>
-    <wire>
-      <p1 x="680" y="580"/>
-      <p2 x="780" y="580"/>
-    </wire>
-    <wire>
-      <p1 x="900" y="200"/>
-      <p2 x="940" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="200"/>
-      <p2 x="1200" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="1300" y="200"/>
-      <p2 x="1400" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="980" y="200"/>
-      <p2 x="1000" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="200"/>
-      <p2 x="1140" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="200"/>
-      <p2 x="320" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="780" y="200"/>
-      <p2 x="800" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="320" y="200"/>
-      <p2 x="460" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="840"/>
-      <p2 x="620" y="840"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="460"/>
-      <p2 x="740" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="720"/>
-      <p2 x="460" y="720"/>
-    </wire>
-    <wire>
-      <p1 x="740" y="80"/>
-      <p2 x="1400" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="760" y="340"/>
-      <p2 x="800" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="340"/>
-      <p2 x="1200" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="960" y="340"/>
-      <p2 x="1000" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="680" y="340"/>
-      <p2 x="700" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="980"/>
-      <p2 x="540" y="980"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="600"/>
-      <p2 x="620" y="600"/>
-    </wire>
-    <wire>
-      <p1 x="900" y="220"/>
-      <p2 x="1000" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="220"/>
-      <p2 x="1200" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="1300" y="220"/>
-      <p2 x="1380" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="220"/>
-      <p2 x="800" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="860"/>
-      <p2 x="380" y="860"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="480"/>
-      <p2 x="460" y="480"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="740"/>
-      <p2 x="540" y="740"/>
-    </wire>
-    <wire>
-      <p1 x="980" y="360"/>
-      <p2 x="1000" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="780" y="360"/>
-      <p2 x="800" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="360"/>
-      <p2 x="1200" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="360"/>
-      <p2 x="360" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1320" y="360"/>
-      <p2 x="1400" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="360"/>
-      <p2 x="620" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="1000"/>
-      <p2 x="1160" y="1000"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="620"/>
-      <p2 x="380" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1380" y="240"/>
-      <p2 x="1400" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="620" y="240"/>
-      <p2 x="800" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="900" y="240"/>
-      <p2 x="1000" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="240"/>
-      <p2 x="1200" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="1300" y="240"/>
-      <p2 x="1360" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="240"/>
-      <p2 x="460" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="880"/>
-      <p2 x="1120" y="880"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="500"/>
-      <p2 x="540" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="940" y="120"/>
-      <p2 x="1400" y="120"/>
+      <p1 x="1320" y="440"/>
+      <p2 x="1400" y="440"/>
     </wire>
     <wire>
       <p1 x="600" y="760"/>
       <p2 x="960" y="760"/>
     </wire>
     <wire>
+      <p1 x="720" y="380"/>
+      <p2 x="800" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="380"/>
+      <p2 x="1200" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="380"/>
+      <p2 x="1000" y="380"/>
+    </wire>
+    <wire>
       <p1 x="340" y="380"/>
       <p2 x="380" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="700"/>
+      <p2 x="940" y="700"/>
     </wire>
     <wire>
       <p1 x="360" y="1020"/>
@@ -733,27 +729,27 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="320" y="680"/>
     </wire>
     <wire>
-      <p1 x="960" y="340"/>
+      <p1 x="960" y="420"/>
       <p2 x="960" y="760"/>
     </wire>
     <wire>
-      <p1 x="1120" y="300"/>
+      <p1 x="1120" y="380"/>
       <p2 x="1120" y="880"/>
     </wire>
     <wire>
-      <p1 x="740" y="320"/>
+      <p1 x="740" y="400"/>
       <p2 x="740" y="460"/>
     </wire>
     <wire>
-      <p1 x="740" y="80"/>
-      <p2 x="740" y="160"/>
+      <p1 x="740" y="220"/>
+      <p2 x="740" y="300"/>
     </wire>
     <wire>
-      <p1 x="1380" y="220"/>
-      <p2 x="1380" y="240"/>
+      <p1 x="1380" y="300"/>
+      <p2 x="1380" y="320"/>
     </wire>
     <wire>
-      <p1 x="1160" y="340"/>
+      <p1 x="1160" y="420"/>
       <p2 x="1160" y="1000"/>
     </wire>
     <wire>
@@ -805,16 +801,12 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="360" y="360"/>
     </wire>
     <wire>
-      <p1 x="1320" y="280"/>
-      <p2 x="1320" y="360"/>
+      <p1 x="1320" y="360"/>
+      <p2 x="1320" y="440"/>
     </wire>
     <wire>
-      <p1 x="780" y="360"/>
+      <p1 x="780" y="440"/>
       <p2 x="780" y="580"/>
-    </wire>
-    <wire>
-      <p1 x="620" y="240"/>
-      <p2 x="620" y="280"/>
     </wire>
     <wire>
       <p1 x="300" y="260"/>
@@ -829,31 +821,35 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="300" y="740"/>
     </wire>
     <wire>
-      <p1 x="940" y="120"/>
-      <p2 x="940" y="200"/>
+      <p1 x="940" y="200"/>
+      <p2 x="940" y="280"/>
     </wire>
     <wire>
-      <p1 x="940" y="320"/>
+      <p1 x="940" y="400"/>
       <p2 x="940" y="700"/>
     </wire>
     <wire>
-      <p1 x="720" y="300"/>
+      <p1 x="720" y="280"/>
+      <p2 x="720" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="380"/>
       <p2 x="720" y="400"/>
     </wire>
     <wire>
-      <p1 x="1360" y="240"/>
-      <p2 x="1360" y="280"/>
+      <p1 x="1360" y="320"/>
+      <p2 x="1360" y="360"/>
     </wire>
     <wire>
-      <p1 x="980" y="360"/>
+      <p1 x="980" y="440"/>
       <p2 x="980" y="820"/>
     </wire>
     <wire>
-      <p1 x="1140" y="160"/>
-      <p2 x="1140" y="200"/>
+      <p1 x="1140" y="240"/>
+      <p2 x="1140" y="280"/>
     </wire>
     <wire>
-      <p1 x="1140" y="320"/>
+      <p1 x="1140" y="400"/>
       <p2 x="1140" y="940"/>
     </wire>
     <wire>
@@ -869,7 +865,7 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="340" y="620"/>
     </wire>
     <wire>
-      <p1 x="920" y="300"/>
+      <p1 x="920" y="380"/>
       <p2 x="920" y="640"/>
     </wire>
     <wire>
@@ -885,20 +881,34 @@ repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataS
       <p2 x="280" y="800"/>
     </wire>
     <wire>
-      <p1 x="760" y="340"/>
+      <p1 x="760" y="420"/>
       <p2 x="760" y="520"/>
     </wire>
     <wire>
-      <p1 x="1340" y="260"/>
-      <p2 x="1340" y="320"/>
+      <p1 x="1340" y="340"/>
+      <p2 x="1340" y="400"/>
     </wire>
     <wire>
-      <p1 x="1180" y="360"/>
+      <p1 x="1180" y="440"/>
       <p2 x="1180" y="1060"/>
     </wire>
-    <wire>
-      <p1 x="700" y="260"/>
-      <p2 x="700" y="340"/>
-    </wire>
   </wires>
+  <measurementOrdering>
+    <string>P_0</string>
+    <string>P_1</string>
+    <string>P_2</string>
+    <string>P_3</string>
+    <string>Q_0</string>
+    <string>Q_1</string>
+    <string>Q_2</string>
+    <string>Q_3</string>
+    <string>S_0</string>
+    <string>S_1</string>
+    <string>S_2</string>
+    <string>S_3</string>
+    <string>S_4</string>
+    <string>S_5</string>
+    <string>S_6</string>
+    <string>S_7</string>
+  </measurementOrdering>
 </circuit>

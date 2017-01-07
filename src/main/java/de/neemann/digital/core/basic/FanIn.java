@@ -36,7 +36,7 @@ public abstract class FanIn extends Node implements Element {
     @Override
     public void setInputs(ObservableValues in) throws NodeException {
         for (ObservableValue v : in)
-            inputs.add(v.checkBits(bits, this).setDescription(Lang.get("elem_Basic_In")).addObserverToValue(this));
+            inputs.add(v.checkBits(bits, this).addObserverToValue(this));
     }
 
     /**
@@ -78,7 +78,7 @@ public abstract class FanIn extends Node implements Element {
             int count = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
-                names[i] = input("in_" + i, Lang.get("elem_Basic_In"));
+                names[i] = input("in_" + i, Lang.get("elem_Basic_In", i));
             return new PinDescriptions(names);
         }
     }

@@ -44,7 +44,7 @@
     <string name="elem_BitCount_pin_out">Ausgang mit der Anzahl der gezählten 1-Bits.</string>
     <string name="elem_And">Und</string>
     <string name="elem_And_tt">Binäres Und-Gatter. Gibt nur eine 1 aus wenn alle Eingänge 1 sind.</string>
-    <string name="elem_Basic_In">Einer der Eingangswerte für die Verknüpfung.</string>
+    <string name="elem_Basic_In">Der {0}. Eingangswert für die Verknüpfung.</string>
     <string name="elem_Basic_Out">Gibt das Ergebnis der Verknüpfung zurück.</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stoppt schnellen Simulationslauf wenn 1.</string>
