@@ -3,7 +3,7 @@ Release Notes
 planed as v0.9:
 - improved documentation
 - moved "show listing" functions to the assembly IDE.
-- rearrangement of the elements in the element menu
+- rearrangement of the components in the components menu
 - made "don't care" as test case input values functional
 - added a better test data parser which supports a "repeat([n])" statement.
   See the "combinatorial/FullAdderCLA.dig" as an example usage of the new "repeat([n])" statement.
