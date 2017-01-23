@@ -7,7 +7,7 @@
       <string>Einfacher Prozessor, der an die MIPS-Architektur 
 angelehnt ist. Es handelt sich um eine Harvard 
 Single-Cycle CPU. Er verfügt über einen Interrupt 
-Controller: Eine steigende Flanke am Eingang intr 
+Controller: Durch eine steigende Flanke am Eingang intr 
 wird ein Interrupt ausgelöst. Dabei wird die feste 
 Adresse 0x1000 angesprungen.
 An dieser Adresse muss sich die ISR befinden.</string>
