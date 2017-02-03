@@ -1,6 +1,6 @@
 Release Notes
 
-planed as v0.9:
+v0.9, released on 03. Feb 2017
 - improved documentation
 - moved "show listing" functions to the assembly IDE.
 - rearrangement of the components in the components menu
