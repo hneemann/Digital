@@ -25,6 +25,8 @@
     <string name="btn_editDetached_tt">Öffnet den Bearbeitendialog nicht modal.</string>
     <string name="btn_openInBrowser">Browser</string>
     <string name="btn_openInBrowser_tt">Hilfetext im Browser öffnen, um dann z.B. zu drucken.</string>
+    <string name="btn_clearData">Löschen</string>
+    <string name="btn_clearData_tt">Setzt alle Werte auf 0 zurück!</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
     <string name="expression">Ausdruck</string>

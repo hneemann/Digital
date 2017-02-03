@@ -25,6 +25,8 @@
     <string name="btn_editDetached_tt">Opens the dialog as a non modal dialog</string>
     <string name="btn_openInBrowser">Browser</string>
     <string name="btn_openInBrowser_tt">Opens help text in the browser. Allows to print the text.</string>
+    <string name="btn_clearData">Clear</string>
+    <string name="btn_clearData_tt">All values are set to zero!</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
     <string name="expression">Expression</string>

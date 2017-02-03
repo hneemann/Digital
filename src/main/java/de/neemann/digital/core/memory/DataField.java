@@ -86,6 +86,18 @@ public class DataField {
     }
 
     /**
+     * Sets all stored data to null!
+     * Is not called during simulation! Is only called during editing.
+     */
+    public void clearAll() {
+        if (data != null)
+            Arrays.fill(data, 0);
+
+        // all the data have changed!
+        fireChanged(-1);
+    }
+
+    /**
      * Sets a data value the DataField
      *
      * @param addr  the address
@@ -179,9 +191,9 @@ public class DataField {
      */
     public interface DataListener {
         /**
-         * Called if the DataField has changed
+         * Called if the DataField has changed.
          *
-         * @param addr the address which has changed
+         * @param addr the address which has changed, Called with addr=-1 if all values have changed!
          */
         void valueChanged(int addr);
     }

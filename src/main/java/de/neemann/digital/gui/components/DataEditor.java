@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -59,6 +60,13 @@ public class DataEditor extends JDialog {
             });
         } else {
             JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            buttons.add(new ToolTipAction(Lang.get("btn_clearData")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    localDataField.clearAll();
+                    dm.fireEvent(new TableModelEvent(dm));
+                }
+            }.setToolTip(Lang.get("btn_clearData_tt")).createJButton());
             buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -167,7 +175,13 @@ public class DataEditor extends JDialog {
 
         @Override
         public void valueChanged(int addr) {
-            fireEvent(new TableModelEvent(this, addr / cols));
+            if (addr<0) {
+                // all values have changed!
+                fireEvent(new TableModelEvent(this));
+            } else {
+                // only one value has changed
+                fireEvent(new TableModelEvent(this, addr / cols));
+            }
         }
     }
 
