@@ -86,6 +86,24 @@ public class DataField {
     }
 
     /**
+     * Save the stored data
+     *
+     * @param file file to store the data to
+     * @throws IOException IOException
+     */
+    public void saveTo(File file) throws IOException {
+        DataField df = getMinimized();
+        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+            w.write("v2.0 raw");
+            w.newLine();
+            for (long l : df.getData()) {
+                w.write(Long.toHexString(l));
+                w.newLine();
+            }
+        }
+    }
+
+    /**
      * Sets all stored data to null!
      * Is not called during simulation! Is only called during editing.
      */

@@ -7,10 +7,10 @@ import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
-import de.neemann.digital.testing.TestData;
 import de.neemann.digital.gui.components.testing.TestDataEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestData;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.StringUtils;
 import de.neemann.gui.ToolTipAction;
@@ -305,6 +305,22 @@ public final class EditorFactory {
                             .setToolTip(Lang.get("btn_reload_tt"))
                             .createJButton()
             );
+            panel.add(new ToolTipAction(Lang.get("btn_save")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser fc = new JFileChooser();
+                    fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
+                    fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
+                    if (fc.showSaveDialog(panel) == JFileChooser.APPROVE_OPTION) {
+                        attr.setFile(ROM.LAST_DATA_FILE_KEY, fc.getSelectedFile());
+                        try {
+                            data.saveTo(fc.getSelectedFile());
+                        } catch (IOException e1) {
+                            new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(panel);
+                        }
+                    }
+                }
+            }.createJButton());
             return panel;
         }
 
