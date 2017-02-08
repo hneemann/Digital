@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components.expression;
 
 import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.parser.Parser;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.draw.elements.Circuit;
@@ -60,7 +61,7 @@ public class ExpressionDialog extends JDialog {
                         circuitBuilder.addCombinatorial("Y", expList.get(0));
                     else
                         for (Expression exp : expList)
-                            circuitBuilder.addCombinatorial(exp.toString(), exp);
+                            circuitBuilder.addCombinatorial(FormatToExpression.FORMATTER_UNICODE.format(exp), exp);
                     Circuit circuit = circuitBuilder.createCircuit();
                     SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
                 } catch (Exception ex) {
