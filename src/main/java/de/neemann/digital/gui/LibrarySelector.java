@@ -196,7 +196,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
             InsertAction insertAction = new InsertAction(description, insertHistory, circuitComponent);
             String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
             if (descriptionText != null && descriptionText.length() > 0) {
-                insertAction.setToolTip(descriptionText);
+                insertAction.setToolTip(StringUtils.textToHTML(descriptionText));
                 description.setDescription(descriptionText);
             }
 
