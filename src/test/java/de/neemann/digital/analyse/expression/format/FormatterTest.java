@@ -2,6 +2,7 @@ package de.neemann.digital.analyse.expression.format;
 
 
 import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
 
@@ -25,6 +26,14 @@ public class FormatterTest extends TestCase {
         assertEquals("NOT (NOT A OR NOT B) AND NOT (NOT A AND NOT B)", FormatToExpression.FORMATTER_DERIVE.format(e));
         assertEquals("~(~A + ~B)  ~(~A  ~B)", FormatToExpression.FORMATTER_LOGISIM.format(e));
         assertEquals("¬(¬A ∨ ¬B) ∧ ¬(¬A ∧ ¬B)", FormatToExpression.FORMATTER_UNICODE.format(e));
+    }
+
+    public void testFormatNamesExp() throws Exception, FormatterException {
+        Variable a = v("A");
+        Variable b = v("B");
+        Expression e = and(a,b);
+        NamedExpression n = new NamedExpression("U", e);
+        assertEquals("U = A ∧ B", FormatToExpression.FORMATTER_UNICODE.format(n));
     }
 
     public void testFormatExpNot() throws Exception, FormatterException {

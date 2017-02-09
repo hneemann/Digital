@@ -71,6 +71,9 @@ public class FormatToExpression implements Formatter {
             return formatAnd((Operation.And) expression);
         } else if (expression instanceof Operation.Or) {
             return formatOr((Operation.Or) expression);
+        } else if (expression instanceof NamedExpression) {
+            NamedExpression ne = (NamedExpression) expression;
+            return ne.getName() + " = " + format(ne.getExpression());
         } else throw new FormatterException("unknown type " + expression.getClass().getSimpleName());
 
     }
