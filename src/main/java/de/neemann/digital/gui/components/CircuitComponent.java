@@ -58,6 +58,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      */
     public static final Icon ICON_DELETE = IconCreator.create("delete.png");
     private static final String DEL_ACTION = "myDelAction";
+    private static final String ESC_ACTION = "myEscAction";
 
     private final Main parent;
     private final ElementLibrary library;
@@ -152,6 +153,16 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setToolTip(Lang.get("menu_delete_tt"));
 
+        Action escapeAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController != mouseNormal) {
+                    mouseNormal.activate();
+                    removeHighLighted();
+                }
+            }
+        };
+
 
         AbstractAction programAction = new AbstractAction(Lang.get("menu_programDiode")) {
             @Override
@@ -162,6 +173,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         };
 
+        getInputMap().put(KeyStroke.getKeyStroke("ESCAPE"), ESC_ACTION);
+        getActionMap().put(ESC_ACTION, escapeAction);
         getInputMap().put(KeyStroke.getKeyStroke("DELETE"), DEL_ACTION);
         getActionMap().put(DEL_ACTION, deleteAction);
         getInputMap().put(KeyStroke.getKeyStroke('C', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "myCopy");
@@ -569,7 +582,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     public void actionPerformed(ActionEvent actionEvent) {
                         try {
                             new ElementHelpDialog(attributeDialog, elementType, vp.getElementAttributes()).setVisible(true);
-                        } catch (PinException|NodeException e1) {
+                        } catch (PinException | NodeException e1) {
                             new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(CircuitComponent.this);
                         }
                     }
