@@ -45,6 +45,8 @@ public class FormatToExpressionTest extends TestCase {
         Expression e = and(a, b);
         NamedExpression n = new NamedExpression("U", e);
         assertEquals("U = A ∧ B", FormatToExpression.FORMATTER_UNICODE.format(n));
+        n = new NamedExpression("V", n);
+        assertEquals("V = U = A ∧ B", FormatToExpression.FORMATTER_UNICODE.format(n));
     }
 
     public void testFormatExpNot() throws Exception, FormatterException {
