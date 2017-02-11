@@ -69,6 +69,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private final MouseController mouseNormal;
     private final MouseControllerInsertElement mouseInsertElement;
     private final MouseControllerMoveElement mouseMoveElement;
+    private final MouseControllerMoveWire mouseMoveWire;
     private final MouseControllerWire mouseWire;
     private final MouseControllerSelect mouseSelect;
     private final MouseControllerMoveSelected mouseMoveSelected;
@@ -219,6 +220,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         mouseInsertElement = new MouseControllerInsertElement(normalCursor);
         mouseInsertList = new MouseControllerInsertCopied(normalCursor);
         mouseMoveElement = new MouseControllerMoveElement(normalCursor);
+        mouseMoveWire = new MouseControllerMoveWire(normalCursor);
         mouseWire = new MouseControllerWire(normalCursor);
         mouseSelect = new MouseControllerSelect(new Cursor(Cursor.CROSSHAIR_CURSOR));
         mouseMoveSelected = new MouseControllerMoveSelected(moveCursor);
@@ -717,6 +719,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (e.getButton() == MouseEvent.BUTTON3) {
                 if (vp != null)
                     editAttributes(vp, e);
+                else {
+                    Wire wire = circuit.getWireAt(pos, SIZE2);
+                    if (wire != null)
+                        mouseMoveWire.activate(wire, pos);
+                }
             } else if (e.getButton() == MouseEvent.BUTTON1) {
                 if (vp != null) {
                     if (circuit.isPinPos(raster(pos), vp))
@@ -852,6 +859,53 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             hasChanged();
         }
     }
+
+    private final class MouseControllerMoveWire extends MouseController {
+        private Wire wire;
+        private Vector pos;
+
+        private MouseControllerMoveWire(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(Wire wire, Vector pos) {
+            super.activate();
+            this.wire = wire;
+            this.pos = raster(pos);
+            deleteAction.setActive(true);
+            removeHighLighted();
+            addHighLighted(wire);
+            hasChanged();
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            removeHighLighted();
+            circuit.elementsMoved();
+            mouseNormal.activate();
+        }
+
+        @Override
+        void moved(MouseEvent e) {
+            Vector pos = raster(getPosVector(e));
+            final Vector delta = pos.sub(this.pos);
+            if (!delta.isZero()) {
+                wire.move(delta);
+                isManualScale = true;
+                circuit.modified();
+                hasChanged();
+            }
+            this.pos = pos;
+        }
+
+        @Override
+        public void delete() {
+            circuit.delete(wire);
+            mouseNormal.activate();
+            isManualScale = true;
+        }
+    }
+
 
     private final class MouseControllerWire extends MouseController {
         private Wire wire;

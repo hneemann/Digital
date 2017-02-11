@@ -118,12 +118,24 @@ public class Wire implements Drawable, Moveable {
      * @return true if matching
      */
     public boolean contains(Vector v, int radius) {
-        if (p1.x == p2.x && Math.abs(p1.x - v.x) <= radius)
-            return (p1.y < v.y && v.y < p2.y) || (p2.y < v.y && v.y < p1.y);
-        else if (p1.y == p2.y && Math.abs(p1.y - v.y) < radius)
-            return (p1.x < v.x && v.x < p2.x) || (p2.x < v.x && v.x < p1.x);
-        else
-            return false; // ToDo: should also work for diagonal wires
+        if (p1.x == p2.x)
+            return Math.abs(p1.x - v.x) < radius && ((p1.y < v.y && v.y < p2.y) || (p2.y < v.y && v.y < p1.y));
+        else if (p1.y == p2.y)
+            return Math.abs(p1.y - v.y) < radius && ((p1.x < v.x && v.x < p2.x) || (p2.x < v.x && v.x < p1.x));
+        else {
+            // some simple box tests
+            if (v.x < Math.min(p1.x, p2.x) - radius) return false;
+            if (v.x > Math.max(p1.x, p2.x) + radius) return false;
+            if (v.y < Math.min(p1.y, p2.y) - radius) return false;
+            if (v.y > Math.max(p1.y, p2.y) + radius) return false;
+
+            // calculate distance
+            Vector d = p2.sub(p1);
+            int z = d.x * (p1.y - v.y) + d.y * (v.x - p1.x);
+            int dist = (z * z) / (d.x * d.x + d.y * d.y);
+
+            return dist < radius * radius;
+        }
     }
 
     /**

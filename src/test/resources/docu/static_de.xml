@@ -102,15 +102,13 @@
     <chapter name="Häufig gestellte Fragen">
         <faq>
             <question>Wie kann ich eine Leitung verschieben?</question>
-            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann mit der Maus verschieben.</answer>
-        </faq>
-        <faq>
-            <question>Warum kann ich keine Leitung anklicken?</question>
-            <answer>Es können mit der Rechteckauswahl nur die Endpunkte einer Leitung ausgewählt werden.</answer>
+            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann mit der Maus verschieben.
+                Alternativ kann eine einzelne Leitung mit der rechten Maustaste selektiert werden.</answer>
         </faq>
         <faq>
             <question>Wie kann ich eine Leitung löschen?</question>
-            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann <e>Entfernen</e> drücken bzw. auf den Papierkorb klicken.</answer>
+            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann <e>Entfernen</e> drücken bzw. auf den Papierkorb klicken.
+                Alternativ kann eine einzelne Leitung mit der rechten Maustaste selektiert werden.</answer>
         </faq>
         <faq>
             <question>Wie kann ich ein Element verschieben und dabei alle angeschlossenen Leitungen mitnehmen?</question>
