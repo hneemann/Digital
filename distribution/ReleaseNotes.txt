@@ -2,6 +2,7 @@ Release Notes
 
 planned as v0.10
 - user can select the expressions representation format in the settings dialog
+- better formatting of minimized expressions
 
 v0.9, released on 03. Feb 2017
 - improved documentation

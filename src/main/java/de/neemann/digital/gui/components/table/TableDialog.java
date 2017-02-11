@@ -708,7 +708,7 @@ public class TableDialog extends JDialog {
         @Override
         public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
             if (count == 0)
-                firstExp = name + "=" + FormatToExpression.defaultFormat(expression);
+                firstExp = "<html>" + htmlFormatter.identifier(name) + "=" + htmlFormatter.format(expression) + "</html>";
             html.append("<tr>");
             html.append("<td>").append(htmlFormatter.identifier(name)).append("</td>");
             html.append("<td>=</td>");
