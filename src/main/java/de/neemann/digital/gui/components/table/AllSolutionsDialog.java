@@ -11,7 +11,7 @@ import java.awt.*;
  * @author hneemann
  */
 public class AllSolutionsDialog extends JDialog {
-    private final JTextArea textArea;
+    private final JTextPane textPane;
 
     /**
      * Creates a new Frame
@@ -23,12 +23,14 @@ public class AllSolutionsDialog extends JDialog {
         super(owner, Lang.get("win_allSolutions"), false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
 
-        textArea = new JTextArea(6, 30);
-        textArea.setFont(font);
-        textArea.setEditable(false);
-        textArea.setTabSize(3);
+        textPane = new JTextPane();
+        textPane.setContentType("text/html");
+        textPane.setFont(font);
+        textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
+        textPane.setEditable(false);
+        textPane.setPreferredSize(new Dimension(600, 400));
 
-        getContentPane().add(new JScrollPane(textArea));
+        getContentPane().add(new JScrollPane(textPane));
         pack();
         setLocationRelativeTo(owner);
     }
@@ -40,7 +42,7 @@ public class AllSolutionsDialog extends JDialog {
      * @return this for call chaining
      */
     public AllSolutionsDialog setText(String text) {
-        textArea.setText(text);
+        textPane.setText(text);
         return this;
     }
 }

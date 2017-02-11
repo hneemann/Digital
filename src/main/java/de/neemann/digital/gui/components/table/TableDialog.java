@@ -530,36 +530,28 @@ public class TableDialog extends JDialog {
 
     private void calculateExpressions() {
         try {
-            final StringBuilder sb = new StringBuilder();
-            ExpressionListener expressionListener = new ExpressionListener() {
-                private int count = 0;
-
-                @Override
-                public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
-                    String expr = name + "\t=" + FormatToExpression.defaultFormat(expression);
-                    if (count == 0)
-                        label.setText(expr);
-                    if (sb.length() > 0) sb.append('\n');
-                    sb.append(expr);
-                    count++;
-                    if (count == 2)
-                        allSolutionsDialog.setVisible(true);
-                }
-
-                @Override
-                public void close() {
-                }
-            };
+            final HTMLExpressionListener html = new HTMLExpressionListener();
+            ExpressionListener expressionListener = html;
 
             if (createJK.isSelected())
                 expressionListener = new ExpressionListenerJK(expressionListener);
 
             new ExpressionCreator(model.getTable()).create(expressionListener);
 
-            if (sb.length() == 0)
-                label.setText("");
-
-            allSolutionsDialog.setText(sb.toString());
+            switch (html.getExpressionsCount()) {
+                case 0:
+                    label.setText("");
+                    allSolutionsDialog.setVisible(false);
+                    break;
+                case 1:
+                    label.setText(html.getFirstExp());
+                    allSolutionsDialog.setVisible(false);
+                    break;
+                default:
+                    label.setText("");
+                    allSolutionsDialog.setText(html.getHtml());
+                    allSolutionsDialog.setVisible(true);
+            }
         } catch (ExpressionException | FormatterException e1) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
         }
@@ -699,6 +691,62 @@ public class TableDialog extends JDialog {
         BuilderExpressionCreator setUseJKOptimizer(boolean useJKOptimizer) {
             this.useJKOptimizer = useJKOptimizer;
             return this;
+        }
+    }
+
+    private final class HTMLExpressionListener implements ExpressionListener {
+        private FormatToExpression htmlFormatter = new HTMLFormatter(FormatToExpression.getDefaultFormat());
+        private final StringBuilder html;
+        private int count;
+        private String firstExp;
+
+        private HTMLExpressionListener() {
+            html = new StringBuilder("<html><table style=\"white-space: nowrap\">\n");
+            count = 0;
+        }
+
+        @Override
+        public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+            if (count == 0)
+                firstExp = name + "=" + FormatToExpression.defaultFormat(expression);
+            html.append("<tr>");
+            html.append("<td>").append(htmlFormatter.identifier(name)).append("</td>");
+            html.append("<td>=</td>");
+            html.append("<td>").append(htmlFormatter.format(expression)).append("</td>");
+            html.append("</tr>\n");
+            count++;
+        }
+
+        private int getExpressionsCount() {
+            return count;
+        }
+
+        private String getFirstExp() {
+            return firstExp;
+        }
+
+        private String getHtml() {
+            return html.toString();
+        }
+
+        @Override
+        public void close() {
+            html.append("</table></html>");
+        }
+    }
+
+    private final static class HTMLFormatter extends FormatToExpression {
+        private HTMLFormatter(FormatToExpression format) {
+            super(format);
+        }
+
+        @Override
+        public String identifier(String ident) {
+            int p = ident.indexOf("_");
+            if (p < 0)
+                return ident;
+            else
+                return ident.substring(0, p) + "<sub>" + ident.substring(p + 1) + "</sub>";
         }
     }
 }

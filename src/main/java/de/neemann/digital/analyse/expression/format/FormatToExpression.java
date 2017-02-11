@@ -101,6 +101,15 @@ public class FormatToExpression implements Formatter {
     private final String trueString;
     private final String notString;
 
+    /**
+     * Derives a new formatter from the parent
+     *
+     * @param parent the parent
+     */
+    public FormatToExpression(FormatToExpression parent) {
+        this(parent.orString, parent.andString, parent.notString, parent.falseString, parent.trueString);
+    }
+
     private FormatToExpression(String orString, String andString, String notString, String falseString, String trueString) {
         this.orString = orString;
         this.andString = andString;
@@ -116,6 +125,13 @@ public class FormatToExpression implements Formatter {
      */
     public static FormatToExpression[] getAvailFormats() {
         return availFormats;
+    }
+
+    /**
+     * @return the default format
+     */
+    public static FormatToExpression getDefaultFormat() {
+        return defaultFormat;
     }
 
     /**
