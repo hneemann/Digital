@@ -26,7 +26,8 @@ public class FormatToExpressionTest extends TestCase {
         assertEquals("NOT (NOT A OR NOT B) AND NOT (NOT A AND NOT B)", FormatToExpression.FORMATTER_DERIVE.format(e));
         assertEquals("~(~A + ~B) ~(~A ~B)", FormatToExpression.FORMATTER_LOGISIM.format(e));
         assertEquals("¬(¬A ∨ ¬B) ∧ ¬(¬A ∧ ¬B)", FormatToExpression.FORMATTER_UNICODE.format(e));
-        assertEquals("!(!A + !B) !(!A !B)", FormatToExpression.FORMATTER_SHORT.format(e));
+        assertEquals("!(!A + !B) * !(!A * !B)", FormatToExpression.FORMATTER_SHORT.format(e));
+        assertEquals("!(!A + !B) !(!A !B)", FormatToExpression.FORMATTER_SHORTER.format(e));
     }
 
     public void testFormatExp2() throws Exception {
@@ -35,7 +36,7 @@ public class FormatToExpressionTest extends TestCase {
         Variable c = v("C");
         Expression e = or(and(a, not(b), c),and(a, not(b), not(c)));
 
-        assertEquals("(A !B C) + (A !B !C)", FormatToExpression.FORMATTER_SHORT.format(e));
+        assertEquals("(A !B C) + (A !B !C)", FormatToExpression.FORMATTER_SHORTER.format(e));
     }
 
     public void testFormatNamesExp() throws Exception {
