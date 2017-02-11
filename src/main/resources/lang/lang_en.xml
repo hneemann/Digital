@@ -472,6 +472,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_isProgramMemory_tt">Makes this ROM to program memory. So it can be accessed by an external IDE.</string>
     <string name="key_Blown">Programmed</string>
     <string name="key_Blown_tt">If set the diode is treated as a "blown" or "programmed" diode or fuse. You can change this setting with the key 'p'.</string>
+    <string name="key_ExpressionFormat">Format</string>
+    <string name="key_ExpressionFormat_tt">Screen format of expressions.</string>
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
     <string name="lib_flipFlops">FlipFlops</string>

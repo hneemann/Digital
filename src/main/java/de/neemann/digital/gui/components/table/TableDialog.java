@@ -536,7 +536,7 @@ public class TableDialog extends JDialog {
 
                 @Override
                 public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
-                    String expr = name + "\t=" + FormatToExpression.FORMATTER_UNICODE.format(expression);
+                    String expr = name + "\t=" + FormatToExpression.defaultFormat(expression);
                     if (count == 0)
                         label.setText(expr);
                     if (sb.length() > 0) sb.append('\n');

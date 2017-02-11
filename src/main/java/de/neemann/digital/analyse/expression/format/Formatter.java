@@ -14,11 +14,10 @@ public interface Formatter {
     /**
      * Formats an expression
      *
-     * @param name       name of the expression
      * @param expression the expression
-     * @return the formated expression
+     * @return the formatted expression
      * @throws FormatterException  FormatterException
      * @throws ExpressionException ExpressionException
      */
-    String format(String name, Expression expression) throws FormatterException, ExpressionException;
+    String format(Expression expression) throws FormatterException, ExpressionException;
 }

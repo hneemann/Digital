@@ -18,7 +18,8 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 /**
- * Dialog to enter an expression
+ * Dialog to enter an expression.
+ * Creates a new frame with a circuit generated from the entered expression.
  *
  * @author hneemann
  */
@@ -61,7 +62,7 @@ public class ExpressionDialog extends JDialog {
                         circuitBuilder.addCombinatorial("Y", expList.get(0));
                     else
                         for (Expression exp : expList)
-                            circuitBuilder.addCombinatorial(FormatToExpression.FORMATTER_UNICODE.format(exp), exp);
+                            circuitBuilder.addCombinatorial(FormatToExpression.defaultFormat(exp), exp);
                     Circuit circuit = circuitBuilder.createCircuit();
                     SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
                 } catch (Exception ex) {

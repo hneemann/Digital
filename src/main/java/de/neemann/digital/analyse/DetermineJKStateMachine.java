@@ -34,7 +34,7 @@ public class DetermineJKStateMachine {
      * @throws FormatterException  FormatterException
      */
     public DetermineJKStateMachine(String name, Expression e) throws ExpressionException, FormatterException {
-        String notName = FormatToExpression.FORMATTER_UNICODE.format(not(new Variable(name)));
+        String notName = FormatToExpression.defaultFormat(not(new Variable(name)));
 
         boolean wasK = false;
         boolean wasJ = false;
@@ -45,7 +45,7 @@ public class DetermineJKStateMachine {
             boolean belongsToJ = false;
 
             for (Expression a : getAnds(or)) {
-                String str = FormatToExpression.FORMATTER_UNICODE.format(a);
+                String str = FormatToExpression.defaultFormat(a);
                 if (str.equals(name)) {
                     belongsToK = true;
                     wasK = true;

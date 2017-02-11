@@ -1,5 +1,6 @@
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.gui.language.Language;
@@ -235,10 +236,15 @@ public final class Keys {
             = new Key<>("IEEEShapes", Locale.getDefault().getLanguage().equals(Locale.US.getLanguage()));
 
     /**
-     * The Gui Language
+     * The GUI Language
      */
     public static final Key<Language> SETTINGS_LANGUAGE
             = new Key<>("Language", new Language());
+    /**
+     * The GUI expression string representation
+     */
+    public static final Key<FormatToExpression> SETTINGS_EXPRESSION_FORMAT
+            = new Key<>("ExpressionFormat", FormatToExpression.FORMATTER_UNICODE);
 
 
     /**

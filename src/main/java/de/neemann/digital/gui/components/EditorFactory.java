@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
@@ -48,6 +49,7 @@ public final class EditorFactory {
         add(IntFormat.class, IntFormatsEditor.class);
         add(Language.class, LanguageEditor.class);
         add(TestData.class, TestDataEditor.class);
+        add(FormatToExpression.class, FormatEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -403,6 +405,26 @@ public final class EditorFactory {
         @Override
         public Language getValue() {
             return (Language) comb.getSelectedItem();
+        }
+    }
+
+    private static class FormatEditor extends LabelEditor<FormatToExpression> {
+        private JComboBox comb;
+
+        public FormatEditor(FormatToExpression format, Key<Rotation> key) {
+            FormatToExpression[] formats = FormatToExpression.getAvailFormats();
+            comb = new JComboBox<>(formats);
+            comb.setSelectedItem(format);
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            return comb;
+        }
+
+        @Override
+        public FormatToExpression getValue() {
+            return (FormatToExpression) comb.getSelectedItem();
         }
     }
 }

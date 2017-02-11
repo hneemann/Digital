@@ -31,6 +31,7 @@ public final class Settings implements AttributeListener {
     static {
         INT_LIST.add(Keys.SETTINGS_IEEE_SHAPES);
         INT_LIST.add(Keys.SETTINGS_LANGUAGE);
+        INT_LIST.add(Keys.SETTINGS_EXPRESSION_FORMAT);
     }
 
     private static final class SettingsHolder {

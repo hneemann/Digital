@@ -1,5 +1,8 @@
 Release Notes
 
+planned as v0.10
+- user can select the expressions representation format in the settings dialog
+
 v0.9, released on 03. Feb 2017
 - improved documentation
 - moved "show listing" functions to the assembly IDE.

@@ -3,7 +3,6 @@ package de.neemann.digital.analyse.quinemc;
 
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.analyse.expression.format.FormatToTable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import junit.framework.TestCase;
 
@@ -25,7 +24,6 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
                 .simplify()
                 .getExpression();
 
-        System.out.println(new FormatToTable().format("y", e));
         assertEquals("!B", FormatToExpression.FORMATTER_JAVA.format(e));
     }
 
@@ -81,7 +79,7 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
         }
     }
 
-    public void testComplexity() throws Exception, FormatterException {
+    public void testComplexity() throws Exception {
         new FullVariantDontCareCreator() {
             @Override
             public void handleTable(int n, int[] tab) throws ExpressionException, FormatterException {

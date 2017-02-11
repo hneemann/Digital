@@ -3,6 +3,7 @@ package de.neemann.digital.gui;
 import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.ModelAnalyser;
 import de.neemann.digital.analyse.TruthTable;
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.builder.PinMap;
 import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.core.*;
@@ -450,6 +451,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 if (new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog()) {
                     Lang.setLanguage(Settings.getInstance().getAttributes().get(Keys.SETTINGS_LANGUAGE));
+                    FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
                     JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                 }
             }
@@ -1088,6 +1090,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     public static void main(String[] args) {
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
         experimental = args.length == 1 && args[0].equals("experimental");
+        FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
         SwingUtilities.invokeLater(() -> {
             Main main = new Main();
             try {

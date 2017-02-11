@@ -14,9 +14,9 @@ import static de.neemann.digital.analyse.expression.Variable.v;
 /**
  * @author hneemann
  */
-public class FormatterTest extends TestCase {
+public class FormatToExpressionTest extends TestCase {
 
-    public void testFormatExp() throws Exception, FormatterException {
+    public void testFormatExp() throws Exception {
         Variable a = v("A");
         Variable b = v("B");
         Expression e = and(not(or(not(a), not(b))), not(and(not(a), not(b))));
@@ -24,14 +24,24 @@ public class FormatterTest extends TestCase {
         assertEquals("!(!A || !B) && !(!A && !B)", FormatToExpression.FORMATTER_JAVA.format(e));
         assertEquals("\\nicht{\\nicht{A} \\oder \\nicht{B}} \\und \\nicht{\\nicht{A} \\und \\nicht{B}}", FormatToExpression.FORMATTER_LATEX.format(e));
         assertEquals("NOT (NOT A OR NOT B) AND NOT (NOT A AND NOT B)", FormatToExpression.FORMATTER_DERIVE.format(e));
-        assertEquals("~(~A + ~B)  ~(~A  ~B)", FormatToExpression.FORMATTER_LOGISIM.format(e));
+        assertEquals("~(~A + ~B) ~(~A ~B)", FormatToExpression.FORMATTER_LOGISIM.format(e));
         assertEquals("¬(¬A ∨ ¬B) ∧ ¬(¬A ∧ ¬B)", FormatToExpression.FORMATTER_UNICODE.format(e));
+        assertEquals("!(!A + !B) !(!A !B)", FormatToExpression.FORMATTER_SHORT.format(e));
     }
 
-    public void testFormatNamesExp() throws Exception, FormatterException {
+    public void testFormatExp2() throws Exception {
         Variable a = v("A");
         Variable b = v("B");
-        Expression e = and(a,b);
+        Variable c = v("C");
+        Expression e = or(and(a, not(b), c),and(a, not(b), not(c)));
+
+        assertEquals("(A !B C) + (A !B !C)", FormatToExpression.FORMATTER_SHORT.format(e));
+    }
+
+    public void testFormatNamesExp() throws Exception {
+        Variable a = v("A");
+        Variable b = v("B");
+        Expression e = and(a, b);
         NamedExpression n = new NamedExpression("U", e);
         assertEquals("U = A ∧ B", FormatToExpression.FORMATTER_UNICODE.format(n));
     }
@@ -43,7 +53,7 @@ public class FormatterTest extends TestCase {
         assertEquals("¬A", FormatToExpression.FORMATTER_UNICODE.format(e));
     }
 
-    public void testFormatExpNot2() throws Exception, FormatterException {
+    public void testFormatExpNot2() throws Exception {
         Variable a = v("A");
         Variable b = v("B");
         Variable c = v("C");
@@ -52,16 +62,14 @@ public class FormatterTest extends TestCase {
         assertEquals("(A ∧ B) ∨ ¬C", FormatToExpression.FORMATTER_UNICODE.format(e));
     }
 
-
-    public void testFormatExpLaTeX() throws Exception, FormatterException {
+    public void testFormatExpLaTeX() throws Exception {
         Variable a = new Variable("A_n");
         Variable b = new Variable("B_n");
-        Expression e = and(a, not(b));
-        assertEquals("Y_{n+1}=A_{n} \\und \\nicht{B_{n}}", FormatToExpression.FORMATTER_LATEX.format("Y_n+1", e));
+        Expression e = new NamedExpression("Y_n+1", and(a, not(b)));
+        assertEquals("Y_{n+1} = A_{n} \\und \\nicht{B_{n}}", FormatToExpression.FORMATTER_LATEX.format(e));
     }
 
-
-    public void testFormatTable() throws Exception, FormatterException {
+    public void testFormatTable() throws Exception {
         Variable a = new Variable("A");
         Variable b = new Variable("B");
         Expression e = and(not(or(not(a), not(b))), not(and(not(a), not(b))));
@@ -70,11 +78,10 @@ public class FormatterTest extends TestCase {
                 "00|0\n" +
                 "01|0\n" +
                 "10|0\n" +
-                "11|1\n", new FormatToTable().format("", e));
-
+                "11|1\n", new FormatToTable().format(e));
     }
 
-    public void testFormatLatex() throws Exception, FormatterException {
+    public void testFormatLatex() throws Exception {
         Variable a = new Variable("A");
         Variable b = new Variable("B");
         Expression e = and(not(or(not(a), not(b))), not(and(not(a), not(b))));
@@ -86,8 +93,7 @@ public class FormatterTest extends TestCase {
                 "0&1&0\\\\\n" +
                 "1&0&0\\\\\n" +
                 "1&1&1\\\\\n" +
-                "\\end{tabular}\n", new FormatToTableLatex().format("", e));
-
+                "\\end{tabular}\n", new FormatToTableLatex().format(e));
     }
 
 }
