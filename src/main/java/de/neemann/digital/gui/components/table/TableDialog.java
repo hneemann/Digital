@@ -694,7 +694,7 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private final class HTMLExpressionListener implements ExpressionListener {
+    private static final class HTMLExpressionListener implements ExpressionListener {
         private FormatToExpression htmlFormatter = new HTMLFormatter(FormatToExpression.getDefaultFormat());
         private final StringBuilder html;
         private int count;
