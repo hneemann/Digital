@@ -269,7 +269,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         Pin p = circuit.getPinAt(raster(pos), ve);
         if (p != null)
-            return checkToolTip(p.getDescription());
+            return createPinToolTip(p);
 
         try {
             ElementTypeDescription etd = library.getElementType(ve.getElementName());
@@ -277,6 +277,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         } catch (ElementNotFoundException e) {
             return null;
         }
+    }
+
+    private String createPinToolTip(Pin p) {
+        String text = p.getName();
+        final String des = p.getDescription();
+        if (des != null && des.length() > 0) {
+            text += ": " + des;
+        }
+        return checkToolTip(text);
     }
 
     private String checkToolTip(String tt) {
