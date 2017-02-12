@@ -4,7 +4,7 @@ planned as v0.10
 - User can select the expressions representation format in the settings dialog.
 - Better formatting of minimized expressions.
 - Mouse actions can be canceled by the ESC key.
-- With the right mouse button you can now select wires.
+- With the right mouse button you can now select and move/delete wires.
 
 v0.9, released on 03. Feb 2017
 - improved documentation

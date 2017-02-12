@@ -891,6 +891,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             final Vector delta = pos.sub(this.pos);
             if (!delta.isZero()) {
                 wire.move(delta);
+                wire.noDot();
                 isManualScale = true;
                 circuit.modified();
                 hasChanged();
