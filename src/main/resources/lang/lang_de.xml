@@ -92,8 +92,8 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
         Diese Einschränkungen wirken sich nicht aus, wenn der Eingang des Schalters direkt mit GND, VDD oder einer Konstanten
         verbunden wird. Mit dieser Beschaltung entspricht der simulierte Schalter einem realen Schalter.</string>
     <string name="elem_Counter">Zähler</string>
-    <string name="elem_Counter_tt">Ein einfacher Zähl-Baustein. Zählt jedes Auftreten einer 1 am C Eingang und kann über den clr Eingang zurückgesetzt werden.
-    Anzahl der Zähl-Bits kann im Attribut-Dialog eingestellt werden.</string>
+    <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein. Zählt jede steigende Flanke am C Eingang und kann über den clr Eingang zurückgesetzt werden.
+    Die Bitbreite des Zählers kann im Attributedialog festgelegt werden.</string>
     <string name="elem_Counter_pin_C">Eingang des Taktsignals.</string>
     <string name="elem_Counter_pin_clr">Setzt den Zähler auf 0 zurück wenn dieser Eingang auf 1 gesetzt wird.</string>
     <string name="elem_Counter_pin_ovf">Overflow Ausgang. Hat der Zähler das Maximum erreicht, wird dieser Ausgang für eine Taktdauer 1.</string>
