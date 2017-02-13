@@ -22,7 +22,7 @@ public class GraphicSwing implements Graphic {
     /**
      * Creates a new instance
      *
-     * @param gr the {@link Graphics2D} instave to use.
+     * @param gr the {@link Graphics2D} instance to use.
      */
     public GraphicSwing(Graphics2D gr) {
         this(gr, 1);
@@ -31,7 +31,7 @@ public class GraphicSwing implements Graphic {
     /**
      * Creates a new instance
      *
-     * @param gr        the {@link Graphics2D} instave to use.
+     * @param gr        the {@link Graphics2D} instance to use.
      * @param pixelSize the size of one pixel
      */
     public GraphicSwing(Graphics2D gr, int pixelSize) {
