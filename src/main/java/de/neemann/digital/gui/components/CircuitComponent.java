@@ -883,7 +883,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             this.pos = raster(pos);
             deleteAction.setActive(true);
             removeHighLighted();
-            addHighLighted(wire);
             hasChanged();
         }
 
