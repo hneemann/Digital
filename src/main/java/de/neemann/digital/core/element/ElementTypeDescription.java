@@ -177,7 +177,7 @@ public class ElementTypeDescription {
     /**
      * Returns the output pin descriptions of this element.
      *
-     * @param elementAttributes the elements attributs
+     * @param elementAttributes the elements attributes
      * @return the list of input descriptions
      * @throws PinException PinException
      */
