@@ -914,6 +914,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             mouseNormal.activate();
             isManualScale = true;
         }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            // ensure that highlighted wire is visible by drawing it on top of other drawings.
+            wire.drawTo(gr, true);
+        }
     }
 
 
