@@ -73,7 +73,10 @@ public class ModelEntry {
             if (p.getDirection() == Pin.Direction.both) {
                 if (bidirect == null)
                     bidirect = new ArrayList<>();
-                bidirect.add(p.getReaderValue());
+                final ObservableValue readerValue = p.getReaderValue();
+                if (readerValue == null)
+                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", p.getName(), visualElement), visualElement);
+                bidirect.add(readerValue);
             }
         }
         if (bidirect != null)
