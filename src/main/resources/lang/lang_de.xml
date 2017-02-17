@@ -158,7 +158,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
         Auf diese Weise kann jedes kombinatorische Gatter erzeugt werden. Die Konfiguration der LookUpTable, wie Anzahl der Bits pro Eingang und Anzahl der Eingänge, kann im Attribute-Dialog eingestellt werden.</string>
     <string name="elem_LookUpTable_pin_in">Eingang {0}. Der Eingang legt, in Kombination mit den anderen Eingängen, die Addresse des gewünschten Ausgabewertes fest.</string>
     <string name="elem_LookUpTable_pin_out">Gibt den Wert an der ausgewählten Adresse aus.</string>
-    <string name="elem_Mul">Multiplikator</string>
+    <string name="elem_Mul">Multiplizierer</string>
     <string name="elem_Mul_tt">Ein Baustein für Multiplikation. Multipliziert die an Eingang a und Eingang b anliegenden Ganzzahlen.</string>
     <string name="elem_Mul_pin_a">Eingang a für Multiplikation.</string>
     <string name="elem_Mul_pin_b">Eingang b für Multiplikation.</string>
