@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class DataBus {
-    private final ObservableValue commonOut;
+    private final CommonBusObserver observer;
 
     /**
      * Creates a new data bus
@@ -76,18 +76,13 @@ public class DataBus {
             }
         }
 
-        if (resistor == PinDescription.PullResistor.none)
-            commonOut = new ObservableValue("common", bits, true);
-        else
-            commonOut = new ObservableValue("common", bits);
-
         BusModelStateObserver obs = model.getObserver(BusModelStateObserver.class);
         if (obs == null) {
             obs = new BusModelStateObserver();
             model.addObserver(obs);
         }
 
-        CommonBusObserver observer = new CommonBusObserver(commonOut, obs, outputs, resistor);
+        observer = new CommonBusObserver(bits , obs, outputs, resistor);
         for (ObservableValue p : outputs)
             p.addObserverToValue(observer);
         observer.hasChanged();
@@ -99,23 +94,21 @@ public class DataBus {
      * @return the readable ObservableValue
      */
     public ObservableValue getReadableOutput() {
-        return commonOut;
+        return observer;
     }
 
     /**
      * This observer is added to all outputs connected together
      */
-    private static class CommonBusObserver implements Observer {
-
-        private final ObservableValue commonOut;
+    private static final class CommonBusObserver extends ObservableValue implements Observer {
         private final BusModelStateObserver obs;
         private final ObservableValue[] inputs;
         private final PinDescription.PullResistor resistor;
         private boolean burn;
         private int addedVersion = -1;
 
-        CommonBusObserver(ObservableValue commonOut, BusModelStateObserver obs, ObservableValue[] outputs, PinDescription.PullResistor resistor) {
-            this.commonOut = commonOut;
+        private CommonBusObserver(int bits, BusModelStateObserver obs, ObservableValue[] outputs, PinDescription.PullResistor resistor) {
+            super("commonBusOut", bits, resistor.equals(PullResistor.none));
             this.obs = obs;
             inputs = outputs;
             this.resistor = resistor;
@@ -140,16 +133,16 @@ public class DataBus {
             if (highz) {
                 switch (resistor) {
                     case pullUp:
-                        commonOut.set(-1, false);
+                        set(-1, false);
                         break;
                     case pullDown:
-                        commonOut.set(0, false);
+                        set(0, false);
                         break;
                     default:
-                        commonOut.set(value, highz);
+                        set(value, highz);
                 }
             } else
-                commonOut.set(value, highz);
+                set(value, highz);
 
             // if burn condition and not yet added for post step check add for post step check
             if (burn && (obs.version != addedVersion)) {
@@ -161,7 +154,7 @@ public class DataBus {
 
         private void checkBurn() {
             if (burn)
-                throw new BurnException(commonOut);
+                throw new BurnException(this);
         }
     }
 

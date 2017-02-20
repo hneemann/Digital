@@ -175,7 +175,7 @@ public class Splitter implements Element {
     @Override
     public void init(Model m) {
         for (ObservableValue v : inputs)
-            v.hasChanged();
+            v.fireHasChanged();
     }
 
     static final class Ports implements Iterable<Port> {

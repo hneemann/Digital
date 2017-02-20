@@ -60,7 +60,7 @@ public class Observable {
     /**
      * Fires a has changed event to all observers
      */
-    public void hasChanged() {
+    public void fireHasChanged() {
         for (Observer o : observers)
             o.hasChanged();
     }

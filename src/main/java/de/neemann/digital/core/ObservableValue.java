@@ -55,7 +55,7 @@ public class ObservableValue extends Observable implements PinDescription {
         if (this.value != value) {
             this.value = value;
             if (!highZ)
-                hasChanged();
+                fireHasChanged();
         }
         return this;
     }
@@ -68,7 +68,7 @@ public class ObservableValue extends Observable implements PinDescription {
     public void setHighZ(boolean highZ) {
         if (this.highZ != highZ) {
             this.highZ = highZ;
-            hasChanged();
+            fireHasChanged();
         }
     }
 
