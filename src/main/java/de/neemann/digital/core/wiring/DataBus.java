@@ -8,6 +8,7 @@ import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Handles the creation of a data bus.
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class DataBus {
-    private final CommonBusObserver observer;
+    private final CommonBusValue observer;
 
     /**
      * Creates a new data bus
@@ -82,7 +83,7 @@ public class DataBus {
             model.addObserver(obs);
         }
 
-        observer = new CommonBusObserver(bits , obs, outputs, resistor);
+        observer = new CommonBusValue(bits, obs, outputs, resistor);
         for (ObservableValue p : outputs)
             p.addObserverToValue(observer);
         observer.hasChanged();
@@ -100,14 +101,14 @@ public class DataBus {
     /**
      * This observer is added to all outputs connected together
      */
-    private static final class CommonBusObserver extends ObservableValue implements Observer {
+    public static final class CommonBusValue extends ObservableValue implements Observer {
         private final BusModelStateObserver obs;
         private final ObservableValue[] inputs;
         private final PinDescription.PullResistor resistor;
         private boolean burn;
         private int addedVersion = -1;
 
-        private CommonBusObserver(int bits, BusModelStateObserver obs, ObservableValue[] outputs, PinDescription.PullResistor resistor) {
+        private CommonBusValue(int bits, BusModelStateObserver obs, ObservableValue[] outputs, PinDescription.PullResistor resistor) {
             super("commonBusOut", bits, resistor.equals(PullResistor.none));
             this.obs = obs;
             inputs = outputs;
@@ -161,9 +162,10 @@ public class DataBus {
     /**
      * Checks if a temporary burn condition is still present after the step is completed.
      * If so an exception is thrown.
+     * Handles also the switches
      */
-    private static final class BusModelStateObserver implements ModelStateObserver {
-        private final ArrayList<CommonBusObserver> busList;
+    public static final class BusModelStateObserver implements ModelStateObserver {
+        private final ArrayList<CommonBusValue> busList;
         private int version;
 
         private BusModelStateObserver() {
@@ -173,7 +175,7 @@ public class DataBus {
         @Override
         public void handleEvent(ModelEvent event) {
             if (event == ModelEvent.STEP && !busList.isEmpty()) {
-                for (CommonBusObserver bus : busList) {
+                for (CommonBusValue bus : busList) {
                     bus.checkBurn();
                 }
                 busList.clear();
@@ -181,8 +183,12 @@ public class DataBus {
             }
         }
 
-        private void addCheck(CommonBusObserver commonBusObserver) {
-            busList.add(commonBusObserver);
+        private void addCheck(CommonBusValue commonBusValue) {
+            busList.add(commonBusValue);
+        }
+
+        public void setClosed(Switch.RealSwitch realSwitch, boolean closed) {
+
         }
     }
 

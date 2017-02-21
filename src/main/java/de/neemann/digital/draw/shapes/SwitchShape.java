@@ -26,7 +26,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class SwitchShape implements Shape {
 
-    private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
     private boolean closed;
@@ -39,7 +38,6 @@ public class SwitchShape implements Shape {
      * @param outputs    the outputs
      */
     public SwitchShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
-        this.inputs = inputs;
         this.outputs = outputs;
         closed = attributes.get(Keys.CLOSED);
         label = attributes.getCleanLabel();
@@ -48,8 +46,8 @@ public class SwitchShape implements Shape {
     @Override
     public Pins getPins() {
         return new Pins()
-                .add(new Pin(new Vector(0, 0), inputs.get(0)))
-                .add(new Pin(new Vector(SIZE * 2, 0), outputs.get(0)));
+                .add(new Pin(new Vector(0, 0), outputs.get(0)))
+                .add(new Pin(new Vector(SIZE * 2, 0), outputs.get(1)));
     }
 
     @Override
