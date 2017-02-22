@@ -20,8 +20,8 @@ import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEXOrShape;
 import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.components.data.DummyElement;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseElement;
 
 import java.util.HashMap;
 
@@ -80,6 +80,7 @@ public final class ShapeFactory {
         map.put(Ground.DESCRIPTION.getName(), GroundShape::new);
         map.put(VDD.DESCRIPTION.getName(), VDDShape::new);
         map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
+        map.put(Relay.DESCRIPTION.getName(), RelayShape::new);
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(Button.DESCRIPTION.getName(), ButtonShape::new);

@@ -80,6 +80,13 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
         Netznamen tragen, sind miteinander verbunden. Der Tunnel ist immer lokal, es können keine Verbindungen über
         Schaltungsgrenzen hinaus erzeugt werden.</string>
     <string name="elem_Tunnel_pin_in">Anschluss des Tunnels.</string>
+
+    <string name="elem_Relay">Relais</string>
+    <string name="elem_Relay_tt">Ein Relais ist ein Schalter, welcher über einen Steuereingang umgeschaltet werden kann.</string>
+    <string name="elem_Relay_pin_in">Steuereingang des Relais.</string>
+    <string name="elem_Relay_pin_out1">Einer der Ausgänge des gesteuerten Schalters.</string>
+    <string name="elem_Relay_pin_out2">Einer der Ausgänge des gesteuerten Schalters.</string>
+
     <string name="elem_Switch">Schalter</string>
     <string name="elem_Switch_pin_out1">Einer der Ausgänge des Schalters.</string>
     <string name="elem_Switch_pin_out2">Einer der Ausgänge des Schalters.</string>
@@ -488,6 +495,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_Blown_tt">Wenn gesetzt wird die Diode als "Durchgebrannt" bzw "Programmiert" betrachtet. Diese Einstellung kann direkt über die Taste 'P' verändert werden.</string>
     <string name="key_ExpressionFormat">Format</string>
     <string name="key_ExpressionFormat_tt">Anzeigeformat der Ausdrücke.</string>
+    <string name="key_relayNormallyClosed">Relais ist ein Öffner</string>
+    <string name="key_relayNormallyClosed_tt">Wenn gesetzt ist das Relais unbestromt geschlossen.</string>
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
     <string name="lib_flipFlops">FlipFlops</string>

@@ -9,26 +9,38 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * The ConnectedBusHandler calculates the state of net, which is formed by the single nets
+ * connected by a closed switch.
  * Created by hneemann on 22.02.17.
  */
-public class ConnectedBusHandler extends AbstractBusHandler {
+public final class ConnectedBusHandler extends AbstractBusHandler {
     private PinDescription.PullResistor resistor = PinDescription.PullResistor.none;
     private ArrayList<CommonBusValue> values;
     private ArrayList<ObservableValue> inputs;
 
+    /**
+     * Creates a new instance
+     *
+     * @param obs The observer needed to check the burn condition
+     */
     public ConnectedBusHandler(BusModelStateObserver obs) {
         super(obs);
         values = new ArrayList<>();
-        inputs=new ArrayList<>();
+        inputs = new ArrayList<>();
     }
 
+    /**
+     * Adds a net to the common unified net
+     *
+     * @param net the net to add
+     */
     public void addNet(CommonBusValue net) {
         values.add(net);
         inputs.addAll(Arrays.asList(net.getInputs()));
 
         if (!net.getResistor().equals(PinDescription.PullResistor.none)) {
             if (resistor.equals(PinDescription.PullResistor.none)) {
-                resistor=net.getResistor();
+                resistor = net.getResistor();
             } else {
                 if (!resistor.equals(net.getResistor())) {
                     // ToDo different resistors!
@@ -40,8 +52,13 @@ public class ConnectedBusHandler extends AbstractBusHandler {
         net.setHandler(this);
     }
 
+    /**
+     * Adds all nets in the given {@link ConnectedBusHandler}.
+     *
+     * @param h2 the {@link ConnectedBusHandler}
+     */
     public void addNet(ConnectedBusHandler h2) {
-        for (CommonBusValue cbv:h2.values)
+        for (CommonBusValue cbv : h2.values)
             addNet(cbv);
     }
 
@@ -61,6 +78,9 @@ public class ConnectedBusHandler extends AbstractBusHandler {
             val.set(value, highz);
     }
 
+    /**
+     * @return all the nets connected by this handler.
+     */
     public ArrayList<CommonBusValue> getValues() {
         return values;
     }

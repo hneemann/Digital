@@ -268,4 +268,10 @@ public final class Keys {
             = new Key.KeyInteger("graphicHeight", 100)
             .setMin(5);
 
+    /**
+     * flag used by a relay to indicate if it is normally open or normally closed.
+     */
+    public static final Key<Boolean> RELAY_NORMALLY_CLOSED
+            = new Key<>("relayNormallyClosed", false);
+
 }

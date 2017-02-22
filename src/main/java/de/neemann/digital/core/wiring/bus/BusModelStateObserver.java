@@ -20,7 +20,7 @@ public final class BusModelStateObserver implements ModelStateObserver {
 
     BusModelStateObserver() {
         busList = new ArrayList<>();
-        closedSwitches=new HashSet<>();
+        closedSwitches = new HashSet<>();
     }
 
     @Override
@@ -34,14 +34,29 @@ public final class BusModelStateObserver implements ModelStateObserver {
         }
     }
 
+    /**
+     * @return the version used to avoid double additions of nets in a burn condition
+     */
     public int getVersion() {
         return version;
     }
 
+    /**
+     * Adds a net in a burn condition
+     *
+     * @param commonBusValue the value in burn condition
+     */
     public void addCheck(AbstractBusHandler commonBusValue) {
         busList.add(commonBusValue);
     }
 
+    /**
+     * Closes or opens a switch.
+     * Is used to reconfigure a net with switches
+     *
+     * @param realSwitch the switch
+     * @param closed     true if switch is closed
+     */
     public void setClosed(Switch.RealSwitch realSwitch, boolean closed) {
         if (closed) {
             closedSwitches.add(realSwitch);

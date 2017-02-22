@@ -79,6 +79,13 @@
     <string name="elem_Tunnel_tt">Connects parts without a wire. All tunnel elements, which have the same net name,
         are connected together. Works only local, so it is not possible to connect different circuits.</string>
     <string name="elem_Tunnel_pin_in">The connection to the tunnel.</string>
+
+    <string name="elem_Relay">Relay</string>
+    <string name="elem_Relay_tt">A relay is a switch which can be controlled by a separate input.</string>
+    <string name="elem_Relay_pin_in">The input to control the switch.</string>
+    <string name="elem_Relay_pin_out1">One of the switch outputs.</string>
+    <string name="elem_Relay_pin_out2">One of the switch outputs.</string>
+
     <string name="elem_Switch">Switch</string>
     <string name="elem_Switch_tt">Simple unidirectional switch.
         In the simulation the switch behaves like an active gate with a trivalent truth table.
@@ -474,6 +481,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_Blown_tt">If set the diode is treated as a "blown" or "programmed" diode or fuse. You can change this setting with the key 'p'.</string>
     <string name="key_ExpressionFormat">Format</string>
     <string name="key_ExpressionFormat_tt">Screen format of expressions.</string>
+    <string name="key_relayNormallyClosed">Relay is normally closed.</string>
+    <string name="key_relayNormallyClosed_tt">If set the relay is closed if the input is low.</string>
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
     <string name="lib_flipFlops">FlipFlops</string>

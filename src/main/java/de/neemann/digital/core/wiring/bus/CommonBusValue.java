@@ -25,18 +25,32 @@ public final class CommonBusValue extends ObservableValue implements Observer {
         handler.recalculate();
     }
 
+    /**
+     * Sets the handler which is needed to calculate the nets state
+     *
+     * @param handler the handler
+     */
     public void setHandler(AbstractBusHandler handler) {
         this.handler = handler;
     }
 
+    /**
+     * Resets the handler. SO this net is isolated to a single simple net.
+     */
     public void resetHandler() {
         setHandler(new SingleBusHandler(obs, this, resistor, inputs));
     }
 
+    /**
+     * @return the pull resistor is this net
+     */
     public PullResistor getResistor() {
         return resistor;
     }
 
+    /**
+     * @return the inputs connected to this net.
+     */
     public ObservableValue[] getInputs() {
         return inputs;
     }

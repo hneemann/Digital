@@ -7,6 +7,9 @@ import de.neemann.digital.core.element.PinDescription;
 import java.util.List;
 
 /**
+ * The {@link AbstractBusHandler} calculates the state of a net with given inputs and pull resistors.
+ * After the colcolation of the state the method {@link AbstractBusHandler#set(long, boolean)} is called
+ * to propagate the actual state.
  * Created by hneemann on 22.02.17.
  */
 public abstract class AbstractBusHandler {
@@ -15,16 +18,39 @@ public abstract class AbstractBusHandler {
     private boolean burn;
     private int addedVersion = -1;
 
+    /**
+     * Creates a new instance
+     *
+     * @param obs the {@link BusModelStateObserver} is neede to check a burn condition.
+     */
     public AbstractBusHandler(BusModelStateObserver obs) {
         this.obs = obs;
     }
 
+    /**
+     * Used to get the outputs connected to this net.
+     *
+     * @return the outputs connected to the net, so the inputs of the net.
+     */
     public abstract List<ObservableValue> getInputs();
 
+    /**
+     * @return the resistor connected to the net, Dot return null, return {@link de.neemann.digital.core.element.PinDescription.PullResistor#none} instead.
+     */
     public abstract PinDescription.PullResistor getResistor();
 
+    /**
+     * Sets the value of the net.
+     *
+     * @param value the value
+     * @param highz the highz state
+     */
     public abstract void set(long value, boolean highz);
 
+    /**
+     * recalculates the state of the net
+     * Also calls {@link AbstractBusHandler#set(long, boolean)} with the new value.
+     */
     public void recalculate() {
         long value = 0;
         burn = false;
@@ -61,6 +87,12 @@ public abstract class AbstractBusHandler {
         }
     }
 
+    /**
+     * Called to chick if this net is in a burn condition.
+     * A burn condition does not immediately throw an exception, because intermediate burn condition are
+     * unavoidable. So this method is called if the step is completed. If a step ends with a burn condition
+     * an exception is thrown.
+     */
     public void checkBurn() {
         if (burn)
             throw new BurnException(getInputs());
