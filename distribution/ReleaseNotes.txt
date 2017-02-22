@@ -6,6 +6,7 @@ planned as v0.10
 - Mouse actions can be canceled by the ESC key.
 - With the right mouse button you can now select and move/delete wires.
 - Added a real bidirectional switches and a relay.
+- Added N and P channel FETs
 
 v0.9, released on 03. Feb 2017
 - improved documentation

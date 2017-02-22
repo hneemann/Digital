@@ -334,6 +334,17 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_PullDown_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Down Widerstand zu Low.
         Ist eine Leitung nicht hochohmig, hat das Element keine Wirkung.</string>
 
+    <string name="elem_NFET">N-Channel FET</string>
+    <string name="elem_NFET_tt">N-Channel Feldeffekttransistor</string>
+    <string name="elem_NFET_pin_G">Gate</string>
+    <string name="elem_NFET_pin_out2">Source</string>
+    <string name="elem_NFET_pin_out1">Drain</string>
+    <string name="elem_PFET">N-Channel FET</string>
+    <string name="elem_PFET_tt">N-Channel Feldeffekttransistor</string>
+    <string name="elem_PFET_pin_G">Gate</string>
+    <string name="elem_PFET_pin_out1">Source</string>
+    <string name="elem_PFET_pin_out2">Drain</string>
+
     <string name="error">Fehler</string>
     <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in Element {1} ist werder Eingang noch Ausgang</string>

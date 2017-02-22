@@ -28,6 +28,10 @@ public class Style {
      */
     public static final Style THIN = new Style(LINETHIN, false, Color.BLACK);
     /**
+     * thin filled
+     */
+    public static final Style THIN_FILLED = new Style(LINETHIN, true, Color.BLACK);
+    /**
      * thick line used for the ground line
      */
     public static final Style THICK = new Style(LINETHICK + LINETHIN, false, Color.BLACK);

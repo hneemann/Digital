@@ -320,6 +320,17 @@
     <string name="elem_PullDown_tt">If the net is in a HighZ state, this resistor pulls the net to ground. In any other case this component has no effect.</string>
     <string name="elem_PullDown_pin_out">A "weak low".</string>
 
+    <string name="elem_NFET">N-Channel FET</string>
+    <string name="elem_NFET_tt">N-Channel Field Effect Transitor</string>
+    <string name="elem_NFET_pin_G">Gate</string>
+    <string name="elem_NFET_pin_out2">Source</string>
+    <string name="elem_NFET_pin_out1">Drain</string>
+    <string name="elem_PFET">P-Channel FET</string>
+    <string name="elem_PFET_tt">P-Channel Field Effect Transitor</string>
+    <string name="elem_PFET_pin_G">Gate</string>
+    <string name="elem_PFET_pin_out1">Source</string>
+    <string name="elem_PFET_pin_out2">Drain</string>
+
     <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-flip-flop has no label set</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>

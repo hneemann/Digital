@@ -81,6 +81,8 @@ public final class ShapeFactory {
         map.put(VDD.DESCRIPTION.getName(), VDDShape::new);
         map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
         map.put(Relay.DESCRIPTION.getName(), RelayShape::new);
+        map.put(NFET.DESCRIPTION.getName(), NFETShape::new);
+        map.put(PFET.DESCRIPTION.getName(), PFETShape::new);
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(Button.DESCRIPTION.getName(), ButtonShape::new);

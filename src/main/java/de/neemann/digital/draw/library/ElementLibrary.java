@@ -109,6 +109,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(DiodeBackward.DESCRIPTION, menu);
         add(Switch.DESCRIPTION, menu);
         add(Relay.DESCRIPTION, menu);
+        add(NFET.DESCRIPTION, menu);
+        add(PFET.DESCRIPTION, menu);
         add(Reset.DESCRIPTION, menu);
         add(Break.DESCRIPTION, menu);
 
