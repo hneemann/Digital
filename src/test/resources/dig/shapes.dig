@@ -387,6 +387,21 @@
       <elementAttributes/>
       <pos x="720" y="460"/>
     </visualElement>
+    <visualElement>
+      <elementName>Relay</elementName>
+      <elementAttributes/>
+      <pos x="780" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NFET</elementName>
+      <elementAttributes/>
+      <pos x="840" y="580"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PFET</elementName>
+      <elementAttributes/>
+      <pos x="880" y="580"/>
+    </visualElement>
   </visualElements>
   <wires/>
 </circuit>
