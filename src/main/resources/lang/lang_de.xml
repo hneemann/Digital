@@ -90,14 +90,8 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Switch">Schalter</string>
     <string name="elem_Switch_pin_out1">Einer der Ausgänge des Schalters.</string>
     <string name="elem_Switch_pin_out2">Einer der Ausgänge des Schalters.</string>
-    <string name="elem_Switch_tt">Einfacher unidirektionaler Schalter.
-        Innerhalb der Simulation verhält sich ein Schalter wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
-        Ist der Schalter offen, ist der Ausgang hochohmig, ist der Schalter geschlossen, entspricht der Ausgang dem
-        Eingang incl. des Zustandes hochohmig.
-        Damit können sich antiparall verbundene Schalter gegenseiting im low- oder high-Zustand halten, was mit realen
-        Schaltern nicht möglich ist. Zudem gibt es - anders als bei realen Schaltern - keine Rückwirkung des Ausgangs auf den Eingang.
-        Diese Einschränkungen wirken sich nicht aus, wenn der Eingang des Schalters direkt mit GND, VDD oder einer Konstanten
-        verbunden wird. Mit dieser Beschaltung entspricht der simulierte Schalter einem realen Schalter.</string>
+    <string name="elem_Switch_tt">Einfacher Schalter. Der Schalter hat keine Gatterlaufzeit.
+        Eine Signaländerung wird instantan von einem Ende des Schalters zum anderen propagiert.</string>
     <string name="elem_Counter">Zähler</string>
     <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein. Zählt jede steigende Flanke am C Eingang und kann über den clr Eingang zurückgesetzt werden.
     Die Bitbreite des Zählers kann im Attributedialog festgelegt werden.</string>
@@ -411,6 +405,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge! Verwenden Sie einen PullUp- oder PullDown-Widerstand</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
     <string name="err_couldNotCreateFolder_N0">Konnte den Order '{0}' nicht erzeugen!</string>
+    <string name="err_switchHasNoNet">Ein Schalter kann nicht nur mit Eingängen verbunden werden.</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

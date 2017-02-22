@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.wiring.bus.BusModelStateObserver;
 import de.neemann.digital.core.wiring.bus.CommonBusValue;
+import de.neemann.digital.lang.Lang;
 
 /**
  * A simple switch
@@ -65,7 +66,7 @@ public class Switch implements Element, Observer {
             if (input2 instanceof CommonBusValue) {
                 switchModel = new SimpleSwitch(input2, output1);
             } else {
-                throw new NodeException("err_switchHasNoNet", output1, output2);
+                throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
             }
         }
     }

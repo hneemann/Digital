@@ -87,14 +87,8 @@
     <string name="elem_Relay_pin_out2">One of the switch outputs.</string>
 
     <string name="elem_Switch">Switch</string>
-    <string name="elem_Switch_tt">Simple unidirectional switch.
-        In the simulation the switch behaves like an active gate with a trivalent truth table.
-        If the switch is open, the output is in high z state. If the switch is closed, the output state is equal to
-        the input state incl. high z state.
-        So two antiparallel connected switches can keep each other in high or low state, which is not possible
-        with real switches. In addition - unlike real switches - there is no feedback from the output to the input.
-        These restrictions do not have any effect when the input of the switch is connected directly to GND, VDD or a
-        constant. In such a circuit, the simulated switch corresponds to a real switch.</string>
+    <string name="elem_Switch_tt">Simple switch.
+        There is no gate delay: A signal change is propagated immediately.</string>
     <string name="elem_Switch_pin_out1">One of the switch outputs.</string>
     <string name="elem_Switch_pin_out2">One of the switch outputs.</string>
     <string name="elem_Counter">Counter</string>
@@ -397,6 +391,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_splitterDoesNotSupportHighZInputs">The splitter does not support high z inputs! Use a pull up or pull down resisitor.</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">A splitter which allows high z inputs can only have one input!</string>
     <string name="err_couldNotCreateFolder_N0">Could not create folder '{0}'!</string>
+    <string name="err_switchHasNoNet">It is not allowed to connect only inputs to a switch.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
