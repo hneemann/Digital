@@ -81,8 +81,8 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
         Schaltungsgrenzen hinaus erzeugt werden.</string>
     <string name="elem_Tunnel_pin_in">Anschluss des Tunnels.</string>
     <string name="elem_Switch">Schalter</string>
-    <string name="elem_Switch_pin_in">Schalter Eingang</string>
-    <string name="elem_Switch_pin_out">Dieser Ausgang gibt den Eingangswert aus wenn der Schalter geschlossen ist und ist hochohmig wenn der Schalter offen ist.</string>
+    <string name="elem_Switch_pin_out1">Einer der Ausgänge des Schalters.</string>
+    <string name="elem_Switch_pin_out2">Einer der Ausgänge des Schalters.</string>
     <string name="elem_Switch_tt">Einfacher unidirektionaler Schalter.
         Innerhalb der Simulation verhält sich ein Schalter wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
         Ist der Schalter offen, ist der Ausgang hochohmig, ist der Schalter geschlossen, entspricht der Ausgang dem

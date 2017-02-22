@@ -3,7 +3,7 @@ package de.neemann.digital.draw.model;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.PinDescription;
-import de.neemann.digital.core.wiring.DataBus;
+import de.neemann.digital.core.wiring.bus.DataBus;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Wire;
@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
- * Contains all pins which are connected tigether.
+ * Contains all pins which are connected together.
  * Is created and filled by the ModelDescription constructor.
  * After creation all the ObservableValues belonging to the outputs are set.
  *

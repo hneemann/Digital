@@ -88,8 +88,8 @@
         with real switches. In addition - unlike real switches - there is no feedback from the output to the input.
         These restrictions do not have any effect when the input of the switch is connected directly to GND, VDD or a
         constant. In such a circuit, the simulated switch corresponds to a real switch.</string>
-    <string name="elem_Switch_pin_in">Switch input</string>
-    <string name="elem_Switch_pin_out">This output returns the input value if the switch is closed, and outputs a high z value if the switch is open.</string>
+    <string name="elem_Switch_pin_out1">One of the switch outputs.</string>
+    <string name="elem_Switch_pin_out2">One of the switch outputs.</string>
     <string name="elem_Counter">Counter</string>
     <string name="elem_Counter_tt">A simple counter component. The clock input increases the counter. Can be reset back to 0 with the clr pin.
         The number of bits can be set in the attribute dialog.</string>

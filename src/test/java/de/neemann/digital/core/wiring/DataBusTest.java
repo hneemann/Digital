@@ -4,6 +4,7 @@ import de.neemann.digital.core.BurnException;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.wiring.bus.DataBus;
 import de.neemann.digital.draw.elements.PinException;
 import junit.framework.TestCase;
 
