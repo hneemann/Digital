@@ -6,10 +6,7 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -21,6 +18,7 @@ public class NFETShape implements Shape {
 
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
+    private final String label;
 
     /**
      * Creates a new instance
@@ -32,6 +30,7 @@ public class NFETShape implements Shape {
     public NFETShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
+        label = attributes.getCleanLabel();
     }
 
     @Override
@@ -61,16 +60,19 @@ public class NFETShape implements Shape {
                 .add(x1, SIZE * 2)
                 .add(x1, SIZE * 2 - SIZE2 + g), Style.NORMAL);
 
-        graphic.drawLine(new Vector(SIZE2+3, SIZE), new Vector(SIZE+2, SIZE), Style.THIN);
+        graphic.drawLine(new Vector(SIZE2 + 3, SIZE), new Vector(SIZE + 2, SIZE), Style.THIN);
 
         graphic.drawPolygon(new Polygon(true)
-                .add(x1+4, SIZE)
-                .add(SIZE, SIZE -SIZE2/3)
-                .add(SIZE, SIZE +SIZE2/3), Style.THIN_FILLED);
+                .add(x1 + 4, SIZE)
+                .add(SIZE, SIZE - SIZE2 / 3)
+                .add(SIZE, SIZE + SIZE2 / 3), Style.THIN_FILLED);
 
         graphic.drawLine(new Vector(x1, SIZE2 + g), new Vector(x1, SIZE + SIZE2 - g), Style.NORMAL);
 
         graphic.drawLine(new Vector(1, 0), new Vector(1, SIZE * 2), Style.NORMAL);
+
+        if (label != null && label.length() > 0)
+            graphic.drawText(new Vector(SIZE + SIZE2, SIZE * 2), new Vector(SIZE * 2, SIZE * 2), label, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
     }
 
 }

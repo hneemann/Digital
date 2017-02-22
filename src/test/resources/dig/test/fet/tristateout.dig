@@ -4,22 +4,42 @@
   <visualElements>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T6</string>
+        </entry>
+      </elementAttributes>
       <pos x="500" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T5</string>
+        </entry>
+      </elementAttributes>
       <pos x="500" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T4</string>
+        </entry>
+      </elementAttributes>
       <pos x="500" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T3</string>
+        </entry>
+      </elementAttributes>
       <pos x="500" y="300"/>
     </visualElement>
     <visualElement>
@@ -34,12 +54,22 @@
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T2</string>
+        </entry>
+      </elementAttributes>
       <pos x="380" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T1</string>
+        </entry>
+      </elementAttributes>
       <pos x="380" y="300"/>
     </visualElement>
     <visualElement>
@@ -70,7 +100,7 @@
           <string>Y</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="420"/>
+      <pos x="580" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -109,7 +139,7 @@
     </wire>
     <wire>
       <p1 x="520" y="420"/>
-      <p2 x="560" y="420"/>
+      <p2 x="580" y="420"/>
     </wire>
     <wire>
       <p1 x="360" y="420"/>
