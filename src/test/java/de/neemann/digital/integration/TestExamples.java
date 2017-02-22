@@ -39,8 +39,8 @@ public class TestExamples extends TestCase {
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(41, new FileScanner(this::check).scan(examples));
-        assertEquals(31, testCasesInFiles);
+        assertEquals(42, new FileScanner(this::check).scan(examples));
+        assertEquals(32, testCasesInFiles);
     }
 
 
