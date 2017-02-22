@@ -141,7 +141,10 @@ public class Switch implements Element, Observer {
         }
     }
 
-    public static class RealSwitch implements SwitchModel {
+    /**
+     * represents a switch
+     */
+    public static final class RealSwitch implements SwitchModel {
         private final CommonBusValue input1;
         private final CommonBusValue input2;
         private BusModelStateObserver obs;
@@ -165,10 +168,16 @@ public class Switch implements Element, Observer {
             obs = model.getObserver(BusModelStateObserver.class);
         }
 
+        /**
+         * @return the left hand side net
+         */
         public CommonBusValue getInput1() {
             return input1;
         }
 
+        /**
+         * @return the right hand side net
+         */
         public CommonBusValue getInput2() {
             return input2;
         }

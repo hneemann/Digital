@@ -66,18 +66,18 @@ public final class BusModelStateObserver implements ModelStateObserver {
             realSwitch.getInput2().resetHandler();
         }
         reconfigureNets();
-        realSwitch.getInput1().hasChanged();
-        realSwitch.getInput2().hasChanged();
     }
 
     private void reconfigureNets() {
         HashMap<CommonBusValue, ConnectedBusHandler> netMap = new HashMap<>();
+        ArrayList<ConnectedBusHandler> createdHandlers = new ArrayList<>();
         for (Switch.RealSwitch s : closedSwitches) {
             ConnectedBusHandler h1 = netMap.get(s.getInput1());
             ConnectedBusHandler h2 = netMap.get(s.getInput2());
             if (h1 == null) {
                 if (h2 == null) {
                     ConnectedBusHandler h = new ConnectedBusHandler(this);
+                    createdHandlers.add(h);
                     h.addNet(s.getInput1());
                     h.addNet(s.getInput2());
                     netMap.put(s.getInput1(), h);
@@ -100,5 +100,7 @@ public final class BusModelStateObserver implements ModelStateObserver {
                 }
             }
         }
+        for (ConnectedBusHandler h : createdHandlers)
+            h.recalculate();
     }
 }

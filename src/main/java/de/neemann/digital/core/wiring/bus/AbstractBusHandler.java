@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * The {@link AbstractBusHandler} calculates the state of a net with given inputs and pull resistors.
- * After the colcolation of the state the method {@link AbstractBusHandler#set(long, boolean)} is called
+ * After the calculation of the state the method {@link AbstractBusHandler#set(long, boolean)} is called
  * to propagate the actual state.
  * Created by hneemann on 22.02.17.
  */
@@ -88,7 +88,7 @@ public abstract class AbstractBusHandler {
     }
 
     /**
-     * Called to chick if this net is in a burn condition.
+     * Called to check if this net is in a burn condition.
      * A burn condition does not immediately throw an exception, because intermediate burn condition are
      * unavoidable. So this method is called if the step is completed. If a step ends with a burn condition
      * an exception is thrown.

@@ -39,6 +39,7 @@ public final class CommonBusValue extends ObservableValue implements Observer {
      */
     public void resetHandler() {
         setHandler(new SingleBusHandler(obs, this, resistor, inputs));
+        hasChanged();
     }
 
     /**
