@@ -1,6 +1,5 @@
 package de.neemann.digital.core.wiring.bus;
 
-import de.neemann.digital.core.BurnException;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.PinDescription;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
  * Is needed to connect multiple outputs which can become high Z.
  * If one of the output becomes low Z, this value is returned by the {@link ObservableValue}
  * created by this bus. If more then one output becomes low Z and the values are not equal then
- * a {@link BurnException} is thrown after the models step is completed.
+ * a {@link de.neemann.digital.core.BurnException} is thrown after the models step is completed.
  * During the calculation of of a single step a temporary burn condition is allowed.
  *
  * @author hneemann
