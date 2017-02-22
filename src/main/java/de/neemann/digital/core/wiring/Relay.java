@@ -29,6 +29,9 @@ public class Relay extends Node implements Element {
     private final Switch s;
     private ObservableValue input;
     private boolean state;
+    private ObservableValue in1;
+    private ObservableValue in2;
+    private boolean stateHighZ;
 
     /**
      * Create a new instance
@@ -48,17 +51,33 @@ public class Relay extends Node implements Element {
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
         input = inputs.get(0).checkBits(1, this).addObserverToValue(this);
-        s.setInputs(new ObservableValues(inputs.get(1), inputs.get(2)));
+        in1 = inputs.get(1);
+        in2 = inputs.get(2);
+        s.setInputs(new ObservableValues(in1, in2));
     }
 
     @Override
     public void readInputs() throws NodeException {
         state = input.getBool();
+        stateHighZ = input.isHighZ();
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        s.setClosed(state ^ invers);
+        s.setClosed(getClosed(state, stateHighZ, in1, in2));
+    }
+
+    /**
+     * get the closed state
+     *
+     * @param inState   the input state
+     * @param inHighZ input high z value
+     * @param in1     first input
+     * @param in2     second input
+     * @return true if switch is to close
+     */
+    protected boolean getClosed(boolean inState, boolean inHighZ, ObservableValue in1, ObservableValue in2) {
+        return inState ^ invers;
     }
 
     @Override

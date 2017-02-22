@@ -99,4 +99,11 @@ public abstract class AbstractBusHandler {
     }
 
 
+    /**
+     * invalidates this handler.
+     * indicates that this handler is not longer used
+     */
+    public void invalidate() {
+        burn=false;
+    }
 }

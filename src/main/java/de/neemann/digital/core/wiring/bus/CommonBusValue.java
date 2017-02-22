@@ -31,6 +31,8 @@ public final class CommonBusValue extends ObservableValue implements Observer {
      * @param handler the handler
      */
     public void setHandler(AbstractBusHandler handler) {
+        if (this.handler!=null)
+            this.handler.invalidate();
         this.handler = handler;
     }
 

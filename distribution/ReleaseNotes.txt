@@ -5,7 +5,7 @@ planned as v0.10
 - Better formatting of minimized expressions.
 - Mouse actions can be canceled by the ESC key.
 - With the right mouse button you can now select and move/delete wires.
-- Added a real bidirectional switch and a relay.
+- Added a real bidirectional switches and a relay.
 
 v0.9, released on 03. Feb 2017
 - improved documentation

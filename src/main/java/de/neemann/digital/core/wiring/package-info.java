@@ -1,5 +1,5 @@
 /**
- * Contains the wiering elements like clock, break, splitter and so on
+ * Contains the wiring elements like clock, break, splitter and so on
  *
  * @author hneemann
  */
