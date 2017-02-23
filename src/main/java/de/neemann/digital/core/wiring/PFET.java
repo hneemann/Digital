@@ -1,5 +1,8 @@
 package de.neemann.digital.core.wiring;
 
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
@@ -31,7 +34,17 @@ public class PFET extends Relay {
     }
 
     @Override
-    protected boolean getClosed(boolean inState, boolean inHighZ) {
-        return !inHighZ && !inState;
+    protected boolean getClosed(boolean inState, boolean inHighZ, ObservableValue in1, ObservableValue in2) {
+        if (inHighZ || in1.isHighZ())
+            return false;
+
+        return !inState && in1.getBool();
     }
+
+    @Override
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        super.setInputs(inputs);
+        inputs.get(1).addObserverToValue(this);
+    }
+
 }
