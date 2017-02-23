@@ -60,12 +60,15 @@ public class NFETShape implements Shape {
                 .add(x1, SIZE * 2)
                 .add(x1, SIZE * 2 - SIZE2 + g), Style.NORMAL);
 
-        graphic.drawLine(new Vector(SIZE2 + 3, SIZE), new Vector(SIZE + 2, SIZE), Style.THIN);
+        graphic.drawPolygon(new Polygon(false)
+                .add(SIZE2 + 3, SIZE)
+                .add(SIZE, SIZE)
+                .add(SIZE, SIZE * 2), Style.THIN);
 
         graphic.drawPolygon(new Polygon(true)
                 .add(x1 + 4, SIZE)
-                .add(SIZE, SIZE - SIZE2 / 3)
-                .add(SIZE, SIZE + SIZE2 / 3), Style.THIN_FILLED);
+                .add(SIZE - SIZE2 / 3, SIZE - SIZE2 / 4)
+                .add(SIZE - SIZE2 / 3, SIZE + SIZE2 / 4), Style.THIN_FILLED);
 
         graphic.drawLine(new Vector(x1, SIZE2 + g), new Vector(x1, SIZE + SIZE2 - g), Style.NORMAL);
 
