@@ -5,7 +5,7 @@
     <visualElement>
       <elementName>VDD</elementName>
       <elementAttributes/>
-      <pos x="220" y="320"/>
+      <pos x="220" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -14,12 +14,8 @@
           <string>Label</string>
           <string>A</string>
         </entry>
-        <entry>
-          <string>isHighZ</string>
-          <boolean>true</boolean>
-        </entry>
       </elementAttributes>
-      <pos x="160" y="400"/>
+      <pos x="140" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -29,22 +25,32 @@
           <string>Y</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="400"/>
+      <pos x="260" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
-      <pos x="200" y="420"/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
-      <pos x="200" y="340"/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="220" y="480"/>
+      <pos x="220" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -59,49 +65,49 @@ Z Z</dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="280" y="300"/>
+      <pos x="300" y="460"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
       <p1 x="220" y="400"/>
-      <p2 x="240" y="400"/>
+      <p2 x="260" y="400"/>
     </wire>
     <wire>
-      <p1 x="160" y="400"/>
+      <p1 x="140" y="400"/>
       <p2 x="180" y="400"/>
     </wire>
     <wire>
-      <p1 x="180" y="340"/>
-      <p2 x="200" y="340"/>
+      <p1 x="180" y="320"/>
+      <p2 x="200" y="320"/>
     </wire>
     <wire>
-      <p1 x="180" y="460"/>
-      <p2 x="200" y="460"/>
+      <p1 x="180" y="480"/>
+      <p2 x="200" y="480"/>
     </wire>
     <wire>
-      <p1 x="180" y="340"/>
+      <p1 x="180" y="320"/>
       <p2 x="180" y="400"/>
     </wire>
     <wire>
       <p1 x="180" y="400"/>
-      <p2 x="180" y="460"/>
+      <p2 x="180" y="480"/>
     </wire>
     <wire>
-      <p1 x="220" y="460"/>
-      <p2 x="220" y="480"/>
+      <p1 x="220" y="480"/>
+      <p2 x="220" y="500"/>
     </wire>
     <wire>
-      <p1 x="220" y="380"/>
+      <p1 x="220" y="360"/>
       <p2 x="220" y="400"/>
     </wire>
     <wire>
-      <p1 x="220" y="320"/>
-      <p2 x="220" y="340"/>
+      <p1 x="220" y="300"/>
+      <p2 x="220" y="320"/>
     </wire>
     <wire>
       <p1 x="220" y="400"/>
-      <p2 x="220" y="420"/>
+      <p2 x="220" y="440"/>
     </wire>
   </wires>
 </circuit>
