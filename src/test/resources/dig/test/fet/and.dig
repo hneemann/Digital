@@ -29,12 +29,22 @@
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T3</string>
+        </entry>
+      </elementAttributes>
       <pos x="200" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T1</string>
+        </entry>
+      </elementAttributes>
       <pos x="200" y="260"/>
     </visualElement>
     <visualElement>
@@ -76,22 +86,42 @@
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T4</string>
+        </entry>
+      </elementAttributes>
       <pos x="200" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T2</string>
+        </entry>
+      </elementAttributes>
       <pos x="240" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T6</string>
+        </entry>
+      </elementAttributes>
       <pos x="320" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T5</string>
+        </entry>
+      </elementAttributes>
       <pos x="320" y="300"/>
     </visualElement>
   </visualElements>

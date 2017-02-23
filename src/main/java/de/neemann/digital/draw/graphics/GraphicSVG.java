@@ -69,7 +69,7 @@ public class GraphicSVG implements Graphic, Closeable {
         w.write("   width=\"" + width + "mm\"\n"
                 + "   height=\"" + height + "mm\"\n"
                 + "   viewBox=\"" + min.x + " " + min.y + " " + (max.x - min.x) + " " + (max.y - min.y) + "\">\n");
-        w.write("<g>\n");
+        w.write("<g stroke-linecap=\"square\">\n");
     }
 
     @Override
