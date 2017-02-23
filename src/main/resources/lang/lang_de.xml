@@ -335,12 +335,12 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
         Ist eine Leitung nicht hochohmig, hat das Element keine Wirkung.</string>
 
     <string name="elem_NFET">N-Kanal FET</string>
-    <string name="elem_NFET_tt">N-Kanal Feldeffekttransistor</string>
+    <string name="elem_NFET_tt">N-Kanal Feldeffekttransistor. Der Transistor wird ohne eine Body-Diode simuliert.</string>
     <string name="elem_NFET_pin_G">Gate</string>
     <string name="elem_NFET_pin_out2">Source</string>
     <string name="elem_NFET_pin_out1">Drain</string>
     <string name="elem_PFET">P-Kanal FET</string>
-    <string name="elem_PFET_tt">P-Kanal Feldeffekttransistor</string>
+    <string name="elem_PFET_tt">P-Kanal Feldeffekttransistor.  Der Transistor wird ohne eine Body-Diode simuliert.</string>
     <string name="elem_PFET_pin_G">Gate</string>
     <string name="elem_PFET_pin_out1">Source</string>
     <string name="elem_PFET_pin_out2">Drain</string>

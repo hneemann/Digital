@@ -321,12 +321,12 @@
     <string name="elem_PullDown_pin_out">A "weak low".</string>
 
     <string name="elem_NFET">N-Channel FET</string>
-    <string name="elem_NFET_tt">N-Channel Field Effect Transitor</string>
+    <string name="elem_NFET_tt">N-Channel Field Effect Transitor. The transistor is simulated without a body diode.</string>
     <string name="elem_NFET_pin_G">Gate</string>
     <string name="elem_NFET_pin_out2">Source</string>
     <string name="elem_NFET_pin_out1">Drain</string>
     <string name="elem_PFET">P-Channel FET</string>
-    <string name="elem_PFET_tt">P-Channel Field Effect Transitor</string>
+    <string name="elem_PFET_tt">P-Channel Field Effect Transitor. The transistor is simulated without a body diode.</string>
     <string name="elem_PFET_pin_G">Gate</string>
     <string name="elem_PFET_pin_out1">Source</string>
     <string name="elem_PFET_pin_out2">Drain</string>
