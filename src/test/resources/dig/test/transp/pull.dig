@@ -31,6 +31,21 @@
       <elementAttributes/>
       <pos x="540" y="300"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>i o 
+0 0
+1 1
+z 1</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="260"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

@@ -39,8 +39,8 @@ public class TestExamples extends TestCase {
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(41, new FileScanner(this::check).scan(examples));
-        assertEquals(31, testCasesInFiles);
+        assertEquals(42, new FileScanner(this::check).scan(examples));
+        assertEquals(33, testCasesInFiles);
     }
 
 
@@ -50,42 +50,52 @@ public class TestExamples extends TestCase {
      * @param dig the model file
      */
     private void check(File dig) throws Exception {
-        System.out.println("test " + dig);
-        boolean shouldFail = dig.getName().endsWith("Error.dig");
-        ToBreakRunner br = null;
+        boolean hasTest = false;
         try {
-            br = new ToBreakRunner(dig);
-        } catch (Exception e) {
-            if (shouldFail)
-                return;
-            else
-                throw e;
+            boolean shouldFail = dig.getName().endsWith("Error.dig");
+            ToBreakRunner br = null;
+            try {
+                br = new ToBreakRunner(dig);
+            } catch (Exception e) {
+                if (shouldFail) {
+                    hasTest = true;
+                    return;
+                } else
+                    throw e;
+            }
+
+            try {
+                for (VisualElement el : br.getCircuit().getElements())
+                    if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
+                        hasTest = true;
+
+                        String label = el.getElementAttributes().getCleanLabel();
+                        TestData td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+
+                        Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
+                        TestResult tr = new TestResult(td).create(model);
+
+                        if (label.contains("Failing"))
+                            assertFalse(dig.getName() + ":" + label, tr.allPassed());
+                        else
+                            assertTrue(dig.getName() + ":" + label, tr.allPassed());
+
+                        testCasesInFiles++;
+                    }
+            } catch (Exception e) {
+                if (shouldFail) {
+                    hasTest = true;
+                    return;
+                } else
+                    throw e;
+            }
+
+            assertFalse("File should fail but doesn't!", shouldFail);
+
+        } finally {
+            System.out.print("tested " + dig);
+            if (!hasTest) System.out.println(" -- no test cases");
+            else System.out.println();
         }
-
-        try {
-            for (VisualElement el : br.getCircuit().getElements())
-                if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
-
-                    String label = el.getElementAttributes().getCleanLabel();
-                    TestData td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
-
-                    Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
-                    TestResult tr = new TestResult(td).create(model);
-
-                    if (label.contains("Failing"))
-                        assertFalse(dig.getName() + ":" + label, tr.allPassed());
-                    else
-                        assertTrue(dig.getName() + ":" + label, tr.allPassed());
-
-                    testCasesInFiles++;
-                }
-        } catch (Exception e) {
-            if (shouldFail)
-                return;
-            else
-                throw e;
-        }
-
-        assertFalse("File should fail but doesn't!", shouldFail);
     }
 }
