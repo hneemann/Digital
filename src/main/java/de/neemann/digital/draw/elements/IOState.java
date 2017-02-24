@@ -2,6 +2,7 @@ package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.element.Element;
 
 /**
  * Represents the state of the state of the inputs and outputs of a element.
@@ -12,20 +13,24 @@ import de.neemann.digital.core.ObservableValues;
 public class IOState {
     private final ObservableValues inputs;
     private final ObservableValues outputs;
+    private final Element element;
 
     /**
      * creates a new instance
      *
      * @param inputs  inputs
      * @param outputs outputs
+     * @param element the element represented
      */
-    public IOState(ObservableValues inputs, ObservableValues outputs) {
+    public IOState(ObservableValues inputs, ObservableValues outputs, Element element) {
         this.inputs = inputs;
         this.outputs = outputs;
+        this.element = element;
     }
 
     /**
      * Returns the input with index i
+     *
      * @param i the index
      * @return the input
      */
@@ -35,6 +40,7 @@ public class IOState {
 
     /**
      * Returns the output with index i
+     *
      * @param i the index
      * @return the output
      */
@@ -68,5 +74,12 @@ public class IOState {
      */
     public ObservableValues getOutputs() {
         return outputs;
+    }
+
+    /**
+     * @return the element which this state belongs to
+     */
+    public Element getElement() {
+        return element;
     }
 }

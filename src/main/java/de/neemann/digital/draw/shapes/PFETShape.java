@@ -3,6 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.wiring.PFET;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -19,6 +20,7 @@ public class PFETShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
+    private PFET fet;
 
     /**
      * Creates a new instance
@@ -43,6 +45,9 @@ public class PFETShape implements Shape {
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+        fet = (PFET) ioState.getElement();
+        ioState.getInput(0).addObserverToValue(guiObserver);
+        ioState.getInput(1).addObserverToValue(guiObserver);
         return null;
     }
 
@@ -76,6 +81,9 @@ public class PFETShape implements Shape {
 
         if (label != null && label.length() > 0)
             graphic.drawText(new Vector(SIZE + SIZE2, SIZE * 2), new Vector(SIZE * 2, SIZE * 2), label, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+
+        if (fet != null)
+            NFETShape.drawSwitch(graphic, fet);
     }
 
 }

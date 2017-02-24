@@ -106,6 +106,13 @@ public class Switch implements Element, Observer {
     }
 
     /**
+     * @return true if switch is closed
+     */
+    public boolean isClosed() {
+        return closed;
+    }
+
+    /**
      * @return output 1
      */
     protected ObservableValue getOutput1() {

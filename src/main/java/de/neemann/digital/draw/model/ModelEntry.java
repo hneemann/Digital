@@ -86,7 +86,7 @@ public class ModelEntry {
             values = new ObservableValues(inputs);
             element.setInputs(values);
         }
-        ioState = new IOState(values, element.getOutputs());
+        ioState = new IOState(values, element.getOutputs(), element);
     }
 
     /**

@@ -3,6 +3,8 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.wiring.NFET;
+import de.neemann.digital.core.wiring.Relay;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -19,6 +21,7 @@ public class NFETShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
+    private NFET fet;
 
     /**
      * Creates a new instance
@@ -43,6 +46,9 @@ public class NFETShape implements Shape {
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+        fet = (NFET) ioState.getElement();
+        ioState.getInput(0).addObserverToValue(guiObserver);
+        ioState.getInput(2).addObserverToValue(guiObserver);
         return null;
     }
 
@@ -76,6 +82,28 @@ public class NFETShape implements Shape {
 
         if (label != null && label.length() > 0)
             graphic.drawText(new Vector(SIZE + SIZE2, SIZE * 2), new Vector(SIZE * 2, SIZE * 2), label, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+
+        if (fet != null)
+            drawSwitch(graphic, fet);
+    }
+
+    /**
+     * Draws the small switch beside the fet
+     *
+     * @param graphic the instance to draw to
+     * @param fet     the fet
+     */
+    public static void drawSwitch(Graphic graphic, Relay fet) {
+        boolean closed = fet.isClosed();
+        if (closed) {
+            graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE), Style.THIN);
+        } else {
+            graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE2 / 2), Style.THIN);
+            graphic.drawPolygon(new Polygon(false)
+                    .add(SIZE + SIZE2 / 2, SIZE2 / 2)
+                    .add(SIZE + SIZE2, SIZE - SIZE2 / 2)
+                    .add(SIZE + SIZE2, SIZE), Style.THIN);
+        }
     }
 
 }

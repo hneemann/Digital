@@ -101,4 +101,11 @@ public class Relay extends Node implements Element {
     protected ObservableValue getOutput2() {
         return s.getOutput2();
     }
+
+    /**
+     * @return true is switch is closed
+     */
+    public boolean isClosed() {
+        return s.isClosed();
+    }
 }
