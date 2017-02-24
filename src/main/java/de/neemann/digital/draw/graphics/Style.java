@@ -56,7 +56,7 @@ public class Style {
      */
     public static final Style WIRE_OUT = new Style(LINETHICK, true, Color.RED.darker());
     /**
-     * filld style used to fill the splitter or the dark LEDs
+     * Filled style used to fill the splitter or the dark LEDs
      */
     public static final Style FILLED = new Style(LINETHICK, true, Color.BLACK);
     /**
