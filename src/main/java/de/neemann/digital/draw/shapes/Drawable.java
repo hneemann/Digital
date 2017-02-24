@@ -9,9 +9,10 @@ import de.neemann.digital.draw.graphics.Graphic;
  */
 public interface Drawable {
     /**
-     * Draws a element depending on its state
+     * Draws an element depending on its state.
      *
-     * @param graphic interface to draw to
+     * @param graphic   interface to draw to
+     * @param highLight true if a highlighted drawing is required
      */
     void drawTo(Graphic graphic, boolean highLight);
 }

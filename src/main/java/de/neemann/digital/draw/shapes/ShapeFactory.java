@@ -118,7 +118,7 @@ public final class ShapeFactory {
      * Returns a shape matching the given name.
      * If no shape is found, a special "missing shape" shape is returned.
      *
-     * @param elementName       the elemnets name
+     * @param elementName       the elements name
      * @param elementAttributes the elements attributes
      * @return the shape
      */

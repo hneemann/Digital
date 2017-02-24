@@ -9,7 +9,7 @@ import de.neemann.digital.draw.shapes.Drawable;
 import java.util.Collection;
 
 /**
- * A simple wire described by two points
+ * A simple wire described by two points.
  *
  * @author hneemann
  */
@@ -167,7 +167,7 @@ public class Wire implements Drawable, Moveable {
     /**
      * Returns true if wires are equal.
      * It is not possible to overwrite Object.equals() because some algorithms
-     * (eg. highlighting) are depending on an object based equals!
+     * (eg. highlighting) are relying on an object based equals!
      *
      * @param wire the other wire
      * @return true if both wires are equal
@@ -191,7 +191,7 @@ public class Wire implements Drawable, Moveable {
     /**
      * Sets the {@link ObservableValue} which is represented by this wire
      *
-     * @param value
+     * @param value the {@link ObservableValue}
      */
     public void setValue(ObservableValue value) {
         this.value = value;
@@ -205,7 +205,7 @@ public class Wire implements Drawable, Moveable {
     }
 
     /**
-     * Turns of the visualisation of the wire dots
+     * Disables the visualisation of the wire dots
      */
     public void noDot() {
         p1Dot = false;
@@ -213,7 +213,7 @@ public class Wire implements Drawable, Moveable {
     }
 
     /**
-     * Turns on the wire dot for the given position
+     * Enables the wire dot for the given position
      *
      * @param p the position
      */
@@ -223,7 +223,7 @@ public class Wire implements Drawable, Moveable {
     }
 
     /**
-     * @return a moveable representing point one
+     * @return a movable representing point one
      */
     public Moveable getMovableP1() {
         return new Moveable() {
@@ -240,7 +240,7 @@ public class Wire implements Drawable, Moveable {
     }
 
     /**
-     * @return a moveable representing point two
+     * @return a movable representing point two
      */
     public Moveable getMovableP2() {
         return new Moveable() {

@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.remote;
 
 /**
- * Interface to implement a simple server
+ * Interface to implement a simple server.
  * <p/>
  * Created by helmut.neemann on 23.06.2016.
  */

@@ -2,7 +2,7 @@ package de.neemann.digital.draw.graphics;
 
 /**
  * Interface used to draw the circuit.
- * There a implementations to draw on a {@link java.awt.Graphics2D} instance ({@link GraphicSwing}) but also
+ * There are implementations to draw on a {@link java.awt.Graphics2D} instance ({@link GraphicSwing}) but also
  * implementations which create export formats like SVG ({@link GraphicSVG}).
  *
  * @author hneemann
@@ -21,7 +21,7 @@ public interface Graphic {
     /**
      * Draws a polygon
      *
-     * @param p     the polygon
+     * @param p     the polygon to draw
      * @param style the style
      */
     void drawPolygon(Polygon p, Style style);

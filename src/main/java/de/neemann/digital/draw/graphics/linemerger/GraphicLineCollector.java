@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
+ * Merges all single lines which are drawn to polygons.
+ * Needed to create a nicer svg export because of the creation of longer strokes
+ * instead of single lines.
+ *
  * @author hneemann
  */
 public class GraphicLineCollector implements Graphic {

@@ -6,7 +6,9 @@ import de.neemann.digital.lang.Lang;
 import java.io.File;
 
 /**
- * Handler to control the simulator
+ * Handler to control the simulator.
+ * The handler simply interprets the incoming request and calls the suited method
+ * of the {@link DigitalRemoteInterface} which is implemented by the {@link de.neemann.digital.gui.Main} class.
  */
 public class DigitalHandler implements HandlerInterface {
     private final DigitalRemoteInterface digitalRemoteInterface;

@@ -7,7 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Simple server to remote control the simulator
+ * Simple server to remote control the simulator.
+ * Every incoming request is passed to the {@link HandlerInterface}.
+ * The returned string is then returned to the client as response.
  * <p/>
  * Created by helmut.neemann on 23.06.2016.
  */

@@ -4,7 +4,7 @@ import de.neemann.digital.draw.graphics.*;
 
 /**
  * Filters out all the lines.
- * All other drawing elements a delegated to the given class.
+ * All other drawing elements are delegated to the given class.
  *
  * @author hneemann
  */
@@ -23,6 +23,7 @@ public class GraphicSkipLines implements Graphic {
 
     @Override
     public void drawLine(Vector p1, Vector p2, Style style) {
+        // lines are skipped
     }
 
     @Override
