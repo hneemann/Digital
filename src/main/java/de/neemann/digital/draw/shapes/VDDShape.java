@@ -47,11 +47,10 @@ public class VDDShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, boolean heighLight) {
         graphic.drawPolygon(
-                new Polygon(true)
+                new Polygon(false)
                         .add(-SIZE2, 0)
-                        .add(SIZE2, 0)
-                        .add(0, -SIZE*2/3),
-                Style.NORMAL
-        );
+                        .add(0, -SIZE * 2 / 3)
+                        .add(SIZE2, 0), Style.NORMAL);
+        graphic.drawLine(new Vector(0, -SIZE2), new Vector(0, 0), Style.NORMAL);
     }
 }
