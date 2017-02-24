@@ -28,26 +28,6 @@
       <pos x="400" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>NFET</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>T3</string>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>PFET</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>T1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="260"/>
-    </visualElement>
-    <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
       <pos x="220" y="540"/>
@@ -60,46 +40,26 @@
           <testData>
             <dataString>A B Y
 0 0 0 
-0 1 0 
-1 0 0 
-1 1 1 
-
-# switching A
-0 0 0 
-1 0 0 
-0 0 0 
-1 0 0 
-0 1 0 
-1 1 1 
-0 1 0 
-1 1 1 
-
-# switching B
-0 0 0 
-0 1 0 
-0 0 0 
-0 1 0 
-1 0 0 
-1 1 1 
-1 0 0 
+0 1 1 
+1 0 1 
 1 1 1 
 
 # transitions
 0 0 0
-0 1 0
+0 1 1
 0 0 0
-1 0 0
+1 0 1
 0 0 0
 1 1 1
 0 0 0
-0 1 0
-1 0 0
-0 1 0
+0 1 1
+1 0 1
+0 1 1
 1 1 1
-0 1 0
-1 0 0
+0 1 1
+1 0 1
 1 1 1
-1 0 0
+1 0 1
 </dataString>
           </testData>
         </entry>
@@ -121,26 +81,6 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>T4</string>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="460"/>
-    </visualElement>
-    <visualElement>
-      <elementName>PFET</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>T2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="240" y="320"/>
-    </visualElement>
-    <visualElement>
-      <elementName>NFET</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
           <string>T6</string>
         </entry>
       </elementAttributes>
@@ -156,6 +96,46 @@
       </elementAttributes>
       <pos x="340" y="320"/>
     </visualElement>
+    <visualElement>
+      <elementName>NFET</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NFET</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T4</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PFET</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PFET</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>T2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="320"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -168,39 +148,39 @@
     </wire>
     <wire>
       <p1 x="220" y="240"/>
-      <p2 x="260" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="240"/>
       <p2 x="360" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="180" y="320"/>
-      <p2 x="240" y="320"/>
     </wire>
     <wire>
       <p1 x="320" y="320"/>
       <p2 x="340" y="320"/>
     </wire>
     <wire>
-      <p1 x="140" y="500"/>
-      <p2 x="200" y="500"/>
+      <p1 x="180" y="320"/>
+      <p2 x="200" y="320"/>
     </wire>
     <wire>
       <p1 x="140" y="260"/>
       <p2 x="200" y="260"/>
     </wire>
     <wire>
-      <p1 x="220" y="520"/>
-      <p2 x="360" y="520"/>
+      <p1 x="140" y="500"/>
+      <p2 x="200" y="500"/>
     </wire>
     <wire>
       <p1 x="180" y="440"/>
-      <p2 x="200" y="440"/>
+      <p2 x="240" y="440"/>
     </wire>
     <wire>
       <p1 x="320" y="440"/>
       <p2 x="340" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="520"/>
+      <p2 x="260" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="520"/>
+      <p2 x="360" y="520"/>
     </wire>
     <wire>
       <p1 x="120" y="460"/>
@@ -231,12 +211,12 @@
       <p2 x="320" y="440"/>
     </wire>
     <wire>
-      <p1 x="260" y="240"/>
-      <p2 x="260" y="320"/>
+      <p1 x="260" y="380"/>
+      <p2 x="260" y="400"/>
     </wire>
     <wire>
-      <p1 x="260" y="360"/>
-      <p2 x="260" y="380"/>
+      <p1 x="260" y="440"/>
+      <p2 x="260" y="520"/>
     </wire>
     <wire>
       <p1 x="360" y="240"/>
@@ -255,6 +235,34 @@
       <p2 x="360" y="400"/>
     </wire>
     <wire>
+      <p1 x="220" y="300"/>
+      <p2 x="220" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="220"/>
+      <p2 x="220" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="500"/>
+      <p2 x="220" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="360"/>
+      <p2 x="220" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="240"/>
+      <p2 x="220" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="380"/>
+      <p2 x="220" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="520"/>
+      <p2 x="220" y="540"/>
+    </wire>
+    <wire>
       <p1 x="140" y="260"/>
       <p2 x="140" y="300"/>
     </wire>
@@ -269,34 +277,6 @@
     <wire>
       <p1 x="140" y="300"/>
       <p2 x="140" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="220"/>
-      <p2 x="220" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="300"/>
-      <p2 x="220" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="500"/>
-      <p2 x="220" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="440"/>
-      <p2 x="220" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="240"/>
-      <p2 x="220" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="380"/>
-      <p2 x="220" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="520"/>
-      <p2 x="220" y="540"/>
     </wire>
   </wires>
 </circuit>
