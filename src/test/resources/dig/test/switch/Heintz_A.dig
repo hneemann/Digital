@@ -60,10 +60,25 @@
             <dataString>A B Y_0 Y_1
 0 0  1   z
 0 1  1   1
+1 0  z   z
 1 1  z   z
-1 0  z   z
-0 0  1   z
-1 0  z   z
+
+# transitions
+0 0 1 Z
+0 1 1 1
+0 0 1 Z
+1 0 Z Z
+0 0 1 Z
+1 1 Z Z
+0 0 1 Z
+0 1 1 1
+1 0 Z Z
+0 1 1 1
+1 1 Z Z
+0 1 1 1
+1 0 Z Z
+1 1 Z Z
+1 0 Z Z
 </dataString>
           </testData>
         </entry>

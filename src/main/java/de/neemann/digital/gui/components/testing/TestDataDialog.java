@@ -2,10 +2,13 @@ package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestData;
+import de.neemann.digital.testing.Transitions;
 import de.neemann.digital.testing.parser.ParserException;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
@@ -66,6 +69,25 @@ public class TestDataDialog extends JDialog {
                         .setVisible(true);
             }
         }.createJButton());
+
+        if (Main.enableExperimental()) {
+            buttons.add(new ToolTipAction(Lang.get("btn_addTransitions")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (parent instanceof CircuitComponent) {
+                        CircuitComponent cc = (CircuitComponent) parent;
+                        try {
+                            Transitions tr = new Transitions(text.getText(), cc.getCircuit().getInputNames());
+                            if (tr.isNew()) {
+                                text.setText(tr.getCompletedText());
+                            }
+                        } catch (ParserException | IOException | PinException e1) {
+                            new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
+                        }
+                    }
+                }
+            }.setToolTip(Lang.get("btn_addTransitions_tt")).createJButton());
+        }
 
         if (key != null && elementAttributes != null) {
             buttons.add(new ToolTipAction(Lang.get("menu_runTests")) {

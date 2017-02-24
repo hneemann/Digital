@@ -27,6 +27,8 @@
     <string name="btn_openInBrowser_tt">Opens help text in the browser. Allows to print the text.</string>
     <string name="btn_clearData">Clear</string>
     <string name="btn_clearData_tt">All values are set to zero!</string>
+    <string name="btn_addTransitions">Transitions</string>
+    <string name="btn_addTransitions_tt">All possible transitions are added as test cases. Is used to create test cases to test the simulator itself.</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
     <string name="expression">Expression</string>

@@ -109,10 +109,47 @@
           <string>Testdata</string>
           <testData>
             <dataString>out en Y
- 0  1  1
- 1  1  0
  0  0  z
  1  0  z
+ 0  1  1
+ 1  1  0
+
+# switching en
+ 0  0  z
+ 0  1  1
+ 0  0  z
+ 0  1  1
+ 1  0  z
+ 1  1  0
+ 1  0  z
+ 1  1  0
+
+# switching out
+ 0  0  z
+ 1  0  z
+ 0  0  z
+ 1  0  z
+ 0  1  1
+ 1  1  0
+ 0  1  1
+ 1  1  0
+
+# transitions
+0 0 Z
+1 0 Z
+0 0 Z
+0 1 1
+0 0 Z
+1 1 0
+0 0 Z
+1 0 Z
+0 1 1
+1 0 Z
+1 1 0
+1 0 Z
+0 1 1
+1 1 0
+0 1 1
 </dataString>
           </testData>
         </entry>

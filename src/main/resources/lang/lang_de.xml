@@ -27,6 +27,8 @@
     <string name="btn_openInBrowser_tt">Hilfetext im Browser öffnen, um dann z.B. zu drucken.</string>
     <string name="btn_clearData">Löschen</string>
     <string name="btn_clearData_tt">Setzt alle Werte auf 0 zurück!</string>
+    <string name="btn_addTransitions">Übergänge</string>
+    <string name="btn_addTransitions_tt">Alle möglichen Übergänge werden als Testfälle ergänzt. Dient zur Erzeugung von Testfällen für den Simulator selbst.</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
     <string name="expression">Ausdruck</string>
