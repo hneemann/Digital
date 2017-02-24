@@ -1,7 +1,6 @@
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.TestExecuter;
-import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
@@ -16,7 +15,7 @@ import static de.neemann.digital.core.ObservableValues.ovs;
 /**
  * Created by hneemann on 26.11.16.
  */
-public class SplitterHighZ extends TestCase {
+public class SplitterHighZTest extends TestCase {
 
     public void testHighZError() throws NodeException {
         ObservableValue a = new ObservableValue("a", 1, true);
