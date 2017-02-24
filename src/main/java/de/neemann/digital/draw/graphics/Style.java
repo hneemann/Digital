@@ -66,7 +66,7 @@ public class Style {
     /**
      * Used to draw the pin description text
      */
-    public static final Style SHAPE_PIN = new Style(LINETHICK, false, Color.GRAY, 18, null);
+    public static final Style SHAPE_PIN = new Style(LINETHIN, false, Color.GRAY, 18, null);
     /**
      * Used to draw the pin description text
      */

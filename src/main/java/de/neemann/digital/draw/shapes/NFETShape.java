@@ -96,13 +96,13 @@ public class NFETShape implements Shape {
     public static void drawSwitch(Graphic graphic, Relay fet) {
         boolean closed = fet.isClosed();
         if (closed) {
-            graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE), Style.THIN);
+            graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE), Style.SHAPE_PIN);
         } else {
-            graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE2 / 2), Style.THIN);
+            graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE2 / 2), Style.SHAPE_PIN);
             graphic.drawPolygon(new Polygon(false)
                     .add(SIZE + SIZE2 / 2, SIZE2 / 2)
                     .add(SIZE + SIZE2, SIZE - SIZE2 / 2)
-                    .add(SIZE + SIZE2, SIZE), Style.THIN);
+                    .add(SIZE + SIZE2, SIZE), Style.SHAPE_PIN);
         }
     }
 
