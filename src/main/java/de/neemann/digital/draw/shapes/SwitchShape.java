@@ -22,7 +22,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
- * The diodes shape
+ * The switch shape
  */
 public class SwitchShape implements Shape {
 

@@ -15,7 +15,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
- * The ground shape
+ * The Vcc shape
  *
  * @author hneemann
  */
