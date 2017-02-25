@@ -65,13 +65,10 @@ public class PFETShape implements Shape {
                 .add(x1, SIZE * 2)
                 .add(x1, SIZE * 2 - SIZE2 + g), Style.NORMAL);
 
-        graphic.drawPolygon(new Polygon(false)
-                .add(x1, SIZE)
-                .add(SIZE, SIZE)
-                .add(SIZE, 0), Style.THIN);
+        graphic.drawLine(new Vector(x1, SIZE), new Vector(SIZE, SIZE), Style.THIN);
 
         graphic.drawPolygon(new Polygon(true)
-                .add(SIZE-SIZE2/3, SIZE)
+                .add(SIZE - SIZE2 / 3, SIZE)
                 .add(x1 + 4, SIZE - SIZE2 / 4)
                 .add(x1 + 4, SIZE + SIZE2 / 4), Style.THIN_FILLED);
 

@@ -30,8 +30,6 @@ public class Relay extends Node implements Element {
     private ObservableValue input;
     private boolean state;
     private boolean stateHighZ;
-    private ObservableValue in1;
-    private ObservableValue in2;
 
     /**
      * Create a new instance
@@ -39,7 +37,17 @@ public class Relay extends Node implements Element {
      * @param attr the attributes
      */
     public Relay(ElementAttributes attr) {
-        invers = attr.get(Keys.RELAY_NORMALLY_CLOSED);
+        this(attr, attr.get(Keys.RELAY_NORMALLY_CLOSED));
+    }
+
+    /**
+     * Create a new instance
+     *
+     * @param attr   the attributes
+     * @param invers true if relay is closed on zero in.
+     */
+    public Relay(ElementAttributes attr, boolean invers) {
+        this.invers = invers;
         s = new Switch(attr, invers);
     }
 
@@ -51,9 +59,7 @@ public class Relay extends Node implements Element {
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
         input = inputs.get(0).checkBits(1, this).addObserverToValue(this);
-        in1 = inputs.get(1);
-        in2 = inputs.get(2);
-        s.setInputs(new ObservableValues(in1, in2));
+        s.setInputs(new ObservableValues(inputs.get(1), inputs.get(2)));
     }
 
     @Override
@@ -64,7 +70,7 @@ public class Relay extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        s.setClosed(getClosed(state, stateHighZ, in1, in2));
+        s.setClosed(getClosed(state, stateHighZ));
     }
 
     /**
@@ -72,11 +78,9 @@ public class Relay extends Node implements Element {
      *
      * @param inState the input state
      * @param inHighZ input high z value
-     * @param in1 input 1
-     * @param in2 input 2
      * @return true if switch is to close
      */
-    protected boolean getClosed(boolean inState, boolean inHighZ, ObservableValue in1, ObservableValue in2) {
+    protected boolean getClosed(boolean inState, boolean inHighZ) {
         if (inHighZ)
             return invers;
 

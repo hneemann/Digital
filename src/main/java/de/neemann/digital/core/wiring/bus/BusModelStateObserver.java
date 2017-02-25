@@ -69,6 +69,7 @@ public final class BusModelStateObserver implements ModelStateObserver {
     }
 
     private void reconfigureNets() {
+        busList.removeIf(abstractBusHandler -> abstractBusHandler instanceof ConnectedBusHandler);
         HashMap<CommonBusValue, ConnectedBusHandler> netMap = new HashMap<>();
         ArrayList<ConnectedBusHandler> createdHandlers = new ArrayList<>();
         for (Switch.RealSwitch s : closedSwitches) {

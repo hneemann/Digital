@@ -88,19 +88,77 @@
 z 1 0 z 1
 1 z z 1 z
 z 1 z z 1
-
-# gate is high but fet is not conducting
-# because source is not low
-z 0 1 z 0
-z z 1 z z
-z 1 1 z 1
-1 z 1 1 z
-
-# switch test
+1 z 1 1 1
+z 1 1 1 1
 0 z 1 0 0
-1 z 1 1 z
-0 z 1 0 0
-1 z 1 1 z
+z 0 1 0 0
+
+
+
+# transitions
+1 Z 0 1 Z
+Z 1 0 Z 1
+1 Z 0 1 Z
+1 Z Z 1 Z
+1 Z 0 1 Z
+Z 1 Z Z 1
+1 Z 0 1 Z
+1 Z 1 1 1
+1 Z 0 1 Z
+Z 1 1 1 1
+1 Z 0 1 Z
+0 Z 1 0 0
+1 Z 0 1 Z
+Z 0 1 0 0
+1 Z 0 1 Z
+Z 1 0 Z 1
+1 Z Z 1 Z
+Z 1 0 Z 1
+Z 1 Z Z 1
+Z 1 0 Z 1
+1 Z 1 1 1
+Z 1 0 Z 1
+Z 1 1 1 1
+Z 1 0 Z 1
+0 Z 1 0 0
+Z 1 0 Z 1
+Z 0 1 0 0
+Z 1 0 Z 1
+1 Z Z 1 Z
+Z 1 Z Z 1
+1 Z Z 1 Z
+1 Z 1 1 1
+1 Z Z 1 Z
+Z 1 1 1 1
+1 Z Z 1 Z
+0 Z 1 0 0
+1 Z Z 1 Z
+Z 0 1 0 0
+1 Z Z 1 Z
+Z 1 Z Z 1
+1 Z 1 1 1
+Z 1 Z Z 1
+Z 1 1 1 1
+Z 1 Z Z 1
+0 Z 1 0 0
+Z 1 Z Z 1
+Z 0 1 0 0
+Z 1 Z Z 1
+1 Z 1 1 1
+Z 1 1 1 1
+1 Z 1 1 1
+0 Z 1 0 0
+1 Z 1 1 1
+Z 0 1 0 0
+1 Z 1 1 1
+Z 1 1 1 1
+0 Z 1 0 0
+Z 1 1 1 1
+Z 0 1 0 0
+Z 1 1 1 1
+0 Z 1 0 0
+Z 0 1 0 0
+0 Z 1 0 0
 </dataString>
           </testData>
         </entry>

@@ -98,12 +98,4 @@ public abstract class AbstractBusHandler {
             throw new BurnException(getInputs());
     }
 
-
-    /**
-     * invalidates this handler.
-     * indicates that this handler is not longer used
-     */
-    public void invalidate() {
-        burn=false;
-    }
 }

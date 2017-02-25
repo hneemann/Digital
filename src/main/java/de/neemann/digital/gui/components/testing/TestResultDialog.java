@@ -155,6 +155,7 @@ public class TestResultDialog extends JDialog {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             comp.setBackground(NUM_BACKGROUND_COLOR);
+            comp.setHorizontalAlignment(JLabel.RIGHT);
             return comp;
         }
     }

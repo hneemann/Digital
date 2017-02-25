@@ -3,6 +3,11 @@
   <version>1</version>
   <visualElements>
     <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="300" y="260"/>
+    </visualElement>
+    <visualElement>
       <elementName>Relay</elementName>
       <elementAttributes>
         <entry>
@@ -11,6 +16,11 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="300" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -26,6 +36,10 @@
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
+          <string>Label</string>
+          <string>Failing</string>
+        </entry>
+        <entry>
           <string>Testdata</string>
           <testData>
             <dataString>A Y
@@ -33,7 +47,7 @@
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="340" y="300"/>
+      <pos x="340" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -50,16 +64,6 @@
       <elementAttributes/>
       <pos x="360" y="260"/>
     </visualElement>
-    <visualElement>
-      <elementName>PullUp</elementName>
-      <elementAttributes/>
-      <pos x="300" y="260"/>
-    </visualElement>
-    <visualElement>
-      <elementName>PullDown</elementName>
-      <elementAttributes/>
-      <pos x="300" y="340"/>
-    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -75,12 +79,12 @@
       <p2 x="360" y="280"/>
     </wire>
     <wire>
-      <p1 x="300" y="320"/>
-      <p2 x="300" y="340"/>
-    </wire>
-    <wire>
       <p1 x="300" y="260"/>
       <p2 x="300" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="320"/>
+      <p2 x="300" y="340"/>
     </wire>
   </wires>
 </circuit>
