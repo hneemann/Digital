@@ -3,25 +3,22 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.core.wiring.NFET;
 import de.neemann.digital.core.wiring.Relay;
 import de.neemann.digital.draw.elements.IOState;
-import de.neemann.digital.draw.elements.Pin;
-import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
- * The FETS shape
+ * FET shape.
+ * Created by hneemann on 25.02.17.
  */
-public class NFETShape implements Shape {
-
+public abstract class FETShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
-    private NFET fet;
+    private Relay fet;
 
     /**
      * Creates a new instance
@@ -30,25 +27,16 @@ public class NFETShape implements Shape {
      * @param inputs     the inputs
      * @param outputs    the outputs
      */
-    public NFETShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
+    protected FETShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
         label = attributes.getCleanLabel();
     }
 
     @Override
-    public Pins getPins() {
-        return new Pins()
-                .add(new Pin(new Vector(0, SIZE * 2), inputs.get(0)))
-                .add(new Pin(new Vector(SIZE, 0), outputs.get(0)))
-                .add(new Pin(new Vector(SIZE, SIZE * 2), outputs.get(1)));
-    }
-
-    @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        fet = (NFET) ioState.getElement();
+        fet = (Relay) ioState.getElement();
         ioState.getInput(0).addObserverToValue(guiObserver);
-        ioState.getInput(2).addObserverToValue(guiObserver);
         return null;
     }
 
@@ -66,13 +54,6 @@ public class NFETShape implements Shape {
                 .add(x1, SIZE * 2)
                 .add(x1, SIZE * 2 - SIZE2 + g), Style.NORMAL);
 
-        graphic.drawLine(new Vector(SIZE2 + 3, SIZE), new Vector(SIZE, SIZE), Style.THIN);
-
-        graphic.drawPolygon(new Polygon(true)
-                .add(x1 + 4, SIZE)
-                .add(SIZE - SIZE2 / 3, SIZE - SIZE2 / 4)
-                .add(SIZE - SIZE2 / 3, SIZE + SIZE2 / 4), Style.THIN_FILLED);
-
         graphic.drawLine(new Vector(x1, SIZE2 + g), new Vector(x1, SIZE + SIZE2 - g), Style.NORMAL);
 
         graphic.drawLine(new Vector(1, 0), new Vector(1, SIZE * 2), Style.NORMAL);
@@ -81,16 +62,15 @@ public class NFETShape implements Shape {
             graphic.drawText(new Vector(SIZE + SIZE2, SIZE * 2), new Vector(SIZE * 2, SIZE * 2), label, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
 
         if (fet != null)
-            drawSwitch(graphic, fet);
+            drawSwitch(graphic);
     }
 
     /**
      * Draws the small switch beside the fet
      *
      * @param graphic the instance to draw to
-     * @param fet     the fet
      */
-    public static void drawSwitch(Graphic graphic, Relay fet) {
+    private void drawSwitch(Graphic graphic) {
         boolean closed = fet.isClosed();
         if (closed) {
             graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE), Style.SHAPE_PIN);
@@ -103,4 +83,17 @@ public class NFETShape implements Shape {
         }
     }
 
+    /**
+     * @return the inputs (gate)
+     */
+    public PinDescriptions getInputs() {
+        return inputs;
+    }
+
+    /**
+     * @return the outputs (source and drain)
+     */
+    public PinDescriptions getOutputs() {
+        return outputs;
+    }
 }
