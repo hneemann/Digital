@@ -2,6 +2,8 @@
 
 [Download latest Release](https://github.com/hneemann/Digital/releases/latest)
 
+The most recent changes are described in the [release notes](distribution/ReleaseNotes.txt).
+
 # Digital #
 
 ![screnshot](screenshot.png)
