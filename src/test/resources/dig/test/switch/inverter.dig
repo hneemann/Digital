@@ -65,8 +65,19 @@
             <dataString>A Y
 0 1
 1 0
+z 1
+
+
+# transitions
 0 1
-1 0</dataString>
+1 0
+0 1
+Z 1
+0 1
+1 0
+Z 1
+1 0
+</dataString>
           </testData>
         </entry>
       </elementAttributes>
