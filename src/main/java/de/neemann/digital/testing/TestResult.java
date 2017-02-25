@@ -23,6 +23,7 @@ public class TestResult {
     private final ArrayList<Value[]> lines;
     private final ArrayList<Value[]> results;
     private boolean allPassed;
+    private Exception exception;
 
     /**
      * Creates a new testing result
@@ -107,7 +108,13 @@ public class TestResult {
                             in.value.setBool(!in.value.getBool());
                 }
 
-                model.doStep();
+                try {
+                    model.doStep();
+                } catch (NodeException | RuntimeException e) {
+                    exception = e;
+                    allPassed = false;
+                    return this;
+                }
 
                 for (TestSignal out : outputs) {
                     MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
@@ -229,7 +236,7 @@ public class TestResult {
 
         @Override
         public T next() {
-            if (value==null)
+            if (value == null)
                 throw new NoSuchElementException();
             T r = value;
             value = null;
@@ -275,7 +282,7 @@ public class TestResult {
 
         @Override
         public Value[] next() {
-            if (n>=count)
+            if (n >= count)
                 throw new NoSuchElementException();
             int mask = 1;
             for (int in : dcIndex) {
@@ -286,5 +293,12 @@ public class TestResult {
             n++;
             return row;
         }
+    }
+
+    /**
+     * @return the exception thrown during test test execution, or null if there was no error.
+     */
+    public Exception getException() {
+        return exception;
     }
 }

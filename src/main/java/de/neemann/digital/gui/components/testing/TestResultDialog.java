@@ -9,6 +9,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.*;
+import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.IconCreator;
 
 import javax.swing.*;
@@ -47,12 +48,15 @@ public class TestResultDialog extends JDialog {
         Collections.sort(tsl);
 
         JTabbedPane tp = new JTabbedPane();
-        int i=0;
-        int errorTabIndex=-1;
+        int i = 0;
+        int errorTabIndex = -1;
         for (TestSet ts : tsl) {
             Model model = new ModelCreator(circuit, library).createModel(false);
 
             TestResult tr = new TestResult(ts.data).create(model);
+
+            if (tr.getException() != null)
+                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorWhileExecutingTests_N0", ts.name)).addCause(tr.getException()).setComponent(this));
 
             JTable table = new JTable(new TestResultModel(tr));
             table.setDefaultRenderer(MatchedValue.class, new MatchedValueRenderer());
@@ -67,12 +71,12 @@ public class TestResultDialog extends JDialog {
             } else {
                 tabName = Lang.get("msg_test_N_Failed", ts.name);
                 tabIcon = ICON_FAILED;
-                errorTabIndex=i;
+                errorTabIndex = i;
             }
             tp.addTab(tabName, tabIcon, new JScrollPane(table));
             i++;
         }
-        if (errorTabIndex>=0)
+        if (errorTabIndex >= 0)
             tp.setSelectedIndex(errorTabIndex);
 
         getContentPane().add(tp);

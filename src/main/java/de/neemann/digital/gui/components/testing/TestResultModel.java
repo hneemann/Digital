@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components.testing;
 
+import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.MatchedValue;
 import de.neemann.digital.testing.TestResult;
 
@@ -37,7 +38,7 @@ public class TestResultModel implements TableModel {
     @Override
     public String getColumnName(int columnIndex) {
         if (columnIndex == 0)
-            return "No";
+            return Lang.get("number");
         else
             return testResult.getSignalName(columnIndex - 1);
     }
