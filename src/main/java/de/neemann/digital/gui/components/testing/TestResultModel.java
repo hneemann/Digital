@@ -31,17 +31,23 @@ public class TestResultModel implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return testResult.getSignalCount();
+        return testResult.getSignalCount() + 1;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return testResult.getSignalName(columnIndex);
+        if (columnIndex == 0)
+            return "No";
+        else
+            return testResult.getSignalName(columnIndex - 1);
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return MatchedValue.class;
+        if (columnIndex == 0)
+            return Integer.class;
+        else
+            return MatchedValue.class;
     }
 
     @Override
@@ -51,7 +57,10 @@ public class TestResultModel implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return testResult.getResultValue(rowIndex, columnIndex);
+        if (columnIndex == 0)
+            return rowIndex;
+        else
+            return testResult.getResultValue(rowIndex, columnIndex - 1);
     }
 
 

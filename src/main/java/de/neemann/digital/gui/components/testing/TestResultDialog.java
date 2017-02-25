@@ -55,7 +55,9 @@ public class TestResultDialog extends JDialog {
             TestResult tr = new TestResult(ts.data).create(model);
 
             JTable table = new JTable(new TestResultModel(tr));
-            table.setDefaultRenderer(MatchedValue.class, new MyRenderer());
+            table.setDefaultRenderer(MatchedValue.class, new MatchedValueRenderer());
+            table.setDefaultRenderer(Integer.class, new NumberRenderer());
+            table.getColumnModel().getColumn(0).setMaxWidth(40);
 
             String tabName;
             Icon tabIcon;
@@ -120,7 +122,7 @@ public class TestResultDialog extends JDialog {
         }
     }
 
-    private static class MyRenderer extends DefaultTableCellRenderer {
+    private static class MatchedValueRenderer extends DefaultTableCellRenderer {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -141,4 +143,16 @@ public class TestResultDialog extends JDialog {
             return comp;
         }
     }
+
+    private static class NumberRenderer extends DefaultTableCellRenderer {
+        private static final Color NUM_BACKGROUND_COLOR = new Color(238, 238, 238);
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel comp = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            comp.setBackground(NUM_BACKGROUND_COLOR);
+            return comp;
+        }
+    }
+
 }
