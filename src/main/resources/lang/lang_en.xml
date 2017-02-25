@@ -599,6 +599,12 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_table_setXTo1">Set X to 1</string>
     <string name="menu_table_setXTo1_tt">Sets the Don't Cares to 1.</string>
     <string name="menu_table_JK">Create J/K Expressions</string>
+    <string name="menu_table_setAllToX">Set all to X</string>
+    <string name="menu_table_setAllToX_tt">Set all values to "don't care".</string>
+    <string name="menu_table_setAllTo0">Set all to 0</string>
+    <string name="menu_table_setAllTo0_tt">Set all values to zero.</string>
+    <string name="menu_table_setAllTo1">Set all to 1</string>
+    <string name="menu_table_setAllTo1_tt">Set all values to one.</string>
     <string name="menu_terminalDelete">Delete</string>
     <string name="menu_terminalDelete_tt">Delete the terminals content.</string>
     <string name="menu_view">View</string>

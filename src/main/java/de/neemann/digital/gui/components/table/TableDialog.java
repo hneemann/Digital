@@ -301,9 +301,32 @@ public class TableDialog extends JDialog {
                 setModel(new TruthTableTableModel(t));
             }
         }.setToolTip(Lang.get("menu_table_setXTo1_tt")).createJMenuItem());
+        setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllToX")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                settAllValuesTo(2);
+            }
+        }.setToolTip(Lang.get("menu_table_setAllToX_tt")).createJMenuItem());
+        setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllTo0")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                settAllValuesTo(0);
+            }
+        }.setToolTip(Lang.get("menu_table_setAllTo0_tt")).createJMenuItem());
+        setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllTo1")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                settAllValuesTo(1);
+            }
+        }.setToolTip(Lang.get("menu_table_setAllTo1_tt")).createJMenuItem());
         return setMenu;
     }
 
+    private void settAllValuesTo(int value) {
+        TruthTable t = model.getTable();
+        t.setAllTo(value);
+        setModel(new TruthTableTableModel(t));
+    }
 
     private JMenu createCreateMenu(JFrame parent) {
         JMenu createMenu = new JMenu(Lang.get("menu_table_create"));

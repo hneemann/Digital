@@ -85,4 +85,14 @@ public class BoolTableIntArray implements BoolTable {
             if (table[i] > 1)
                 table[i] = value;
     }
+
+    /**
+     * Sets all entries to the given value
+     *
+     * @param value the value
+     */
+    public void setAllTo(int value) {
+        for (int i = 0; i < table.length; i++)
+            table[i] = value;
+    }
 }

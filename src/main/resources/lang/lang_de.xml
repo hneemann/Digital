@@ -613,6 +613,12 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="menu_table_setXTo1">Setze X auf 1</string>
     <string name="menu_table_setXTo1_tt">Setzt die Don't Cares auf 1.</string>
     <string name="menu_table_JK">Erzeuge J/K Ansteuerterme</string>
+    <string name="menu_table_setAllToX">Alles auf X setzen</string>
+    <string name="menu_table_setAllToX_tt">Setzt alle Werte auf "don't care".</string>
+    <string name="menu_table_setAllTo0">Alles auf 0 setzen</string>
+    <string name="menu_table_setAllTo0_tt">Setzt alle Werte auf Null.</string>
+    <string name="menu_table_setAllTo1">Alles auf 1 setzen</string>
+    <string name="menu_table_setAllTo1_tt">Setzt alle Werte auf Eins.</string>
     <string name="menu_terminalDelete">Löschen</string>
     <string name="menu_terminalDelete_tt">Löschen des Terminal-Inhalts</string>
     <string name="menu_view">Ansicht</string>

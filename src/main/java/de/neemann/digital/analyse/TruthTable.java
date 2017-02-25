@@ -412,6 +412,20 @@ public class TruthTable {
     }
 
     /**
+     * Set all table entries to the given value.
+     * Zero and one behave as expected. All other values represent "don't care"
+     *
+     * @param value the value to set
+     */
+    public void setAllTo(int value) {
+        for (Result r : results) {
+            BoolTable bt = r.getValues();
+            if (bt instanceof BoolTableIntArray)
+                ((BoolTableIntArray) bt).setAllTo(value);
+        }
+    }
+
+    /**
      * A single result column
      */
     private static final class Result {
