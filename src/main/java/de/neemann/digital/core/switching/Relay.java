@@ -1,4 +1,4 @@
-package de.neemann.digital.core.wiring;
+package de.neemann.digital.core.switching;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;

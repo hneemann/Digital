@@ -2,7 +2,7 @@ package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
-import de.neemann.digital.core.wiring.Switch;
+import de.neemann.digital.core.switching.Switch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
