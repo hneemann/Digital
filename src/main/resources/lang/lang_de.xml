@@ -420,6 +420,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
     <string name="err_couldNotCreateFolder_N0">Konnte den Order '{0}' nicht erzeugen!</string>
     <string name="err_switchHasNoNet">Ein Schalter kann nicht nur mit Eingängen verbunden werden.</string>
+    <string name="err_file_N0_ExistsTwiceBelow_N1">Die Datei {0} existiert mehrfach unter {1}</string>
+    <string name="err_couldNotFindIncludedFile_N0">Die Datei {0} konnte nicht gefunden werden.</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

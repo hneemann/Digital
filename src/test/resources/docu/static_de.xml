@@ -99,6 +99,37 @@
             erzeugt wird.
         </par>
     </chapter>
+    <chapter name="Dateinamen">
+        <par>
+            Um eine Schaltung in mehrere Teile zu zerlegen, die auch unabhängig z.B. in einem VCS abgelegt und verfolgt
+            werden können, wird jede eingebundenen Schaltung in einer eigenen Datei gespeichert. Das hat zu Folge, dass in einer
+            Schaltung nur die Dateinamen der Teilschaltungen gespeichert sind, und diese Dateien zur Laufzeit im Dateisystem
+            gefunden werden müssen. Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
+            auf eine komplexe Verwaltung von Importpfaden usw. zu verzichten, ist eine etwas ungewöhnliche Import-Strategie
+            implementiert.
+        </par>
+        <par>
+            In einer Schaltung sind die absoluten Pfade der eingebetteten Schaltungen gespeichert. Wenn diese Datei eingelesen
+            werden soll, wird jedoch zunächst geprüft, ob sich eine Datei des gleichen Namens im Ordner der einbindenden Datei befindet.
+            Ist das der Fall, wird diese Datei verwendet.
+        </par>
+        <par>
+            Ist das nicht der Fall, werden alle Unterordner nach einer Datei des entsprechenden Namens durchsucht. Wird
+            eine passende Datei gefunden, wird diese importiert. Dabei kommt es nur auf den Dateinamen der einzulesenden
+            Datei an, nicht auf dessen Pfad. Entsprechend wird eine Fehlermeldung erzeugt, wenn sich in verschiedenen
+            Unterordneren mehrere Dateien gleichen Namens befinden, da dann Mehrdeutigkeiten entstehen.
+        </par>
+        <par>
+            Erst wenn bisher keine Datei gefunden wurde, wird der komplette absolute Pfad verwendet und es wird versucht,
+            diese Datei zu importieren. Gelingt auch das nicht, wird eine Fehlermeldung erzeugt.
+        </par>
+        <par>
+            Eine geeignete Projektstruktur sieht daher wie folgt aus: In einem eigenen Ordner befindet sich die Wurzelschaltung.
+            Alle importierten Schaltungen sollte sin im selben Ordner oder in Unterordnern befinden. Alle Schaltungen sollten
+            unterschiedliche Namen haben, es sollte also nicht vorkommen, dass sich in verschiedenen Ordnern Schaltungen
+            gleichen Namens befinden.
+        </par>
+    </chapter>
     <chapter name="Häufig gestellte Fragen">
         <faq>
             <question>Wie kann ich eine Leitung verschieben?</question>

@@ -7,11 +7,21 @@ package de.neemann.digital.draw.library;
  */
 public class ElementNotFoundException extends Exception {
     /**
-     * Creates a new Iistance
+     * Creates a new Instance
      *
      * @param message the error message
      */
     public ElementNotFoundException(String message) {
         super(message);
+    }
+
+    /**
+     * Creates a new Instance
+     *
+     * @param message the error message
+     * @param cause   the errors cause
+     */
+    public ElementNotFoundException(String message, Exception cause) {
+        super(message, cause);
     }
 }

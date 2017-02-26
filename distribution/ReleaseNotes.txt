@@ -7,6 +7,7 @@ planned as v0.10
 - With the right mouse button you can now select and move/delete wires.
 - Added a real bidirectional switch and a relay.
 - Added N and P channel FETs and some CMOS examples
+- Improved and documented the file import strategy.
 
 v0.9, released on 03. Feb 2017
 - improved documentation

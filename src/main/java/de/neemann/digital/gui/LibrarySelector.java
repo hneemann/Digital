@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * The LibrarySelector is responsible for building the menu used to select items for adding them to the circuit.
@@ -38,6 +39,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
     private InsertHistory insertHistory;
     private CircuitComponent circuitComponent;
     private ArrayList<ImportedItem> importedElements;
+    private HashMap<String, File> treeFileMap;
 
     /**
      * Creates a new library selector.
@@ -138,6 +140,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
      * @param filePath the file path
      */
     public void setFilePath(File filePath) {
+        treeFileMap = null;
         this.filePath = filePath;
     }
 
@@ -149,7 +152,47 @@ public class LibrarySelector implements ElementNotFoundNotification {
         if (primary.exists())
             file = primary;
 
-        return importElement(file).description;
+        // check if there is a file with the given name below the current directory
+        // if so, load this file!
+        File f = getFileFromTree(file.getName());
+        if (f != null)
+            return importElement(f).description;
+
+        // than check if the exact given file exists
+        if (file.exists())
+            return importElement(file).description;
+
+        // could not find the given file
+        throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
+    }
+
+    private File getFileFromTree(String name) throws IOException {
+        if (treeFileMap == null) {
+            treeFileMap = new HashMap<>();
+            populateTreeFileMap(treeFileMap, filePath);
+        } else {
+            if (!treeFileMap.containsKey(name)) {                 // if file not in map rescan folder
+                treeFileMap.clear();
+                populateTreeFileMap(treeFileMap, filePath);
+            }
+        }
+        return treeFileMap.get(name);
+    }
+
+    private void populateTreeFileMap(HashMap<String, File> map, File path) throws IOException {
+        File[] list = path.listFiles();
+        if (list != null) {
+            for (File f : list) {
+                final String name = f.getName();
+                if (f.isFile() && name.endsWith(".dig")) {
+                    if (map.containsKey(name))
+                        throw new IOException(Lang.get("err_file_N0_ExistsTwiceBelow_N1", name, filePath));
+                    map.put(name, f);
+                }
+                if (f.isDirectory())
+                    populateTreeFileMap(map, f);
+            }
+        }
     }
 
     private static String getActionName(ElementTypeDescription typeDescription) {

@@ -28,7 +28,14 @@ public class MissingShape implements Shape {
      */
     public MissingShape(String elementName, Exception cause) {
         this.message = Lang.get("msg_missingShape_N", elementName);
-        this.cause = cause.getMessage();
+        this.cause = getMessage(cause);
+    }
+
+    private String getMessage(Throwable e) {
+        String message = e.getMessage();
+        if (e.getCause() != null)
+            message += "; " + getMessage(e.getCause());
+        return message;
     }
 
     @Override
