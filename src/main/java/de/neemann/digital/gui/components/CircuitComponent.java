@@ -377,7 +377,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
     /**
-     * Adds alle the wires representing the given value to the highlighted list
+     * Adds all the wires representing the given value to the highlighted list
      *
      * @param values the value
      */
@@ -399,7 +399,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
     /**
-     * Addes the given element to insert to the circuit
+     * Adds the given element to insert to the circuit
      *
      * @param element the element to insert
      */
@@ -415,14 +415,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (hasChanged
-                || buffer == null
+        boolean needsNewBuffer = buffer == null
                 || getWidth() != buffer.getWidth()
-                || getHeight() != buffer.getHeight()
+                || getHeight() != buffer.getHeight();
+
+        if (hasChanged
+                || needsNewBuffer
                 || highLighted.size() != highlightedPaintedSize) {
 
 //            long time = System.currentTimeMillis();
-            buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
+            if (needsNewBuffer)
+                buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
+
             Graphics2D gr2 = buffer.createGraphics();
             gr2.setColor(Color.WHITE);
             gr2.fillRect(0, 0, getWidth(), getHeight());
