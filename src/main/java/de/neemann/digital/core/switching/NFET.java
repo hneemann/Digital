@@ -25,7 +25,7 @@ public class NFET extends Relay {
      * @param attr the attributes
      */
     public NFET(ElementAttributes attr) {
-        super(attr, false);
+        super(attr, false,false);
         getOutput1().setPinDescription(DESCRIPTION);
         getOutput2().setPinDescription(DESCRIPTION);
     }

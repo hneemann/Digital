@@ -25,7 +25,7 @@ public class PFET extends Relay {
      * @param attr the attributes
      */
     public PFET(ElementAttributes attr) {
-        super(attr, true);
+        super(attr, true,false);
         getOutput1().setPinDescription(DESCRIPTION);
         getOutput2().setPinDescription(DESCRIPTION);
     }

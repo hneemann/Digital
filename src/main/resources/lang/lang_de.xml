@@ -86,7 +86,8 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
 
     <string name="elem_Relay">Relais</string>
     <string name="elem_Relay_tt">Ein Relais ist ein Schalter, welcher über einen Steuereingang umgeschaltet werden kann.</string>
-    <string name="elem_Relay_pin_in">Steuereingang des Relais.</string>
+    <string name="elem_Relay_pin_in1">Steuereingang des Relais.</string>
+    <string name="elem_Relay_pin_in2">Steuereingang des Relais.</string>
     <string name="elem_Relay_pin_out1">Einer der Ausgänge des gesteuerten Schalters.</string>
     <string name="elem_Relay_pin_out2">Einer der Ausgänge des gesteuerten Schalters.</string>
 
@@ -508,6 +509,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_ExpressionFormat_tt">Anzeigeformat der Ausdrücke.</string>
     <string name="key_relayNormallyClosed">Relais ist ein Öffner</string>
     <string name="key_relayNormallyClosed_tt">Wenn gesetzt ist das Relais unbestromt geschlossen.</string>
+    <string name="relayHasExtraInput">Relais mit vertauschbaren Eingängen</string>
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
     <string name="lib_flipFlops">FlipFlops</string>
