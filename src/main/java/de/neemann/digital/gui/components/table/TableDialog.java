@@ -92,6 +92,13 @@ public class TableDialog extends JDialog {
         table.setDefaultRenderer(Integer.class, new CenterDefaultTableCellRenderer());
         table.setRowHeight(25);
 
+        table.getInputMap().put(KeyStroke.getKeyStroke("0"), "0_ACTION");
+        table.getActionMap().put("0_ACTION", new SetAction(0));
+        table.getInputMap().put(KeyStroke.getKeyStroke("1"), "1_ACTION");
+        table.getActionMap().put("1_ACTION", new SetAction(1));
+        table.getInputMap().put(KeyStroke.getKeyStroke("X"), "X_ACTION");
+        table.getActionMap().put("X_ACTION", new SetAction(2));
+
         allSolutionsDialog = new AllSolutionsDialog(parent, font);
 
         header = table.getTableHeader();
@@ -304,25 +311,25 @@ public class TableDialog extends JDialog {
         setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllToX")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                settAllValuesTo(2);
+                setAllValuesTo(2);
             }
         }.setToolTip(Lang.get("menu_table_setAllToX_tt")).createJMenuItem());
         setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllTo0")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                settAllValuesTo(0);
+                setAllValuesTo(0);
             }
         }.setToolTip(Lang.get("menu_table_setAllTo0_tt")).createJMenuItem());
         setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllTo1")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                settAllValuesTo(1);
+                setAllValuesTo(1);
             }
         }.setToolTip(Lang.get("menu_table_setAllTo1_tt")).createJMenuItem());
         return setMenu;
     }
 
-    private void settAllValuesTo(int value) {
+    private void setAllValuesTo(int value) {
         TruthTable t = model.getTable();
         t.setAllTo(value);
         setModel(new TruthTableTableModel(t));
@@ -573,7 +580,8 @@ public class TableDialog extends JDialog {
                 default:
                     label.setText("");
                     allSolutionsDialog.setText(html.getHtml());
-                    allSolutionsDialog.setVisible(true);
+                    if (!allSolutionsDialog.isVisible())
+                        allSolutionsDialog.setVisible(true);
             }
         } catch (ExpressionException | FormatterException e1) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
@@ -770,6 +778,34 @@ public class TableDialog extends JDialog {
                 return ident;
             else
                 return ident.substring(0, p) + "<sub>" + ident.substring(p + 1) + "</sub>";
+        }
+    }
+
+    private final class SetAction extends AbstractAction {
+        private final int value;
+
+        private SetAction(int value) {
+            this.value = value;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            int r = table.getSelectedRow();
+            int c = table.getSelectedColumn();
+            if (r < 0 || c < 0) {
+                r = 0;
+                c = model.getTable().getVars().size();
+            }
+            model.setValueAt(value, r, c);
+
+            c++;
+            if (c >= table.getColumnCount()) {
+                c = model.getTable().getVars().size();
+                r++;
+                if (r >= model.getRowCount())
+                    r = 0;
+            }
+            table.changeSelection(r, c, false, false);
         }
     }
 }
