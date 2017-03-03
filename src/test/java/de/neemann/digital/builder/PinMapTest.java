@@ -75,6 +75,24 @@ public class PinMapTest extends TestCase {
         }
     }
 
+    public void testBidirectional() throws PinMapException {
+        pinMap = new PinMap()
+                .setAvailBidirectional(1, 2, 5);
+        pinMap.assignPin("a", 5);
+        assertEquals(5, pinMap.getOutputFor("a"));
+        assertEquals(5, pinMap.getOutputFor("a"));
+        assertEquals(1, pinMap.getInputFor("b"));
+        assertEquals(1, pinMap.getInputFor("b"));
+        assertEquals(2, pinMap.getOutputFor("d"));
+
+        try {
+            pinMap.getOutputFor("c");
+            fail();
+        } catch (PinMapException e) {
+            assertTrue(true);
+        }
+    }
+
     public void testParse() throws PinMapException {
         pinMap.parseString("a=5, Q_0=6");
         assertEquals(6, pinMap.getOutputFor("Q_0"));

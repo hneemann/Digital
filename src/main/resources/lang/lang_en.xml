@@ -368,12 +368,10 @@
     <string name="err_oneResultIsRequired">Table to small: One result is required!</string>
     <string name="err_output_N_notDefined">Output {0} not defined</string>
     <string name="err_pinMap_NoNameForPin_N">No Name for pin {0}</string>
-    <string name="err_pinMap_Pin_N_AssignedTwicerPin">Pin {0} assigned twice!</string>
-    <string name="err_pinMap_input_N_notAllowed">Input {0} not allowed!</string>
+    <string name="err_pinMap_Pin_N_AssignedTwicePin">Pin {0} assigned twice!</string>
     <string name="err_pinMap_noEqualsfound">No = found!</string>
-    <string name="err_pinMap_output_N_notAllowed">Output {0} not allowed!</string>
-    <string name="err_pinMap_toMannyInputsDefined">To manny inputs defined</string>
-    <string name="err_pinMap_toMannyOutputsDefined">To manny outputs defined</string>
+    <string name="err_pinMap_pin_N0_notAllowedInDir_N1">Pin {0} is not allowed as {1}!</string>
+    <string name="err_pinMap_toMannyPinsDefinedInDir_N0">To manny pins defined in direction: {0}!</string>
     <string name="err_pinNotPresent">Pin not present</string>
     <string name="err_pinWithoutName">Found a pin without a name.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at component {1}</string>
@@ -650,9 +648,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_fastRunError">Error at fast run</string>
     <string name="msg_frequency_N">The maximum frequency is {0}Hz</string>
     <string name="msg_missingShape_N">Shape {0} is missing</string>
-    <string name="msg_pinMap_inputs">Inputs</string>
-    <string name="msg_pinMap_notUsed">not used</string>
-    <string name="msg_pinMap_outputs">Onputs</string>
+    <string name="msg_pins">Pin assignment</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Change needs a restart to take effect!</string>
     <string name="msg_noRomFound">No ROM found! ROM needs to be set to be program memory.</string>

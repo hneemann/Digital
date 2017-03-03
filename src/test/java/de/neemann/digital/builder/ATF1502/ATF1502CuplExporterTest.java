@@ -50,9 +50,9 @@ public class ATF1502CuplExporterTest extends TestCase {
                 "PIN 43 = CLK;\r\n" +
                 "\r\n" +
                 "/* outputs */\r\n" +
-                "PIN 17 = Y_0;\r\n" +
-                "PIN 18 = Y_1;\r\n" +
-                "PIN 19 = A;\r\n" +
+                "PIN 4 = Y_0;\r\n" +
+                "PIN 5 = Y_1;\r\n" +
+                "PIN 6 = A;\r\n" +
                 "\r\n" +
                 "/* sequential logic */\r\n" +
                 "Y_0.D = !Y_0;\r\n" +

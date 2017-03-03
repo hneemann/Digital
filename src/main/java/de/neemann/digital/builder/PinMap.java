@@ -4,6 +4,7 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -16,8 +17,7 @@ import java.util.*;
  */
 public class PinMap {
     private final HashMap<String, Integer> pinMap;
-    private int[] inputPins;
-    private int[] outputPins;
+    private final ArrayList<Pin> availPins;
     private ArrayList<HashSet<String>> alias;
 
     /**
@@ -26,6 +26,7 @@ public class PinMap {
     public PinMap() {
         pinMap = new HashMap<>();
         alias = new ArrayList<>();
+        availPins = new ArrayList<>();
     }
 
     /**
@@ -45,7 +46,7 @@ public class PinMap {
     }
 
     private void addSignal(Signal signal) throws PinMapException {
-        if (signal.getDescription() != null && signal.getDescription().length()>0) {
+        if (signal.getDescription() != null && signal.getDescription().length() > 0) {
             StringTokenizer st = new StringTokenizer(signal.getDescription(), "\n\r");
             while (st.hasMoreTokens()) {
                 String line = st.nextToken();
@@ -70,7 +71,8 @@ public class PinMap {
      * @return this for chained calls
      */
     public PinMap setAvailInputs(int... inputPins) {
-        this.inputPins = inputPins;
+        for (int p : inputPins)
+            availPins.add(new Pin(p, PinDescription.Direction.input));
         return this;
     }
 
@@ -81,7 +83,20 @@ public class PinMap {
      * @return this for chained calls
      */
     public PinMap setAvailOutputs(int... outputPins) {
-        this.outputPins = outputPins;
+        for (int p : outputPins)
+            availPins.add(new Pin(p, PinDescription.Direction.output));
+        return this;
+    }
+
+    /**
+     * Sets the available bidirectional pin numbers
+     *
+     * @param outputPins the input pins
+     * @return this for chained calls
+     */
+    public PinMap setAvailBidirectional(int... outputPins) {
+        for (int p : outputPins)
+            availPins.add(new Pin(p, PinDescription.Direction.both));
         return this;
     }
 
@@ -97,10 +112,9 @@ public class PinMap {
         if (name == null || name.length() == 0)
             throw new PinMapException(Lang.get("err_pinMap_NoNameForPin_N", pin));
         if (pinMap.containsKey(name))
-            throw new PinMapException(Lang.get("err_pinMap_Pin_N_AssignedTwicerPin", name));
+            throw new PinMapException(Lang.get("err_pinMap_Pin_N_AssignedTwicePin", name));
         if (pinMap.containsValue(pin))
-            throw new PinMapException(Lang.get("err_pinMap_Pin_N_AssignedTwicerPin", pin));
-
+            throw new PinMapException(Lang.get("err_pinMap_Pin_N_AssignedTwicePin", pin));
 
         pinMap.put(name, pin);
         return this;
@@ -183,19 +197,21 @@ public class PinMap {
         return this;
     }
 
-    private Integer searchFirstFreePin(int[] pins, String name) {
-        for (int i : pins) {
-            if (!pinMap.containsValue(i)) {
-                pinMap.put(name, i);
-                return i;
-            }
+    private Integer searchFirstFreePin(PinDescription.Direction direction, String name) {
+        for (Pin pin : availPins) {
+            if (!pinMap.containsValue(pin.num))
+                if (pin.direction.equals(direction) || pin.direction.equals(PinDescription.Direction.both)) {
+                    pinMap.put(name, pin.num);
+                    return pin.num;
+                }
         }
         return null;
     }
 
-    private boolean contains(int[] pins, int p) {
-        for (int i : pins)
-            if (i == p) return true;
+    private boolean isAvailable(PinDescription.Direction direction, int p) {
+        for (Pin pin : availPins)
+            if (pin.num == p)
+                return (pin.direction.equals(direction) || pin.direction.equals(PinDescription.Direction.both));
         return false;
     }
 
@@ -208,13 +224,17 @@ public class PinMap {
      * @throws PinMapException PinMap
      */
     public int getInputFor(String in) throws PinMapException {
+        return getPinFor(in, PinDescription.Direction.input);
+    }
+
+    private int getPinFor(String in, PinDescription.Direction direction) throws PinMapException {
         Integer p = searchPinWithAlias(in);
         if (p == null)
-            p = searchFirstFreePin(inputPins, in);
+            p = searchFirstFreePin(direction, in);
         if (p == null) {
-            throw new PinMapException(Lang.get("err_pinMap_toMannyInputsDefined"));
-        } else if (!contains(inputPins, p)) {
-            throw new PinMapException(Lang.get("err_pinMap_input_N_notAllowed", p));
+            throw new PinMapException(Lang.get("err_pinMap_toMannyPinsDefinedInDir_N0", direction));
+        } else if (!isAvailable(direction, p)) {
+            throw new PinMapException(Lang.get("err_pinMap_pin_N0_notAllowedInDir_N1", p, direction));
         }
         return p;
     }
@@ -240,52 +260,26 @@ public class PinMap {
      * @throws PinMapException FuseMapFillerException
      */
     public int getOutputFor(String out) throws PinMapException {
-        Integer p = searchPinWithAlias(out);
-        if (p == null)
-            p = searchFirstFreePin(outputPins, out);
-        if (p == null) {
-            throw new PinMapException(Lang.get("err_pinMap_toMannyOutputsDefined"));
-        } else if (!contains(outputPins, p)) {
-            throw new PinMapException(Lang.get("err_pinMap_output_N_notAllowed", p));
-        }
-        return p;
-    }
-
-    /**
-     * Returns a list of unused output pins
-     *
-     * @return the list
-     */
-    public List<Integer> getUnusedOutputs() {
-        ArrayList<Integer> uo = new ArrayList<>();
-        for (int i : outputPins)
-            if (!pinMap.containsValue(i))
-                uo.add(i);
-        return uo;
+        return getPinFor(out, PinDescription.Direction.output);
     }
 
     @Override
     public String toString() {
-        HashMap<Integer, String> revMap = new HashMap<>();
-        for (Map.Entry<String, Integer> i : pinMap.entrySet())
-            revMap.put(i.getValue(), i.getKey());
-
-
         StringBuilder sb = new StringBuilder();
-        sb.append(Lang.get("msg_pinMap_inputs")).append(":\n");
-        for (int i : inputPins)
-            sb.append(Lang.get("msg_pinMap_pin_N_is_N", i, checkName(revMap.get(i)))).append("\n");
-
-
-        sb.append("\n").append(Lang.get("msg_pinMap_outputs")).append(":\n");
-        for (int i : outputPins)
-            sb.append(Lang.get("msg_pinMap_pin_N_is_N", i, checkName(revMap.get(i)))).append("\n");
+        sb.append(Lang.get("msg_pins")).append(":\n");
+        for (Map.Entry<String, Integer> p : pinMap.entrySet())
+            sb.append(Lang.get("msg_pinMap_pin_N_is_N", p.getValue(), p.getKey())).append("\n");
 
         return sb.toString();
     }
 
-    private String checkName(String s) {
-        if (s == null) return Lang.get("msg_pinMap_notUsed");
-        return s;
+    private static final class Pin {
+        private final int num;
+        private final PinDescription.Direction direction;
+
+        private Pin(int num, PinDescription.Direction direction) {
+            this.num = num;
+            this.direction = direction;
+        }
     }
 }
