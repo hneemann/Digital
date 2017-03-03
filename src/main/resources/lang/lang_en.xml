@@ -85,7 +85,8 @@
 
     <string name="elem_Relay">Relay</string>
     <string name="elem_Relay_tt">A relay is a switch which can be controlled by a separate input.</string>
-    <string name="elem_Relay_pin_in">The input to control the switch.</string>
+    <string name="elem_Relay_pin_in1">Input to control the switch.</string>
+    <string name="elem_Relay_pin_in2">Input to control the switch.</string>
     <string name="elem_Relay_pin_out1">One of the switch outputs.</string>
     <string name="elem_Relay_pin_out2">One of the switch outputs.</string>
 
@@ -494,6 +495,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_ExpressionFormat_tt">Screen format of expressions.</string>
     <string name="key_relayNormallyClosed">Relay is normally closed.</string>
     <string name="key_relayNormallyClosed_tt">If set the relay is closed if the input is low.</string>
+    <string name="relayHasExtraInput">relay with commutable inputs </string>
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
     <string name="lib_flipFlops">FlipFlops</string>

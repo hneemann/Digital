@@ -274,4 +274,11 @@ public final class Keys {
     public static final Key<Boolean> RELAY_NORMALLY_CLOSED
             = new Key<>("relayNormallyClosed", false);
 
+
+    /**
+     * flag used by a relay to indicate if it is normally open or normally closed.
+     */
+    public static final Key<Boolean> RELAY_EXTRA_INPUT
+            = new Key<>("relayHasExtraInput", false);
+
 }
