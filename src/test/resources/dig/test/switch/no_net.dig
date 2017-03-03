@@ -35,11 +35,15 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>O</string>
         </entry>
       </elementAttributes>
-      <pos x="280" y="260"/>
+      <pos x="300" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -51,12 +55,13 @@
       </elementAttributes>
       <pos x="440" y="300"/>
     </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="300" y="300"/>
+    </visualElement>
   </visualElements>
   <wires>
-    <wire>
-      <p1 x="280" y="260"/>
-      <p2 x="300" y="260"/>
-    </wire>
     <wire>
       <p1 x="340" y="300"/>
       <p2 x="440" y="300"/>
@@ -68,6 +73,14 @@
     <wire>
       <p1 x="340" y="280"/>
       <p2 x="340" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="220"/>
+      <p2 x="300" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="280"/>
+      <p2 x="300" y="300"/>
     </wire>
   </wires>
 </circuit>

@@ -18,7 +18,7 @@ public class Relay extends Node implements Element {
     /**
      * The switch description
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Relay.class, input("in"))
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Relay.class, input("in1"), input("in2"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
@@ -27,7 +27,8 @@ public class Relay extends Node implements Element {
 
     private final boolean invers;
     private final Switch s;
-    private ObservableValue input;
+    private ObservableValue input1;
+    private ObservableValue input2;
     private boolean state;
     private boolean stateHighZ;
 
@@ -58,33 +59,23 @@ public class Relay extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        input = inputs.get(0).checkBits(1, this).addObserverToValue(this);
-        s.setInputs(new ObservableValues(inputs.get(1), inputs.get(2)));
+        input1 = inputs.get(0).checkBits(1, this).addObserverToValue(this);
+        input2 = inputs.get(1).checkBits(1, this).addObserverToValue(this);
+        s.setInputs(new ObservableValues(inputs.get(2), inputs.get(3)));
     }
 
     @Override
     public void readInputs() throws NodeException {
-        state = input.getBool();
-        stateHighZ = input.isHighZ();
+        state = input1.getBool() ^ input2.getBool();
+        stateHighZ = input1.isHighZ() || input2.isHighZ();
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        s.setClosed(getClosed(state, stateHighZ));
-    }
-
-    /**
-     * get the closed state
-     *
-     * @param inState the input state
-     * @param inHighZ input high z value
-     * @return true if switch is to close
-     */
-    protected boolean getClosed(boolean inState, boolean inHighZ) {
-        if (inHighZ)
-            return invers;
-
-        return inState ^ invers;
+        if (stateHighZ)
+            s.setClosed(invers);
+        else
+            s.setClosed(state ^ invers);
     }
 
     @Override
@@ -93,21 +84,7 @@ public class Relay extends Node implements Element {
     }
 
     /**
-     * @return output 1
-     */
-    protected ObservableValue getOutput1() {
-        return s.getOutput1();
-    }
-
-    /**
-     * @return output 2
-     */
-    protected ObservableValue getOutput2() {
-        return s.getOutput2();
-    }
-
-    /**
-     * @return true is switch is closed
+     * @return true if closed
      */
     public boolean isClosed() {
         return s.isClosed();

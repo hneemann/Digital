@@ -115,14 +115,14 @@ public class Switch implements Element, Observer {
     /**
      * @return output 1
      */
-    protected ObservableValue getOutput1() {
+    public ObservableValue getOutput1() {
         return output1;
     }
 
     /**
      * @return output 2
      */
-    protected ObservableValue getOutput2() {
+    public ObservableValue getOutput2() {
         return output2;
     }
 

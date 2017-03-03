@@ -4,6 +4,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.switching.Relay;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -20,8 +21,8 @@ public class RelayShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
-    private IOState ioState;
     private boolean invers;
+    private Relay relay;
 
     /**
      * Creates a new instance
@@ -40,22 +41,29 @@ public class RelayShape implements Shape {
     @Override
     public Pins getPins() {
         return new Pins()
-                .add(new Pin(new Vector(SIZE, -SIZE * 2), inputs.get(0)))
+                .add(new Pin(new Vector(0, -SIZE * 2), inputs.get(0)))
+                .add(new Pin(new Vector(SIZE * 2, -SIZE * 2), inputs.get(1)))
                 .add(new Pin(new Vector(0, 0), outputs.get(0)))
                 .add(new Pin(new Vector(SIZE * 2, 0), outputs.get(1)));
     }
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        this.ioState = ioState;
+        relay = (Relay) ioState.getElement();
         ioState.getInput(0).addObserverToValue(guiObserver);
+        ioState.getInput(1).addObserverToValue(guiObserver);
         return null;
     }
 
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
         int yOffs = 0;
-        if ((ioState != null && ioState.getInput(0).getBool()) ^ invers) {
+
+        boolean closed = invers;
+        if (relay != null)
+            closed = relay.isClosed();
+
+        if (closed) {
             graphic.drawLine(new Vector(0, 0), new Vector(SIZE * 2, 0), Style.NORMAL);
         } else {
             yOffs = SIZE2 / 2;
@@ -64,12 +72,15 @@ public class RelayShape implements Shape {
         graphic.drawLine(new Vector(SIZE, -yOffs), new Vector(SIZE, 1 - SIZE), Style.THIN);
 
         graphic.drawPolygon(new Polygon(true)
-                .add(SIZE2, 1 - SIZE)
-                .add(SIZE2, 1 - SIZE * 2)
-                .add(SIZE + SIZE2, 1 - SIZE * 2)
-                .add(SIZE + SIZE2, 1 - SIZE), Style.NORMAL);
+                .add(SIZE2, -SIZE)
+                .add(SIZE2, -SIZE * 3)
+                .add(SIZE + SIZE2, -SIZE * 3)
+                .add(SIZE + SIZE2, -SIZE), Style.NORMAL);
 
-        graphic.drawLine(new Vector(SIZE2, 1 - SIZE), new Vector(SIZE + SIZE2, 1 - SIZE * 2), Style.THIN);
+        graphic.drawLine(new Vector(SIZE2, -SIZE - SIZE2), new Vector(SIZE + SIZE2, -SIZE * 2 - SIZE2), Style.THIN);
+
+        graphic.drawLine(new Vector(SIZE2, -SIZE * 2), new Vector(0, -SIZE * 2), Style.NORMAL);
+        graphic.drawLine(new Vector(SIZE + SIZE2, -SIZE * 2), new Vector(SIZE * 2, -SIZE * 2), Style.NORMAL);
 
         if (label != null && label.length() > 0)
             graphic.drawText(new Vector(SIZE, 4), new Vector(SIZE * 2, 4), label, Orientation.CENTERTOP, Style.SHAPE_PIN);

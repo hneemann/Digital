@@ -10,7 +10,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * P-Channel MOS FET
  * Created by hneemann on 22.02.17.
  */
-public class PFET extends Relay {
+public class PFET extends NFET {
     /**
      * The switch description
      */
@@ -28,13 +28,5 @@ public class PFET extends Relay {
         super(attr, true);
         getOutput1().setPinDescription(DESCRIPTION);
         getOutput2().setPinDescription(DESCRIPTION);
-    }
-
-    @Override
-    protected boolean getClosed(boolean inState, boolean inHighZ) {
-        if (inHighZ)
-            return false;
-
-        return !inState;
     }
 }

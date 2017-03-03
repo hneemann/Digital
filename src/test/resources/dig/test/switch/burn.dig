@@ -26,11 +26,15 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="300"/>
+      <pos x="260" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -47,7 +51,7 @@
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="340" y="320"/>
+      <pos x="380" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -64,6 +68,11 @@
       <elementAttributes/>
       <pos x="360" y="260"/>
     </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="260" y="340"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -71,8 +80,12 @@
       <p2 x="380" y="280"/>
     </wire>
     <wire>
-      <p1 x="240" y="300"/>
-      <p2 x="260" y="300"/>
+      <p1 x="260" y="260"/>
+      <p2 x="260" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="320"/>
+      <p2 x="260" y="340"/>
     </wire>
     <wire>
       <p1 x="360" y="260"/>

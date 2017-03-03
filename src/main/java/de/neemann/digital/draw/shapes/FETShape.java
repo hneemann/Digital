@@ -3,7 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.core.switching.Relay;
+import de.neemann.digital.core.switching.NFET;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.graphics.*;
 
@@ -18,7 +18,7 @@ public abstract class FETShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
-    private Relay fet;
+    private NFET fet;
 
     /**
      * Creates a new instance
@@ -35,7 +35,7 @@ public abstract class FETShape implements Shape {
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        fet = (Relay) ioState.getElement();
+        fet = (NFET) ioState.getElement();
         ioState.getInput(0).addObserverToValue(guiObserver);
         return null;
     }
