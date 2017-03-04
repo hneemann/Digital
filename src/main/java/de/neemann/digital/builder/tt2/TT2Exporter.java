@@ -17,10 +17,10 @@ import java.util.*;
  * Created by hneemann on 03.03.17.
  */
 public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
-    private BuilderCollector builder;
-    private PinMap pinMap;
+    private final BuilderCollector builder;
+    private final PinMap pinMap;
     private int clockPin;
-    private String name;
+    private String projectName;
     private String device;
     private OutputStreamWriter writer;
     private HashMap<String, Integer> varIndexMap;
@@ -36,7 +36,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         builder = new BuilderCollector();
         pinMap = new PinMap();
         device = "f1502plcc44";
-        name = "unknown";
+        projectName = "unknown";
         clockPin = 43;
     }
 
@@ -59,11 +59,11 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     /**
      * Sets the project name used
      *
-     * @param name the project name
+     * @param projectName the project name
      * @return this for chained calls
      */
-    public TT2Exporter setName(String name) {
-        this.name = name;
+    public TT2Exporter setProjectName(String projectName) {
+        this.projectName = projectName;
         return this;
     }
 
@@ -94,9 +94,9 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         this.writer = writer;
         line("#$ TOOL CUPL");
         line("# Berkeley PLA format generated using Digital");
-        line("#$ TITLE  " + name);
-        line("#$ MODULE  " + name);
-        line("#$ JEDECFILE  " + name);
+        line("#$ TITLE  " + projectName);
+        line("#$ MODULE  " + projectName);
+        line("#$ JEDECFILE  " + projectName);
         line("#$ DEVICE  " + device);
         line("#$ PINS " + getPins());
         line(".i " + inputs.size());
@@ -346,7 +346,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             if (var instanceof Variable) {
                 set(getVarNum(((Variable) var).getIdentifier()), invers ? 0 : 1);
             } else
-                throw new FuseMapFillerException("invalid Expression");
+                throw new FuseMapFillerException("invalid expression");
         }
     }
 

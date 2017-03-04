@@ -15,6 +15,7 @@ import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.builder.ATF1502.ATF1502CuplExporter;
+import de.neemann.digital.builder.ATF1502.ATF1502TT2Exporter;
 import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
@@ -401,7 +402,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
-                createHardware(jedecExporter, filename);
+                createHardware(jedecExporter, filename, "jed");
                 new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
             }
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
@@ -418,7 +419,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Gal22v10JEDECExporter jedecExporter = new Gal22v10JEDECExporter();
-                createHardware(jedecExporter, filename);
+                createHardware(jedecExporter, filename, "jed");
                 new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
             }
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
@@ -432,6 +433,12 @@ public class TableDialog extends JDialog {
                 createCUPL(new ATF1502CuplExporter());
             }
         }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+        atf1502.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createHardware(new ATF1502TT2Exporter(), filename, "tt2");
+            }
+        }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());
         hardware.add(atf1502);
 
 
@@ -440,18 +447,18 @@ public class TableDialog extends JDialog {
         return createMenu;
     }
 
-    private void createHardware(ExpressionExporter expressionExporter, File filename) {
+    private void createHardware(ExpressionExporter expressionExporter, File filename, String suffix) {
         if (filename == null)
-            filename = new File("circuit.jed");
+            filename = new File("circuit." + suffix);
         else
-            filename = Main.checkSuffix(filename, "jed");
+            filename = Main.checkSuffix(filename, suffix);
 
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("JEDEC", "jed"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("JEDEC", suffix));
         fileChooser.setSelectedFile(filename);
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                try (OutputStream out = new FileOutputStream(Main.checkSuffix(fileChooser.getSelectedFile(), "jed"))) {
+                try (OutputStream out = new FileOutputStream(Main.checkSuffix(fileChooser.getSelectedFile(), suffix))) {
                     expressionExporter.getPinMapping().addAll(pinMap);
                     new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
                     expressionExporter.writeTo(out);
