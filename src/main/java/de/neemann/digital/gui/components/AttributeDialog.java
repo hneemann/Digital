@@ -10,6 +10,7 @@ import de.neemann.gui.ToolTipAction;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +24,7 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class AttributeDialog extends JDialog {
+    private static final String ESC_ACTION_KEY = "ESC_ACTION";
 
     private final java.util.List<EditorHolder> editors;
     private final JPanel panel;
@@ -95,6 +97,13 @@ public class AttributeDialog extends JDialog {
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         getRootPane().setDefaultButton(okButton);
+        getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESC_ACTION_KEY);
+        getRootPane().getActionMap().put(ESC_ACTION_KEY, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+            }
+        });
     }
 
     /**
