@@ -373,8 +373,10 @@
     <string name="err_pinMap_NoNameForPin_N">No Name for pin {0}</string>
     <string name="err_pinMap_Pin_N_AssignedTwicePin">Pin {0} assigned twice!</string>
     <string name="err_pinMap_noEqualsfound">No = found!</string>
-    <string name="err_pinMap_pin_N0_notAllowedInDir_N1">Pin {0} is not allowed as {1}!</string>
-    <string name="err_pinMap_toMannyPinsDefinedInDir_N0">To manny pins defined in direction: {0}!</string>
+    <string name="err_pinMap_pin_N0_isNotAnInput">Pin {0} is not an input!</string>
+    <string name="err_pinMap_pin_N0_isNotAnOutput">Pin {0} is not an output!</string>
+    <string name="err_pinMap_toMannyInputsDefined">To many inputs used!</string>
+    <string name="err_pinMap_toMannyOutputsDefined">To many outputs used!</string>
     <string name="err_pinNotPresent">Pin not present</string>
     <string name="err_pinWithoutName">Found a pin without a name.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at component {1}</string>

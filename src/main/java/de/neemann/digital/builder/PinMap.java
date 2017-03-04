@@ -232,9 +232,15 @@ public class PinMap {
         if (p == null)
             p = searchFirstFreePin(direction, in);
         if (p == null) {
-            throw new PinMapException(Lang.get("err_pinMap_toMannyPinsDefinedInDir_N0", direction));
+            if (direction.equals(PinDescription.Direction.input))
+                throw new PinMapException(Lang.get("err_pinMap_toMannyInputsDefined"));
+            else
+                throw new PinMapException(Lang.get("err_pinMap_toMannyOutputsDefined"));
         } else if (!isAvailable(direction, p)) {
-            throw new PinMapException(Lang.get("err_pinMap_pin_N0_notAllowedInDir_N1", p, direction));
+            if (direction.equals(PinDescription.Direction.input))
+                throw new PinMapException(Lang.get("err_pinMap_pin_N0_isNotAnInput", p));
+            else
+                throw new PinMapException(Lang.get("err_pinMap_pin_N0_isNotAnOutput", p));
         }
         return p;
     }
