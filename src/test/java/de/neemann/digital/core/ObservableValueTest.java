@@ -16,13 +16,13 @@ public class ObservableValueTest extends TestCase {
     public void testSetValue2() throws Exception {
         ObservableValue v = new ObservableValue("z", 63);
         v.setValue(-1);
-        assertEquals((1l << 63) - 1, v.getValue());
+        assertEquals((1L << 63) - 1, v.getValue());
     }
 
     public void testSetValue3() throws Exception {
         ObservableValue v = new ObservableValue("z", 62);
         v.setValue(-1);
-        assertEquals((1l << 62) - 1, v.getValue());
+        assertEquals((1L << 62) - 1, v.getValue());
     }
 
 }

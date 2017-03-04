@@ -9,18 +9,17 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
-
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * A multiplicator
+ * A multiplier
  *
  * @author hneemann
  */
 public class Mul extends Node implements Element {
 
     /**
-     * The multiplicators description
+     * The multiplier description
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Mul.class, input("a"), input("b"))
