@@ -83,27 +83,23 @@ public class AttributeDialog extends JDialog {
             }
         });
 
-        JButton cancelButton = new JButton(new AbstractAction(Lang.get("cancel")) {
+        final AbstractAction cancel = new AbstractAction(Lang.get("cancel")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
-        });
+        };
 
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.add(cancelButton);
+        buttonPanel.add(new JButton(cancel));
         buttonPanel.add(okButton);
 
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         getRootPane().setDefaultButton(okButton);
-        getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESC_ACTION_KEY);
-        getRootPane().getActionMap().put(ESC_ACTION_KEY, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                dispose();
-            }
-        });
+        getRootPane().registerKeyboardAction(cancel,
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
 
     /**
