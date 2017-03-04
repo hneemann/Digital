@@ -48,6 +48,7 @@ public class ExpressionListenerJK implements ExpressionListener {
     }
 
     @Override
-    public void close() {
+    public void close() throws FormatterException, ExpressionException {
+        parent.close();
     }
 }

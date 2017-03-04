@@ -256,9 +256,10 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String text = new TruthTableFormatterLaTeX().format(model.getTable());
-                    text += getExpressionsLaTeX();
-                    new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"), text).setVisible(true);
+                    ExpressionListener expressionListener = new LaTeXExpressionListener(model);
+                    if (createJK.isSelected())
+                        expressionListener = new ExpressionListenerJK(expressionListener);
+                    new ExpressionCreator(model.getTable()).create(expressionListener);
                 } catch (ExpressionException | FormatterException e1) {
                     new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
                 }
@@ -560,57 +561,16 @@ public class TableDialog extends JDialog {
 
     private void calculateExpressions() {
         try {
-            final HTMLExpressionListener html = new HTMLExpressionListener();
-            ExpressionListener expressionListener = html;
+            ExpressionListener expressionListener = new HTMLExpressionListener();
 
             if (createJK.isSelected())
                 expressionListener = new ExpressionListenerJK(expressionListener);
 
             new ExpressionCreator(model.getTable()).create(expressionListener);
 
-            switch (html.getExpressionsCount()) {
-                case 0:
-                    label.setText("");
-                    allSolutionsDialog.setVisible(false);
-                    break;
-                case 1:
-                    label.setText(html.getFirstExp());
-                    allSolutionsDialog.setVisible(false);
-                    break;
-                default:
-                    label.setText("");
-                    allSolutionsDialog.setText(html.getHtml());
-                    if (!allSolutionsDialog.isVisible())
-                        allSolutionsDialog.setVisible(true);
-            }
         } catch (ExpressionException | FormatterException e1) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
         }
-    }
-
-    private String getExpressionsLaTeX() throws ExpressionException, FormatterException {
-        StringBuilder sb = new StringBuilder();
-        ExpressionListener expressionListener = new ExpressionListener() {
-            @Override
-            public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
-                sb.append(FormatToTableLatex.formatIdentifier(name))
-                        .append("&=&")
-                        .append(FormatToExpression.FORMATTER_LATEX.format(expression))
-                        .append("\\\\\n");
-            }
-
-            @Override
-            public void close() {
-            }
-        };
-
-        if (createJK.isSelected())
-            expressionListener = new ExpressionListenerJK(expressionListener);
-
-        sb.append("\\begin{eqnarray*}\n");
-        new ExpressionCreator(model.getTable()).create(expressionListener);
-        sb.append("\\end{eqnarray*}\n");
-        return sb.toString();
     }
 
 
@@ -725,7 +685,7 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private static final class HTMLExpressionListener implements ExpressionListener {
+    private final class HTMLExpressionListener implements ExpressionListener {
         private FormatToExpression htmlFormatter = new HTMLFormatter(FormatToExpression.getDefaultFormat());
         private final StringBuilder html;
         private int count;
@@ -748,21 +708,25 @@ public class TableDialog extends JDialog {
             count++;
         }
 
-        private int getExpressionsCount() {
-            return count;
-        }
-
-        private String getFirstExp() {
-            return firstExp;
-        }
-
-        private String getHtml() {
-            return html.toString();
-        }
-
         @Override
         public void close() {
             html.append("</table></html>");
+
+            switch (count) {
+                case 0:
+                    label.setText("");
+                    allSolutionsDialog.setVisible(false);
+                    break;
+                case 1:
+                    label.setText(firstExp);
+                    allSolutionsDialog.setVisible(false);
+                    break;
+                default:
+                    label.setText("");
+                    allSolutionsDialog.setText(html.toString());
+                    if (!allSolutionsDialog.isVisible())
+                        allSolutionsDialog.setVisible(true);
+            }
         }
     }
 
@@ -806,6 +770,30 @@ public class TableDialog extends JDialog {
                     r = 0;
             }
             table.changeSelection(r, c, false, false);
+        }
+    }
+
+    private final class LaTeXExpressionListener implements ExpressionListener {
+        private final StringBuilder sb;
+
+        private LaTeXExpressionListener(TruthTableTableModel model) throws ExpressionException {
+            String text = new TruthTableFormatterLaTeX().format(model.getTable());
+            sb = new StringBuilder(text);
+            sb.append("\\begin{eqnarray*}\n");
+        }
+
+        @Override
+        public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+            sb.append(FormatToTableLatex.formatIdentifier(name))
+                    .append("&=&")
+                    .append(FormatToExpression.FORMATTER_LATEX.format(expression))
+                    .append("\\\\\n");
+        }
+
+        @Override
+        public void close() {
+            sb.append("\\end{eqnarray*}\n");
+            new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"), sb.toString()).setVisible(true);
         }
     }
 }
