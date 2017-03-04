@@ -24,8 +24,6 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class AttributeDialog extends JDialog {
-    private static final String ESC_ACTION_KEY = "ESC_ACTION";
-
     private final java.util.List<EditorHolder> editors;
     private final JPanel panel;
     private final Component parent;
