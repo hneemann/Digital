@@ -39,7 +39,10 @@ public class ObservableValue extends Observable implements PinDescription {
         super();
         this.bits = bits;
         this.highZ = highZ;
-        mask = (1L << bits) - 1;
+        if (bits > 63)
+            mask = -1;
+        else
+            mask = (1L << bits) - 1;
         this.name = name;
         supportsHighZ = highZ;
     }
