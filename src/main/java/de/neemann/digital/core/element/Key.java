@@ -82,6 +82,7 @@ public class Key<VALUE> {
     public static class KeyInteger extends Key<Integer> {
         private Integer[] values;
         private int min = Integer.MIN_VALUE;
+        private int max = Integer.MAX_VALUE;
 
         KeyInteger(String key, Integer def) {
             super(key, def);
@@ -94,6 +95,11 @@ public class Key<VALUE> {
 
         KeyInteger setMin(int min) {
             this.min = min;
+            return this;
+        }
+
+        KeyInteger setMax(int max) {
+            this.max = max;
             return this;
         }
 
@@ -110,6 +116,13 @@ public class Key<VALUE> {
         public int getMin() {
             return min;
         }
+
+        /**
+         * @return the max value
+         */
+        public int getMax() {
+            return max;
+        }
     }
 
     /**
@@ -122,6 +135,7 @@ public class Key<VALUE> {
         KeyBits(String key) {
             super(key, 1);
             setMin(1);
+            setMax(64);
             setComboBoxValues(VALUES);
         }
     }

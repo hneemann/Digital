@@ -191,6 +191,9 @@ public final class EditorFactory {
                 int min = ((Key.KeyInteger) key).getMin();
                 if (value < min)
                     value = min;
+                int max = ((Key.KeyInteger) key).getMax();
+                if (value > max)
+                    value = max;
             }
 
             return value;
