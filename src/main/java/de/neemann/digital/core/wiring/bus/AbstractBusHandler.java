@@ -54,31 +54,36 @@ public abstract class AbstractBusHandler {
     public void recalculate() {
         long value = 0;
         burn = false;
-        boolean highz = true;
-        for (ObservableValue input : getInputs()) {
-            if (!input.isHighZ()) {
-                if (highz) {
-                    highz = false;
-                    value = input.getValue();
-                } else {
-                    if (value != input.getValue())
-                        burn = true;
+        if (getResistor().equals(PinDescription.PullResistor.both)) {
+            burn = true;
+            set(0, true);
+        } else {
+            boolean highz = true;
+            for (ObservableValue input : getInputs()) {
+                if (!input.isHighZ()) {
+                    if (highz) {
+                        highz = false;
+                        value = input.getValue();
+                    } else {
+                        if (value != input.getValue())
+                            burn = true;
+                    }
                 }
             }
+            if (highz) {
+                switch (getResistor()) {
+                    case pullUp:
+                        set(-1, false);
+                        break;
+                    case pullDown:
+                        set(0, false);
+                        break;
+                    default:
+                        set(value, true);
+                }
+            } else
+                set(value, false);
         }
-        if (highz) {
-            switch (getResistor()) {
-                case pullUp:
-                    set(-1, false);
-                    break;
-                case pullDown:
-                    set(0, false);
-                    break;
-                default:
-                    set(value, highz);
-            }
-        } else
-            set(value, highz);
 
         // if burn condition and not yet added for post step check add for post step check
         if (burn && (obs.getVersion() != addedVersion)) {
@@ -89,7 +94,7 @@ public abstract class AbstractBusHandler {
 
     /**
      * Called to check if this net is in a burn condition.
-     * A burn condition does not immediately throw an exception, because intermediate burn condition are
+     * A burn condition does not immediately throw an exception, because intermediate burn conditions are
      * unavoidable. So this method is called if the step is completed. If a step ends with a burn condition
      * an exception is thrown.
      */

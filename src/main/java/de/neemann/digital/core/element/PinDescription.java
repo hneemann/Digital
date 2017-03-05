@@ -9,9 +9,10 @@ public interface PinDescription {
 
     /**
      * The possible pull resistor configurations
+     * "both" is an error condition which can happen if nets are merged
      */
     enum PullResistor {
-        none, pullUp, pullDown
+        none, pullUp, pullDown, both
     }
 
     /**

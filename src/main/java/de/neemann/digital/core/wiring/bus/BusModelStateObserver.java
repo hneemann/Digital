@@ -97,6 +97,7 @@ public final class BusModelStateObserver implements ModelStateObserver {
                         h1.addNet(h2);
                         for (CommonBusValue v : h2.getValues())
                             netMap.put(v, h1);
+                        createdHandlers.remove(h2);
                     }
                 }
             }

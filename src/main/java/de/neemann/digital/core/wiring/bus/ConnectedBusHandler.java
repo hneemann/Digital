@@ -1,6 +1,5 @@
 package de.neemann.digital.core.wiring.bus;
 
-import de.neemann.digital.core.BurnException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.PinDescription;
 
@@ -43,8 +42,8 @@ public final class ConnectedBusHandler extends AbstractBusHandler {
                 resistor = net.getResistor();
             } else {
                 if (!resistor.equals(net.getResistor())) {
-                    // ToDo different resistors!
-                    throw new BurnException(inputs);
+                    // set error condition
+                    resistor = PinDescription.PullResistor.both;
                 }
             }
         }
