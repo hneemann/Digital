@@ -157,13 +157,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         Action escapeAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (activeMouseController != mouseNormal) {
-                    mouseNormal.activate();
-                    removeHighLighted();
-                }
+                activeMouseController.escapePressed();
             }
         };
-
 
         AbstractAction programAction = new AbstractAction(Lang.get("menu_programDiode")) {
             @Override
@@ -706,6 +702,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         public void rotate() {
         }
+
+        public void escapePressed() {
+        }
     }
 
     private final class MouseControllerNormal extends MouseController {
@@ -820,11 +819,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             element.rotate();
             repaint();
         }
+
+        @Override
+        public void escapePressed() {
+            mouseNormal.activate();
+        }
     }
 
     private final class MouseControllerMoveElement extends MouseController {
         private VisualElement visualElement;
         private Vector delta;
+        private Vector initialPos;
+        private int initialRot;
 
         private MouseControllerMoveElement(Cursor cursor) {
             super(cursor);
@@ -833,7 +839,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private void activate(VisualElement visualElement, Vector pos) {
             super.activate();
             this.visualElement = visualElement;
-            delta = visualElement.getPos().sub(pos);
+            initialPos = visualElement.getPos();
+            initialRot = visualElement.getRotate();
+            delta = initialPos.sub(pos);
             deleteAction.setActive(true);
             rotateAction.setEnabled(true);
             hasChanged();
@@ -871,11 +879,19 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             circuit.modified();
             hasChanged();
         }
+
+        @Override
+        public void escapePressed() {
+            visualElement.setPos(raster(initialPos));
+            visualElement.setRotation(initialRot);
+            mouseNormal.activate();
+        }
     }
 
     private final class MouseControllerMoveWire extends MouseController {
         private Wire wire;
         private Vector pos;
+        private Vector initialPos;
 
         private MouseControllerMoveWire(Cursor cursor) {
             super(cursor);
@@ -885,6 +901,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             this.wire = wire;
             this.pos = raster(pos);
+            this.initialPos=this.pos;
             deleteAction.setActive(true);
             removeHighLighted();
             hasChanged();
@@ -922,6 +939,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void drawTo(Graphic gr) {
             // ensure that highlighted wire is visible by drawing it on top of other drawings.
             wire.drawTo(gr, true);
+        }
+
+        @Override
+        public void escapePressed() {
+            wire.move(initialPos.sub(pos));
+            removeHighLighted();
+            circuit.elementsMoved();
+            mouseNormal.activate();
         }
     }
 
@@ -961,6 +986,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         public void drawTo(Graphic gr) {
             wire.drawTo(gr, false);
+        }
+
+        @Override
+        public void escapePressed() {
+            mouseNormal.activate();
         }
     }
 
@@ -1056,6 +1086,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void rotate() {
             mouseMoveSelected.activate(corner1, corner2, lastMousePos);
             mouseMoveSelected.rotate();
+        }
+
+        @Override
+        public void escapePressed() {
+            removeHighLighted();
+            mouseNormal.activate();
         }
     }
 
@@ -1211,6 +1247,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         public void rotate() {
             rotateElements(elements, lastPos);
+        }
+
+        @Override
+        public void escapePressed() {
+            mouseNormal.activate();
         }
     }
 

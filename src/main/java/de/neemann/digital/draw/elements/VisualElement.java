@@ -376,9 +376,19 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     /**
+     * Set the orientation of the element.
+     *
+     * @param rotation rotation
+     */
+    public void setRotation(int rotation) {
+        getElementAttributes().set(Keys.ROTATE, new Rotation(rotation));
+    }
+
+    /**
      * @return true if one can interact with this element
      */
     public boolean isInteractable() {
         return interactor != null;
     }
+
 }
