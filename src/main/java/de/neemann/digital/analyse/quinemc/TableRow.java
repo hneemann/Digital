@@ -6,9 +6,9 @@ import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.TreeSet;
 
 import static de.neemann.digital.analyse.expression.Not.not;
@@ -196,7 +196,7 @@ public class TableRow implements Comparable<TableRow> {
      * @param vars the variables to use
      * @return the expression
      */
-    public Expression getExpression(ArrayList<Variable> vars) {
+    public Expression getExpression(List<Variable> vars) {
         Expression e = null;
         for (int i = 0; i < size(); i++) {
             Expression term = null;

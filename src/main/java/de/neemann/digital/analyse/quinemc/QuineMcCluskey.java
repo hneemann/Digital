@@ -6,10 +6,7 @@ import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import de.neemann.digital.lang.Lang;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.*;
 
 import static de.neemann.digital.analyse.expression.Operation.or;
 
@@ -21,7 +18,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 public class QuineMcCluskey {
 
     private final TableRows rows;
-    private final ArrayList<Variable> variables;
+    private final List<Variable> variables;
     private final ArrayList<TableRow> primes;
 
     /**
@@ -29,13 +26,13 @@ public class QuineMcCluskey {
      *
      * @param variables the variables to use
      */
-    public QuineMcCluskey(ArrayList<Variable> variables) {
+    public QuineMcCluskey(List<Variable> variables) {
         this.variables = variables;
         this.rows = new TableRows();
         this.primes = new ArrayList<>();
     }
 
-    private QuineMcCluskey(ArrayList<Variable> variables, TableRows rows, ArrayList<TableRow> primes) {
+    private QuineMcCluskey(List<Variable> variables, TableRows rows, ArrayList<TableRow> primes) {
         this.variables = variables;
         this.rows = rows;
         this.primes = primes;
@@ -242,7 +239,7 @@ public class QuineMcCluskey {
      * @param variables the variables to use to build the expression
      * @return the expression
      */
-    public static Expression addAnd(Expression e, Iterable<TableRow> rows, ArrayList<Variable> variables) {
+    public static Expression addAnd(Expression e, Iterable<TableRow> rows, List<Variable> variables) {
         for (TableRow r : rows) {
             Expression n = r.getExpression(variables);
             if (e == null)

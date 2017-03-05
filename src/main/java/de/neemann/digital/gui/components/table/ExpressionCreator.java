@@ -11,6 +11,11 @@ import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Used to generate the expressions belonging to the given truth table
@@ -37,23 +42,73 @@ public class ExpressionCreator {
      * @throws FormatterException  FormatterException
      */
     public void create(ExpressionListener listener) throws ExpressionException, FormatterException {
-        ArrayList<Variable> vars = theTable.getVars();
-        for (int table = 0; table < theTable.getResultCount(); table++) {
-            PrimeSelector ps = new PrimeSelectorDefault();
-            Expression e = new QuineMcCluskey(vars)
-                    .fillTableWith(theTable.getResult(table))
-                    .simplify(ps)
-                    .getExpression();
-
-            if (ps.getAllSolutions() != null) {
-                for (ArrayList<TableRow> i : ps.getAllSolutions()) {
-                    listener.resultFound(theTable.getResultName(table), QuineMcCluskey.addAnd(null, i, vars));
-                }
-            } else {
-                listener.resultFound(theTable.getResultName(table), e);
+        final List<Variable> vars = Collections.unmodifiableList(theTable.getVars());
+        long time = System.currentTimeMillis();
+        if (theTable.getResultCount() > 100) {
+            ExecutorService ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() / 2);
+            ThreadSaveExpressionListener threadListener = new ThreadSaveExpressionListener(listener);
+            for (int table = 0; table < theTable.getResultCount(); table++) {
+                final QuineMcCluskey qmc = new QuineMcCluskey(vars)
+                        .fillTableWith(theTable.getResult(table));
+                final String resultName = theTable.getResultName(table);
+                final int t = table;
+                ex.submit(() -> {
+                    try {
+                        System.out.println("start " + t);
+                        calcColumn(threadListener, qmc, resultName, vars);
+                        System.out.println("end " + t);
+                    } catch (ExpressionException | FormatterException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
+            ex.shutdown();
+            try {
+                ex.awaitTermination(100, TimeUnit.HOURS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            threadListener.close();
+        } else {
+            for (int table = 0; table < theTable.getResultCount(); table++) {
+                QuineMcCluskey qmc = new QuineMcCluskey(vars)
+                        .fillTableWith(theTable.getResult(table));
+                calcColumn(listener, qmc, theTable.getResultName(table), vars);
+            }
+            listener.close();
         }
-        listener.close();
+        time = System.currentTimeMillis() - time;
+        System.out.println("time: " + time / 1000.0 + " sec");
     }
 
+    private static void calcColumn(ExpressionListener listener, QuineMcCluskey qmc, String name, List<Variable> vars) throws ExpressionException, FormatterException {
+        PrimeSelector ps = new PrimeSelectorDefault();
+        Expression e = qmc.simplify(ps).getExpression();
+
+        if (ps.getAllSolutions() != null) {
+            for (ArrayList<TableRow> i : ps.getAllSolutions()) {
+                listener.resultFound(name, QuineMcCluskey.addAnd(null, i, vars));
+            }
+        } else {
+            listener.resultFound(name, e);
+        }
+    }
+
+    private final static class ThreadSaveExpressionListener implements ExpressionListener {
+        private final ExpressionListener listener;
+
+        private ThreadSaveExpressionListener(ExpressionListener listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        public synchronized void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+            listener.resultFound(name, expression);
+        }
+
+        @Override
+        public synchronized void close() throws FormatterException, ExpressionException {
+            listener.close();
+        }
+    }
 }
