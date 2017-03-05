@@ -17,6 +17,7 @@ public class State implements StateInterface {
     private static final Border DISABLED_BORDER = BorderFactory.createCompoundBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED), BorderFactory.createEmptyBorder(4, 4, 4, 4));
     private JComponent indicator;
     private StateManager stateManager;
+    private ToolTipAction action;
 
     /**
      * Creates new state
@@ -57,19 +58,28 @@ public class State implements StateInterface {
     }
 
     /**
+     * @return the action associated with this state
+     */
+    public ToolTipAction getAction() {
+        return action;
+    }
+
+    /**
      * Creates a tooltip action which activates the state
      *
      * @param name the name of the action to create
      * @param icon the icon to use
-     * @return the acttion
+     * @return the action
      */
     public ToolTipAction createToolTipAction(String name, Icon icon) {
-        return new ToolTipAction(name, icon) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enter();
-            }
-        };
+        if (action == null)
+            action = new ToolTipAction(name, icon) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    enter();
+                }
+            };
+        return action;
     }
 
 }

@@ -520,8 +520,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_editRunAttributes_tt">Settings used to start the simulation</string>
     <string name="menu_editSettings">Settings</string>
     <string name="menu_editSettings_tt">Edits Digitals Preferences</string>
-    <string name="menu_element">Edit components</string>
-    <string name="menu_element_tt">Edits the circuit. Moves a single component or edits its properties.</string>
+    <string name="menu_element">Stop Simulation</string>
+    <string name="menu_element_tt">Stops the simulation and allows to edits the circuit.</string>
     <string name="menu_elements">Components</string>
     <string name="menu_export">Export</string>
     <string name="menu_exportPNGLarge">Export PNG large</string>
@@ -552,8 +552,8 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="menu_refresh">Reload</string>
     <string name="menu_refresh_tt">Reload all imported circuits</string>
     <string name="menu_rotate">Rotate</string>
-    <string name="menu_run">Run</string>
-    <string name="menu_run_tt">Runs the circuit</string>
+    <string name="menu_run">Start Simulation</string>
+    <string name="menu_run_tt">Starts the simulation of the circuit.</string>
     <string name="menu_save">Save</string>
     <string name="menu_saveAs">Save As</string>
     <string name="menu_saveData">Save Data</string>

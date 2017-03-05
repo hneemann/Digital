@@ -88,7 +88,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final Icon ICON_MICRO = IconCreator.create("media-playback-start-2.png");
     private static final Icon ICON_TEST = IconCreator.create("media-playback-start-T.png");
     private static final Icon ICON_STEP = IconCreator.create("media-seek-forward.png");
-    private static final Icon ICON_ELEMENT = IconCreator.create("preferences-system.png");
+    private static final Icon ICON_STOP = IconCreator.create("media-playback-stop.png");
     private static final Icon ICON_NEW = IconCreator.create("document-new.png");
     private static final Icon ICON_OPEN = IconCreator.create("document-open.png");
     private static final Icon ICON_OPEN_WIN = IconCreator.create("document-open-new.png");
@@ -123,7 +123,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private ModelCreator modelCreator;
     private boolean realtimeClockRunning;
 
-    private State elementState;
+    private State stoppedState;
     private RunModelState runModelState;
     private State runModelMicroState;
 
@@ -214,11 +214,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         toolBar.addSeparator();
 
-        ToolTipAction elementStateAction = elementState.createToolTipAction(Lang.get("menu_element"), ICON_ELEMENT).setToolTip(Lang.get("menu_element_tt"));
+        createEditMenu(menuBar);
 
-        createEditMenu(menuBar, elementStateAction);
-
-        toolBar.add(elementState.setIndicator(elementStateAction.createJButtonNoText()));
         toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
         toolBar.addSeparator();
 
@@ -228,7 +225,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         toolBar.addSeparator();
 
-        librarySelector = new LibrarySelector(library, shapeFactory, elementState);
+        librarySelector = new LibrarySelector(library, shapeFactory, stoppedState);
         menuBar.add(librarySelector.buildMenu(new InsertHistory(toolBar), circuitComponent));
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
@@ -405,9 +402,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * Creates the edit menu
      *
      * @param menuBar            the menu bar
-     * @param elementStateAction state action to add to menu
      */
-    private void createEditMenu(JMenuBar menuBar, ToolTipAction elementStateAction) {
+    private void createEditMenu(JMenuBar menuBar) {
         JMenu edit = new JMenu(Lang.get("menu_edit"));
         menuBar.add(edit);
 
@@ -462,23 +458,22 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.getCircuit().actualToDefault();
-                elementState.enter();
+                stoppedState.enter();
             }
         }.setToolTip(Lang.get("menu_actualToDefault_tt"));
 
-        ToolTipAction unprogramAlFuses = new ToolTipAction(Lang.get("menu_unprogramAllFuses")) {
+        ToolTipAction unprogramAllFuses = new ToolTipAction(Lang.get("menu_unprogramAllFuses")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.getCircuit().unprogramAllFuses();
-                elementState.enter();
+                stoppedState.enter();
             }
         }.setToolTip(Lang.get("menu_unprogramAllFuses_tt"));
 
         edit.add(editAttributes.createJMenuItem());
         edit.add(actualToDefault.createJMenuItem());
-        edit.add(unprogramAlFuses.createJMenuItem());
+        edit.add(unprogramAllFuses.createJMenuItem());
         edit.addSeparator();
-        edit.add(elementStateAction.createJMenuItem());
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
@@ -499,8 +494,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     /**
      * Creates the start menu
-     *
-     * @param menuBar the menu bar
+     *  @param menuBar the menu bar
      * @param toolBar the tool bar
      */
     private void createStartMenu(JMenuBar menuBar, JToolBar toolBar) {
@@ -533,12 +527,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     circuitComponent.hasChanged();
                     statusLabel.setText(Lang.get("stat_clocks", i));
                 } catch (NodeException e1) {
-                    elementState.enter();
+                    stoppedState.enter();
                     new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
                 }
             }
         }.setToolTip(Lang.get("menu_fast_tt")).setActive(false);
 
+        ToolTipAction stoppedStateAction = stoppedState.createToolTipAction(Lang.get("menu_element"), ICON_STOP).setToolTip(Lang.get("menu_element_tt"));
 
         ToolTipAction runTests = new ToolTipAction(Lang.get("menu_runTests"), ICON_TEST) {
             @Override
@@ -578,6 +573,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
         run.add(runToBreakAction.createJMenuItem());
+        run.add(stoppedStateAction.createJMenuItem());
         run.add(runTests.createJMenuItem());
         run.addSeparator();
         run.add(speedTest.createJMenuItem());
@@ -588,6 +584,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         toolBar.addSeparator();
         toolBar.add(runModelMicroState.setIndicator(runModelMicroAction.createJButtonNoText()));
         toolBar.add(doStep.createJButtonNoText());
+        toolBar.addSeparator();
+        toolBar.add(stoppedStateAction.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(runTests.createJButtonNoText());
     }
@@ -609,7 +607,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
             windowPosManager.register("testresult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
 
-            elementState.enter();
+            stoppedState.enter();
         } catch (Exception e1) {
             showErrorAndStopModel(Lang.get("msg_runningTestError"), e1);
         }
@@ -631,7 +629,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     new TableDialog(Main.this, new ModelAnalyser(model).analyse(), shapeFactory, filename)
                             .setPinMap(new PinMap().addModel(model))
                             .setVisible(true);
-                    elementState.enter();
+                    stoppedState.enter();
                 } catch (PinException | PinMapException | NodeException | AnalyseException | ElementNotFoundException e1) {
                     showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
                 }
@@ -645,7 +643,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 TruthTable tt = new TruthTable(3).addResult();
                 new TableDialog(Main.this, tt, shapeFactory, null).setVisible(true);
-                elementState.enter();
+                stoppedState.enter();
             }
         }
                 .setToolTip(Lang.get("menu_synthesise_tt"))
@@ -665,7 +663,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private void orderMeasurements() {
         try {
             Model m = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-            elementState.enter();
+            stoppedState.enter();
             ArrayList<String> names = new ArrayList<>();
             for (Signal s : m.getSignals())
                 names.add(s.getName());
@@ -682,13 +680,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     private void setupStates() {
-        elementState = stateManager.register(new State() {
+        stoppedState = stateManager.register(new State() {
             @Override
             public void enter() {
                 super.enter();
                 clearModelDescription();
                 circuitComponent.setModeAndReset(false, NoSync.INST);
                 doStep.setEnabled(false);
+                stoppedState.getAction().setEnabled(false);
                 runToBreakAction.setEnabled(false);
             }
 
@@ -698,6 +697,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             @Override
             public void enter() {
                 super.enter();
+                stoppedState.getAction().setEnabled(true);
                 if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
@@ -793,7 +793,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
             circuitComponent.hasChanged();
             new ErrorMessage(message).addCause(cause).show(Main.this);
-            elementState.enter();
+            stoppedState.enter();
         });
     }
 
@@ -830,7 +830,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             librarySelector.setFilePath(filename.getParentFile());
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circ);
-            elementState.enter();
+            stoppedState.enter();
             windowPosManager.closeAll();
             setFilename(filename, toPrefs);
             statusLabel.setText(" ");
@@ -847,7 +847,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             circuitComponent.getCircuit().save(filename);
             if (savedListener != null)
                 savedListener.saved(filename);
-            elementState.enter();
+            stoppedState.enter();
             setFilename(filename, toPrefs);
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
@@ -974,6 +974,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         void enter(boolean runRealTime, ModelModifier modelModifier) {
             super.enter();
+            stoppedState.getAction().setEnabled(true);
             if (createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier))
                 circuitComponent.setManualChangeObserver(new FullStepObserver(model));
         }
@@ -1074,7 +1075,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     @Override
     public void stop() {
         SwingUtilities.invokeLater(() -> {
-            elementState.enter();
+            stoppedState.enter();
             circuitComponent.hasChanged();
         });
     }
