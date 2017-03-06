@@ -163,23 +163,6 @@ public class QuineMcCluskey {
         return new QuineMcCluskey(variables, newRows, np);
     }
 
-    QuineMcCluskey removeDuplicates() {
-        TableRows newRows = new TableRows();
-        for (TableRow r : rows) {
-            TableRow i = newRows.findRow(r);
-            if (i == null) {
-                newRows.add(r);
-            } else {
-                i.addSource(r.getSource());
-            }
-        }
-
-        rows.clear();
-        rows.addAll(newRows);
-
-        return this;
-    }
-
     /**
      * @return true id simplification is complete
      */
