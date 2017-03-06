@@ -30,7 +30,7 @@ public class PinDescriptions extends ImmutableList<PinDescription> {
      * @param key the key to set
      * @return this for chained calls
      */
-    PinDescriptions setLangKey(String key) {
+    public PinDescriptions setLangKey(String key) {
         for (PinDescription pd : this) {
             if (pd instanceof PinInfo) {
                 ((PinInfo) pd).setLangKey(key);

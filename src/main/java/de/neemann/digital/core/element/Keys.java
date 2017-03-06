@@ -274,4 +274,16 @@ public final class Keys {
     public static final Key<Boolean> RELAY_NORMALLY_CLOSED
             = new Key<>("relayNormallyClosed", false);
 
+    /**
+     * Used to indicate if the 7-seg display has a common cathode output
+     */
+    public static final Key<Boolean> COMMON_CATHODE
+            = new Key<>("commonCathode", false);
+
+    /**
+     * Used to enable the storage of the last state in the Seven Seg display.
+     */
+    public static final Key<Boolean> LED_PERSISTENCE
+            = new Key<>("ledPersistence", false);
+
 }

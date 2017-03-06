@@ -1,10 +1,7 @@
 package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -47,23 +44,14 @@ public class Out implements Element {
     /**
      * The seven segment display description
      */
-    public static final ElementTypeDescription SEVENDESCRIPTION
-            = new ElementTypeDescription("Seven-Seg",
-            attributes -> {
-                return new Out(1, 1, 1, 1, 1, 1, 1, 1);
-            },
-            input("a"), input("b"), input("c"), input("d"), input("e"), input("f"), input("g"), input("dp"))
-            .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.COLOR);
+    public static final ElementTypeDescription SEVENDESCRIPTION = new SevenSegTypeDescription();
 
     /**
      * The seven segment hex display description
      */
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
-            attributes -> {
-                return new Out(4, 1);
-            }, input("d"), input("dp"))
+            attributes -> new Out(4, 1), input("d"), input("dp"))
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.COLOR);
 
@@ -111,5 +99,34 @@ public class Out implements Element {
     @Override
     public void registerNodes(Model model) {
         model.addOutput(new Signal(label, value).setDescription(description));
+    }
+
+    private final static class SevenSegTypeDescription extends ElementTypeDescription {
+        private SevenSegTypeDescription() {
+            super("Seven-Seg", attributes -> {
+                if (attributes.get(Keys.COMMON_CATHODE))
+                    return new Out(1, 1, 1, 1, 1, 1, 1, 1, 1);
+                else
+                    return new Out(1, 1, 1, 1, 1, 1, 1, 1);
+            });
+            addAttribute(Keys.LABEL);
+            addAttribute(Keys.COLOR);
+            addAttribute(Keys.COMMON_CATHODE);
+            addAttribute(Keys.LED_PERSISTENCE);
+        }
+
+        @Override
+        public PinDescriptions getInputDescription(ElementAttributes attributes) throws NodeException {
+            if (attributes.get(Keys.COMMON_CATHODE)) {
+                return new PinDescriptions(
+                        input("a"), input("b"), input("c"),
+                        input("d"), input("e"), input("f"),
+                        input("g"), input("dp"), input("cc")).setLangKey(getPinLangKey());
+            } else
+                return new PinDescriptions(
+                        input("a"), input("b"), input("c"),
+                        input("d"), input("e"), input("f"),
+                        input("g"), input("dp")).setLangKey(getPinLangKey());
+        }
     }
 }

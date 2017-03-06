@@ -258,6 +258,7 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_Seven-Seg_pin_f">Dieser Eingang steuert die obere linke vertikale Linie.</string>
     <string name="elem_Seven-Seg_pin_g">Dieser Eingang steuert die mittlere horizontale Linie.</string>
     <string name="elem_Seven-Seg_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+    <string name="elem_Seven-Seg_pin_cc">Gemeinsame Kathode. Nur wenn hier eine Null anliegt, können die LEDs leuchten.</string>
     <string name="elem_Seven-Seg-Hex">Siebensegmentanzeige Hex</string>
     <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
     <string name="elem_Seven-Seg-Hex_pin_d">Der 4-Bit-Wert dieses Eingangs wird als Hex-Ziffer dargestellt.</string>
@@ -511,6 +512,13 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_ExpressionFormat_tt">Anzeigeformat der Ausdrücke.</string>
     <string name="key_relayNormallyClosed">Relais ist ein Öffner</string>
     <string name="key_relayNormallyClosed_tt">Wenn gesetzt ist das Relais unbestromt geschlossen.</string>
+    <string name="key_commonCathode">Gemeinsame Kathode</string>
+    <string name="key_commonCathode_tt">Wenn gesetzt hat die Anzeige einen Ausgang mit einer gemeinsamen Kathode.</string>
+    <string name="key_ledPersistence">Träges Auge</string>
+    <string name="key_ledPersistence_tt">Die Schaltfrequenz am Bildschirm kann in der Simulation nicht so hoch werden,
+        dass das Auge kein Flimmern mehr wahrnimmt. Um dennoch das Flackern zu unterdrücken, können die LEDs auf
+        "nachleuchten" geschaltet werden.</string>
+
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
     <string name="lib_flipFlops">FlipFlops</string>
