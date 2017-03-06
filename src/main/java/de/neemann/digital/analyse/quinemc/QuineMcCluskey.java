@@ -119,7 +119,7 @@ public class QuineMcCluskey {
     public QuineMcCluskey simplify(PrimeSelector ps) {
         QuineMcCluskey t = this;
         while (!t.isFinished())
-            t = t.simplifyStep().removeDuplicates();
+            t = t.simplifyStep();
         return t.simplifyPrimes(ps);
     }
 
@@ -139,13 +139,18 @@ public class QuineMcCluskey {
                         // can optimize;
                         TableRow newRow = new TableRow(r1);
                         newRow.setToOptimized(index);
-                        newRow.addSource(r1.getSource());
-                        newRow.addSource(r2.getSource());
 
+                        TableRow r = newRows.findRow(newRow);
+                        if (r==null) {
+                            newRow.addSource(r1.getSource());
+                            newRow.addSource(r2.getSource());
+                            newRows.add(newRow);
+                        } else {
+                            r.addSource(r1.getSource());
+                            r.addSource(r2.getSource());
+                        }
                         r1.setUsed();
                         r2.setUsed();
-
-                        newRows.add(newRow);
                     }
                 }
 
