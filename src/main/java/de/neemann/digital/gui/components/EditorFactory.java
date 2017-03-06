@@ -267,6 +267,10 @@ public final class EditorFactory {
                 public void actionPerformed(ActionEvent e) {
                     int bits = attr.get(Keys.BITS);
                     int size;
+
+                    // INPUT_COUNT and ADDR_BITS must have the same input value!!!
+                    // If INPUT_COUNT is not present (default value is used) the default value of
+                    // ADDR_BITS is used. This works only if both have the same default value!!!
                     if (attr.contains(Keys.INPUT_COUNT)) {
                         // used to handle the LUT
                         size = 1 << attr.get(Keys.INPUT_COUNT);

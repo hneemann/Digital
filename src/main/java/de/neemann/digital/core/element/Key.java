@@ -132,8 +132,8 @@ public class Key<VALUE> {
     static final class KeyBits extends KeyInteger {
         private static final Integer[] VALUES = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32};
 
-        KeyBits(String key) {
-            super(key, 1);
+        KeyBits(String key, Integer def) {
+            super(key, def);
             setMin(1);
             setMax(64);
             setComboBoxValues(VALUES);

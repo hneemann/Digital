@@ -22,20 +22,22 @@ public final class Keys {
      * number of bits in simple gates like And and Or
      */
     public static final Key.KeyBits BITS
-            = new Key.KeyBits("Bits");
+            = new Key.KeyBits("Bits", 1);
 
     /**
      * number of inputs in simple gates like And and Or
      */
-    public static final Key.KeyInteger INPUT_COUNT
+    public static final Key.KeyInteger INPUT_COUNT  //  // needs to have the same default value as ADDR_BITS!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
             = new Key.KeyInteger("Inputs", 2)
             .setComboBoxValues(new Integer[]{2, 3, 4, 5})
             .setMin(2);
+
     /**
      * The elements label
      */
     public static final Key<String> LABEL
             = new Key<>("Label", "");
+
     /**
      * The size of a LED
      */
@@ -43,6 +45,7 @@ public final class Keys {
             = new Key.KeyInteger("Size", 1)
             .setComboBoxValues(new Integer[]{1, 2, 3, 4, 5})
             .setMin(1);
+
     /**
      * The value of constants
      */
@@ -86,16 +89,18 @@ public final class Keys {
             = new Key.KeyInteger("Frequency", 1)
             .setComboBoxValues(new Integer[]{1, 2, 5, 10, 20, 50, 100, 200, 500, 5000, 50000, 500000})
             .setMin(1);
+
     /**
      * the bit count of a muxer or decoder
      */
     public static final Key.KeyBits SELECTOR_BITS
-            = new Key.KeyBits("Selector Bits");
+            = new Key.KeyBits("Selector Bits", 1);
+
     /**
      * number of address bits of memory
      */
     public static final Key.KeyBits ADDR_BITS
-            = new Key.KeyBits("Addr Bits");
+            = new Key.KeyBits("Addr Bits", 2); // needs to have the same default value as INPUT_COUNT!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
 
     /**
      * indicates a diode as blown fuse or as programmed
@@ -120,11 +125,13 @@ public final class Keys {
      */
     public static final Key<DataField> DATA
             = new Key<>("Data", DataField.DEFAULT);
+
     /**
      * flag for flipping selector pos in muxers, decoders and drivers
      */
     public static final Key<Boolean> FLIP_SEL_POSITON
             = new Key<>("flipSelPos", false);
+
     /**
      * the rotation of the elements
      */
@@ -158,6 +165,7 @@ public final class Keys {
     public static final Key.KeyInteger CYCLES
             = new Key.KeyInteger("Cycles", 100000)
             .setComboBoxValues(new Integer[]{1000, 10000, 100000, 1000000});
+
     /**
      * flag to make a value a probe
      */
@@ -181,6 +189,7 @@ public final class Keys {
      */
     public static final Key<Boolean> SHOW_DATA_TABLE
             = new Key<>("showDataTable", false);
+
     /**
      * flag to show the data graph window
      */
@@ -205,6 +214,7 @@ public final class Keys {
     public static final Key.KeyInteger MAX_STEP_COUNT
             = new Key.KeyInteger("maxStepCount", 25)
             .setMin(5);
+
     /**
      * flag to enable high z mode at an input
      */
@@ -240,19 +250,18 @@ public final class Keys {
      */
     public static final Key<Language> SETTINGS_LANGUAGE
             = new Key<>("Language", new Language());
+
     /**
      * The GUI expression string representation
      */
     public static final Key<FormatToExpression> SETTINGS_EXPRESSION_FORMAT
             = new Key<>("ExpressionFormat", FormatToExpression.FORMATTER_UNICODE);
 
-
     /**
      * output format for numbers
      */
     public static final Key.KeyEnum<IntFormat> INTFORMAT
             = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values());
-
 
     /**
      * width of the terminal
