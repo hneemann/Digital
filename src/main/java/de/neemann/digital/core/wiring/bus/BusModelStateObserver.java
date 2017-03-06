@@ -15,8 +15,8 @@ import java.util.HashSet;
  */
 public final class BusModelStateObserver implements ModelStateObserver {
     private final ArrayList<AbstractBusHandler> busList;
+    private final HashSet<Switch.RealSwitch> closedSwitches;
     private int version;
-    private HashSet<Switch.RealSwitch> closedSwitches;
 
     BusModelStateObserver() {
         busList = new ArrayList<>();
@@ -68,6 +68,12 @@ public final class BusModelStateObserver implements ModelStateObserver {
         reconfigureNets();
     }
 
+    /**
+     * Reconfiguration of the nets.
+     * If a switch is closed the nets on both contacts of the switch are connected to a single
+     * common net, After that the state of the new merged nets are updated.
+     * Needs to be called every time a switch has changed.
+     */
     private void reconfigureNets() {
         busList.removeIf(abstractBusHandler -> abstractBusHandler instanceof ConnectedBusHandler);
         HashMap<CommonBusValue, ConnectedBusHandler> netMap = new HashMap<>();
