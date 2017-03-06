@@ -50,6 +50,7 @@ public class DataEditor extends JDialog {
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(bits));
         getContentPane().add(new JScrollPane(table));
 
+        int minWidth = 0;
         if (modelIsRunning) {
             dataField.addListener(dm);
             addWindowListener(new WindowAdapter() {
@@ -75,9 +76,10 @@ public class DataEditor extends JDialog {
                 }
             }));
             getContentPane().add(buttons, BorderLayout.SOUTH);
+            minWidth = buttons.getPreferredSize().width;
         }
 
-        setPreferredSize(new Dimension((cols + 1) * 50, getPreferredSize().height));
+        setPreferredSize(new Dimension(Math.max((cols + 1) * 50, minWidth + 10), getPreferredSize().height));
 
         pack();
 
@@ -175,7 +177,7 @@ public class DataEditor extends JDialog {
 
         @Override
         public void valueChanged(int addr) {
-            if (addr<0) {
+            if (addr < 0) {
                 // all values have changed!
                 fireEvent(new TableModelEvent(this));
             } else {
