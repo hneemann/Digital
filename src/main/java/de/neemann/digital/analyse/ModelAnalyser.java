@@ -23,7 +23,7 @@ import java.util.List;
  * @author hneemann
  */
 public class ModelAnalyser {
-    private static final int MAX_INPUTS_ALLOWED = 18;
+    private static final int MAX_INPUTS_ALLOWED = 12;
 
     private final Model model;
     private final ArrayList<Signal> inputs;
