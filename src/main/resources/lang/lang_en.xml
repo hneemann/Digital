@@ -390,7 +390,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_spitterDefSyntaxError">Syntax error in splitter definition {0}</string>
     <string name="err_splitterBitsMismatch">Bit count of splitter is not matching</string>
     <string name="err_tableBecomesToSmall">Two inputs are required!</string>
-    <string name="err_toManyInputs_N">To many inputs, allowed are {0}</string>
+    <string name="err_toManyInputs_max_N0_is_N1">To many inputs, allowed are {0} but {1} are found.</string>
     <string name="err_varNotAllowedInCUPL_N">Variable {0} is not allowed in CUPL source!</string>
     <string name="err_varNotDefined_N">Variable {0} not defined</string>
     <string name="err_parserUnexpectedToken_N">Unexpected Token {0}</string>

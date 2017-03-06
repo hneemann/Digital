@@ -23,6 +23,7 @@ import java.util.List;
  * @author hneemann
  */
 public class ModelAnalyser {
+    private static final int MAX_INPUTS_ALLOWED = 18;
 
     private final Model model;
     private final ArrayList<Signal> inputs;
@@ -75,8 +76,8 @@ public class ModelAnalyser {
 
         if (inputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoInputs"));
-        if (inputs.size() > 12)
-            throw new AnalyseException(Lang.get("err_toManyInputs_N", 12));
+        if (inputs.size() > MAX_INPUTS_ALLOWED)
+            throw new AnalyseException(Lang.get("err_toManyInputs_max_N0_is_N1", MAX_INPUTS_ALLOWED, inputs.size()));
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
         rows = 1 << inputs.size();

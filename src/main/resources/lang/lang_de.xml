@@ -404,7 +404,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_spitterDefSyntaxError">Fehler in der Definition {0} eines Splitters</string>
     <string name="err_splitterBitsMismatch">Die Bitzahl am Spiltter passt nicht</string>
     <string name="err_tableBecomesToSmall">Es sind mindestens zwei Eingänge erforderlich!</string>
-    <string name="err_toManyInputs_N">Zu viele Eingänge. Es sind nur {0} Eingänge erlaubt.</string>
+    <string name="err_toManyInputs_max_N0_is_N1">Zu viele Eingänge. Es sind nur {0} Eingänge erlaubt, es wurden aber {1} gefunden.</string>
     <string name="err_varNotAllowedInCUPL_N">In CUPL ist die Variable {0} nicht erlaubt!</string>
     <string name="err_varNotDefined_N">Variable {0} ist nicht definiert.</string>
     <string name="err_parserUnexpectedToken_N">Unerwartetes Zeichen {0}</string>
