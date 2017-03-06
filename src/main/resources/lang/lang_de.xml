@@ -513,11 +513,11 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_relayNormallyClosed">Relais ist ein Öffner</string>
     <string name="key_relayNormallyClosed_tt">Wenn gesetzt ist das Relais unbestromt geschlossen.</string>
     <string name="key_commonCathode">Gemeinsame Kathode</string>
-    <string name="key_commonCathode_tt">Wenn gesetzt hat die Anzeige einen Ausgang mit einer gemeinsamen Kathode.</string>
-    <string name="key_ledPersistence">Träges Auge</string>
-    <string name="key_ledPersistence_tt">Die Schaltfrequenz am Bildschirm kann in der Simulation nicht so hoch werden,
-        dass das Auge kein Flimmern mehr wahrnimmt. Um dennoch das Flackern zu unterdrücken, können die LEDs auf
-        "nachleuchten" geschaltet werden.</string>
+    <string name="key_commonCathode_tt">Wenn gesetzt hat die Anzeige einen Anschluss mit einer gemeinsamen Kathode.</string>
+    <string name="key_ledPersistence">Flimmern vermeiden</string>
+    <string name="key_ledPersistence_tt">Die Schaltfrequenz in der Simulation kann nicht so hoch werden,
+        dass das menschliche Auge kein Flimmern mehr wahrnimmt. Um dennoch das Flackern zu unterdrücken, kann
+        bei den LEDs mit dieser Option ein "nachleuchten" eingeschaltet werden.</string>
 
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>

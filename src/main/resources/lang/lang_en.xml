@@ -500,7 +500,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="key_relayNormallyClosed_tt">If set the relay is closed if the input is low.</string>
     <string name="key_commonCathode">Common Cathode</string>
     <string name="key_commonCathode_tt">If selected the common cathode input is also simulated.</string>
-    <string name="key_ledPersistence">Slow Eye</string>
+    <string name="key_ledPersistence">Avoid Flicker</string>
     <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering disappears.
         With this option you can stabilize the display by keeping the LEDs on until the common cathode goes down again.
         This simulates a frequency above the critical flicker fusion frequency.
