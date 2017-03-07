@@ -26,6 +26,7 @@ public final class SingleValueDialog extends JDialog {
         DECIMAL(Lang.get("attr_dialogDecimal")),
         OCTAL(Lang.get("attr_dialogOctal")),
         ASCII(Lang.get("attr_dialogAscii")),
+        // highZ needs to be the last entry!! See InMode#values(boolean)
         HIGHZ(Lang.get("attr_dialogHighz"));
 
         private String langText;
