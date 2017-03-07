@@ -13,6 +13,12 @@
     <string name="attr_openCircuit_tt">Opens the circuit in a new window.</string>
     <string name="attr_help">Help</string>
     <string name="attr_help_tt">Shows a short description of this element.</string>
+    <string name="attr_dialogHex">Hex</string>
+    <string name="attr_dialogDecimal">Decimal</string>
+    <string name="attr_dialogAscii">Ascii</string>
+    <string name="attr_dialogHighz">HighZ</string>
+    <string name="attr_dialogOctal">Octal</string>
+    <string name="attr_dialogBinary">Binary</string>
     <string name="btn_discard">Discard Changes</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_editFurther">Continue editing</string>

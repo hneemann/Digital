@@ -13,6 +13,12 @@
     <string name="attr_openCircuit_tt">Öffnet die Schaltung in einem neuen Fenster.</string>
     <string name="attr_help">Hilfe</string>
     <string name="attr_help_tt">Zeigt eine Beschreibung dieses Elements.</string>
+    <string name="attr_dialogHex">Hex</string>
+    <string name="attr_dialogDecimal">Dezimal</string>
+    <string name="attr_dialogAscii">Ascii</string>
+    <string name="attr_dialogHighz">HighZ</string>
+    <string name="attr_dialogOctal">Oktal</string>
+    <string name="attr_dialogBinary">Binär</string>
     <string name="btn_discard">Verwerfen</string>
     <string name="btn_edit">Bearbeiten</string>
     <string name="btn_editFurther">Weiter bearbeiten</string>
