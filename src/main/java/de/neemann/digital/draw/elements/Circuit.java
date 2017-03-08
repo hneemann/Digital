@@ -404,7 +404,7 @@ public class Circuit {
      * Returns a list of elements at the given position
      *
      * @param pos the cursor position
-     * @return the elements or a empy list if there is no element at the given position
+     * @return the elements or an empty list if there is no element at the given position
      */
     public List<VisualElement> getElementListAt(Vector pos) {
         ArrayList<VisualElement> list = new ArrayList<>();
