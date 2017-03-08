@@ -76,4 +76,30 @@ public class SplitterMixTest extends TestCase {
         sc.check(0xbc, 0xda, 0xabc, 0xd);
     }
 
+    public void test3() throws Exception {
+        ObservableValue a = new ObservableValue("a", 4);
+        ObservableValue b = new ObservableValue("b", 4);
+        ObservableValue c = new ObservableValue("c", 4);
+
+        Splitter splitter = new Splitter(new ElementAttributes()
+                .set(Keys.INPUT_SPLIT, "4,4,4")
+                .set(Keys.OUTPUT_SPLIT, "2,8,2"));
+
+        splitter.setInputs(ovs(a, b, c));
+        assertEquals(2, a.observerCount());
+        assertEquals(1, b.observerCount());
+        assertEquals(2, c.observerCount());
+
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(3, outputs.size());
+
+        TestExecuter sc = new TestExecuter().setInputs(a, b, c).setOutputsOf(splitter);
+        sc.check(0x0, 0x0, 0x0, 0x0, 0x00, 0x0);
+        sc.check(0xf, 0x0, 0x0, 0x3, 0x03, 0x0);
+        sc.check(0x0, 0xf, 0x0, 0x0, 0x3c, 0x0);
+        sc.check(0x0, 0x0, 0xf, 0x0, 0xc0, 0x3);
+        sc.check(0xf, 0xf, 0xf, 0x3, 0xff, 0x3);
+    }
+
+
 }

@@ -162,5 +162,5 @@ If you would like to build Digital from the source code:
 * Don't introduce new checkstyle issues
 * Don't introduce new findbugs issues
 * Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
-* Up to now there are no GUI tests so the overall test coverage is only somewhat above 50%.
+* Up to now there are no GUI tests so the overall test coverage is only somewhat below 60%.
   Try to keep the amount of untested GUI code low.

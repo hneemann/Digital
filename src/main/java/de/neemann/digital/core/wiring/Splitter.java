@@ -10,7 +10,11 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
- * The splitter
+ * The Splitter.
+ * The highZ attribute is necessary because at the time the outputs are created the highZ flag
+ * needs to be given to the {@link ObservableValue} constructor.
+ * At this time I don't know if the input can became highZ. Because I need this information
+ * before I can get it from the inputs, the user has to provide this information.
  *
  * @author hneemann
  */
@@ -222,7 +226,7 @@ public class Splitter implements Element {
             PinInfo[] name = new PinInfo[ports.size()];
             for (int i = 0; i < name.length; i++) {
                 final Port port = ports.get(i);
-                if (port.getBits()==1)
+                if (port.getBits() == 1)
                     name[i] = new PinInfo(port.getName(), Lang.get("elem_Splitter_pin_in_one", port.getName()), dir);
                 else
                     name[i] = new PinInfo(port.getName(), Lang.get("elem_Splitter_pin_in", port.getName()), dir);
@@ -234,7 +238,7 @@ public class Splitter implements Element {
         public ObservableValues getOutputs(boolean isHighZ) {
             ArrayList<ObservableValue> outputs = new ArrayList<>(ports.size());
             for (Port p : ports) {
-                if (p.getBits()==1)
+                if (p.getBits() == 1)
                     outputs.add(new ObservableValue(p.getName(), p.getBits(), isHighZ).setDescription(Lang.get("elem_Splitter_pin_out_one", p.getName())));
                 else
                     outputs.add(new ObservableValue(p.getName(), p.getBits(), isHighZ).setDescription(Lang.get("elem_Splitter_pin_out", p.getName())));
