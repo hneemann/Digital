@@ -24,6 +24,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     private static final int PIN = 2;
 
     private transient GraphicMinMax minMax;
+    private transient GraphicMinMax minMaxText;
     private transient IOState ioState;
     private transient InteractorInterface interactor;
     private transient Element element;
@@ -82,8 +83,13 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     @Override
     public void attributeChanged(Key key) {
         shape = null;
+        resetGeometry();
+    }
+
+    private void resetGeometry() {
         transform = null;
         minMax = null;
+        minMaxText = null;
     }
 
     /**
@@ -101,8 +107,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      */
     public VisualElement setPos(Vector pos) {
         this.pos = pos;
-        minMax = null;
-        transform = null;
+        resetGeometry();
         return this;
     }
 
@@ -112,8 +117,8 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @param p a position
      * @return true if p is inside the bounding box of the shape of this element.
      */
-    public boolean matches(Vector p) {
-        GraphicMinMax m = getMinMax();
+    public boolean matches(Vector p, boolean includeText) {
+        GraphicMinMax m = getMinMax(includeText);
         return (m.getMin().x <= p.x)
                 && (m.getMin().y <= p.y)
                 && (p.x <= m.getMax().x)
@@ -128,7 +133,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @return true if the given box completely contains this element
      */
     public boolean matches(Vector min, Vector max) {
-        GraphicMinMax m = getMinMax();
+        GraphicMinMax m = getMinMax(false);
         return (min.x <= m.getMin().x)
                 && (m.getMax().x <= max.x)
                 && (min.y <= m.getMin().y)
@@ -151,8 +156,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     public Shape getShape() {
         if (shape == null) {
             shape = shapeFactory.getShape(elementName, elementAttributes);
-            minMax = null;
-            transform = null;
+            resetGeometry();
         }
         return shape;
     }
@@ -163,7 +167,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
 
         // draw circle around element
         if (highLight) {
-            GraphicMinMax mm = getMinMax();
+            GraphicMinMax mm = getMinMax(false);
             Vector delta = mm.getMax().sub(mm.getMin()).add(SIZE, SIZE).div(2);
             Vector pos = mm.getMax().add(mm.getMin()).div(2);
             graphic.drawCircle(pos.sub(delta), pos.add(delta), Style.HIGHLIGHT);
@@ -193,13 +197,22 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     /**
      * @return the bounding box of the shape of this element, text is ignored
      */
-    public GraphicMinMax getMinMax() {
-        if (minMax == null) {
-            GraphicMinMax mm = new GraphicMinMax(false);
-            drawShape(mm, false);
-            minMax = mm;
+    public GraphicMinMax getMinMax(boolean includeText) {
+        if (includeText) {
+            if (minMaxText == null) {
+                GraphicMinMax mm = new GraphicMinMax(true);
+                drawShape(mm, false);
+                minMaxText = mm;
+            }
+            return minMaxText;
+        } else {
+            if (minMax == null) {
+                GraphicMinMax mm = new GraphicMinMax(false);
+                drawShape(mm, false);
+                minMax = mm;
+            }
+            return minMax;
         }
-        return minMax;
     }
 
     @Override

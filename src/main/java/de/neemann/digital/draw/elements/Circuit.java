@@ -394,7 +394,7 @@ public class Circuit {
      */
     public VisualElement getElementAt(Vector pos) {
         for (VisualElement element : visualElements) {
-            if (element.matches(pos))
+            if (element.matches(pos, false))
                 return element;
         }
         return null;
@@ -406,10 +406,10 @@ public class Circuit {
      * @param pos the cursor position
      * @return the elements or an empty list if there is no element at the given position
      */
-    public List<VisualElement> getElementListAt(Vector pos) {
+    public List<VisualElement> getElementListAt(Vector pos, boolean includeText) {
         ArrayList<VisualElement> list = new ArrayList<>();
         for (VisualElement element : visualElements) {
-            if (element.matches(pos))
+            if (element.matches(pos, includeText))
                 list.add(element);
         }
         return list;

@@ -80,7 +80,7 @@ public class CircuitTransferable implements Transferable {
             for (Moveable m : elements)
                 if (m instanceof VisualElement) {
                     ((VisualElement) m).setShapeFactory(shapeFactory);
-                    GraphicMinMax mm = ((VisualElement) m).getMinMax();
+                    GraphicMinMax mm = ((VisualElement) m).getMinMax(false);
                     if (max == null)
                         max = mm.getMax();
                     else

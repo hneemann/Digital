@@ -715,20 +715,24 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super(cursor);
         }
 
-        @Override
-        void clicked(MouseEvent e) {
-            Vector pos = getPosVector(e);
+        private VisualElement getVisualElement(Vector pos, boolean includeText) {
             VisualElement vp = null;
-
-            List<VisualElement> list = circuit.getElementListAt(pos);
+            List<VisualElement> list = circuit.getElementListAt(pos, includeText);
             if (list.size() == 1)
                 vp = list.get(0);
             else if (list.size() > 1) {
                 ItemPicker<VisualElement> picker = new ItemPicker<VisualElement>(CircuitComponent.this, list);
                 vp = picker.select();
             }
+            return vp;
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            Vector pos = getPosVector(e);
 
             if (e.getButton() == MouseEvent.BUTTON3) {
+                VisualElement vp = getVisualElement(pos, true);
                 if (vp != null)
                     editAttributes(vp, e);
                 else {
@@ -737,6 +741,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         mouseMoveWire.activate(wire, pos);
                 }
             } else if (e.getButton() == MouseEvent.BUTTON1) {
+                VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
                     if (circuit.isPinPos(raster(pos), vp))
                         mouseWire.activate(pos);
@@ -786,7 +791,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         void moved(MouseEvent e) {
             if (delta == null) {
-                GraphicMinMax minMax = element.getMinMax();
+                GraphicMinMax minMax = element.getMinMax(false);
                 delta = element.getPos().sub(minMax.getMax());
             }
             element.setPos(raster(getPosVector(e).add(delta)));
@@ -1274,7 +1279,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         private VisualElement getInteractableElementAt(MouseEvent e) {
-            List<VisualElement> elementList = circuit.getElementListAt(getPosVector(e));
+            List<VisualElement> elementList = circuit.getElementListAt(getPosVector(e), false);
             for (VisualElement ve : elementList) {
                 if (ve.isInteractable())
                     return ve;
