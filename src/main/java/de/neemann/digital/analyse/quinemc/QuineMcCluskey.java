@@ -134,7 +134,7 @@ public class QuineMcCluskey {
                     TableRow r1 = list.get(i);
                     TableRow r2 = list.get(j);
 
-                    int index = checkCompatible(r1, r2);
+                    int index = r1.checkCompatible(r2);
                     if (index >= 0) {
                         // can optimize;
                         TableRow newRow = new TableRow(r1);
@@ -169,22 +169,6 @@ public class QuineMcCluskey {
     public boolean isFinished() {
         return rows.isEmpty();
     }
-
-    private int checkCompatible(TableRow r1, TableRow r2) {
-        if (r1.getOptimizedFlags() != r2.getOptimizedFlags())
-            return -1;
-
-        int difIndex = -1;
-        for (int i = 0; i < r1.size(); i++) {
-            if (!r1.get(i).equals(r2.get(i))) {
-                if (difIndex >= 0)
-                    return -1;
-                difIndex = i;
-            }
-        }
-        return difIndex;
-    }
-
 
     @Override
     public String toString() {

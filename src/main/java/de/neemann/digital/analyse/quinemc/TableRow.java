@@ -221,4 +221,24 @@ public class TableRow implements Comparable<TableRow> {
             return e;
     }
 
+    /**
+     * Check if rows differ in only one therm
+     *
+     * @param r2 the other row
+     * @return the matching literal or -1
+     */
+    public int checkCompatible(TableRow r2) {
+        if (getOptimizedFlags() != r2.getOptimizedFlags())
+            return -1;
+
+        int difIndex = -1;
+        for (int i = 0; i < size(); i++) {
+            if (!get(i).equals(r2.get(i))) {
+                if (difIndex >= 0)
+                    return -1;
+                difIndex = i;
+            }
+        }
+        return difIndex;
+    }
 }
