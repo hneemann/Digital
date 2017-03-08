@@ -58,7 +58,7 @@ public final class TableRow implements Comparable<TableRow> {
         this(cols);
         if (!dontCare)
             source.add(index);
-        state =  Integer.reverse(bitValue)>>>(32-cols);
+        state = Integer.reverse(bitValue) >>> (32 - cols);
     }
 
     /**
@@ -134,7 +134,10 @@ public final class TableRow implements Comparable<TableRow> {
 
     @Override
     public int compareTo(TableRow tableRow) {
-        return toString().compareTo(tableRow.toString());
+        int e = Long.compare(optimizedFlags, tableRow.optimizedFlags);
+        if (e == 0)
+            return Long.compare(state, tableRow.state);
+        return e;
     }
 
     /**
