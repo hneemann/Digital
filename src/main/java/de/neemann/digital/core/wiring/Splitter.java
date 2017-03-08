@@ -5,7 +5,6 @@ import de.neemann.digital.core.element.*;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -257,7 +256,6 @@ public class Splitter implements Element {
     }
 
     private static final class Port {
-
         private final String name;
         private final int bits;
         private final int pos;
@@ -286,19 +284,6 @@ public class Splitter implements Element {
         public String getName() {
             return name;
         }
-    }
-
-    /**
-     * combines two arrays of {@link ObservableValue}s to a single array.
-     *
-     * @param inputs  first array
-     * @param outputs second array
-     * @return the combined array
-     */
-    public static ObservableValue[] combine(ObservableValue[] inputs, ObservableValue[] outputs) {
-        ObservableValue[] com = Arrays.copyOf(inputs, inputs.length + outputs.length);
-        System.arraycopy(outputs, 0, com, inputs.length, outputs.length);
-        return com;
     }
 
 }
