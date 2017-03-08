@@ -1,12 +1,10 @@
 package de.neemann.digital.analyse.quinemc;
 
 
-import de.neemann.digital.analyse.expression.BitSetter;
 import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
@@ -19,12 +17,13 @@ import static de.neemann.digital.analyse.expression.Operation.and;
  *
  * @author hneemann
  */
-public class TableRow implements Comparable<TableRow> {
+public final class TableRow implements Comparable<TableRow> {
 
-    private final TableItem[] items;
     private final TreeSet<Integer> source;
     private boolean used = false;
     private long optimizedFlags;
+    private long state;
+    private int cols;
 
     /**
      * Copies the given table row
@@ -33,8 +32,7 @@ public class TableRow implements Comparable<TableRow> {
      */
     public TableRow(TableRow tr) {
         this(tr.size());
-        for (int i = 0; i < size(); i++)
-            items[i] = tr.get(i);
+        state = tr.state;
         optimizedFlags = tr.optimizedFlags;
     }
 
@@ -44,7 +42,7 @@ public class TableRow implements Comparable<TableRow> {
      * @param cols number of columns
      */
     public TableRow(int cols) {
-        items = new TableItem[cols];
+        this.cols = cols;
         source = new TreeSet<>();
     }
 
@@ -60,25 +58,7 @@ public class TableRow implements Comparable<TableRow> {
         this(cols);
         if (!dontCare)
             source.add(index);
-        new BitSetter(cols) {
-            @Override
-            public void setBit(int row, int bit, boolean value) {
-                if (value)
-                    items[bit] = TableItem.one;
-                else
-                    items[bit] = TableItem.zero;
-            }
-        }.fill(bitValue);
-    }
-
-    /**
-     * The item at the given index
-     *
-     * @param index the comumns index
-     * @return the value
-     */
-    public TableItem get(int index) {
-        return items[index];
+        state =  Integer.reverse(bitValue)>>>(32-cols);
     }
 
     /**
@@ -87,7 +67,7 @@ public class TableRow implements Comparable<TableRow> {
      * @param index the columns index
      */
     public void setToOptimized(int index) {
-        items[index] = TableItem.optimized;
+        state &= ~(1L << index);
         optimizedFlags |= 1L << index;
     }
 
@@ -104,18 +84,17 @@ public class TableRow implements Comparable<TableRow> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int c = 0; c < items.length; c++)
-            switch (items[c]) {
-                case zero:
-                    sb.append('0');
-                    break;
-                case one:
-                    sb.append('1');
-                    break;
-                case optimized:
-                    sb.append('-');
-                    break;
-            }
+        for (int c = 0; c < cols; c++) {
+            long mask = 1L << c;
+
+            if ((optimizedFlags & mask) != 0)
+                sb.append('-');
+            else if ((state & mask) != 0)
+                sb.append('1');
+            else
+                sb.append('0');
+        }
+
         for (Integer i : source)
             sb.append(",").append(i);
         return sb.toString();
@@ -128,13 +107,15 @@ public class TableRow implements Comparable<TableRow> {
 
         TableRow tableRow = (TableRow) o;
 
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(items, tableRow.items);
+        return optimizedFlags == tableRow.optimizedFlags && state == tableRow.state;
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(items);
+        int result = (int) (optimizedFlags ^ (optimizedFlags >>> 32));
+        result = 31 * result + (int) (state ^ (state >>> 32));
+        result = 31 * result + cols;
+        return result;
     }
 
     /**
@@ -151,17 +132,6 @@ public class TableRow implements Comparable<TableRow> {
         return used;
     }
 
-    /**
-     * @return the number of one values in this row
-     */
-    public int countOnes() {
-        int c = 0;
-        for (int i = 0; i < items.length; i++)
-            if (items[i] == TableItem.one)
-                c++;
-        return c;
-    }
-
     @Override
     public int compareTo(TableRow tableRow) {
         return toString().compareTo(tableRow.toString());
@@ -171,7 +141,7 @@ public class TableRow implements Comparable<TableRow> {
      * @return the number of columns
      */
     public int size() {
-        return items.length;
+        return cols;
     }
 
     /**
@@ -199,16 +169,14 @@ public class TableRow implements Comparable<TableRow> {
     public Expression getExpression(List<Variable> vars) {
         Expression e = null;
         for (int i = 0; i < size(); i++) {
-            Expression term = null;
-            switch (items[i]) {
-                case one:
-                    term = vars.get(i);
-                    break;
-                case zero:
+            long mask = 1L << i;
+            if ((optimizedFlags & mask) == 0) {
+                Expression term;
+                if ((state & mask) == 0)
                     term = not(vars.get(i));
-                    break;
-            }
-            if (term != null) {
+                else
+                    term = vars.get(i);
+
                 if (e == null)
                     e = term;
                 else
@@ -228,17 +196,13 @@ public class TableRow implements Comparable<TableRow> {
      * @return the matching literal or -1
      */
     public int checkCompatible(TableRow r2) {
-        if (getOptimizedFlags() != r2.getOptimizedFlags())
+        if (optimizedFlags != r2.optimizedFlags)
             return -1;
 
-        int difIndex = -1;
-        for (int i = 0; i < size(); i++) {
-            if (!get(i).equals(r2.get(i))) {
-                if (difIndex >= 0)
-                    return -1;
-                difIndex = i;
-            }
-        }
-        return difIndex;
+        long v = state ^ r2.state;
+        if (Long.bitCount(v) != 1)
+            return -1;
+
+        return Long.numberOfTrailingZeros(v);
     }
 }
