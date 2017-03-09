@@ -48,9 +48,9 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
      * @throws ExpressionException
      */
     public void testRegression() throws ExpressionException {
-        for (int n = 4; n < 8; n++) {
+        for (int n = 4; n <= 8; n++) {
             // test some tables with n variables
-            for (int i = 0; i < 200; i++) {
+            for (int i = 0; i < 100; i++) {
                 performTestCalculationRandom(n);
             }
         }

@@ -270,8 +270,6 @@ public class QuineMcCluskey {
             availPrimes.addAll(primes);
             primes.clear();
             primeSelector.select(primes, availPrimes, columns);
-            if (primes.size() < availPrimes.size())
-                System.out.println("reduced from " + availPrimes.size() + " primes to " + primes.size()+" primes.");
         }
 
         return this;
