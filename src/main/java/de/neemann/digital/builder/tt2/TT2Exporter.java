@@ -33,7 +33,15 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
      * Creates a new instance
      */
     public TT2Exporter() {
-        builder = new BuilderCollector();
+        builder = new BuilderCollector() {
+            @Override
+            public BuilderCollector addCombinatorial(String name, Expression expression) throws BuilderException {
+                if (pinMap.isSimpleAlias(name, expression))
+                    return this;
+                else
+                    return super.addCombinatorial(name, expression);
+            }
+        };
         pinMap = new PinMap();
         device = "f1502plcc44";
         projectName = "unknown";
