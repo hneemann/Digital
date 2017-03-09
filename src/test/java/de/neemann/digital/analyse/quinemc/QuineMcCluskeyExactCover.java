@@ -4,6 +4,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by hneemann on 09.03.17.
@@ -30,6 +31,16 @@ public class QuineMcCluskeyExactCover extends TestCase {
 
         QuineMcCluskey qmc = new QuineMcCluskey(vars, null, primes);
         qmc=qmc.simplifyPrimes(null);
+        final ArrayList<TableRow> pri = qmc.getPrimes();
+        assertEquals(2, pri.size());
+
+        Collection<Integer> s1 = pri.get(0).getSource();
+        assertEquals(1, s1.size());
+        assertTrue(s1.contains(3));
+
+        Collection<Integer> s2 = pri.get(1).getSource();
+        assertEquals(1, s2.size());
+        assertTrue(s2.contains(4));
     }
 
 }
