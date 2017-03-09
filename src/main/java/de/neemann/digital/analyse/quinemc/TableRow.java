@@ -5,6 +5,7 @@ import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
@@ -55,11 +56,23 @@ public final class TableRow implements Comparable<TableRow> {
      * @param dontCare true if don't care
      */
     public TableRow(int cols, int bitValue, int index, boolean dontCare) {
-        this(cols);
+        this(cols, bitValue);
         if (!dontCare)
             source.add(index);
+    }
+
+    /**
+     * Creates a new row.
+     * Used only for exact cover tests!
+     *
+     * @param cols     the number of columns
+     * @param bitValue the value representing the bits in the row
+     */
+    public TableRow(int cols, int bitValue) {
+        this(cols);
         state = Integer.reverse(bitValue) >>> (32 - cols);
     }
+
 
     /**
      * Sets the given index to optimized
@@ -161,6 +174,17 @@ public final class TableRow implements Comparable<TableRow> {
      */
     public void addSource(Collection<Integer> s) {
         source.addAll(s);
+    }
+
+    /**
+     * Adds some sources to this line
+     *
+     * @param s the sources to add
+     * @return this for chained calls
+     */
+    public TableRow addSource(Integer... s) {
+        addSource(Arrays.asList(s));
+        return this;
     }
 
     /**

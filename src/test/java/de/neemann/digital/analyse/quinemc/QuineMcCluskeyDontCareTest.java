@@ -43,12 +43,13 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
 
 
     /**
-     * for more the 3 variables we only test some random tables
+     * for more then 3 variables we only test some random tables
      *
      * @throws ExpressionException
      */
     public void testRegression() throws ExpressionException {
         for (int n = 4; n < 8; n++) {
+            // test some tables with n variables
             for (int i = 0; i < 200; i++) {
                 performTestCalculationRandom(n);
             }
@@ -63,6 +64,15 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
         performTestCalculation(n, tab);
     }
 
+    /**
+     * Generates a expression from the table and then checks if
+     * the expression reproduces the given table.
+     * Does not test if the expression is minimal.
+     *
+     * @param n   the number of variables
+     * @param tab the truth table
+     * @throws ExpressionException
+     */
     static private void performTestCalculation(int n, int[] tab) throws ExpressionException {
         ArrayList<Variable> v = vars(n);
         Expression e = new QuineMcCluskey(v)

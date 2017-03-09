@@ -32,7 +32,7 @@ public class QuineMcCluskey {
         this.primes = new ArrayList<>();
     }
 
-    private QuineMcCluskey(List<Variable> variables, TableRows rows, ArrayList<TableRow> primes) {
+    QuineMcCluskey(List<Variable> variables, TableRows rows, ArrayList<TableRow> primes) {
         this.variables = variables;
         this.rows = rows;
         this.primes = primes;
@@ -141,7 +141,7 @@ public class QuineMcCluskey {
                         newRow.setToOptimized(index);
 
                         TableRow r = newRows.findRow(newRow);
-                        if (r==null) {
+                        if (r == null) {
                             newRow.addSource(r1.getSource());
                             newRow.addSource(r2.getSource());
                             newRows.add(newRow);
@@ -225,67 +225,64 @@ public class QuineMcCluskey {
     /**
      * Simplify the primes
      *
-     * @param primeSelector the prome selector to use
-     * @return this for call chaning
+     * @param primeSelector the prime selector to use
+     * @return this for call chaining
      */
     public QuineMcCluskey simplifyPrimes(PrimeSelector primeSelector) {
-        ArrayList<TableRow> primesAvail = new ArrayList<TableRow>(primes);
-        primes.clear();
 
-        TreeSet<Integer> termIndices = new TreeSet<>();
-        for (TableRow r : primesAvail)
-            termIndices.addAll(r.getSource());
+        TreeSet<Integer> columns = new TreeSet<>();
+        for (TableRow r : primes)
+            columns.addAll(r.getSource());
 
-        // Nach primtermen suchen, welche einen index exclusiv enthalten
-        // Diese müssen in jedem Falle enthalten sein!
-        for (int pr : termIndices) {
+        // remove all primes which are easy to remove
+        while (true) {
+            // find rows to delete
+            HashSet<TableRow> rowsToDelete = new HashSet<>();
+            for (TableRow r1 : primes)
+                for (TableRow r2 : primes) {
+                    if ((r1 != r2) && !rowsToDelete.contains(r1) && r1.getSource().containsAll(r2.getSource()))
+                        rowsToDelete.add(r2);
+                }
 
-            TableRow foundPrime = null;
-            for (TableRow tr : primesAvail) {
-                if (tr.getSource().contains(pr)) {
-                    if (foundPrime == null) {
-                        foundPrime = tr;
-                    } else {
-                        foundPrime = null;
-                        break;
-                    }
+            primes.removeAll(rowsToDelete);
+
+            // find the cols to delete
+            HashSet<Integer> colsToDelete = new HashSet<>();
+            for (int c1 : columns) {
+                for (int c2 : columns) {
+                    if ((c1 != c2) && !colsToDelete.contains(c1) && smaller(c1, c2, primes))
+                        colsToDelete.add(c2);
                 }
             }
 
-            if (foundPrime != null) {
-                if (!primes.contains(foundPrime))
-                    primes.add(foundPrime);
-            }
+            if (colsToDelete.isEmpty() && rowsToDelete.isEmpty())
+                break;
+
+            for (TableRow p : primes)
+                p.getSource().removeAll(colsToDelete);
+
+            columns.removeAll(colsToDelete);
         }
-        primesAvail.removeAll(primes);
 
-        // Die, Indices die wir schon haben können raus;
-        for (TableRow pr : primes) {
-            termIndices.removeAll(pr.getSource());
-        }
-
-        if (!termIndices.isEmpty()) {
-
-            //Die noch übrigen Terme durchsuchen ob sie schon komplett dabei sind;
-            Iterator<TableRow> it = primesAvail.iterator();
-            while (it.hasNext()) {
-                TableRow tr = it.next();
-                boolean needed = false;
-                for (int i : tr.getSource()) {
-                    if (termIndices.contains(i)) {
-                        needed = true;
-                        break;
-                    }
-                }
-                if (!needed) {
-                    it.remove();
-                }
-            }
-
-            primeSelector.select(primes, primesAvail, termIndices);
+        // try to reduce the number of primes needed
+        if (primeSelector != null && !columns.isEmpty()) {
+            ArrayList<TableRow> availPrimes = new ArrayList<>(primes.size());
+            availPrimes.addAll(primes);
+            primes.clear();
+            primeSelector.select(primes, availPrimes, columns);
+            if (primes.size() < availPrimes.size())
+                System.out.println("reduced from " + availPrimes.size() + " primes to " + primes.size()+" primes.");
         }
 
         return this;
     }
 
+    private boolean smaller(int c1, int c2, ArrayList<TableRow> primes) {
+        for (TableRow r : primes) {
+            Collection<Integer> s = r.getSource();
+            if (s.contains(c1) && !s.contains(c2))
+                return false;
+        }
+        return true;
+    }
 }

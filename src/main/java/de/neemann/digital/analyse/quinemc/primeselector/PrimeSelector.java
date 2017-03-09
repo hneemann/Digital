@@ -17,7 +17,7 @@ public interface PrimeSelector {
      * Selects the primes to use
      *
      * @param primes      the list to add the primes to
-     * @param primesAvail the available promes
+     * @param primesAvail the available primes
      * @param termIndices the indices
      */
     void select(ArrayList<TableRow> primes, ArrayList<TableRow> primesAvail, TreeSet<Integer> termIndices);

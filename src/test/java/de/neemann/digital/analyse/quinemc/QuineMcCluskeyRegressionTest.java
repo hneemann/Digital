@@ -59,7 +59,7 @@ public class QuineMcCluskeyRegressionTest extends TestCase {
     }
 
 
-    public static void testRegression(int n, int j) throws Exception, FormatterException {
+    public static void testRegression(int n, int j) throws Exception {
         int size = 1 << n;
         boolean[] table = new boolean[size];
 

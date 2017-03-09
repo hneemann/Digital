@@ -50,7 +50,7 @@ public class QuineMcCluskeyTest extends TestCase {
         Variable c = new Variable("C");
         Variable d = new Variable("D");
 
-        Expression e = or(and(a, and(c, d)), or(and(not(c), not(d)), and(not(b), c)));
+        Expression e = or(and(a, c, d), and(not(c), not(d)), and(not(b), c));
         QuineMcCluskey t = new QuineMcCluskey(e).simplifyStep();
         assertFalse(t.isFinished());
 
