@@ -43,7 +43,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             }
         };
         pinMap = new PinMap();
-        device = "f1502plcc44";
+        device = "f1502ispplcc44";
         projectName = "unknown";
         clockPin = 43;
     }
@@ -148,7 +148,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             clkIn.set(clk, 1);
         }
 
-        ArrayList<Integer> clkInList = new ArrayList<Integer>();
+        ArrayList<Integer> clkInList = new ArrayList<>();
         outputs = new ArrayList<>();
         outIndexMap = new HashMap<>();
         i = 0;
