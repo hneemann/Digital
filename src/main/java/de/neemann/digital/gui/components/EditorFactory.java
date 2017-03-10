@@ -23,6 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public final class EditorFactory {
     private EditorFactory() {
         add(String.class, StringEditor.class);
         add(Integer.class, IntegerEditor.class);
+        add(File.class, FileEditor.class);
         add(Color.class, ColorEditor.class);
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
@@ -248,6 +250,37 @@ public final class EditorFactory {
         @Override
         public Color getValue() {
             return color;
+        }
+    }
+
+    private final static class FileEditor extends LabelEditor<File> {
+
+        private final JPanel panel;
+        private final JTextField textField;
+
+        public FileEditor(File value, Key<File> key) {
+            panel = new JPanel(new BorderLayout());
+            textField = new JTextField(value.getPath(), 20);
+            JButton button = new JButton(new AbstractAction("...") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser fc = new JFileChooser(FileEditor.this.getValue());
+                    if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION)
+                        textField.setText(fc.getSelectedFile().getPath());
+                }
+            });
+            panel.add(textField, BorderLayout.CENTER);
+            panel.add(button, BorderLayout.EAST);
+        }
+
+        @Override
+        public JComponent getComponent(ElementAttributes attr) {
+            return panel;
+        }
+
+        @Override
+        public File getValue() {
+            return new File(textField.getText());
         }
     }
 

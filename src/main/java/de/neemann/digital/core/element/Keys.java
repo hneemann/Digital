@@ -6,6 +6,7 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.gui.language.Language;
 
 import java.awt.*;
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -294,5 +295,11 @@ public final class Keys {
      */
     public static final Key<Boolean> LED_PERSISTENCE
             = new Key<>("ledPersistence", false);
+
+    /**
+     * Fitter for the atf1502
+     */
+    public static final Key<File> SETTINGS_ATF1502_FITTER
+            = new Key<>("atf1502Fitter", new File("fit1502.exe"));
 
 }

@@ -16,6 +16,7 @@ import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
 import de.neemann.digital.builder.ATF1502.ATF1502CuplExporter;
 import de.neemann.digital.builder.ATF1502.ATF1502TT2Exporter;
+import de.neemann.digital.builder.ATF1502.CreateCHN;
 import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
@@ -23,6 +24,7 @@ import de.neemann.digital.builder.Gal22v10.Gal22v10CuplExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
+import de.neemann.digital.builder.tt2.StartFitter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
@@ -47,7 +49,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -402,7 +403,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
-                createHardware(jedecExporter, filename, "jed");
+                createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed");
                 new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
             }
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
@@ -419,7 +420,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Gal22v10JEDECExporter jedecExporter = new Gal22v10JEDECExporter();
-                createHardware(jedecExporter, filename, "jed");
+                createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed");
                 new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
             }
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
@@ -436,7 +437,10 @@ public class TableDialog extends JDialog {
         atf1502.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                createHardware(new ATF1502TT2Exporter(), filename, "tt2");
+                createHardware(
+                        new ExpressionToFileExporter(new ATF1502TT2Exporter())
+                                .addProcessingStep(new StartFitter(TableDialog.this))
+                                .addProcessingStep(new CreateCHN()), filename, "tt2");
             }
         }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());
         hardware.add(atf1502);
@@ -447,7 +451,7 @@ public class TableDialog extends JDialog {
         return createMenu;
     }
 
-    private void createHardware(ExpressionExporter expressionExporter, File filename, String suffix) {
+    private void createHardware(ExpressionToFileExporter expressionExporter, File filename, String suffix) {
         if (filename == null)
             filename = new File("circuit." + suffix);
         else
@@ -458,11 +462,9 @@ public class TableDialog extends JDialog {
         fileChooser.setSelectedFile(filename);
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                try (OutputStream out = new FileOutputStream(Main.checkSuffix(fileChooser.getSelectedFile(), suffix))) {
-                    expressionExporter.getPinMapping().addAll(pinMap);
-                    new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
-                    expressionExporter.writeTo(out);
-                }
+                expressionExporter.getPinMapping().addAll(pinMap);
+                new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
+                expressionExporter.export(Main.checkSuffix(fileChooser.getSelectedFile(), suffix));
             } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
                 new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
             }

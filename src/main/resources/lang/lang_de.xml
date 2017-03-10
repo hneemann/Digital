@@ -524,6 +524,8 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="key_ledPersistence_tt">Die Schaltfrequenz in der Simulation kann nicht so hoch werden,
         dass das menschliche Auge kein Flimmern mehr wahrnimmt. Um dennoch das Flackern zu unterdrücken, kann
         bei den LEDs mit dieser Option ein "nachleuchten" eingeschaltet werden.</string>
+    <string name="key_atf1502Fitter">ATF1502 Fitter</string>
+    <string name="key_atf1502Fitter_tt">Pfad zum Fitter für den ATF1502. Geben Sie hier den vollen Pfad zur Datei fit1502.exe an. Diese Datei wird von ATMEL zu Verfügung gestellt.</string>
 
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
