@@ -27,7 +27,7 @@ public class TT2ExporterTest extends TestCase {
                 "#$ TITLE  unknown\r\n" +
                 "#$ MODULE  unknown\r\n" +
                 "#$ JEDECFILE  unknown\r\n" +
-                "#$ DEVICE  f1502plcc44\r\n" +
+                "#$ DEVICE  f1502ispplcc44\r\n" +
                 "#$ PINS 6 A+:4 A1+:5 B+:6 B1+:8 Y+:20 X+:21\r\n" +
                 ".i 4\r\n" +
                 ".o 2\r\n" +
@@ -54,7 +54,7 @@ public class TT2ExporterTest extends TestCase {
                 "#$ TITLE  unknown\r\n" +
                 "#$ MODULE  unknown\r\n" +
                 "#$ JEDECFILE  unknown\r\n" +
-                "#$ DEVICE  f1502plcc44\r\n" +
+                "#$ DEVICE  f1502ispplcc44\r\n" +
                 "#$ PINS 3 A+:4 CLK+:43 Yn+:5\r\n" +
                 ".i 3\r\n" +
                 ".o 3\r\n" +
@@ -82,7 +82,7 @@ public class TT2ExporterTest extends TestCase {
                 "#$ TITLE  unknown\r\n" +
                 "#$ MODULE  unknown\r\n" +
                 "#$ JEDECFILE  unknown\r\n" +
-                "#$ DEVICE  f1502plcc44\r\n" +
+                "#$ DEVICE  f1502ispplcc44\r\n" +
                 "#$ PINS 5 A+:4 B+:5 CLK+:43 Yn+:6 Xn+:8\r\n" +
                 ".i 5\r\n" +
                 ".o 6\r\n" +

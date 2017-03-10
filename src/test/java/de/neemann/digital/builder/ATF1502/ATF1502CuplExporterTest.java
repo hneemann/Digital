@@ -42,7 +42,7 @@ public class ATF1502CuplExporterTest extends TestCase {
                 "Company  unknown ;\r\n" +
                 "Assembly None ;\r\n" +
                 "Location unknown ;\r\n" +
-                "Device   f1502plcc44 ;\r\n" +
+                "Device   f1502ispplcc44 ;\r\n" +
                 "\r\n" +
                 "ar = 'b'0 ;\r\n" +
                 "\r\n" +
