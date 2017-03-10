@@ -6,6 +6,8 @@ import de.neemann.digital.gui.Main;
 import java.io.*;
 
 /**
+ * CreateCHN creates the chn file which can be opened by ATMISP to flash the JEDEC to the ATM1502.
+ * So it is not necessary to setup a ATMISP project manually.
  * Created by hneemann on 10.03.17.
  */
 public class CreateCHN implements ExpressionToFileExporter.PostProcess {
@@ -20,7 +22,8 @@ public class CreateCHN implements ExpressionToFileExporter.PostProcess {
                     + "ATF1502AS\r\n"
                     + "10\r\n"
                     + "1\r\n");
-            chn.write(chnFile.getPath());
+            chn.write(file.getPath());
+            chn.write("\r\n");
         }
 
         return chnFile;
