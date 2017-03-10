@@ -1,6 +1,7 @@
 package de.neemann.digital.builder;
 
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
+import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -80,7 +81,7 @@ public class ExpressionToFileExporter {
             try {
                 file = p.execute(file);
             } catch (IOException e) {
-                throw new IOException("post process error in " + p.toString(), e);
+                throw new IOException(Lang.get("err_postProcessErrorIn_N0", p.toString()), e);
             }
     }
 

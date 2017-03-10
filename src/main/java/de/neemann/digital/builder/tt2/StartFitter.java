@@ -4,6 +4,7 @@ import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.Settings;
+import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.io.File;
@@ -21,7 +22,7 @@ public class StartFitter implements ExpressionToFileExporter.PostProcess {
     /**
      * Creates a new instance
      *
-     * @param parent     the parent dialog
+     * @param parent the parent dialog
      */
     public StartFitter(JDialog parent) {
         this.parent = parent;
@@ -42,7 +43,7 @@ public class StartFitter implements ExpressionToFileExporter.PostProcess {
 
         String message = execute.start();
 
-        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(parent, message));
+        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(parent, message, Lang.get("msg_fitterResult"), JOptionPane.INFORMATION_MESSAGE));
 
         return Main.checkSuffix(file, "jed");
     }
@@ -54,6 +55,6 @@ public class StartFitter implements ExpressionToFileExporter.PostProcess {
 
     @Override
     public String toString() {
-        return "External fitter to create a JEDEC file";
+        return Lang.get("msg_startExternalFitter");
     }
 }

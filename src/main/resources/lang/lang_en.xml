@@ -414,10 +414,11 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_openingDocumentation">Could not open the browser.</string>
     <string name="err_splitterDoesNotSupportHighZInputs">The splitter does not support high z inputs! Use a pull up or pull down resisitor.</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">A splitter which allows high z inputs can only have one input!</string>
-    <string name="err_couldNotCreateFolder_N0">Could not create folder '{0}'!</string>
+    <string name="err_couldNotCreateFolder_N0">Could not create folder &quot;{0}&quot;!</string>
     <string name="err_switchHasNoNet">It is not allowed to connect only inputs to a switch.</string>
     <string name="err_file_N0_ExistsTwiceBelow_N1">The file {0} exists multiple times below {1}.</string>
     <string name="err_couldNotFindIncludedFile_N0">Could not find the file {0}.</string>
+    <string name="err_postProcessErrorIn_N0">Error during execution of &quot;{0}&quot;.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -688,6 +689,9 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_clipboardContainsNoImportableData">The clipboard contains no importable data!</string>
     <string name="msg_selectAnEmptyFolder">Select an empty folder!</string>
     <string name="msg_errorWhileExecutingTests_N0">During the execution of the tests {0} an error has occurred!</string>
+    <string name="msg_fitterResult">Message from the external fitter</string>
+    <string name="msg_startExternalFitter">Execution of external fitter</string>
+
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

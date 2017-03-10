@@ -428,10 +428,11 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
     <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge! Verwenden Sie einen PullUp- oder PullDown-Widerstand</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
-    <string name="err_couldNotCreateFolder_N0">Konnte den Order '{0}' nicht erzeugen!</string>
+    <string name="err_couldNotCreateFolder_N0">Konnte den Order &quot;{0}&quot; nicht erzeugen!</string>
     <string name="err_switchHasNoNet">Ein Schalter kann nicht nur mit Eingängen verbunden werden.</string>
     <string name="err_file_N0_ExistsTwiceBelow_N1">Die Datei {0} existiert mehrfach unter {1}</string>
     <string name="err_couldNotFindIncludedFile_N0">Die Datei {0} konnte nicht gefunden werden.</string>
+    <string name="err_postProcessErrorIn_N0">Fehler im Bearbeitungsschritt &quot;{0}&quot;.</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -702,6 +703,9 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_clipboardContainsNoImportableData">In der Zwischenablage befinden sich keine importierbaren Daten!</string>
     <string name="msg_selectAnEmptyFolder">Wählen Sie einen leeren Ordner aus!</string>
     <string name="msg_errorWhileExecutingTests_N0">Während der Ausführung der Tests {0} ist ein Fehler aufgetreten!</string>
+    <string name="msg_fitterResult">Meldung vom externen Fitter</string>
+    <string name="msg_startExternalFitter">Starten des externen Fitters</string>
+
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
