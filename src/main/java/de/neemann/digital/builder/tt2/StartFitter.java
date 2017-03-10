@@ -31,21 +31,25 @@ public class StartFitter implements ExpressionToFileExporter.PostProcess {
 
     @Override
     public File execute(File file) throws IOException {
-        ArrayList<String> args = new ArrayList<>();
+        try {
+            ArrayList<String> args = new ArrayList<>();
 
-        if (isLinux())
-            args.add("wine");
-        args.add(fitterExe.toString());
-        args.add(file.getName());
+            if (isLinux())
+                args.add("wine");
+            args.add(fitterExe.toString());
+            args.add(file.getName());
 
-        OSExecute execute = new OSExecute(args);
-        execute.setWorkingDir(file.getParentFile());
+            OSExecute execute = new OSExecute(args);
+            execute.setWorkingDir(file.getParentFile());
 
-        String message = execute.start();
+            String message = execute.start();
 
-        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(parent, message, Lang.get("msg_fitterResult"), JOptionPane.INFORMATION_MESSAGE));
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(parent, message, Lang.get("msg_fitterResult"), JOptionPane.INFORMATION_MESSAGE));
 
-        return Main.checkSuffix(file, "jed");
+            return Main.checkSuffix(file, "jed");
+        } catch (IOException e) {
+            throw new IOException(Lang.get("err_errorRunningFitter"), e);
+        }
     }
 
     private boolean isLinux() {

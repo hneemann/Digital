@@ -42,6 +42,7 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.gui.*;
+import de.neemann.gui.language.Language;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -445,10 +446,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction editSettings = new ToolTipAction(Lang.get("menu_editSettings")) {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Language oldLang = Settings.getInstance().get(Keys.SETTINGS_LANGUAGE);
                 if (new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog()) {
-                    Lang.setLanguage(Settings.getInstance().getAttributes().get(Keys.SETTINGS_LANGUAGE));
                     FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
-                    JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
+                    final Language newLang = Settings.getInstance().getAttributes().get(Keys.SETTINGS_LANGUAGE);
+                    if (!newLang.equals(oldLang)) {
+                        Lang.setLanguage(newLang);
+                        JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
+                    }
                 }
             }
         }.setToolTip(Lang.get("menu_editSettings_tt"));

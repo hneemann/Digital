@@ -1,5 +1,7 @@
 package de.neemann.digital.builder.tt2;
 
+import de.neemann.digital.lang.Lang;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -73,11 +75,11 @@ public class OSExecute {
         if (p.isAlive()) {
             p.destroy();
             sr.interrupt();
-            throw new IOException("Process does not terminate!");
+            throw new IOException(Lang.get("err_processDoesNotTerminate_N", procesBuilder.command()));
         }
 
         if (p.exitValue() != 0)
-            throw new IOException("got non zero exit value " + p.exitValue());
+            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", p.exitValue(), "\n"+sr.toString()));
 
         try {
             sr.join();
