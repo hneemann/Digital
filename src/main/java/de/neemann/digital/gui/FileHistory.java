@@ -34,8 +34,11 @@ public final class FileHistory {
         files = new ArrayList<File>();
         for (int i = 0; i < n; i++) {
             String pathname = PREFS.get(FILE_NAME + i, null);
-            if (pathname != null && pathname.length() > 0)
-                files.add(new File(pathname));
+            if (pathname != null && pathname.length() > 0) {
+                final File file = new File(pathname);
+                if (file.exists())
+                    files.add(file);
+            }
         }
         if (n != files.size())
             saveEntries();

@@ -11,7 +11,7 @@ import java.util.*;
 import static de.neemann.digital.analyse.expression.Operation.or;
 
 /**
- * The algorithm from Quine and McCluskey
+ * The algorithm of Quine and McCluskey
  *
  * @author hneemann
  */
