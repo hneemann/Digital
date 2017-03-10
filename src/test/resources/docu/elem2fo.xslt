@@ -154,6 +154,12 @@
 		</fo:inline>
 	</xsl:template>
 
+	<xsl:template match="a">
+		<fo:basic-link external-destination="{@href}" show-destination="new">
+			<xsl:apply-templates/>
+		</fo:basic-link>
+	</xsl:template>
+
 	<xsl:template match="arrow">
 		<fo:inline padding-left="2pt" font-family="ZapfDingbats">&#x2192;</fo:inline>
 	</xsl:template>

@@ -62,6 +62,37 @@
             mitzunehmen - verschoben.
         </par>
     </chapter>
+    <chapter name="Dateinamen">
+        <par>
+            Um eine Schaltung in mehrere Teile zu zerlegen, die auch unabhängig z.B. in einem VCS abgelegt und verfolgt
+            werden können, wird jede eingebundenen Schaltung in einer eigenen Datei gespeichert. Das hat zu Folge, dass in einer
+            Schaltung nur die Dateinamen der Teilschaltungen gespeichert sind, und diese Dateien zur Laufzeit im Dateisystem
+            gefunden werden müssen. Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
+            auf eine komplexe Verwaltung von Importpfaden usw. zu verzichten, ist eine etwas ungewöhnliche Import-Strategie
+            implementiert.
+        </par>
+        <par>
+            In einer Schaltung sind die absoluten Pfade der eingebetteten Schaltungen gespeichert. Wenn diese Datei eingelesen
+            werden soll, wird jedoch zunächst geprüft, ob sich eine Datei des gleichen Namens im Ordner der einbindenden Datei befindet.
+            Ist das der Fall, wird diese Datei verwendet.
+        </par>
+        <par>
+            Ist das nicht der Fall, werden alle Unterordner nach einer Datei des entsprechenden Namens durchsucht. Wird
+            eine passende Datei gefunden, wird diese importiert. Dabei kommt es nur auf den Dateinamen der einzulesenden
+            Datei an, nicht auf dessen Pfad. Entsprechend wird eine Fehlermeldung erzeugt, wenn sich in verschiedenen
+            Unterordneren mehrere Dateien gleichen Namens befinden, da dann Mehrdeutigkeiten entstehen.
+        </par>
+        <par>
+            Erst wenn bisher keine Datei gefunden wurde, wird der komplette absolute Pfad verwendet und es wird versucht,
+            diese Datei zu importieren. Gelingt auch das nicht, wird eine Fehlermeldung erzeugt.
+        </par>
+        <par>
+            Eine geeignete Projektstruktur sieht daher wie folgt aus: In einem eigenen Ordner befindet sich die Wurzelschaltung.
+            Alle importierten Schaltungen sollte sin im selben Ordner oder in Unterordnern befinden. Alle Schaltungen sollten
+            unterschiedliche Namen haben, es sollte also nicht vorkommen, dass sich in verschiedenen Ordnern Schaltungen
+            gleichen Namens befinden.
+        </par>
+    </chapter>
     <chapter name="Schaltungsanalyse und Synthese">
         <par>
             Eine vorliegende Schaltung kann über den Menüeintrag <e>Analyse</e> analysiert werden. Bei rein
@@ -99,35 +130,42 @@
             erzeugt wird.
         </par>
     </chapter>
-    <chapter name="Dateinamen">
+    <chapter name="Der ATF1502AS">
         <par>
-            Um eine Schaltung in mehrere Teile zu zerlegen, die auch unabhängig z.B. in einem VCS abgelegt und verfolgt
-            werden können, wird jede eingebundenen Schaltung in einer eigenen Datei gespeichert. Das hat zu Folge, dass in einer
-            Schaltung nur die Dateinamen der Teilschaltungen gespeichert sind, und diese Dateien zur Laufzeit im Dateisystem
-            gefunden werden müssen. Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
-            auf eine komplexe Verwaltung von Importpfaden usw. zu verzichten, ist eine etwas ungewöhnliche Import-Strategie
-            implementiert.
+            Der Baustein <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS"><e>ATF1502AS</e></a>
+            ist ein einfaches CPLD mit 32 Makrozellen. Er ist baugleich mit dem CoolRunner I von
+            Xilinx. Er ist in einem PLCC Gehäuse verfügbar, was ihn für Laborversuche gut geeignet erscheinen lässt:
+            Sollte ein IC bei Versuchen zerstört werden, kann es einfach ersetzt werden.
+            Zudem ist mit dem <a href="http://www.atmel.com/tools/atdh1150usb.aspx"><e>ATDH1150USB</e></a>
+            ein einfach zu benutzender, günstiger Programmer erhältlich, mit dem der Baustein in seiner Schaltung
+            (In System) programmiert werden kann.
+            Für die Programmierung ist die Software <a href="http://www.atmel.com/tools/ATMISP.aspx"><e>ATMISP</e></a>
+            erforderlich, welche auf der ATMEL/Microchip Webseite erhältlich ist.
         </par>
         <par>
-            In einer Schaltung sind die absoluten Pfade der eingebetteten Schaltungen gespeichert. Wenn diese Datei eingelesen
-            werden soll, wird jedoch zunächst geprüft, ob sich eine Datei des gleichen Namens im Ordner der einbindenden Datei befindet.
-            Ist das der Fall, wird diese Datei verwendet.
+            Leider sind die Details der Fuse-Map nicht öffentlich zugänglich, so dass kein geeigneter Fitter für
+            diesen Baustein in Digital integriert werden kann, wie das bei den <e>GAL16v8</e> und <e>GAL22v10</e>
+            Bausteinen möglich ist.
         </par>
         <par>
-            Ist das nicht der Fall, werden alle Unterordner nach einer Datei des entsprechenden Namens durchsucht. Wird
-            eine passende Datei gefunden, wird diese importiert. Dabei kommt es nur auf den Dateinamen der einzulesenden
-            Datei an, nicht auf dessen Pfad. Entsprechend wird eine Fehlermeldung erzeugt, wenn sich in verschiedenen
-            Unterordneren mehrere Dateien gleichen Namens befinden, da dann Mehrdeutigkeiten entstehen.
+            Daher muss auf den von ATMEL bereitgestellten Fitter <e>fit1502.exe</e> zurückgegriffen werden.
+            Dieses Programm erzeugt aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei die dann programmiert
+            werden kann.
+            Digital startet den Fitter automatisch wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
+            Digital-Einstellungen der Pfad zu <e>fit1502.exe</e> angegeben werden. Die erzeugte Datei kann dann direkt
+            mit <a href="http://www.atmel.com/tools/ATMISP.aspx"><e>ATMISP</e></a> geöffnet und gebrannt werden.
         </par>
         <par>
-            Erst wenn bisher keine Datei gefunden wurde, wird der komplette absolute Pfad verwendet und es wird versucht,
-            diese Datei zu importieren. Gelingt auch das nicht, wird eine Fehlermeldung erzeugt.
-        </par>
-        <par>
-            Eine geeignete Projektstruktur sieht daher wie folgt aus: In einem eigenen Ordner befindet sich die Wurzelschaltung.
-            Alle importierten Schaltungen sollte sin im selben Ordner oder in Unterordnern befinden. Alle Schaltungen sollten
-            unterschiedliche Namen haben, es sollte also nicht vorkommen, dass sich in verschiedenen Ordnern Schaltungen
-            gleichen Namens befinden.
+            Aus rechtlichen Gründen kann der Fitter <e>fit1502.exe</e> nicht mit Digital ausgeliefert werden.
+            Er findet sich jedoch nach der Installation von
+            <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a>
+            im Ordner <e>WinCupl\Fitters</e>.
+            <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a> wiederum ist auf der ATMEL/Microchip
+            Webseite verfügbar.
+            Aus der
+            <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a>-Installation wird nur die Datei
+            <e>fit1502.exe</e> benötigt und diese kann in jedem Ordner abgelegt werden.
+            Unter Linux lässt sich <e>fit1502.exe</e> ebenfalls von Digital starten, wenn <e>wine</e> installiert ist.
         </par>
     </chapter>
     <chapter name="Häufig gestellte Fragen">
