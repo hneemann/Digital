@@ -31,13 +31,15 @@ public class ExpressionListenerStore implements ExpressionListener {
     @Override
     public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
         results.add(new Result(name, expression));
-        parent.resultFound(name, expression);
+        if (parent != null)
+            parent.resultFound(name, expression);
     }
 
     @Override
     public void close() throws FormatterException, ExpressionException {
         closed = true;
-        parent.close();
+        if (parent != null)
+            parent.close();
     }
 
     /**
