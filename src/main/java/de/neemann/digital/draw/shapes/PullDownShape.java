@@ -19,7 +19,14 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * Created by hneemann on 01.11.16.
  */
 public class PullDownShape implements Shape {
-    private static final int SIZE4 = SIZE / 4;
+    /**
+     * half the width of the resistor
+     */
+    public static final int WIDTH2 = SIZE2 - 3;
+    /**
+     * height of the resistor
+     */
+    public static final int HEIGHT = SIZE + SIZE / 3;
 
 
     private final PinDescriptions outputs;
@@ -49,14 +56,14 @@ public class PullDownShape implements Shape {
     public void drawTo(Graphic graphic, boolean highLight) {
         graphic.drawPolygon(
                 new Polygon(true)
-                        .add(-SIZE4, 1)
-                        .add(-SIZE4, SIZE)
-                        .add(SIZE4, SIZE)
-                        .add(SIZE4, 1),
+                        .add(-WIDTH2, 1)
+                        .add(-WIDTH2, HEIGHT)
+                        .add(WIDTH2, HEIGHT)
+                        .add(WIDTH2, 1),
                 Style.NORMAL
         );
         int o = 8;
-        graphic.drawLine(new Vector(0, SIZE), new Vector(0, SIZE + SIZE2 + o), Style.NORMAL);
+        graphic.drawLine(new Vector(0, HEIGHT), new Vector(0, SIZE + SIZE2 + o), Style.NORMAL);
         graphic.drawLine(new Vector(-SIZE2, SIZE + SIZE2 + o), new Vector(SIZE2, SIZE + SIZE2 + o), Style.THICK);
     }
 

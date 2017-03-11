@@ -13,13 +13,14 @@ import de.neemann.digital.draw.graphics.Vector;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.draw.shapes.PullDownShape.HEIGHT;
+import static de.neemann.digital.draw.shapes.PullDownShape.WIDTH2;
 
 /**
  * A pull up resistor shape.
  * Created by hneemann on 01.11.16.
  */
 public class PullUpShape implements Shape {
-    private static final int SIZE4 = SIZE / 4;
 
     private final PinDescriptions outputs;
 
@@ -48,14 +49,14 @@ public class PullUpShape implements Shape {
     public void drawTo(Graphic graphic, boolean highLight) {
         graphic.drawPolygon(
                 new Polygon(true)
-                        .add(-SIZE4, -1)
-                        .add(-SIZE4, -SIZE)
-                        .add(SIZE4, -SIZE)
-                        .add(SIZE4, -1),
+                        .add(-WIDTH2, -1)
+                        .add(-WIDTH2, -HEIGHT)
+                        .add(WIDTH2, -HEIGHT)
+                        .add(WIDTH2, -1),
                 Style.NORMAL
         );
         int o = 4;
-        graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -SIZE - SIZE - o), Style.NORMAL);
+        graphic.drawLine(new Vector(0, -HEIGHT), new Vector(0, -SIZE - SIZE - o), Style.NORMAL);
         graphic.drawPolygon(
                 new Polygon(false)
                         .add(-SIZE2, -SIZE - SIZE2 - o)
