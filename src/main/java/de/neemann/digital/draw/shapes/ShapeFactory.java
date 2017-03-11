@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
+import de.neemann.digital.core.memory.RAMSinglePortSel;
 import de.neemann.digital.core.pld.*;
 import de.neemann.digital.core.switching.NFET;
 import de.neemann.digital.core.switching.PFET;
@@ -77,6 +78,7 @@ public final class ShapeFactory {
 
         map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr)));
         map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr)));
+        map.put(RAMSinglePortSel.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePortSel.DESCRIPTION.getInputDescription(attr), RAMSinglePortSel.DESCRIPTION.getOutputDescriptions(attr)));
 
         map.put(In.DESCRIPTION.getName(), InputShape::new);
         map.put(Reset.DESCRIPTION.getName(), ResetShape::new);

@@ -204,7 +204,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_RAMDualPort">RAMDualPort</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
-    <string name="elem_RAMDualPort_pin_c">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_RAMDualPort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
     <string name="elem_RAMDualPort_pin_D_in">Die Daten die gespeichert werden sollen</string>
     <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
@@ -214,11 +214,22 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_RAMSinglePort">RAMSinglePort</string>
     <string name="elem_RAMSinglePort_short">RAM</string>
     <string name="elem_RAMSinglePort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
-    <string name="elem_RAMSinglePort_pin_c">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_RAMSinglePort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
     <string name="elem_RAMSinglePort_pin_D">Der bidirektionale Datenanschluß.</string>
     <string name="elem_RAMSinglePort_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
     <string name="elem_RAMSinglePort_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
     <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.</string>
+
+    <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
+    <string name="elem_RAMSinglePortSel_short">RAM</string>
+    <string name="elem_RAMSinglePortSel_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
+    <string name="elem_RAMSinglePortSel_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_RAMSinglePortSel_pin_D">Der bidirektionale Datenanschluß.</string>
+    <string name="elem_RAMSinglePortSel_pin_sel">Ist dieser Eingang 1 ist der Baustein aktiv.</string>
+    <string name="elem_RAMSinglePortSel_pin_W/¬R">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert, ist der Eingang 0, wird das gespeicherte Datenwort ausgegeben.</string>
+    <string name="elem_RAMSinglePortSel_tt">Ein RAM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
+        Es gibt einen sel-Eingang. Mit diesem können mehrere solcher Bausteine mit einem Adressdecoder zu einem gtößeren RAM zusammengeschaltet werden.</string>
+
     <string name="elem_GraphicCard">Grafik-RAM</string>
     <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
 RAM-Baustein mit dem Unterschied, dass der RAM-Inhalt als Grafik angezeigt wird. Jede Speicherstelle definiert die Farbe

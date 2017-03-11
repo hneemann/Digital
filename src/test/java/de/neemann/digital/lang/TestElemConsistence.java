@@ -28,7 +28,7 @@ public class TestElemConsistence extends TestCase {
             ElementTypeDescription etd = e.getDescription();
 
             String key = "elem_" + etd.getName();
-            assertNotNull(Lang.getNull(key));
+            assertNotNull("Key "+key+" not found", Lang.getNull(key));
 
             if (Lang.getNull(key + "_tt") == null)
                 missing(key + "_tt");

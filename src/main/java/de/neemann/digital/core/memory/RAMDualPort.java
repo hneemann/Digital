@@ -22,7 +22,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             input("A"),
             input("D_in"),
             input("str"),
-            input("c"),
+            input("C"),
             input("ld"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)

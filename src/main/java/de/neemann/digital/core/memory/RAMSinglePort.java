@@ -23,7 +23,7 @@ public class RAMSinglePort extends RAMDualPort {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePort.class,
             input("A"),
             input("str"),
-            input("c"),
+            input("C"),
             input("ld"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)

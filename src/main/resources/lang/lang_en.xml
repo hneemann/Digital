@@ -200,20 +200,32 @@
     <string name="elem_RAMDualPort">RAMDualPort</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_pin_A">The address to read and write</string>
-    <string name="elem_RAMDualPort_pin_c">Clock</string>
+    <string name="elem_RAMDualPort_pin_C">Clock</string>
     <string name="elem_RAMDualPort_pin_D_in">The data to be stored in the RAM</string>
     <string name="elem_RAMDualPort_pin_D">The data output pin</string>
     <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMDualPort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
     <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
+
     <string name="elem_RAMSinglePort">RAMSinglePort</string>
     <string name="elem_RAMSinglePort_short">RAM</string>
     <string name="elem_RAMSinglePort_pin_A">The address to read and write.</string>
-    <string name="elem_RAMSinglePort_pin_c">Clock</string>
+    <string name="elem_RAMSinglePort_pin_C">Clock</string>
     <string name="elem_RAMSinglePort_pin_D">The bidirectional data connection.</string>
     <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
     <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional connection for reading and writing the data.</string>
+
+    <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
+    <string name="elem_RAMSinglePortSel_short">RAM</string>
+    <string name="elem_RAMSinglePortSel_pin_A">The address to read and write.</string>
+    <string name="elem_RAMSinglePortSel_pin_C">Clock</string>
+    <string name="elem_RAMSinglePortSel_pin_D">The bidirectional data connection.</string>
+    <string name="elem_RAMSinglePortSel_pin_sel">If this input is high this RAM is enabled. Otherwise the output is always in high Z state.</string>
+    <string name="elem_RAMSinglePortSel_pin_W/¬R">If this input is high and if the clock becomes high, the the data is stored. If this input is low the stored value is output.</string>
+    <string name="elem_RAMSinglePortSel_tt">A RAM module with a bidirectional connection for reading and writing the data.
+        The sel input allows to build a larger RAM from some smaller RAMs and a address decoder.</string>
+
     <string name="elem_GraphicCard">Graphic RAM</string>
     <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element works similar to a RAM. In addition it
     shows its content on a grahic screen. Every pixel is represented by a memory address. There are to screens supported

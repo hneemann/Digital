@@ -96,6 +96,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         add(ROM.DESCRIPTION, menu);
         add(RAMDualPort.DESCRIPTION, menu);
         add(RAMSinglePort.DESCRIPTION, menu);
+        add(RAMSinglePortSel.DESCRIPTION, menu);
         add(GraphicCard.DESCRIPTION, menu);
         add(Counter.DESCRIPTION, menu);
 
