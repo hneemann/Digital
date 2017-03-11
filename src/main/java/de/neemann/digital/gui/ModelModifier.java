@@ -1,7 +1,6 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.NodeException;
 
 /**
