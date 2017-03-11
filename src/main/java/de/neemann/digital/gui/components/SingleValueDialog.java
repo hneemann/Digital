@@ -106,6 +106,7 @@ public final class SingleValueDialog extends JDialog {
         setLocation(pos.x, pos.y);
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
+        setAlwaysOnTop(true);
     }
 
     private JPanel createCheckBoxPanel(int bits, long value) {

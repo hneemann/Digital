@@ -98,6 +98,7 @@ public class AttributeDialog extends JDialog {
         getRootPane().registerKeyboardAction(cancel,
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
+        setAlwaysOnTop(true);
     }
 
     /**
