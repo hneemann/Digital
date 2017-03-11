@@ -208,17 +208,21 @@
   	</xsl:template>
 
 	<xsl:template match="inputs">
-		<fo:block margin-top="2mm" margin-bottom="2mm">
-			<xsl:value-of select="@name"/>
+		<fo:block keep-together.within-page="always">
+			<fo:block margin-top="2mm" margin-bottom="2mm">
+				<xsl:value-of select="@name"/>
+			</fo:block>
+			<xsl:apply-templates select="pin"/>
 		</fo:block>
-		<xsl:apply-templates select="pin"/>
   	</xsl:template>
 
 	<xsl:template match="outputs">
-		<fo:block margin-top="2mm" margin-bottom="2mm">
-			<xsl:value-of select="@name"/>
+		<fo:block keep-together.within-page="always">
+			<fo:block margin-top="2mm" margin-bottom="2mm">
+				<xsl:value-of select="@name"/>
+			</fo:block>
+			<xsl:apply-templates select="pin"/>
 		</fo:block>
-		<xsl:apply-templates select="pin"/>
   	</xsl:template>
 
 	<xsl:template match="pin">
@@ -238,11 +242,13 @@
   	</xsl:template>
 
 	<xsl:template match="attr">
-		<fo:block  margin-left="6mm">
-			<xsl:value-of select="@name"/>
-		</fo:block>
-		<fo:block margin-left="12mm">
-			<xsl:value-of select="."/>
+		<fo:block keep-together.within-page="always">
+			<fo:block  margin-left="6mm">
+				<xsl:value-of select="@name"/>
+			</fo:block>
+			<fo:block margin-left="12mm">
+				<xsl:value-of select="."/>
+			</fo:block>
 		</fo:block>
   	</xsl:template>
 
