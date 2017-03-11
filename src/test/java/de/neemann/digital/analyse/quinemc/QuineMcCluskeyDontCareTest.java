@@ -48,11 +48,14 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
      * @throws ExpressionException
      */
     public void testRegression() throws ExpressionException {
+        int numOfTest = 2048;
         for (int n = 4; n <= 8; n++) {
             // test some tables with n variables
-            for (int i = 0; i < 100; i++) {
+            // System.out.println(n + " vars: " + numOfTest + "tests");
+            for (int i = 0; i < numOfTest; i++) {
                 performTestCalculationRandom(n);
             }
+            numOfTest /= 4;
         }
     }
 
