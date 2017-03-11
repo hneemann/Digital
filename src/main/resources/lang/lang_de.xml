@@ -228,7 +228,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_RAMSinglePortSel_pin_sel">Ist dieser Eingang 1 ist der Baustein aktiv.</string>
     <string name="elem_RAMSinglePortSel_pin_W/¬R">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert, ist der Eingang 0, wird das gespeicherte Datenwort ausgegeben.</string>
     <string name="elem_RAMSinglePortSel_tt">Ein RAM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
-        Es gibt einen sel-Eingang. Mit diesem können mehrere solcher Bausteine mit einem Adressdecoder zu einem gtößeren RAM zusammengeschaltet werden.</string>
+        Es gibt einen sel-Eingang. Mit diesem können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren RAM zusammengeschaltet werden.</string>
 
     <string name="elem_GraphicCard">Grafik-RAM</string>
     <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
