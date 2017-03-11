@@ -71,6 +71,7 @@ public class TableDialog extends JDialog {
     private int columnIndex;
     private AllSolutionsDialog allSolutionsDialog;
     private PinMap pinMap;
+    private ExpressionListenerStore lastGeneratedExpressions;
 
     /**
      * Creates a new instance
@@ -261,7 +262,7 @@ public class TableDialog extends JDialog {
                     ExpressionListener expressionListener = new LaTeXExpressionListener(model);
                     if (createJK.isSelected())
                         expressionListener = new ExpressionListenerJK(expressionListener);
-                    new ExpressionCreator(model.getTable()).create(expressionListener);
+                    lastGeneratedExpressions.replayTo(expressionListener);
                 } catch (ExpressionException | FormatterException e1) {
                     new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
                 }
@@ -463,7 +464,7 @@ public class TableDialog extends JDialog {
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 expressionExporter.getPinMapping().addAll(pinMap);
-                new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create();
+                new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
                 expressionExporter.export(Main.checkSuffix(fileChooser.getSelectedFile(), suffix));
             } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
                 new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
@@ -478,7 +479,7 @@ public class TableDialog extends JDialog {
     private void createCircuit(boolean useJKff, ExpressionModifier... modifier) {
         try {
             CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff);
-            new BuilderExpressionCreator(circuitBuilder, modifier).setUseJKOptimizer(useJKff).create();
+            new BuilderExpressionCreator(circuitBuilder, modifier).setUseJKOptimizer(useJKff).create(lastGeneratedExpressions);
             Circuit circuit = circuitBuilder.createCircuit();
             SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
         } catch (ExpressionException | FormatterException | RuntimeException e) {
@@ -517,7 +518,7 @@ public class TableDialog extends JDialog {
             File f = new File(cuplPath, "CUPL.PLD");
             cupl.setProjectName(f.getName());
             cupl.getPinMapping().addAll(pinMap);
-            new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create();
+            new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
             try (FileOutputStream out = new FileOutputStream(f)) {
                 cupl.writeTo(out);
             }
@@ -575,7 +576,8 @@ public class TableDialog extends JDialog {
             if (createJK.isSelected())
                 expressionListener = new ExpressionListenerJK(expressionListener);
 
-            new ExpressionCreator(model.getTable()).create(expressionListener);
+            lastGeneratedExpressions = new ExpressionListenerStore(expressionListener);
+            new ExpressionCreator(model.getTable()).create(lastGeneratedExpressions);
 
         } catch (ExpressionException | FormatterException e1) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
@@ -647,20 +649,19 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private class BuilderExpressionCreator extends ExpressionCreator {
+    private static class BuilderExpressionCreator {
         private final HashSet<String> contained;
         private final BuilderInterface builder;
         private final ExpressionModifier[] modifier;
         private boolean useJKOptimizer = false;
 
         BuilderExpressionCreator(BuilderInterface builder, ExpressionModifier... modifier) {
-            super(TableDialog.this.model.getTable());
             contained = new HashSet<>();
             this.builder = builder;
             this.modifier = modifier;
         }
 
-        public void create() throws ExpressionException, FormatterException {
+        public void create(ExpressionListenerStore expressions) throws ExpressionException, FormatterException {
             ExpressionListener el = new ExpressionListener() {
                 @Override
                 public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
@@ -685,7 +686,7 @@ public class TableDialog extends JDialog {
             if (useJKOptimizer)
                 el = new ExpressionListenerOptimizeJK(el);
 
-            create(el);
+            expressions.replayTo(el);
         }
 
         BuilderExpressionCreator setUseJKOptimizer(boolean useJKOptimizer) {
