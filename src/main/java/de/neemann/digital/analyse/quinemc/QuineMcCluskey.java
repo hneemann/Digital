@@ -5,6 +5,8 @@ import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -16,6 +18,7 @@ import static de.neemann.digital.analyse.expression.Operation.or;
  * @author hneemann
  */
 public class QuineMcCluskey {
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuineMcCluskey.class);
 
     private final TableRows rows;
     private final List<Variable> variables;
@@ -119,7 +122,7 @@ public class QuineMcCluskey {
     public QuineMcCluskey simplify(PrimeSelector ps) {
         QuineMcCluskey t = this;
         while (!t.isFinished()) {
-            System.out.println("QMC " + t.rows.size());
+            LOGGER.debug("QMC rows " + t.rows.size());
             t = t.simplifyStep();
         }
         return t.simplifyPrimes(ps);
@@ -231,7 +234,7 @@ public class QuineMcCluskey {
         for (TableRow r : primes)
             columns.addAll(r.getSource());
 
-        System.out.println("initial primes "+primes.size());
+        LOGGER.debug("initial primes " + primes.size());
 
         // remove all primes which are easy to remove
         while (true) {
@@ -263,7 +266,7 @@ public class QuineMcCluskey {
             columns.removeAll(colsToDelete);
         }
 
-        System.out.println("residual primes "+primes.size());
+        LOGGER.debug("residual primes " + primes.size());
 
         // try to reduce the number of primes needed
         if (primeSelector != null && !columns.isEmpty()) {
@@ -271,7 +274,7 @@ public class QuineMcCluskey {
             availPrimes.addAll(primes);
             primes.clear();
             primeSelector.select(primes, availPrimes, columns);
-            System.out.println("final primes "+primes.size());
+            LOGGER.debug("final primes " + primes.size());
         }
 
         return this;

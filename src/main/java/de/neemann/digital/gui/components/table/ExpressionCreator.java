@@ -13,6 +13,8 @@ import de.neemann.digital.analyse.quinemc.TableRow;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +29,7 @@ import java.util.concurrent.TimeUnit;
  * @author hneemann
  */
 public class ExpressionCreator {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExpressionCreator.class);
     private static final int MAX_INPUTS_ALLOWED = 12;
 
     private final TruthTable theTable;
@@ -58,9 +60,7 @@ public class ExpressionCreator {
                 final int t = table;
                 ex.submit(() -> {
                     try {
-                        System.out.println("start " + t);
                         simplify(listener, vars, theTable.getResultName(t), theTable.getResult(t));
-                        System.out.println("end " + t);
                     } catch (ExpressionException | FormatterException | AnalyseException e) {
                         e.printStackTrace();
                     }
@@ -79,14 +79,14 @@ public class ExpressionCreator {
             listener.close();
         }
         time = System.currentTimeMillis() - time;
-        System.out.println("time: " + time / 1000.0 + " sec");
+        LOGGER.debug("time: " + time / 1000.0 + " sec");
     }
 
     private void simplify(ExpressionListener listener, List<Variable> vars, String resultName, BoolTable boolTable) throws AnalyseException, ExpressionException, FormatterException {
         TableReducer tr = new TableReducer(vars, boolTable);
         List<Variable> localVars = vars;
         if (tr.canReduce()) {
-            System.out.println(resultName + " reduced from " + vars.size() + " to " + tr.getVars().size() + " variables");
+            LOGGER.debug(resultName + " reduced from " + vars.size() + " to " + tr.getVars().size() + " variables");
             boolTable = tr.getTable();
             localVars = tr.getVars();
         }

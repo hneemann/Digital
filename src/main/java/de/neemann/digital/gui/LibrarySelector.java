@@ -15,6 +15,8 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.StringUtils;
 import de.neemann.gui.ToolTipAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -31,6 +33,8 @@ import java.util.HashMap;
  * @author hneemann
  */
 public class LibrarySelector implements ElementNotFoundNotification {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LibrarySelector.class);
+
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
     private final State elementState;
@@ -227,7 +231,7 @@ public class LibrarySelector implements ElementNotFoundNotification {
 
     private Imported importElement(File file) throws IOException {
         try {
-            System.out.println("load element " + file);
+            LOGGER.debug("load element " + file);
             Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
             ElementTypeDescriptionCustom description =
                     new ElementTypeDescriptionCustom(file,

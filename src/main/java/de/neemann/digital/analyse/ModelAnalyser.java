@@ -12,6 +12,8 @@ import de.neemann.digital.core.flipflops.FlipflopJK;
 import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.List;
  * @author hneemann
  */
 public class ModelAnalyser {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModelAnalyser.class);
     private static final int MAX_INPUTS_ALLOWED = 24;
 
     private final Model model;
@@ -109,7 +112,7 @@ public class ModelAnalyser {
      * @throws NodeException NodeException
      */
     public TruthTable analyse() throws NodeException {
-        System.out.print("start to analyse the model");
+        LOGGER.debug("start to analyse the model...");
         long time = System.currentTimeMillis();
         BitSetter bitsetter = new BitSetter(inputs.size()) {
             @Override
@@ -138,7 +141,7 @@ public class ModelAnalyser {
             }
         }
         time = System.currentTimeMillis() - time;
-        System.out.println(": " + time / 1000.0 + " sec");
+        LOGGER.debug("model analysis: " + time / 1000.0 + " sec");
         return tt;
     }
 

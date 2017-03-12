@@ -14,6 +14,7 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
         <build.timestamp>${maven.build.timestamp}</build.timestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.org.slf4j>1.7.24</version.org.slf4j>
     </properties>
 
     <distributionManagement>
@@ -208,6 +209,18 @@
             <artifactId>junit</artifactId>
             <version>4.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${version.org.slf4j}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${version.org.slf4j}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/xalan/xalan -->
