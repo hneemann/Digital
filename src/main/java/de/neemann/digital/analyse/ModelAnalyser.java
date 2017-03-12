@@ -23,7 +23,7 @@ import java.util.List;
  * @author hneemann
  */
 public class ModelAnalyser {
-    private static final int MAX_INPUTS_ALLOWED = 12;
+    private static final int MAX_INPUTS_ALLOWED = 24;
 
     private final Model model;
     private final ArrayList<Signal> inputs;
@@ -109,7 +109,8 @@ public class ModelAnalyser {
      * @throws NodeException NodeException
      */
     public TruthTable analyse() throws NodeException {
-
+        System.out.print("start to analyse the model");
+        long time = System.currentTimeMillis();
         BitSetter bitsetter = new BitSetter(inputs.size()) {
             @Override
             public void setBit(int row, int bit, boolean value) {
@@ -128,7 +129,6 @@ public class ModelAnalyser {
             tt.addResult(s.getName(), e);
         }
 
-
         model.init();
         for (int row = 0; row < rows; row++) {
             bitsetter.fill(row);
@@ -137,6 +137,8 @@ public class ModelAnalyser {
                 data.get(i).set(row, outputs.get(i).getValue().getBool());
             }
         }
+        time = System.currentTimeMillis() - time;
+        System.out.println(": " + time / 1000.0 + " sec");
         return tt;
     }
 

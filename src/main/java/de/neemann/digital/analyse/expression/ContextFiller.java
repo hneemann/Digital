@@ -1,15 +1,13 @@
 package de.neemann.digital.analyse.expression;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author hneemann
  */
 public class ContextFiller extends ContextMap implements Iterable<Variable> {
 
-    private final ArrayList<Variable> vars;
+    private final List<Variable> vars;
     private final int rowCount;
     private final BitSetter bitSetter;
 
@@ -29,7 +27,16 @@ public class ContextFiller extends ContextMap implements Iterable<Variable> {
      *
      * @param variables the variables to use
      */
-    public ContextFiller(ArrayList<Variable> variables) {
+    public ContextFiller(Variable... variables) {
+        this(Arrays.asList(variables));
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param variables the variables to use
+     */
+    public ContextFiller(List<Variable> variables) {
         vars = variables;
         rowCount = 1 << vars.size();
         bitSetter = new BitSetter(vars.size()) {
@@ -83,7 +90,7 @@ public class ContextFiller extends ContextMap implements Iterable<Variable> {
     /**
      * @return the variables to use
      */
-    public ArrayList<Variable> getVariables() {
+    public List<Variable> getVariables() {
         return vars;
     }
 }

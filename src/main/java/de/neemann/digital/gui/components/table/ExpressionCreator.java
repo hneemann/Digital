@@ -1,14 +1,18 @@
 package de.neemann.digital.gui.components.table;
 
+import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
+import de.neemann.digital.analyse.quinemc.TableReducer;
 import de.neemann.digital.analyse.quinemc.TableRow;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +27,8 @@ import java.util.concurrent.TimeUnit;
  * @author hneemann
  */
 public class ExpressionCreator {
+
+    private static final int MAX_INPUTS_ALLOWED = 12;
 
     private final TruthTable theTable;
 
@@ -40,24 +46,22 @@ public class ExpressionCreator {
      *
      * @throws ExpressionException ExpressionException
      * @throws FormatterException  FormatterException
+     * @throws AnalyseException    AnalyseException
      */
-    public void create(ExpressionListener listener) throws ExpressionException, FormatterException {
+    public void create(ExpressionListener listener) throws ExpressionException, FormatterException, AnalyseException {
         final List<Variable> vars = Collections.unmodifiableList(theTable.getVars());
         long time = System.currentTimeMillis();
         if (theTable.getResultCount() > 100) {
-            ExecutorService ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() / 2);
+            ExecutorService ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
             ThreadSaveExpressionListener threadListener = new ThreadSaveExpressionListener(listener);
             for (int table = 0; table < theTable.getResultCount(); table++) {
-                final QuineMcCluskey qmc = new QuineMcCluskey(vars)
-                        .fillTableWith(theTable.getResult(table));
-                final String resultName = theTable.getResultName(table);
                 final int t = table;
                 ex.submit(() -> {
                     try {
                         System.out.println("start " + t);
-                        calcColumn(threadListener, qmc, resultName, vars);
+                        simplify(listener, vars, theTable.getResultName(t), theTable.getResult(t));
                         System.out.println("end " + t);
-                    } catch (ExpressionException | FormatterException e) {
+                    } catch (ExpressionException | FormatterException | AnalyseException e) {
                         e.printStackTrace();
                     }
                 });
@@ -70,15 +74,28 @@ public class ExpressionCreator {
             }
             threadListener.close();
         } else {
-            for (int table = 0; table < theTable.getResultCount(); table++) {
-                QuineMcCluskey qmc = new QuineMcCluskey(vars)
-                        .fillTableWith(theTable.getResult(table));
-                calcColumn(listener, qmc, theTable.getResultName(table), vars);
-            }
+            for (int table = 0; table < theTable.getResultCount(); table++)
+                simplify(listener, vars, theTable.getResultName(table), theTable.getResult(table));
             listener.close();
         }
         time = System.currentTimeMillis() - time;
         System.out.println("time: " + time / 1000.0 + " sec");
+    }
+
+    private void simplify(ExpressionListener listener, List<Variable> vars, String resultName, BoolTable boolTable) throws AnalyseException, ExpressionException, FormatterException {
+        TableReducer tr = new TableReducer(vars, boolTable);
+        List<Variable> localVars = vars;
+        if (tr.canReduce()) {
+            System.out.println(resultName + " reduced from " + vars.size() + " to " + tr.getVars().size() + " variables");
+            boolTable = tr.getTable();
+            localVars = tr.getVars();
+        }
+        if (localVars.size() > MAX_INPUTS_ALLOWED)
+            throw new AnalyseException(Lang.get("err_toManyInputsIn_N0_max_N1_is_N2", resultName, MAX_INPUTS_ALLOWED, localVars.size()));
+
+        QuineMcCluskey qmc = new QuineMcCluskey(localVars)
+                .fillTableWith(boolTable);
+        calcColumn(listener, qmc, resultName, localVars);
     }
 
     private static void calcColumn(ExpressionListener listener, QuineMcCluskey qmc, String name, List<Variable> vars) throws ExpressionException, FormatterException {

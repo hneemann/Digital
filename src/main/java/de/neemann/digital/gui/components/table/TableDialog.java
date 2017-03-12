@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components.table;
 
+import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.TruthTableTableModel;
 import de.neemann.digital.analyse.expression.Expression;
@@ -579,7 +580,7 @@ public class TableDialog extends JDialog {
             lastGeneratedExpressions = new ExpressionListenerStore(expressionListener);
             new ExpressionCreator(model.getTable()).create(lastGeneratedExpressions);
 
-        } catch (ExpressionException | FormatterException e1) {
+        } catch (ExpressionException | FormatterException | AnalyseException e1) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
         }
     }
