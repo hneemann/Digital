@@ -1,7 +1,7 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.expression.BitSetter;
-import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.basic.And;
 import de.neemann.digital.core.basic.Not;
@@ -122,9 +122,9 @@ public class ModelAnalyser {
         for (Signal s : inputs)
             tt.addVariable(s.getName());
 
-        ArrayList<BoolTableIntArray> data = new ArrayList<>();
+        ArrayList<BoolTableByteArray> data = new ArrayList<>();
         for (Signal s : outputs) {
-            BoolTableIntArray e = new BoolTableIntArray(rows);
+            BoolTableByteArray e = new BoolTableByteArray(rows);
             data.add(e);
             tt.addResult(s.getName(), e);
         }

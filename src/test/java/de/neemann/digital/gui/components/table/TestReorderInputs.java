@@ -2,7 +2,7 @@ package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ContextFiller;
-import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import junit.framework.TestCase;
 
 /**
@@ -12,7 +12,7 @@ public class TestReorderInputs extends TestCase {
 
     public void testReorder() throws Exception {
         TruthTable t = new TruthTable(5).addResult();
-        BoolTableIntArray col = (BoolTableIntArray) t.getResult(0);
+        BoolTableByteArray col = (BoolTableByteArray) t.getResult(0);
         for (int i = 0; i < t.getRows(); i++)
             col.set(i, i + 1);
 
@@ -31,7 +31,7 @@ public class TestReorderInputs extends TestCase {
 
     public void testDeleteVar() throws Exception {
         TruthTable t = new TruthTable(3).addResult();
-        BoolTableIntArray col = (BoolTableIntArray) t.getResult(0);
+        BoolTableByteArray col = (BoolTableByteArray) t.getResult(0);
         for (int i = 0; i < t.getRows(); i++)
             col.set(i, i + 1);
 

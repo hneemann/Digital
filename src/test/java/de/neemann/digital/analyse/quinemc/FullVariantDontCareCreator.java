@@ -32,11 +32,11 @@ public abstract class FullVariantDontCareCreator {
             for (int i = 0; i < c; i++) tables *= 3;
 
             int count = 0;
-            int[] tab = new int[1 << n];
+            byte[] tab = new byte[1 << n];
             for (int i = 0; i < tables; i += step) {
                 int value = i;
                 for (int j = 0; j < tab.length; j++) {
-                    tab[j] = value % 3;
+                    tab[j] = (byte) (value % 3);
                     value /= 3;
                 }
                 handleTable(n, tab);
@@ -50,5 +50,5 @@ public abstract class FullVariantDontCareCreator {
         }
     }
 
-    public abstract void handleTable(int n, int[] tab) throws ExpressionException, FormatterException;
+    public abstract void handleTable(int n, byte[] tab) throws ExpressionException, FormatterException;
 }

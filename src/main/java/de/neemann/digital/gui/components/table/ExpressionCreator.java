@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ExpressionCreator {
 
-    private static final int MAX_INPUTS_ALLOWED = 12;
+    private static final int MAX_INPUTS_ALLOWED = 18;
 
     private final TruthTable theTable;
 

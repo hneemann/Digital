@@ -8,7 +8,7 @@ import de.neemann.digital.analyse.expression.Context;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
-import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 
 import java.io.*;
@@ -95,7 +95,7 @@ public class TruthTable {
         xStream.alias("variable", Variable.class);
         xStream.aliasAttribute(Variable.class, "identifier", "name");
         xStream.alias("result", Result.class);
-        xStream.alias("BoolTable", BoolTableIntArray.class);
+        xStream.alias("BoolTable", BoolTableByteArray.class);
         return xStream;
     }
 
@@ -134,7 +134,7 @@ public class TruthTable {
     public TruthTable(ArrayList<Variable> newVars, TruthTable oldTable) {
         this(newVars);
         for (int i = 0; i < oldTable.getResultCount(); i++) {
-            addResult(oldTable.results.get(i).getName(), new BoolTableIntArray(getRows()));
+            addResult(oldTable.results.get(i).getName(), new BoolTableByteArray(getRows()));
         }
     }
 
@@ -173,7 +173,7 @@ public class TruthTable {
      * @return this for call chaining
      */
     public TruthTable addResult(String name) {
-        results.add(new Result(name, new BoolTableIntArray(getRows())));
+        results.add(new Result(name, new BoolTableByteArray(getRows())));
         return this;
     }
 
@@ -192,7 +192,7 @@ public class TruthTable {
     public void addVariable(String name) {
         variables.add(new Variable(name));
         for (Result r : results)
-            r.setValues(BoolTableIntArray.createDoubledValues(r.getValues()));
+            r.setValues(BoolTableByteArray.createDoubledValues(r.getValues()));
 
         bitSetter = null;
     }
@@ -284,7 +284,7 @@ public class TruthTable {
             return false;
         else {
             BoolTable v = results.get(columnIndex - variables.size()).getValues();
-            return v instanceof BoolTableIntArray;
+            return v instanceof BoolTableByteArray;
         }
     }
 
@@ -298,8 +298,8 @@ public class TruthTable {
     public void setValue(int rowIndex, int columnIndex, int aValue) {
         if (columnIndex >= variables.size()) {
             BoolTable v = results.get(columnIndex - variables.size()).getValues();
-            if (v instanceof BoolTableIntArray)
-                ((BoolTableIntArray) v).set(rowIndex, aValue);
+            if (v instanceof BoolTableByteArray)
+                ((BoolTableByteArray) v).set(rowIndex, aValue);
         }
     }
 
@@ -346,8 +346,8 @@ public class TruthTable {
      */
     public void setByContext(int result, Context context, int value) throws ExpressionException {
         BoolTable v = results.get(result).getValues();
-        if (v instanceof BoolTableIntArray)
-            ((BoolTableIntArray) v).set(getIndexByContext(context), value);
+        if (v instanceof BoolTableByteArray)
+            ((BoolTableByteArray) v).set(getIndexByContext(context), value);
     }
 
     private int getIndexByContext(Context context) throws ExpressionException {
@@ -406,8 +406,8 @@ public class TruthTable {
     public void setXto(boolean b) {
         for (Result r : results) {
             BoolTable bt = r.getValues();
-            if (bt instanceof BoolTableIntArray)
-                ((BoolTableIntArray) bt).setXTo(b ? 1 : 0);
+            if (bt instanceof BoolTableByteArray)
+                ((BoolTableByteArray) bt).setXTo(b ? 1 : 0);
         }
     }
 
@@ -420,8 +420,8 @@ public class TruthTable {
     public void setAllTo(int value) {
         for (Result r : results) {
             BoolTable bt = r.getValues();
-            if (bt instanceof BoolTableIntArray)
-                ((BoolTableIntArray) bt).setAllTo(value);
+            if (bt instanceof BoolTableByteArray)
+                ((BoolTableByteArray) bt).setAllTo(value);
         }
     }
 

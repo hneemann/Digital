@@ -115,7 +115,7 @@ public class QuineMcCluskeyTest extends TestCase {
 
     public void testSimplify2() throws ExpressionException, FormatterException {
         QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C", "D"));
-        t.fillTableWith(new BoolTableIntArray(new int[]{1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1}));
+        t.fillTableWith(new BoolTableByteArray(new byte[]{1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1}));
         t = t.simplify();
 
         assertEquals("(!A && !C) || (B && D) || (B && !C)", FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
@@ -123,7 +123,7 @@ public class QuineMcCluskeyTest extends TestCase {
 
     public void testZero() throws Exception {
         QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C"));
-        t.fillTableWith(new BoolTableIntArray(new int[]{0, 0, 0, 0, 0, 0, 0, 0}));
+        t.fillTableWith(new BoolTableByteArray(new byte[]{0, 0, 0, 0, 0, 0, 0, 0}));
         t = t.simplify();
         Expression e = t.getExpression();
         assertNotNull(e);
@@ -134,7 +134,7 @@ public class QuineMcCluskeyTest extends TestCase {
 
     public void testZero2() throws Exception {
         QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C"));
-        t.fillTableWith(new BoolTableIntArray(new int[]{0, 0, 0, 0, 0, 0, 2, 2}));
+        t.fillTableWith(new BoolTableByteArray(new byte[]{0, 0, 0, 0, 0, 0, 2, 2}));
         t = t.simplify();
         Expression e = t.getExpression();
         assertNotNull(e);
@@ -145,7 +145,7 @@ public class QuineMcCluskeyTest extends TestCase {
 
     public void testOne() throws Exception {
         QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C"));
-        t.fillTableWith(new BoolTableIntArray(new int[]{1, 1, 1, 1, 1, 1, 1, 1}));
+        t.fillTableWith(new BoolTableByteArray(new byte[]{1, 1, 1, 1, 1, 1, 1, 1}));
         t = t.simplify();
         Expression e = t.getExpression();
         assertNotNull(e);
@@ -156,7 +156,7 @@ public class QuineMcCluskeyTest extends TestCase {
 
     public void testOne2() throws Exception {
         QuineMcCluskey t = new QuineMcCluskey(Variable.vars("A", "B", "C"));
-        t.fillTableWith(new BoolTableIntArray(new int[]{1, 1, 1, 1, 1, 1, 2, 2}));
+        t.fillTableWith(new BoolTableByteArray(new byte[]{1, 1, 1, 1, 1, 1, 2, 2}));
         t = t.simplify();
         Expression e = t.getExpression();
         assertNotNull(e);

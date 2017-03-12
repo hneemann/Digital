@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import junit.framework.TestCase;
 
 /**
@@ -11,7 +11,7 @@ public class TestReorderOutputs extends TestCase {
 
     public void testDeleteResult() throws Exception {
         TruthTable t = new TruthTable(3).addResult().addResult();
-        BoolTableIntArray col = (BoolTableIntArray) t.getResult(0);
+        BoolTableByteArray col = (BoolTableByteArray) t.getResult(0);
         for (int i = 0; i < t.getRows(); i++)
             col.set(i, i + 1);
 

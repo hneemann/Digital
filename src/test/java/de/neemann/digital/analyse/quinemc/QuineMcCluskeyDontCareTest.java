@@ -20,7 +20,7 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
     public void testDontCare() throws Exception, FormatterException {
         ArrayList<Variable> v = vars("A", "B", "C");
         Expression e = new QuineMcCluskey(v)
-                .fillTableWith(new BoolTableIntArray(new int[]{1, 1, 0, 0, 1, 2, 2, 0}))
+                .fillTableWith(new BoolTableByteArray(new byte[]{1, 1, 0, 0, 1, 2, 2, 0}))
                 .simplify()
                 .getExpression();
 
@@ -35,7 +35,7 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
     public void testFull() throws ExpressionException, FormatterException {
         new FullVariantDontCareCreator() {
             @Override
-            public void handleTable(int n, int[] tab) throws ExpressionException {
+            public void handleTable(int n, byte[] tab) throws ExpressionException {
                 performTestCalculation(n, tab);
             }
         }.create();
@@ -60,9 +60,9 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
     }
 
     static private void performTestCalculationRandom(int n) throws ExpressionException {
-        int[] tab = new int[1 << n];
+        byte[] tab = new byte[1 << n];
         for (int i = 0; i < tab.length; i++)
-            tab[i] = (int) Math.round(Math.random() * 3); // half of the values are don't care
+            tab[i] = (byte) Math.round(Math.random() * 3); // half of the values are don't care
 
         performTestCalculation(n, tab);
     }
@@ -76,10 +76,10 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
      * @param tab the truth table
      * @throws ExpressionException
      */
-    static private void performTestCalculation(int n, int[] tab) throws ExpressionException {
+    static private void performTestCalculation(int n, byte[] tab) throws ExpressionException {
         ArrayList<Variable> v = vars(n);
         Expression e = new QuineMcCluskey(v)
-                .fillTableWith(new BoolTableIntArray(tab))
+                .fillTableWith(new BoolTableByteArray(tab))
                 .simplify()
                 .getExpression();
 
@@ -95,15 +95,15 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
     public void testComplexity() throws Exception {
         new FullVariantDontCareCreator() {
             @Override
-            public void handleTable(int n, int[] tab) throws ExpressionException, FormatterException {
+            public void handleTable(int n, byte[] tab) throws ExpressionException, FormatterException {
                 Expression e = createExpression(n, tab);
 
-                int[] tabZero = Arrays.copyOf(tab, tab.length);
+                byte[] tabZero = Arrays.copyOf(tab, tab.length);
                 for (int i = 0; i < tabZero.length; i++)
                     if (tabZero[i] > 1) tabZero[i] = 0;
                 Expression eZero = createExpression(n, tabZero);
 
-                int[] tabOne = Arrays.copyOf(tab, tab.length);
+                byte[] tabOne = Arrays.copyOf(tab, tab.length);
                 for (int i = 0; i < tabOne.length; i++)
                     if (tabOne[i] > 1) tabOne[i] = 1;
 
@@ -125,10 +125,10 @@ public class QuineMcCluskeyDontCareTest extends TestCase {
         }.create();
     }
 
-    private Expression createExpression(int n, int[] tab) throws ExpressionException {
+    private Expression createExpression(int n, byte[] tab) throws ExpressionException {
         ArrayList<Variable> v = vars(n);
         return new QuineMcCluskey(v)
-                .fillTableWith(new BoolTableIntArray(tab))
+                .fillTableWith(new BoolTableByteArray(tab))
                 .simplify()
                 .getExpression();
     }

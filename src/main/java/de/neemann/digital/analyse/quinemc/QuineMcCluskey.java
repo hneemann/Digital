@@ -127,10 +127,9 @@ public class QuineMcCluskey {
     QuineMcCluskey simplifyStep() {
         TableRows newRows = new TableRows();
 
-        for (ArrayList<TableRow> list : rows.listIterable())
+        for (TableRows.InnerList list : rows.listIterable())
             for (int i = 0; i < list.size() - 1; i++)
                 for (int j = i + 1; j < list.size(); j++) {
-
                     TableRow r1 = list.get(i);
                     TableRow r2 = list.get(j);
 
@@ -140,14 +139,10 @@ public class QuineMcCluskey {
                         TableRow newRow = new TableRow(r1);
                         newRow.setToOptimized(index);
 
-                        TableRow r = newRows.findRow(newRow);
-                        if (r == null) {
+                        if (!newRows.contains(newRow)) {
                             newRow.addSource(r1.getSource());
                             newRow.addSource(r2.getSource());
                             newRows.add(newRow);
-                        } else {
-                            r.addSource(r1.getSource());
-                            r.addSource(r2.getSource());
                         }
                         r1.setUsed();
                         r2.setUsed();

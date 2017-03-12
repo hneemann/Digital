@@ -10,8 +10,8 @@ import java.util.TreeMap;
  *
  * @author hneemann
  */
-class TableRows implements Iterable<TableRow> {
-    private final TreeMap<Long, ArrayList<TableRow>> rows;
+final class TableRows implements Iterable<TableRow> {
+    private final TreeMap<Long, InnerList> rows;
     private int size;
 
     TableRows() {
@@ -28,10 +28,10 @@ class TableRows implements Iterable<TableRow> {
         size++;
     }
 
-    private ArrayList<TableRow> getList(long flags) {
-        ArrayList<TableRow> list = rows.get(flags);
+    private InnerList getList(long flags) {
+        InnerList list = rows.get(flags);
         if (list == null) {
-            list = new ArrayList<>();
+            list = new InnerList();
             rows.put(flags, list);
         }
         return list;
@@ -43,8 +43,8 @@ class TableRows implements Iterable<TableRow> {
     }
 
     public void addAll(TableRows newRows) {
-        for (Map.Entry<Long, ArrayList<TableRow>> e : newRows.rows.entrySet()) {
-            ArrayList<TableRow> values = e.getValue();
+        for (Map.Entry<Long, InnerList> e : newRows.rows.entrySet()) {
+            InnerList values = e.getValue();
             getList(e.getKey()).addAll(values);
             size += values.size();
         }
@@ -60,17 +60,13 @@ class TableRows implements Iterable<TableRow> {
      * @param r the row to look for
      * @return the row found
      */
-    TableRow findRow(TableRow r) {
-        ArrayList<TableRow> list = rows.get(r.getOptimizedFlags());
+    public boolean contains(TableRow r) {
+        InnerList list = rows.get(r.getOptimizedFlags());
 
         if (list == null)
-            return null;
+            return false;
 
-        int i = list.indexOf(r);
-        if (i < 0)
-            return null;
-        else
-            return list.get(i);
+        return list.contains(r);
     }
 
     @Override
@@ -78,14 +74,14 @@ class TableRows implements Iterable<TableRow> {
         return new RowIterator(rows.values().iterator());
     }
 
-    public Iterable<ArrayList<TableRow>> listIterable() {
+    public Iterable<InnerList> listIterable() {
         return rows.values();
     }
 
 
     public TableRow get(int i) {
-        for (Map.Entry<Long, ArrayList<TableRow>> e : rows.entrySet()) {
-            ArrayList<TableRow> list = e.getValue();
+        for (Map.Entry<Long, InnerList> e : rows.entrySet()) {
+            InnerList list = e.getValue();
             if (i < list.size())
                 return list.get(i);
             else
@@ -95,10 +91,10 @@ class TableRows implements Iterable<TableRow> {
     }
 
     private static class RowIterator implements Iterator<TableRow> {
-        private final Iterator<ArrayList<TableRow>> listIter;
+        private final Iterator<InnerList> listIter;
         private Iterator<TableRow> itemIter;
 
-        RowIterator(Iterator<ArrayList<TableRow>> iterator) {
+        RowIterator(Iterator<InnerList> iterator) {
             listIter = iterator;
             itemIter = null;
         }
@@ -119,6 +115,43 @@ class TableRows implements Iterable<TableRow> {
             if (!itemIter.hasNext())
                 itemIter = null;
             return next;
+        }
+    }
+
+    static final class InnerList implements Iterable<TableRow> {
+        private ArrayList<TableRow> innerList;
+//        private HashSet<TableRow> innerSet;
+
+        private InnerList() {
+            innerList=new ArrayList<>();
+//            innerSet=new HashSet<>();
+        }
+
+        public boolean contains(TableRow r) {
+            return innerList.contains(r);
+//            return innerSet.contains(r);
+        }
+
+        public void addAll(InnerList values) {
+            for (TableRow tr : values)
+                add(tr);
+        }
+
+        public void add(TableRow tableRow) {
+            innerList.add(tableRow);
+//            innerSet.add(tableRow);
+        }
+
+        public int size() {
+            return innerList.size();
+        }
+
+        public TableRow get(int i) {
+            return innerList.get(i);
+        }
+
+        public Iterator<TableRow> iterator() {
+            return innerList.iterator();
         }
     }
 }

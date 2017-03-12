@@ -6,7 +6,7 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
-import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.FullVariantDontCareCreator;
 import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 import de.neemann.digital.analyse.quinemc.TableRow;
@@ -29,13 +29,13 @@ public class BruteForceGetAllTest extends TestCase {
     public void testFullRegression() throws ExpressionException, FormatterException {
         new FullVariantDontCareCreator() {
             @Override
-            public void handleTable(int n, int[] tab) throws ExpressionException {
+            public void handleTable(int n, byte[] tab) throws ExpressionException {
                 performTestCalculation(n, tab);
             }
         }.create();
         new FullVariantDontCareCreator(4, 241) {
             @Override
-            public void handleTable(int n, int[] tab) throws ExpressionException {
+            public void handleTable(int n, byte[] tab) throws ExpressionException {
                 performTestCalculation(n, tab);
             }
         }.create();
@@ -51,13 +51,13 @@ public class BruteForceGetAllTest extends TestCase {
         }.create();
     } /**/
 
-    static private void performTestCalculation(int n, int[] tab) throws ExpressionException {
+    static private void performTestCalculation(int n, byte[] tab) throws ExpressionException {
 
         BruteForceGetAll ps = new BruteForceGetAll();
 
         ArrayList<Variable> v = vars(n);
         new QuineMcCluskey(v)
-                .fillTableWith(new BoolTableIntArray(tab))
+                .fillTableWith(new BoolTableByteArray(tab))
                 .simplify(ps);
 
         ArrayList<ArrayList<TableRow>> solutions = ps.getAllSolutions();

@@ -2,22 +2,22 @@ package de.neemann.digital.analyse.quinemc;
 
 
 /**
- * A int array.
+ * A byte array.
  * Zero and one behave as expected, any other value represents "don't care"
  *
  * @author hneemann
  */
-public class BoolTableIntArray implements BoolTable {
+public class BoolTableByteArray implements BoolTable {
 
-    private final int[] table;
+    private final byte[] table;
 
     /**
      * Creates a new instance
      *
      * @param rows the number of rows
      */
-    public BoolTableIntArray(int rows) {
-        this(new int[rows]);
+    public BoolTableByteArray(int rows) {
+        this(new byte[rows]);
     }
 
     /**
@@ -25,7 +25,7 @@ public class BoolTableIntArray implements BoolTable {
      *
      * @param table the int values
      */
-    public BoolTableIntArray(int[] table) {
+    public BoolTableByteArray(byte[] table) {
         this.table = table;
     }
 
@@ -56,7 +56,7 @@ public class BoolTableIntArray implements BoolTable {
      * @param value the value
      */
     public void set(int row, int value) {
-        table[row] = value;
+        table[row] = (byte) value;
     }
 
     /**
@@ -65,8 +65,8 @@ public class BoolTableIntArray implements BoolTable {
      * @param values the original values
      * @return the new values
      */
-    public static BoolTableIntArray createDoubledValues(BoolTable values) {
-        BoolTableIntArray t = new BoolTableIntArray(values.size() * 2);
+    public static BoolTableByteArray createDoubledValues(BoolTable values) {
+        BoolTableByteArray t = new BoolTableByteArray(values.size() * 2);
         for (int i = 0; i < values.size(); i++) {
             int v = values.get(i).asInt();
             t.set(i * 2, v);
@@ -83,7 +83,7 @@ public class BoolTableIntArray implements BoolTable {
     public void setXTo(int value) {
         for (int i = 0; i < table.length; i++)
             if (table[i] > 1)
-                table[i] = value;
+                table[i] = (byte) value;
     }
 
     /**
@@ -93,6 +93,6 @@ public class BoolTableIntArray implements BoolTable {
      */
     public void setAllTo(int value) {
         for (int i = 0; i < table.length; i++)
-            table[i] = value;
+            table[i] = (byte) value;
     }
 }

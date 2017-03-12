@@ -14,7 +14,7 @@ import de.neemann.digital.analyse.expression.modify.NAnd;
 import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
-import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.builder.ATF1502.ATF1502CuplExporter;
 import de.neemann.digital.builder.ATF1502.ATF1502TT2Exporter;
 import de.neemann.digital.builder.ATF1502.CreateCHN;
@@ -617,7 +617,7 @@ public class TableDialog extends JDialog {
             int i = n - 1;
             int rows = 1 << n;
             for (Variable v : vars) {
-                BoolTableIntArray val = new BoolTableIntArray(rows);
+                BoolTableByteArray val = new BoolTableByteArray(rows);
                 for (int n = 0; n < rows; n++)
                     val.set(n, ((n + 1) >> i) & 1);
                 truthTable.addResult(v.getIdentifier() + "+1", val);

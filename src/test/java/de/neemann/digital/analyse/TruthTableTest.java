@@ -2,7 +2,7 @@ package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.expression.ContextFiller;
 import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.analyse.quinemc.BoolTableIntArray;
+import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import junit.framework.TestCase;
 
 import java.io.StringWriter;
@@ -22,7 +22,7 @@ public class TruthTableTest extends TestCase {
     public void testGetByContext() throws Exception {
         ArrayList<Variable> vars = Variable.vars(5);
         TruthTable t = new TruthTable(vars).addResult();
-        BoolTableIntArray result = (BoolTableIntArray) t.getResult(0);
+        BoolTableByteArray result = (BoolTableByteArray) t.getResult(0);
         for (int i = 0; i < t.getRows(); i++) {
             result.set(i, i % 3);
         }
@@ -37,7 +37,7 @@ public class TruthTableTest extends TestCase {
     public void testHexExportSingle() throws Exception {
         ArrayList<Variable> vars = Variable.vars(3);
         TruthTable t = new TruthTable(vars).addResult();
-        BoolTableIntArray result = (BoolTableIntArray) t.getResult(0);
+        BoolTableByteArray result = (BoolTableByteArray) t.getResult(0);
         for (int i = 0; i < t.getRows(); i++) {
             result.set(i, i % 2);
         }
@@ -59,12 +59,12 @@ public class TruthTableTest extends TestCase {
     public void testHexExportTwo() throws Exception {
         ArrayList<Variable> vars = Variable.vars(3);
         TruthTable t = new TruthTable(vars).addResult();
-        BoolTableIntArray result = (BoolTableIntArray) t.getResult(0);
+        BoolTableByteArray result = (BoolTableByteArray) t.getResult(0);
         for (int i = 0; i < t.getRows(); i++) {
             result.set(i, i % 2);
         }
         t.addResult();
-        result = (BoolTableIntArray) t.getResult(1);
+        result = (BoolTableByteArray) t.getResult(1);
         for (int i = 0; i < t.getRows(); i++) {
             result.set(i, (i + 1) % 2);
         }
