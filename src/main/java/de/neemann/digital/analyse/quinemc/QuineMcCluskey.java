@@ -113,13 +113,15 @@ public class QuineMcCluskey {
     /**
      * Simplifies the table the the given {@link PrimeSelector}
      *
-     * @param ps the prome selector
+     * @param ps the prime selector
      * @return the simplified QMC instance
      */
     public QuineMcCluskey simplify(PrimeSelector ps) {
         QuineMcCluskey t = this;
-        while (!t.isFinished())
+        while (!t.isFinished()) {
+            System.out.println("QMC " + t.rows.size());
             t = t.simplifyStep();
+        }
         return t.simplifyPrimes(ps);
     }
 
@@ -229,6 +231,8 @@ public class QuineMcCluskey {
         for (TableRow r : primes)
             columns.addAll(r.getSource());
 
+        System.out.println("initial primes "+primes.size());
+
         // remove all primes which are easy to remove
         while (true) {
             // find rows to delete
@@ -259,12 +263,15 @@ public class QuineMcCluskey {
             columns.removeAll(colsToDelete);
         }
 
+        System.out.println("residual primes "+primes.size());
+
         // try to reduce the number of primes needed
         if (primeSelector != null && !columns.isEmpty()) {
             ArrayList<TableRow> availPrimes = new ArrayList<>(primes.size());
             availPrimes.addAll(primes);
             primes.clear();
             primeSelector.select(primes, availPrimes, columns);
+            System.out.println("final primes "+primes.size());
         }
 
         return this;
