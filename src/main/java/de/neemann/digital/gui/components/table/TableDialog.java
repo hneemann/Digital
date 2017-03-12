@@ -15,9 +15,7 @@ import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
-import de.neemann.digital.builder.ATF1502.ATF1502CuplExporter;
-import de.neemann.digital.builder.ATF1502.ATF1502TT2Exporter;
-import de.neemann.digital.builder.ATF1502.CreateCHN;
+import de.neemann.digital.builder.ATF1502.*;
 import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
@@ -25,7 +23,8 @@ import de.neemann.digital.builder.Gal22v10.Gal22v10CuplExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
-import de.neemann.digital.builder.tt2.StartFitter;
+import de.neemann.digital.builder.tt2.StartATF1502Fitter;
+import de.neemann.digital.builder.tt2.StartATF1504Fitter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
@@ -441,11 +440,30 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 createHardware(
                         new ExpressionToFileExporter(new ATF1502TT2Exporter())
-                                .addProcessingStep(new StartFitter(TableDialog.this))
-                                .addProcessingStep(new CreateCHN()), filename, "tt2");
+                                .addProcessingStep(new StartATF1502Fitter(TableDialog.this))
+                                .addProcessingStep(new CreateCHN("ATF1502AS")), filename, "tt2");
             }
         }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());
         hardware.add(atf1502);
+
+        JMenu atf1504 = new JMenu("ATF1504");
+        atf1504.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCUPL(new ATF1504CuplExporter());
+            }
+        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+        atf1504.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createHardware(
+                        new ExpressionToFileExporter(new ATF1504TT2Exporter())
+                                .addProcessingStep(new StartATF1504Fitter(TableDialog.this))
+                                .addProcessingStep(new CreateCHN("ATF1504AS")), filename, "tt2");
+            }
+        }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());
+        hardware.add(atf1504);
+
 
 
         createMenu.add(hardware);

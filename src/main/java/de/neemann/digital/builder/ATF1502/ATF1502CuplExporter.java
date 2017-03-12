@@ -18,7 +18,7 @@ public class ATF1502CuplExporter extends Gal16v8CuplExporter {
      * Creates a new project name
      */
     public ATF1502CuplExporter() {
-        this(System.getProperty("user.name"), new Date());
+        this(System.getProperty("user.name"), new Date(), "f1502ispplcc44");
     }
 
     /**
@@ -27,8 +27,8 @@ public class ATF1502CuplExporter extends Gal16v8CuplExporter {
      * @param username user name
      * @param date     date
      */
-    public ATF1502CuplExporter(String username, Date date) {
-        super(username, date, "f1502ispplcc44", new PinMap()
+    public ATF1502CuplExporter(String username, Date date, String type) {
+        super(username, date, type, new PinMap()
                 .setAvailBidirectional(4, 5, 6, 8, 9, 11, 12, 14, 16, 17,
                         18, 19, 20, 21, 24, 25, 26, 27, 28,
                         29, 31, 33, 34, 36, 37, 38, 39, 40));

@@ -11,6 +11,18 @@ import java.io.*;
  * Created by hneemann on 10.03.17.
  */
 public class CreateCHN implements ExpressionToFileExporter.PostProcess {
+
+    private final String device;
+
+    /**
+     * create a new instance
+     *
+     * @param device the device name used in the chn file
+     */
+    public CreateCHN(String device) {
+        this.device = device;
+    }
+
     @Override
     public File execute(File file) throws IOException {
         File chnFile = Main.checkSuffix(file, "chn");
@@ -18,7 +30,7 @@ public class CreateCHN implements ExpressionToFileExporter.PostProcess {
         try (Writer chn = new OutputStreamWriter(new FileOutputStream(chnFile), "UTF-8")) {
             chn.write("1 4 1 0 \r\n"
                     + "\r\n"
-                    + "ATF1502AS\r\n"
+                    + device + "\r\n"
                     + "10\r\n"
                     + "1\r\n");
             chn.write(file.getPath());

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Starts a fitter to create a JEDEC file.
  * Created by hneemann on 10.03.17.
  */
-public class StartFitter implements ExpressionToFileExporter.PostProcess {
+public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess {
     private final JDialog parent;
     private final File fitterExe;
 
@@ -24,9 +24,19 @@ public class StartFitter implements ExpressionToFileExporter.PostProcess {
      *
      * @param parent the parent dialog
      */
-    public StartFitter(JDialog parent) {
+    public StartATF1502Fitter(JDialog parent) {
+        this(parent, Settings.getInstance().get(Keys.SETTINGS_ATF1502_FITTER));
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param parent    the parent dialog
+     * @param fitterExe fitter executable
+     */
+    public StartATF1502Fitter(JDialog parent, File fitterExe) {
         this.parent = parent;
-        this.fitterExe = Settings.getInstance().get(Keys.SETTINGS_ATF1502_FITTER);
+        this.fitterExe = fitterExe;
     }
 
     @Override
