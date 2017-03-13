@@ -1,26 +1,35 @@
 package de.neemann.digital.analyse.quinemc;
 
 
-import de.neemann.digital.analyse.expression.Constant;
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.expression.ExpressionException;
-import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
 import static de.neemann.digital.analyse.expression.Operation.or;
+import static de.neemann.digital.analyse.expression.Variable.vars;
+import static de.neemann.digital.analyse.expression.format.FormatToExpression.FORMATTER_UNICODE;
 
 /**
  * @author hneemann
  */
 public class QuineMcCluskeyTest extends TestCase {
 
+    public void testDontCare() throws Exception, FormatterException {
+        ArrayList<Variable> v = vars("A", "B", "C");
+        Expression e = new QuineMcCluskey(v)
+                .fillTableWith(new BoolTableByteArray(new byte[]{1, 1, 0, 0, 1, 2, 2, 0}))
+                .simplify()
+                .getExpression();
+
+        assertEquals("!B", FormatToExpression.FORMATTER_JAVA.format(e));
+    }
 
     public void testGenerator() throws ExpressionException {
         Variable a = new Variable("A");// Vorlesung
@@ -51,7 +60,8 @@ public class QuineMcCluskeyTest extends TestCase {
         Variable d = new Variable("D");
 
         Expression e = or(and(a, c, d), and(not(c), not(d)), and(not(b), c));
-        QuineMcCluskey t = new QuineMcCluskey(e).simplifyStep();
+        QuineMcCluskey t = new QuineMcCluskey(e);
+        t.simplifyStep();
         assertFalse(t.isFinished());
 
         assertEquals(
@@ -68,7 +78,7 @@ public class QuineMcCluskeyTest extends TestCase {
                         "101-,6,7\n",
                 t.toString());
 
-        t = t.simplifyStep();
+        t.simplifyStep();
         assertFalse(t.isFinished());
 
         /*
@@ -90,9 +100,9 @@ public class QuineMcCluskeyTest extends TestCase {
         assertEquals(
                 "--00,1,4,5,8\n" +
                         "-0-0,1,2,5,6\n" +
-                "-01-,2,3,6,7\n", t.toString());
+                        "-01-,2,3,6,7\n", t.toString());
 
-        t = t.simplifyStep();
+        t.simplifyStep();
         assertTrue(t.isFinished());
 
         assertEquals("", t.toString());
@@ -164,4 +174,55 @@ public class QuineMcCluskeyTest extends TestCase {
         assertTrue(e instanceof Constant);
         assertTrue(((Constant) e).getValue());
     }
+
+    public void testMultipleResults() throws ExpressionException {
+        QuineMcCluskeyExam t = new QuineMcCluskeyExam(Variable.vars("A", "B", "C"));
+        t.fillTableWith(new BoolTableByteArray(new byte[]{0, 1, 1, 0, 0, 1, 1, 1}));
+        PrimeSelectorDefault ps = new PrimeSelectorDefault();
+        t.simplify(ps);
+
+        assertEquals(2, ps.getAllSolutions().size());
+    }
+
+    public void testComplexity() throws Exception {
+        new FullVariantDontCareCreator() {
+            @Override
+            public void handleTable(int n, byte[] tab) throws ExpressionException, FormatterException {
+                Expression e = createExpression(n, tab);
+
+                byte[] tabZero = Arrays.copyOf(tab, tab.length);
+                for (int i = 0; i < tabZero.length; i++)
+                    if (tabZero[i] > 1) tabZero[i] = 0;
+                Expression eZero = createExpression(n, tabZero);
+
+                byte[] tabOne = Arrays.copyOf(tab, tab.length);
+                for (int i = 0; i < tabOne.length; i++)
+                    if (tabOne[i] > 1) tabOne[i] = 1;
+
+                Expression eOne = createExpression(n, tabOne);
+
+                int c = e.traverse(new ComplexityVisitor()).getComplexity();
+                int cOne = eOne.traverse(new ComplexityVisitor()).getComplexity();
+                int cZero = eZero.traverse(new ComplexityVisitor()).getComplexity();
+
+                boolean ok = (c <= cOne) && (c <= cZero);
+                if (!ok) {
+                    System.out.println("\nX: " + FORMATTER_UNICODE.format(e) + ", " + c);
+                    System.out.println("0: " + FORMATTER_UNICODE.format(eZero) + ", " + cZero);
+                    System.out.println("1: " + FORMATTER_UNICODE.format(eOne) + ", " + cOne);
+
+                    assertTrue(false);
+                }
+            }
+        }.create();
+    }
+
+    private Expression createExpression(int n, byte[] tab) throws ExpressionException {
+        ArrayList<Variable> v = vars(n);
+        return new QuineMcCluskey(v)
+                .fillTableWith(new BoolTableByteArray(tab))
+                .simplify()
+                .getExpression();
+    }
+
 }

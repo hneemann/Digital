@@ -1,8 +1,6 @@
 package de.neemann.digital.gui.components.table;
 
-import de.neemann.digital.analyse.AnalyseException;
-import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.TruthTableTableModel;
+import de.neemann.digital.analyse.*;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
@@ -72,6 +70,7 @@ public class TableDialog extends JDialog {
     private AllSolutionsDialog allSolutionsDialog;
     private PinMap pinMap;
     private ExpressionListenerStore lastGeneratedExpressions;
+    private MinimizerInterface minimizer = new MinimizerQuineMcCluskey();
 
     /**
      * Creates a new instance
@@ -596,7 +595,7 @@ public class TableDialog extends JDialog {
                 expressionListener = new ExpressionListenerJK(expressionListener);
 
             lastGeneratedExpressions = new ExpressionListenerStore(expressionListener);
-            new ExpressionCreator(model.getTable()).create(lastGeneratedExpressions);
+            new ExpressionCreator(model.getTable(), minimizer).create(lastGeneratedExpressions);
 
         } catch (ExpressionException | FormatterException | AnalyseException e1) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();

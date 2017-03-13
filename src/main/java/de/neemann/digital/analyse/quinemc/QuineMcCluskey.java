@@ -20,9 +20,9 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 public class QuineMcCluskey {
     private static final Logger LOGGER = LoggerFactory.getLogger(QuineMcCluskey.class);
 
-    private final TableRows rows;
     private final List<Variable> variables;
     private final ArrayList<TableRow> primes;
+    private TableRows rows;
 
     /**
      * Creates a new instance
@@ -120,16 +120,17 @@ public class QuineMcCluskey {
      * @return the simplified QMC instance
      */
     public QuineMcCluskey simplify(PrimeSelector ps) {
-        QuineMcCluskey t = this;
-        while (!t.isFinished()) {
-            LOGGER.debug("QMC rows " + t.rows.size());
-            t = t.simplifyStep();
+        while (!isFinished()) {
+            LOGGER.debug("QMC rows " + rows.size());
+            simplifyStep();
         }
-        return t.simplifyPrimes(ps);
+        simplifyPrimes(ps);
+
+        return this;
     }
 
 
-    QuineMcCluskey simplifyStep() {
+    void simplifyStep() {
         TableRows newRows = new TableRows();
 
         for (TableRows.InnerList list : rows.listIterable())
@@ -154,13 +155,11 @@ public class QuineMcCluskey {
                     }
                 }
 
-        ArrayList<TableRow> np = new ArrayList<TableRow>();
-        np.addAll(primes);
         for (TableRow row : rows)
             if (!row.isUsed() && row.getSource().size() > 0)
-                np.add(row);
+                primes.add(row);
 
-        return new QuineMcCluskey(variables, newRows, np);
+        rows=newRows;
     }
 
     /**
@@ -173,7 +172,7 @@ public class QuineMcCluskey {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        ArrayList<TableRow> newList = new ArrayList<TableRow>();
+        ArrayList<TableRow> newList = new ArrayList<>();
         for (TableRow r : rows) {
             newList.add(r);
         }
@@ -190,6 +189,13 @@ public class QuineMcCluskey {
      */
     public ArrayList<TableRow> getPrimes() {
         return primes;
+    }
+
+    /**
+     * @return the variables used
+     */
+    public List<Variable> getVariables() {
+        return variables;
     }
 
     /**
@@ -226,9 +232,8 @@ public class QuineMcCluskey {
      * Simplify the primes
      *
      * @param primeSelector the prime selector to use
-     * @return this for call chaining
      */
-    public QuineMcCluskey simplifyPrimes(PrimeSelector primeSelector) {
+    public void simplifyPrimes(PrimeSelector primeSelector) {
 
         TreeSet<Integer> columns = new TreeSet<>();
         for (TableRow r : primes)
@@ -276,8 +281,6 @@ public class QuineMcCluskey {
             primeSelector.select(primes, availPrimes, columns);
             LOGGER.debug("final primes " + primes.size());
         }
-
-        return this;
     }
 
     private boolean smaller(int c1, int c2, ArrayList<TableRow> primes) {

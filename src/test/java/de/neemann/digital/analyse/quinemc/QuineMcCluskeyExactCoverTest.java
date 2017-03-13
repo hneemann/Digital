@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * Created by hneemann on 09.03.17.
  */
-public class QuineMcCluskeyExactCover extends TestCase {
+public class QuineMcCluskeyExactCoverTest extends TestCase {
 
 
     public void testExactCoverLoop() {
@@ -30,7 +30,7 @@ public class QuineMcCluskeyExactCover extends TestCase {
 
 
         QuineMcCluskey qmc = new QuineMcCluskey(vars, null, primes);
-        qmc=qmc.simplifyPrimes(null);
+        qmc.simplifyPrimes(null);
         final ArrayList<TableRow> pri = qmc.getPrimes();
         assertEquals(2, pri.size());
 

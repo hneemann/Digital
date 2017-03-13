@@ -1,23 +1,19 @@
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.AnalyseException;
+import de.neemann.digital.analyse.MinimizerInterface;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.BoolTable;
-import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 import de.neemann.digital.analyse.quinemc.TableReducer;
-import de.neemann.digital.analyse.quinemc.TableRow;
-import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
-import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -34,14 +30,17 @@ public class ExpressionCreator {
     private static final int MAX_INPUTS_ALLOWED = 12;
 
     private final TruthTable theTable;
+    private final MinimizerInterface minimizer;
 
     /**
      * Creates a new instance
      *
-     * @param theTable the table to use
+     * @param theTable  the table to use
+     * @param minimizer the minimizer to use
      */
-    public ExpressionCreator(TruthTable theTable) {
+    public ExpressionCreator(TruthTable theTable, MinimizerInterface minimizer) {
         this.theTable = theTable;
+        this.minimizer = minimizer;
     }
 
     /**
@@ -94,18 +93,7 @@ public class ExpressionCreator {
         if (!Main.enableExperimental() && localVars.size() > MAX_INPUTS_ALLOWED)
             throw new AnalyseException(Lang.get("err_toManyInputsIn_N0_max_N1_is_N2", resultName, MAX_INPUTS_ALLOWED, localVars.size()));
 
-        QuineMcCluskey qmc = new QuineMcCluskey(localVars)
-                .fillTableWith(boolTable);
-        PrimeSelector ps = new PrimeSelectorDefault();
-        Expression e = qmc.simplify(ps).getExpression();
-
-        if (ps.getAllSolutions() != null) {
-            for (ArrayList<TableRow> i : ps.getAllSolutions()) {
-                listener.resultFound(resultName, QuineMcCluskey.addAnd(null, i, localVars));
-            }
-        } else {
-            listener.resultFound(resultName, e);
-        }
+        minimizer.minimize(localVars, boolTable, resultName, listener);
     }
 
     private final static class ThreadSaveExpressionListener implements ExpressionListener {

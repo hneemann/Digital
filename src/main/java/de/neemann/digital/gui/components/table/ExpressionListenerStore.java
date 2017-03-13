@@ -58,6 +58,13 @@ public class ExpressionListenerStore implements ExpressionListener {
         listener.close();
     }
 
+    /**
+     * @return the first found expression
+     */
+    public Expression getFirst() {
+        return results.get(0).expression;
+    }
+
     private static final class Result {
         private final String name;
         private final Expression expression;
