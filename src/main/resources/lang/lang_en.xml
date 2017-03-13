@@ -436,6 +436,7 @@ allowed are {1} variables but {2} are found.</string>
     <string name="err_processDoesNotTerminate_N">The process &quot;{0}&quot; does not return!</string>
     <string name="err_processExitedWithError_N1_N2">The process returns the non zero value {0}: {1}</string>
     <string name="err_errorRunningFitter">Error starting the external fitter!</string>
+    <string name="err_noExpressionsAvailable">There are no minimized equations!</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>

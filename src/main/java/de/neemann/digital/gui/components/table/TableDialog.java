@@ -595,13 +595,21 @@ public class TableDialog extends JDialog {
                 expressionListener = new ExpressionListenerJK(expressionListener);
 
             lastGeneratedExpressions = new ExpressionListenerStore(expressionListener);
-            new ExpressionCreator(model.getTable(), minimizer).create(lastGeneratedExpressions);
+            final int numVars = model.getTable().getVars().size();
+            new ExpressionCreator(model.getTable(), getMinimizer(numVars)).create(lastGeneratedExpressions);
 
         } catch (ExpressionException | FormatterException | AnalyseException e1) {
+            lastGeneratedExpressions = null;
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
         }
     }
 
+    private MinimizerInterface getMinimizer(int size) {
+        if (size<=4)
+            return new MinimizerQuineMcCluskeyExam();
+        else
+            return minimizer;
+    }
 
     private final class SizeAction extends AbstractAction {
         private int n;
@@ -680,6 +688,9 @@ public class TableDialog extends JDialog {
         }
 
         public void create(ExpressionListenerStore expressions) throws ExpressionException, FormatterException {
+            if (expressions==null)
+                throw new ExpressionException(Lang.get("err_noExpressionsAvailable"));
+
             ExpressionListener el = new ExpressionListener() {
                 @Override
                 public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {

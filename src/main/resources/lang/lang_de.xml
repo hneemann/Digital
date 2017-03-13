@@ -449,6 +449,7 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_processDoesNotTerminate_N">Der Prozess &quot;{0}&quot; wird nicht beendet!</string>
     <string name="err_processExitedWithError_N1_N2">Der Prozess meldet den Rückgabewert {0}: {1}</string>
     <string name="err_errorRunningFitter">Fehler beim Starten des externen Fitters!</string>
+    <string name="err_noExpressionsAvailable">Es liegen keine minimierten Gleichungen vor!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
