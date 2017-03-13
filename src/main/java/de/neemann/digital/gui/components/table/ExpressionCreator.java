@@ -95,19 +95,15 @@ public class ExpressionCreator {
 
         QuineMcCluskey qmc = new QuineMcCluskey(localVars)
                 .fillTableWith(boolTable);
-        calcColumn(listener, qmc, resultName, localVars);
-    }
-
-    private static void calcColumn(ExpressionListener listener, QuineMcCluskey qmc, String name, List<Variable> vars) throws ExpressionException, FormatterException {
         PrimeSelector ps = new PrimeSelectorDefault();
         Expression e = qmc.simplify(ps).getExpression();
 
         if (ps.getAllSolutions() != null) {
             for (ArrayList<TableRow> i : ps.getAllSolutions()) {
-                listener.resultFound(name, QuineMcCluskey.addAnd(null, i, vars));
+                listener.resultFound(resultName, QuineMcCluskey.addAnd(null, i, localVars));
             }
         } else {
-            listener.resultFound(name, e);
+            listener.resultFound(resultName, e);
         }
     }
 
