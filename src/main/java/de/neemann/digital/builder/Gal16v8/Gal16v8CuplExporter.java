@@ -121,22 +121,27 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
                 .append("Company  unknown ;\r\n")
                 .append("Assembly None ;\r\n")
                 .append("Location unknown ;\r\n")
-                .append("Device   " + devName + " ;\r\n");
+                .append("Device   ").append(devName).append(" ;\r\n");
 
 
         headerWritten(out);
 
         out.append("\r\n/* inputs */\r\n");
         if (!builder.getRegistered().isEmpty())
-            out.append("PIN " + clockPin + " = CLK;\r\n");
+            out.append("PIN ").append(String.valueOf(clockPin)).append(" = CLK;\r\n");
 
         for (String in : builder.getInputs())
             out.append("PIN ").append(Integer.toString(pinMap.getInputFor(in))).append(" = ").append(in).append(";\r\n");
 
         out.append("\r\n/* outputs */\r\n");
 
-        for (String var : builder.getOutputs())
-            out.append("PIN ").append(Integer.toString(pinMap.getOutputFor(var))).append(" = ").append(var).append(";\r\n");
+        for (String var : builder.getOutputs()) {
+            int p = pinMap.isAssigned(var);
+            if (p >= 0)
+                out.append("PIN ").append(Integer.toString(p)).append(" = ").append(var).append(";\r\n");
+            else
+                out.append("NODE ").append(var).append(";\r\n");
+        }
 
         try {
             if (!builder.getRegistered().isEmpty()) {

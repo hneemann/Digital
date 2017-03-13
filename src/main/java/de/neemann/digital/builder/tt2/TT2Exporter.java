@@ -106,7 +106,8 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         line("#$ MODULE  " + projectName);
         line("#$ JEDECFILE  " + projectName);
         line("#$ DEVICE  " + device);
-        line("#$ PINS " + getPins());
+        assignPinsAndNodes();
+        //line("#$ PINS " + getPins());
         line(".i " + inputs.size());
         line(".o " + outputs.size());
         line(".type f");
@@ -249,30 +250,38 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         return sb.toString();
     }
 
-    private String getPins() throws PinMapException {
-        StringBuilder sb = new StringBuilder();
-        int numPins = builder.getInputs().size() + builder.getOutputs().size();
-        if (!builder.getRegistered().isEmpty())
-            numPins++;
-
-        sb.append(numPins);
-
+    private void assignPinsAndNodes() throws IOException, PinMapException {
+        int pinNum = 0;
+        StringBuilder pin = new StringBuilder();
+        int nodeNum = 0;
+        StringBuilder node = new StringBuilder();
 
         for (String i : builder.getInputs()) {
             int p = pinMap.getInputFor(i);
-            sb.append(" ").append(i).append("+:").append(p);
+            pin.append(" ").append(i).append("+:").append(p);
+            pinNum++;
         }
 
-        if (!builder.getRegistered().isEmpty())
-            sb.append(" CLK+:").append(clockPin);
+        if (!builder.getRegistered().isEmpty()) {
+            pin.append(" CLK+:").append(clockPin);
+            pinNum++;
+        }
 
         for (String o : builder.getOutputs()) {
-            int p = pinMap.getInputFor(o);
-            sb.append(" ").append(o).append("+:").append(p);
+            int p = pinMap.isAssigned(o);
+            if (p >= 0) {
+                pin.append(" ").append(o).append("+:").append(p);
+                pinNum++;
+            } else {
+                node.append(" ").append(o);
+                nodeNum++;
+            }
         }
 
-
-        return sb.toString();
+        if (pinNum > 0)
+            line("#$ PINS " + pinNum + pin.toString());
+        if (nodeNum > 0)
+            line("#$ NODES " + nodeNum + node.toString());
     }
 
     private static class StateSet implements Comparable<StateSet> {

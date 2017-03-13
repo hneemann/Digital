@@ -227,6 +227,18 @@ public class PinMap {
         return getPinFor(in, PinDescription.Direction.input);
     }
 
+    /**
+     * gets the assigned pin.
+     *
+     * @param in the pins name
+     * @return the pin number or -1 if not assigned
+     */
+    public int isAssigned(String in) {
+        Integer p = searchPinWithAlias(in);
+        if (p == null) return -1;
+        else return p;
+    }
+
     private int getPinFor(String in, PinDescription.Direction direction) throws PinMapException {
         Integer p = searchPinWithAlias(in);
         if (p == null)

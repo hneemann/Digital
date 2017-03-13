@@ -26,6 +26,7 @@ public class Gal16V8CuplExporterTest extends TestCase {
 
         Gal16v8CuplExporter ce = new Gal16v8CuplExporter("user", new Date(0))
                 .setProjectName("test");
+        ce.getPinMapping().parseString("Y_0=12;Y_1=13;A=14");
         ce.getBuilder()
                 .addSequential("Y_0", y0s)
                 .addSequential("Y_1", y1s)

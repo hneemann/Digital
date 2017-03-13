@@ -19,6 +19,7 @@ public class TT2ExporterTest extends TestCase {
         tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
         tt2.getBuilder().addCombinatorial("Y", and(v("A"), v("B")));
         tt2.getBuilder().addCombinatorial("X", or(v("A1"), v("B1")));
+        tt2.getPinMapping().parseString("X=21;Y=20");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         tt2.writeTo(baos);
 
@@ -46,6 +47,7 @@ public class TT2ExporterTest extends TestCase {
         TT2Exporter tt2 = new TT2Exporter();
         tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
         tt2.getBuilder().addSequential("Yn", and(v("A"), not(v("Yn"))));
+        tt2.getPinMapping().parseString("Yn=5");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         tt2.writeTo(baos);
 
@@ -74,6 +76,7 @@ public class TT2ExporterTest extends TestCase {
         tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
         tt2.getBuilder().addSequential("Yn", and(v("A"), not(v("Yn"))));
         tt2.getBuilder().addSequential("Xn", or(v("B"), not(v("Xn"))));
+        tt2.getPinMapping().parseString("Xn=8;Yn=6");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         tt2.writeTo(baos);
 

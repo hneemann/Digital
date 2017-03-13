@@ -25,6 +25,7 @@ public class ATF1502CuplExporterTest extends TestCase {
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
         ATF1502CuplExporter ce = new ATF1502CuplExporter("user", new Date(0), "f1502ispplcc44");
+        ce.getPinMapping().parseString("Y_0=4;Y_1=5;A=6");
         ce.setProjectName("test");
         ce.getBuilder()
                 .addSequential("Y_0", y0s)
