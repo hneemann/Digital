@@ -390,7 +390,7 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="err_isAlreadyInitialized">Die Schaltung wurde bereits initialisiert</string>
     <string name="err_labelNotConnectedToNet_N">Ein Tunnel {0} ist nicht verbunden!</string>
     <string name="err_moreThenOneClocksFound">Es gibt mehr als einen Taktgeber</string>
-    <string name="err_needs_N0_bits_found_N2_bits">Es werden {0} Bits benötigt, aber es wurden {1} Bits gefunden </string>
+    <string name="err_needs_N0_bits_found_N2_bits">Es werden {0} Bits benötigt, jedoch wurden {1} Bits gefunden </string>
     <string name="err_netOfPin_N_notFound">Das Netz von Pin {0} wurde nicht gefunden</string>
     <string name="err_noClockFound">Kein Taktgeber in der Schaltung gefunden</string>
     <string name="err_noInputsAvailable">Es sind keine Eingänge vorhanden</string>
@@ -422,9 +422,9 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_spitterDefSyntaxError">Fehler in der Definition {0} eines Splitters</string>
     <string name="err_splitterBitsMismatch">Die Bitzahl am Spiltter passt nicht</string>
     <string name="err_tableBecomesToSmall">Es sind mindestens zwei Eingänge erforderlich!</string>
-    <string name="err_toManyInputs_max_N0_is_N1">Zu viele Eingänge. Es sind nur {0} Eingänge erlaubt, es wurden aber {1} gefunden.</string>
+    <string name="err_toManyInputs_max_N0_is_N1">Zu viele Eingänge. Es sind nur {0} Eingänge erlaubt, es wurden jedoch {1} gefunden.</string>
     <string name="err_toManyInputsIn_N0_max_N1_is_N2">Zu viele Variablen bei der Vereinfachung von {0}.
-Es sind nur {1} Variablen erlaubt, es wurden aber {2} gefunden.</string>
+Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_varNotAllowedInCUPL_N">In CUPL ist die Variable {0} nicht erlaubt!</string>
     <string name="err_varNotDefined_N">Variable {0} ist nicht definiert.</string>
     <string name="err_parserUnexpectedToken_N">Unerwartetes Zeichen {0}</string>

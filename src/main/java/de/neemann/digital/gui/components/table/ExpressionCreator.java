@@ -12,6 +12,7 @@ import de.neemann.digital.analyse.quinemc.TableReducer;
 import de.neemann.digital.analyse.quinemc.TableRow;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelector;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,7 +91,7 @@ public class ExpressionCreator {
             boolTable = tr.getTable();
             localVars = tr.getVars();
         }
-        if (localVars.size() > MAX_INPUTS_ALLOWED)
+        if (!Main.enableExperimental() && localVars.size() > MAX_INPUTS_ALLOWED)
             throw new AnalyseException(Lang.get("err_toManyInputsIn_N0_max_N1_is_N2", resultName, MAX_INPUTS_ALLOWED, localVars.size()));
 
         QuineMcCluskey qmc = new QuineMcCluskey(localVars)
