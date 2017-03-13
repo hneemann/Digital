@@ -77,6 +77,9 @@ public class CircuitTransferable implements Transferable {
         Vector max = null;
         try (Reader in = new StringReader(data.toString())) {
             ArrayList<Moveable> elements = (ArrayList<Moveable>) xStream.fromXML(in);
+            if (elements == null)
+                return null;
+
             for (Moveable m : elements)
                 if (m instanceof VisualElement) {
                     ((VisualElement) m).setShapeFactory(shapeFactory);
