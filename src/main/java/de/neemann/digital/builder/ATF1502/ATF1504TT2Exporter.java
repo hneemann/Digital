@@ -12,7 +12,7 @@ public class ATF1504TT2Exporter extends ATF1502TT2Exporter {
      */
     public ATF1504TT2Exporter() {
         super();
-        setDevice("f1502ispplcc44");
+        setDevice("f1504ispplcc44");
     }
 
 
