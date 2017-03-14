@@ -21,11 +21,12 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
- * Creates a CUPL file
+ * Creates a CUPL file.
+ * The default setting is usable for GAL16V8 chips.
  *
  * @author hneemann
  */
-public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExporter> {
+public class CuplExporter implements ExpressionExporter<CuplExporter> {
     private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     private final String username;
@@ -36,12 +37,13 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
     private final String devName;
 
     private String projectName;
+    private boolean createNodes = false;
     private int clockPin = 1;
 
     /**
      * Creates a new project name
      */
-    public Gal16v8CuplExporter() {
+    public CuplExporter() {
         this(System.getProperty("user.name"), new Date());
     }
 
@@ -51,7 +53,7 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
      * @param username user name
      * @param date     date
      */
-    public Gal16v8CuplExporter(String username, Date date) {
+    public CuplExporter(String username, Date date) {
         this(username, date, "g16v8a", new PinMap()
                 .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9)
                 .setAvailOutputs(12, 13, 14, 15, 16, 17, 18, 19));
@@ -69,12 +71,12 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
     /**
      * Creates a new instance
      *
-     * @param username
-     * @param date
-     * @param devName
-     * @param pinMap
+     * @param username user name
+     * @param date     creation date
+     * @param devName  device name
+     * @param pinMap   the pin map to use
      */
-    protected Gal16v8CuplExporter(String username, Date date, String devName, PinMap pinMap) {
+    protected CuplExporter(String username, Date date, String devName, PinMap pinMap) {
         this.username = username;
         this.date = date;
         this.devName = devName;
@@ -88,9 +90,19 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
      * @param projectName the project name
      * @return this for call chaining
      */
-    public Gal16v8CuplExporter setProjectName(String projectName) {
+    public CuplExporter setProjectName(String projectName) {
         this.projectName = projectName;
         return this;
+    }
+
+    /**
+     * Set the create nodes flag.
+     * If "create nodes" is enabled the CUPL file contains buried as NODE not as PIN assignment.
+     *
+     * @param createNodes true if the exporter should create nodes.
+     */
+    public void setCreateNodes(boolean createNodes) {
+        this.createNodes = createNodes;
     }
 
     @Override
@@ -136,40 +148,54 @@ public class Gal16v8CuplExporter implements ExpressionExporter<Gal16v8CuplExport
         out.append("\r\n/* outputs */\r\n");
 
         for (String var : builder.getOutputs()) {
-            int p = pinMap.isAssigned(var);
-            if (p >= 0)
-                out.append("PIN ").append(Integer.toString(p)).append(" = ").append(var).append(";\r\n");
-            else
-                out.append("NODE ").append(var).append(";\r\n");
+            if (createNodes) {
+                int p = pinMap.isAssigned(var);
+                if (p >= 0)
+                    out.append("PIN ").append(Integer.toString(p)).append(" = ").append(var).append(";\r\n");
+                else
+                    out.append("NODE ").append(var).append(";\r\n");
+            } else {
+                out.append("PIN ").append(Integer.toString(pinMap.getOutputFor(var))).append(" = ").append(var).append(";\r\n");
+            }
         }
 
         try {
             if (!builder.getRegistered().isEmpty()) {
                 out.append("\r\n/* sequential logic */\r\n");
                 for (Map.Entry<String, Expression> c : builder.getRegistered().entrySet()) {
-                    out
-                            .append(c.getKey())
-                            .append(".D = ")
-                            .append(FormatToExpression.FORMATTER_CUPL.format(c.getValue()))
-                            .append(";\r\n");
+                    out.append(c.getKey()).append(".D = ");
+                    breakLines(out, FormatToExpression.FORMATTER_CUPL.format(c.getValue()));
+                    out.append(";\r\n");
                     sequentialWritten(out, c.getKey());
                 }
             }
 
             if (!builder.getCombinatorial().isEmpty()) {
                 out.append("\r\n/* combinatorial logic */\r\n");
-                for (Map.Entry<String, Expression> c : builder.getCombinatorial().entrySet())
-                    out
-                            .append(c.getKey()).append(" = ")
-                            .append(FormatToExpression.FORMATTER_CUPL.format(c.getValue()))
-                            .append(";\r\n");
-
+                for (Map.Entry<String, Expression> c : builder.getCombinatorial().entrySet()) {
+                    out.append(c.getKey()).append(" = ");
+                    breakLines(out, FormatToExpression.FORMATTER_CUPL.format(c.getValue()));
+                    out.append(";\r\n");
+                }
             }
         } catch (FormatterException e) {
             throw new IOException(e);
         }
 
         out.flush();
+    }
+
+    private void breakLines(Writer out, String expression) throws IOException {
+        int pos = 0;
+        for (int i = 0; i < expression.length(); i++) {
+            char c = expression.charAt(i);
+            if (pos > 80 && c == '#') {
+                out.append("\r\n     ");
+                pos = 0;
+            }
+            out.append(c);
+            pos++;
+        }
     }
 
     @Override

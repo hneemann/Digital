@@ -1,6 +1,6 @@
 package de.neemann.digital.builder.ATF1502;
 
-import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
+import de.neemann.digital.builder.Gal16v8.CuplExporter;
 import de.neemann.digital.builder.PinMap;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author hneemann
  */
-public class ATF1502CuplExporter extends Gal16v8CuplExporter {
+public class ATF1502CuplExporter extends CuplExporter {
 
     /**
      * Creates a new project name
@@ -33,6 +33,7 @@ public class ATF1502CuplExporter extends Gal16v8CuplExporter {
                         18, 19, 20, 21, 24, 25, 26, 27, 28,
                         29, 31, 33, 34, 36, 37, 38, 39, 40));
         setClockPin(43);
+        setCreateNodes(true);
     }
 
     @Override

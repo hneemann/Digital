@@ -15,7 +15,7 @@ import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.builder.ATF1502.*;
 import de.neemann.digital.builder.*;
-import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
+import de.neemann.digital.builder.Gal16v8.CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10CuplExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
@@ -396,7 +396,7 @@ public class TableDialog extends JDialog {
         gal16v8.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                createCUPL(new Gal16v8CuplExporter());
+                createCUPL(new CuplExporter());
             }
         }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
         gal16v8.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
@@ -505,7 +505,7 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private void createCUPL(Gal16v8CuplExporter cupl) {
+    private void createCUPL(CuplExporter cupl) {
         try {
             File cuplPath;
             if (filename == null) {
@@ -534,7 +534,7 @@ public class TableDialog extends JDialog {
                     throw new IOException(Lang.get("err_couldNotCreateFolder_N0", cuplPath.getPath()));
 
             File f = new File(cuplPath, "CUPL.PLD");
-            cupl.setProjectName(f.getName());
+            cupl.setProjectName(filename.getName());
             cupl.getPinMapping().addAll(pinMap);
             new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
             try (FileOutputStream out = new FileOutputStream(f)) {

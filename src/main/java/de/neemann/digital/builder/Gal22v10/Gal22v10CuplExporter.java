@@ -1,6 +1,6 @@
 package de.neemann.digital.builder.Gal22v10;
 
-import de.neemann.digital.builder.Gal16v8.Gal16v8CuplExporter;
+import de.neemann.digital.builder.Gal16v8.CuplExporter;
 import de.neemann.digital.builder.PinMap;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author hneemann
  */
-public class Gal22v10CuplExporter extends Gal16v8CuplExporter {
+public class Gal22v10CuplExporter extends CuplExporter {
 
     /**
      * Creates a new project name
