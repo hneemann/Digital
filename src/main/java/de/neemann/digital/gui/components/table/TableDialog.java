@@ -438,7 +438,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 createHardware(
-                        new ExpressionToFileExporter(new ATF1502TT2Exporter())
+                        new ExpressionToFileExporter(new ATF1502TT2Exporter(filename.getName()))
                                 .addProcessingStep(new StartATF1502Fitter(TableDialog.this))
                                 .addProcessingStep(new CreateCHN("ATF1502AS")), filename, "tt2");
             }
@@ -456,7 +456,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 createHardware(
-                        new ExpressionToFileExporter(new ATF1504TT2Exporter())
+                        new ExpressionToFileExporter(new ATF1504TT2Exporter(filename.getName()))
                                 .addProcessingStep(new StartATF1504Fitter(TableDialog.this))
                                 .addProcessingStep(new CreateCHN("ATF1504AS")), filename, "tt2");
             }

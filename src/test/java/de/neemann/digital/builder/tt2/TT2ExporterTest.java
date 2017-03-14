@@ -15,7 +15,7 @@ import static de.neemann.digital.analyse.expression.Variable.v;
 public class TT2ExporterTest extends TestCase {
 
     public void testCombinatorial() throws Exception {
-        TT2Exporter tt2 = new TT2Exporter();
+        TT2Exporter tt2 = new TT2Exporter("unknown");
         tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
         tt2.getBuilder().addCombinatorial("Y", and(v("A"), v("B")));
         tt2.getBuilder().addCombinatorial("X", or(v("A1"), v("B1")));
@@ -44,7 +44,7 @@ public class TT2ExporterTest extends TestCase {
     }
 
     public void testSequential() throws Exception {
-        TT2Exporter tt2 = new TT2Exporter();
+        TT2Exporter tt2 = new TT2Exporter("unknown");
         tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
         tt2.getBuilder().addSequential("Yn", and(v("A"), not(v("Yn"))));
         tt2.getPinMapping().parseString("Yn=5");
@@ -72,7 +72,7 @@ public class TT2ExporterTest extends TestCase {
     }
 
     public void testSequential2() throws Exception {
-        TT2Exporter tt2 = new TT2Exporter();
+        TT2Exporter tt2 = new TT2Exporter("unknown");
         tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
         tt2.getBuilder().addSequential("Yn", and(v("A"), not(v("Yn"))));
         tt2.getBuilder().addSequential("Xn", or(v("B"), not(v("Xn"))));

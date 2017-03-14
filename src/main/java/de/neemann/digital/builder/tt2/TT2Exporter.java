@@ -32,7 +32,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     /**
      * Creates a new instance
      */
-    public TT2Exporter() {
+    public TT2Exporter(String projectName) {
         builder = new BuilderCollector() {
             @Override
             public BuilderCollector addCombinatorial(String name, Expression expression) throws BuilderException {
@@ -44,7 +44,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         };
         pinMap = new PinMap();
         device = "f1502ispplcc44";
-        projectName = "unknown";
+        this.projectName = projectName;
         clockPin = 43;
     }
 
@@ -61,17 +61,6 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
      */
     public TT2Exporter setClockPin(int clockPin) {
         this.clockPin = clockPin;
-        return this;
-    }
-
-    /**
-     * Sets the project name used
-     *
-     * @param projectName the project name
-     * @return this for chained calls
-     */
-    public TT2Exporter setProjectName(String projectName) {
-        this.projectName = projectName;
         return this;
     }
 
@@ -103,8 +92,6 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         line("#$ TOOL CUPL");
         line("# Berkeley PLA format generated using Digital");
         line("#$ TITLE  " + projectName);
-        line("#$ MODULE  " + projectName);
-        line("#$ JEDECFILE  " + projectName);
         line("#$ DEVICE  " + device);
         assignPinsAndNodes();
         //line("#$ PINS " + getPins());
