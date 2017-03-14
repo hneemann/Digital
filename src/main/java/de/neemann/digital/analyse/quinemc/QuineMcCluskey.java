@@ -130,7 +130,10 @@ public class QuineMcCluskey {
     }
 
 
-    void simplifyStep() {
+    /**
+     * a single simplification iteration
+     */
+    public void simplifyStep() {
         TableRows newRows = new TableRows();
 
         for (TableRows.InnerList list : rows.listIterable())
@@ -159,7 +162,7 @@ public class QuineMcCluskey {
             if (!row.isUsed() && row.getSource().size() > 0)
                 primes.add(row);
 
-        rows=newRows;
+        rows = newRows;
     }
 
     /**
@@ -167,6 +170,22 @@ public class QuineMcCluskey {
      */
     public boolean isFinished() {
         return rows.isEmpty();
+    }
+
+    /**
+     * @return the actual table rows
+     */
+    public TableRows getRows() {
+        return rows;
+    }
+
+    /**
+     * Sets the table rows.
+     *
+     * @param rows the rows to use
+     */
+    public void setRows(TableRows rows) {
+        this.rows = rows;
     }
 
     @Override

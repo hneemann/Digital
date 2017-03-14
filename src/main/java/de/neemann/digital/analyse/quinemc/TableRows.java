@@ -10,18 +10,29 @@ import java.util.TreeMap;
  *
  * @author hneemann
  */
-final class TableRows implements Iterable<TableRow> {
+public final class TableRows implements Iterable<TableRow> {
     private final TreeMap<Long, InnerList> rows;
     private int size;
 
-    TableRows() {
+    /**
+     * Creates a new set of table rows
+     */
+    public TableRows() {
         rows = new TreeMap<>();
     }
 
+    /**
+     * @return the number of rows in the table
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Adds a row to the table
+     *
+     * @param tableRow the row to add
+     */
     public void add(TableRow tableRow) {
         long flags = tableRow.getOptimizedFlags();
         getList(flags).add(tableRow);
@@ -37,11 +48,19 @@ final class TableRows implements Iterable<TableRow> {
         return list;
     }
 
+    /**
+     * remove all rows from this list
+     */
     public void clear() {
         rows.clear();
         size = 0;
     }
 
+    /**
+     * Add all rows from the given list
+     *
+     * @param newRows the list of rows
+     */
     public void addAll(TableRows newRows) {
         for (Map.Entry<Long, InnerList> e : newRows.rows.entrySet()) {
             InnerList values = e.getValue();
@@ -50,6 +69,9 @@ final class TableRows implements Iterable<TableRow> {
         }
     }
 
+    /**
+     * @return truw if this list is empty
+     */
     public boolean isEmpty() {
         return size == 0;
     }
@@ -74,11 +96,20 @@ final class TableRows implements Iterable<TableRow> {
         return new RowIterator(rows.values().iterator());
     }
 
+    /**
+     * @return a list of lists with all rows of the same optimized bit mask
+     */
     public Iterable<InnerList> listIterable() {
         return rows.values();
     }
 
 
+    /**
+     * get the i'th row of this list
+     *
+     * @param i the index of the row
+     * @return the row
+     */
     public TableRow get(int i) {
         for (Map.Entry<Long, InnerList> e : rows.entrySet()) {
             InnerList list = e.getValue();
@@ -118,38 +149,65 @@ final class TableRows implements Iterable<TableRow> {
         }
     }
 
-    static final class InnerList implements Iterable<TableRow> {
+    /**
+     * A list of rows with the same optimized mask
+     */
+    public static final class InnerList implements Iterable<TableRow> {
         private ArrayList<TableRow> innerList;
 //        private HashSet<TableRow> innerSet;
 
         private InnerList() {
-            innerList=new ArrayList<>();
+            innerList = new ArrayList<>();
 //            innerSet=new HashSet<>();
         }
 
+        /**
+         * @param r the row to search for
+         * @return true if this list contains the given row
+         */
         public boolean contains(TableRow r) {
             return innerList.contains(r);
 //            return innerSet.contains(r);
         }
 
+        /**
+         * Add all given rows to thisd list
+         *
+         * @param values the rows to add
+         */
         public void addAll(InnerList values) {
             for (TableRow tr : values)
                 add(tr);
         }
 
+        /**
+         * add a single row to this list
+         *
+         * @param tableRow the row to add
+         */
         public void add(TableRow tableRow) {
             innerList.add(tableRow);
 //            innerSet.add(tableRow);
         }
 
+        /**
+         * @return the size of this list
+         */
         public int size() {
             return innerList.size();
         }
 
+        /**
+         * returns the i'th element of this list
+         *
+         * @param i the index
+         * @return the row
+         */
         public TableRow get(int i) {
             return innerList.get(i);
         }
 
+        @Override
         public Iterator<TableRow> iterator() {
             return innerList.iterator();
         }

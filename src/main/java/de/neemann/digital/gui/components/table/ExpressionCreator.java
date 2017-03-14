@@ -1,8 +1,6 @@
 package de.neemann.digital.gui.components.table;
 
-import de.neemann.digital.analyse.AnalyseException;
-import de.neemann.digital.analyse.MinimizerInterface;
-import de.neemann.digital.analyse.TruthTable;
+import de.neemann.digital.analyse.*;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
@@ -30,17 +28,14 @@ public class ExpressionCreator {
     private static final int MAX_INPUTS_ALLOWED = 12;
 
     private final TruthTable theTable;
-    private final MinimizerInterface minimizer;
 
     /**
      * Creates a new instance
      *
      * @param theTable  the table to use
-     * @param minimizer the minimizer to use
      */
-    public ExpressionCreator(TruthTable theTable, MinimizerInterface minimizer) {
+    public ExpressionCreator(TruthTable theTable) {
         this.theTable = theTable;
-        this.minimizer = minimizer;
     }
 
     /**
@@ -93,8 +88,17 @@ public class ExpressionCreator {
         if (!Main.enableExperimental() && localVars.size() > MAX_INPUTS_ALLOWED)
             throw new AnalyseException(Lang.get("err_toManyInputsIn_N0_max_N1_is_N2", resultName, MAX_INPUTS_ALLOWED, localVars.size()));
 
-        minimizer.minimize(localVars, boolTable, resultName, listener);
+        getMinimizer(localVars.size()).minimize(localVars, boolTable, resultName, listener);
     }
+
+    private MinimizerInterface getMinimizer(int size) {
+        if (size <= 4)
+            return new MinimizerQuineMcCluskeyExam();
+        else {
+            return new MinimizerQuineMcCluskey();
+        }
+    }
+
 
     private final static class ThreadSaveExpressionListener implements ExpressionListener {
         private final ExpressionListener listener;
