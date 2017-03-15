@@ -5,7 +5,7 @@ import de.neemann.digital.analyse.expression.Expression;
 /**
  * Interface used to create a circuit
  * There are two implementations: the {@link de.neemann.digital.builder.circuit.CircuitBuilder} creates a circuit and the
- * {@link CuplExporter} creates a CUPL file
+ * {@link de.neemann.digital.builder.Gal16v8.CuplExporter} creates a CUPL file
  * which contains the circuit.
  *
  * @param <T> concrete Builder Type
