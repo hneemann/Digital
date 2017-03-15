@@ -115,6 +115,11 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
         return pinMap;
     }
 
+    @Override
+    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
+        writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
+    }
+
     /**
      * Writes code to given writer
      *
@@ -196,11 +201,6 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
             out.append(c);
             pos++;
         }
-    }
-
-    @Override
-    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
-        writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
     }
 
     /**

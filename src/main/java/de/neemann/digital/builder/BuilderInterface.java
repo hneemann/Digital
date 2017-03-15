@@ -1,7 +1,6 @@
 package de.neemann.digital.builder;
 
 import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.builder.Gal16v8.CuplExporter;
 
 /**
  * Interface used to create a circuit
