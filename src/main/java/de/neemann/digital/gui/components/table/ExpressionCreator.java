@@ -88,6 +88,9 @@ public class ExpressionCreator {
         if (!Main.enableExperimental() && localVars.size() > MAX_INPUTS_ALLOWED)
             throw new AnalyseException(Lang.get("err_toManyInputsIn_N0_max_N1_is_N2", resultName, MAX_INPUTS_ALLOWED, localVars.size()));
 
+
+        listener = new CheckResultListener(listener, localVars, boolTable);
+
         getMinimizer(localVars.size()).minimize(localVars, boolTable, resultName, listener);
     }
 
