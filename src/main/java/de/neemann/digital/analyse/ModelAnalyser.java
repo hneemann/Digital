@@ -50,6 +50,7 @@ public class ModelAnalyser {
         }
 
         inputs = checkBinary(model.getInputs());
+        checkUnique(inputs);
         outputs = checkBinary(model.getOutputs());
 
         for (Node n : model)
@@ -71,7 +72,10 @@ public class ModelAnalyser {
             outputs.add(i++, new Signal(label + "+1", ff.getDInput()));
 
             ObservableValue q = ff.getOutputs().get(0);
-            inputs.add(new Signal(label, q));
+            final Signal sig = new Signal(label, q);
+            if (inputs.contains(sig))
+                throw new AnalyseException(Lang.get("err_varName_N_UsedTwice", sig.getName()));
+            inputs.add(sig);
 
             ObservableValue notQ = ff.getOutputs().get(1);
             q.addObserver(() -> notQ.setValue(~q.getValue()));
@@ -84,6 +88,13 @@ public class ModelAnalyser {
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
         rows = 1 << inputs.size();
+    }
+
+    private void checkUnique(ArrayList<Signal> signals) throws AnalyseException {
+        for (int i = 0; i < signals.size() - 1; i++)
+            for (int j = i + 1; j < signals.size(); j++)
+                if (signals.get(i).equals(signals.get(j)))
+                    throw new AnalyseException(Lang.get("err_varName_N_UsedTwice", signals.get(i).getName()));
     }
 
     private void checkClock(Node node) throws AnalyseException {
