@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 public class ModelAnalyserTest extends TestCase {
 
     public void testAnalyzer() throws Exception {
-        Model model = new ToBreakRunner("dig/analyzeTest.dig").getModel();
+        Model model = new ToBreakRunner("dig/analyze/analyzeTest.dig").getModel();
         TruthTable tt = new ModelAnalyser(model).analyse();
 
         assertEquals(4, tt.getRows());
@@ -30,19 +30,19 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     public void testAnalyzerDFF() throws Exception {
-        Model model = new ToBreakRunner("dig/analyzeTestDFF.dig").getModel();
+        Model model = new ToBreakRunner("dig/analyze/analyzeTestDFF.dig").getModel();
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }
 
     public void testAnalyzerJKFF() throws Exception {
-        Model model = new ToBreakRunner("dig/analyzeTestJKFF.dig", false).getModel();
+        Model model = new ToBreakRunner("dig/analyze/analyzeTestJKFF.dig", false).getModel();
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }
 
     public void testAnalyzerTFF() throws Exception {
-        Model model = new ToBreakRunner("dig/analyzeTestTFF.dig", false).getModel();
+        Model model = new ToBreakRunner("dig/analyze/analyzeTestTFF.dig", false).getModel();
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }
@@ -69,5 +69,26 @@ public class ModelAnalyserTest extends TestCase {
                 "1\t0\t1\t1\t\n" +
                 "1\t1\t0\t0\t\n", tt.toString());
     }
+
+    public void testAnalyzerUniqueNames() throws Exception {
+        Model model = new ToBreakRunner("dig/analyze/uniqueNames.dig", false).getModel();
+        try {
+            new ModelAnalyser(model);
+            fail();
+        } catch (AnalyseException e) {
+
+        }
+    }
+
+    public void testAnalyzerUniqueNames2() throws Exception {
+        Model model = new ToBreakRunner("dig/analyze/uniqueNames2.dig", false).getModel();
+        try {
+            new ModelAnalyser(model);
+            fail();
+        } catch (AnalyseException e) {
+
+        }
+    }
+
 
 }
