@@ -8,9 +8,14 @@ import java.awt.*;
  * @author hneemann
  */
 public class Style {
-    private static final int WIRETHICK = 4;
-    private static final int LINETHICK = 4;
-    private static final int LINETHIN = 2;
+    /**
+     * maximal line thickness
+     */
+    public static final int MAXLINETHICK = 4;
+
+    private static final int WIRETHICK = MAXLINETHICK;
+    private static final int LINETHICK = MAXLINETHICK;
+    private static final int LINETHIN = MAXLINETHICK / 2;
     private static final int LINEDASH = 1;
 
     /**

@@ -63,12 +63,13 @@ public class GraphicSVG implements Graphic, Closeable {
                 + "   xmlns:svg=\"http://www.w3.org/2000/svg\"\n"
                 + "   xmlns=\"http://www.w3.org/2000/svg\"\n");
 
-        double width = (max.x - min.x) * svgScale / 100.0;
-        double height = (max.y - min.y) * svgScale / 100.0;
+        double width = (max.x - min.x + Style.MAXLINETHICK) * svgScale / 100.0;
+        double height = (max.y - min.y + Style.MAXLINETHICK) * svgScale / 100.0;
 
+        final int lineCorr = Style.MAXLINETHICK / 2;
         w.write("   width=\"" + width + "mm\"\n"
                 + "   height=\"" + height + "mm\"\n"
-                + "   viewBox=\"" + min.x + " " + min.y + " " + (max.x - min.x) + " " + (max.y - min.y) + "\">\n");
+                + "   viewBox=\"" + (min.x - lineCorr) + " " + (min.y - lineCorr) + " " + (max.x - min.x + Style.MAXLINETHICK) + " " + (max.y - min.y + Style.MAXLINETHICK) + "\">\n");
         w.write("<g stroke-linecap=\"square\">\n");
     }
 
