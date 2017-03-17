@@ -136,6 +136,11 @@ public class ModelAnalyser {
         for (Signal s : inputs)
             tt.addVariable(s.getName());
 
+        for (Signal s : inputs)
+            tt.addPinNumber(s);
+        for (Signal s : outputs)
+            tt.addPinNumber(s);
+
         ArrayList<BoolTableByteArray> data = new ArrayList<>();
         for (Signal s : outputs) {
             BoolTableByteArray e = new BoolTableByteArray(rows);

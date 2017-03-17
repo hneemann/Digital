@@ -1,5 +1,7 @@
 package de.neemann.digital.core;
 
+import java.util.StringTokenizer;
+
 /**
  * A simple storage bean for signals
  */
@@ -86,4 +88,29 @@ public final class Signal implements Comparable<Signal> {
     public boolean isValid() {
         return name != null && name.length() > 0 && value != null;
     }
+
+    /**
+     * Gets the number of this pin.
+     *
+     * @return the pin number of -1 if no pin is given
+     * @throws NodeException invalid pin number
+     */
+    public int getPinNumber() throws NodeException {
+        if (getDescription() != null && getDescription().length() > 0) {
+            StringTokenizer st = new StringTokenizer(getDescription(), "\n\r");
+            while (st.hasMoreTokens()) {
+                String line = st.nextToken();
+                if (line.toLowerCase().startsWith("pin ")) {
+                    String intStr = line.substring(4).trim();
+                    try {
+                        return Integer.parseInt(intStr);
+                    } catch (NumberFormatException e) {
+                        throw new NodeException("invalid pin assignment " + getName() + "=" + intStr);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
 }

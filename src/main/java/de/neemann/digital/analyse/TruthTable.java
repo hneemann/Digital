@@ -10,9 +10,12 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.Signal;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * The description of a truth table.
@@ -23,6 +26,7 @@ public class TruthTable {
 
     private final ArrayList<Variable> variables;
     private final ArrayList<Result> results;
+    private final TreeMap<String, Integer> pins;
     private transient BitSetter bitSetter;
 
     /**
@@ -123,6 +127,7 @@ public class TruthTable {
     public TruthTable(ArrayList<Variable> vars) {
         this.variables = vars;
         results = new ArrayList<>();
+        pins = new TreeMap<>();
     }
 
     /**
@@ -423,6 +428,24 @@ public class TruthTable {
             if (bt instanceof BoolTableByteArray)
                 ((BoolTableByteArray) bt).setAllTo(value);
         }
+    }
+
+    /**
+     * Ats the signals pindescription to the table
+     *
+     * @param s the signal
+     * @throws NodeException NodeException
+     */
+    public void addPinNumber(Signal s) throws NodeException {
+        int p = s.getPinNumber();
+        if (p >= 0) pins.put(s.getName(), p);
+    }
+
+    /**
+     * @return the assigned pins
+     */
+    public TreeMap<String, Integer> getPins() {
+        return pins;
     }
 
     /**

@@ -2,8 +2,6 @@ package de.neemann.digital.builder;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
@@ -27,41 +25,6 @@ public class PinMap {
         pinMap = new HashMap<>();
         alias = new ArrayList<>();
         availPins = new ArrayList<>();
-    }
-
-    /**
-     * Reads the pin assignments from the given model
-     *
-     * @param model the model
-     * @return this for chained calls
-     * @throws PinMapException PinMapException
-     */
-    public PinMap addModel(Model model) throws PinMapException {
-        for (Signal p : model.getInputs())
-            addSignal(p);
-        for (Signal p : model.getOutputs())
-            addSignal(p);
-
-        return this;
-    }
-
-    private void addSignal(Signal signal) throws PinMapException {
-        if (signal.getDescription() != null && signal.getDescription().length() > 0) {
-            StringTokenizer st = new StringTokenizer(signal.getDescription(), "\n\r");
-            while (st.hasMoreTokens()) {
-                String line = st.nextToken();
-                if (line.toLowerCase().startsWith("pin ")) {
-                    String intStr = line.substring(4).trim();
-                    try {
-                        int pin = Integer.parseInt(intStr);
-                        assignPin(signal.getName(), pin);
-                        return;
-                    } catch (NumberFormatException e) {
-                        throw new PinMapException("invalid assignment " + signal.getName() + "=" + intStr);
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -190,9 +153,9 @@ public class PinMap {
      * @return this for chained calls
      * @throws PinMapException PinMapException
      */
-    public PinMap addAll(PinMap pinMap) throws PinMapException {
+    public PinMap addAll(Map<String, Integer> pinMap) throws PinMapException {
         if (pinMap != null)
-            for (Map.Entry<String, Integer> e : pinMap.pinMap.entrySet())
+            for (Map.Entry<String, Integer> e : pinMap.entrySet())
                 assignPin(e.getKey(), e.getValue());
         return this;
     }

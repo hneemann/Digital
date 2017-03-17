@@ -4,8 +4,6 @@ import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.ModelAnalyser;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.builder.PinMap;
-import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
@@ -631,10 +629,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                     new TableDialog(Main.this, new ModelAnalyser(model).analyse(), shapeFactory, filename)
-                            .setPinMap(new PinMap().addModel(model))
                             .setVisible(true);
                     stoppedState.enter();
-                } catch (PinException | PinMapException | NodeException | AnalyseException | ElementNotFoundException e1) {
+                } catch (PinException | NodeException | AnalyseException | ElementNotFoundException e1) {
                     showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
                 }
             }

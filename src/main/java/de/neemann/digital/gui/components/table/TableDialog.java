@@ -70,7 +70,6 @@ public class TableDialog extends JDialog {
     private TableColumn column;
     private int columnIndex;
     private AllSolutionsDialog allSolutionsDialog;
-    private PinMap pinMap;
     private ExpressionListenerStore lastGeneratedExpressions;
 
     /**
@@ -482,7 +481,7 @@ public class TableDialog extends JDialog {
         fileChooser.setSelectedFile(filename);
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                expressionExporter.getPinMapping().addAll(pinMap);
+                expressionExporter.getPinMapping().addAll(model.getTable().getPins());
                 new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
                 expressionExporter.export(Main.checkSuffix(fileChooser.getSelectedFile(), suffix));
             } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
@@ -536,7 +535,7 @@ public class TableDialog extends JDialog {
 
             File f = new File(cuplPath, "CUPL.PLD");
             cupl.setProjectName(filename.getName());
-            cupl.getPinMapping().addAll(pinMap);
+            cupl.getPinMapping().addAll(model.getTable().getPins());
             new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
             try (FileOutputStream out = new FileOutputStream(f)) {
                 cupl.writeTo(out);
@@ -568,17 +567,6 @@ public class TableDialog extends JDialog {
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
         calculateExpressions();
-    }
-
-    /**
-     * Sets a pin map
-     *
-     * @param pinMap the pin description
-     * @return this for chained calls
-     */
-    public TableDialog setPinMap(PinMap pinMap) {
-        this.pinMap = pinMap;
-        return this;
     }
 
     private class CalculationTableModelListener implements TableModelListener {
