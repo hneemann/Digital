@@ -215,7 +215,7 @@
         </faq>
         <faq>
             <question>Wie kann ich die Signalnamen in der Wahrheitstabelle verändern?</question>
-            <answer>Mit einem Doppelklick auf den Signalnamen im Tabellenkopf kann der Name bearbeitet werden.</answer>
+            <answer>Mit einem Rechtsklick auf den Signalnamen im Tabellenkopf kann der Name bearbeitet werden.</answer>
         </faq>
         <faq>
             <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Schaltung erzeugen?</question>

@@ -206,7 +206,7 @@
         </faq>
         <faq>
             <question>How to edit a signals name in the truth table?</question>
-            <answer>Double click the name in the table header and edit the name.</answer>
+            <answer>Right click on the name in the table header to edit the name.</answer>
         </faq>
         <faq>
             <question>I have a boolean equation. How to create a circuit?</question>
