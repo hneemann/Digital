@@ -532,6 +532,8 @@ allowed are {1} variables but {2} are found.</string>
         This simulates a frequency above the critical flicker fusion frequency.</string>
     <string name="key_atf1502Fitter">ATF1502 Fitter</string>
     <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF1502. Enter the full path to the file fit1502.exe provided bei ATMEL.</string>
+    <string name="key_pin">Pin number</string>
+    <string name="key_pin_tt">An empty field means this signal is not assigned to a pin.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>

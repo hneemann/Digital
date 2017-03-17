@@ -545,6 +545,8 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
         bei den LEDs mit dieser Option ein "nachleuchten" eingeschaltet werden.</string>
     <string name="key_atf1502Fitter">ATF1502 Fitter</string>
     <string name="key_atf1502Fitter_tt">Pfad zum Fitter für den ATF1502. Geben Sie hier den vollen Pfad zur Datei fit1502.exe an. Diese Datei wird von ATMEL zu Verfügung gestellt.</string>
+    <string name="key_pin">Pinnummer</string>
+    <string name="key_pin_tt">Ist das Feld leer bedeutet das, dass dieses Signal keinem Pin zugewiesen ist.</string>
 
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>

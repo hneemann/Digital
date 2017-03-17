@@ -5,6 +5,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
+import static javax.swing.event.TableModelEvent.HEADER_ROW;
+
 /**
  * Used to visualize a truthTable instance in a JTable
  *
@@ -93,5 +95,16 @@ public class TruthTableTableModel implements TableModel {
      */
     public TruthTable getTable() {
         return truthTable;
+    }
+
+    /**
+     * Sets the column name
+     *
+     * @param columnIndex the column
+     * @param name        the new name
+     */
+    public void setColumnName(int columnIndex, String name) {
+        truthTable.setColumnName(columnIndex, name);
+        fireModelEvent(HEADER_ROW);
     }
 }

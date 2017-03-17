@@ -16,25 +16,31 @@ import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.builder.ATF1502.*;
-import de.neemann.digital.builder.*;
+import de.neemann.digital.builder.BuilderException;
+import de.neemann.digital.builder.BuilderInterface;
+import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.builder.Gal16v8.CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10CuplExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
+import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.builder.tt2.StartATF1502Fitter;
 import de.neemann.digital.builder.tt2.StartATF1504Fitter;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -43,7 +49,6 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -51,17 +56,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * @author hneemann
  */
 public class TableDialog extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
+    private static final List<Key> LIST = new ArrayList<>();
+
+    static {
+        LIST.add(Keys.LABEL);
+        LIST.add(Keys.PIN);
+    }
+
     private final JLabel label;
     private final JTable table;
-    private final JTableHeader header;
-    private final JTextField text;
-    private final JPopupMenu renamePopup;
     private final Font font;
     private final ShapeFactory shapeFactory;
     private JCheckBoxMenuItem createJK;
@@ -103,31 +114,17 @@ public class TableDialog extends JDialog {
 
         allSolutionsDialog = new AllSolutionsDialog(parent, font);
 
-        header = table.getTableHeader();
+        JTableHeader header = table.getTableHeader();
         header.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
-                if (event.getClickCount() == 2) {
-                    editColumnAt(event.getPoint());
+                if (event.getClickCount() == 1 && event.getButton() == 3) {
+                    columnIndex = header.columnAtPoint(event.getPoint());
+                    if (columnIndex != -1)
+                        editColumnName(columnIndex);
                 }
             }
         });
-
-        text = new JTextField();
-        text.setBorder(null);
-        text.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                column.setHeaderValue(text.getText());
-                renamePopup.setVisible(false);
-                header.repaint();
-                model.getTable().setColumnName(columnIndex, text.getText());
-                calculateExpressions();
-            }
-        });
-
-        renamePopup = new JPopupMenu();
-        renamePopup.setBorder(new MatteBorder(0, 1, 1, 1, Color.DARK_GRAY));
-        renamePopup.add(text);
 
         JMenuBar bar = new JMenuBar();
         bar.add(createFileMenu());
@@ -211,6 +208,30 @@ public class TableDialog extends JDialog {
         getContentPane().add(label, BorderLayout.SOUTH);
         pack();
         setLocationRelativeTo(parent);
+    }
+
+    private void editColumnName(int columnIndex) {
+        ElementAttributes attr = new ElementAttributes();
+        final String name = model.getColumnName(columnIndex);
+        attr.set(Keys.LABEL, name);
+        final TreeMap<String, Integer> pins = model.getTable().getPins();
+        if (pins.containsKey(name))
+            attr.set(Keys.PIN, pins.get(name).toString());
+        if (new AttributeDialog(this, LIST, attr).showDialog()) {
+            pins.remove(name);
+            final String newName = attr.get(Keys.LABEL);
+            final String pinStr = attr.get(Keys.PIN).trim();
+            if (pinStr.length() > 0) {
+                try {
+                    int p = Integer.parseInt(pinStr);
+                    pins.put(newName, p);
+                } catch (NumberFormatException e) {
+                    // Do nothing!
+                }
+            }
+            if (!newName.equals(name))
+                model.setColumnName(columnIndex, newName);
+        }
     }
 
     private JMenu createFileMenu() {
@@ -464,7 +485,6 @@ public class TableDialog extends JDialog {
         hardware.add(atf1504);
 
 
-
         createMenu.add(hardware);
 
         return createMenu;
@@ -542,23 +562,6 @@ public class TableDialog extends JDialog {
             }
         } catch (ExpressionException | FormatterException | RuntimeException | IOException | FuseMapFillerException | PinMapException e) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
-        }
-    }
-
-    private void editColumnAt(Point p) {
-        columnIndex = header.columnAtPoint(p);
-
-        if (columnIndex != -1) {
-            column = header.getColumnModel().getColumn(columnIndex);
-            Rectangle columnRectangle = header.getHeaderRect(columnIndex);
-
-            text.setText(column.getHeaderValue().toString());
-            renamePopup.setPreferredSize(
-                    new Dimension(columnRectangle.width, columnRectangle.height - 1));
-            renamePopup.show(header, columnRectangle.x, 0);
-
-            text.requestFocusInWindow();
-            text.selectAll();
         }
     }
 
@@ -669,7 +672,7 @@ public class TableDialog extends JDialog {
         }
 
         public void create(ExpressionListenerStore expressions) throws ExpressionException, FormatterException {
-            if (expressions==null)
+            if (expressions == null)
                 throw new ExpressionException(Lang.get("err_noExpressionsAvailable"));
 
             ExpressionListener el = new ExpressionListener() {
