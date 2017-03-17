@@ -121,7 +121,7 @@ public class TableDialog extends JDialog {
                 if (event.getClickCount() == 1 && event.getButton() == 3) {
                     columnIndex = header.columnAtPoint(event.getPoint());
                     if (columnIndex != -1)
-                        editColumnName(columnIndex);
+                        editColumnName(columnIndex, new Point(event.getXOnScreen(), event.getYOnScreen()));
                 }
             }
         });
@@ -210,14 +210,14 @@ public class TableDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    private void editColumnName(int columnIndex) {
+    private void editColumnName(int columnIndex, Point pos) {
         ElementAttributes attr = new ElementAttributes();
         final String name = model.getColumnName(columnIndex);
         attr.set(Keys.LABEL, name);
         final TreeMap<String, Integer> pins = model.getTable().getPins();
         if (pins.containsKey(name))
             attr.set(Keys.PIN, pins.get(name).toString());
-        if (new AttributeDialog(this, LIST, attr).showDialog()) {
+        if (new AttributeDialog(this, pos, LIST, attr).showDialog()) {
             pins.remove(name);
             final String newName = attr.get(Keys.LABEL);
             final String pinStr = attr.get(Keys.PIN).trim();
