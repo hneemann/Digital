@@ -51,6 +51,8 @@ public class GraphicSwing implements Graphic {
     public void drawPolygon(Polygon p, Style style) {
         applyStyle(style);
         Path2D path = new GeneralPath();
+        //modification of loop variable i is intended!
+        //CHECKSTYLE.OFF: ModifiedControlVariable
         for (int i = 0; i < p.size(); i++) {
             if (i == 0) {
                 path.moveTo(p.get(i).x, p.get(i).y);
@@ -62,6 +64,7 @@ public class GraphicSwing implements Graphic {
                     path.lineTo(p.get(i).x, p.get(i).y);
             }
         }
+        //CHECKSTYLE.ON: ModifiedControlVariable
 
         if (p.isClosed())
             path.closePath();

@@ -46,6 +46,8 @@ public class NetList implements Iterable<Net> {
         mergeLabels();
     }
 
+    //modification of loop variable j is intended!
+    //CHECKSTYLE.OFF: ModifiedControlVariable
     private void mergeLabels() {
         for (int i = 0; i < netList.size() - 1; i++)
             for (int j = i + 1; j < netList.size(); j++)
@@ -55,6 +57,7 @@ public class NetList implements Iterable<Net> {
                     j--;
                 }
     }
+    //CHECKSTYLE.ON: ModifiedControlVariable
 
     /**
      * Creates a copy of the given net list

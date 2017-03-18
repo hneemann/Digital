@@ -94,6 +94,8 @@ public class GraphicSVG implements Graphic, Closeable {
     @Override
     public void drawPolygon(Polygon p, Style style) {
         try {
+            //modification of loop variable i is intended!
+            //CHECKSTYLE.OFF: ModifiedControlVariable
             w.write("<path d=\"M " + str(p.get(0)));
             for (int i = 1; i < p.size(); i++)
                 if (p.isBezierStart(i)) {
@@ -101,6 +103,7 @@ public class GraphicSVG implements Graphic, Closeable {
                     i += 2;
                 } else
                     w.write(" L " + str(p.get(i)));
+            //CHECKSTYLE.ON: ModifiedControlVariable
 
             if (p.isClosed())
                 w.write(" Z");
