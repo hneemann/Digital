@@ -34,11 +34,15 @@ These are the main features of Digital:
 - Many examples: From a transmission gate D-flip-flop to a complete (simple) MIPS-like single cycle CPU.
 - Fast-run mode to perform a simulation without updating the GUI.
   A simple processor can be clocked at 100kHz.
-- Simple remote TCP interface which  e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control the simulator.
+- Simple remote TCP interface which  e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
+  the simulator.
 - Direct export of JEDEC files which you can flash to a [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
-  or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx). These chips are somewhat outdated (introduced in 1985!) but 
-  sufficient for beginners exercises, easy to understand and well documented.
-- SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
+  or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx). These chips are somewhat outdated (introduced in 1985!) 
+  but sufficient for beginners exercises, easy to understand and well documented. Also the 
+  [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
+  [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) are supported which offer 32/64 macro-cells. 
+- SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
+  [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code
 - Good test coverage (exclusive of GUI classes about 80%)
 
@@ -140,7 +144,10 @@ logic combined with the build-in D or JK flip-flops.
 After you have created the truth table or state transition table you can create a JEDEC file for a 
 [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx).
 After that you can simply flash this file to the appropriate GAL and test the circuit on a bred board.
-As mentioned above these GALs are quite old but with 8 (10) macrocells sufficient for beginners exercises.
+As mentioned above these GALs are quite old but with 8/10 macro-cells sufficient for beginners exercises.
+If more macro-cells are required, see the PDF documentation that is included in the distribution for details 
+on how to set up Digital to support the [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
+[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells.  
 
 ## How do I get set up? ##
 
@@ -153,14 +160,14 @@ If you would like to build Digital from the source code:
 * JDK 1.8 is needed (either the Oracle JDK 1.8 or OpenJDK 1.8)  
 * maven is used as build system, so the easiest way is to install [maven](https://maven.apache.org/).
 * After that you can simply run `mvn install` to build Digital.
-* With `mvn site` you can create a checkstyle, a findbugs and a cobertura code coverage report.
+* Run `mvn site` to create a findbugs and a cobertura code coverage report.
 * Most IDEs (Eclipse, NetBeans, IntelliJ) are able to import the `pom.xml` to create a project.
 
 ## Contribution guidelines ##
 
 * If you want to contribute send me just a pull request
-* Don't introduce new checkstyle issues
-* Don't introduce new findbugs issues
+  * Before you send a pull request, make sure that at least `mvn install` runs without errors.
+* Don't introduce new findbugs issues.
 * Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
 * Up to now there are no GUI tests so the overall test coverage is only somewhat below 60%.
   Try to keep the amount of untested GUI code low.
