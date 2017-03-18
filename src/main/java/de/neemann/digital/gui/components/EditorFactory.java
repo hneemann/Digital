@@ -122,7 +122,7 @@ public final class EditorFactory {
          *
          * @param labelAtTop if true the label is placed at the top of the editing component.
          */
-        public void setLabelAtTop(boolean labelAtTop) {
+        void setLabelAtTop(boolean labelAtTop) {
             this.labelAtTop = labelAtTop;
         }
     }
@@ -151,7 +151,7 @@ public final class EditorFactory {
 
         @Override
         public String getValue() {
-            return text.getText();
+            return text.getText().trim();
         }
 
     }

@@ -219,7 +219,7 @@ public class TableDialog extends JDialog {
             attr.set(Keys.PIN, pins.get(name).toString());
         if (new AttributeDialog(this, pos, LIST, attr).showDialog()) {
             pins.remove(name);
-            final String newName = attr.get(Keys.LABEL);
+            final String newName = attr.get(Keys.LABEL).trim().replace(' ', '_');
             final String pinStr = attr.get(Keys.PIN).trim();
             if (pinStr.length() > 0) {
                 try {
