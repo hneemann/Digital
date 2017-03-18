@@ -245,7 +245,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         setPreferredSize(new Dimension(1024, 768));
         pack();
         setLocationRelativeTo(parent);
-        ToolTipManager.sharedInstance().setDismissDelay(10000);
     }
 
     private void createViewMenu(JMenuBar menuBar, JToolBar toolBar) {
@@ -1090,6 +1089,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * @param args the arguments
      */
     public static void main(String[] args) {
+        ToolTipManager.sharedInstance().setDismissDelay(10000);
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
         experimental = args.length == 1 && args[0].equals("experimental");
         FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
