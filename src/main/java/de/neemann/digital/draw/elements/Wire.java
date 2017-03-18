@@ -15,6 +15,9 @@ import java.util.Collection;
  */
 public class Wire implements Drawable, Moveable {
     private static final int MIN_LABEL_LEN = 80;
+    //Every value of p1 or p2 is valid. There are no hidden state constrains or dependencies.
+    //So both fields are allowed to by public to allow more readable code.
+    //CHECKSTYLE.OFF: VisibilityModifier
     /**
      * The first endpoint of the line
      */
@@ -23,6 +26,7 @@ public class Wire implements Drawable, Moveable {
      * The second endpoint of the line
      */
     public Vector p2;
+    //CHECKSTYLE.ON: VisibilityModifier
     private transient ObservableValue value;
     private transient boolean p1Dot;
     private transient boolean p2Dot;

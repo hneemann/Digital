@@ -17,7 +17,8 @@ public final class Signal implements Comparable<Signal> {
      * @param value the signals value
      */
     public Signal(String name, ObservableValue value) {
-        this.name = name.trim().replace(' ', '_');
+        if (name == null) this.name = null;
+        else this.name = name.trim().replace(' ', '_');
         this.value = value;
     }
 
