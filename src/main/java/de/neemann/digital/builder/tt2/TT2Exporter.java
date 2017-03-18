@@ -271,6 +271,8 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             line("#$ NODES " + nodeNum + node.toString());
     }
 
+    //StateSet can not be final because its overridden. Maybe checkstyle has a bug?
+    //CHECKSTYLE.OFF: FinalClass
     private static class StateSet implements Comparable<StateSet> {
         private final int[] state;
 
@@ -332,6 +334,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             return sb.toString();
         }
     }
+    //CHECKSTYLE.ON: FinalClass
 
     private final class ProdInput extends StateSet {
         private ProdInput(int inputCount) {

@@ -127,6 +127,7 @@ public final class EditorFactory {
         }
     }
 
+    //Checkstyle flags redundant modifiers, which are not redundant. Maybe a bug in checkstyle?
     //CHECKSTYLE.OFF: RedundantModifier
     private final static class StringEditor extends LabelEditor<String> {
 

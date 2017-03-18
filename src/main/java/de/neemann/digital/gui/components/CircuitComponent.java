@@ -662,6 +662,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     }
 
+    //MouseController can not be final because its overridden. Maybe checkstyle has a bug?
+    //CHECKSTYLE.OFF: FinalClass
     private class MouseController {
         private final Cursor mouseCursor;
 
@@ -706,6 +708,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void escapePressed() {
         }
     }
+    //CHECKSTYLE.ON: FinalClass
 
     private final class MouseControllerNormal extends MouseController {
         private Vector pos;
