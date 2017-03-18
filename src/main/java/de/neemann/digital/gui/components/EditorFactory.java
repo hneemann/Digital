@@ -127,6 +127,7 @@ public final class EditorFactory {
         }
     }
 
+    //CHECKSTYLE.OFF: RedundantModifier
     private final static class StringEditor extends LabelEditor<String> {
 
         private final JTextComponent text;
