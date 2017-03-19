@@ -3,6 +3,14 @@
   <version>1</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>Taktteiler. Hier wird der Takt durch zwei geteilt, und 
+es werden die Signale für den Speicherzugriff des 
+InstructionRegisters erzeugt. Jeweils abwechselnd 
+wird ein Befehlswort gelesen und dieses Befehlswort
+dann ausgeführt.</string>
+    </entry>
+    <entry>
       <string>Width</string>
       <int>5</int>
     </entry>
@@ -14,10 +22,6 @@
         <entry>
           <string>Label</string>
           <string>Clock</string>
-        </entry>
-        <entry>
-          <string>Frequency</string>
-          <int>500000</int>
         </entry>
       </elementAttributes>
       <pos x="340" y="280"/>
@@ -46,6 +50,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Taktsignal für das Lesen eines Befehlswortes</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C_in</string>
         </entry>
@@ -55,6 +63,11 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Signal welches den Prozessor für das Lesen eines
+Befehlswortes konfiguriert.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S_in</string>
@@ -66,11 +79,26 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Takt der das Ausführen eines Befehlswortes 
+steuert.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Data</elementName>
+      <elementAttributes>
+        <entry>
+          <string>maxStepCount</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="60"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -139,4 +167,10 @@
       <p2 x="540" y="300"/>
     </wire>
   </wires>
+  <measurementOrdering>
+    <string>Clock</string>
+    <string>S_in</string>
+    <string>C_in</string>
+    <string>C</string>
+  </measurementOrdering>
 </circuit>

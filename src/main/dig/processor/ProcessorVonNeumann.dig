@@ -5,8 +5,8 @@
     <entry>
       <string>Description</string>
       <string>Einfacher Prozessor, der an die MIPS-Architektur 
-angelehnt ist. Es handelt sich um eine Harvard 
-Single-Cycle CPU.</string>
+angelehnt ist. Es handelt sich um eine 
+Von Neumann Two-Cycle CPU.</string>
     </entry>
   </attributes>
   <visualElements>
@@ -160,6 +160,10 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>Clock</elementName>
       <elementAttributes>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Clock</string>
@@ -652,11 +656,6 @@ Single-Cycle CPU.</string>
       <pos x="1400" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Graphics.dig</elementName>
-      <elementAttributes/>
-      <pos x="1420" y="360"/>
-    </visualElement>
-    <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
@@ -668,21 +667,7 @@ Single-Cycle CPU.</string>
           <string>ioW</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="440"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>ioR</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1400" y="380"/>
+      <pos x="1400" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -696,7 +681,7 @@ Single-Cycle CPU.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="420"/>
+      <pos x="1400" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Memory.dig</elementName>
@@ -716,6 +701,14 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>Register</elementName>
       <elementAttributes>
+        <entry>
+          <string>valueIsProbe</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Instruction</string>
+        </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
@@ -804,6 +797,11 @@ Single-Cycle CPU.</string>
       <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/ClockDiv.dig</elementName>
       <elementAttributes/>
       <pos x="1160" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Terminal.dig</elementName>
+      <elementAttributes/>
+      <pos x="1420" y="340"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -912,10 +910,6 @@ Single-Cycle CPU.</string>
       <p2 x="1220" y="80"/>
     </wire>
     <wire>
-      <p1 x="1480" y="400"/>
-      <p2 x="1500" y="400"/>
-    </wire>
-    <wire>
       <p1 x="1000" y="400"/>
       <p2 x="1080" y="400"/>
     </wire>
@@ -928,12 +922,20 @@ Single-Cycle CPU.</string>
       <p2 x="360" y="400"/>
     </wire>
     <wire>
+      <p1 x="1400" y="400"/>
+      <p2 x="1420" y="400"/>
+    </wire>
+    <wire>
       <p1 x="1000" y="340"/>
       <p2 x="1060" y="340"/>
     </wire>
     <wire>
       <p1 x="1140" y="340"/>
       <p2 x="1160" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="1400" y="340"/>
+      <p2 x="1420" y="340"/>
     </wire>
     <wire>
       <p1 x="1140" y="600"/>
@@ -988,10 +990,6 @@ Single-Cycle CPU.</string>
       <p2 x="840" y="480"/>
     </wire>
     <wire>
-      <p1 x="1400" y="420"/>
-      <p2 x="1420" y="420"/>
-    </wire>
-    <wire>
       <p1 x="500" y="420"/>
       <p2 x="540" y="420"/>
     </wire>
@@ -1040,6 +1038,10 @@ Single-Cycle CPU.</string>
       <p2 x="1260" y="40"/>
     </wire>
     <wire>
+      <p1 x="1400" y="300"/>
+      <p2 x="1500" y="300"/>
+    </wire>
+    <wire>
       <p1 x="1260" y="620"/>
       <p2 x="1280" y="620"/>
     </wire>
@@ -1082,10 +1084,6 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="1300" y="180"/>
       <p2 x="1320" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="1400" y="440"/>
-      <p2 x="1420" y="440"/>
     </wire>
     <wire>
       <p1 x="740" y="440"/>
@@ -1229,7 +1227,7 @@ Single-Cycle CPU.</string>
     </wire>
     <wire>
       <p1 x="1500" y="200"/>
-      <p2 x="1500" y="400"/>
+      <p2 x="1500" y="300"/>
     </wire>
     <wire>
       <p1 x="540" y="160"/>
@@ -1314,6 +1312,10 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="440" y="660"/>
       <p2 x="440" y="680"/>
+    </wire>
+    <wire>
+      <p1 x="1400" y="300"/>
+      <p2 x="1400" y="340"/>
     </wire>
     <wire>
       <p1 x="380" y="660"/>
