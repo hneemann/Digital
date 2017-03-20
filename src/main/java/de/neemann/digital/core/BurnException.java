@@ -1,7 +1,5 @@
 package de.neemann.digital.core;
 
-import de.neemann.digital.lang.Lang;
-
 import java.util.List;
 
 /**
@@ -14,9 +12,12 @@ public class BurnException extends RuntimeException {
 
     /**
      * Creates a new instance
+     *
+     * @param message the message
+     * @param values  the values connected to the net
      */
-    public BurnException(List<ObservableValue> values) {
-        super(Lang.get("err_burnError"));
+    public BurnException(String message, List<ObservableValue> values) {
+        super(message);
         this.values = values;
     }
 

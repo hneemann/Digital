@@ -3,6 +3,7 @@ package de.neemann.digital.core.wiring.bus;
 import de.neemann.digital.core.BurnException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.lang.Lang;
 
 import java.util.List;
 
@@ -15,7 +16,9 @@ import java.util.List;
 public abstract class AbstractBusHandler {
 
     private final BusModelStateObserver obs;
-    private boolean burn;
+
+    private enum State {ok, burn, both}
+    private State burn;
     private int addedVersion = -1;
 
     /**
@@ -53,9 +56,9 @@ public abstract class AbstractBusHandler {
      */
     public void recalculate() {
         long value = 0;
-        burn = false;
+        burn = State.ok;
         if (getResistor().equals(PinDescription.PullResistor.both)) {
-            burn = true;
+            burn = State.both;
             set(0, true);
         } else {
             boolean highz = true;
@@ -66,7 +69,7 @@ public abstract class AbstractBusHandler {
                         value = input.getValue();
                     } else {
                         if (value != input.getValue())
-                            burn = true;
+                            burn = State.burn;
                     }
                 }
             }
@@ -86,7 +89,7 @@ public abstract class AbstractBusHandler {
         }
 
         // if burn condition and not yet added for post step check add for post step check
-        if (burn && (obs.getVersion() != addedVersion)) {
+        if (burn != State.ok && (obs.getVersion() != addedVersion)) {
             addedVersion = obs.getVersion();
             obs.addCheck(this);
         }
@@ -99,8 +102,12 @@ public abstract class AbstractBusHandler {
      * an exception is thrown.
      */
     public void checkBurn() {
-        if (burn)
-            throw new BurnException(getInputs());
+        switch (burn) {
+            case burn:
+                throw new BurnException(Lang.get("err_burnError"), getInputs());
+            case both:
+                throw new BurnException(Lang.get("err_pullUpAndDown"), getInputs());
+        }
     }
 
 }

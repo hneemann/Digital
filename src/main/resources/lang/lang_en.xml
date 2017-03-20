@@ -366,7 +366,8 @@
     <string name="err_breakTimeOut">Break timeout after {0} cycles</string>
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
-    <string name="err_burnError">More then one output is active on a wire</string>
+    <string name="err_burnError">More then one output is active on a wire, causing a short circuit.</string>
+    <string name="err_pullUpAndDown">It is not allowed to connect a pull-up and pull-down resistor to the same net.</string>
     <string name="err_cannotAnalyse_N">Cannot analyse Node {0}</string>
     <string name="err_containsVarAndNotVar">Contains [var] and [not var]</string>
     <string name="err_duplicatePinLabel">Pin {0} in component {1} exists twice</string>

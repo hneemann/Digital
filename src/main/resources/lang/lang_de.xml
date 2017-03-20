@@ -379,7 +379,8 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="err_breakTimeOut">Nach {0} Zyklen ist kein Break aufgetreten</string>
     <string name="err_builder_exprNotSupported">Ausdruck {0} wird nicht unterstützt.</string>
     <string name="err_builder_operationNotSupported">Operation {0} wird nicht unterstützt.</string>
-    <string name="err_burnError">Es sind mehrere zusammengeschaltete Ausgänge gleichzeitig aktiv</string>
+    <string name="err_burnError">Es sind mehrere zusammengeschaltete Ausgänge gleichzeitig aktiv und haben einen Kurzschluss erzeugt.</string>
+    <string name="err_pullUpAndDown">Ein Pull-Up- und Pull-Down-Widerstand in einem Netz ist nicht erlaubt.</string>
     <string name="err_cannotAnalyse_N">Element {0} kann nicht analysiert werden.</string>
     <string name="err_containsVarAndNotVar">Enthält [var] und [nicht var]</string>
     <string name="err_duplicatePinLabel">Pin {0} in Element {1} exitiert mehrfach</string>
