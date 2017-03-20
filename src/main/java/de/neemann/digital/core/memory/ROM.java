@@ -81,9 +81,6 @@ public class ROM extends Node implements Element {
     public void readInputs() throws NodeException {
         addr = (int) addrIn.getValue();
         sel = selIn.getBool();
-        if (sel) {
-            romAddr = addr;
-        }
     }
 
     @Override
@@ -107,6 +104,11 @@ public class ROM extends Node implements Element {
                 throw new NodeException(e.getMessage(), this, null);
             }
         }
+        if (isProgramMemory)
+            model.addObserver(event -> {
+                if (event == ModelEvent.STEP && sel)
+                    romAddr = addr;
+            });
     }
 
     /**
