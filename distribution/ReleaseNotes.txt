@@ -6,9 +6,11 @@ planned as v0.10
 - Mouse actions can be canceled by the ESC key.
 - With the right mouse button you can now select and move/delete wires.
 - Added a real bidirectional switch and a relay.
-- Added N and P channel FETs and some CMOS examples
+- Added N and P channel FETs and some CMOS examples, including a 16 bit SRAM
 - Improved and documented the file import strategy.
 - Truth tables are easier to edit.
+- added support for the ATF1502 and ATF1504 CPLDs
+- some minor bug fixes
 
 v0.9, released on 03. Feb 2017
 - improved documentation
