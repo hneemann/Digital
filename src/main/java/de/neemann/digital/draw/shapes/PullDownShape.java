@@ -62,9 +62,8 @@ public class PullDownShape implements Shape {
                         .add(WIDTH2, 1),
                 Style.NORMAL
         );
-        int o = 8;
-        graphic.drawLine(new Vector(0, HEIGHT), new Vector(0, SIZE + SIZE2 + o), Style.NORMAL);
-        graphic.drawLine(new Vector(-SIZE2, SIZE + SIZE2 + o), new Vector(SIZE2, SIZE + SIZE2 + o), Style.THICK);
+        graphic.drawLine(new Vector(0, HEIGHT), new Vector(0, SIZE * 2), Style.NORMAL);
+        graphic.drawLine(new Vector(-SIZE2, SIZE * 2), new Vector(SIZE2, SIZE * 2), Style.THICK);
     }
 
 }

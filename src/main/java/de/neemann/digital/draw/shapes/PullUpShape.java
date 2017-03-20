@@ -15,6 +15,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 import static de.neemann.digital.draw.shapes.PullDownShape.HEIGHT;
 import static de.neemann.digital.draw.shapes.PullDownShape.WIDTH2;
+import static de.neemann.digital.draw.shapes.VDDShape.DOWNSHIFT;
 
 /**
  * A pull up resistor shape.
@@ -55,13 +56,12 @@ public class PullUpShape implements Shape {
                         .add(WIDTH2, -1),
                 Style.NORMAL
         );
-        int o = 4;
-        graphic.drawLine(new Vector(0, -HEIGHT), new Vector(0, -SIZE - SIZE - o), Style.NORMAL);
+        graphic.drawLine(new Vector(0, -HEIGHT), new Vector(0, DOWNSHIFT - SIZE * 2 - SIZE2), Style.NORMAL);
         graphic.drawPolygon(
                 new Polygon(false)
-                        .add(-SIZE2, -SIZE - SIZE2 - o)
-                        .add(0, -SIZE - o - SIZE2 - SIZE * 2 / 3)
-                        .add(SIZE2, -SIZE - SIZE2 - o),
+                        .add(-SIZE2, DOWNSHIFT - SIZE * 2)
+                        .add(0, DOWNSHIFT - SIZE * 2 - SIZE * 2 / 3)
+                        .add(SIZE2, DOWNSHIFT - SIZE * 2),
                 Style.NORMAL
         );
     }

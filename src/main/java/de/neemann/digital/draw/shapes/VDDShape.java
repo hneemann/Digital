@@ -20,7 +20,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * @author hneemann
  */
 public class VDDShape implements Shape {
-
+    static final int DOWNSHIFT = 4;
     private final PinDescriptions outputs;
 
     /**
@@ -48,9 +48,9 @@ public class VDDShape implements Shape {
     public void drawTo(Graphic graphic, boolean heighLight) {
         graphic.drawPolygon(
                 new Polygon(false)
-                        .add(-SIZE2, 0)
-                        .add(0, -SIZE * 2 / 3)
-                        .add(SIZE2, 0), Style.NORMAL);
-        graphic.drawLine(new Vector(0, -SIZE2), new Vector(0, 0), Style.NORMAL);
+                        .add(-SIZE2, DOWNSHIFT)
+                        .add(0, DOWNSHIFT - SIZE * 2 / 3)
+                        .add(SIZE2, DOWNSHIFT), Style.NORMAL);
+        graphic.drawLine(new Vector(0, -SIZE2 + DOWNSHIFT), new Vector(0, 0), Style.NORMAL);
     }
 }
