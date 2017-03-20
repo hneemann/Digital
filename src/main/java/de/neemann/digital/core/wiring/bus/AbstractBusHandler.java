@@ -2,6 +2,7 @@ package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.BurnException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
@@ -18,6 +19,7 @@ public abstract class AbstractBusHandler {
     private final BusModelStateObserver obs;
 
     private enum State {ok, burn, both}
+
     private State burn;
     private int addedVersion = -1;
 
@@ -49,6 +51,14 @@ public abstract class AbstractBusHandler {
      * @param highz the highz state
      */
     public abstract void set(long value, boolean highz);
+
+    /**
+     * Returns all connected observable values
+     * Used to create appropriate error messages.
+     *
+     * @return all connected observable values
+     */
+    public abstract ObservableValues getAllValues();
 
     /**
      * recalculates the state of the net
@@ -104,9 +114,9 @@ public abstract class AbstractBusHandler {
     public void checkBurn() {
         switch (burn) {
             case burn:
-                throw new BurnException(Lang.get("err_burnError"), getInputs());
+                throw new BurnException(Lang.get("err_burnError"), getAllValues());
             case both:
-                throw new BurnException(Lang.get("err_pullUpAndDown"), getInputs());
+                throw new BurnException(Lang.get("err_pullUpAndDown"), getAllValues());
         }
     }
 

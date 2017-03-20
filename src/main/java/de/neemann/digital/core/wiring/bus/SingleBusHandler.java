@@ -1,6 +1,7 @@
 package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.PinDescription;
 
 import java.util.Arrays;
@@ -43,5 +44,10 @@ public final class SingleBusHandler extends AbstractBusHandler {
     @Override
     public void set(long value, boolean highz) {
         output.set(value, highz);
+    }
+
+    @Override
+    public ObservableValues getAllValues() {
+        return new ObservableValues.Builder().add(getInputs()).add(output).build();
     }
 }

@@ -1,14 +1,12 @@
 package de.neemann.digital.core;
 
-import java.util.List;
-
 /**
  * Is thrown if more then one output of a set of connected outputs becomes active
  *
  * @author hneemann
  */
 public class BurnException extends RuntimeException {
-    private final List<ObservableValue> values;
+    private final ObservableValues values;
 
     /**
      * Creates a new instance
@@ -16,7 +14,7 @@ public class BurnException extends RuntimeException {
      * @param message the message
      * @param values  the values connected to the net
      */
-    public BurnException(String message, List<ObservableValue> values) {
+    public BurnException(String message, ObservableValues values) {
         super(message);
         this.values = values;
     }
@@ -24,7 +22,7 @@ public class BurnException extends RuntimeException {
     /**
      * @return returns the causing value
      */
-    public List<ObservableValue> getValues() {
+    public ObservableValues getValues() {
         return values;
     }
 }
