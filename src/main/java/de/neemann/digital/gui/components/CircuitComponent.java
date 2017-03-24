@@ -36,7 +36,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -568,23 +567,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             attributeDialog.dispose();
-                            SwingUtilities.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    new Main(CircuitComponent.this,
-                                            ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(),
-                                            new SavedListener() {
-                                                @Override
-                                                public void saved(File filename) {
-                                                    if (parentsSavedListener != null)
-                                                        parentsSavedListener.saved(filename);
-                                                    library.removeElement(filename);
-                                                    circuit.clearState();
-                                                    hasChanged();
-                                                }
-                                            }).setVisible(true);
-                                }
-                            });
+                            SwingUtilities.invokeLater(() -> new Main(CircuitComponent.this,
+                                    ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(),
+                                    filename -> {
+                                        if (parentsSavedListener != null)
+                                            parentsSavedListener.saved(filename);
+                                        library.removeElement(filename);
+                                        circuit.clearState();
+                                        hasChanged();
+                                    }).setVisible(true));
                         }
                     }.setToolTip(Lang.get("attr_openCircuit_tt")));
                 }
@@ -724,7 +715,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (list.size() == 1)
                 vp = list.get(0);
             else if (list.size() > 1) {
-                ItemPicker<VisualElement> picker = new ItemPicker<VisualElement>(CircuitComponent.this, list);
+                ItemPicker<VisualElement> picker = new ItemPicker<>(CircuitComponent.this, list);
                 vp = picker.select();
             }
             return vp;
@@ -738,20 +729,19 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 VisualElement vp = getVisualElement(pos, true);
                 if (vp != null)
                     editAttributes(vp, e);
-                else {
-                    Wire wire = circuit.getWireAt(pos, SIZE2);
-                    if (wire != null)
-                        mouseMoveWire.activate(wire, pos);
-                }
             } else if (e.getButton() == MouseEvent.BUTTON1) {
                 VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
-                    if (circuit.isPinPos(raster(pos), vp))
+                    if (circuit.isPinPos(raster(pos), vp) && !e.isControlDown())
                         mouseWire.activate(pos);
                     else
                         mouseMoveElement.activate(vp, pos);
                 } else {
-                    if (!focusWasLost)
+                    if (e.isControlDown()) {
+                        Wire wire = circuit.getWireAt(pos, SIZE2);
+                        if (wire != null)
+                            mouseMoveWire.activate(wire, pos);
+                    } else if (!focusWasLost)
                         mouseWire.activate(pos);
                 }
             }
@@ -909,7 +899,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             this.wire = wire;
             this.pos = raster(pos);
-            this.initialPos=this.pos;
+            this.initialPos = this.pos;
             deleteAction.setActive(true);
             removeHighLighted();
             hasChanged();

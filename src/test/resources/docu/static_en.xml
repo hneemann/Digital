@@ -164,12 +164,12 @@
         <faq>
             <question>How to move a wire?</question>
             <answer>Select on of the end points with the rectangular selection. The move this point using the mouse.
-                You can also select a wire with the right mouse button.</answer>
+                You can also select a wire with CTRL + mouse button.</answer>
         </faq>
         <faq>
             <question>How to delete a wire?</question>
             <answer>Select on of the end points and press <e>DEL</e> or click on the trashcan.
-                You can also select a wire with the right mouse button.</answer>
+                You can also select a wire with CTRL + mouse button.</answer>
         </faq>
         <faq>
             <question>How to move a component including all the connected wires?</question>

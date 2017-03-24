@@ -4,7 +4,7 @@ planned as v0.10
 - User can select the expressions representation format in the settings dialog.
 - Better formatting of minimized expressions.
 - Mouse actions can be canceled by the ESC key.
-- With the right mouse button you can now select and move/delete wires.
+- With CTRL + mouse button you can now select and move/delete wires.
 - Added a real bidirectional switch and a relay.
 - Added N and P channel FETs and some CMOS examples, including a 16 bit SRAM
 - Improved and documented the file import strategy.

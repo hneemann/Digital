@@ -172,12 +172,12 @@
         <faq>
             <question>Wie kann ich eine Leitung verschieben?</question>
             <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann mit der Maus verschieben.
-                Alternativ kann eine einzelne Leitung mit der rechten Maustaste selektiert werden.</answer>
+                Alternativ kann eine einzelne Leitung mit STRG+Mausklick selektiert werden.</answer>
         </faq>
         <faq>
             <question>Wie kann ich eine Leitung löschen?</question>
             <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann <e>Entfernen</e> drücken bzw. auf den Papierkorb klicken.
-                Alternativ kann eine einzelne Leitung mit der rechten Maustaste selektiert werden.</answer>
+                Alternativ kann eine einzelne Leitung mit STRG+Mausklick selektiert werden.</answer>
         </faq>
         <faq>
             <question>Wie kann ich ein Element verschieben und dabei alle angeschlossenen Leitungen mitnehmen?</question>
