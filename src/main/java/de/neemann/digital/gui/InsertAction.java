@@ -18,7 +18,7 @@ import java.io.IOException;
  * Action to insert the given node to the given circuit
  * Created by hneemann on 25.03.17.
  */
-final class InsertAction extends ToolTipAction {
+public final class InsertAction extends ToolTipAction {
     private final LibraryNode node;
     private final InsertHistory insertHistory;
     private final CircuitComponent circuitComponent;
