@@ -62,6 +62,13 @@ public final class InsertAction extends ToolTipAction {
         return node.getDescriptionOrNull() instanceof ElementLibrary.ElementTypeDescriptionCustom;
     }
 
+    /**
+     * @return the name of the node to insert
+     */
+    public String getName() {
+        return node.getName();
+    }
+
     private static ImageIcon createIcon(LibraryNode node, ShapeFactory shapeFactory) {
         // doesn't load the description if only the icon is needed
         // create action without an icon instead

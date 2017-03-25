@@ -35,7 +35,7 @@ public class InsertHistory {
      *
      * @param action the action
      */
-    public void add(AbstractAction action) {
+    public void add(InsertAction action) {
         if (!contains(action)) {
             WrapperAction wrapper = new WrapperAction(action, bar.getComponentCount());
             wrappers.add(wrapper);
@@ -69,9 +69,9 @@ public class InsertHistory {
         return found;
     }
 
-    private boolean contains(AbstractAction action) {
+    private boolean contains(InsertAction action) {
         for (WrapperAction wrapper : wrappers)
-            if (wrapper.action == action)
+            if (wrapper.action.getName().equals(action.getName()))
                 return true;
         return false;
     }
@@ -83,22 +83,20 @@ public class InsertHistory {
         Iterator<WrapperAction> it = wrappers.iterator();
         while (it.hasNext()) {
             WrapperAction w = it.next();
-            if (w.action instanceof InsertAction) {
-                if (((InsertAction) w.action).isCustom()) {
-                    removeWrapperFromBar(w);
-                    it.remove();
-                }
+            if (w.action.isCustom()) {
+                removeWrapperFromBar(w);
+                it.remove();
             }
         }
         bar.revalidate();
     }
 
     private final class WrapperAction extends AbstractAction {
-        private final AbstractAction action;
+        private final InsertAction action;
         private int componentPosition;
         private int time;
 
-        private WrapperAction(AbstractAction action, int componentPosition) {
+        private WrapperAction(InsertAction action, int componentPosition) {
             super(action.getValue(Action.NAME).toString(), (Icon) action.getValue(Action.SMALL_ICON));
             this.action = action;
             this.componentPosition = componentPosition;
