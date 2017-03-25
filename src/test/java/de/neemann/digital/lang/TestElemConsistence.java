@@ -23,6 +23,7 @@ public class TestElemConsistence extends TestCase {
      * @throws NodeException
      */
     public void testConsistence() throws NodeException, PinException {
+        /*
         ElementLibrary library = new ElementLibrary();
         for (ElementLibrary.ElementContainer e : library) {
             ElementTypeDescription etd = e.getDescription();
@@ -37,7 +38,7 @@ public class TestElemConsistence extends TestCase {
                 checkPins(key, etd.getInputDescription(new ElementAttributes()));
                 checkPins(key, etd.getOutputDescriptions(new ElementAttributes()));
             }
-        }
+        }*/ fail();
     }
 
     private void checkPins(String key, PinDescriptions pins) {

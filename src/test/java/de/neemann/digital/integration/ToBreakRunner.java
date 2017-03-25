@@ -70,10 +70,9 @@ public class ToBreakRunner {
 
     private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException, ElementNotFoundException {
         library = new ElementLibrary();
+        library.setFilePath(filename.getParentFile());
         ShapeFactory shapeFactory = new ShapeFactory(library);
         circuit = Circuit.loadCircuit(filename, shapeFactory);
-        LibrarySelector librarySelector = new LibrarySelector(library, shapeFactory, null);
-        librarySelector.setFilePath(filename.getParentFile());
 
         ModelCreator md = new ModelCreator(circuit, library);
         model = md.createModel(false);

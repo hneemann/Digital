@@ -127,7 +127,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private State runModelMicroState;
 
     private Main() {
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
     /**
@@ -137,8 +137,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * @param fileToOpen    a file to open
      * @param savedListener a listener which is notified if the file is changed on disk
      */
-    public Main(Component parent, File fileToOpen, SavedListener savedListener) {
-        this(parent, fileToOpen, savedListener, null);
+    public Main(Component parent, File fileToOpen, SavedListener savedListener, ElementLibrary library) {
+        this(parent, fileToOpen, savedListener, library, null);
     }
 
     /**
@@ -148,7 +148,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * @param circuit circuit to show
      */
     public Main(Component parent, Circuit circuit) {
-        this(parent, null, null, circuit);
+        this(parent, null, null, null, circuit);
     }
 
     /**
@@ -159,13 +159,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * @param savedListener a listener which is notified if the file is changed on disk
      * @param circuit       circuit to show
      */
-    private Main(Component parent, File fileToOpen, SavedListener savedListener, Circuit circuit) {
+    private Main(Component parent, File fileToOpen, SavedListener savedListener, ElementLibrary parentsLibrary, Circuit circuit) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
         this.savedListener = savedListener;
 
-        library = new ElementLibrary();
+        if (parentsLibrary == null) library = new ElementLibrary();
+        else this.library = parentsLibrary;
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
 
         fileHistory = new FileHistory(this);
@@ -276,8 +277,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 if (file == null)
                     file = new File(name);
                 try {
-                    LibrarySelector.ElementTypeDescriptionCustom description =
-                            new LibrarySelector.ElementTypeDescriptionCustom(file,
+                    ElementLibrary.ElementTypeDescriptionCustom description =
+                            new ElementLibrary.ElementTypeDescriptionCustom(file,
                                     attributes -> new CustomElement(circuit, library, filename),
                                     circuit.getAttributes(), circuit.getInputNames());
                     description.setShortName(name);
@@ -319,7 +320,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     setFilename(null, true);
                     circuitComponent.setCircuit(new Circuit());
                     windowPosManager.closeAll();
-                    librarySelector.removeCustomElements();
                 }
             }
         }.setActive(normalMode);
@@ -330,7 +330,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
                     JFileChooser fc = getJFileChooser(lastFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                        librarySelector.removeCustomElements();
                         loadFile(fc.getSelectedFile(), true);
                     }
                 }
@@ -342,7 +341,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getJFileChooser(lastFilename);
                 if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                    Main m = new Main(Main.this, fc.getSelectedFile(), null);
+                    Main m = new Main(Main.this, fc.getSelectedFile(), null, null);
                     m.setLocationRelativeTo(Main.this);
                     m.setVisible(true);
                 }
@@ -399,7 +398,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     /**
      * Creates the edit menu
      *
-     * @param menuBar            the menu bar
+     * @param menuBar the menu bar
      */
     private void createEditMenu(JMenuBar menuBar) {
         JMenu edit = new JMenu(Lang.get("menu_edit"));
@@ -496,7 +495,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     /**
      * Creates the start menu
-     *  @param menuBar the menu bar
+     *
+     * @param menuBar the menu bar
      * @param toolBar the tool bar
      */
     private void createStartMenu(JMenuBar menuBar, JToolBar toolBar) {
@@ -820,14 +820,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     @Override
     public void open(File file) {
         if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-            librarySelector.removeCustomElements();
             loadFile(file, true);
         }
     }
 
     private void loadFile(File filename, boolean toPrefs) {
         try {
-            librarySelector.setFilePath(filename.getParentFile());
+            library.setFilePath(filename.getParentFile());
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circ);
             stoppedState.enter();
@@ -855,15 +854,21 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     private void setFilename(File filename, boolean toPrefs) {
-        this.filename = filename;
-        if (filename != null) {
-            this.lastFilename = filename;
-            librarySelector.setFilePath(filename.getParentFile());
-            if (toPrefs)
-                fileHistory.add(filename);
-            setTitle(filename + " - " + Lang.get("digital"));
-        } else
-            setTitle(Lang.get("digital"));
+        try {
+            this.filename = filename;
+            if (filename != null) {
+                this.lastFilename = filename;
+                library.setFilePath(filename.getParentFile());
+                if (toPrefs)
+                    fileHistory.add(filename);
+                setTitle(filename + " - " + Lang.get("digital"));
+            } else {
+                library.setFilePath(null);
+                setTitle(Lang.get("digital"));
+            }
+        } catch (IOException e) {
+            new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e).show(this);
+        }
     }
 
     /**

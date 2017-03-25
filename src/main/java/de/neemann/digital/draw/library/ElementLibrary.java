@@ -3,7 +3,7 @@ package de.neemann.digital.draw.library;
 import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
-import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.core.flipflops.FlipflopJK;
 import de.neemann.digital.core.flipflops.FlipflopRS;
@@ -19,13 +19,18 @@ import de.neemann.digital.core.switching.PFET;
 import de.neemann.digital.core.switching.Relay;
 import de.neemann.digital.core.switching.Switch;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,110 +40,146 @@ import java.util.*;
  * @author hneemann
  */
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);
 
-    private final HashMap<String, ElementTypeDescription> map = new HashMap<>();
-    private ArrayList<ElementContainer> list = new ArrayList<>();
-    private ElementNotFoundNotification elementNotFoundNotification;
+    private final HashMap<String, LibraryNode> map = new HashMap<>();
+    private final ArrayList<LibraryListener> listeners = new ArrayList<>();
+    private final LibraryNode root;
+    private ShapeFactory shapeFactory;
+    private LibraryNode customNode;
+    private File rootLibraryPath;
 
     /**
      * Creates a new instance.
      */
     public ElementLibrary() {
-        String menu = Lang.get("lib_Logic");
-        add(And.DESCRIPTION, menu);
-        add(NAnd.DESCRIPTION, menu);
-        add(Or.DESCRIPTION, menu);
-        add(NOr.DESCRIPTION, menu);
-        add(XOr.DESCRIPTION, menu);
-        add(XNOr.DESCRIPTION, menu);
-        add(Not.DESCRIPTION, menu);
-        add(LookUpTable.DESCRIPTION, menu);
-        add(Delay.DESCRIPTION, menu);
+        root = new LibraryNode("root");
 
-        menu = Lang.get("lib_io");
-        add(Out.DESCRIPTION, menu);
-        add(Out.LEDDESCRIPTION, menu);
-        add(In.DESCRIPTION, menu);
-        add(Clock.DESCRIPTION, menu);
-        add(Button.DESCRIPTION, menu);
-        add(Probe.DESCRIPTION, menu);
-        add(Out.SEVENDESCRIPTION, menu);
-        add(Out.SEVENHEXDESCRIPTION, menu);
-        add(DummyElement.DATADESCRIPTION, menu);
-        add(DummyElement.TEXTDESCRIPTION, menu);
-        add(Keyboard.DESCRIPTION, menu);
-        add(Terminal.DESCRIPTION, menu);
+        LibraryNode node = new LibraryNode(Lang.get("lib_Logic"));
+        node.add(And.DESCRIPTION);
+        node.add(NAnd.DESCRIPTION);
+        node.add(Or.DESCRIPTION);
+        node.add(NOr.DESCRIPTION);
+        node.add(XOr.DESCRIPTION);
+        node.add(XNOr.DESCRIPTION);
+        node.add(Not.DESCRIPTION);
+        node.add(LookUpTable.DESCRIPTION);
+        node.add(Delay.DESCRIPTION);
+        root.add(node);
 
-        menu = Lang.get("lib_wires");
-        add(Const.DESCRIPTION, menu);
-        add(Ground.DESCRIPTION, menu);
-        add(VDD.DESCRIPTION, menu);
-        add(Tunnel.DESCRIPTION, menu);
-        add(Splitter.DESCRIPTION, menu);
-        add(PullUp.DESCRIPTION, menu);
-        add(PullDown.DESCRIPTION, menu);
-        add(Driver.DESCRIPTION, menu);
-        add(DriverInvSel.DESCRIPTION, menu);
+        node = new LibraryNode(Lang.get("lib_io"));
+        node.add(Out.DESCRIPTION);
+        node.add(Out.LEDDESCRIPTION);
+        node.add(In.DESCRIPTION);
+        node.add(Clock.DESCRIPTION);
+        node.add(Button.DESCRIPTION);
+        node.add(Probe.DESCRIPTION);
+        node.add(Out.SEVENDESCRIPTION);
+        node.add(Out.SEVENHEXDESCRIPTION);
+        node.add(DummyElement.DATADESCRIPTION);
+        node.add(DummyElement.TEXTDESCRIPTION);
+        node.add(Keyboard.DESCRIPTION);
+        node.add(Terminal.DESCRIPTION);
+        root.add(node);
 
-        menu = Lang.get("lib_mux");
-        add(Multiplexer.DESCRIPTION, menu);
-        add(Demultiplexer.DESCRIPTION, menu);
-        add(Decoder.DESCRIPTION, menu);
+        node = new LibraryNode(Lang.get("lib_wires"));
+        node.add(Const.DESCRIPTION);
+        node.add(Ground.DESCRIPTION);
+        node.add(VDD.DESCRIPTION);
+        node.add(Tunnel.DESCRIPTION);
+        node.add(Splitter.DESCRIPTION);
+        node.add(PullUp.DESCRIPTION);
+        node.add(PullDown.DESCRIPTION);
+        node.add(Driver.DESCRIPTION);
+        node.add(DriverInvSel.DESCRIPTION);
+        root.add(node);
 
-        menu = Lang.get("lib_flipFlops");
-        add(FlipflopRS.DESCRIPTION, menu);
-        add(FlipflopJK.DESCRIPTION, menu);
-        add(FlipflopD.DESCRIPTION, menu);
-        add(FlipflopT.DESCRIPTION, menu);
+        node = new LibraryNode(Lang.get("lib_mux"));
+        node.add(Multiplexer.DESCRIPTION);
+        node.add(Demultiplexer.DESCRIPTION);
+        node.add(Decoder.DESCRIPTION);
+        root.add(node);
 
-        menu = Lang.get("lib_memory");
-        add(Register.DESCRIPTION, menu);
-        add(ROM.DESCRIPTION, menu);
-        add(RAMDualPort.DESCRIPTION, menu);
-        add(RAMSinglePort.DESCRIPTION, menu);
-        add(RAMSinglePortSel.DESCRIPTION, menu);
-        add(GraphicCard.DESCRIPTION, menu);
-        add(Counter.DESCRIPTION, menu);
+        node = new LibraryNode(Lang.get("lib_flipFlops"));
+        node.add(FlipflopRS.DESCRIPTION);
+        node.add(FlipflopJK.DESCRIPTION);
+        node.add(FlipflopD.DESCRIPTION);
+        node.add(FlipflopT.DESCRIPTION);
+        root.add(node);
 
-        menu = Lang.get("lib_arithmetic");
-        add(Add.DESCRIPTION, menu);
-        add(Sub.DESCRIPTION, menu);
-        add(Mul.DESCRIPTION, menu);
-        add(Comparator.DESCRIPTION, menu);
-        add(Neg.DESCRIPTION, menu);
-        add(BitCount.DESCRIPTION, menu);
+        node = new LibraryNode(Lang.get("lib_memory"));
+        node.add(Register.DESCRIPTION);
+        node.add(ROM.DESCRIPTION);
+        node.add(RAMDualPort.DESCRIPTION);
+        node.add(RAMSinglePort.DESCRIPTION);
+        node.add(RAMSinglePortSel.DESCRIPTION);
+        node.add(GraphicCard.DESCRIPTION);
+        node.add(Counter.DESCRIPTION);
+        root.add(node);
 
-        menu = Lang.get("lib_cplx");
+        node = new LibraryNode(Lang.get("lib_arithmetic"));
+        node.add(Add.DESCRIPTION);
+        node.add(Sub.DESCRIPTION);
+        node.add(Mul.DESCRIPTION);
+        node.add(Comparator.DESCRIPTION);
+        node.add(Neg.DESCRIPTION);
+        node.add(BitCount.DESCRIPTION);
+        root.add(node);
+
+        node = new LibraryNode(Lang.get("lib_cplx"));
         //  add(Diode.DESCRIPTION, menu); // see class DiodeTest for further information
-        add(DiodeForeward.DESCRIPTION, menu);
-        add(DiodeBackward.DESCRIPTION, menu);
-        add(Switch.DESCRIPTION, menu);
-        add(Relay.DESCRIPTION, menu);
-        add(NFET.DESCRIPTION, menu);
-        add(PFET.DESCRIPTION, menu);
-        add(Reset.DESCRIPTION, menu);
-        add(Break.DESCRIPTION, menu);
+        node.add(DiodeForeward.DESCRIPTION);
+        node.add(DiodeBackward.DESCRIPTION);
+        node.add(Switch.DESCRIPTION);
+        node.add(Relay.DESCRIPTION);
+        node.add(NFET.DESCRIPTION);
+        node.add(PFET.DESCRIPTION);
+        node.add(Reset.DESCRIPTION);
+        node.add(Break.DESCRIPTION);
+        root.add(node);
 
-        menu = Lang.get("lib_test");
-        add(TestCaseElement.TESTCASEDESCRIPTION, menu);
-    }
+        node = new LibraryNode(Lang.get("lib_test"));
+        node.add(TestCaseElement.TESTCASEDESCRIPTION);
+        root.add(node);
 
-    private void add(ElementTypeDescription description, String treePath) {
-        String name = description.getName();
-        map.put(name, description);
-        list.add(new ElementContainer(description, treePath));
+        populateNodeMap();
     }
 
     /**
-     * Adds a description to the library
+     * Sets the shape factory used to import sub circuits
      *
-     * @param description the description
-     * @param file        the file which was loaded
+     * @param shapeFactory the shape factory
      */
-    public void addDescription(ElementTypeDescription description, File file) {
-        map.put(file.getName(), description);
+    public void setShapeFactory(ShapeFactory shapeFactory) {
+        this.shapeFactory = shapeFactory;
     }
 
+    private void populateNodeMap() {
+        map.clear();
+        root.traverse(libraryNode -> {
+            if (libraryNode.isLeaf()) {
+                map.put(libraryNode.getName(), libraryNode);
+            }
+        });
+    }
+
+    /**
+     * sets the root library path
+     *
+     * @param rootLibraryPath the path
+     * @throws IOException IOException
+     */
+    public void setFilePath(File rootLibraryPath) throws IOException {
+        if (rootLibraryPath == null) {
+            if (this.rootLibraryPath != null) {
+                this.rootLibraryPath = null;
+                rescanFolder();
+            }
+        } else if (!rootLibraryPath.equals(this.rootLibraryPath)) {
+            this.rootLibraryPath = rootLibraryPath;
+            rescanFolder();
+        }
+    }
 
     /**
      * Returns a {@link ElementTypeDescription} by a given name.
@@ -149,60 +190,123 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public ElementTypeDescription getElementType(String elementName) throws ElementNotFoundException {
-        ElementTypeDescription description = map.get(elementName);
-        if (description != null)
-            return description;
+        try {
+            LibraryNode description = map.get(elementName);
+            if (description != null)
+                return description.getDescription();
 
-        elementName = elementName.replace("\\", "/"); // effects only some old files!
-
-        File file = new File(elementName);
-
-        description = map.get(file.getName());
-        if (description != null)
-            return description;
-
-        if (elementNotFoundNotification != null)
-            try {
-                description = elementNotFoundNotification.elementNotFound(file);
-            } catch (IOException e) {
-                throw new ElementNotFoundException(Lang.get("msg_errorImportingModel", elementName), e);
+            // effects only some old files!
+            elementName = elementName.replace("\\", "/");
+            if (elementName.contains("/")) {
+                elementName = new File(elementName).getName();
             }
 
-        if (description != null)
-            return description;
+            description = map.get(elementName);
+            if (description != null)
+                return description.getDescription();
+
+            if (rootLibraryPath == null)
+                throw new RuntimeException("no root path set");
+
+            rescanFolder();
+
+            description = map.get(elementName);
+            if (description != null)
+                return description.getDescription();
+        } catch (IOException e) {
+            throw new ElementNotFoundException(Lang.get("msg_errorImportingModel"), e);
+        }
 
         throw new ElementNotFoundException(Lang.get("err_element_N_notFound", elementName));
     }
 
-    @Override
-    public Iterator<ElementContainer> iterator() {
-        HashSet<String> baseElements = new HashSet<>();
-        for (ElementContainer ec : list) {
-            baseElements.add(ec.getDescription().getName());
-        }
-        ArrayList<ElementContainer> custom = new ArrayList<>();
-        for (Map.Entry<String, ElementTypeDescription> entry : map.entrySet()) {
-            if (!baseElements.contains(entry.getValue().getName())) {
-                custom.add(new ElementContainer(entry.getValue(), Lang.get("menu_custom")));
-            }
-        }
+    private void rescanFolder() {
+        LOGGER.debug("rescan folder");
+        if (customNode == null) {
+            customNode = new LibraryNode(Lang.get("menu_custom"));
+            root.add(customNode);
+        } else customNode.removeAll();
 
-        if (custom.isEmpty())
-            return list.iterator();
-        else {
-            Collections.sort(custom, (c1, c2) -> c1.getDescription().getTranslatedName().compareToIgnoreCase(c2.getDescription().getTranslatedName()));
-            custom.addAll(list);
-            return custom.iterator();
+        if (rootLibraryPath != null)
+            scanFolder(rootLibraryPath, customNode);
+
+        populateNodeMap();
+
+        fireLibraryChanged();
+    }
+
+    private void fireLibraryChanged() {
+        for (LibraryListener l : listeners)
+            l.libraryChanged();
+    }
+
+    private void scanFolder(File path, LibraryNode node) {
+        File[] list = path.listFiles();
+        if (list != null) {
+            ArrayList<File> orderedList = new ArrayList<>(Arrays.asList(list));
+            orderedList.sort((f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
+            for (File f : orderedList) {
+                if (f.isDirectory()) {
+                    LibraryNode n = new LibraryNode(f.getName());
+                    scanFolder(f, n);
+                    if (!n.isEmpty())
+                        node.add(n);
+                }
+            }
+            for (File f : orderedList) {
+                final String name = f.getName();
+                if (f.isFile() && name.endsWith(".dig"))
+                    node.add(importElement(f));
+            }
         }
     }
 
     /**
-     * Setes the {@link ElementNotFoundNotification} which can be calle if a element is not present.
+     * Adds a listener to this library
      *
-     * @param elementNotFoundNotification elementNotFoundNotification
+     * @param listener the listener to add
      */
-    public void setElementNotFoundNotification(ElementNotFoundNotification elementNotFoundNotification) {
-        this.elementNotFoundNotification = elementNotFoundNotification;
+    public void addListener(LibraryListener listener) {
+        listeners.add(listener);
+    }
+
+    /**
+     * Removes a listener from this library
+     *
+     * @param listener the listener to remove
+     */
+    public void removeListener(LibraryListener listener) {
+        listeners.remove(listener);
+    }
+
+
+    @Override
+    public Iterator<ElementContainer> iterator() {
+        ArrayList<ElementContainer> nodes = new ArrayList<>();
+        for (LibraryNode n : getRoot())
+            addToList(nodes, n, "");
+        return nodes.iterator();
+    }
+
+    private void addToList(ArrayList<ElementContainer> nodes, LibraryNode node, String path) {
+        if (node.isLeaf()) {
+            if (node.isDescriptionLoaded()) {
+                try {
+                    nodes.add(new ElementContainer(node.getDescription(), path));
+                } catch (IOException e) {
+                    // can not happen because description is present!
+                }
+            }
+        } else
+            for (LibraryNode n : node)
+                addToList(nodes, n, concat(path, node.getName()));
+    }
+
+    private String concat(String path, String name) {
+        if (path.length() == 0)
+            return name;
+        return path + " - " + name;
+
     }
 
     /**
@@ -213,6 +317,120 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     public void removeElement(File name) {
         map.remove(name.getName());
     }
+
+    /**
+     * Updates all entries
+     *
+     * @throws IOException IOException
+     */
+    public void updateEntries() throws IOException {
+        rescanFolder();
+    }
+
+    /**
+     * @return the root element
+     */
+    public LibraryNode getRoot() {
+        return root;
+    }
+
+    private LibraryNode importElement(File file) {
+        return new LibraryNode(file.getName(), () -> {
+            try {
+                LOGGER.debug("load element " + file);
+                Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
+                ElementTypeDescriptionCustom description =
+                        new ElementTypeDescriptionCustom(file,
+                                attributes -> new CustomElement(circuit, ElementLibrary.this, file),
+                                circuit.getAttributes(), circuit.getInputNames());
+                description.setShortName(createShortName(file));
+
+                String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
+                if (descriptionText != null && descriptionText.length() > 0) {
+                    description.setDescription(descriptionText);
+                }
+                return description;
+            } catch (PinException e) {
+                throw new IOException(Lang.get("msg_errorImportingModel"), e);
+            }
+        });
+    }
+
+    private String createShortName(File file) {
+        return createShortName(file.getName());
+    }
+
+    private String createShortName(String name) {
+        if (name.endsWith(".dig")) return name.substring(0, name.length() - 4);
+
+        String transName = Lang.getNull("elem_" + name);
+        if (transName == null)
+            return name;
+        else
+            return transName;
+    }
+
+    /**
+     * The description of a nested element.
+     * This is a complete circuit which is used as a element.
+     */
+    public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
+        private final File file;
+        private final ElementAttributes attributes;
+        private String description;
+
+        /**
+         * Creates a new element
+         *
+         * @param file           the file which is loaded
+         * @param elementFactory a element factory which is used to create concrete elements if needed
+         * @param attributes     the attributes of the element
+         * @param inputNames     the names of the input signals
+         */
+        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, PinDescription... inputNames) {
+            super(file.getName(), elementFactory, inputNames);
+            this.file = file;
+            this.attributes = attributes;
+            setShortName(file.getName());
+            addAttribute(Keys.ROTATE);
+            addAttribute(Keys.LABEL);
+        }
+
+        /**
+         * Returns the filename
+         * the retuned file is opened if the user wants to modify the element
+         *
+         * @return the filename
+         */
+        public File getFile() {
+            return file;
+        }
+
+        /**
+         * @return the elements attributes
+         */
+        public ElementAttributes getAttributes() {
+            return attributes;
+        }
+
+        /**
+         * Sets a custom description for this field
+         *
+         * @param description the description
+         */
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        @Override
+        public String getDescription(ElementAttributes elementAttributes) {
+            if (description != null)
+                return description;
+            else
+                return super.getDescription(elementAttributes);
+        }
+    }
+
 
     /**
      * Used to store a elements name and its position in the elements menu.
@@ -227,7 +445,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
          * @param typeDescription the elements typeDescription
          * @param treePath        the elements menu path
          */
-        public ElementContainer(ElementTypeDescription typeDescription, String treePath) {
+        ElementContainer(ElementTypeDescription typeDescription, String treePath) {
             this.name = typeDescription;
             this.treePath = treePath;
         }

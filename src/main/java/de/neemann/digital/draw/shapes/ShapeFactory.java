@@ -23,7 +23,6 @@ import de.neemann.digital.draw.shapes.ieee.IEEEAndShape;
 import de.neemann.digital.draw.shapes.ieee.IEEENotShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEXOrShape;
-import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
@@ -57,6 +56,7 @@ public final class ShapeFactory {
      */
     public ShapeFactory(ElementLibrary library, boolean ieee) {
         this.library = library;
+        library.setShapeFactory(this);
         if (ieee) {
             map.put(And.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, false));
             map.put(NAnd.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, true));
@@ -136,8 +136,8 @@ public final class ShapeFactory {
                     throw new NodeException(Lang.get("err_noShapeFoundFor_N", elementName));
                 else {
                     ElementTypeDescription pt = library.getElementType(elementName);
-                    if (pt instanceof LibrarySelector.ElementTypeDescriptionCustom) {
-                        LibrarySelector.ElementTypeDescriptionCustom customDescr = (LibrarySelector.ElementTypeDescriptionCustom) pt;
+                    if (pt instanceof ElementLibrary.ElementTypeDescriptionCustom) {
+                        ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
                         return new GenericShape(
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),

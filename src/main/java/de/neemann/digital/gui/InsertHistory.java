@@ -3,6 +3,7 @@ package de.neemann.digital.gui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * The InsertHistory puts the most frequently used elements to the toolbar of the main window.
@@ -41,13 +42,18 @@ public class InsertHistory {
             bar.add(wrapper);
             if (wrappers.size() > MAX_ICONS) {
                 int oldest = findOldestIndex();
-                wrapper = wrappers.get(oldest);
-                bar.remove(wrapper.componentPosition);
-                for (int i = oldest; i < wrappers.size(); i++)
-                    wrappers.get(i).componentPosition--;
+                removeWrapperFromBar(wrappers.get(oldest));
                 wrappers.remove(oldest);
             }
         }
+    }
+
+    private void removeWrapperFromBar(WrapperAction wrapper) {
+        final int position = wrapper.componentPosition;
+        bar.remove(position);
+        for (WrapperAction w : wrappers)
+            if (w.componentPosition > position)
+                w.componentPosition--;
     }
 
     private int findOldestIndex() {
@@ -70,8 +76,24 @@ public class InsertHistory {
         return false;
     }
 
-    private final class WrapperAction extends AbstractAction {
+    /**
+     * remove custom components
+     */
+    public void removeCustom() {
+        Iterator<WrapperAction> it = wrappers.iterator();
+        while (it.hasNext()) {
+            WrapperAction w = it.next();
+            if (w.action instanceof LibrarySelector.InsertAction) {
+                if (((LibrarySelector.InsertAction) w.action).isCustom()) {
+                    removeWrapperFromBar(w);
+                    it.remove();
+                }
+            }
+        }
+        bar.revalidate();
+    }
 
+    private final class WrapperAction extends AbstractAction {
         private final AbstractAction action;
         private int componentPosition;
         private int time;

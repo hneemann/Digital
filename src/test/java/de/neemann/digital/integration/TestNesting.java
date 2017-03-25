@@ -64,8 +64,7 @@ public class TestNesting extends TestCase {
 
     private TestExecuter createTestExecuterForNesting(String file) throws IOException, NodeException, PinException, ElementNotFoundException {
         ElementLibrary library = new ElementLibrary();
-        LibrarySelector librarySelector = new LibrarySelector(library, new ShapeFactory(library), null);
-        librarySelector.setFilePath(new File(Resources.getRoot(), "dig"));
+        library.setFilePath(new File(Resources.getRoot(), "dig"));
         return TestExecuter.createFromFile(file, library);
     }
 

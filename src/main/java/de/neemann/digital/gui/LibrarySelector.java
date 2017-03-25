@@ -1,13 +1,10 @@
 package de.neemann.digital.gui;
 
-import de.neemann.digital.core.element.*;
-import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.ElementNotFoundNotification;
+import de.neemann.digital.draw.library.LibraryListener;
+import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.state.State;
@@ -15,16 +12,10 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.StringUtils;
 import de.neemann.gui.ToolTipAction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * The LibrarySelector is responsible for building the menu used to select items for adding them to the circuit.
@@ -32,22 +23,17 @@ import java.util.HashMap;
  *
  * @author hneemann
  */
-public class LibrarySelector implements ElementNotFoundNotification {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LibrarySelector.class);
-
+public class LibrarySelector implements LibraryListener {
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
     private final State elementState;
-    private File filePath;
-    private JMenu customMenu;
+    private JMenu componentsMenu;
     private InsertHistory insertHistory;
     private CircuitComponent circuitComponent;
-    private ArrayList<ImportedItem> importedElements;
-    private HashMap<String, File> treeFileMap;
 
     /**
      * Creates a new library selector.
-     * the elementState is used to seht the window to the elemetEdit mode if a new element is added to the circuit.
+     * the elementState is used to set the window to the elementEdit mode if a new element is added to the circuit.
      *
      * @param library      the library to select elements from
      * @param shapeFactory The shape factory
@@ -55,10 +41,9 @@ public class LibrarySelector implements ElementNotFoundNotification {
      */
     public LibrarySelector(ElementLibrary library, ShapeFactory shapeFactory, State elementState) {
         this.library = library;
+        library.addListener(this);
         this.shapeFactory = shapeFactory;
         this.elementState = elementState;
-        library.setElementNotFoundNotification(this);
-        importedElements = new ArrayList<>();
     }
 
     /**
@@ -73,64 +58,47 @@ public class LibrarySelector implements ElementNotFoundNotification {
     public JMenu buildMenu(InsertHistory insertHistory, CircuitComponent circuitComponent) {
         this.insertHistory = insertHistory;
         this.circuitComponent = circuitComponent;
-        JMenu parts = new JMenu(Lang.get("menu_elements"));
+        componentsMenu = new JMenu(Lang.get("menu_elements"));
+        libraryChanged();
 
-        customMenu = new JMenu(Lang.get("menu_custom"));
-        parts.add(customMenu);
-
-        customMenu.add(new ToolTipAction(Lang.get("menu_import")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser(filePath);
-                fc.setFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
-                if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        Imported imp = importElement(fc.getSelectedFile());
-                        if (imp != null) {
-                            VisualElement visualElement = new VisualElement(imp.description.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
-                            elementState.enter();
-                            circuitComponent.setPartToInsert(visualElement);
-                            insertHistory.add(imp.insertAction);
-                        }
-                    } catch (IOException e1) {
-                        new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e1).show();
-                    }
-                }
-            }
-        }.setToolTip(Lang.get("menu_import_tt")).createJMenuItem());
-
-        customMenu.add(new ToolTipAction(Lang.get("menu_refresh")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeCustomElements();
-            }
-        }.setToolTip(Lang.get("menu_refresh_tt")).createJMenuItem());
-
-
-        JMenu subMenu = null;
-        String lastPath = null;
-        for (ElementLibrary.ElementContainer elementContainer : library) {
-            String path = elementContainer.getTreePath();
-            if (!path.equals(lastPath)) {
-                subMenu = new JMenu(path);
-                parts.add(subMenu);
-                lastPath = path;
-            }
-            subMenu.add(new InsertAction(elementContainer.getDescription(), insertHistory, circuitComponent)
-                    .setToolTip(createToolTipText(elementContainer.getDescription().getName()))
-                    .createJMenuItem());
-        }
-
-        return parts;
+        return componentsMenu;
     }
 
-    /**
-     * removes all custom elements
-     */
-    public void removeCustomElements() {
-        for (ImportedItem item : importedElements) {
-            library.removeElement(item.file);
-            customMenu.remove(item.menuEntry);
+    @Override
+    public void libraryChanged() {
+        componentsMenu.removeAll();
+
+        for (LibraryNode n : library.getRoot())
+            addComponents(componentsMenu, n);
+
+        insertHistory.removeCustom();
+
+        JMenuItem m = componentsMenu.getItem(componentsMenu.getItemCount() - 1);
+        if (m instanceof JMenu) {
+            ((JMenu) m).add(new ToolTipAction(Lang.get("menu_import")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        library.updateEntries();
+                    } catch (IOException ex) {
+                        SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+                    }
+                }
+            }.setToolTip(Lang.get("menu_import_tt")).createJMenuItem());
+        }
+
+    }
+
+    private void addComponents(JMenu parts, LibraryNode node) {
+        if (node.isLeaf()) {
+            parts.add(new InsertAction(node, insertHistory, circuitComponent)
+                    .setToolTip(createToolTipText(node.getName()))
+                    .createJMenuItem());
+        } else {
+            JMenu subMenu = new JMenu(node.getName());
+            for (LibraryNode child : node)
+                addComponents(subMenu, child);
+            parts.add(subMenu);
         }
     }
 
@@ -138,232 +106,50 @@ public class LibrarySelector implements ElementNotFoundNotification {
         return StringUtils.textToHTML(Lang.getNull("elem_" + elementName + "_tt"));
     }
 
-    /**
-     * sets the file path which is used to load missing nested elements
-     *
-     * @param filePath the file path
-     */
-    public void setFilePath(File filePath) {
-        treeFileMap = null;
-        this.filePath = filePath;
-    }
-
-    @Override
-    public ElementTypeDescription elementNotFound(File file) throws IOException {
-        // check if there is a file with the given name in the current directory
-        // if so, load this file!
-        File primary = new File(filePath, file.getName());
-        if (primary.exists())
-            file = primary;
-
-        // check if there is a file with the given name below the current directory
-        // if so, load this file!
-        File f = getFileFromTree(file.getName());
-        if (f != null)
-            return importElement(f).description;
-
-        // than check if the exact given file exists
-        if (file.exists())
-            return importElement(file).description;
-
-        // could not find the given file
-        throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
-    }
-
-    private File getFileFromTree(String name) throws IOException {
-        if (treeFileMap == null) {
-            treeFileMap = new HashMap<>();
-            populateTreeFileMap(treeFileMap, filePath);
-        } else {
-            if (!treeFileMap.containsKey(name)) {                 // if file not in map rescan folder
-                treeFileMap.clear();
-                populateTreeFileMap(treeFileMap, filePath);
-            }
-        }
-        return treeFileMap.get(name);
-    }
-
-    private void populateTreeFileMap(HashMap<String, File> map, File path) throws IOException {
-        File[] list = path.listFiles();
-        if (list != null) {
-            for (File f : list) {
-                final String name = f.getName();
-                if (f.isFile() && name.endsWith(".dig")) {
-                    if (map.containsKey(name))
-                        throw new IOException(Lang.get("err_file_N0_ExistsTwiceBelow_N1", name, filePath));
-                    map.put(name, f);
-                }
-                if (f.isDirectory())
-                    populateTreeFileMap(map, f);
-            }
-        }
-    }
-
-    private static String getActionName(ElementTypeDescription typeDescription) {
-        if (typeDescription instanceof ElementTypeDescriptionCustom)
-            return typeDescription.getShortName();
-        else
-            return typeDescription.getTranslatedName();
-    }
-
-    private final class InsertAction extends ToolTipAction {
-
-        private final String name;
+    final class InsertAction extends ToolTipAction {
+        private final LibraryNode node;
         private final InsertHistory insertHistory;
         private final CircuitComponent circuitComponent;
 
-        private InsertAction(ElementTypeDescription typeDescription, InsertHistory insertHistory, CircuitComponent circuitComponent) {
-            super(getActionName(typeDescription), new VisualElement(typeDescription.getName()).setShapeFactory(shapeFactory).createIcon(75));
-            this.name = typeDescription.getName();
+        private InsertAction(LibraryNode node, InsertHistory insertHistory, CircuitComponent circuitComponent) {
+            super(node.getTranslatedName(), createIcon(node, shapeFactory));
+            this.node = node;
             this.insertHistory = insertHistory;
             this.circuitComponent = circuitComponent;
         }
 
-
         @Override
         public void actionPerformed(ActionEvent e) {
-            VisualElement visualElement = new VisualElement(name).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
+            VisualElement visualElement = new VisualElement(node.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
             elementState.enter();
             circuitComponent.setPartToInsert(visualElement);
+            if (getIcon() == null) {
+                try {
+                    node.getDescription();
+                    setIcon(createIcon(node, shapeFactory));
+                } catch (IOException ex) {
+                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+                }
+            }
             insertHistory.add(this);
         }
-    }
 
-    private Imported importElement(File file) throws IOException {
-        try {
-            LOGGER.debug("load element " + file);
-            Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
-            ElementTypeDescriptionCustom description =
-                    new ElementTypeDescriptionCustom(file,
-                            attributes -> new CustomElement(circuit, library, file),
-                            circuit.getAttributes(), circuit.getInputNames());
-            description.setShortName(createShortName(file));
-            library.addDescription(description, file);
-
-            InsertAction insertAction = new InsertAction(description, insertHistory, circuitComponent);
-            String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
-            if (descriptionText != null && descriptionText.length() > 0) {
-                insertAction.setToolTip(StringUtils.textToHTML(descriptionText));
-                description.setDescription(descriptionText);
-            }
-
-            JMenuItem menuEntry = insertAction.createJMenuItem();
-            ImportedItem item = findImportedItem(file);
-            if (item != null) {
-                if (customMenu != null) {
-                    customMenu.remove(item.menuEntry);
-                }
-                importedElements.remove(item);
-            }
-            importedElements.add(new ImportedItem(file, menuEntry));
-            if (customMenu != null)
-                customMenu.add(menuEntry);
-            return new Imported(description, insertAction);
-        } catch (PinException e) {
-            throw new IOException(e);
+        public boolean isCustom() {
+            return node.getDescriptionOrNull() instanceof ElementLibrary.ElementTypeDescriptionCustom;
         }
     }
 
-    private ImportedItem findImportedItem(File file) {
-        for (ImportedItem i : importedElements) {
-            if (i.file.equals(file))
-                return i;
+    private static ImageIcon createIcon(LibraryNode node, ShapeFactory shapeFactory) {
+        // don't load the description if only the icon is needed
+        // create action without an icon instead
+        if (node.isDescriptionLoaded()) {
+            try {
+                return new VisualElement(node.getDescription().getName()).setShapeFactory(shapeFactory).createIcon(75);
+            } catch (IOException ex) {
+                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+            }
         }
         return null;
     }
 
-    private String createShortName(File file) {
-        return createShortName(file.getName());
-    }
-
-    private String createShortName(String name) {
-        if (name.endsWith(".dig")) return name.substring(0, name.length() - 4);
-
-        String transName = Lang.getNull("elem_" + name);
-        if (transName == null)
-            return name;
-        else
-            return transName;
-    }
-
-    private final static class ImportedItem {
-        private final File file;
-        private final JMenuItem menuEntry;
-
-        private ImportedItem(File file, JMenuItem menuEntry) {
-            this.file = file;
-            this.menuEntry = menuEntry;
-        }
-    }
-
-    /**
-     * The description of a nested element.
-     * This is a complete circuit which is used as a element.
-     */
-    public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
-        private final File file;
-        private final ElementAttributes attributes;
-        private String description;
-
-        /**
-         * Creates a new element
-         *
-         * @param file           the file which is loaded
-         * @param elementFactory a element factory which is used to create concrete elements if needed
-         * @param attributes     the attributes of the element
-         * @param inputNames     the names of the input signals
-         */
-        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, PinDescription... inputNames) {
-            super(file.getPath().replace('\\', '/'), elementFactory, inputNames);
-            this.file = file;
-            this.attributes = attributes;
-            setShortName(file.getName());
-            addAttribute(Keys.ROTATE);
-            addAttribute(Keys.LABEL);
-        }
-
-        /**
-         * Returns the filename
-         * the retuned file is opened if the user wants to modify the element
-         *
-         * @return the filename
-         */
-        public File getFile() {
-            return file;
-        }
-
-        /**
-         * @return the elements attributes
-         */
-        public ElementAttributes getAttributes() {
-            return attributes;
-        }
-
-        /**
-         * Sets a custom description for this field
-         *
-         * @param description the description
-         */
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        @Override
-        public String getDescription(ElementAttributes elementAttributes) {
-            if (description != null)
-                return description;
-            else
-                return super.getDescription(elementAttributes);
-        }
-    }
-
-    private final static class Imported {
-        private final ElementTypeDescription description;
-        private final InsertAction insertAction;
-
-        private Imported(ElementTypeDescription description, InsertAction insertAction) {
-            this.description = description;
-            this.insertAction = insertAction;
-        }
-    }
 }

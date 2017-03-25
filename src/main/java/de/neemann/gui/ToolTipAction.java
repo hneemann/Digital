@@ -32,6 +32,23 @@ public abstract class ToolTipAction extends AbstractAction {
     }
 
     /**
+     * sets the icon
+     *
+     * @param icon the icon to set
+     */
+    public void setIcon(Icon icon) {
+        putValue("SmallIcon", icon);
+        this.icon = icon;
+    }
+
+    /**
+     * @return the icon
+     */
+    public Icon getIcon() {
+        return icon;
+    }
+
+    /**
      * Sets the tool tip text
      *
      * @param text the tool tip text

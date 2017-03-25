@@ -16,7 +16,6 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SavedListener;
 import de.neemann.digital.gui.sync.NoSync;
@@ -562,20 +561,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
                 AttributeDialog attributeDialog = new AttributeDialog(this, p, list, vp.getElementAttributes());
-                if (elementType instanceof LibrarySelector.ElementTypeDescriptionCustom) {
+                if (elementType instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                     attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             attributeDialog.dispose();
                             SwingUtilities.invokeLater(() -> new Main(CircuitComponent.this,
-                                    ((LibrarySelector.ElementTypeDescriptionCustom) elementType).getFile(),
+                                    ((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile(),
                                     filename -> {
                                         if (parentsSavedListener != null)
                                             parentsSavedListener.saved(filename);
                                         library.removeElement(filename);
                                         circuit.clearState();
                                         hasChanged();
-                                    }).setVisible(true));
+                                    }, library).setVisible(true));
                         }
                     }.setToolTip(Lang.get("attr_openCircuit_tt")));
                 }
