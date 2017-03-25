@@ -398,6 +398,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param element the element to insert
      */
     public void setPartToInsert(VisualElement element) {
+        parent.stopModel();
         mouseInsertElement.activate(element);
     }
 

@@ -1,7 +1,6 @@
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.arithmetic.*;
-import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.flipflops.FlipflopD;
@@ -34,7 +33,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * @author hneemann
@@ -142,7 +144,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         node.add(TestCaseElement.TESTCASEDESCRIPTION);
         root.add(node);
 
-        populateNodeMap();
+        try {
+            populateNodeMap();
+        } catch (IOException e) {
+            // can not happen because there are no custom elements yet
+        }
     }
 
     /**
@@ -154,13 +160,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         this.shapeFactory = shapeFactory;
     }
 
-    private void populateNodeMap() {
+    private void populateNodeMap() throws IOException {
         map.clear();
-        root.traverse(libraryNode -> {
-            if (libraryNode.isLeaf()) {
-                map.put(libraryNode.getName(), libraryNode);
-            }
-        });
+        String dn = root.traverse(new PopulateModelVisitor(map)).getDoubleNode();
+        if (dn != null)
+            throw new IOException(Lang.get("err_file_N0_ExistsTwiceBelow_N1", dn, rootLibraryPath));
     }
 
     /**
@@ -220,7 +224,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         throw new ElementNotFoundException(Lang.get("err_element_N_notFound", elementName));
     }
 
-    private void rescanFolder() {
+    private void rescanFolder() throws IOException {
         LOGGER.debug("rescan folder");
         if (customNode == null) {
             customNode = new LibraryNode(Lang.get("menu_custom"));
@@ -338,7 +342,12 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         return new LibraryNode(file.getName(), () -> {
             try {
                 LOGGER.debug("load element " + file);
-                Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
+                Circuit circuit;
+                try {
+                    circuit = Circuit.loadCircuit(file, shapeFactory);
+                } catch (IOException e) {
+                    throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
+                }
                 ElementTypeDescriptionCustom description =
                         new ElementTypeDescriptionCustom(file,
                                 attributes -> new CustomElement(circuit, ElementLibrary.this, file),
@@ -462,6 +471,31 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
          */
         public String getTreePath() {
             return treePath;
+        }
+    }
+
+    private static final class PopulateModelVisitor implements Visitor {
+        private final HashMap<String, LibraryNode> map;
+        private String doubleNode;
+
+        private PopulateModelVisitor(HashMap<String, LibraryNode> map) {
+            this.map = map;
+        }
+
+        @Override
+        public void visit(LibraryNode libraryNode) {
+            if (libraryNode.isLeaf()) {
+                final String name = libraryNode.getName();
+
+                if (map.containsKey(name))
+                    doubleNode = name;
+
+                map.put(name, libraryNode);
+            }
+        }
+
+        private String getDoubleNode() {
+            return doubleNode;
         }
     }
 }

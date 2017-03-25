@@ -601,8 +601,6 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="menu_orderOutputs">Sortieren der Ausgänge</string>
     <string name="menu_orderOutputs_tt">Sortiert die Ausgänge für die Verwendung als eingebettete Schaltung</string>
     <string name="menu_paste">Einfügen</string>
-    <string name="menu_refresh">Alle neu laden</string>
-    <string name="menu_refresh_tt">Alle importierten Schaltungen werden neu geladen</string>
     <string name="menu_rotate">Rotieren</string>
     <string name="menu_run">Start der Simulation</string>
     <string name="menu_run_tt">Startet die Simulation der Schaltung</string>

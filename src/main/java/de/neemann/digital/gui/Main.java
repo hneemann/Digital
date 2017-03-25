@@ -225,7 +225,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         toolBar.addSeparator();
 
-        librarySelector = new LibrarySelector(library, shapeFactory, stoppedState);
+        librarySelector = new LibrarySelector(library, shapeFactory);
         menuBar.add(librarySelector.buildMenu(new InsertHistory(toolBar), circuitComponent));
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
@@ -796,6 +796,14 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             stoppedState.enter();
         });
     }
+
+    /**
+     * stops the model
+     */
+    public void stopModel() {
+        stoppedState.enter();
+    }
+
 
     private static JFileChooser getJFileChooser(File filename) {
         File folder = null;

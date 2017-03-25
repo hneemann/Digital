@@ -83,8 +83,8 @@ public class InsertHistory {
         Iterator<WrapperAction> it = wrappers.iterator();
         while (it.hasNext()) {
             WrapperAction w = it.next();
-            if (w.action instanceof LibrarySelector.InsertAction) {
-                if (((LibrarySelector.InsertAction) w.action).isCustom()) {
+            if (w.action instanceof InsertAction) {
+                if (((InsertAction) w.action).isCustom()) {
                     removeWrapperFromBar(w);
                     it.remove();
                 }

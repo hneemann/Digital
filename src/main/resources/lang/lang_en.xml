@@ -588,8 +588,6 @@ allowed are {1} variables but {2} are found.</string>
     <string name="menu_orderOutputs">Order Outputs</string>
     <string name="menu_orderOutputs_tt">Order the outputs for the usage as nested circuit</string>
     <string name="menu_paste">Paste</string>
-    <string name="menu_refresh">Reload</string>
-    <string name="menu_refresh_tt">Reload all imported circuits</string>
     <string name="menu_rotate">Rotate</string>
     <string name="menu_run">Start Simulation</string>
     <string name="menu_run_tt">Starts the simulation of the circuit.</string>

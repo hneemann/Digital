@@ -1,13 +1,10 @@
 package de.neemann.digital.gui;
 
-import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.LibraryListener;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.state.State;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.StringUtils;
@@ -26,7 +23,6 @@ import java.io.IOException;
 public class LibrarySelector implements LibraryListener {
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
-    private final State elementState;
     private JMenu componentsMenu;
     private InsertHistory insertHistory;
     private CircuitComponent circuitComponent;
@@ -37,13 +33,11 @@ public class LibrarySelector implements LibraryListener {
      *
      * @param library      the library to select elements from
      * @param shapeFactory The shape factory
-     * @param elementState the elements state
      */
-    public LibrarySelector(ElementLibrary library, ShapeFactory shapeFactory, State elementState) {
+    public LibrarySelector(ElementLibrary library, ShapeFactory shapeFactory) {
         this.library = library;
         library.addListener(this);
         this.shapeFactory = shapeFactory;
-        this.elementState = elementState;
     }
 
     /**
@@ -91,7 +85,7 @@ public class LibrarySelector implements LibraryListener {
 
     private void addComponents(JMenu parts, LibraryNode node) {
         if (node.isLeaf()) {
-            parts.add(new InsertAction(node, insertHistory, circuitComponent)
+            parts.add(new InsertAction(node, insertHistory, circuitComponent, shapeFactory)
                     .setToolTip(createToolTipText(node.getName()))
                     .createJMenuItem());
         } else {
@@ -105,51 +99,4 @@ public class LibrarySelector implements LibraryListener {
     private static String createToolTipText(String elementName) {
         return StringUtils.textToHTML(Lang.getNull("elem_" + elementName + "_tt"));
     }
-
-    final class InsertAction extends ToolTipAction {
-        private final LibraryNode node;
-        private final InsertHistory insertHistory;
-        private final CircuitComponent circuitComponent;
-
-        private InsertAction(LibraryNode node, InsertHistory insertHistory, CircuitComponent circuitComponent) {
-            super(node.getTranslatedName(), createIcon(node, shapeFactory));
-            this.node = node;
-            this.insertHistory = insertHistory;
-            this.circuitComponent = circuitComponent;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            VisualElement visualElement = new VisualElement(node.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
-            elementState.enter();
-            circuitComponent.setPartToInsert(visualElement);
-            if (getIcon() == null) {
-                try {
-                    node.getDescription();
-                    setIcon(createIcon(node, shapeFactory));
-                } catch (IOException ex) {
-                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
-                }
-            }
-            insertHistory.add(this);
-        }
-
-        public boolean isCustom() {
-            return node.getDescriptionOrNull() instanceof ElementLibrary.ElementTypeDescriptionCustom;
-        }
-    }
-
-    private static ImageIcon createIcon(LibraryNode node, ShapeFactory shapeFactory) {
-        // don't load the description if only the icon is needed
-        // create action without an icon instead
-        if (node.isDescriptionLoaded()) {
-            try {
-                return new VisualElement(node.getDescription().getName()).setShapeFactory(shapeFactory).createIcon(75);
-            } catch (IOException ex) {
-                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
-            }
-        }
-        return null;
-    }
-
 }
