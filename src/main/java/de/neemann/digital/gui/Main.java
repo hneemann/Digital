@@ -12,10 +12,7 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.ElementOrder;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -45,6 +42,8 @@ import de.neemann.gui.language.Language;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -103,7 +102,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private ToolTipAction doStep;
     private ToolTipAction runToBreakAction;
     private final ElementLibrary library;
-    private final LibrarySelector librarySelector;
     private final ShapeFactory shapeFactory;
     private final SavedListener savedListener;
     private final JLabel statusLabel;
@@ -225,8 +223,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         toolBar.addSeparator();
 
-        librarySelector = new LibrarySelector(library, shapeFactory);
-        menuBar.add(librarySelector.buildMenu(new InsertHistory(toolBar), circuitComponent));
+        menuBar.add(new LibrarySelector(library, shapeFactory).buildMenu(new InsertHistory(toolBar), circuitComponent));
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
@@ -471,6 +468,34 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_unprogramAllFuses_tt"));
 
+        ToolTipAction insertAsNew = new ToolTipAction(Lang.get("menu_insertAsNew")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                try {
+                    Object data = clpbrd.getData(DataFlavor.stringFlavor);
+                    if (data instanceof String) {
+                        ArrayList<Moveable> elements = CircuitTransferable.createList(data, shapeFactory, new Vector(0, 0));
+                        Circuit circuit = new Circuit();
+                        for (Moveable m : elements) {
+                            if (m instanceof Wire)
+                                circuit.add((Wire) m);
+                            if (m instanceof VisualElement)
+                                circuit.add((VisualElement) m);
+                        }
+
+                        Main m = new Main(Main.this, circuit);
+                        m.lastFilename = filename;
+                        m.setLocationRelativeTo(Main.this);
+                        m.setVisible(true);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_clipboardContainsNoImportableData")).setComponent(Main.this));
+                }
+            }
+        }.setToolTip(Lang.get("menu_insertAsNew_tt"));
+
         edit.add(editAttributes.createJMenuItem());
         edit.add(actualToDefault.createJMenuItem());
         edit.add(unprogramAllFuses.createJMenuItem());
@@ -489,6 +514,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         JMenuItem rotateItem = new JMenuItem(circuitComponent.getRotateAction());
         rotateItem.setAccelerator(KeyStroke.getKeyStroke('R'));
         edit.add(rotateItem);
+        edit.add(insertAsNew.createJMenuItem());
         edit.addSeparator();
         edit.add(editSettings.createJMenuItem());
     }

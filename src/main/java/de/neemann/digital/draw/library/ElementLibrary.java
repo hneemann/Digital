@@ -39,6 +39,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
+ * The ElementLibrary is responsible for storing all the components which can be used in a circuit.
+ * Also the import of nested circuits is handled in this class.
+ * This import works in two steps: At first all the files in the same directory as the root circuit are loaded.
+ * The file names are shown in the components menu. From there you can pick a file to insert it to the circuit.
+ * When a file is selected it is loaded to the library. After that also an icon is available.
+ * This is done because the creation of an icon is very time consuming and should be avoided if not necessary.
+ * Its a kind of lazy loading.
+ *
  * @author hneemann
  */
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
@@ -160,6 +168,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         this.shapeFactory = shapeFactory;
     }
 
+    /**
+     * @return the node with the custom elements
+     */
+    public LibraryNode getCustomNode() {
+        return customNode;
+    }
+
     private void populateNodeMap() throws IOException {
         map.clear();
         String dn = root.traverse(new PopulateModelVisitor(map)).getDoubleNode();
@@ -210,7 +225,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 return description.getDescription();
 
             if (rootLibraryPath == null)
-                throw new RuntimeException("no root path set");
+                throw new ElementNotFoundException(Lang.get("err_fileNeedsToBeSaved"));
 
             rescanFolder();
 
@@ -226,13 +241,14 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void rescanFolder() throws IOException {
         LOGGER.debug("rescan folder");
-        if (customNode == null) {
-            customNode = new LibraryNode(Lang.get("menu_custom"));
-            root.add(customNode);
-        } else customNode.removeAll();
+        if (rootLibraryPath != null) {
+            if (customNode == null) {
+                customNode = new LibraryNode(Lang.get("menu_custom"));
+                root.add(customNode);
+            } else customNode.removeAll();
 
-        if (rootLibraryPath != null)
             scanFolder(rootLibraryPath, customNode);
+        }
 
         populateNodeMap();
 

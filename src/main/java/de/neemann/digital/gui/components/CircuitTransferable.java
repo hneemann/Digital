@@ -69,7 +69,7 @@ public class CircuitTransferable implements Transferable {
      * @return the elements or null
      * @throws IOException IOException
      */
-    static ArrayList<Moveable> createList(Object data, ShapeFactory shapeFactory, Vector lastMousePos) throws IOException {
+    public static ArrayList<Moveable> createList(Object data, ShapeFactory shapeFactory, Vector lastMousePos) throws IOException {
         if (!(data instanceof String))
             return null;
 

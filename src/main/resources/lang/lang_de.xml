@@ -452,6 +452,7 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_errorRunningFitter">Fehler beim Starten des externen Fitters!</string>
     <string name="err_noExpressionsAvailable">Es liegen keine minimierten Gleichungen vor!</string>
     <string name="err_varName_N_UsedTwice">Die Variable {0} wird mehrfach verwendet!</string>
+    <string name="err_fileNeedsToBeSaved">Die Datei muss zunächst gespeichert werden!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -584,8 +585,8 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="menu_fast_tt">Führt die Schaltung aus, bis ein Stopsignal über ein BRK-Element detektiert wird.</string>
     <string name="menu_file">Datei</string>
     <string name="menu_help">Hilfe</string>
-    <string name="menu_import">Aktualisieren</string>
-    <string name="menu_import_tt">Aktualisieren des Bauteile Menüs.</string>
+    <string name="menu_update">Aktualisieren</string>
+    <string name="menu_update_tt">Aktualisieren des Bauteile Menüs. Evtl. fehlende Dateien werden nachgeladen.</string>
     <string name="menu_maximize">Einpassen</string>
     <string name="menu_micro">Gatterschrittmodus</string>
     <string name="menu_micro_tt">Startet die Schaltung im Gatterschrittmodus</string>
@@ -683,6 +684,8 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="menu_viewHelp_tt">Zeigt den Hilfedialog der aktuellen Schaltung an.</string>
     <string name="menu_probe_memory">Speicher</string>
     <string name="menu_probe_memory_tt">Zeigt den Inhalt der Speicherbausteine an.</string>
+    <string name="menu_insertAsNew">Einfügen in neues Fenster</string>
+    <string name="menu_insertAsNew_tt">Der Inhalt der Zwischenablage wird in einem neuen Fenster geöffnet.</string>
     <string name="msg_actualCircuit">Aktuelle Schaltung</string>
 
     <string name="message">Digital

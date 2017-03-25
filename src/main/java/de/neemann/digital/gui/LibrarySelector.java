@@ -16,7 +16,6 @@ import java.io.IOException;
 
 /**
  * The LibrarySelector is responsible for building the menu used to select items for adding them to the circuit.
- * This class also handles the import of nested circuits
  *
  * @author hneemann
  */
@@ -67,20 +66,23 @@ public class LibrarySelector implements LibraryListener {
 
         insertHistory.removeCustom();
 
-        JMenuItem m = componentsMenu.getItem(componentsMenu.getItemCount() - 1);
-        if (m instanceof JMenu) {
-            ((JMenu) m).add(new ToolTipAction(Lang.get("menu_import")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        library.updateEntries();
-                    } catch (IOException ex) {
-                        SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+        if (library.getCustomNode() != null) {
+            JMenuItem m = componentsMenu.getItem(componentsMenu.getItemCount() - 1);
+            if (m instanceof JMenu) {
+                JMenu menu = (JMenu) m;
+                menu.addSeparator();
+                menu.add(new ToolTipAction(Lang.get("menu_update")) {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            library.updateEntries();
+                        } catch (IOException ex) {
+                            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+                        }
                     }
-                }
-            }.setToolTip(Lang.get("menu_import_tt")).createJMenuItem());
+                }.setToolTip(Lang.get("menu_update_tt")).createJMenuItem());
+            }
         }
-
     }
 
     private void addComponents(JMenu parts, LibraryNode node) {
