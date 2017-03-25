@@ -64,30 +64,23 @@
     <chapter name="File Names">
         <par>
             In order to decompose a circuit into several parts which are independent, e.g. can be stored and tracked in
-            a VCS, each embedded circuit is stored in its own file. The result is that in a circuit only the file names
+            a  version control system, each embedded circuit is stored in its own file.
+            The result is that in a circuit only the file names
             of the subcircuits are stored, and these files must be found in the file system at runtime.
             In order to support the various work methods of the users as best as possible and still to avoid a complex
             administration of import paths, etc., a somewhat unusual import strategy is implemented.
         </par>
         <par>
-            The absolute paths of the embedded circuits are stored in a circuits file. If a file is to be imported,
-            however, it is first checked whether a file with the same name is located in the folder of the including
-            file. If this is the case, this file is used.
-        </par>
-        <par>
-            If this is not the case, all subfolders are searched for a file of the corresponding name.
+            Only the file names of the embedded circuits are stored in a circuits file.
+            If a file needs to be opened, all subfolders are searched for a file of the corresponding name.
             If a suitable file is found, it is imported. This process only depends on the file name of the file to be
             read, not on its path. Correspondingly, an error message is generated if there are several files of the
             same name in different subfolders, since ambiguities then arise.
         </par>
         <par>
-            Only if no file has been found yet, the complete absolute path is used and an attempt is made to import
-            this file. If this is not successful, an error message is generated.
-        </par>
-        <par>
             A suitable project structure therefore looks as follows: The root circuit is located in a separate folder.
-            All imported circuits should be in the same folder or subfolders. All circuits should have different names,
-            so it should not happen that there are circuits of the same name in different folders.
+            All imported circuits must be in the same folder or subfolders. All circuits must have different names,
+            so it must not happen that there are circuits of the same name in different folders.
         </par>
     </chapter>
     <chapter name="Circuit analysis and synthesis">
