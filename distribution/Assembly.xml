@@ -50,7 +50,7 @@
             <directory>${basedir}/src/main/dig/processor</directory>
             <outputDirectory>/examples/processor/</outputDirectory>
             <includes>
-                <include>*.dig</include>
+                <include>**/*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
