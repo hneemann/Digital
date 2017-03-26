@@ -8,6 +8,8 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.InsertAction;
 import de.neemann.digital.gui.InsertHistory;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.lang.Lang;
+import de.neemann.gui.ErrorMessage;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -49,7 +51,7 @@ public class SelectTree extends JTree {
                             component.setPartToInsert(new VisualElement(d.getName()).setShapeFactory(shapeFactory));
                             insertHistory.add(new InsertAction(node, insertHistory, component, shapeFactory));
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e));
                         }
                     }
                 }
