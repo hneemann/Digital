@@ -39,18 +39,17 @@ public class SelectTree extends JTree {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2) {
-                    TreePath path = getSelectionPath();
-                    if (path != null && path.getPathCount() > 0) {
-                        LibraryNode node = (LibraryNode) path.getLastPathComponent();
-                        if (node.isLeaf()) {
-                            try {
-                                ElementTypeDescription d = node.getDescription();
-                                component.setPartToInsert(new VisualElement(d.getName()).setShapeFactory(shapeFactory));
-                                insertHistory.add(new InsertAction(node, insertHistory, component, shapeFactory));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                TreePath path = getSelectionPath();
+                if (path != null && path.getPathCount() > 0) {
+                    LibraryNode node = (LibraryNode) path.getLastPathComponent();
+                    if (node.isLeaf()) {
+                        clearSelection();
+                        try {
+                            ElementTypeDescription d = node.getDescription();
+                            component.setPartToInsert(new VisualElement(d.getName()).setShapeFactory(shapeFactory));
+                            insertHistory.add(new InsertAction(node, insertHistory, component, shapeFactory));
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
