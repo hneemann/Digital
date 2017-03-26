@@ -9,6 +9,7 @@ planned as v0.10
 - Added N and P channel FETs and some CMOS examples, including a 16 bit SRAM
 - Improved and documented the file import strategy.
 - Truth tables are easier to edit.
+- added a tree view to insert components
 - added support for the ATF1502 and ATF1504 CPLDs
 - some minor bug fixes
 

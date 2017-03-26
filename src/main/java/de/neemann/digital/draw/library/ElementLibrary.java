@@ -63,7 +63,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * Creates a new instance.
      */
     public ElementLibrary() {
-        root = new LibraryNode("root");
+        root = new LibraryNode(Lang.get("menu_elements"));
 
         LibraryNode node = new LibraryNode(Lang.get("lib_Logic"));
         node.add(And.DESCRIPTION);
