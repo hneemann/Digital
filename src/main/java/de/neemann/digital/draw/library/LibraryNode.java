@@ -1,7 +1,10 @@
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,6 +20,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private final String name;
     private final DescriptionCreator creator;
     private ElementTypeDescription description;
+    private ImageIcon icon;
 
     /**
      * Creates a new node with the given name.
@@ -62,7 +66,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * Adds a node.
      * Throws an exception if this node is a leaf
      *
-     * @param node
+     * @param node the node to add
      */
     void add(LibraryNode node) {
         children.add(node);
@@ -187,5 +191,31 @@ public class LibraryNode implements Iterable<LibraryNode> {
     @Override
     public String toString() {
         return translatedName;
+    }
+
+    /**
+     * Returns the icon.
+     * If icon not available the icon is created
+     *
+     * @param shapeFactory the shape factory to create the icon
+     * @return the icon
+     * @throws IOException IOException
+     */
+    public ImageIcon getIcon(ShapeFactory shapeFactory) throws IOException {
+        getDescription();
+        return getIconOrNull(shapeFactory);
+    }
+
+    /**
+     * Returns the icon.
+     * If icon not available null is returned
+     *
+     * @param shapeFactory the shape factory to create the icon
+     * @return the icon or null
+     */
+    public ImageIcon getIconOrNull(ShapeFactory shapeFactory) {
+        if (icon == null && description != null)
+            icon = new VisualElement(description.getName()).setShapeFactory(shapeFactory).createIcon(75);
+        return icon;
     }
 }

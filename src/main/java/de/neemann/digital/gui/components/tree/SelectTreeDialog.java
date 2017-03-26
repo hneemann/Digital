@@ -28,7 +28,7 @@ public class SelectTreeDialog extends JDialog {
      * @param insertHistory the insert history
      */
     public SelectTreeDialog(Main main, ElementLibrary library, CircuitComponent component, ShapeFactory shapeFactory, InsertHistory insertHistory) {
-        super(main, Lang.get("select"), false);
+        super(main, Lang.get("menu_elements"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTree tree = new SelectTree(library, component, shapeFactory, insertHistory);
@@ -44,7 +44,5 @@ public class SelectTreeDialog extends JDialog {
         pack();
         setSize(getWidth(), main.getHeight());
         setLocation(main.getLocation().x - getWidth(), main.getLocation().y);
-
-
     }
 }

@@ -33,7 +33,7 @@ public final class InsertAction extends ToolTipAction {
      * @param shapeFactory     the shapeFactory to create the icon
      */
     public InsertAction(LibraryNode node, InsertHistory insertHistory, CircuitComponent circuitComponent, ShapeFactory shapeFactory) {
-        super(node.getTranslatedName(), createIcon(node, shapeFactory));
+        super(node.getTranslatedName(), node.getIconOrNull(shapeFactory));
         this.shapeFactory = shapeFactory;
         this.node = node;
         this.insertHistory = insertHistory;
@@ -47,7 +47,7 @@ public final class InsertAction extends ToolTipAction {
         if (getIcon() == null) {
             try {
                 node.getDescription();
-                setIcon(createIcon(node, shapeFactory));
+                setIcon(node.getIcon(shapeFactory));
             } catch (IOException ex) {
                 SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
             }
@@ -67,19 +67,6 @@ public final class InsertAction extends ToolTipAction {
      */
     public String getName() {
         return node.getName();
-    }
-
-    private static ImageIcon createIcon(LibraryNode node, ShapeFactory shapeFactory) {
-        // doesn't load the description if only the icon is needed
-        // create action without an icon instead
-        if (node.isDescriptionLoaded()) {
-            try {
-                return new VisualElement(node.getDescription().getName()).setShapeFactory(shapeFactory).createIcon(75);
-            } catch (IOException ex) {
-                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
-            }
-        }
-        return null;
     }
 
 }

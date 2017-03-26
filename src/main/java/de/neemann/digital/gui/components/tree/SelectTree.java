@@ -10,7 +10,9 @@ import de.neemann.digital.gui.InsertHistory;
 import de.neemann.digital.gui.components.CircuitComponent;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -20,6 +22,8 @@ import java.io.IOException;
  * Created by hneemann on 25.03.17.
  */
 public class SelectTree extends JTree {
+
+    private final ShapeFactory shapeFactory;
 
     /**
      * Create a new instance
@@ -31,6 +35,7 @@ public class SelectTree extends JTree {
      */
     public SelectTree(ElementLibrary library, CircuitComponent component, ShapeFactory shapeFactory, InsertHistory insertHistory) {
         super(new MyTreeModel(library));
+        this.shapeFactory = shapeFactory;
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -50,6 +55,26 @@ public class SelectTree extends JTree {
 
             }
         });
+        setCellRenderer(new MyCellRenderer());
+    }
 
+    private class MyCellRenderer extends DefaultTreeCellRenderer {
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree,
+                                                      Object value,
+                                                      boolean selected,
+                                                      boolean expanded,
+                                                      boolean leaf,
+                                                      int row,
+                                                      boolean hasFocus) {
+            JLabel comp = (JLabel) super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+
+            if (leaf)
+                comp.setIcon(((LibraryNode) value).getIconOrNull(shapeFactory));
+            else
+                comp.setIcon(null);
+
+            return comp;
+        }
     }
 }
