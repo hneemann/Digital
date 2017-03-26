@@ -60,7 +60,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
-        this(circuit, library, readAsCustom, null, new NetList(circuit), "");
+        this(circuit, library, readAsCustom, null, new NetList(circuit), "", 0);
     }
 
     /**
@@ -76,7 +76,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, File fileName, NetList netList, String subName) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, File fileName, NetList netList, String subName, int depth) throws PinException, NodeException, ElementNotFoundException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
@@ -133,7 +133,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
             ModelEntry me = it.next();
             if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
                 CustomElement ce = (CustomElement) me.getElement();
-                ModelCreator child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()));
+                ModelCreator child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()), depth + 1);
                 cmdl.add(child);
 
                 HashMap<Net, Net> netMatch = new HashMap<>();
@@ -157,7 +157,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                             parentNet.removePin(p);
 
                             // connect the two parent nets if they are not already the same
-                            if (otherParentNet!=parentNet) {
+                            if (otherParentNet != parentNet) {
                                 otherParentNet.addNet(parentNet);
                                 netList.remove(parentNet);
                             }

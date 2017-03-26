@@ -218,4 +218,13 @@ public class LibraryNode implements Iterable<LibraryNode> {
             icon = new VisualElement(description.getName()).setShapeFactory(shapeFactory).createIcon(75);
         return icon;
     }
+
+    /**
+     * Removes the given child.
+     *
+     * @param child the element to remove
+     */
+    public void remove(LibraryNode child) {
+        children.remove(child);
+    }
 }

@@ -248,6 +248,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             } else customNode.removeAll();
 
             scanFolder(rootLibraryPath, customNode);
+        } else if (customNode != null) {
+            root.remove(customNode);
+            customNode = null;
         }
 
         populateNodeMap();

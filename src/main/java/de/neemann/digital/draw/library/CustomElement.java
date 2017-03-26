@@ -8,6 +8,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.NetList;
+import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 
@@ -19,6 +20,7 @@ import java.io.File;
  * @author hneemann
  */
 public class CustomElement implements Element {
+    private static final int MAX_DEPTH = 30;
 
     private final Circuit circuit;
     private final ElementLibrary library;
@@ -48,11 +50,14 @@ public class CustomElement implements Element {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator getModelDescription(String subName) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator getModelDescription(String subName, int depth) throws PinException, NodeException, ElementNotFoundException {
         if (netList == null)
             netList = new NetList(circuit);
 
-        return new ModelCreator(circuit, library, true, name, new NetList(netList), subName);
+        if (depth > MAX_DEPTH)
+            throw new NodeException(Lang.get("err_recursiveNestingAt_N0", name.getName()));
+
+        return new ModelCreator(circuit, library, true, name, new NetList(netList), subName, depth);
     }
 
     @Override
