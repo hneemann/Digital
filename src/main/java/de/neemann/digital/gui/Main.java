@@ -25,6 +25,7 @@ import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.TestResultDialog;
+import de.neemann.digital.gui.components.tree.SelectTree;
 import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.gui.remote.RemoteSever;
@@ -109,6 +110,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private final ElementAttributes settings = new ElementAttributes();
     private final ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
     private final WindowPosManager windowPosManager = new WindowPosManager();
+    private final InsertHistory insertHistory;
 
     private File lastFilename;
     private File filename;
@@ -123,6 +125,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private State stoppedState;
     private RunModelState runModelState;
     private State runModelMicroState;
+    private JComponent componentOnPane;
 
     private Main() {
         this(null, null, null, null);
@@ -187,6 +190,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         }
 
         getContentPane().add(circuitComponent);
+        componentOnPane = circuitComponent;
 
         statusLabel = new JLabel(" ");
         getContentPane().add(statusLabel, BorderLayout.SOUTH);
@@ -223,7 +227,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         toolBar.addSeparator();
 
-        menuBar.add(new LibrarySelector(library, shapeFactory).buildMenu(new InsertHistory(toolBar), circuitComponent));
+        insertHistory = new InsertHistory(toolBar);
+        menuBar.add(new LibrarySelector(library, shapeFactory).buildMenu(insertHistory, circuitComponent));
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
@@ -287,6 +292,23 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_viewHelp_tt"));
 
+        JCheckBoxMenuItem treeCheckBox = new JCheckBoxMenuItem(Lang.get("menu_treeSelect"));
+        treeCheckBox.setToolTipText(Lang.get("menu_treeSelect_tt"));
+        treeCheckBox.addActionListener(actionEvent -> {
+            getContentPane().remove(componentOnPane);
+            if (treeCheckBox.isSelected()) {
+                JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+                split.setLeftComponent(new JScrollPane(new SelectTree(library, circuitComponent, shapeFactory, insertHistory)));
+                split.setRightComponent(circuitComponent);
+                getContentPane().add(split);
+                componentOnPane = split;
+            } else {
+                getContentPane().add(circuitComponent);
+                componentOnPane = circuitComponent;
+            }
+            pack();
+        });
+
         toolBar.add(viewHelp.createJButtonNoText());
         toolBar.add(zoomIn.createJButtonNoText());
         toolBar.add(zoomOut.createJButtonNoText());
@@ -297,6 +319,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         view.add(maximize.createJMenuItem());
         view.add(zoomOut.createJMenuItem());
         view.add(zoomIn.createJMenuItem());
+        view.addSeparator();
+        view.add(treeCheckBox);
         view.addSeparator();
         view.add(viewHelp.createJMenuItem());
     }

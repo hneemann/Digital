@@ -57,6 +57,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     public static final Icon ICON_DELETE = IconCreator.create("delete.png");
     private static final String DEL_ACTION = "myDelAction";
     private static final String ESC_ACTION = "myEscAction";
+    private static final int MOUSE_BORDER_SMALL = 10;
+    private static final int MOUSE_BORDER_LARGE = 50;
 
     private final Main parent;
     private final ElementLibrary library;
@@ -400,6 +402,29 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     public void setPartToInsert(VisualElement element) {
         parent.stopModel();
         mouseInsertElement.activate(element);
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        SwingUtilities.convertPointFromScreen(point, this);
+        if (point.x < MOUSE_BORDER_LARGE || point.x > getWidth() - MOUSE_BORDER_SMALL
+                || point.y < MOUSE_BORDER_LARGE || point.y > getHeight() - MOUSE_BORDER_SMALL) {
+
+            if (point.x < MOUSE_BORDER_LARGE)
+                point.x = MOUSE_BORDER_LARGE;
+            else if (point.x > getWidth() - MOUSE_BORDER_SMALL)
+                point.x = getWidth() - MOUSE_BORDER_SMALL;
+
+            if (point.y < MOUSE_BORDER_LARGE)
+                point.y = MOUSE_BORDER_LARGE;
+            else if (point.y > getHeight() - MOUSE_BORDER_SMALL)
+                point.y = getHeight() - MOUSE_BORDER_SMALL;
+
+            SwingUtilities.convertPointToScreen(point, this);
+
+            try {
+                new Robot().mouseMove(point.x, point.y);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

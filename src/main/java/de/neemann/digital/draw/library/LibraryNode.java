@@ -156,4 +156,36 @@ public class LibraryNode implements Iterable<LibraryNode> {
     public ElementTypeDescription getDescriptionOrNull() {
         return description;
     }
+
+    /**
+     * get the child with index i
+     *
+     * @param i the index
+     * @return the child
+     */
+    public LibraryNode getChild(int i) {
+        return children.get(i);
+    }
+
+    /**
+     * @return the number of children
+     */
+    public int size() {
+        return children == null ? 0 : children.size();
+    }
+
+    /**
+     * Returns the index of the gicen child
+     *
+     * @param node the node
+     * @return the nodes index
+     */
+    public int indexOf(LibraryNode node) {
+        return children.indexOf(node);
+    }
+
+    @Override
+    public String toString() {
+        return translatedName;
+    }
 }

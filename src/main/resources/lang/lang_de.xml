@@ -686,7 +686,8 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="menu_probe_memory_tt">Zeigt den Inhalt der Speicherbausteine an.</string>
     <string name="menu_insertAsNew">Einfügen in neues Fenster</string>
     <string name="menu_insertAsNew_tt">Der Inhalt der Zwischenablage wird in einem neuen Fenster geöffnet.</string>
-    <string name="msg_actualCircuit">Aktuelle Schaltung</string>
+    <string name="menu_treeSelect">Baumansicht der Bauteile</string>
+    <string name="menu_treeSelect_tt">Zeigt am linken Rand des Fensters eine Baumansicht der verfügbaren Bauteile.</string>
 
     <string name="message">Digital
 
@@ -727,6 +728,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_errorWhileExecutingTests_N0">Während der Ausführung der Tests {0} ist ein Fehler aufgetreten!</string>
     <string name="msg_fitterResult">Meldung vom externen Fitter</string>
     <string name="msg_startExternalFitter">Starten des externen Fitters</string>
+    <string name="msg_actualCircuit">Aktuelle Schaltung</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
