@@ -1,5 +1,6 @@
 package de.neemann.digital.gui;
 
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.LibraryListener;
 import de.neemann.digital.draw.library.LibraryNode;
 
@@ -18,16 +19,18 @@ public class InsertHistory implements LibraryListener {
 
     private static final int MAX_ICONS = 6;
     private final JToolBar bar;
+    private final ElementLibrary library;
     private final ArrayList<WrapperAction> wrappers;
     private int mainTime;
 
     /**
      * Creates a new instance
      *
-     * @param bar     the toolbar to put the elements to
+     * @param bar the toolbar to put the elements to
      */
-    public InsertHistory(JToolBar bar) {
+    public InsertHistory(JToolBar bar, ElementLibrary library) {
         this.bar = bar;
+        this.library = library;
         wrappers = new ArrayList<>();
     }
 
@@ -93,8 +96,12 @@ public class InsertHistory implements LibraryListener {
         while (it.hasNext()) {
             WrapperAction w = it.next();
             if (w.action.isCustom()) {
-                removeWrapperFromBar(w);
-                it.remove();
+                LibraryNode n = library.getElementNodeOrNull(w.action.getName());
+                if (n == null) {  // is'nt there, so delete
+                    removeWrapperFromBar(w);
+                    it.remove();
+                } else
+                    w.update(n);
             }
         }
         bar.revalidate();
@@ -116,6 +123,11 @@ public class InsertHistory implements LibraryListener {
         public void actionPerformed(ActionEvent e) {
             action.actionPerformed(e);
             time = mainTime++;
+        }
+
+        public void update(LibraryNode n) {
+            action.update(n);
+            putValue(Action.SMALL_ICON, action.getValue(Action.SMALL_ICON));
         }
     }
 }

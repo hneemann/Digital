@@ -202,6 +202,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     /**
+     * Returns the node or null if node not present.
+     *
+     * @param elementName the name
+     * @return the node or null
+     */
+    public LibraryNode getElementNodeOrNull(String elementName) {
+        return map.get(elementName);
+    }
+
+    /**
      * Returns a {@link ElementTypeDescription} by a given name.
      * If not found its tried to load it.
      *
@@ -211,9 +221,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public ElementTypeDescription getElementType(String elementName) throws ElementNotFoundException {
         try {
-            LibraryNode description = map.get(elementName);
-            if (description != null)
-                return description.getDescription();
+            LibraryNode node = map.get(elementName);
+            if (node != null)
+                return node.getDescription();
 
             // effects only some old files!
             elementName = elementName.replace("\\", "/");
@@ -221,18 +231,18 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 elementName = new File(elementName).getName();
             }
 
-            description = map.get(elementName);
-            if (description != null)
-                return description.getDescription();
+            node = map.get(elementName);
+            if (node != null)
+                return node.getDescription();
 
             if (rootLibraryPath == null)
                 throw new ElementNotFoundException(Lang.get("err_fileNeedsToBeSaved"));
 
             rescanFolder();
 
-            description = map.get(elementName);
-            if (description != null)
-                return description.getDescription();
+            node = map.get(elementName);
+            if (node != null)
+                return node.getDescription();
         } catch (IOException e) {
             throw new ElementNotFoundException(Lang.get("msg_errorImportingModel"), e);
         }
@@ -304,7 +314,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public void addListener(LibraryListener listener) {
         listeners.add(listener);
-        LOGGER.debug("added library listener "+listener.getClass().getSimpleName()+", listeners: "+listeners.size());
+        LOGGER.debug("added library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
     }
 
     /**
@@ -314,7 +324,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public void removeListener(LibraryListener listener) {
         listeners.remove(listener);
-        LOGGER.debug("removed library listener "+listener.getClass().getSimpleName()+", listeners: "+listeners.size());
+        LOGGER.debug("removed library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
     }
 
 

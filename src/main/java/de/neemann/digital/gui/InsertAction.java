@@ -19,10 +19,10 @@ import java.io.IOException;
  * Created by hneemann on 25.03.17.
  */
 public final class InsertAction extends ToolTipAction {
-    private final LibraryNode node;
     private final InsertHistory insertHistory;
     private final CircuitComponent circuitComponent;
     private final ShapeFactory shapeFactory;
+    private LibraryNode node;
 
     /**
      * Creates a new instance
@@ -69,4 +69,18 @@ public final class InsertAction extends ToolTipAction {
         return node.getName();
     }
 
+    /**
+     * Updates this action to a new node
+     *
+     * @param node the node
+     */
+    public void update(LibraryNode node) {
+        this.node = node;
+        try {
+            final ImageIcon icon = node.getIcon(shapeFactory);
+            setIcon(icon);
+        } catch (IOException ex) {
+            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+        }
+    }
 }
