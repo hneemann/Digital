@@ -281,7 +281,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      *
      * @param node the node changed
      */
-    public void fireLibraryChanged(LibraryNode node) {
+    void fireLibraryChanged(LibraryNode node) {
         for (LibraryListener l : listeners)
             l.libraryChanged(node);
     }
