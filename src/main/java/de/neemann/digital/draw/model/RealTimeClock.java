@@ -7,6 +7,8 @@ import de.neemann.digital.gui.GuiModelObserver;
 import de.neemann.digital.gui.StatusInterface;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -20,6 +22,8 @@ import java.util.concurrent.TimeUnit;
  * @author hneemann
  */
 public class RealTimeClock implements ModelStateObserver {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RealTimeClock.class);
+
     private final Model model;
     private final ScheduledThreadPoolExecutor executor;
     private final ErrorStopper stopper;
@@ -115,7 +119,7 @@ public class RealTimeClock implements ModelStateObserver {
             thread = new Thread() {
                 @Override
                 public void run() {
-                    System.out.println("thread start");
+                    LOGGER.debug("thread start");
                     long time = System.currentTimeMillis();
                     long counter = 0;
                     try {
@@ -131,9 +135,9 @@ public class RealTimeClock implements ModelStateObserver {
                     }
                     time = System.currentTimeMillis() - time;
 
-                    status.setStatus(counter / time / 2 + "kHz");
-
-                    System.out.println("thread end");
+                    final long l = counter / time / 2;
+                    status.setStatus(l + "kHz");
+                    LOGGER.debug("thread end, f="+l+"kHz");
                 }
             };
             thread.setDaemon(true);
