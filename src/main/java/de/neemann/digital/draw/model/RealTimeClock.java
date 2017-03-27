@@ -116,30 +116,27 @@ public class RealTimeClock implements ModelStateObserver {
         private final Thread thread;
 
         ThreadRunner() {
-            thread = new Thread() {
-                @Override
-                public void run() {
-                    LOGGER.debug("thread start");
-                    long time = System.currentTimeMillis();
-                    long counter = 0;
-                    try {
-                        while (!interrupted()) {
-                            modelSync.accessNEx(() -> {
-                                output.setValue(1 - output.getValue());
-                                model.doStep();
-                            });
-                            counter++;
-                        }
-                    } catch (NodeException e1) {
-                        stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e1);
+            thread = new Thread(() -> {
+                LOGGER.debug("thread start");
+                long time = System.currentTimeMillis();
+                long counter = 0;
+                try {
+                    while (!Thread.interrupted()) {
+                        modelSync.accessNEx(() -> {
+                            output.setValue(1 - output.getValue());
+                            model.doStep();
+                        });
+                        counter++;
                     }
-                    time = System.currentTimeMillis() - time;
-
-                    final long l = counter / time / 2;
-                    status.setStatus(l + "kHz");
-                    LOGGER.debug("thread end, f="+l+"kHz");
+                } catch (NodeException e1) {
+                    stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e1);
                 }
-            };
+                time = System.currentTimeMillis() - time;
+
+                final long l = counter / time / 2;
+                status.setStatus(l + "kHz");
+                LOGGER.debug("thread end, f=" + l + "kHz");
+            });
             thread.setDaemon(true);
             thread.start();
         }
