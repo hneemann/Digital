@@ -21,6 +21,8 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private final DescriptionCreator creator;
     private ElementTypeDescription description;
     private ImageIcon icon;
+    private ElementLibrary library;
+    private LibraryNode parent;
 
     /**
      * Creates a new node with the given name.
@@ -70,6 +72,8 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     void add(LibraryNode node) {
         children.add(node);
+        node.parent = this;
+        node.setLibrary(library);
     }
 
     void add(ElementTypeDescription node) {
@@ -113,8 +117,10 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * @throws IOException IOException
      */
     public ElementTypeDescription getDescription() throws IOException {
-        if (description == null)
+        if (description == null) {
             description = creator.createDescription();
+            library.fireLibraryChanged(this);
+        }
         return description;
     }
 
@@ -227,4 +233,34 @@ public class LibraryNode implements Iterable<LibraryNode> {
     public void remove(LibraryNode child) {
         children.remove(child);
     }
+
+    /**
+     * Sets the library this node belongs to
+     *
+     * @param library the library
+     */
+    public void setLibrary(ElementLibrary library) {
+        if (this.library != library) {
+            this.library = library;
+            if (children != null)
+                for (LibraryNode c : children)
+                    c.setLibrary(library);
+        }
+    }
+
+    /**
+     * returns the tree path
+     *
+     * @return the path
+     */
+    public Object[] getPath() {
+        ArrayList<Object> path = new ArrayList<>();
+        LibraryNode n = this;
+        while (n != null) {
+            path.add(0, n);
+            n = n.parent;
+        }
+        return path.toArray(new Object[path.size()]);
+    }
+
 }

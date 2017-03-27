@@ -2,7 +2,6 @@ package de.neemann.digital.gui.components.tree;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.InsertAction;
@@ -30,13 +29,13 @@ public class SelectTree extends JTree {
     /**
      * Create a new instance
      *
-     * @param library       the library to use
+     * @param model         the model to use
      * @param component     the component to insert the components to
      * @param shapeFactory  the shape factory
      * @param insertHistory the insert history
      */
-    public SelectTree(ElementLibrary library, CircuitComponent component, ShapeFactory shapeFactory, InsertHistory insertHistory) {
-        super(new MyTreeModel(library));
+    public SelectTree(LibraryTreeModel model, CircuitComponent component, ShapeFactory shapeFactory, InsertHistory insertHistory) {
+        super(model);
         this.shapeFactory = shapeFactory;
         addMouseListener(new MouseAdapter() {
             @Override

@@ -1,7 +1,6 @@
 package de.neemann.digital.gui.components.tree;
 
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.LibraryListener;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.InsertHistory;
 import de.neemann.digital.gui.Main;
@@ -31,13 +30,14 @@ public class SelectTreeDialog extends JDialog {
         super(main, Lang.get("menu_elements"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JTree tree = new SelectTree(library, component, shapeFactory, insertHistory);
+        LibraryTreeModel model = new LibraryTreeModel(library);
+        JTree tree = new SelectTree(model, component, shapeFactory, insertHistory);
         getContentPane().add(new JScrollPane(tree));
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-                library.removeListener((LibraryListener) tree.getModel());
+                library.removeListener(model);
             }
         });
 

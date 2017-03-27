@@ -25,6 +25,7 @@ import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.TestResultDialog;
+import de.neemann.digital.gui.components.tree.LibraryTreeModel;
 import de.neemann.digital.gui.components.tree.SelectTree;
 import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteException;
@@ -111,6 +112,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private final ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
     private final WindowPosManager windowPosManager = new WindowPosManager();
     private final InsertHistory insertHistory;
+    private final boolean isParentsLibrary;
 
     private File lastFilename;
     private File filename;
@@ -126,6 +128,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private RunModelState runModelState;
     private State runModelMicroState;
     private JComponent componentOnPane;
+    private LibraryTreeModel treeModel;
 
     private Main() {
         this(null, null, null, null);
@@ -166,8 +169,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
         this.savedListener = savedListener;
 
-        if (parentsLibrary == null) library = new ElementLibrary();
-        else this.library = parentsLibrary;
+        isParentsLibrary = parentsLibrary != null;
+        if (isParentsLibrary) this.library = parentsLibrary;
+        else library = new ElementLibrary();
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
 
         fileHistory = new FileHistory(this);
@@ -195,15 +199,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         statusLabel = new JLabel(" ");
         getContentPane().add(statusLabel, BorderLayout.SOUTH);
 
-        addWindowListener(new ClosingWindowListener(this, this));
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                clearModelDescription(); // stop model timer if running
-                timerExecuter.shutdown();
-            }
-        });
-
         setupStates();
 
         JMenuBar menuBar = new JMenuBar();
@@ -227,8 +222,22 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         toolBar.addSeparator();
 
-        insertHistory = new InsertHistory(toolBar);
-        menuBar.add(new LibrarySelector(library, shapeFactory).buildMenu(insertHistory, circuitComponent));
+        insertHistory = new InsertHistory(library, toolBar);
+        final LibrarySelector librarySelector = new LibrarySelector(library, shapeFactory);
+        menuBar.add(librarySelector.buildMenu(insertHistory, circuitComponent));
+
+        addWindowListener(new ClosingWindowListener(this, this));
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                clearModelDescription(); // stop model timer if running
+                timerExecuter.shutdown();
+                library.removeListener(librarySelector);
+                library.removeListener(insertHistory);
+                if (treeModel != null)
+                    library.removeListener(treeModel);
+            }
+        });
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
@@ -298,11 +307,16 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             getContentPane().remove(componentOnPane);
             if (treeCheckBox.isSelected()) {
                 JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-                split.setLeftComponent(new JScrollPane(new SelectTree(library, circuitComponent, shapeFactory, insertHistory)));
+                treeModel = new LibraryTreeModel(library);
+                split.setLeftComponent(new JScrollPane(new SelectTree(treeModel, circuitComponent, shapeFactory, insertHistory)));
                 split.setRightComponent(circuitComponent);
                 getContentPane().add(split);
                 componentOnPane = split;
             } else {
+                if (treeModel != null) {
+                    library.removeListener(treeModel);
+                    treeModel = null;
+                }
                 getContentPane().add(circuitComponent);
                 componentOnPane = circuitComponent;
             }
@@ -884,12 +898,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
     private void loadFile(File filename, boolean toPrefs) {
         try {
-            library.setFilePath(filename.getParentFile());
+            setFilename(filename, toPrefs);
             Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circ);
             stoppedState.enter();
             windowPosManager.closeAll();
-            setFilename(filename, toPrefs);
             statusLabel.setText(" ");
         } catch (Exception e) {
             circuitComponent.setCircuit(new Circuit());
@@ -916,12 +929,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             this.filename = filename;
             if (filename != null) {
                 this.lastFilename = filename;
-                library.setFilePath(filename.getParentFile());
+                if (!isParentsLibrary) library.setFilePath(filename.getParentFile());
                 if (toPrefs)
                     fileHistory.add(filename);
                 setTitle(filename + " - " + Lang.get("digital"));
             } else {
-                library.setFilePath(null);
+                if (!isParentsLibrary) library.setFilePath(null);
                 setTitle(Lang.get("digital"));
             }
         } catch (IOException e) {

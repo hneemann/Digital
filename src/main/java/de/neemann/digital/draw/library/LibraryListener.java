@@ -8,6 +8,8 @@ public interface LibraryListener {
 
     /**
      * called if library changes
+     *
+     * @param node the node that has changed. If null the tree structure has changed
      */
-    void libraryChanged();
+    void libraryChanged(LibraryNode node);
 }

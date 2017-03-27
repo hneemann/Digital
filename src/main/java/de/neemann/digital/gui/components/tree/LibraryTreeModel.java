@@ -14,14 +14,17 @@ import java.util.ArrayList;
  * TreeModel based on a {@link ElementLibrary}
  * Created by hneemann on 25.03.17.
  */
-public class MyTreeModel implements TreeModel, LibraryListener {
+public class LibraryTreeModel implements TreeModel, LibraryListener {
     private final LibraryNode root;
-    private final ElementLibrary library;
     private final ArrayList<TreeModelListener> listeners = new ArrayList<>();
 
-    MyTreeModel(ElementLibrary library) {
+    /**
+     * Creates a new library tree model
+     *
+     * @param library the library
+     */
+    public LibraryTreeModel(ElementLibrary library) {
         root = library.getRoot();
-        this.library = library;
         library.addListener(this);
     }
 
@@ -66,12 +69,9 @@ public class MyTreeModel implements TreeModel, LibraryListener {
     }
 
     @Override
-    public void libraryChanged() {
-        LibraryNode custom = library.getCustomNode();
-        if (custom != null) {
-            final TreeModelEvent treeModelEvent = new TreeModelEvent(this, new TreePath(new Object[]{root, custom}));
-            for (TreeModelListener l : listeners)
-                l.treeStructureChanged(treeModelEvent);
-        }
+    public void libraryChanged(LibraryNode node) {
+        final TreeModelEvent treeModelEvent = new TreeModelEvent(this, new TreePath(node.getPath()));
+        for (TreeModelListener l : listeners)
+            l.treeStructureChanged(treeModelEvent);
     }
 }

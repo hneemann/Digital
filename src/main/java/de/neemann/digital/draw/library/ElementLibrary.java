@@ -64,6 +64,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public ElementLibrary() {
         root = new LibraryNode(Lang.get("menu_elements"));
+        root.setLibrary(this);
 
         LibraryNode node = new LibraryNode(Lang.get("lib_Logic"));
         node.add(And.DESCRIPTION);
@@ -241,26 +242,38 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void rescanFolder() throws IOException {
         LOGGER.debug("rescan folder");
+        LibraryNode changedNode = null;
         if (rootLibraryPath != null) {
             if (customNode == null) {
                 customNode = new LibraryNode(Lang.get("menu_custom"));
                 root.add(customNode);
-            } else customNode.removeAll();
+                changedNode = root;
+            } else {
+                customNode.removeAll();
+                changedNode = customNode;
+            }
 
             scanFolder(rootLibraryPath, customNode);
         } else if (customNode != null) {
             root.remove(customNode);
             customNode = null;
+            changedNode = root;
         }
 
         populateNodeMap();
 
-        fireLibraryChanged();
+        if (changedNode != null)
+            fireLibraryChanged(changedNode);
     }
 
-    private void fireLibraryChanged() {
+    /**
+     * Fires a library event
+     *
+     * @param node the node changed
+     */
+    public void fireLibraryChanged(LibraryNode node) {
         for (LibraryListener l : listeners)
-            l.libraryChanged();
+            l.libraryChanged(node);
     }
 
     private void scanFolder(File path, LibraryNode node) {

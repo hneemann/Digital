@@ -52,19 +52,17 @@ public class LibrarySelector implements LibraryListener {
         this.insertHistory = insertHistory;
         this.circuitComponent = circuitComponent;
         componentsMenu = new JMenu(Lang.get("menu_elements"));
-        libraryChanged();
+        libraryChanged(null);
 
         return componentsMenu;
     }
 
     @Override
-    public void libraryChanged() {
+    public void libraryChanged(LibraryNode node) {
         componentsMenu.removeAll();
 
         for (LibraryNode n : library.getRoot())
             addComponents(componentsMenu, n);
-
-        insertHistory.removeCustom();
 
         if (library.getCustomNode() != null) {
             JMenuItem m = componentsMenu.getItem(componentsMenu.getItemCount() - 1);

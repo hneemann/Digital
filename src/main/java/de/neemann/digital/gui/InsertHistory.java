@@ -1,5 +1,9 @@
 package de.neemann.digital.gui;
 
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.LibraryListener;
+import de.neemann.digital.draw.library.LibraryNode;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -11,7 +15,7 @@ import java.util.Iterator;
  *
  * @author hneemann
  */
-public class InsertHistory {
+public class InsertHistory implements LibraryListener {
 
     private static final int MAX_ICONS = 6;
     private final JToolBar bar;
@@ -21,11 +25,13 @@ public class InsertHistory {
     /**
      * Creates a new instance
      *
+     * @param library the library
      * @param bar the toolbar to put the elements to
      */
-    public InsertHistory(JToolBar bar) {
+    public InsertHistory(ElementLibrary library, JToolBar bar) {
         this.bar = bar;
         wrappers = new ArrayList<>();
+        library.addListener(this);
     }
 
     /**
@@ -89,6 +95,11 @@ public class InsertHistory {
             }
         }
         bar.revalidate();
+    }
+
+    @Override
+    public void libraryChanged(LibraryNode node) {
+
     }
 
     private final class WrapperAction extends AbstractAction {
