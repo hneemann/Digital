@@ -222,8 +222,10 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         toolBar.addSeparator();
 
-        insertHistory = new InsertHistory(library, toolBar);
+        insertHistory = new InsertHistory(toolBar);
+        library.addListener(insertHistory);
         final LibrarySelector librarySelector = new LibrarySelector(library, shapeFactory);
+        library.addListener(librarySelector);
         menuBar.add(librarySelector.buildMenu(insertHistory, circuitComponent));
 
         addWindowListener(new ClosingWindowListener(this, this));

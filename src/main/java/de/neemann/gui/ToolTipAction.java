@@ -37,7 +37,7 @@ public abstract class ToolTipAction extends AbstractAction {
      * @param icon the icon to set
      */
     public void setIcon(Icon icon) {
-        putValue("SmallIcon", icon);
+        putValue(Action.SMALL_ICON, icon);
         this.icon = icon;
     }
 

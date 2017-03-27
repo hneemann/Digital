@@ -35,7 +35,6 @@ public class LibrarySelector implements LibraryListener {
      */
     public LibrarySelector(ElementLibrary library, ShapeFactory shapeFactory) {
         this.library = library;
-        library.addListener(this);
         this.shapeFactory = shapeFactory;
     }
 

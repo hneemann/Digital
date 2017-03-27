@@ -1,6 +1,5 @@
 package de.neemann.digital.gui;
 
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.LibraryListener;
 import de.neemann.digital.draw.library.LibraryNode;
 
@@ -25,13 +24,11 @@ public class InsertHistory implements LibraryListener {
     /**
      * Creates a new instance
      *
-     * @param library the library
-     * @param bar the toolbar to put the elements to
+     * @param bar     the toolbar to put the elements to
      */
-    public InsertHistory(ElementLibrary library, JToolBar bar) {
+    public InsertHistory(JToolBar bar) {
         this.bar = bar;
         wrappers = new ArrayList<>();
-        library.addListener(this);
     }
 
     /**
@@ -82,10 +79,16 @@ public class InsertHistory implements LibraryListener {
         return false;
     }
 
+
+    @Override
+    public void libraryChanged(LibraryNode node) {
+        removeAllCustomComponents();
+    }
+
     /**
-     * remove custom components
+     * remove all custom components
      */
-    public void removeCustom() {
+    private void removeAllCustomComponents() {
         Iterator<WrapperAction> it = wrappers.iterator();
         while (it.hasNext()) {
             WrapperAction w = it.next();
@@ -95,11 +98,6 @@ public class InsertHistory implements LibraryListener {
             }
         }
         bar.revalidate();
-    }
-
-    @Override
-    public void libraryChanged(LibraryNode node) {
-
     }
 
     private final class WrapperAction extends AbstractAction {

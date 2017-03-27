@@ -304,6 +304,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public void addListener(LibraryListener listener) {
         listeners.add(listener);
+        LOGGER.debug("added library listener "+listener.getClass().getSimpleName()+", listeners: "+listeners.size());
     }
 
     /**
@@ -313,6 +314,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public void removeListener(LibraryListener listener) {
         listeners.remove(listener);
+        LOGGER.debug("removed library listener "+listener.getClass().getSimpleName()+", listeners: "+listeners.size());
     }
 
 
