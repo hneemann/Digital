@@ -219,12 +219,12 @@
     <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
     <string name="elem_RAMSinglePortSel_short">RAM</string>
     <string name="elem_RAMSinglePortSel_pin_A">The address to read and write.</string>
-    <string name="elem_RAMSinglePortSel_pin_C">Clock</string>
+    <string name="elem_RAMSinglePortSel_pin_WE">If set to high the data is written to the RAM.</string>
     <string name="elem_RAMSinglePortSel_pin_D">The bidirectional data connection.</string>
-    <string name="elem_RAMSinglePortSel_pin_sel">If this input is high this RAM is enabled. Otherwise the output is always in high Z state.</string>
-    <string name="elem_RAMSinglePortSel_pin_W/¬R">If this input is high and if the clock becomes high, the the data is stored. If this input is low the stored value is output.</string>
+    <string name="elem_RAMSinglePortSel_pin_CS">If this input is high, this RAM is enabled. Otherwise the output is always in high Z state.</string>
+    <string name="elem_RAMSinglePortSel_pin_OE">If this input is high, the stored value is output.</string>
     <string name="elem_RAMSinglePortSel_tt">A RAM module with a bidirectional connection for reading and writing the data.
-        The sel input allows to build a larger RAM from some smaller RAMs and a address decoder.</string>
+        The CS input allows to build a larger RAM from some smaller RAMs and a address decoder.</string>
 
     <string name="elem_GraphicCard">Graphic RAM</string>
     <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element works similar to a RAM. In addition it
