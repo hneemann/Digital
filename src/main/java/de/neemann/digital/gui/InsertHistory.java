@@ -16,7 +16,6 @@ import java.util.Iterator;
  * @author hneemann
  */
 public class InsertHistory implements LibraryListener {
-
     private static final int MAX_ICONS = 6;
     private final JToolBar bar;
     private final ElementLibrary library;
@@ -48,13 +47,13 @@ public class InsertHistory implements LibraryListener {
             bar.add(wrapper);
             if (wrappers.size() > MAX_ICONS) {
                 int oldest = findOldestIndex();
-                removeWrapperFromBar(wrappers.get(oldest));
+                removeWrapperFromToolBar(wrappers.get(oldest));
                 wrappers.remove(oldest);
             }
         }
     }
 
-    private void removeWrapperFromBar(WrapperAction wrapper) {
+    private void removeWrapperFromToolBar(WrapperAction wrapper) {
         final int position = wrapper.componentPosition;
         bar.remove(position);
         for (WrapperAction w : wrappers)
@@ -85,20 +84,21 @@ public class InsertHistory implements LibraryListener {
 
     @Override
     public void libraryChanged(LibraryNode node) {
-        removeAllCustomComponents();
+        updateCustomComponents();
     }
 
     /**
-     * remove all custom components
+     * Updates all custom components.
+     * If the component no longer exists, it is deleted from the history toolbar.
      */
-    private void removeAllCustomComponents() {
+    private void updateCustomComponents() {
         Iterator<WrapperAction> it = wrappers.iterator();
         while (it.hasNext()) {
             WrapperAction w = it.next();
             if (w.action.isCustom()) {
                 LibraryNode n = library.getElementNodeOrNull(w.action.getName());
                 if (n == null) {  // is'nt there, so delete
-                    removeWrapperFromBar(w);
+                    removeWrapperFromToolBar(w);
                     it.remove();
                 } else
                     w.update(n);
