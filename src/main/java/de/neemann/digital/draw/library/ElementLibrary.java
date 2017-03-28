@@ -44,8 +44,8 @@ import java.util.Iterator;
  * This import works in two steps: At first all the files in the same directory as the root circuit are loaded.
  * The file names are shown in the components menu. From there you can pick a file to insert it to the circuit.
  * When a file is selected it is loaded to the library. After that also an icon is available.
- * This is done because the creation of an icon is very time consuming and should be avoided if not necessary.
- * Its a kind of lazy loading.
+ * This is done because the loading of a circuit creation of an icon is very time consuming and should be avoided if
+ * not necessary. Its a kind of lazy loading.
  *
  * @author hneemann
  */
