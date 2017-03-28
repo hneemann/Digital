@@ -302,7 +302,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             for (File f : orderedList) {
                 final String name = f.getName();
                 if (f.isFile() && name.endsWith(".dig"))
-                    node.add(importElement(f));
+                    node.add(new LibraryNode(f));
             }
         }
     }
@@ -362,8 +362,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      *
      * @param name the elements name
      */
-    public void removeElement(File name) {
-        map.remove(name.getName());
+    public void invalidateElement(File name) {
+        LibraryNode n = map.get(name.getName());
+        if (n != null)
+            n.invalidate();
     }
 
     /**
@@ -382,31 +384,36 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         return root;
     }
 
-    private LibraryNode importElement(File file) {
-        return new LibraryNode(file.getName(), () -> {
+    /**
+     * Imports the given file
+     *
+     * @param file the file to load
+     * @return the description
+     * @throws IOException IOException
+     */
+    ElementTypeDescription importElement(File file) throws IOException {
+        try {
+            LOGGER.debug("load element " + file);
+            Circuit circuit;
             try {
-                LOGGER.debug("load element " + file);
-                Circuit circuit;
-                try {
-                    circuit = Circuit.loadCircuit(file, shapeFactory);
-                } catch (IOException e) {
-                    throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
-                }
-                ElementTypeDescriptionCustom description =
-                        new ElementTypeDescriptionCustom(file,
-                                attributes -> new CustomElement(circuit, ElementLibrary.this, file),
-                                circuit.getAttributes(), circuit.getInputNames());
-                description.setShortName(createShortName(file));
-
-                String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
-                if (descriptionText != null && descriptionText.length() > 0) {
-                    description.setDescription(descriptionText);
-                }
-                return description;
-            } catch (PinException e) {
-                throw new IOException(Lang.get("msg_errorImportingModel"), e);
+                circuit = Circuit.loadCircuit(file, shapeFactory);
+            } catch (IOException e) {
+                throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
-        });
+            ElementTypeDescriptionCustom description =
+                    new ElementTypeDescriptionCustom(file,
+                            attributes -> new CustomElement(circuit, ElementLibrary.this, file),
+                            circuit.getAttributes(), circuit.getInputNames());
+            description.setShortName(createShortName(file));
+
+            String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
+            if (descriptionText != null && descriptionText.length() > 0) {
+                description.setDescription(descriptionText);
+            }
+            return description;
+        } catch (PinException e) {
+            throw new IOException(Lang.get("msg_errorImportingModel"), e);
+        }
     }
 
     private String createShortName(File file) {

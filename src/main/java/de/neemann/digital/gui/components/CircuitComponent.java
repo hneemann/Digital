@@ -14,10 +14,11 @@ import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.LibraryListener;
+import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
-import de.neemann.digital.gui.SavedListener;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
@@ -50,7 +51,7 @@ import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
  *
  * @author hneemann
  */
-public class CircuitComponent extends JComponent implements Circuit.ChangedListener {
+public class CircuitComponent extends JComponent implements Circuit.ChangedListener, LibraryListener {
     /**
      * The delete icon, also used from {@link de.neemann.digital.gui.components.terminal.TerminalDialog}
      */
@@ -62,7 +63,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private final Main parent;
     private final ElementLibrary library;
-    private final SavedListener parentsSavedListener;
     private final HashSet<Drawable> highLighted;
     private final ToolTipAction deleteAction;
 
@@ -97,10 +97,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param library      the library used to edit the attributes of the elements
      * @param shapeFactory the shapeFactory used for copied elements
      */
-    public CircuitComponent(Main parent, ElementLibrary library, ShapeFactory shapeFactory, SavedListener parentsSavedListener) {
+    public CircuitComponent(Main parent, ElementLibrary library, ShapeFactory shapeFactory) {
         this.parent = parent;
         this.library = library;
-        this.parentsSavedListener = parentsSavedListener;
         highLighted = new HashSet<>();
 
         rotateAction = new AbstractAction(Lang.get("menu_rotate")) {
@@ -456,7 +455,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             circuit.drawTo(gr, highLighted, modelSync);
             highlightedPaintedSize = highLighted.size();
             hasChanged = false;
-//            System.out.println(System.currentTimeMillis() - time);  // -agentlib:hprof=cpu=samples
+//            LOGGER.debug("repaint: " + Long.toString(System.currentTimeMillis() - time) + "ms");
         }
 
         g.drawImage(buffer, 0, 0, null);
@@ -593,14 +592,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         public void actionPerformed(ActionEvent e) {
                             attributeDialog.dispose();
                             SwingUtilities.invokeLater(() -> new Main(CircuitComponent.this,
-                                    ((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile(),
-                                    filename -> {
-                                        if (parentsSavedListener != null)
-                                            parentsSavedListener.saved(filename);
-                                        library.removeElement(filename);
-                                        circuit.clearState();
-                                        hasChanged();
-                                    }, library).setVisible(true));
+                                    ((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile(), library).setVisible(true));
                         }
                     }.setToolTip(Lang.get("attr_openCircuit_tt")));
                 }
@@ -622,6 +614,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         } catch (ElementNotFoundException ex) {
             // do nothing if element not found!
         }
+    }
+
+    @Override
+    public void libraryChanged(LibraryNode node) {
+        circuit.clearState();
+        hasChanged = true;
+        repaint();
     }
 
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {

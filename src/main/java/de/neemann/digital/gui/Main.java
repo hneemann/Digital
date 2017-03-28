@@ -101,18 +101,18 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private static final Icon ICON_HELP = IconCreator.create("help.png");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
-    private ToolTipAction doStep;
-    private ToolTipAction runToBreakAction;
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
-    private final SavedListener savedListener;
     private final JLabel statusLabel;
     private final StateManager stateManager = new StateManager();
     private final ElementAttributes settings = new ElementAttributes();
     private final ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
     private final WindowPosManager windowPosManager = new WindowPosManager();
     private final InsertHistory insertHistory;
-    private final boolean isParentsLibrary;
+    private final boolean isNestedFile;
+
+    private ToolTipAction doStep;
+    private ToolTipAction runToBreakAction;
 
     private File lastFilename;
     private File filename;
@@ -135,54 +135,53 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     /**
-     * Creates a new instance
+     * Creates a new instance.
+     * Used to open a nested circuit.
      *
-     * @param parent        the parent component
-     * @param fileToOpen    a file to open
-     * @param savedListener a listener which is notified if the file is changed on disk
+     * @param parent     the parent component
+     * @param fileToOpen a file to open
+     * @param library    the library to use, if not null a nested circuit is opened
      */
-    public Main(Component parent, File fileToOpen, SavedListener savedListener, ElementLibrary library) {
-        this(parent, fileToOpen, savedListener, library, null);
+    public Main(Component parent, File fileToOpen, ElementLibrary library) {
+        this(parent, fileToOpen, library, null);
     }
 
     /**
-     * Creates a new instance
+     * Creates a new instance.
+     * Used to show a generated circuit.
      *
      * @param parent  the parent component
      * @param circuit circuit to show
      */
     public Main(Component parent, Circuit circuit) {
-        this(parent, null, null, null, circuit);
+        this(parent, null, null, circuit);
     }
 
     /**
      * Creates a new instance
      *
-     * @param parent        the parent component
-     * @param fileToOpen    a file to open
-     * @param savedListener a listener which is notified if the file is changed on disk
-     * @param circuit       circuit to show
+     * @param parent         the parent component
+     * @param fileToOpen     a file to open
+     * @param parentsLibrary the parents library. If not null means opening a nested circuit
+     * @param circuit        circuit to show
      */
-    private Main(Component parent, File fileToOpen, SavedListener savedListener, ElementLibrary parentsLibrary, Circuit circuit) {
+    private Main(Component parent, File fileToOpen, ElementLibrary parentsLibrary, Circuit circuit) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
-        this.savedListener = savedListener;
 
-        isParentsLibrary = parentsLibrary != null;
-        if (isParentsLibrary) this.library = parentsLibrary;
+        isNestedFile = parentsLibrary != null;
+        if (isNestedFile) this.library = parentsLibrary;
         else library = new ElementLibrary();
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
 
         fileHistory = new FileHistory(this);
 
-        final boolean normalMode = savedListener == null;
-
         if (circuit != null) {
-            circuitComponent = new CircuitComponent(this, library, shapeFactory, savedListener);
+            circuitComponent = new CircuitComponent(this, library, shapeFactory);
             SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(circuit));
         } else {
-            circuitComponent = new CircuitComponent(this, library, shapeFactory, savedListener);
+            circuitComponent = new CircuitComponent(this, library, shapeFactory);
             if (fileToOpen != null) {
                 SwingUtilities.invokeLater(() -> loadFile(fileToOpen, false));
             } else {
@@ -192,6 +191,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 }
             }
         }
+
+        library.addListener(circuitComponent);
 
         getContentPane().add(circuitComponent);
         componentOnPane = circuitComponent;
@@ -204,7 +205,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         JMenuBar menuBar = new JMenuBar();
         JToolBar toolBar = new JToolBar();
 
-        save = createFileMenu(menuBar, toolBar, normalMode);
+        save = createFileMenu(menuBar, toolBar);
         toolBar.addSeparator();
 
         createViewMenu(menuBar, toolBar);
@@ -236,6 +237,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 timerExecuter.shutdown();
                 library.removeListener(librarySelector);
                 library.removeListener(insertHistory);
+                library.removeListener(circuitComponent);
                 if (treeModel != null)
                     library.removeListener(treeModel);
             }
@@ -344,12 +346,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     /**
      * Creates the file menu and adds it to menu and toolbar
      *
-     * @param menuBar    the menuBar
-     * @param toolBar    the toolBar
-     * @param normalMode if false, menu is added in nested mode
+     * @param menuBar the menuBar
+     * @param toolBar the toolBar
      * @return the save action
      */
-    private ToolTipAction createFileMenu(JMenuBar menuBar, JToolBar toolBar, boolean normalMode) {
+    private ToolTipAction createFileMenu(JMenuBar menuBar, JToolBar toolBar) {
         ToolTipAction newFile = new ToolTipAction(Lang.get("menu_new"), ICON_NEW) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -359,7 +360,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     windowPosManager.closeAll();
                 }
             }
-        }.setActive(normalMode);
+        }.setActive(!isNestedFile);
 
         ToolTipAction open = new ToolTipAction(Lang.get("menu_open"), ICON_OPEN) {
             @Override
@@ -371,33 +372,33 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     }
                 }
             }
-        }.setActive(normalMode);
+        }.setActive(!isNestedFile);
 
         ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), ICON_OPEN_WIN) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getJFileChooser(lastFilename);
                 if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                    Main m = new Main(Main.this, fc.getSelectedFile(), null, null);
+                    Main m = new Main(Main.this, fc.getSelectedFile(), null);
                     m.setLocationRelativeTo(Main.this);
                     m.setVisible(true);
                 }
             }
-        }.setToolTip(Lang.get("menu_openWin_tt")).setActive(normalMode);
+        }.setToolTip(Lang.get("menu_openWin_tt")).setActive(!isNestedFile);
 
         JMenu openRecent = new JMenu(Lang.get("menu_openRecent"));
         fileHistory.setMenu(openRecent);
-        openRecent.setEnabled(normalMode);
+        openRecent.setEnabled(!isNestedFile);
 
         ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getJFileChooser(lastFilename);
                 if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                    saveFile(fc.getSelectedFile(), normalMode);
+                    saveFile(fc.getSelectedFile());
                 }
             }
-        }.setActive(normalMode);
+        }.setActive(!isNestedFile);
 
         ToolTipAction save = new ToolTipAction(Lang.get("menu_save"), ICON_SAVE) {
             @Override
@@ -405,7 +406,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 if (filename == null)
                     saveas.actionPerformed(e);
                 else
-                    saveFile(filename, normalMode);
+                    saveFile(filename);
             }
         };
 
@@ -913,14 +914,13 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         }
     }
 
-    private void saveFile(File filename, boolean toPrefs) {
+    private void saveFile(File filename) {
         filename = checkSuffix(filename, "dig");
         try {
             circuitComponent.getCircuit().save(filename);
-            if (savedListener != null)
-                savedListener.saved(filename);
             stoppedState.enter();
-            setFilename(filename, toPrefs);
+            setFilename(filename, !isNestedFile);
+            library.invalidateElement(filename);
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
         }
@@ -931,12 +931,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             this.filename = filename;
             if (filename != null) {
                 this.lastFilename = filename;
-                if (!isParentsLibrary) library.setFilePath(filename.getParentFile());
+                if (!isNestedFile) library.setFilePath(filename.getParentFile());
                 if (toPrefs)
                     fileHistory.add(filename);
                 setTitle(filename + " - " + Lang.get("digital"));
             } else {
-                if (!isParentsLibrary) library.setFilePath(null);
+                if (!isNestedFile) library.setFilePath(null);
                 setTitle(Lang.get("digital"));
             }
         } catch (IOException e) {

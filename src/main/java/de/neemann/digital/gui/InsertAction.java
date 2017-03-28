@@ -2,7 +2,6 @@ package de.neemann.digital.gui;
 
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
@@ -59,7 +58,7 @@ public final class InsertAction extends ToolTipAction {
      * @return true if element to insert is a custom element
      */
     public boolean isCustom() {
-        return node.getDescriptionOrNull() instanceof ElementLibrary.ElementTypeDescriptionCustom;
+        return node.isCustom();
     }
 
     /**

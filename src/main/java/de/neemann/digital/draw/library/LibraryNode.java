@@ -5,6 +5,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,7 +19,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private final ArrayList<LibraryNode> children;
     private final String translatedName;
     private final String name;
-    private final DescriptionCreator creator;
+    private final File file;
     private ElementTypeDescription description;
     private ImageIcon icon;
     private ElementLibrary library;
@@ -35,7 +36,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
         this.translatedName = name;
         this.children = new ArrayList<>();
         this.description = null;
-        this.creator = null;
+        this.file = null;
     }
 
     /**
@@ -48,20 +49,19 @@ public class LibraryNode implements Iterable<LibraryNode> {
         this.description = description;
         this.name = description.getName();
         this.translatedName = description.getTranslatedName();
-        this.creator = null;
+        this.file = null;
     }
 
     /**
      * Creates a new leaf
      *
-     * @param name    the name of the leaf
-     * @param creator used to create the {@link ElementTypeDescription} if necessary
+     * @param file the file containing the leaf
      */
-    LibraryNode(String name, DescriptionCreator creator) {
+    LibraryNode(File file) {
         this.children = null;
-        this.name = name;
+        this.name = file.getName();
         this.translatedName = name;
-        this.creator = creator;
+        this.file = file;
     }
 
     /**
@@ -100,7 +100,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * @return trie if this is a leaf
      */
     public boolean isLeaf() {
-        return description != null || creator != null;
+        return description != null || file != null;
     }
 
     /**
@@ -118,7 +118,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public ElementTypeDescription getDescription() throws IOException {
         if (description == null) {
-            description = creator.createDescription();
+            description = library.importElement(file);
             library.fireLibraryChanged(this);
         }
         return description;
@@ -163,8 +163,8 @@ public class LibraryNode implements Iterable<LibraryNode> {
     /**
      * @return returns the description if present, null otherwise
      */
-    public ElementTypeDescription getDescriptionOrNull() {
-        return description;
+    public boolean isCustom() {
+        return file != null;
     }
 
     /**
@@ -263,4 +263,12 @@ public class LibraryNode implements Iterable<LibraryNode> {
         return path.toArray(new Object[path.size()]);
     }
 
+    /**
+     * Invalidate this node
+     */
+    public void invalidate() {
+        description = null;
+        icon = null;
+        library.fireLibraryChanged(this);
+    }
 }
