@@ -19,6 +19,7 @@ public class FileScanner {
     public int scan(File path) throws Exception {
         errors = new ArrayList<>();
         int count = scanIntern(path);
+        System.out.println("tested "+count+" examples");
         if (errors.isEmpty())
             return count;
 

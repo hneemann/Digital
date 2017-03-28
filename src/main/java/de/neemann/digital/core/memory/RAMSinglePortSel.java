@@ -26,9 +26,9 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
 
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePortSel.class,
             input("A"),
-            input("sel"),
-            input("C"),
-            input("W/\u00ACR"))
+            input("CS"),
+            input("WE"),
+            input("OE"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
@@ -41,15 +41,14 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     private final String label;
     private final ObservableValue dataOut;
     private ObservableValue addrIn;
-    private ObservableValue selIn;
-    private ObservableValue clkIn;
-    private ObservableValue wnrIn;
+    private ObservableValue csIn;
+    private ObservableValue weIn;
+    private ObservableValue oeIn;
     private ObservableValue dataIn;
 
-    private boolean lastClk = false;
-    private boolean sel;
+    private boolean cs;
     private int addr;
-    private boolean write;
+    private boolean oe;
 
     /**
      * Creates a new instance
@@ -69,30 +68,28 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
         addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
-        selIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
-        clkIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
-        wnrIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
+        csIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
+        weIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
+        oeIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
         dataIn = inputs.get(4).checkBits(bits, this).addObserverToValue(this);
     }
 
     @Override
     public void readInputs() throws NodeException {
-        boolean clk = clkIn.getBool();
-        sel = selIn.getBool();
-        if (sel) {
+        cs = csIn.getBool();
+        if (cs) {
             addr = (int) addrIn.getValue();
-            write = wnrIn.getBool();
-            if (write && !lastClk && clk) {
+            oe = oeIn.getBool();
+            if (weIn.getBool()) {
                 long data = dataIn.getValue();
                 memory.setData(addr, data);
             }
         }
-        lastClk = clk;
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        if (sel && !write) {
+        if (cs && oe) {
             dataOut.set(memory.getDataWord(addr), false);
         } else {
             dataOut.setHighZ(true);

@@ -14,7 +14,7 @@
           <int>6</int>
         </entry>
       </elementAttributes>
-      <pos x="40" y="380"/>
+      <pos x="60" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -71,20 +71,20 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C</string>
+          <string>WE</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="440"/>
+      <pos x="60" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>W</string>
+          <string>OE</string>
         </entry>
       </elementAttributes>
-      <pos x="40" y="460"/>
+      <pos x="60" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>RAMSinglePortSel</elementName>
@@ -148,35 +148,35 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>sel A C W Din Dout
+            <dataString>CS A WE OE Din Dout
 
 # write some values
- 1  0 C 1 7   X
- 1 10 C 1 8   X
- 1 20 C 1 9   X
- 1 30 C 1 10  X
- 1 40 C 1 11  X
- 1 50 C 1 12  X
- 1 60 C 1 13  X
+ 1  0 C 0 7   X
+ 1 10 C 0 8   X
+ 1 20 C 0 9   X
+ 1 30 C 0 10  X
+ 1 40 C 0 11  X
+ 1 50 C 0 12  X
+ 1 60 C 0 13  X
 
 # read some values
- 1  0 0 0 Z   7
- 1 10 0 0 Z   8   
- 1 20 0 0 Z   9   
- 1 30 0 0 Z   10  
- 1 40 0 0 Z   11  
- 1 50 0 0 Z   12  
- 1 60 0 0 Z   13  
+ 1  0 0 1 Z   7
+ 1 10 0 1 Z   8   
+ 1 20 0 1 Z   9   
+ 1 30 0 1 Z   10  
+ 1 40 0 1 Z   11  
+ 1 50 0 1 Z   12  
+ 1 60 0 1 Z   13  
 
-# read with sel=0 does not work
+# read with CS=0 does not work
  0 50 0 0 Z   Z  
  0 60 0 0 Z   Z  
 
-# write with sel=0 does not work
- 0  1 C 1 7   X
- 0  2 C 1 7   X
- 1  1 0 0 Z   0
- 1  2 0 0 Z   0   
+# write with CS=0 does not work
+ 0  1 C 0 7   X
+ 0  2 C 0 7   X
+ 1  1 0 1 Z   0
+ 1  2 0 1 Z   0   
 </dataString>
           </testData>
         </entry>
@@ -202,10 +202,10 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>sel</string>
+          <string>CS</string>
         </entry>
       </elementAttributes>
-      <pos x="40" y="620"/>
+      <pos x="60" y="620"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -216,6 +216,10 @@
     <wire>
       <p1 x="180" y="640"/>
       <p2 x="200" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="60" y="480"/>
+      <p2 x="260" y="480"/>
     </wire>
     <wire>
       <p1 x="380" y="420"/>
@@ -250,10 +254,6 @@
       <p2 x="320" y="680"/>
     </wire>
     <wire>
-      <p1 x="40" y="460"/>
-      <p2 x="260" y="460"/>
-    </wire>
-    <wire>
       <p1 x="260" y="460"/>
       <p2 x="320" y="460"/>
     </wire>
@@ -262,7 +262,7 @@
       <p2 x="220" y="620"/>
     </wire>
     <wire>
-      <p1 x="40" y="620"/>
+      <p1 x="60" y="620"/>
       <p2 x="140" y="620"/>
     </wire>
     <wire>
@@ -298,7 +298,7 @@
       <p2 x="320" y="820"/>
     </wire>
     <wire>
-      <p1 x="120" y="440"/>
+      <p1 x="60" y="440"/>
       <p2 x="280" y="440"/>
     </wire>
     <wire>
@@ -318,7 +318,7 @@
       <p2 x="300" y="380"/>
     </wire>
     <wire>
-      <p1 x="40" y="380"/>
+      <p1 x="60" y="380"/>
       <p2 x="120" y="380"/>
     </wire>
     <wire>
@@ -355,11 +355,15 @@
     </wire>
     <wire>
       <p1 x="260" y="460"/>
-      <p2 x="260" y="600"/>
+      <p2 x="260" y="480"/>
     </wire>
     <wire>
       <p1 x="260" y="600"/>
       <p2 x="260" y="740"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="480"/>
+      <p2 x="260" y="600"/>
     </wire>
     <wire>
       <p1 x="260" y="740"/>
