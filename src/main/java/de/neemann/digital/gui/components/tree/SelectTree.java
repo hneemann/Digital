@@ -57,6 +57,19 @@ public class SelectTree extends JTree {
             }
         });
         setCellRenderer(new MyCellRenderer());
+        setToolTipText("");
+    }
+
+    @Override
+    public String getToolTipText(MouseEvent e) {
+        TreePath selPath = getPathForLocation(e.getX(), e.getY());
+        if (selPath != null && selPath.getPathCount() > 0) {
+            Object lp = selPath.getLastPathComponent();
+            if (lp instanceof LibraryNode) {
+                return ((LibraryNode) lp).getToolTipText();
+            }
+        }
+        return null;
     }
 
     private class MyCellRenderer extends DefaultTreeCellRenderer {

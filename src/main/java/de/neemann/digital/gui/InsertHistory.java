@@ -44,7 +44,7 @@ public class InsertHistory implements LibraryListener {
         if (!contains(action)) {
             WrapperAction wrapper = new WrapperAction(action, bar.getComponentCount());
             wrappers.add(wrapper);
-            bar.add(wrapper);
+            bar.add(wrapper).setToolTipText(action.getNode().getToolTipText());
             if (wrappers.size() > MAX_ICONS) {
                 int oldest = findOldestIndex();
                 removeWrapperFromToolBar(wrappers.get(oldest));

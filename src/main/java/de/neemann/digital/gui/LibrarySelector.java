@@ -7,7 +7,6 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.StringUtils;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -85,7 +84,7 @@ public class LibrarySelector implements LibraryListener {
     private void addComponents(JMenu parts, LibraryNode node) {
         if (node.isLeaf()) {
             parts.add(new InsertAction(node, insertHistory, circuitComponent, shapeFactory)
-                    .setToolTip(createToolTipText(node.getName()))
+                    .setToolTip(node.getToolTipText())
                     .createJMenuItem());
         } else {
             JMenu subMenu = new JMenu(node.getName());
@@ -93,9 +92,5 @@ public class LibrarySelector implements LibraryListener {
                 addComponents(subMenu, child);
             parts.add(subMenu);
         }
-    }
-
-    private static String createToolTipText(String elementName) {
-        return StringUtils.textToHTML(Lang.getNull("elem_" + elementName + "_tt"));
     }
 }

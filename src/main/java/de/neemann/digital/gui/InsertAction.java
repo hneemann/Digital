@@ -82,4 +82,11 @@ public final class InsertAction extends ToolTipAction {
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
         }
     }
+
+    /**
+     * @return the library node
+     */
+    public LibraryNode getNode() {
+        return node;
+    }
 }

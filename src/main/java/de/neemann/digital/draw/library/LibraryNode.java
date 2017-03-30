@@ -1,8 +1,11 @@
 package de.neemann.digital.draw.library;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.lang.Lang;
+import de.neemann.gui.StringUtils;
 
 import javax.swing.*;
 import java.io.File;
@@ -270,5 +273,18 @@ public class LibraryNode implements Iterable<LibraryNode> {
         description = null;
         icon = null;
         library.fireLibraryChanged(this);
+    }
+
+    /**
+     * @return the tool tip text
+     */
+    public String getToolTipText() {
+        if (isCustom()) {
+            if (description == null)
+                return null;
+            else
+                return StringUtils.textToHTML(description.getDescription(new ElementAttributes()));
+        } else
+            return StringUtils.textToHTML(Lang.getNull("elem_" + getName() + "_tt"));
     }
 }
