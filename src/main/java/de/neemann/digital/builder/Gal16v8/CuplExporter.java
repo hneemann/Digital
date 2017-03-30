@@ -97,7 +97,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
 
     /**
      * Set the create nodes flag.
-     * If "create nodes" is enabled the CUPL file contains buried as NODE not as PIN assignment.
+     * If "create nodes" is enabled the CUPL file contains a buried value as a NODE and not as a PIN assignment.
      *
      * @param createNodes true if the exporter should create nodes.
      */
