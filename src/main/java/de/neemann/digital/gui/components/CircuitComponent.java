@@ -544,26 +544,30 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     public void fitCircuit() {
         GraphicMinMax gr = new GraphicMinMax();
         circuit.drawTo(gr);
-        if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
 
+        AffineTransform newTrans = new AffineTransform();
+        if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
             Vector delta = gr.getMax().sub(gr.getMin());
             double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 2);
             double sy = ((double) getHeight()) / (delta.y + Style.NORMAL.getThickness() * 2);
             double s = Math.min(sx, sy);
 
-            transform.setToScale(s, s);  // set Scaling
+
+            newTrans.setToScale(s, s);  // set Scaling
 
             Vector center = gr.getMin().add(gr.getMax()).div(2);
-            transform.translate(-center.x, -center.y);  // move drawing center to (0,0)
+            newTrans.translate(-center.x, -center.y);  // move drawing center to (0,0)
 
             Vector dif = new Vector(getWidth(), getHeight()).div(2);
-            transform.translate(dif.x / s, dif.y / s);  // move drawing center to frame center
+            newTrans.translate(dif.x / s, dif.y / s);  // move drawing center to frame center
             isManualScale = false;
         } else {
-            transform = new AffineTransform();
             isManualScale = true;
         }
-        hasChanged();
+        if (!newTrans.equals(transform)) {
+            transform = newTrans;
+            hasChanged();
+        }
     }
 
     /**
