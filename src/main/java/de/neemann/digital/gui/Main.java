@@ -324,7 +324,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 getContentPane().add(circuitComponent);
                 componentOnPane = circuitComponent;
             }
-            pack();
+            revalidate();
         });
 
         toolBar.add(viewHelp.createJButtonNoText());

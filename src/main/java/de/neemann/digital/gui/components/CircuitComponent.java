@@ -438,6 +438,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 || getWidth() != buffer.getWidth()
                 || getHeight() != buffer.getHeight();
 
+        if (needsNewBuffer && !isManualScale)
+            fitCircuit();
+
         if (hasChanged
                 || needsNewBuffer
                 || highLighted.size() != highlightedPaintedSize) {
@@ -455,7 +458,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             circuit.drawTo(gr, highLighted, modelSync);
             highlightedPaintedSize = highLighted.size();
             hasChanged = false;
-//            LOGGER.debug("repaint: " + Long.toString(System.currentTimeMillis() - time) + "ms");
+//            System.out.println("repaint: " + Long.toString(System.currentTimeMillis() - time) + "ms");
         }
 
         g.drawImage(buffer, 0, 0, null);
