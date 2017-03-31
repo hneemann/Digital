@@ -676,7 +676,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             windowPosManager.register("testresult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
 
             stoppedState.enter();
-        } catch (Exception e1) {
+        } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {
             showErrorAndStopModel(Lang.get("msg_runningTestError"), e1);
         }
     }
@@ -697,7 +697,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     new TableDialog(Main.this, new ModelAnalyser(model).analyse(), shapeFactory, filename)
                             .setVisible(true);
                     stoppedState.enter();
-                } catch (PinException | NodeException | AnalyseException | ElementNotFoundException e1) {
+                } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | RuntimeException e1) {
                     showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
                 }
             }
@@ -741,8 +741,8 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     .showDialog()) {
                 circuitComponent.getCircuit().setMeasurementOrdering(names);
             }
-        } catch (Exception e1) {
-            showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e1);
+        } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
+            showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
         }
     }
 
@@ -1122,7 +1122,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                             }
                             circuitComponent.hasChanged();
                             addressPicker.getProgRomAddr(model);
-                        } catch (NodeException e) {
+                        } catch (NodeException | RuntimeException e) {
                             showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                         }
                     }

@@ -93,8 +93,8 @@ public class RealTimeClock implements ModelStateObserver {
                             output.setValue(1 - output.getValue());
                             model.doStep();
                         });
-                    } catch (NodeException e1) {
-                        stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e1);
+                    } catch (NodeException | RuntimeException e) {
+                        stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
                         timer.cancel(false);
                     }
                 }
@@ -128,8 +128,8 @@ public class RealTimeClock implements ModelStateObserver {
                         });
                         counter++;
                     }
-                } catch (Exception e1) {
-                    stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e1);
+                } catch (NodeException | RuntimeException e) {
+                    stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
                 }
                 time = System.currentTimeMillis() - time;
 
