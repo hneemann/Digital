@@ -128,7 +128,7 @@ public class RealTimeClock implements ModelStateObserver {
                         });
                         counter++;
                     }
-                } catch (NodeException e1) {
+                } catch (Exception e1) {
                     stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e1);
                 }
                 time = System.currentTimeMillis() - time;
