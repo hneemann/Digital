@@ -32,6 +32,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.AttributeDialog;
@@ -74,6 +75,7 @@ public class TableDialog extends JDialog {
     private final JLabel label;
     private final JTable table;
     private final Font font;
+    private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
     private JCheckBoxMenuItem createJK;
     private File filename;
@@ -89,8 +91,9 @@ public class TableDialog extends JDialog {
      * @param parent     the parent frame
      * @param truthTable the table to show
      */
-    public TableDialog(JFrame parent, TruthTable truthTable, ShapeFactory shapeFactory, File filename) {
+    public TableDialog(JFrame parent, TruthTable truthTable, ElementLibrary library, ShapeFactory shapeFactory, File filename) {
         super(parent, Lang.get("win_table"));
+        this.library = library;
         this.shapeFactory = shapeFactory;
         this.filename = filename;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -519,7 +522,7 @@ public class TableDialog extends JDialog {
             CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff);
             new BuilderExpressionCreator(circuitBuilder, modifier).setUseJKOptimizer(useJKff).create(lastGeneratedExpressions);
             Circuit circuit = circuitBuilder.createCircuit();
-            SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
+            SwingUtilities.invokeLater(() -> new Main(null, library, circuit).setVisible(true));
         } catch (ExpressionException | FormatterException | RuntimeException e) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
         }

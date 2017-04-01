@@ -36,6 +36,9 @@
     <string name="btn_clearData_tt">All values are set to zero!</string>
     <string name="btn_addTransitions">Transitions</string>
     <string name="btn_addTransitions_tt">All possible transitions are added as test cases. Is used to create test cases to test the simulator itself.</string>
+    <string name="btn_newName">New Name</string>
+    <string name="btn_saveAnyway">Save anyway</string>
+    <string name="msg_warning">Warning</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
     <string name="expression">Expression</string>
@@ -579,6 +582,9 @@ allowed are {1} variables but {2} are found.</string>
     <string name="menu_micro">Single gate stepping</string>
     <string name="menu_micro_tt">Runs the circuit in single gate step mode</string>
     <string name="menu_new">New</string>
+    <string name="menu_new_tt">Clear actual circuit.</string>
+    <string name="menu_newSub">New nested Circuit</string>
+    <string name="menu_newSub_tt">Opens a new window to create a new nested circuit.</string>
     <string name="menu_open">Open</string>
     <string name="menu_openRecent">Open Recent</string>
     <string name="menu_openWin">Open in New Window</string>
@@ -717,6 +723,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_fitterResult">Message from the external fitter</string>
     <string name="msg_startExternalFitter">Execution of external fitter</string>
     <string name="msg_actualCircuit">Actual Circuit</string>
+    <string name="msg_fileNotAccessible">The selected file name is not importable from the actual project!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

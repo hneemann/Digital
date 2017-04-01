@@ -189,7 +189,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * @param rootLibraryPath the path
      * @throws IOException IOException
      */
-    public void setFilePath(File rootLibraryPath) throws IOException {
+    public void setRootFilePath(File rootLibraryPath) throws IOException {
         if (rootLibraryPath == null) {
             if (this.rootLibraryPath != null) {
                 this.rootLibraryPath = null;
@@ -198,6 +198,31 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         } else if (!rootLibraryPath.equals(this.rootLibraryPath)) {
             this.rootLibraryPath = rootLibraryPath;
             rescanFolder();
+        }
+    }
+
+    /**
+     * @return the actual root file path
+     */
+    public File getRootFilePath() {
+        return rootLibraryPath;
+    }
+
+    /**
+     * Checks if the given file is accessible from the actual library.
+     *
+     * @param file the file to check
+     * @return true if given file is importable
+     */
+    public boolean isFileAccessible(File file) {
+        if (rootLibraryPath == null) return true;
+
+        try {
+            String root = rootLibraryPath.getCanonicalPath();
+            String path = file.getParentFile().getCanonicalPath();
+            return path.startsWith(root);
+        } catch (IOException e) {
+            return false;
         }
     }
 
@@ -358,14 +383,18 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     /**
-     * Removes an element from the library
+     * Removes an element from the library to enforce a reload
      *
      * @param name the elements name
      */
-    public void invalidateElement(File name) {
+    public void invalidateElement(File name) throws IOException {
         LibraryNode n = map.get(name.getName());
         if (n != null)
             n.invalidate();
+        else {
+            if (rootLibraryPath != null && isFileAccessible(name))
+                rescanFolder();
+        }
     }
 
     /**

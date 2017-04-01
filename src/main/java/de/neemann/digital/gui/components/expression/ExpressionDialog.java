@@ -5,6 +5,7 @@ import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.parser.Parser;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
@@ -31,7 +32,7 @@ public class ExpressionDialog extends JDialog {
      * @param parent       the parent
      * @param shapeFactory the shapeFactory used for new circuits
      */
-    public ExpressionDialog(JFrame parent, ShapeFactory shapeFactory) {
+    public ExpressionDialog(Main parent, ElementLibrary library, ShapeFactory shapeFactory) {
         super(parent, Lang.get("expression"), false);
 
         JTextField text = new JTextField("(C ∨ B) ∧ (A ∨ C) ∧ (B ∨ !C) * (C + !A)", 40);
@@ -64,7 +65,7 @@ public class ExpressionDialog extends JDialog {
                         for (Expression exp : expList)
                             circuitBuilder.addCombinatorial(FormatToExpression.defaultFormat(exp), exp);
                     Circuit circuit = circuitBuilder.createCircuit();
-                    SwingUtilities.invokeLater(() -> new Main(null, circuit).setVisible(true));
+                    SwingUtilities.invokeLater(() -> new Main(parent, library, circuit).setVisible(true));
                 } catch (Exception ex) {
                     new ErrorMessage().addCause(ex).show(ExpressionDialog.this);
                 }

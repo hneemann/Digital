@@ -36,6 +36,9 @@
     <string name="btn_clearData_tt">Setzt alle Werte auf 0 zurück!</string>
     <string name="btn_addTransitions">Übergänge</string>
     <string name="btn_addTransitions_tt">Alle möglichen Übergänge werden als Testfälle ergänzt. Dient zur Erzeugung von Testfällen für den Simulator selbst.</string>
+    <string name="btn_newName">Neuer Name</string>
+    <string name="btn_saveAnyway">Trotzdem speichern</string>
+    <string name="msg_warning">Warnung</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
     <string name="expression">Ausdruck</string>
@@ -592,6 +595,9 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="menu_micro">Gatterschrittmodus</string>
     <string name="menu_micro_tt">Startet die Schaltung im Gatterschrittmodus</string>
     <string name="menu_new">Neu</string>
+    <string name="menu_new_tt">Aktuelle Schaltung löschen.</string>
+    <string name="menu_newSub">Neue Teilschaltung</string>
+    <string name="menu_newSub_tt">Öffnet ein neues Fenster um darin eine neue eingebettete Teilschaltung zu erstellen.</string>
     <string name="menu_open">Öffnen</string>
     <string name="menu_openRecent">Zuletzt verwendet</string>
     <string name="menu_openWin">Öffnen in neuem Fenster</string>
@@ -730,6 +736,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_fitterResult">Meldung vom externen Fitter</string>
     <string name="msg_startExternalFitter">Starten des externen Fitters</string>
     <string name="msg_actualCircuit">Aktuelle Schaltung</string>
+    <string name="msg_fileNotAccessible">Dieser Dateiename ist nicht aus dem aktuellen Projekt importierbar!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

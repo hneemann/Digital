@@ -70,7 +70,7 @@ public class ToBreakRunner {
 
     private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException, ElementNotFoundException {
         library = new ElementLibrary();
-        library.setFilePath(filename.getParentFile());
+        library.setRootFilePath(filename.getParentFile());
         ShapeFactory shapeFactory = new ShapeFactory(library);
         circuit = Circuit.loadCircuit(filename, shapeFactory);
 
