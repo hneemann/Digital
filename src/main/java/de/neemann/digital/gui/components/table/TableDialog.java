@@ -47,7 +47,6 @@ import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -80,7 +79,6 @@ public class TableDialog extends JDialog {
     private JCheckBoxMenuItem createJK;
     private File filename;
     private TruthTableTableModel model;
-    private TableColumn column;
     private int columnIndex;
     private AllSolutionsDialog allSolutionsDialog;
     private ExpressionListenerStore lastGeneratedExpressions;
