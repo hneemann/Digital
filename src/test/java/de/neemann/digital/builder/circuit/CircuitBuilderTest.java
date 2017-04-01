@@ -52,8 +52,6 @@ public class CircuitBuilderTest extends TestCase {
         Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
                 .addSequential("Y_0", y0s)
                 .addSequential("Y_1", y1s)
-                .addCombinatorial("Y_0", y0)
-                .addCombinatorial("Y_1", y1)
                 .createCircuit();
 
         ModelCreator m = new ModelCreator(circuit, library);
@@ -77,8 +75,6 @@ public class CircuitBuilderTest extends TestCase {
         Circuit circuit = new CircuitBuilder(new ShapeFactory(library), true)
                 .addSequential("Y_0", y0s)
                 .addSequential("Y_1", y1s)
-                .addCombinatorial("Y_0", y0)
-                .addCombinatorial("Y_1", y1)
                 .createCircuit();
 
         ModelCreator m = new ModelCreator(circuit, library);
@@ -102,8 +98,6 @@ public class CircuitBuilderTest extends TestCase {
         Circuit circuit = new CircuitBuilder(new ShapeFactory(library), true)
                 .addSequential("Y_0", y0s)
                 .addSequential("Y_1", y1s)
-                .addCombinatorial("Y_0", y0)
-                .addCombinatorial("Y_1", y1)
                 .createCircuit();
 
         ModelCreator m = new ModelCreator(circuit, library);
