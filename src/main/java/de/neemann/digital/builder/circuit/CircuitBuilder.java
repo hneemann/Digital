@@ -301,6 +301,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (!flipflops.isEmpty())
             addClockTpFlipFlops(circuit);
 
+        if (!createdNets.isEmpty())
+            addNetConnections(circuit, maxWidth + SIZE * 5);
 
         circuit.setNotModified();
         return circuit;
@@ -337,6 +339,25 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 .set(Keys.ROTATE, new Rotation(3))
                 .set(Keys.RUN_AT_REAL_TIME, true);
         circuit.add(clock);
+    }
+
+    private void addNetConnections(Circuit circuit, int xPos) {
+        int y = -SIZE * 5;
+        ArrayList<String> list = new ArrayList<>(createdNets);
+        Collections.sort(list);
+        for (String name : list) {
+            VisualElement t = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+            t.getElementAttributes().set(Keys.NETNAME, name);
+            t.setPos(new Vector(xPos, y));
+            t.setRotation(2);
+            circuit.add(t);
+            VisualElement o = new VisualElement(Out.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+            o.getElementAttributes().set(Keys.LABEL, name);
+            o.setPos(new Vector(xPos + SIZE, y));
+            circuit.add(o);
+            circuit.add(new Wire(new Vector(xPos, y), new Vector(xPos + SIZE, y)));
+            y += SIZE * 2;
+        }
     }
 
 }
