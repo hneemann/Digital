@@ -959,7 +959,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             circuitComponent.getCircuit().save(filename);
             stoppedState.enter();
             setFilename(filename, toPrefs);
+
             library.invalidateElement(filename);
+
+            if (library.getRootFilePath() == null)
+                library.setRootFilePath(filename.getParentFile());
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
         }
