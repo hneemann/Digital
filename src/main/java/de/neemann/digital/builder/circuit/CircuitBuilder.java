@@ -37,12 +37,13 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
     private final VariableVisitor variableVisitor;
     private final ShapeFactory shapeFactory;
+    private final ArrayList<FragmentVariable> fragmentVariables;
+    private final ArrayList<Fragment> fragments;
+    private final HashSet<String> combinatorialOutputs;
+    private final HashSet<String> createdNets;
+    private final ArrayList<FragmentVisualElement> flipflops;
+    private final boolean useJKff;
     private int pos;
-    private ArrayList<FragmentVariable> fragmentVariables;
-    private ArrayList<Fragment> fragments;
-    private HashSet<String> createdNets = new HashSet<>();
-    private ArrayList<FragmentVisualElement> flipflops;
-    private boolean useJKff;
 
     /**
      * Creates a new builder.
@@ -67,6 +68,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         fragmentVariables = new ArrayList<>();
         fragments = new ArrayList<>();
         flipflops = new ArrayList<>();
+        combinatorialOutputs = new HashSet<>();
+        createdNets = new HashSet<>();
     }
 
     /**
@@ -83,6 +86,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             name = ((NamedExpression) expression).getName();
             expression = ((NamedExpression) expression).getExpression();
         }
+
+        combinatorialOutputs.add(name);
+
         Fragment fr = createFragment(expression);
         fragments.add(new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name)));
         expression.traverse(variableVisitor);
@@ -346,17 +352,22 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         ArrayList<String> list = new ArrayList<>(createdNets);
         Collections.sort(list);
         for (String name : list) {
-            VisualElement t = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
-            t.getElementAttributes().set(Keys.NETNAME, name);
-            t.setPos(new Vector(xPos, y));
-            t.setRotation(2);
-            circuit.add(t);
-            VisualElement o = new VisualElement(Out.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
-            o.getElementAttributes().set(Keys.LABEL, name);
-            o.setPos(new Vector(xPos + SIZE, y));
-            circuit.add(o);
-            circuit.add(new Wire(new Vector(xPos, y), new Vector(xPos + SIZE, y)));
-            y += SIZE * 2;
+            String oName = name;
+            if (name.endsWith("n")) oName = name.substring(0, name.length() - 1);
+            if (!combinatorialOutputs.contains(oName)) {
+                VisualElement t = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+                t.getElementAttributes().set(Keys.NETNAME, name);
+                t.setPos(new Vector(xPos, y));
+                t.setRotation(2);
+                circuit.add(t);
+                VisualElement o = new VisualElement(Out.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+
+                o.getElementAttributes().set(Keys.LABEL, oName);
+                o.setPos(new Vector(xPos + SIZE, y));
+                circuit.add(o);
+                circuit.add(new Wire(new Vector(xPos, y), new Vector(xPos + SIZE, y)));
+                y += SIZE * 2;
+            }
         }
     }
 
