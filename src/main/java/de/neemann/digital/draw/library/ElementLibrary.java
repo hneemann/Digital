@@ -386,6 +386,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * Removes an element from the library to enforce a reload
      *
      * @param name the elements name
+     * @throws IOException IOException
      */
     public void invalidateElement(File name) throws IOException {
         LibraryNode n = map.get(name.getName());
