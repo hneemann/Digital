@@ -136,6 +136,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
                         ArrayList<Moveable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
                         if (elements != null) {
+                            removeHighLighted();
                             mouseInsertList.activate(elements, posVector);
                         }
                     }
@@ -1261,7 +1262,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (elements != null) {
+            if (elements != null && e.getButton() == 1) {
                 for (Moveable m : elements) {
                     if (m instanceof Wire)
                         circuit.add((Wire) m);
