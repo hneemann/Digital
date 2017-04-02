@@ -82,6 +82,11 @@ public final class Not implements Expression {
         return expression.getOrderString();
     }
 
+    @Override
+    public Expression copy() {
+        return new Not(expression.copy());
+    }
+
     /**
      * @return the negated expression
      */

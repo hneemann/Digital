@@ -50,6 +50,11 @@ public class NamedExpression implements Expression {
     }
 
     @Override
+    public Expression copy() {
+        return new NamedExpression(name, exp.copy());
+    }
+
+    @Override
     public String toString() {
         return name+"="+exp.toString();
     }

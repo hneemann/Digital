@@ -54,7 +54,7 @@ public class ExpressionListenerStore implements ExpressionListener {
             throw new ExpressionException("ExpressionListenerStore not closed");
 
         for (Result r : results)
-            listener.resultFound(r.name, r.expression);
+            listener.resultFound(r.name, r.expression.copy());
         listener.close();
     }
 
@@ -62,7 +62,7 @@ public class ExpressionListenerStore implements ExpressionListener {
      * @return the first found expression
      */
     public Expression getFirst() {
-        return results.get(0).expression;
+        return results.get(0).expression.copy();
     }
 
     private static final class Result {

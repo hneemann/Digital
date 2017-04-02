@@ -70,6 +70,11 @@ public class Variable implements Comparable<Variable>, Expression {
         return identifier;
     }
 
+    @Override
+    public Expression copy() {
+        return new Variable(identifier);
+    }
+
     /**
      * @return the variables name
      */

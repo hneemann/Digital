@@ -43,4 +43,9 @@ public interface Expression {
      * @return the ordering string
      */
     String getOrderString();
+
+    /**
+     * @return a deep copy of this expression
+     */
+    Expression copy();
 }

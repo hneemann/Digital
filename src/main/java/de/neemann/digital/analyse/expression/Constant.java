@@ -51,4 +51,9 @@ public final class Constant implements Expression {
     public String toString() {
         return Boolean.toString(value);
     }
+
+    @Override
+    public Expression copy() {
+        return new Constant(value);
+    }
 }

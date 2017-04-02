@@ -4,7 +4,6 @@ import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Comparator;
  */
 public abstract class Operation implements Expression {
     private static final Comparator<Expression> EXPRESSION_COMPARATOR
-            = (a, b) -> a.getOrderString().compareTo(b.getOrderString());
+            = Comparator.comparing(Expression::getOrderString);
 
     private final ArrayList<Expression> expr;
 
@@ -99,7 +98,7 @@ public abstract class Operation implements Expression {
             case 1:
                 return operation.getExpressions().get(0);
             default:
-                Collections.sort(operation.getExpressions(), EXPRESSION_COMPARATOR);
+                operation.getExpressions().sort(EXPRESSION_COMPARATOR);
                 return operation;
         }
     }
@@ -112,6 +111,13 @@ public abstract class Operation implements Expression {
                     merge(e);
                 else
                     expr.add(e);
+    }
+
+    private Operation(Iterable<Expression> expToCopy) {
+        expr = new ArrayList<>();
+        for (Expression e : expToCopy)
+            if (e != null)
+                expr.add(e.copy());
     }
 
     private void merge(Expression e) {
@@ -194,6 +200,10 @@ public abstract class Operation implements Expression {
             super(exp, merge);
         }
 
+        private And(Iterable<Expression> expToCopy) {
+            super(expToCopy);
+        }
+
         @Override
         protected boolean getNeutral() {
             return true;
@@ -208,6 +218,11 @@ public abstract class Operation implements Expression {
         public String toString() {
             return "and" + super.toString();
         }
+
+        @Override
+        public Expression copy() {
+            return new And(getExpressions());
+        }
     }
 
     /**
@@ -217,6 +232,10 @@ public abstract class Operation implements Expression {
 
         private Or(Iterable<Expression> exp, boolean merge) {
             super(exp, merge);
+        }
+
+        private Or(Iterable<Expression> expToCopy) {
+            super(expToCopy);
         }
 
         @Override
@@ -233,6 +252,11 @@ public abstract class Operation implements Expression {
         public String toString() {
             return "or" + super.toString();
         }
+
+        @Override
+        public Expression copy() {
+            return new Or(getExpressions());
+        }
     }
 
     /**
@@ -242,6 +266,10 @@ public abstract class Operation implements Expression {
 
         private XOr(Expression a, Expression b) {
             super(Arrays.asList(a, b), false);
+        }
+
+        private XOr(Iterable<Expression> expToCopy) {
+            super(expToCopy);
         }
 
         @Override
@@ -257,6 +285,11 @@ public abstract class Operation implements Expression {
         @Override
         public String toString() {
             return "xor" + super.toString();
+        }
+
+        @Override
+        public Expression copy() {
+            return new XOr(getExpressions());
         }
     }
 

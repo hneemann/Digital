@@ -16,8 +16,6 @@ import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.builder.ATF1502.*;
-import de.neemann.digital.builder.BuilderException;
-import de.neemann.digital.builder.BuilderInterface;
 import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.builder.Gal16v8.CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
@@ -55,7 +53,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -657,55 +654,6 @@ public class TableDialog extends JDialog {
             }
 
             return label;
-        }
-    }
-
-    private static class BuilderExpressionCreator {
-        private final HashSet<String> contained;
-        private final BuilderInterface builder;
-        private final ExpressionModifier[] modifier;
-        private boolean useJKOptimizer = false;
-
-        BuilderExpressionCreator(BuilderInterface builder, ExpressionModifier... modifier) {
-            contained = new HashSet<>();
-            this.builder = builder;
-            this.modifier = modifier;
-        }
-
-        public void create(ExpressionListenerStore expressions) throws ExpressionException, FormatterException {
-            if (expressions == null)
-                throw new ExpressionException(Lang.get("err_noExpressionsAvailable"));
-
-            ExpressionListener el = new ExpressionListener() {
-                @Override
-                public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
-                    if (!contained.contains(name)) {
-                        contained.add(name);
-                        try {
-                            if (name.endsWith("n+1")) {
-                                name = name.substring(0, name.length() - 2);
-                                builder.addSequential(name, ExpressionModifier.modifyExpression(expression, modifier));
-                            } else
-                                builder.addCombinatorial(name, ExpressionModifier.modifyExpression(expression, modifier));
-                        } catch (BuilderException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-
-                @Override
-                public void close() {
-                }
-            };
-            if (useJKOptimizer)
-                el = new ExpressionListenerOptimizeJK(el);
-
-            expressions.replayTo(el);
-        }
-
-        BuilderExpressionCreator setUseJKOptimizer(boolean useJKOptimizer) {
-            this.useJKOptimizer = useJKOptimizer;
-            return this;
         }
     }
 
