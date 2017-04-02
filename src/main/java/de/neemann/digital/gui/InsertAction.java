@@ -37,6 +37,7 @@ public final class InsertAction extends ToolTipAction {
         this.node = node;
         this.insertHistory = insertHistory;
         this.circuitComponent = circuitComponent;
+        setActive(node.isUnique());
     }
 
     @Override
@@ -76,7 +77,7 @@ public final class InsertAction extends ToolTipAction {
     public void update(LibraryNode node) {
         this.node = node;
         try {
-            final ImageIcon icon = node.getIcon(shapeFactory);
+            final Icon icon = node.getIcon(shapeFactory);
             setIcon(icon);
         } catch (IOException ex) {
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));

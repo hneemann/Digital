@@ -153,11 +153,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         node.add(TestCaseElement.TESTCASEDESCRIPTION);
         root.add(node);
 
-        try {
-            populateNodeMap();
-        } catch (IOException e) {
-            // can not happen because there are no custom elements yet
-        }
+        populateNodeMap();
     }
 
     /**
@@ -176,11 +172,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         return customNode;
     }
 
-    private void populateNodeMap() throws IOException {
+    private void populateNodeMap() {
         map.clear();
-        String dn = root.traverse(new PopulateModelVisitor(map)).getDoubleNode();
-        if (dn != null)
-            throw new IOException(Lang.get("err_file_N0_ExistsTwiceBelow_N1", dn, rootLibraryPath));
+        root.traverse(new PopulateMapVisitor(map));
     }
 
     /**
@@ -555,11 +549,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         }
     }
 
-    private static final class PopulateModelVisitor implements Visitor {
+    private static final class PopulateMapVisitor implements Visitor {
         private final HashMap<String, LibraryNode> map;
-        private String doubleNode;
 
-        private PopulateModelVisitor(HashMap<String, LibraryNode> map) {
+        private PopulateMapVisitor(HashMap<String, LibraryNode> map) {
             this.map = map;
         }
 
@@ -568,15 +561,15 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             if (libraryNode.isLeaf()) {
                 final String name = libraryNode.getName();
 
-                if (map.containsKey(name))
-                    doubleNode = name;
-
-                map.put(name, libraryNode);
+                LibraryNode presentNode = map.get(name);
+                if (presentNode==null) {
+                    map.put(name, libraryNode);
+                    libraryNode.setUnique(true);
+                } else {
+                    presentNode.setUnique(false);
+                    libraryNode.setUnique(false);
+                }
             }
-        }
-
-        private String getDoubleNode() {
-            return doubleNode;
         }
     }
 }

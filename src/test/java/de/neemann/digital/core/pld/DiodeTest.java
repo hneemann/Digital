@@ -14,11 +14,12 @@ import java.io.IOException;
 public class DiodeTest extends TestCase {
 
     /**
-     * Two antiparallel unidirectional diodes are able to hold each other either in low or in
+     * Two anti parallel unidirectional diodes are able to hold each other either in low or in
      * high state, depending on which diode is processed first.
-     * The current simulation model which is build up on inputs which are modifing the outputs
+     * The current simulation model which is build up on inputs which are modifying the outputs
      * is not suited to handle bidirectional passive diodes.
-     * For the same reason also bidirectional switches are impossible to implement.
+     * The solution implemented for switches - form a common net if switch is closed - is also
+     * not able to handle diodes.
      *
      * To make this possible the simulation core needs a significant improvement.
      */

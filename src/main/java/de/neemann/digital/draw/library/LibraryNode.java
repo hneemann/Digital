@@ -5,6 +5,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.IconCreator;
 import de.neemann.gui.StringUtils;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ import java.util.Iterator;
  * Created by hneemann on 25.03.17.
  */
 public class LibraryNode implements Iterable<LibraryNode> {
+    private static final Icon ICON_NOT_UNIQUE = IconCreator.create("testFailed.png");
 
     private final ArrayList<LibraryNode> children;
     private final String translatedName;
@@ -27,6 +29,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private ImageIcon icon;
     private ElementLibrary library;
     private LibraryNode parent;
+    private boolean unique;
 
     /**
      * Creates a new node with the given name.
@@ -121,6 +124,9 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public ElementTypeDescription getDescription() throws IOException {
         if (description == null) {
+            if (!unique)
+                throw new IOException(Lang.get("err_file_N0_ExistsTwiceBelow_N1", file, library.getRootFilePath()));
+
             description = library.importElement(file);
             library.fireLibraryChanged(this);
         }
@@ -210,7 +216,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * @return the icon
      * @throws IOException IOException
      */
-    public ImageIcon getIcon(ShapeFactory shapeFactory) throws IOException {
+    public Icon getIcon(ShapeFactory shapeFactory) throws IOException {
         getDescription();
         return getIconOrNull(shapeFactory);
     }
@@ -222,10 +228,13 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * @param shapeFactory the shape factory to create the icon
      * @return the icon or null
      */
-    public ImageIcon getIconOrNull(ShapeFactory shapeFactory) {
-        if (icon == null && description != null)
-            icon = new VisualElement(description.getName()).setShapeFactory(shapeFactory).createIcon(75);
-        return icon;
+    public Icon getIconOrNull(ShapeFactory shapeFactory) {
+        if (unique) {
+            if (icon == null && description != null)
+                icon = new VisualElement(description.getName()).setShapeFactory(shapeFactory).createIcon(75);
+            return icon;
+        } else
+            return ICON_NOT_UNIQUE;
     }
 
     /**
@@ -280,11 +289,30 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public String getToolTipText() {
         if (isCustom()) {
-            if (description == null)
-                return null;
-            else
-                return StringUtils.textToHTML(description.getDescription(new ElementAttributes()));
+            if (isUnique()) {
+                if (description == null)
+                    return null;
+                else
+                    return StringUtils.textToHTML(description.getDescription(new ElementAttributes()));
+            } else
+                return Lang.get("msg_fileIsNotUnique");
         } else
             return StringUtils.textToHTML(Lang.getNull("elem_" + getName() + "_tt"));
+    }
+
+    /**
+     * sets the unique state of this node
+     *
+     * @param unique true if this node is unique
+     */
+    void setUnique(boolean unique) {
+        this.unique = unique;
+    }
+
+    /**
+     * @return true if element is unique
+     */
+    public boolean isUnique() {
+        return unique;
     }
 }

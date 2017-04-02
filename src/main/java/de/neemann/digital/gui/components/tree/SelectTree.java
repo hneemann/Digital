@@ -43,7 +43,7 @@ public class SelectTree extends JTree {
                 TreePath path = getSelectionPath();
                 if (path != null && path.getPathCount() > 0) {
                     LibraryNode node = (LibraryNode) path.getLastPathComponent();
-                    if (node.isLeaf()) {
+                    if (node.isLeaf() && node.isUnique()) {
                         clearSelection();
                         try {
                             ElementTypeDescription d = node.getDescription();

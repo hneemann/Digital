@@ -737,6 +737,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_startExternalFitter">Starten des externen Fitters</string>
     <string name="msg_actualCircuit">Aktuelle Schaltung</string>
     <string name="msg_fileNotAccessible">Dieser Dateiename ist nicht aus dem aktuellen Projekt importierbar!</string>
+    <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
