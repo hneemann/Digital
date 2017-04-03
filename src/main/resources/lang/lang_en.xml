@@ -725,6 +725,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_actualCircuit">Actual Circuit</string>
     <string name="msg_fileNotAccessible">The selected file name is not importable from the actual project!</string>
     <string name="msg_fileIsNotUnique">The file name is not unique!</string>
+    <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

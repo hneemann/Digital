@@ -291,7 +291,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
         if (isCustom()) {
             if (isUnique()) {
                 if (description == null)
-                    return null;
+                    return Lang.get("msg_fileNotImportedYet");
                 else
                     return StringUtils.textToHTML(description.getDescription(new ElementAttributes()));
             } else
