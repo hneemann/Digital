@@ -38,6 +38,7 @@
     <string name="btn_addTransitions_tt">All possible transitions are added as test cases. Is used to create test cases to test the simulator itself.</string>
     <string name="btn_newName">New Name</string>
     <string name="btn_saveAnyway">Save anyway</string>
+    <string name="btn_overwrite">Overwrite</string>
     <string name="msg_warning">Warning</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
@@ -726,6 +727,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_fileNotAccessible">The selected file name is not importable from the actual project!</string>
     <string name="msg_fileIsNotUnique">The file name is not unique!</string>
     <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
+    <string name="msg_fileExists">The file {0} already exists!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

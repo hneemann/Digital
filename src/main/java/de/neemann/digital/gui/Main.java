@@ -413,7 +413,22 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 do {
                     repeat = false;
                     if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
+
                         final File selectedFile = fc.getSelectedFile();
+
+                        if (selectedFile.exists()) {
+                            Object[] options = {Lang.get("btn_overwrite"), Lang.get("btn_newName")};
+                            int res = JOptionPane.showOptionDialog(Main.this,
+                                    Lang.get("msg_fileExists", selectedFile.getName()),
+                                    Lang.get("msg_warning"),
+                                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                                    null, options, options[0]);
+                            if (res == 1) {
+                                repeat = true;
+                                continue;
+                            }
+                        }
+
                         if (library.isFileAccessible(selectedFile))
                             saveFile(selectedFile, false);
                         else {

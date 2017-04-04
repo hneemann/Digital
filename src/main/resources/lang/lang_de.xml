@@ -38,6 +38,7 @@
     <string name="btn_addTransitions_tt">Alle möglichen Übergänge werden als Testfälle ergänzt. Dient zur Erzeugung von Testfällen für den Simulator selbst.</string>
     <string name="btn_newName">Neuer Name</string>
     <string name="btn_saveAnyway">Trotzdem speichern</string>
+    <string name="btn_overwrite">Überschreiben</string>
     <string name="msg_warning">Warnung</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
@@ -739,6 +740,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_fileNotAccessible">Dieser Dateiename ist nicht aus dem aktuellen Projekt importierbar!</string>
     <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!</string>
     <string name="msg_fileNotImportedYet">Die Datei wurde noch nicht importiert.</string>
+    <string name="msg_fileExists">Die Datei {0} existiert schon!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

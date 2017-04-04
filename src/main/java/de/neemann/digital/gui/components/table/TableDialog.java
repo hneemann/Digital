@@ -260,15 +260,35 @@ public class TableDialog extends JDialog {
                 JFileChooser fc = new JFileChooser();
                 if (TableDialog.this.filename != null)
                     fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
-                if (fc.showSaveDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        File file = Main.checkSuffix(fc.getSelectedFile(), "tru");
-                        model.getTable().save(file);
-                        TableDialog.this.filename = file;
-                    } catch (IOException e1) {
-                        new ErrorMessage().addCause(e1).show(TableDialog.this);
+
+                boolean repeat;
+                do {
+                    repeat = false;
+                    if (fc.showSaveDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
+                        final File selectedFile = fc.getSelectedFile();
+
+                        if (selectedFile.exists()) {
+                            Object[] options = {Lang.get("btn_overwrite"), Lang.get("btn_newName")};
+                            int res = JOptionPane.showOptionDialog(TableDialog.this,
+                                    Lang.get("msg_fileExists", selectedFile.getName()),
+                                    Lang.get("msg_warning"),
+                                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                                    null, options, options[0]);
+                            if (res == 1) {
+                                repeat = true;
+                                continue;
+                            }
+                        }
+
+                        try {
+                            File file = Main.checkSuffix(selectedFile, "tru");
+                            model.getTable().save(file);
+                            TableDialog.this.filename = file;
+                        } catch (IOException e1) {
+                            new ErrorMessage().addCause(e1).show(TableDialog.this);
+                        }
                     }
-                }
+                } while (repeat);
             }
         });
 
