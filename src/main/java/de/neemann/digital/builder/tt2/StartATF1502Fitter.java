@@ -2,7 +2,7 @@ package de.neemann.digital.builder.tt2;
 
 import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.lang.Lang;
 
@@ -56,7 +56,7 @@ public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess 
 
             SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(parent, message, Lang.get("msg_fitterResult"), JOptionPane.INFORMATION_MESSAGE));
 
-            return Main.checkSuffix(file, "jed");
+            return SaveAsHelper.checkSuffix(file, "jed");
         } catch (IOException e) {
             throw new IOException(Lang.get("err_errorRunningFitter"), e);
         }

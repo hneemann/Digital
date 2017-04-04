@@ -4,10 +4,10 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -16,8 +16,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,16 +84,8 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileFilter(new FileNameExtensionFilter("Comma Separated Values", "csv"));
-                if (fileChooser.showSaveDialog(DataSetDialog.this) == JFileChooser.APPROVE_OPTION) {
-                    File file = fileChooser.getSelectedFile();
-                    if (!file.getName().endsWith(".csv"))
-                        file = new File(file.getParentFile(), file.getName() + ".csv");
-                    try {
-                        dataSet.saveCSV(file);
-                    } catch (IOException e1) {
-                        new ErrorMessage(Lang.get("msg_errorSavingData")).addCause(e1).show(DataSetDialog.this);
-                    }
-                }
+                new SaveAsHelper(DataSetDialog.this, fileChooser, "csv")
+                        .checkOverwrite(file -> dataSet.saveCSV(file));
             }
         }.setToolTip(Lang.get("menu_saveData_tt")).createJMenuItem());
         setJMenuBar(bar);

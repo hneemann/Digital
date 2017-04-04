@@ -1,7 +1,7 @@
 package de.neemann.digital.builder.ATF1502;
 
 import de.neemann.digital.builder.ExpressionToFileExporter;
-import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.SaveAsHelper;
 
 import java.io.*;
 
@@ -25,7 +25,7 @@ public class CreateCHN implements ExpressionToFileExporter.PostProcess {
 
     @Override
     public File execute(File file) throws IOException {
-        File chnFile = Main.checkSuffix(file, "chn");
+        File chnFile = SaveAsHelper.checkSuffix(file, "chn");
 
         try (Writer chn = new OutputStreamWriter(new FileOutputStream(chnFile), "UTF-8")) {
             chn.write("1 4 1 0 \r\n"

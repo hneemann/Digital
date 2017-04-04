@@ -409,46 +409,28 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                 if (lastFilename == null && library.getRootFilePath() != null)
                     fc.setCurrentDirectory(library.getRootFilePath());
 
-                boolean repeat;
-                do {
-                    repeat = false;
-                    if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-
-                        final File selectedFile = fc.getSelectedFile();
-
-                        if (selectedFile.exists()) {
-                            Object[] options = {Lang.get("btn_overwrite"), Lang.get("btn_newName")};
-                            int res = JOptionPane.showOptionDialog(Main.this,
-                                    Lang.get("msg_fileExists", selectedFile.getName()),
-                                    Lang.get("msg_warning"),
-                                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                                    null, options, options[0]);
-                            if (res == 1) {
-                                repeat = true;
-                                continue;
+                final SaveAsHelper saveAsHelper = new SaveAsHelper(Main.this, fc, "dig");
+                saveAsHelper.checkOverwrite(
+                        file -> {
+                            if (library.isFileAccessible(file))
+                                saveFile(file, false);
+                            else {
+                                Object[] options = {Lang.get("btn_saveAnyway"), Lang.get("btn_newName"), Lang.get("cancel")};
+                                int res = JOptionPane.showOptionDialog(Main.this,
+                                        Lang.get("msg_fileNotAccessible"),
+                                        Lang.get("msg_warning"),
+                                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                                        null, options, options[0]);
+                                switch (res) {
+                                    case 0:
+                                        saveFile(file, true);
+                                        break;
+                                    case 1:
+                                        saveAsHelper.retryFileSelect();
+                                }
                             }
                         }
-
-                        if (library.isFileAccessible(selectedFile))
-                            saveFile(selectedFile, false);
-                        else {
-                            Object[] options = {Lang.get("btn_saveAnyway"), Lang.get("btn_newName"), Lang.get("cancel")};
-                            int res = JOptionPane.showOptionDialog(Main.this,
-                                    Lang.get("msg_fileNotAccessible"),
-                                    Lang.get("msg_warning"),
-                                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                                    null, options, options[0]);
-                            switch (res) {
-                                case 0:
-                                    saveFile(selectedFile, true);
-                                    break;
-                                case 1:
-                                    repeat = true;
-                                    break;
-                            }
-                        }
-                    }
-                } while (repeat);
+                );
             }
         }.setActive(allowAll);
 
@@ -969,7 +951,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     }
 
     private void saveFile(File filename, boolean toPrefs) {
-        filename = checkSuffix(filename, "dig");
         try {
             circuitComponent.getCircuit().save(filename);
             stoppedState.enter();
@@ -994,21 +975,6 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         } else {
             setTitle(Lang.get("digital"));
         }
-    }
-
-    /**
-     * Adds the given suffix to the file
-     *
-     * @param filename filename
-     * @param suffix   suffix
-     * @return the file name with the given suffix
-     */
-    public static File checkSuffix(File filename, String suffix) {
-        String name = filename.getName();
-        int p = name.lastIndexOf('.');
-        if (p >= 0)
-            name = name.substring(0, p);
-        return new File(filename.getParentFile(), name + "." + suffix);
     }
 
     /**
@@ -1076,23 +1042,20 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         public void actionPerformed(ActionEvent e) {
             JFileChooser fc = new JFileChooser();
             if (filename != null)
-                fc.setSelectedFile(checkSuffix(filename, suffix));
+                fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, suffix));
 
             if (lastExportDirectory != null)
                 fc.setCurrentDirectory(lastExportDirectory);
 
             fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
-            if (fc.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-
-                lastExportDirectory = fc.getSelectedFile().getParentFile();
-
-                try (OutputStream out = new FileOutputStream(checkSuffix(fc.getSelectedFile(), suffix))) {
-                    new Export(circuitComponent.getCircuit(), exportFactory).export(out);
-
-                } catch (IOException e1) {
-                    new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(Main.this);
-                }
-            }
+            new SaveAsHelper(Main.this, fc, suffix).checkOverwrite(
+                    file -> {
+                        lastExportDirectory = file.getParentFile();
+                        try (OutputStream out = new FileOutputStream(file)) {
+                            new Export(circuitComponent.getCircuit(), exportFactory).export(out);
+                        }
+                    }
+            );
         }
     }
 

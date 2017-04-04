@@ -8,6 +8,7 @@ import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.testing.TestDataEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
@@ -355,14 +356,12 @@ public final class EditorFactory {
                     JFileChooser fc = new JFileChooser();
                     fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                     fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
-                    if (fc.showSaveDialog(panel) == JFileChooser.APPROVE_OPTION) {
-                        attr.setFile(ROM.LAST_DATA_FILE_KEY, fc.getSelectedFile());
-                        try {
-                            data.saveTo(fc.getSelectedFile());
-                        } catch (IOException e1) {
-                            new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(panel);
-                        }
-                    }
+                    new SaveAsHelper(panel, fc, "hex").checkOverwrite(
+                            file -> {
+                                attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
+                                data.saveTo(file);
+                            }
+                    );
                 }
             }.createJButton());
             return panel;

@@ -33,6 +33,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.lang.Lang;
@@ -240,10 +241,10 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
                 if (TableDialog.this.filename != null)
-                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
+                    fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "tru"));
                 if (fc.showOpenDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
                     try {
-                        File file = Main.checkSuffix(fc.getSelectedFile(), "tru");
+                        File file = fc.getSelectedFile();
                         TruthTable truthTable = TruthTable.readFromFile(file);
                         setModel(new TruthTableTableModel(truthTable));
                         TableDialog.this.filename = file;
@@ -259,36 +260,14 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
                 if (TableDialog.this.filename != null)
-                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "tru"));
+                    fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "tru"));
 
-                boolean repeat;
-                do {
-                    repeat = false;
-                    if (fc.showSaveDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
-                        final File selectedFile = fc.getSelectedFile();
-
-                        if (selectedFile.exists()) {
-                            Object[] options = {Lang.get("btn_overwrite"), Lang.get("btn_newName")};
-                            int res = JOptionPane.showOptionDialog(TableDialog.this,
-                                    Lang.get("msg_fileExists", selectedFile.getName()),
-                                    Lang.get("msg_warning"),
-                                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                                    null, options, options[0]);
-                            if (res == 1) {
-                                repeat = true;
-                                continue;
-                            }
-                        }
-
-                        try {
-                            File file = Main.checkSuffix(selectedFile, "tru");
+                new SaveAsHelper(TableDialog.this, fc, "tru").checkOverwrite(
+                        file -> {
                             model.getTable().save(file);
                             TableDialog.this.filename = file;
-                        } catch (IOException e1) {
-                            new ErrorMessage().addCause(e1).show(TableDialog.this);
                         }
-                    }
-                } while (repeat);
+                );
             }
         });
 
@@ -312,15 +291,9 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
                 if (TableDialog.this.filename != null)
-                    fc.setSelectedFile(Main.checkSuffix(TableDialog.this.filename, "hex"));
-                if (fc.showSaveDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        File file = Main.checkSuffix(fc.getSelectedFile(), "hex");
-                        model.getTable().saveHex(file);
-                    } catch (IOException e1) {
-                        new ErrorMessage().addCause(e1).show(TableDialog.this);
-                    }
-                }
+                    fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "hex"));
+                new SaveAsHelper(TableDialog.this, fc, "hex")
+                        .checkOverwrite(file -> model.getTable().saveHex(file));
             }
         }.setToolTip(Lang.get("menu_table_exportHex_tt")).createJMenuItem());
 
@@ -512,7 +485,7 @@ public class TableDialog extends JDialog {
         if (filename == null)
             filename = new File("circuit." + suffix);
         else
-            filename = Main.checkSuffix(filename, suffix);
+            filename = SaveAsHelper.checkSuffix(filename, suffix);
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("JEDEC", suffix));
@@ -521,7 +494,7 @@ public class TableDialog extends JDialog {
             try {
                 expressionExporter.getPinMapping().addAll(model.getTable().getPins());
                 new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
-                expressionExporter.export(Main.checkSuffix(fileChooser.getSelectedFile(), suffix));
+                expressionExporter.export(SaveAsHelper.checkSuffix(fileChooser.getSelectedFile(), suffix));
             } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
                 new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
             }
