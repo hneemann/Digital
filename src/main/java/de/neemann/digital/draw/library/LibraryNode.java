@@ -103,7 +103,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     }
 
     /**
-     * @return trie if this is a leaf
+     * @return true if this is a leaf
      */
     public boolean isLeaf() {
         return description != null || file != null;
