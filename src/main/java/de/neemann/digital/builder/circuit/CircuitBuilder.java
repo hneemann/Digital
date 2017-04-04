@@ -40,7 +40,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final ArrayList<FragmentVariable> fragmentVariables;
     private final ArrayList<Fragment> fragments;
     private final HashSet<String> combinatorialOutputs;
-    private final HashSet<String> createdNets;
+    private final ArrayList<Variable> sequentialVars;
     private final ArrayList<FragmentVisualElement> flipflops;
     private final boolean useJKff;
     private int pos;
@@ -69,7 +69,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         fragments = new ArrayList<>();
         flipflops = new ArrayList<>();
         combinatorialOutputs = new HashSet<>();
-        createdNets = new HashSet<>();
+        sequentialVars = new ArrayList<>();
     }
 
     /**
@@ -118,8 +118,6 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                         flipflops.add(ff);
                         FragmentSameInValue fsv = new FragmentSameInValue(ff);
                         FragmentExpression fe = new FragmentExpression(fsv, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
-                        createdNets.add(name);
-
                         fragments.add(new FragmentExpression(frJ, fe));
                     } else {
                         Fragment frJ = createFragment(jk.getSimplifiedJ());
@@ -127,7 +125,6 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                         FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory).ignoreInput(1).setAttr(Keys.LABEL, name);
                         flipflops.add(ff);
                         FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
-                        createdNets.add(name);
                         fragments.add(new FragmentExpression(Arrays.asList(frJ, frK), fe));
                     }
                 }
@@ -140,10 +137,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
             flipflops.add(ff);
             FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
-            createdNets.add(name);
             fragments.add(new FragmentExpression(fr, fe));
         }
         expression.traverse(variableVisitor);
+        sequentialVars.add(new Variable(name));
         return this;
     }
 
@@ -202,7 +199,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         pos -= SIZE;
         for (Variable v : inputs) {
             VisualElement visualElement;
-            if (createdNets.contains(v.getIdentifier())) {
+            if (sequentialVars.contains(v)) {
                 visualElement = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
                 visualElement.getElementAttributes()
                         .set(Keys.ROTATE, new Rotation(1))
@@ -271,7 +268,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             if (maxWidth < b.getWidth()) maxWidth = b.getWidth();
         }
         // add space for clock wire!
-        if (!createdNets.isEmpty())
+        if (!sequentialVars.isEmpty())
             maxWidth += SIZE * 2;
 
         // set width to fragments
@@ -288,18 +285,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         // order bus variables
         Collection<Variable> variables = variableVisitor.getVariables();
-        if (!createdNets.isEmpty()) {
-            ArrayList<Variable> c1 = new ArrayList<>();
-            ArrayList<Variable> c2 = new ArrayList<>();
-            for (Variable v : variables)
-                if (createdNets.contains(v.getIdentifier()))
-                    c2.add(v);
-                else
-                    c1.add(v);
+        if (!sequentialVars.isEmpty())
+            variables = order(variables, sequentialVars);
 
-            c1.addAll(c2);
-            variables = c1;
-        }
 
         createInputBus(variables, circuit);
 
@@ -307,11 +295,29 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (!flipflops.isEmpty())
             addClockTpFlipFlops(circuit);
 
-        if (!createdNets.isEmpty())
+        if (!sequentialVars.isEmpty())
             addNetConnections(circuit, maxWidth + SIZE * 5);
 
         circuit.setNotModified();
         return circuit;
+    }
+
+    /**
+     * Move the lastItems to the end of the variables list.
+     * Items which are not in lastItems are placed at the beginning of the result list
+     *
+     * @param variables the variables to order
+     * @param lastItems the items to be placed at the end of the list
+     * @return the ordered list
+     */
+    private static <T> ArrayList<T> order(Collection<T> variables, ArrayList<T> lastItems) {
+        ArrayList<T> vars = new ArrayList<>(variables);
+        for (T seq : lastItems)
+            if (vars.contains(seq)) {
+                vars.remove(seq); // move to end
+                vars.add(seq);
+            }
+        return vars;
     }
 
     private void addClockTpFlipFlops(Circuit circuit) {
@@ -349,14 +355,15 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
     private void addNetConnections(Circuit circuit, int xPos) {
         int y = -SIZE * 5;
-        ArrayList<String> list = new ArrayList<>(createdNets);
-        Collections.sort(list);
-        for (String name : list) {
-            String oName = name;
-            if (name.endsWith("n")) oName = name.substring(0, name.length() - 1);
+        for (Variable name : sequentialVars) {
+            String oName = name.getIdentifier();
+            if (oName.endsWith("n")) {
+                oName = oName.substring(0, oName.length() - 1);
+                if (oName.endsWith("_")) oName = oName.substring(0, oName.length() - 1);
+            }
             if (!combinatorialOutputs.contains(oName)) {
                 VisualElement t = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
-                t.getElementAttributes().set(Keys.NETNAME, name);
+                t.getElementAttributes().set(Keys.NETNAME, name.getIdentifier());
                 t.setPos(new Vector(xPos, y));
                 t.setRotation(2);
                 circuit.add(t);
