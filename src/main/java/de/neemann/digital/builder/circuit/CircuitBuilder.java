@@ -359,7 +359,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             String oName = name.getIdentifier();
             if (oName.endsWith("n")) {
                 oName = oName.substring(0, oName.length() - 1);
-                if (oName.endsWith("_")) oName = oName.substring(0, oName.length() - 1);
+                if (oName.endsWith("_") || oName.endsWith("^")) oName = oName.substring(0, oName.length() - 1);
             }
             if (!combinatorialOutputs.contains(oName)) {
                 VisualElement t = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
