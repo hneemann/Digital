@@ -3,14 +3,15 @@ Release Notes
 planned as v0.10
 - User can select the expressions representation format in the settings dialog.
 - Better formatting of minimized expressions.
-- easier editing of truth tables
+- Easier editing of truth tables
 - Mouse actions can be canceled by the ESC key.
 - With CTRL + mouse button you can now select and move/delete wires.
 - Added a real bidirectional switch and a relay.
 - Added N and P channel FETs and some CMOS examples, including a 16 bit SRAM
 - Improved and documented the file import strategy.
-- added a tree view to insert components
-- added support for the ATF1502 and ATF1504 CPLDs
+- Added a tree view to insert components.
+- Added support for the ATF1502 and ATF1504 CPLDs.
+- Added a rotary encoder
 - some minor bug fixes
 
 v0.9, released on 03. Feb 2017
