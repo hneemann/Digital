@@ -74,6 +74,11 @@ public class ButtonShape implements Shape {
                 });
                 return true;
             }
+
+            @Override
+            public boolean dragged(CircuitComponent cc, Vector pos, Transform trans, IOState ioState, Element element, Sync modelSync) {
+                return false;
+            }
         };
     }
 

@@ -1287,10 +1287,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
 
     private interface Actor {
-        boolean interact(CircuitComponent cc, Point p, Sync modelSync);
+        boolean interact(CircuitComponent cc, Point p, Vector posInComponent, Sync modelSync);
     }
 
     private final class MouseControllerRun extends MouseController {
+
+        private boolean dragHandled;
 
         private MouseControllerRun(Cursor cursor) {
             super(cursor);
@@ -1299,8 +1301,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         void pressed(MouseEvent e) {
             VisualElement ve = getInteractableElementAt(e);
-            if (ve != null)
+            if (ve != null) {
                 interact(e, ve::elementPressed);
+                dragHandled = true;
+            } else
+                dragHandled = false;
         }
 
         private VisualElement getInteractableElementAt(MouseEvent e) {
@@ -1326,11 +1331,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 interact(e, ve::elementClicked);
         }
 
+        @Override
+        boolean dragged(MouseEvent e) {
+            VisualElement ve = getInteractableElementAt(e);
+            if (ve != null)
+                interact(e, ve::elementDragged);
+            return dragHandled;
+        }
 
         private void interact(MouseEvent e, Actor actor) {
             Point p = new Point(e.getX(), e.getY());
             SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-            boolean modelHasChanged = actor.interact(CircuitComponent.this, p, modelSync);
+            boolean modelHasChanged = actor.interact(CircuitComponent.this, p, getPosVector(e), modelSync);
             if (modelHasChanged) {
                 if (manualChangeObserver != null)
                     manualChangeObserver.hasChanged();

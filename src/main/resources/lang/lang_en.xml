@@ -359,6 +359,10 @@
     <string name="elem_PFET_pin_G">Gate</string>
     <string name="elem_PFET_pin_out1">Source</string>
     <string name="elem_PFET_pin_out2">Drain</string>
+    <string name="elem_RotEncoder">Rotary Encoder</string>
+    <string name="elem_RotEncoder_tt">Rotary encoder for stateless detecting rotational movements.</string>
+    <string name="elem_RotEncoder_pin_A">encoder signal A</string>
+    <string name="elem_RotEncoder_pin_B">encoder signal B</string>
 
     <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-flip-flop has no label set</string>

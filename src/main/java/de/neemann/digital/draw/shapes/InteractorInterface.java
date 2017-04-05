@@ -2,6 +2,8 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.IOState;
+import de.neemann.digital.draw.graphics.Transform;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.sync.Sync;
 
@@ -45,4 +47,16 @@ public interface InteractorInterface {
      * @return true if model is changed
      */
     boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync);
+
+    /**
+     * Called mouse is dragged on running model
+     *
+     * @param cc        the CircuitComponent
+     * @param pos       the position in the containing component
+     * @param transform transformation to transform shape coordinates to the containing component
+     * @param ioState   the state of the element
+     * @return true if model is changed
+     */
+    boolean dragged(CircuitComponent cc, Vector pos, Transform transform, IOState ioState, Element element, Sync modelSync);
+
 }

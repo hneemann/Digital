@@ -372,6 +372,10 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_PFET_pin_G">Gate</string>
     <string name="elem_PFET_pin_out1">Source</string>
     <string name="elem_PFET_pin_out2">Drain</string>
+    <string name="elem_RotEncoder">Drehencoder</string>
+    <string name="elem_RotEncoder_tt">Drehencoder zur zustandsfreien Erfassung von Drehbewegungen.</string>
+    <string name="elem_RotEncoder_pin_A">Encodersignal A</string>
+    <string name="elem_RotEncoder_pin_B">Encodersignal B</string>
 
     <string name="error">Fehler</string>
     <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>

@@ -297,11 +297,12 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * Is called if this element is clicked with the mouse.
      * The call is delegated to the {@link Interactor} of the {@link Shape}
      *
-     * @param cc  the calling {@link CircuitComponent}
-     * @param pos the position
+     * @param cc             the calling {@link CircuitComponent}
+     * @param pos            the position
+     * @param posInComponent position in CircuitComponent
      * @return true if model is changed
      */
-    public boolean elementClicked(CircuitComponent cc, Point pos, Sync modelSync) {
+    public boolean elementClicked(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
         if (interactor != null)
             return interactor.clicked(cc, pos, ioState, element, modelSync);
         else
@@ -312,11 +313,12 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * Is called if this element is clicked with the mouse.
      * The call is delegated to the {@link Interactor} of the {@link Shape}
      *
-     * @param cc  the calling {@link CircuitComponent}
-     * @param pos the position
+     * @param cc             the calling {@link CircuitComponent}
+     * @param pos            the position
+     * @param posInComponent position in CircuitComponent
      * @return true if model is changed
      */
-    public boolean elementPressed(CircuitComponent cc, Point pos, Sync modelSync) {
+    public boolean elementPressed(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
         if (interactor != null)
             return interactor.pressed(cc, pos, ioState, element, modelSync);
         else
@@ -327,16 +329,34 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * Is called if this element is clicked with the mouse.
      * The call is delegated to the {@link Interactor} of the {@link Shape}
      *
-     * @param cc  the calling {@link CircuitComponent}
-     * @param pos the position
+     * @param cc             the calling {@link CircuitComponent}
+     * @param pos            the position
+     * @param posInComponent position in CircuitComponent
      * @return true if model is changed
      */
-    public boolean elementReleased(CircuitComponent cc, Point pos, Sync modelSync) {
+    public boolean elementReleased(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
         if (interactor != null)
             return interactor.released(cc, pos, ioState, element, modelSync);
         else
             return false;
     }
+
+    /**
+     * Is called if the mouse is dragged on this element.
+     * The call is delegated to the {@link Interactor} of the {@link Shape}
+     *
+     * @param cc             the calling {@link CircuitComponent}
+     * @param pos            the position
+     * @param posInComponent position in CircuitComponent
+     * @return true if model is changed
+     */
+    public boolean elementDragged(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
+        if (interactor != null)
+            return interactor.dragged(cc, posInComponent, transform, ioState, element, modelSync);
+        else
+            return false;
+    }
+
 
     @Override
     public String toString() {

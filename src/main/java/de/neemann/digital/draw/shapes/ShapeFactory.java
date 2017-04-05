@@ -97,6 +97,7 @@ public final class ShapeFactory {
         map.put(Out.SEVENDESCRIPTION.getName(), SevenSegShape::new);
         map.put(Out.SEVENHEXDESCRIPTION.getName(), SevenSegHexShape::new);
         map.put(DummyElement.DATADESCRIPTION.getName(), DataShape::new);
+        map.put(RotEncoder.DESCRIPTION.getName(), RotEncoderShape::new);
 
         map.put(Break.DESCRIPTION.getName(), BreakShape::new);
         map.put(Delay.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new DelayShape());
