@@ -50,7 +50,7 @@ public class SelectTree extends JTree {
                             component.setPartToInsert(new VisualElement(d.getName()).setShapeFactory(shapeFactory));
                             insertHistory.add(new InsertAction(node, insertHistory, component, shapeFactory));
                         } catch (IOException e) {
-                            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(e));
+                            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel_N0", node.getName())).addCause(e));
                         }
                     }
                 }

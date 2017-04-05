@@ -49,7 +49,7 @@ public final class InsertAction extends ToolTipAction {
                 node.getDescription();
                 setIcon(node.getIcon(shapeFactory));
             } catch (IOException ex) {
-                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel_N0", node.getName())).addCause(ex));
             }
         }
         insertHistory.add(this);
@@ -80,7 +80,7 @@ public final class InsertAction extends ToolTipAction {
             final Icon icon = node.getIcon(shapeFactory);
             setIcon(icon);
         } catch (IOException ex) {
-            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel_N0", node.getName())).addCause(ex));
         }
     }
 

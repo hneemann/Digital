@@ -263,7 +263,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             if (node != null)
                 return node.getDescription();
         } catch (IOException e) {
-            throw new ElementNotFoundException(Lang.get("msg_errorImportingModel"), e);
+            throw new ElementNotFoundException(Lang.get("msg_errorImportingModel_N0", elementName), e);
         }
 
         throw new ElementNotFoundException(Lang.get("err_element_N_notFound", elementName));
@@ -436,7 +436,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             }
             return description;
         } catch (PinException e) {
-            throw new IOException(Lang.get("msg_errorImportingModel"), e);
+            throw new IOException(Lang.get("msg_errorImportingModel_N0", file), e);
         }
     }
 

@@ -698,7 +698,8 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_errorCreatingModel">Error creating the circuit</string>
     <string name="msg_errorDuringCalculation">Error during simplification</string>
     <string name="msg_errorEditingValue">Error editing a atribute value</string>
-    <string name="msg_errorImportingModel">Error importing a circuit</string>
+    <string name="msg_errorImportingModel_N0">Error importing the circuit {0}!</string>
+    <string name="msg_errorUpdatingLibrary">Error updating the component library!!</string>
     <string name="msg_errorReadingFile">Error reading a file</string>
     <string name="msg_errorWritingFile">Error writing a file</string>
     <string name="msg_fastRunError">Error at fast run</string>

@@ -30,6 +30,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private ElementLibrary library;
     private LibraryNode parent;
     private boolean unique;
+    private boolean descriptionImportError = false;
 
     /**
      * Creates a new node with the given name.
@@ -126,8 +127,12 @@ public class LibraryNode implements Iterable<LibraryNode> {
         if (description == null) {
             if (!unique)
                 throw new IOException(Lang.get("err_file_N0_ExistsTwiceBelow_N1", file, library.getRootFilePath()));
-
-            description = library.importElement(file);
+            try {
+                description = library.importElement(file);
+            } catch (IOException e) {
+                descriptionImportError = true;
+                throw e;
+            }
             library.fireLibraryChanged(this);
         }
         return description;
@@ -217,6 +222,9 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * @throws IOException IOException
      */
     public Icon getIcon(ShapeFactory shapeFactory) throws IOException {
+        if (descriptionImportError)
+            return ICON_NOT_UNIQUE;
+
         getDescription();
         return getIconOrNull(shapeFactory);
     }

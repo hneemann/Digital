@@ -73,7 +73,7 @@ public class LibrarySelector implements LibraryListener {
                         try {
                             library.updateEntries();
                         } catch (IOException ex) {
-                            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel")).addCause(ex));
+                            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorUpdatingLibrary")).addCause(ex));
                         }
                     }
                 }.setToolTip(Lang.get("menu_update_tt")).createJMenuItem());
