@@ -52,8 +52,8 @@ public interface InteractorInterface {
      * Called mouse is dragged on running model
      *
      * @param cc        the CircuitComponent
-     * @param pos       the position in the containing component
-     * @param transform transformation to transform shape coordinates to the containing component
+     * @param pos       the position in the model coordinates
+     * @param transform transformation to transform shape coordinates to the model coordinates
      * @param ioState   the state of the element
      * @return true if model is changed
      */
