@@ -24,6 +24,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * @author hneemann
  */
 public class RotEncoderShape implements Shape {
+    private static final Vector CENTER = new Vector(SIZE2, SIZE2);
     private final String label;
     private final PinDescriptions outputs;
     private int state;
@@ -74,7 +75,7 @@ public class RotEncoderShape implements Shape {
             @Override
             public boolean dragged(CircuitComponent cc, Vector pos, Transform trans, IOState ioState, Element element, Sync modelSync) {
                 if (ioState != null) {
-                    Vector p = pos.sub(trans.transform(new Vector(SIZE2, SIZE2)));
+                    Vector p = pos.sub(trans.transform(CENTER));
                     final int dist = p.x * p.x + p.y * p.y;
                     if (dist > 100 && dist < 900) {
                         int s = (int) (Math.atan2(p.y, p.x) / Math.PI * 16);
@@ -82,16 +83,12 @@ public class RotEncoderShape implements Shape {
                             initialState = s;
                             initial = false;
                         } else {
-                            // somewhat unusual but ensures that every step is visible to the model.
-                            int ds = 0;
-                            if (s > initialState) ds = 1;
-                            else if (s < initialState) ds = -1;
-                            initialState = s;
-                            if (ds != 0) {
-                                state += ds;
+                            if (s != initialState) {
+                                state += s - initialState;
+                                initialState = s;
                                 modelSync.access(() -> {
-                                    boolean a = ((state / 2) & 1) != 0;
-                                    boolean b = (((state + 1) / 2) & 1) != 0;
+                                    boolean a = (state & 2) != 0;
+                                    boolean b = ((state + 1) & 2) != 0;
                                     ioState.getOutput(0).setBool(a);
                                     ioState.getOutput(1).setBool(b);
                                 });
@@ -114,14 +111,16 @@ public class RotEncoderShape implements Shape {
                 .add(-SIZE, SIZE * 2)
                 .add(-SIZE, -SIZE), Style.NORMAL);
 
-        graphic.drawCircle(new Vector(-SIZE, -SIZE), new Vector(SIZE * 2, SIZE * 2), Style.NORMAL);
-        graphic.drawCircle(new Vector(-SIZE2, -SIZE2), new Vector(SIZE + SIZE2, SIZE + SIZE2), Style.THIN);
+        final int r1 = SIZE + SIZE2;
+        graphic.drawCircle(CENTER.add(-r1, -r1), CENTER.add(r1, r1), Style.NORMAL);
+        final int r2 = SIZE;
+        graphic.drawCircle(CENTER.add(-r2, -r2), CENTER.add(r2, r2), Style.THIN);
 
         final double alpha = state / 16.0 * Math.PI;
         int x = (int) ((SIZE + 1) * Math.cos(alpha));
         int y = (int) ((SIZE + 1) * Math.sin(alpha));
 
-        graphic.drawLine(new Vector(SIZE2, SIZE2), new Vector(SIZE2 + x, SIZE2 + y), Style.NORMAL);
+        graphic.drawLine(CENTER, CENTER.add(x, y), Style.NORMAL);
 
         Vector textPos = new Vector(SIZE, SIZE * 2 + 4);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.CENTERTOP, Style.NORMAL);
