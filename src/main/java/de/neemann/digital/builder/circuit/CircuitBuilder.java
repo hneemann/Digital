@@ -293,10 +293,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         // add clock
         if (!flipflops.isEmpty())
-            addClockTpFlipFlops(circuit);
+            addClockToFlipFlops(circuit);
 
         if (!sequentialVars.isEmpty())
-            addNetConnections(circuit, maxWidth + SIZE * 5);
+            addNetConnections(circuit, maxWidth + SIZE * 7);
 
         circuit.setNotModified();
         return circuit;
@@ -320,7 +320,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         return vars;
     }
 
-    private void addClockTpFlipFlops(Circuit circuit) {
+    private void addClockToFlipFlops(Circuit circuit) {
         int x = Integer.MAX_VALUE;
         int yMin = Integer.MAX_VALUE;
         int yMax = Integer.MIN_VALUE;
