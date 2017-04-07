@@ -24,7 +24,9 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * @author hneemann
  */
 public class RotEncoderShape implements Shape {
-    private static final Vector CENTER = new Vector(SIZE2, SIZE2);
+    private static final Style KNOB = new Style(Style.MAXLINETHICK, true, Color.DARK_GRAY);
+    private static final Style MARKER = new Style(Style.MAXLINETHICK, false, Color.LIGHT_GRAY);
+    private static final Vector CENTER = new Vector(SIZE2 - SIZE * 2, SIZE2);
     private final String label;
     private final PinDescriptions outputs;
     private int state;
@@ -44,8 +46,8 @@ public class RotEncoderShape implements Shape {
     @Override
     public Pins getPins() {
         return new Pins()
-                .add(new Pin(new Vector(SIZE * 3, 0), outputs.get(0)))
-                .add(new Pin(new Vector(SIZE * 3, SIZE), outputs.get(1)));
+                .add(new Pin(new Vector(0, 0), outputs.get(0)))
+                .add(new Pin(new Vector(0, SIZE), outputs.get(1)));
     }
 
     @Override
@@ -106,23 +108,21 @@ public class RotEncoderShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, boolean heighLight) {
         graphic.drawPolygon(new Polygon(true)
-                .add(SIZE * 3, -SIZE)
-                .add(SIZE * 3, SIZE * 2)
-                .add(-SIZE, SIZE * 2)
-                .add(-SIZE, -SIZE), Style.NORMAL);
+                .add(0, -SIZE)
+                .add(0, SIZE * 2)
+                .add(-SIZE * 3, SIZE * 2)
+                .add(-SIZE * 3, -SIZE), Style.NORMAL);
 
-        final int r1 = SIZE + SIZE2;
-        graphic.drawCircle(CENTER.add(-r1, -r1), CENTER.add(r1, r1), Style.NORMAL);
-        final int r2 = SIZE;
-        graphic.drawCircle(CENTER.add(-r2, -r2), CENTER.add(r2, r2), Style.THIN);
+        final int r = SIZE;
+        graphic.drawCircle(CENTER.add(-r, -r), CENTER.add(r, r), KNOB);
 
         final double alpha = state / 16.0 * Math.PI;
-        int x = (int) ((SIZE + 1) * Math.cos(alpha));
-        int y = (int) ((SIZE + 1) * Math.sin(alpha));
+        int x = (int) Math.round(SIZE * Math.cos(alpha));
+        int y = (int) Math.round(SIZE * Math.sin(alpha));
 
-        graphic.drawLine(CENTER, CENTER.add(x, y), Style.NORMAL);
+        graphic.drawLine(CENTER, CENTER.add(x, y), MARKER);
 
-        Vector textPos = new Vector(SIZE, SIZE * 2 + 4);
+        Vector textPos = CENTER.add(0, SIZE2 * 3 + 4);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.CENTERTOP, Style.NORMAL);
     }
 
