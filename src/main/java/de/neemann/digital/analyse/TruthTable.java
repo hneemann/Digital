@@ -186,7 +186,13 @@ public class TruthTable {
      * Adds a new variable
      */
     public void addVariable() {
-        addVariable("A");
+        char v = 'A';
+        Variable var;
+        do {
+            var = new Variable("" + v);
+            v++;
+        } while (variables.contains(var) && v <= 'Z');
+        addVariable(var);
     }
 
     /**
@@ -195,7 +201,16 @@ public class TruthTable {
      * @param name name of the variable
      */
     public void addVariable(String name) {
-        variables.add(new Variable(name));
+        addVariable(new Variable(name));
+    }
+
+    /**
+     * Adds a variable
+     *
+     * @param var the variable to add
+     */
+    public void addVariable(Variable var) {
+        variables.add(var);
         for (Result r : results)
             r.setValues(BoolTableByteArray.createDoubledValues(r.getValues()));
 

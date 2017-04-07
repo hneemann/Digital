@@ -449,6 +449,8 @@ allowed are {1} variables but {2} are found.</string>
     <string name="err_varName_N_UsedTwice">The variable {0} is used twice!</string>
     <string name="err_fileNeedsToBeSaved">The file needs to be saved!</string>
     <string name="err_recursiveNestingAt_N0">The circuit {0} imports itself!</string>
+    <string name="err_minimizationFailed">The result of the minimization is not correct!
+The names of the variables may not be unique.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -731,7 +733,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_fileNotAccessible">The selected file name is not importable from the actual project!</string>
     <string name="msg_fileIsNotUnique">The file name is not unique!</string>
     <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
-    <string name="msg_fileExists">The file {0} already exists!</string>
+    <string name="msg_fileExists">The file {0} already exists! Do you want to overwrite the file?</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

@@ -56,11 +56,11 @@ public class CheckResultListener implements ExpressionListener {
                 return;
             case one:
                 if (!calculate)
-                    throw new ExpressionException("internal minimization error: found false, expected true");
+                    throw new ExpressionException(Lang.get("err_minimizationFailed"));
                 break;
             case zero:
                 if (calculate)
-                    throw new ExpressionException("internal minimization error: found true, expected false");
+                    throw new ExpressionException(Lang.get("err_minimizationFailed"));
                 break;
         }
     }

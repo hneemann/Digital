@@ -28,8 +28,8 @@ import java.util.*;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
- * Builder to create a circuit from a set off expression
- * Is also able to create a state machine.
+ * Builder to create a circuit from a set of expressions.
+ * Is also able to create a finite state machine.
  *
  * @author hneemann
  */
@@ -43,6 +43,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final ArrayList<Variable> sequentialVars;
     private final ArrayList<FragmentVisualElement> flipflops;
     private final boolean useJKff;
+    private final ArrayList<Variable> desiredVarOrdering;
     private int pos;
 
     /**
@@ -62,8 +63,20 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
      * @param useJKff      true if JK flip-flops should be used to create state machines instead of D flip-flops.
      */
     public CircuitBuilder(ShapeFactory shapeFactory, boolean useJKff) {
+        this(shapeFactory, useJKff, null);
+    }
+
+    /**
+     * Creates a new builder.
+     *
+     * @param shapeFactory ShapeFactory which is set to the created VisualElements
+     * @param useJKff      true if JK flip-flops should be used to create state machines instead of D flip-flops.
+     * @param varOrdering  the desired ordering of the variables, There may be more variables than required. Maybe null.
+     */
+    public CircuitBuilder(ShapeFactory shapeFactory, boolean useJKff, ArrayList<Variable> varOrdering) {
         this.shapeFactory = shapeFactory;
         this.useJKff = useJKff;
+        desiredVarOrdering = varOrdering;
         variableVisitor = new VariableVisitor();
         fragmentVariables = new ArrayList<>();
         fragments = new ArrayList<>();
@@ -285,6 +298,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         // order bus variables
         Collection<Variable> variables = variableVisitor.getVariables();
+        if (desiredVarOrdering != null)
+            variables = order(variables, desiredVarOrdering);
         if (!sequentialVars.isEmpty())
             variables = order(variables, sequentialVars);
 

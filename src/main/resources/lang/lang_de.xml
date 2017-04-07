@@ -462,6 +462,8 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_varName_N_UsedTwice">Die Variable {0} wird mehrfach verwendet!</string>
     <string name="err_fileNeedsToBeSaved">Die Datei muss zunächst gespeichert werden!</string>
     <string name="err_recursiveNestingAt_N0">Die Schaltung {0} bindet sich selbst ein!</string>
+    <string name="err_minimizationFailed">Das Ergebnis der Minimierung ist nicht korrekt!
+Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -744,7 +746,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_fileNotAccessible">Dieser Dateiename ist nicht aus dem aktuellen Projekt importierbar!</string>
     <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!</string>
     <string name="msg_fileNotImportedYet">Die Datei wurde noch nicht importiert.</string>
-    <string name="msg_fileExists">Die Datei {0} existiert schon!</string>
+    <string name="msg_fileExists">Die Datei {0} existiert schon! Soll die Datei überschrieben werden?</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
