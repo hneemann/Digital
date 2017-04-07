@@ -664,6 +664,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_newColumns">Spalten hinzufügen</string>
     <string name="menu_table_new_combinatorial">Kombintorisch</string>
     <string name="menu_table_new_sequential">Automat</string>
+    <string name="menu_table_new_sequential_bidir">Automat bidirektional</string>
     <string name="menu_table_outputs">Ausgänge</string>
     <string name="menu_table_reorder">Umsortieren</string>
     <string name="menu_table_set">Setzen</string>

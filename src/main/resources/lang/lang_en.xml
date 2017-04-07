@@ -653,6 +653,7 @@ The names of the variables may not be unique.</string>
     <string name="menu_table_newColumns">Add Columns</string>
     <string name="menu_table_new_combinatorial">Combinatorial</string>
     <string name="menu_table_new_sequential">Sequential</string>
+    <string name="menu_table_new_sequential_bidir">Sequential bidirectional</string>
     <string name="menu_table_outputs">Outputs</string>
     <string name="menu_table_reorder">Reorder</string>
     <string name="menu_table_set">Set</string>

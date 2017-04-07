@@ -141,6 +141,12 @@ public class TableDialog extends JDialog {
         sizeMenu.add(sequential);
         for (int i = 2; i <= 8; i++)
             sequential.add(new JMenuItem(new SizeSequentialAction(i)));
+        if (Main.enableExperimental()) {
+            JMenu sequentialBiDir = new JMenu(Lang.get("menu_table_new_sequential_bidir"));
+            sizeMenu.add(sequentialBiDir);
+            for (int i = 2; i <= 8; i++)
+                sequentialBiDir.add(new JMenuItem(new SizeSequentialBidirectionalAction(i)));
+        }
         bar.add(sizeMenu);
 
         JMenu reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
@@ -624,6 +630,39 @@ public class TableDialog extends JDialog {
                 for (int n = 0; n < rows; n++)
                     val.set(n, ((n + 1) >> i) & 1);
                 truthTable.addResult(v.getIdentifier() + "+1", val);
+                i--;
+            }
+
+            setModel(new TruthTableTableModel(truthTable));
+        }
+    }
+
+    private final class SizeSequentialBidirectionalAction extends AbstractAction {
+        private int n;
+
+        private SizeSequentialBidirectionalAction(int n) {
+            super(Lang.get("menu_table_N_variables", n));
+            this.n = n;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            ArrayList<Variable> vars = new ArrayList<>();
+            vars.add(new Variable("dir"));
+            for (int i = n - 1; i >= 0; i--)
+                vars.add(new Variable("Q_" + i + "n"));
+            TruthTable truthTable = new TruthTable(vars);
+            int i = n - 1;
+            int rows = 1 << (n + 1);
+            for (int vi = 1; vi < vars.size(); vi++) {
+                BoolTableByteArray val = new BoolTableByteArray(rows);
+                for (int n = 0; n < rows; n++) {
+                    if (n >= rows / 2)
+                        val.set(n, ((n - 1) >> i) & 1);
+                    else
+                        val.set(n, ((n + 1) >> i) & 1);
+                }
+                truthTable.addResult(vars.get(vi).getIdentifier() + "+1", val);
                 i--;
             }
 
