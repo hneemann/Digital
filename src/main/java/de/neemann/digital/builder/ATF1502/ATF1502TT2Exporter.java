@@ -12,7 +12,7 @@ public class ATF1502TT2Exporter extends TT2Exporter {
     /**
      * Creates a new project name
      *
-     * @param projectName user name
+     * @param projectName project name
      */
     public ATF1502TT2Exporter(String projectName) {
         super(projectName);

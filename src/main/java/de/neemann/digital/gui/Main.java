@@ -150,8 +150,9 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
      * Creates a new instance.
      * Used to show a generated circuit.
      *
-     * @param parent  the parent component
-     * @param circuit circuit to show
+     * @param parent         the parent component
+     * @param parentsLibrary the library used by the parent window
+     * @param circuit        circuit to show
      */
     public Main(Component parent, ElementLibrary parentsLibrary, Circuit circuit) {
         this(parent, null, parentsLibrary, circuit);

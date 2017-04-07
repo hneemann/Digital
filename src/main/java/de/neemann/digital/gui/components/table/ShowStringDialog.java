@@ -15,6 +15,7 @@ public class ShowStringDialog extends JDialog {
      * Creates a new instance
      *
      * @param parent the parent
+     * @param title  the dialog title
      * @param str    the text to show
      */
     public ShowStringDialog(JFrame parent, String title, String str) {
@@ -26,6 +27,7 @@ public class ShowStringDialog extends JDialog {
      * Creates a new instance
      *
      * @param parent the parent
+     * @param title  the dialog title
      * @param str    the text to show
      */
     public ShowStringDialog(JDialog parent, String title, String str) {
@@ -36,6 +38,7 @@ public class ShowStringDialog extends JDialog {
      * Creates a new instance
      *
      * @param parent the parent
+     * @param title  the dialog title
      * @param str    the text to show
      * @param html   is the string a html string?
      */

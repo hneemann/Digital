@@ -307,6 +307,7 @@ public class Model implements Iterable<Node> {
      * Returns the first observer of the given class.
      *
      * @param observerClass the observer class
+     * @param <T>           the type of the observer
      * @return the found observer or null if not present
      */
     public <T extends ModelStateObserver> T getObserver(Class<T> observerClass) {

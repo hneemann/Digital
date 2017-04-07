@@ -29,8 +29,12 @@ public class DataEditor extends JDialog {
     /**
      * Creates a new instance
      *
-     * @param parent    the parent
-     * @param dataField the data to edit
+     * @param parent         the parent
+     * @param dataField      the data to edit
+     * @param size           the size of the data field to edit
+     * @param bits           the bit count of the values to edit
+     * @param modelIsRunning true if model is running
+     * @param modelSync      used to access the running model
      */
     public DataEditor(Component parent, DataField dataField, int size, int bits, boolean modelIsRunning, Sync modelSync) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);

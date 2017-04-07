@@ -72,6 +72,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @param fileName        only used for better messages in exceptions
      * @param netList         the NetList of the model. If known it is not necessary to create it.
      * @param subName         name of the circuit, used to name unique elements
+     * @param depth           recursion depth, used to detect a circuit which contains itself
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException

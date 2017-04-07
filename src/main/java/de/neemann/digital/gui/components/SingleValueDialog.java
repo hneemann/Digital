@@ -210,8 +210,9 @@ public final class SingleValueDialog extends JDialog {
     /**
      * Edits a single value
      *
-     * @param pos   the position to pop up the dialog
-     * @param value the value to edit
+     * @param pos       the position to pop up the dialog
+     * @param value     the value to edit
+     * @param modelSync used to access the running model
      */
     public static void editValue(Point pos, ObservableValue value, Sync modelSync) {
         SingleValueDialog svd = new SingleValueDialog(pos, value);

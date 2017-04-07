@@ -94,6 +94,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     /**
      * Creates a new instance
      *
+     * @param parent       the parent window
      * @param library      the library used to edit the attributes of the elements
      * @param shapeFactory the shapeFactory used for copied elements
      */
@@ -331,7 +332,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     /**
      * Sets the edit mode and resets the circuit
      *
-     * @param runMode true if running, false if editing
+     * @param runMode   true if running, false if editing
+     * @param modelSync used to access the running model
      */
     public void setModeAndReset(boolean runMode, Sync modelSync) {
         this.modelSync = modelSync;

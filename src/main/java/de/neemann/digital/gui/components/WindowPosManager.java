@@ -27,6 +27,7 @@ public class WindowPosManager {
      *
      * @param id     the id of the window
      * @param window the window itself
+     * @param <T>    the type of the window
      * @return the window for chained calls
      */
     public <T extends Window> T register(String id, T window) {

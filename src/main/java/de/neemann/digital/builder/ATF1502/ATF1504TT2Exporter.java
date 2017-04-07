@@ -9,6 +9,8 @@ public class ATF1504TT2Exporter extends ATF1502TT2Exporter {
 
     /**
      * Creates a new project name
+     *
+     * @param projectName project name
      */
     public ATF1504TT2Exporter(String projectName) {
         super(projectName);

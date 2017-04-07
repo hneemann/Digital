@@ -84,8 +84,11 @@ public class TableDialog extends JDialog {
     /**
      * Creates a new instance
      *
-     * @param parent     the parent frame
-     * @param truthTable the table to show
+     * @param parent       the parent frame
+     * @param truthTable   the table to show
+     * @param library      the library to use
+     * @param shapeFactory the shape factory
+     * @param filename     the file name used to create the names of the created files
      */
     public TableDialog(JFrame parent, TruthTable truthTable, ElementLibrary library, ShapeFactory shapeFactory, File filename) {
         super(parent, Lang.get("win_table"));

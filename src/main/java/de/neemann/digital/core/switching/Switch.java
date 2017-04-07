@@ -41,7 +41,8 @@ public class Switch implements Element, Observer {
     /**
      * Creates a new instance
      *
-     * @param attr the elements attributes
+     * @param attr   the elements attributes
+     * @param closed true if switch is closed
      */
     public Switch(ElementAttributes attr, boolean closed) {
         bits = attr.getBits();

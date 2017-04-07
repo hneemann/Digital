@@ -93,6 +93,8 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
      * Creates a new Instance
      *
      * @param items the items to store
+     * @param from  from index
+     * @param to    to index, exclusive
      */
     public ObservableValues(ObservableValues items, int from, int to) {
         super(items, from, to);

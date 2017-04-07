@@ -41,9 +41,10 @@ public class DriverShape implements Shape {
     /**
      * Creates a new instance
      *
-     * @param attr    the attributes
-     * @param inputs  the inputs
-     * @param outputs the outputs
+     * @param attr          the attributes
+     * @param inputs        the inputs
+     * @param outputs       the outputs
+     * @param invertedInput true if input is inverted
      */
     public DriverShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs, boolean invertedInput) {
         this.inputs = inputs;

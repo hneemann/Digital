@@ -33,7 +33,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
      * @param model     the model to run
      * @param type      the event type which fires a dialog repaint
      * @param ordering  the names list used to order the measurement values
-     * @param modelSync
+     * @param modelSync used to access the running model
      */
     public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering, Sync modelSync) {
         super(owner, Lang.get("win_measures"), false);

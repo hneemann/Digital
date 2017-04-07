@@ -23,6 +23,8 @@ public class TextShape implements Shape {
      * Create a new instance
      *
      * @param attr attributes
+     * @param inputs  the inputs
+     * @param outputs the outputs
      */
     public TextShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         String text = attr.getLabel();

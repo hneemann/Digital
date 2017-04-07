@@ -25,10 +25,11 @@ public class ATF1502CuplExporter extends CuplExporter {
      * Creates a new project name
      *
      * @param username user name
+     * @param devName  the type of the device
      * @param date     date
      */
-    public ATF1502CuplExporter(String username, Date date, String type) {
-        super(username, date, type, new PinMap()
+    public ATF1502CuplExporter(String username, Date date, String devName) {
+        super(username, date, devName, new PinMap()
                 .setAvailBidirectional(4, 5, 6, 8, 9, 11, 12, 14, 16, 17,
                         18, 19, 20, 21, 24, 25, 26, 27, 28,
                         29, 31, 33, 34, 36, 37, 38, 39, 40));

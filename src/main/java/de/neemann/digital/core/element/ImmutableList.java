@@ -38,6 +38,7 @@ public class ImmutableList<T> implements List<T> {
      * Creates a new instance
      *
      * @param items items
+     * @param <U>   the item type
      */
     public <U extends T> ImmutableList(ImmutableList<U> items) {
         this.items = items.items;

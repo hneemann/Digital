@@ -36,10 +36,12 @@ public class RealTimeClock implements ModelStateObserver {
     /**
      * Creates a new real time clock
      *
-     * @param model    the model
-     * @param clock    the clock element which is modify
-     * @param executor the executor used to schedule the update
-     * @param status   allows sending messages to the status line
+     * @param model     the model
+     * @param clock     the clock element which is modify
+     * @param executor  the executor used to schedule the update
+     * @param stopper   used to stop the model if an error is detected
+     * @param modelSync used to access a running model
+     * @param status    allows sending messages to the status line
      */
     public RealTimeClock(Model model, Clock clock, ScheduledThreadPoolExecutor executor, ErrorStopper stopper, Sync modelSync, StatusInterface status) {
         this.model = model;

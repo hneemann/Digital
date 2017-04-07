@@ -41,6 +41,8 @@ public interface Element {
 
     /**
      * Is called after registerNodes is called on all Elements.
+     *
+     * @param model the model this element belongs to
      * @throws NodeException NodeException
      */
     default void init(Model model) throws NodeException {

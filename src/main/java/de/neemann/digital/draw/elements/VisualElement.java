@@ -114,7 +114,8 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     /**
      * Checks if the given point is within the bounding box of the shape of this element.
      *
-     * @param p a position
+     * @param p           a position
+     * @param includeText true if a click on a text also selectes the element
      * @return true if p is inside the bounding box of the shape of this element.
      */
     public boolean matches(Vector p, boolean includeText) {
@@ -195,6 +196,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
     }
 
     /**
+     * @param includeText true if a click on a text also selectes the element
      * @return the bounding box of the shape of this element, text is ignored
      */
     public GraphicMinMax getMinMax(boolean includeText) {
@@ -300,6 +302,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @param cc             the calling {@link CircuitComponent}
      * @param pos            the position
      * @param posInComponent position in CircuitComponent
+     * @param modelSync      used to access the running model
      * @return true if model is changed
      */
     public boolean elementClicked(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
@@ -316,6 +319,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @param cc             the calling {@link CircuitComponent}
      * @param pos            the position
      * @param posInComponent position in CircuitComponent
+     * @param modelSync      used to access the running model
      * @return true if model is changed
      */
     public boolean elementPressed(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
@@ -332,6 +336,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @param cc             the calling {@link CircuitComponent}
      * @param pos            the position
      * @param posInComponent position in CircuitComponent
+     * @param modelSync      used to access the running model
      * @return true if model is changed
      */
     public boolean elementReleased(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
@@ -348,6 +353,7 @@ public class VisualElement implements Drawable, Moveable, AttributeListener {
      * @param cc             the calling {@link CircuitComponent}
      * @param pos            the position
      * @param posInComponent position in CircuitComponent
+     * @param modelSync      used to access the running model
      * @return true if model is changed
      */
     public boolean elementDragged(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {

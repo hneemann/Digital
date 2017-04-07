@@ -69,9 +69,10 @@ public class PinInfo implements PinDescription {
     /**
      * Creates a new pin
      *
-     * @param name        the pins name
-     * @param description the pins description
-     * @param direction   the pins direction
+     * @param name         the pins name
+     * @param description  the pins description
+     * @param direction    the pins direction
+     * @param pullResistor the connected pullResistor
      */
     public PinInfo(String name, String description, Direction direction, PullResistor pullResistor) {
         this.description = description;

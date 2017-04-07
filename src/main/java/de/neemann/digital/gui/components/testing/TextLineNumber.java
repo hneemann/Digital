@@ -178,6 +178,8 @@ public class TextLineNumber extends JPanel
      * <li>TextLineNumber.CENTER
      * <li>TextLineNumber.RIGHT (default)
      * </ul>
+     *
+     * @param digitAlignment alignment of the digits
      */
     public void setDigitAlignment(float digitAlignment) {
         this.digitAlignment =
@@ -288,6 +290,7 @@ public class TextLineNumber extends JPanel
      * Get the line number to be drawn. The empty string will be returned
      * when a line of text has wrapped.
      *
+     * @param rowStartOffset offset of the line
      * @return line number or empty string
      */
     protected String getTextLineNumber(int rowStartOffset) {

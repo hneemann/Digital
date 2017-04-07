@@ -42,7 +42,7 @@ public class Vector {
     /**
      * returns the minimum vector from the given vectors.
      *
-     * @param p
+     * @param p the vectors to evaluate
      * @return the minimum
      */
     public static Vector min(Vector... p) {
@@ -58,7 +58,7 @@ public class Vector {
     /**
      * returns the maximim vector from the given vectors.
      *
-     * @param p
+     * @param p the vectors to evaluate
      * @return the maximum
      */
     public static Vector max(Vector... p) {

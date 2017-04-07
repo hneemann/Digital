@@ -45,6 +45,7 @@ public class CustomElement implements Element {
      * Every time this method is called a new {@link ModelCreator} is created.
      *
      * @param subName name of the circuit, used to name unique elements
+     * @param depth   recursion depth, used to detect a circuit which contains itself
      * @return the {@link ModelCreator}
      * @throws PinException             PinException
      * @throws NodeException            NodeException

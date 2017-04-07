@@ -32,7 +32,7 @@ public class ExpressionCreator {
     /**
      * Creates a new instance
      *
-     * @param theTable  the table to use
+     * @param theTable the table to use
      */
     public ExpressionCreator(TruthTable theTable) {
         this.theTable = theTable;
@@ -41,6 +41,7 @@ public class ExpressionCreator {
     /**
      * Creates the expressions
      *
+     * @param listener the listener to report the found expressions to
      * @throws ExpressionException ExpressionException
      * @throws FormatterException  FormatterException
      * @throws AnalyseException    AnalyseException

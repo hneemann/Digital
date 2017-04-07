@@ -30,6 +30,7 @@ public class ExpressionDialog extends JDialog {
      * Creates a new instance
      *
      * @param parent       the parent
+     * @param library      the library to use
      * @param shapeFactory the shapeFactory used for new circuits
      */
     public ExpressionDialog(Main parent, ElementLibrary library, ShapeFactory shapeFactory) {

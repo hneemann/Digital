@@ -31,6 +31,8 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
 
     /**
      * Creates a new instance
+     *
+     * @param projectName project name
      */
     public TT2Exporter(String projectName) {
         builder = new BuilderCollector() {

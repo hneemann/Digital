@@ -412,7 +412,7 @@ public class TruthTable {
     /**
      * Removes the given result column
      *
-     * @param i
+     * @param i the index of the result to remove
      */
     public void removeResult(int i) {
         results.remove(i);

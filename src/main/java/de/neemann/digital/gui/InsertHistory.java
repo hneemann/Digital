@@ -25,7 +25,8 @@ public class InsertHistory implements LibraryListener {
     /**
      * Creates a new instance
      *
-     * @param bar the toolbar to put the elements to
+     * @param bar     the toolbar to put the elements to
+     * @param library the library to use
      */
     public InsertHistory(JToolBar bar, ElementLibrary library) {
         this.bar = bar;

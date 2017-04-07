@@ -309,8 +309,9 @@ public class Circuit {
      * Returns a list of all Moveables in the given rectangle.
      * It creates a deep copy of all elements.
      *
-     * @param min upper left corner of the rectangle
-     * @param max lower right corner of the rectangle
+     * @param min          upper left corner of the rectangle
+     * @param max          lower right corner of the rectangle
+     * @param shapeFactory the shape factory
      * @return the list
      */
     public ArrayList<Moveable> getElementsToCopy(Vector min, Vector max, ShapeFactory shapeFactory) {
@@ -403,7 +404,8 @@ public class Circuit {
     /**
      * Returns a list of elements at the given position
      *
-     * @param pos the cursor position
+     * @param pos         the cursor position
+     * @param includeText if true the element is also returned if only the text matches the given position
      * @return the elements or an empty list if there is no element at the given position
      */
     public List<VisualElement> getElementListAt(Vector pos, boolean includeText) {
@@ -489,7 +491,8 @@ public class Circuit {
     /**
      * Returns the matching wire
      *
-     * @param pos the position
+     * @param pos    the position
+     * @param radius the catching distance
      * @return the matching wire or null
      */
     public Wire getWireAt(Vector pos, int radius) {

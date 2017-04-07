@@ -39,6 +39,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
      * @param model     the model used to collect the data
      * @param microStep true     the event type which triggers a new DataSample
      * @param ordering  the ordering of the measurement values
+     * @param modelSync used to access the running model
      */
     public DataSetDialog(Frame owner, Model model, boolean microStep, List<String> ordering, Sync modelSync) {
         super(owner, createTitle(microStep), false);

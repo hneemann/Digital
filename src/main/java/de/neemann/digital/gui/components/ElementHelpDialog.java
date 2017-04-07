@@ -59,8 +59,9 @@ public class ElementHelpDialog extends JDialog {
     /**
      * Creates a new instance
      *
-     * @param parent  the parents dialog
-     * @param library the elements library
+     * @param parent       the parents dialog
+     * @param library      the elements library
+     * @param shapeFactory the shape factory used to create the PNGs
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */

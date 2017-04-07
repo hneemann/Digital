@@ -21,10 +21,11 @@ public final class GraphicsImage extends GraphicSwing implements Closeable {
      * @param min    upper left corner
      * @param max    lower right corner
      * @param format the format to write
+     * @param scale  the scaling of the created image
      * @return the {@link Graphic} instance
      */
     public static GraphicsImage create(OutputStream out, Vector min, Vector max, String format, float scale) {
-        int thickness = Style.NORMAL.getThickness();
+        int thickness = Style.MAXLINETHICK;
         BufferedImage bi
                 = new BufferedImage(
                 Math.round((max.x - min.x + thickness * 2) * scale),

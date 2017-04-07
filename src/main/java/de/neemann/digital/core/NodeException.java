@@ -20,6 +20,7 @@ public class NodeException extends Exception {
      * Creates a new instance.
      *
      * @param message the message
+     * @param values  the values affected by this exception
      */
     public NodeException(String message, ObservableValue... values) {
         this(message, null, new ObservableValues(values));
@@ -86,13 +87,13 @@ public class NodeException extends Exception {
             }
         }
 
-        if (nodes != null && nodes.size()>0) {
+        if (nodes != null && nodes.size() > 0) {
             HashSet<File> origins = new HashSet<>();
             for (Node node : nodes) {
-                if (node!=null && node.getOrigin()!=null && node.getOrigin().length()>0)
+                if (node != null && node.getOrigin() != null && node.getOrigin().length() > 0)
                     origins.add(node.getOrigin());
             }
-            if (origins.size()>0) {
+            if (origins.size() > 0) {
                 sb.append(" in ");
                 sb.append(origins.toString());
             }
