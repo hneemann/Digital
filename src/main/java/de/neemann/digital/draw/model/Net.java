@@ -121,7 +121,8 @@ public class Net {
      */
     public void addNet(Net otherNet) {
         pins.addAll(otherNet.getPins());
-        wires.addAll(otherNet.getWires());
+        if (wires != null && otherNet.getWires() != null)
+            wires.addAll(otherNet.getWires());
         labelSet.addAll(otherNet.labelSet);
     }
 
