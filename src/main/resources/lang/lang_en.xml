@@ -360,7 +360,7 @@
     <string name="elem_PFET_pin_out1">Source</string>
     <string name="elem_PFET_pin_out2">Drain</string>
     <string name="elem_RotEncoder">Rotary Encoder</string>
-    <string name="elem_RotEncoder_tt">Rotary encoder for stateless detecting rotational movements.</string>
+    <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder for stateless detecting rotational movements.</string>
     <string name="elem_RotEncoder_pin_A">encoder signal A</string>
     <string name="elem_RotEncoder_pin_B">encoder signal B</string>
 
