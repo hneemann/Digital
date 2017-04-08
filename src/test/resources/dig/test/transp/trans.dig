@@ -64,6 +64,23 @@
       </elementAttributes>
       <pos x="480" y="220"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A B Ao Bo
+1 X 1  X
+0 X 0  X
+X 1 X  1
+X 0 X  0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="260"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

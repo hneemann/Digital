@@ -402,6 +402,16 @@
       <elementAttributes/>
       <pos x="880" y="580"/>
     </visualElement>
+    <visualElement>
+      <elementName>RotEncoder</elementName>
+      <elementAttributes/>
+      <pos x="900" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RAMSinglePortSel</elementName>
+      <elementAttributes/>
+      <pos x="680" y="540"/>
+    </visualElement>
   </visualElements>
   <wires/>
 </circuit>

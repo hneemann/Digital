@@ -69,4 +69,17 @@ public class XOr extends Node implements Element {
         return out.asList();
     }
 
+    /**
+     * @return input A
+     */
+    public ObservableValue getInputA() {
+        return a;
+    }
+
+    /**
+     * @return input B
+     */
+    public ObservableValue getInputB() {
+        return b;
+    }
 }

@@ -22,9 +22,17 @@ public class TestShapes extends TestCase {
      * @throws Exception
      */
     public void testShapes() throws Exception {
+        useShapes(false);
+    }
+
+    public void testShapesIEEE() throws Exception {
+        useShapes(true);
+    }
+
+    private void useShapes(boolean ieee) throws Exception {
         File filename = new File(Resources.getRoot(), "dig/shapes.dig");
         ElementLibrary library = new ElementLibrary();
-        ShapeFactory shapeFactory = new ShapeFactory(library);
+        ShapeFactory shapeFactory = new ShapeFactory(library, ieee);
         Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
 
         // try to write circuit to graphics instance
