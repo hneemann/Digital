@@ -8,14 +8,14 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
 /**
- * The Button
+ * A rotary encoder
  *
  * @author hneemann
  */
 public class RotEncoder implements Element {
 
     /**
-     * The Button description
+     * The rotary encoder description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RotEncoder.class)
             .addAttribute(Keys.ROTATE)
