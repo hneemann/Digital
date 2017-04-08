@@ -363,6 +363,11 @@
     <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder for stateless detecting rotational movements.</string>
     <string name="elem_RotEncoder_pin_A">encoder signal A</string>
     <string name="elem_RotEncoder_pin_B">encoder signal B</string>
+    <string name="elem_LedMatrix">LED-Matrix</string>
+    <string name="elem_LedMatrix_tt">A matrix of LEDs. The LEDs are shown in a separate window.
+        The LEDs are able to light up indefinitely in the simulation to prevent the display from flickering.</string>
+    <string name="elem_LedMatrix_pin_r-data">The row state of the LEDs of a column. Each bit in this data word represents the state of a row of the current column.</string>
+    <string name="elem_LedMatrix_pin_c-addr">The number of the current column whose state is currently visible at the other input.</string>
 
     <string name="error">Error</string>
     <string name="err_DFlipflopWithoutALabel">D-flip-flop has no label set</string>
@@ -547,6 +552,10 @@ The names of the variables may not be unique.</string>
     <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF1502. Enter the full path to the file fit1502.exe provided bei ATMEL.</string>
     <string name="key_pin">Pin number</string>
     <string name="key_pin_tt">An empty field means this signal is not assigned to a pin.</string>
+    <string name="key_rowDataBits">Rows</string>
+    <string name="key_rowDataBits_tt">Specifies the number of rows by specifying the number of bits of the row word.</string>
+    <string name="key_colAddrBits">Address bits of columns</string>
+    <string name="key_colAddrBits_tt">Addresses the individual columns. Three bits means eight columns.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>

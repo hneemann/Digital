@@ -9,6 +9,7 @@ planned as v0.10
 - Added a real bidirectional switch and a relay.
 - Added N and P channel FETs and some CMOS examples, including a 16 bit SRAM
 - Added a rotary encoder
+- Added a LED matrix display
 - Improved and documented the file import strategy.
 - Added a tree view to insert components.
 - Added support for the ATF1502 and ATF1504 CPLDs.

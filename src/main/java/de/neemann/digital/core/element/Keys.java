@@ -308,4 +308,16 @@ public final class Keys {
     public static final Key<String> PIN
             = new Key<>("pin", "");
 
+    /**
+     * row bits in led matrix
+     */
+    public static final Key.KeyBits ROW_DATA_BITS
+            = new Key.KeyBits("rowDataBits", 8);;
+
+    /**
+     * column address bits in led matrix
+     */
+    public static final Key.KeyBits COL_ADDR_BITS
+            = new Key.KeyBits("colAddrBits", 3);;
+
 }

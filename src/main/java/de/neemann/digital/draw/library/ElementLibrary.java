@@ -88,6 +88,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         node.add(Out.SEVENDESCRIPTION);
         node.add(Out.SEVENHEXDESCRIPTION);
         node.add(RotEncoder.DESCRIPTION);
+        node.add(LedMatrix.DESCRIPTION);
         node.add(DummyElement.DATADESCRIPTION);
         node.add(DummyElement.TEXTDESCRIPTION);
         node.add(Keyboard.DESCRIPTION);

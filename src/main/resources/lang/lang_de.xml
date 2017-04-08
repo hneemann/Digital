@@ -376,6 +376,11 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_RotEncoder_tt">Drehknopf mit Drehencoder zur zustandsfreien Erfassung der Drehbewegung.</string>
     <string name="elem_RotEncoder_pin_A">Encodersignal A</string>
     <string name="elem_RotEncoder_pin_B">Encodersignal B</string>
+    <string name="elem_LedMatrix">LED-Matrix</string>
+    <string name="elem_LedMatrix_tt">Eine Matrix aus LEDs. Die LEDs werden in einem eigenen Fenster dargestellt.
+        Die LEDs können in der Simulation unendlich lange nachleuchten, um ein Flimmern der Anzeige zu verhindern.</string>
+    <string name="elem_LedMatrix_pin_r-data">Der Zeilen-Zustand der LEDs einer Spalte. Jedes Bit in diesem Datenwort repräsentiert den Zustand einer Zeile der aktuellen Spalte.</string>
+    <string name="elem_LedMatrix_pin_c-addr">Die Nummer der aktuellen Spalte, dessen Zustand gerade am anderen Eingang anliegt.</string>
 
     <string name="error">Fehler</string>
     <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>
@@ -560,6 +565,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_atf1502Fitter_tt">Pfad zum Fitter für den ATF1502. Geben Sie hier den vollen Pfad zur Datei fit1502.exe an. Diese Datei wird von ATMEL zu Verfügung gestellt.</string>
     <string name="key_pin">Pinnummer</string>
     <string name="key_pin_tt">Ist das Feld leer bedeutet das, dass dieses Signal keinem Pin zugewiesen ist.</string>
+    <string name="key_rowDataBits">Zeilen</string>
+    <string name="key_rowDataBits_tt">Gibt direkt die Zahl der Zeilen an, indem die Anzahl der Bits des Zeilenwortes festgegelgt wird.</string>
+    <string name="key_colAddrBits">Adressbits der Spalten</string>
+    <string name="key_colAddrBits_tt">Adressiert die einzelnen Spalten. Drei Bits bedeuten also acht Spalten.</string>
 
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
