@@ -63,97 +63,80 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * Creates a new instance.
      */
     public ElementLibrary() {
-        root = new LibraryNode(Lang.get("menu_elements"));
-        root.setLibrary(this);
-
-        LibraryNode node = new LibraryNode(Lang.get("lib_Logic"));
-        node.add(And.DESCRIPTION);
-        node.add(NAnd.DESCRIPTION);
-        node.add(Or.DESCRIPTION);
-        node.add(NOr.DESCRIPTION);
-        node.add(XOr.DESCRIPTION);
-        node.add(XNOr.DESCRIPTION);
-        node.add(Not.DESCRIPTION);
-        node.add(LookUpTable.DESCRIPTION);
-        node.add(Delay.DESCRIPTION);
-        root.add(node);
-
-        node = new LibraryNode(Lang.get("lib_io"));
-        node.add(Out.DESCRIPTION);
-        node.add(Out.LEDDESCRIPTION);
-        node.add(In.DESCRIPTION);
-        node.add(Clock.DESCRIPTION);
-        node.add(Button.DESCRIPTION);
-        node.add(Probe.DESCRIPTION);
-        node.add(Out.SEVENDESCRIPTION);
-        node.add(Out.SEVENHEXDESCRIPTION);
-        node.add(RotEncoder.DESCRIPTION);
-        node.add(LedMatrix.DESCRIPTION);
-        node.add(DummyElement.DATADESCRIPTION);
-        node.add(DummyElement.TEXTDESCRIPTION);
-        node.add(Keyboard.DESCRIPTION);
-        node.add(Terminal.DESCRIPTION);
-        root.add(node);
-
-        node = new LibraryNode(Lang.get("lib_wires"));
-        node.add(Const.DESCRIPTION);
-        node.add(Ground.DESCRIPTION);
-        node.add(VDD.DESCRIPTION);
-        node.add(Tunnel.DESCRIPTION);
-        node.add(Splitter.DESCRIPTION);
-        node.add(PullUp.DESCRIPTION);
-        node.add(PullDown.DESCRIPTION);
-        node.add(Driver.DESCRIPTION);
-        node.add(DriverInvSel.DESCRIPTION);
-        root.add(node);
-
-        node = new LibraryNode(Lang.get("lib_mux"));
-        node.add(Multiplexer.DESCRIPTION);
-        node.add(Demultiplexer.DESCRIPTION);
-        node.add(Decoder.DESCRIPTION);
-        root.add(node);
-
-        node = new LibraryNode(Lang.get("lib_flipFlops"));
-        node.add(FlipflopRS.DESCRIPTION);
-        node.add(FlipflopJK.DESCRIPTION);
-        node.add(FlipflopD.DESCRIPTION);
-        node.add(FlipflopT.DESCRIPTION);
-        root.add(node);
-
-        node = new LibraryNode(Lang.get("lib_memory"));
-        node.add(Register.DESCRIPTION);
-        node.add(ROM.DESCRIPTION);
-        node.add(RAMDualPort.DESCRIPTION);
-        node.add(RAMSinglePort.DESCRIPTION);
-        node.add(RAMSinglePortSel.DESCRIPTION);
-        node.add(GraphicCard.DESCRIPTION);
-        node.add(Counter.DESCRIPTION);
-        root.add(node);
-
-        node = new LibraryNode(Lang.get("lib_arithmetic"));
-        node.add(Add.DESCRIPTION);
-        node.add(Sub.DESCRIPTION);
-        node.add(Mul.DESCRIPTION);
-        node.add(Comparator.DESCRIPTION);
-        node.add(Neg.DESCRIPTION);
-        node.add(BitCount.DESCRIPTION);
-        root.add(node);
-
-        node = new LibraryNode(Lang.get("lib_cplx"));
-        //  add(Diode.DESCRIPTION, menu); // see class DiodeTest for further information
-        node.add(DiodeForeward.DESCRIPTION);
-        node.add(DiodeBackward.DESCRIPTION);
-        node.add(Switch.DESCRIPTION);
-        node.add(Relay.DESCRIPTION);
-        node.add(NFET.DESCRIPTION);
-        node.add(PFET.DESCRIPTION);
-        node.add(Reset.DESCRIPTION);
-        node.add(Break.DESCRIPTION);
-        root.add(node);
-
-        node = new LibraryNode(Lang.get("lib_test"));
-        node.add(TestCaseElement.TESTCASEDESCRIPTION);
-        root.add(node);
+        root = new LibraryNode(Lang.get("menu_elements"))
+                .setLibrary(this)
+                .add(new LibraryNode(Lang.get("lib_Logic"))
+                        .add(And.DESCRIPTION)
+                        .add(NAnd.DESCRIPTION)
+                        .add(Or.DESCRIPTION)
+                        .add(NOr.DESCRIPTION)
+                        .add(XOr.DESCRIPTION)
+                        .add(XNOr.DESCRIPTION)
+                        .add(Not.DESCRIPTION)
+                        .add(LookUpTable.DESCRIPTION)
+                        .add(Delay.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_io"))
+                        .add(Out.DESCRIPTION)
+                        .add(Out.LEDDESCRIPTION)
+                        .add(In.DESCRIPTION)
+                        .add(Clock.DESCRIPTION)
+                        .add(Button.DESCRIPTION)
+                        .add(DummyElement.TEXTDESCRIPTION)
+                        .add(Probe.DESCRIPTION)
+                        .add(new LibraryNode(Lang.get("lib_more"))
+                                .add(Out.SEVENDESCRIPTION)
+                                .add(Out.SEVENHEXDESCRIPTION)
+                                .add(LedMatrix.DESCRIPTION)
+                                .add(DummyElement.DATADESCRIPTION)
+                                .add(RotEncoder.DESCRIPTION)
+                                .add(Keyboard.DESCRIPTION)
+                                .add(Terminal.DESCRIPTION)))
+                .add(new LibraryNode(Lang.get("lib_wires"))
+                        .add(Ground.DESCRIPTION)
+                        .add(VDD.DESCRIPTION)
+                        .add(Const.DESCRIPTION)
+                        .add(Tunnel.DESCRIPTION)
+                        .add(Splitter.DESCRIPTION)
+                        .add(PullUp.DESCRIPTION)
+                        .add(PullDown.DESCRIPTION)
+                        .add(Driver.DESCRIPTION)
+                        .add(DriverInvSel.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_mux"))
+                        .add(Multiplexer.DESCRIPTION)
+                        .add(Demultiplexer.DESCRIPTION)
+                        .add(Decoder.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_flipFlops"))
+                        .add(FlipflopRS.DESCRIPTION)
+                        .add(FlipflopJK.DESCRIPTION)
+                        .add(FlipflopD.DESCRIPTION)
+                        .add(FlipflopT.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_memory"))
+                        .add(Register.DESCRIPTION)
+                        .add(ROM.DESCRIPTION)
+                        .add(RAMDualPort.DESCRIPTION)
+                        .add(RAMSinglePort.DESCRIPTION)
+                        .add(RAMSinglePortSel.DESCRIPTION)
+                        .add(GraphicCard.DESCRIPTION)
+                        .add(Counter.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_arithmetic"))
+                        .add(Add.DESCRIPTION)
+                        .add(Sub.DESCRIPTION)
+                        .add(Mul.DESCRIPTION)
+                        .add(Comparator.DESCRIPTION)
+                        .add(Neg.DESCRIPTION)
+                        .add(BitCount.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_cplx"))
+                        //.add(Diode.DESCRIPTION) // see class DiodeTest for further information
+                        .add(DiodeForeward.DESCRIPTION)
+                        .add(DiodeBackward.DESCRIPTION)
+                        .add(Switch.DESCRIPTION)
+                        .add(Relay.DESCRIPTION)
+                        .add(NFET.DESCRIPTION)
+                        .add(PFET.DESCRIPTION)
+                        .add(Reset.DESCRIPTION)
+                        .add(Break.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_test"))
+                        .add(TestCaseElement.TESTCASEDESCRIPTION));
 
         populateNodeMap();
     }
@@ -564,7 +547,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 final String name = libraryNode.getName();
 
                 LibraryNode presentNode = map.get(name);
-                if (presentNode==null) {
+                if (presentNode == null) {
                     map.put(name, libraryNode);
                     libraryNode.setUnique(true);
                 } else {

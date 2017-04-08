@@ -566,6 +566,8 @@ The names of the variables may not be unique.</string>
     <string name="lib_wires">Wires</string>
     <string name="lib_test">Test</string>
     <string name="lib_cplx">Misc.</string>
+    <string name="lib_more">more</string>
+
     <string name="menu_about">About</string>
     <string name="menu_analyse">Analysis</string>
     <string name="menu_analyse_tt">Analyses the actual circuit</string>

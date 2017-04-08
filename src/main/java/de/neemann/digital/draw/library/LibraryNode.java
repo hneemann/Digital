@@ -76,15 +76,18 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * Throws an exception if this node is a leaf
      *
      * @param node the node to add
+     * @return this for chained calls
      */
-    void add(LibraryNode node) {
+    LibraryNode add(LibraryNode node) {
         children.add(node);
         node.parent = this;
         node.setLibrary(library);
+        return this;
     }
 
-    void add(ElementTypeDescription node) {
+    LibraryNode add(ElementTypeDescription node) {
         add(new LibraryNode(node));
+        return this;
     }
 
     /**
@@ -258,14 +261,16 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * Sets the library this node belongs to
      *
      * @param library the library
+     * @return this for chained calls
      */
-    public void setLibrary(ElementLibrary library) {
+    public LibraryNode setLibrary(ElementLibrary library) {
         if (this.library != library) {
             this.library = library;
             if (children != null)
                 for (LibraryNode c : children)
                     c.setLibrary(library);
         }
+        return this;
     }
 
     /**
