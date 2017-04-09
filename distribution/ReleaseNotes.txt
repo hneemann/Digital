@@ -1,6 +1,6 @@
 Release Notes
 
-planned as v0.10
+v0.10, released on 09. Apr 2017
 - User can select the expressions representation format in the settings dialog.
 - Better formatting of minimized expressions.
 - Easier editing of truth tables
