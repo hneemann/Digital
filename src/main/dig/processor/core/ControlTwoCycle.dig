@@ -410,6 +410,10 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Taktsignal für das Ausführen eines Befehls.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
@@ -420,6 +424,10 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Taktsignal für das Laden eines neuen Befehls.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C_in</string>
         </entry>
@@ -429,6 +437,11 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Zeigt an, dass jetzt ein neuer Befehl 
+geladen werden soll.</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S_in</string>
