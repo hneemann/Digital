@@ -87,6 +87,8 @@ public class Parser {
                         tok.consume();
                         expect(Tokenizer.Token.OPEN);
                         int count = (int) parseInt();
+                        if (count > 1 << 16)
+                            throw new ParserException(Lang.get("err_toManyTestEntries"));
                         expect(Tokenizer.Token.CLOSE);
                         parseForLine(count);
                     } else {

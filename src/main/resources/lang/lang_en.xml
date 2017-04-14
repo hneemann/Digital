@@ -456,6 +456,7 @@ allowed are {1} variables but {2} are found.</string>
     <string name="err_recursiveNestingAt_N0">The circuit {0} imports itself!</string>
     <string name="err_minimizationFailed">The result of the minimization is not correct!
 The names of the variables may not be unique.</string>
+    <string name="err_toManyTestEntries">To many entries in the test data matrix.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>

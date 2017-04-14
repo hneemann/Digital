@@ -469,6 +469,7 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_recursiveNestingAt_N0">Die Schaltung {0} bindet sich selbst ein!</string>
     <string name="err_minimizationFailed">Das Ergebnis der Minimierung ist nicht korrekt!
 Sind evtl. die Namen der Variablen nicht eindeutig?</string>
+    <string name="err_toManyTestEntries">Zu viele Einträge in der Testdatenmatrix.</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
