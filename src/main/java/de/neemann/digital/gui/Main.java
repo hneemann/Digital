@@ -654,7 +654,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
 
                     SpeedTest speedTest = new SpeedTest(model);
-                    int frequency = speedTest.calculate() / 1000;
+                    String frequency = Integer.toString(speedTest.calculate() / 1000);
                     circuitComponent.getCircuit().clearState();
                     JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
                 } catch (Exception e1) {
