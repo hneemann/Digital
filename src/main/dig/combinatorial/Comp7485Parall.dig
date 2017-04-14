@@ -419,6 +419,19 @@
       </elementAttributes>
       <pos x="620" y="300"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A_11 A_10 A_9 A_8 A_7 A_6 A_5 A_4 A_3 A_2 A_1 A_0   B_11 B_10 B_9 B_8 B_7 B_6 B_5 B_4 B_3 B_2 B_1 B_0  P&lt;Q P=Q P&gt;Q
+repeat(1&lt;&lt;16) bits(12,n&gt;&gt;8) bits(12,n&amp;0xff) ((n&gt;&gt;8)&lt;(n&amp;0xff)) ((n&gt;&gt;8)=(n&amp;0xff)) ((n&gt;&gt;8)&gt;(n&amp;0xff))</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="740"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

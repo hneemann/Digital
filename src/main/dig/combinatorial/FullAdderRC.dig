@@ -31,6 +31,10 @@ aus vier Volladdierern.</string>
           <string>Label</string>
           <string>A_0</string>
         </entry>
+        <entry>
+          <string>Default</string>
+          <int>1</int>
+        </entry>
       </elementAttributes>
       <pos x="300" y="320"/>
     </visualElement>
@@ -65,6 +69,10 @@ aus vier Volladdierern.</string>
         <entry>
           <string>Label</string>
           <string>A_1</string>
+        </entry>
+        <entry>
+          <string>Default</string>
+          <int>1</int>
         </entry>
       </elementAttributes>
       <pos x="300" y="220"/>
@@ -111,6 +119,10 @@ aus vier Volladdierern.</string>
           <string>Label</string>
           <string>B_2</string>
         </entry>
+        <entry>
+          <string>Default</string>
+          <int>1</int>
+        </entry>
       </elementAttributes>
       <pos x="300" y="160"/>
     </visualElement>
@@ -145,6 +157,10 @@ aus vier Volladdierern.</string>
         <entry>
           <string>Label</string>
           <string>B_3</string>
+        </entry>
+        <entry>
+          <string>Default</string>
+          <int>1</int>
         </entry>
       </elementAttributes>
       <pos x="300" y="60"/>
