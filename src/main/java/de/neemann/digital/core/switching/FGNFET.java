@@ -11,32 +11,35 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * P-Channel MOS FET
  * Created by hneemann on 22.02.17.
  */
-public class PFET extends NFET {
+public class FGNFET extends NFET {
     /**
      * The switch description
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(PFET.class, input("G"))
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(FGNFET.class, input("G"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.BLOWN);
+
+    private final boolean programmed;
 
     /**
      * Create a new instance
      *
      * @param attr the attributes
      */
-    public PFET(ElementAttributes attr) {
+    public FGNFET(ElementAttributes attr) {
         super(attr);
         getOutput1().setPinDescription(DESCRIPTION);
         getOutput2().setPinDescription(DESCRIPTION);
+        programmed = attr.get(Keys.BLOWN);
     }
 
     @Override
     boolean getClosed(ObservableValue input) {
-        if (input.isHighZ())
+        if (input.isHighZ() || programmed)
             return false;
         else
-            return !input.getBool();
-
+            return input.getBool();
     }
 }

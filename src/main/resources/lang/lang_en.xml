@@ -354,6 +354,14 @@
     <string name="elem_NFET_pin_G">Gate</string>
     <string name="elem_NFET_pin_out2">Source</string>
     <string name="elem_NFET_pin_out1">Drain</string>
+
+    <string name="elem_FGNFET">N-Channel floating gate FET</string>
+    <string name="elem_FGNFET_tt">N-Channel Floating Gate Field Effect Transitor. The bulk is connected to ground and the transistor is simulated without a body diode.
+        If there is a charge stored in the floating gate, the fet isn't conducting even if the gate is high.</string>
+    <string name="elem_FGNFET_pin_G">Gate</string>
+    <string name="elem_FGNFET_pin_out2">Source</string>
+    <string name="elem_FGNFET_pin_out1">Drain</string>
+
     <string name="elem_PFET">P-Channel FET</string>
     <string name="elem_PFET_tt">P-Channel Field Effect Transitor. The bulk is connected to the pos. voltage rail and the transistor is simulated without a body diode.</string>
     <string name="elem_PFET_pin_G">Gate</string>
@@ -538,7 +546,7 @@ The names of the variables may not be unique.</string>
     <string name="key_isProgramMemory">Program Memory</string>
     <string name="key_isProgramMemory_tt">Makes this ROM to program memory. So it can be accessed by an external IDE.</string>
     <string name="key_Blown">Programmed</string>
-    <string name="key_Blown_tt">If set the diode is treated as a "blown" or "programmed" diode or fuse. You can change this setting with the key 'p'.</string>
+    <string name="key_Blown_tt">If set a diode is "blown" or "programmed". At a floating gate FETS the floating gate is charged. You can change this setting with the key 'p'.</string>
     <string name="key_ExpressionFormat">Format</string>
     <string name="key_ExpressionFormat_tt">Screen format of expressions.</string>
     <string name="key_relayNormallyClosed">Relay is normally closed.</string>
@@ -691,8 +699,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_runTests_tt">Runs all test cases in the circuit</string>
     <string name="menu_actualToDefault">Set Inputs</string>
     <string name="menu_actualToDefault_tt">Use actual input values as new default values.</string>
-    <string name="menu_unprogramAllFuses">Reset all diodes</string>
-    <string name="menu_unprogramAllFuses_tt">Resets all diodes (fuses) to the unprogramed state. The actual fuse configuration is lost!</string>
+    <string name="menu_unprogramAllFuses">Reset all diodes and FGFETs</string>
+    <string name="menu_unprogramAllFuses_tt">Resets all diodes (fuses) and FGFETs to the unprogramed state. The actual fuse configuration is lost!</string>
     <string name="menu_programDiode">Program diode</string>
     <string name="menu_help_elements">Components</string>
     <string name="menu_help_elements_tt">Shows a list of all available components.</string>

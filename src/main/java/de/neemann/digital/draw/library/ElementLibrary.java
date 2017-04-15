@@ -13,10 +13,7 @@ import de.neemann.digital.core.pld.DiodeBackward;
 import de.neemann.digital.core.pld.DiodeForeward;
 import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
-import de.neemann.digital.core.switching.NFET;
-import de.neemann.digital.core.switching.PFET;
-import de.neemann.digital.core.switching.Relay;
-import de.neemann.digital.core.switching.Switch;
+import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -133,6 +130,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Relay.DESCRIPTION)
                         .add(NFET.DESCRIPTION)
                         .add(PFET.DESCRIPTION)
+                        .add(FGNFET.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_test"))

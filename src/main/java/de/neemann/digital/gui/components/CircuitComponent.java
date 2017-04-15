@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.pld.Diode;
 import de.neemann.digital.core.pld.DiodeBackward;
 import de.neemann.digital.core.pld.DiodeForeward;
+import de.neemann.digital.core.switching.FGNFET;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -236,7 +237,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         VisualElement ve = circuit.getElementAt(pos);
         if (ve != null && (ve.equalsDescription(DiodeBackward.DESCRIPTION)
                 || ve.equalsDescription(DiodeForeward.DESCRIPTION)
-                || ve.equalsDescription(Diode.DESCRIPTION))) {
+                || ve.equalsDescription(Diode.DESCRIPTION)
+                || ve.equalsDescription(FGNFET.DESCRIPTION))) {
             boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
             ve.getElementAttributes().set(Keys.BLOWN, !blown);
             hasChanged();

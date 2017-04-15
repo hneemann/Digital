@@ -15,6 +15,7 @@ import de.neemann.digital.core.memory.DataFieldConverter;
 import de.neemann.digital.core.pld.Diode;
 import de.neemann.digital.core.pld.DiodeBackward;
 import de.neemann.digital.core.pld.DiodeForeward;
+import de.neemann.digital.core.switching.FGNFET;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
@@ -614,7 +615,8 @@ public class Circuit {
         for (VisualElement ve : visualElements)
             if (ve.equalsDescription(DiodeForeward.DESCRIPTION)
                     || ve.equalsDescription(DiodeBackward.DESCRIPTION)
-                    || ve.equalsDescription(Diode.DESCRIPTION)) {
+                    || ve.equalsDescription(Diode.DESCRIPTION)
+                    || ve.equalsDescription(FGNFET.DESCRIPTION)) {
                 ve.getElementAttributes().set(Keys.BLOWN, false);
                 modified = true;
             }

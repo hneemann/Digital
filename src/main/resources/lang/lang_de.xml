@@ -372,6 +372,14 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_PFET_pin_G">Gate</string>
     <string name="elem_PFET_pin_out1">Source</string>
     <string name="elem_PFET_pin_out2">Drain</string>
+
+    <string name="elem_FGNFET">N-Kanal Floating Gate FET</string>
+    <string name="elem_FGNFET_tt">N-Kanal Feldeffekttransistor mit Floating Gate. Der Bulk ist mit Masse verbunden jedoch wird der Transistor ohne eine Body-Diode simuliert.
+        Ist das Floating Gate geladen, ist der Transistor immer sperrend.</string>
+    <string name="elem_FGNFET_pin_G">Gate</string>
+    <string name="elem_FGNFET_pin_out2">Source</string>
+    <string name="elem_FGNFET_pin_out1">Drain</string>
+
     <string name="elem_RotEncoder">Drehencoder</string>
     <string name="elem_RotEncoder_tt">Drehknopf mit Drehencoder zur zustandsfreien Erfassung der Drehbewegung.</string>
     <string name="elem_RotEncoder_pin_A">Encodersignal A</string>
@@ -551,7 +559,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_isProgramMemory">Programmspeicher</string>
     <string name="key_isProgramMemory_tt">Zeichnet dieses ROM als Programmspeicher aus. Es kann damit von einer externen IDE beschrieben werden.</string>
     <string name="key_Blown">Programmiert</string>
-    <string name="key_Blown_tt">Wenn gesetzt wird die Diode als "Durchgebrannt" bzw "Programmiert" betrachtet. Diese Einstellung kann direkt über die Taste 'P' verändert werden.</string>
+    <string name="key_Blown_tt">Wenn gesetzt ist die Diode als "Durchgebrannt" bzw "Programmiert". Bei Floating Gate FETs wird das Gate geladen. Diese Einstellung kann direkt über die Taste 'P' verändert werden.</string>
     <string name="key_ExpressionFormat">Format</string>
     <string name="key_ExpressionFormat_tt">Anzeigeformat der Ausdrücke.</string>
     <string name="key_relayNormallyClosed">Relais ist ein Öffner</string>
@@ -702,8 +710,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_runTests_tt">Führt alle Tests in der Schaltung aus!</string>
     <string name="menu_actualToDefault">Eingänge übernehmen</string>
     <string name="menu_actualToDefault_tt">Aktuelle Eingangswerte als neue Vorgabewerte übernehmen.</string>
-    <string name="menu_unprogramAllFuses">Alle Dioden zurücksetzen</string>
-    <string name="menu_unprogramAllFuses_tt">Setzt alle Dioden (Fuses) in den unprogrammierten Zustand zurück. Die Konfiguration geht dabei verloren!</string>
+    <string name="menu_unprogramAllFuses">Alle Dioden/FGFETS zurücksetzen</string>
+    <string name="menu_unprogramAllFuses_tt">Setzt alle Dioden (Fuses) bzw. FGFETs in den unprogrammierten Zustand zurück. Die Konfiguration geht dabei verloren!</string>
     <string name="menu_programDiode">Diode programmieren</string>
     <string name="menu_help_elements">Hilfe</string>
     <string name="menu_help_elements_tt">Zeigt eine Dokumentation der vorhandenen Elemente.</string>

@@ -25,7 +25,6 @@ public class NFET extends Node implements Element {
     private final Switch s;
     private ObservableValue input;
     private boolean closed;
-    private boolean invert;
 
     /**
      * Create a new instance
@@ -33,18 +32,7 @@ public class NFET extends Node implements Element {
      * @param attr the attributes
      */
     public NFET(ElementAttributes attr) {
-        this(attr, false);
-    }
-
-    /**
-     * Create a new instance
-     *
-     * @param attr   the attributes
-     * @param invert invert the input
-     */
-    protected NFET(ElementAttributes attr, boolean invert) {
         s = new Switch(attr, false);
-        this.invert = invert;
         s.getOutput1().setPinDescription(DESCRIPTION);
         s.getOutput2().setPinDescription(DESCRIPTION);
     }
@@ -63,10 +51,20 @@ public class NFET extends Node implements Element {
 
     @Override
     public void readInputs() throws NodeException {
+        closed = getClosed(input);
+    }
+
+    /**
+     * Determines the state of the FET debending on its input
+     *
+     * @param input the input
+     * @return true if FET is conducting
+     */
+    boolean getClosed(ObservableValue input) {
         if (input.isHighZ())
-            closed = false;
+            return false;
         else
-            closed = input.getBool() ^ invert;
+            return input.getBool();
     }
 
     @Override
@@ -89,14 +87,14 @@ public class NFET extends Node implements Element {
     /**
      * @return output 1
      */
-    public ObservableValue getOutput1() {
+    ObservableValue getOutput1() {
         return s.getOutput1();
     }
 
     /**
      * @return output 2
      */
-    public ObservableValue getOutput2() {
+    ObservableValue getOutput2() {
         return s.getOutput2();
     }
 

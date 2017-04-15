@@ -18,6 +18,7 @@ public abstract class FETShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
+    private int xOffs = SIZE2 - 2;
     private NFET fet;
 
     /**
@@ -27,10 +28,19 @@ public abstract class FETShape implements Shape {
      * @param inputs     the inputs
      * @param outputs    the outputs
      */
-    protected FETShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
+    FETShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
         label = attributes.getCleanLabel();
+    }
+
+    /**
+     * Sets the gap width
+     *
+     * @param xOffs the gap width
+     */
+    void setXOffs(int xOffs) {
+        this.xOffs = xOffs;
     }
 
     @Override
@@ -42,19 +52,18 @@ public abstract class FETShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, boolean highLight) {
-        final int x1 = SIZE2 - 2;
         final int g = SIZE2 / 2;
         graphic.drawPolygon(new Polygon(false)
                 .add(SIZE, 0)
-                .add(x1, 0)
-                .add(x1, SIZE2 - g), Style.NORMAL);
+                .add(xOffs, 0)
+                .add(xOffs, SIZE2 - g), Style.NORMAL);
 
         graphic.drawPolygon(new Polygon(false)
                 .add(SIZE, SIZE * 2)
-                .add(x1, SIZE * 2)
-                .add(x1, SIZE * 2 - SIZE2 + g), Style.NORMAL);
+                .add(xOffs, SIZE * 2)
+                .add(xOffs, SIZE * 2 - SIZE2 + g), Style.NORMAL);
 
-        graphic.drawLine(new Vector(x1, SIZE2 + g), new Vector(x1, SIZE + SIZE2 - g), Style.NORMAL);
+        graphic.drawLine(new Vector(xOffs, SIZE2 + g), new Vector(xOffs, SIZE + SIZE2 - g), Style.NORMAL);
 
         graphic.drawLine(new Vector(1, 0), new Vector(1, SIZE * 2), Style.NORMAL);
 
