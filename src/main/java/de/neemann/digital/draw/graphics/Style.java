@@ -12,10 +12,13 @@ public class Style {
      * maximal line thickness
      */
     public static final int MAXLINETHICK = 4;
+    /**
+     * thickness of thin lines
+     */
+    public static final int LINETHIN = MAXLINETHICK / 2;
 
     private static final int WIRETHICK = MAXLINETHICK;
     private static final int LINETHICK = MAXLINETHICK;
-    private static final int LINETHIN = MAXLINETHICK / 2;
     private static final int LINEDASH = 1;
 
     /**

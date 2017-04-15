@@ -7,10 +7,6 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.pld.Diode;
-import de.neemann.digital.core.pld.DiodeBackward;
-import de.neemann.digital.core.pld.DiodeForeward;
-import de.neemann.digital.core.switching.FGNFET;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -167,7 +163,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (activeMouseController instanceof MouseControllerNormal) {
-                    programDiodeAt(getPosVector(lastMousePos.x, lastMousePos.y));
+                    programElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
                 }
             }
         };
@@ -233,14 +229,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         setToolTipText("");
     }
 
-    private void programDiodeAt(Vector pos) {
+    private void programElementAt(Vector pos) {
         VisualElement ve = circuit.getElementAt(pos);
-        if (ve != null && (ve.equalsDescription(DiodeBackward.DESCRIPTION)
-                || ve.equalsDescription(DiodeForeward.DESCRIPTION)
-                || ve.equalsDescription(Diode.DESCRIPTION)
-                || ve.equalsDescription(FGNFET.DESCRIPTION))) {
+        if (ve != null && library.isProgrammable(ve.getElementName())) {
             boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
             ve.getElementAttributes().set(Keys.BLOWN, !blown);
+            circuit.modified();
             hasChanged();
         }
     }

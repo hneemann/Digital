@@ -8,14 +8,14 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * N-Channel floating gate MOS FET
+ * P-Channel floating gate MOS FET
  * Created by hneemann on 22.02.17.
  */
-public class FGNFET extends NFET {
+public class FGPFET extends NFET {
     /**
      * The switch description
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(FGNFET.class, input("G"))
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(FGPFET.class, input("G"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
@@ -28,7 +28,7 @@ public class FGNFET extends NFET {
      *
      * @param attr the attributes
      */
-    public FGNFET(ElementAttributes attr) {
+    public FGPFET(ElementAttributes attr) {
         super(attr);
         getOutput1().setPinDescription(DESCRIPTION);
         getOutput2().setPinDescription(DESCRIPTION);
@@ -40,6 +40,6 @@ public class FGNFET extends NFET {
         if (input.isHighZ() || programmed)
             return false;
         else
-            return input.getBool();
+            return !input.getBool();
     }
 }

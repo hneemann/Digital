@@ -86,6 +86,7 @@ public final class ShapeFactory {
         map.put(Relay.DESCRIPTION.getName(), RelayShape::new);
         map.put(NFET.DESCRIPTION.getName(), FETShapeN::new);
         map.put(FGNFET.DESCRIPTION.getName(), FGFETShapeN::new);
+        map.put(FGPFET.DESCRIPTION.getName(), FGFETShapeP::new);
         map.put(PFET.DESCRIPTION.getName(), FETShapeP::new);
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);

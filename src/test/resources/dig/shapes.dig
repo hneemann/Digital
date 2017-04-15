@@ -412,6 +412,16 @@
       <elementAttributes/>
       <pos x="680" y="540"/>
     </visualElement>
+    <visualElement>
+      <elementName>FGPFET</elementName>
+      <elementAttributes/>
+      <pos x="880" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>FGNFET</elementName>
+      <elementAttributes/>
+      <pos x="840" y="640"/>
+    </visualElement>
   </visualElements>
   <wires/>
 </circuit>

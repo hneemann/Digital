@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.arithmetic.*;
+import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.flipflops.FlipflopD;
@@ -30,10 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * The ElementLibrary is responsible for storing all the components which can be used in a circuit.
@@ -50,6 +48,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);
 
     private final HashMap<String, LibraryNode> map = new HashMap<>();
+    private final HashSet<String> isProgrammable = new HashSet<>();
     private final ArrayList<LibraryListener> listeners = new ArrayList<>();
     private final LibraryNode root;
     private ShapeFactory shapeFactory;
@@ -128,8 +127,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(DiodeBackward.DESCRIPTION)
                         .add(Switch.DESCRIPTION)
                         .add(Relay.DESCRIPTION)
-                        .add(NFET.DESCRIPTION)
                         .add(PFET.DESCRIPTION)
+                        .add(NFET.DESCRIPTION)
+                        .add(FGPFET.DESCRIPTION)
                         .add(FGNFET.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION))
@@ -137,6 +137,23 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(TestCaseElement.TESTCASEDESCRIPTION));
 
         populateNodeMap();
+
+        isProgrammable.clear();
+        root.traverse(libraryNode -> {
+            ElementTypeDescription d = libraryNode.getDescriptionOrNull();
+            if (d != null && d.hasAttribute(Keys.BLOWN))
+                isProgrammable.add(d.getName());
+        });
+    }
+
+    /**
+     * Returns true if element is programmable
+     *
+     * @param name the name
+     * @return true if it is programmable
+     */
+    public boolean isProgrammable(String name) {
+        return isProgrammable.contains(name);
     }
 
     /**

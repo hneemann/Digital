@@ -540,7 +540,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction unprogramAllFuses = new ToolTipAction(Lang.get("menu_unprogramAllFuses")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.getCircuit().unprogramAllFuses();
+                circuitComponent.getCircuit().unprogramAllFuses(library);
                 stoppedState.enter();
             }
         }.setToolTip(Lang.get("menu_unprogramAllFuses_tt"));

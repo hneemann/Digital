@@ -195,4 +195,13 @@ public class ElementTypeDescription {
         return elementFactory.create(elementAttributes);
     }
 
+    /**
+     * Returns true if this description contains the given key
+     *
+     * @param key the key
+     * @return true if this description contains the given key
+     */
+    public boolean hasAttribute(Key key) {
+        return attributeList.contains(key);
+    }
 }

@@ -380,6 +380,13 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_FGNFET_pin_out2">Source</string>
     <string name="elem_FGNFET_pin_out1">Drain</string>
 
+    <string name="elem_FGPFET">P-Kanal Floating Gate FET</string>
+    <string name="elem_FGPFET_tt">P-Kanal Feldeffekttransistor mit Floating Gate. Der Bulk ist mit Masse verbunden jedoch wird der Transistor ohne eine Body-Diode simuliert.
+        Ist das Floating Gate geladen, ist der Transistor immer sperrend.</string>
+    <string name="elem_FGPFET_pin_G">Gate</string>
+    <string name="elem_FGPFET_pin_out1">Source</string>
+    <string name="elem_FGPFET_pin_out2">Drain</string>
+
     <string name="elem_RotEncoder">Drehencoder</string>
     <string name="elem_RotEncoder_tt">Drehknopf mit Drehencoder zur zustandsfreien Erfassung der Drehbewegung.</string>
     <string name="elem_RotEncoder_pin_A">Encodersignal A</string>

@@ -120,6 +120,16 @@ public class LibraryNode implements Iterable<LibraryNode> {
         return description != null;
     }
 
+
+    /**
+     * Returns the description of the element
+     *
+     * @return the description, null if not available
+     **/
+    public ElementTypeDescription getDescriptionOrNull() {
+        return description;
+    }
+
     /**
      * Returns the description of the element
      *

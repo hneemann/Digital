@@ -350,20 +350,27 @@
     <string name="elem_PullDown_pin_out">A "weak low".</string>
 
     <string name="elem_NFET">N-Channel FET</string>
-    <string name="elem_NFET_tt">N-Channel Field Effect Transitor. The bulk is connected to ground and the transistor is simulated without a body diode.</string>
+    <string name="elem_NFET_tt">N-Channel Field Effect Transistor. The bulk is connected to ground and the transistor is simulated without a body diode.</string>
     <string name="elem_NFET_pin_G">Gate</string>
     <string name="elem_NFET_pin_out2">Source</string>
     <string name="elem_NFET_pin_out1">Drain</string>
 
     <string name="elem_FGNFET">N-Channel floating gate FET</string>
-    <string name="elem_FGNFET_tt">N-Channel Floating Gate Field Effect Transitor. The bulk is connected to ground and the transistor is simulated without a body diode.
+    <string name="elem_FGNFET_tt">N-Channel Floating Gate Field Effect Transistor. The bulk is connected to ground and the transistor is simulated without a body diode.
         If there is a charge stored in the floating gate, the fet isn't conducting even if the gate is high.</string>
     <string name="elem_FGNFET_pin_G">Gate</string>
     <string name="elem_FGNFET_pin_out2">Source</string>
     <string name="elem_FGNFET_pin_out1">Drain</string>
 
+    <string name="elem_FGPFET">P-Channel floating gate FET</string>
+    <string name="elem_FGPFET_tt">P-Channel Floating Gate Field Effect Transistor. The bulk is connected to ground and the transistor is simulated without a body diode.
+        If there is a charge stored in the floating gate, the fet isn't conducting even if the gate is low.</string>
+    <string name="elem_FGPFET_pin_G">Gate</string>
+    <string name="elem_FGPFET_pin_out1">Source</string>
+    <string name="elem_FGPFET_pin_out2">Drain</string>
+
     <string name="elem_PFET">P-Channel FET</string>
-    <string name="elem_PFET_tt">P-Channel Field Effect Transitor. The bulk is connected to the pos. voltage rail and the transistor is simulated without a body diode.</string>
+    <string name="elem_PFET_tt">P-Channel Field Effect Transistor. The bulk is connected to the pos. voltage rail and the transistor is simulated without a body diode.</string>
     <string name="elem_PFET_pin_G">Gate</string>
     <string name="elem_PFET_pin_out1">Source</string>
     <string name="elem_PFET_pin_out2">Drain</string>

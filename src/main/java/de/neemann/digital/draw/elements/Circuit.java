@@ -12,15 +12,12 @@ import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
-import de.neemann.digital.core.pld.Diode;
-import de.neemann.digital.core.pld.DiodeBackward;
-import de.neemann.digital.core.pld.DiodeForeward;
-import de.neemann.digital.core.switching.FGNFET;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -610,13 +607,12 @@ public class Circuit {
 
     /**
      * All fuses (diodes) are set to unprogramed so that they are working again.
+     *
+     * @param library library to determine which elements are programmable
      */
-    public void unprogramAllFuses() {
+    public void unprogramAllFuses(ElementLibrary library) {
         for (VisualElement ve : visualElements)
-            if (ve.equalsDescription(DiodeForeward.DESCRIPTION)
-                    || ve.equalsDescription(DiodeBackward.DESCRIPTION)
-                    || ve.equalsDescription(Diode.DESCRIPTION)
-                    || ve.equalsDescription(FGNFET.DESCRIPTION)) {
+            if (library.isProgrammable(ve.getElementName())) {
                 ve.getElementAttributes().set(Keys.BLOWN, false);
                 modified = true;
             }
