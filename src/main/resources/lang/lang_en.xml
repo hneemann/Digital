@@ -546,7 +546,7 @@ The names of the variables may not be unique.</string>
     <string name="key_isProgramMemory">Program Memory</string>
     <string name="key_isProgramMemory_tt">Makes this ROM to program memory. So it can be accessed by an external IDE.</string>
     <string name="key_Blown">Programmed</string>
-    <string name="key_Blown_tt">If set a diode is "blown" or "programmed". At a floating gate FETS the floating gate is charged. You can change this setting with the key 'p'.</string>
+    <string name="key_Blown_tt">If set a diode is "blown" or "programmed". At a floating gate FET the floating gate is charged. You can change this setting with the key 'p'.</string>
     <string name="key_ExpressionFormat">Format</string>
     <string name="key_ExpressionFormat_tt">Screen format of expressions.</string>
     <string name="key_relayNormallyClosed">Relay is normally closed.</string>
