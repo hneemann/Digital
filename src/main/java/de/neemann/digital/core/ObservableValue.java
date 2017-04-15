@@ -16,6 +16,7 @@ public class ObservableValue extends Observable implements PinDescription {
     private long value;
     private boolean highZ;
     private boolean bidirectional;
+    private boolean isConstant = false;
     private String description;
 
     /**
@@ -47,43 +48,52 @@ public class ObservableValue extends Observable implements PinDescription {
         supportsHighZ = highZ;
     }
 
+
     /**
-     * Sets the value and fires a event if value has changed.
+     * Makes this value a constant value
+     */
+    public void setConstant() {
+        isConstant = true;
+    }
+
+    /**
+     * @return true if this value is a constant
+     */
+    public boolean isConstant() {
+        return isConstant;
+    }
+
+    /**
+     * Sets the value and fires an event if value has changed.
+     * Also sets this value to low Z
      *
      * @param value the new value
      * @return this for chained calls
      */
     public ObservableValue setValue(long value) {
-        value = getValueBits(value);
-        if (this.value != value) {
-            this.value = value;
-            if (!highZ)
-                fireHasChanged();
-        }
+        set(value, false);
         return this;
     }
 
     /**
-     * Sets the highZ state of this value
-     *
-     * @param highZ the new highZ state
-     */
-    public void setHighZ(boolean highZ) {
-        if (this.highZ != highZ) {
-            this.highZ = highZ;
-            fireHasChanged();
-        }
-    }
-
-    /**
-     * Sets the value and highZ state
+     * Sets the value and highZ state and fires an event if value has changed.
      *
      * @param value the value
      * @param highZ highZ state
+     * @return this for chained calls
      */
-    public void set(long value, boolean highZ) {
-        setValue(value);
-        setHighZ(highZ);
+    public ObservableValue set(long value, boolean highZ) {
+        value = getValueBits(value);
+        if (highZ != this.highZ || (!highZ && (value != this.value))) {
+
+            if (isConstant)
+                throw new RuntimeException("tried to modify a constant value!");
+
+            this.highZ = highZ;
+            this.value = value;
+            fireHasChanged();
+        }
+        return this;
     }
 
     /**
@@ -243,19 +253,11 @@ public class ObservableValue extends Observable implements PinDescription {
     /**
      * Makes this value a bidirectional value.
      *
-     * @param bidirectional true if value is bidirectional
      * @return this for chained calls
      */
-    public ObservableValue setBidirectional(boolean bidirectional) {
-        this.bidirectional = bidirectional;
+    public ObservableValue setBidirectional() {
+        this.bidirectional = true;
         return this;
-    }
-
-    /**
-     * @return true if value is bidirectional
-     */
-    public boolean isBidirectional() {
-        return bidirectional;
     }
 
     @Override

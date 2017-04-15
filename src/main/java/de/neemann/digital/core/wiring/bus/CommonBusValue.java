@@ -30,14 +30,14 @@ public final class CommonBusValue extends ObservableValue implements Observer {
      *
      * @param handler the handler
      */
-    public void setHandler(AbstractBusHandler handler) {
+    void setHandler(AbstractBusHandler handler) {
         this.handler = handler;
     }
 
     /**
-     * Resets the handler. SO this net is isolated to a single simple net.
+     * Resets the handler. So this net is isolated to a single simple net.
      */
-    public void resetHandler() {
+    void resetHandler() {
         setHandler(new SingleBusHandler(obs, this, resistor, inputs));
         hasChanged();
     }
@@ -54,5 +54,17 @@ public final class CommonBusValue extends ObservableValue implements Observer {
      */
     public ObservableValue[] getInputs() {
         return inputs;
+    }
+
+    /**
+     * Returns true if this net is a constant
+     *
+     * @return true if this is a constant
+     */
+    public ObservableValue searchConstant() {
+        for (ObservableValue i : inputs)
+            if (i.isConstant())
+                return i;
+        return null;
     }
 }

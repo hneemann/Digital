@@ -48,7 +48,7 @@ public class RAMSinglePort extends RAMDualPort {
     @Override
     protected ObservableValue createOutput() {
         return super.createOutput()
-                .setBidirectional(true)
+                .setBidirectional()
                 .setPinDescription(DESCRIPTION);
     }
 

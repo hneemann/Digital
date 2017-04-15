@@ -80,7 +80,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
 
         dataOut = new ObservableValue("D", bits, true)
                 .setPinDescription(DESCRIPTION)
-                .setBidirectional(true);
+                .setBidirectional();
     }
 
     @Override
@@ -135,7 +135,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         if (ld) {
             dataOut.set(memory.getDataWord(addr), false);
         } else {
-            dataOut.setHighZ(true);
+            dataOut.set(0, true);
         }
     }
 

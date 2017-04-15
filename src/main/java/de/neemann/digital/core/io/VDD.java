@@ -34,6 +34,7 @@ public class VDD implements Element {
     public VDD(ElementAttributes attributes) {
         output = new ObservableValue("out", attributes.get(Keys.BITS)).setPinDescription(DESCRIPTION);
         output.setValue(-1);
+        output.setConstant();
     }
 
     @Override

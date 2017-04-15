@@ -158,7 +158,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
         if (ld) {
             output.set(memory.getDataWord(addr), false);
         } else {
-            output.setHighZ(true);
+            output.set(0, true);
         }
     }
 

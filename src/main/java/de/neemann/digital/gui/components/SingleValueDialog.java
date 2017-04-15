@@ -218,7 +218,7 @@ public final class SingleValueDialog extends JDialog {
         SingleValueDialog svd = new SingleValueDialog(pos, value);
         if (svd.showDialog()) {
             if (svd.getSelectedFormat().equals(InMode.HIGHZ)) {
-                modelSync.access(() -> value.setHighZ(true));
+                modelSync.access(() -> value.set(0, true));
             } else {
                 modelSync.access(() -> value.set(svd.editValue, false));
             }

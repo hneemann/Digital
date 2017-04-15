@@ -31,8 +31,8 @@ public class Diode implements Element, Observer {
      * @param attr the elements attributes
      */
     public Diode(ElementAttributes attr) {
-        cathode = new ObservableValue("cathode", 1, true).setBidirectional(true);
-        anode = new ObservableValue("anode", 1, true).setBidirectional(true);
+        cathode = new ObservableValue("cathode", 1, true).setBidirectional();
+        anode = new ObservableValue("anode", 1, true).setBidirectional();
         blown = attr.get(Keys.BLOWN);
     }
 

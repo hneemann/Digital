@@ -34,6 +34,7 @@ public class Ground implements Element {
     public Ground(ElementAttributes attributes) {
         output = new ObservableValue("out", attributes.get(Keys.BITS)).setPinDescription(DESCRIPTION);
         output.setValue(0);
+        output.setConstant();
     }
 
     @Override

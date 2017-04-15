@@ -47,10 +47,8 @@ public class Switch implements Element, Observer {
     public Switch(ElementAttributes attr, boolean closed) {
         bits = attr.getBits();
         this.closed = closed;
-        output1 = new ObservableValue("out1", bits, true).setPinDescription(DESCRIPTION).setBidirectional(true);
-        output2 = new ObservableValue("out2", bits, true).setPinDescription(DESCRIPTION).setBidirectional(true);
-        output1.set(0, true);
-        output2.set(0, true);
+        output1 = new ObservableValue("out1", bits, true).setPinDescription(DESCRIPTION).setBidirectional().set(0, true);
+        output2 = new ObservableValue("out2", bits, true).setPinDescription(DESCRIPTION).setBidirectional().set(0, true);
     }
 
     @Override
@@ -59,7 +57,18 @@ public class Switch implements Element, Observer {
         ObservableValue input2 = inputs.get(1).addObserverToValue(this).checkBits(bits, null);
         if (input1 instanceof CommonBusValue) {
             if (input2 instanceof CommonBusValue) {
-                switchModel = new RealSwitch((CommonBusValue) input1, (CommonBusValue) input2);
+                final CommonBusValue in1 = (CommonBusValue) input1;
+                final CommonBusValue in2 = (CommonBusValue) input2;
+                ObservableValue constant = in1.searchConstant();
+                if (constant != null)
+                    switchModel = new SimpleSwitch(constant, output2);
+                else {
+                    constant = in2.searchConstant();
+                    if (constant != null)
+                        switchModel = new SimpleSwitch(constant, output1);
+                    else
+                        switchModel = new RealSwitch(in1, in2);
+                }
             } else {
                 switchModel = new SimpleSwitch(input1, output2);
             }
@@ -116,14 +125,14 @@ public class Switch implements Element, Observer {
     /**
      * @return output 1
      */
-    public ObservableValue getOutput1() {
+    ObservableValue getOutput1() {
         return output1;
     }
 
     /**
      * @return output 2
      */
-    public ObservableValue getOutput2() {
+    ObservableValue getOutput2() {
         return output2;
     }
 
