@@ -6,13 +6,11 @@
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="1440" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="1440" y="580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -23,19 +21,16 @@
         </entry>
       </elementAttributes>
       <pos x="1240" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="1340" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="1340" y="600"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
@@ -46,7 +41,6 @@
         </entry>
       </elementAttributes>
       <pos x="1280" y="520"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -55,33 +49,32 @@
           <string>rotation</string>
           <rotation rotation="1"/>
         </entry>
+        <entry>
+          <string>Label</string>
+          <string>D_2</string>
+        </entry>
       </elementAttributes>
       <pos x="3080" y="420"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="1700" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="1700" y="580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="1600" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="1600" y="600"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -92,7 +85,6 @@
         </entry>
       </elementAttributes>
       <pos x="1240" y="720"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
@@ -103,31 +95,26 @@
         </entry>
       </elementAttributes>
       <pos x="1580" y="700"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="2080" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="2080" y="580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="1980" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="1980" y="600"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
@@ -138,31 +125,26 @@
         </entry>
       </elementAttributes>
       <pos x="1920" y="520"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="2340" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="2340" y="580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="2240" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="2240" y="600"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
@@ -173,31 +155,26 @@
         </entry>
       </elementAttributes>
       <pos x="2220" y="700"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="2720" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="2720" y="580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="2620" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="2620" y="600"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
@@ -208,31 +185,26 @@
         </entry>
       </elementAttributes>
       <pos x="2560" y="520"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="2980" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="2980" y="580"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="2880" y="440"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="2880" y="600"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
@@ -243,29 +215,61 @@
         </entry>
       </elementAttributes>
       <pos x="2860" y="700"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation reference="../../../../visualElement[7]/elementAttributes/entry/rotation"/>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>D_1</string>
         </entry>
       </elementAttributes>
       <pos x="2440" y="420"/>
-      <rotate>1</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation reference="../../../../visualElement[7]/elementAttributes/entry/rotation"/>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>D_0</string>
         </entry>
       </elementAttributes>
       <pos x="1800" y="420"/>
-      <rotate>1</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C D D_0 D_1 D_2
+# clear all bits
+C 0  0   x   x
+C 0  0   0   x
+C 0  0   0   0
+
+# fill with one
+C 1  1   0   0
+C 1  1   1   0
+C 1  1   1   1
+
+# fill with zero
+C 0  0   1   1
+C 0  0   0   1
+C 0  0   0   0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="2060" y="800"/>
     </visualElement>
   </visualElements>
   <wires>

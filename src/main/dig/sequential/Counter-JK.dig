@@ -9,32 +9,26 @@
           <string>rotation</string>
           <rotation rotation="3"/>
         </entry>
+        <entry>
+          <string>Label</string>
+          <string>Q_0</string>
+        </entry>
       </elementAttributes>
       <pos x="320" y="340"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
       <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
         <entry>
           <string>Label</string>
           <string>q_0n</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
       <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
         <entry>
           <string>Label</string>
           <string>q_1n</string>
@@ -45,15 +39,10 @@
         </entry>
       </elementAttributes>
       <pos x="440" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
       <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
         <entry>
           <string>Label</string>
           <string>q_2n</string>
@@ -64,15 +53,10 @@
         </entry>
       </elementAttributes>
       <pos x="660" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
       <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
         <entry>
           <string>Label</string>
           <string>q_3n</string>
@@ -83,25 +67,21 @@
         </entry>
       </elementAttributes>
       <pos x="880" y="280"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="540" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="760" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
       <pos x="180" y="320"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -112,40 +92,48 @@
         </entry>
       </elementAttributes>
       <pos x="160" y="200"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation reference="../../../../visualElement/elementAttributes/entry/rotation"/>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Q_1</string>
         </entry>
       </elementAttributes>
       <pos x="520" y="340"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation reference="../../../../visualElement/elementAttributes/entry/rotation"/>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Q_2</string>
         </entry>
       </elementAttributes>
       <pos x="740" y="340"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation reference="../../../../visualElement/elementAttributes/entry/rotation"/>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Q_3</string>
         </entry>
       </elementAttributes>
       <pos x="960" y="340"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
@@ -164,7 +152,6 @@
         </entry>
       </elementAttributes>
       <pos x="120" y="-40"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -175,7 +162,19 @@
         </entry>
       </elementAttributes>
       <pos x="140" y="-80"/>
-      <rotate>0</rotate>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>           C Q_3 Q_2 Q_1 Q_0
+repeat(16) C bits(4,n-1)</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="380"/>
     </visualElement>
   </visualElements>
   <wires>

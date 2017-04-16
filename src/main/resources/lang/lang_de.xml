@@ -97,7 +97,7 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Relay">Relais</string>
     <string name="elem_Relay_tt">Ein Relais ist ein Schalter, welcher über eine Spule umgeschaltet werden kann.
         Wenn ein Strom durch das Relais fließt, wird der Schalter geöffnet bzw. geschlossen.
-        Es gibt keine Freilaufdiode, so dass die Stromrichting keine Rolle spielt.</string>
+        Es gibt keine Freilaufdiode, so dass die Stromrichtung keine Rolle spielt.</string>
     <string name="elem_Relay_pin_in1">Ein Steuereingang des Relais.</string>
     <string name="elem_Relay_pin_in2">Ein Steuereingang des Relais.</string>
     <string name="elem_Relay_pin_out1">Einer der Ausgänge des gesteuerten Schalters.</string>

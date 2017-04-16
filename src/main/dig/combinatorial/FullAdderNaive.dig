@@ -168,6 +168,27 @@ drei Gatterlaufzeiten.</string>
       </elementAttributes>
       <pos x="820" y="660"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A_i B_i C_i-1 C_i S_i
+ 0   0   0     0   0
+ 0   0   1     0   1
+ 0   1   0     0   1
+ 0   1   1     1   0
+ 1   0   0     0   1
+ 1   0   1     1   0
+ 1   1   0     1   0
+ 1   1   1     1   1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="920" y="740"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

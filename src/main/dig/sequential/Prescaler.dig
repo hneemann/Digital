@@ -165,6 +165,23 @@ Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.</string>
       </elementAttributes>
       <pos x="620" y="500"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>           Clock A B Y
+repeat(16) C     0 0 (~n&amp;1)
+repeat(16) C     1 0 (~(n&gt;&gt;1)&amp;1)
+repeat(16) C     0 1 (~(n&gt;&gt;2)&amp;1)
+repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="420"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

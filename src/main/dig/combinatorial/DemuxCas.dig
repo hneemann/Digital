@@ -265,6 +265,20 @@ Ausgänge ausgegeben wird.</string>
       </elementAttributes>
       <pos x="420" y="540"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>E A_3 A_2 A_1 A_0  Y_15 Y_14 Y_13 Y_12 Y_11 Y_10 Y_9 Y_8 Y_7 Y_6 Y_5 Y_4 Y_3 Y_2 Y_1 Y_0
+repeat(16) 1 bits(4,n) bits(16, 1&lt;&lt;n)
+repeat(16) 0 bits(4,n) bits(16, 0)</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="480"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
