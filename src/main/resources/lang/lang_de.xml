@@ -365,27 +365,28 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_NFET">N-Kanal FET</string>
     <string name="elem_NFET_tt">N-Kanal Feldeffekttransistor. Der Bulk ist mit Masse verbunden jedoch wird der Transistor ohne eine Body-Diode simuliert.</string>
     <string name="elem_NFET_pin_G">Gate</string>
-    <string name="elem_NFET_pin_out2">Source</string>
-    <string name="elem_NFET_pin_out1">Drain</string>
+    <string name="elem_NFET_pin_S">Source</string>
+    <string name="elem_NFET_pin_D">Drain</string>
+
     <string name="elem_PFET">P-Kanal FET</string>
     <string name="elem_PFET_tt">P-Kanal Feldeffekttransistor. Der Bulk ist mit der pos. Versorgung verbunden, jedoch wird der Transistor ohne eine Body-Diode simuliert.</string>
     <string name="elem_PFET_pin_G">Gate</string>
-    <string name="elem_PFET_pin_out1">Source</string>
-    <string name="elem_PFET_pin_out2">Drain</string>
+    <string name="elem_PFET_pin_S">Source</string>
+    <string name="elem_PFET_pin_D">Drain</string>
 
     <string name="elem_FGNFET">N-Kanal Floating Gate FET</string>
     <string name="elem_FGNFET_tt">N-Kanal Feldeffekttransistor mit Floating Gate. Der Bulk ist mit Masse verbunden jedoch wird der Transistor ohne eine Body-Diode simuliert.
         Ist das Floating Gate geladen, ist der Transistor immer sperrend.</string>
     <string name="elem_FGNFET_pin_G">Gate</string>
-    <string name="elem_FGNFET_pin_out2">Source</string>
-    <string name="elem_FGNFET_pin_out1">Drain</string>
+    <string name="elem_FGNFET_pin_S">Source</string>
+    <string name="elem_FGNFET_pin_D">Drain</string>
 
     <string name="elem_FGPFET">P-Kanal Floating Gate FET</string>
     <string name="elem_FGPFET_tt">P-Kanal Feldeffekttransistor mit Floating Gate. Der Bulk ist mit Masse verbunden jedoch wird der Transistor ohne eine Body-Diode simuliert.
         Ist das Floating Gate geladen, ist der Transistor immer sperrend.</string>
     <string name="elem_FGPFET_pin_G">Gate</string>
-    <string name="elem_FGPFET_pin_out1">Source</string>
-    <string name="elem_FGPFET_pin_out2">Drain</string>
+    <string name="elem_FGPFET_pin_S">Source</string>
+    <string name="elem_FGPFET_pin_D">Drain</string>
 
     <string name="elem_RotEncoder">Drehencoder</string>
     <string name="elem_RotEncoder_tt">Drehknopf mit Drehencoder zur zustandsfreien Erfassung der Drehbewegung.</string>

@@ -35,7 +35,9 @@ public class Switch implements Element, Observer {
      * @param attr the elements attributes
      */
     public Switch(ElementAttributes attr) {
-        this(attr, attr.get(Keys.CLOSED));
+        this(attr, attr.get(Keys.CLOSED), "out1", "out2");
+        output1.setPinDescription(DESCRIPTION);
+        output2.setPinDescription(DESCRIPTION);
     }
 
     /**
@@ -43,12 +45,14 @@ public class Switch implements Element, Observer {
      *
      * @param attr   the elements attributes
      * @param closed true if switch is closed
+     * @param out1   name of output 1
+     * @param out2   name of output 2
      */
-    public Switch(ElementAttributes attr, boolean closed) {
+    public Switch(ElementAttributes attr, boolean closed, String out1, String out2) {
         bits = attr.getBits();
         this.closed = closed;
-        output1 = new ObservableValue("out1", bits, true).setPinDescription(DESCRIPTION).setBidirectional().set(0, true);
-        output2 = new ObservableValue("out2", bits, true).setPinDescription(DESCRIPTION).setBidirectional().set(0, true);
+        output1 = new ObservableValue(out1, bits, true).setBidirectional().set(0, true);
+        output2 = new ObservableValue(out2, bits, true).setBidirectional().set(0, true);
     }
 
     @Override

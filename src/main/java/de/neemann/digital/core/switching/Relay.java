@@ -49,7 +49,7 @@ public class Relay extends Node implements Element {
      */
     public Relay(ElementAttributes attr, boolean invers) {
         this.invers = invers;
-        s = new Switch(attr, invers);
+        s = new Switch(attr, invers, "out1", "out2");
     }
 
     @Override

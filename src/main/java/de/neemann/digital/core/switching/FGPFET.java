@@ -29,7 +29,7 @@ public class FGPFET extends NFET {
      * @param attr the attributes
      */
     public FGPFET(ElementAttributes attr) {
-        super(attr);
+        super(attr, true);
         getOutput1().setPinDescription(DESCRIPTION);
         getOutput2().setPinDescription(DESCRIPTION);
         programmed = attr.get(Keys.BLOWN);

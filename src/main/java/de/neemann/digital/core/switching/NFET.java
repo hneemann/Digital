@@ -32,9 +32,16 @@ public class NFET extends Node implements Element {
      * @param attr the attributes
      */
     public NFET(ElementAttributes attr) {
-        s = new Switch(attr, false);
+        this(attr, false);
         s.getOutput1().setPinDescription(DESCRIPTION);
         s.getOutput2().setPinDescription(DESCRIPTION);
+    }
+
+    NFET(ElementAttributes attr, boolean pChan) {
+        if (pChan)
+            s = new Switch(attr, false, "S", "D");
+        else
+            s = new Switch(attr, false, "D", "S");
     }
 
     @Override
