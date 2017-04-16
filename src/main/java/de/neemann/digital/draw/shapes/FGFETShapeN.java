@@ -16,10 +16,10 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
- * The n-chan FET shape
+ * The n-chan floating gate FET shape
  */
 public class FGFETShapeN extends FETShape {
-    static final Style CHARGED_GATE = new Style(Style.MAXLINETHICK, false, Color.RED);
+    static final Style CHARGED_GATE = new Style(6, false, Color.RED);
 
     private final boolean programmed;
 

@@ -15,7 +15,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
- * The p-chan FET shape
+ * The p-chan floating gate FET shape
  */
 public class FGFETShapeP extends FETShape {
 

@@ -1,6 +1,6 @@
 Release Notes
 
-planned as V0.11
+planned as v0.11
 - Added floating gate FETs
 
 v0.10, released on 09. Apr 2017
