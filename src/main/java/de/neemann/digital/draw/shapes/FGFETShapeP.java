@@ -54,11 +54,11 @@ public class FGFETShapeP extends FETShape {
 
 
         // the arrow
-        graphic.drawLine(new Vector(SIZE2 +1, SIZE), new Vector(SIZE2 + 6, SIZE), Style.THIN);
+        graphic.drawLine(new Vector(SIZE2 + 1, SIZE), new Vector(SIZE2 + 7, SIZE), Style.THIN);
         graphic.drawPolygon(new Polygon(true)
-                .add(SIZE - SIZE2 / 3 + 4, SIZE)
-                .add(SIZE2 + 6, SIZE - SIZE2 / 4)
-                .add(SIZE2 + 6, SIZE + SIZE2 / 4), Style.THIN_FILLED);
+                .add(SIZE - SIZE2 / 3 + 5, SIZE)
+                .add(SIZE2 + 7, SIZE - SIZE2 / 4)
+                .add(SIZE2 + 7, SIZE + SIZE2 / 4), Style.THIN_FILLED);
     }
 
 }
