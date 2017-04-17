@@ -1,7 +1,9 @@
 Release Notes
 
 planned as v0.11
-- Added floating gate FETs
+- Added floating gate FETs.
+- Better detecting of missing signals in test cases.
+- Better plausibility checks if diodes are used.
 
 v0.10, released on 09. Apr 2017
 - User can select the expressions representation format in the settings dialog.

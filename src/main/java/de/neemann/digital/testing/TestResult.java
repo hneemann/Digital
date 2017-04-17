@@ -75,15 +75,15 @@ public class TestResult {
             }
         }
 
+        for (String name : names)
+            if (!usedSignals.contains(name))
+                throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
+
         if (inputs.size() == 0)
             throw new TestingDataException(Lang.get("err_noTestInputSignalsDefined"));
 
         if (outputs.size() == 0)
             throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
-
-        for (String name : names)
-            if (!usedSignals.contains(name))
-                throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
 
         model.init();
 
