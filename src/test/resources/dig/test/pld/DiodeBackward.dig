@@ -20,7 +20,7 @@
           <string>Y</string>
         </entry>
       </elementAttributes>
-      <pos x="320" y="220"/>
+      <pos x="340" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -29,9 +29,9 @@
           <string>Testdata</string>
           <testData>
             <dataString>A Y
-1 Z
+1 1
 0 0
-Z Z</dataString>
+Z 1</dataString>
           </testData>
         </entry>
       </elementAttributes>
@@ -47,6 +47,11 @@ Z Z</dataString>
       </elementAttributes>
       <pos x="280" y="220"/>
     </visualElement>
+    <visualElement>
+      <elementName>PullUp</elementName>
+      <elementAttributes/>
+      <pos x="320" y="200"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -55,6 +60,14 @@ Z Z</dataString>
     </wire>
     <wire>
       <p1 x="300" y="220"/>
+      <p2 x="320" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="220"/>
+      <p2 x="340" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="200"/>
       <p2 x="320" y="220"/>
     </wire>
   </wires>

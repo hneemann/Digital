@@ -1,10 +1,9 @@
 package de.neemann.digital.core.pld;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.wiring.bus.CommonBusValue;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -24,6 +23,7 @@ public class DiodeForeward implements Element, Observer {
     private final ObservableValue output;
     private final boolean blown;
     private ObservableValue input;
+    private PinDescription.PullResistor requiredResistor;
 
     /**
      * Creates a new instance
@@ -31,17 +31,19 @@ public class DiodeForeward implements Element, Observer {
      * @param attr the elements attributes
      */
     public DiodeForeward(ElementAttributes attr) {
-        this(attr, DESCRIPTION);
+        this(attr, DESCRIPTION, PinDescription.PullResistor.pullDown);
     }
 
     /**
      * Creates a new instance
      *
-     * @param attr        the elements attributes
-     * @param description used to set the output pin description
+     * @param attr             the elements attributes
+     * @param description      used to set the output pin description
+     * @param requiredResistor resistor needed at the output net
      */
-    protected DiodeForeward(ElementAttributes attr, ElementTypeDescription description) {
-        output = new ObservableValue("out", 1, true).setPinDescription(description);
+    protected DiodeForeward(ElementAttributes attr, ElementTypeDescription description, PinDescription.PullResistor requiredResistor) {
+        output = new ObservableValue("out", 1, true).setPinDescription(description).setBidirectional();
+        this.requiredResistor = requiredResistor;
         blown = attr.get(Keys.BLOWN);
         if (blown)
             output.set(1, true);
@@ -50,6 +52,17 @@ public class DiodeForeward implements Element, Observer {
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
         input = inputs.get(0).addObserverToValue(this).checkBits(1, null);
+
+        ObservableValue o = inputs.get(1);
+        if (o instanceof CommonBusValue) {
+            CommonBusValue cbv = (CommonBusValue) o;
+            if (cbv.getResistor().equals(requiredResistor))
+                return;
+        }
+        if (requiredResistor.equals(PinDescription.PullResistor.pullDown))
+            throw new NodeException(Lang.get("err_diodeNeedsPullDownResistorAtOutput"), output.asList());
+        else
+            throw new NodeException(Lang.get("err_diodeNeedsPullUpResistorAtOutput"), output.asList());
     }
 
     @Override

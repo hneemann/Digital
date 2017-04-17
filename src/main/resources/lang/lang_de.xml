@@ -338,8 +338,8 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
         Wird verwendet um ein "Wired And" zu implementieren.
         Innerhalb der Simulation verhält sich eine Diode wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
         Ist der Eingang 0 ist auch der Ausgang 0. In den anderen Fällen (1 und hochohmig) ist der Ausgang hochohmig (High Z).
-        Damit können sich antiparallele zusammen geschaltete Dioden gegenseiting im low-Zustand halten, was mit realen
-        Dioden nicht möglich ist.
+        Damit können sich antiparallel zusammen geschaltete Dioden gegenseitig im low-Zustand halten, was mit realen
+        Dioden nicht möglich ist. Daher ist am Ausgang ein Pull Up Widerstand erforderlich!
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeBackward_pin_in">Ist der Eingang 0 ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_DiodeBackward_pin_out">Ist der Eingang 0 ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
@@ -348,8 +348,8 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
         Wird verwendet um ein "Wired Or" zu implementieren.
         Innerhalb der Simulation verhält sich eine Diode wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
         Ist der Eingang 1 ist auch der Ausgang 1. In den anderen Fällen (0 und hochohmig) ist der Ausgang hochohmig (High Z).
-        Damit können sich antiparallel zusammen geschaltete Dioden gegenseiting im high-Zustand halten, was mit realen
-        Dioden nicht möglich ist.
+        Damit können sich antiparallel zusammen geschaltete Dioden gegenseitig im high-Zustand halten, was mit realen
+        Dioden nicht möglich ist. Daher ist am Ausgang ein Pull Down Widerstand erforderlich!
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeForeward_pin_in">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_DiodeForeward_pin_out">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
@@ -486,6 +486,9 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_minimizationFailed">Das Ergebnis der Minimierung ist nicht korrekt!
 Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_toManyTestEntries">Zu viele Einträge in der Testdatenmatrix.</string>
+    <string name="err_diodeNeedsPullUpResistorAtOutput">Diode benötigt am Ausgang einen PullUp-Widerstand!</string>
+    <string name="err_diodeNeedsPullDownResistorAtOutput">Diode benötigt am Ausgang einen PullDown-Widerstand!</string>
+    <string name="err_testSignal_N_notFound">Testsignal {0} in der Schaltung nicht gefunden!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

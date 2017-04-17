@@ -4,6 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.PinDescription;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -27,7 +28,7 @@ public class DiodeBackward extends DiodeForeward {
      * @param attr the elements attributes
      */
     public DiodeBackward(ElementAttributes attr) {
-        super(attr, DESCRIPTION);
+        super(attr, DESCRIPTION, PinDescription.PullResistor.pullUp);
     }
 
     @Override

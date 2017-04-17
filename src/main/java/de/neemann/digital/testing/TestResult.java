@@ -8,6 +8,7 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -47,23 +48,31 @@ public class TestResult {
      */
     public TestResult create(Model model) throws TestingDataException, NodeException {
         allPassed = true;
+        HashSet<String> usedSignals = new HashSet<>();
+
         ArrayList<TestSignal> inputs = new ArrayList<>();
         for (Signal s : model.getInputs()) {
             final int index = getIndexOf(s.getName());
-            if (index >= 0)
+            if (index >= 0) {
                 inputs.add(new TestSignal(index, s.getValue()));
+                usedSignals.add(s.getName());
+            }
         }
         for (Clock c : model.getClocks()) {
             final int index = getIndexOf(c.getLabel());
-            if (index >= 0)
+            if (index >= 0) {
                 inputs.add(new TestSignal(index, c.getClockOutput()));
+                usedSignals.add(c.getLabel());
+            }
         }
 
         ArrayList<TestSignal> outputs = new ArrayList<>();
         for (Signal s : model.getOutputs()) {
             final int index = getIndexOf(s.getName());
-            if (index >= 0)
+            if (index >= 0) {
                 outputs.add(new TestSignal(index, s.getValue()));
+                usedSignals.add(s.getName());
+            }
         }
 
         if (inputs.size() == 0)
@@ -71,6 +80,10 @@ public class TestResult {
 
         if (outputs.size() == 0)
             throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
+
+        for (String name : names)
+            if (!usedSignals.contains(name))
+                throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
 
         model.init();
 
