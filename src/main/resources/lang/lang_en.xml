@@ -330,18 +330,18 @@
         This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeBackward">Diode to Ground</string>
     <string name="elem_DiodeBackward_tt">A simplified unidirectional diode, used to pull a wire to ground. It is used to implement a wired AND.
+        So it is necessary to connect a pull up resistor to the diodes output.
         Is the input low, also the output is low. In the other cases (input is high or high z) the output is in high z state.
         So two anti parallel connected diodes can keep each other in low state, which is not possible with real diodes.
-        To aviod such problems, it is necessary to connect a pull up resistor to the diods output.
         So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeBackward_pin_in">If the input is low also the output is low. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeBackward_pin_out">If the input is low also the output is low. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeForeward">Diode to VDD</string>
     <string name="elem_DiodeForeward_tt">A simplified unidirectional diode, used to pull a wire to VDD. It is used to implement a wired OR.
+        So it is necessary to connect a pull down resistor to the diodes output.
         In the simulation the diode behaves like an active gate with a trivalent truth table:
         Is the input high, also the output is high. In all other cases (input is low or high z) the output is in high z state.
         So two anti parallel connected diodes can keep each other in high state, which is not possible with real diodes.
-        To aviod such problems, it is necessary to connect a pull down resistor to the diods output.
         This is an ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeForeward_pin_in">If the input is high also the output is high. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeForeward_pin_out">If the input is high also the output is high. In all other cases the output is in high z state.</string>
