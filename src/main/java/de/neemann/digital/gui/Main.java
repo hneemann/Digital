@@ -670,7 +670,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             }
         }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
 
-        JMenu run = new JMenu(Lang.get("menu_run"));
+        JMenu run = new JMenu(Lang.get("menu_sim"));
         menuBar.add(run);
         run.add(editRunAttributes.createJMenuItem());
         run.addSeparator();

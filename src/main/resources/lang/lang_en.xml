@@ -640,7 +640,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_insertAsNew">Paste in new window</string>
     <string name="menu_insertAsNew_tt">The content of the clip board is pasted in a new window.</string>
     <string name="menu_rotate">Rotate</string>
-    <string name="menu_run">Start Simulation</string>
+    <string name="menu_sim">Simulation</string>
+    <string name="menu_run">Start of Simulation</string>
     <string name="menu_run_tt">Starts the simulation of the circuit.</string>
     <string name="menu_save">Save</string>
     <string name="menu_saveAs">Save As</string>
