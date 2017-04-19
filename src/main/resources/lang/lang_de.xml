@@ -768,6 +768,10 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_testResult">Testergebnis</string>
     <string name="msg_test_N_Passed">{0}: ok</string>
     <string name="msg_test_N_Failed">{0}: Fehler</string>
+    <string name="msg_test_missingLines">(Zu viele Einträge!)</string>
+    <string name="msg_test_missingLines_tt">Es wurden alle Testfälle ausgeführt, aber nicht alle Ergebnisse werden angezeigt.
+        Die Bewertung des Testergebnises ist dennoch korrekt!</string>
+
     <string name="msg_testExp_N0_found_N1">E: {0} / F: {1}</string>
     <string name="msg_creatingHelp">Fehler bei der Erzeugung der Hilfe!</string>
     <string name="msg_clipboardContainsNoImportableData">In der Zwischenablage befinden sich keine importierbaren Daten!</string>

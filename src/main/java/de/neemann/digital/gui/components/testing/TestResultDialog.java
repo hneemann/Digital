@@ -11,6 +11,7 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.*;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.IconCreator;
+import de.neemann.gui.StringUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -73,7 +74,12 @@ public class TestResultDialog extends JDialog {
                 tabIcon = ICON_FAILED;
                 errorTabIndex = i;
             }
+            if (tr.toManyResults())
+                tabName += " " + Lang.get("msg_test_missingLines");
+
             tp.addTab(tabName, tabIcon, new JScrollPane(table));
+            if (tr.toManyResults())
+                tp.setToolTipTextAt(i, StringUtils.textToHTML(Lang.get("msg_test_missingLines_tt")));
             i++;
         }
         if (errorTabIndex >= 0)

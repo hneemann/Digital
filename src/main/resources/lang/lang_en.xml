@@ -770,6 +770,9 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_fileIsNotUnique">The file name is not unique!</string>
     <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
     <string name="msg_fileExists">The file {0} already exists! Do you want to overwrite the file?</string>
+    <string name="msg_test_missingLines">(To many entries!)</string>
+    <string name="msg_test_missingLines_tt">All test cases are executed, but not all results are shown.
+        The evaluation of the test result is nevertheless correct!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
