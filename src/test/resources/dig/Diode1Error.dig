@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <visualElements>
+    <visualElement>
+      <elementName>DiodeBackward</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullUp</elementName>
+      <elementAttributes/>
+      <pos x="400" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>DiodeBackward</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullUp</elementName>
+      <elementAttributes/>
+      <pos x="460" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NFET</elementName>
+      <elementAttributes/>
+      <pos x="380" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="400" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y</string>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A Y
+0 1
+1 0
+0 1</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="340"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="440" y="320"/>
+      <p2 x="460" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="320"/>
+      <p2 x="420" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="320"/>
+      <p2 x="480" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="280"/>
+      <p2 x="460" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="280"/>
+      <p2 x="420" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="380"/>
+      <p2 x="380" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="380"/>
+      <p2 x="400" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="260"/>
+      <p2 x="400" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="320"/>
+      <p2 x="400" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="280"/>
+      <p2 x="400" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="260"/>
+      <p2 x="460" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="280"/>
+      <p2 x="460" y="320"/>
+    </wire>
+  </wires>
+</circuit>
