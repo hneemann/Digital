@@ -225,7 +225,7 @@ public class Parser {
      * @throws IOException     IOException
      * @throws ParserException IOException
      */
-    public Expression parseExpression() throws IOException, ParserException {
+    private Expression parseExpression() throws IOException, ParserException {
         Expression ac = parseGreater();
         while (isToken(Tokenizer.Token.SMALER)) {
             Expression a = ac;
