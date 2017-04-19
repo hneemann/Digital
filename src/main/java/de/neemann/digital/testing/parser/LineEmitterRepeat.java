@@ -1,10 +1,13 @@
 package de.neemann.digital.testing.parser;
 
+import de.neemann.digital.lang.Lang;
+
 /**
  * Repeats some inner table rows.
  * Created by hneemann on 19.04.17.
  */
 public class LineEmitterRepeat implements LineEmitter {
+    private static final int MAX_LOOPS = 1 << 24;
 
     private final String name;
     private final int size;
@@ -16,11 +19,15 @@ public class LineEmitterRepeat implements LineEmitter {
      * @param name  name of the loop variable
      * @param size  number of iterations
      * @param inner the lines to repeat
+     * @throws ParserException if there are to many iterations
      */
-    public LineEmitterRepeat(String name, int size, LineEmitter inner) {
+    public LineEmitterRepeat(String name, int size, LineEmitter inner) throws ParserException {
         this.name = name;
         this.size = size;
         this.inner = inner;
+
+        if (size > MAX_LOOPS)
+            throw new ParserException(Lang.get("err_toManyIterations"));
     }
 
     @Override

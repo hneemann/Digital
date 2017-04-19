@@ -22,12 +22,15 @@ import java.util.NoSuchElementException;
  * @author hneemann
  */
 public class TestResult {
+    private static final int MAX_RESULTS = 1 << 10;
+    private static final int ERR_RESULTS = MAX_RESULTS * 2;
 
     private final ArrayList<String> names;
     private final LineEmitter lines;
     private final ArrayList<Value[]> results;
     private boolean allPassed;
     private Exception exception;
+    private boolean toManyResults = false;
 
     /**
      * Creates a new testing result
@@ -132,13 +135,20 @@ public class TestResult {
                         throw new RuntimeException(e);
                     }
 
+                    boolean ok = true;
                     for (TestSignal out : outputs) {
                         MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
                         res[out.index] = matchedValue;
-                        if (!matchedValue.isPassed())
+                        if (!matchedValue.isPassed()) {
                             allPassed = false;
+                            ok = false;
+                        }
                     }
-                    results.add(res);
+
+                    if (results.size() < (ok ? MAX_RESULTS : ERR_RESULTS))
+                        results.add(res);
+                    else
+                        toManyResults = true;
                 }
             }, new Context());
         } catch (ParserException e) {
@@ -174,6 +184,17 @@ public class TestResult {
      */
     public boolean allPassed() {
         return allPassed;
+    }
+
+
+    /**
+     * Indicates if there are to many entries in the table to show.
+     * If there are to many entries, the test results is still correct.
+     *
+     * @return true if there are missing items in the results list.
+     */
+    public boolean isToManyResults() {
+        return toManyResults;
     }
 
     private int getIndexOf(String name) {

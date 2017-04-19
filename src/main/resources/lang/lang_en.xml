@@ -475,7 +475,7 @@ allowed are {1} variables but {2} are found.</string>
     <string name="err_recursiveNestingAt_N0">The circuit {0} imports itself!</string>
     <string name="err_minimizationFailed">The result of the minimization is not correct!
 The names of the variables may not be unique.</string>
-    <string name="err_toManyTestEntries">To many entries in the test data matrix.</string>
+    <string name="err_toManyIterations">To many iterations in a loop.</string>
     <string name="err_diodeNeedsPullUpResistorAtOutput">Diode needs a pull up resistor at its output!</string>
     <string name="err_diodeNeedsPullDownResistorAtOutput">Diode needs a pull down resistor at its output!</string>
     <string name="err_testSignal_N_notFound">Test signal {0} not found in the circuit!</string>

@@ -485,7 +485,7 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_recursiveNestingAt_N0">Die Schaltung {0} bindet sich selbst ein!</string>
     <string name="err_minimizationFailed">Das Ergebnis der Minimierung ist nicht korrekt!
 Sind evtl. die Namen der Variablen nicht eindeutig?</string>
-    <string name="err_toManyTestEntries">Zu viele Einträge in der Testdatenmatrix.</string>
+    <string name="err_toManyIterations">Zu viele Iterationen in einer Schleife.</string>
     <string name="err_diodeNeedsPullUpResistorAtOutput">Diode benötigt am Ausgang einen PullUp-Widerstand!</string>
     <string name="err_diodeNeedsPullDownResistorAtOutput">Diode benötigt am Ausgang einen PullDown-Widerstand!</string>
     <string name="err_testSignal_N_notFound">Testsignal {0} in der Schaltung nicht gefunden!</string>

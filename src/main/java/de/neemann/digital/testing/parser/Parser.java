@@ -94,8 +94,6 @@ public class Parser {
                     tok.consume();
                     expect(Tokenizer.Token.OPEN);
                     int count = (int) parseInt();
-                    if (count > 1 << 16)
-                        throw new ParserException(Lang.get("err_toManyTestEntries"));
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat("n", count, parseSingleRow()));
                     break;
@@ -106,8 +104,6 @@ public class Parser {
                     String var = tok.getIdent();
                     expect(Tokenizer.Token.COMMA);
                     count = (int) parseInt();
-                    if (count > 1 << 16)
-                        throw new ParserException(Lang.get("err_toManyTestEntries"));
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat(var, count, parseRows(Tokenizer.Token.LOOP)));
                     break;
