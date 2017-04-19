@@ -43,7 +43,7 @@ public class Parser {
      */
     public Parser parse() throws IOException, ParserException {
         parseHeader();
-        emitter = parseValues(false);
+        emitter = parseRows(false);
         expect(Tokenizer.Token.EOF);
         return this;
     }
@@ -69,7 +69,7 @@ public class Parser {
         return new ParserException(Lang.get("err_unexpectedToken_N0_inLine_N1", name, tok.getLine()));
     }
 
-    private LineEmitter parseValues(boolean loop) throws IOException, ParserException {
+    private LineEmitter parseRows(boolean loop) throws IOException, ParserException {
         LineEmitterList list = new LineEmitterList();
         while (true) {
             Tokenizer.Token t = tok.peek();
@@ -80,40 +80,38 @@ public class Parser {
                     if (loop)
                         throw newUnexpectedToken(t);
                     return list.minimize();
-                case NUMBER:
-                    list.add(parseLine());
-                    break;
+                case BITS:
+                case OPEN:
                 case IDENT:
-                    if (tok.getIdent().equals("end")) {
-                        tok.consume();
-                        expect(Tokenizer.Token.IDENT);
-                        if (!tok.getIdent().equals("loop"))
-                            throw newUnexpectedToken(t);
-                        if (!loop)
-                            throw newUnexpectedToken(t);
-                        return list.minimize();
-                    } else if (tok.getIdent().equals("repeat")) {
-                        tok.consume();
-                        expect(Tokenizer.Token.OPEN);
-                        int count = (int) parseInt();
-                        if (count > 1 << 16)
-                            throw new ParserException(Lang.get("err_toManyTestEntries"));
-                        expect(Tokenizer.Token.CLOSE);
-                        list.add(new LineEmitterRepeat("n", count, parseLine()));
-                    } else if (tok.getIdent().equals("loop")) {
-                        tok.consume();
-                        expect(Tokenizer.Token.OPEN);
-                        expect(Tokenizer.Token.IDENT);
-                        String var = tok.getIdent();
-                        expect(Tokenizer.Token.COMMA);
-                        int count = (int) parseInt();
-                        if (count > 1 << 16)
-                            throw new ParserException(Lang.get("err_toManyTestEntries"));
-                        expect(Tokenizer.Token.CLOSE);
-                        list.add(new LineEmitterRepeat(var, count, parseValues(true)));
-                    } else {
-                        list.add(parseLine());
-                    }
+                case NUMBER:
+                    list.add(parseSingleRow());
+                    break;
+                case END:
+                    tok.consume();
+                    expect(Tokenizer.Token.LOOP);
+                    if (!loop)
+                        throw newUnexpectedToken(t);
+                    return list.minimize();
+                case REPEAT:
+                    tok.consume();
+                    expect(Tokenizer.Token.OPEN);
+                    int count = (int) parseInt();
+                    if (count > 1 << 16)
+                        throw new ParserException(Lang.get("err_toManyTestEntries"));
+                    expect(Tokenizer.Token.CLOSE);
+                    list.add(new LineEmitterRepeat("n", count, parseSingleRow()));
+                    break;
+                case LOOP:
+                    tok.consume();
+                    expect(Tokenizer.Token.OPEN);
+                    expect(Tokenizer.Token.IDENT);
+                    String var = tok.getIdent();
+                    expect(Tokenizer.Token.COMMA);
+                    count = (int) parseInt();
+                    if (count > 1 << 16)
+                        throw new ParserException(Lang.get("err_toManyTestEntries"));
+                    expect(Tokenizer.Token.CLOSE);
+                    list.add(new LineEmitterRepeat(var, count, parseRows(true)));
                     break;
                 default:
                     throw newUnexpectedToken(t);
@@ -121,7 +119,7 @@ public class Parser {
         }
     }
 
-    private LineEmitter parseLine() throws IOException, ParserException {
+    private LineEmitter parseSingleRow() throws IOException, ParserException {
         LineEmitterSimple line = null;
         while (true) {
             Tokenizer.Token token = tok.next();
@@ -132,25 +130,24 @@ public class Parser {
                     Value num = new Value(tok.getIdent());
                     line.add((vals, conext) -> vals.add(num));
                     break;
+                case BITS:
+                    expect(Tokenizer.Token.OPEN);
+                    int bitCount = (int) parseInt();
+                    expect(Tokenizer.Token.COMMA);
+                    Expression exp = parseExpression();
+                    line.add(new ValueAppenderBits(bitCount, exp));
+                    expect(Tokenizer.Token.CLOSE);
+                    break;
                 case IDENT:
-                    if (tok.getIdent().equals("bits")) {
-                        expect(Tokenizer.Token.OPEN);
-                        int bitCount = (int) parseInt();
-                        expect(Tokenizer.Token.COMMA);
-                        Expression exp = parseExpression();
-                        line.add(new ValueAppenderBits(bitCount, exp));
-                        expect(Tokenizer.Token.CLOSE);
-                    } else {
-                        try {
-                            final Value value = new Value(tok.getIdent().toUpperCase());
-                            line.add((vals, context) -> vals.add(value));
-                        } catch (NumberFormatException e) {
-                            throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
-                        }
+                    try {
+                        final Value value = new Value(tok.getIdent().toUpperCase());
+                        line.add((vals, context) -> vals.add(value));
+                    } catch (NumberFormatException e) {
+                        throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
                     }
                     break;
                 case OPEN:
-                    Expression exp = parseExpression();
+                    exp = parseExpression();
                     line.add((vals, context) -> vals.add(new Value((int) exp.value(context))));
                     expect(Tokenizer.Token.CLOSE);
                     break;

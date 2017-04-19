@@ -37,7 +37,7 @@ public class ParserLoopTest extends TestCase {
     }
 
     public void testNested() throws IOException, ParserException {
-        Parser parser = new Parser("A B\nloop(i,10)\nloop(j,10)\n C ((i+j)*2)\nend loop\nend loop").parse();
+        Parser parser = new Parser("A B\nloop(i,10)\nloop(j,10)\n C (i+j*2)\nend loop\nend loop").parse();
         LineCollector td = new LineCollector(parser);
 
         assertEquals(2, td.getNames().size());
@@ -47,7 +47,7 @@ public class ParserLoopTest extends TestCase {
             for (int j = 0; j < 10; j++) {
                 int ind = i * 10 + j;
                 assertEquals(Value.Type.CLOCK, td.getLines().get(ind)[0].getType());
-                assertEquals((i + j) * 2, td.getLines().get(ind)[1].getValue());
+                assertEquals(i + j * 2, td.getLines().get(ind)[1].getValue());
             }
         }
     }
@@ -69,7 +69,7 @@ public class ParserLoopTest extends TestCase {
 
     public void testMissingEndLoop() throws IOException, ParserException {
         try {
-            new Parser("A B\nloop(i,10) C ((i+j)*2)").parse();
+            new Parser("A B\nloop(i,10) C (i)").parse();
             fail();
         } catch (ParserException e) {
         }
@@ -77,7 +77,7 @@ public class ParserLoopTest extends TestCase {
 
     public void testUnexpectedEndLoop() throws IOException, ParserException {
         try {
-            new Parser("A B\n C ((i+j)*2)\nend loop").parse();
+            new Parser("A B\n C 1\nend loop").parse();
             fail();
         } catch (ParserException e) {
         }
@@ -85,7 +85,7 @@ public class ParserLoopTest extends TestCase {
 
     public void testIncompleteEndLoop() throws IOException, ParserException {
         try {
-            new Parser("A B\n C ((i+j)*2)\nend").parse();
+            new Parser("A B\n C 1\nend").parse();
             fail();
         } catch (ParserException e) {
         }

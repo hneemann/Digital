@@ -2,6 +2,7 @@ package de.neemann.digital.testing.parser;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
 
 /**
  * Simple tokenizer to tokenize boolean expressions.
@@ -10,7 +11,19 @@ import java.io.Reader;
  */
 public class Tokenizer {
 
-    enum Token {UNKNOWN, IDENT, AND, OR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL, ADD, SUB, MUL, GREATER, SMALER, DIV}
+    enum Token {
+        UNKNOWN, IDENT, AND, OR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
+        ADD, SUB, MUL, GREATER, SMALER, DIV, END, LOOP, REPEAT, BITS
+    }
+
+    private static HashMap<String, Token> statementMap = new HashMap<>();
+
+    static {
+        statementMap.put("end", Token.END);
+        statementMap.put("loop", Token.LOOP);
+        statementMap.put("repeat", Token.REPEAT);
+        statementMap.put("bits", Token.BITS);
+    }
 
     private final Reader in;
     private Token token;
@@ -136,6 +149,8 @@ public class Tokenizer {
                             wasChar = false;
                         }
                     } while (wasChar);
+                    token = statementMap.get(builder.toString());
+                    if (token == null) token = Token.IDENT;
                 } else if (isNumberChar(c)) {
                     token = Token.NUMBER;
                     builder.setLength(0);
