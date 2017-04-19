@@ -72,7 +72,7 @@ public class ParserLoopTest extends TestCase {
             new Parser("A B\nloop(i,10) C ((i+j)*2)").parse();
             fail();
         } catch (ParserException e) {
-                    }
+        }
     }
 
     public void testUnexpectedEndLoop() throws IOException, ParserException {
