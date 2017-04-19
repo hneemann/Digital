@@ -84,8 +84,11 @@ public class Parser {
                     list.add(parseLine());
                     break;
                 case IDENT:
-                    if (tok.getIdent().equals("endloop")) {
+                    if (tok.getIdent().equals("end")) {
                         tok.consume();
+                        expect(Tokenizer.Token.IDENT);
+                        if (!tok.getIdent().equals("loop"))
+                            throw newUnexpectedToken(t);
                         if (!loop)
                             throw newUnexpectedToken(t);
                         return list.minimize();

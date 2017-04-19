@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ParserLoopTest extends TestCase {
 
     public void testLoop() throws IOException, ParserException {
-        Parser parser = new Parser("A B\nloop(n,10)\n C (n*2)\nendloop").parse();
+        Parser parser = new Parser("A B\nloop(n,10)\n C (n*2)\nend loop").parse();
         LineCollector td = new LineCollector(parser);
 
         assertEquals(2, td.getNames().size());
@@ -24,7 +24,7 @@ public class ParserLoopTest extends TestCase {
     }
 
     public void testLoopVar() throws IOException, ParserException {
-        Parser parser = new Parser("A B\nloop(i,10)\n C (i*2)\nendloop").parse();
+        Parser parser = new Parser("A B\nloop(i,10)\n C (i*2)\nend loop").parse();
         LineCollector td = new LineCollector(parser);
 
         assertEquals(2, td.getNames().size());
@@ -37,7 +37,7 @@ public class ParserLoopTest extends TestCase {
     }
 
     public void testNested() throws IOException, ParserException {
-        Parser parser = new Parser("A B\nloop(i,10)\nloop(j,10)\n C ((i+j)*2)\nendloop\nendloop").parse();
+        Parser parser = new Parser("A B\nloop(i,10)\nloop(j,10)\n C ((i+j)*2)\nend loop\nend loop").parse();
         LineCollector td = new LineCollector(parser);
 
         assertEquals(2, td.getNames().size());
@@ -53,7 +53,7 @@ public class ParserLoopTest extends TestCase {
     }
 
     public void testLoopMultiLines() throws IOException, ParserException {
-        Parser parser = new Parser("A B\nloop(i,10)\n C (i*2)\n C (i*2+1)\nendloop").parse();
+        Parser parser = new Parser("A B\nloop(i,10)\n C (i*2)\n C (i*2+1)\nend loop").parse();
         LineCollector td = new LineCollector(parser);
 
         assertEquals(2, td.getNames().size());
@@ -77,7 +77,7 @@ public class ParserLoopTest extends TestCase {
 
     public void testUnexpectedEndloop() throws IOException, ParserException {
         try {
-            new Parser("A B\n C ((i+j)*2)\nendloop").parse();
+            new Parser("A B\n C ((i+j)*2)\nend loop").parse();
             fail();
         } catch (ParserException e) {
         }

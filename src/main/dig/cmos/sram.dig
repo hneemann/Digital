@@ -1470,7 +1470,7 @@ loop(n,16)
 bits(4,n)    0  1    0
 bits(4,n)    1  1    1
 bits(4,n)    0  1    1
-endloop
+end loop
 
 # check all cells are one
 repeat(16) bits(4,n)    0  x    1
@@ -1480,7 +1480,7 @@ loop(n,16)
 bits(4,n)    0  0    1
 bits(4,n)    1  0    0
 bits(4,n)    0  0    0
-endloop
+end loop
 
 # check all cells are zero
 repeat(16) bits(4,n)    0  x    0
