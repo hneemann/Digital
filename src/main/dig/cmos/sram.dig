@@ -1465,73 +1465,25 @@ in der Speichermatrix gespeichert.</string>
           <testData>
             <dataString>C0 C1 R0 R1 WE D_In D_Out
 
+# write all cells to one
+loop(n,16)
+bits(4,n)    0  1    0
+bits(4,n)    1  1    1
+bits(4,n)    0  1    1
+endloop
+
+# check all cells are one
+repeat(16) bits(4,n)    0  x    1
 
 # write all cells to zero
-0  0  0  0  0  0    0
-0  0  0  0  1  0    0
-0  0  0  0  0  0    0
+loop(n,16)
+bits(4,n)    0  0    1
+bits(4,n)    1  0    0
+bits(4,n)    0  0    0
+endloop
 
-0  0  0  1  0  0    0
-0  0  0  1  1  0    0
-0  0  0  1  0  0    0
-
-0  0  1  0  0  0    0
-0  0  1  0  1  0    0
-0  0  1  0  0  0    0
-
-0  0  1  1  0  0    0
-0  0  1  1  1  0    0
-0  0  1  1  0  0    0
-
-0  1  0  0  0  0    0
-0  1  0  0  1  0    0
-0  1  0  0  0  0    0
-
-0  1  0  1  0  0    0
-0  1  0  1  1  0    0
-0  1  0  1  0  0    0
-
-0  1  1  0  0  0    0
-0  1  1  0  1  0    0
-0  1  1  0  0  0    0
-
-0  1  1  1  0  0    0
-0  1  1  1  1  0    0
-0  1  1  1  0  0    0
-
-
-1  0  0  0  0  0    0
-1  0  0  0  1  0    0
-1  0  0  0  0  0    0
-
-1  0  0  1  0  0    0
-1  0  0  1  1  0    0
-1  0  0  1  0  0    0
-
-1  0  1  0  0  0    0
-1  0  1  0  1  0    0
-1  0  1  0  0  0    0
-
-1  0  1  1  0  0    0
-1  0  1  1  1  0    0
-1  0  1  1  0  0    0
-
-1  1  0  0  0  0    0
-1  1  0  0  1  0    0
-1  1  0  0  0  0    0
-
-1  1  0  1  0  0    0
-1  1  0  1  1  0    0
-1  1  0  1  0  0    0
-
-1  1  1  0  0  0    0
-1  1  1  0  1  0    0
-1  1  1  0  0  0    0
-
-1  1  1  1  0  0    0
-1  1  1  1  1  0    0
-1  1  1  1  0  0    0
-
+# check all cells are zero
+repeat(16) bits(4,n)    0  x    0
 
 #write cell 00 to 1
 
@@ -1547,8 +1499,6 @@ in der Speichermatrix gespeichert.</string>
 # cell 00 is still 1
 
 0  0  0  0  0  0    1
-
-
 </dataString>
           </testData>
         </entry>

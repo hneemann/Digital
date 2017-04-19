@@ -13,7 +13,9 @@ import java.io.IOException;
 public class ParserTest extends TestCase {
 
     public void testOk() throws TestingDataException, IOException, ParserException {
-        Parser td = new Parser("A B\n0 1\n1 0\nX x").parse();
+        Parser parser = new Parser("A B\n0 1\n1 0\nX x").parse();
+        LineCollector td = new LineCollector(parser);
+
         assertEquals(2, td.getNames().size());
 
         assertEquals(3, td.getLines().size());
@@ -36,7 +38,8 @@ public class ParserTest extends TestCase {
     }
 
     public void testHex() throws TestingDataException, IOException, ParserException {
-        Parser td = new Parser("A B\n0 0xff").parse();
+        Parser parser = new Parser("A B\n0 0xff").parse();
+        LineCollector td = new LineCollector(parser);
         assertEquals(2, td.getNames().size());
 
         assertEquals(1, td.getLines().size());
@@ -50,7 +53,7 @@ public class ParserTest extends TestCase {
 
     public void testMissingValue() throws IOException, ParserException {
         try {
-            new Parser("A B\n0 0\n1").parse();
+            new Parser("A B\n0 0\n1").parse().getLines().emitLines(values -> {}, new Context());
             assertTrue(false);
         } catch (ParserException e) {
             assertTrue(true);
@@ -67,7 +70,9 @@ public class ParserTest extends TestCase {
     }
 
     public void testClock() throws Exception {
-        Parser td = new Parser("A B\nC 1\nC 0").parse();
+        Parser parser = new Parser("A B\nC 1\nC 0").parse();
+        LineCollector td = new LineCollector(parser);
+
         assertEquals(2, td.getNames().size());
         assertEquals(2, td.getLines().size());
 
@@ -78,7 +83,9 @@ public class ParserTest extends TestCase {
     }
 
     public void testFor() throws IOException, ParserException {
-        Parser td = new Parser("A B\nrepeat(10) C (n*2)\n").parse();
+        Parser parser = new Parser("A B\nrepeat(10) C (n*2)\n").parse();
+        LineCollector td = new LineCollector(parser);
+
         assertEquals(2, td.getNames().size());
         assertEquals(10, td.getLines().size());
 
@@ -89,7 +96,8 @@ public class ParserTest extends TestCase {
     }
 
     public void testForBits() throws IOException, ParserException {
-        Parser td = new Parser("A B C D \nrepeat(8) X bits(3,n)\n").parse();
+        Parser parser = new Parser("A B C D \nrepeat(8) X bits(3,n)\n").parse();
+        LineCollector td = new LineCollector(parser);
         assertEquals(4, td.getNames().size());
         assertEquals(8, td.getLines().size());
 
@@ -102,19 +110,21 @@ public class ParserTest extends TestCase {
     }
 
     public void testComment() throws TestingDataException, IOException, ParserException {
-        Parser td = new Parser("#test\nA B\n1 1").parse();
+        Parser parser = new Parser("#test\nA B\n1 1").parse();
+        LineCollector td = new LineCollector(parser);
         assertEquals(2, td.getNames().size());
         assertEquals(1, td.getLines().size());
     }
 
     public void testHeader() throws TestingDataException, IOException, ParserException {
-        Parser td = new Parser("A   B     C  D\n1 1 1 1").parse();
+        Parser parser = new Parser("A   B     C  D\n1 1 1 1").parse();
+        LineCollector td = new LineCollector(parser);
         assertEquals(4, td.getNames().size());
         assertEquals(1, td.getLines().size());
     }
 
     public void testEmptyLines() throws TestingDataException, IOException, ParserException {
-        Parser td = new Parser("A_i B_i C_i-1 C_i S_i\n" +
+        Parser parser = new Parser("A_i B_i C_i-1 C_i S_i\n" +
                 " 0   0   0     0   0\n" +
                 " 0   0   1     0   1\n" +
                 " 0   1   0     0   1\n\n" +
@@ -123,6 +133,8 @@ public class ParserTest extends TestCase {
                 " 1   0   1     1   0\n" +
                 " 1   1   0     1   0\n" +
                 " 1   1   1     1   1\n").parse();
+        LineCollector td = new LineCollector(parser);
+
         assertEquals(5, td.getNames().size());
         assertEquals(8, td.getLines().size());
 
@@ -132,11 +144,11 @@ public class ParserTest extends TestCase {
     }
 
     public void testBUG1() throws IOException, ParserException {
-        Parser td = new Parser("C_i-1 A B    C   S\n" +
+        Parser parser = new Parser("C_i-1 A B    C   S\n" +
                 "repeat(1<<16) 0 (n>>8) (n&255) ((n>>8)*(n&255)) 0").parse();
+        LineCollector td = new LineCollector(parser);
         assertEquals(5, td.getNames().size());
         assertEquals(1<<16, td.getLines().size());
-
     }
 
 }

@@ -6,6 +6,9 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.parser.Context;
+import de.neemann.digital.testing.parser.LineEmitter;
+import de.neemann.digital.testing.parser.ParserException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,7 +24,7 @@ import java.util.NoSuchElementException;
 public class TestResult {
 
     private final ArrayList<String> names;
-    private final ArrayList<Value[]> lines;
+    private final LineEmitter lines;
     private final ArrayList<Value[]> results;
     private boolean allPassed;
     private Exception exception;
@@ -87,55 +90,63 @@ public class TestResult {
 
         model.init();
 
-        for (Value[] rowWithDontCare : lines) {
+        try {
+            lines.emitLines(rowWithDontCare -> {
+                for (Value[] row : resolveDontCares(inputs, rowWithDontCare)) {
 
-            for (Value[] row : resolveDontCares(inputs, rowWithDontCare)) {
+                    Value[] res = new Value[row.length];
 
-                Value[] res = new Value[row.length];
-
-                boolean clockIsUsed = false;
-                // set all values except the clocks
-                for (TestSignal in : inputs) {
-                    if (row[in.index].getType() != Value.Type.CLOCK) {
-                        row[in.index].copyTo(in.value);
-                    } else {
-                        clockIsUsed = true;
-                    }
-                    res[in.index] = row[in.index];
-                }
-
-                if (clockIsUsed) {  // a clock signal is used
-                    model.doStep();  // propagate all except clock
-
-                    // set clock
-                    for (TestSignal in : inputs)
-                        if (row[in.index].getType() == Value.Type.CLOCK)
+                    boolean clockIsUsed = false;
+                    // set all values except the clocks
+                    for (TestSignal in : inputs) {
+                        if (row[in.index].getType() != Value.Type.CLOCK) {
                             row[in.index].copyTo(in.value);
+                        } else {
+                            clockIsUsed = true;
+                        }
+                        res[in.index] = row[in.index];
+                    }
 
-                    // propagate clock change
-                    model.doStep();
+                    try {
+                        if (clockIsUsed) {  // a clock signal is used
+                            model.doStep();  // propagate all except clock
 
-                    // restore clock
-                    for (TestSignal in : inputs)   // invert the clock values
-                        if (row[in.index].getType() == Value.Type.CLOCK)
-                            in.value.setBool(!in.value.getBool());
-                }
+                            // set clock
+                            for (TestSignal in : inputs)
+                                if (row[in.index].getType() == Value.Type.CLOCK)
+                                    row[in.index].copyTo(in.value);
 
-                try {
-                    model.doStep();
-                } catch (NodeException | RuntimeException e) {
-                    exception = e;
-                    allPassed = false;
-                    return this;
-                }
+                            // propagate clock change
+                            model.doStep();
 
-                for (TestSignal out : outputs) {
-                    MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
-                    res[out.index] = matchedValue;
-                    if (!matchedValue.isPassed())
+                            // restore clock
+                            for (TestSignal in : inputs)   // invert the clock values
+                                if (row[in.index].getType() == Value.Type.CLOCK)
+                                    in.value.setBool(!in.value.getBool());
+                        }
+
+                        model.doStep();
+                    } catch (NodeException | RuntimeException e) {
+                        exception = e;
                         allPassed = false;
+                        throw new RuntimeException(e);
+                    }
+
+                    for (TestSignal out : outputs) {
+                        MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
+                        res[out.index] = matchedValue;
+                        if (!matchedValue.isPassed())
+                            allPassed = false;
+                    }
+                    results.add(res);
                 }
-                results.add(res);
+            }, new Context());
+        } catch (ParserException e) {
+            throw new TestingDataException(e);
+        } catch (RuntimeException e) {
+            if (allPassed) {
+                allPassed = false;
+                exception = e;
             }
         }
 

@@ -1,5 +1,6 @@
 package de.neemann.digital.testing;
 
+import de.neemann.digital.testing.parser.LineEmitter;
 import de.neemann.digital.testing.parser.Parser;
 import de.neemann.digital.testing.parser.ParserException;
 
@@ -19,7 +20,7 @@ public class TestData {
     public static final TestData DEFAULT = new TestData("");
 
     private String dataString;
-    private transient ArrayList<Value[]> lines;
+    private transient LineEmitter lines;
     private transient ArrayList<String> names;
 
     TestData(String data) {
@@ -74,7 +75,7 @@ public class TestData {
      * @return the data lines
      * @throws TestingDataException TestingDataException
      */
-    public ArrayList<Value[]> getLines() throws TestingDataException {
+    public LineEmitter getLines() throws TestingDataException {
         check();
         return lines;
     }

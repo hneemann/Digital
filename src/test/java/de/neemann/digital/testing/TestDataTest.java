@@ -1,5 +1,6 @@
 package de.neemann.digital.testing;
 
+import de.neemann.digital.testing.parser.LineCollector;
 import de.neemann.digital.testing.parser.ParserException;
 import junit.framework.TestCase;
 
@@ -15,7 +16,10 @@ public class TestDataTest extends TestCase {
 
     public void testSetDataNonParseable() throws Exception {
         TestData td = new TestData(DATA1);
-        assertEquals(4, td.getLines().size());
+
+        LineCollector cl = new LineCollector(td.getLines());
+
+        assertEquals(4, cl.getLines().size());
         assertEquals(DATA1, td.getDataString());
 
         // try to set a non parsable string
@@ -31,7 +35,10 @@ public class TestDataTest extends TestCase {
 
     public void testSetDataParseable() throws Exception {
         TestData td = new TestData(DATA1);
-        assertEquals(4, td.getLines().size());
+
+        LineCollector cl = new LineCollector(td.getLines());
+
+        assertEquals(4, cl.getLines().size());
         assertEquals(DATA1, td.getDataString());
 
         // try to set a parsable string

@@ -1,6 +1,7 @@
 package de.neemann.digital.testing;
 
 import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.Parser;
 import de.neemann.digital.testing.parser.ParserException;
 
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * Helper to create all possible transitions between states.
  * Created by hneemann on 24.02.17.
  */
 public class Transitions {
@@ -44,7 +46,7 @@ public class Transitions {
                 inVarNum.add(i);
         }
 
-        for (Value[] line : p.getLines()) {
+        p.getLines().emitLines(line -> {
             if (isNormal(line)) {
                 boolean found = false;
                 for (Value[] u : uniqueLines) {
@@ -56,7 +58,7 @@ public class Transitions {
                 if (!found)
                     uniqueLines.add(line);
             }
-        }
+        }, new Context());
     }
 
     private boolean isInputEqual(Value[] l1, Value[] l2) {
