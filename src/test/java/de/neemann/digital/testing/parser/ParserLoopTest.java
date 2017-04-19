@@ -67,7 +67,7 @@ public class ParserLoopTest extends TestCase {
         }
     }
 
-    public void testMissingEndloop() throws IOException, ParserException {
+    public void testMissingEndLoop() throws IOException, ParserException {
         try {
             new Parser("A B\nloop(i,10) C ((i+j)*2)").parse();
             fail();
@@ -75,9 +75,17 @@ public class ParserLoopTest extends TestCase {
                     }
     }
 
-    public void testUnexpectedEndloop() throws IOException, ParserException {
+    public void testUnexpectedEndLoop() throws IOException, ParserException {
         try {
             new Parser("A B\n C ((i+j)*2)\nend loop").parse();
+            fail();
+        } catch (ParserException e) {
+        }
+    }
+
+    public void testIncompleteEndLoop() throws IOException, ParserException {
+        try {
+            new Parser("A B\n C ((i+j)*2)\nend").parse();
             fail();
         } catch (ParserException e) {
         }
