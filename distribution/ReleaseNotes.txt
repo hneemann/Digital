@@ -4,6 +4,8 @@ planned as v0.11
 - Added floating gate FETs.
 - Better detecting of missing signals in test cases.
 - Better plausibility checks if diodes are used.
+- Added a loop command to the test data parser.
+  See "cmos/sram.dig" as an example usage of the new loop statement.
 
 v0.10, released on 09. Apr 2017
 - User can select the expressions representation format in the settings dialog.
