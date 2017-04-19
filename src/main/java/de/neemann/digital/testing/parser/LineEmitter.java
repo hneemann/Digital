@@ -10,9 +10,9 @@ public interface LineEmitter {
      * Is called to imit the described line to the listener
      *
      * @param listener the listener to emit the lines
-     * @param conext   the context
+     * @param context  the context
      * @throws ParserException ParserException
      */
-    void emitLines(LineListener listener, Context conext) throws ParserException;
+    void emitLines(LineListener listener, Context context) throws ParserException;
 
 }

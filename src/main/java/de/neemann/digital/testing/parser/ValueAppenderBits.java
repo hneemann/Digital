@@ -24,8 +24,8 @@ public class ValueAppenderBits implements ValueAppender {
     }
 
     @Override
-    public void appendValues(ArrayList<Value> values, Context conext) throws ParserException {
-        long value = expression.value(conext);
+    public void appendValues(ArrayList<Value> values, Context context) throws ParserException {
+        long value = expression.value(context);
         long mask = 1L << (bitCount - 1);
         for (int i = 0; i < bitCount; i++) {
             boolean v = (value & mask) != 0;

@@ -43,7 +43,7 @@ public class Parser {
      */
     public Parser parse() throws IOException, ParserException {
         parseHeader();
-        emitter = parseRows(false);
+        emitter = parseRows(null);
         expect(Tokenizer.Token.EOF);
         return this;
     }
@@ -69,7 +69,7 @@ public class Parser {
         return new ParserException(Lang.get("err_unexpectedToken_N0_inLine_N1", name, tok.getLine()));
     }
 
-    private LineEmitter parseRows(boolean loop) throws IOException, ParserException {
+    private LineEmitter parseRows(Tokenizer.Token endToken) throws IOException, ParserException {
         LineEmitterList list = new LineEmitterList();
         while (true) {
             Tokenizer.Token t = tok.peek();
@@ -77,7 +77,7 @@ public class Parser {
                 case EOL:
                     break;
                 case EOF:
-                    if (loop)
+                    if (endToken != null)
                         throw newUnexpectedToken(t);
                     return list.minimize();
                 case BITS:
@@ -88,9 +88,7 @@ public class Parser {
                     break;
                 case END:
                     tok.consume();
-                    expect(Tokenizer.Token.LOOP);
-                    if (!loop)
-                        throw newUnexpectedToken(t);
+                    expect(endToken);
                     return list.minimize();
                 case REPEAT:
                     tok.consume();
@@ -111,7 +109,7 @@ public class Parser {
                     if (count > 1 << 16)
                         throw new ParserException(Lang.get("err_toManyTestEntries"));
                     expect(Tokenizer.Token.CLOSE);
-                    list.add(new LineEmitterRepeat(var, count, parseRows(true)));
+                    list.add(new LineEmitterRepeat(var, count, parseRows(Tokenizer.Token.LOOP)));
                     break;
                 default:
                     throw newUnexpectedToken(t);
@@ -128,7 +126,7 @@ public class Parser {
             switch (token) {
                 case NUMBER:
                     Value num = new Value(tok.getIdent());
-                    line.add((vals, conext) -> vals.add(num));
+                    line.add((vals, context) -> vals.add(num));
                     break;
                 case BITS:
                     expect(Tokenizer.Token.OPEN);
