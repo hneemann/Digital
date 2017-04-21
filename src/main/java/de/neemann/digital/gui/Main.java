@@ -1190,7 +1190,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private Component parent;
         private ElementLibrary library;
         private Circuit circuit;
-        private boolean allowAllFileActions=true;
+        private boolean allowAllFileActions = true;
 
         /**
          * @param fileToOpen the file to open
@@ -1220,7 +1220,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         /**
-         * @param circuit the circuitto show
+         * @param circuit the circuit to show
          * @return this for chained calls
          */
         public MainBuilder setCircuit(Circuit circuit) {
@@ -1229,7 +1229,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         /**
-         * If called most file actions are denied
+         * If called, most file actions are denied
+         *
          * @return this for chained calls
          */
         public MainBuilder denyMostFileActions() {

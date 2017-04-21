@@ -1,5 +1,8 @@
 Release Notes
 
+planed as v0.12
+- added the possibility to open a circuit from the command line
+
 v0.11, released on 20. Apr 2017
 - Added floating gate FETs.
 - Better detecting of missing signals in test cases.
