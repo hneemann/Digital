@@ -64,7 +64,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  *
  * @author hneemann
  */
-public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface {
+public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface {
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
     private static boolean experimental;
 
@@ -130,48 +130,17 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     private JComponent componentOnPane;
     private LibraryTreeModel treeModel;
 
-    private Main() {
-        this(null, null, null, null);
-    }
-
-    /**
-     * Creates a new instance.
-     * Used to open a nested circuit.
-     *
-     * @param parent     the parent component
-     * @param fileToOpen a file to open
-     * @param library    the library to use, if not null a nested circuit is opened
-     */
-    public Main(Component parent, File fileToOpen, ElementLibrary library) {
-        this(parent, fileToOpen, library, null);
-    }
-
-    /**
-     * Creates a new instance.
-     * Used to show a generated circuit.
-     *
-     * @param parent         the parent component
-     * @param parentsLibrary the library used by the parent window
-     * @param circuit        circuit to show
-     */
-    public Main(Component parent, ElementLibrary parentsLibrary, Circuit circuit) {
-        this(parent, null, parentsLibrary, circuit);
-    }
-
     /**
      * Creates a new instance
      *
-     * @param parent           the parent component
-     * @param nestedFileToOpen a file to open
-     * @param parentsLibrary   the parents library. If not null means opening a nested circuit
-     * @param circuit          circuit to show
+     * @param builder the builder
      */
-    private Main(Component parent, File nestedFileToOpen, ElementLibrary parentsLibrary, Circuit circuit) {
+    private Main(MainBuilder builder) {
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
 
-        if (parentsLibrary != null) library = parentsLibrary;
+        if (builder.library != null) library = builder.library;
         else library = new ElementLibrary();
 
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
@@ -179,12 +148,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         fileHistory = new FileHistory(this);
 
         circuitComponent = new CircuitComponent(this, library, shapeFactory);
-        if (circuit != null) {
-            SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(circuit));
-            setFilename(nestedFileToOpen, false);
+        if (builder.circuit != null) {
+            SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(builder.circuit));
+            setFilename(builder.fileToOpen, false);
         } else {
-            if (nestedFileToOpen != null) {
-                SwingUtilities.invokeLater(() -> loadFile(nestedFileToOpen, false));
+            if (builder.fileToOpen != null) {
+                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null));
             } else {
                 File name = fileHistory.getMostRecent();
                 if (name != null) {
@@ -206,7 +175,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         JMenuBar menuBar = new JMenuBar();
         JToolBar toolBar = new JToolBar();
 
-        save = createFileMenu(menuBar, toolBar, nestedFileToOpen == null);
+        save = createFileMenu(menuBar, toolBar, builder.allowAllFileActions);
         toolBar.addSeparator();
 
         createViewMenu(menuBar, toolBar);
@@ -261,7 +230,7 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
 
         setPreferredSize(new Dimension(1024, 768));
         pack();
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(builder.parent);
     }
 
     private void createViewMenu(JMenuBar menuBar, JToolBar toolBar) {
@@ -371,7 +340,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         ToolTipAction newSubFile = new ToolTipAction(Lang.get("menu_newSub"), ICON_NEW_SUB) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Main(Main.this, library, new Circuit()).setVisible(true);
+                new MainBuilder()
+                        .setParent(Main.this)
+                        .setLibrary(library)
+                        .setCircuit(new Circuit())
+                        .build()
+                        .setVisible(true);
             }
         }.setToolTip(Lang.get("menu_newSub_tt"));
 
@@ -392,9 +366,11 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getJFileChooser(lastFilename);
                 if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                    Main m = new Main(Main.this, fc.getSelectedFile(), null);
-                    m.setLocationRelativeTo(Main.this);
-                    m.setVisible(true);
+                    new MainBuilder()
+                            .setParent(Main.this)
+                            .setFileToOpen(fc.getSelectedFile())
+                            .build()
+                            .setVisible(true);
                 }
             }
         }.setToolTip(Lang.get("menu_openWin_tt")).setActive(allowAll);
@@ -561,9 +537,12 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
                                 circuit.add((VisualElement) m);
                         }
 
-                        Main m = new Main(Main.this, library, circuit);
+                        Main m = new MainBuilder()
+                                .setParent(Main.this)
+                                .setLibrary(library)
+                                .setCircuit(circuit)
+                                .build();
                         m.lastFilename = filename;
-                        m.setLocationRelativeTo(Main.this);
                         m.setVisible(true);
                     }
                 } catch (Exception e1) {
@@ -1185,10 +1164,15 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
     public static void main(String[] args) {
         ToolTipManager.sharedInstance().setDismissDelay(10000);
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
-        experimental = args.length == 1 && args[0].equals("experimental");
         FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
+
+        MainBuilder builder = new MainBuilder();
+        for (String s : args) {
+            if (s.equals("experimental")) experimental = true;
+            if (s.toLowerCase().endsWith(".dig")) builder.setFileToOpen(new File(s));
+        }
         SwingUtilities.invokeLater(() -> {
-            Main main = new Main();
+            Main main = builder.build();
             try {
                 new RemoteSever(new DigitalHandler(main)).start(41114);
             } catch (IOException e) {
@@ -1198,4 +1182,73 @@ public class Main extends JFrame implements ClosingWindowListener.ConfirmSave, E
         });
     }
 
+    /**
+     * Builder to create a Main-Window
+     */
+    public static class MainBuilder implements Runnable {
+        private File fileToOpen;
+        private Component parent;
+        private ElementLibrary library;
+        private Circuit circuit;
+        private boolean allowAllFileActions=true;
+
+        /**
+         * @param fileToOpen the file to open
+         * @return this for chained calls
+         */
+        public MainBuilder setFileToOpen(File fileToOpen) {
+            this.fileToOpen = fileToOpen;
+            return this;
+        }
+
+        /**
+         * @param parent the parent component
+         * @return this for chained calls
+         */
+        public MainBuilder setParent(Component parent) {
+            this.parent = parent;
+            return this;
+        }
+
+        /**
+         * @param library the library to use
+         * @return this for chained calls
+         */
+        public MainBuilder setLibrary(ElementLibrary library) {
+            this.library = library;
+            return this;
+        }
+
+        /**
+         * @param circuit the circuitto show
+         * @return this for chained calls
+         */
+        public MainBuilder setCircuit(Circuit circuit) {
+            this.circuit = circuit;
+            return this;
+        }
+
+        /**
+         * If called most file actions are denied
+         * @return this for chained calls
+         */
+        public MainBuilder denyMostFileActions() {
+            this.allowAllFileActions = false;
+            return this;
+        }
+
+        /**
+         * Creates a new Main instance
+         *
+         * @return a new Main instance
+         */
+        public Main build() {
+            return new Main(this);
+        }
+
+        @Override
+        public void run() {
+            build().setVisible(true);
+        }
+    }
 }

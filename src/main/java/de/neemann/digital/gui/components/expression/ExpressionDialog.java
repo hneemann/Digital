@@ -66,7 +66,10 @@ public class ExpressionDialog extends JDialog {
                         for (Expression exp : expList)
                             circuitBuilder.addCombinatorial(FormatToExpression.defaultFormat(exp), exp);
                     Circuit circuit = circuitBuilder.createCircuit();
-                    SwingUtilities.invokeLater(() -> new Main(parent, library, circuit).setVisible(true));
+                    SwingUtilities.invokeLater(() -> new Main.MainBuilder()
+                            .setParent(parent)
+                            .setLibrary(library)
+                            .setCircuit(circuit));
                 } catch (Exception ex) {
                     new ErrorMessage().addCause(ex).show(ExpressionDialog.this);
                 }

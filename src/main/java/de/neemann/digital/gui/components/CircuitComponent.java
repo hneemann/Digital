@@ -597,8 +597,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             attributeDialog.dispose();
-                            SwingUtilities.invokeLater(() -> new Main(CircuitComponent.this,
-                                    ((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile(), library).setVisible(true));
+                            SwingUtilities.invokeLater(new Main.MainBuilder()
+                                    .setParent(CircuitComponent.this)
+                                    .setFileToOpen(((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile())
+                                    .setLibrary(library)
+                                    .denyMostFileActions());
                         }
                     }.setToolTip(Lang.get("attr_openCircuit_tt")));
                 }
