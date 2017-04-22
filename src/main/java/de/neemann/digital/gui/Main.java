@@ -155,11 +155,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             setFilename(builder.fileToOpen, false);
         } else {
             if (builder.fileToOpen != null) {
-                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null));
+                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, false));
             } else {
                 File name = fileHistory.getMostRecent();
                 if (name != null) {
-                    SwingUtilities.invokeLater(() -> loadFile(name, true));
+                    SwingUtilities.invokeLater(() -> loadFile(name, true, false));
                 }
             }
         }
@@ -358,7 +358,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
                     JFileChooser fc = getJFileChooser(baseFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                        loadFile(fc.getSelectedFile(), true);
+                        loadFile(fc.getSelectedFile(), true, true);
                     }
                 }
             }
@@ -529,9 +529,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction insertAsNew = new ToolTipAction(Lang.get("menu_insertAsNew")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 try {
-                    Object data = clpbrd.getData(DataFlavor.stringFlavor);
+                    Object data = clipboard.getData(DataFlavor.stringFlavor);
                     if (data instanceof String) {
                         ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, new Vector(0, 0));
                         Circuit circuit = new Circuit();
@@ -915,13 +915,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     @Override
     public void open(File file) {
         if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-            loadFile(file, true);
+            loadFile(file, true, true);
         }
     }
 
-    private void loadFile(File filename, boolean setLibraryRoot) {
+    private void loadFile(File filename, boolean setLibraryRoot, boolean toPref) {
         try {
-            setFilename(filename, setLibraryRoot);
+            setFilename(filename, toPref);
             if (setLibraryRoot) library.setRootFilePath(filename.getParentFile());
             Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circuit);
