@@ -46,7 +46,7 @@ public class NFET extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        input = inputs.get(0).checkBits(1, this).addObserverToValue(this);
+        input = inputs.get(0).checkBits(1, this, 0).addObserverToValue(this);
         s.setInputs(new ObservableValues(inputs.get(1), inputs.get(2)));
 
     }

@@ -69,6 +69,6 @@ public class Multiplexer extends FanIn {
         super.setInputs(in);
 
         if (in.size() != (1 << selectorBits))
-            throw new BitsException(Lang.get("err_selectorInputCountMismatch"), this, selector);
+            throw new BitsException(Lang.get("err_selectorInputCountMismatch"), this, -1, selector);
     }
 }

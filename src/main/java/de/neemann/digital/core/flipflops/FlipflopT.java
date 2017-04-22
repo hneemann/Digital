@@ -64,7 +64,7 @@ public class FlipflopT extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        clockVal = inputs.get(0).addObserverToValue(this).checkBits(1, this);
+        clockVal = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
     }
 
     @Override

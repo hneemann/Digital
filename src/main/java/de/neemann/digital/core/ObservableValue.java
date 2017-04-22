@@ -204,8 +204,22 @@ public class ObservableValue extends Observable implements PinDescription {
      * @throws BitsException thrown if bit numbers do not match
      */
     public ObservableValue checkBits(int bits, Node node) throws BitsException {
+        return checkBits(bits, node, -1);
+    }
+
+    /**
+     * checks if the given number of bits is the same used by this value.
+     * It is a convenience method to make this check simpler to code.
+     *
+     * @param bits  the number of bits
+     * @param node  the node to add to the exception if one is thrown
+     * @param input the affected nodes input
+     * @return this for chained calls
+     * @throws BitsException thrown if bit numbers do not match
+     */
+    public ObservableValue checkBits(int bits, Node node, int input) throws BitsException {
         if (this.bits != bits) {
-            throw new BitsException(Lang.get("err_needs_N0_bits_found_N2_bits", bits, this.bits), node, this);
+            throw new BitsException(Lang.get("err_needs_N0_bits_found_N2_bits", bits, this.bits), node, input, this);
         }
         return this;
     }

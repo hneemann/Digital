@@ -68,8 +68,8 @@ public class ROM extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
-        selIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
+        addrIn = inputs.get(0).checkBits(addrBits, this, 0).addObserverToValue(this);
+        selIn = inputs.get(1).checkBits(1, this, 1).addObserverToValue(this);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class ROM extends Node implements Element {
             try {
                 data = new DataField(hexFile);
             } catch (IOException e) {
-                throw new NodeException(e.getMessage(), this, null);
+                throw new NodeException(e.getMessage(), this, -1, null);
             }
         }
         if (isProgramMemory)

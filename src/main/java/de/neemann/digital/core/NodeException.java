@@ -2,6 +2,7 @@ package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.ImmutableList;
+import de.neemann.digital.core.element.PinDescription;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -17,6 +18,7 @@ import java.util.HashSet;
 public class NodeException extends Exception {
     private final ArrayList<Node> nodes;
     private final ImmutableList<ObservableValue> values;
+    private final int input;
 
     /**
      * Creates a new instance.
@@ -25,7 +27,7 @@ public class NodeException extends Exception {
      * @param values  the values affected by this exception
      */
     public NodeException(String message, ObservableValue... values) {
-        this(message, null, new ObservableValues(values));
+        this(message, null, -1, new ObservableValues(values));
     }
 
     /**
@@ -35,7 +37,7 @@ public class NodeException extends Exception {
      * @param values  the values affected by this exception
      */
     public NodeException(String message, ImmutableList<ObservableValue> values) {
-        this(message, null, values);
+        this(message, null, -1, values);
     }
 
     /**
@@ -43,10 +45,12 @@ public class NodeException extends Exception {
      *
      * @param message the message
      * @param node    the nod effected by tis exception
+     * @param input   the affected nodes input
      * @param values  the values affected by this exception
      */
-    public NodeException(String message, Node node, ImmutableList<ObservableValue> values) {
+    public NodeException(String message, Node node, int input, ImmutableList<ObservableValue> values) {
         super(message);
+        this.input = input;
         this.nodes = new ArrayList<>();
         if (node != null)
             nodes.add(node);
@@ -75,10 +79,10 @@ public class NodeException extends Exception {
 
     @Override
     public String getMessage() {
-        ItemConcatenation sb = new ItemConcatenation(super.getMessage());
+        ItemConcatenation items = new ItemConcatenation(super.getMessage());
         if (values != null && values.size() > 0) {
             for (ObservableValue ov : values)
-                sb.addItem(ov.getName());
+                items.addItem(ov.getName());
         }
 
         if (nodes != null && nodes.size() > 0) {
@@ -93,16 +97,22 @@ public class NodeException extends Exception {
                         Object d = field.get(node);
                         if (d instanceof ElementTypeDescription) {
                             ElementTypeDescription description = (ElementTypeDescription) d;
-                            sb.addItem(description.getTranslatedName());
+                            items.addItem(description.getTranslatedName());
+                            if (nodes.size() == 1 && input >= 0) {
+                                PinDescription in = description.getInput(input);
+                                if (in != null)
+                                    items.addItem(in.getName());
+                            }
+
                         }
                     } catch (Exception e) {
                     }
             }
             for (File o : origins)
-                sb.addItem(o);
+                items.addItem(o.getName());
         }
 
-        return sb.toString();
+        return items.toString();
     }
 
     /**

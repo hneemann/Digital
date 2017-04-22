@@ -55,8 +55,8 @@ public class Mul extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        a = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
-        b = inputs.get(1).addObserverToValue(this).checkBits(bits, this);
+        a = inputs.get(0).addObserverToValue(this).checkBits(bits, this, 0);
+        b = inputs.get(1).addObserverToValue(this).checkBits(bits, this, 1);
     }
 
     @Override

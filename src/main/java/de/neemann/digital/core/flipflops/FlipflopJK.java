@@ -76,9 +76,9 @@ public class FlipflopJK extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        jVal = inputs.get(0).addObserverToValue(this).checkBits(1, this);
-        clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this);
-        kVal = inputs.get(2).addObserverToValue(this).checkBits(1, this);
+        jVal = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
+        clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
+        kVal = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
     }
 
     /**

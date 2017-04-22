@@ -55,7 +55,7 @@ public class BitCount extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        input = inputs.get(0).addObserverToValue(this).checkBits(inBits, this);
+        input = inputs.get(0).addObserverToValue(this).checkBits(inBits, this, 0);
     }
 
     @Override

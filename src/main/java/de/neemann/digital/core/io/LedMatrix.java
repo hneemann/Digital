@@ -63,8 +63,8 @@ public class LedMatrix extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        rowDataVal = inputs.get(0).checkBits(rowDataBits, this).addObserverToValue(this);
-        colAddrVal = inputs.get(1).checkBits(colAddrBits, this).addObserverToValue(this);
+        rowDataVal = inputs.get(0).checkBits(rowDataBits, this, 0).addObserverToValue(this);
+        colAddrVal = inputs.get(1).checkBits(colAddrBits, this, 1).addObserverToValue(this);
     }
 
     @Override

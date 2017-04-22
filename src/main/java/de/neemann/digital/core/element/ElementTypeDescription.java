@@ -204,4 +204,17 @@ public class ElementTypeDescription {
     public boolean hasAttribute(Key key) {
         return attributeList.contains(key);
     }
+
+    /**
+     * Returns the input with the given number or null if it does not exist
+     *
+     * @param i input number
+     * @return the inputs description
+     */
+    public PinDescription getInput(int i) {
+        if (i >= inputPins.size())
+            return null;
+        else
+            return inputPins.get(i);
+    }
 }

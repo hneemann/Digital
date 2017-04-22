@@ -73,12 +73,12 @@ public class Add extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        a = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
-        b = inputs.get(1).addObserverToValue(this).checkBits(bits, this);
-        cIn = inputs.get(2).addObserverToValue(this).checkBits(1, this);
+        a = inputs.get(0).addObserverToValue(this).checkBits(bits, this, 0);
+        b = inputs.get(1).addObserverToValue(this).checkBits(bits, this, 1);
+        cIn = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
 
         if (bits > 63)
-            throw new BitsException(Lang.get("err_toManyBits_Found_N0_maxIs_N1", bits, 63), this, new ObservableValues(a, b));
+            throw new BitsException(Lang.get("err_toManyBits_Found_N0_maxIs_N1", bits, 63), this, 0, new ObservableValues(a, b));
     }
 
     @Override

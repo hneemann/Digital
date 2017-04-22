@@ -68,21 +68,21 @@ public class Splitter implements Element {
         this.inputs = inputs;
 
         if (inPorts.getBits() != outPorts.getBits())
-            throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, ImmutableList.combine(inputs, outputs));
+            throw new BitsException(Lang.get("err_splitterBitsMismatch"), ImmutableList.combine(inputs, outputs));
 
         for (int i = 0; i < inputs.size(); i++) {
             Port inPort = inPorts.getPort(i);
             if (inPort.getBits() != inputs.get(i).getBits())
-                throw new BitsException(Lang.get("err_splitterBitsMismatch"), null, inputs);
+                throw new BitsException(Lang.get("err_splitterBitsMismatch"), inputs);
         }
 
         if (highZIn) {
             if (inputs.size() != 1)
-                throw new NodeException(Lang.get("err_splitterAllowsOnlyOneHighZInput"), null, inputs);
+                throw new NodeException(Lang.get("err_splitterAllowsOnlyOneHighZInput"), inputs);
         } else {
             for (int i = 0; i < inputs.size(); i++) {
                 if (inputs.get(i).supportsHighZ())
-                    throw new NodeException(Lang.get("err_splitterDoesNotSupportHighZInputs"), null, inputs);
+                    throw new NodeException(Lang.get("err_splitterDoesNotSupportHighZInputs"), inputs);
             }
         }
 

@@ -90,8 +90,8 @@ public class FlipflopD extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        dVal = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
-        clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this);
+        dVal = inputs.get(0).addObserverToValue(this).checkBits(bits, this, 0);
+        clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
     }
 
     @Override

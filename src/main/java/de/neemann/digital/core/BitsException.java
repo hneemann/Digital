@@ -8,15 +8,15 @@ import de.neemann.digital.core.element.ImmutableList;
  * @author hneemann
  */
 public class BitsException extends NodeException {
+
     /**
      * Creates a new instance
      *
      * @param message the message
-     * @param node    the affected node
      * @param values  the affected values
      */
-    public BitsException(String message, Node node, ObservableValue... values) {
-        super(message, node, new ObservableValues(values));
+    public BitsException(String message, ImmutableList<ObservableValue> values) {
+        super(message, null, -1, values);
     }
 
     /**
@@ -24,9 +24,22 @@ public class BitsException extends NodeException {
      *
      * @param message the message
      * @param node    the affected node
+     * @param input   the affected nodes input
      * @param values  the affected values
      */
-    public BitsException(String message, Node node, ImmutableList<ObservableValue> values) {
-        super(message, node, values);
+    public BitsException(String message, Node node, int input, ObservableValue... values) {
+        super(message, node, input, new ObservableValues(values));
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param message the message
+     * @param node    the affected node
+     * @param input   the affected nodes input
+     * @param values  the affected values
+     */
+    public BitsException(String message, Node node, int input, ImmutableList<ObservableValue> values) {
+        super(message, node, input, values);
     }
 }
