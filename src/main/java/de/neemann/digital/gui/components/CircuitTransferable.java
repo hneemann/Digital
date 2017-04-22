@@ -3,7 +3,7 @@ package de.neemann.digital.gui.components;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.Moveable;
+import de.neemann.digital.draw.elements.Movable;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.GraphicMinMax;
 import de.neemann.digital.draw.graphics.Vector;
@@ -30,7 +30,7 @@ public class CircuitTransferable implements Transferable {
      *
      * @param data the data to copy
      */
-    CircuitTransferable(ArrayList<Moveable> data) {
+    CircuitTransferable(ArrayList<Movable> data) {
         XStream xStream = Circuit.getxStream();
         try (StringWriter out = new StringWriter()) {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
@@ -69,18 +69,18 @@ public class CircuitTransferable implements Transferable {
      * @return the elements or null
      * @throws IOException IOException
      */
-    public static ArrayList<Moveable> createList(Object data, ShapeFactory shapeFactory, Vector lastMousePos) throws IOException {
+    public static ArrayList<Movable> createList(Object data, ShapeFactory shapeFactory, Vector lastMousePos) throws IOException {
         if (!(data instanceof String))
             return null;
 
         XStream xStream = Circuit.getxStream();
         Vector max = null;
         try (Reader in = new StringReader(data.toString())) {
-            ArrayList<Moveable> elements = (ArrayList<Moveable>) xStream.fromXML(in);
+            ArrayList<Movable> elements = (ArrayList<Movable>) xStream.fromXML(in);
             if (elements == null)
                 return null;
 
-            for (Moveable m : elements)
+            for (Movable m : elements)
                 if (m instanceof VisualElement) {
                     ((VisualElement) m).setShapeFactory(shapeFactory);
                     GraphicMinMax mm = ((VisualElement) m).getMinMax(false);
@@ -92,7 +92,7 @@ public class CircuitTransferable implements Transferable {
 
             if (max != null) {
                 Vector delta = CircuitComponent.raster(lastMousePos.sub(max));
-                for (Moveable m : elements)
+                for (Movable m : elements)
                     m.move(delta);
             }
 

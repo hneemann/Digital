@@ -20,7 +20,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
  *
  * @author hneemann
  */
-public class VisualElement implements Drawable, Moveable, AttributeListener {
+public class VisualElement implements Drawable, Movable, AttributeListener {
     private static final int PIN = 2;
 
     private transient GraphicMinMax minMax;

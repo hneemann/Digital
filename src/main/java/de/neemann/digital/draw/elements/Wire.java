@@ -13,7 +13,7 @@ import java.util.Collection;
  *
  * @author hneemann
  */
-public class Wire implements Drawable, Moveable {
+public class Wire implements Drawable, Movable {
     private static final int MIN_LABEL_LEN = 80;
     //Every value of p1 or p2 is valid. There are no hidden state constrains or dependencies.
     //So both fields are allowed to by public to allow more readable code.
@@ -229,8 +229,8 @@ public class Wire implements Drawable, Moveable {
     /**
      * @return a movable representing point one
      */
-    public Moveable getMovableP1() {
-        return new Moveable() {
+    public Movable getMovableP1() {
+        return new Movable() {
             @Override
             public void move(Vector delta) {
                 p1 = p1.add(delta);
@@ -246,8 +246,8 @@ public class Wire implements Drawable, Moveable {
     /**
      * @return a movable representing point two
      */
-    public Moveable getMovableP2() {
-        return new Moveable() {
+    public Movable getMovableP2() {
+        return new Movable() {
             @Override
             public void move(Vector delta) {
                 p2 = p2.add(delta);

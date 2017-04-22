@@ -744,7 +744,7 @@ Geschrieben von Helmut Neemann 2016
 
 Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_N_nodes">{0} aktive Elemente</string>
-    <string name="msg_annalyseErr">Fehler bei der Analyse der Schaltung</string>
+    <string name="msg_analyseErr">Fehler bei der Analyse der Schaltung</string>
     <string name="msg_clockError">Fehler bei der Berechnung einer Taktänderung</string>
     <string name="msg_color">Farbe</string>
     <string name="msg_errorCalculatingStep">Fehler beim Berechnen eines Schrittes</string>

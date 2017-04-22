@@ -114,7 +114,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void actionPerformed(ActionEvent e) {
                 if (activeMouseController instanceof MouseControllerSelect) {
                     MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-                    ArrayList<Moveable> elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
+                    ArrayList<Movable> elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
                     Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clpbrd.setContents(new CircuitTransferable(elements), null);
                     removeHighLighted();
@@ -132,7 +132,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     Object data = clpbrd.getData(DataFlavor.stringFlavor);
                     if (data instanceof String) {
                         Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
-                        ArrayList<Moveable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
+                        ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
                         if (elements != null) {
                             removeHighLighted();
                             mouseInsertList.activate(elements, posVector);
@@ -1126,7 +1126,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
-    private void rotateElements(ArrayList<Moveable> elements, Vector pos) {
+    private void rotateElements(ArrayList<Movable> elements, Vector pos) {
         Vector p1 = raster(pos);
 
         Transform transform = new TransformRotate(p1, 1) {
@@ -1136,7 +1136,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         };
 
-        for (Moveable m : elements) {
+        for (Movable m : elements) {
 
             if (m instanceof VisualElement) {
                 VisualElement ve = (VisualElement) m;
@@ -1160,7 +1160,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
 
     private final class MouseControllerMoveSelected extends MouseController {
-        private ArrayList<Moveable> elements;
+        private ArrayList<Movable> elements;
         private Vector lastPos;
         private Vector center;
         private boolean wasMoved;
@@ -1190,7 +1190,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 Vector delta = raster(pos.sub(lastPos));
 
                 if (delta.x != 0 || delta.y != 0) {
-                    for (Moveable m : elements)
+                    for (Movable m : elements)
                         m.move(delta);
                     wasMoved = true;
 
@@ -1217,14 +1217,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
     private final class MouseControllerInsertCopied extends MouseController {
-        private ArrayList<Moveable> elements;
+        private ArrayList<Movable> elements;
         private Vector lastPos;
 
         private MouseControllerInsertCopied(Cursor cursor) {
             super(cursor);
         }
 
-        private void activate(ArrayList<Moveable> elements, Vector pos) {
+        private void activate(ArrayList<Movable> elements, Vector pos) {
             super.activate();
             this.elements = elements;
             lastPos = pos;
@@ -1239,7 +1239,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 Vector delta = raster(pos.sub(lastPos));
 
                 if (delta.x != 0 || delta.y != 0) {
-                    for (Moveable m : elements)
+                    for (Movable m : elements)
                         m.move(delta);
 
                     repaint();
@@ -1251,7 +1251,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         public void drawTo(Graphic gr) {
             if (elements != null)
-                for (Moveable m : elements)
+                for (Movable m : elements)
                     if (m instanceof Drawable)
                         ((Drawable) m).drawTo(gr, true);
         }
@@ -1264,7 +1264,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         void clicked(MouseEvent e) {
             if (elements != null && e.getButton() == 1) {
-                for (Moveable m : elements) {
+                for (Movable m : elements) {
                     if (m instanceof Wire)
                         circuit.add((Wire) m);
                     if (m instanceof VisualElement)

@@ -7,7 +7,7 @@ import de.neemann.digital.draw.graphics.Vector;
  *
  * @author hneemann
  */
-public interface Moveable {
+public interface Movable {
 
     /**
      * Moves the instance by the given delta

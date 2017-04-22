@@ -261,8 +261,8 @@ public class Circuit {
      * @param max lower right corner of the rectangle
      * @return the list
      */
-    public ArrayList<Moveable> getElementsToMove(Vector min, Vector max) {
-        ArrayList<Moveable> m = new ArrayList<>();
+    public ArrayList<Movable> getElementsToMove(Vector min, Vector max) {
+        ArrayList<Movable> m = new ArrayList<>();
         for (VisualElement vp : visualElements)
             if (vp.matches(min, max))
                 m.add(vp);
@@ -312,8 +312,8 @@ public class Circuit {
      * @param shapeFactory the shape factory
      * @return the list
      */
-    public ArrayList<Moveable> getElementsToCopy(Vector min, Vector max, ShapeFactory shapeFactory) {
-        ArrayList<Moveable> m = new ArrayList<>();
+    public ArrayList<Movable> getElementsToCopy(Vector min, Vector max, ShapeFactory shapeFactory) {
+        ArrayList<Movable> m = new ArrayList<>();
         for (VisualElement vp : visualElements)
             if (vp.matches(min, max))
                 m.add(new VisualElement(vp).setShapeFactory(shapeFactory));

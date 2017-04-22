@@ -97,8 +97,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private static final Icon ICON_SAVE_AS = IconCreator.create("document-save-as.png");
     private static final Icon ICON_FAST = IconCreator.create("media-skip-forward.png");
     private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
-    private static final Icon ICON_ZOOMIN = IconCreator.create("View-zoom-in.png");
-    private static final Icon ICON_ZOOMOUT = IconCreator.create("View-zoom-out.png");
+    private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
+    private static final Icon ICON_ZOOM_OUT = IconCreator.create("View-zoom-out.png");
     private static final Icon ICON_HELP = IconCreator.create("help.png");
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
@@ -107,7 +107,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private final JLabel statusLabel;
     private final StateManager stateManager = new StateManager();
     private final ElementAttributes settings = new ElementAttributes();
-    private final ScheduledThreadPoolExecutor timerExecuter = new ScheduledThreadPoolExecutor(1);
+    private final ScheduledThreadPoolExecutor timerExecutor = new ScheduledThreadPoolExecutor(1);
     private final WindowPosManager windowPosManager = new WindowPosManager();
     private final InsertHistory insertHistory;
 
@@ -122,7 +122,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private Model model;
 
     private ModelCreator modelCreator;
-    private boolean realtimeClockRunning;
+    private boolean realTimeClockRunning;
 
     private State stoppedState;
     private RunModelState runModelState;
@@ -204,7 +204,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void windowClosed(WindowEvent e) {
                 clearModelDescription(); // stop model timer if running
-                timerExecuter.shutdown();
+                timerExecutor.shutdown();
                 library.removeListener(librarySelector);
                 library.removeListener(insertHistory);
                 library.removeListener(circuitComponent);
@@ -240,13 +240,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.fitCircuit();
             }
         };
-        ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOMIN) {
+        ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOM_IN) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(1.25);
             }
         };
-        ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOMOUT) {
+        ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(0.8);
@@ -379,7 +379,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         fileHistory.setMenu(openRecent);
         openRecent.setEnabled(allowAll);
 
-        ToolTipAction saveas = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
+        ToolTipAction saveAs = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = getJFileChooser(lastFilename);
@@ -415,7 +415,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (filename == null)
-                    saveas.actionPerformed(e);
+                    saveAs.actionPerformed(e);
                 else
                     saveFile(filename, false);
             }
@@ -435,7 +435,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         file.add(open.createJMenuItem());
         file.add(openWin.createJMenuItem());
         file.add(save.createJMenuItem());
-        file.add(saveas.createJMenuItem());
+        file.add(saveAs.createJMenuItem());
         file.add(export);
 
         toolBar.add(newFile.createJButtonNoText());
@@ -528,9 +528,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 try {
                     Object data = clpbrd.getData(DataFlavor.stringFlavor);
                     if (data instanceof String) {
-                        ArrayList<Moveable> elements = CircuitTransferable.createList(data, shapeFactory, new Vector(0, 0));
+                        ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, new Vector(0, 0));
                         Circuit circuit = new Circuit();
-                        for (Moveable m : elements) {
+                        for (Movable m : elements) {
                             if (m instanceof Wire)
                                 circuit.add((Wire) m);
                             if (m instanceof VisualElement)
@@ -688,7 +688,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (tsl.isEmpty())
                 throw new TestingDataException(Lang.get("err_noTestData"));
 
-            windowPosManager.register("testresult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
+            windowPosManager.register("testResult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
 
             stoppedState.enter();
         } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {
@@ -713,7 +713,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             .setVisible(true);
                     stoppedState.enter();
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | RuntimeException e1) {
-                    showErrorAndStopModel(Lang.get("msg_annalyseErr"), e1);
+                    showErrorAndStopModel(Lang.get("msg_analyseErr"), e1);
                 }
             }
         }
@@ -808,22 +808,22 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
-            realtimeClockRunning = false;
+            realTimeClockRunning = false;
             modelSync = null;
             if (globalRunClock)
                 for (Clock c : model.getClocks())
                     if (c.getFrequency() > 0) {
                         if (modelSync == null)
                             modelSync = new LockSync();
-                        model.addObserver(new RealTimeClock(model, c, timerExecuter, this, modelSync, this));
-                        realtimeClockRunning = true;
+                        model.addObserver(new RealTimeClock(model, c, timerExecutor, this, modelSync, this));
+                        realTimeClockRunning = true;
                     }
             if (modelSync == null)
                 modelSync = NoSync.INST;
 
             circuitComponent.setModeAndReset(true, modelSync);
 
-            if (realtimeClockRunning) {
+            if (realTimeClockRunning) {
                 // if clock is running, enable automatic update of gui
                 GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
                 modelCreator.connectToGui(gmo);
@@ -833,16 +833,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 modelCreator.connectToGui(null);
 
             doStep.setEnabled(false);
-            runToBreakAction.setEnabled(!realtimeClockRunning && model.isFastRunModel());
+            runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
 
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_TABLE))
                 windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync)).setVisible(true);
 
             if (settings.get(Keys.SHOW_DATA_GRAPH))
-                windowPosManager.register("dataset", new DataSetDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
+                windowPosManager.register("dataSet", new DataSetDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
-                windowPosManager.register("datasetMicro", new DataSetDialog(this, model, true, ordering, modelSync)).setVisible(true);
+                windowPosManager.register("dataSetMicro", new DataSetDialog(this, model, true, ordering, modelSync)).setVisible(true);
 
             if (modelModifier != null)
                 modelModifier.preInit(model);
@@ -918,8 +918,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         try {
             setFilename(filename, setLibraryRoot);
             if (setLibraryRoot) library.setRootFilePath(filename.getParentFile());
-            Circuit circ = Circuit.loadCircuit(filename, shapeFactory);
-            circuitComponent.setCircuit(circ);
+            Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
+            circuitComponent.setCircuit(circuit);
             stoppedState.enter();
             windowPosManager.closeAll();
             statusLabel.setText(" ");
@@ -1058,21 +1058,21 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     //***********************
 
     private static class AddressPicker {
-        private long addr;
+        private long address;
 
-        private void getProgRomAddr(Model model) {
+        private void getProgramROMAddress(Model model) {
             List<ROM> roms = model.findNode(ROM.class, ROM::isProgramMemory);
             if (roms.size() == 1)
-                addr = roms.get(0).getRomAddress();
+                address = roms.get(0).getRomAddress();
             else
-                addr = -1;
+                address = -1;
         }
 
-        String getAddrString() {
-            if (addr < 0)
+        String getAddressString() {
+            if (address < 0)
                 return null;
             else
-                return Long.toHexString(addr);
+                return Long.toHexString(address);
         }
     }
 
@@ -1101,7 +1101,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     @Override
     public String doSingleStep() throws RemoteException {
-        if (model != null && !realtimeClockRunning) {
+        if (model != null && !realTimeClockRunning) {
             try {
                 AddressPicker addressPicker = new AddressPicker();
                 SwingUtilities.invokeAndWait(() -> {
@@ -1116,13 +1116,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 model.doStep();
                             }
                             circuitComponent.hasChanged();
-                            addressPicker.getProgRomAddr(model);
+                            addressPicker.getProgramROMAddress(model);
                         } catch (NodeException | RuntimeException e) {
                             showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                         }
                     }
                 });
-                return addressPicker.getAddrString();
+                return addressPicker.getAddressString();
             } catch (InterruptedException | InvocationTargetException e) {
                 throw new RemoteException("error performing a single step " + e.getMessage());
             }
@@ -1135,11 +1135,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         try {
             AddressPicker addressPicker = new AddressPicker();
             SwingUtilities.invokeAndWait(() -> {
-                if (model != null && model.isFastRunModel() && !realtimeClockRunning)
+                if (model != null && model.isFastRunModel() && !realTimeClockRunning)
                     runToBreakAction.actionPerformed(null);
-                addressPicker.getProgRomAddr(model);
+                addressPicker.getProgramROMAddress(model);
             });
-            return addressPicker.getAddrString();
+            return addressPicker.getAddressString();
         } catch (InterruptedException | InvocationTargetException e) {
             throw new RemoteException("error performing a run to break " + e.getMessage());
         }

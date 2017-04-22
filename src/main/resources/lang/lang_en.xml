@@ -734,7 +734,7 @@ Written bei H.Neemann in 2016.
 
 The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_N_nodes">{0} nodes</string>
-    <string name="msg_annalyseErr">Error analysing the circuit</string>
+    <string name="msg_analyseErr">Error analysing the circuit</string>
     <string name="msg_clockError">Error during a clock state change</string>
     <string name="msg_color">Color</string>
     <string name="msg_errorCalculatingStep">Error calculating a step</string>
