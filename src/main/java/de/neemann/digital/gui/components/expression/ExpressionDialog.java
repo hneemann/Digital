@@ -16,6 +16,7 @@ import de.neemann.gui.ToolTipAction;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -32,8 +33,9 @@ public class ExpressionDialog extends JDialog {
      * @param parent       the parent
      * @param library      the library to use
      * @param shapeFactory the shapeFactory used for new circuits
+     * @param baseFilename filname used as base for file operations
      */
-    public ExpressionDialog(Main parent, ElementLibrary library, ShapeFactory shapeFactory) {
+    public ExpressionDialog(Main parent, ElementLibrary library, ShapeFactory shapeFactory, File baseFilename) {
         super(parent, Lang.get("expression"), false);
 
         JTextField text = new JTextField("(C ∨ B) ∧ (A ∨ C) ∧ (B ∨ !C) * (C + !A)", 40);
@@ -66,10 +68,12 @@ public class ExpressionDialog extends JDialog {
                         for (Expression exp : expList)
                             circuitBuilder.addCombinatorial(FormatToExpression.defaultFormat(exp), exp);
                     Circuit circuit = circuitBuilder.createCircuit();
-                    SwingUtilities.invokeLater(() -> new Main.MainBuilder()
+                    new Main.MainBuilder()
                             .setParent(parent)
                             .setLibrary(library)
-                            .setCircuit(circuit));
+                            .setCircuit(circuit)
+                            .setBaseFileName(baseFilename)
+                            .openLater();
                 } catch (Exception ex) {
                     new ErrorMessage().addCause(ex).show(ExpressionDialog.this);
                 }

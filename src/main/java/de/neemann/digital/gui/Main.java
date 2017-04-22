@@ -114,7 +114,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private ToolTipAction doStep;
     private ToolTipAction runToBreakAction;
 
-    private File lastFilename;
+    private File baseFilename;
     private File filename;
     private FileHistory fileHistory;
 
@@ -146,6 +146,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
 
         fileHistory = new FileHistory(this);
+
+        baseFilename = builder.baseFileName;
 
         circuitComponent = new CircuitComponent(this, library, shapeFactory);
         if (builder.circuit != null) {
@@ -344,6 +346,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         .setParent(Main.this)
                         .setLibrary(library)
                         .setCircuit(new Circuit())
+                        .setBaseFileName(filename)
                         .build()
                         .setVisible(true);
             }
@@ -353,7 +356,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    JFileChooser fc = getJFileChooser(lastFilename);
+                    JFileChooser fc = getJFileChooser(baseFilename);
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                         loadFile(fc.getSelectedFile(), true);
                     }
@@ -364,7 +367,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), ICON_OPEN_WIN) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = getJFileChooser(lastFilename);
+                JFileChooser fc = getJFileChooser(baseFilename);
                 if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
                     new MainBuilder()
                             .setParent(Main.this)
@@ -382,10 +385,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction saveAs = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = getJFileChooser(lastFilename);
-                if (lastFilename == null && library.getRootFilePath() != null)
-                    fc.setCurrentDirectory(library.getRootFilePath());
-
+                JFileChooser fc = getJFileChooser(baseFilename);
                 final SaveAsHelper saveAsHelper = new SaveAsHelper(Main.this, fc, "dig");
                 saveAsHelper.checkOverwrite(
                         file -> {
@@ -537,13 +537,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 circuit.add((VisualElement) m);
                         }
 
-                        Main m = new MainBuilder()
+                        new MainBuilder()
                                 .setParent(Main.this)
                                 .setLibrary(library)
                                 .setCircuit(circuit)
-                                .build();
-                        m.lastFilename = filename;
-                        m.setVisible(true);
+                                .setBaseFileName(filename)
+                                .build()
+                                .setVisible(true);
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -734,7 +734,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         analyse.add(new ToolTipAction(Lang.get("menu_expression")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ExpressionDialog(Main.this, library, shapeFactory).setVisible(true);
+                new ExpressionDialog(Main.this, library, shapeFactory, filename).setVisible(true);
             }
         }
                 .setToolTip(Lang.get("menu_expression_tt"))
@@ -948,7 +948,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private void setFilename(File filename, boolean toPrefs) {
         this.filename = filename;
         if (filename != null) {
-            this.lastFilename = filename;
+            this.baseFilename = filename;
             if (toPrefs)
                 fileHistory.add(filename);
             setTitle(filename + " - " + Lang.get("digital"));
@@ -1185,12 +1185,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * Builder to create a Main-Window
      */
-    public static class MainBuilder implements Runnable {
+    public static class MainBuilder {
         private File fileToOpen;
         private Component parent;
         private ElementLibrary library;
         private Circuit circuit;
         private boolean allowAllFileActions = true;
+        private File baseFileName;
 
         /**
          * @param fileToOpen the file to open
@@ -1198,6 +1199,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
          */
         public MainBuilder setFileToOpen(File fileToOpen) {
             this.fileToOpen = fileToOpen;
+            this.baseFileName = fileToOpen;
+            return this;
+        }
+
+        /**
+         * @param baseFileName filename used as base for save and load operations
+         * @return this for chained calls
+         */
+        public MainBuilder setBaseFileName(File baseFileName) {
+            this.baseFileName = baseFileName;
             return this;
         }
 
@@ -1243,13 +1254,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
          *
          * @return a new Main instance
          */
-        public Main build() {
+        private Main build() {
             return new Main(this);
         }
 
-        @Override
-        public void run() {
-            build().setVisible(true);
+        /**
+         * Opens the frame using SwingUtilities.invokeLater
+         */
+        public void openLater() {
+            SwingUtilities.invokeLater(() -> build().setVisible(true));
         }
     }
 }
