@@ -724,7 +724,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 TruthTable tt = new TruthTable(3).addResult();
-                new TableDialog(Main.this, tt, library, shapeFactory, null).setVisible(true);
+                new TableDialog(Main.this, tt, library, shapeFactory, filename).setVisible(true);
                 stoppedState.enter();
             }
         }
