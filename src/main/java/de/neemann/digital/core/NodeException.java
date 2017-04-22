@@ -1,8 +1,10 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.ImmutableList;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -73,18 +75,10 @@ public class NodeException extends Exception {
 
     @Override
     public String getMessage() {
-        StringBuilder sb = new StringBuilder(super.getMessage());
-
+        ItemConcatenation sb = new ItemConcatenation(super.getMessage());
         if (values != null && values.size() > 0) {
-            sb.append(": ");
-            boolean first = true;
-            for (ObservableValue ov : values) {
-                if (first)
-                    first = false;
-                else
-                    sb.append(", ");
-                sb.append(ov.getName());
-            }
+            for (ObservableValue ov : values)
+                sb.addItem(ov.getName());
         }
 
         if (nodes != null && nodes.size() > 0) {
@@ -92,11 +86,20 @@ public class NodeException extends Exception {
             for (Node node : nodes) {
                 if (node != null && node.getOrigin() != null && node.getOrigin().length() > 0)
                     origins.add(node.getOrigin());
+
+                if (node != null)
+                    try { // pick the nodes description if available
+                        final Field field = node.getClass().getField("DESCRIPTION");
+                        Object d = field.get(node);
+                        if (d instanceof ElementTypeDescription) {
+                            ElementTypeDescription description = (ElementTypeDescription) d;
+                            sb.addItem(description.getTranslatedName());
+                        }
+                    } catch (Exception e) {
+                    }
             }
-            if (origins.size() > 0) {
-                sb.append(" in ");
-                sb.append(origins.toString());
-            }
+            for (File o : origins)
+                sb.addItem(o);
         }
 
         return sb.toString();
@@ -109,5 +112,37 @@ public class NodeException extends Exception {
      */
     public Collection<Node> getNodes() {
         return nodes;
+    }
+
+    private final static class ItemConcatenation {
+        private final StringBuilder sb;
+        private boolean open;
+
+        private ItemConcatenation(String message) {
+            this.sb = new StringBuilder(message);
+            open = false;
+        }
+
+        private void addItem(String item) {
+            if (open)
+                sb.append(", ");
+            else {
+                sb.append(" (");
+                open = true;
+            }
+            sb.append(item);
+        }
+
+        private void addItem(Object o) {
+            addItem(o.toString());
+        }
+
+        @Override
+        public String toString() {
+            if (open)
+                sb.append(")");
+            return sb.toString();
+        }
+
     }
 }
