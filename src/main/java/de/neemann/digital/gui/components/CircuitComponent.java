@@ -115,8 +115,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (activeMouseController instanceof MouseControllerSelect) {
                     MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
                     ArrayList<Movable> elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
-                    Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-                    clpbrd.setContents(new CircuitTransferable(elements), null);
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(new CircuitTransferable(elements), null);
                     removeHighLighted();
                     mouseNormal.activate();
                 }
@@ -127,9 +127,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         pasteAction = new AbstractAction(Lang.get("menu_paste")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 try {
-                    Object data = clpbrd.getData(DataFlavor.stringFlavor);
+                    Object data = clipboard.getData(DataFlavor.stringFlavor);
                     if (data instanceof String) {
                         Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
                         ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
@@ -222,9 +222,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         setCircuit(new Circuit());
 
-        MouseDispatcher disp = new MouseDispatcher();
-        addMouseMotionListener(disp);
-        addMouseListener(disp);
+        MouseDispatcher dispatcher = new MouseDispatcher();
+        addMouseMotionListener(dispatcher);
+        addMouseListener(dispatcher);
 
         setToolTipText("");
     }
@@ -506,7 +506,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param pos the vector
      * @return pos round to raster
      */
-    public static Vector raster(Vector pos) {
+    static Vector raster(Vector pos) {
         return new Vector((int) Math.round((double) pos.x / SIZE) * SIZE,
                 (int) Math.round((double) pos.y / SIZE) * SIZE);
     }
@@ -696,7 +696,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             this.mouseCursor = mouseCursor;
         }
 
-        public void activate() {
+        void activate() {
             activeMouseController = this;
             deleteAction.setActive(false);
             copyAction.setEnabled(false);
@@ -1302,7 +1302,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void pressed(MouseEvent e) {
-            VisualElement ve = getInteractableElementAt(e);
+            VisualElement ve = getInteractiveElementAt(e);
             if (ve != null) {
                 interact(e, ve::elementPressed);
                 dragHandled = true;
@@ -1310,10 +1310,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 dragHandled = false;
         }
 
-        private VisualElement getInteractableElementAt(MouseEvent e) {
+        private VisualElement getInteractiveElementAt(MouseEvent e) {
             List<VisualElement> elementList = circuit.getElementListAt(getPosVector(e), false);
             for (VisualElement ve : elementList) {
-                if (ve.isInteractable())
+                if (ve.isInteractive())
                     return ve;
             }
             return null;
@@ -1321,21 +1321,21 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void released(MouseEvent e) {
-            VisualElement ve = getInteractableElementAt(e);
+            VisualElement ve = getInteractiveElementAt(e);
             if (ve != null)
                 interact(e, ve::elementReleased);
         }
 
         @Override
         void clicked(MouseEvent e) {
-            VisualElement ve = getInteractableElementAt(e);
+            VisualElement ve = getInteractiveElementAt(e);
             if (ve != null)
                 interact(e, ve::elementClicked);
         }
 
         @Override
         boolean dragged(MouseEvent e) {
-            VisualElement ve = getInteractableElementAt(e);
+            VisualElement ve = getInteractiveElementAt(e);
             if (ve != null)
                 interact(e, ve::elementDragged);
             return dragHandled;
