@@ -424,8 +424,11 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
-                createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed");
-                new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
+                if (createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed"))
+                    new ShowStringDialog(parent,
+                            Lang.get("win_pinMapDialog"),
+                            jedecExporter.getPinMapping().toString())
+                            .setVisible(true);
             }
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
         hardware.add(gal16v8);
@@ -441,8 +444,11 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Gal22v10JEDECExporter jedecExporter = new Gal22v10JEDECExporter();
-                createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed");
-                new ShowStringDialog(parent, Lang.get("win_pinMapDialog"), jedecExporter.getPinMapping().toString()).setVisible(true);
+                if (createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed"))
+                    new ShowStringDialog(parent,
+                            Lang.get("win_pinMapDialog"),
+                            jedecExporter.getPinMapping().toString())
+                            .setVisible(true);
             }
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
         hardware.add(gal22v10);
@@ -490,7 +496,8 @@ public class TableDialog extends JDialog {
         return createMenu;
     }
 
-    private void createHardware(ExpressionToFileExporter expressionExporter, File filename, String suffix) {
+    private boolean createHardware(ExpressionToFileExporter expressionExporter, File filename, String suffix) {
+        boolean result = false;
         if (filename == null)
             filename = new File("circuit." + suffix);
         else
@@ -504,10 +511,12 @@ public class TableDialog extends JDialog {
                 expressionExporter.getPinMapping().addAll(model.getTable().getPins());
                 new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
                 expressionExporter.export(SaveAsHelper.checkSuffix(fileChooser.getSelectedFile(), suffix));
+                result = true;
             } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
                 new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
             }
         }
+        return result;
     }
 
     private void createCircuit(ExpressionModifier... modifier) {
