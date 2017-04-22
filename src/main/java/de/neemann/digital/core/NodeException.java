@@ -58,12 +58,12 @@ public class NodeException extends Exception {
     }
 
     /**
-     * Addes a collection of accefted nodes to this exception
+     * Adds a collection of affected nodes to this exception
      *
      * @param nodesToAdd the nodes to add
      * @return this for chained calls
      */
-    public NodeException addNodes(Collection<Node> nodesToAdd) {
+    NodeException addNodes(Collection<Node> nodesToAdd) {
         nodes.addAll(nodesToAdd);
         return this;
     }
@@ -106,6 +106,7 @@ public class NodeException extends Exception {
 
                         }
                     } catch (Exception e) {
+                        // ignore an error accessing the ElementTypeDescription
                     }
             }
             for (File o : origins)
@@ -141,10 +142,6 @@ public class NodeException extends Exception {
                 open = true;
             }
             sb.append(item);
-        }
-
-        private void addItem(Object o) {
-            addItem(o.toString());
         }
 
         @Override
