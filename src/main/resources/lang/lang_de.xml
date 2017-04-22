@@ -489,6 +489,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_diodeNeedsPullUpResistorAtOutput">Diode benötigt am Ausgang einen PullUp-Widerstand!</string>
     <string name="err_diodeNeedsPullDownResistorAtOutput">Diode benötigt am Ausgang einen PullDown-Widerstand!</string>
     <string name="err_testSignal_N_notFound">Testsignal {0} in der Schaltung nicht gefunden!</string>
+    <string name="err_toManyBits_Found_N0_maxIs_N1">Es sind nur {1} Bits erlaubt, es sind jedoch {0} Bits angegeben!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
