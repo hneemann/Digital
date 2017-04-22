@@ -346,7 +346,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         .setParent(Main.this)
                         .setLibrary(library)
                         .setCircuit(new Circuit())
-                        .setBaseFileName(filename)
+                        .setBaseFileName(getBaseFileName())
                         .build()
                         .setVisible(true);
             }
@@ -445,6 +445,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         return save;
     }
 
+    private File getBaseFileName() {
+        if (filename != null) return filename;
+        return baseFilename;
+    }
+
     /**
      * Creates the edit menu
      *
@@ -541,7 +546,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 .setParent(Main.this)
                                 .setLibrary(library)
                                 .setCircuit(circuit)
-                                .setBaseFileName(filename)
+                                .setBaseFileName(getBaseFileName())
                                 .build()
                                 .setVisible(true);
                     }
@@ -709,7 +714,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-                    new TableDialog(Main.this, new ModelAnalyser(model).analyse(), library, shapeFactory, filename)
+                    new TableDialog(Main.this, new ModelAnalyser(model).analyse(), library, shapeFactory, getBaseFileName())
                             .setVisible(true);
                     stoppedState.enter();
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | RuntimeException e1) {
@@ -724,7 +729,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 TruthTable tt = new TruthTable(3).addResult();
-                new TableDialog(Main.this, tt, library, shapeFactory, filename).setVisible(true);
+                new TableDialog(Main.this, tt, library, shapeFactory, getBaseFileName()).setVisible(true);
                 stoppedState.enter();
             }
         }
@@ -734,7 +739,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         analyse.add(new ToolTipAction(Lang.get("menu_expression")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ExpressionDialog(Main.this, library, shapeFactory, filename).setVisible(true);
+                new ExpressionDialog(Main.this, library, shapeFactory, getBaseFileName()).setVisible(true);
             }
         }
                 .setToolTip(Lang.get("menu_expression_tt"))
