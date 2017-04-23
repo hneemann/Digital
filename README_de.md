@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/hneemann/Digital.svg?branch=master)](https://travis-ci.org/hneemann/Digital)
 
-[Download latest Release](https://github.com/hneemann/Digital/releases/latest)
+[Letztes Release herunterladen](https://github.com/hneemann/Digital/releases/latest)
 
-Die letzten Änderungen sind in den [release notes](distribution/ReleaseNotes.txt) zu finden.
+Die letzten Änderungen sind in den [Release Notes](distribution/ReleaseNotes.txt) zu finden.
 
 # Digital #
 
