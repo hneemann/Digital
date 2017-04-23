@@ -10,7 +10,7 @@ The most recent changes are listed in the [release notes](distribution/ReleaseNo
 
 Digital is a simulator for digital circuits. It is designed for educational purposes and I use it in my lectures.
 Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logisim/), developed by Carl Burch.
-If you are familiar with Logisim you will recognize the color scheme.
+If you are familiar with Logisim you will recognize the wire color scheme.
 
 Logisim is an excellent and proven tool for teaching purposes. Unfortunately, Carl Burch discontinued the development of 
 Logisim in 2014.
@@ -44,7 +44,8 @@ These are the main features of Digital:
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code
-- Good test coverage (exclusive of GUI classes about 80%)
+- Good test coverage (exclusive of GUI classes about 80%).
+  Almost all examples contain test cases which ensure that they work correctly.
 
 ## Motivation ##
 

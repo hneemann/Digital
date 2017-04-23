@@ -28,14 +28,17 @@ Folgende Features zeichnen Digital aus:
 - Viele Beispiele: Vom Transmission-Gate D-FF bis zum kompletten MIPS-ähnlichem Prozessor.
 - Fast-Run-Mode um eine Simulation ohne Aktualisierung des HMI durchzuführen.
   Ein einfacher Prozessor kann mit 100kHz getaktet werden.
-- Einfache Remote TCP-Schnittstelle um z.B. mit einer Assembler-IDE den Simulator zu steuern.
-- Direkter Export von JEDEC Datien welche in ein [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
+- Einfache Remote TCP-Schnittstelle um z.B. mit einer [Assembler-IDE](https://github.com/hneemann/Assembler) den Simulator zu steuern.
+- Direkter Export von JEDEC Dateien welche in ein [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
   oder [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx) geschrieben werden können. 
   Diese Bausteine sind zwar schon sehr alt (vorgestellt 1985!) jedoch sind sie ausreichend für Anfängerübungen, 
   einfach zu verstehen und sehr gut dokumentiert.
+  Zudem werden die [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) und
+  [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) Bausteine unterstützt welche 32 bzw. 64 Makrozellen bieten. 
 - SVG-Export von Schaltungen, incl. einer LaTeX-tauglichen SVG-Variante (siehe [ctan](ftp://ftp.fau.de/ctan/info/svg-inkscape/InkscapePDFLaTeX.pdf))
 - Keine Altlasten im Code
-- hohe Testabdeckung (exclusiv der GUI-Klassen etwa 80%)
+- hohe Testabdeckung (exclusiv der GUI-Klassen etwa 80%). Fast alle Beispiele enthalten Testfälle, 
+  welche sicherstellen, dass diese korrekt arbeiten. 
 
 ## Motivation ##
 
@@ -129,7 +132,11 @@ Schaltungen mit den eingebauten D- oder JK-Flopflops kombiniert werden.
 Nach der Erzeugung der Wahrheitstabelle kann eine JEDEC-Datei für ein 
 [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) oder ein [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx).
 Danach kann diese Datei in einen entsprechenden Baustein geschrieben werden, um sie in einem realen Aufbau zu testen.
-Wie erwähnt sind diese Bausteine zwar schon sehr alt, jedoch mit 8 bzw. 10 Macrozellen ausreichend für einfache Übungen. 
+Wie erwähnt sind diese Bausteine zwar schon sehr alt, jedoch mit 8 bzw. 10 Makrozellen ausreichend für einfache Übungen. 
+Werden mehr Makro-Zellen benötigt, kann in der PDF Dokumentation nachgelesen werden, wie Digital konfiguriert werden muss, 
+um die Bausteine [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) und
+[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) zu unterstützen, welche 32 bzw. 64 Makrozellen bieten.  
+
 
 ## Wie fange ich an? ##
 
@@ -142,14 +149,14 @@ Wenn Digital direkt aus dem Source Code gebaut werden soll:
 * Ein JDK 1.8 wird benötigt (entweder Oracle JDK 1.8 oder OpenJDK 1.8)  
 * maven wird als Build-System verwendet, daher ist es das einfachste [maven](https://maven.apache.org/) zu installieren.
 * Danach kann mit `mvn install` Digital gebaut werden.
-* Mit `mvn site` kann ein checkstyle, ein findbugs und ein cobertura code coverage report erzeugt werden.
-* Die meisten IDEs (Eclipse, NetBeans, IntelliJ) könne die Datei `pom.xml` importieren im ein Projekt zu erzeugen.
+* Mit `mvn site` kann ein findbugs und ein cobertura code coverage report erzeugt werden.
+* Die meisten IDEs (Eclipse, NetBeans, IntelliJ) könne die Datei `pom.xml` importieren um ein Projekt zu erzeugen.
 
 ## Contribution guidelines ##
 
 * Wer beitragen möchte kann mir einen pull request schicken.
-* Es sollten keine neuen checkstyle Fehler hinzugefügt werden.
+  * Bevor ein Pull-Request geschickt wird, sollte mindestens `mvn install` ohne Fehler durchlaufen.
 * Es sollten keine neuen findbugs Fehler hinzugefügt werden.
 * Die Testabdeckung sollte noch gehalten werden. Das Ziel ist 80% Testabdeckung in allen nicht GUI Komponenten.
-* Bis jetzt gibt es keine GUI Tests. Dahier liegt die gesamte Testabdeckung nur bei etwas über 50%.
+* Bis jetzt gibt es keine GUI Tests. Dahier liegt die gesamte Testabdeckung nur bei etwas unter 60%.
   Versuche den Anteil an ungetestetem GUI-Code so gering wie möglich zu halten.
