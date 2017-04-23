@@ -3,6 +3,7 @@ package de.neemann.digital.core;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Reset;
+import de.neemann.digital.gui.components.WindowPosManager;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -56,6 +57,7 @@ public class Model implements Iterable<Node> {
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
     private boolean isInitialized = false;
+    private WindowPosManager windowPosManager;
 
     /**
      * Creates a new model
@@ -71,6 +73,27 @@ public class Model implements Iterable<Node> {
         this.nodesToUpdateAct = new ArrayList<>();
         this.nodesToUpdateNext = new ArrayList<>();
         this.observers = new ArrayList<>();
+    }
+
+    /**
+     * Sets the window position manager.
+     * Allows the model to place new and close old gui windows.
+     *
+     * @param windowPosManager the window position manager
+     */
+    public void setWindowPosManager(WindowPosManager windowPosManager) {
+        this.windowPosManager = windowPosManager;
+    }
+
+    /**
+     * The WindowPosManager allows the model to place new and close old gui windows.
+     *
+     * @return the window position manager
+     */
+    public WindowPosManager getWindowPosManager() {
+        if (windowPosManager == null)
+            windowPosManager = new WindowPosManager();
+        return windowPosManager;
     }
 
     /**

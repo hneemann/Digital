@@ -27,8 +27,8 @@ public class Keyboard extends Node implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL);
 
-    private static KeyboardDialog keyboardDialog;
-
+    private final String label;
+    private KeyboardDialog keyboardDialog;
     private ObservableValue data;
     private ObservableValue select;
     private boolean sel;
@@ -42,6 +42,7 @@ public class Keyboard extends Node implements Element {
      */
     public Keyboard(ElementAttributes attributes) {
         data = new ObservableValue("D", 16, true).setPinDescription(DESCRIPTION);
+        label = attributes.getCleanLabel();
     }
 
     @Override
@@ -77,7 +78,7 @@ public class Keyboard extends Node implements Element {
             SwingUtilities.invokeLater(() -> {
                 if (keyboardDialog == null || !keyboardDialog.isVisible()) {
                     keyboardDialog = new KeyboardDialog(null);
-                    keyboardDialog.setVisible(true);
+                    getModel().getWindowPosManager().register("keyboard_" + label, keyboardDialog);
                 }
             });
         }

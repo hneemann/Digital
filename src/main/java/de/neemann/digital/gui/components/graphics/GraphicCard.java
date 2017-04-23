@@ -46,7 +46,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     private final int height;
     private final int bankSize;
 
-    private static GraphicDialog graphicDialog;
+    private GraphicDialog graphicDialog;
     private final int size;
     private final String label;
     private final int bits;
@@ -146,8 +146,10 @@ public class GraphicCard extends Node implements Element, RAMInterface {
 
     private void updateGraphic(boolean bank) {
         SwingUtilities.invokeLater(() -> {
-            if (graphicDialog == null || !graphicDialog.isVisible())
+            if (graphicDialog == null || !graphicDialog.isVisible()) {
                 graphicDialog = new GraphicDialog(width, height);
+                getModel().getWindowPosManager().register("GraphicCard_" + label, graphicDialog);
+            }
             graphicDialog.updateGraphic(memory, bank);
         });
     }

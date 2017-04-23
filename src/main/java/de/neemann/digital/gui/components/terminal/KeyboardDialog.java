@@ -47,6 +47,7 @@ public class KeyboardDialog extends JDialog {
         setAlwaysOnTop(true);
         pack();
         setLocationRelativeTo(owner);
+        setVisible(true);
     }
 
     /**

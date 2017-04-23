@@ -113,4 +113,11 @@ public abstract class Node implements Observer {
     public void setOrigin(File origin) {
         this.origin = origin;
     }
+
+    /**
+     * @return the model this node belongs to
+     */
+    public Model getModel() {
+        return model;
+    }
 }

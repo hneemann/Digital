@@ -1,15 +1,11 @@
-package de.neemann.digital.core.io;
+package de.neemann.digital.gui.components.graphics;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.gui.components.graphics.LedMatrixDialog;
 
 import javax.swing.*;
 
@@ -42,6 +38,7 @@ public class LedMatrix extends Node implements Element {
     private final long[] data;
     private final Color color;
     private final boolean ledPersist;
+    private final String label;
     private ObservableValue rowDataVal;
     private ObservableValue colAddrVal;
     private LedMatrixDialog ledMatrixDialog;
@@ -54,7 +51,8 @@ public class LedMatrix extends Node implements Element {
     public LedMatrix(ElementAttributes attr) {
         rowDataBits = attr.get(Keys.ROW_DATA_BITS);
         colAddrBits = attr.get(Keys.COL_ADDR_BITS);
-        color=attr.get(Keys.COLOR);
+        label = attr.getCleanLabel();
+        color = attr.get(Keys.COLOR);
         ledPersist = attr.get(Keys.LED_PERSISTENCE);
         dx = 1 << colAddrBits;
         dy = rowDataBits;
@@ -86,10 +84,13 @@ public class LedMatrix extends Node implements Element {
     public void writeOutputs() throws NodeException {
     }
 
+
     private void dataChanged(int colAddr, long rowData) {
         SwingUtilities.invokeLater(() -> {
-            if (ledMatrixDialog == null || !ledMatrixDialog.isVisible())
+            if (ledMatrixDialog == null || !ledMatrixDialog.isVisible()) {
                 ledMatrixDialog = new LedMatrixDialog(dy, data, color, ledPersist);
+                getModel().getWindowPosManager().register("ledMatrix_" + label, ledMatrixDialog);
+            }
             ledMatrixDialog.updateGraphic(colAddr, rowData);
         });
     }

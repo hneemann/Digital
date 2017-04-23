@@ -30,9 +30,9 @@ public class Terminal extends Node implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL);
 
-    private static TerminalDialog terminalDialog;
-
+    private final String label;
     private final ElementAttributes attr;
+    private TerminalDialog terminalDialog;
     private ObservableValue data;
     private ObservableValue clock;
     private boolean lastClock;
@@ -43,6 +43,7 @@ public class Terminal extends Node implements Element {
      * @param attributes the attributes
      */
     public Terminal(ElementAttributes attributes) {
+        label = attributes.getCleanLabel();
         attr = attributes;
     }
 
@@ -64,8 +65,10 @@ public class Terminal extends Node implements Element {
             long value = data.getValue();
             if (value != 0)
                 SwingUtilities.invokeLater(() -> {
-                    if (terminalDialog == null || !terminalDialog.isVisible())
+                    if (terminalDialog == null || !terminalDialog.isVisible()) {
                         terminalDialog = new TerminalDialog(attr);
+                        getModel().getWindowPosManager().register("terminal_" + label, terminalDialog);
+                    }
                     terminalDialog.addChar((char) value);
                 });
         }

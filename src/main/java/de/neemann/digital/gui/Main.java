@@ -212,6 +212,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 library.removeListener(circuitComponent);
                 if (treeModel != null)
                     library.removeListener(treeModel);
+                windowPosManager.closeAll();
             }
         });
 
@@ -810,6 +811,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 model.close();
 
             model = modelCreator.createModel(true);
+            model.setWindowPosManager(windowPosManager);
 
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
