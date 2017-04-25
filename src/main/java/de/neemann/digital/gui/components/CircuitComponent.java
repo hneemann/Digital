@@ -168,9 +168,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         };
 
-        getInputMap().put(KeyStroke.getKeyStroke("ESCAPE"), ESC_ACTION);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESC_ACTION);
         getActionMap().put(ESC_ACTION, escapeAction);
-        getInputMap().put(KeyStroke.getKeyStroke("DELETE"), DEL_ACTION);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DEL_ACTION);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), DEL_ACTION);
         getActionMap().put(DEL_ACTION, deleteAction);
         getInputMap().put(KeyStroke.getKeyStroke('C', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "myCopy");
         getActionMap().put("myCopy", copyAction);
