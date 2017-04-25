@@ -336,15 +336,15 @@
         So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeBackward_pin_in">If the input is low also the output is low. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeBackward_pin_out">If the input is low also the output is low. In all other cases the output is in high z state.</string>
-    <string name="elem_DiodeForeward">Diode to VDD</string>
-    <string name="elem_DiodeForeward_tt">A simplified unidirectional diode, used to pull a wire to VDD. It is used to implement a wired OR.
+    <string name="elem_DiodeForward">Diode to VDD</string>
+    <string name="elem_DiodeForward_tt">A simplified unidirectional diode, used to pull a wire to VDD. It is used to implement a wired OR.
         So it is necessary to connect a pull down resistor to the diodes output.
         In the simulation the diode behaves like an active gate with a trivalent truth table:
         Is the input high, also the output is high. In all other cases (input is low or high z) the output is in high z state.
         So two anti parallel connected diodes can keep each other in high state, which is not possible with real diodes.
         This is an ideal diode: There is no voltage drop across a forward-biased diode.</string>
-    <string name="elem_DiodeForeward_pin_in">If the input is high also the output is high. In all other cases the output is in high z state.</string>
-    <string name="elem_DiodeForeward_pin_out">If the input is high also the output is high. In all other cases the output is in high z state.</string>
+    <string name="elem_DiodeForward_pin_in">If the input is high also the output is high. In all other cases the output is in high z state.</string>
+    <string name="elem_DiodeForward_pin_out">If the input is high also the output is high. In all other cases the output is in high z state.</string>
     <string name="elem_PullUp">Pull-Up Resistor</string>
     <string name="elem_PullUp_tt">If a net is in a HighZ state, this resistor pulls the net to high. In any other case this component has no effect.</string>
     <string name="elem_PullUp_pin_out">A "weak high".</string>

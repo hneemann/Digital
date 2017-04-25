@@ -343,16 +343,16 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeBackward_pin_in">Ist der Eingang 0 ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_DiodeBackward_pin_out">Ist der Eingang 0 ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
-    <string name="elem_DiodeForeward">Diode zu Plus</string>
-    <string name="elem_DiodeForeward_tt">Vereinfachte unidirektionale Diode, die nur genutzt werden kann, um eine Leitung auf Plus zu ziehen.
+    <string name="elem_DiodeForward">Diode zu Plus</string>
+    <string name="elem_DiodeForward_tt">Vereinfachte unidirektionale Diode, die nur genutzt werden kann, um eine Leitung auf Plus zu ziehen.
         Wird verwendet um ein "Wired Or" zu implementieren. Daher ist am Ausgang ein Pull Down Widerstand erforderlich!
         Innerhalb der Simulation verhält sich eine Diode wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
         Ist der Eingang 1 ist auch der Ausgang 1. In den anderen Fällen (0 und hochohmig) ist der Ausgang hochohmig (High Z).
         Damit können sich antiparallel zusammen geschaltete Dioden gegenseitig im high-Zustand halten, was mit realen
         Dioden nicht möglich ist.
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
-    <string name="elem_DiodeForeward_pin_in">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
-    <string name="elem_DiodeForeward_pin_out">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
+    <string name="elem_DiodeForward_pin_in">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
+    <string name="elem_DiodeForward_pin_out">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_PullUp">Pull-Up Widerstand</string>
     <string name="elem_PullUp_pin_out">Ein "Weak High".</string>
     <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.

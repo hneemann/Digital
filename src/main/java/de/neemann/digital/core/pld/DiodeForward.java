@@ -11,12 +11,12 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * A diode needed to pull a wire to VDD.
  * Used to build a wired OR.
  */
-public class DiodeForeward implements Element, Observer {
+public class DiodeForward implements Element, Observer {
 
     /**
      * The diodes description
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(DiodeForeward.class, input("in"))
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(DiodeForward.class, input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BLOWN);
 
@@ -30,7 +30,7 @@ public class DiodeForeward implements Element, Observer {
      *
      * @param attr the elements attributes
      */
-    public DiodeForeward(ElementAttributes attr) {
+    public DiodeForward(ElementAttributes attr) {
         this(attr, DESCRIPTION, PinDescription.PullResistor.pullDown);
     }
 
@@ -41,7 +41,7 @@ public class DiodeForeward implements Element, Observer {
      * @param description      used to set the output pin description
      * @param requiredResistor resistor needed at the output net
      */
-    protected DiodeForeward(ElementAttributes attr, ElementTypeDescription description, PinDescription.PullResistor requiredResistor) {
+    protected DiodeForward(ElementAttributes attr, ElementTypeDescription description, PinDescription.PullResistor requiredResistor) {
         output = new ObservableValue("out", 1, true).setPinDescription(description).setBidirectional();
         this.requiredResistor = requiredResistor;
         blown = attr.get(Keys.BLOWN);

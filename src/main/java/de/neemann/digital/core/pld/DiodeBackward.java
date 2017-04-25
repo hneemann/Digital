@@ -12,7 +12,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * A diode needed to pull a wire to ground.
  * Used to build a wired AND.
  */
-public class DiodeBackward extends DiodeForeward {
+public class DiodeBackward extends DiodeForward {
 
     /**
      * The description

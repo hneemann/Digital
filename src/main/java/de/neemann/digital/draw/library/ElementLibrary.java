@@ -11,7 +11,7 @@ import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.pld.DiodeBackward;
-import de.neemann.digital.core.pld.DiodeForeward;
+import de.neemann.digital.core.pld.DiodeForward;
 import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.switching.*;
@@ -124,7 +124,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(BitCount.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_cplx"))
                         //.add(Diode.DESCRIPTION) // see class DiodeTest for further information
-                        .add(DiodeForeward.DESCRIPTION)
+                        .add(DiodeForward.DESCRIPTION)
                         .add(DiodeBackward.DESCRIPTION)
                         .add(Switch.DESCRIPTION)
                         .add(Relay.DESCRIPTION)

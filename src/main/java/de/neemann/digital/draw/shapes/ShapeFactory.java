@@ -114,7 +114,7 @@ public final class ShapeFactory {
         map.put(TestCaseElement.TESTCASEDESCRIPTION.getName(), TestCaseShape::new);
 
         map.put(Diode.DESCRIPTION.getName(), DiodeShape::new);
-        map.put(DiodeForeward.DESCRIPTION.getName(), DiodeForewardShape::new);
+        map.put(DiodeForward.DESCRIPTION.getName(), DiodeForewardShape::new);
         map.put(DiodeBackward.DESCRIPTION.getName(), DiodeBackwardShape::new);
         map.put(PullUp.DESCRIPTION.getName(), PullUpShape::new);
         map.put(PullDown.DESCRIPTION.getName(), PullDownShape::new);

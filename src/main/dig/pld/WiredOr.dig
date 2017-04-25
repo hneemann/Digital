@@ -75,7 +75,7 @@ Z Z 0
       <pos x="340" y="260"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeForeward</elementName>
+      <elementName>DiodeForward</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
@@ -85,7 +85,7 @@ Z Z 0
       <pos x="220" y="220"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeForeward</elementName>
+      <elementName>DiodeForward</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
