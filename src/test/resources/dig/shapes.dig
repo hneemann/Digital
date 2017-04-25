@@ -318,7 +318,7 @@
       <pos x="1000" y="420"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeForeward</elementName>
+      <elementName>DiodeForward</elementName>
       <elementAttributes/>
       <pos x="1020" y="480"/>
     </visualElement>
