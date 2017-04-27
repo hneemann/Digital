@@ -807,8 +807,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
-            if (model != null)
+            if (model != null) {
                 model.close();
+                circuitComponent.getCircuit().clearState();
+            }
 
             model = modelCreator.createModel(true);
             model.setWindowPosManager(windowPosManager);
