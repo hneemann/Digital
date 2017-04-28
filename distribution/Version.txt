@@ -2,4 +2,4 @@ Digital
 
 POM-Version:       ${project.version}
 Build Git Version: ${git.commit.id.describe}
-Build Time:        ${git.commit.time}
+Build Time:        ${build.timestamp}
