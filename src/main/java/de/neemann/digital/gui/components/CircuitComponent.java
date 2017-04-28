@@ -124,8 +124,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (elements != null) {
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(new CircuitTransferable(elements), null);
-                    removeHighLighted();
-                    mouseNormal.activate();
+                    activeMouseController.escapePressed();
                 }
             }
         };
