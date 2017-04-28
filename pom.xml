@@ -107,7 +107,7 @@
                         </property>
                         <property>
                             <name>buildnumber</name>
-                            <value>${buildNumber}</value>
+                            <value>${git.commit.id.describe}</value>
                         </property>
                         <property>
                             <name>buildtime</name>
@@ -128,7 +128,7 @@
                             <mainClass>de.neemann.digital.gui.Main</mainClass>
                         </manifest>
                         <manifestEntries>
-                            <Build-SCM-Revision>${buildNumber}</Build-SCM-Revision>
+                            <Build-SCM-Revision>${git.commit.id.describe}</Build-SCM-Revision>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
                         </manifestEntries>
                     </archive>
@@ -136,20 +136,21 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.3</version>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.2.1</version>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
+                        <id>get-the-git-infos</id>
                         <goals>
-                            <goal>create</goal>
+                            <goal>revision</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <doCheck>true</doCheck>
-                    <doUpdate>false</doUpdate>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <verbose>false</verbose>
+                    <commitIdGenerationMode>flat</commitIdGenerationMode>
                 </configuration>
             </plugin>
 
@@ -190,7 +191,7 @@
                             <mainClass>de.neemann.digital.gui.Main</mainClass>
                         </manifest>
                         <manifestEntries>
-                            <Build-SCM-Revision>${buildNumber}</Build-SCM-Revision>
+                            <Build-SCM-Revision>${git.commit.id.describe}</Build-SCM-Revision>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
                         </manifestEntries>
                     </archive>

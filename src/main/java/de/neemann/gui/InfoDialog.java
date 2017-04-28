@@ -37,7 +37,7 @@ public final class InfoDialog {
     }
 
     private InfoDialog() throws IOException {
-        infos = new ArrayList<Manifest>();
+        infos = new ArrayList<>();
         Enumeration<URL> resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
         while (resEnum.hasMoreElements()) {
             Manifest m = new Manifest(resEnum.nextElement());
@@ -52,7 +52,7 @@ public final class InfoDialog {
      * @param message the given message
      * @return message and added manifest infos
      */
-    public String createMessage(String message) {
+    private String createMessage(String message) {
         StringBuilder sb = new StringBuilder(message);
         sb.append("\n\n");
         for (Manifest m : infos) {
@@ -67,7 +67,7 @@ public final class InfoDialog {
      * @param parent  the parent component
      * @param message the message
      */
-    public void showInfo(Component parent, String message) {
+    private void showInfo(Component parent, String message) {
         JOptionPane.showMessageDialog(parent, createMessage(message), "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -100,9 +100,8 @@ public final class InfoDialog {
 
         Manifest(URL url) throws IOException {
             this.url = url;
-            manifest = new HashMap<String, String>();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-            try {
+            manifest = new HashMap<>();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     int p = line.indexOf(':');
@@ -112,8 +111,6 @@ public final class InfoDialog {
                         manifest.put(key, value);
                     }
                 }
-            } finally {
-                reader.close();
             }
         }
 
@@ -121,13 +118,13 @@ public final class InfoDialog {
             return manifest.get(key);
         }
 
-        public void createInfoString(StringBuilder sb) {
+        private void createInfoString(StringBuilder sb) {
             String path = url.getPath();
             int p = path.lastIndexOf("!/");
             path = path.substring(0, p);
             p = path.lastIndexOf('/');
             sb.append(path.substring(p + 1)).append('\n');
-            sb.append("Build git-Revision").append(":\n");
+            sb.append("Build git-Revision").append(": ");
             sb.append(get(REVISION)).append("\n");
             sb.append("Build Time").append(": ");
             sb.append(get(TIME)).append("\n\n");
