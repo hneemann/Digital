@@ -112,9 +112,16 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         copyAction = new AbstractAction(Lang.get("menu_copy")) {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ArrayList<Movable> elements = null;
                 if (activeMouseController instanceof MouseControllerSelect) {
                     MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-                    ArrayList<Movable> elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
+                    elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
+                } else if (activeMouseController instanceof MouseControllerMoveElement) {
+                    MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
+                    elements = new ArrayList<>();
+                    elements.add(mcme.visualElement);
+                }
+                if (elements != null) {
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(new CircuitTransferable(elements), null);
                     removeHighLighted();
@@ -877,6 +884,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             delta = initialPos.sub(pos);
             deleteAction.setActive(true);
             rotateAction.setEnabled(true);
+            copyAction.setEnabled(true);
             hasChanged();
         }
 
