@@ -1,0 +1,37 @@
+package de.neemann.gui;
+
+import junit.framework.TestCase;
+
+/**
+ * Created by hneemann on 29.04.17.
+ */
+public class LineBreakerTest extends TestCase {
+
+    public void testBreakLines() throws Exception {
+        assertEquals("this is a test string", new LineBreaker(60).breakLines("this \n\n is \n a   test \n\r    string"));
+        assertEquals("this is a test\nstring", new LineBreaker(14).breakLines("this \n\n is \n a   test \n\r    string"));
+        assertEquals("This is a test string. This\n" +
+                "is a test string. This is a\n" +
+                "test string.", new LineBreaker(27).breakLines("This is a test string. This is a test string. This is a test string."));
+        assertEquals("this is\naWordThatIsFarToLongToFitInASingleLine\nThis is a test string", new LineBreaker(21).breakLines("this is aWordThatIsFarToLongToFitInASingleLine This is a test string"));
+    }
+
+    public void testBreakLinesLabel() throws Exception {
+        assertEquals("a) This is a test string. This\n" +
+                "   is a test string. This is a\n" +
+                "   test string.", new LineBreaker("a)", 3, 30).breakLines("This is a test string. This is a test string. This is a test string."));
+    }
+
+
+    public void testBreakLinesPreserve() throws Exception {
+        assertEquals("this is a\ntest string", new LineBreaker(60).preserveContainedLineBreaks().breakLines("this is a\n   test  string"));
+        assertEquals("this is a\ntest string. This is\na test string.", new LineBreaker(20).preserveContainedLineBreaks().breakLines("this is a\n   test  string. This is a test string."));
+    }
+
+    public void testBreakLinesHTML() throws Exception {
+        assertEquals("this is a test string", new LineBreaker(60).toHTML().breakLines("this is a\n   test  string"));
+        assertEquals("<html>this is a<br>test string</html>", new LineBreaker(60).toHTML().preserveContainedLineBreaks().breakLines("this is a\n   test  string"));
+    }
+
+
+}

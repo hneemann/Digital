@@ -63,7 +63,9 @@ public class ErrorMessage implements Runnable {
      * @return this for call chaining
      */
     public ErrorMessage show(Component parent) {
-        JOptionPane.showMessageDialog(parent, message.toString(), Lang.get("error"), JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(parent,
+                new LineBreaker(120).toHTML().preserveContainedLineBreaks().breakLines(message.toString()),
+                Lang.get("error"), JOptionPane.ERROR_MESSAGE);
         return this;
     }
 
