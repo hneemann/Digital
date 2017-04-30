@@ -14,7 +14,7 @@ import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestData;
 import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.StringUtils;
+import de.neemann.gui.LineBreaker;
 import de.neemann.gui.ToolTipAction;
 import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
@@ -95,7 +95,7 @@ public final class EditorFactory {
             JLabel label = new JLabel(key.getName() + ":  ");
             if (labelAtTop)
                 label.setVerticalAlignment(JLabel.TOP);
-            final String description = StringUtils.textToHTML(key.getDescription());
+            final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
             label.setToolTipText(description);
             panel.add(label, DialogLayout.LABEL);
             JComponent component = getComponent(elementAttributes);
@@ -211,7 +211,7 @@ public final class EditorFactory {
 
         public BooleanEditor(Boolean value, Key<Boolean> key) {
             bool = new JCheckBox(key.getName(), value);
-            bool.setToolTipText(StringUtils.textToHTML(key.getDescription()));
+            bool.setToolTipText(new LineBreaker().toHTML().breakLines(key.getDescription()));
         }
 
         @Override

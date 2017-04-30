@@ -21,7 +21,7 @@ import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.IconCreator;
-import de.neemann.gui.StringUtils;
+import de.neemann.gui.LineBreaker;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -292,7 +292,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (tt != null && tt.length() == 0)
             return null;
         else
-            return StringUtils.textToHTML(tt);
+            return new LineBreaker().toHTML().breakLines(tt);
     }
 
     /**

@@ -6,7 +6,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.IconCreator;
-import de.neemann.gui.StringUtils;
+import de.neemann.gui.LineBreaker;
 
 import javax.swing.*;
 import java.io.File;
@@ -316,11 +316,11 @@ public class LibraryNode implements Iterable<LibraryNode> {
                 if (description == null)
                     return Lang.get("msg_fileNotImportedYet");
                 else
-                    return StringUtils.textToHTML(description.getDescription(new ElementAttributes()));
+                    return new LineBreaker().toHTML().breakLines(description.getDescription(new ElementAttributes()));
             } else
                 return Lang.get("msg_fileIsNotUnique");
         } else
-            return StringUtils.textToHTML(Lang.getNull("elem_" + getName() + "_tt"));
+            return new LineBreaker().toHTML().breakLines(Lang.getNull("elem_" + getName() + "_tt"));
     }
 
     /**
