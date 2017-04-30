@@ -24,7 +24,9 @@ public class LineBreakerTest extends TestCase {
 
 
     public void testBreakLinesPreserve() throws Exception {
-        assertEquals("this is a\ntest string", new LineBreaker(60).preserveContainedLineBreaks().breakLines("this is a\n   test  string"));
+        assertEquals("this is a\ntest string", new LineBreaker(60).preserveContainedLineBreaks().breakLines("this is a\ntest  string"));
+        assertEquals("this is a\ntest string", new LineBreaker(60).preserveContainedLineBreaks().breakLines("this is a  \n   test  string"));
+        assertEquals("this is a\ntest string\n", new LineBreaker(60).preserveContainedLineBreaks().breakLines("\n\nthis is a\n\ntest  string\n\n\n"));
         assertEquals("this is a\ntest string. This is\na test string.", new LineBreaker(20).preserveContainedLineBreaks().breakLines("this is a\n   test  string. This is a test string."));
     }
 

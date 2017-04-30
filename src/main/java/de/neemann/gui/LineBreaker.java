@@ -70,7 +70,6 @@ public class LineBreaker {
                     if (preserveLineBreaks) {
                         addWord(word);
                         lineBreak();
-                        isFirst = true;
                         break;
                     }
                 case '\r':
@@ -108,11 +107,14 @@ public class LineBreaker {
     }
 
     private void lineBreak() {
-        outText.append('\n');
-        for (int j = 0; j < indent; j++)
-            outText.append(" ");
-        pos = indent;
-        containsLineBreak = true;
+        if (!isFirst) {
+            outText.append('\n');
+            for (int j = 0; j < indent; j++)
+                outText.append(" ");
+            pos = indent;
+            containsLineBreak = true;
+            isFirst = true;
+        }
     }
 
     /**
