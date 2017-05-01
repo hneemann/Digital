@@ -50,7 +50,7 @@ public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
         panel.add(new ToolTipAction(Lang.get("btn_editDetached")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getAttributeDialog().dispose();
+                getAttributeDialog().fireOk();
                 TestDataDialog dialog = new TestDataDialog(getAttributeDialog().getDialogParent(), data, key, elementAttributes);
                 Main main = getAttributeDialog().getMain();
                 if (main!=null)

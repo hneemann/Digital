@@ -28,6 +28,7 @@ public class AttributeDialog extends JDialog {
     private final JPanel panel;
     private final Component parent;
     private final Point pos;
+    private final ElementAttributes elementAttributes;
     private final JPanel buttonPanel;
     private boolean changed = false;
 
@@ -54,6 +55,7 @@ public class AttributeDialog extends JDialog {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         this.parent = parent;
         this.pos = pos;
+        this.elementAttributes = elementAttributes;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         panel = new JPanel(new DialogLayout());
@@ -72,9 +74,7 @@ public class AttributeDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    setEditedValues(elementAttributes);
-                    changed = true;
-                    dispose();
+                    fireOk();
                 } catch (RuntimeException err) {
                     new ErrorMessage(Lang.get("msg_errorEditingValue")).addCause(err).setComponent(AttributeDialog.this).show();
                 }
@@ -99,6 +99,15 @@ public class AttributeDialog extends JDialog {
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
         setAlwaysOnTop(true);
+    }
+
+    /**
+     * Closes the dialog and stores modified values
+     */
+    public void fireOk() {
+        setEditedValues(elementAttributes);
+        changed = true;
+        dispose();
     }
 
     /**
