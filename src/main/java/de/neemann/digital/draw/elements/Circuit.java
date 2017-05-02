@@ -606,11 +606,11 @@ public class Circuit {
     }
 
     /**
-     * All fuses (diodes) are set to unprogramed so that they are working again.
+     * All fuses (diodes) are restored to "not programed" so that they are working again.
      *
      * @param library library to determine which elements are programmable
      */
-    public void unprogramAllFuses(ElementLibrary library) {
+    public void restoreAllFuses(ElementLibrary library) {
         for (VisualElement ve : visualElements)
             if (library.isProgrammable(ve.getElementName())) {
                 ve.getElementAttributes().set(Keys.BLOWN, false);

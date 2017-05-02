@@ -95,7 +95,7 @@
             devices are supported.
         </par>
         <par>
-            In addition to purely combinatorial circuits, it is also possible to analyze or generate sequential cicuits.
+            In addition to purely combinatorial circuits, it is also possible to analyze or generate sequential circuits.
             Instead of a simple truth table a so-called state transition table is created.
             Each flip-flop thereby appears on the input side and the output side of the state transition table.
             In this table, on the right-hand side, you can find the next state, which will
@@ -150,7 +150,7 @@
             website.
             From the <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a> installation, only the file
             <e>fit1502.exe</e> is needed and this file can be stored in any folder.
-            On Linux systesm, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
+            On Linux systems, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
         </par>
     </chapter>
     <chapter name="Frequently asked Questions">
@@ -223,7 +223,7 @@
         </faq>
         <faq>
             <question>I have created a JEDEC file. How to program it to a <e>GAL16v8</e> or <e>GAL22v10</e>?</question>
-            <answer>To programm such a chip a special programmer hardware is necessary.</answer>
+            <answer>To program such a chip a special programmer hardware is necessary.</answer>
         </faq>
     </chapter>
 </root>

@@ -519,13 +519,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_actualToDefault_tt"));
 
-        ToolTipAction unprogramAllFuses = new ToolTipAction(Lang.get("menu_unprogramAllFuses")) {
+        ToolTipAction restoreAllFuses = new ToolTipAction(Lang.get("menu_restoreAllFuses")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.getCircuit().unprogramAllFuses(library);
+                circuitComponent.getCircuit().restoreAllFuses(library);
                 stoppedState.enter();
             }
-        }.setToolTip(Lang.get("menu_unprogramAllFuses_tt"));
+        }.setToolTip(Lang.get("menu_restoreAllFuses_tt"));
 
         ToolTipAction insertAsNew = new ToolTipAction(Lang.get("menu_insertAsNew")) {
             @Override
@@ -560,7 +560,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         edit.add(editAttributes.createJMenuItem());
         edit.add(actualToDefault.createJMenuItem());
-        edit.add(unprogramAllFuses.createJMenuItem());
+        edit.add(restoreAllFuses.createJMenuItem());
         edit.addSeparator();
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());

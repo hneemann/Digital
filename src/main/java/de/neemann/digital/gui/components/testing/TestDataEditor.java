@@ -53,7 +53,7 @@ public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
                 getAttributeDialog().fireOk();
                 TestDataDialog dialog = new TestDataDialog(getAttributeDialog().getDialogParent(), data, key, elementAttributes);
                 Main main = getAttributeDialog().getMain();
-                if (main!=null)
+                if (main != null)
                     main.getWindowPosManager().register("testdata", dialog);
                 dialog.setVisible(true);
             }
