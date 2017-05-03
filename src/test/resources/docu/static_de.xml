@@ -77,7 +77,7 @@
             werden alle Unterordner nach einer Datei des entsprechenden Namens durchsucht. Wird
             eine passende Datei gefunden, wird diese importiert. Dabei kommt es nur auf den Dateinamen der einzulesenden
             Datei an, nicht auf dessen Pfad. Entsprechend wird eine Fehlermeldung erzeugt, wenn sich in verschiedenen
-            Unterordneren mehrere Dateien gleichen Namens befinden, da dann Mehrdeutigkeiten entstehen.
+            Unterordnern mehrere Dateien gleichen Namens befinden, da dann Mehrdeutigkeiten entstehen.
         </par>
         <par>
             Eine geeignete Projektstruktur sieht daher wie folgt aus: In einem eigenen Ordner befindet sich die Wurzelschaltung.
@@ -109,10 +109,10 @@
         </par>
         <par>
             Dabei gilt folgende Namenskonvention: Der Folgezustand eines Bits auf der rechten Seite der Tabelle wird
-            durch ein angähngtes kleines 'n+1' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
+            durch ein angehängtes kleines 'n+1' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
             angehängtes 'n' ausgezeichnet. Gibt es also eine Zustandsvariable 'A', dann kennzeichnet 'An' den aktuellen
             Zustand und 'An+1' den Folgezustand. Finden sich in der Wahrheitstabelle auf der linken und rechten Seite Signale,
-            die diesem Muster entsprechen, wird davon ausgegegangen, dass es sich um eine Zustandsfolgetabelle handelt und
+            die diesem Muster entsprechen, wird davon ausgegangen, dass es sich um eine Zustandsfolgetabelle handelt und
             bei der Synthese wird entsprechend ein Schaltwerk anstelle eines Schaltnetzes erzeugt.
         </par>
         <par>
@@ -197,7 +197,7 @@
             <answer>Wenn eine Schaltfunktion minimiert wird, kann es mehrere minimierte Schaltfunktionen gleicher
                 Komplexität geben (gleiche Anzahl von Termen).
                 Digital zeigt alle möglichen Lösungen an und alle liefern die selbe Wahrheitstabelle.
-                In den Don't Care-Zeilen der Wahrheitstabelle kann es natürlich Unterschiede zwischen den verschiednen
+                In den Don't Care-Zeilen der Wahrheitstabelle kann es natürlich Unterschiede zwischen den verschiedenen
                 Funktionen geben.</answer>
         </faq>
         <faq>
