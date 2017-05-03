@@ -776,6 +776,8 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_test_missingLines">(To many entries!)</string>
     <string name="msg_test_missingLines_tt">All test cases are executed, but not all results are shown.
         The evaluation of the test result is nevertheless correct!</string>
+    <string name="msg_isLocked">The editing of the circuit is disabled. You can remove the lock at "{0} -> {1} -> {2}".
+        However, diodes and FG-FETs can be configured with the [P] key.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

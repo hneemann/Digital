@@ -86,6 +86,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private boolean isManualScale;
     private boolean hasChanged = true;
     private boolean focusWasLost = false;
+    private boolean lockMessageShown = false;
 
 
     /**
@@ -643,7 +644,16 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
     private boolean isLocked() {
-        return circuit.getAttributes().get(Keys.LOCKED_MODE);
+        final boolean locked = circuit.getAttributes().get(Keys.LOCKED_MODE);
+        if (locked && !lockMessageShown) {
+            String message = Lang.get("msg_isLocked",
+                    Lang.get("menu_edit"),
+                    Lang.get("menu_editAttributes"),
+                    Lang.get("key_lockedMode"));
+            SwingUtilities.invokeLater(new ErrorMessage(message).setComponent(this));
+            lockMessageShown = true;
+        }
+        return locked;
     }
 
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {

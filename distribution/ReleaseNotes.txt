@@ -1,5 +1,8 @@
 Release Notes
 
+Planned as v0.12
+- Added a locked mode, which avoids the unwanted modification of the circuit.
+
 v0.11.1, released on 02. May 2017
 - Added the possibility to open a circuit from the command line.
 - The backspace key works like the delete key.
