@@ -27,7 +27,7 @@
     <string name="btn_reload_tt">Reload last hex file</string>
     <string name="btn_save">Save</string>
     <string name="btn_create">Create</string>
-    <string name="btn_create_tt">Create a circuit in a seperate window</string>
+    <string name="btn_create_tt">Create a circuit in a separate window</string>
     <string name="btn_editDetached">Edit detached</string>
     <string name="btn_editDetached_tt">Opens the dialog as a non modal dialog</string>
     <string name="btn_openInBrowser">Browser</string>
@@ -47,7 +47,7 @@
     <string name="elem_Help_outputs">Outputs</string>
     <string name="elem_Help_attributes">Attributes</string>
     <string name="elem_Add">Add</string>
-    <string name="elem_Add_tt">A component for simple add caluclations. Adds the two integer values from input a and input b (a+b). The result will be incremented by one if the carry input is set. </string>
+    <string name="elem_Add_tt">A component for simple add calculations. Adds the two integer values from input a and input b (a+b). The result will be incremented by one if the carry input is set. </string>
     <string name="elem_Add_pin_a">First input to add.</string>
     <string name="elem_Add_pin_b">Second input to add.</string>
     <string name="elem_Add_pin_c_i">Carry input, if set the result is incremented by one.</string>
@@ -182,7 +182,7 @@
     <string name="elem_Multiplexer_pin_sel">This pin selects the input which value is to output.</string>
     <string name="elem_Multiplexer_tt">A component which uses the value of the sel pin to decide which input value is set to the output.</string>
     <string name="elem_NAnd">NAnd</string>
-    <string name="elem_NAnd_tt">A combiation of AND and NOT. Returns 0 only if all inputs are set to 1. If on of the inputs is set to 0 the output is set to 1.</string>
+    <string name="elem_NAnd_tt">A combination of AND and NOT. Returns 0 only if all inputs are set to 1. If on of the inputs is set to 0 the output is set to 1.</string>
     <string name="elem_NOr">NOr</string>
     <string name="elem_NOr_tt">A combination of OR and NOT. Returns a 0 if one of the inputs is set to 1. If all inputs are set to 0 the output is also set to 1.</string>
     <string name="elem_Not">Not</string>
@@ -232,7 +232,7 @@
 
     <string name="elem_GraphicCard">Graphic RAM</string>
     <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element works similar to a RAM. In addition it
-    shows its content on a grahic screen. Every pixel is represented by a memory address. There are to screens supported
+    shows its content on a graphic screen. Every pixel is represented by a memory address. There are to screens supported
     to implement screen switching (See input B).</string>
     <string name="elem_GraphicCard_pin_A">The address to read and write.</string>
     <string name="elem_GraphicCard_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
@@ -286,20 +286,20 @@
     <string name="elem_Splitter_pin_out">The output bits {0}.</string>
     <string name="elem_Splitter_pin_out_one">The output bit {0}.</string>
     <string name="elem_Sub">Sub</string>
-    <string name="elem_Sub_tt">A component for simple substractions. Substracts binary numbers on input a and input b (a-b). If the carry input is set to 1 the result is decremented by 1.</string>
+    <string name="elem_Sub_tt">A component for simple subtractions. Subtracts binary numbers on input a and input b (a-b). If the carry input is set to 1 the result is decremented by 1.</string>
     <string name="elem_Sub_pin_c_i">Carry input, if set the result is decremented by one.</string>
-    <string name="elem_Sub_pin_a">Input a for substraction.</string>
-    <string name="elem_Sub_pin_b">Input b for substraction.</string>
-    <string name="elem_Sub_pin_s">Output returns the result of the substraction.</string>
-    <string name="elem_Sub_pin_c_o">Output returns 1 if an overflow occured.</string>
+    <string name="elem_Sub_pin_a">Input a for subtraction.</string>
+    <string name="elem_Sub_pin_b">Input b for subtraction.</string>
+    <string name="elem_Sub_pin_s">Output returns the result of the subtraction.</string>
+    <string name="elem_Sub_pin_c_o">Output returns 1 if an overflow occurred.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
     <string name="elem_T_FF_short">T</string>
     <string name="elem_T_FF_tt">A component with one input. Toggles the state of the output on a rising edge at the input.</string>
-    <string name="elem_T_FF_pin_C">Clock. A rising edgt toggles the output.</string>
+    <string name="elem_T_FF_pin_C">Clock. A rising edge toggles the output.</string>
     <string name="elem_T_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_T_FF_pin_¬Q">Returns the negated stored value.</string>
     <string name="elem_Terminal">Terminal</string>
-    <string name="elem_Terminal_pin_C">Clock. A risig edge writes the value at the input to the terminal window.</string>
+    <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.</string>
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
     <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
         The terminal opens its own window to visualize the output.</string>
@@ -452,14 +452,14 @@ allowed are {1} variables but {2} are found.</string>
     <string name="err_notANumber_N0_inLine_N1">Value {0} in line {1} is not a number!</string>
     <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">Expected {0} but found {1} values in line {2}!</string>
     <string name="err_unexpectedToken_N0_inLine_N1">Unexpected token ({0}) in line {1}.</string>
-    <string name="err_variable_N0_notFound">Varianble {0} not found!</string>
+    <string name="err_variable_N0_notFound">Variable {0} not found!</string>
     <string name="err_noTestInputSignalsDefined">No input signals defined in test vector!</string>
     <string name="err_noTestOutputSignalsDefined">No output signals defined in test vector!</string>
     <string name="err_noTestData">Not test data found.</string>
     <string name="err_remoteExecution">Error during execution of a remote command</string>
     <string name="err_pullUpAndDownNotAllowed">It's not allowed to connect a pull up and a pull down resistor to a single wire.</string>
     <string name="err_openingDocumentation">Could not open the browser.</string>
-    <string name="err_splitterDoesNotSupportHighZInputs">The splitter does not support high z inputs! Use a pull up or pull down resisitor.</string>
+    <string name="err_splitterDoesNotSupportHighZInputs">The splitter does not support high z inputs! Use a pull up or pull down resistor.</string>
     <string name="err_splitterAllowsOnlyOneHighZInput">A splitter which allows high z inputs can only have one input!</string>
     <string name="err_couldNotCreateFolder_N0">Could not create folder &quot;{0}&quot;!</string>
     <string name="err_switchHasNoNet">It is not allowed to connect only inputs to a switch.</string>
@@ -488,7 +488,7 @@ The names of the variables may not be unique.</string>
     <string name="key_Color">Color</string>
     <string name="key_Color_tt">The Color of the element.</string>
     <string name="key_Cycles">Timeout cycles</string>
-    <string name="key_Cycles_tt">If this ammount of cycles is reached without a break signal, an error is created.</string>
+    <string name="key_Cycles_tt">If this amount of cycles is reached without a break signal, an error is created.</string>
     <string name="key_Data">Data</string>
     <string name="key_Data_tt">The values stored in this element.</string>
     <string name="key_Default">Default</string>
@@ -496,7 +496,7 @@ The names of the variables may not be unique.</string>
     <string name="key_Description">Description</string>
     <string name="key_Description_tt">A short description of this element and its usage.</string>
     <string name="key_Frequency">Frequency/Hz</string>
-    <string name="key_Frequency_tt">The realtime frequency used for the real time clock</string>
+    <string name="key_Frequency_tt">The real time frequency used for the real time clock</string>
     <string name="key_IEEEShapes">Use IEEE 91-1984 shapes</string>
     <string name="key_IEEEShapes_tt">Use IEEE 91-1984 shapes instead of rectangular shapes</string>
     <string name="key_InputSplitting">Input Splitting</string>
@@ -508,9 +508,9 @@ The names of the variables may not be unique.</string>
     <string name="key_Size">Size</string>
     <string name="key_Size_tt">The size of the component in the circuit.</string>
     <string name="key_Language">Language</string>
-    <string name="key_NetName">Netname</string>
+    <string name="key_NetName">Net name</string>
     <string name="key_NetName_tt">All nets with identical name are connected together.</string>
-    <string name="key_OutputSplitting">Otput Splitting</string>
+    <string name="key_OutputSplitting">Output splitting</string>
     <string name="key_OutputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16 single bits.</string>
     <string name="key_SelectorBits">Number of Selector Bits</string>
     <string name="key_SelectorBits_tt">Number of bits used for the selector input.</string>
@@ -543,16 +543,16 @@ The names of the variables may not be unique.</string>
     <string name="key_runRealTime">Start real time clock</string>
     <string name="key_runRealTime_tt">If enabled the runtime clock is started when the circuit is started</string>
     <string name="key_showDataGraph">Show measurement graph</string>
-    <string name="key_showDataGraphMicro">Show measurement graph in single gatem step mode</string>
+    <string name="key_showDataGraphMicro">Show measurement graph in single gate step mode</string>
     <string name="key_showDataTable">Show measurement values</string>
     <string name="key_showList">Show list file if available</string>
     <string name="key_termHeight">Lines</string>
     <string name="key_termHeight_tt">The number of lines to show.</string>
     <string name="key_termWidth">Characters per line</string>
     <string name="key_termWidth_tt">The number of characters shown in a single line.</string>
-    <string name="key_valueIsProbe">Use as measurment value</string>
+    <string name="key_valueIsProbe">Use as measurement value</string>
     <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.</string>
-    <string name="key_Testdata">Testdata</string>
+    <string name="key_Testdata">Test data</string>
     <string name="key_Testdata_tt">The description of the test case. Details of the syntax can be found in the help dialog of the test data editor.</string>
     <string name="key_graphicWidth">Width in pixels</string>
     <string name="key_graphicWidth_tt">The screen width in pixels.</string>
@@ -573,7 +573,7 @@ The names of the variables may not be unique.</string>
         With this option you can stabilize the display by keeping the LEDs on until the common cathode goes down again.
         This simulates a frequency above the critical flicker fusion frequency.</string>
     <string name="key_atf1502Fitter">ATF1502 Fitter</string>
-    <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF1502. Enter the full path to the file fit1502.exe provided bei ATMEL.</string>
+    <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF1502. Enter the full path to the file fit1502.exe provided by ATMEL.</string>
     <string name="key_pin">Pin number</string>
     <string name="key_pin_tt">An empty field means this signal is not assigned to a pin.</string>
     <string name="key_rowDataBits">Rows</string>
@@ -607,7 +607,7 @@ The names of the variables may not be unique.</string>
     <string name="menu_editRunAttributes">Simulation Settings</string>
     <string name="menu_editRunAttributes_tt">Settings used to start the simulation</string>
     <string name="menu_editSettings">Settings</string>
-    <string name="menu_editSettings_tt">Edits Digitals Preferences</string>
+    <string name="menu_editSettings_tt">Edits Digitals preferences</string>
     <string name="menu_element">Stop Simulation</string>
     <string name="menu_element_tt">Stops the simulation and allows to edits the circuit.</string>
     <string name="menu_elements">Components</string>
@@ -717,8 +717,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_runTests_tt">Runs all test cases in the circuit</string>
     <string name="menu_actualToDefault">Set Inputs</string>
     <string name="menu_actualToDefault_tt">Use actual input values as new default values.</string>
-    <string name="menu_unprogramAllFuses">Reset all diodes and FGFETs</string>
-    <string name="menu_unprogramAllFuses_tt">Resets all diodes (fuses) and FGFETs to the unprogramed state. The actual fuse configuration is lost!</string>
+    <string name="menu_restoreAllFuses">Reset all diodes and FGFETs</string>
+    <string name="menu_restoreAllFuses_tt">Resets all diodes (fuses) and FGFETs to the "not programed" state. The actual fuse configuration is lost!</string>
     <string name="menu_programDiode">Program diode</string>
     <string name="menu_help_elements">Components</string>
     <string name="menu_help_elements_tt">Shows a list of all available components.</string>
@@ -742,7 +742,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_errorCalculatingStep">Error calculating a step</string>
     <string name="msg_errorCreatingModel">Error creating the circuit</string>
     <string name="msg_errorDuringCalculation">Error during simplification</string>
-    <string name="msg_errorEditingValue">Error editing a atribute value</string>
+    <string name="msg_errorEditingValue">Error editing a attribute value</string>
     <string name="msg_errorImportingModel_N0">Error importing the circuit {0}!</string>
     <string name="msg_errorUpdatingLibrary">Error updating the component library!!</string>
     <string name="msg_errorReadingFile">Error reading a file</string>
