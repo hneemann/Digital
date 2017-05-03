@@ -51,6 +51,7 @@ public class Circuit {
         ATTR_LIST.add(Keys.WIDTH);
         ATTR_LIST.add(Keys.BACKGROUND_COLOR);
         ATTR_LIST.add(Keys.DESCRIPTION);
+        ATTR_LIST.add(Keys.LOCKED_MODE);
     }
 
     private int version = 1;

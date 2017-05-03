@@ -133,20 +133,22 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         pasteAction = new AbstractAction(Lang.get("menu_paste")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                try {
-                    Object data = clipboard.getData(DataFlavor.stringFlavor);
-                    if (data instanceof String) {
-                        Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
-                        ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
-                        if (elements != null) {
-                            removeHighLighted();
-                            mouseInsertList.activate(elements, posVector);
+                if (!isLocked()) {
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    try {
+                        Object data = clipboard.getData(DataFlavor.stringFlavor);
+                        if (data instanceof String) {
+                            Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
+                            ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
+                            if (elements != null) {
+                                removeHighLighted();
+                                mouseInsertList.activate(elements, posVector);
+                            }
                         }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                        SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_clipboardContainsNoImportableData")).setComponent(CircuitComponent.this));
                     }
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_clipboardContainsNoImportableData")).setComponent(CircuitComponent.this));
                 }
             }
         };
@@ -640,6 +642,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         repaint();
     }
 
+    private boolean isLocked() {
+        return circuit.getAttributes().get(Keys.LOCKED_MODE);
+    }
+
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
         private Vector pos;
         private boolean isMoved;
@@ -767,17 +773,19 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             Vector pos = getPosVector(e);
 
             if (e.getButton() == MouseEvent.BUTTON3) {
-                VisualElement vp = getVisualElement(pos, true);
-                if (vp != null)
-                    editAttributes(vp, e);
+                if (!isLocked()) {
+                    VisualElement vp = getVisualElement(pos, true);
+                    if (vp != null)
+                        editAttributes(vp, e);
+                }
             } else if (e.getButton() == MouseEvent.BUTTON1) {
                 VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
-                    if (circuit.isPinPos(raster(pos), vp) && !e.isControlDown())
-                        mouseWire.activate(pos);
-                    else
+                    if (circuit.isPinPos(raster(pos), vp) && !e.isControlDown()) {
+                        if (!isLocked()) mouseWire.activate(pos);
+                    } else
                         mouseMoveElement.activate(vp, pos);
-                } else {
+                } else if (!isLocked()) {
                     if (e.isControlDown()) {
                         Wire wire = circuit.getWireAt(pos, SIZE2);
                         if (wire != null)
@@ -845,7 +853,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
+            if (e.getButton() == MouseEvent.BUTTON1 && !isLocked()) {
                 circuit.add(element);
                 hasChanged();
             }
@@ -889,16 +897,19 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            visualElement.setPos(raster(visualElement.getPos()));
+            if (!isLocked())
+                visualElement.setPos(raster(visualElement.getPos()));
             mouseNormal.activate();
         }
 
         @Override
         void moved(MouseEvent e) {
-            Vector pos = getPosVector(e);
-            visualElement.setPos(raster(pos.add(delta)));
-            circuit.modified();
-            hasChanged();
+            if (!isLocked()) {
+                Vector pos = getPosVector(e);
+                visualElement.setPos(raster(pos.add(delta)));
+                circuit.modified();
+                hasChanged();
+            }
         }
 
         @Override
@@ -908,22 +919,28 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void delete() {
-            circuit.delete(visualElement);
-            mouseNormal.activate();
-            isManualScale = true;
+            if (!isLocked()) {
+                circuit.delete(visualElement);
+                mouseNormal.activate();
+                isManualScale = true;
+            }
         }
 
         @Override
         public void rotate() {
-            visualElement.rotate();
-            circuit.modified();
-            hasChanged();
+            if (!isLocked()) {
+                visualElement.rotate();
+                circuit.modified();
+                hasChanged();
+            }
         }
 
         @Override
         public void escapePressed() {
-            visualElement.setPos(raster(initialPos));
-            visualElement.setRotation(initialRot);
+            if (!isLocked()) {
+                visualElement.setPos(raster(initialPos));
+                visualElement.setRotation(initialRot);
+            }
             mouseNormal.activate();
         }
     }
@@ -1075,7 +1092,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         boolean dragged(MouseEvent e) {
             if (wasReleased) {
-                mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
+                if (!isLocked())
+                    mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
             } else {
                 corner2 = getPosVector(e);
                 if ((e.getModifiersEx() & CTRL_DOWN_MASK) != 0) {
@@ -1118,14 +1136,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void delete() {
-            circuit.delete(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-            mouseNormal.activate();
-            isManualScale = true;
+            if (!isLocked()) {
+                circuit.delete(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                mouseNormal.activate();
+                isManualScale = true;
+            }
         }
 
         public void rotate() {
-            mouseMoveSelected.activate(corner1, corner2, lastMousePos);
-            mouseMoveSelected.rotate();
+            if (!isLocked()) {
+                mouseMoveSelected.activate(corner1, corner2, lastMousePos);
+                mouseMoveSelected.rotate();
+            }
         }
 
         @Override

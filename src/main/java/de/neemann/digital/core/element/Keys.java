@@ -312,12 +312,17 @@ public final class Keys {
      * row bits in led matrix
      */
     public static final Key.KeyBits ROW_DATA_BITS
-            = new Key.KeyBits("rowDataBits", 8);;
+            = new Key.KeyBits("rowDataBits", 8);
 
     /**
      * column address bits in led matrix
      */
     public static final Key.KeyBits COL_ADDR_BITS
-            = new Key.KeyBits("colAddrBits", 3);;
+            = new Key.KeyBits("colAddrBits", 3);
 
+    /**
+     * In locked mode the circuit can not be modified
+     */
+    public static final Key<Boolean> LOCKED_MODE
+            = new Key<>("lockedMode", false);
 }

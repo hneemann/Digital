@@ -580,6 +580,8 @@ The names of the variables may not be unique.</string>
     <string name="key_rowDataBits_tt">Specifies the number of rows by specifying the number of bits of the row word.</string>
     <string name="key_colAddrBits">Address bits of columns</string>
     <string name="key_colAddrBits_tt">Addresses the individual columns. Three bits means eight columns.</string>
+    <string name="key_lockedMode">Modification locked</string>
+    <string name="key_lockedMode_tt">The circuit is locked. It is possible to configure diodes and FGF-FETs.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>

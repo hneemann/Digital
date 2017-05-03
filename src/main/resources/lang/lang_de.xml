@@ -590,6 +590,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_rowDataBits_tt">Gibt direkt die Zahl der Zeilen an, indem die Anzahl der Bits des Zeilenwortes festgegelgt wird.</string>
     <string name="key_colAddrBits">Adressbits der Spalten</string>
     <string name="key_colAddrBits_tt">Adressiert die einzelnen Spalten. Drei Bits bedeuten also acht Spalten.</string>
+    <string name="key_lockedMode">Bearbeitung gesperrt</string>
+    <string name="key_lockedMode_tt">Die Schaltung ist für die Bearbeitung gesperrt. Dioden und FG-FETs können jedoch konfiguriert werden.</string>
 
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
