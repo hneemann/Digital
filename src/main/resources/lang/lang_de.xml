@@ -789,7 +789,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_fileExists">Die Datei {0} existiert schon! Soll die Datei überschrieben werden?</string>
     <string name="msg_isLocked">Die Bearbeitung der Schaltung ist gesperrt. Sie können die Sperrung unter
         "{0}->{1}->{2}" aufheben.
-        Dioden und FG-FETs können auch im gesperrten Zustand mit der Taste [P] konfiguriert werden.</string>
+        Das kopieren von Elementen und die Konfiguration von Dioden und FG-FETs mit der Taste [P] ist auch im gesperrten Zustand möglich.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
