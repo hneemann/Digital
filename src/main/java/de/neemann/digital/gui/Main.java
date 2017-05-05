@@ -643,7 +643,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     circuitComponent.getCircuit().clearState();
                     JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
                 } catch (Exception e1) {
-                    new ErrorMessage("SpeedTestError").addCause(e1).show();
+                    new ErrorMessage(Lang.get("msg_speedTestError")).addCause(e1).show();
                 }
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));

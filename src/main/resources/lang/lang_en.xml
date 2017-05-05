@@ -779,6 +779,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_isLocked">The editing of the circuit is disabled. You can remove the lock at
         "{0} -> {1} -> {2}".
         However, copying of components and the configuration of diodes and FG-FETs with the [P] key is also possible in the locked mode.</string>
+    <string name="msg_speedTestError">Error during speed test!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

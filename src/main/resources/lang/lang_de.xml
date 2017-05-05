@@ -790,6 +790,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_isLocked">Die Bearbeitung der Schaltung ist gesperrt. Sie können die Sperrung unter
         "{0}->{1}->{2}" aufheben.
         Das kopieren von Elementen und die Konfiguration von Dioden und FG-FETs mit der Taste [P] ist auch im gesperrten Zustand möglich.</string>
+    <string name="msg_speedTestError">Fehler bei der Ausführung des Geschwindigkeitstests!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
