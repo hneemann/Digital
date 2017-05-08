@@ -612,6 +612,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                                     .setFileToOpen(((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile())
                                     .setLibrary(library)
                                     .denyMostFileActions()
+                                    .keepPrefMainFile()
                                     .openLater();
                         }
                     }.setToolTip(Lang.get("attr_openCircuit_tt")));

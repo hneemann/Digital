@@ -110,6 +110,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private final ScheduledThreadPoolExecutor timerExecutor = new ScheduledThreadPoolExecutor(1);
     private final WindowPosManager windowPosManager = new WindowPosManager();
     private final InsertHistory insertHistory;
+    private final boolean keepPrefMainFile;
 
     private ToolTipAction doStep;
     private ToolTipAction runToBreakAction;
@@ -139,6 +140,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
+
+        keepPrefMainFile = builder.keepPrefMainFile;
 
         if (builder.library != null) library = builder.library;
         else library = new ElementLibrary();
@@ -348,6 +351,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         .setLibrary(library)
                         .setCircuit(new Circuit())
                         .setBaseFileName(getBaseFileName())
+                        .keepPrefMainFile()
                         .build()
                         .setVisible(true);
             }
@@ -391,7 +395,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 saveAsHelper.checkOverwrite(
                         file -> {
                             if (library.isFileAccessible(file))
-                                saveFile(file, false);
+                                saveFile(file, !keepPrefMainFile);
                             else {
                                 Object[] options = {Lang.get("btn_saveAnyway"), Lang.get("btn_newName"), Lang.get("cancel")};
                                 int res = JOptionPane.showOptionDialog(Main.this,
@@ -548,6 +552,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 .setLibrary(library)
                                 .setCircuit(circuit)
                                 .setBaseFileName(getBaseFileName())
+                                .keepPrefMainFile()
                                 .build()
                                 .setVisible(true);
                     }
@@ -1201,6 +1206,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private Circuit circuit;
         private boolean allowAllFileActions = true;
         private File baseFileName;
+        private boolean keepPrefMainFile;
 
         /**
          * @param fileToOpen the file to open
@@ -1259,6 +1265,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         /**
+         * Keeps the main file defined in the preferences
+         *
+         * @return this for chained calls
+         */
+        public MainBuilder keepPrefMainFile() {
+            this.keepPrefMainFile = true;
+            return this;
+        }
+
+        /**
          * Creates a new Main instance
          *
          * @return a new Main instance
@@ -1273,5 +1289,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         public void openLater() {
             SwingUtilities.invokeLater(() -> build().setVisible(true));
         }
+
     }
 }
