@@ -3,6 +3,7 @@ package de.neemann.gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +39,15 @@ public final class IconCreator {
             if (systemResource == null) {
                 throw new NullPointerException("recource " + name + " not found!");
             }
-            return ImageIO.read(systemResource);
+            BufferedImage image = ImageIO.read(systemResource);
+
+            final float scaling = Screen.getInstance().getScaling();
+            if (scaling != 1) {
+                int w = (int) (image.getWidth() * scaling);
+                int h = (int) (image.getHeight() * scaling);
+                return image.getScaledInstance(w, h, BufferedImage.SCALE_SMOOTH);
+            } else
+                return image;
         } catch (IOException e) {
             throw new RuntimeException("Image " + name + " not found");
         }
@@ -57,5 +66,4 @@ public final class IconCreator {
         }
         return list;
     }
-
 }

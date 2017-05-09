@@ -52,6 +52,7 @@ public class DataEditor extends JDialog {
         MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
         JTable table = new JTable(dm);
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(bits));
+        table.setRowHeight(table.getFont().getSize() * 6 / 5);
         getContentPane().add(new JScrollPane(table));
 
         int minWidth = 0;

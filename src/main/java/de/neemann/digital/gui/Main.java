@@ -234,7 +234,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
 
-        setPreferredSize(new Dimension(1024, 768));
+        setPreferredSize(Screen.getInstance().scale(new Dimension(1024, 768)));
         pack();
         setLocationRelativeTo(builder.parent);
     }

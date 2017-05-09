@@ -11,6 +11,7 @@ import de.neemann.digital.testing.TestData;
 import de.neemann.digital.testing.Transitions;
 import de.neemann.digital.testing.parser.ParserException;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -51,7 +52,7 @@ public class TestDataDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTextArea text = new JTextArea(data.getDataString(), 30, 50);
-        text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, (int) Screen.getInstance().getFontSize()));
 
         JScrollPane scrollPane = new JScrollPane(text);
         getContentPane().add(scrollPane);

@@ -62,7 +62,9 @@ public class TestResultDialog extends JDialog {
             JTable table = new JTable(new TestResultModel(tr));
             table.setDefaultRenderer(MatchedValue.class, new MatchedValueRenderer());
             table.setDefaultRenderer(Integer.class, new NumberRenderer());
-            table.getColumnModel().getColumn(0).setMaxWidth(40);
+            final Font font = table.getFont();
+            table.getColumnModel().getColumn(0).setMaxWidth(font.getSize()*4);
+            table.setRowHeight(font.getSize() * 6 / 5);
 
             String tabName;
             Icon tabIcon;

@@ -7,6 +7,7 @@ import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.draw.shapes.Shape;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.sync.Sync;
+import de.neemann.gui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -230,7 +231,8 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @return the created icon
      */
     public ImageIcon createIcon(int maxHeight) {
-        BufferedImage bi = getBufferedImage(0.5, maxHeight);
+        float scaling = Screen.getInstance().getScaling();
+        BufferedImage bi = getBufferedImage(0.5 * scaling, (int) (maxHeight * scaling));
         return new ImageIcon(bi);
     }
 

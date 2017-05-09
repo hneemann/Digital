@@ -38,6 +38,7 @@ import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -99,13 +100,13 @@ public class TableDialog extends JDialog {
 
 
         label = new JLabel();
-        font = label.getFont().deriveFont(20.0f);
+        font = Screen.getInstance().getFont(1.66f);
         label.setFont(font);
         table = new JTable(model);
         JComboBox<String> comboBox = new JComboBox<>(TruthTableTableModel.STATENAMES);
         table.setDefaultEditor(Integer.class, new DefaultCellEditor(comboBox));
         table.setDefaultRenderer(Integer.class, new CenterDefaultTableCellRenderer());
-        table.setRowHeight(25);
+        table.setRowHeight(font.getSize() * 6 / 5);
 
         table.getInputMap().put(KeyStroke.getKeyStroke("0"), "0_ACTION");
         table.getActionMap().put("0_ACTION", new SetAction(0));
