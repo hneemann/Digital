@@ -26,22 +26,27 @@ public final class Screen {
     }
 
     private Screen() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        float s = screenSize.height / 90f;
         Font font = new JLabel().getFont();
-        if (s > 12) {
-            font = font.deriveFont(s);
-            for (Object key : javax.swing.UIManager.getLookAndFeel().getDefaults().keySet()) {
-                if (key.toString().endsWith(".font"))
-                    javax.swing.UIManager.put(key, font);
+        float scaling = 1;
+        float size = 12;
+        try {
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            float s = screenSize.height / 90f;
+            if (s > 12) {
+                font = font.deriveFont(s);
+                for (Object key : javax.swing.UIManager.getLookAndFeel().getDefaults().keySet()) {
+                    if (key.toString().endsWith(".font"))
+                        javax.swing.UIManager.put(key, font);
+                }
+                scaling = s / 12;
+                size = s;
+                UIManager.put("ScrollBar.width", (int) (size * 17 / 12));
             }
-            scaling = s / 12;
-            size = s;
-            UIManager.put("ScrollBar.width", (int) (size * 17 / 12));
-        } else {
-            scaling = 1;
-            size = 12;
+        } catch (HeadlessException e) {
+            // run with defaults if headless
         }
+        this.scaling = scaling;
+        this.size = size;
         this.font = font;
     }
 
