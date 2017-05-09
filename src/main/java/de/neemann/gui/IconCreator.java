@@ -40,14 +40,7 @@ public final class IconCreator {
                 throw new NullPointerException("recource " + name + " not found!");
             }
             BufferedImage image = ImageIO.read(systemResource);
-
-            final float scaling = Screen.getInstance().getScaling();
-            if (scaling != 1) {
-                int w = (int) (image.getWidth() * scaling);
-                int h = (int) (image.getHeight() * scaling);
-                return image.getScaledInstance(w, h, BufferedImage.SCALE_SMOOTH);
-            } else
-                return image;
+            return Screen.getInstance().getScaledImage(image);
         } catch (IOException e) {
             throw new RuntimeException("Image " + name + " not found");
         }
