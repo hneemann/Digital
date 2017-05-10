@@ -52,7 +52,7 @@ public class TestDataDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTextArea text = new JTextArea(data.getDataString(), 30, 50);
-        text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, (int) Screen.getInstance().getFontSize()));
+        text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, Screen.getInstance().getFontSize()));
 
         JScrollPane scrollPane = new JScrollPane(text);
         getContentPane().add(scrollPane);

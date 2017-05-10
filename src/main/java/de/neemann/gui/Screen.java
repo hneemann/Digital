@@ -1,5 +1,10 @@
 package de.neemann.gui;
 
+/*
+ * Win 150% : getScreenResolution() = 144
+ * Win 100% : getScreenResolution() = 96
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -16,7 +21,7 @@ public final class Screen {
         private static Screen instance = new Screen();
     }
 
-    private final float size;
+    private final int size;
     private final float scaling;
     private final Font font;
 
@@ -30,14 +35,13 @@ public final class Screen {
     private Screen() {
         Font font = new JLabel().getFont();
         float scaling = 1;
-        float size = 12;
+        int size = 12;
         try {
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            float s = screenSize.height / 90f;
+            int s = Toolkit.getDefaultToolkit().getScreenResolution() * 12 / 96;
             if (s > 12) {
-                scaling = s / 12;
+                scaling = s / 12f;
                 size = s;
-                font = font.deriveFont(s);
+                font = font.deriveFont((float) s);
                 for (Object key : javax.swing.UIManager.getLookAndFeel().getDefaults().keySet()) {
                     if (key.toString().endsWith(".font"))
                         javax.swing.UIManager.put(key, font);
@@ -95,7 +99,7 @@ public final class Screen {
     /**
      * @return font size
      */
-    public float getFontSize() {
+    public int getFontSize() {
         return size;
     }
 
