@@ -3,6 +3,7 @@ package de.neemann.gui;
 /*
  * Win 150% : getScreenResolution() = 144
  * Win 100% : getScreenResolution() = 96
+ * Linux    : getScreenResolution() = 95
  */
 
 import javax.swing.*;
@@ -37,7 +38,7 @@ public final class Screen {
         float scaling = 1;
         int size = 12;
         try {
-            int s = Toolkit.getDefaultToolkit().getScreenResolution() * 12 / 96;
+            int s = Math.round(Toolkit.getDefaultToolkit().getScreenResolution() * 12 / 96f);
             if (s > 12) {
                 scaling = s / 12f;
                 size = s;
