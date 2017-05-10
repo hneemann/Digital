@@ -1,5 +1,8 @@
 package de.neemann.gui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +16,7 @@ import java.util.ArrayList;
  * Created by hneemann on 11.02.14.
  */
 public final class IconCreator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(IconCreator.class);
 
     private IconCreator() {
     }
@@ -35,15 +39,42 @@ public final class IconCreator {
      */
     public static Image createImage(String name) {
         try {
-            URL systemResource = ClassLoader.getSystemResource(name);
-            if (systemResource == null) {
-                throw new NullPointerException("recource " + name + " not found!");
+            final float scaling = Screen.getInstance().getScaling();
+            if (scaling == 1) {
+                return getImage(name);
+            } else {
+                BufferedImage image = getImageOrNull(name.substring(0, name.length() - 4) + "_hi.png");
+                if (image!=null) {
+                    int w = (int) (image.getWidth() * scaling / 2);
+                    int h = (int) (image.getHeight() * scaling / 2);
+                    return image.getScaledInstance(w, h, BufferedImage.SCALE_SMOOTH);
+                } else {
+                    LOGGER.info("upscaling of "+name);
+                    image = getImage(name);
+                    int w = (int) (image.getWidth() * scaling);
+                    int h = (int) (image.getHeight() * scaling);
+                    return image.getScaledInstance(w, h, BufferedImage.SCALE_SMOOTH);
+                }
             }
-            BufferedImage image = ImageIO.read(systemResource);
-            return Screen.getInstance().getScaledImage(image);
         } catch (IOException e) {
             throw new RuntimeException("Image " + name + " not found");
         }
+    }
+
+    private static BufferedImage getImage(String name) throws IOException {
+        BufferedImage image = getImageOrNull(name);
+        if (image == null) {
+            throw new NullPointerException("resource " + name + " not found!");
+        }
+        return image;
+    }
+
+    private static BufferedImage getImageOrNull(String name) throws IOException {
+        URL systemResource = ClassLoader.getSystemResource(name);
+        if (systemResource == null) {
+            return null;
+        }
+        return ImageIO.read(systemResource);
     }
 
     /**
@@ -53,10 +84,14 @@ public final class IconCreator {
      * @return the image
      */
     public static ArrayList<Image> createImages(String... names) {
-        ArrayList<Image> list = new ArrayList<Image>(names.length);
-        for (String name : names) {
-            list.add(createImage(name));
+        try {
+            ArrayList<Image> list = new ArrayList<Image>(names.length);
+            for (String name : names) {
+                list.add(getImage(name));
+            }
+            return list;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return list;
     }
 }

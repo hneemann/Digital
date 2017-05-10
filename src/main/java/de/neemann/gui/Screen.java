@@ -9,7 +9,6 @@ package de.neemann.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 /**
  * Class used to handle different screen resolution by defining a new default font
@@ -140,21 +139,4 @@ public final class Screen {
         else
             return new Dimension((int) (dimension.width * scaling), (int) (dimension.height * scaling));
     }
-
-    /**
-     * Get a scaled image
-     *
-     * @param image the original image
-     * @return the scaled image
-     */
-    public Image getScaledImage(BufferedImage image) {
-        if (scaling == 1)
-            return image;
-        else {
-            int w = (int) (image.getWidth() * scaling);
-            int h = (int) (image.getHeight() * scaling);
-            return image.getScaledInstance(w, h, BufferedImage.SCALE_SMOOTH);
-        }
-    }
-
 }
