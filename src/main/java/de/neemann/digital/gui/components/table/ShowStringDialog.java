@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.components.table;
 
+import de.neemann.gui.Screen;
+
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
@@ -54,7 +56,8 @@ public class ShowStringDialog extends JDialog {
         if (html) {
             textComp = new JEditorPane("text/html", str);
             textComp.setCaretPosition(0);
-            textComp.setPreferredSize(new Dimension(600, 800));
+            textComp.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
+            textComp.setPreferredSize(Screen.getInstance().scale(new Dimension(600, 800)));
         } else {
             textComp = new JTextArea(str);
             textComp.setFont(new JLabel().getFont());

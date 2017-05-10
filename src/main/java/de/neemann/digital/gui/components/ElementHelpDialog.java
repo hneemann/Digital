@@ -8,6 +8,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.imageio.ImageIO;
@@ -99,6 +100,7 @@ public class ElementHelpDialog extends JDialog {
         JEditorPane editorPane = new JEditorPane("text/html", description);
         editorPane.setEditable(false);
         editorPane.setCaretPosition(0);
+        editorPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
 
         editorPane.addHyperlinkListener(hyperlinkEvent -> {
             if (HyperlinkEvent.EventType.ACTIVATED == hyperlinkEvent.getEventType()) {
@@ -124,7 +126,7 @@ public class ElementHelpDialog extends JDialog {
         Dimension r = getSize();
         if (r.width > MAX_WIDTH) r.width = MAX_WIDTH;
         if (r.height > MAX_HEIGHT) r.height = MAX_HEIGHT;
-        setSize(r);
+        setSize(Screen.getInstance().scale(r));
         setLocationRelativeTo(parent);
     }
 
