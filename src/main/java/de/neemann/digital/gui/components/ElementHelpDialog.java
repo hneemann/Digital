@@ -272,7 +272,10 @@ public class ElementHelpDialog extends JDialog {
         static BufferedImage getImage(String name) {
             BufferedImage bi = imageMap.get(name);
             if (bi == null) {
-                bi = new VisualElement(name).setShapeFactory(shapeFactory).getBufferedImage(0.75 * IMAGE_SCALE, 250 * IMAGE_SCALE);
+                final float scale = IMAGE_SCALE * Screen.getInstance().getScaling();
+                bi = new VisualElement(name)
+                        .setShapeFactory(shapeFactory)
+                        .getBufferedImage(0.75 * scale, (int) (250 * scale));
                 imageMap.put(name, bi);
             }
             return bi;

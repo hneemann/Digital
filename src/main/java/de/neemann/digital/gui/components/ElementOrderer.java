@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -42,7 +43,7 @@ public class ElementOrderer<T> extends JDialog {
         list = new JList<T>(listModel);
         JScrollPane scrollPane = new JScrollPane(list);
         getContentPane().add(scrollPane);
-        scrollPane.setPreferredSize(new Dimension(100, 150));
+        scrollPane.setPreferredSize(Screen.getInstance().scale(new Dimension(100, 150)));
 
         buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
