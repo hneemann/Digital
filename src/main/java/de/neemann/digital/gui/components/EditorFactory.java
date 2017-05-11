@@ -15,6 +15,7 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestData;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.LineBreaker;
+import de.neemann.gui.MyFileChooser;
 import de.neemann.gui.ToolTipAction;
 import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
@@ -267,7 +268,7 @@ public final class EditorFactory {
             JButton button = new JButton(new AbstractAction("...") {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JFileChooser fc = new JFileChooser(FileEditor.this.getValue());
+                    JFileChooser fc = new MyFileChooser(FileEditor.this.getValue());
                     if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION)
                         textField.setText(fc.getSelectedFile().getPath());
                 }
@@ -323,7 +324,7 @@ public final class EditorFactory {
             panel.add(new ToolTipAction(Lang.get("btn_load")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JFileChooser fc = new JFileChooser();
+                    JFileChooser fc = new MyFileChooser();
                     fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                     fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
                     if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
@@ -353,7 +354,7 @@ public final class EditorFactory {
             panel.add(new ToolTipAction(Lang.get("btn_save")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JFileChooser fc = new JFileChooser();
+                    JFileChooser fc = new MyFileChooser();
                     fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                     fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
                     new SaveAsHelper(panel, fc, "hex").checkOverwrite(

@@ -906,7 +906,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         if (filename != null)
             folder = filename.getParentFile();
 
-        JFileChooser fileChooser = new JFileChooser(folder);
+        JFileChooser fileChooser = new MyFileChooser(folder);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
         return fileChooser;
     }
@@ -1034,7 +1034,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fc = new JFileChooser();
+            JFileChooser fc = new MyFileChooser();
             if (filename != null)
                 fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, suffix));
 

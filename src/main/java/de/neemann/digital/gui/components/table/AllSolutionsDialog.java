@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +29,7 @@ public class AllSolutionsDialog extends JDialog {
         textPane.setFont(font);
         textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
         textPane.setEditable(false);
-        textPane.setPreferredSize(new Dimension(600, 400));
+        textPane.setPreferredSize(Screen.getInstance().scale(new Dimension(600, 400)));
 
         getContentPane().add(new JScrollPane(textPane));
         pack();

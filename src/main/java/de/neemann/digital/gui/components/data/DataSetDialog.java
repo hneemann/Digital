@@ -8,6 +8,7 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.MyFileChooser;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -83,7 +84,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         file.add(new ToolTipAction(Lang.get("menu_saveData")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new MyFileChooser();
                 fileChooser.setFileFilter(new FileNameExtensionFilter("Comma Separated Values", "csv"));
                 new SaveAsHelper(DataSetDialog.this, fileChooser, "csv")
                         .checkOverwrite(file -> dataSet.saveCSV(file));

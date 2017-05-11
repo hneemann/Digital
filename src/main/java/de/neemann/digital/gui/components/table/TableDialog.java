@@ -38,6 +38,7 @@ import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.MyFileChooser;
 import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
@@ -249,7 +250,7 @@ public class TableDialog extends JDialog {
         fileMenu.add(new ToolTipAction(Lang.get("menu_open")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
+                JFileChooser fc = new MyFileChooser();
                 if (TableDialog.this.filename != null)
                     fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "tru"));
                 if (fc.showOpenDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
@@ -268,7 +269,7 @@ public class TableDialog extends JDialog {
         fileMenu.add(new ToolTipAction(Lang.get("menu_save")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
+                JFileChooser fc = new MyFileChooser();
                 if (TableDialog.this.filename != null)
                     fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "tru"));
 
@@ -299,7 +300,7 @@ public class TableDialog extends JDialog {
         fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportHex")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
+                JFileChooser fc = new MyFileChooser();
                 if (TableDialog.this.filename != null)
                     fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "hex"));
                 new SaveAsHelper(TableDialog.this, fc, "hex")
@@ -504,7 +505,7 @@ public class TableDialog extends JDialog {
         else
             filename = SaveAsHelper.checkSuffix(filename, suffix);
 
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new MyFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("JEDEC", suffix));
         fileChooser.setSelectedFile(filename);
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -544,7 +545,7 @@ public class TableDialog extends JDialog {
         try {
             File cuplPath;
             if (filename == null) {
-                JFileChooser fc = new JFileChooser();
+                JFileChooser fc = new MyFileChooser();
                 fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 fc.setDialogTitle(Lang.get("msg_selectAnEmptyFolder"));
                 if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
