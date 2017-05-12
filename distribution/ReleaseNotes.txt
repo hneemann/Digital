@@ -3,6 +3,8 @@ Release Notes
 Planned as v0.12
 - Added a locked mode, which avoids the unwanted modification of the circuit.
 - Better support for high dpi screens.
+- Added DIP packages to allow more "physical" circuits. See examples/74xx.
+  Up to now only a view 74xx circuits are available.
 
 v0.11.1, released on 02. May 2017
 - Added the possibility to open a circuit from the command line.
