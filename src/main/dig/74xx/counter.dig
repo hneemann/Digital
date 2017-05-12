@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Three digit BCD counter.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>7447.dig</elementName>
@@ -111,11 +116,15 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+        <entry>
           <string>Frequency</string>
-          <int>10</int>
+          <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-260" y="-380"/>
+      <pos x="-260" y="-360"/>
     </visualElement>
     <visualElement>
       <elementName>VDD</elementName>
@@ -189,12 +198,16 @@
       <p2 x="20" y="-100"/>
     </wire>
     <wire>
-      <p1 x="-220" y="-360"/>
-      <p2 x="140" y="-360"/>
+      <p1 x="-260" y="-360"/>
+      <p2 x="-20" y="-360"/>
     </wire>
     <wire>
-      <p1 x="140" y="-360"/>
-      <p2 x="780" y="-360"/>
+      <p1 x="340" y="-360"/>
+      <p2 x="700" y="-360"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="-360"/>
+      <p2 x="340" y="-360"/>
     </wire>
     <wire>
       <p1 x="600" y="360"/>
@@ -273,16 +286,12 @@
       <p2 x="-120" y="120"/>
     </wire>
     <wire>
-      <p1 x="-260" y="-380"/>
-      <p2 x="-20" y="-380"/>
+      <p1 x="-220" y="-380"/>
+      <p2 x="140" y="-380"/>
     </wire>
     <wire>
-      <p1 x="340" y="-380"/>
-      <p2 x="700" y="-380"/>
-    </wire>
-    <wire>
-      <p1 x="-20" y="-380"/>
-      <p2 x="340" y="-380"/>
+      <p1 x="140" y="-380"/>
+      <p2 x="780" y="-380"/>
     </wire>
     <wire>
       <p1 x="-100" y="-60"/>
@@ -453,11 +462,11 @@
       <p2 x="-140" y="-300"/>
     </wire>
     <wire>
-      <p1 x="780" y="-360"/>
+      <p1 x="780" y="-380"/>
       <p2 x="780" y="-160"/>
     </wire>
     <wire>
-      <p1 x="140" y="-360"/>
+      <p1 x="140" y="-380"/>
       <p2 x="140" y="-300"/>
     </wire>
     <wire>
@@ -489,7 +498,7 @@
       <p2 x="-20" y="-20"/>
     </wire>
     <wire>
-      <p1 x="-20" y="-380"/>
+      <p1 x="-20" y="-360"/>
       <p2 x="-20" y="-300"/>
     </wire>
     <wire>
@@ -501,7 +510,7 @@
       <p2 x="340" y="-20"/>
     </wire>
     <wire>
-      <p1 x="340" y="-380"/>
+      <p1 x="340" y="-360"/>
       <p2 x="340" y="-300"/>
     </wire>
     <wire>
@@ -541,7 +550,7 @@
       <p2 x="600" y="360"/>
     </wire>
     <wire>
-      <p1 x="-220" y="-360"/>
+      <p1 x="-220" y="-380"/>
       <p2 x="-220" y="-300"/>
     </wire>
     <wire>
@@ -781,7 +790,7 @@
       <p2 x="700" y="-20"/>
     </wire>
     <wire>
-      <p1 x="700" y="-380"/>
+      <p1 x="700" y="-360"/>
       <p2 x="700" y="-300"/>
     </wire>
     <wire>

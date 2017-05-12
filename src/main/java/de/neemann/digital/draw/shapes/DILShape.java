@@ -69,6 +69,7 @@ public class DILShape implements Shape {
         int pin = dp / 4;
         int x = width * SIZE;
         int h = (pinCount / 2) * dp - SIZE;
+
         for (int i = 0; i < pinCount / 2; i++) {
             int y = i * dp;
             graphic.drawPolygon(
@@ -86,6 +87,7 @@ public class DILShape implements Shape {
                             .add(x - pin, y + pin), Style.NORMAL);
             graphic.drawText(new Vector(x - pin - SIZE2 / 2, y), new Vector(x - pin + SIZE, y), map.getText(pinCount - i), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
         }
+
         graphic.drawPolygon(
                 new Polygon(true)
                         .add(pin, -SIZE)
@@ -96,13 +98,14 @@ public class DILShape implements Shape {
                         .add(x - pin, h)
                         .add(pin, h), Style.NORMAL);
         graphic.drawText(new Vector(x / 2, SIZE2), new Vector(x / 2, SIZE * 2), shortName, Orientation.LEFTCENTER, Style.NORMAL_TEXT);
+
         if (label != null && label.length() > 0)
             graphic.drawText(new Vector(x / 2, h + SIZE2), new Vector(x, h + SIZE2), label, Orientation.CENTERTOP, Style.NORMAL_TEXT);
     }
 
     private static final class ShapePinMap {
         private final int width;
-        private HashMap<Integer, PinDescription> map;
+        private final HashMap<Integer, PinDescription> map;
         private ArrayList<PinDescription> notAssigned;
         private int pinCount;
 

@@ -173,6 +173,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>ripple blanking output (LOW active)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>~RBO</string>
         </entry>
@@ -186,6 +190,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>ripple blanking input (LOW active)</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>~RBI</string>
@@ -242,7 +250,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>a</string>
+          <string>~a</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -300,7 +308,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>b</string>
+          <string>~b</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -343,7 +351,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>c</string>
+          <string>~c</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -376,7 +384,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>d</string>
+          <string>~d</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -419,7 +427,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>e</string>
+          <string>~e</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -447,7 +455,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>f</string>
+          <string>~f</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -485,7 +493,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>g</string>
+          <string>~g</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -561,6 +569,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>lamp test</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
