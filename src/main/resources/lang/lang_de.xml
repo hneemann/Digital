@@ -592,6 +592,14 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_colAddrBits_tt">Adressiert die einzelnen Spalten. Drei Bits bedeuten also acht Spalten.</string>
     <string name="key_lockedMode">Bearbeitung gesperrt</string>
     <string name="key_lockedMode_tt">Die Schaltung ist für die Bearbeitung gesperrt. Dioden und FG-FETs können jedoch konfiguriert werden.</string>
+    <string name="key_isDIL">DIL-Gehäuse verwenden</string>
+    <string name="key_isDIL_tt">Wird diese Schaltung eingebettet, wird sie in einem DIL-Gehäuse angezeigt.
+        Um die Pins korrekt zuordnen zu können, ist an den Eingängen und Ausgängen die Pinnummer anzugeben.</string>
+    <string name="key_pinNumber">Pinnumber</string>
+    <string name="key_pinNumber_tt">Nummer dieses Pins. Wird für die Darstellung einer Schaltung als DIL-Gehäuse und die
+        Pinzuordnung bei der Programmierung eines CPLD verwendet.</string>
+    <string name="key_pinCount">Pinanzahl DIL</string>
+    <string name="key_pinCount_tt">Anzahl der Pins des DILs. Wird hier eine 0 eingetragen, wird die Anzahl automatisch bestimmt.</string>
 
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
@@ -791,6 +799,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
         "{0}->{1}->{2}" aufheben.
         Das kopieren von Elementen und die Konfiguration von Dioden und FG-FETs mit der Taste [P] ist auch im gesperrten Zustand möglich.</string>
     <string name="msg_speedTestError">Fehler bei der Ausführung des Geschwindigkeitstests!</string>
+    <string name="msg_pin_N">Pin {0}</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

@@ -44,4 +44,9 @@ public interface PinDescription {
         return PullResistor.none;
     }
 
+    /**
+     * @return the pin number
+     */
+    int getPinNumber();
+
 }

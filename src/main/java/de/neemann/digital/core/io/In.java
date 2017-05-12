@@ -31,12 +31,13 @@ public class In implements Element {
             .addAttribute(Keys.IS_HIGH_Z)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.DEFAULT)
             .addAttribute(Keys.DESCRIPTION)
-            .addAttribute(Keys.DEFAULT);
+            .addAttribute(Keys.PINNUMBER);
 
     private final ObservableValue output;
     private final String label;
-    private final String description;
+    private final int pinNumber;
 
     /**
      * Create a new instance
@@ -45,10 +46,10 @@ public class In implements Element {
      */
     public In(ElementAttributes attributes) {
         boolean highZ = attributes.get(Keys.IS_HIGH_Z);
-        output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION);
+        pinNumber = attributes.get(Keys.PINNUMBER);
+        output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION).setPinNumber(pinNumber);
         output.setValue(attributes.get(Keys.DEFAULT));
         label = attributes.getCleanLabel();
-        description = attributes.get(Keys.DESCRIPTION);
     }
 
     @Override
@@ -63,6 +64,6 @@ public class In implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addInput(new Signal(label, output).setDescription(description));
+        model.addInput(new Signal(label, output).setPinNumber(pinNumber));
     }
 }

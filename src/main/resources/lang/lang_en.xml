@@ -582,6 +582,15 @@ The names of the variables may not be unique.</string>
     <string name="key_colAddrBits_tt">Addresses the individual columns. Three bits means eight columns.</string>
     <string name="key_lockedMode">Modification locked</string>
     <string name="key_lockedMode_tt">The circuit is locked. It is possible to configure diodes and FGF-FETs.</string>
+    <string name="key_isDIL">DIL package</string>
+    <string name="key_isDIL_tt">If set, this circuit is shown in a DIL package.
+        To assign the pins correctly, the pin numbers must be set on all inputs and outputs.</string>
+    <string name="key_pinNumber">Pin number</string>
+    <string name="key_pinNumber_tt">Number of this pin. Used for the representation of a circuit as a DIL package and
+        the pin assignment when programming a CPLD.</string>
+    <string name="key_pinCount">Number of DIL pins</string>
+    <string name="key_pinCount_tt">Number of pins. A zero means that the number od pins is determined automatically.</string>
+
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
@@ -780,6 +789,7 @@ The icons are taken from the Tango Desktop Project.</string>
         "{0} -> {1} -> {2}".
         However, copying of components and the configuration of diodes and FG-FETs with the [P] key is also possible in the locked mode.</string>
     <string name="msg_speedTestError">Error during speed test!</string>
+    <string name="msg_pin_N">Pin {0}</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

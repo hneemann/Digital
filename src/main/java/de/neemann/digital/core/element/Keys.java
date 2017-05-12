@@ -325,4 +325,25 @@ public final class Keys {
      */
     public static final Key<Boolean> LOCKED_MODE
             = new Key<>("lockedMode", false);
+
+    /**
+     * the pin number
+     */
+    public static final Key.KeyInteger PINNUMBER =
+            new Key.KeyInteger("pinNumber", 0)
+                    .setMin(0);
+
+    /**
+     * the pin count
+     */
+    public static final Key.KeyInteger PINCOUNT =
+            new Key.KeyInteger("pinCount", 0)
+                    .setMin(0);
+
+    /**
+     * true if shape is a dil shape
+     */
+    public static final Key<Boolean> IS_DIL
+            = new Key<>("isDIL", false);
+
 }

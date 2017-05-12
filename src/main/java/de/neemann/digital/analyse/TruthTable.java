@@ -446,14 +446,14 @@ public class TruthTable {
     }
 
     /**
-     * Ats the signals pindescription to the table
+     * Adds the signals pin number to the table
      *
      * @param s the signal
      * @throws NodeException NodeException
      */
     public void addPinNumber(Signal s) throws NodeException {
         int p = s.getPinNumber();
-        if (p >= 0) pins.put(s.getName(), p);
+        if (p > 0) pins.put(s.getName(), p);
     }
 
     /**

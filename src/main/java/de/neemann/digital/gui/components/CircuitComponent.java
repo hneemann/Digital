@@ -276,7 +276,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         try {
             ElementTypeDescription etd = library.getElementType(ve.getElementName());
-            return checkToolTip(etd.getDescription(ve.getElementAttributes()));
+            String tt = etd.getDescription(ve.getElementAttributes());
+            final int pin = ve.getElementAttributes().get(Keys.PINNUMBER);
+            if (pin > 0)
+                tt += " (" + Lang.get("msg_pin_N", pin) + ")";
+            return checkToolTip(tt);
         } catch (ElementNotFoundException e) {
             return null;
         }
@@ -288,6 +292,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (des != null && des.length() > 0) {
             text += ": " + des;
         }
+        if (p.getPinNumber() != 0)
+            text += " (" + Lang.get("msg_pin_N", +p.getPinNumber()) + ")";
         return checkToolTip(text);
     }
 

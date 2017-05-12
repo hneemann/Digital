@@ -33,6 +33,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${basedir}/src/main/dig/74xx</directory>
+            <outputDirectory>/examples/74xx/</outputDirectory>
+            <includes>
+                <include>**/*.dig</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${basedir}/src/main/dig/sequential</directory>
             <outputDirectory>/examples/sequential/</outputDirectory>
             <includes>

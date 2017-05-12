@@ -138,14 +138,23 @@ public final class ShapeFactory {
                     ElementTypeDescription pt = library.getElementType(elementName);
                     if (pt instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                         ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
-                        return new GenericShape(
-                                pt.getShortName(),
-                                pt.getInputDescription(elementAttributes),
-                                pt.getOutputDescriptions(elementAttributes),
-                                elementAttributes.getLabel(),
-                                true,
-                                customDescr.getAttributes().get(Keys.WIDTH))
-                                .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
+                        if (customDescr.getAttributes().get(Keys.IS_DIL)) {
+                            return new DILShape(
+                                    pt.getShortName(),
+                                    pt.getInputDescription(elementAttributes),
+                                    pt.getOutputDescriptions(elementAttributes),
+                                    elementAttributes.getLabel(),
+                                    customDescr.getAttributes());
+                        } else {
+                            return new GenericShape(
+                                    pt.getShortName(),
+                                    pt.getInputDescription(elementAttributes),
+                                    pt.getOutputDescriptions(elementAttributes),
+                                    elementAttributes.getLabel(),
+                                    true,
+                                    customDescr.getAttributes().get(Keys.WIDTH))
+                                    .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
+                        }
                     } else
                         return new GenericShape(
                                 pt.getShortName(),

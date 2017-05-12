@@ -217,9 +217,7 @@
         </faq>
         <faq>
             <question>When creating a JEDEC file: How to assign a pin number to a certain signal?</question>
-            <answer>At the according inputs and outputs you can enter a <e>Description</e>. In this description you can
-                add a line 'Pin [n]', where [n] gives the pin number. If there is no such line, the next available pin
-                is assigned to the signal.</answer>
+            <answer>At the according inputs and outputs you can enter a pin number in the settings dialog of the pin.</answer>
         </faq>
         <faq>
             <question>I have created a JEDEC file. How to program it to a <e>GAL16v8</e> or <e>GAL22v10</e>?</question>

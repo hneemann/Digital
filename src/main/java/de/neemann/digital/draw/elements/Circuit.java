@@ -49,6 +49,8 @@ public class Circuit {
 
     static {
         ATTR_LIST.add(Keys.WIDTH);
+        ATTR_LIST.add(Keys.IS_DIL);
+        ATTR_LIST.add(Keys.PINCOUNT);
         ATTR_LIST.add(Keys.BACKGROUND_COLOR);
         ATTR_LIST.add(Keys.DESCRIPTION);
         ATTR_LIST.add(Keys.LOCKED_MODE);
@@ -523,7 +525,8 @@ public class Circuit {
         ArrayList<PinDescription> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
             if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
-                String name = ve.getElementAttributes().getLabel();
+                final ElementAttributes attr = ve.getElementAttributes();
+                String name = attr.getLabel();
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
@@ -531,8 +534,8 @@ public class Circuit {
                 if (ve.equalsDescription(Clock.DESCRIPTION))
                     descr = Lang.get("elem_Clock");
                 else
-                    descr = ve.getElementAttributes().get(Keys.DESCRIPTION);
-                pinList.add(input(name, descr));
+                    descr = attr.get(Keys.DESCRIPTION);
+                pinList.add(input(name, descr).setPinNumber(attr.get(Keys.PINNUMBER)));
             }
         }
         return pinList.toArray(new PinDescription[pinList.size()]);
@@ -553,11 +556,12 @@ public class Circuit {
         ArrayList<ObservableValue> pinList = new ArrayList<>();
         for (VisualElement ve : visualElements) {
             if (ve.equalsDescription(Out.DESCRIPTION)) {
-                String name = ve.getElementAttributes().getLabel();
+                final ElementAttributes attr = ve.getElementAttributes();
+                String name = attr.getLabel();
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                String descr = ve.getElementAttributes().get(Keys.DESCRIPTION);
+                String descr = attr.get(Keys.DESCRIPTION);
                 pinList.add(new ObservableValue(name, 0) {
                     @Override
                     public long getValue() {
@@ -568,7 +572,7 @@ public class Circuit {
                     public ObservableValue addObserverToValue(Observer observer) {
                         throw new RuntimeException("invalid call!");
                     }
-                }.setDescription(descr));
+                }.setDescription(descr).setPinNumber(attr.get(Keys.PINNUMBER)));
             }
         }
         return new ObservableValues(pinList);

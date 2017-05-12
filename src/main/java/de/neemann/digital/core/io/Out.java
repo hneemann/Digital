@@ -29,7 +29,8 @@ public class Out implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.DESCRIPTION);
+            .addAttribute(Keys.DESCRIPTION)
+            .addAttribute(Keys.PINNUMBER);
 
     /**
      * The LED description
@@ -57,7 +58,7 @@ public class Out implements Element {
 
     private final int[] bits;
     private final String label;
-    private final String description;
+    private final int pinNumber;
     private ObservableValue value;
 
     /**
@@ -68,7 +69,7 @@ public class Out implements Element {
     public Out(ElementAttributes attributes) {
         bits = new int[]{attributes.getBits()};
         label = attributes.getCleanLabel();
-        description = attributes.get(Keys.DESCRIPTION);
+        pinNumber = attributes.get(Keys.PINNUMBER);
     }
 
     /**
@@ -79,7 +80,7 @@ public class Out implements Element {
     public Out(int... bits) {
         this.bits = bits;
         label = null;
-        description = null;
+        pinNumber = 0;
     }
 
     @Override
@@ -98,7 +99,7 @@ public class Out implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addOutput(new Signal(label, value).setDescription(description));
+        model.addOutput(new Signal(label, value).setPinNumber(pinNumber));
     }
 
     private final static class SevenSegTypeDescription extends ElementTypeDescription {
