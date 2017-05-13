@@ -37,6 +37,7 @@
             <outputDirectory>/examples/74xx/</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
+                <include>**/*.txt</include>
             </includes>
         </fileSet>
         <fileSet>
