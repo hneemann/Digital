@@ -10,6 +10,10 @@
       <string>Description</string>
       <string>3-line to 8-line decoder/demultiplexer</string>
     </entry>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>

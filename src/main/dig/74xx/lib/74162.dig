@@ -20,6 +20,10 @@ counter; synchronous reset</string>
         <alpha>255</alpha>
       </awt-color>
     </entry>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>

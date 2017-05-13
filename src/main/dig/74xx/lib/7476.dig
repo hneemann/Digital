@@ -10,6 +10,10 @@
       <string>Description</string>
       <string>DUAL J-K FLIP-FLOPS WITH PRESET AND CLEAR</string>
     </entry>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>

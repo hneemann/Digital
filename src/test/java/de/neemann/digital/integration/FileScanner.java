@@ -44,7 +44,7 @@ public class FileScanner {
                     if (f.getName().endsWith(".dig")) {
                         try {
                             test.check(f);
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                             errors.add(new Error(f, e));
                         }
                         count++;
@@ -62,9 +62,9 @@ public class FileScanner {
     private static class Error {
 
         private final File f;
-        private final Exception e;
+        private final Throwable e;
 
-        private Error(File f, Exception e) {
+        private Error(File f, Throwable e) {
             this.f = f;
             this.e = e;
         }

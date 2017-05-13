@@ -10,6 +10,10 @@
       <string>Description</string>
       <string>DUAL 5-INPUT NOR GATE</string>
     </entry>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>

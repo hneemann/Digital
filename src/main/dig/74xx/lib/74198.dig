@@ -7,6 +7,10 @@
       <boolean>true</boolean>
     </entry>
     <entry>
+      <string>Description</string>
+      <string>8-BIT SHIFT REGISTERS</string>
+    </entry>
+    <entry>
       <string>lockedMode</string>
       <boolean>true</boolean>
     </entry>

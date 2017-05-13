@@ -10,6 +10,10 @@
       <string>Description</string>
       <string>2-Input/3-Input And-Or invert Gate</string>
     </entry>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>

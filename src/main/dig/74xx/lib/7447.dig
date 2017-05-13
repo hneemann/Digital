@@ -8,7 +8,11 @@
     </entry>
     <entry>
       <string>Description</string>
-      <string>BCD to 7-segment decoder</string>
+      <string>BCD to 7-segment decoder, active high</string>
+    </entry>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
     </entry>
   </attributes>
   <visualElements>
