@@ -3,6 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -42,7 +43,11 @@ public class OutputShape implements Shape {
      */
     public OutputShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
-        this.label = attr.getLabel();
+        int pinNumber =attr.get(Keys.PINNUMBER);
+        if (pinNumber==0)
+            this.label = attr.getLabel();
+        else
+            this.label = attr.getLabel()+" ("+pinNumber+")";
     }
 
     @Override
