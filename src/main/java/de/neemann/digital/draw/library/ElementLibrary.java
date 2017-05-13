@@ -4,10 +4,7 @@ import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.*;
-import de.neemann.digital.core.flipflops.FlipflopD;
-import de.neemann.digital.core.flipflops.FlipflopJK;
-import de.neemann.digital.core.flipflops.FlipflopRS;
-import de.neemann.digital.core.flipflops.FlipflopT;
+import de.neemann.digital.core.flipflops.*;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.pld.DiodeBackward;
@@ -106,7 +103,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(FlipflopRS.DESCRIPTION)
                         .add(FlipflopJK.DESCRIPTION)
                         .add(FlipflopD.DESCRIPTION)
-                        .add(FlipflopT.DESCRIPTION))
+                        .add(FlipflopT.DESCRIPTION)
+                        .add(FlipflopJKAsync.DESCRIPTION)
+                        .add(FlipflopDAsync.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_memory"))
                         .add(Register.DESCRIPTION)
                         .add(ROM.DESCRIPTION)

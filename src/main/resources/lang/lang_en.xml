@@ -114,6 +114,7 @@
     <string name="elem_Counter_pin_clr">Resets the counter value if set to 1.</string>
     <string name="elem_Counter_pin_out">Returns the counted value.</string>
     <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter has an overflow and returns to zero.</string>
+
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">A component used to save two states (one bit). The bit on pin D is stored on a rising edge of pin C.</string>
@@ -121,6 +122,17 @@
     <string name="elem_D_FF_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
     <string name="elem_D_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_D_FF_pin_¬Q">Returns the negated stored value.</string>
+
+    <string name="elem_D_FF_AS">D-FlipFlop, asynchronous</string>
+    <string name="elem_D_FF_AS_short">D-AS</string>
+    <string name="elem_D_FF_AS_tt">A component used to save two states (one bit). The bit on pin D is stored on a rising edge of pin C.</string>
+    <string name="elem_D_FF_AS_pin_D">Input of the bit to be stored.</string>
+    <string name="elem_D_FF_AS_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
+    <string name="elem_D_FF_AS_pin_Q">Returns the stored value.</string>
+    <string name="elem_D_FF_AS_pin_¬Q">Returns the negated stored value.</string>
+    <string name="elem_D_FF_AS_pin_Set">asynchronous set</string>
+    <string name="elem_D_FF_AS_pin_Clr">asynchronous clear</string>
+
     <string name="elem_Data">Data graph</string>
     <string name="elem_Data_tt">Shows a data plot inside of the circuit panel.
         You can plot complete clock steps or single gate changes.</string>
@@ -153,6 +165,7 @@
     <string name="elem_In">Input</string>
     <string name="elem_In_pin_out">This connection outputs the given value.</string>
     <string name="elem_In_tt">A input which can be used to connect the circuit if it is included in an other circuit.</string>
+
     <string name="elem_JK_FF">JK-Flipflop</string>
     <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value. The input values act with a rising edge at input C.</string>
@@ -161,6 +174,18 @@
     <string name="elem_JK_FF_pin_K">The reset input of the flipflop.</string>
     <string name="elem_JK_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_JK_FF_pin_¬Q">Returns the negated stored value.</string>
+
+    <string name="elem_JK_FF_AS">JK-Flipflop, asynchronous</string>
+    <string name="elem_JK_FF_AS_short">JK-AS</string>
+    <string name="elem_JK_FF_AS_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value. The input values act with a rising edge at input C.</string>
+    <string name="elem_JK_FF_AS_pin_J">The set input of the flipflop.</string>
+    <string name="elem_JK_FF_AS_pin_C">The Clock input. A rising edge initiates a state change.</string>
+    <string name="elem_JK_FF_AS_pin_K">The reset input of the flipflop.</string>
+    <string name="elem_JK_FF_AS_pin_Q">Returns the stored value.</string>
+    <string name="elem_JK_FF_AS_pin_¬Q">Returns the negated stored value.</string>
+    <string name="elem_JK_FF_AS_pin_Set">asynchronous set</string>
+    <string name="elem_JK_FF_AS_pin_Clr">asynchronous clear</string>
+
     <string name="elem_LED">LED</string>
     <string name="elem_LED_tt">A simple LED can be used to visualize an output value. Accepts a single bit. Lights up when the input is set to 1.</string>
     <string name="elem_LED_pin_in">LED Input. LED shines when input is set to 1.</string>

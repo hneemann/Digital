@@ -165,6 +165,31 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_JK_FF_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
     <string name="elem_JK_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
     <string name="elem_JK_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+
+    <string name="elem_JK_FF_AS">JK-FlipFlop, asynchron</string>
+    <string name="elem_JK_FF_AS_short">JK-AS</string>
+    <string name="elem_JK_FF_AS_tt">Bietet die Funktionen zum
+        Speichern (J=K=0), Setzen (J=1, K=0), Rücksetzen (J=0, K=1) und Wechseln (J=K=1).
+        Übernommen werden die Eingänge bei einer steigenden Flanke am Eingang C.</string>
+    <string name="elem_JK_FF_AS_pin_J">Der Setzen-Eingang des Flipflops.</string>
+    <string name="elem_JK_FF_AS_pin_C">Takteingang Eine steigende Flanke initiiert den Zustandswechsel.</string>
+    <string name="elem_JK_FF_AS_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
+    <string name="elem_JK_FF_AS_pin_Q">Gibt den gespeicherten Wert aus.</string>
+    <string name="elem_JK_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_JK_FF_AS_pin_Set">asynchrones setzen</string>
+    <string name="elem_JK_FF_AS_pin_Clr">asynchrones löschen</string>
+
+    <string name="elem_D_FF_AS">D-FlipFLop, asynchron</string>
+    <string name="elem_D_FF_AS_short">D-AS</string>
+    <string name="elem_D_FF_AS_tt">Ein Baustein zum Speichern eines Bits. Der an Eingang D anliegende Wert wird abgespeichert wenn Eingang C auf 1 wechselt.</string>
+    <string name="elem_D_FF_AS_pin_D">Das zu speichernde Bit.</string>
+    <string name="elem_D_FF_AS_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
+    <string name="elem_D_FF_AS_pin_Q">Gibt den gespeicherten Wert zurück.</string>
+    <string name="elem_D_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_D_FF_AS_pin_Set">asynchrones setzen</string>
+    <string name="elem_D_FF_AS_pin_Clr">asynchrones löschen</string>
+
+
     <string name="elem_LED">LED</string>
     <string name="elem_LED_tt">Eine Leuchtdiode welche beispielsweise zur Visualisierung eines Ausgangswertes verwendet werden kann. Nimmt ein Bit entgegen. Leuchtet wenn der Eingang auf 1 gesetzt ist.</string>
     <string name="elem_LED_pin_in">LED Eingang. LED leuchtet wenn Eingang auf 1 gesetzt ist.</string>
