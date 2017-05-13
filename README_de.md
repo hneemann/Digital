@@ -55,7 +55,8 @@ starten:
 
 ### Einschalten ###
 
-Logisim hat Schwierigkeiten mit dem "Einschalten" einer Schaltung. Ein einfaches Master-Slave Flipflop 
+In Logisim gibt es kein echtes "Einschalten" einer Schaltung. die Schaltung ist auch aktiv, während sie verändert wird. 
+Dies kann zu unerwartetem Verhalten führen: Ein einfaches Master-Slave JK-Flipflop 
 lässt sich mit Logisim nicht realisieren, da die Schaltung nicht "eingeschaltet" wird, gibt es keine 
 Stabilierungsphase nach dessen Abschluss sich die Schaltung in einem stabilen Zustand befindet. 
 Ein Master-Slave Flipflop lässt sich nur mit einem Reset-Eingang simulieren, und dieser muss auch betätigt werden, um die 
@@ -67,9 +68,12 @@ Gatter eine Änderung an einem seiner Eingänge erfährt, werden zwar die Eingä
 werden die Ausgänge des Gatters nicht aktualisiert. Erst wenn alle betroffenen Gatter die Änderungen an 
 ihren Eingängen eingelesen haben, werden die Ausgänge aller Gatter aktualisiert. Alle Gatter scheinen 
 vollkommen synchron umzuschalten. Sie scheinen alle die exakt gleiche Gatterlaufzeit zu haben.
-Dieser Ansatz führt jedoch dazu, dass sich schon ein einfaches RS-Flipflop unter Umständen nicht stabilisieren kann.  
-Während der Einschaltphase wird daher ein anderer Modus verwendet: Alle Gatter lesen ihre Eingänge ein und 
-aktualisieren sofort ihre Ausgänge. Dies geschieht Gatter für Gatter in zufälliger Reihenfolge der Gatter, bis es keine 
+Dieser Ansatz führt jedoch dazu, dass sich schon ein einfaches RS-Flipflop unter Umständen nicht stabilisieren kann.
+Dies ist das selbe Problem welches auch bei Logisim auftritt.  
+  
+Um dieses Problem zu lösen, wird während der Einschaltphase wird ein anderer Simulationsmodus verwendet: 
+Alle Gatter lesen ihre Eingänge ein und aktualisieren sofort ihre Ausgänge. 
+Dies geschieht Gatter für Gatter in zufälliger Reihenfolge der Gatter, bis es keine 
 Veränderungen mehr gibt und die Schaltung sich stabilisiert hat.
 Auf diese Weise stabilisiert sich auch ein Master-Slave Flipflop nach dem "einschalten", jedoch ist der sich einstellende 
 Endzustand nicht definiert.

@@ -53,7 +53,8 @@ Below I would like to explain briefly the reasons which led me to start a new de
 
 ### Switch On ###
 
-Logisim has difficulties with the "switching on" of a circuit. A simple master-slave flip-flop
+In Logisim there is no real switching on" of a circuit. The circuit is working also while you are modifying it. 
+This causes sometimes an unexpected behaviour. A simple master-slave flip-flop
 can not be realized with Logisim, since the circuit is not switched on, there is no
 settling time to bring the circuit to a stable condition after its completion.
 A master-slave flip-flop can only be implemented with a reset input. This
@@ -66,9 +67,11 @@ the outputs of the gate are not updated instantly. Only when all gates involved 
 the outputs of all gates are updated. All gates seem to change synchronously, i.e.
 they seem to have all the exact same gate delay time.
 However, an undesirable feature of this approach is that even a simple RS flip-flop might not be able to 
-reach a stable state.
-For that reason, another mode is used during settling time: Each time a
-gate undergoes a change at one of its inputs all gate inputs are read and their outputs are updated immediately.
+reach a stable state. The same problem Logisim has.
+
+To solve that problem, the "switching on" is introduced and a different simulation mode is used during the
+settling time right after switching on the circuit:  
+Each time a gate undergoes a change at one of its inputs all gate inputs are read and their outputs are updated immediately.
 This happens gatewise in random order until no further changes occur and the circuit reaches a stable state.
 The gates appear to have random delay times now.
 This way, a master-slave flip-flop reaches a stable state after "switch on", however, the final state is still undefined.

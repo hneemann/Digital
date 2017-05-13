@@ -497,6 +497,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Bits_tt">Anzahl der Daten-Bits die verwendet werden.</string>
     <string name="key_Color">Farbe</string>
     <string name="key_Color_tt">Die Farbe des Elementes.</string>
+    <string name="key_backgroundColor">Hintergrundfarbe</string>
+    <string name="key_backgroundColor_tt">Hintergrundfarbe der Schaltung, wenn sie eingebettet wird. Wird für DILs nicht verwendet.</string>
     <string name="key_Cycles">Timeout Zyklen</string>
     <string name="key_Cycles_tt">Wenn nach dieser Anzahl von Takten kein Break eingegangen ist, wird ein Fehler erzeugt</string>
     <string name="key_Data">Daten</string>

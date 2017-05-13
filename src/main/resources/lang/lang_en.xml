@@ -487,6 +487,8 @@ The names of the variables may not be unique.</string>
     <string name="key_Bits_tt">Number of data bits used.</string>
     <string name="key_Color">Color</string>
     <string name="key_Color_tt">The Color of the element.</string>
+    <string name="key_backgroundColor">Background color</string>
+    <string name="key_backgroundColor_tt">Background color of the circuit when it is embedded in another circuit. Is not used for DIL packages.</string>
     <string name="key_Cycles">Timeout cycles</string>
     <string name="key_Cycles_tt">If this amount of cycles is reached without a break signal, an error is created.</string>
     <string name="key_Data">Data</string>
