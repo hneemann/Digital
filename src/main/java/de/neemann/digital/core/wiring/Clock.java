@@ -19,7 +19,8 @@ public class Clock implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.RUN_AT_REAL_TIME)
-            .addAttribute(Keys.FREQUENCY);
+            .addAttribute(Keys.FREQUENCY)
+            .addAttribute(Keys.PINNUMBER);
 
     private final ObservableValue output;
     private final int frequency;

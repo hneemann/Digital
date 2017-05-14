@@ -650,7 +650,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (!circuitComponent.isLocked()) {
                     boolean modified = false;
                     for (VisualElement v : circuitComponent.getCircuit().getElements()) {
-                        if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION)) {
+                        if (v.equalsDescription(In.DESCRIPTION)
+                                || v.equalsDescription(Clock.DESCRIPTION)
+                                || v.equalsDescription(Out.DESCRIPTION)) {
                             ElementAttributes attr = v.getElementAttributes();
                             int p = attr.get(Keys.PINNUMBER);
                             if (p > 0) {

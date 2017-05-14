@@ -3,6 +3,7 @@ package de.neemann.digital.gui;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.lang.Lang;
@@ -67,7 +68,9 @@ public class NumberingWizard extends JDialog implements CircuitComponent.WizardN
 
     @Override
     public void notify(VisualElement clicked) {
-        if (clicked.equalsDescription(In.DESCRIPTION) || clicked.equalsDescription(Out.DESCRIPTION)) {
+        if (clicked.equalsDescription(In.DESCRIPTION)
+                || clicked.equalsDescription(Clock.DESCRIPTION)
+                || clicked.equalsDescription(Out.DESCRIPTION)) {
             clicked.getElementAttributes().set(Keys.PINNUMBER, pinNumber);
             pinNumber++;
             setPinNumber(pinNumber);

@@ -4,6 +4,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -38,7 +39,11 @@ public class ClockShape implements Shape {
      */
     public ClockShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
-        this.label = attr.getLabel();
+        int pinNumber =attr.get(Keys.PINNUMBER);
+        if (pinNumber==0)
+            this.label = attr.getLabel();
+        else
+            this.label = attr.getLabel()+" ("+pinNumber+")";
     }
 
     @Override

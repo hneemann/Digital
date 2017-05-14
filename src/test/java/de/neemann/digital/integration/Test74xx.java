@@ -4,6 +4,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -47,6 +48,8 @@ public class Test74xx extends TestCase {
             if (e.equalsDescription(In.DESCRIPTION))
                 pc.checkPin(e);
             if (e.equalsDescription(Out.DESCRIPTION))
+                pc.checkPin(e);
+            if (e.equalsDescription(Clock.DESCRIPTION))
                 pc.checkPin(e);
         }
     }
