@@ -650,7 +650,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         repaint();
     }
 
-    private boolean isLocked() {
+    /**
+     * @return returns true if this circuit is locked
+     */
+    public boolean isLocked() {
         final boolean locked = circuit.getAttributes().get(Keys.LOCKED_MODE);
         if (locked && !lockMessageShown) {
             String message = Lang.get("msg_isLocked",
@@ -1408,6 +1411,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param wizardNotification the wizard notification
      */
     public void activateWizard(WizardNotification wizardNotification) {
+        mouseNormal.activate();
+        circuit.clearState();
         new MouseControllerWizard(wizardNotification).activate();
     }
 

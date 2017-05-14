@@ -2,6 +2,8 @@ package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
@@ -26,6 +28,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private final String name;
     private final File file;
     private ElementTypeDescription description;
+    private String toolTipText;
     private ImageIcon icon;
     private ElementLibrary library;
     private LibraryNode parent;
@@ -43,6 +46,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
         this.translatedName = name;
         this.children = new ArrayList<>();
         this.description = null;
+        this.toolTipText = null;
         this.file = null;
     }
 
@@ -54,6 +58,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private LibraryNode(ElementTypeDescription description) {
         this.children = null;
         this.description = description;
+        this.toolTipText = null;
         this.name = description.getName();
         this.translatedName = description.getTranslatedName();
         this.file = null;
@@ -303,6 +308,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public void invalidate() {
         description = null;
+        toolTipText = null;
         icon = null;
         library.fireLibraryChanged(this);
     }
@@ -313,9 +319,17 @@ public class LibraryNode implements Iterable<LibraryNode> {
     public String getToolTipText() {
         if (isCustom()) {
             if (isUnique()) {
-                if (description == null)
-                    return Lang.get("msg_fileNotImportedYet");
-                else
+                if (description == null) {
+                    if (toolTipText == null) {
+                        try {
+                            Circuit c = Circuit.loadCircuit(file, null);
+                            toolTipText = c.getAttributes().get(Keys.DESCRIPTION);
+                        } catch (Exception e) {
+                            toolTipText = Lang.get("msg_fileNotImportedYet");
+                        }
+                    }
+                    return toolTipText;
+                } else
                     return new LineBreaker().toHTML().breakLines(description.getDescription(new ElementAttributes()));
             } else
                 return Lang.get("msg_fileIsNotUnique");
