@@ -765,6 +765,14 @@ The names of the variables may not be unique.</string>
     <string name="menu_treeSelect">Component Tree View</string>
     <string name="menu_treeSelect_tt">Shows a tree view of available components at the left side.</string>
 
+    <string name="menu_special">Special 74xx Funtions</string>
+    <string name="menu_addPrefix">Add IO-Prefix</string>
+    <string name="menu_addPrefix_tt">A prefix is added to all selected inputs and outputs.
+        Is used to simplify the doubling of circuits within a 74xx circuit.</string>
+    <string name="menu_numbering">Pin Numbering</string>
+    <string name="menu_numbering_tt">Wizard to apply pin numbers to the inputs and outputs.</string>
+
+
     <string name="message">Digital
 
 A simple simulator for digital circuits.
@@ -817,6 +825,7 @@ The icons are taken from the Tango Desktop Project.</string>
         However, copying of components and the configuration of diodes and FG-FETs with the [P] key is also possible in the locked mode.</string>
     <string name="msg_speedTestError">Error during speed test!</string>
     <string name="msg_pin_N">Pin {0}</string>
+    <string name="msg_numberingWizard">Numbering Wizard</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

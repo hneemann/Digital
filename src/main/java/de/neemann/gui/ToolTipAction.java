@@ -55,7 +55,7 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return this for call chaining
      */
     public ToolTipAction setToolTip(String text) {
-        this.toolTipText = text;
+        this.toolTipText = new LineBreaker().toHTML().breakLines(text);
         return this;
     }
 

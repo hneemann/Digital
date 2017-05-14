@@ -19,6 +19,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
+import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.DataSetDialog;
@@ -570,6 +571,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
+        edit.add(createSpecialEditMenu());
         edit.addSeparator();
 
         JMenuItem copyItem = new JMenuItem(circuitComponent.getCopyAction());
@@ -584,6 +586,40 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         edit.add(insertAsNew.createJMenuItem());
         edit.addSeparator();
         edit.add(editSettings.createJMenuItem());
+    }
+
+    private JMenu createSpecialEditMenu() {
+        JMenu special = new JMenu(Lang.get("menu_special"));
+        special.add(new ToolTipAction(Lang.get("menu_addPrefix")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String prefix = JOptionPane.showInputDialog(Lang.get("menu_addPrefix"));
+
+                if (prefix != null && prefix.length() > 0) {
+                    boolean modified=false;
+                    for (Drawable d : circuitComponent.getHighLighted()) {
+                        if (d instanceof VisualElement) {
+                            VisualElement v = (VisualElement) d;
+                            if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION)) {
+                                ElementAttributes attr = v.getElementAttributes();
+                                String l = prefix + attr.getLabel();
+                                attr.set(Keys.LABEL, l);
+                                modified=true;
+                            }
+                        }
+                    }
+                    if (modified)
+                        circuitComponent.hasChanged();
+                }
+            }
+        }.setToolTip(Lang.get("menu_addPrefix_tt")).createJMenuItem());
+        special.add(new ToolTipAction(Lang.get("menu_numbering")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new NumberingWizard(Main.this, circuitComponent).start();
+            }
+        }.setToolTip(Lang.get("menu_numbering_tt")).createJMenuItem());
+        return special;
     }
 
     /**

@@ -58,6 +58,9 @@ public class LineBreaker {
         if (text == null)
             return null;
 
+        if (text.startsWith("<html>"))
+            return text;
+
         for (int i = 0; i < indent - label.length(); i++)
             outText.append(" ");
 

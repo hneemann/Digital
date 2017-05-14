@@ -763,6 +763,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void escapePressed() {
         }
     }
+
+
+    private VisualElement getVisualElement(Vector pos, boolean includeText) {
+        VisualElement vp = null;
+        List<VisualElement> list = circuit.getElementListAt(pos, includeText);
+        if (list.size() == 1)
+            vp = list.get(0);
+        else if (list.size() > 1) {
+            ItemPicker<VisualElement> picker = new ItemPicker<>(CircuitComponent.this, list);
+            vp = picker.select();
+        }
+        return vp;
+    }
+
     //CHECKSTYLE.ON: FinalClass
 
     private final class MouseControllerNormal extends MouseController {
@@ -771,18 +785,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         private MouseControllerNormal(Cursor cursor) {
             super(cursor);
-        }
-
-        private VisualElement getVisualElement(Vector pos, boolean includeText) {
-            VisualElement vp = null;
-            List<VisualElement> list = circuit.getElementListAt(pos, includeText);
-            if (list.size() == 1)
-                vp = list.get(0);
-            else if (list.size() > 1) {
-                ItemPicker<VisualElement> picker = new ItemPicker<>(CircuitComponent.this, list);
-                vp = picker.select();
-            }
-            return vp;
         }
 
         @Override
@@ -1398,6 +1400,67 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             } else
                 hasChanged();
         }
+    }
+
+    /**
+     * Activate a wizard
+     *
+     * @param wizardNotification the wizard notification
+     */
+    public void activateWizard(WizardNotification wizardNotification) {
+        new MouseControllerWizard(wizardNotification).activate();
+    }
+
+    /**
+     * Deactivate a wizard
+     */
+    public void deactivateWizard() {
+        if (activeMouseController instanceof MouseControllerWizard) {
+            MouseControllerWizard mcw = (MouseControllerWizard) activeMouseController;
+            mcw.wizardNotification.closed();
+        }
+        mouseNormal.activate();
+    }
+
+    private final class MouseControllerWizard extends MouseController {
+
+        private final WizardNotification wizardNotification;
+
+        private MouseControllerWizard(WizardNotification wizardNotification) {
+            super(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            this.wizardNotification = wizardNotification;
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            Vector pos = getPosVector(e);
+            VisualElement vp = getVisualElement(pos, true);
+            if (vp != null)
+                wizardNotification.notify(vp);
+        }
+
+        @Override
+        public void escapePressed() {
+            wizardNotification.closed();
+            mouseNormal.activate();
+        }
+    }
+
+    /**
+     * Interface to interact with wizards
+     */
+    public interface WizardNotification {
+        /**
+         * Called if an element is clicked
+         *
+         * @param clicked the element clicked
+         */
+        void notify(VisualElement clicked);
+
+        /**
+         * Called if the wizard is to close
+         */
+        void closed();
     }
 
 }

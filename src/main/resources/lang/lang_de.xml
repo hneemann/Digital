@@ -774,6 +774,14 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_treeSelect">Baumansicht der Bauteile</string>
     <string name="menu_treeSelect_tt">Zeigt am linken Rand des Fensters eine Baumansicht der verfügbaren Bauteile.</string>
 
+    <string name="menu_special">Sonderfunktionen 74xx</string>
+    <string name="menu_addPrefix">IO-Präfix</string>
+    <string name="menu_addPrefix_tt">Alle selektierten Eingänge und Ausgänge mit einem Präfix versehen.
+        Kann verwendet werden um die Bezeichnung der Ein- und Ausgänge nach dem Kopieren anzupassen.
+        Dies vereinfacht die Erzeugung von 74xx Schaltungen.</string>
+    <string name="menu_numbering">Pinnummerierung</string>
+    <string name="menu_numbering_tt">Wizard zur einfachen Nummerierung der Pins.</string>
+
     <string name="message">Digital
 
 Ein einfacher Simulator für digitale Schaltkreise.
@@ -827,6 +835,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
         Das kopieren von Elementen und die Konfiguration von Dioden und FG-FETs mit der Taste [P] ist auch im gesperrten Zustand möglich.</string>
     <string name="msg_speedTestError">Fehler bei der Ausführung des Geschwindigkeitstests!</string>
     <string name="msg_pin_N">Pin {0}</string>
+    <string name="msg_numberingWizard">Nummerierungshilfe</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
