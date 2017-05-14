@@ -785,7 +785,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Dies vereinfacht die Erzeugung von 74xx Schaltungen.</string>
     <string name="menu_numbering">Pinnummerierung</string>
     <string name="menu_numbering_tt">Wizard zur einfachen Nummerierung der Pins.</string>
-    <string name="menu_removePinNumbers">Pin Nummern entfernen.</string>
+    <string name="menu_removePinNumbers">Pin Nummern entfernen</string>
     <string name="menu_removePinNumbers_tt">Alle Pinnummern in der Schaltung werden entfernt.</string>
 
     <string name="message">Digital
@@ -842,6 +842,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_speedTestError">Fehler bei der Ausführung des Geschwindigkeitstests!</string>
     <string name="msg_pin_N">Pin {0}</string>
     <string name="msg_numberingWizard">Nummerierungshilfe</string>
+    <string name="msg_pin_numbering_N">Wählen Sie Pin {0}:</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

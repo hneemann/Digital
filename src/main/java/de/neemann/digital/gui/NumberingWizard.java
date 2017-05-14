@@ -6,8 +6,10 @@ import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.Screen;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -22,15 +24,19 @@ public class NumberingWizard extends JDialog implements CircuitComponent.WizardN
 
     /**
      * Creates a new instance
-     * @param parent the parent frame
+     *
+     * @param parent           the parent frame
      * @param circuitComponent the component used to select the inputs and outputs
      */
     public NumberingWizard(JFrame parent, CircuitComponent circuitComponent) {
         super(parent, Lang.get("msg_numberingWizard"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.circuitComponent = circuitComponent;
-        pinNumber = 0;
-        label = new JLabel("________________");
+        label = new JLabel();
+        label.setFont(Screen.getInstance().getFont(1.5f));
+        int b = Screen.getInstance().getFontSize();
+        label.setBorder(BorderFactory.createEmptyBorder(b, b, b, b));
+        setPinNumber(999);
         getContentPane().add(label);
 
         addWindowListener(new WindowAdapter() {
@@ -40,14 +46,15 @@ public class NumberingWizard extends JDialog implements CircuitComponent.WizardN
             }
         });
         pack();
-        incPinNumber();
+
+        pinNumber = 1;
+        setPinNumber(pinNumber);
         setAlwaysOnTop(true);
         setLocation(parent.getLocation());
     }
 
-    private void incPinNumber() {
-        pinNumber++;
-        label.setText(Lang.get("msg_pin_N", pinNumber));
+    private void setPinNumber(int num) {
+        label.setText(Lang.get("msg_pin_numbering_N", num));
     }
 
     /**
@@ -62,8 +69,10 @@ public class NumberingWizard extends JDialog implements CircuitComponent.WizardN
     public void notify(VisualElement clicked) {
         if (clicked.equalsDescription(In.DESCRIPTION) || clicked.equalsDescription(Out.DESCRIPTION)) {
             clicked.getElementAttributes().set(Keys.PINNUMBER, pinNumber);
-            incPinNumber();
+            pinNumber++;
+            setPinNumber(pinNumber);
             circuitComponent.hasChanged();
+            circuitComponent.getCircuit().modified();
         }
     }
 
