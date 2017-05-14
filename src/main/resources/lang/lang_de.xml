@@ -429,7 +429,6 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="err_aSingleClockNecessary">Es muss genau ein Taktelement geben. Alle Flipflops müssen an diesem Takt hängen.</string>
     <string name="err_analyseNoInputs">Die Schaltung hat keine benannten Eingänge</string>
     <string name="err_analyseNoOutputs">Die Schaltung hat keine benannten Ausgänge</string>
-    <string name="err_analyseValue_N_IsNotBinary">Der Wert {0} hat mehr als ein Bit.</string>
     <string name="err_breakTimeOut">Nach {0} Zyklen ist kein Break aufgetreten</string>
     <string name="err_builder_exprNotSupported">Ausdruck {0} wird nicht unterstützt.</string>
     <string name="err_builder_operationNotSupported">Operation {0} wird nicht unterstützt.</string>
@@ -515,6 +514,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_diodeNeedsPullDownResistorAtOutput">Diode benötigt am Ausgang einen PullDown-Widerstand!</string>
     <string name="err_testSignal_N_notFound">Testsignal {0} in der Schaltung nicht gefunden!</string>
     <string name="err_toManyBits_Found_N0_maxIs_N1">Es sind nur {1} Bits erlaubt, es sind jedoch {0} Bits angegeben!</string>
+    <string name="err_MultiBitFlipFlopFound">Es sind keine Flipflops mit mehr als einem Bit erlaubt!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

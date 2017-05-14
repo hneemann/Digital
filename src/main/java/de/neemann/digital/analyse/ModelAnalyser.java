@@ -11,6 +11,7 @@ import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.core.flipflops.FlipflopJK;
 import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,9 +50,9 @@ public class ModelAnalyser {
             throw new AnalyseException(e);
         }
 
-        inputs = checkBinary(model.getInputs());
+        inputs = checkBinaryInputs(model.getInputs());
         checkUnique(inputs);
-        outputs = checkBinary(model.getOutputs());
+        outputs = checkBinaryOutputs(model.getOutputs());
 
         for (Node n : model)
             if (n.hasState() && !(n instanceof FlipflopD))
@@ -59,8 +60,12 @@ public class ModelAnalyser {
 
         int i = 0;
         List<FlipflopD> flipflops = model.findNode(FlipflopD.class);
+        flipflops = replaceMultiBitFlipflops(flipflops);
         for (FlipflopD ff : flipflops) {
             checkClock(ff);
+            if (ff.getBits() != 1)
+                throw new AnalyseException(Lang.get("err_MultiBitFlipFlopFound"));
+
             ff.getDInput().removeObserver(ff); // turn off flipflop
             String label = ff.getLabel();
             if (label.length() == 0)
@@ -109,12 +114,104 @@ public class ModelAnalyser {
         return clocks.get(0).getClockOutput();
     }
 
-    private ArrayList<Signal> checkBinary(ArrayList<Signal> list) throws AnalyseException {
-        for (Signal s : list)
-            if (s.getValue().getBits() != 1)
-                throw new AnalyseException(Lang.get("err_analyseValue_N_IsNotBinary", s.getName()));
-        return list;
+    private List<FlipflopD> replaceMultiBitFlipflops(List<FlipflopD> flipflops) throws AnalyseException {
+        ArrayList<FlipflopD> out = new ArrayList<>();
+        for (FlipflopD ff : flipflops) {
+            if (ff.getBits() == 1)
+                out.add(ff);
+            else {
+                try {
+                    model.removeNode(ff);
+                    ff.getDInput().removeObserver(ff);
+                    ff.getClock().removeObserver(ff);
+
+                    Splitter insp = Splitter.createOneToN(ff.getBits());
+                    insp.setInputs(new ObservableValues(ff.getDInput()));
+
+                    Splitter outsp = Splitter.createNToOne(ff.getBits());
+                    Splitter noutsp = Splitter.createNToOne(ff.getBits());
+
+
+                    ObservableValues.Builder spinput = new ObservableValues.Builder();
+                    ObservableValues.Builder spninput = new ObservableValues.Builder();
+                    for (int i = 0; i < ff.getBits(); i++) {
+                        ObservableValue qn = new ObservableValue("", 1);
+                        ObservableValue nqn = new ObservableValue("", 1);
+                        FlipflopD newff = new FlipflopD(ff.getLabel() + i, qn, nqn);
+                        spinput.add(qn);
+                        spninput.add(nqn);
+                        newff.setInputs(new ObservableValues(insp.getOutputs().get(i), getClock()));
+                        model.add(newff);
+                        out.add(newff);
+                    }
+                    outsp.setInputs(spinput.build());
+                    noutsp.setInputs(spninput.build());
+
+                    final FlipflopD oldff = ff;
+                    ObservableValue spq = outsp.getOutputs().get(0);
+                    spq.addObserver(() -> oldff.getOutputs().get(0).setValue(spq.getValue()));
+                    ObservableValue spnq = noutsp.getOutputs().get(0);
+                    spnq.addObserver(() -> oldff.getOutputs().get(1).setValue(spnq.getValue()));
+
+                } catch (NodeException e) {
+                    throw new AnalyseException(e);
+                }
+            }
+        }
+        return out;
     }
+
+
+    private ArrayList<Signal> checkBinaryOutputs(ArrayList<Signal> list) throws AnalyseException {
+        ArrayList<Signal> outputs = new ArrayList<>();
+        for (Signal s : list) {
+            final int bits = s.getValue().getBits();
+            if (bits == 1)
+                outputs.add(s);
+            else {
+                try {
+                    Splitter sp = Splitter.createOneToN(bits);
+                    sp.setInputs(s.getValue().asList());
+                    int i = 0;
+                    for (ObservableValue out : sp.getOutputs()) {
+                        outputs.add(new Signal(s.getName() + i, out));
+                        i++;
+                    }
+                } catch (NodeException e) {
+                    throw new AnalyseException(e);
+                }
+            }
+        }
+        return outputs;
+    }
+
+    private ArrayList<Signal> checkBinaryInputs(ArrayList<Signal> list) throws AnalyseException {
+        ArrayList<Signal> inputs = new ArrayList<>();
+        for (Signal s : list) {
+            final int bits = s.getValue().getBits();
+            if (bits == 1)
+                inputs.add(s);
+            else {
+                try {
+                    Splitter sp = Splitter.createNToOne(bits);
+                    final ObservableValue out = sp.getOutputs().get(0);
+                    out.addObserver(() -> s.getValue().setValue(out.getValue()));
+
+                    ObservableValues.Builder builder = new ObservableValues.Builder();
+                    for (int i = 0; i < bits; i++) {
+                        ObservableValue o = new ObservableValue(s.getName() + i, 1);
+                        builder.add(o);
+                        inputs.add(new Signal(s.getName() + i, o));
+                    }
+                    sp.setInputs(builder.build());
+                } catch (NodeException e) {
+                    throw new AnalyseException(e);
+                }
+            }
+        }
+        return inputs;
+    }
+
 
     /**
      * Analyses the circuit

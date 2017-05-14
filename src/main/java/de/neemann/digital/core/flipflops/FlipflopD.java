@@ -126,4 +126,11 @@ public class FlipflopD extends Node implements Element {
     public ObservableValue getClock() {
         return clockVal;
     }
+
+    /**
+     * @return number of bits
+     */
+    public int getBits() {
+        return bits;
+    }
 }

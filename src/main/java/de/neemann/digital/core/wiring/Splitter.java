@@ -20,6 +20,36 @@ import java.util.StringTokenizer;
 public class Splitter implements Element {
 
     /**
+     * Create a one to N splitter
+     *
+     * @param bits number of outputs
+     * @return the splitter
+     */
+    public static Splitter createOneToN(int bits) {
+        Ports in = new Ports();
+        in.add(new Port(bits));
+        Ports out = new Ports();
+        for (int i = 0; i < bits; i++)
+            out.add(new Port(1));
+        return new Splitter(in, out, false);
+    }
+
+    /**
+     * Create a N to one splitter
+     *
+     * @param bits number of inputs
+     * @return the splitter
+     */
+    public static Splitter createNToOne(int bits) {
+        Ports in = new Ports();
+        for (int i = 0; i < bits; i++)
+            in.add(new Port(1));
+        Ports out = new Ports();
+        out.add(new Port(bits));
+        return new Splitter(in, out, false);
+    }
+
+    /**
      * The splitters type description
      */
     public static final ElementTypeDescription DESCRIPTION
@@ -57,10 +87,16 @@ public class Splitter implements Element {
      * @throws BitsException BitsException
      */
     public Splitter(ElementAttributes attributes) throws BitsException {
-        outPorts = new Ports(attributes.get(Keys.OUTPUT_SPLIT));
-        highZIn = attributes.get(Keys.IS_HIGH_Z);
+        this(new Ports(attributes.get(Keys.INPUT_SPLIT)),
+                new Ports(attributes.get(Keys.OUTPUT_SPLIT)),
+                attributes.get(Keys.IS_HIGH_Z));
+    }
+
+    private Splitter(Ports inPorts, Ports outPorts, boolean highZIn) {
+        this.inPorts = inPorts;
+        this.outPorts = outPorts;
+        this.highZIn = highZIn;
         outputs = outPorts.getOutputs(highZIn);
-        inPorts = new Ports(attributes.get(Keys.INPUT_SPLIT));
     }
 
     @Override
@@ -183,38 +219,39 @@ public class Splitter implements Element {
 
     static final class Ports implements Iterable<Port> {
         private final ArrayList<Port> ports;
-        private int bits;
+        private int bits = 0;
+
+        Ports() {
+            ports = new ArrayList<>();
+        }
 
         Ports(String definition) throws BitsException {
+            this();
             StringTokenizer st = new StringTokenizer(definition, ",", false);
-            ports = new ArrayList<>();
-            bits = 0;
             while (st.hasMoreTokens()) {
                 try {
                     String strVal = st.nextToken().trim();
                     int pos = strVal.indexOf('*');
-                    if (pos < 0) {
-                        Port p = new Port(Integer.decode(strVal), bits, ports.size());
-                        ports.add(p);
-                        bits += p.getBits();
-                    } else {
+                    if (pos < 0)
+                        add(new Port(Integer.decode(strVal)));
+                    else {
                         int b = Integer.decode(strVal.substring(0, pos).trim());
                         int count = Integer.decode(strVal.substring(pos + 1).trim());
-                        for (int i = 0; i < count; i++) {
-                            Port p = new Port(b, bits, ports.size());
-                            ports.add(p);
-                            bits += p.getBits();
-                        }
+                        for (int i = 0; i < count; i++)
+                            add(new Port(b));
                     }
                 } catch (RuntimeException e) {
                     throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition), null);
                 }
             }
-            if (ports.isEmpty()) {
-                ports.add(new Port(1, 0, 0));
-                bits = 1;
-            }
+            if (ports.isEmpty())
+                add(new Port(1));
+        }
 
+        private void add(Port port) {
+            port.setPos(bits, ports.size());
+            ports.add(port);
+            bits += port.bits;
         }
 
         public int getBits() {
@@ -256,21 +293,13 @@ public class Splitter implements Element {
     }
 
     private static final class Port {
-        private final String name;
         private final int bits;
-        private final int pos;
-        private final int number;
+        private String name;
+        private int pos;
+        private int number;
 
-        Port(int bits, int pos, int number) {
+        Port(int bits) {
             this.bits = bits;
-            this.pos = pos;
-            this.number = number;
-            if (bits == 1)
-                name = "" + pos;
-            else if (bits == 2)
-                name = "" + pos + "," + (pos + 1);
-            else
-                name = "" + pos + "-" + (pos + bits - 1);
         }
 
         public int getBits() {
@@ -283,6 +312,17 @@ public class Splitter implements Element {
 
         public String getName() {
             return name;
+        }
+
+        public void setPos(int pos, int number) {
+            this.pos = pos;
+            this.number = number;
+            if (bits == 1)
+                name = "" + pos;
+            else if (bits == 2)
+                name = "" + pos + "," + (pos + 1);
+            else
+                name = "" + pos + "-" + (pos + bits - 1);
         }
     }
 

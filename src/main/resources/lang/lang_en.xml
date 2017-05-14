@@ -419,7 +419,6 @@
     <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock signal.</string>
     <string name="err_analyseNoInputs">The circuit has no Inputs</string>
     <string name="err_analyseNoOutputs">The circuit has no outputs</string>
-    <string name="err_analyseValue_N_IsNotBinary">The value {0} has more the one bit.</string>
     <string name="err_breakTimeOut">Break timeout after {0} cycles</string>
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
@@ -505,6 +504,7 @@ The names of the variables may not be unique.</string>
     <string name="err_diodeNeedsPullDownResistorAtOutput">Diode needs a pull down resistor at its output!</string>
     <string name="err_testSignal_N_notFound">Test signal {0} not found in the circuit!</string>
     <string name="err_toManyBits_Found_N0_maxIs_N1">Only {1} bits allowed, but {0} bits found!</string>
+    <string name="err_MultiBitFlipFlopFound">Flipflops with more then one bits are not allowed!</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
