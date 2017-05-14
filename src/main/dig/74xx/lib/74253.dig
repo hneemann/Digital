@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>isDIL</string>
+      <boolean>true</boolean>
+    </entry>
+    <entry>
+      <string>Description</string>
+      <string>Dual Tri State 4-Line to 1-Line Data Selectors/Multiplexers</string>
+    </entry>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>14</int>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2Y</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>9</int>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>strobe</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>2G</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>15</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2C0</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>10</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2C1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>11</int>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2C2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>12</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2C3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>13</int>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>1Y</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>7</int>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>strobe</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>1G</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>1</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="-80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>1C0</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>1C1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="-20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>1C2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>1C3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>DriverInvSel</elementName>
+      <elementAttributes/>
+      <pos x="520" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>DriverInvSel</elementName>
+      <elementAttributes/>
+      <pos x="520" y="180"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="180" y="160"/>
+      <p2 x="420" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="0"/>
+      <p2 x="500" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="0"/>
+      <p2 x="420" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="0"/>
+      <p2 x="560" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="100"/>
+      <p2 x="520" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="260"/>
+      <p2 x="220" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="-40"/>
+      <p2 x="420" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="200"/>
+      <p2 x="420" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="140"/>
+      <p2 x="420" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="-80"/>
+      <p2 x="520" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="240"/>
+      <p2 x="380" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="240"/>
+      <p2 x="220" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="240"/>
+      <p2 x="440" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="-20"/>
+      <p2 x="420" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="180"/>
+      <p2 x="560" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="180"/>
+      <p2 x="500" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="180"/>
+      <p2 x="420" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="20"/>
+      <p2 x="420" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="280"/>
+      <p2 x="200" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="60"/>
+      <p2 x="440" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="260"/>
+      <p2 x="200" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="220"/>
+      <p2 x="440" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="40"/>
+      <p2 x="440" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="100"/>
+      <p2 x="520" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="-80"/>
+      <p2 x="520" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="60"/>
+      <p2 x="380" y="240"/>
+    </wire>
+  </wires>
+</circuit>

@@ -596,7 +596,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 String prefix = JOptionPane.showInputDialog(Lang.get("menu_addPrefix"));
 
                 if (prefix != null && prefix.length() > 0) {
-                    boolean modified=false;
+                    boolean modified = false;
                     for (Drawable d : circuitComponent.getHighLighted()) {
                         if (d instanceof VisualElement) {
                             VisualElement v = (VisualElement) d;
@@ -604,7 +604,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 ElementAttributes attr = v.getElementAttributes();
                                 String l = prefix + attr.getLabel();
                                 attr.set(Keys.LABEL, l);
-                                modified=true;
+                                modified = true;
                             }
                         }
                     }
@@ -613,12 +613,51 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
             }
         }.setToolTip(Lang.get("menu_addPrefix_tt")).createJMenuItem());
+        special.add(new ToolTipAction(Lang.get("menu_removePrefix")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                boolean modified = false;
+                for (Drawable d : circuitComponent.getHighLighted()) {
+                    if (d instanceof VisualElement) {
+                        VisualElement v = (VisualElement) d;
+                        if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION)) {
+                            ElementAttributes attr = v.getElementAttributes();
+                            String l = attr.getLabel();
+                            if (l.length() > 1) {
+                                attr.set(Keys.LABEL, l.substring(1));
+                                modified = true;
+                            }
+                        }
+                    }
+                }
+                if (modified)
+                    circuitComponent.hasChanged();
+            }
+        }.setToolTip(Lang.get("menu_removePrefix_tt")).createJMenuItem());
         special.add(new ToolTipAction(Lang.get("menu_numbering")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 new NumberingWizard(Main.this, circuitComponent).start();
             }
         }.setToolTip(Lang.get("menu_numbering_tt")).createJMenuItem());
+        special.add(new ToolTipAction(Lang.get("menu_removePinNumbers")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                boolean modified = false;
+                for (VisualElement v : circuitComponent.getCircuit().getElements()) {
+                    if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION)) {
+                        ElementAttributes attr = v.getElementAttributes();
+                        int p = attr.get(Keys.PINNUMBER);
+                        if (p > 0) {
+                            attr.set(Keys.PINNUMBER, 0);
+                            modified = true;
+                        }
+                    }
+                }
+                if (modified)
+                    circuitComponent.hasChanged();
+            }
+        }.setToolTip(Lang.get("menu_removePinNumbers_tt")).createJMenuItem());
         return special;
     }
 

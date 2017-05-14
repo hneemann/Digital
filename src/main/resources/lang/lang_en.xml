@@ -769,8 +769,13 @@ The names of the variables may not be unique.</string>
     <string name="menu_addPrefix">Add IO-Prefix</string>
     <string name="menu_addPrefix_tt">A prefix is added to all selected inputs and outputs.
         Is used to simplify the doubling of circuits within a 74xx circuit.</string>
+    <string name="menu_removePrefix">Remove IO-Prefix</string>
+    <string name="menu_removePrefix_tt">The first character from the inputs and outputs labels are removed.
+        Is used to simplify the doubling of circuits within a 74xx circuit.</string>
     <string name="menu_numbering">Pin Numbering</string>
     <string name="menu_numbering_tt">Wizard to apply pin numbers to the inputs and outputs.</string>
+    <string name="menu_removePinNumbers">Remove Pin Numbers</string>
+    <string name="menu_removePinNumbers_tt">Remove all pin numbers in the circuit</string>
 
 
     <string name="message">Digital

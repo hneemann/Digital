@@ -775,12 +775,18 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_treeSelect_tt">Zeigt am linken Rand des Fensters eine Baumansicht der verfügbaren Bauteile.</string>
 
     <string name="menu_special">Sonderfunktionen 74xx</string>
-    <string name="menu_addPrefix">IO-Präfix</string>
+    <string name="menu_addPrefix">IO-Präfix anfügen</string>
     <string name="menu_addPrefix_tt">Alle selektierten Eingänge und Ausgänge mit einem Präfix versehen.
+        Kann verwendet werden um die Bezeichnung der Ein- und Ausgänge nach dem Kopieren anzupassen.
+        Dies vereinfacht die Erzeugung von 74xx Schaltungen.</string>
+    <string name="menu_removePrefix">IO-Präfix entfernen</string>
+    <string name="menu_removePrefix_tt">Das erste Zeichen alle selektierten Eingänge und Ausgänge entfernen.
         Kann verwendet werden um die Bezeichnung der Ein- und Ausgänge nach dem Kopieren anzupassen.
         Dies vereinfacht die Erzeugung von 74xx Schaltungen.</string>
     <string name="menu_numbering">Pinnummerierung</string>
     <string name="menu_numbering_tt">Wizard zur einfachen Nummerierung der Pins.</string>
+    <string name="menu_removePinNumbers">Pin Nummern entfernen.</string>
+    <string name="menu_removePinNumbers_tt">Alle Pinnummern in der Schaltung werden entfernt.</string>
 
     <string name="message">Digital
 
