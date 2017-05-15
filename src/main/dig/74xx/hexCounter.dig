@@ -17,6 +17,10 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
@@ -180,7 +184,7 @@
           <testData>
             <dataString>C Q11 Q10 Q9 Q8 Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0
 0  0   0  0  0  0  0  0  0  0  0  0  0
-repeat(1000) C bits(4,(n+1)&gt;&gt;8) bits(4,(n+1)&gt;&gt;4) bits(4,(n+1))</dataString>
+repeat(2&lt;&lt;12) C bits(4,(n+1)&gt;&gt;8) bits(4,(n+1)&gt;&gt;4) bits(4,(n+1))</dataString>
           </testData>
         </entry>
       </elementAttributes>
