@@ -31,6 +31,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static java.lang.Character.isDigit;
+
 /**
  * The ElementLibrary is responsible for storing all the components which can be used in a circuit.
  * Also the import of nested circuits is handled in this class.
@@ -309,7 +311,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         File[] list = path.listFiles();
         if (list != null) {
             ArrayList<File> orderedList = new ArrayList<>(Arrays.asList(list));
-            orderedList.sort((f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
+            orderedList.sort((f1, f2) -> compareFilenames(f1.getName(), f2.getName()));
             for (File f : orderedList) {
                 if (f.isDirectory()) {
                     LibraryNode n = new LibraryNode(f.getName());
@@ -324,6 +326,30 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                     node.add(new LibraryNode(f));
             }
         }
+    }
+
+    private int compareFilenames(String a, String b) {
+        int an = getNumber(a);
+        int bn = getNumber(b);
+        if (an > 0 && bn > 0)
+            return an - bn;
+        else
+            return a.compareToIgnoreCase(b);
+    }
+
+    private int getNumber(String a) {
+        if (a.length() == 0)
+            return -1;
+        if (!isDigit(a.charAt(0)))
+            return -1;
+
+        int n = 0;
+        int i = 0;
+        while (i < a.length() && isDigit(a.charAt(i))) {
+            n = n * 10 + (a.charAt(i) - '0');
+            i++;
+        }
+        return n;
     }
 
     /**

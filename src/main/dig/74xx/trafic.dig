@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>simple red-yellow-green traffic light</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>7476.dig</elementName>

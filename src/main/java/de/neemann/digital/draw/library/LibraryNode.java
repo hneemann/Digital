@@ -70,9 +70,12 @@ public class LibraryNode implements Iterable<LibraryNode> {
      * @param file the file containing the leaf
      */
     LibraryNode(File file) {
-        this.children = null;
-        this.name = file.getName();
-        this.translatedName = name;
+        children = null;
+        name = file.getName();
+        if (name.toLowerCase().endsWith(".dig"))
+            translatedName = name.substring(0, name.length() - 4);
+        else
+            translatedName = name;
         this.file = file;
     }
 
