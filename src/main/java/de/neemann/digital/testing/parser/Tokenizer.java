@@ -13,7 +13,7 @@ public class Tokenizer {
 
     enum Token {
         UNKNOWN, IDENT, AND, OR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
-        ADD, SUB, MUL, GREATER, SMALER, DIV, END, LOOP, REPEAT, BITS
+        ADD, SUB, MUL, GREATER, SMALER, DIV, MOD, END, LOOP, REPEAT, BITS
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -107,6 +107,9 @@ public class Tokenizer {
                 break;
             case '*':
                 token = Token.MUL;
+                break;
+            case '%':
+                token = Token.MOD;
                 break;
             case '/':
                 token = Token.DIV;

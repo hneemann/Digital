@@ -21,6 +21,10 @@ public class ParserExpressionTest extends TestCase {
         assertEquals(-1, new Parser("-1").getValue());
         assertEquals(-2, new Parser("-1-1").getValue());
 
+        assertEquals(7, new Parser("7%8").getValue());
+        assertEquals(0, new Parser("8%8").getValue());
+        assertEquals(1, new Parser("9%8").getValue());
+
         assertEquals(8, new Parser("1<<3").getValue());
         assertEquals(2, new Parser("8>>2").getValue());
 

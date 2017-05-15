@@ -320,11 +320,21 @@ public class Parser {
     }
 
     private Expression parseDiv() throws IOException, ParserException {
-        Expression ac = parseIdent();
+        Expression ac = parseMod();
         while (isToken(Tokenizer.Token.DIV)) {
             Expression a = ac;
-            Expression b = parseIdent();
+            Expression b = parseMod();
             ac = (c) -> a.value(c) / b.value(c);
+        }
+        return ac;
+    }
+
+    private Expression parseMod() throws IOException, ParserException {
+        Expression ac = parseIdent();
+        while (isToken(Tokenizer.Token.MOD)) {
+            Expression a = ac;
+            Expression b = parseIdent();
+            ac = (c) -> a.value(c) % b.value(c);
         }
         return ac;
     }
