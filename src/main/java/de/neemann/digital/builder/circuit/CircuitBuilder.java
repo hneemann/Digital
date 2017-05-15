@@ -45,6 +45,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final boolean useJKff;
     private final ArrayList<Variable> desiredVarOrdering;
     private int pos;
+    private TreeMap<String, Integer> pins;
 
     /**
      * Creates a new builder.
@@ -103,7 +104,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         combinatorialOutputs.add(name);
 
         Fragment fr = createFragment(expression);
-        fragments.add(new FragmentExpression(fr, new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name)));
+
+        final FragmentVisualElement frag = new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
+        checkPinNumber(frag.getVisualElement());
+        fragments.add(new FragmentExpression(fr, frag));
         expression.traverse(variableVisitor);
         return this;
     }
@@ -222,6 +226,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 visualElement.getElementAttributes()
                         .set(Keys.ROTATE, new Rotation(3))
                         .set(Keys.LABEL, v.getIdentifier());
+                checkPinNumber(visualElement);
             }
             visualElement.setPos(new Vector(dx, -SIZE * 5));
             circuit.add(visualElement);
@@ -383,9 +388,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 t.setRotation(2);
                 circuit.add(t);
                 VisualElement o = new VisualElement(Out.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
-
                 o.getElementAttributes().set(Keys.LABEL, oName);
                 o.setPos(new Vector(xPos + SIZE, y));
+                checkPinNumber(o);
                 circuit.add(o);
                 circuit.add(new Wire(new Vector(xPos, y), new Vector(xPos + SIZE, y)));
                 y += SIZE * 2;
@@ -393,4 +398,25 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         }
     }
 
+    private void checkPinNumber(VisualElement pin) {
+        if (pins != null) {
+            String name = pin.getElementAttributes().getLabel();
+            Integer num = pins.get(name);
+            if (num != null && num > 0) {
+                pin.getElementAttributes().set(Keys.PINNUMBER, num);
+            }
+        }
+    }
+
+    /**
+     * Sets the pin mapping
+     *
+     * @param pins the pin mapping
+     * @return this for chained calls
+     */
+    public CircuitBuilder setPins(TreeMap<String, Integer> pins) {
+        this.pins = pins;
+        return this;
+
+    }
 }

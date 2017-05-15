@@ -527,8 +527,11 @@ public class TableDialog extends JDialog {
 
     private void createCircuit(boolean useJKff, ExpressionModifier... modifier) {
         try {
-            CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff, model.getTable().getVars());
-            new BuilderExpressionCreator(circuitBuilder, modifier).setUseJKOptimizer(useJKff).create(lastGeneratedExpressions);
+            CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff, model.getTable().getVars())
+                    .setPins(model.getTable().getPins());
+            new BuilderExpressionCreator(circuitBuilder, modifier)
+                    .setUseJKOptimizer(useJKff)
+                    .create(lastGeneratedExpressions);
             Circuit circuit = circuitBuilder.createCircuit();
             new Main.MainBuilder()
                     .setParent(TableDialog.this)
