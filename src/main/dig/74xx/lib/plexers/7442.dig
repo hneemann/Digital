@@ -8,7 +8,7 @@
     </entry>
     <entry>
       <string>Description</string>
-      <string>2-input/3-input AND-NOR gate</string>
+      <string>4-line BCD to 10-line decimal decoder</string>
     </entry>
     <entry>
       <string>lockedMode</string>
@@ -17,310 +17,307 @@
   </attributes>
   <visualElements>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>Demultiplexer</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>1Q</string>
+          <string>Selector Bits</string>
+          <int>4</int>
         </entry>
         <entry>
-          <string>pinNumber</string>
-          <int>8</int>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>1A</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
+          <string>Default</string>
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="100" y="120"/>
+      <pos x="420" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1*4</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>4</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>1C</string>
+          <string>A</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>12</int>
+          <int>15</int>
         </entry>
       </elementAttributes>
-      <pos x="100" y="160"/>
+      <pos x="220" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>1D</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <int>11</int>
-        </entry>
-      </elementAttributes>
-      <pos x="100" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>1F</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <int>9</int>
-        </entry>
-      </elementAttributes>
-      <pos x="100" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>1B</string>
+          <string>C</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <int>13</int>
         </entry>
       </elementAttributes>
-      <pos x="260" y="140"/>
+      <pos x="220" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>1E</string>
+          <string>B</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>10</int>
+          <int>14</int>
         </entry>
       </elementAttributes>
-      <pos x="260" y="220"/>
+      <pos x="360" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>12</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2Q</string>
+          <string>Y0</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>6</int>
+          <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="480" y="360"/>
+      <pos x="480" y="100"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2A</string>
+          <string>Y1</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="100" y="300"/>
+      <pos x="680" y="120"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2B</string>
+          <string>Y2</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="100" y="340"/>
+      <pos x="480" y="140"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2C</string>
+          <string>Y3</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <int>4</int>
         </entry>
       </elementAttributes>
-      <pos x="100" y="380"/>
+      <pos x="680" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2D</string>
+          <string>Y4</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="100" y="420"/>
+      <pos x="480" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes/>
-      <pos x="280" y="300"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes/>
-      <pos x="280" y="380"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Inputs</string>
-          <int>3</int>
+          <string>Label</string>
+          <string>Y5</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>6</int>
         </entry>
       </elementAttributes>
-      <pos x="280" y="120"/>
+      <pos x="680" y="200"/>
     </visualElement>
     <visualElement>
-      <elementName>And</elementName>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Inputs</string>
-          <int>3</int>
+          <string>Label</string>
+          <string>Y6</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>7</int>
         </entry>
       </elementAttributes>
-      <pos x="280" y="200"/>
+      <pos x="480" y="220"/>
     </visualElement>
     <visualElement>
-      <elementName>NOr</elementName>
-      <elementAttributes/>
-      <pos x="380" y="160"/>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y7</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>9</int>
+        </entry>
+      </elementAttributes>
+      <pos x="680" y="240"/>
     </visualElement>
     <visualElement>
-      <elementName>NOr</elementName>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y8</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>10</int>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y9</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>11</int>
+        </entry>
+      </elementAttributes>
+      <pos x="680" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="380" y="340"/>
+      <pos x="400" y="280"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="360" y="160"/>
-      <p2 x="380" y="160"/>
+      <p1 x="220" y="480"/>
+      <p2 x="380" y="480"/>
     </wire>
     <wire>
-      <p1 x="100" y="160"/>
-      <p2 x="280" y="160"/>
+      <p1 x="460" y="160"/>
+      <p2 x="680" y="160"/>
     </wire>
     <wire>
-      <p1 x="340" y="320"/>
-      <p2 x="360" y="320"/>
+      <p1 x="400" y="260"/>
+      <p2 x="420" y="260"/>
     </wire>
     <wire>
-      <p1 x="100" y="420"/>
-      <p2 x="280" y="420"/>
+      <p1 x="460" y="260"/>
+      <p2 x="480" y="260"/>
     </wire>
     <wire>
-      <p1 x="360" y="200"/>
-      <p2 x="380" y="200"/>
+      <p1 x="460" y="100"/>
+      <p2 x="480" y="100"/>
     </wire>
     <wire>
-      <p1 x="100" y="200"/>
-      <p2 x="280" y="200"/>
+      <p1 x="460" y="200"/>
+      <p2 x="680" y="200"/>
     </wire>
     <wire>
-      <p1 x="460" y="360"/>
-      <p2 x="480" y="360"/>
+      <p1 x="460" y="140"/>
+      <p2 x="480" y="140"/>
     </wire>
     <wire>
-      <p1 x="340" y="140"/>
-      <p2 x="360" y="140"/>
+      <p1 x="360" y="460"/>
+      <p2 x="380" y="460"/>
     </wire>
     <wire>
-      <p1 x="260" y="140"/>
-      <p2 x="280" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="100" y="300"/>
-      <p2 x="280" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="100" y="240"/>
-      <p2 x="280" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="400"/>
-      <p2 x="360" y="400"/>
+      <p1 x="460" y="240"/>
+      <p2 x="680" y="240"/>
     </wire>
     <wire>
       <p1 x="460" y="180"/>
       <p2 x="480" y="180"/>
     </wire>
     <wire>
-      <p1 x="360" y="340"/>
-      <p2 x="380" y="340"/>
+      <p1 x="360" y="500"/>
+      <p2 x="380" y="500"/>
     </wire>
     <wire>
-      <p1 x="100" y="340"/>
-      <p2 x="280" y="340"/>
+      <p1 x="460" y="120"/>
+      <p2 x="680" y="120"/>
     </wire>
     <wire>
-      <p1 x="100" y="120"/>
-      <p2 x="280" y="120"/>
+      <p1 x="460" y="280"/>
+      <p2 x="680" y="280"/>
     </wire>
     <wire>
-      <p1 x="340" y="220"/>
-      <p2 x="360" y="220"/>
+      <p1 x="400" y="440"/>
+      <p2 x="440" y="440"/>
     </wire>
     <wire>
-      <p1 x="260" y="220"/>
-      <p2 x="280" y="220"/>
+      <p1 x="220" y="440"/>
+      <p2 x="380" y="440"/>
     </wire>
     <wire>
-      <p1 x="360" y="380"/>
-      <p2 x="380" y="380"/>
+      <p1 x="460" y="220"/>
+      <p2 x="480" y="220"/>
     </wire>
     <wire>
-      <p1 x="100" y="380"/>
-      <p2 x="280" y="380"/>
+      <p1 x="400" y="260"/>
+      <p2 x="400" y="280"/>
     </wire>
     <wire>
-      <p1 x="360" y="140"/>
-      <p2 x="360" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="200"/>
-      <p2 x="360" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="320"/>
-      <p2 x="360" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="380"/>
-      <p2 x="360" y="400"/>
+      <p1 x="440" y="420"/>
+      <p2 x="440" y="440"/>
     </wire>
   </wires>
 </circuit>
