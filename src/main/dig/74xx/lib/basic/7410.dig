@@ -8,7 +8,7 @@
     </entry>
     <entry>
       <string>Description</string>
-      <string>Triple 3-input NAND gate</string>
+      <string>triple 3-input NAND gate</string>
     </entry>
     <entry>
       <string>lockedMode</string>
@@ -28,7 +28,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="300" y="220"/>
+      <pos x="300" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -42,7 +42,7 @@
           <int>13</int>
         </entry>
       </elementAttributes>
-      <pos x="300" y="260"/>
+      <pos x="300" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -56,7 +56,7 @@
           <int>12</int>
         </entry>
       </elementAttributes>
-      <pos x="460" y="240"/>
+      <pos x="460" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -70,7 +70,7 @@
           <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="300" y="300"/>
+      <pos x="300" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -84,7 +84,7 @@
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="300" y="340"/>
+      <pos x="300" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -112,7 +112,7 @@
           <int>11</int>
         </entry>
       </elementAttributes>
-      <pos x="300" y="420"/>
+      <pos x="300" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -126,7 +126,7 @@
           <int>9</int>
         </entry>
       </elementAttributes>
-      <pos x="300" y="380"/>
+      <pos x="300" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -140,7 +140,7 @@
           <int>8</int>
         </entry>
       </elementAttributes>
-      <pos x="460" y="400"/>
+      <pos x="460" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -154,7 +154,7 @@
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="220" y="240"/>
+      <pos x="300" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -168,7 +168,7 @@
           <int>4</int>
         </entry>
       </elementAttributes>
-      <pos x="220" y="320"/>
+      <pos x="300" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -182,7 +182,7 @@
           <int>10</int>
         </entry>
       </elementAttributes>
-      <pos x="220" y="400"/>
+      <pos x="300" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>NAnd</elementName>
@@ -192,7 +192,7 @@
           <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="340" y="220"/>
+      <pos x="340" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>NAnd</elementName>
@@ -212,57 +212,57 @@
           <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="340" y="380"/>
+      <pos x="340" y="420"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="420" y="240"/>
-      <p2 x="460" y="240"/>
+      <p1 x="300" y="160"/>
+      <p2 x="340" y="180"/>
     </wire>
     <wire>
-      <p1 x="220" y="240"/>
-      <p2 x="340" y="240"/>
+      <p1 x="300" y="240"/>
+      <p2 x="340" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="280"/>
+      <p2 x="340" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="400"/>
+      <p2 x="340" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="360"/>
+      <p2 x="340" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="480"/>
+      <p2 x="340" y="460"/>
     </wire>
     <wire>
       <p1 x="420" y="320"/>
       <p2 x="460" y="320"/>
     </wire>
     <wire>
-      <p1 x="220" y="320"/>
+      <p1 x="300" y="320"/>
       <p2 x="340" y="320"/>
     </wire>
     <wire>
-      <p1 x="420" y="400"/>
-      <p2 x="460" y="400"/>
+      <p1 x="420" y="440"/>
+      <p2 x="460" y="440"/>
     </wire>
     <wire>
-      <p1 x="220" y="400"/>
-      <p2 x="340" y="400"/>
+      <p1 x="300" y="440"/>
+      <p2 x="340" y="440"/>
     </wire>
     <wire>
-      <p1 x="300" y="260"/>
-      <p2 x="340" y="260"/>
+      <p1 x="420" y="200"/>
+      <p2 x="460" y="200"/>
     </wire>
     <wire>
-      <p1 x="300" y="340"/>
-      <p2 x="340" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="420"/>
-      <p2 x="340" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="220"/>
-      <p2 x="340" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="300"/>
-      <p2 x="340" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="380"/>
-      <p2 x="340" y="380"/>
+      <p1 x="300" y="200"/>
+      <p2 x="340" y="200"/>
     </wire>
   </wires>
 </circuit>

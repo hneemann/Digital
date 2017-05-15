@@ -8,7 +8,7 @@
     </entry>
     <entry>
       <string>Description</string>
-      <string>Hex synchronous counter, async clear</string>
+      <string>hex synchronous counter, async clear</string>
     </entry>
     <entry>
       <string>lockedMode</string>

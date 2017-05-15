@@ -8,7 +8,7 @@
     </entry>
     <entry>
       <string>Description</string>
-      <string>Triple 3-input AND gate</string>
+      <string>triple 3-input AND gate</string>
     </entry>
     <entry>
       <string>lockedMode</string>
@@ -154,7 +154,7 @@
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="220" y="240"/>
+      <pos x="140" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -168,7 +168,7 @@
           <int>4</int>
         </entry>
       </elementAttributes>
-      <pos x="220" y="320"/>
+      <pos x="140" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -182,7 +182,7 @@
           <int>10</int>
         </entry>
       </elementAttributes>
-      <pos x="220" y="400"/>
+      <pos x="140" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -221,7 +221,7 @@
       <p2 x="440" y="240"/>
     </wire>
     <wire>
-      <p1 x="220" y="240"/>
+      <p1 x="140" y="240"/>
       <p2 x="340" y="240"/>
     </wire>
     <wire>
@@ -229,7 +229,7 @@
       <p2 x="440" y="320"/>
     </wire>
     <wire>
-      <p1 x="220" y="320"/>
+      <p1 x="140" y="320"/>
       <p2 x="340" y="320"/>
     </wire>
     <wire>
@@ -237,7 +237,7 @@
       <p2 x="440" y="400"/>
     </wire>
     <wire>
-      <p1 x="220" y="400"/>
+      <p1 x="140" y="400"/>
       <p2 x="340" y="400"/>
     </wire>
     <wire>
