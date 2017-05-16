@@ -90,4 +90,25 @@ public final class InsertAction extends ToolTipAction {
     public LibraryNode getNode() {
         return node;
     }
+
+
+    /**
+     * Implements a lazy loading of the tooltips.
+     * Avoids the reading of all tooltips from the lib files if menu is created.
+     * This code ensures, that the tooltips are onli loaded from the file if the text is shown to the user.
+     *
+     * @return the JMenuItem created
+     */
+    @Override
+    public JMenuItem createJMenuItem() {
+        JMenuItem i = new JMenuItem(node.getTranslatedName(), getIcon()) {
+            @Override
+            public String getToolTipText() {
+                return node.getToolTipText();
+            }
+        };
+        i.addActionListener(InsertAction.this);
+        ToolTipManager.sharedInstance().registerComponent(i);
+        return i;
+    }
 }

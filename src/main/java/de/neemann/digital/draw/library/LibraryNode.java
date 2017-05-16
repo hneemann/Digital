@@ -9,6 +9,8 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.IconCreator;
 import de.neemann.gui.LineBreaker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.io.File;
@@ -21,6 +23,7 @@ import java.util.Iterator;
  * Created by hneemann on 25.03.17.
  */
 public class LibraryNode implements Iterable<LibraryNode> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LibraryNode.class);
     private static final Icon ICON_NOT_UNIQUE = IconCreator.create("testFailed.png");
 
     private final ArrayList<LibraryNode> children;
@@ -325,6 +328,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
                 if (description == null) {
                     if (toolTipText == null) {
                         try {
+                            LOGGER.debug("load tooltip from "+file);
                             Circuit c = Circuit.loadCircuit(file, null);
                             toolTipText = c.getAttributes().get(Keys.DESCRIPTION);
                         } catch (Exception e) {

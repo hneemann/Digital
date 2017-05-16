@@ -83,9 +83,7 @@ public class LibrarySelector implements LibraryListener {
 
     private void addComponents(JMenu parts, LibraryNode node) {
         if (node.isLeaf()) {
-            parts.add(new InsertAction(node, insertHistory, circuitComponent, shapeFactory)
-                    .setToolTip(node.getToolTipText())
-                    .createJMenuItem());
+            parts.add(new InsertAction(node, insertHistory, circuitComponent, shapeFactory).createJMenuItem());
         } else {
             JMenu subMenu = new JMenu(node.getName());
             for (LibraryNode child : node)

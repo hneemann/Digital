@@ -482,7 +482,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         /**
          * Returns the filename
-         * the retuned file is opened if the user wants to modify the element
+         * The returned file is opened if the user wants to modify the element
          *
          * @return the filename
          */
