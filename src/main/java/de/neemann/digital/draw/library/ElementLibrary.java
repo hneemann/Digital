@@ -282,7 +282,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 changedNode = customNode;
             }
 
-            scanFolder(rootLibraryPath, customNode);
+            int num = scanFolder(rootLibraryPath, customNode);
+            LOGGER.debug("found " + num + " files");
         } else if (customNode != null) {
             root.remove(customNode);
             customNode = null;
@@ -305,7 +306,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             l.libraryChanged(node);
     }
 
-    private void scanFolder(File path, LibraryNode node) {
+    private int scanFolder(File path, LibraryNode node) {
+        int num = 0;
         File[] list = path.listFiles();
         if (list != null) {
             ArrayList<File> orderedList = new ArrayList<>(Arrays.asList(list));
@@ -313,17 +315,20 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             for (File f : orderedList) {
                 if (f.isDirectory()) {
                     LibraryNode n = new LibraryNode(f.getName());
-                    scanFolder(f, n);
+                    num += scanFolder(f, n);
                     if (!n.isEmpty())
                         node.add(n);
                 }
             }
             for (File f : orderedList) {
                 final String name = f.getName();
-                if (f.isFile() && name.endsWith(".dig"))
+                if (f.isFile() && name.endsWith(".dig")) {
                     node.add(new LibraryNode(f));
+                    num++;
+                }
             }
         }
+        return num;
     }
 
     /**
