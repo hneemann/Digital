@@ -22,7 +22,10 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * Created by hneemann on 12.05.17.
  */
 public class DILShape implements Shape {
+    private static final float CIRC = (float) (4 * (Math.sqrt(2) - 1) / 3);
     private static final int SPACING = 2;
+    private static final int RAD = SPACING * SIZE / 4;
+    private static final int BEZ = Math.round(RAD * CIRC);
 
     private final int pinCount;
     private final Pins pins;
@@ -91,9 +94,9 @@ public class DILShape implements Shape {
         graphic.drawPolygon(
                 new Polygon(true)
                         .add(pin, -SIZE)
-                        .add(x / 2 - pin, -SIZE)
-                        .add(new Vector(x / 2 - pin, -SIZE + pin / 2), new Vector(x / 2 - pin, -SIZE + pin), new Vector(x / 2, -SIZE + pin))
-                        .add(new Vector(x / 2 + pin, -SIZE + pin), new Vector(x / 2 + pin, -SIZE + pin / 2), new Vector(x / 2 + pin, -SIZE))
+                        .add(x / 2 - RAD, -SIZE)
+                        .add(new Vector(x / 2 - RAD, -SIZE + BEZ), new Vector(x / 2 - BEZ, -SIZE + RAD), new Vector(x / 2, -SIZE + RAD))
+                        .add(new Vector(x / 2 + BEZ, -SIZE + RAD), new Vector(x / 2 + RAD, -SIZE + BEZ), new Vector(x / 2 + RAD, -SIZE))
                         .add(x - pin, -SIZE)
                         .add(x - pin, h)
                         .add(pin, h), Style.NORMAL);
