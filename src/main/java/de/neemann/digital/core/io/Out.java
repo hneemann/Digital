@@ -53,7 +53,6 @@ public class Out implements Element {
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> new Out(4, 1), input("d"), input("dp"))
-            .addAttribute(Keys.LABEL)
             .addAttribute(Keys.COLOR);
 
     private final int[] bits;
@@ -110,7 +109,6 @@ public class Out implements Element {
                 else
                     return new Out(1, 1, 1, 1, 1, 1, 1, 1);
             });
-            addAttribute(Keys.LABEL);
             addAttribute(Keys.COLOR);
             addAttribute(Keys.COMMON_CATHODE);
             addAttribute(Keys.LED_PERSISTENCE);
