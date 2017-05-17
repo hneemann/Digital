@@ -59,6 +59,14 @@ public final class GraphicsImage extends GraphicSwing implements Closeable {
 
     @Override
     public void close() throws IOException {
-        ImageIO.write(bi, format, out);
+        if (out != null)
+            ImageIO.write(bi, format, out);
+    }
+
+    /**
+     * @return the created image
+     */
+    public BufferedImage getBufferedImage() {
+        return bi;
     }
 }

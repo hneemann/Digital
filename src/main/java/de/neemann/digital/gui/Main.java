@@ -13,6 +13,7 @@ import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.gif.GifExporter;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -59,6 +60,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+
+import static javax.swing.JOptionPane.showInputDialog;
 
 /**
  * The main frame of the Digital Simulator
@@ -432,6 +435,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
         export.add(new ExportAction(Lang.get("menu_exportPNGSmall"), "png", (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1)));
         export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 2)));
+        if (enableExperimental())
+            export.add(new ExportGifAction(Lang.get("menu_exportAnimatedGIF")));
 
         JMenu file = new JMenu(Lang.get("menu_file"));
         menuBar.add(file);
@@ -594,7 +599,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!circuitComponent.isLocked()) {
-                    String prefix = JOptionPane.showInputDialog(Lang.get("menu_addPrefix"));
+                    String prefix = showInputDialog(Lang.get("menu_addPrefix"));
                     if (prefix != null && prefix.length() > 0) {
                         boolean modified = false;
                         for (Drawable d : circuitComponent.getHighLighted()) {
@@ -1135,6 +1140,58 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             );
         }
     }
+
+    private class ExportGifAction extends ToolTipAction {
+        private final String name;
+
+        ExportGifAction(String name) {
+            super(name);
+            this.name = name;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            if (model == null)
+                new ErrorMessage(Lang.get("msg_modelNeedsToBeStarted")).show(Main.this);
+            else {
+
+                String numStr = JOptionPane.showInputDialog(Lang.get("msg_numberOfFrames"));
+                if (numStr != null) {
+
+                    int f = 0;
+                    try {
+                        f = Integer.parseInt(numStr);
+                    } catch (NumberFormatException e1) {
+                        new ErrorMessage().addCause(e1).show(Main.this);
+                    }
+                    final int frames = f;
+                    if (frames > 0) {
+
+                        JFileChooser fc = new MyFileChooser();
+                        if (filename != null)
+                            fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, "gif"));
+
+                        if (lastExportDirectory != null)
+                            fc.setCurrentDirectory(lastExportDirectory);
+
+                        fc.addChoosableFileFilter(new FileNameExtensionFilter(name, "gif"));
+                        new SaveAsHelper(Main.this, fc, "gif").checkOverwrite(
+                                file -> {
+                                    lastExportDirectory = file.getParentFile();
+                                    try {
+                                        new GifExporter(model, circuitComponent.getCircuit(), frames, 500).export(file);
+                                    } catch (NodeException e1) {
+                                        new ErrorMessage().addCause(e1).show(Main.this);
+                                    }
+                                }
+                        );
+                    }
+                }
+            }
+        }
+    }
+
 
     private class RunModelState extends State {
         @Override

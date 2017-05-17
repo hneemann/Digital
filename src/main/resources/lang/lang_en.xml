@@ -660,6 +660,7 @@ The names of the variables may not be unique.</string>
     <string name="menu_exportPNGSmall">Export PNG small</string>
     <string name="menu_exportSVG">Export SVG</string>
     <string name="menu_exportSVGLaTex">Export SVG+LaTeX</string>
+    <string name="menu_exportAnimatedGIF">Export Animated GIF</string>
     <string name="menu_fast">Run Fast</string>
     <string name="menu_fast_tt">Runs the circuit until a break is detected by the BRK component.</string>
     <string name="menu_file">File</string>
@@ -840,6 +841,8 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_speedTestError">Error during speed test!</string>
     <string name="msg_pin_N">Pin {0}</string>
     <string name="msg_numberingWizard">Numbering Wizard</string>
+    <string name="msg_modelNeedsToBeStarted">The circuit needs to be started.</string>
+    <string name="msg_numberOfFrames">Number of frames:</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

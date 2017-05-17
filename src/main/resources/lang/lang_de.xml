@@ -669,6 +669,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_exportPNGSmall">Export PNG klein</string>
     <string name="menu_exportSVG">Export SVG</string>
     <string name="menu_exportSVGLaTex">Export SVG+LaTeX</string>
+    <string name="menu_exportAnimatedGIF">Export Animated GIF</string>
     <string name="menu_fast">Schneller Lauf</string>
     <string name="menu_fast_tt">Führt die Schaltung aus, bis ein Stopsignal über ein BRK-Element detektiert wird.</string>
     <string name="menu_file">Datei</string>
@@ -851,6 +852,8 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_pin_N">Pin {0}</string>
     <string name="msg_numberingWizard">Nummerierungshilfe</string>
     <string name="msg_pin_numbering_N">Wählen Sie Pin {0}:</string>
+    <string name="msg_modelNeedsToBeStarted">Die Schaltung muss gestartet sein.</string>
+    <string name="msg_numberOfFrames">Anzahl der Einzelbilder:</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
