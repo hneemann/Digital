@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>And</elementName>
@@ -421,6 +422,11 @@
       <elementName>FGNFET</elementName>
       <elementAttributes/>
       <pos x="840" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>TransGate</elementName>
+      <elementAttributes/>
+      <pos x="800" y="740"/>
     </visualElement>
   </visualElements>
   <wires/>

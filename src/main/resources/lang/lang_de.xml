@@ -423,6 +423,13 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_LedMatrix_pin_r-data">Der Zeilen-Zustand der LEDs einer Spalte. Jedes Bit in diesem Datenwort repräsentiert den Zustand einer Zeile der aktuellen Spalte.</string>
     <string name="elem_LedMatrix_pin_c-addr">Die Nummer der aktuellen Spalte, dessen Zustand gerade am anderen Eingang anliegt.</string>
 
+    <string name="elem_TransGate">Transmissionsgatter</string>
+    <string name="elem_TransGate_tt">Ein reales Transmissionsgatter ist aus nur zwei Transistoren aufgebaut.</string>
+    <string name="elem_TransGate_pin_A">Eingang A</string>
+    <string name="elem_TransGate_pin_B">Eingang_B</string>
+    <string name="elem_TransGate_pin_S">Steuereingang</string>
+    <string name="elem_TransGate_pin_~S">Steuereingang, invertiert</string>
+
     <string name="error">Fehler</string>
     <string name="err_DFlipflopWithoutALabel">Flipflop hat keine Bezeichnung!</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in Element {1} ist werder Eingang noch Ausgang</string>
@@ -515,6 +522,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_testSignal_N_notFound">Testsignal {0} in der Schaltung nicht gefunden!</string>
     <string name="err_toManyBits_Found_N0_maxIs_N1">Es sind nur {1} Bits erlaubt, es sind jedoch {0} Bits angegeben!</string>
     <string name="err_MultiBitFlipFlopFound">Es sind keine Flipflops mit mehr als einem Bit erlaubt!</string>
+    <string name="err_invalidTransmissionGateState">Die Steuereingänge eines Transmission-Gates müssen invertiert beschaltet werden!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
