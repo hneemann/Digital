@@ -12,6 +12,7 @@ import de.neemann.digital.draw.graphics.linemerger.GraphicSkipLines;
 
 import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -69,14 +70,19 @@ public class GifExporter {
 
 
     private BufferedImage createBufferedImage() throws IOException {
-        GraphicsImage gr = GraphicsImage.create(null, minMax.getMin(), minMax.getMax(), "gif", 2);
+        GraphicsImage gri = GraphicsImage.create(null, minMax.getMin(), minMax.getMax(), "gif", 1);
+        BufferedImage bi = gri.getBufferedImage();
+        Graphics gr = bi.getGraphics();
+        gr.setColor(Color.WHITE);
+        gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
+
         GraphicLineCollector glc = new GraphicLineCollector();
         circuit.drawTo(glc);
-        glc.drawTo(gr);
+        glc.drawTo(gri);
 
-        circuit.drawTo(new GraphicSkipLines(gr));
+        circuit.drawTo(new GraphicSkipLines(gri));
 
-        return gr.getBufferedImage();
+        return gri.getBufferedImage();
     }
 
 }
