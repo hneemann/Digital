@@ -25,9 +25,8 @@ public class GifExporter {
     private final Model model;
     private final Circuit circuit;
     private final int frames;
-    private final int delayms;
+    private final int delayMs;
     private final GraphicMinMax minMax;
-    private GifSequenceWriter writer;
 
     /**
      * Creates a new instance
@@ -35,13 +34,13 @@ public class GifExporter {
      * @param model   the mode to use
      * @param circuit the circuit to export
      * @param frames  then number of frames to write to the file
-     * @param delayms the delay between frames im milliseconds
+     * @param delayMs the delay between frames im milliseconds
      */
-    public GifExporter(Model model, Circuit circuit, int frames, int delayms) {
+    public GifExporter(Model model, Circuit circuit, int frames, int delayMs) {
         this.model = model;
         this.circuit = circuit;
         this.frames = frames;
-        this.delayms = delayms;
+        this.delayMs = delayMs;
         minMax = new GraphicMinMax();
         circuit.drawTo(minMax);
     }
@@ -55,7 +54,7 @@ public class GifExporter {
      */
     public void export(File file) throws IOException, NodeException {
         try (ImageOutputStream output = new FileImageOutputStream(file)) {
-            try (GifSequenceWriter writer = new GifSequenceWriter(output, BufferedImage.TYPE_INT_ARGB, delayms, true)) {
+            try (GifSequenceWriter writer = new GifSequenceWriter(output, BufferedImage.TYPE_INT_ARGB, delayMs, true)) {
                 for (int i = 0; i < frames; i++) {
                     writer.writeToSequence(createBufferedImage());
 
