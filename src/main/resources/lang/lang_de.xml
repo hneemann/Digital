@@ -424,7 +424,8 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_LedMatrix_pin_c-addr">Die Nummer der aktuellen Spalte, dessen Zustand gerade am anderen Eingang anliegt.</string>
 
     <string name="elem_TransGate">Transmissionsgatter</string>
-    <string name="elem_TransGate_tt">Ein reales Transmissionsgatter ist aus nur zwei Transistoren aufgebaut.</string>
+    <string name="elem_TransGate_tt">Ein reales Transmissionsgatter ist aus nur zwei Transistoren aufgebaut.
+        Daher wird es oft eingesetzt um Transistoren einzusparen.</string>
     <string name="elem_TransGate_pin_A">Eingang A</string>
     <string name="elem_TransGate_pin_B">Eingang_B</string>
     <string name="elem_TransGate_pin_S">Steuereingang</string>
@@ -523,6 +524,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_toManyBits_Found_N0_maxIs_N1">Es sind nur {1} Bits erlaubt, es sind jedoch {0} Bits angegeben!</string>
     <string name="err_MultiBitFlipFlopFound">Es sind keine Flipflops mit mehr als einem Bit erlaubt!</string>
     <string name="err_invalidTransmissionGateState">Die Steuereingänge eines Transmission-Gates müssen invertiert beschaltet werden!</string>
+    <string name="err_nameUsedTwice_N">Signal {0} wurde mehrfach verwendet!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

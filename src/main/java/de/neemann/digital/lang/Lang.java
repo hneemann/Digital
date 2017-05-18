@@ -5,6 +5,7 @@ import de.neemann.gui.language.Language;
 import de.neemann.gui.language.Resources;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.prefs.Preferences;
 
@@ -90,6 +91,7 @@ public final class Lang {
         else
             currentLanguage = new Language("en");
     }
+
     /**
      * Only used for generation of documentation
      *
@@ -111,9 +113,9 @@ public final class Lang {
             // if the 'testdata' system property is set, let the test fail!
             // If we are in production usage, don't let the program  crash, simply return the key itself instead!
             if (System.getProperty("testdata") != null)
-                throw new Error("missing laguage key '" + key + "'");
+                throw new Error("missing language key '" + key + "'");
 
-            return key;
+            return key + " " + Arrays.asList(params).toString();
         }
     }
 

@@ -414,7 +414,8 @@
     <string name="elem_LedMatrix_pin_c-addr">The number of the current column whose state is currently visible at the other input.</string>
 
     <string name="elem_TransGate">Transmission-Gate</string>
-    <string name="elem_TransGate_tt">A real transmission-gate is build from only two transistors.</string>
+    <string name="elem_TransGate_tt">A real transmission-gate is build from only two transistors.
+        Therefore, it is often used to save transistors during implementation on silicon.</string>
     <string name="elem_TransGate_pin_A">input A</string>
     <string name="elem_TransGate_pin_B">input B</string>
     <string name="elem_TransGate_pin_S">control input.</string>
@@ -513,6 +514,7 @@ The names of the variables may not be unique.</string>
     <string name="err_toManyBits_Found_N0_maxIs_N1">Only {1} bits allowed, but {0} bits found!</string>
     <string name="err_MultiBitFlipFlopFound">Flipflops with more then one bits are not allowed!</string>
     <string name="err_invalidTransmissionGateState">The two control inputs of a transmission gate must be inverted!</string>
+    <string name="err_nameUsedTwice_N">Signal {0} is used twice!</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>

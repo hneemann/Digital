@@ -54,7 +54,10 @@ public class Parser {
             Tokenizer.Token token = tok.simpleIdent();
             switch (token) {
                 case IDENT:
-                    names.add(tok.getIdent());
+                    final String name = tok.getIdent();
+                    if (names.contains(name))
+                        throw new ParserException(Lang.get("err_nameUsedTwice_N", name));
+                    names.add(name);
                     break;
                 case EOL:
                     return;

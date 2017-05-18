@@ -61,14 +61,14 @@ public class TestResult {
             final int index = getIndexOf(s.getName());
             if (index >= 0) {
                 inputs.add(new TestSignal(index, s.getValue()));
-                usedSignals.add(s.getName());
+                addTo(usedSignals, s.getName());
             }
         }
         for (Clock c : model.getClocks()) {
             final int index = getIndexOf(c.getLabel());
             if (index >= 0) {
                 inputs.add(new TestSignal(index, c.getClockOutput()));
-                usedSignals.add(c.getLabel());
+                addTo(usedSignals, c.getLabel());
             }
         }
 
@@ -77,7 +77,7 @@ public class TestResult {
             final int index = getIndexOf(s.getName());
             if (index >= 0) {
                 outputs.add(new TestSignal(index, s.getValue()));
-                usedSignals.add(s.getName());
+                addTo(usedSignals, s.getName());
             }
         }
 
@@ -105,6 +105,12 @@ public class TestResult {
         }
 
         return this;
+    }
+
+    private void addTo(HashSet<String> signals, String name) throws TestingDataException {
+        if (signals.contains(name))
+            throw new TestingDataException(Lang.get("err_nameUsedTwice_N", name));
+        signals.add(name);
     }
 
     private void checkRow(Model model, Value[] row) {
