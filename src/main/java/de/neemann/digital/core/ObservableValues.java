@@ -5,6 +5,7 @@ import de.neemann.digital.core.element.ImmutableList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * @author hneemann
@@ -14,7 +15,7 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
     /**
      * Builder for ObservableValues
      */
-    public static class Builder {
+    public static class Builder implements Iterable<ObservableValue> {
         private ArrayList<ObservableValue> values;
 
         /**
@@ -51,6 +52,11 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
          */
         public ObservableValues build() {
             return new ObservableValues(values);
+        }
+
+        @Override
+        public Iterator<ObservableValue> iterator() {
+            return values.iterator();
         }
     }
 

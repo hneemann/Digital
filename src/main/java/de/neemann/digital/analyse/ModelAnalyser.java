@@ -33,6 +33,7 @@ public class ModelAnalyser {
     private final ArrayList<Signal> inputs;
     private final ArrayList<Signal> outputs;
     private final int rows;
+    private int uniqueIndex = 0;
 
     /**
      * Creates a new instance
@@ -69,7 +70,7 @@ public class ModelAnalyser {
             ff.getDInput().removeObserver(ff); // turn off flipflop
             String label = ff.getLabel();
             if (label.length() == 0)
-                throw new AnalyseException(Lang.get("err_DFlipflopWithoutALabel"));
+                label = createUniqueName(ff);
 
             if (!label.endsWith("n"))
                 label += "n";
@@ -93,6 +94,21 @@ public class ModelAnalyser {
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
         rows = 1 << inputs.size();
+    }
+
+    private String createUniqueName(FlipflopD ff) {
+        ObservableValue q = ff.getOutputs().get(0);
+        for (Signal o : outputs) {
+            if (o.getValue() == q)
+                return o.getName();
+        }
+
+        String name;
+        do {
+            name = "Z" + uniqueIndex;
+            uniqueIndex++;
+        } while (inputs.contains(new Signal(name, null)));
+        return name;
     }
 
     private void checkUnique(ArrayList<Signal> signals) throws AnalyseException {
@@ -127,31 +143,35 @@ public class ModelAnalyser {
 
                     Splitter insp = Splitter.createOneToN(ff.getBits());
                     insp.setInputs(new ObservableValues(ff.getDInput()));
+                    ff.getDInput().fireHasChanged();
 
                     Splitter outsp = Splitter.createNToOne(ff.getBits());
-                    Splitter noutsp = Splitter.createNToOne(ff.getBits());
-
 
                     ObservableValues.Builder spinput = new ObservableValues.Builder();
-                    ObservableValues.Builder spninput = new ObservableValues.Builder();
+                    String label = ff.getLabel();
+                    if (label.length() == 0)
+                        label = createUniqueName(ff);
                     for (int i = 0; i < ff.getBits(); i++) {
                         ObservableValue qn = new ObservableValue("", 1);
                         ObservableValue nqn = new ObservableValue("", 1);
-                        FlipflopD newff = new FlipflopD(ff.getLabel() + i, qn, nqn);
+                        FlipflopD newff = new FlipflopD(label + i, qn, nqn);
                         spinput.add(qn);
-                        spninput.add(nqn);
-                        newff.setInputs(new ObservableValues(insp.getOutputs().get(i), getClock()));
                         model.add(newff);
+                        newff.setInputs(new ObservableValues(insp.getOutputs().get(i), getClock()));
                         out.add(newff);
                     }
                     outsp.setInputs(spinput.build());
-                    noutsp.setInputs(spninput.build());
+                    for (ObservableValue v : spinput)
+                        v.fireHasChanged();
 
-                    final FlipflopD oldff = ff;
+                    final ObservableValue qout = ff.getOutputs().get(0);
+                    final ObservableValue nqout = ff.getOutputs().get(1);
                     ObservableValue spq = outsp.getOutputs().get(0);
-                    spq.addObserver(() -> oldff.getOutputs().get(0).setValue(spq.getValue()));
-                    ObservableValue spnq = noutsp.getOutputs().get(0);
-                    spnq.addObserver(() -> oldff.getOutputs().get(1).setValue(spnq.getValue()));
+                    spq.addObserver(() -> {
+                        final long value = spq.getValue();
+                        qout.setValue(value);
+                        nqout.setValue(~value);
+                    });
 
                 } catch (NodeException e) {
                     throw new AnalyseException(e);
