@@ -78,6 +78,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(DummyElement.TEXTDESCRIPTION)
                         .add(Probe.DESCRIPTION)
                         .add(new LibraryNode(Lang.get("lib_more"))
+                                .add(LightBulb.DESCRIPTION)
                                 .add(Out.SEVENDESCRIPTION)
                                 .add(Out.SEVENHEXDESCRIPTION)
                                 .add(LedMatrix.DESCRIPTION)

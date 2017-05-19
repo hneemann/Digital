@@ -431,6 +431,11 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_TransGate_pin_S">Steuereingang</string>
     <string name="elem_TransGate_pin_~S">Steuereingang, invertiert</string>
 
+    <string name="elem_LightBulb">Glühlämpchen</string>
+    <string name="elem_LightBulb_tt">Glühlämpchen mit zwei Anschlüssen: Wenn ein Strom fließt, leuchtet das Lämpchen.</string>
+    <string name="elem_LightBulb_pin_A">Anschluss</string>
+    <string name="elem_LightBulb_pin_B">Anschluss</string>
+
     <string name="error">Fehler</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in Element {1} ist werder Eingang noch Ausgang</string>
     <string name="err_aSingleClockNecessary">Es muss genau ein Taktelement geben. Alle Flipflops müssen an diesem Takt hängen.</string>

@@ -421,6 +421,11 @@
     <string name="elem_TransGate_pin_S">control input.</string>
     <string name="elem_TransGate_pin_~S">inverted control input</string>
 
+    <string name="elem_LightBulb">Light Bulb</string>
+    <string name="elem_LightBulb_tt">Light bulb with two connections. If a current flows, the bulb lights up!</string>
+    <string name="elem_LightBulb_pin_A">Connection</string>
+    <string name="elem_LightBulb_pin_B">Connection</string>
+
     <string name="error">Error</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>
     <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock signal.</string>
