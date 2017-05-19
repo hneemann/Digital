@@ -427,7 +427,7 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_TransGate_tt">Ein reales Transmissionsgatter ist aus nur zwei Transistoren aufgebaut.
         Daher wird es oft eingesetzt um Transistoren einzusparen.</string>
     <string name="elem_TransGate_pin_A">Eingang A</string>
-    <string name="elem_TransGate_pin_B">Eingang_B</string>
+    <string name="elem_TransGate_pin_B">Eingang B</string>
     <string name="elem_TransGate_pin_S">Steuereingang</string>
     <string name="elem_TransGate_pin_~S">Steuereingang, invertiert</string>
 
