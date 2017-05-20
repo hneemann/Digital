@@ -47,6 +47,16 @@ These are the main features of Digital:
 - Good test coverage (exclusive of GUI classes about 80%).
   Almost all examples contain test cases which ensure that they work correctly.
 
+## Comments ##
+
+If you want to send a bug report or feature request please use the GitHub 
+[issue tracker](https://github.com/hneemann/Digital/issues/new). 
+This helps me to improve Digital, so do not hesitate.
+
+If you use Digital in a class you teach please let me also know. You can send a message by creating a GitHub 
+[issue](https://github.com/hneemann/Digital/issues/new) and label it as a comment.
+A private message you can send to [digital-simulator@web.de](mailto:digital-simulator@web.de).
+
 ## Motivation ##
 
 Below I would like to explain briefly the reasons which led me to start a new development:
