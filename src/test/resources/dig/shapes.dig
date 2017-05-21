@@ -11,37 +11,37 @@
     <visualElement>
       <elementName>NAnd</elementName>
       <elementAttributes/>
-      <pos x="140" y="40"/>
+      <pos x="120" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
-      <pos x="260" y="40"/>
+      <pos x="220" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
-      <pos x="360" y="40"/>
+      <pos x="300" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
       <elementAttributes/>
-      <pos x="480" y="40"/>
+      <pos x="400" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>XNOr</elementName>
       <elementAttributes/>
-      <pos x="580" y="40"/>
+      <pos x="480" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
-      <pos x="700" y="60"/>
+      <pos x="580" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>LookUpTable</elementName>
       <elementAttributes/>
-      <pos x="780" y="40"/>
+      <pos x="640" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -71,17 +71,17 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="140" y="200"/>
+      <pos x="60" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="200" y="200"/>
+      <pos x="120" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Button</elementName>
       <elementAttributes/>
-      <pos x="320" y="200"/>
+      <pos x="240" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Probe</elementName>
@@ -91,37 +91,37 @@
           <string>MW</string>
         </entry>
       </elementAttributes>
-      <pos x="340" y="200"/>
+      <pos x="220" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg</elementName>
       <elementAttributes/>
-      <pos x="420" y="160"/>
+      <pos x="300" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg-Hex</elementName>
       <elementAttributes/>
-      <pos x="520" y="160"/>
+      <pos x="400" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
       <elementAttributes/>
-      <pos x="620" y="160"/>
+      <pos x="500" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
       <elementAttributes/>
-      <pos x="1000" y="100"/>
+      <pos x="980" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Demultiplexer</elementName>
       <elementAttributes/>
-      <pos x="1080" y="100"/>
+      <pos x="1060" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Decoder</elementName>
       <elementAttributes/>
-      <pos x="1160" y="100"/>
+      <pos x="1140" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -131,7 +131,7 @@
           <string>Multiplexer</string>
         </entry>
       </elementAttributes>
-      <pos x="980" y="20"/>
+      <pos x="980" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -186,27 +186,27 @@
           <string>Flipflops</string>
         </entry>
       </elementAttributes>
-      <pos x="980" y="220"/>
+      <pos x="980" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>RS_FF</elementName>
       <elementAttributes/>
-      <pos x="1000" y="300"/>
+      <pos x="980" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
       <elementAttributes/>
-      <pos x="1100" y="300"/>
+      <pos x="1080" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
       <elementAttributes/>
-      <pos x="1200" y="300"/>
+      <pos x="1180" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>T_FF</elementName>
       <elementAttributes/>
-      <pos x="1300" y="300"/>
+      <pos x="980" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -216,32 +216,32 @@
           <string>Speicher</string>
         </entry>
       </elementAttributes>
-      <pos x="20" y="480"/>
+      <pos x="20" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
       <elementAttributes/>
-      <pos x="40" y="540"/>
+      <pos x="40" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
       <elementAttributes/>
-      <pos x="120" y="540"/>
+      <pos x="120" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>RAMDualPort</elementName>
       <elementAttributes/>
-      <pos x="220" y="540"/>
+      <pos x="220" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>RAMSinglePort</elementName>
       <elementAttributes/>
-      <pos x="340" y="540"/>
+      <pos x="320" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Counter</elementName>
       <elementAttributes/>
-      <pos x="460" y="540"/>
+      <pos x="420" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -271,12 +271,12 @@
     <visualElement>
       <elementName>Comparator</elementName>
       <elementAttributes/>
-      <pos x="420" y="740"/>
+      <pos x="400" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Neg</elementName>
       <elementAttributes/>
-      <pos x="520" y="740"/>
+      <pos x="500" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -286,7 +286,7 @@
     <visualElement>
       <elementName>DriverInvSel</elementName>
       <elementAttributes/>
-      <pos x="720" y="400"/>
+      <pos x="600" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -306,7 +306,7 @@
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="800" y="400"/>
+      <pos x="440" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -316,27 +316,27 @@
           <string>PLD</string>
         </entry>
       </elementAttributes>
-      <pos x="1000" y="420"/>
+      <pos x="1000" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>DiodeForward</elementName>
       <elementAttributes/>
-      <pos x="1020" y="480"/>
+      <pos x="1020" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>DiodeBackward</elementName>
       <elementAttributes/>
-      <pos x="1060" y="500"/>
+      <pos x="1060" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>PullUp</elementName>
       <elementAttributes/>
-      <pos x="1120" y="500"/>
+      <pos x="1120" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>PullDown</elementName>
       <elementAttributes/>
-      <pos x="1180" y="480"/>
+      <pos x="1180" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -346,87 +346,102 @@
           <string>Test</string>
         </entry>
       </elementAttributes>
-      <pos x="1000" y="560"/>
+      <pos x="1000" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
       <elementAttributes/>
-      <pos x="980" y="600"/>
+      <pos x="980" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Terminal</elementName>
       <elementAttributes/>
-      <pos x="740" y="180"/>
+      <pos x="620" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Keyboard</elementName>
       <elementAttributes/>
-      <pos x="740" y="280"/>
+      <pos x="620" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>GraphicCard</elementName>
       <elementAttributes/>
-      <pos x="580" y="540"/>
+      <pos x="520" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>BitCount</elementName>
       <elementAttributes/>
-      <pos x="640" y="740"/>
+      <pos x="620" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="600" y="460"/>
+      <pos x="240" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>VDD</elementName>
       <elementAttributes/>
-      <pos x="660" y="460"/>
+      <pos x="300" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Switch</elementName>
       <elementAttributes/>
-      <pos x="720" y="460"/>
+      <pos x="500" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Relay</elementName>
       <elementAttributes/>
-      <pos x="780" y="620"/>
+      <pos x="1100" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
       <elementAttributes/>
-      <pos x="840" y="580"/>
+      <pos x="1220" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
       <elementAttributes/>
-      <pos x="880" y="580"/>
+      <pos x="1260" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>RotEncoder</elementName>
       <elementAttributes/>
-      <pos x="900" y="180"/>
+      <pos x="780" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>RAMSinglePortSel</elementName>
       <elementAttributes/>
-      <pos x="680" y="540"/>
+      <pos x="620" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>FGPFET</elementName>
       <elementAttributes/>
-      <pos x="880" y="640"/>
+      <pos x="1260" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>FGNFET</elementName>
       <elementAttributes/>
-      <pos x="840" y="640"/>
+      <pos x="1220" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>TransGate</elementName>
       <elementAttributes/>
-      <pos x="800" y="740"/>
+      <pos x="1020" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>LightBulb</elementName>
+      <elementAttributes/>
+      <pos x="140" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>JK_FF_AS</elementName>
+      <elementAttributes/>
+      <pos x="1180" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>D_FF_AS</elementName>
+      <elementAttributes/>
+      <pos x="1080" y="300"/>
     </visualElement>
   </visualElements>
   <wires/>
