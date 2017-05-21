@@ -1151,44 +1151,28 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            JFileChooser fc = new MyFileChooser();
+            if (filename != null)
+                fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, "gif"));
 
-            if (model == null)
-                new ErrorMessage(Lang.get("msg_modelNeedsToBeStarted")).show(Main.this);
-            else {
+            if (lastExportDirectory != null)
+                fc.setCurrentDirectory(lastExportDirectory);
 
-                String numStr = JOptionPane.showInputDialog(Lang.get("msg_numberOfFrames"));
-                if (numStr != null) {
-
-                    int f = 0;
-                    try {
-                        f = Integer.parseInt(numStr);
-                    } catch (NumberFormatException e1) {
-                        new ErrorMessage().addCause(e1).show(Main.this);
+            fc.addChoosableFileFilter(new FileNameExtensionFilter(name, "gif"));
+            new SaveAsHelper(Main.this, fc, "gif").checkOverwrite(
+                    file -> {
+                        lastExportDirectory = file.getParentFile();
+                        try {
+                            GifExporter ge = new GifExporter(Main.this, circuitComponent.getCircuit(), 500).export(file);
+                            setDebug(false);
+                            windowPosManager.closeAll();
+                            runModelState.enter(false, ge);
+                            circuitComponent.hasChanged();
+                        } catch (NodeException e1) {
+                            new ErrorMessage().addCause(e1).show(Main.this);
+                        }
                     }
-                    final int frames = f;
-                    if (frames > 0) {
-
-                        JFileChooser fc = new MyFileChooser();
-                        if (filename != null)
-                            fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, "gif"));
-
-                        if (lastExportDirectory != null)
-                            fc.setCurrentDirectory(lastExportDirectory);
-
-                        fc.addChoosableFileFilter(new FileNameExtensionFilter(name, "gif"));
-                        new SaveAsHelper(Main.this, fc, "gif").checkOverwrite(
-                                file -> {
-                                    lastExportDirectory = file.getParentFile();
-                                    try {
-                                        new GifExporter(model, circuitComponent.getCircuit(), frames, 500).export(file);
-                                    } catch (NodeException e1) {
-                                        new ErrorMessage().addCause(e1).show(Main.this);
-                                    }
-                                }
-                        );
-                    }
-                }
-            }
+            );
         }
     }
 

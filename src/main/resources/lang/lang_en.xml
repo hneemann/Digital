@@ -847,8 +847,10 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_speedTestError">Error during speed test!</string>
     <string name="msg_pin_N">Pin {0}</string>
     <string name="msg_numberingWizard">Numbering Wizard</string>
-    <string name="msg_modelNeedsToBeStarted">The circuit needs to be started.</string>
-    <string name="msg_numberOfFrames">Number of frames:</string>
+    <string name="msg_framesWritten_N">Written frames: {0}</string>
+    <string name="msg_errorWritingGif">Error writing to GIF file!</string>
+    <string name="btn_gifComplete">Ready</string>
+    <string name="btn_gifComplete_tt">The GIF file is finalized and closed.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
