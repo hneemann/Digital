@@ -862,6 +862,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_errorWritingGif">Fehler beim Schreiben der GIF Datei!</string>
     <string name="btn_gifComplete">Fertig</string>
     <string name="btn_gifComplete_tt">Die GIF-Datei wird abgeschlossen.</string>
+    <string name="msg_gifExport">GIF-Export</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

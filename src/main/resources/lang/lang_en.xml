@@ -851,6 +851,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_errorWritingGif">Error writing to GIF file!</string>
     <string name="btn_gifComplete">Ready</string>
     <string name="btn_gifComplete_tt">The GIF file is finalized and closed.</string>
+    <string name="msg_gifExport">GIF Export</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

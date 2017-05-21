@@ -32,6 +32,7 @@ public class TestShapes extends TestCase {
     private void useShapes(boolean ieee) throws Exception {
         File filename = new File(Resources.getRoot(), "dig/shapes.dig");
         ElementLibrary library = new ElementLibrary();
+        library.setRootFilePath(new File(Resources.getRoot(), "dig"));
         ShapeFactory shapeFactory = new ShapeFactory(library, ieee);
         Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
 

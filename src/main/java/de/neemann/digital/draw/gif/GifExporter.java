@@ -51,7 +51,7 @@ public class GifExporter extends JDialog implements ModelStateObserver, ModelMod
      * @param delayMs the delay between frames im milliseconds
      */
     public GifExporter(JFrame parent, Circuit circuit, int delayMs) {
-        super(parent, "GIF-Export", false);
+        super(parent, Lang.get("msg_gifExport"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frameLabel = new JLabel(Lang.get("msg_framesWritten_N", frames));
         frameLabel.setFont(Screen.getInstance().getFont(1.5f));

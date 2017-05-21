@@ -443,6 +443,11 @@
       <elementAttributes/>
       <pos x="1080" y="300"/>
     </visualElement>
+    <visualElement>
+      <elementName>MS-JK-DIL.dig</elementName>
+      <elementAttributes/>
+      <pos x="780" y="460"/>
+    </visualElement>
   </visualElements>
   <wires/>
 </circuit>
