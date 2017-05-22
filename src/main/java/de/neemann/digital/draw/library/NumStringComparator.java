@@ -6,8 +6,8 @@ import static java.lang.Character.isDigit;
 
 /**
  * String comparator.
- * If the string begins with a digit, the numbers are taken to compare the two strings.
- * Used to ensure the 74xx components appear in the correct order instead of lexical order.
+ * If the string contains a digit, the numbers are taken to compare the two strings.
+ * Used to ensure the 74xx components appear in the correct numerical order instead of lexical order.
  * Created by hneemann on 15.05.17.
  */
 public final class NumStringComparator implements Comparator<String> {
@@ -41,62 +41,50 @@ public final class NumStringComparator implements Comparator<String> {
      * @return the comparison result
      */
     public static int compareStr(String a, String b) {
-        NumString na = new NumString(a);
-        NumString nb = new NumString(b);
-        return na.compareTo(nb);
-    }
+        int pa = 0;
+        int pb = 0;
+        while (true) {
+            final boolean ae = pa == a.length();
+            final boolean be = pb == b.length();
+            if (ae && be) return 0;
+            else if (ae) return -1;
+            else if (be) return 1;
 
-    private static final class NumString implements Comparable<NumString> {
-        private final int num;
-        private final String str;
-        private final boolean isNum;
+            char ca = Character.toLowerCase(a.charAt(pa));
+            char cb = Character.toLowerCase(b.charAt(pb));
 
-        private NumString(String str) {
-            str = str.trim();
-            if (str.length() > 0 && isDigit(str.charAt(0))) {
-                isNum = true;
-                int n = 0;
-                int i = 0;
-                while (i < str.length() && isDigit(str.charAt(i))) {
-                    n = n * 10 + (str.charAt(i) - '0');
-                    i++;
+            if (isDigit(ca) && isDigit(cb)) {
+                ParseNumber da = new ParseNumber(a, pa);
+                ParseNumber db = new ParseNumber(b, pb);
+                int c = Integer.compare(da.num, db.num);
+                if (c != 0)
+                    return c;
+                else {
+                    pa = da.p;
+                    pb = db.p;
                 }
-                this.str = str.substring(i);
-                this.num = n;
             } else {
-                this.str = str;
-                num = 0;
-                isNum = false;
+                int c = Character.compare(ca, cb);
+                if (c != 0) {
+                    return c;
+                } else {
+                    pa++;
+                    pb++;
+                }
             }
         }
+    }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+    private static final class ParseNumber {
+        private int num;
+        private int p;
 
-            NumString numString = (NumString) o;
-
-            if (num != numString.num) return false;
-            return str != null ? str.equalsIgnoreCase(numString.str) : numString.str == null;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = num;
-            result = 31 * result + (str != null ? str.toLowerCase().hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public int compareTo(NumString other) {
-            if (isNum && other.isNum) {
-                if (num != other.num)
-                    return num - other.num;
-                else
-                    return str.compareToIgnoreCase(other.str);
-            } else
-                return str.compareToIgnoreCase(other.str);
+        private ParseNumber(String a, int sp) {
+            p = sp;
+            while (p < a.length() && isDigit(a.charAt(p))) {
+                num = num * 10 + (a.charAt(p) - '0');
+                p++;
+            }
         }
     }
 
