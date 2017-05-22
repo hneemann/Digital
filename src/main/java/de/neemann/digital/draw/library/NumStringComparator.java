@@ -71,6 +71,24 @@ public final class NumStringComparator implements Comparator<String> {
         }
 
         @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            NumString numString = (NumString) o;
+
+            if (num != numString.num) return false;
+            return str != null ? str.equalsIgnoreCase(numString.str) : numString.str == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = num;
+            result = 31 * result + (str != null ? str.toLowerCase().hashCode() : 0);
+            return result;
+        }
+
+        @Override
         public int compareTo(NumString other) {
             if (isNum && other.isNum) {
                 if (num != other.num)

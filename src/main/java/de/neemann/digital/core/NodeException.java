@@ -105,7 +105,7 @@ public class NodeException extends Exception {
                             }
 
                         }
-                    } catch (Exception e) {
+                    } catch (IllegalAccessException | NoSuchFieldException e) {
                         // ignore an error accessing the ElementTypeDescription
                     }
             }
