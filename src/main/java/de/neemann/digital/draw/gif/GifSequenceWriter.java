@@ -1,11 +1,11 @@
 package de.neemann.digital.draw.gif;
 
 import javax.imageio.*;
-import javax.imageio.metadata.*;
-import javax.imageio.stream.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.metadata.IIOMetadataNode;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.RenderedImage;
+import java.io.IOException;
 import java.util.Iterator;
 
 /**
@@ -17,6 +17,8 @@ import java.util.Iterator;
  * License. To view a copy of this license, visit
  * http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
  * Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+ * <p>
+ * Minor modifications made be hneemann, 2011-05-17
  */
 public class GifSequenceWriter implements AutoCloseable {
     private ImageWriter gifWriter;
