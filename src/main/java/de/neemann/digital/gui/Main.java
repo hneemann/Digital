@@ -1162,15 +1162,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             new SaveAsHelper(Main.this, fc, "gif").checkOverwrite(
                     file -> {
                         lastExportDirectory = file.getParentFile();
-                        try {
-                            GifExporter ge = new GifExporter(Main.this, circuitComponent.getCircuit(), 500).export(file);
-                            setDebug(false);
-                            windowPosManager.closeAll();
-                            runModelState.enter(false, ge);
-                            circuitComponent.hasChanged();
-                        } catch (NodeException e1) {
-                            new ErrorMessage().addCause(e1).show(Main.this);
-                        }
+                        GifExporter gifExporter = new GifExporter(Main.this, circuitComponent.getCircuit(), 500, file);
+                        setDebug(false);
+                        windowPosManager.closeAll();
+                        runModelState.enter(false, gifExporter);
+                        circuitComponent.hasChanged();
                     }
             );
         }

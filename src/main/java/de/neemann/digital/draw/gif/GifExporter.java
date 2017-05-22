@@ -30,12 +30,14 @@ import java.io.IOException;
 
 /**
  * Exporter which creates an animated GIF file.
+ * You can attach it to a model and then every modification
+ * of the running circuit is reordered as a new frame in the
+ * GIF file.
  * Created by hneemann on 17.05.17.
  */
 public class GifExporter extends JDialog implements ModelStateObserver, ModelModifier {
     private static final Logger LOGGER = LoggerFactory.getLogger(GifExporter.class);
     private final Circuit circuit;
-    private final int delayMs;
     private final GraphicMinMax minMax;
     private final JLabel frameLabel;
     private int frames;
@@ -49,8 +51,10 @@ public class GifExporter extends JDialog implements ModelStateObserver, ModelMod
      * @param parent  the parent frame
      * @param circuit the circuit to export
      * @param delayMs the delay between frames im milliseconds
+     * @param file    the file to write
+     * @throws IOException IOException
      */
-    public GifExporter(JFrame parent, Circuit circuit, int delayMs) {
+    public GifExporter(JFrame parent, Circuit circuit, int delayMs, File file) throws IOException {
         super(parent, Lang.get("msg_gifExport"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frameLabel = new JLabel(Lang.get("msg_framesWritten_N", frames));
@@ -73,27 +77,15 @@ public class GifExporter extends JDialog implements ModelStateObserver, ModelMod
         }.setToolTip(Lang.get("btn_gifComplete_tt")).createJButton(), BorderLayout.SOUTH);
 
         this.circuit = circuit;
-        this.delayMs = delayMs;
         minMax = new GraphicMinMax();
         circuit.drawTo(minMax);
 
-        pack();
-        setLocation(parent.getLocation());
-    }
-
-    /**
-     * Exports the file
-     *
-     * @param file the file to write
-     * @return this for chained calls
-     * @throws IOException   IOException
-     * @throws NodeException NodeException
-     */
-    public GifExporter export(File file) throws IOException, NodeException {
+        LOGGER.debug("open GIF file");
         output = new FileImageOutputStream(file);
         writer = new GifSequenceWriter(output, BufferedImage.TYPE_INT_ARGB, delayMs, true);
-        LOGGER.debug("open GIF file");
-        return this;
+
+        pack();
+        setLocation(parent.getLocation());
     }
 
     private void close() {
@@ -118,9 +110,8 @@ public class GifExporter extends JDialog implements ModelStateObserver, ModelMod
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event.equals(ModelEvent.STEP)) {
+        if (event.equals(ModelEvent.STEP))
             writeImage();
-        }
     }
 
     private void writeImage() {
