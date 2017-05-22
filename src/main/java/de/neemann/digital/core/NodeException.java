@@ -11,7 +11,9 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
- * Exception is thrown if the was a problem creating or running the model.
+ * This exception is thrown if there was a problem creating or running the model.
+ * Call one of the constructors with as much information as possible to create
+ * a useful error message.
  *
  * @author hneemann
  */
