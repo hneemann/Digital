@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>D-MS.dig</elementName>
@@ -22,7 +23,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>D</string>
+          <string>$D$</string>
         </entry>
       </elementAttributes>
       <pos x="140" y="120"/>
@@ -46,7 +47,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C</string>
+          <string>$C$</string>
         </entry>
       </elementAttributes>
       <pos x="140" y="200"/>
@@ -80,31 +81,53 @@
       <pos x="440" y="80"/>
     </visualElement>
     <visualElement>
+      <elementName>D-MS.dig</elementName>
+      <elementAttributes/>
+      <pos x="620" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>D_3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="720" y="80"/>
+    </visualElement>
+    <visualElement>
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>C D D_0 D_1 D_2
+            <dataString>C D D_0 D_1 D_2 D_3
 # clear all bits
-C 0  0   x   x
-C 0  0   0   x
-C 0  0   0   0
+C 0  0   x   x   x
+C 0  0   0   x   x
+C 0  0   0   0   x
+C 0  0   0   0   0
 
 # fill with one
-C 1  1   0   0
-C 1  1   1   0
-C 1  1   1   1
+C 1  1   0   0   0
+C 1  1   1   0   0
+C 1  1   1   1   0
+C 1  1   1   1   1
 
 # fill with zero
-C 0  0   1   1
-C 0  0   0   1
-C 0  0   0   0
+C 0  0   1   1   1
+C 0  0   0   1   1
+C 0  0   0   0   1
+C 0  0   0   0   0
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="480" y="260"/>
+      <pos x="620" y="200"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -125,6 +148,10 @@ C 0  0   0   0
       <p2 x="580" y="120"/>
     </wire>
     <wire>
+      <p1 x="680" y="120"/>
+      <p2 x="720" y="120"/>
+    </wire>
+    <wire>
       <p1 x="440" y="120"/>
       <p2 x="480" y="120"/>
     </wire>
@@ -133,16 +160,24 @@ C 0  0   0   0
       <p2 x="340" y="120"/>
     </wire>
     <wire>
+      <p1 x="580" y="120"/>
+      <p2 x="620" y="120"/>
+    </wire>
+    <wire>
       <p1 x="140" y="200"/>
       <p2 x="180" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="200"/>
+      <p2 x="460" y="200"/>
     </wire>
     <wire>
       <p1 x="180" y="200"/>
       <p2 x="320" y="200"/>
     </wire>
     <wire>
-      <p1 x="320" y="200"/>
-      <p2 x="460" y="200"/>
+      <p1 x="460" y="200"/>
+      <p2 x="600" y="200"/>
     </wire>
     <wire>
       <p1 x="180" y="140"/>
@@ -157,8 +192,16 @@ C 0  0   0   0
       <p2 x="480" y="140"/>
     </wire>
     <wire>
+      <p1 x="600" y="140"/>
+      <p2 x="620" y="140"/>
+    </wire>
+    <wire>
       <p1 x="320" y="140"/>
       <p2 x="320" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="80"/>
+      <p2 x="720" y="120"/>
     </wire>
     <wire>
       <p1 x="580" y="80"/>
@@ -171,6 +214,10 @@ C 0  0   0   0
     <wire>
       <p1 x="440" y="80"/>
       <p2 x="440" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="140"/>
+      <p2 x="600" y="200"/>
     </wire>
     <wire>
       <p1 x="460" y="140"/>
