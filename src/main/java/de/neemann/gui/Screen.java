@@ -51,7 +51,7 @@ public final class Screen {
                             javax.swing.UIManager.put(key, new ScaleIcon(icon, scaling));
                     }
                 }
-                UIManager.put("ScrollBar.width", (int) (size * 17 / 12));
+                UIManager.put("ScrollBar.width", size * 17 / 12);
             }
         } catch (HeadlessException e) {
             // run with defaults if headless
