@@ -197,6 +197,7 @@ public class ModelAnalyser {
                         outputs.add(new Signal(s.getName() + i, out));
                         i++;
                     }
+                    s.getValue().fireHasChanged();
                 } catch (NodeException e) {
                     throw new AnalyseException(e);
                 }
@@ -216,6 +217,7 @@ public class ModelAnalyser {
                     Splitter sp = Splitter.createNToOne(bits);
                     final ObservableValue out = sp.getOutputs().get(0);
                     out.addObserver(() -> s.getValue().setValue(out.getValue()));
+                    out.fireHasChanged();
 
                     ObservableValues.Builder builder = new ObservableValues.Builder();
                     for (int i = 0; i < bits; i++) {
