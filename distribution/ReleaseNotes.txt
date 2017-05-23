@@ -3,6 +3,7 @@ Release Notes
 Planned as v0.12
 - Added a locked mode, which avoids the unwanted modification of the circuit.
 - Better support for high dpi screens.
+- Added a pin number attribute to inputs and outputs.
 - Added DIP packages to allow more "physical" circuits. See examples/74xx.
   Up to now only a view 74xx circuits are available.
 - Add some functions to make it easier to create 74xx circuits.
