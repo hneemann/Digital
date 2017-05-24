@@ -58,4 +58,32 @@ public enum ThreeStateValue {
     public int asInt() {
         return ordinal();
     }
+
+    /**
+     * @return the inverted value; DC remains DC
+     */
+    public ThreeStateValue invert() {
+        switch (this) {
+            case zero:
+                return one;
+            case one:
+                return zero;
+            default:
+                return dontCare;
+        }
+    }
+
+    /**
+     * @return returns the value as a bool
+     */
+    public boolean bool() {
+        switch (this) {
+            case zero:
+                return false;
+            case one:
+                return true;
+            default:
+                throw new RuntimeException("don't care not allowed");
+        }
+    }
 }
