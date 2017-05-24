@@ -117,6 +117,17 @@ public class ModelAnalyserTest extends TestCase {
     public void testAnalyzerMultiBit2() throws Exception {
         Model model = new ToBreakRunner("dig/analyze/multiBitInOut.dig", false).getModel();
         TruthTable tt = new ModelAnalyser(model).analyse();
+        checkIdent(tt);
+    }
+
+    // test with non zero default values set
+    public void testAnalyzerMultiBit3() throws Exception {
+        Model model = new ToBreakRunner("dig/analyze/multiBitInOutDef.dig", false).getModel();
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        checkIdent(tt);
+    }
+
+    private void checkIdent(TruthTable tt) {
         assertEquals("B0",tt.getResultName(0));
         final BoolTable r0 = tt.getResult(0);
         assertEquals(4,r0.size());
@@ -133,6 +144,5 @@ public class ModelAnalyserTest extends TestCase {
         assertEquals(zero,r1.get(2));
         assertEquals(one,r1.get(3));
     }
-
 
 }
