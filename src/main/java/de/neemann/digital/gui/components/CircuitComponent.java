@@ -87,6 +87,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private boolean hasChanged = true;
     private boolean focusWasLost = false;
     private boolean lockMessageShown = false;
+    private boolean antiAlias = true;
 
 
     /**
@@ -460,20 +461,32 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 || needsNewBuffer
                 || highLighted.size() != highlightedPaintedSize) {
 
-//            long time = System.currentTimeMillis();
             if (needsNewBuffer)
                 buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
 
             Graphics2D gr2 = buffer.createGraphics();
+            if (antiAlias) {
+                gr2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                gr2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                gr2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            }
             gr2.setColor(Color.WHITE);
             gr2.fillRect(0, 0, getWidth(), getHeight());
             gr2.transform(transform);
 
             GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
+
+            long time = System.currentTimeMillis();
             circuit.drawTo(gr, highLighted, modelSync);
+            time = System.currentTimeMillis() - time;
+
+            if (time > 500) antiAlias = false;
+            if (time < 50) antiAlias = true;
+
+//            System.out.println("repaint: " + Long.toString(time) + "ms");
+
             highlightedPaintedSize = highLighted.size();
             hasChanged = false;
-//            System.out.println("repaint: " + Long.toString(System.currentTimeMillis() - time) + "ms");
         }
 
         g.drawImage(buffer, 0, 0, null);
