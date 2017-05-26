@@ -1308,13 +1308,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
-    private void rotateElements(ArrayList<Movable> elements, Vector pos) {
-        ModifyMoveSelected.rotateElements(elements, pos);
-        circuit.modified();
-        hasChanged();
-    }
-
-
     private final class MouseControllerMoveSelected extends MouseController {
         private ArrayList<Movable> elements;
         private Vector lastPos;
@@ -1449,7 +1442,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void rotate() {
-            rotateElements(elements, lastPos);
+            ModifyMoveSelected.rotateElements(elements, raster(lastPos));
+            circuit.modified();
+            hasChanged();
         }
 
         @Override
