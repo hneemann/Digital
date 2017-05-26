@@ -32,6 +32,7 @@ public final class Settings implements AttributeListener {
         INT_LIST.add(Keys.SETTINGS_IEEE_SHAPES);
         INT_LIST.add(Keys.SETTINGS_LANGUAGE);
         INT_LIST.add(Keys.SETTINGS_EXPRESSION_FORMAT);
+        INT_LIST.add(Keys.SETTINGS_DEFAULT_TREESELECT);
         INT_LIST.add(Keys.SETTINGS_ATF1502_FITTER);
     }
 

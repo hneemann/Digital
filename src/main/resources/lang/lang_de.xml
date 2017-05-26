@@ -641,6 +641,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Pinzuordnung bei der Programmierung eines CPLD verwendet.</string>
     <string name="key_pinCount">Pinanzahl DIL</string>
     <string name="key_pinCount_tt">Anzahl der Pins des DILs. Wird hier eine 0 eingetragen, wird die Anzahl automatisch bestimmt.</string>
+    <string name="key_defTreeSelect">Baumansicht beim Start aktivieren.</string>
+    <string name="key_defTreeSelect_tt">Wenn gesetzt, wird die Baumansicht beim Start automatisch aktiviert.</string>
 
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>

@@ -631,7 +631,8 @@ The names of the variables may not be unique.</string>
         the pin assignment when programming a CPLD.</string>
     <string name="key_pinCount">Number of DIL pins</string>
     <string name="key_pinCount_tt">Number of pins. A zero means that the number od pins is determined automatically.</string>
-
+    <string name="key_defTreeSelect">Component tree view is visible at startup.</string>
+    <string name="key_defTreeSelect_tt">If set, the component tree view is enabled at startup.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>

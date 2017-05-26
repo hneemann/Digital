@@ -252,6 +252,13 @@ public final class Keys {
     public static final Key<Language> SETTINGS_LANGUAGE
             = new Key<>("Language", new Language());
 
+
+    /**
+     * Default state of the tree view
+     */
+    public static final Key<Boolean> SETTINGS_DEFAULT_TREESELECT
+            = new Key<>("defTreeSelect", false);
+
     /**
      * The GUI expression string representation
      */

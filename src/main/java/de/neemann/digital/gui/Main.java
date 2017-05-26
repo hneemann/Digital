@@ -306,6 +306,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
             revalidate();
         });
+        if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT))
+            treeCheckBox.doClick();
 
         toolBar.add(viewHelp.createJButtonNoText());
         toolBar.add(zoomIn.createJButtonNoText());
