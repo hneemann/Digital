@@ -1,5 +1,6 @@
 package de.neemann.digital.testing;
 
+import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.parser.LineEmitter;
 import de.neemann.digital.testing.parser.Parser;
 import de.neemann.digital.testing.parser.ParserException;
@@ -66,7 +67,7 @@ public class TestData {
                 lines = tdp.getLines();
                 names = tdp.getNames();
             } catch (ParserException | IOException e) {
-                throw new TestingDataException(e);
+                throw new TestingDataException(Lang.get("err_errorParsingTestdata"), e);
             }
         }
     }

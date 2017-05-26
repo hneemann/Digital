@@ -61,7 +61,7 @@ public class ErrorMessage implements Runnable {
                 message.append(e.getClass().getSimpleName());
             e = e.getCause();
             if (e != null)
-                message.append("\ncaused by: ");
+                message.append("\n").append(Lang.get("msg_errCausedBy")).append(": ");
         }
     }
 

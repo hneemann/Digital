@@ -13,10 +13,7 @@ import de.neemann.digital.gui.components.testing.TestDataEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestData;
-import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.LineBreaker;
-import de.neemann.gui.MyFileChooser;
-import de.neemann.gui.ToolTipAction;
+import de.neemann.gui.*;
 import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
 
@@ -242,7 +239,15 @@ public final class EditorFactory {
                         button.setBackground(color);
                     }
                 }
-            });
+            }) {
+                @Override
+                protected void paintComponent(Graphics graphics) {
+                    graphics.setColor(Color.WHITE);
+                    graphics.fillRect(0, 0, getWidth(), getHeight());
+                    super.paintComponent(graphics);
+                }
+            };
+            button.setPreferredSize(new Dimension(10, Screen.getInstance().getFontSize() * 3 / 2));
             button.setBackground(color);
         }
 

@@ -7,10 +7,11 @@ public class TestingDataException extends Exception {
     /**
      * creates a new instance
      *
-     * @param cause the cause
+     * @param message the error message
+     * @param cause   the cause
      */
-    public TestingDataException(Exception cause) {
-        super(cause);
+    public TestingDataException(String message, Exception cause) {
+        super(message, cause);
     }
 
     /**
