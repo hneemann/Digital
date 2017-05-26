@@ -1020,7 +1020,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Vector delta;
         private Vector initialPos;
         private int initialRot;
-        private boolean deleted=false;
+        private boolean deleted = false;
 
         private MouseControllerMoveElement(Cursor cursor) {
             super(cursor);
@@ -1067,7 +1067,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (!isLocked()) {
                 circuit.delete(visualElement);
                 addModificationAlreadyMade(new ModifyDeleteElement(visualElement, initialPos));
-                deleted=true;
+                deleted = true;
                 mouseNormal.activate();
                 isManualScale = true;
             }
@@ -1183,7 +1183,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (e.getButton() == MouseEvent.BUTTON3)
                 mouseNormal.activate();
             else {
-                modify(new ModifyAddWire(wire));
+                modify(new ModifyInsertWire(wire));
                 if (circuit.isPinPos(wire.p2))
                     mouseNormal.activate();
                 else
@@ -1288,7 +1288,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         public void delete() {
             if (!isLocked()) {
-                circuit.delete(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                modify(new ModifyDeleteRect(Vector.min(corner1, corner2), Vector.max(corner1, corner2)));
                 mouseNormal.activate();
                 isManualScale = true;
             }
@@ -1309,33 +1309,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
     private void rotateElements(ArrayList<Movable> elements, Vector pos) {
-        Vector p1 = raster(pos);
-
-        Transform transform = new TransformRotate(p1, 1) {
-            @Override
-            public Vector transform(Vector v) {
-                return super.transform(v.sub(p1));
-            }
-        };
-
-        for (Movable m : elements) {
-
-            if (m instanceof VisualElement) {
-                VisualElement ve = (VisualElement) m;
-                ve.rotate();
-                ve.setPos(transform.transform(ve.getPos()));
-            } else if (m instanceof Wire) {
-                Wire w = (Wire) m;
-                w.p1 = transform.transform(w.p1);
-                w.p2 = transform.transform(w.p2);
-            } else {
-                Vector p = m.getPos();
-                Vector t = transform.transform(p);
-                m.move(t.sub(p));
-            }
-
-        }
-
+        ModifyMoveSelected.rotateElements(elements, pos);
         circuit.modified();
         hasChanged();
     }
@@ -1345,7 +1319,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private ArrayList<Movable> elements;
         private Vector lastPos;
         private Vector center;
+        private Vector accumulatedDelta;
+        private int accumulatedRotate;
         private boolean wasMoved;
+        private Vector min;
+        private Vector max;
 
         private MouseControllerMoveSelected(Cursor cursor) {
             super(cursor);
@@ -1355,9 +1333,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             rotateAction.setEnabled(true);
             lastPos = pos;
-            center = corner1.add(corner2).div(2);
+            center = raster(corner1.add(corner2).div(2));
             wasMoved = false;
-            elements = circuit.getElementsToMove(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+            accumulatedDelta = new Vector(0, 0);
+            accumulatedRotate = 0;
+            min = Vector.min(corner1, corner2);
+            max = Vector.max(corner1, corner2);
+            elements = circuit.getElementsToMove(min, max);
         }
 
         @Override
@@ -1374,6 +1356,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (delta.x != 0 || delta.y != 0) {
                     for (Movable m : elements)
                         m.move(delta);
+                    accumulatedDelta = accumulatedDelta.add(delta);
                     wasMoved = true;
 
                     hasChanged();
@@ -1386,15 +1369,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void released(MouseEvent e) {
-            if (wasMoved)
+            if (wasMoved) {
+                addModificationAlreadyMade(new ModifyMoveSelected(min, max, accumulatedDelta, accumulatedRotate, center));
                 circuit.elementsMoved();
+            }
             removeHighLighted();
             mouseNormal.activate();
         }
 
         @Override
         public void rotate() {
-            rotateElements(elements, center);
+            ModifyMoveSelected.rotateElements(elements, center);
+            circuit.modified();
+            hasChanged();
+            accumulatedRotate++;
         }
     }
 
@@ -1446,12 +1434,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         void clicked(MouseEvent e) {
             if (elements != null && e.getButton() == 1) {
+                Modifications.Builder builder = new Modifications.Builder();
                 for (Movable m : elements) {
                     if (m instanceof Wire)
-                        circuit.add((Wire) m);
+                        builder.add(new ModifyInsertWire((Wire) m));
                     if (m instanceof VisualElement)
-                        circuit.add((VisualElement) m);
+                        builder.add(new ModifyInsertElement((VisualElement) m));
                 }
+                modify(builder.build());
             }
             mouseNormal.activate();
             focusWasLost = false;

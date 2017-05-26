@@ -7,11 +7,11 @@ import de.neemann.digital.draw.graphics.Vector;
 /**
  * Created by hneemann on 26.05.17.
  */
-public class ModifyAddWire implements Modification {
+public class ModifyInsertWire implements Modification {
     private final Vector p1;
     private final Vector p2;
 
-    public ModifyAddWire(Wire w) {
+    public ModifyInsertWire(Wire w) {
         p1 = w.p1;
         p2 = w.p2;
     }
