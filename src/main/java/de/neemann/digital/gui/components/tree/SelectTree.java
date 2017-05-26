@@ -37,10 +37,11 @@ public class SelectTree extends JTree {
     public SelectTree(LibraryTreeModel model, CircuitComponent component, ShapeFactory shapeFactory, InsertHistory insertHistory) {
         super(model);
         this.shapeFactory = shapeFactory;
+        setSelectionModel(null);
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-                TreePath path = getSelectionPath();
+            public void mousePressed(MouseEvent mouseEvent) {
+                TreePath path = getClosestPathForLocation(mouseEvent.getX(), mouseEvent.getY());
                 if (path != null && path.getPathCount() > 0) {
                     LibraryNode node = (LibraryNode) path.getLastPathComponent();
                     if (node.isLeaf() && node.isUnique()) {
