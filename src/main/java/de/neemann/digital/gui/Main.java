@@ -104,6 +104,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
     private static final Icon ICON_ZOOM_OUT = IconCreator.create("View-zoom-out.png");
     private static final Icon ICON_HELP = IconCreator.create("help.png");
+
     private final CircuitComponent circuitComponent;
     private final ToolTipAction save;
     private final ElementLibrary library;
@@ -193,6 +194,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         createEditMenu(menuBar);
 
+        toolBar.add(circuitComponent.getUndoAction().createJButtonNoText());
+        toolBar.add(circuitComponent.getRedoAction().createJButtonNoText());
         toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
         toolBar.addSeparator();
 
@@ -473,7 +476,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(),
+                ElementOrder o = new ElementOrder(circuitComponent,
                         element -> element.equalsDescription(In.DESCRIPTION)
                                 || element.equalsDescription(Clock.DESCRIPTION));
                 new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).showDialog();
@@ -483,7 +486,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction orderOutputs = new ToolTipAction(Lang.get("menu_orderOutputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementOrder o = new ElementOrder(circuitComponent.getCircuit(),
+                ElementOrder o = new ElementOrder(circuitComponent,
                         element -> element.equalsDescription(Out.DESCRIPTION)
                                 || element.equalsDescription(Out.LEDDESCRIPTION));
                 new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).showDialog();

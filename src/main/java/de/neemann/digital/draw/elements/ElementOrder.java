@@ -1,7 +1,9 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
+import de.neemann.digital.gui.components.modification.Modification;
 
 import java.util.ArrayList;
 
@@ -15,16 +17,16 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
 
     private final ArrayList<Entry> entries;
     private final ArrayList<VisualElement> elements;
-    private final Circuit circuit;
+    private final CircuitComponent circuitComponent;
 
     /**
      * Creates a new instance
      *
-     * @param circuit     the circuit witch components are to order
-     * @param description the description of the elements to order
+     * @param circuitComponent the circuit witch components are to order
+     * @param description      the description of the elements to order
      */
-    public ElementOrder(Circuit circuit, ElementTypeDescription description) {
-        this(circuit, element -> {
+    public ElementOrder(CircuitComponent circuitComponent, ElementTypeDescription description) {
+        this(circuitComponent, element -> {
             return element.equalsDescription(description);
         });
     }
@@ -32,12 +34,12 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
     /**
      * Creates a new instance
      *
-     * @param circuit the circuit witch components are to order
-     * @param filter  the filter to select the entries to order
+     * @param circuitComponent the circuitComponent witch components are to order
+     * @param filter           the filter to select the entries to order
      */
-    public ElementOrder(Circuit circuit, ElementFilter filter) {
-        this.circuit = circuit;
-        this.elements = circuit.getElements();
+    public ElementOrder(CircuitComponent circuitComponent, ElementFilter filter) {
+        this.circuitComponent = circuitComponent;
+        this.elements = circuitComponent.getCircuit().getElements();
         entries = new ArrayList<>();
         for (int i = 0; i < elements.size(); i++)
             if (filter.accept(elements.get(i))) {
@@ -59,9 +61,8 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
 
     @Override
     public void swap(int i, int j) {
-        VisualElement y = elements.get(entries.get(i).i);
-        elements.set(entries.get(i).i, elements.get(entries.get(j).i));
-        elements.set(entries.get(j).i, y);
+        int index1 = entries.get(i).i;
+        int index2 = entries.get(j).i;
 
         int z = entries.get(i).i;
         entries.get(i).i = entries.get(j).i;
@@ -71,7 +72,11 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
         entries.set(i, entries.get(j));
         entries.set(j, x);
 
-        circuit.modified();
+        circuitComponent.modify(circuit -> {
+            VisualElement y = elements.get(index1);
+            elements.set(index1, elements.get(index2));
+            elements.set(index2, y);
+        });
     }
 
     private final static class Entry {

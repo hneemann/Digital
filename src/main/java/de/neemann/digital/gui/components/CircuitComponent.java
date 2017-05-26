@@ -8,6 +8,8 @@ import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.gui.components.modification.Modification;
+import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
@@ -16,6 +18,7 @@ import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.components.modification.ModifyAttributes;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
@@ -53,6 +56,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * The delete icon, also used from {@link de.neemann.digital.gui.components.terminal.TerminalDialog}
      */
     public static final Icon ICON_DELETE = IconCreator.create("delete.png");
+    private static final Icon ICON_UNDO = IconCreator.create("edit-undo.png");
+    private static final Icon ICON_REDO = IconCreator.create("edit-redo.png");
+
     private static final String DEL_ACTION = "myDelAction";
     private static final String ESC_ACTION = "myEscAction";
     private static final int MOUSE_BORDER_SMALL = 10;
@@ -76,6 +82,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private final AbstractAction copyAction;
     private final AbstractAction pasteAction;
     private final AbstractAction rotateAction;
+    private final ToolTipAction undoAction;
+    private final ToolTipAction redoAction;
 
     private Circuit circuit;
     private MouseController activeMouseController;
@@ -88,6 +96,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private boolean focusWasLost = false;
     private boolean lockMessageShown = false;
     private boolean antiAlias = true;
+
+    private ArrayList<Modification> modifications;
+    private Circuit initialCircuit;
+    private int undoPosition;
 
 
     /**
@@ -161,6 +173,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 activeMouseController.delete();
             }
         }.setToolTip(Lang.get("menu_delete_tt"));
+
+        undoAction = new ToolTipAction(Lang.get("menu_undo"), ICON_UNDO) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                undo();
+            }
+        }.setToolTip(Lang.get("menu_undo_tt"));
+
+        redoAction = new ToolTipAction(Lang.get("menu_redo"), ICON_REDO) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                redo();
+            }
+        }.setToolTip(Lang.get("menu_redo_tt"));
 
         Action escapeAction = new AbstractAction() {
             @Override
@@ -244,10 +270,34 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         VisualElement ve = circuit.getElementAt(pos);
         if (ve != null && library.isProgrammable(ve.getElementName())) {
             boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
-            ve.getElementAttributes().set(Keys.BLOWN, !blown);
-            circuit.modified();
-            hasChanged();
+            modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
         }
+    }
+
+    /**
+     * Apply a modification
+     *
+     * @param modification the modification
+     */
+    public void modify(Modification modification) {
+        modification.modify(circuit);
+        addModificationAlreadyMade(modification);
+    }
+
+    /**
+     * Add a modification already made
+     *
+     * @param modification the modification
+     */
+    public void addModificationAlreadyMade(Modification modification) {
+        while (modifications.size() > undoPosition)
+            modifications.remove(modifications.size() - 1);
+        redoAction.setEnabled(false);
+        modifications.add(modification);
+        undoPosition = modifications.size();
+        undoAction.setEnabled(true);
+        circuit.modified();
+        hasChanged();
     }
 
     /**
@@ -257,6 +307,38 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         hasChanged = true;
         repaint();
     }
+
+    /**
+     * undo last action
+     */
+    public void undo() {
+        if (undoPosition > 0) {
+            circuit = new Circuit(initialCircuit);
+            undoPosition--;
+            for (int i = 0; i < undoPosition; i++)
+                modifications.get(i).modify(circuit);
+            redoAction.setEnabled(true);
+            if (undoPosition == 0)
+                undoAction.setEnabled(false);
+            circuit.modified();
+            hasChanged();
+        }
+    }
+
+    /**
+     * redo last undo
+     */
+    public void redo() {
+        if (undoPosition < modifications.size()) {
+            modifications.get(undoPosition).modify(circuit);
+            undoPosition++;
+            if (undoPosition == modifications.size())
+                redoAction.setEnabled(false);
+            undoAction.setEnabled(true);
+            hasChanged();
+        }
+    }
+
 
     /**
      * @return the main frame
@@ -559,6 +641,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         this.circuit = circuit;
+        modifications = new ArrayList<>();
+        initialCircuit = new Circuit(circuit);
+        undoPosition = 0;
+        undoAction.setEnabled(false);
+        redoAction.setEnabled(false);
 
         circuit.addListener(this);
 
@@ -646,10 +733,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         }
                     }
                 }.setToolTip(Lang.get("attr_help_tt")));
-                if (attributeDialog.showDialog()) {
-                    circuit.modified();
-                    hasChanged();
-                }
+                if (attributeDialog.showDialog())
+                    addModificationAlreadyMade(new ModifyAttributes(vp));
             }
         } catch (ElementNotFoundException ex) {
             // do nothing if element not found!
@@ -677,6 +762,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             lockMessageShown = true;
         }
         return locked;
+    }
+
+    /**
+     * @return undo action
+     */
+    public ToolTipAction getUndoAction() {
+        return undoAction;
+    }
+
+    /**
+     * @return redo action
+     */
+    public ToolTipAction getRedoAction() {
+        return redoAction;
     }
 
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
