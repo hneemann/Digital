@@ -464,11 +464,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
 
             Graphics2D gr2 = buffer.createGraphics();
-            if (antiAlias) {
-                gr2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                gr2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-                gr2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            }
+            enableAntiAlias(gr2);
             gr2.setColor(Color.WHITE);
             gr2.fillRect(0, 0, getWidth(), getHeight());
             gr2.transform(transform);
@@ -493,9 +489,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         Graphics2D gr2 = (Graphics2D) g;
         AffineTransform oldTrans = gr2.getTransform();
         gr2.transform(transform);
+        enableAntiAlias(gr2);
         GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
         activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);
+    }
+
+    private void enableAntiAlias(Graphics2D gr2) {
+        if (antiAlias) {
+            gr2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            gr2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            gr2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        }
     }
 
     @Override
