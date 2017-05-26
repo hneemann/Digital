@@ -22,10 +22,7 @@ import de.neemann.digital.gui.components.modification.ModifyAttributes;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.IconCreator;
-import de.neemann.gui.LineBreaker;
-import de.neemann.gui.ToolTipAction;
+import de.neemann.gui.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,6 +60,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private static final String ESC_ACTION = "myEscAction";
     private static final int MOUSE_BORDER_SMALL = 10;
     private static final int MOUSE_BORDER_LARGE = 50;
+
+    private static final int DRAG_DISTANCE = (int) (SIZE2 * Screen.getInstance().getScaling());
 
     private final Main parent;
     private final ElementLibrary library;
@@ -547,11 +546,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
 
             Graphics2D gr2 = buffer.createGraphics();
-            if (antiAlias) {
-                gr2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                gr2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-                gr2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            }
+            enableAntiAlias(gr2);
             gr2.setColor(Color.WHITE);
             gr2.fillRect(0, 0, getWidth(), getHeight());
             gr2.transform(transform);
@@ -576,9 +571,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         Graphics2D gr2 = (Graphics2D) g;
         AffineTransform oldTrans = gr2.getTransform();
         gr2.transform(transform);
+        enableAntiAlias(gr2);
         GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
         activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);
+    }
+
+    private void enableAntiAlias(Graphics2D gr2) {
+        if (antiAlias) {
+            gr2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            gr2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            gr2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        }
     }
 
     @Override
@@ -799,7 +803,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         private boolean wasMoved(MouseEvent e) {
             Vector d = new Vector(e.getX(), e.getY()).sub(pos);
-            return Math.abs(d.x) > SIZE2 || Math.abs(d.y) > SIZE2;
+            return Math.abs(d.x) > DRAG_DISTANCE || Math.abs(d.y) > DRAG_DISTANCE;
         }
 
         @Override

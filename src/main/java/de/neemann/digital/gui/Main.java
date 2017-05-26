@@ -309,6 +309,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
             revalidate();
         });
+        if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT))
+            treeCheckBox.doClick();
 
         toolBar.add(viewHelp.createJButtonNoText());
         toolBar.add(zoomIn.createJButtonNoText());
@@ -511,11 +513,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction editSettings = new ToolTipAction(Lang.get("menu_editSettings")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Language oldLang = Settings.getInstance().get(Keys.SETTINGS_LANGUAGE);
+                final Language oldLang = Settings.getInstance().get(Keys.SETTINGS_LANGUAGE);
+                final boolean oldIeeeShapes = Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES);
                 if (new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog()) {
                     FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
                     final Language newLang = Settings.getInstance().getAttributes().get(Keys.SETTINGS_LANGUAGE);
-                    if (!newLang.equals(oldLang)) {
+                    final boolean newIeeeShapes = Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES);
+                    if (!newLang.equals(oldLang) || (oldIeeeShapes != newIeeeShapes)) {
                         Lang.setLanguage(newLang);
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }

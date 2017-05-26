@@ -53,6 +53,8 @@ If you want to send a bug report or feature request please use the GitHub
 [issue tracker](https://github.com/hneemann/Digital/issues/new). 
 This helps me to improve Digital, so do not hesitate.
 
+You can also send a private message to [digital-simulator@web.de](mailto:digital-simulator@web.de).
+
 ## Motivation ##
 
 Below I would like to explain briefly the reasons which led me to start a new development:
