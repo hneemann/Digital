@@ -96,7 +96,7 @@ public class TestResult {
         try {
             lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context());
         } catch (ParserException e) {
-            throw new TestingDataException(e);
+            throw new TestingDataException(Lang.get("err_errorParsingTestdata"), e);
         } catch (RuntimeException e) {
             if (allPassed) {
                 allPassed = false;

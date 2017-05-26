@@ -519,6 +519,7 @@ The names of the variables may not be unique.</string>
     <string name="err_MultiBitFlipFlopFound">Flipflops with more then one bits are not allowed!</string>
     <string name="err_invalidTransmissionGateState">The two control inputs of a transmission gate must be inverted!</string>
     <string name="err_nameUsedTwice_N">Signal {0} is used twice!</string>
+    <string name="err_errorParsingTestdata">Error parsing the test data.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -853,6 +854,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="btn_gifComplete">Ready</string>
     <string name="btn_gifComplete_tt">The GIF file is finalized and closed.</string>
     <string name="msg_gifExport">GIF Export</string>
+    <string name="msg_errCausedBy">caused by</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
