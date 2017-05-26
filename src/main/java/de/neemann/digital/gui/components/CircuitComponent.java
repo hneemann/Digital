@@ -3,10 +3,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.ImmutableList;
-import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.draw.graphics.*;
@@ -709,15 +706,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         hasChanged();
     }
 
-    private void editAttributes(VisualElement vp, MouseEvent e) {
-        String name = vp.getElementName();
+    private void editAttributes(VisualElement element, MouseEvent e) {
+        String name = element.getElementName();
         try {
             ElementTypeDescription elementType = library.getElementType(name);
             ArrayList<Key> list = elementType.getAttributeList();
             if (list.size() > 0) {
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                AttributeDialog attributeDialog = new AttributeDialog(this, p, list, vp.getElementAttributes());
+                AttributeDialog attributeDialog = new AttributeDialog(this, p, list, element.getElementAttributes()).setVisualElement(element);
                 if (elementType instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                     attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
                         @Override
@@ -737,14 +734,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         try {
-                            new ElementHelpDialog(attributeDialog, elementType, vp.getElementAttributes()).setVisible(true);
+                            new ElementHelpDialog(attributeDialog, elementType, element.getElementAttributes()).setVisible(true);
                         } catch (PinException | NodeException e1) {
                             new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(CircuitComponent.this);
                         }
                     }
                 }.setToolTip(Lang.get("attr_help_tt")));
+
+                ElementAttributes oldValues = new ElementAttributes(element.getElementAttributes());
                 if (attributeDialog.showDialog())
-                    addModificationAlreadyMade(new ModifyAttributes(vp));
+                    if (!oldValues.equals(element.getElementAttributes()))
+                        addModificationAlreadyMade(new ModifyAttributes(element));
             }
         } catch (ElementNotFoundException ex) {
             // do nothing if element not found!
