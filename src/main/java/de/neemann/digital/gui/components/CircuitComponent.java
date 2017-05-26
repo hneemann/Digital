@@ -291,7 +291,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      *
      * @param modification the modification
      */
-    public void addModificationAlreadyMade(Modification modification) {
+    private void addModificationAlreadyMade(Modification modification) {
         while (modifications.size() > undoPosition)
             modifications.remove(modifications.size() - 1);
         redoAction.setEnabled(false);
@@ -313,7 +313,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     /**
      * undo last action
      */
-    public void undo() {
+    private void undo() {
         if (undoPosition > 0) {
             circuit = new Circuit(initialCircuit);
             undoPosition--;
@@ -330,7 +330,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     /**
      * redo last undo
      */
-    public void redo() {
+    private void redo() {
         if (undoPosition < modifications.size()) {
             modifications.get(undoPosition).modify(circuit);
             undoPosition++;
@@ -1020,7 +1020,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Vector delta;
         private Vector initialPos;
         private int initialRot;
-        private boolean deleted = false;
 
         private MouseControllerMoveElement(Cursor cursor) {
             super(cursor);
@@ -1067,7 +1066,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (!isLocked()) {
                 circuit.delete(visualElement);
                 addModificationAlreadyMade(new ModifyDeleteElement(visualElement, initialPos));
-                deleted = true;
                 mouseNormal.activate();
                 isManualScale = true;
             }
