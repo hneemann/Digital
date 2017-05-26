@@ -45,7 +45,6 @@ public class SelectTree extends JTree {
                 if (path != null && path.getPathCount() > 0) {
                     LibraryNode node = (LibraryNode) path.getLastPathComponent();
                     if (node.isLeaf() && node.isUnique()) {
-                        clearSelection();
                         try {
                             ElementTypeDescription d = node.getDescription();
                             component.setPartToInsert(new VisualElement(d.getName()).setShapeFactory(shapeFactory));
