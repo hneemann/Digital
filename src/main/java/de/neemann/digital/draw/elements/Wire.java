@@ -88,6 +88,16 @@ public class Wire implements Drawable, Movable {
     }
 
     /**
+     * Setter for point 1.
+     * Is used to move the line with the mouse
+     *
+     * @param p1 the new point
+     */
+    public void setP1(Vector p1) {
+        this.p1 = p1;
+    }
+
+    /**
      * Setter for point 2.
      * Is used to move the line with the mouse
      *

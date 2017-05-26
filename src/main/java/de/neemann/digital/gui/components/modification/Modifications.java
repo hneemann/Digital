@@ -41,7 +41,8 @@ public final class Modifications implements Modification {
          * @return this for chained calls
          */
         public Builder add(Modification m) {
-            list.add(m);
+            if (m != null)
+                list.add(m);
             return this;
         }
 
@@ -51,7 +52,13 @@ public final class Modifications implements Modification {
          * @return the unified modification
          */
         public Modification build() {
-            return new Modifications(list);
+            if (list.isEmpty())
+                return null;
+
+            if (list.size() == 1)
+                return list.get(0);
+            else
+                return new Modifications(list);
         }
     }
 }

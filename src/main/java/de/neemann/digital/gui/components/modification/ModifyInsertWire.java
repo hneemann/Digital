@@ -26,4 +26,14 @@ public class ModifyInsertWire implements Modification {
     public void modify(Circuit circuit) {
         circuit.add(new Wire(p1, p2));
     }
+
+    /**
+     * @return null if this is a wire with zero length
+     */
+    public Modification checkIfLenZero() {
+        if ((p1.x == p2.x) && (p1.y == p2.y))
+            return null;
+        else
+            return this;
+    }
 }

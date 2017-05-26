@@ -67,7 +67,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private final MouseControllerInsertElement mouseInsertElement;
     private final MouseControllerMoveElement mouseMoveElement;
     private final MouseControllerMoveWire mouseMoveWire;
-    private final MouseControllerWire mouseWire;
+    private final MouseControllerWireDiag mouseWireDiag;
+    private final MouseControllerWireRect mouseWireRect;
     private final MouseControllerSelect mouseSelect;
     private final MouseControllerMoveSelected mouseMoveSelected;
     private final MouseController mouseRun;
@@ -205,7 +206,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         mouseInsertList = new MouseControllerInsertCopied(normalCursor);
         mouseMoveElement = new MouseControllerMoveElement(normalCursor);
         mouseMoveWire = new MouseControllerMoveWire(normalCursor);
-        mouseWire = new MouseControllerWire(normalCursor);
+        mouseWireRect = new MouseControllerWireRect(normalCursor);
+        mouseWireDiag = new MouseControllerWireDiag(normalCursor);
         mouseSelect = new MouseControllerSelect(new Cursor(Cursor.CROSSHAIR_CURSOR));
         mouseMoveSelected = new MouseControllerMoveSelected(moveCursor);
         mouseRun = new MouseControllerRun(normalCursor);
@@ -282,8 +284,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param modification the modification
      */
     public void modify(Modification modification) {
-        modification.modify(circuit);
-        addModificationAlreadyMade(modification);
+        if (modification != null) {
+            modification.modify(circuit);
+            addModificationAlreadyMade(modification);
+        }
     }
 
     /**
@@ -292,14 +296,16 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param modification the modification
      */
     private void addModificationAlreadyMade(Modification modification) {
-        while (modifications.size() > undoPosition)
-            modifications.remove(modifications.size() - 1);
-        redoAction.setEnabled(false);
-        modifications.add(modification);
-        undoPosition = modifications.size();
-        undoAction.setEnabled(true);
-        circuit.modified();
-        hasChanged();
+        if (modification != null) {
+            while (modifications.size() > undoPosition)
+                modifications.remove(modifications.size() - 1);
+            redoAction.setEnabled(false);
+            modifications.add(modification);
+            undoPosition = modifications.size();
+            undoAction.setEnabled(true);
+            circuit.modified();
+            hasChanged();
+        }
     }
 
     /**
@@ -926,7 +932,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
                     if (circuit.isPinPos(raster(pos), vp) && !e.isControlDown()) {
-                        if (!isLocked()) mouseWire.activate(pos);
+                        if (!isLocked()) mouseWireRect.activate(pos);
                     } else
                         mouseMoveElement.activate(vp, pos);
                 } else if (!isLocked()) {
@@ -935,7 +941,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         if (wire != null)
                             mouseMoveWire.activate(wire, pos);
                     } else if (!focusWasLost)
-                        mouseWire.activate(pos);
+                        mouseWireRect.activate(pos);
                 }
             }
             focusWasLost = false;
@@ -1157,17 +1163,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
 
-    private final class MouseControllerWire extends MouseController {
+    private final class MouseControllerWireDiag extends MouseController {
         private Wire wire;
 
-        private MouseControllerWire(Cursor cursor) {
+        private MouseControllerWireDiag(Cursor cursor) {
             super(cursor);
         }
 
         private void activate(Vector startPos) {
+            activate(startPos, startPos);
+        }
+
+        private void activate(Vector startPos, Vector endPos) {
             super.activate();
-            Vector pos = raster(startPos);
-            wire = new Wire(pos, pos);
+            wire = new Wire(raster(startPos), raster(endPos));
         }
 
         @Override
@@ -1181,11 +1190,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (e.getButton() == MouseEvent.BUTTON3)
                 mouseNormal.activate();
             else {
-                modify(new ModifyInsertWire(wire));
+                modify(new ModifyInsertWire(wire).checkIfLenZero());
                 if (circuit.isPinPos(wire.p2))
                     mouseNormal.activate();
                 else
-                    wire = new Wire(wire.p2, wire.p2);
+                    mouseWireRect.activate(wire.p2);
             }
         }
 
@@ -1199,6 +1208,83 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             mouseNormal.activate();
         }
     }
+
+    private final class MouseControllerWireRect extends MouseController {
+        private Wire wire1;
+        private Wire wire2;
+        private boolean selectionMade;
+        private boolean firstHori;
+        private Vector initialPos;
+
+        private MouseControllerWireRect(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(Vector startPos) {
+            super.activate();
+            initialPos = raster(startPos);
+            wire1 = new Wire(initialPos, initialPos);
+            wire2 = new Wire(initialPos, initialPos);
+            selectionMade = false;
+        }
+
+        @Override
+        void moved(MouseEvent e) {
+            Vector p = raster(getPosVector(e));
+            if (!selectionMade) {
+                Vector delta = p.sub(initialPos);
+                boolean dx = Math.abs(delta.x) > DRAG_DISTANCE;
+                boolean dy = Math.abs(delta.y) > DRAG_DISTANCE;
+                if (dx || dy) {
+                    firstHori = dx;
+                    selectionMade = true;
+                }
+            }
+
+            Vector pm;
+            if (firstHori)
+                pm = new Vector(p.x, wire1.p1.y);
+            else
+                pm = new Vector(wire1.p1.x, p.y);
+            wire1.setP2(pm);
+            wire2.setP1(pm);
+            wire2.setP2(p);
+            repaint();
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON3)
+                mouseNormal.activate();
+            else {
+                modify(new Modifications.Builder()
+                        .add(new ModifyInsertWire(wire1).checkIfLenZero())
+                        .add(new ModifyInsertWire(wire2).checkIfLenZero())
+                        .build());
+                if (circuit.isPinPos(wire2.p2))
+                    mouseNormal.activate();
+                else {
+                    initialPos = wire2.p2;
+                    selectionMade = false;
+                    wire1 = new Wire(wire2.p2, wire2.p2);
+                    wire2 = new Wire(wire2.p2, wire2.p2);
+                }
+            }
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            wire1.drawTo(gr, false);
+            wire2.drawTo(gr, false);
+        }
+
+        @Override
+        public void escapePressed() {
+            mouseWireDiag.activate(initialPos, wire2.p2);
+            repaint();
+        }
+    }
+
 
     private final class MouseControllerSelect extends MouseController {
         private static final int MIN_SIZE = 8;
