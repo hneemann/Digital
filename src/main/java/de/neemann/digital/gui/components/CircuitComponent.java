@@ -19,10 +19,7 @@ import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.IconCreator;
-import de.neemann.gui.LineBreaker;
-import de.neemann.gui.ToolTipAction;
+import de.neemann.gui.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,6 +54,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private static final String ESC_ACTION = "myEscAction";
     private static final int MOUSE_BORDER_SMALL = 10;
     private static final int MOUSE_BORDER_LARGE = 50;
+
+    private static final int DRAG_DISTANCE = (int) (SIZE2 * Screen.getInstance().getScaling());
 
     private final Main parent;
     private final ElementLibrary library;
@@ -700,7 +699,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         private boolean wasMoved(MouseEvent e) {
             Vector d = new Vector(e.getX(), e.getY()).sub(pos);
-            return Math.abs(d.x) > SIZE2 || Math.abs(d.y) > SIZE2;
+            return Math.abs(d.x) > DRAG_DISTANCE || Math.abs(d.y) > DRAG_DISTANCE;
         }
 
         @Override
