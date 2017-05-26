@@ -5,13 +5,23 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 
 /**
+ * Modifies an attribute.
  * Created by hneemann on 25.05.17.
+ *
+ * @param <VALUE> the used value type
  */
 public class ModifyAttribute<VALUE> extends ModificationOfVisualElement {
 
     private final Key<VALUE> key;
     private final VALUE value;
 
+    /**
+     * Creates a new instance
+     *
+     * @param ve    the visual element to modify
+     * @param key   the key to modify
+     * @param value the new value
+     */
     public ModifyAttribute(VisualElement ve, Key<VALUE> key, VALUE value) {
         super(ve);
         this.key = key;

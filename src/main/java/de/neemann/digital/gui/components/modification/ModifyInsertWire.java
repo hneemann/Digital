@@ -5,12 +5,18 @@ import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 
 /**
+ * Modifier to insert a wire.
  * Created by hneemann on 26.05.17.
  */
 public class ModifyInsertWire implements Modification {
     private final Vector p1;
     private final Vector p2;
 
+    /**
+     * Creates a new instance
+     *
+     * @param w the wire to insert
+     */
     public ModifyInsertWire(Wire w) {
         p1 = w.p1;
         p2 = w.p2;

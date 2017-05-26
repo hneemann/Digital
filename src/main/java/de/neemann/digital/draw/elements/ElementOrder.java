@@ -3,7 +3,6 @@ package de.neemann.digital.draw.elements;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
-import de.neemann.digital.gui.components.modification.Modification;
 
 import java.util.ArrayList;
 

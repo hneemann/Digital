@@ -11,6 +11,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import java.util.ArrayList;
 
 /**
+ * Modifier to move a selection
  * Created by hneemann on 26.05.17.
  */
 public class ModifyMoveSelected implements Modification {
@@ -20,6 +21,15 @@ public class ModifyMoveSelected implements Modification {
     private final int accumulatedRotate;
     private final Vector center;
 
+    /**
+     * Create a new instance
+     *
+     * @param min               the upper left corner
+     * @param max               the lower right corner
+     * @param accumulatedDelta  the translation
+     * @param accumulatedRotate the rotation
+     * @param center            the center of the selection rectangle
+     */
     public ModifyMoveSelected(Vector min, Vector max, Vector accumulatedDelta, int accumulatedRotate, Vector center) {
         this.min = min;
         this.max = max;
@@ -40,6 +50,12 @@ public class ModifyMoveSelected implements Modification {
         circuit.elementsMoved();
     }
 
+    /**
+     * Rotates the given elements
+     *
+     * @param elements the elements to rotate
+     * @param center   the center position
+     */
     public static void rotateElements(ArrayList<Movable> elements, Vector center) {
         Transform transform = new TransformRotate(center, 1) {
             @Override

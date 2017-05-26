@@ -5,9 +5,17 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
 
 /**
+ * Modifier which deletes an element
  * Created by hneemann on 26.05.17.
  */
 public class ModifyDeleteElement extends ModificationOfVisualElement {
+
+    /**
+     * The element to delete
+     *
+     * @param ve         the visual element
+     * @param initialPos its initial position
+     */
     public ModifyDeleteElement(VisualElement ve, Vector initialPos) {
         super(ve, initialPos);
     }

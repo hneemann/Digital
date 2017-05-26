@@ -5,15 +5,22 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
 
 /**
+ * Modifier to move and rotate a single visual element
  * Created by hneemann on 26.05.17.
  */
 public class ModifyMoveAndRotElement extends ModificationOfVisualElement {
     private final Vector pos;
     private final int rotation;
 
+    /**
+     * Create a new instance
+     *
+     * @param ve         the visual Element
+     * @param initialPos its initial position
+     */
     public ModifyMoveAndRotElement(VisualElement ve, Vector initialPos) {
         super(ve, initialPos);
-        pos=ve.getPos();
+        pos = ve.getPos();
         rotation = ve.getRotate();
     }
 
