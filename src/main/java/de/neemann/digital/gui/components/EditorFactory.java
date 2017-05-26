@@ -244,8 +244,6 @@ public final class EditorFactory {
                 protected void paintComponent(Graphics graphics) {
                     graphics.setColor(Color.WHITE);
                     graphics.fillRect(0, 0, getWidth(), getHeight());
-                    graphics.setColor(getBackground());
-                    graphics.fillRect(0, 0, getWidth(), getHeight());
                     super.paintComponent(graphics);
                 }
             };
