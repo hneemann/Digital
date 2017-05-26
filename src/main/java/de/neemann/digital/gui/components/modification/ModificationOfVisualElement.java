@@ -13,8 +13,12 @@ public abstract class ModificationOfVisualElement implements Modification {
     private final String name;
 
     public ModificationOfVisualElement(VisualElement ve) {
-        pos = ve.getPos();
+        this(ve, ve.getPos());
+    }
+
+    public ModificationOfVisualElement(VisualElement ve, Vector initialPos) {
         name = ve.getElementName();
+        pos = initialPos;
     }
 
     public VisualElement getVisualElement(Circuit circuit) {

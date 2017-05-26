@@ -8,8 +8,7 @@ import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.*;
-import de.neemann.digital.gui.components.modification.Modification;
-import de.neemann.digital.gui.components.modification.ModifyAttribute;
+import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
@@ -18,7 +17,6 @@ import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
-import de.neemann.digital.gui.components.modification.ModifyAttributes;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
@@ -122,49 +120,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         rotateAction.setEnabled(false);
 
 
-        copyAction = new AbstractAction(Lang.get("menu_copy")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<Movable> elements = null;
-                if (activeMouseController instanceof MouseControllerSelect) {
-                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-                    elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
-                } else if (activeMouseController instanceof MouseControllerMoveElement) {
-                    MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
-                    elements = new ArrayList<>();
-                    elements.add(mcme.visualElement);
-                }
-                if (elements != null) {
-                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                    clipboard.setContents(new CircuitTransferable(elements), null);
-                    activeMouseController.escapePressed();
-                }
-            }
-        };
-        copyAction.setEnabled(false);
-
-        pasteAction = new AbstractAction(Lang.get("menu_paste")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!isLocked()) {
-                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                    try {
-                        Object data = clipboard.getData(DataFlavor.stringFlavor);
-                        if (data instanceof String) {
-                            Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
-                            ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
-                            if (elements != null) {
-                                removeHighLighted();
-                                mouseInsertList.activate(elements, posVector);
-                            }
-                        }
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                        SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_clipboardContainsNoImportableData")).setComponent(CircuitComponent.this));
-                    }
-                }
-            }
-        };
+        copyAction = createCopyAction(shapeFactory);
+        pasteAction = createPasteAction(shapeFactory);
 
         deleteAction = new ToolTipAction(Lang.get("menu_delete"), ICON_DELETE) {
             @Override
@@ -263,6 +220,55 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         addMouseListener(dispatcher);
 
         setToolTipText("");
+    }
+
+    private AbstractAction createPasteAction(ShapeFactory shapeFactory) {
+        return new AbstractAction(Lang.get("menu_paste")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!isLocked()) {
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    try {
+                        Object data = clipboard.getData(DataFlavor.stringFlavor);
+                        if (data instanceof String) {
+                            Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
+                            ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
+                            if (elements != null) {
+                                removeHighLighted();
+                                mouseInsertList.activate(elements, posVector);
+                            }
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                        SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_clipboardContainsNoImportableData")).setComponent(CircuitComponent.this));
+                    }
+                }
+            }
+        };
+    }
+
+    private AbstractAction createCopyAction(ShapeFactory shapeFactory) {
+        AbstractAction copyAction = new AbstractAction(Lang.get("menu_copy")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Movable> elements = null;
+                if (activeMouseController instanceof MouseControllerSelect) {
+                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
+                    elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
+                } else if (activeMouseController instanceof MouseControllerMoveElement) {
+                    MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
+                    elements = new ArrayList<>();
+                    elements.add(mcme.visualElement);
+                }
+                if (elements != null) {
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(new CircuitTransferable(elements), null);
+                    activeMouseController.escapePressed();
+                }
+            }
+        };
+        copyAction.setEnabled(false);
+        return copyAction;
     }
 
     private void programElementAt(Vector pos) {
@@ -991,10 +997,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1 && !isLocked()) {
-                circuit.add(element);
-                hasChanged();
-            }
+            if (e.getButton() == MouseEvent.BUTTON1 && !isLocked())
+                modify(new ModifyInsertElement(element));
             mouseNormal.activate();
             focusWasLost = false;
         }
@@ -1016,6 +1020,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Vector delta;
         private Vector initialPos;
         private int initialRot;
+        private boolean deleted=false;
 
         private MouseControllerMoveElement(Cursor cursor) {
             super(cursor);
@@ -1035,8 +1040,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (!isLocked())
+            if (!isLocked()) {
                 visualElement.setPos(raster(visualElement.getPos()));
+                addModificationAlreadyMade(new ModifyMoveAndRotElement(visualElement, initialPos));
+            }
             mouseNormal.activate();
         }
 
@@ -1059,6 +1066,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void delete() {
             if (!isLocked()) {
                 circuit.delete(visualElement);
+                addModificationAlreadyMade(new ModifyDeleteElement(visualElement, initialPos));
+                deleted=true;
                 mouseNormal.activate();
                 isManualScale = true;
             }
@@ -1087,6 +1096,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Wire wire;
         private Vector pos;
         private Vector initialPos;
+        private Vector initialWirePos;
 
         private MouseControllerMoveWire(Cursor cursor) {
             super(cursor);
@@ -1096,6 +1106,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             this.wire = wire;
             this.pos = raster(pos);
+            this.initialWirePos = wire.getPos();
             this.initialPos = this.pos;
             deleteAction.setActive(true);
             removeHighLighted();
@@ -1105,6 +1116,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         void clicked(MouseEvent e) {
             removeHighLighted();
+            addModificationAlreadyMade(new ModifyMoveWire(wire, initialWirePos));
             circuit.elementsMoved();
             mouseNormal.activate();
         }
@@ -1126,6 +1138,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         public void delete() {
             circuit.delete(wire);
+            addModificationAlreadyMade(new ModifyDeleteWire(wire, initialWirePos));
             mouseNormal.activate();
             isManualScale = true;
         }
@@ -1170,7 +1183,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (e.getButton() == MouseEvent.BUTTON3)
                 mouseNormal.activate();
             else {
-                circuit.add(wire);
+                modify(new ModifyAddWire(wire));
                 if (circuit.isPinPos(wire.p2))
                     mouseNormal.activate();
                 else
