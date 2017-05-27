@@ -72,9 +72,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private final MouseController mouseRun;
     private final MouseControllerInsertCopied mouseInsertList;
     private final Cursor moveCursor;
-    private final AbstractAction copyAction;
-    private final AbstractAction pasteAction;
-    private final AbstractAction rotateAction;
+    private final ToolTipAction copyAction;
+    private final ToolTipAction pasteAction;
+    private final ToolTipAction rotateAction;
 
     private Circuit circuit;
     private MouseController activeMouseController;
@@ -101,16 +101,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         this.library = library;
         highLighted = new HashSet<>();
 
-        rotateAction = new AbstractAction(Lang.get("menu_rotate")) {
+        rotateAction = new ToolTipAction(Lang.get("menu_rotate")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 activeMouseController.rotate();
             }
-        };
-        rotateAction.setEnabled(false);
+        }.setActive(false).setAccelerator(KeyStroke.getKeyStroke("R")).enableAcceleratorIn(this);
 
-
-        copyAction = new AbstractAction(Lang.get("menu_copy")) {
+        copyAction = new ToolTipAction(Lang.get("menu_copy")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Movable> elements = null;
@@ -128,10 +126,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     activeMouseController.escapePressed();
                 }
             }
-        };
-        copyAction.setEnabled(false);
+        }.setActive(false).setAcceleratorCTRLplus('C').enableAcceleratorIn(this);
 
-        pasteAction = new AbstractAction(Lang.get("menu_paste")) {
+
+        pasteAction = new ToolTipAction(Lang.get("menu_paste")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!isLocked()) {
@@ -152,7 +150,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     }
                 }
             }
-        };
+        }.setAcceleratorCTRLplus('P').enableAcceleratorIn(this);
 
         deleteAction = new ToolTipAction(Lang.get("menu_delete"), ICON_DELETE) {
             @Override
@@ -161,35 +159,25 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setToolTip(Lang.get("menu_delete_tt"));
 
-        Action escapeAction = new AbstractAction() {
+        new ToolTipAction("Escape") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 activeMouseController.escapePressed();
             }
-        };
+        }.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0)).enableAcceleratorIn(this);
 
-        AbstractAction programAction = new AbstractAction(Lang.get("menu_programDiode")) {
+        new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (activeMouseController instanceof MouseControllerNormal) {
                     programElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
                 }
             }
-        };
+        }.setAccelerator(KeyStroke.getKeyStroke("P")).enableAcceleratorIn(this);
 
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESC_ACTION);
-        getActionMap().put(ESC_ACTION, escapeAction);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DEL_ACTION);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), DEL_ACTION);
         getActionMap().put(DEL_ACTION, deleteAction);
-        getInputMap().put(KeyStroke.getKeyStroke('C', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "myCopy");
-        getActionMap().put("myCopy", copyAction);
-        getInputMap().put(KeyStroke.getKeyStroke('V', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "myPaste");
-        getActionMap().put("myPaste", pasteAction);
-        getInputMap().put(KeyStroke.getKeyStroke("R"), "myRotate");
-        getActionMap().put("myRotate", rotateAction);
-        getInputMap().put(KeyStroke.getKeyStroke("P"), "myProgram");
-        getActionMap().put("myProgram", programAction);
 
         setFocusable(true);
 
@@ -314,21 +302,21 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     /**
      * @return the copy action
      */
-    public AbstractAction getCopyAction() {
+    public ToolTipAction getCopyAction() {
         return copyAction;
     }
 
     /**
      * @return the paste action
      */
-    public AbstractAction getPasteAction() {
+    public ToolTipAction getPasteAction() {
         return pasteAction;
     }
 
     /**
      * @return the rotate action
      */
-    public AbstractAction getRotateAction() {
+    public ToolTipAction getRotateAction() {
         return rotateAction;
     }
 

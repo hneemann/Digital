@@ -431,7 +431,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     saveFile(filename, false);
             }
-        };
+        }.setAcceleratorCTRLplus('S');
 
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
@@ -584,15 +584,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         edit.add(createSpecialEditMenu());
         edit.addSeparator();
 
-        JMenuItem copyItem = new JMenuItem(circuitComponent.getCopyAction());
-        copyItem.setAccelerator(KeyStroke.getKeyStroke('C', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        edit.add(copyItem);
-        JMenuItem pasteItem = new JMenuItem(circuitComponent.getPasteAction());
-        pasteItem.setAccelerator(KeyStroke.getKeyStroke('V', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        edit.add(pasteItem);
-        JMenuItem rotateItem = new JMenuItem(circuitComponent.getRotateAction());
-        rotateItem.setAccelerator(KeyStroke.getKeyStroke('R'));
-        edit.add(rotateItem);
+        edit.add(circuitComponent.getCopyAction().createJMenuItem());
+        edit.add(circuitComponent.getPasteAction().createJMenuItem());
+        edit.add(circuitComponent.getRotateAction().createJMenuItem());
         edit.add(insertAsNew.createJMenuItem());
         edit.addSeparator();
         edit.add(editSettings.createJMenuItem());

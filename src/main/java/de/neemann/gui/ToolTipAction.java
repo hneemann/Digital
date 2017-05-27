@@ -61,13 +61,37 @@ public abstract class ToolTipAction extends AbstractAction {
     }
 
     /**
-     * Sets an accelerator to the item
+     * Sets an accelerator to the action
+     *
+     * @param key the accelerator key
+     * @return this for call chaining
+     */
+    public ToolTipAction setAcceleratorCTRLplus(char key) {
+        return setAccelerator(KeyStroke.getKeyStroke(key, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+    }
+
+    /**
+     * Sets an accelerator to the action
      *
      * @param accelerator the accelerator
      * @return this for call chaining
      */
     public ToolTipAction setAccelerator(KeyStroke accelerator) {
         this.accelerator = accelerator;
+        return this;
+    }
+
+    /**
+     * enables the accelerator in the given component
+     *
+     * @param component the component
+     * @return this for call chaining
+     */
+    public ToolTipAction enableAcceleratorIn(JComponent component) {
+        if (accelerator == null)
+            throw new RuntimeException("no accelerator given");
+        component.getInputMap().put(accelerator, this);
+        component.getActionMap().put(this, this);
         return this;
     }
 
@@ -121,7 +145,7 @@ public abstract class ToolTipAction extends AbstractAction {
      */
     public JMenuItem createJMenuItem() {
         JMenuItem i = new JMenuItem(this);
-        if (accelerator!=null)
+        if (accelerator != null)
             i.setAccelerator(accelerator);
         if (toolTipText != null) {
             i.setToolTipText(toolTipText);
