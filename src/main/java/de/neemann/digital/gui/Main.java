@@ -68,7 +68,7 @@ import static javax.swing.JOptionPane.showInputDialog;
  *
  * @author hneemann
  */
-public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface {
+public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, Circuit.ChangedListener {
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
     private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
@@ -124,6 +124,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private File baseFilename;
     private File filename;
     private FileHistory fileHistory;
+    private boolean modifiedPrefixVisible = false;
 
     private Sync modelSync;
     private Model model;
@@ -159,6 +160,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         baseFilename = builder.baseFileName;
 
         circuitComponent = new CircuitComponent(this, library, shapeFactory);
+        circuitComponent.getCircuit().addListener(this);
         if (builder.circuit != null) {
             SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(builder.circuit));
             setFilename(builder.fileToOpen, false);
@@ -341,8 +343,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    setFilename(null, true);
                     circuitComponent.setCircuit(new Circuit());
+                    setFilename(null, true);
                     windowPosManager.closeAll();
                     try {
                         library.setRootFilePath(null);
@@ -617,7 +619,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             }
                         }
                         if (modified)
-                            circuitComponent.hasChanged();
+                            circuitComponent.repaintNeeded();
                     }
                 }
             }
@@ -641,7 +643,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         }
                     }
                     if (modified)
-                        circuitComponent.hasChanged();
+                        circuitComponent.repaintNeeded();
                 }
             }
         }.setToolTip(Lang.get("menu_removePrefix_tt")).createJMenuItem());
@@ -670,7 +672,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         }
                     }
                     if (modified)
-                        circuitComponent.hasChanged();
+                        circuitComponent.repaintNeeded();
                 }
             }
         }.setToolTip(Lang.get("menu_removePinNumbers_tt")).createJMenuItem());
@@ -691,7 +693,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     model.doMicroStep(false);
                     circuitComponent.removeHighLighted();
                     modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
-                    circuitComponent.hasChanged();
+                    circuitComponent.repaintNeeded();
                     doStep.setEnabled(model.needsUpdate());
                 } catch (Exception e1) {
                     SwingUtilities.invokeLater(
@@ -710,7 +712,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     int i = model.runToBreak();
-                    circuitComponent.hasChanged();
+                    circuitComponent.repaintNeeded();
                     statusLabel.setText(Lang.get("stat_clocks", i));
                 } catch (NodeException e1) {
                     stoppedState.enter();
@@ -989,7 +991,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 BurnException e = (BurnException) cause;
                 circuitComponent.addHighLightedWires(e.getValues());
             }
-            circuitComponent.hasChanged();
+            circuitComponent.repaintNeeded();
             new ErrorMessage(message).addCause(cause).show(Main.this);
             stoppedState.enter();
         });
@@ -1062,15 +1064,26 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private void setFilename(File filename, boolean toPrefs) {
+        modifiedPrefixVisible = circuitComponent.getCircuit().isModified();
+        String prefix = "";
+        if (modifiedPrefixVisible)
+            prefix = "*";
         this.filename = filename;
         if (filename != null) {
             this.baseFilename = filename;
             if (toPrefs)
                 fileHistory.add(filename);
-            setTitle(filename + " - " + Lang.get("digital"));
+            setTitle(prefix + filename + " - " + Lang.get("digital"));
         } else {
-            setTitle(Lang.get("digital"));
+            setTitle(prefix + Lang.get("digital"));
         }
+    }
+
+
+    @Override
+    public void circuitHasChanged() {
+        if (!modifiedPrefixVisible)
+            setFilename(filename, false);
     }
 
     /**
@@ -1099,7 +1112,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     model.fireManualChangeEvent();
                     model.doStep();
                 });
-                circuitComponent.hasChanged();
+                circuitComponent.repaintNeeded();
             } catch (NodeException | RuntimeException e) {
                 showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
             }
@@ -1117,7 +1130,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         public void hasChanged() {
             modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             model.fireManualChangeEvent();
-            circuitComponent.hasChanged();
+            circuitComponent.repaintNeeded();
             doStep.setEnabled(model.needsUpdate());
         }
     }
@@ -1180,7 +1193,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         setDebug(false);
                         windowPosManager.closeAll();
                         runModelState.enter(false, gifExporter);
-                        circuitComponent.hasChanged();
+                        circuitComponent.repaintNeeded();
                     }
             );
         }
@@ -1234,7 +1247,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             setDebug(false);
             windowPosManager.closeAll();
             runModelState.enter(true, new RomLoader(romHex));
-            circuitComponent.hasChanged();
+            circuitComponent.repaintNeeded();
         });
     }
 
@@ -1243,7 +1256,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         SwingUtilities.invokeLater(() -> {
             setDebug(true);
             runModelState.enter(false, new RomLoader(romHex));
-            circuitComponent.hasChanged();
+            circuitComponent.repaintNeeded();
         });
     }
 
@@ -1263,7 +1276,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 clkVal.setBool(!clkVal.getBool());
                                 model.doStep();
                             }
-                            circuitComponent.hasChanged();
+                            circuitComponent.repaintNeeded();
                             addressPicker.getProgramROMAddress(model);
                         } catch (NodeException | RuntimeException e) {
                             showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
@@ -1297,7 +1310,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     public void stop() {
         SwingUtilities.invokeLater(() -> {
             stoppedState.enter();
-            circuitComponent.hasChanged();
+            circuitComponent.repaintNeeded();
         });
     }
     //**********************

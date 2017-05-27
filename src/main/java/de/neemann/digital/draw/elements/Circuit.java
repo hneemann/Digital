@@ -688,6 +688,19 @@ public class Circuit {
     }
 
     /**
+     * takes the listener attached to the given circuit
+     *
+     * @param circuit the circuit to take the listeners from
+     */
+    public void getListenersFrom(Circuit circuit) {
+        if (circuit.listeners!=null) {
+            if (listeners==null)
+                listeners=new ArrayList<>();
+            listeners.addAll(circuit.listeners);
+        }
+    }
+
+    /**
      * Remove a listener for circuit changes from this circuit
      *
      * @param listener the listener

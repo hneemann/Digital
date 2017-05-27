@@ -87,7 +87,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private Vector lastMousePos;
     private Sync modelSync;
     private boolean isManualScale;
-    private boolean hasChanged = true;
+    private boolean graphicsHasChanged = true;
     private boolean focusWasLost = false;
     private boolean lockMessageShown = false;
     private boolean antiAlias = true;
@@ -179,7 +179,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             transform.scale(f, f);
             transform.translate(-pos.x, -pos.y);
             isManualScale = true;
-            hasChanged();
+            repaintNeeded();
         });
 
         addComponentListener(new ComponentAdapter() {
@@ -211,6 +211,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         mouseRun = new MouseControllerRun(normalCursor);
 
         setCircuit(new Circuit());
+        circuit.addListener(this);
 
         MouseDispatcher dispatcher = new MouseDispatcher();
         addMouseMotionListener(dispatcher);
@@ -321,15 +322,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             undoPosition = modifications.size();
             undoAction.setEnabled(true);
             circuit.modified();
-            hasChanged();
+            repaintNeeded();
         }
     }
 
     /**
      * invalidates the image buffer and calls repaint();
      */
-    public void hasChanged() {
-        hasChanged = true;
+    public void repaintNeeded() {
+        graphicsHasChanged = true;
         repaint();
     }
 
@@ -338,7 +339,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      */
     private void undo() {
         if (undoPosition > 0) {
-            circuit = new Circuit(initialCircuit);
+            Circuit c = new Circuit(initialCircuit);
+            c.getListenersFrom(circuit);
+            circuit=c;
             undoPosition--;
             for (int i = 0; i < undoPosition; i++)
                 modifications.get(i).modify(circuit);
@@ -346,7 +349,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (undoPosition == 0)
                 undoAction.setEnabled(false);
             circuit.modified();
-            hasChanged();
+            repaintNeeded();
         }
     }
 
@@ -360,7 +363,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (undoPosition == modifications.size())
                 redoAction.setEnabled(false);
             undoAction.setEnabled(true);
-            hasChanged();
+            repaintNeeded();
         }
     }
 
@@ -571,7 +574,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (needsNewBuffer && !isManualScale)
             fitCircuit();
 
-        if (hasChanged
+        if (graphicsHasChanged
                 || needsNewBuffer
                 || highLighted.size() != highlightedPaintedSize) {
 
@@ -596,7 +599,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 //            System.out.println("repaint: " + Long.toString(time) + "ms");
 
             highlightedPaintedSize = highLighted.size();
-            hasChanged = false;
+            graphicsHasChanged = false;
         }
 
         g.drawImage(buffer, 0, 0, null);
@@ -620,7 +623,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     @Override
     public void circuitHasChanged() {
-        hasChanged = true;
+        graphicsHasChanged = true;
     }
 
     /**
@@ -629,7 +632,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * Therefore the double buffer is invalidated.
      */
     public void paintImmediately() {
-        hasChanged = true;
+        graphicsHasChanged = true;
         paintImmediately(0, 0, getWidth(), getHeight());
     }
 
@@ -672,9 +675,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param circuit the circuit
      */
     public void setCircuit(Circuit circuit) {
-
         if (this.circuit != null) {
-            this.circuit.removeListener(this);
+            circuit.getListenersFrom(this.circuit);
         }
 
         this.circuit = circuit;
@@ -683,8 +685,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         undoPosition = 0;
         undoAction.setEnabled(false);
         redoAction.setEnabled(false);
-
-        circuit.addListener(this);
 
         fitCircuit();
         setModeAndReset(false, NoSync.INST);
@@ -718,7 +718,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
         if (!newTrans.equals(transform)) {
             transform = newTrans;
-            hasChanged();
+            repaintNeeded();
         }
     }
 
@@ -733,7 +733,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         transform.scale(f, f);
         transform.translate(-dif.x, -dif.y);
         isManualScale = true;
-        hasChanged();
+        repaintNeeded();
     }
 
     private void editAttributes(VisualElement element, MouseEvent e) {
@@ -784,7 +784,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     @Override
     public void libraryChanged(LibraryNode node) {
         circuit.clearState();
-        hasChanged = true;
+        graphicsHasChanged = true;
         repaint();
     }
 
@@ -865,7 +865,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     transform.translate(delta.x / s, delta.y / s);
                     pos = newPos;
                     isManualScale = true;
-                    hasChanged();
+                    repaintNeeded();
                 }
             }
         }
@@ -888,7 +888,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             cutAction.setEnabled(false);
             rotateAction.setEnabled(false);
             setCursor(mouseCursor);
-            hasChanged();
+            repaintNeeded();
         }
 
         void clicked(MouseEvent e) {
@@ -1065,7 +1065,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             deleteAction.setActive(true);
             rotateAction.setEnabled(true);
             copyAction.setEnabled(true);
-            hasChanged();
+            repaintNeeded();
         }
 
         @Override
@@ -1083,7 +1083,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 Vector pos = getPosVector(e);
                 visualElement.setPos(raster(pos.add(delta)));
                 circuit.modified();
-                hasChanged();
+                repaintNeeded();
             }
         }
 
@@ -1107,7 +1107,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (!isLocked()) {
                 visualElement.rotate();
                 circuit.modified();
-                hasChanged();
+                repaintNeeded();
             }
         }
 
@@ -1139,7 +1139,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             this.initialPos = this.pos;
             deleteAction.setActive(true);
             removeHighLighted();
-            hasChanged();
+            repaintNeeded();
         }
 
         @Override
@@ -1159,7 +1159,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 wire.noDot();
                 isManualScale = true;
                 circuit.modified();
-                hasChanged();
+                repaintNeeded();
             }
             this.pos = pos;
         }
@@ -1472,7 +1472,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     accumulatedDelta = accumulatedDelta.add(delta);
                     wasMoved = true;
 
-                    hasChanged();
+                    repaintNeeded();
                     lastPos = lastPos.add(delta);
                     center = center.add(delta);
                 }
@@ -1494,7 +1494,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void rotate() {
             ModifyMoveSelected.rotateElements(elements, center);
             circuit.modified();
-            hasChanged();
+            repaintNeeded();
             accumulatedRotate++;
         }
     }
@@ -1564,7 +1564,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void rotate() {
             ModifyMoveSelected.rotateElements(elements, raster(lastPos));
             circuit.modified();
-            hasChanged();
+            repaintNeeded();
         }
 
         @Override
@@ -1635,7 +1635,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (manualChangeObserver != null)
                     manualChangeObserver.hasChanged();
             } else
-                hasChanged();
+                repaintNeeded();
         }
     }
 
