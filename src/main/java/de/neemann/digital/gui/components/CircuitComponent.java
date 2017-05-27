@@ -890,6 +890,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         void activate() {
+            if (activeMouseController != null)
+                activeMouseController.deactivate();
             activeMouseController = this;
             deleteAction.setActive(false);
             copyAction.setEnabled(false);
@@ -897,6 +899,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             rotateAction.setEnabled(false);
             setCursor(mouseCursor);
             repaintNeeded();
+        }
+
+        void deactivate() {
         }
 
         void clicked(MouseEvent e) {
@@ -978,6 +983,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 }
             }
             focusWasLost = false;
+        }
+
+        @Override
+        void deactivate() {
+            removeHighLighted();
         }
 
         @Override

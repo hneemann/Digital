@@ -251,6 +251,27 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         setLocationRelativeTo(builder.parent);
     }
 
+    private void enableClockShortcut() {
+        new ToolTipAction("doClock") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model != null && !realTimeClockRunning) {
+                    ArrayList<Clock> cl = model.getClocks();
+                    if (cl.size() == 1) {
+                        ObservableValue clkVal = cl.get(0).getClockOutput();
+                        clkVal.setBool(!clkVal.getBool());
+                        try {
+                            model.doStep();
+                            circuitComponent.repaintNeeded();
+                        } catch (NodeException | RuntimeException e) {
+                            showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
+                        }
+                    }
+                }
+            }
+        }.setAccelerator("C").enableAcceleratorIn(circuitComponent);
+    }
+
     private void createViewMenu(JMenuBar menuBar, JToolBar toolBar) {
         ToolTipAction maximize = new ToolTipAction(Lang.get("menu_maximize"), ICON_EXPAND) {
             @Override
@@ -904,7 +925,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private void clearModelDescription() {
-        circuitComponent.removeHighLighted();
         if (model != null)
             model.close();
 
@@ -974,27 +994,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
-    }
-
-    private void enableClockShortcut() {
-        new ToolTipAction("doClock") {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (model != null && !realTimeClockRunning) {
-                    ArrayList<Clock> cl = model.getClocks();
-                    if (cl.size() == 1) {
-                        ObservableValue clkVal = cl.get(0).getClockOutput();
-                        clkVal.setBool(!clkVal.getBool());
-                        try {
-                            model.doStep();
-                            circuitComponent.repaintNeeded();
-                        } catch (NodeException | RuntimeException e) {
-                            showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
-                        }
-                    }
-                }
-            }
-        }.setAccelerator("C").enableAcceleratorIn(circuitComponent);
     }
 
     @Override
