@@ -114,7 +114,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void actionPerformed(ActionEvent e) {
                 activeMouseController.rotate();
             }
-        }.setActive(false).setAccelerator(KeyStroke.getKeyStroke("R")).enableAcceleratorIn(this);
+        }.setActive(false).setAccelerator("R").enableAcceleratorIn(this);
 
 
         cutAction = createCutAction(shapeFactory);
@@ -133,14 +133,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void actionPerformed(ActionEvent actionEvent) {
                 undo();
             }
-        }.setToolTip(Lang.get("menu_undo_tt"));
+        }.setToolTip(Lang.get("menu_undo_tt")).setAcceleratorCTRLplus('Z').enableAcceleratorIn(this);
 
         redoAction = new ToolTipAction(Lang.get("menu_redo"), ICON_REDO) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 redo();
             }
-        }.setToolTip(Lang.get("menu_redo_tt"));
+        }.setToolTip(Lang.get("menu_redo_tt")).setAcceleratorCTRLplus('Y').enableAcceleratorIn(this);
 
         new ToolTipAction("Escape") {
             @Override
@@ -155,7 +155,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (activeMouseController instanceof MouseControllerWireRect)
                     ((MouseControllerWireRect) activeMouseController).flipWire();
             }
-        }.setAccelerator(KeyStroke.getKeyStroke("F")).enableAcceleratorIn(this);
+        }.setAccelerator("F").enableAcceleratorIn(this);
+
+        new ToolTipAction("diagWire") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerWireRect)
+                    ((MouseControllerWireRect) activeMouseController).diagonalWire();
+            }
+        }.setAccelerator("D").enableAcceleratorIn(this);
 
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
@@ -164,7 +172,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     programElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
                 }
             }
-        }.setAccelerator(KeyStroke.getKeyStroke("P")).enableAcceleratorIn(this);
+        }.setAccelerator("P").enableAcceleratorIn(this);
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DEL_ACTION);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), DEL_ACTION);
@@ -341,7 +349,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (undoPosition > 0) {
             Circuit c = new Circuit(initialCircuit);
             c.getListenersFrom(circuit);
-            circuit=c;
+            circuit = c;
             undoPosition--;
             for (int i = 0; i < undoPosition; i++)
                 modifications.get(i).modify(circuit);
@@ -1309,6 +1317,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void escapePressed() {
+            mouseNormal.activate();
+        }
+
+        public void diagonalWire() {
             mouseWireDiag.activate(initialPos, wire2.p2);
             repaint();
         }

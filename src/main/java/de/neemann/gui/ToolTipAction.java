@@ -73,6 +73,16 @@ public abstract class ToolTipAction extends AbstractAction {
     /**
      * Sets an accelerator to the action
      *
+     * @param key the accelerator key
+     * @return this for call chaining
+     */
+    public ToolTipAction setAccelerator(String key) {
+        return setAccelerator(KeyStroke.getKeyStroke(key));
+    }
+
+    /**
+     * Sets an accelerator to the action
+     *
      * @param accelerator the accelerator
      * @return this for call chaining
      */

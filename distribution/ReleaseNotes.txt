@@ -9,8 +9,7 @@ Planned as v0.12
 - Add some functions to make it easier to create 74xx circuits.
 - Added undo/redo functions
 - New wire drawing mode: If a wire is added it is rectangular by default.
-  Pressing ESC switches to diagonal mode, pressing ESC again aborts the wire operation.
-  In rectangular mode the key "F" flips the wire.
+  In rectangular mode "F" flips the wire and pressing "D" switches to diagonal mode.
 
 v0.11.1, released on 02. May 2017
 - Added the possibility to open a circuit from the command line.
