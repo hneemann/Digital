@@ -31,6 +31,7 @@ public class AttributeDialog extends JDialog {
     private final Point pos;
     private final ElementAttributes elementAttributes;
     private final JPanel buttonPanel;
+    private JComponent topMostTextComponent;
     private VisualElement visualElement;
     private boolean changed = false;
 
@@ -66,8 +67,11 @@ public class AttributeDialog extends JDialog {
 
         editors = new ArrayList<>();
 
+        topMostTextComponent = null;
         for (Key key : list) {
             Editor e = EditorFactory.INSTANCE.create(key, elementAttributes.get(key));
+            if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
+                topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
             editors.add(new EditorHolder(e, key));
             e.addToPanel(panel, key, elementAttributes, this);
         }
@@ -153,6 +157,9 @@ public class AttributeDialog extends JDialog {
             setLocationRelativeTo(parent);
         else
             setLocation(pos.x, pos.y);
+
+        if (topMostTextComponent != null)
+            SwingUtilities.invokeLater(() -> topMostTextComponent.requestFocusInWindow());
 
         setVisible(true);
         return changed;

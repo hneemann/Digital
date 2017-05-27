@@ -128,7 +128,7 @@ public final class EditorFactory {
 
     //Checkstyle flags redundant modifiers, which are not redundant. Maybe a bug in checkstyle?
     //CHECKSTYLE.OFF: RedundantModifier
-    private final static class StringEditor extends LabelEditor<String> {
+    final static class StringEditor extends LabelEditor<String> {
 
         private final JTextComponent text;
         private final JComponent compToAdd;
@@ -155,6 +155,9 @@ public final class EditorFactory {
             return text.getText().trim();
         }
 
+        public JTextComponent getTextComponent() {
+            return text;
+        }
     }
 
     private final static class IntegerEditor extends LabelEditor<Integer> {
