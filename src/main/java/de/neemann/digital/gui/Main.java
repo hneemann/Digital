@@ -70,6 +70,7 @@ import static javax.swing.JOptionPane.showInputDialog;
  */
 public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface {
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
+    private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
 
     private static File lastExportDirectory;
@@ -751,6 +752,17 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 new AttributeDialog(Main.this, ATTR_LIST, settings).showDialog();
             }
         }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
+
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(' '), KEY_START_STOP_ACTION);
+        circuitComponent.getActionMap().put(KEY_START_STOP_ACTION, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model == null)
+                    runModelAction.actionPerformed(actionEvent);
+                else
+                    stoppedStateAction.actionPerformed(actionEvent);
+            }
+        });
 
         JMenu run = new JMenu(Lang.get("menu_sim"));
         menuBar.add(run);

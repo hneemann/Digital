@@ -10,6 +10,7 @@ import java.awt.*;
 public abstract class ToolTipAction extends AbstractAction {
     private Icon icon;
     private String toolTipText;
+    private KeyStroke accelerator;
 
     /**
      * Creates a new instance
@@ -56,6 +57,17 @@ public abstract class ToolTipAction extends AbstractAction {
      */
     public ToolTipAction setToolTip(String text) {
         this.toolTipText = new LineBreaker().toHTML().breakLines(text);
+        return this;
+    }
+
+    /**
+     * Sets an accelerator to the item
+     *
+     * @param accelerator the accelerator
+     * @return this for call chaining
+     */
+    public ToolTipAction setAccelerator(KeyStroke accelerator) {
+        this.accelerator = accelerator;
         return this;
     }
 
@@ -109,6 +121,8 @@ public abstract class ToolTipAction extends AbstractAction {
      */
     public JMenuItem createJMenuItem() {
         JMenuItem i = new JMenuItem(this);
+        if (accelerator!=null)
+            i.setAccelerator(accelerator);
         if (toolTipText != null) {
             i.setToolTipText(toolTipText);
         }
