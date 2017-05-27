@@ -70,10 +70,11 @@ public class AttributeDialog extends JDialog {
         topMostTextComponent = null;
         for (Key key : list) {
             Editor e = EditorFactory.INSTANCE.create(key, elementAttributes.get(key));
-            if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
-                topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
             editors.add(new EditorHolder(e, key));
             e.addToPanel(panel, key, elementAttributes, this);
+
+            if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
+                topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
         }
 
         JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
