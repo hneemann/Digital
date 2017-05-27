@@ -1261,14 +1261,21 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON3)
-                mouseNormal.activate();
-            else {
-                modify(new ModifyInsertWire(wire).checkIfLenZero());
-                if (circuit.isPinPos(wire.p2))
+            if (e.isControlDown()) {
+                Vector pos = raster(getPosVector(e));
+                Wire wire = circuit.getWireAt(pos, SIZE2);
+                if (wire != null)
+                    mouseMoveWire.activate(wire, pos);
+            } else {
+                if (e.getButton() == MouseEvent.BUTTON3)
                     mouseNormal.activate();
-                else
-                    mouseWireRect.activate(wire.p2);
+                else {
+                    modify(new ModifyInsertWire(wire).checkIfLenZero());
+                    if (circuit.isPinPos(wire.p2))
+                        mouseNormal.activate();
+                    else
+                        mouseWireRect.activate(wire.p2);
+                }
             }
         }
 
@@ -1332,20 +1339,27 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON3)
-                mouseNormal.activate();
-            else {
-                modify(new Modifications.Builder()
-                        .add(new ModifyInsertWire(wire1).checkIfLenZero())
-                        .add(new ModifyInsertWire(wire2).checkIfLenZero())
-                        .build());
-                if (circuit.isPinPos(wire2.p2))
+            if (e.isControlDown()) {
+                Vector pos = raster(getPosVector(e));
+                Wire wire = circuit.getWireAt(pos, SIZE2);
+                if (wire != null)
+                    mouseMoveWire.activate(wire, pos);
+            } else {
+                if (e.getButton() == MouseEvent.BUTTON3)
                     mouseNormal.activate();
                 else {
-                    initialPos = wire2.p2;
-                    selectionMade = false;
-                    wire1 = new Wire(wire2.p2, wire2.p2);
-                    wire2 = new Wire(wire2.p2, wire2.p2);
+                    modify(new Modifications.Builder()
+                            .add(new ModifyInsertWire(wire1).checkIfLenZero())
+                            .add(new ModifyInsertWire(wire2).checkIfLenZero())
+                            .build());
+                    if (circuit.isPinPos(wire2.p2))
+                        mouseNormal.activate();
+                    else {
+                        initialPos = wire2.p2;
+                        selectionMade = false;
+                        wire1 = new Wire(wire2.p2, wire2.p2);
+                        wire2 = new Wire(wire2.p2, wire2.p2);
+                    }
                 }
             }
         }
