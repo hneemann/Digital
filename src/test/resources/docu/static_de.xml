@@ -251,5 +251,7 @@
         <shortcut key="ESC">Abbrechen der aktuellen Aktion.</shortcut>
         <shortcut key="Entfernen">Löschen der selektierten Elemente.</shortcut>
         <shortcut key="Rückschritt">Löschen der selektierten Elemente.</shortcut>
+        <shortcut key="+">Erhöht die Anzahl der Eingänge in dem Element auf welches die Maus zeigt.</shortcut>
+        <shortcut key="-">Erniedrigt die Anzahl der Eingänge in dem Element auf welches die Maus zeigt.</shortcut>
     </chapter>
 </root>

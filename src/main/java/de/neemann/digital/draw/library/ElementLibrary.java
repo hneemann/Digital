@@ -237,7 +237,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * If not found its tried to load it.
      *
      * @param elementName the elements name
-     * @return the {@link ElementTypeDescription} ore null if not found
+     * @return the {@link ElementTypeDescription}
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public ElementTypeDescription getElementType(String elementName) throws ElementNotFoundException {

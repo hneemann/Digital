@@ -165,6 +165,22 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setAccelerator("D").enableAcceleratorIn(this);
 
+        new ToolTipAction("plus") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerNormal)
+                    addToInputCount(getPosVector(lastMousePos.x, lastMousePos.y), 1);
+            }
+        }.setAccelerator("PLUS").enableAcceleratorIn(this);
+
+        new ToolTipAction("minus") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerNormal)
+                    addToInputCount(getPosVector(lastMousePos.x, lastMousePos.y), -1);
+            }
+        }.setAccelerator("MINUS").enableAcceleratorIn(this);
+
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -301,6 +317,21 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (ve != null && library.isProgrammable(ve.getElementName())) {
             boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
             modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
+        }
+    }
+
+    private void addToInputCount(Vector pos, int delta) {
+        VisualElement ve = circuit.getElementAt(pos);
+        if (ve != null) {
+            try {
+                if (library.getElementType(ve.getElementName()).hasAttribute(Keys.INPUT_COUNT)) {
+                    int number = ve.getElementAttributes().get(Keys.INPUT_COUNT) + delta;
+                    if (number >= Keys.INPUT_COUNT.getMin() && number <= Keys.INPUT_COUNT.getMax())
+                        modify(new ModifyAttribute<>(ve, Keys.INPUT_COUNT, number));
+                }
+            } catch (ElementNotFoundException e) {
+                // do nothing on error
+            }
         }
     }
 
@@ -890,7 +921,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         void activate() {
-            if (activeMouseController != null)
+            if (activeMouseController != null && activeMouseController != this)
                 activeMouseController.deactivate();
             activeMouseController = this;
             deleteAction.setActive(false);
