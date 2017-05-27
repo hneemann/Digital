@@ -8,8 +8,6 @@ package de.neemann.digital.core.element;
 public interface AttributeListener {
     /**
      * Is called if an attribute changes
-     *
-     * @param key the key which value has changed
      */
-    void attributeChanged(Key key);
+    void attributeChanged();
 }

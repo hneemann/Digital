@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
+import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
@@ -30,6 +31,7 @@ public class AttributeDialog extends JDialog {
     private final Point pos;
     private final ElementAttributes elementAttributes;
     private final JPanel buttonPanel;
+    private VisualElement visualElement;
     private boolean changed = false;
 
     /**
@@ -172,6 +174,24 @@ public class AttributeDialog extends JDialog {
         if (parent instanceof CircuitComponent)
             return ((CircuitComponent) parent).getMain();
         return null;
+    }
+
+    /**
+     * @return the visual element of this dialog, maybe null
+     */
+    public VisualElement getVisualElement() {
+        return visualElement;
+    }
+
+    /**
+     * Sets the visual element of this dialog
+     *
+     * @param visualElement the visual element which attributes are edited
+     * @return this for chained calls
+     */
+    public AttributeDialog setVisualElement(VisualElement visualElement) {
+        this.visualElement = visualElement;
+        return this;
     }
 
     private static final class EditorHolder<T> {

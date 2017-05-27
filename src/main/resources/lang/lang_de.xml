@@ -806,6 +806,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_removePinNumbers">Pin Nummern entfernen</string>
     <string name="menu_removePinNumbers_tt">Alle Pinnummern in der Schaltung werden entfernt.</string>
 
+    <string name="menu_undo">Rückgängig</string>
+    <string name="menu_undo_tt">Letzte Aktion rückgängig machen</string>
+    <string name="menu_redo">Wiederherstellen</string>
+    <string name="menu_redo_tt">Letzte rückgängig gemachte Aktion wieder herstellen.</string>
+
     <string name="message">Digital
 
 Ein einfacher Simulator für digitale Schaltkreise.

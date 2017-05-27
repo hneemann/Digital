@@ -61,6 +61,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         this.elementName = proto.elementName;
         this.elementAttributes = new ElementAttributes(proto.elementAttributes);
         setPos(new Vector(proto.pos));
+        this.shapeFactory=proto.shapeFactory;
     }
 
     /**
@@ -82,7 +83,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     }
 
     @Override
-    public void attributeChanged(Key key) {
+    public void attributeChanged() {
         shape = null;
         resetGeometry();
     }

@@ -89,4 +89,19 @@ public class TestData {
         check();
         return names;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TestData testData = (TestData) o;
+
+        return dataString != null ? dataString.equals(testData.dataString) : testData.dataString == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return dataString != null ? dataString.hashCode() : 0;
+    }
 }

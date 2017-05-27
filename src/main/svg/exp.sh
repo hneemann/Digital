@@ -16,6 +16,8 @@
 ./expicon.sh View-zoom-fit
 ./expicon.sh View-zoom-in
 ./expicon.sh View-zoom-out
+./expicon.sh edit-redo
+./expicon.sh edit-undo
 
 ./exptest.sh testFailed
 ./exptest.sh testPassed

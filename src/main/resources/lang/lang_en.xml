@@ -795,6 +795,11 @@ The names of the variables may not be unique.</string>
     <string name="menu_removePinNumbers_tt">Remove all pin numbers in the circuit</string>
     <string name="msg_pin_numbering_N">Select pin {0}:</string>
 
+    <string name="menu_undo">Undo</string>
+    <string name="menu_undo_tt">Revert last modification</string>
+    <string name="menu_redo">Redo</string>
+    <string name="menu_redo_tt">Apply last reverted modification again.</string>
+
 
     <string name="message">Digital
 

@@ -147,6 +147,25 @@ public class Circuit {
     }
 
     /**
+     * Creates a copy of the given circuit
+     *
+     * @param original the original
+     */
+    public Circuit(Circuit original) {
+        this();
+        for (VisualElement ve : original.visualElements)
+            visualElements.add(new VisualElement(ve));
+        for (Wire w : original.wires)
+            wires.add(new Wire(w));
+        if (original.attributes != null)
+            attributes = new ElementAttributes(original.attributes);
+
+        measurementOrdering = new ArrayList<>();
+        if (original.measurementOrdering != null)
+            measurementOrdering.addAll(original.measurementOrdering);
+    }
+
+    /**
      * returns the elements attributes
      *
      * @return the attributes

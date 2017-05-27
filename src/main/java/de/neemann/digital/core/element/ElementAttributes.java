@@ -90,15 +90,15 @@ public class ElementAttributes {
                     attributes = new HashMap<>();
                 attributes.put(key.getKey(), value);
             }
-            fireValueChanged(key);
+            fireValueChanged();
         }
         return this;
     }
 
-    private void fireValueChanged(Key key) {
+    private void fireValueChanged() {
         if (listeners != null)
             for (AttributeListener l : listeners)
-                l.attributeChanged(key);
+                l.attributeChanged();
     }
 
     /**
@@ -221,4 +221,37 @@ public class ElementAttributes {
         attributes.put(fileKey, file.getPath());
     }
 
+    /**
+     * Apply the given attributes to this set
+     *
+     * @param elementAttributes the attributes to use
+     */
+    public void getValuesFrom(ElementAttributes elementAttributes) {
+        if (attributes != null)
+            attributes.clear();
+        else
+            attributes = new HashMap<>();
+
+        if (elementAttributes.attributes != null)
+            attributes.putAll(elementAttributes.attributes);
+
+        if (attributes.isEmpty())
+            attributes = null;
+        fireValueChanged();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ElementAttributes that = (ElementAttributes) o;
+
+        return attributes != null ? attributes.equals(that.attributes) : that.attributes == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return attributes != null ? attributes.hashCode() : 0;
+    }
 }

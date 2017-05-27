@@ -90,7 +90,7 @@ public final class Settings implements AttributeListener {
     }
 
     @Override
-    public void attributeChanged(Key key) {
+    public void attributeChanged() {
         XStream xStream = Circuit.getxStream();
         try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
