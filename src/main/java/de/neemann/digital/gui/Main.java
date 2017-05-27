@@ -244,6 +244,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
 
+        enableClockShortcut();
+
         setPreferredSize(Screen.getInstance().scale(new Dimension(1024, 768)));
         pack();
         setLocationRelativeTo(builder.parent);
@@ -972,6 +974,27 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
+    }
+
+    private void enableClockShortcut() {
+        new ToolTipAction("doClock") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model != null && !realTimeClockRunning) {
+                    ArrayList<Clock> cl = model.getClocks();
+                    if (cl.size() == 1) {
+                        ObservableValue clkVal = cl.get(0).getClockOutput();
+                        clkVal.setBool(!clkVal.getBool());
+                        try {
+                            model.doStep();
+                            circuitComponent.repaintNeeded();
+                        } catch (NodeException | RuntimeException e) {
+                            showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
+                        }
+                    }
+                }
+            }
+        }.setAccelerator("C").enableAcceleratorIn(circuitComponent);
     }
 
     @Override

@@ -224,4 +224,21 @@
             <answer>To program such a chip a special programmer hardware is necessary.</answer>
         </faq>
     </chapter>
+    <chapter name="Keyboard Shortcuts">
+        <shortcut key="Space">Starts or stops the simulation.</shortcut>
+        <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single clock component).</shortcut>
+        <shortcut key="CTRL-X">Cuts the selected components to the clipboard.</shortcut>
+        <shortcut key="CTRL-C">Copys the selected components to the clipboard.</shortcut>
+        <shortcut key="CTRL-V">Inserts the comonents from the clipboard.</shortcut>
+        <shortcut key="R">While inserting this rotates the components.</shortcut>
+        <shortcut key="CTRL-S">Save the circuit.</shortcut>
+        <shortcut key="CTRL-Z">Undo last modification.</shortcut>
+        <shortcut key="CTRL-Y">Redo the last undone modification.</shortcut>
+        <shortcut key="P">Programs a diode or a FG-FET.</shortcut>
+        <shortcut key="D">While drawing a wire switches to the diagonal mode.</shortcut>
+        <shortcut key="F">While drawing a line flips the orientation.</shortcut>
+        <shortcut key="ESC">Abort the actual action.</shortcut>
+        <shortcut key="Del">Removes the selected components.</shortcut>
+        <shortcut key="Backspace">Removes the selected components.</shortcut>
+    </chapter>
 </root>

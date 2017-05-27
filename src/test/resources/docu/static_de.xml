@@ -235,4 +235,21 @@
                 erforderlich.</answer>
         </faq>
     </chapter>
+    <chapter name="Tastenbelegung">
+        <shortcut key="Leertaste">Starten und stoppen der Simulation.</shortcut>
+        <shortcut key="C">Einen Taktschritt ausführen (nur bei gestarteter Simulation und nur, wenn es genau ein Taktelement in der Schaltung gibt).</shortcut>
+        <shortcut key="STRG-X">Ausschneiden der selektierten Elemente und kopieren in die Zwischenablage.</shortcut>
+        <shortcut key="STRG-C">Kopieren der selektierten Elemente in die Zwischenablage.</shortcut>
+        <shortcut key="STRG-V">Einfügen der Elemente aus der Zwischenablage.</shortcut>
+        <shortcut key="R">Beim Einfügen rotieren der Elemente.</shortcut>
+        <shortcut key="STRG-S">Speichern der Schaltung.</shortcut>
+        <shortcut key="STRG-Z">Letzte Änderung zurücknehmen.</shortcut>
+        <shortcut key="STRG-Y">Zurückgenommene Änderung erneut anwenden.</shortcut>
+        <shortcut key="P">Programmieren einer Diode oder eines FG-FET.</shortcut>
+        <shortcut key="D">Beim Ziehen einer rechteckigen Leitung in den Diagonalmodus wechseln.</shortcut>
+        <shortcut key="F">Beim Ziehen einer rechteckigen Leitung die Orientierung wechseln.</shortcut>
+        <shortcut key="ESC">Abbrechen der aktuellen Aktion.</shortcut>
+        <shortcut key="Entfernen">Löschen der selektierten Elemente.</shortcut>
+        <shortcut key="Rückschritt">Löschen der selektierten Elemente.</shortcut>
+    </chapter>
 </root>
