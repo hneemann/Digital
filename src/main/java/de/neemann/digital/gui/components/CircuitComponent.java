@@ -52,7 +52,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private static final Icon ICON_REDO = IconCreator.create("edit-redo.png");
 
     private static final String DEL_ACTION = "myDelAction";
-    private static final String ESC_ACTION = "myEscAction";
     private static final int MOUSE_BORDER_SMALL = 10;
     private static final int MOUSE_BORDER_LARGE = 50;
 
@@ -75,6 +74,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private final MouseControllerInsertCopied mouseInsertList;
     private final Cursor moveCursor;
     private final ToolTipAction copyAction;
+    private final ToolTipAction cutAction;
     private final ToolTipAction pasteAction;
     private final ToolTipAction rotateAction;
     private final ToolTipAction undoAction;
@@ -117,6 +117,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }.setActive(false).setAccelerator(KeyStroke.getKeyStroke("R")).enableAcceleratorIn(this);
 
 
+        cutAction = createCutAction(shapeFactory);
         copyAction = createCopyAction(shapeFactory);
         pasteAction = createPasteAction(shapeFactory);
 
@@ -241,6 +242,27 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 }
             }
         }.setAcceleratorCTRLplus('V').enableAcceleratorIn(this);
+    }
+
+    private ToolTipAction createCutAction(ShapeFactory shapeFactory) {
+        return new ToolTipAction(Lang.get("menu_cut")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Movable> elements = null;
+                if (activeMouseController instanceof MouseControllerSelect) {
+                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
+                    Vector min = Vector.min(mcs.corner1, mcs.corner2);
+                    Vector max = Vector.max(mcs.corner1, mcs.corner2);
+                    elements = circuit.getElementsToCopy(min, max, shapeFactory);
+                    if (elements != null) {
+                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                        clipboard.setContents(new CircuitTransferable(elements), null);
+                        modify(new ModifyDeleteRect(min, max));
+                        activeMouseController.escapePressed();
+                    }
+                }
+            }
+        }.setActive(false).setAcceleratorCTRLplus('X').enableAcceleratorIn(this);
     }
 
     private ToolTipAction createCopyAction(ShapeFactory shapeFactory) {
@@ -395,6 +417,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      */
     public ToolTipAction getDeleteAction() {
         return deleteAction;
+    }
+
+    /**
+     * @return the cut action
+     */
+    public ToolTipAction getCutAction() {
+        return cutAction;
     }
 
     /**
@@ -856,6 +885,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             activeMouseController = this;
             deleteAction.setActive(false);
             copyAction.setEnabled(false);
+            cutAction.setEnabled(false);
             rotateAction.setEnabled(false);
             setCursor(mouseCursor);
             hasChanged();
@@ -1307,6 +1337,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             this.corner2 = corner2;
             deleteAction.setActive(true);
             copyAction.setEnabled(true);
+            cutAction.setEnabled(true);
             rotateAction.setEnabled(true);
             wasReleased = false;
         }

@@ -659,6 +659,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>
     <string name="menu_analyse_tt">Analyse der aktuellen Schaltung</string>
+    <string name="menu_cut">Ausschneiden</string>
     <string name="menu_copy">Kopieren</string>
     <string name="menu_custom">Benutzerdefiniert</string>
     <string name="menu_delete">Löschen</string>
