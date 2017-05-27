@@ -148,6 +148,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0)).enableAcceleratorIn(this);
 
+        new ToolTipAction("flipWire") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerWireRect)
+                    ((MouseControllerWireRect) activeMouseController).flipWire();
+            }
+        }.setAccelerator(KeyStroke.getKeyStroke("F")).enableAcceleratorIn(this);
+
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1200,8 +1208,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Wire wire1;
         private Wire wire2;
         private boolean selectionMade;
-        private boolean firstHori;
+        private boolean firstHorizontal;
         private Vector initialPos;
+        private Vector lastPosition;
 
         private MouseControllerWireRect(Cursor cursor) {
             super(cursor);
@@ -1217,25 +1226,28 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void moved(MouseEvent e) {
-            Vector p = raster(getPosVector(e));
+            lastPosition = raster(getPosVector(e));
             if (!selectionMade) {
-                Vector delta = p.sub(initialPos);
+                Vector delta = lastPosition.sub(initialPos);
                 boolean dx = Math.abs(delta.x) > DRAG_DISTANCE;
                 boolean dy = Math.abs(delta.y) > DRAG_DISTANCE;
                 if (dx || dy) {
-                    firstHori = dx;
+                    firstHorizontal = dx;
                     selectionMade = true;
                 }
             }
+            setWires();
+        }
 
+        private void setWires() {
             Vector pm;
-            if (firstHori)
-                pm = new Vector(p.x, wire1.p1.y);
+            if (firstHorizontal)
+                pm = new Vector(lastPosition.x, wire1.p1.y);
             else
-                pm = new Vector(wire1.p1.x, p.y);
+                pm = new Vector(wire1.p1.x, lastPosition.y);
             wire1.setP2(pm);
             wire2.setP1(pm);
-            wire2.setP2(p);
+            wire2.setP2(lastPosition);
             repaint();
         }
 
@@ -1269,6 +1281,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void escapePressed() {
             mouseWireDiag.activate(initialPos, wire2.p2);
             repaint();
+        }
+
+        private void flipWire() {
+            selectionMade = true;
+            firstHorizontal = !firstHorizontal;
+            setWires();
         }
     }
 
