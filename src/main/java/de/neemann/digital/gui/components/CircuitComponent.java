@@ -173,8 +173,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (activeMouseController instanceof MouseControllerNormal) {
-                    programElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
+                VisualElement ve = getActualVisualElement();
+                if (ve != null && CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
+                    boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
+                    modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
                 }
             }
         }.setAccelerator("P").enableAcceleratorIn(this);
@@ -298,14 +300,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 }
             }
         }.setActive(false).setAcceleratorCTRLplus('C').enableAcceleratorIn(this);
-    }
-
-    private void programElementAt(Vector pos) {
-        VisualElement ve = circuit.getElementAt(pos);
-        if (ve != null && library.isProgrammable(ve.getElementName())) {
-            boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
-            modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
-        }
     }
 
     /**
@@ -862,6 +856,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         modify(builder.build());
     }
 
+    private VisualElement getActualVisualElement() {
+        VisualElement ve = null;
+        if (activeMouseController instanceof MouseControllerNormal)
+            ve = circuit.getElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
+        if (activeMouseController instanceof MouseControllerMoveElement)
+            ve = ((MouseControllerMoveElement) activeMouseController).getVisualElement();
+        return ve;
+    }
 
     private final class PlusMinusAction extends ToolTipAction {
         private final int delta;
@@ -873,12 +875,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            VisualElement ve = null;
-            if (activeMouseController instanceof MouseControllerNormal)
-                ve = circuit.getElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
-            if (activeMouseController instanceof MouseControllerMoveElement)
-                ve = ((MouseControllerMoveElement) activeMouseController).getVisualElement();
-
+            VisualElement ve = getActualVisualElement();
             if (ve != null) {
                 try {
                     if (library.getElementType(ve.getElementName()).hasAttribute(Keys.INPUT_COUNT)) {
