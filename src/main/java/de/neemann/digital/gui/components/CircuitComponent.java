@@ -162,7 +162,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         new ToolTipAction("diagWire") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (activeMouseController instanceof MouseControllerWireRect)
+                if (activeMouseController instanceof MouseControllerWireDiag)
+                    ((MouseControllerWireDiag) activeMouseController).rectangularWire();
+                else if (activeMouseController instanceof MouseControllerWireRect)
                     ((MouseControllerWireRect) activeMouseController).diagonalWire();
             }
         }.setAccelerator("D").enableAcceleratorIn(this);
@@ -1325,6 +1327,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void escapePressed() {
             mouseNormal.activate();
         }
+
+        private void rectangularWire() {
+            mouseWireRect.activate(wire.p1, wire.p2);
+        }
     }
 
     private final class MouseControllerWireRect extends MouseController {
@@ -1340,11 +1346,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         private void activate(Vector startPos) {
+            activate(startPos, startPos);
+            selectionMade = false;
+        }
+
+        private void activate(Vector startPos, Vector endPos) {
             super.activate();
             initialPos = raster(startPos);
-            wire1 = new Wire(initialPos, initialPos);
-            wire2 = new Wire(initialPos, initialPos);
-            selectionMade = false;
+            wire1 = new Wire(startPos, endPos);
+            wire2 = new Wire(startPos, endPos);
+            selectionMade = true;
+            lastPosition=endPos;
+            setWires();
         }
 
         @Override
