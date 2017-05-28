@@ -1346,6 +1346,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         private void activate(Vector startPos) {
+            startPos=raster(startPos);
             activate(startPos, startPos);
             selectionMade = false;
         }

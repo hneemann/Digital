@@ -25,6 +25,8 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
+import de.neemann.digital.gui.components.modification.Modifications;
+import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.TestResultDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
@@ -629,20 +631,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (!circuitComponent.isLocked()) {
                     String prefix = showInputDialog(Lang.get("menu_addPrefix"));
                     if (prefix != null && prefix.length() > 0) {
-                        boolean modified = false;
+                        Modifications.Builder builder = new Modifications.Builder();
                         for (Drawable d : circuitComponent.getHighLighted()) {
                             if (d instanceof VisualElement) {
                                 VisualElement v = (VisualElement) d;
                                 if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION)) {
                                     ElementAttributes attr = v.getElementAttributes();
                                     String l = prefix + attr.getLabel();
-                                    attr.set(Keys.LABEL, l);
-                                    modified = true;
+                                    builder.add(new ModifyAttribute<>(v, Keys.LABEL, l));
                                 }
                             }
                         }
-                        if (modified)
-                            circuitComponent.repaintNeeded();
+                        circuitComponent.modify(builder.build());
                     }
                 }
             }
@@ -651,22 +651,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!circuitComponent.isLocked()) {
-                    boolean modified = false;
+                    Modifications.Builder builder = new Modifications.Builder();
                     for (Drawable d : circuitComponent.getHighLighted()) {
                         if (d instanceof VisualElement) {
                             VisualElement v = (VisualElement) d;
                             if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION)) {
                                 ElementAttributes attr = v.getElementAttributes();
                                 String l = attr.getLabel();
-                                if (l.length() > 1) {
-                                    attr.set(Keys.LABEL, l.substring(1));
-                                    modified = true;
-                                }
+                                if (l.length() > 1)
+                                    builder.add(new ModifyAttribute<>(v, Keys.LABEL, l.substring(1)));
                             }
                         }
                     }
-                    if (modified)
-                        circuitComponent.repaintNeeded();
+                    circuitComponent.modify(builder.build());
                 }
             }
         }.setToolTip(Lang.get("menu_removePrefix_tt")).createJMenuItem());
@@ -681,21 +678,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!circuitComponent.isLocked()) {
-                    boolean modified = false;
+                    Modifications.Builder builder = new Modifications.Builder();
                     for (VisualElement v : circuitComponent.getCircuit().getElements()) {
                         if (v.equalsDescription(In.DESCRIPTION)
                                 || v.equalsDescription(Clock.DESCRIPTION)
                                 || v.equalsDescription(Out.DESCRIPTION)) {
                             ElementAttributes attr = v.getElementAttributes();
                             int p = attr.get(Keys.PINNUMBER);
-                            if (p > 0) {
-                                attr.set(Keys.PINNUMBER, 0);
-                                modified = true;
-                            }
+                            if (p > 0)
+                                builder.add(new ModifyAttribute<>(v, Keys.PINNUMBER, 0));
                         }
                     }
-                    if (modified)
-                        circuitComponent.repaintNeeded();
+                    circuitComponent.modify(builder.build());
                 }
             }
         }.setToolTip(Lang.get("menu_removePinNumbers_tt")).createJMenuItem());
