@@ -536,7 +536,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.getCircuit().editAttributes(Main.this);
+                circuitComponent.editCircuitAttributes(Main.this);
             }
         }.setToolTip(Lang.get("menu_editAttributes_tt"));
 

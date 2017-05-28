@@ -52,6 +52,16 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     public static final Icon ICON_DELETE = IconCreator.create("delete.png");
     private static final Icon ICON_UNDO = IconCreator.create("edit-undo.png");
     private static final Icon ICON_REDO = IconCreator.create("edit-redo.png");
+    private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
+
+    static {
+        ATTR_LIST.add(Keys.WIDTH);
+        ATTR_LIST.add(Keys.IS_DIL);
+        ATTR_LIST.add(Keys.PINCOUNT);
+        ATTR_LIST.add(Keys.BACKGROUND_COLOR);
+        ATTR_LIST.add(Keys.DESCRIPTION);
+        ATTR_LIST.add(Keys.LOCKED_MODE);
+    }
 
     private static final String DEL_ACTION = "myDelAction";
     private static final int MOUSE_BORDER_SMALL = 10;
@@ -304,6 +314,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 }
             }
         }.setActive(false).setAcceleratorCTRLplus('C').enableAcceleratorIn(this);
+    }
+
+
+    /**
+     * Opens the attribute editor
+     *
+     * @param parent the parent component
+     */
+    public void editCircuitAttributes(Component parent) {
+        ElementAttributes edited = new ElementAttributes(circuit.getAttributes());
+        if (new AttributeDialog(parent, ATTR_LIST, edited).showDialog()) {
+            if (!edited.equals(circuit.getAttributes()))
+                modify(circuit -> circuit.getAttributes().getValuesFrom(edited));
+        }
     }
 
     /**

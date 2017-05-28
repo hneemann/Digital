@@ -6,7 +6,10 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.io.Out;
@@ -19,17 +22,14 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestData;
 import de.neemann.gui.language.Language;
 
-import java.awt.*;
 import java.io.*;
 import java.util.*;
-import java.util.List;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -43,16 +43,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
  */
 public class Circuit {
     private static final Set<Drawable> EMPTY_SET = Collections.emptySet();
-    private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
-
-    static {
-        ATTR_LIST.add(Keys.WIDTH);
-        ATTR_LIST.add(Keys.IS_DIL);
-        ATTR_LIST.add(Keys.PINCOUNT);
-        ATTR_LIST.add(Keys.BACKGROUND_COLOR);
-        ATTR_LIST.add(Keys.DESCRIPTION);
-        ATTR_LIST.add(Keys.LOCKED_MODE);
-    }
 
     private int version = 1;
     private ElementAttributes attributes;
@@ -172,19 +162,6 @@ public class Circuit {
         if (attributes == null)
             attributes = new ElementAttributes();
         return attributes;
-    }
-
-    /**
-     * Opens the attribute editor
-     *
-     * @param parent the parent component
-     */
-    public void editAttributes(Component parent) {
-        if (new AttributeDialog(parent, ATTR_LIST, getAttributes()).showDialog()) {
-            if (attributes.isEmpty())
-                attributes = null;
-            modified();
-        }
     }
 
     /**
