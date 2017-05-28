@@ -174,7 +174,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { // is allowed also if locked!
                 VisualElement ve = getActualVisualElement();
                 if (ve != null && CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
                     boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
@@ -266,16 +266,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         return new ToolTipAction(Lang.get("menu_cut")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (activeMouseController instanceof MouseControllerSelect) {
-                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-                    Vector min = Vector.min(mcs.corner1, mcs.corner2);
-                    Vector max = Vector.max(mcs.corner1, mcs.corner2);
-                    ArrayList<Movable> elements = circuit.getElementsToCopy(min, max, shapeFactory);
-                    if (elements != null) {
-                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                        clipboard.setContents(new CircuitTransferable(elements), null);
-                        modify(new ModifyDeleteRect(min, max));
-                        activeMouseController.escapePressed();
+                if (!isLocked()) {
+                    if (activeMouseController instanceof MouseControllerSelect) {
+                        MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
+                        Vector min = Vector.min(mcs.corner1, mcs.corner2);
+                        Vector max = Vector.max(mcs.corner1, mcs.corner2);
+                        ArrayList<Movable> elements = circuit.getElementsToCopy(min, max, shapeFactory);
+                        if (elements != null) {
+                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                            clipboard.setContents(new CircuitTransferable(elements), null);
+                            modify(new ModifyDeleteRect(min, max));
+                            activeMouseController.escapePressed();
+                        }
                     }
                 }
             }
@@ -346,7 +348,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * undo last action
      */
     private void undo() {
-        if (undoPosition > 0) {
+        if (!isLocked() && undoPosition > 0) {
             Circuit c = new Circuit(initialCircuit);
             c.getListenersFrom(circuit);
             circuit = c;
@@ -365,7 +367,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * redo last undo
      */
     private void redo() {
-        if (undoPosition < modifications.size()) {
+        if (!isLocked() && undoPosition < modifications.size()) {
             modifications.get(undoPosition).modify(circuit);
             undoPosition++;
             if (undoPosition == modifications.size())
@@ -831,18 +833,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * Makes actual input values to the default value
      */
     public void actualToDefault() {
-        Modifications.Builder builder = new Modifications.Builder();
-        for (VisualElement ve : circuit.getElements())
-            if (ve.equalsDescription(In.DESCRIPTION)) {
-                ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
-                if (ov != null) {
-                    int newValue = (int) ov.getValue();
-                    int oldValue = ve.getElementAttributes().get(Keys.DEFAULT);
-                    if (newValue != oldValue)
-                        builder.add(new ModifyAttribute<>(ve, Keys.DEFAULT, newValue));
+        if (!isLocked()) {
+            Modifications.Builder builder = new Modifications.Builder();
+            for (VisualElement ve : circuit.getElements())
+                if (ve.equalsDescription(In.DESCRIPTION)) {
+                    ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
+                    if (ov != null) {
+                        int newValue = (int) ov.getValue();
+                        int oldValue = ve.getElementAttributes().get(Keys.DEFAULT);
+                        if (newValue != oldValue)
+                            builder.add(new ModifyAttribute<>(ve, Keys.DEFAULT, newValue));
+                    }
                 }
-            }
-        modify(builder.build());
+            modify(builder.build());
+        }
     }
 
     /**
@@ -877,16 +881,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            VisualElement ve = getActualVisualElement();
-            if (ve != null) {
-                try {
-                    if (library.getElementType(ve.getElementName()).hasAttribute(Keys.INPUT_COUNT)) {
-                        int number = ve.getElementAttributes().get(Keys.INPUT_COUNT) + delta;
-                        if (number >= Keys.INPUT_COUNT.getMin() && number <= Keys.INPUT_COUNT.getMax())
-                            modify(new ModifyAttribute<>(ve, Keys.INPUT_COUNT, number));
+            if (!isLocked()) {
+                VisualElement ve = getActualVisualElement();
+                if (ve != null) {
+                    try {
+                        if (library.getElementType(ve.getElementName()).hasAttribute(Keys.INPUT_COUNT)) {
+                            int number = ve.getElementAttributes().get(Keys.INPUT_COUNT) + delta;
+                            if (number >= Keys.INPUT_COUNT.getMin() && number <= Keys.INPUT_COUNT.getMax())
+                                modify(new ModifyAttribute<>(ve, Keys.INPUT_COUNT, number));
+                        }
+                    } catch (ElementNotFoundException e1) {
+                        // do nothing on error
                     }
-                } catch (ElementNotFoundException e1) {
-                    // do nothing on error
                 }
             }
         }
