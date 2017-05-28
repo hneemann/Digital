@@ -165,21 +165,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setAccelerator("D").enableAcceleratorIn(this);
 
-        new ToolTipAction("plus") {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (activeMouseController instanceof MouseControllerNormal)
-                    addToInputCount(getPosVector(lastMousePos.x, lastMousePos.y), 1);
-            }
-        }.setAccelerator("PLUS").enableAcceleratorIn(this);
-
-        new ToolTipAction("minus") {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (activeMouseController instanceof MouseControllerNormal)
-                    addToInputCount(getPosVector(lastMousePos.x, lastMousePos.y), -1);
-            }
-        }.setAccelerator("MINUS").enableAcceleratorIn(this);
+        new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
+        new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
 
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
@@ -317,21 +304,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (ve != null && library.isProgrammable(ve.getElementName())) {
             boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
             modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
-        }
-    }
-
-    private void addToInputCount(Vector pos, int delta) {
-        VisualElement ve = circuit.getElementAt(pos);
-        if (ve != null) {
-            try {
-                if (library.getElementType(ve.getElementName()).hasAttribute(Keys.INPUT_COUNT)) {
-                    int number = ve.getElementAttributes().get(Keys.INPUT_COUNT) + delta;
-                    if (number >= Keys.INPUT_COUNT.getMin() && number <= Keys.INPUT_COUNT.getMax())
-                        modify(new ModifyAttribute<>(ve, Keys.INPUT_COUNT, number));
-                }
-            } catch (ElementNotFoundException e) {
-                // do nothing on error
-            }
         }
     }
 
@@ -857,6 +829,37 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         return redoAction;
     }
 
+    private final class PlusMinusAction extends ToolTipAction {
+        private final int delta;
+
+        private PlusMinusAction(int delta) {
+            super("plusMinus");
+            this.delta = delta;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            VisualElement ve = null;
+            if (activeMouseController instanceof MouseControllerNormal)
+                ve = circuit.getElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
+            if (activeMouseController instanceof MouseControllerMoveElement)
+                ve = ((MouseControllerMoveElement) activeMouseController).getVisualElement();
+
+            if (ve != null) {
+                try {
+                    if (library.getElementType(ve.getElementName()).hasAttribute(Keys.INPUT_COUNT)) {
+                        int number = ve.getElementAttributes().get(Keys.INPUT_COUNT) + delta;
+                        if (number >= Keys.INPUT_COUNT.getMin() && number <= Keys.INPUT_COUNT.getMax())
+                            modify(new ModifyAttribute<>(ve, Keys.INPUT_COUNT, number));
+                    }
+                } catch (ElementNotFoundException e1) {
+                    // do nothing on error
+                }
+
+            }
+        }
+    }
+
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
         private Vector pos;
         private boolean isMoved;
@@ -1167,6 +1170,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 visualElement.setRotation(initialRot);
             }
             mouseNormal.activate();
+        }
+
+        public VisualElement getVisualElement() {
+            return visualElement;
         }
     }
 
