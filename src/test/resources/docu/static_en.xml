@@ -242,5 +242,9 @@
         <shortcut key="Backspace">Removes the selected components.</shortcut>
         <shortcut key="+">Increases the number of inputs at the component the mouse points to.</shortcut>
         <shortcut key="-">Decreases the number of inputs at the component the mouse points to.</shortcut>
+        <shortcut key="CTRL +">Zoom In</shortcut>
+        <shortcut key="CTRL -">Zoom Out</shortcut>
+        <shortcut key="F1">Fit to size</shortcut>
+        <shortcut key="F5">Show or hide the components tree view</shortcut>
     </chapter>
 </root>

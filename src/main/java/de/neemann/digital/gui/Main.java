@@ -280,19 +280,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.fitCircuit();
             }
-        };
+        }.setAccelerator("F1");
         ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOM_IN) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(1.25);
             }
-        };
+        }.setAccelerator("control PLUS");
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(0.8);
             }
-        };
+        }.setAccelerator("control MINUS");
 
         ToolTipAction viewHelp = new ToolTipAction(Lang.get("menu_viewHelp"), ICON_HELP) {
             @Override
@@ -337,6 +337,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
             revalidate();
         });
+        treeCheckBox.setAccelerator(KeyStroke.getKeyStroke("F5"));
+
         if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT))
             treeCheckBox.doClick();
 

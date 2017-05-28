@@ -253,5 +253,9 @@
         <shortcut key="Rückschritt">Löschen der selektierten Elemente.</shortcut>
         <shortcut key="+">Erhöht die Anzahl der Eingänge in dem Element auf welches die Maus zeigt.</shortcut>
         <shortcut key="-">Erniedrigt die Anzahl der Eingänge in dem Element auf welches die Maus zeigt.</shortcut>
+        <shortcut key="STRG +">Vergrößern</shortcut>
+        <shortcut key="STRG -">Verkleinern</shortcut>
+        <shortcut key="F1">Einpassen</shortcut>
+        <shortcut key="F5">Baumansicht der Bauteile ein- oder ausblenden</shortcut>
     </chapter>
 </root>
