@@ -886,7 +886,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o)
                     .addOkButton()
                     .showDialog()) {
-                circuitComponent.getCircuit().setMeasurementOrdering(names);
+                circuitComponent.modify(circuit -> circuit.setMeasurementOrdering(names));
             }
         } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
