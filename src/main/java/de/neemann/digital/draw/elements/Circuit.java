@@ -17,9 +17,7 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.Drawable;
-import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.sync.NoSync;
@@ -614,34 +612,6 @@ public class Circuit {
     public void setMeasurementOrdering(List<String> measurementOrdering) {
         this.measurementOrdering = measurementOrdering;
     }
-
-    /**
-     * Makes actual input values to the default value
-     */
-    public void actualToDefault() {
-        for (VisualElement ve : visualElements)
-            if (ve.equalsDescription(In.DESCRIPTION)) {
-                ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
-                if (ov != null) {
-                    ve.getElementAttributes().set(Keys.DEFAULT, (int) ov.getValue());
-                    modified = true;
-                }
-            }
-    }
-
-    /**
-     * All fuses (diodes) are restored to "not programed" so that they are working again.
-     *
-     * @param library library to determine which elements are programmable
-     */
-    public void restoreAllFuses(ElementLibrary library) {
-        for (VisualElement ve : visualElements)
-            if (library.isProgrammable(ve.getElementName())) {
-                ve.getElementAttributes().set(Keys.BLOWN, false);
-                modified = true;
-            }
-    }
-
 
     /**
      * Add a rectangle  to the circuit.

@@ -4,7 +4,9 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.io.In;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -260,12 +262,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         return new ToolTipAction(Lang.get("menu_cut")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Movable> elements = null;
                 if (activeMouseController instanceof MouseControllerSelect) {
                     MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
                     Vector min = Vector.min(mcs.corner1, mcs.corner2);
                     Vector max = Vector.max(mcs.corner1, mcs.corner2);
-                    elements = circuit.getElementsToCopy(min, max, shapeFactory);
+                    ArrayList<Movable> elements = circuit.getElementsToCopy(min, max, shapeFactory);
                     if (elements != null) {
                         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                         clipboard.setContents(new CircuitTransferable(elements), null);
@@ -829,6 +830,39 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         return redoAction;
     }
 
+
+    /**
+     * Makes actual input values to the default value
+     */
+    public void actualToDefault() {
+        Modifications.Builder builder = new Modifications.Builder();
+        for (VisualElement ve : circuit.getElements())
+            if (ve.equalsDescription(In.DESCRIPTION)) {
+                ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
+                if (ov != null) {
+                    int newValue = (int) ov.getValue();
+                    int oldValue = ve.getElementAttributes().get(Keys.DEFAULT);
+                    if (newValue != oldValue)
+                        builder.add(new ModifyAttribute<>(ve, Keys.DEFAULT, newValue));
+                }
+            }
+        modify(builder.build());
+    }
+
+    /**
+     * All fuses (diodes) are restored to "not programed" so that they are working again.
+     */
+    public void restoreAllFuses() {
+        Modifications.Builder builder = new Modifications.Builder();
+        for (VisualElement ve : circuit.getElements())
+            if (library.isProgrammable(ve.getElementName())) {
+                if (ve.getElementAttributes().get(Keys.BLOWN))
+                    builder.add(new ModifyAttribute<>(ve, Keys.BLOWN, false));
+            }
+        modify(builder.build());
+    }
+
+
     private final class PlusMinusAction extends ToolTipAction {
         private final int delta;
 
@@ -855,7 +889,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 } catch (ElementNotFoundException e1) {
                     // do nothing on error
                 }
-
             }
         }
     }
@@ -1288,7 +1321,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void drawTo(Graphic gr) {
-            wire.drawTo(gr, false);
+            wire.drawTo(gr, true);
         }
 
         @Override
@@ -1373,8 +1406,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void drawTo(Graphic gr) {
-            wire1.drawTo(gr, false);
-            wire2.drawTo(gr, false);
+            wire1.drawTo(gr, true);
+            wire2.drawTo(gr, true);
         }
 
         @Override

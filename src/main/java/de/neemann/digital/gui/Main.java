@@ -557,7 +557,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction actualToDefault = new ToolTipAction(Lang.get("menu_actualToDefault")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.getCircuit().actualToDefault();
+                circuitComponent.actualToDefault();
                 stoppedState.enter();
             }
         }.setToolTip(Lang.get("menu_actualToDefault_tt"));
@@ -565,7 +565,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction restoreAllFuses = new ToolTipAction(Lang.get("menu_restoreAllFuses")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.getCircuit().restoreAllFuses(library);
+                circuitComponent.restoreAllFuses();
                 stoppedState.enter();
             }
         }.setToolTip(Lang.get("menu_restoreAllFuses_tt"));
