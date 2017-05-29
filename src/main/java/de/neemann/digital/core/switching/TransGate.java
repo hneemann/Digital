@@ -75,4 +75,10 @@ public class TransGate extends Node implements Element {
         });
     }
 
+    /**
+     * @return the state of the transmission gate
+     */
+    public boolean isClosed() {
+        return closed;
+    }
 }

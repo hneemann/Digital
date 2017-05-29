@@ -3,13 +3,11 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.switching.TransGate;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -34,8 +32,11 @@ public class TransGateShape implements Shape {
             .add(SIZE * 2, SIZE)
             .add(0, 0);
 
+    private static final Transform TRANS_SWITCH = new TransformRotate(new Vector(SIZE2, SIZE + SIZE2), 1);
+
     private final PinDescriptions input;
     private final PinDescriptions output;
+    private TransGate transGate;
 
     /**
      * Creates a trantmission gate
@@ -60,6 +61,7 @@ public class TransGateShape implements Shape {
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+        transGate = (TransGate) ioState.getElement();
         return null;
     }
 
@@ -69,6 +71,9 @@ public class TransGateShape implements Shape {
         graphic.drawPolygon(BOTTOM, Style.NORMAL);
         graphic.drawLine(new Vector(SIZE, -SIZE), new Vector(SIZE, -SIZE2), Style.NORMAL);
         graphic.drawCircle(new Vector(SIZE - RAD, P - RAD), new Vector(SIZE + RAD, P + RAD), Style.NORMAL);
+
+        if (transGate != null)
+            FETShape.drawSwitch(new GraphicTransform(graphic, TRANS_SWITCH), transGate.isClosed());
     }
 
 }

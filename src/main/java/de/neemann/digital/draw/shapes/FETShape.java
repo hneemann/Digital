@@ -80,13 +80,22 @@ public abstract class FETShape implements Shape {
      * @param graphic the instance to draw to
      */
     private void drawSwitch(Graphic graphic) {
-        boolean closed = fet.isClosed();
+        drawSwitch(graphic, fet.isClosed());
+    }
+
+    /**
+     * draws the switch
+     *
+     * @param graphic the graphics instance to draw to
+     * @param closed  state of the switch
+     */
+    public static void drawSwitch(Graphic graphic, boolean closed) {
         if (closed) {
             graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE), Style.SHAPE_PIN);
         } else {
             graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE + SIZE2, SIZE2 / 2), Style.SHAPE_PIN);
             graphic.drawPolygon(new Polygon(false)
-                    .add(SIZE + SIZE2 / 2, SIZE2 / 2)
+                    .add(SIZE + SIZE2 / 2, SIZE2 / 2 + 2)
                     .add(SIZE + SIZE2, SIZE - SIZE2 / 2)
                     .add(SIZE + SIZE2, SIZE), Style.SHAPE_PIN);
         }
