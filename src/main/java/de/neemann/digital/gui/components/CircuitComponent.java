@@ -571,6 +571,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         this.highLightStyle = highLightStyle;
     }
 
+    /**
+     * @return the actual highlighted style
+     */
+    public Style getHighLightStyle() {
+        return highLightStyle;
+    }
 
     /**
      * Adds the given element to insert to the circuit

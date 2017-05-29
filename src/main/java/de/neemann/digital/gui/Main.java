@@ -905,6 +905,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 doStep.setEnabled(false);
                 stoppedState.getAction().setEnabled(false);
                 runToBreakAction.setEnabled(false);
+                // keep errors
+                if (circuitComponent.getHighLightStyle() != Style.ERROR)
+                    circuitComponent.removeHighLighted();
             }
 
         });
@@ -916,11 +919,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 stoppedState.getAction().setEnabled(true);
                 if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
-            }
-
-            @Override
-            public void leave() {
-                circuitComponent.removeHighLighted();
             }
         });
     }

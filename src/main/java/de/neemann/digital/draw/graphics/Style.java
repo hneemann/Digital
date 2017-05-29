@@ -63,6 +63,12 @@ public class Style {
      * used to draw the output dots
      */
     public static final Style WIRE_OUT = new Style(LINETHICK, true, Color.RED.darker());
+
+    /**
+     * used to draw the bus wires
+     */
+    public static final Style WIRE_BUS = NORMAL;
+
     /**
      * Filled style used to fill the splitter or the dark LEDs
      */
@@ -87,7 +93,7 @@ public class Style {
     /**
      * error color used for the circles to mark an element
      */
-    public static final Style ERROR = new Style(WIRETHICK, false, Color.RED.darker());
+    public static final Style ERROR = new Style(WIRETHICK, false, Color.RED);
 
     private final int thickness;
     private final boolean filled;
@@ -179,7 +185,8 @@ public class Style {
      * @return the style
      */
     public static Style getWireStyle(ObservableValue value) {
-        if (value == null || value.getBits() > 1) return WIRE;
+        if (value == null) return WIRE;
+        if (value.getBits()>1) return WIRE_BUS;
         if (value.isHighZ()) return WIRE_HIGHZ;
 
         if (value.getValueIgnoreBurn() == 1) return WIRE_HIGH;
