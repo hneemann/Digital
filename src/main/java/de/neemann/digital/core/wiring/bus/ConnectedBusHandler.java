@@ -77,6 +77,7 @@ public final class ConnectedBusHandler extends AbstractBusHandler {
         for (ObservableValue val : values)
             val.set(value, highz);
     }
+
     @Override
     public ObservableValues getAllValues() {
         return new ObservableValues.Builder().add(getInputs()).add(values).build();
@@ -87,5 +88,11 @@ public final class ConnectedBusHandler extends AbstractBusHandler {
      */
     public ArrayList<CommonBusValue> getValues() {
         return values;
+    }
+
+    @Override
+    public String toString() {
+        return "ConnectedBusHandler{"
+                + "values=" + values + '}';
     }
 }

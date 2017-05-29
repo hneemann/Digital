@@ -3,6 +3,8 @@ package de.neemann.digital.core.wiring.bus;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 
+import java.util.Arrays;
+
 /**
  * This observer is added to all outputs connected together
  */
@@ -66,5 +68,12 @@ public final class CommonBusValue extends ObservableValue implements Observer {
             if (i.isConstant())
                 return i;
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "CommonBusValue{"
+                + "inputs=" + Arrays.toString(inputs)
+                + "', -->" + super.toString() + " }";
     }
 }
