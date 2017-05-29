@@ -67,7 +67,7 @@ public class DILShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         int dp = SPACING * SIZE;
         int pin = dp / 4;
         int x = width * SIZE;

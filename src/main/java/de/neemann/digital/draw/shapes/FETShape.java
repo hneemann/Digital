@@ -51,7 +51,7 @@ public abstract class FETShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         final int g = SIZE2 / 2;
         graphic.drawPolygon(new Polygon(false)
                 .add(SIZE, 0)

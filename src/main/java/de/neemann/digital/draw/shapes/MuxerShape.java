@@ -60,7 +60,7 @@ public class MuxerShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean heighLight) {
+    public void drawTo(Graphic graphic, Style heighLight) {
         graphic.drawPolygon(new Polygon(true)
                 .add(1, -4)
                 .add(SIZE * 2 - 1, 5)

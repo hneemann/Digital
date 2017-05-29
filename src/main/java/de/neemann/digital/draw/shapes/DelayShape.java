@@ -41,7 +41,7 @@ public class DelayShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean heighLight) {
+    public void drawTo(Graphic graphic, Style heighLight) {
         graphic.drawPolygon(
                 new Polygon(true)
                         .add(1, -SIZE2)

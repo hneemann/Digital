@@ -50,7 +50,7 @@ public class DiodeBackwardShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         Style style = blown ? Style.DASH : Style.NORMAL;
 
         graphic.drawPolygon(

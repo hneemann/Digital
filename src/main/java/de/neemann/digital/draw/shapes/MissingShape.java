@@ -42,7 +42,7 @@ public class MissingShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         Style style = Style.NORMAL_TEXT;
         graphic.drawText(new Vector(4, 4), new Vector(5, 4), message, Orientation.LEFTTOP, style);
         if (cause != null && cause.length() > 0)

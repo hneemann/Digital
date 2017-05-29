@@ -170,17 +170,18 @@ public class Circuit {
      * @param graphic the graphic instance used
      */
     public void drawTo(Graphic graphic) {
-        drawTo(graphic, EMPTY_SET, NoSync.INST);
+        drawTo(graphic, EMPTY_SET, null, NoSync.INST);
     }
 
     /**
-     * Draws tis circuit using the given graphic instance
+     * Draws this circuit using the given graphic instance
      *
      * @param graphic     the graphic instance used
      * @param highLighted a list of Drawables to highlight
+     * @param highlight   style used to draw the highlighted elements
      * @param modelSync   sync interface to access the model. Is locked while drawing circuit
      */
-    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Sync modelSync) {
+    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, Sync modelSync) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
             dotsPresent = true;
@@ -189,11 +190,11 @@ public class Circuit {
         modelSync.access(() -> {
             graphic.openGroup();
             for (Wire w : wires)
-                w.drawTo(graphic, highLighted.contains(w));
+                w.drawTo(graphic, highLighted.contains(w) ? highlight : null);
             graphic.closeGroup();
             for (VisualElement p : visualElements) {
                 graphic.openGroup();
-                p.drawTo(graphic, highLighted.contains(p));
+                p.drawTo(graphic, highLighted.contains(p) ? highlight : null);
                 graphic.closeGroup();
             }
         });
@@ -640,9 +641,9 @@ public class Circuit {
      * @param circuit the circuit to take the listeners from
      */
     public void getListenersFrom(Circuit circuit) {
-        if (circuit.listeners!=null) {
-            if (listeners==null)
-                listeners=new ArrayList<>();
+        if (circuit.listeners != null) {
+            if (listeners == null)
+                listeners = new ArrayList<>();
             listeners.addAll(circuit.listeners);
         }
     }

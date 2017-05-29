@@ -61,7 +61,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         this.elementName = proto.elementName;
         this.elementAttributes = new ElementAttributes(proto.elementAttributes);
         setPos(new Vector(proto.pos));
-        this.shapeFactory=proto.shapeFactory;
+        this.shapeFactory = proto.shapeFactory;
     }
 
     /**
@@ -165,19 +165,19 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         drawShape(graphic, highLight);
 
         // draw circle around element
-        if (highLight) {
+        if (highLight != null) {
             GraphicMinMax mm = getMinMax(false);
             Vector delta = mm.getMax().sub(mm.getMin()).add(SIZE, SIZE).div(2);
             Vector pos = mm.getMax().add(mm.getMin()).div(2);
-            graphic.drawCircle(pos.sub(delta), pos.add(delta), Style.HIGHLIGHT);
+            graphic.drawCircle(pos.sub(delta), pos.add(delta), highLight);
         }
     }
 
-    private void drawShape(Graphic graphic, boolean highLight) {
+    private void drawShape(Graphic graphic, Style highLight) {
         Graphic gr = new GraphicTransform(graphic, createTransform());
         Shape shape = getShape();
         shape.drawTo(gr, highLight);
@@ -205,14 +205,14 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         if (includeText) {
             if (minMaxText == null) {
                 GraphicMinMax mm = new GraphicMinMax(true);
-                drawShape(mm, false);
+                drawShape(mm, null);
                 minMaxText = mm;
             }
             return minMaxText;
         } else {
             if (minMax == null) {
                 GraphicMinMax mm = new GraphicMinMax(false);
-                drawShape(mm, false);
+                drawShape(mm, null);
                 minMax = mm;
             }
             return minMax;
@@ -246,7 +246,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      */
     public BufferedImage getBufferedImage(double scale, int maxHeight) {
         GraphicMinMax mm = new GraphicMinMax();
-        drawShape(mm, false);
+        drawShape(mm, null);
 
         if (mm.getMax().y - mm.getMin().y > maxHeight / scale)
             scale = (double) (maxHeight - 1) / (mm.getMax().y - mm.getMin().y + 4);
@@ -266,7 +266,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         gr.scale(scale, scale);
         gr.translate(2 - mm.getMin().x, 2 - mm.getMin().y);
         GraphicSwing grs = new GraphicSwing(gr);
-        drawTo(grs, false);
+        drawTo(grs, null);
         return bi;
     }
 

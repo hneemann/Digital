@@ -65,7 +65,7 @@ public class SwitchShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         int yOffs = 0;
         if (closed) {
             graphic.drawLine(new Vector(0, 0), new Vector(SIZE * 2, 0), Style.NORMAL);

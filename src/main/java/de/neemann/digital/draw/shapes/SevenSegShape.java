@@ -74,7 +74,7 @@ public class SevenSegShape extends SevenShape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         super.drawTo(graphic, highLight);
         if (commonCatode)
             graphic.drawLine(

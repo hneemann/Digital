@@ -38,7 +38,7 @@ public class FETShapeP extends FETShape {
 
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         super.drawTo(graphic, highLight);
 
         // the arrow

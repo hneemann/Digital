@@ -84,6 +84,11 @@ public class Style {
      */
     public static final Style HIGHLIGHT = new Style(WIRETHICK, false, Color.CYAN);
 
+    /**
+     * error color used for the circles to mark an element
+     */
+    public static final Style ERROR = new Style(WIRETHICK, false, Color.RED.darker());
+
     private final int thickness;
     private final boolean filled;
     private final Color color;
@@ -180,4 +185,5 @@ public class Style {
         if (value.getValueIgnoreBurn() == 1) return WIRE_HIGH;
         else return WIRE_LOW;
     }
+
 }

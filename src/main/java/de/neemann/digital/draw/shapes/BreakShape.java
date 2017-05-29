@@ -48,7 +48,7 @@ public class BreakShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         Vector center = new Vector(2 + SIZE, 0);
         graphic.drawCircle(center.sub(RAD), center.add(RAD), Style.NORMAL);
         graphic.drawLine(center.sub(D1), center.add(D1), Style.NORMAL);

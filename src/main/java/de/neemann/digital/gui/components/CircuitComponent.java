@@ -107,6 +107,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private ArrayList<Modification> modifications;
     private Circuit initialCircuit;
     private int undoPosition;
+    private Style highLightStyle = Style.HIGHLIGHT;
 
 
     /**
@@ -558,7 +559,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      */
     public void removeHighLighted() {
         highLighted.clear();
+        highLightStyle = Style.HIGHLIGHT;
     }
+
+    /**
+     * Sets the style used to highlight components
+     *
+     * @param highLightStyle the style to highlight components
+     */
+    public void setHighLightStyle(Style highLightStyle) {
+        this.highLightStyle = highLightStyle;
+    }
+
 
     /**
      * Adds the given element to insert to the circuit
@@ -624,7 +636,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
 
             long time = System.currentTimeMillis();
-            circuit.drawTo(gr, highLighted, modelSync);
+            circuit.drawTo(gr, highLighted, highLightStyle, modelSync);
             time = System.currentTimeMillis() - time;
 
             if (time > 500) antiAlias = false;
@@ -1137,7 +1149,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         public void drawTo(Graphic gr) {
             if (delta != null)
-                element.drawTo(gr, true);
+                element.drawTo(gr, Style.HIGHLIGHT);
         }
 
         @Override
@@ -1203,7 +1215,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void drawTo(Graphic gr) {
-            visualElement.drawTo(gr, true);
+            visualElement.drawTo(gr, Style.HIGHLIGHT);
         }
 
         @Override
@@ -1293,7 +1305,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         public void drawTo(Graphic gr) {
             // ensure that highlighted wire is visible by drawing it on top of other drawings.
-            wire.drawTo(gr, true);
+            wire.drawTo(gr, Style.HIGHLIGHT);
         }
 
         @Override
@@ -1350,7 +1362,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void drawTo(Graphic gr) {
-            wire.drawTo(gr, true);
+            wire.drawTo(gr, Style.HIGHLIGHT);
         }
 
         @Override
@@ -1376,7 +1388,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         private void activate(Vector startPos) {
-            startPos=raster(startPos);
+            startPos = raster(startPos);
             activate(startPos, startPos);
             selectionMade = false;
         }
@@ -1387,7 +1399,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             wire1 = new Wire(startPos, endPos);
             wire2 = new Wire(startPos, endPos);
             selectionMade = true;
-            lastPosition=endPos;
+            lastPosition = endPos;
             setWires();
         }
 
@@ -1447,8 +1459,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void drawTo(Graphic gr) {
-            wire1.drawTo(gr, true);
-            wire2.drawTo(gr, true);
+            wire1.drawTo(gr, Style.HIGHLIGHT);
+            wire2.drawTo(gr, Style.HIGHLIGHT);
         }
 
         @Override
@@ -1684,7 +1696,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (elements != null)
                 for (Movable m : elements)
                     if (m instanceof Drawable)
-                        ((Drawable) m).drawTo(gr, true);
+                        ((Drawable) m).drawTo(gr, Style.HIGHLIGHT);
         }
 
         @Override

@@ -70,7 +70,7 @@ public class DriverShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         graphic.drawPolygon(
                 new Polygon(true)
                         .add(-SIZE + 1, -SIZE2 - 2)

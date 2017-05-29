@@ -917,6 +917,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
+
+            @Override
+            public void leave() {
+                circuitComponent.removeHighLighted();
+            }
         });
     }
 
@@ -1009,6 +1014,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 BurnException e = (BurnException) cause;
                 circuitComponent.addHighLightedWires(e.getValues());
             }
+            circuitComponent.setHighLightStyle(Style.ERROR);
             circuitComponent.repaintNeeded();
             new ErrorMessage(message).addCause(cause).show(Main.this);
             stoppedState.enter();

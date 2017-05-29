@@ -140,7 +140,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
 
 
     @Override
-    synchronized public void drawTo(Graphic g, boolean highLight) {
+    synchronized public void drawTo(Graphic g, Style highLight) {
         int x = getTextBorder();
 
         int yOffs = SIZE / 2;

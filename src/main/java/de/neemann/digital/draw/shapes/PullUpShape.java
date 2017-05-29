@@ -47,7 +47,7 @@ public class PullUpShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         graphic.drawPolygon(
                 new Polygon(true)
                         .add(-WIDTH2, -1)

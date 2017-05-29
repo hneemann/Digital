@@ -29,7 +29,7 @@ public class DataSetComponent extends JComponent {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        dataSet.drawTo(new GraphicSwing(g2), false);
+        dataSet.drawTo(new GraphicSwing(g2), null);
     }
 
     @Override

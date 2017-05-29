@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Style;
 
 /**
  * Interface implemented by the elements which can draw itself to a {@link Graphic} instance.
@@ -10,9 +11,8 @@ import de.neemann.digital.draw.graphics.Graphic;
 public interface Drawable {
     /**
      * Draws an element depending on its state.
-     *
-     * @param graphic   interface to draw to
+     *  @param graphic   interface to draw to
      * @param highLight true if a highlighted drawing is required
      */
-    void drawTo(Graphic graphic, boolean highLight);
+    void drawTo(Graphic graphic, Style highLight);
 }

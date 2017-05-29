@@ -64,7 +64,7 @@ public class TransGateShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         graphic.drawPolygon(TOP, Style.NORMAL);
         graphic.drawPolygon(BOTTOM, Style.NORMAL);
         graphic.drawLine(new Vector(SIZE, -SIZE), new Vector(SIZE, -SIZE2), Style.NORMAL);

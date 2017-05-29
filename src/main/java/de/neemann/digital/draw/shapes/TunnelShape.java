@@ -48,7 +48,7 @@ public class TunnelShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic gr, boolean highLight) {
+    public void drawTo(Graphic gr, Style highLight) {
         gr.drawPolygon(new Polygon(true)
                 .add(0, 0)
                 .add(WIDTH, HEIGHT)

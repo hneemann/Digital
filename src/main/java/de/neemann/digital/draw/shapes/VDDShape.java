@@ -45,7 +45,7 @@ public class VDDShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean heighLight) {
+    public void drawTo(Graphic graphic, Style heighLight) {
         graphic.drawPolygon(
                 new Polygon(false)
                         .add(-SIZE2, DOWNSHIFT)

@@ -171,7 +171,7 @@ public class GenericShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         int max = Math.max(inputs.size(), outputs.size());
         int height = (max - 1) * SIZE + SIZE2;
 

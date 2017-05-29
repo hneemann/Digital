@@ -83,7 +83,7 @@ public class ButtonShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean heighLight) {
+    public void drawTo(Graphic graphic, Style heighLight) {
         boolean down = false;
         if (ioState != null) down = ioState.getOutput(0).getBool();
 

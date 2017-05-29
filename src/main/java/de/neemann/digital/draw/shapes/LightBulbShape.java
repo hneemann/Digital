@@ -12,8 +12,6 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
-import java.awt.*;
-
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
@@ -56,7 +54,7 @@ public class LightBulbShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         if (a != null && b != null) {
             boolean on = !a.isHighZ() && !b.isHighZ() && (a.getBool() != b.getBool());
             if (on)

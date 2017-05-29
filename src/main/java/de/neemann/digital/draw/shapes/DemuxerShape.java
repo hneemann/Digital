@@ -65,7 +65,7 @@ public class DemuxerShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         graphic.drawPolygon(new Polygon(true)
                 .add(1, 5)
                 .add(SIZE * 2 - 1, -4)

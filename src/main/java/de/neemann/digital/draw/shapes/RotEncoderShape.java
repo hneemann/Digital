@@ -106,7 +106,7 @@ public class RotEncoderShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean heighLight) {
+    public void drawTo(Graphic graphic, Style heighLight) {
         graphic.drawPolygon(new Polygon(true)
                 .add(0, -SIZE)
                 .add(0, SIZE * 2)

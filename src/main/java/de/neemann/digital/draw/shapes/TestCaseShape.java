@@ -45,7 +45,7 @@ public class TestCaseShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         Polygon pol = new Polygon(true)
                 .add(SIZE2, SIZE2)
                 .add(SIZE2 + SIZE * 4, SIZE2)

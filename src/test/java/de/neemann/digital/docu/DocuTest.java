@@ -117,10 +117,10 @@ public class DocuTest extends TestCase {
 
     private void writeSVG(File imageFile, VisualElement ve) throws IOException {
         GraphicMinMax minMax = new GraphicMinMax(true);
-        ve.drawTo(minMax, false);
+        ve.drawTo(minMax, null);
         try (FileOutputStream out = new FileOutputStream(imageFile)) {
             try (GraphicSVG svg = new GraphicSVG(out, minMax.getMin(), minMax.getMax(), null, 20)) {
-                ve.drawTo(svg, false);
+                ve.drawTo(svg, null);
             }
         }
     }

@@ -45,7 +45,7 @@ public class FGFETShapeN extends FETShape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         super.drawTo(graphic, highLight);
 
         if (programmed)

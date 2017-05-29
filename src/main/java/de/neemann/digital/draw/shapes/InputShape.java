@@ -88,7 +88,7 @@ public class InputShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean heighLight) {
+    public void drawTo(Graphic graphic, Style heighLight) {
         Style style = Style.NORMAL;
         if (ioState != null) {
             ObservableValue value = ioState.getOutput(0);

@@ -55,9 +55,9 @@ public class Wire implements Drawable, Movable {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
-        Style style = Style.HIGHLIGHT;
-        if (!highLight)
+    public void drawTo(Graphic graphic, Style highLight) {
+        Style style = highLight;
+        if (style == null)
             style = Style.getWireStyle(value);
 
         graphic.drawLine(p1, p2, style);

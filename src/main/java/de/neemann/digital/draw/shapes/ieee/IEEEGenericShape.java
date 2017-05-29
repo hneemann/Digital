@@ -54,7 +54,7 @@ public abstract class IEEEGenericShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         int offs = (inputs.size() / 2 - 1) * SIZE;
         drawIEEE(new GraphicTransform(graphic, v -> v.add(0, offs)));
 

@@ -67,7 +67,7 @@ public abstract class SevenShape implements Shape {
     }
 
     @Override
-    public void drawTo(Graphic graphic, boolean highLight) {
+    public void drawTo(Graphic graphic, Style highLight) {
         graphic.drawPolygon(new Polygon(true)
                 .add(-SIZE2, 1)
                 .add(SIZE * 3 + SIZE2, 1)
