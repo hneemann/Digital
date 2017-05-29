@@ -652,8 +652,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="lib_memory">Speicher</string>
     <string name="lib_mux">Multiplexer</string>
     <string name="lib_wires">Leitungen</string>
-    <string name="lib_test">Test</string>
-    <string name="lib_cplx">Sonstige</string>
+    <string name="lib_switching">Schalter</string>
+    <string name="lib_misc">Sonstige</string>
     <string name="lib_more">mehr</string>
 
     <string name="menu_about">Über Digital</string>

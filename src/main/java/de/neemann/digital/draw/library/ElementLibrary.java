@@ -95,8 +95,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(PullUp.DESCRIPTION)
                         .add(PullDown.DESCRIPTION)
                         .add(Driver.DESCRIPTION)
-                        .add(DriverInvSel.DESCRIPTION)
-                        .add(TransGate.DESCRIPTION))
+                        .add(DriverInvSel.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_mux"))
                         .add(Multiplexer.DESCRIPTION)
                         .add(Demultiplexer.DESCRIPTION)
@@ -123,7 +122,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Comparator.DESCRIPTION)
                         .add(Neg.DESCRIPTION)
                         .add(BitCount.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_cplx"))
+                .add(new LibraryNode(Lang.get("lib_switching"))
                         //.add(Diode.DESCRIPTION) // see class DiodeTest for further information
                         .add(DiodeForward.DESCRIPTION)
                         .add(DiodeBackward.DESCRIPTION)
@@ -133,10 +132,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(NFET.DESCRIPTION)
                         .add(FGPFET.DESCRIPTION)
                         .add(FGNFET.DESCRIPTION)
+                        .add(TransGate.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_misc"))
+                        .add(TestCaseElement.TESTCASEDESCRIPTION)
                         .add(Reset.DESCRIPTION)
-                        .add(Break.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_test"))
-                        .add(TestCaseElement.TESTCASEDESCRIPTION));
+                        .add(Break.DESCRIPTION));
 
         populateNodeMap();
 
