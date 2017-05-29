@@ -59,12 +59,12 @@ public class SplitterShape implements Shape {
         for (int i = 0; i < inputs.size(); i++) {
             Vector pos = new Vector(-2, i * SIZE - 3);
             graphic.drawText(pos, pos.add(2, 0), inputs.get(i).getName(), Orientation.RIGHTBOTTOM, Style.SHAPE_PIN);
-            graphic.drawLine(new Vector(0, i * SIZE), new Vector(SIZE2, i * SIZE), Style.WIRE);
+            graphic.drawLine(new Vector(0, i * SIZE), new Vector(SIZE2, i * SIZE), Style.NORMAL);
         }
         for (int i = 0; i < outputs.size(); i++) {
             Vector pos = new Vector(SIZE + 2, i * SIZE - 3);
             graphic.drawText(pos, pos.add(2, 0), outputs.get(i).getName(), Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
-            graphic.drawLine(new Vector(SIZE, i * SIZE), new Vector(SIZE2, i * SIZE), Style.WIRE);
+            graphic.drawLine(new Vector(SIZE, i * SIZE), new Vector(SIZE2, i * SIZE), Style.NORMAL);
         }
 
         graphic.drawPolygon(new Polygon(true)

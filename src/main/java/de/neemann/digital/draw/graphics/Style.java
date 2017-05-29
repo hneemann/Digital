@@ -50,7 +50,7 @@ public class Style {
     /**
      * Used for low wires in running mode
      */
-    public static final Style WIRE_LOW = new Style(WIRETHICK, true, new Color(0, 112, 0));
+    public static final Style WIRE_LOW = new Style(WIRETHICK, true, new Color(0, 142, 0));
     /**
      * Used for high wires in running mode
      */
@@ -67,7 +67,7 @@ public class Style {
     /**
      * used to draw the bus wires
      */
-    public static final Style WIRE_BUS = NORMAL;
+    public static final Style WIRE_BUS = WIRE;
 
     /**
      * Filled style used to fill the splitter or the dark LEDs
