@@ -29,11 +29,12 @@ public class AttributeDialog extends JDialog {
     private final JPanel panel;
     private final Component parent;
     private final Point pos;
-    private final ElementAttributes elementAttributes;
+    private final ElementAttributes originalAttributes;
+    private final ElementAttributes modifiedAttributes;
     private final JPanel buttonPanel;
     private JComponent topMostTextComponent;
     private VisualElement visualElement;
-    private boolean changed = false;
+    private boolean okPressed = false;
 
     /**
      * Creates a new instance
@@ -58,7 +59,8 @@ public class AttributeDialog extends JDialog {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         this.parent = parent;
         this.pos = pos;
-        this.elementAttributes = elementAttributes;
+        this.originalAttributes = elementAttributes;
+        this.modifiedAttributes = new ElementAttributes(elementAttributes);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         panel = new JPanel(new DialogLayout());
@@ -112,8 +114,8 @@ public class AttributeDialog extends JDialog {
      * Closes the dialog and stores modified values
      */
     public void fireOk() {
-        setEditedValues(elementAttributes);
-        changed = true;
+        storeEditedValues();
+        okPressed = true;
         dispose();
     }
 
@@ -141,17 +143,20 @@ public class AttributeDialog extends JDialog {
         return this;
     }
 
-    private void setEditedValues(ElementAttributes attr) {
+    /**
+     * store gui fields to attributes
+     */
+    public void storeEditedValues() {
         for (EditorHolder e : editors)
-            e.setTo(attr);
+            e.setTo(modifiedAttributes);
     }
 
     /**
-     * shows the dialog
+     * Shows the dialog
      *
-     * @return true if data was changed
+     * @return the new attributes of null if nothing has changed
      */
-    public boolean showDialog() {
+    public ElementAttributes showDialog() {
         pack();
 
         if (pos == null)
@@ -163,7 +168,10 @@ public class AttributeDialog extends JDialog {
             SwingUtilities.invokeLater(() -> topMostTextComponent.requestFocusInWindow());
 
         setVisible(true);
-        return changed;
+        if (okPressed && !originalAttributes.equals(modifiedAttributes))
+            return modifiedAttributes;
+        else
+            return null;
     }
 
     /**

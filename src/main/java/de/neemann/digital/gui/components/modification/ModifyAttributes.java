@@ -15,11 +15,12 @@ public class ModifyAttributes extends ModificationOfVisualElement {
     /**
      * Creates a new instance
      *
-     * @param ve the already modified element
+     * @param ve       the element to modify
+     * @param modified the new attributes
      */
-    public ModifyAttributes(VisualElement ve) {
+    public ModifyAttributes(VisualElement ve, ElementAttributes modified) {
         super(ve);
-        attributes = new ElementAttributes(ve.getElementAttributes());
+        attributes = modified;
     }
 
     @Override

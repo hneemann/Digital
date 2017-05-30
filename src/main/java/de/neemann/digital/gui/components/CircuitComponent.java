@@ -324,11 +324,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param parent the parent component
      */
     public void editCircuitAttributes(Component parent) {
-        ElementAttributes edited = new ElementAttributes(circuit.getAttributes());
-        if (new AttributeDialog(parent, ATTR_LIST, edited).showDialog()) {
-            if (!edited.equals(circuit.getAttributes()))
-                modify(circuit -> circuit.getAttributes().getValuesFrom(edited));
-        }
+        ElementAttributes modifiedAttributes = new AttributeDialog(parent, ATTR_LIST, circuit.getAttributes()).showDialog();
+        if (modifiedAttributes != null)
+            modify(circuit -> circuit.getAttributes().getValuesFrom(modifiedAttributes));
     }
 
     /**
@@ -823,10 +821,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     }
                 }.setToolTip(Lang.get("attr_help_tt")));
 
-                ElementAttributes oldValues = new ElementAttributes(element.getElementAttributes());
-                if (attributeDialog.showDialog())
-                    if (!oldValues.equals(element.getElementAttributes()))
-                        addModificationAlreadyMade(new ModifyAttributes(element));
+                ElementAttributes modified = attributeDialog.showDialog();
+                if (modified != null)
+                    modify(new ModifyAttributes(element, modified));
             }
         } catch (ElementNotFoundException ex) {
             // do nothing if element not found!

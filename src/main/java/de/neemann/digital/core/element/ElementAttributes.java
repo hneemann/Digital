@@ -254,4 +254,16 @@ public class ElementAttributes {
     public int hashCode() {
         return attributes != null ? attributes.hashCode() : 0;
     }
+
+    /**
+     * Checks if the values in both attributes are equal
+     *
+     * @param key     the key
+     * @param other   the other attribute set
+     * @param <VALUE> the type og the value
+     * @return true if both values are equal
+     */
+    public <VALUE> boolean equalsKey(Key<VALUE> key, ElementAttributes other) {
+        return get(key).equals(other.get(key));
+    }
 }

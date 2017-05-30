@@ -43,7 +43,6 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.gui.*;
-import de.neemann.gui.language.Language;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -543,16 +542,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction editSettings = new ToolTipAction(Lang.get("menu_editSettings")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                final Language oldLang = Settings.getInstance().get(Keys.SETTINGS_LANGUAGE);
-                final boolean oldIeeeShapes = Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES);
-                if (new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog()) {
-                    FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
-                    final Language newLang = Settings.getInstance().getAttributes().get(Keys.SETTINGS_LANGUAGE);
-                    final boolean newIeeeShapes = Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES);
-                    if (!newLang.equals(oldLang) || (oldIeeeShapes != newIeeeShapes)) {
-                        Lang.setLanguage(newLang);
+                ElementAttributes modified = new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog();
+                if (modified != null) {
+                    FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
+                    if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)) {
+                        Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }
+                    Settings.getInstance().getAttributes().getValuesFrom(modified);
                 }
             }
         }.setToolTip(Lang.get("menu_editSettings_tt"));

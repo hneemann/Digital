@@ -227,10 +227,11 @@ public class TableDialog extends JDialog {
         final TreeMap<String, Integer> pins = model.getTable().getPins();
         if (pins.containsKey(name))
             attr.set(Keys.PIN, pins.get(name).toString());
-        if (new AttributeDialog(this, pos, LIST, attr).showDialog()) {
+        ElementAttributes modified = new AttributeDialog(this, pos, LIST, attr).showDialog();
+        if (modified!=null) {
             pins.remove(name);
-            final String newName = attr.get(Keys.LABEL).trim().replace(' ', '_');
-            final String pinStr = attr.get(Keys.PIN).trim();
+            final String newName = modified.get(Keys.LABEL).trim().replace(' ', '_');
+            final String pinStr = modified.get(Keys.PIN).trim();
             if (pinStr.length() > 0) {
                 try {
                     int p = Integer.parseInt(pinStr);
