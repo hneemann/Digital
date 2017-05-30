@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.lang.Lang;
 
 /**
  * Modifier to insert an element
@@ -22,5 +23,10 @@ public class ModifyInsertElement implements Modification {
     @Override
     public void modify(Circuit circuit) {
         circuit.add(new VisualElement(element));
+    }
+
+    @Override
+    public String toString() {
+        return Lang.get("mod_insertedElement");
     }
 }

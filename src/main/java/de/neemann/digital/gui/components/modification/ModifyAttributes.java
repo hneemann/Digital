@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components.modification;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.lang.Lang;
 
 /**
  * Sets all attributes of an element
@@ -19,7 +20,7 @@ public class ModifyAttributes extends ModificationOfVisualElement {
      * @param modified the new attributes
      */
     public ModifyAttributes(VisualElement ve, ElementAttributes modified) {
-        super(ve);
+        super(ve, Lang.get("mod_setAttributes"));
         attributes = modified;
     }
 

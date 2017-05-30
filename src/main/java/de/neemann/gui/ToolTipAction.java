@@ -10,6 +10,7 @@ import java.awt.*;
 public abstract class ToolTipAction extends AbstractAction {
     private Icon icon;
     private String toolTipText;
+    private ToolTipProvider toolTipProvider;
     private KeyStroke accelerator;
 
     /**
@@ -57,6 +58,17 @@ public abstract class ToolTipAction extends AbstractAction {
      */
     public ToolTipAction setToolTip(String text) {
         this.toolTipText = new LineBreaker().toHTML().breakLines(text);
+        return this;
+    }
+
+    /**
+     * Sets a tool tip provider
+     *
+     * @param toolTipProvider the tool tip provider
+     * @return this for call chaining
+     */
+    public ToolTipAction setToolTipProvider(ToolTipProvider toolTipProvider) {
+        this.toolTipProvider = toolTipProvider;
         return this;
     }
 
@@ -131,11 +143,22 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return a JButton associated with this action, contains only the icon
      */
     public JButton createJButtonNoText() {
-        JButton b = new JButton(this);
-        if (toolTipText != null) {
-            b.setToolTipText(toolTipText);
+        JButton b;
+        if (toolTipProvider == null) {
+            b = new JButton(this);
+            if (toolTipText != null) {
+                b.setToolTipText(toolTipText);
+            } else {
+                b.setToolTipText(b.getText());
+            }
         } else {
-            b.setToolTipText(b.getText());
+            b = new JButton(this) {
+                @Override
+                public String getToolTipText() {
+                    return toolTipProvider.getToolTip();
+                }
+            };
+            ToolTipManager.sharedInstance().registerComponent(b);
         }
         b.setText(null);
         return b;
@@ -154,12 +177,22 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return a JMenuItem associated with this action
      */
     public JMenuItem createJMenuItem() {
-        JMenuItem i = new JMenuItem(this);
+        JMenuItem i;
+        if (toolTipProvider == null) {
+            i = new JMenuItem(this);
+            if (toolTipText != null)
+                i.setToolTipText(toolTipText);
+        } else {
+            i = new JMenuItem(this) {
+                @Override
+                public String getToolTipText() {
+                    return toolTipProvider.getToolTip();
+                }
+            };
+            ToolTipManager.sharedInstance().registerComponent(i);
+        }
         if (accelerator != null)
             i.setAccelerator(accelerator);
-        if (toolTipText != null) {
-            i.setToolTipText(toolTipText);
-        }
         return i;
     }
 

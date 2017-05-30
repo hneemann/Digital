@@ -645,6 +645,23 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_defTreeSelect">Baumansicht beim Start aktivieren.</string>
     <string name="key_defTreeSelect_tt">Wenn gesetzt, wird die Baumansicht beim Start automatisch aktiviert.</string>
 
+    <string name="mod_insertWire">Leitung eingefügt.</string>
+    <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
+    <string name="mod_setKey_N0_in_element">Wert ''{0}'' in Element verändert.</string>
+    <string name="mod_setAttributes">Attribute in Element verändert.</string>
+    <string name="mod_wireDeleted">Leitung gelöscht.</string>
+    <string name="mod_movedOrRotatedElement">Element verschoben oder rotiert.</string>
+    <string name="mod_movedWire">Leitung verschoben.</string>
+    <string name="mod_deletedSelection">Auswahl gelöscht.</string>
+    <string name="mod_insertedElement">Element eingefügt.</string>
+    <string name="mod_deletedElement">Element entfernt.</string>
+    <string name="mod_insertedWire">Leitung eingefügt.</string>
+    <string name="mod_movedSelected">Auswahl verschoben.</string>
+    <string name="mod_undo_N">Rückgängig: {0}</string>
+    <string name="mod_redo_N">Wiederherstellen: {0}</string>
+    <string name="mod_circuitAttrModified">Schaltungsattribute verändert.</string>
+    <string name="mod_modifiedMeasurementOrdering">Reihenfolge der Messwerte verändert.</string>
+
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>
     <string name="lib_flipFlops">FlipFlops</string>

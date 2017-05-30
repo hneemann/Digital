@@ -10,9 +10,11 @@ import java.util.ArrayList;
  */
 public final class Modifications implements Modification {
     private final ArrayList<Modification> modifications;
+    private final String name;
 
-    private Modifications(ArrayList<Modification> modifications) {
+    private Modifications(ArrayList<Modification> modifications, String name) {
         this.modifications = modifications;
+        this.name = name;
     }
 
     @Override
@@ -21,16 +23,25 @@ public final class Modifications implements Modification {
             m.modify(circuit);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     /**
      * The builder to construct an instance
      */
     public static final class Builder {
         private final ArrayList<Modification> list;
+        private final String name;
 
         /**
          * Creates a new instance
+         *
+         * @param name the name of this modification
          */
-        public Builder() {
+        public Builder(String name) {
+            this.name = name;
             list = new ArrayList<>();
         }
 
@@ -58,7 +69,7 @@ public final class Modifications implements Modification {
             if (list.size() == 1)
                 return list.get(0);
             else
-                return new Modifications(list);
+                return new Modifications(list, name);
         }
     }
 }

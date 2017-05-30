@@ -12,26 +12,25 @@ import de.neemann.digital.draw.graphics.Vector;
 public abstract class ModificationOfWire implements Modification {
 
     private final Vector p1;
+    private final String description;
     private final Vector p2;
 
     /**
      * Creates a new instance
      *
-     * @param wire the wire to modify
+     * @param wire        the wire to modify
+     * @param initialPos  the initial position of the wire
+     * @param description description of modification
      */
-    public ModificationOfWire(Wire wire) {
-        this(wire, wire.p1);
-    }
-
-    /**
-     * Creates a new instance
-     *
-     * @param wire       the wire to modify
-     * @param initialPos the initial position of the wire
-     */
-    public ModificationOfWire(Wire wire, Vector initialPos) {
+    public ModificationOfWire(Wire wire, Vector initialPos, String description) {
+        this.description = description;
         p1 = initialPos;
         p2 = initialPos.add(wire.p2.sub(wire.p1));
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 
     /**

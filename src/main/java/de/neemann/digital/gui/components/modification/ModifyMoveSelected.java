@@ -7,6 +7,7 @@ import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Transform;
 import de.neemann.digital.draw.graphics.TransformRotate;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 
@@ -81,4 +82,8 @@ public class ModifyMoveSelected implements Modification {
         }
     }
 
+    @Override
+    public String toString() {
+        return Lang.get("mod_movedSelected");
+    }
 }

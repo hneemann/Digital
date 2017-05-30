@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components.modification;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.lang.Lang;
 
 /**
  * Modifier to delete a wire
@@ -17,7 +18,7 @@ public class ModifyDeleteWire extends ModificationOfWire {
      * @param initialPos its initial position
      */
     public ModifyDeleteWire(Wire wire, Vector initialPos) {
-        super(wire, initialPos);
+        super(wire, initialPos, Lang.get("mod_wireDeleted"));
     }
 
     @Override

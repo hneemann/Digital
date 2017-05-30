@@ -1,8 +1,9 @@
 package de.neemann.digital.draw.elements;
 
-import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
+import de.neemann.digital.gui.components.modification.Modification;
+import de.neemann.digital.gui.components.modification.Modifications;
 
 import java.util.ArrayList;
 
@@ -15,30 +16,17 @@ import java.util.ArrayList;
 public class ElementOrder implements ElementOrderer.OrderInterface<String> {
 
     private final ArrayList<Entry> entries;
-    private final ArrayList<VisualElement> elements;
-    private final CircuitComponent circuitComponent;
-
-    /**
-     * Creates a new instance
-     *
-     * @param circuitComponent the circuit witch components are to order
-     * @param description      the description of the elements to order
-     */
-    public ElementOrder(CircuitComponent circuitComponent, ElementTypeDescription description) {
-        this(circuitComponent, element -> {
-            return element.equalsDescription(description);
-        });
-    }
+    private final Modifications.Builder modifications;
 
     /**
      * Creates a new instance
      *
      * @param circuitComponent the circuitComponent witch components are to order
      * @param filter           the filter to select the entries to order
+     * @param name             name of modification
      */
-    public ElementOrder(CircuitComponent circuitComponent, ElementFilter filter) {
-        this.circuitComponent = circuitComponent;
-        this.elements = circuitComponent.getCircuit().getElements();
+    public ElementOrder(CircuitComponent circuitComponent, ElementFilter filter, String name) {
+        ArrayList<VisualElement> elements = circuitComponent.getCircuit().getElements();
         entries = new ArrayList<>();
         for (int i = 0; i < elements.size(); i++)
             if (filter.accept(elements.get(i))) {
@@ -46,6 +34,7 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
                 if (n != null && n.length() > 0)
                     entries.add(new Entry(i, n));
             }
+        modifications = new Modifications.Builder(name);
     }
 
     @Override
@@ -71,11 +60,19 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
         entries.set(i, entries.get(j));
         entries.set(j, x);
 
-        circuitComponent.modify(circuit -> {
+        modifications.add(circuit -> {
+            ArrayList<VisualElement> elements = circuit.getElements();
             VisualElement y = elements.get(index1);
             elements.set(index1, elements.get(index2));
             elements.set(index2, y);
         });
+    }
+
+    /**
+     * @return the modification
+     */
+    public Modification getModifications() {
+        return modifications.build();
     }
 
     private final static class Entry {

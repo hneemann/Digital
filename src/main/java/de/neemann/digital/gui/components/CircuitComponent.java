@@ -146,14 +146,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void actionPerformed(ActionEvent actionEvent) {
                 undo();
             }
-        }.setToolTip(Lang.get("menu_undo_tt")).setAcceleratorCTRLplus('Z').enableAcceleratorIn(this);
+        }.setToolTipProvider(this::getUndoToolTip).setToolTip(Lang.get("menu_undo_tt")).setAcceleratorCTRLplus('Z').enableAcceleratorIn(this);
 
         redoAction = new ToolTipAction(Lang.get("menu_redo"), ICON_REDO) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 redo();
             }
-        }.setToolTip(Lang.get("menu_redo_tt")).setAcceleratorCTRLplus('Y').enableAcceleratorIn(this);
+        }.setToolTipProvider(this::getRedoToolTip).setToolTip(Lang.get("menu_redo_tt")).setAcceleratorCTRLplus('Y').enableAcceleratorIn(this);
 
         new ToolTipAction("Escape") {
             @Override
@@ -326,7 +326,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     public void editCircuitAttributes(Component parent) {
         ElementAttributes modifiedAttributes = new AttributeDialog(parent, ATTR_LIST, circuit.getAttributes()).showDialog();
         if (modifiedAttributes != null)
-            modify(circuit -> circuit.getAttributes().getValuesFrom(modifiedAttributes));
+            modify(new ModifyCircuitAttributes(modifiedAttributes));
     }
 
     /**
@@ -386,6 +386,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
+    private String getUndoToolTip() {
+        if (undoPosition > 0)
+            return Lang.get("mod_undo_N", modifications.get(undoPosition - 1).toString());
+        else
+            return Lang.get("menu_undo_tt");
+    }
+
     /**
      * redo last undo
      */
@@ -400,6 +407,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
+    private String getRedoToolTip() {
+        if (undoPosition < modifications.size())
+            return Lang.get("mod_redo_N", modifications.get(undoPosition).toString());
+        else
+            return Lang.get("menu_redo_tt");
+    }
 
     /**
      * @return the main frame
@@ -873,7 +886,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      */
     public void actualToDefault() {
         if (!isLocked()) {
-            Modifications.Builder builder = new Modifications.Builder();
+            Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_actualToDefault"));
             for (VisualElement ve : circuit.getElements())
                 if (ve.equalsDescription(In.DESCRIPTION)) {
                     ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
@@ -892,7 +905,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * All fuses (diodes) are restored to "not programed" so that they are working again.
      */
     public void restoreAllFuses() {
-        Modifications.Builder builder = new Modifications.Builder();
+        Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_restoreAllFuses"));
         for (VisualElement ve : circuit.getElements())
             if (library.isProgrammable(ve.getElementName())) {
                 if (ve.getElementAttributes().get(Keys.BLOWN))
@@ -1444,7 +1457,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (e.getButton() == MouseEvent.BUTTON3)
                     mouseNormal.activate();
                 else {
-                    modify(new Modifications.Builder()
+                    modify(new Modifications.Builder(Lang.get("mod_insertWire"))
                             .add(new ModifyInsertWire(wire1).checkIfLenZero())
                             .add(new ModifyInsertWire(wire2).checkIfLenZero())
                             .build());
@@ -1710,7 +1723,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         void clicked(MouseEvent e) {
             if (elements != null && e.getButton() == 1) {
-                Modifications.Builder builder = new Modifications.Builder();
+                Modifications.Builder builder = new Modifications.Builder(Lang.get("mod_insertCopied"));
                 for (Movable m : elements) {
                     if (m instanceof Wire)
                         builder.add(new ModifyInsertWire((Wire) m));

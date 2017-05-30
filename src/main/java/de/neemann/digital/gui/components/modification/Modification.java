@@ -9,7 +9,7 @@ import de.neemann.digital.draw.elements.Circuit;
 public interface Modification {
 
     /**
-     * Performes a modification on the given circuit
+     * Performs a modification on the given circuit
      *
      * @param circuit the circuit to modify
      */

@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components.modification;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.lang.Lang;
 
 /**
  * Modifier to insert a wire.
@@ -35,5 +36,10 @@ public class ModifyInsertWire implements Modification {
             return null;
         else
             return this;
+    }
+
+    @Override
+    public String toString() {
+        return Lang.get("mod_insertedWire");
     }
 }

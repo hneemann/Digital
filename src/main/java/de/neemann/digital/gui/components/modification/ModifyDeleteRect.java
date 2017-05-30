@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.lang.Lang;
 
 /**
  * Modifier to delete all elements in a given rectangle
@@ -25,5 +26,10 @@ public class ModifyDeleteRect implements Modification {
     @Override
     public void modify(Circuit circuit) {
         circuit.delete(min, max);
+    }
+
+    @Override
+    public String toString() {
+        return Lang.get("mod_deletedSelection");
     }
 }

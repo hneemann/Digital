@@ -635,6 +635,23 @@ The names of the variables may not be unique.</string>
     <string name="key_defTreeSelect">Component tree view is visible at startup.</string>
     <string name="key_defTreeSelect_tt">If set, the component tree view is enabled at startup.</string>
 
+    <string name="mod_insertWire">Inserted wire.</string>
+    <string name="mod_insertCopied">Insert from clipboard.</string>
+    <string name="mod_setKey_N0_in_element">Value {0} in component modified.</string>
+    <string name="mod_setAttributes">Attributes of component modified.</string>
+    <string name="mod_wireDeleted">Wire deleted.</string>
+    <string name="mod_movedOrRotatedElement">Component moved or rotated.</string>
+    <string name="mod_movedWire">Wire moved.</string>
+    <string name="mod_deletedSelection">Selection deleted.</string>
+    <string name="mod_insertedElement">Component inserted.</string>
+    <string name="mod_deletedElement">Component deleted.</string>
+    <string name="mod_insertedWire">Wire inserted.</string>
+    <string name="mod_movedSelected">Selection moved.</string>
+    <string name="mod_undo_N">Undo: {0}</string>
+    <string name="mod_redo_N">Redo: {0}</string>
+    <string name="mod_circuitAttrModified">Modified circuit attributes.</string>
+    <string name="mod_modifiedMeasurementOrdering">Ordered measurements.</string>
+
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
     <string name="lib_flipFlops">FlipFlops</string>

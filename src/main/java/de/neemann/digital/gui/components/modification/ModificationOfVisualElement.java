@@ -12,26 +12,35 @@ import de.neemann.digital.draw.graphics.Vector;
 public abstract class ModificationOfVisualElement implements Modification {
 
     private final Vector pos;
+    private final String description;
     private final String name;
 
     /**
      * Creates a new instance
      *
-     * @param ve the element to modify
+     * @param ve          the element to modify
+     * @param description description
      */
-    public ModificationOfVisualElement(VisualElement ve) {
-        this(ve, ve.getPos());
+    public ModificationOfVisualElement(VisualElement ve, String description) {
+        this(ve, ve.getPos(), description);
     }
 
     /**
      * Creates a new instance
      *
-     * @param ve         the element to modify
-     * @param initialPos the initial position of the element
+     * @param ve          the element to modify
+     * @param initialPos  the initial position of the element
+     * @param description description
      */
-    public ModificationOfVisualElement(VisualElement ve, Vector initialPos) {
+    public ModificationOfVisualElement(VisualElement ve, Vector initialPos, String description) {
         name = ve.getElementName();
         pos = initialPos;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 
     /**

@@ -27,6 +27,7 @@ import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.modification.Modifications;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
+import de.neemann.digital.gui.components.modification.ModifyMeasurementOrdering;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.TestResultDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
@@ -509,8 +510,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 ElementOrder o = new ElementOrder(circuitComponent,
                         element -> element.equalsDescription(In.DESCRIPTION)
-                                || element.equalsDescription(Clock.DESCRIPTION));
-                new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).showDialog();
+                                || element.equalsDescription(Clock.DESCRIPTION),
+                        Lang.get("menu_orderInputs"));
+                if (new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).addOkButton().showDialog())
+                    circuitComponent.modify(o.getModifications());
             }
         }.setToolTip(Lang.get("menu_orderInputs_tt"));
 
@@ -519,8 +522,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 ElementOrder o = new ElementOrder(circuitComponent,
                         element -> element.equalsDescription(Out.DESCRIPTION)
-                                || element.equalsDescription(Out.LEDDESCRIPTION));
-                new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).showDialog();
+                                || element.equalsDescription(Out.LEDDESCRIPTION),
+                        Lang.get("menu_orderOutputs"));
+                if (new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).addOkButton().showDialog())
+                    circuitComponent.modify(o.getModifications());
             }
         }.setToolTip(Lang.get("menu_orderOutputs_tt"));
 
@@ -604,6 +609,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_insertAsNew_tt"));
 
+        edit.add(circuitComponent.getUndoAction().createJMenuItemNoIcon());
+        edit.add(circuitComponent.getRedoAction().createJMenuItemNoIcon());
+        edit.addSeparator();
         edit.add(editAttributes.createJMenuItem());
         edit.add(actualToDefault.createJMenuItem());
         edit.add(restoreAllFuses.createJMenuItem());
@@ -631,7 +639,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (!circuitComponent.isLocked()) {
                     String prefix = showInputDialog(Lang.get("menu_addPrefix"));
                     if (prefix != null && prefix.length() > 0) {
-                        Modifications.Builder builder = new Modifications.Builder();
+                        Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_addPrefix"));
                         for (Drawable d : circuitComponent.getHighLighted()) {
                             if (d instanceof VisualElement) {
                                 VisualElement v = (VisualElement) d;
@@ -651,7 +659,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!circuitComponent.isLocked()) {
-                    Modifications.Builder builder = new Modifications.Builder();
+                    Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_removePrefix"));
                     for (Drawable d : circuitComponent.getHighLighted()) {
                         if (d instanceof VisualElement) {
                             VisualElement v = (VisualElement) d;
@@ -678,7 +686,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!circuitComponent.isLocked()) {
-                    Modifications.Builder builder = new Modifications.Builder();
+                    Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_removePinNumbers"));
                     for (VisualElement v : circuitComponent.getCircuit().getElements()) {
                         if (v.equalsDescription(In.DESCRIPTION)
                                 || v.equalsDescription(Clock.DESCRIPTION)
@@ -886,7 +894,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o)
                     .addOkButton()
                     .showDialog()) {
-                circuitComponent.modify(circuit -> circuit.setMeasurementOrdering(names));
+                circuitComponent.modify(new ModifyMeasurementOrdering(names));
             }
         } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
