@@ -179,7 +179,7 @@
 
 	<xsl:template match="shortcut">
 		<fo:block keep-together.within-page="always">
-			<fo:block margin-top="3mm" margin-bottom="1mm">
+			<fo:block margin-left="10mm" margin-top="3mm" margin-bottom="1mm" text-indent="-10mm">
 				<fo:inline padding-right="4pt">
 				<fo:inline font-weight="bold"
 						   border-width="1pt"
