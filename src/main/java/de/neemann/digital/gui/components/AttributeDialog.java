@@ -71,9 +71,9 @@ public class AttributeDialog extends JDialog {
 
         topMostTextComponent = null;
         for (Key key : list) {
-            Editor e = EditorFactory.INSTANCE.create(key, elementAttributes.get(key));
+            Editor e = EditorFactory.INSTANCE.create(key, modifiedAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            e.addToPanel(panel, key, elementAttributes, this);
+            e.addToPanel(panel, key, modifiedAttributes, this);
 
             if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
                 topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
