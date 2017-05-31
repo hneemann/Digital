@@ -1,8 +1,10 @@
 package de.neemann.digital.gui.components.modification;
 
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.lang.Lang;
 
 /**
  * A modification on a visual element.
@@ -36,6 +38,20 @@ public abstract class ModificationOfVisualElement implements Modification {
         name = ve.getElementName();
         pos = initialPos;
         this.description = description;
+    }
+
+    /**
+     * Creates a translated name of the given element
+     *
+     * @param ve the element
+     * @return translated name
+     */
+    public static String getTranslatedName(VisualElement ve) {
+        String s = Lang.get("elem_" + ve.getElementName());
+        String l = ve.getElementAttributes().get(Keys.LABEL);
+        if (l.length() > 0)
+            s += " ('" + l + "')";
+        return s;
     }
 
     @Override

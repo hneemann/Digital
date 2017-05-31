@@ -774,9 +774,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction editRunAttributes = new ToolTipAction(Lang.get("menu_editRunAttributes")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementAttributes modified = new AttributeDialog(Main.this, ATTR_LIST, settings).showDialog();
-                if (modified!=null)
-                    settings.getValuesFrom(modified);
+                settings.getValuesFrom(
+                        new AttributeDialog(Main.this, ATTR_LIST, settings)
+                                .showDialog());
             }
         }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
 

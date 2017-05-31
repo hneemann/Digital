@@ -18,7 +18,7 @@ public class ModifyDeleteElement extends ModificationOfVisualElement {
      * @param initialPos its initial position
      */
     public ModifyDeleteElement(VisualElement ve, Vector initialPos) {
-        super(ve, initialPos, Lang.get("mod_deletedElement"));
+        super(ve, initialPos, Lang.get("mod_deletedElement_N", getTranslatedName(ve)));
     }
 
     @Override

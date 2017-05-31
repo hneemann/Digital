@@ -224,9 +224,12 @@ public class ElementAttributes {
     /**
      * Apply the given attributes to this set
      *
-     * @param elementAttributes the attributes to use
+     * @param elementAttributes the attributes to copy, maybe null
      */
     public void getValuesFrom(ElementAttributes elementAttributes) {
+        if (elementAttributes == null)
+            return;
+
         if (attributes != null)
             attributes.clear();
         else
