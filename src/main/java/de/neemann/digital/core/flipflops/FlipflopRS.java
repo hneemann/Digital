@@ -23,6 +23,7 @@ public class FlipflopRS extends Node implements Element {
             = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("S"), input("C"), input("R"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.DEFAULT)
             .addAttribute(Keys.INVERTERCONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
@@ -48,6 +49,11 @@ public class FlipflopRS extends Node implements Element {
         this.qn = new ObservableValue("\u00ACQ", 1).setPinDescription(DESCRIPTION);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getCleanLabel();
+
+        int def = attributes.get(Keys.DEFAULT);
+        out = def > 0;
+        q.setBool(out);
+        qn.setBool(!out);
     }
 
     @Override
