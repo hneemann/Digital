@@ -1214,7 +1214,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         void clicked(MouseEvent e) {
             if (!isLocked()) {
                 visualElement.setPos(raster(visualElement.getPos()));
-                addModificationAlreadyMade(new ModifyMoveAndRotElement(visualElement, initialPos));
+                if (!visualElement.getPos().equals(initialPos)
+                        || visualElement.getRotate() != initialRot)
+                    addModificationAlreadyMade(new ModifyMoveAndRotElement(visualElement, initialPos));
             }
             mouseNormal.activate();
         }
