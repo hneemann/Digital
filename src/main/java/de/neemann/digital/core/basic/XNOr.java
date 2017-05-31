@@ -19,7 +19,8 @@ public class XNOr extends XOr {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(XNOr.class, input("a"), input("b"))
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.INVERTERCONFIG);
 
     /**
      * Creates a new instance

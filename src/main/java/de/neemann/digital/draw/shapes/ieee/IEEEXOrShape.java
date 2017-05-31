@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.shapes.ieee;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
@@ -47,9 +48,10 @@ public class IEEEXOrShape extends IEEEGenericShape {
      * @param inputs  inputs
      * @param outputs outputs
      * @param invert  true if XNOr
+     * @param attr    the elements attributes
      */
-    public IEEEXOrShape(PinDescriptions inputs, PinDescriptions outputs, boolean invert) {
-        super(inputs, outputs, invert);
+    public IEEEXOrShape(PinDescriptions inputs, PinDescriptions outputs, boolean invert, ElementAttributes attr) {
+        super(inputs, outputs, invert, attr);
     }
 
     @Override

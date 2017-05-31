@@ -1,13 +1,14 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.Rotation;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.testing.TestDataEditor;
 import de.neemann.digital.gui.sync.NoSync;
@@ -25,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,6 +53,7 @@ public final class EditorFactory {
         add(Language.class, LanguageEditor.class);
         add(TestData.class, TestDataEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
+        add(InverterConfig.class, InverterConfigEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -475,6 +478,102 @@ public final class EditorFactory {
         @Override
         public FormatToExpression getValue() {
             return (FormatToExpression) comb.getSelectedItem();
+        }
+    }
+
+    private static class InverterConfigEditor extends LabelEditor<InverterConfig> {
+
+        private final JButton button;
+        private InverterConfig inverterConfig;
+        private ElementAttributes elementAttributes;
+
+        public InverterConfigEditor(InverterConfig aInverterConfig, Key<InverterConfig> key) {
+            this.inverterConfig = aInverterConfig;
+            button = new JButton(new ToolTipAction(getButtonText()) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    VisualElement ve = getAttributeDialog().getVisualElement();
+                    Component p = getAttributeDialog().getDialogParent();
+                    if (ve != null && p instanceof CircuitComponent) {
+                        try {
+                            getAttributeDialog().storeEditedValues();
+                            ElementTypeDescription d = ((CircuitComponent) p).getLibrary().getElementType(ve.getElementName());
+                            PinDescriptions in = d.getInputDescription(elementAttributes);
+                            InputSelectDialog dialog = new InputSelectDialog(getAttributeDialog(), in, inverterConfig);
+                            if (dialog.showDialog()) {
+                                inverterConfig = dialog.getInverterConfig();
+                                button.setText(getButtonText());
+                            }
+                        } catch (ElementNotFoundException | NodeException e) {
+                            new ErrorMessage(Lang.get("msg_errGettingPinNames")).addCause(e).show(getAttributeDialog());
+                        }
+                    }
+                }
+            });
+        }
+
+        private String getButtonText() {
+            if (inverterConfig.isEmpty())
+                return Lang.get("msg_none");
+            return inverterConfig.toString();
+        }
+
+        @Override
+        public InverterConfig getValue() {
+            return inverterConfig;
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            this.elementAttributes = elementAttributes;
+            return button;
+        }
+    }
+
+    private final static class InputSelectDialog extends JDialog {
+        private final ArrayList<JCheckBox> boxes;
+        private boolean ok = false;
+
+        private InputSelectDialog(JDialog parent, PinDescriptions pins, InverterConfig inverterConfig) {
+            super(parent, Lang.get("msg_inputsToInvert"), true);
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            boxes = new ArrayList<>();
+            for (PinDescription p : pins) {
+                JCheckBox cb = new JCheckBox(p.getName());
+                cb.setSelected(inverterConfig.contains(p.getName()));
+                boxes.add(cb);
+                panel.add(cb);
+            }
+            int pad = Screen.getInstance().getFontSize();
+            panel.setBorder(BorderFactory.createEmptyBorder(pad, pad, pad, pad));
+            getContentPane().add(panel);
+            getContentPane().add(new JButton(new AbstractAction(Lang.get("ok")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    ok = true;
+                    dispose();
+                }
+            }), BorderLayout.SOUTH);
+
+            pack();
+            setLocationRelativeTo(parent);
+        }
+
+        public boolean showDialog() {
+            setVisible(true);
+            return ok;
+        }
+
+        private InverterConfig getInverterConfig() {
+            InverterConfig ic = new InverterConfig();
+            for (JCheckBox cb : boxes) {
+                if (cb.isSelected())
+                    ic.add(cb.getText());
+            }
+            return ic;
         }
     }
 }

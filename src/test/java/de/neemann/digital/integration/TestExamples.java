@@ -39,13 +39,13 @@ public class TestExamples extends TestCase {
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(62, new FileScanner(this::check).scan(examples));
-        assertEquals(58, testCasesInFiles);
+        assertEquals(65, new FileScanner(this::check).scan(examples));
+        assertEquals(62, testCasesInFiles);
     }
 
 
     /**
-     * Loads the model and initializes and tests it if test cases are present
+     * Loads the model and initializes and test it if test cases are present
      *
      * @param dig the model file
      */

@@ -55,12 +55,12 @@ public final class ShapeFactory {
         this.library = library;
         library.setShapeFactory(this);
         if (ieee) {
-            map.put(And.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, false));
-            map.put(NAnd.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, true));
-            map.put(Or.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, false));
-            map.put(NOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, true));
-            map.put(XOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, false));
-            map.put(XNOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, true));
+            map.put(And.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, false, attributes));
+            map.put(NAnd.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, true, attributes));
+            map.put(Or.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, false, attributes));
+            map.put(NOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, true, attributes));
+            map.put(XOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, false, attributes));
+            map.put(XNOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, true, attributes));
             map.put(Not.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEENotShape(inputs, outputs));
         } else {
             map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", false));
@@ -157,13 +157,15 @@ public final class ShapeFactory {
                                     customDescr.getAttributes().get(Keys.WIDTH))
                                     .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
                         }
-                    } else
+                    } else {
                         return new GenericShape(
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),
                                 pt.getOutputDescriptions(elementAttributes),
                                 elementAttributes.getLabel(),
-                                true);
+                                true)
+                                .setInverterConfig(elementAttributes.get(Keys.INVERTERCONFIG));
+                    }
                 }
             } else {
                 ElementTypeDescription pt = library.getElementType(elementName);
@@ -194,7 +196,9 @@ public final class ShapeFactory {
 
         @Override
         public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException {
-            return new GenericShape(name, inputs, outputs).invert(invers);
+            return new GenericShape(name, inputs, outputs)
+                    .invert(invers)
+                    .setInverterConfig(attributes.get(Keys.INVERTERCONFIG));
         }
     }
 }

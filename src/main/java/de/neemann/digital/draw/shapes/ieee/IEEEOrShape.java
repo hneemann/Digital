@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.shapes.ieee;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
@@ -38,13 +39,13 @@ public class IEEEOrShape extends IEEEGenericShape {
 
     /**
      * Creates a new instance
-     *
-     * @param inputs  inputs
+     *  @param inputs  inputs
      * @param outputs outputs
      * @param invert  true if NOr
+     * @param attr    the elements attributes
      */
-    public IEEEOrShape(PinDescriptions inputs, PinDescriptions outputs, boolean invert) {
-        super(inputs, outputs, invert);
+    public IEEEOrShape(PinDescriptions inputs, PinDescriptions outputs, boolean invert, ElementAttributes attr) {
+        super(inputs, outputs, invert, attr);
         center = (inputs.size() & 1) != 0;
     }
 

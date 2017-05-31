@@ -18,6 +18,11 @@ import static de.neemann.digital.core.element.PinInfo.input;
  */
 public abstract class FanIn extends Node implements Element {
 
+    /**
+     * The inputs name prefix
+     */
+    public static final String PREFIX = "In_";
+
     private final ArrayList<ObservableValue> inputs;
     private final ObservableValue output;
     private final int bits;
@@ -71,6 +76,7 @@ public abstract class FanIn extends Node implements Element {
             addAttribute(Keys.ROTATE);
             addAttribute(Keys.BITS);
             addAttribute(Keys.INPUT_COUNT);
+            addAttribute(Keys.INVERTERCONFIG);
         }
 
         @Override
@@ -78,7 +84,7 @@ public abstract class FanIn extends Node implements Element {
             int count = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
-                names[i] = input("in_" + i, Lang.get("elem_Basic_In", i));
+                names[i] = input(PREFIX + (i+1), Lang.get("elem_Basic_In", i));
             return new PinDescriptions(names);
         }
     }

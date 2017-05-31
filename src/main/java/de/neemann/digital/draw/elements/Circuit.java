@@ -20,6 +20,7 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.sync.NoSync;
@@ -77,6 +78,8 @@ public class Circuit {
         xStream.alias("data", DataField.class);
         xStream.registerConverter(new DataFieldConverter());
         xStream.alias("testData", TestData.class);
+        xStream.alias("inverterConfig", InverterConfig.class);
+        xStream.addImplicitCollection(InverterConfig.class, "inputs");
         xStream.ignoreUnknownElements();
         return xStream;
     }

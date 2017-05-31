@@ -3,6 +3,7 @@ package de.neemann.digital.core.element;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.gui.language.Language;
 
 import java.awt.*;
@@ -352,5 +353,12 @@ public final class Keys {
      */
     public static final Key<Boolean> IS_DIL
             = new Key<>("isDIL", false);
+
+    /**
+     * contains the input inverter config
+     */
+    public static final Key<InverterConfig> INVERTERCONFIG
+            = new Key<>("inverterConfig", new InverterConfig());
+
 
 }

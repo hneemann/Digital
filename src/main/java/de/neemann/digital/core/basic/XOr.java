@@ -19,7 +19,8 @@ public class XOr extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(XOr.class, input("a"), input("b"))
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.INVERTERCONFIG);
 
     private final int bits;
     private final ObservableValue out;

@@ -634,6 +634,8 @@ The names of the variables may not be unique.</string>
     <string name="key_pinCount_tt">Number of pins. A zero means that the number od pins is determined automatically.</string>
     <string name="key_defTreeSelect">Component tree view is visible at startup.</string>
     <string name="key_defTreeSelect_tt">If set, the component tree view is enabled at startup.</string>
+    <string name="key_inverterConfig">inverted Inputs</string>
+    <string name="key_inverterConfig_tt">You can select the inputs that are to be inverted.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -878,6 +880,9 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="btn_gifComplete_tt">The GIF file is finalized and closed.</string>
     <string name="msg_gifExport">GIF Export</string>
     <string name="msg_errCausedBy">caused by</string>
+    <string name="msg_inputsToInvert">Inputs to invert</string>
+    <string name="msg_none">none</string>
+    <string name="msg_errGettingPinNames">Could not determine the names of the pins.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

@@ -923,6 +923,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         return ve;
     }
 
+    /**
+     * @return the used element library
+     */
+    public ElementLibrary getLibrary() {
+        return library;
+    }
+
     private final class PlusMinusAction extends ToolTipAction {
         private final int delta;
 

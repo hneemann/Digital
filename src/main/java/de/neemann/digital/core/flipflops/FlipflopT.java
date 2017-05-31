@@ -23,6 +23,7 @@ public class FlipflopT extends Node implements Element {
             = new ElementTypeDescription("T_FF", FlipflopT.class, input("C"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INVERTERCONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final boolean isProbe;

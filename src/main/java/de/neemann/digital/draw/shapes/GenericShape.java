@@ -7,6 +7,7 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.model.InverterConfig;
 
 import java.awt.*;
 
@@ -38,6 +39,7 @@ public class GenericShape implements Shape {
 
     private transient Pins pins;
     private boolean showPinLabels;
+    private InverterConfig inverterConfig;
 
     /**
      * Creates a new generic shape.
@@ -112,7 +114,7 @@ public class GenericShape implements Shape {
     @Override
     public Pins getPins() {
         if (pins == null) {
-            pins = createPins(inputs, outputs, invert, width, symmetric);
+            pins = createPins(inputs, outputs, invert, width, symmetric, inverterConfig);
         }
         return pins;
     }
@@ -123,10 +125,11 @@ public class GenericShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      * @param invert  true if invert output
+     * @param ic      iput inverter configuration
      * @return the pins
      */
-    public static Pins createPins(PinDescriptions inputs, PinDescriptions outputs, boolean invert) {
-        return createPins(inputs, outputs, invert, 3, true);
+    public static Pins createPins(PinDescriptions inputs, PinDescriptions outputs, boolean invert, InverterConfig ic) {
+        return createPins(inputs, outputs, invert, 3, true, ic);
     }
 
     /**
@@ -137,19 +140,25 @@ public class GenericShape implements Shape {
      * @param invert    true if invert output
      * @param width     with of symbol
      * @param symmetric true if outputs in the center
+     * @param ic        iput inverter configuration
      * @return the pins
      */
-    public static Pins createPins(PinDescriptions inputs, PinDescriptions outputs, boolean invert, int width, boolean symmetric) {
+    public static Pins createPins(PinDescriptions inputs, PinDescriptions outputs, boolean invert, int width, boolean symmetric, InverterConfig ic) {
         Pins pins = new Pins();
 
         int offs = symmetric ? inputs.size() / 2 * SIZE : 0;
+
 
         for (int i = 0; i < inputs.size(); i++) {
             int correct = 0;
             if (symmetric && ((inputs.size() & 1) == 0) && i >= inputs.size() / 2)
                 correct = SIZE;
 
-            pins.add(new Pin(new Vector(0, i * SIZE + correct), inputs.get(i)));
+            int dx = 0;
+            if (isInverted(inputs.get(i).getName(), ic))
+                dx = -SIZE;
+
+            pins.add(new Pin(new Vector(dx, i * SIZE + correct), inputs.get(i)));
         }
 
 
@@ -163,6 +172,10 @@ public class GenericShape implements Shape {
         }
 
         return pins;
+    }
+
+    private static boolean isInverted(String name, InverterConfig ic) {
+        return ic != null && ic.contains(name);
     }
 
     @Override
@@ -202,8 +215,11 @@ public class GenericShape implements Shape {
 
         if (showPinLabels) {
             for (Pin p : getPins()) {
+                int dx = 4;
+                if (isInverted(p.getName(), inverterConfig))
+                    dx += SIZE;
                 if (p.getDirection() == Pin.Direction.input)
-                    graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
+                    graphic.drawText(p.getPos().add(dx, 0), p.getPos().add(dx + 1, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
                 else
                     graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
             }
@@ -217,6 +233,42 @@ public class GenericShape implements Shape {
                 graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.SHAPE_PIN);
             }
         }
+
+        drawInputInvert(graphic, inverterConfig, getPins());
+
+
     }
 
+    /**
+     * Draw the inverted inputs
+     *
+     * @param graphic        the graphic to paint on
+     * @param inverterConfig the inverter configuration
+     * @param pins           the pins containing the inputs
+     */
+    public static void drawInputInvert(Graphic graphic, InverterConfig inverterConfig, Pins pins) {
+        if (inverterConfig != null && !inverterConfig.isEmpty())
+            for (Pin p : pins) {
+                if (p.getDirection() == Pin.Direction.input) {
+                    if (inverterConfig.contains(p.getName())) {
+                        graphic.drawCircle(p.getPos().add(2, -SIZE2 + 2),
+                                p.getPos().add(SIZE - 2, SIZE2 - 2), Style.NORMAL);
+                    }
+                }
+            }
+    }
+
+    /**
+     * Sets the inverter config
+     *
+     * @param inverterConfig the inverter config
+     * @return this for chained calls
+     */
+    public GenericShape setInverterConfig(InverterConfig inverterConfig) {
+        if (inverterConfig.isEmpty())
+            this.inverterConfig = null;
+        else
+            this.inverterConfig = inverterConfig;
+        return this;
+    }
 }

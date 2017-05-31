@@ -5,6 +5,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.*;
@@ -54,6 +55,8 @@ public class ModelEntry {
     public void applyInputs() throws PinException, NodeException {
         HashMap<String, Pin> ins = pins.getInputs();
 
+        InverterConfig ic = visualElement.getElementAttributes().get(Keys.INVERTERCONFIG);
+
         ObservableValues values = ObservableValues.EMPTY_LIST;
         ArrayList<ObservableValue> inputs = new ArrayList<>();
         for (PinDescription inputName : inputNames) {
@@ -65,7 +68,7 @@ public class ModelEntry {
             if (value == null)
                 throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputName, visualElement), visualElement);
 
-            inputs.add(value);
+            inputs.add(ic.invert(inputName.getName(), value));
         }
 
         ArrayList<ObservableValue> bidirect = null;
