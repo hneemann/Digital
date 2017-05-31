@@ -60,7 +60,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="200" y="140"/>
+      <pos x="240" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -74,7 +74,7 @@
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="160"/>
+      <pos x="60" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -88,7 +88,7 @@
           <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="200" y="180"/>
+      <pos x="240" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -106,7 +106,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="200"/>
+      <pos x="60" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -152,7 +152,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="200" y="280"/>
+      <pos x="240" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -166,7 +166,7 @@
           <int>12</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="300"/>
+      <pos x="60" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -180,7 +180,7 @@
           <int>11</int>
         </entry>
       </elementAttributes>
-      <pos x="200" y="320"/>
+      <pos x="240" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -198,42 +198,38 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="340"/>
+      <pos x="60" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>Set</string>
+            <string>Clr</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
       <pos x="280" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>Set</string>
+            <string>Clr</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
       <pos x="280" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="220" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="220" y="140"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="220" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="220" y="340"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="20" y="160"/>
+      <p1 x="60" y="160"/>
       <p2 x="280" y="160"/>
     </wire>
     <wire>
@@ -241,43 +237,31 @@
       <p2 x="500" y="160"/>
     </wire>
     <wire>
-      <p1 x="200" y="320"/>
+      <p1 x="240" y="320"/>
       <p2 x="280" y="320"/>
     </wire>
     <wire>
-      <p1 x="20" y="340"/>
-      <p2 x="220" y="340"/>
+      <p1 x="60" y="340"/>
+      <p2 x="260" y="340"/>
     </wire>
     <wire>
-      <p1 x="260" y="340"/>
-      <p2 x="280" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="200" y="180"/>
+      <p1 x="240" y="180"/>
       <p2 x="280" y="180"/>
     </wire>
     <wire>
-      <p1 x="200" y="280"/>
-      <p2 x="220" y="280"/>
+      <p1 x="240" y="280"/>
+      <p2 x="260" y="280"/>
     </wire>
     <wire>
       <p1 x="340" y="280"/>
       <p2 x="360" y="280"/>
     </wire>
     <wire>
-      <p1 x="260" y="280"/>
-      <p2 x="280" y="280"/>
+      <p1 x="60" y="200"/>
+      <p2 x="260" y="200"/>
     </wire>
     <wire>
-      <p1 x="20" y="200"/>
-      <p2 x="220" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="200"/>
-      <p2 x="280" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="20" y="300"/>
+      <p1 x="60" y="300"/>
       <p2 x="280" y="300"/>
     </wire>
     <wire>
@@ -285,16 +269,12 @@
       <p2 x="500" y="300"/>
     </wire>
     <wire>
-      <p1 x="200" y="140"/>
-      <p2 x="220" y="140"/>
+      <p1 x="240" y="140"/>
+      <p2 x="260" y="140"/>
     </wire>
     <wire>
       <p1 x="340" y="140"/>
       <p2 x="360" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="140"/>
-      <p2 x="280" y="140"/>
     </wire>
   </wires>
 </circuit>
