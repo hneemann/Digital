@@ -46,11 +46,16 @@ public abstract class ModificationOfVisualElement implements Modification {
      * @param ve the element
      * @return translated name
      */
-    public static String getTranslatedName(VisualElement ve) {
-        String s = Lang.get("elem_" + ve.getElementName());
+    public static String getToolTipName(VisualElement ve) {
+        String s = Lang.getNull("elem_" + ve.getElementName());
+        if (s == null) {
+            s = ve.getElementName();
+            if (s.endsWith(".dig"))
+                s = s.substring(0, s.length() - 4);
+        }
         String l = ve.getElementAttributes().get(Keys.LABEL);
         if (l.length() > 0)
-            s += " ('" + l + "')";
+            s += " (" + l + ")";
         return s;
     }
 

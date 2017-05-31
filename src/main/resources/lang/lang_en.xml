@@ -638,7 +638,7 @@ The names of the variables may not be unique.</string>
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
     <string name="mod_setKey_N0_in_element_N1">Value ''{0}'' in component ''{1}'' modified.</string>
-    <string name="mod_setAttributes">Attributes of component modified.</string>
+    <string name="mod_setAttributesIn_N">Attributes of component ''{0}'' modified.</string>
     <string name="mod_wireDeleted">Wire deleted.</string>
     <string name="mod_movedOrRotatedElement_N">Component ''{0}'' moved or rotated.</string>
     <string name="mod_movedWire">Wire moved.</string>

@@ -4,7 +4,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.lang.Lang;
 
-import static de.neemann.digital.gui.components.modification.ModificationOfVisualElement.getTranslatedName;
+import static de.neemann.digital.gui.components.modification.ModificationOfVisualElement.getToolTipName;
 
 /**
  * Modifier to insert an element
@@ -29,6 +29,6 @@ public class ModifyInsertElement implements Modification {
 
     @Override
     public String toString() {
-        return Lang.get("mod_insertedElement_N", getTranslatedName(element));
+        return Lang.get("mod_insertedElement_N", getToolTipName(element));
     }
 }

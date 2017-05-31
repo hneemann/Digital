@@ -20,7 +20,7 @@ public class ModifyMoveAndRotElement extends ModificationOfVisualElement {
      * @param initialPos its initial position
      */
     public ModifyMoveAndRotElement(VisualElement ve, Vector initialPos) {
-        super(ve, initialPos, Lang.get("mod_movedOrRotatedElement_N", getTranslatedName(ve)));
+        super(ve, initialPos, Lang.get("mod_movedOrRotatedElement_N", getToolTipName(ve)));
         pos = ve.getPos();
         rotation = ve.getRotate();
     }

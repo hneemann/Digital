@@ -24,7 +24,7 @@ public class ModifyAttribute<VALUE> extends ModificationOfVisualElement {
      * @param value the new value
      */
     public ModifyAttribute(VisualElement ve, Key<VALUE> key, VALUE value) {
-        super(ve, Lang.get("mod_setKey_N0_in_element_N1", key.getName(), getTranslatedName(ve)));
+        super(ve, Lang.get("mod_setKey_N0_in_element_N1", key.getName(), getToolTipName(ve)));
         this.key = key;
         this.value = value;
     }

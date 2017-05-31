@@ -20,7 +20,7 @@ public class ModifyAttributes extends ModificationOfVisualElement {
      * @param modified the new attributes
      */
     public ModifyAttributes(VisualElement ve, ElementAttributes modified) {
-        super(ve, Lang.get("mod_setAttributes"));
+        super(ve, Lang.get("mod_setAttributesIn_N", getToolTipName(ve)));
         attributes = modified;
     }
 
