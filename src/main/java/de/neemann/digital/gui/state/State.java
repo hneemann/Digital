@@ -82,4 +82,10 @@ public class State implements StateInterface {
         return action;
     }
 
+    /**
+     * @return true if this state is active
+     */
+    public boolean isActive() {
+        return stateManager.isActive(this);
+    }
 }

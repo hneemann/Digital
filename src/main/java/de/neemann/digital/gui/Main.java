@@ -565,7 +565,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.actualToDefault();
-                stoppedState.enter();
+                ensureModelIsStopped();
             }
         }.setToolTip(Lang.get("menu_actualToDefault_tt"));
 
@@ -573,7 +573,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.restoreAllFuses();
-                stoppedState.enter();
+                ensureModelIsStopped();
             }
         }.setToolTip(Lang.get("menu_restoreAllFuses_tt"));
 
@@ -740,7 +740,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     circuitComponent.repaintNeeded();
                     statusLabel.setText(Lang.get("stat_clocks", i));
                 } catch (NodeException e1) {
-                    stoppedState.enter();
+                    ensureModelIsStopped();
                     new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
                 }
             }
@@ -832,7 +832,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             windowPosManager.register("testResult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
 
-            stoppedState.enter();
+            ensureModelIsStopped();
         } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {
             showErrorAndStopModel(Lang.get("msg_runningTestError"), e1);
         }
@@ -853,7 +853,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                     new TableDialog(Main.this, new ModelAnalyser(model).analyse(), library, shapeFactory, getBaseFileName())
                             .setVisible(true);
-                    stoppedState.enter();
+                    ensureModelIsStopped();
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | RuntimeException e1) {
                     showErrorAndStopModel(Lang.get("msg_analyseErr"), e1);
                 }
@@ -867,7 +867,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 TruthTable tt = new TruthTable(3).addResult();
                 new TableDialog(Main.this, tt, library, shapeFactory, getBaseFileName()).setVisible(true);
-                stoppedState.enter();
+                ensureModelIsStopped();
             }
         }
                 .setToolTip(Lang.get("menu_synthesise_tt"))
@@ -887,7 +887,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private void orderMeasurements() {
         try {
             Model m = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-            stoppedState.enter();
+            ensureModelIsStopped();
             ArrayList<String> names = new ArrayList<>();
             for (Signal s : m.getSignals())
                 names.add(s.getName());
@@ -1030,8 +1030,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * stops the model
      */
-    public void stopModel() {
-        stoppedState.enter();
+    public void ensureModelIsStopped() {
+        if (!stoppedState.isActive())
+            stoppedState.enter();
     }
 
 
@@ -1068,7 +1069,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (setLibraryRoot) library.setRootFilePath(filename.getParentFile());
             Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circuit);
-            stoppedState.enter();
+            ensureModelIsStopped();
             windowPosManager.closeAll();
             statusLabel.setText(" ");
         } catch (Exception e) {
@@ -1081,7 +1082,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private void saveFile(File filename, boolean toPrefs) {
         try {
             circuitComponent.getCircuit().save(filename);
-            stoppedState.enter();
+            ensureModelIsStopped();
             setFilename(filename, toPrefs);
 
             library.invalidateElement(filename);
@@ -1112,6 +1113,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     @Override
     public void circuitHasChanged() {
+        ensureModelIsStopped();
         if (!modifiedPrefixVisible)
             setFilename(filename, false);
     }
@@ -1339,7 +1341,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     @Override
     public void stop() {
         SwingUtilities.invokeLater(() -> {
-            stoppedState.enter();
+            ensureModelIsStopped();
             circuitComponent.repaintNeeded();
         });
     }

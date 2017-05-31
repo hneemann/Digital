@@ -39,4 +39,13 @@ public class StateManager {
         return state;
     }
 
+    /**
+     * Returns true if the given state is the active state
+     *
+     * @param state the state
+     * @return true if the given state is active
+     */
+    public boolean isActive(State state) {
+        return actualState == state;
+    }
 }
