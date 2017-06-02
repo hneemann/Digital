@@ -1,18 +1,18 @@
 Release Notes
 
 Planned as v0.12
-- Added a locked mode, which avoids the unwanted modification of the circuit.
-- Better support for high dpi screens.
-- Added a pin number attribute to inputs and outputs.
-- Added DIL packages to allow more "physical" circuits. See examples/74xx.
-  Up to now only a view 74xx circuits are available.
-- Add some functions to make it easier to create 74xx circuits.
 - Added undo/redo functions.
 - New wire drawing mode: If a wire is added it is rectangular by default.
   In rectangular mode "F" flips the wire and pressing "D" switches to diagonal mode.
 - Added inverted inputs for basic gates and flip-flops.
+- Added a locked mode, which avoids the unwanted modification of the circuit.
+- Better support for high dpi screens.
+- Added DIL packages to allow more "physical" circuits. See examples/74xx.
+  Up to now only a view 74xx circuits are available.
+- Added a pin number attribute to inputs and outputs.
+- Add some functions to make it easier to create 74xx circuits.
 - Lots of small usability improvements.
-- Added a list of keyboard shortcuts to the documentation
+- Added a list of keyboard shortcuts to the documentation.
 
 v0.11.1, released on 02. May 2017
 - Added the possibility to open a circuit from the command line.

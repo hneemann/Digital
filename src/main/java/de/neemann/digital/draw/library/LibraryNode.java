@@ -150,7 +150,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     public ElementTypeDescription getDescription() throws IOException {
         if (description == null) {
             if (!unique)
-                throw new IOException(Lang.get("err_file_N0_ExistsTwiceBelow_N1", file, library.getRootFilePath()));
+                throw new IOException(Lang.get("err_file_N0_ExistsTwiceBelow_N1", file.getName(), library.getRootFilePath()));
             try {
                 description = library.importElement(file);
             } catch (IOException e) {

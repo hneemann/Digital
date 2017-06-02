@@ -17,7 +17,7 @@ import de.neemann.digital.lang.Lang;
 public class MissingShape implements Shape {
 
     private final Pins pins = new Pins();
-    private final String cause;
+    private final Exception cause;
     private final String message;
 
     /**
@@ -28,7 +28,7 @@ public class MissingShape implements Shape {
      */
     public MissingShape(String elementName, Exception cause) {
         this.message = Lang.get("msg_missingShape_N", elementName);
-        this.cause = cause.getMessage();
+        this.cause = cause;
     }
 
     @Override
@@ -45,7 +45,12 @@ public class MissingShape implements Shape {
     public void drawTo(Graphic graphic, Style highLight) {
         Style style = Style.NORMAL_TEXT;
         graphic.drawText(new Vector(4, 4), new Vector(5, 4), message, Orientation.LEFTTOP, style);
-        if (cause != null && cause.length() > 0)
-            graphic.drawText(new Vector(4, 4 + style.getFontSize()), new Vector(5, 4 + style.getFontSize()), cause, Orientation.LEFTTOP, style);
+        Throwable c = cause;
+        int y = 4;
+        while (c != null) {
+            y += style.getFontSize();
+            graphic.drawText(new Vector(4, y), new Vector(5, y), c.getMessage(), Orientation.LEFTTOP, style);
+            c = c.getCause();
+        }
     }
 }
