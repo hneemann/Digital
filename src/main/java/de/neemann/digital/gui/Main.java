@@ -1114,7 +1114,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     @Override
     public void circuitHasChanged() {
         ensureModelIsStopped();
-        if (!modifiedPrefixVisible)
+        if (modifiedPrefixVisible != circuitComponent.getCircuit().isModified())
             setFilename(filename, false);
     }
 

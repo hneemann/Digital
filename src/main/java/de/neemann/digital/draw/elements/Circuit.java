@@ -661,7 +661,10 @@ public class Circuit {
             listeners.remove(listener);
     }
 
-    private void fireChangedEvent() {
+    /**
+     * notifies listeners about circuit changes
+     */
+    public void fireChangedEvent() {
         if (listeners != null)
             for (ChangedListener l : listeners)
                 l.circuitHasChanged();

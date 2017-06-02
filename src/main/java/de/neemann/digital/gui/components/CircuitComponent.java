@@ -381,7 +381,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             redoAction.setEnabled(true);
             if (undoPosition == 0)
                 undoAction.setEnabled(false);
-            circuit.modified();
+            circuit.fireChangedEvent();
             repaintNeeded();
         }
     }
