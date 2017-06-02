@@ -1081,7 +1081,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void saveFile(File filename, boolean toPrefs) {
         try {
-            circuitComponent.getCircuit().save(filename);
+            circuitComponent.save(filename);
             ensureModelIsStopped();
             setFilename(filename, toPrefs);
 

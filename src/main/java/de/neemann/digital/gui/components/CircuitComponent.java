@@ -30,6 +30,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -107,6 +109,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private ArrayList<Modification> modifications;
     private Circuit initialCircuit;
     private int undoPosition;
+    private int savedUndoPosition;
     private Style highLightStyle = Style.HIGHLIGHT;
 
 
@@ -381,6 +384,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             redoAction.setEnabled(true);
             if (undoPosition == 0)
                 undoAction.setEnabled(false);
+
+            if (undoPosition != savedUndoPosition)
+                circuit.modified();
+
             circuit.fireChangedEvent();
             repaintNeeded();
         }
@@ -412,6 +419,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             return Lang.get("mod_redo_N", modifications.get(undoPosition).toString());
         else
             return Lang.get("menu_redo_tt");
+    }
+
+    /**
+     * save the circuit
+     *
+     * @param filename the filename
+     * @throws IOException IOException
+     */
+    public void save(File filename) throws IOException {
+        circuit.save(filename);
+        savedUndoPosition = undoPosition;
     }
 
     /**
