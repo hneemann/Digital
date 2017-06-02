@@ -467,9 +467,10 @@ public class Circuit {
 
     /**
      * Sets this circuits state to not modified
+     * @param modified the modified state
      */
-    public void setNotModified() {
-        modified = false;
+    public void setModified(boolean modified) {
+        this.modified = modified;
     }
 
     /**

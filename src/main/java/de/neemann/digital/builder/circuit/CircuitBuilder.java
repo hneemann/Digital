@@ -318,7 +318,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (!sequentialVars.isEmpty())
             addNetConnections(circuit, maxWidth + SIZE * 7);
 
-        circuit.setNotModified();
+        circuit.setModified(false);
         return circuit;
     }
 

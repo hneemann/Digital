@@ -384,10 +384,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             redoAction.setEnabled(true);
             if (undoPosition == 0)
                 undoAction.setEnabled(false);
-
-            if (undoPosition != savedUndoPosition)
-                circuit.modified();
-
+            circuit.setModified(undoPosition != savedUndoPosition);
             circuit.fireChangedEvent();
             repaintNeeded();
         }
@@ -410,6 +407,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (undoPosition == modifications.size())
                 redoAction.setEnabled(false);
             undoAction.setEnabled(true);
+            circuit.setModified(undoPosition != savedUndoPosition);
+            circuit.fireChangedEvent();
             repaintNeeded();
         }
     }
