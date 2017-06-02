@@ -1,6 +1,6 @@
 Release Notes
 
-Planned as v0.12
+v0.12, released on 02. Jun 2016
 - Added undo/redo functions.
 - New wire drawing mode: If a wire is added it is rectangular by default.
   In rectangular mode "F" flips the wire and pressing "D" switches to diagonal mode.
