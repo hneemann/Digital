@@ -3,6 +3,15 @@
   <version>1</version>
   <attributes>
     <entry>
+      <string>backgroundColor</string>
+      <awt-color>
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+        <alpha>0</alpha>
+      </awt-color>
+    </entry>
+    <entry>
       <string>Width</string>
       <int>2</int>
     </entry>
