@@ -4,30 +4,6 @@
   <attributes/>
   <visualElements>
     <visualElement>
-      <elementName>Decoder</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Selector Bits</string>
-          <int>2</int>
-        </entry>
-      </elementAttributes>
-      <pos x="240" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>1,1</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="280"/>
-    </visualElement>
-    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -35,7 +11,7 @@
           <string>A_0</string>
         </entry>
       </elementAttributes>
-      <pos x="160" y="280"/>
+      <pos x="200" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -45,7 +21,7 @@
           <string>A_1</string>
         </entry>
       </elementAttributes>
-      <pos x="160" y="320"/>
+      <pos x="200" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>PullUp</elementName>
@@ -138,30 +114,6 @@
       <pos x="800" y="420"/>
     </visualElement>
     <visualElement>
-      <elementName>Decoder</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Selector Bits</string>
-          <int>2</int>
-        </entry>
-      </elementAttributes>
-      <pos x="240" y="520"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>1,1</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="600"/>
-    </visualElement>
-    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -169,7 +121,7 @@
           <string>A_2</string>
         </entry>
       </elementAttributes>
-      <pos x="160" y="600"/>
+      <pos x="200" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -179,7 +131,7 @@
           <string>A_3</string>
         </entry>
       </elementAttributes>
-      <pos x="160" y="640"/>
+      <pos x="200" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
@@ -304,11 +256,271 @@
  1   1   0   1  0
  1   1   1   0  0
  1   1   1   1  0
+
+
+
+
+# transitions
+0 0 0 0 0
+0 0 0 1 0
+0 0 0 0 0
+0 0 1 0 0
+0 0 0 0 0
+0 0 1 1 0
+0 0 0 0 0
+0 1 0 0 0
+0 0 0 0 0
+0 1 0 1 0
+0 0 0 0 0
+0 1 1 0 1
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+1 0 0 0 0
+0 0 0 0 0
+1 0 0 1 1
+0 0 0 0 0
+1 0 1 0 0
+0 0 0 0 0
+1 0 1 1 0
+0 0 0 0 0
+1 1 0 0 0
+0 0 0 0 0
+1 1 0 1 0
+0 0 0 0 0
+1 1 1 0 0
+0 0 0 0 0
+1 1 1 1 0
+0 0 0 0 0
+0 0 0 1 0
+0 0 1 0 0
+0 0 0 1 0
+0 0 1 1 0
+0 0 0 1 0
+0 1 0 0 0
+0 0 0 1 0
+0 1 0 1 0
+0 0 0 1 0
+0 1 1 0 1
+0 0 0 1 0
+0 1 1 1 0
+0 0 0 1 0
+1 0 0 0 0
+0 0 0 1 0
+1 0 0 1 1
+0 0 0 1 0
+1 0 1 0 0
+0 0 0 1 0
+1 0 1 1 0
+0 0 0 1 0
+1 1 0 0 0
+0 0 0 1 0
+1 1 0 1 0
+0 0 0 1 0
+1 1 1 0 0
+0 0 0 1 0
+1 1 1 1 0
+0 0 0 1 0
+0 0 1 0 0
+0 0 1 1 0
+0 0 1 0 0
+0 1 0 0 0
+0 0 1 0 0
+0 1 0 1 0
+0 0 1 0 0
+0 1 1 0 1
+0 0 1 0 0
+0 1 1 1 0
+0 0 1 0 0
+1 0 0 0 0
+0 0 1 0 0
+1 0 0 1 1
+0 0 1 0 0
+1 0 1 0 0
+0 0 1 0 0
+1 0 1 1 0
+0 0 1 0 0
+1 1 0 0 0
+0 0 1 0 0
+1 1 0 1 0
+0 0 1 0 0
+1 1 1 0 0
+0 0 1 0 0
+1 1 1 1 0
+0 0 1 0 0
+0 0 1 1 0
+0 1 0 0 0
+0 0 1 1 0
+0 1 0 1 0
+0 0 1 1 0
+0 1 1 0 1
+0 0 1 1 0
+0 1 1 1 0
+0 0 1 1 0
+1 0 0 0 0
+0 0 1 1 0
+1 0 0 1 1
+0 0 1 1 0
+1 0 1 0 0
+0 0 1 1 0
+1 0 1 1 0
+0 0 1 1 0
+1 1 0 0 0
+0 0 1 1 0
+1 1 0 1 0
+0 0 1 1 0
+1 1 1 0 0
+0 0 1 1 0
+1 1 1 1 0
+0 0 1 1 0
+0 1 0 0 0
+0 1 0 1 0
+0 1 0 0 0
+0 1 1 0 1
+0 1 0 0 0
+0 1 1 1 0
+0 1 0 0 0
+1 0 0 0 0
+0 1 0 0 0
+1 0 0 1 1
+0 1 0 0 0
+1 0 1 0 0
+0 1 0 0 0
+1 0 1 1 0
+0 1 0 0 0
+1 1 0 0 0
+0 1 0 0 0
+1 1 0 1 0
+0 1 0 0 0
+1 1 1 0 0
+0 1 0 0 0
+1 1 1 1 0
+0 1 0 0 0
+0 1 0 1 0
+0 1 1 0 1
+0 1 0 1 0
+0 1 1 1 0
+0 1 0 1 0
+1 0 0 0 0
+0 1 0 1 0
+1 0 0 1 1
+0 1 0 1 0
+1 0 1 0 0
+0 1 0 1 0
+1 0 1 1 0
+0 1 0 1 0
+1 1 0 0 0
+0 1 0 1 0
+1 1 0 1 0
+0 1 0 1 0
+1 1 1 0 0
+0 1 0 1 0
+1 1 1 1 0
+0 1 0 1 0
+0 1 1 0 1
+0 1 1 1 0
+0 1 1 0 1
+1 0 0 0 0
+0 1 1 0 1
+1 0 0 1 1
+0 1 1 0 1
+1 0 1 0 0
+0 1 1 0 1
+1 0 1 1 0
+0 1 1 0 1
+1 1 0 0 0
+0 1 1 0 1
+1 1 0 1 0
+0 1 1 0 1
+1 1 1 0 0
+0 1 1 0 1
+1 1 1 1 0
+0 1 1 0 1
+0 1 1 1 0
+1 0 0 0 0
+0 1 1 1 0
+1 0 0 1 1
+0 1 1 1 0
+1 0 1 0 0
+0 1 1 1 0
+1 0 1 1 0
+0 1 1 1 0
+1 1 0 0 0
+0 1 1 1 0
+1 1 0 1 0
+0 1 1 1 0
+1 1 1 0 0
+0 1 1 1 0
+1 1 1 1 0
+0 1 1 1 0
+1 0 0 0 0
+1 0 0 1 1
+1 0 0 0 0
+1 0 1 0 0
+1 0 0 0 0
+1 0 1 1 0
+1 0 0 0 0
+1 1 0 0 0
+1 0 0 0 0
+1 1 0 1 0
+1 0 0 0 0
+1 1 1 0 0
+1 0 0 0 0
+1 1 1 1 0
+1 0 0 0 0
+1 0 0 1 1
+1 0 1 0 0
+1 0 0 1 1
+1 0 1 1 0
+1 0 0 1 1
+1 1 0 0 0
+1 0 0 1 1
+1 1 0 1 0
+1 0 0 1 1
+1 1 1 0 0
+1 0 0 1 1
+1 1 1 1 0
+1 0 0 1 1
+1 0 1 0 0
+1 0 1 1 0
+1 0 1 0 0
+1 1 0 0 0
+1 0 1 0 0
+1 1 0 1 0
+1 0 1 0 0
+1 1 1 0 0
+1 0 1 0 0
+1 1 1 1 0
+1 0 1 0 0
+1 0 1 1 0
+1 1 0 0 0
+1 0 1 1 0
+1 1 0 1 0
+1 0 1 1 0
+1 1 1 0 0
+1 0 1 1 0
+1 1 1 1 0
+1 0 1 1 0
+1 1 0 0 0
+1 1 0 1 0
+1 1 0 0 0
+1 1 1 0 0
+1 1 0 0 0
+1 1 1 1 0
+1 1 0 0 0
+1 1 0 1 0
+1 1 1 0 0
+1 1 0 1 0
+1 1 1 1 0
+1 1 0 1 0
+1 1 1 0 0
+1 1 1 1 0
+1 1 1 0 0
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="120" y="20"/>
+      <pos x="160" y="-40"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -332,7 +544,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="160" y="680"/>
+      <pos x="200" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
@@ -355,72 +567,78 @@
       <pos x="680" y="220"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
+      <pos x="420" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
+      <pos x="560" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
+      <pos x="700" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
       <pos x="840" y="40"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
       <pos x="840" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
       <pos x="840" y="300"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
       <pos x="840" y="420"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
       <pos x="700" y="420"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
+      <pos x="560" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
+      <pos x="420" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
+      <pos x="420" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
       <pos x="700" y="300"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
+      <pos x="560" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Fuse</elementName>
+      <elementAttributes/>
+      <pos x="420" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Fuse</elementName>
       <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
         <entry>
           <string>Blown</string>
           <boolean>true</boolean>
@@ -429,42 +647,8 @@
       <pos x="700" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
+      <elementName>Fuse</elementName>
       <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="700" y="40"/>
-    </visualElement>
-    <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="40"/>
-    </visualElement>
-    <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
         <entry>
           <string>Blown</string>
           <boolean>true</boolean>
@@ -473,65 +657,17 @@
       <pos x="560" y="300"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="420"/>
+      <elementName>dec.dig</elementName>
+      <elementAttributes/>
+      <pos x="240" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="420" y="420"/>
-    </visualElement>
-    <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="420" y="300"/>
-    </visualElement>
-    <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="420" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>DiodeBackward</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="420" y="40"/>
+      <elementName>dec.dig</elementName>
+      <elementAttributes/>
+      <pos x="240" y="520"/>
     </visualElement>
   </visualElements>
   <wires>
-    <wire>
-      <p1 x="160" y="320"/>
-      <p2 x="180" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="160" y="640"/>
-      <p2 x="180" y="640"/>
-    </wire>
     <wire>
       <p1 x="820" y="160"/>
       <p2 x="840" y="160"/>
@@ -605,6 +741,10 @@
       <p2 x="440" y="520"/>
     </wire>
     <wire>
+      <p1 x="200" y="520"/>
+      <p2 x="240" y="520"/>
+    </wire>
+    <wire>
       <p1 x="280" y="200"/>
       <p2 x="320" y="200"/>
     </wire>
@@ -625,8 +765,8 @@
       <p2 x="660" y="200"/>
     </wire>
     <wire>
-      <p1 x="160" y="680"/>
-      <p2 x="920" y="680"/>
+      <p1 x="220" y="200"/>
+      <p2 x="240" y="200"/>
     </wire>
     <wire>
       <p1 x="820" y="40"/>
@@ -693,10 +833,6 @@
       <p2 x="500" y="140"/>
     </wire>
     <wire>
-      <p1 x="180" y="620"/>
-      <p2 x="200" y="620"/>
-    </wire>
-    <wire>
       <p1 x="940" y="620"/>
       <p2 x="960" y="620"/>
     </wire>
@@ -715,10 +851,6 @@
     <wire>
       <p1 x="880" y="620"/>
       <p2 x="900" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="180" y="300"/>
-      <p2 x="200" y="300"/>
     </wire>
     <wire>
       <p1 x="820" y="300"/>
@@ -753,6 +885,14 @@
       <p2 x="460" y="300"/>
     </wire>
     <wire>
+      <p1 x="200" y="560"/>
+      <p2 x="220" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="560"/>
+      <p2 x="720" y="560"/>
+    </wire>
+    <wire>
       <p1 x="300" y="400"/>
       <p2 x="360" y="400"/>
     </wire>
@@ -773,10 +913,6 @@
       <p2 x="300" y="240"/>
     </wire>
     <wire>
-      <p1 x="280" y="560"/>
-      <p2 x="720" y="560"/>
-    </wire>
-    <wire>
       <p1 x="360" y="80"/>
       <p2 x="380" y="80"/>
     </wire>
@@ -791,6 +927,10 @@
     <wire>
       <p1 x="780" y="80"/>
       <p2 x="800" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="660"/>
+      <p2 x="920" y="660"/>
     </wire>
     <wire>
       <p1 x="360" y="340"/>
@@ -813,6 +953,10 @@
       <p2 x="300" y="180"/>
     </wire>
     <wire>
+      <p1 x="200" y="180"/>
+      <p2 x="240" y="180"/>
+    </wire>
+    <wire>
       <p1 x="300" y="20"/>
       <p2 x="360" y="20"/>
     </wire>
@@ -827,14 +971,6 @@
     <wire>
       <p1 x="360" y="20"/>
       <p2 x="500" y="20"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="280"/>
-      <p2 x="260" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="160" y="280"/>
-      <p2 x="200" y="280"/>
     </wire>
     <wire>
       <p1 x="320" y="280"/>
@@ -853,20 +989,20 @@
       <p2 x="500" y="280"/>
     </wire>
     <wire>
-      <p1 x="220" y="600"/>
-      <p2 x="260" y="600"/>
-    </wire>
-    <wire>
-      <p1 x="160" y="600"/>
-      <p2 x="200" y="600"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="220"/>
-      <p2 x="320" y="220"/>
+      <p1 x="220" y="540"/>
+      <p2 x="240" y="540"/>
     </wire>
     <wire>
       <p1 x="280" y="540"/>
       <p2 x="580" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="220"/>
+      <p2 x="220" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="220"/>
+      <p2 x="320" y="220"/>
     </wire>
     <wire>
       <p1 x="320" y="140"/>
@@ -891,14 +1027,6 @@
     <wire>
       <p1 x="640" y="140"/>
       <p2 x="640" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="240"/>
-      <p2 x="260" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="580"/>
-      <p2 x="260" y="600"/>
     </wire>
     <wire>
       <p1 x="740" y="560"/>
@@ -1077,16 +1205,8 @@
       <p2 x="500" y="340"/>
     </wire>
     <wire>
-      <p1 x="180" y="620"/>
-      <p2 x="180" y="640"/>
-    </wire>
-    <wire>
-      <p1 x="180" y="300"/>
-      <p2 x="180" y="320"/>
-    </wire>
-    <wire>
       <p1 x="920" y="640"/>
-      <p2 x="920" y="680"/>
+      <p2 x="920" y="660"/>
     </wire>
     <wire>
       <p1 x="600" y="540"/>
@@ -1111,6 +1231,14 @@
     <wire>
       <p1 x="600" y="300"/>
       <p2 x="600" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="540"/>
+      <p2 x="220" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="200"/>
+      <p2 x="220" y="220"/>
     </wire>
     <wire>
       <p1 x="540" y="460"/>

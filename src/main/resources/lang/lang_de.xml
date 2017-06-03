@@ -108,6 +108,12 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Switch_pin_out2">Einer der Ausgänge des Schalters.</string>
     <string name="elem_Switch_tt">Einfacher Schalter. Der Schalter hat keine Gatterlaufzeit.
         Eine Signaländerung wird instantan von einem Ende des Schalters zum anderen propagiert.</string>
+
+    <string name="elem_Fuse">Fuse</string>
+    <string name="elem_Fuse_pin_out1">Einer der Ausgänge der Sicherung.</string>
+    <string name="elem_Fuse_pin_out2">Einer der Ausgänge der Sicherung.</string>
+    <string name="elem_Fuse_tt">Eine Sicherung die verwendet werden kann, um einen einmal programmierbaren Speicher aufzubauen.</string>
+
     <string name="elem_Counter">Zähler</string>
     <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein. Zählt jede steigende Flanke am C Eingang und kann über den clr Eingang zurückgesetzt werden.
     Die Bitbreite des Zählers kann im Attributedialog festgelegt werden.</string>

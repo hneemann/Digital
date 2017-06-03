@@ -82,13 +82,6 @@ public final class ShapeFactory {
         map.put(Const.DESCRIPTION.getName(), ConstShape::new);
         map.put(Ground.DESCRIPTION.getName(), GroundShape::new);
         map.put(VDD.DESCRIPTION.getName(), VDDShape::new);
-        map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
-        map.put(Relay.DESCRIPTION.getName(), RelayShape::new);
-        map.put(NFET.DESCRIPTION.getName(), FETShapeN::new);
-        map.put(FGNFET.DESCRIPTION.getName(), FGFETShapeN::new);
-        map.put(FGPFET.DESCRIPTION.getName(), FGFETShapeP::new);
-        map.put(PFET.DESCRIPTION.getName(), FETShapeP::new);
-        map.put(TransGate.DESCRIPTION.getName(), TransGateShape::new);
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(LightBulb.DESCRIPTION.getName(), LightBulbShape::new);
@@ -99,6 +92,15 @@ public final class ShapeFactory {
         map.put(Out.SEVENHEXDESCRIPTION.getName(), SevenSegHexShape::new);
         map.put(DummyElement.DATADESCRIPTION.getName(), DataShape::new);
         map.put(RotEncoder.DESCRIPTION.getName(), RotEncoderShape::new);
+
+        map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
+        map.put(Fuse.DESCRIPTION.getName(), FuseShape::new);
+        map.put(Relay.DESCRIPTION.getName(), RelayShape::new);
+        map.put(NFET.DESCRIPTION.getName(), FETShapeN::new);
+        map.put(FGNFET.DESCRIPTION.getName(), FGFETShapeN::new);
+        map.put(FGPFET.DESCRIPTION.getName(), FGFETShapeP::new);
+        map.put(PFET.DESCRIPTION.getName(), FETShapeP::new);
+        map.put(TransGate.DESCRIPTION.getName(), TransGateShape::new);
 
         map.put(Break.DESCRIPTION.getName(), BreakShape::new);
         map.put(Delay.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new DelayShape());

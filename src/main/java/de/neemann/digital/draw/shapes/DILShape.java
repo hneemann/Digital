@@ -22,7 +22,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * Created by hneemann on 12.05.17.
  */
 public class DILShape implements Shape {
-    private static final float CIRC = (float) (4 * (Math.sqrt(2) - 1) / 3);
+    static final float CIRC = (float) (4 * (Math.sqrt(2) - 1) / 3);
     private static final int SPACING = 2;
     private static final int RAD = SPACING * SIZE / 4;
     private static final int BEZ = Math.round(RAD * CIRC);
