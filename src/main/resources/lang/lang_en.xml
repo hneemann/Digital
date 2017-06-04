@@ -483,6 +483,9 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_selectorInputCountMismatch">Number of inputs does not match selector bit count</string>
     <string name="err_spitterDefSyntaxError">Syntax error in splitter definition {0}</string>
     <string name="err_splitterBitsMismatch">Bit count of splitter is not matching</string>
+    <string name="err_splitterNotAllBitsDefined">Not all input bits are defined!</string>
+    <string name="err_splitterNotUnambiguously">Input bits are defined several times!</string>
+    <string name="err_spitterToManyBits">Only 64 bits allowed in splitter!</string>
     <string name="err_tableBecomesToSmall">Two inputs are required!</string>
     <string name="err_toManyInputs_max_N0_is_N1">To many inputs, allowed are {0} but {1} are found.</string>
     <string name="err_toManyInputsIn_N0_max_N1_is_N2">To many variables used in {0},
@@ -547,8 +550,6 @@ The names of the variables may not be unique.</string>
     <string name="key_Frequency_tt">The real time frequency used for the real time clock</string>
     <string name="key_IEEEShapes">Use IEEE 91-1984 shapes</string>
     <string name="key_IEEEShapes_tt">Use IEEE 91-1984 shapes instead of rectangular shapes</string>
-    <string name="key_InputSplitting">Input Splitting</string>
-    <string name="key_InputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16 single bits.</string>
     <string name="key_Inputs">Number of Inputs</string>
     <string name="key_Inputs_tt">The Number of Inputs used. Every input needs to be connected.</string>
     <string name="key_Label">Label</string>
@@ -558,8 +559,16 @@ The names of the variables may not be unique.</string>
     <string name="key_Language">Language</string>
     <string name="key_NetName">Net name</string>
     <string name="key_NetName_tt">All nets with identical name are connected together.</string>
+    <string name="key_InputSplitting">Input Splitting</string>
+    <string name="key_InputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16 single bits.
+        The bits to be used can also be specified directly "4-7,0-3".
+        Thus, any division can be specified.
+        The input bits must be specified completely and unambiguously.</string>
     <string name="key_OutputSplitting">Output splitting</string>
-    <string name="key_OutputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16 single bits.</string>
+    <string name="key_OutputSplitting_tt">Example &quot;4,2,2&quot; or &quot;[Bits]*[Count] like &quot;1*16&quot; for 16 single bits.
+        The bits to be used can also be specified directly "4-7,0-3".
+        Thus, any division can be specified.
+        Output bits can also be output several times: "0-7,1-6,4-7"</string>
     <string name="key_SelectorBits">Number of Selector Bits</string>
     <string name="key_SelectorBits_tt">Number of bits used for the selector input.</string>
     <string name="key_Signed">Signed</string>

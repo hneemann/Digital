@@ -493,6 +493,9 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_selectorInputCountMismatch">Die Zahl der Eingänge passt nicht zur Bitbreite der Auswahlleitung.</string>
     <string name="err_spitterDefSyntaxError">Fehler in der Definition {0} eines Splitters</string>
     <string name="err_splitterBitsMismatch">Die Bitzahl am Spiltter passt nicht</string>
+    <string name="err_splitterNotAllBitsDefined">Es sind nicht alle Eingangsbits definiert!</string>
+    <string name="err_splitterNotUnambiguously">Es sind Eingangsbits mehrfach definiert!</string>
+    <string name="err_spitterToManyBits">Es sind nur 64 Bits im Splitter erlaubt!</string>
     <string name="err_tableBecomesToSmall">Es sind mindestens zwei Eingänge erforderlich!</string>
     <string name="err_toManyInputs_max_N0_is_N1">Zu viele Eingänge. Es sind nur {0} Eingänge erlaubt, es wurden jedoch {1} gefunden.</string>
     <string name="err_toManyInputsIn_N0_max_N1_is_N2">Zu viele Variablen bei der Vereinfachung von {0}.
@@ -557,8 +560,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Frequency_tt">Gibt die Frequenz an, wenn der Echtzeittakt aktiviert ist</string>
     <string name="key_IEEEShapes">Verwende US Symbole (IEEE 91-1984)</string>
     <string name="key_IEEEShapes_tt">Verwende IEEE 91-1984 Symbole anstelle der rechteckige Symbole</string>
-    <string name="key_InputSplitting">Eingangsaufteilung</string>
-    <string name="key_InputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot; für 16 einzelne Bits.</string>
     <string name="key_Inputs">Anzahl der Eingänge</string>
     <string name="key_Inputs_tt">Legt die Anzahl der Eingänge fest. Alle Eingänge müssen beschaltet werden.</string>
     <string name="key_Label">Bezeichnung</string>
@@ -568,8 +569,16 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Language">Sprache</string>
     <string name="key_NetName">Netzname</string>
     <string name="key_NetName_tt">Alle Netze mit identischem Namen werden miteinander verbunden.</string>
+    <string name="key_InputSplitting">Eingangsaufteilung</string>
+    <string name="key_InputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot; für 16 einzelne Bits.
+        Es können auch die zu verwendenden Bits direkt angegeben werden "4-7,0-3".
+        So kann eine beliebige Aufteilung angegeben werden.
+        Die Eingangsbits müssen vollständig und eindeutig angegeben werden.</string>
     <string name="key_OutputSplitting">Ausgangsaufteilung</string>
-    <string name="key_OutputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot; für 16 einzelne Bits.</string>
+    <string name="key_OutputSplitting_tt">Zum Beispiel &quot;4,2,2&quot; oder &quot;[Bits]*[Anzahl] wie &quot;1*16&quot; für 16 einzelne Bits.
+        Es können auch die zu verwendenden Bits direkt angegeben werden "4-7,0-3".
+        So kann eine beliebige Aufteilung angegeben werden.
+        Ausgangsbits können auch mehrfach ausgegeben werden: "0-7,1-6,4-7"</string>
     <string name="key_SelectorBits">Anzahl der Auswahlbits</string>
     <string name="key_SelectorBits_tt">Anzahl der Bits, die in der Auswahlleitung vorhanden sind.</string>
     <string name="key_Signed">Vorzeichen</string>

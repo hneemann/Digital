@@ -1,7 +1,8 @@
 Release Notes
 
 Planed as v0.13
-- added a fuse to simulate a PROM
+- added a fuse to simulate a PROM or PAL.
+- Improved flexibility of the splitter.
 
 v0.12, released on 02. Jun 2016
 - Added undo/redo functions.

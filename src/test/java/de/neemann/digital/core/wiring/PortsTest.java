@@ -39,4 +39,54 @@ public class PortsTest extends TestCase {
             assertTrue(true);
         }
     }
+
+    public void testPortsRange() throws Exception {
+        Splitter.Ports p = new Splitter.Ports("4-6,0-3");
+        ObservableValues outs = p.getOutputs(false);
+        assertEquals(2, outs.size());
+        assertEquals(3, outs.get(0).getBits());
+        assertEquals(4, outs.get(1).getBits());
+    }
+
+    public void testInputConsistency() throws Exception {
+        Splitter.Ports p = new Splitter.Ports("4-7,0-2");
+        try {
+            p.checkInputConsistency();
+            fail();
+        } catch (NodeException e) {
+            assertTrue(true);
+        }
+    }
+
+    public void testInputConsistency2() throws Exception {
+        Splitter.Ports p = new Splitter.Ports("4-7,0-4");
+        try {
+            p.checkInputConsistency();
+            fail();
+        } catch (NodeException e) {
+            assertTrue(true);
+        }
+    }
+
+    public void testInputConsistency4() throws Exception {
+        Splitter.Ports p = new Splitter.Ports("1*64");
+        try {
+            p = new Splitter.Ports("1*65");
+            fail();
+        } catch (NodeException e) {
+            assertTrue(true);
+        }
+    }
+
+    public void testInputConsistency3() throws Exception {
+        Splitter.Ports p = new Splitter.Ports("4-7,4-4");
+        try {
+            p = new Splitter.Ports("4-7,4-3");
+            fail();
+        } catch (NodeException e) {
+            assertTrue(true);
+        }
+    }
+
+
 }
