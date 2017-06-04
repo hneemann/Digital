@@ -463,7 +463,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     saveFile(filename, false);
             }
-        }.setAcceleratorCTRLplus('S').setActive(false);
+        }.setAcceleratorCTRLplus('S').setActive(!experimental);
 
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
@@ -1096,7 +1096,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void setFilename(File filename, boolean toPrefs) {
         modifiedPrefixVisible = circuitComponent.getCircuit().isModified();
-        if (save != null)
+        if (experimental && save != null)
             save.setActive(modifiedPrefixVisible);
         String prefix = "";
         if (modifiedPrefixVisible)
