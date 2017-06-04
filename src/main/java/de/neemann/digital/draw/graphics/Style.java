@@ -84,7 +84,7 @@ public class Style {
     /**
      * Used to draw the pin description text
      */
-    public static final Style WIRE_VALUE = new Style(LINETHICK, false, new Color(50, 162, 50), 18, null);
+    public static final Style WIRE_VALUE = new Style(LINETHICK, false, new Color(50, 162, 50), 12, null);
     /**
      * highlight color used for the circles to mark an element
      */
@@ -186,7 +186,7 @@ public class Style {
      */
     public static Style getWireStyle(ObservableValue value) {
         if (value == null) return WIRE;
-        if (value.getBits()>1) return WIRE_BUS;
+        if (value.getBits() > 1) return WIRE_BUS;
         if (value.isHighZ()) return WIRE_HIGHZ;
 
         if (value.getValueIgnoreBurn() == 1) return WIRE_HIGH;
