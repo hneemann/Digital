@@ -636,6 +636,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             } catch (AWTException e) {
                 e.printStackTrace();
             }
+        } else {
+            mouseInsertElement.updateMousePos(getPosVector(point.x, point.y));
+            repaintNeeded();
         }
     }
 
@@ -1173,11 +1176,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void moved(MouseEvent e) {
+            updateMousePos(getPosVector(e));
+        }
+
+        void updateMousePos(Vector pos) {
             if (delta == null) {
                 GraphicMinMax minMax = element.getMinMax(false);
                 delta = element.getPos().sub(minMax.getMax());
             }
-            element.setPos(raster(getPosVector(e).add(delta)));
+            element.setPos(raster(pos.add(delta)));
             repaint();
         }
 
@@ -1210,6 +1217,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void escapePressed() {
             mouseNormal.activate();
         }
+
     }
 
     private final class MouseControllerMoveElement extends MouseController {

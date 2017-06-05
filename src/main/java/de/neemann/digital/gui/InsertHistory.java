@@ -21,6 +21,7 @@ public class InsertHistory implements LibraryListener {
     private final ElementLibrary library;
     private final ArrayList<WrapperAction> wrappers;
     private int mainTime;
+    private InsertAction lastInsertAction;
 
     /**
      * Creates a new instance
@@ -42,6 +43,7 @@ public class InsertHistory implements LibraryListener {
      * @param action the action
      */
     public void add(InsertAction action) {
+        lastInsertAction = action;
         if (!contains(action)) {
             WrapperAction wrapper = new WrapperAction(action, bar.getComponentCount());
             wrappers.add(wrapper);
@@ -82,6 +84,12 @@ public class InsertHistory implements LibraryListener {
         return false;
     }
 
+    /**
+     * @return the last insert action
+     */
+    public InsertAction getLastInsertAction() {
+        return lastInsertAction;
+    }
 
     @Override
     public void libraryChanged(LibraryNode node) {

@@ -242,6 +242,7 @@
         <shortcut key="STRG-C">Kopieren der selektierten Elemente in die Zwischenablage.</shortcut>
         <shortcut key="STRG-V">Einfügen der Elemente aus der Zwischenablage.</shortcut>
         <shortcut key="R">Beim Einfügen rotieren der Elemente.</shortcut>
+        <shortcut key="L">Letztes eingefügtes Element noch einmal einfügen.</shortcut>
         <shortcut key="STRG-S">Speichern der Schaltung.</shortcut>
         <shortcut key="STRG-Z">Letzte Änderung zurücknehmen.</shortcut>
         <shortcut key="STRG-Y">Zurückgenommene Änderung erneut anwenden.</shortcut>

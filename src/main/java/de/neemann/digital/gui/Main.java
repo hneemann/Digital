@@ -246,6 +246,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
 
+        new ToolTipAction("insertLast") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                InsertAction lastInsertAction = insertHistory.getLastInsertAction();
+                if (lastInsertAction != null)
+                    lastInsertAction.actionPerformed(actionEvent);
+            }
+        }.setAccelerator("L").enableAcceleratorIn(circuitComponent);
+
         enableClockShortcut();
 
         setPreferredSize(Screen.getInstance().scale(new Dimension(1024, 768)));

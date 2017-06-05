@@ -231,6 +231,7 @@
         <shortcut key="CTRL-C">Copys the selected components to the clipboard.</shortcut>
         <shortcut key="CTRL-V">Inserts the comonents from the clipboard.</shortcut>
         <shortcut key="R">While inserting this rotates the components.</shortcut>
+        <shortcut key="L">Inserts the last inserted component again.</shortcut>
         <shortcut key="CTRL-S">Save the circuit.</shortcut>
         <shortcut key="CTRL-Z">Undo last modification.</shortcut>
         <shortcut key="CTRL-Y">Redo the last undone modification.</shortcut>
