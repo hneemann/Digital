@@ -1,6 +1,6 @@
 Release Notes
 
-Planed as v0.13
+v0.12.1, released on 05. Jun 2016
 - added a fuse to simulate a PROM or PAL.
 - added some more CMOS examples
 - Improved flexibility of the splitter.
