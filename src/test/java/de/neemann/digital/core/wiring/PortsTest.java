@@ -48,6 +48,16 @@ public class PortsTest extends TestCase {
         assertEquals(4, outs.get(1).getBits());
     }
 
+    public void testPortsRangeOneBit() throws Exception {
+        Splitter.Ports p = new Splitter.Ports("4-4,3-3,2-2,1-1");
+        ObservableValues outs = p.getOutputs(false);
+        assertEquals(4, outs.size());
+        assertEquals(1, outs.get(0).getBits());
+        assertEquals(1, outs.get(1).getBits());
+        assertEquals(1, outs.get(2).getBits());
+        assertEquals(1, outs.get(3).getBits());
+    }
+
     public void testInputConsistency() throws Exception {
         Splitter.Ports p = new Splitter.Ports("4-7,0-2");
         try {
