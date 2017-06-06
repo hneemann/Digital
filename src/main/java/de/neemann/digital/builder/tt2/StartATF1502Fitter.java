@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static de.neemann.digital.gui.Settings.isLinux;
+
 /**
  * Starts a fitter to create a JEDEC file.
  * Created by hneemann on 10.03.17.
@@ -60,11 +62,6 @@ public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess 
         } catch (IOException e) {
             throw new IOException(Lang.get("err_errorRunningFitter"), e);
         }
-    }
-
-    private boolean isLinux() {
-        String name = System.getProperty("os.name").toLowerCase();
-        return name.contains("linux");
     }
 
     @Override

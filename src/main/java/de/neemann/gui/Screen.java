@@ -6,6 +6,9 @@ package de.neemann.gui;
  * Linux    : getScreenResolution() = 95
  */
 
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.gui.Settings;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -36,25 +39,22 @@ public final class Screen {
         Font font = new JLabel().getFont();
         float scaling = 1;
         int size = 12;
-        try {
-            int s = Math.round(Toolkit.getDefaultToolkit().getScreenResolution() * 12 / 96f);
-            if (s > 12) {
-                scaling = s / 12f;
-                size = s;
-                font = font.deriveFont((float) s);
-                for (Object key : javax.swing.UIManager.getLookAndFeel().getDefaults().keySet()) {
-                    if (key.toString().endsWith(".font"))
-                        javax.swing.UIManager.put(key, font);
-                    if (key.toString().endsWith(".icon") || key.toString().endsWith("Icon")) {
-                        Icon icon = UIManager.getIcon(key);
-                        if (icon != null)
-                            javax.swing.UIManager.put(key, new ScaleIcon(icon, scaling));
-                    }
+        int screenResolution = Settings.getInstance().get(Keys.SETTINGS_SCREEN_RESOLUTION);
+        int s = Math.round(screenResolution * 12 / 96f);
+        if (s > 12) {
+            scaling = s / 12f;
+            size = s;
+            font = font.deriveFont((float) s);
+            for (Object key : javax.swing.UIManager.getLookAndFeel().getDefaults().keySet()) {
+                if (key.toString().endsWith(".font"))
+                    javax.swing.UIManager.put(key, font);
+                if (key.toString().endsWith(".icon") || key.toString().endsWith("Icon")) {
+                    Icon icon = UIManager.getIcon(key);
+                    if (icon != null)
+                        javax.swing.UIManager.put(key, new ScaleIcon(icon, scaling));
                 }
-                UIManager.put("ScrollBar.width", size * 17 / 12);
             }
-        } catch (HeadlessException e) {
-            // run with defaults if headless
+            UIManager.put("ScrollBar.width", size * 17 / 12);
         }
         this.scaling = scaling;
         this.size = size;

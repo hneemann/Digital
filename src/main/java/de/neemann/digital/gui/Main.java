@@ -560,7 +560,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (modified != null) {
                     FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
-                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)) {
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_SCREEN_RESOLUTION, modified)) {
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }

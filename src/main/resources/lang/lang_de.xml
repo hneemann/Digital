@@ -661,6 +661,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_defTreeSelect_tt">Wenn gesetzt, wird die Baumansicht beim Start automatisch aktiviert.</string>
     <string name="key_inverterConfig">inverse Eingänge</string>
     <string name="key_inverterConfig_tt">Es können die Eingänge ausgewählt werden, welche invertiert werden sollen.</string>
+    <string name="key_screenResolution">Bildschirmauflösung [DPI]</string>
+    <string name="key_screenResolution_tt">Es kommt vor, dass das OS eine falsche Bildschirmauflösung liefert.
+        In diesem Fall kann hier ein eigener Wert gesetzt werden.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

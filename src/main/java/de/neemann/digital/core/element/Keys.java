@@ -361,4 +361,20 @@ public final class Keys {
             = new Key<>("inverterConfig", new InverterConfig());
 
 
+    /**
+     * the screen resolution
+     */
+    public static final Key<Integer> SETTINGS_SCREEN_RESOLUTION =
+            new Key.KeyInteger("screenResolution", getDefaultScreenResolution())
+                    .setComboBoxValues(new Integer[]{95, 120, 150, 180, 200, 250, 300})
+                    .setMin(95)
+                    .setMax(400);
+
+    private static int getDefaultScreenResolution() {
+        try {
+            return Toolkit.getDefaultToolkit().getScreenResolution();
+        } catch (HeadlessException e) {
+            return 95;
+        }
+    }
 }

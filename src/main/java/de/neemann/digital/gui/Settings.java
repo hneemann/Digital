@@ -34,6 +34,8 @@ public final class Settings implements AttributeListener {
         INT_LIST.add(Keys.SETTINGS_EXPRESSION_FORMAT);
         INT_LIST.add(Keys.SETTINGS_DEFAULT_TREESELECT);
         INT_LIST.add(Keys.SETTINGS_ATF1502_FITTER);
+        if (isLinux())
+            INT_LIST.add(Keys.SETTINGS_SCREEN_RESOLUTION);
     }
 
     private static final class SettingsHolder {
@@ -99,5 +101,14 @@ public final class Settings implements AttributeListener {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @return true if running on a windows system
+     */
+    public static boolean isLinux() {
+        String name = System.getProperty("os.name").toLowerCase();
+        return name.contains("linux");
+    }
+
 }
 
