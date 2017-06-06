@@ -20,24 +20,6 @@ import java.util.List;
  */
 public final class Settings implements AttributeListener {
 
-    private static final List<Key> INT_LIST = new ArrayList<>();
-
-    /**
-     * The list of supported attributes.
-     */
-    public static final List<Key> SETTINGS_KEYS = Collections.unmodifiableList(INT_LIST);
-
-
-    static {
-        INT_LIST.add(Keys.SETTINGS_IEEE_SHAPES);
-        INT_LIST.add(Keys.SETTINGS_LANGUAGE);
-        INT_LIST.add(Keys.SETTINGS_EXPRESSION_FORMAT);
-        INT_LIST.add(Keys.SETTINGS_DEFAULT_TREESELECT);
-        INT_LIST.add(Keys.SETTINGS_ATF1502_FITTER);
-        if (isLinux())
-            INT_LIST.add(Keys.SETTINGS_SCREEN_RESOLUTION);
-    }
-
     private static final class SettingsHolder {
         static final Settings INSTANCE = new Settings();
     }
@@ -51,23 +33,37 @@ public final class Settings implements AttributeListener {
         return SettingsHolder.INSTANCE;
     }
 
-    private ElementAttributes attributes;
+    private final ElementAttributes attributes;
     private final File filename;
+    private final List<Key> settingsKeys;
 
     private Settings() {
+        List<Key> intList = new ArrayList<>();
+        intList.add(Keys.SETTINGS_IEEE_SHAPES);
+        intList.add(Keys.SETTINGS_LANGUAGE);
+        intList.add(Keys.SETTINGS_EXPRESSION_FORMAT);
+        intList.add(Keys.SETTINGS_DEFAULT_TREESELECT);
+        intList.add(Keys.SETTINGS_ATF1502_FITTER);
+        if (isLinux())
+            intList.add(Keys.SETTINGS_SCREEN_RESOLUTION);
+
+        settingsKeys = Collections.unmodifiableList(intList);
+
         filename = new File(new File(System.getProperty("user.home")), ".digital.cfg");
 
+        ElementAttributes attr = null;
         XStream xStream = Circuit.getxStream();
         try (InputStream in = new FileInputStream(filename)) {
-            attributes = (ElementAttributes) xStream.fromXML(in);
+            attr = (ElementAttributes) xStream.fromXML(in);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (attributes == null) {
+        if (attr == null) {
             System.out.println("Use default settings!");
             attributes = new ElementAttributes();
-        }
+        } else
+            attributes = attr;
 
         attributes.addListener(this);
     }
@@ -100,6 +96,13 @@ public final class Settings implements AttributeListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @return the settings keys
+     */
+    public List<Key> getKeys() {
+        return settingsKeys;
     }
 
     /**
