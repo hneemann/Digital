@@ -556,7 +556,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction editSettings = new ToolTipAction(Lang.get("menu_editSettings")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementAttributes modified = new AttributeDialog(Main.this, Settings.SETTINGS_KEYS, Settings.getInstance().getAttributes()).showDialog();
+                ElementAttributes modified = new AttributeDialog(Main.this, Settings.getInstance().getKeys(), Settings.getInstance().getAttributes()).showDialog();
                 if (modified != null) {
                     FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
