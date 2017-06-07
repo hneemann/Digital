@@ -372,7 +372,16 @@ public final class Keys {
 
     private static int getDefaultScreenResolution() {
         try {
-            return Toolkit.getDefaultToolkit().getScreenResolution();
+            int dpi = Toolkit.getDefaultToolkit().getScreenResolution();
+
+            // plausibility check
+            int widthInPixel = Toolkit.getDefaultToolkit().getScreenSize().width;
+            int widthInInch = widthInPixel / dpi;
+            // most people don't use a screen larger than 27 inch, so the resolution is presumably wrong
+            if (widthInInch > 27)
+                dpi = widthInPixel / 27;
+
+            return dpi;
         } catch (HeadlessException e) {
             return 95;
         }
