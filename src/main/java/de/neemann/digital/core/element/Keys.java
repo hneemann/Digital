@@ -379,6 +379,7 @@ public final class Keys {
             int widthInInch = widthInPixel / dpi;
             // most people don't use a screen larger than 27 inch, so the resolution is presumably wrong
             if (widthInInch > 27)
+                // assume a 27 inch screen
                 dpi = widthInPixel / 27;
 
             return dpi;
