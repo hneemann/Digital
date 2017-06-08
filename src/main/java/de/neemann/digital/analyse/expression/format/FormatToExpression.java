@@ -58,8 +58,7 @@ public class FormatToExpression implements Formatter {
     static {
         Variable a = v("A");
         Variable b = v("B");
-        Variable c = v("C");
-        TOSTRING_EXPR = or(and(a, not(b), c), and(a, not(b), not(c)), Constant.ZERO);
+        TOSTRING_EXPR = or(and(a, not(b)), and(not(a), b), Constant.ZERO);
     }
 
 
