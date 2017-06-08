@@ -4,6 +4,7 @@ import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
 
 import java.awt.*;
@@ -364,27 +365,10 @@ public final class Keys {
     /**
      * the screen resolution
      */
-    public static final Key<Integer> SETTINGS_SCREEN_RESOLUTION =
-            new Key.KeyInteger("screenResolution", getDefaultScreenResolution())
-                    .setComboBoxValues(new Integer[]{95, 120, 150, 180, 200, 250, 300})
-                    .setMin(95)
+    public static final Key<Integer> SETTINGS_FONT_SCALING =
+            new Key.KeyInteger("fontSize", Screen.getDefaultFontScaling())
+                    .setComboBoxValues(new Integer[]{100, 120, 150, 180, 200, 250, 300})
+                    .setMin(50)
                     .setMax(400);
 
-    private static int getDefaultScreenResolution() {
-        try {
-            int dpi = Toolkit.getDefaultToolkit().getScreenResolution();
-
-            // plausibility check
-            int widthInPixel = Toolkit.getDefaultToolkit().getScreenSize().width;
-            int widthInInch = widthInPixel / dpi;
-            // most people don't use a screen larger than 27 inch, so the resolution is presumably wrong
-            if (widthInInch > 27)
-                // assume a 27 inch screen
-                dpi = widthInPixel / 27;
-
-            return dpi;
-        } catch (HeadlessException e) {
-            return 95;
-        }
-    }
 }

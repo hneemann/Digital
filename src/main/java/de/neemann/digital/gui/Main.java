@@ -561,7 +561,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)
-                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_SCREEN_RESOLUTION, modified)) {
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_FONT_SCALING, modified)) {
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }
@@ -1367,6 +1367,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      * @param args the arguments
      */
     public static void main(String[] args) {
+        try { // enforce MetalLookAndFeel
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
         ToolTipManager.sharedInstance().setDismissDelay(10000);
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
         FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));

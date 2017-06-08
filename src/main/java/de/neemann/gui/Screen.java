@@ -35,14 +35,44 @@ public final class Screen {
         return InstanceHolder.instance;
     }
 
+
+    private static int getDefaultScreenResolution() {
+        try {
+            int dpi = Toolkit.getDefaultToolkit().getScreenResolution();
+
+            // plausibility check
+            int widthInPixel = Toolkit.getDefaultToolkit().getScreenSize().width;
+            int widthInInch = widthInPixel / dpi;
+            // most people don't use a screen larger than 27 inch, so the resolution is presumably wrong
+            if (widthInInch > 27)
+                // assume a 27 inch screen
+                dpi = widthInPixel / 27;
+
+            return dpi;
+        } catch (HeadlessException e) {
+            return 95;
+        }
+    }
+
+    /**
+     * @return the default font scaling in percent
+     */
+    public static int getDefaultFontScaling() {
+        int dpi = getDefaultScreenResolution();
+        int s = (dpi * 100) / 96;
+        if (s > 95 && s < 105)
+            s = 100;
+        return s;
+    }
+
     private Screen() {
         Font font = new JLabel().getFont();
         float scaling = 1;
-        int size = 12;
-        int screenResolution = Settings.getInstance().get(Keys.SETTINGS_SCREEN_RESOLUTION);
-        int s = Math.round(screenResolution * 12 / 96f);
-        if (s > 12) {
-            scaling = s / 12f;
+        int size = font.getSize();
+        int fontScalingPercent = Settings.getInstance().get(Keys.SETTINGS_FONT_SCALING);
+        int s = fontScalingPercent * size / 100;
+        if (s != size) {
+            scaling = ((float) s) / size;
             size = s;
             font = font.deriveFont((float) s);
             for (Object key : javax.swing.UIManager.getLookAndFeel().getDefaults().keySet()) {

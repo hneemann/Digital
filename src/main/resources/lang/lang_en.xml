@@ -651,9 +651,8 @@ The names of the variables may not be unique.</string>
     <string name="key_defTreeSelect_tt">If set, the component tree view is enabled at startup.</string>
     <string name="key_inverterConfig">inverted Inputs</string>
     <string name="key_inverterConfig_tt">You can select the inputs that are to be inverted.</string>
-    <string name="key_screenResolution">Screen Resolution [DPI]</string>
-    <string name="key_screenResolution_tt">Sometimes the OS reports a wrong screen resolution.
-        In this case, a different value can be set here.</string>
+    <string name="key_fontSize">Menus Font Size [%]</string>
+    <string name="key_fontSize_tt">Size of the fonts used in the menu in percent of the default size.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
