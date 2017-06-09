@@ -177,23 +177,38 @@
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template match="shortcut">
-		<fo:block keep-together.within-page="always">
-			<fo:block margin-left="10mm" margin-top="3mm" margin-bottom="1mm" text-indent="-10mm">
-				<fo:inline padding-right="4pt">
-				<fo:inline font-weight="bold"
-						   border-width="1pt"
-						   border-style="solid"
-						   padding-top="3pt"
-						   padding-bottom="1pt"
-						   padding-left="2pt"
-						   padding-right="2pt"><xsl:apply-templates select="@key"/></fo:inline>:
-				</fo:inline>
-				<xsl:apply-templates/>
-			</fo:block>
-		</fo:block>
+	<xsl:template match="shortcuts">
+		<fo:table table-layout="fixed" width="100%">
+			<fo:table-column column-number="1" column-width="2.5cm"/>
+			<fo:table-column column-number="2" column-width="13cm"/>
+			<fo:table-body>
+				<xsl:apply-templates select="shortcut"/>
+			</fo:table-body>
+		</fo:table>
 	</xsl:template>
 
+	<xsl:template match="shortcut">
+		<fo:table-row>
+			<fo:table-cell column-number="1">
+				<fo:block margin-top="2mm">
+					<fo:inline font-weight="bold"
+							   border-width="1pt"
+							   border-style="solid"
+							   padding-top="3pt"
+							   padding-bottom="1pt"
+							   padding-left="2pt"
+							   padding-right="2pt">
+						<xsl:apply-templates select="@key"/>
+					</fo:inline>
+				</fo:block>
+			</fo:table-cell>
+			<fo:table-cell column-number="2">
+				<fo:block margin-top="2mm">
+					<xsl:apply-templates/>
+				</fo:block>
+			</fo:table-cell>
+		</fo:table-row>
+	</xsl:template>
 
 	<xsl:template match="lib" mode="full">
 		<fo:block page-break-after="avoid" margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
