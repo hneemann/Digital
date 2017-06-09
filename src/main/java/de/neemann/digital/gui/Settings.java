@@ -104,13 +104,5 @@ public final class Settings implements AttributeListener {
         return settingsKeys;
     }
 
-    /**
-     * @return true if running on a windows system
-     */
-    public static boolean isLinux() {
-        String name = System.getProperty("os.name").toLowerCase();
-        return name.contains("linux");
-    }
-
 }
 

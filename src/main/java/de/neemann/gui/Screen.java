@@ -19,6 +19,9 @@ import java.awt.geom.AffineTransform;
  * Created by hneemann on 09.05.17.
  */
 public final class Screen {
+    private static final String OS = System.getProperty("os.name").toLowerCase();
+    private static final boolean IS_LINUX = OS.contains("linux");
+    private static final boolean IS_MAC = OS.contains("mac");
 
     private static final class InstanceHolder {
         private static Screen instance = new Screen();
@@ -58,6 +61,9 @@ public final class Screen {
      * @return the default font scaling in percent
      */
     public static int getDefaultFontScaling() {
+        if (IS_MAC)   // macOS has its own retina handling
+            return 100;
+
         int dpi = getDefaultScreenResolution();
         int s = (dpi * 100) / 96;
         if (s > 95 && s < 105)
@@ -78,10 +84,13 @@ public final class Screen {
             for (Object key : javax.swing.UIManager.getLookAndFeel().getDefaults().keySet()) {
                 if (key.toString().endsWith(".font"))
                     javax.swing.UIManager.put(key, font);
-                if (key.toString().endsWith(".icon") || key.toString().endsWith("Icon")) {
-                    Icon icon = UIManager.getIcon(key);
-                    if (icon != null)
-                        javax.swing.UIManager.put(key, new ScaleIcon(icon, scaling));
+
+                if (!IS_MAC) { // macOS has its own icon handling
+                    if (key.toString().endsWith(".icon") || key.toString().endsWith("Icon")) {
+                        Icon icon = UIManager.getIcon(key);
+                        if (icon != null)
+                            javax.swing.UIManager.put(key, new ScaleIcon(icon, scaling));
+                    }
                 }
             }
             UIManager.put("ScrollBar.width", size * 17 / 12);
@@ -169,4 +178,12 @@ public final class Screen {
         else
             return new Dimension((int) (dimension.width * scaling), (int) (dimension.height * scaling));
     }
+
+    /**
+     * @return true if running on a windows system
+     */
+    public static boolean isLinux() {
+        return IS_LINUX;
+    }
+
 }

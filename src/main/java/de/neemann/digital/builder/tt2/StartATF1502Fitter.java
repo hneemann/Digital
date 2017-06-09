@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static de.neemann.digital.gui.Settings.isLinux;
+import static de.neemann.gui.Screen.isLinux;
 
 /**
  * Starts a fitter to create a JEDEC file.
