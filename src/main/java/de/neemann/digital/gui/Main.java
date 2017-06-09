@@ -349,7 +349,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         treeCheckBox.setAccelerator(KeyStroke.getKeyStroke("F5"));
 
         if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT))
-            treeCheckBox.doClick();
+            SwingUtilities.invokeLater(treeCheckBox::doClick);
 
         toolBar.add(viewHelp.createJButtonNoText());
         toolBar.add(zoomIn.createJButtonNoText());

@@ -58,6 +58,9 @@ public class SelectTree extends JTree {
         });
         setCellRenderer(new MyCellRenderer());
         setToolTipText("");
+
+        // open first child
+        expandPath(new TreePath(model.getTypedRoot().getChild(0).getPath()));
     }
 
     @Override

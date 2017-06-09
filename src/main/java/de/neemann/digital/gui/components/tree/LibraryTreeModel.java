@@ -74,4 +74,14 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
         for (TreeModelListener l : listeners)
             l.treeStructureChanged(treeModelEvent);
     }
+
+    /**
+     * Same as getRoot() but returns the typed root element
+     *
+     * @return the root LibraryNode
+     */
+    public LibraryNode getTypedRoot() {
+        return root;
+    }
+
 }
