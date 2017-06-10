@@ -330,7 +330,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
                         try {
                             LOGGER.debug("load tooltip from "+file);
                             Circuit c = Circuit.loadCircuit(file, null);
-                            toolTipText = c.getAttributes().get(Keys.DESCRIPTION);
+                            toolTipText = new LineBreaker().toHTML().breakLines(c.getAttributes().get(Keys.DESCRIPTION));
                         } catch (Exception e) {
                             toolTipText = Lang.get("msg_fileNotImportedYet");
                         }
