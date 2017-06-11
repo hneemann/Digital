@@ -8,9 +8,9 @@ import de.neemann.digital.lang.Lang;
 import java.util.*;
 
 /**
- * Used to analyse on which inputs a given output depends.
- * So you only have to take into account the inputs, a given outputs
- * depends on.
+ * Used to analyse on which inputs a given output depends on.
+ * So you only have to take into account the inputs, a given output
+ * really depends on.
  * Created by hneemann on 11.06.17.
  */
 public class DependencyAnalyser {
