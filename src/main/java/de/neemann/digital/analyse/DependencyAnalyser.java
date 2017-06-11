@@ -7,8 +7,6 @@ import de.neemann.digital.lang.Lang;
 
 import java.util.*;
 
-import static de.neemann.digital.core.Model.MAX_LOOP_COUNTER;
-
 /**
  * Used to analyse on which inputs a given output depends.
  * So you only have to take into account the inputs, a given outputs
@@ -30,7 +28,7 @@ public class DependencyAnalyser {
         dependencyMap = new HashMap<>();
         for (Signal s : modelAnalyser.getInputs()) {
             Set<ObservableValue> effected = new HashSet<>();
-            backtracking(s.getValue(), effected, MAX_LOOP_COUNTER);
+            backtracking(s.getValue(), effected);
             dependencyMap.put(s, effected);
         }
     }
@@ -50,19 +48,18 @@ public class DependencyAnalyser {
         return list;
     }
 
-    private void backtracking(ObservableValue value, Set<ObservableValue> effected, int depth) throws PinException, BacktrackException {
-        effected.add(value);
+    private void backtracking(ObservableValue value, Set<ObservableValue> effected) throws PinException, BacktrackException {
+        if (!effected.contains(value)) {
+            effected.add(value);
 
-        if (depth < 0)
-            throw new BacktrackException(Lang.get("err_backtrackLoopFound"));
-
-        for (Observer o : value) {
-            if ((o instanceof NodeInterface)) {
-                ObservableValues outputs = ((NodeInterface) o).getOutputs();
-                for (ObservableValue co : outputs)
-                    backtracking(co, effected, depth - 1);
-            } else
-                throw new BacktrackException(Lang.get("err_backtrackOf_N_isImpossible", o.getClass().getSimpleName()));
+            for (Observer o : value) {
+                if ((o instanceof NodeInterface)) {
+                    ObservableValues outputs = ((NodeInterface) o).getOutputs();
+                    for (ObservableValue co : outputs)
+                        backtracking(co, effected);
+                } else
+                    throw new BacktrackException(Lang.get("err_backtrackOf_N_isImpossible", o.getClass().getSimpleName()));
+            }
         }
     }
 

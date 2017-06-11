@@ -284,9 +284,6 @@ public class ModelAnalyser {
             tt.addResult(s.getName(), e);
         }
 
-        // for now only checks for circular dependencies
-        new DependencyAnalyser(this);
-
         model.init();
         for (int row = 0; row < rows; row++) {
             bitsetter.fill(row);

@@ -1,14 +1,16 @@
 package de.neemann.digital.core.wiring.bus;
 
+import de.neemann.digital.core.NodeInterface;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.draw.elements.PinException;
 
 import java.util.Arrays;
 
 /**
  * This observer is added to all outputs connected together
  */
-public final class CommonBusValue extends ObservableValue implements Observer {
+public final class CommonBusValue extends ObservableValue implements NodeInterface {
     private final BusModelStateObserver obs;
     private final PullResistor resistor;
     private final ObservableValue[] inputs;
@@ -75,5 +77,10 @@ public final class CommonBusValue extends ObservableValue implements Observer {
         return "CommonBusValue{"
                 + "inputs=" + Arrays.toString(inputs)
                 + "', -->" + super.toString() + " }";
+    }
+
+    @Override
+    public ObservableValues getOutputs() throws PinException {
+        return new ObservableValues(this);
     }
 }
