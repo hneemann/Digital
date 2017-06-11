@@ -1,14 +1,8 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author hneemann
@@ -18,7 +12,7 @@ public class DependencyAnalyserTest extends TestCase {
     private static final int[] VAL = new int[]{1, 1, 1, 2, 6, 5, 5, 3, 8, 7, 7, 5, 10, 9, 9, 7, 2, 14, 14, 14, 14, 14, 14, 14, 2, 2};
 
     public void testAnalyzer() throws Exception {
-        Model model = new ToBreakRunner("dig/backTrac/Plexer.dig").getModel();
+        Model model = new ToBreakRunner("dig/backtrack/Plexer.dig").getModel();
         ModelAnalyser m = new ModelAnalyser(model);
         DependencyAnalyser da = new DependencyAnalyser(m);
 
