@@ -1,6 +1,7 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 
@@ -55,7 +56,7 @@ public class DependencyAnalyser {
         if (depth < 0)
             throw new BacktrackException(Lang.get("err_backtrackLoopFound"));
 
-        for (de.neemann.digital.core.Observer o : value) {
+        for (Observer o : value) {
             if ((o instanceof NodeInterface)) {
                 ObservableValues outputs = ((NodeInterface) o).getOutputs();
                 for (ObservableValue co : outputs)
