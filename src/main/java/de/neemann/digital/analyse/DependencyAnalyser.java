@@ -16,21 +16,21 @@ import static de.neemann.digital.core.Model.MAX_LOOP_COUNTER;
  */
 public class DependencyAnalyser {
 
-    private final HashMap<Signal, Set<ObservableValue>> sigMap;
+    private final HashMap<Signal, Set<ObservableValue>> dependencyMap;
 
     /**
      * Creates a new instance
      *
      * @param modelAnalyser the model analyser
-     * @throws BackTracException BackTracException
-     * @throws PinException      PinException
+     * @throws BacktrackException BacktrackException
+     * @throws PinException       PinException
      */
-    public DependencyAnalyser(ModelAnalyser modelAnalyser) throws BackTracException, PinException {
-        sigMap = new HashMap<>();
+    public DependencyAnalyser(ModelAnalyser modelAnalyser) throws BacktrackException, PinException {
+        dependencyMap = new HashMap<>();
         for (Signal s : modelAnalyser.getInputs()) {
             Set<ObservableValue> effected = new HashSet<>();
-            backTrac(s.getValue(), effected, MAX_LOOP_COUNTER);
-            sigMap.put(s, effected);
+            backtracking(s.getValue(), effected, MAX_LOOP_COUNTER);
+            dependencyMap.put(s, effected);
         }
     }
 
@@ -42,27 +42,26 @@ public class DependencyAnalyser {
      */
     public ArrayList<Signal> getInputs(Signal output) {
         ArrayList<Signal> list = new ArrayList<>();
-        for (Map.Entry<Signal, Set<ObservableValue>> e : sigMap.entrySet()) {
-            if (e.getValue().contains(output.getValue())) {
+        for (Map.Entry<Signal, Set<ObservableValue>> e : dependencyMap.entrySet()) {
+            if (e.getValue().contains(output.getValue()))
                 list.add(e.getKey());
-            }
         }
         return list;
     }
 
-    private void backTrac(ObservableValue value, Set<ObservableValue> effected, int depth) throws PinException, BackTracException {
+    private void backtracking(ObservableValue value, Set<ObservableValue> effected, int depth) throws PinException, BacktrackException {
         effected.add(value);
 
         if (depth < 0)
-            throw new BackTracException(Lang.get("err_backtracLoopFound"));
+            throw new BacktrackException(Lang.get("err_backtrackLoopFound"));
 
         for (de.neemann.digital.core.Observer o : value) {
             if ((o instanceof NodeInterface)) {
                 ObservableValues outputs = ((NodeInterface) o).getOutputs();
                 for (ObservableValue co : outputs)
-                    backTrac(co, effected, depth - 1);
+                    backtracking(co, effected, depth - 1);
             } else
-                throw new BackTracException(Lang.get("err_backtracOf_N_isImpossible", o.getClass().getSimpleName()));
+                throw new BacktrackException(Lang.get("err_backtrackOf_N_isImpossible", o.getClass().getSimpleName()));
         }
     }
 

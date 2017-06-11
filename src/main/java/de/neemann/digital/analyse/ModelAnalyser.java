@@ -12,6 +12,7 @@ import de.neemann.digital.core.flipflops.FlipflopJK;
 import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,6 +100,7 @@ public class ModelAnalyser {
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
         rows = 1 << inputs.size();
+        LOGGER.debug("table has " + rows + " rows");
     }
 
     private String createUniqueName(FlipflopD ff) {
@@ -252,9 +254,11 @@ public class ModelAnalyser {
      * Analyses the circuit
      *
      * @return the generated truth table
-     * @throws NodeException NodeException
+     * @throws NodeException     NodeException
+     * @throws PinException      PinException
+     * @throws BacktrackException BacktrackException
      */
-    public TruthTable analyse() throws NodeException {
+    public TruthTable analyse() throws NodeException, PinException, BacktrackException {
         LOGGER.debug("start to analyse the model...");
         long time = System.currentTimeMillis();
         BitSetter bitsetter = new BitSetter(inputs.size()) {
@@ -279,6 +283,9 @@ public class ModelAnalyser {
             data.add(e);
             tt.addResult(s.getName(), e);
         }
+
+        // for now only checks for circular dependencies
+        new DependencyAnalyser(this);
 
         model.init();
         for (int row = 0; row < rows; row++) {

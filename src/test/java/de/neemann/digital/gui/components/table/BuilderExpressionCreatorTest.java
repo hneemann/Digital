@@ -12,6 +12,7 @@ import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
+import de.neemann.digital.core.BacktrackException;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.*;
@@ -34,7 +35,7 @@ public class BuilderExpressionCreatorTest extends TestCase {
     private ElementLibrary libary = new ElementLibrary();
     private ShapeFactory shapeFactory = new ShapeFactory(libary);
 
-    public void testSimple() throws FormatterException, ExpressionException, ElementNotFoundException, PinException, NodeException, AnalyseException {
+    public void testSimple() throws FormatterException, ExpressionException, ElementNotFoundException, PinException, NodeException, AnalyseException, BacktrackException {
         Variable a = v("A");
         Variable b = v("B");
         Expression xor = or(and(a, not(b)), and(not(a), b));
@@ -63,7 +64,7 @@ public class BuilderExpressionCreatorTest extends TestCase {
         check(m);
     }
 
-    private void check(Model m) throws AnalyseException, NodeException {
+    private void check(Model m) throws AnalyseException, NodeException, BacktrackException, PinException {
         TruthTable tt = new ModelAnalyser(m).analyse();
         assertEquals(1,tt.getResultCount());
         BoolTable r = tt.getResult(0);

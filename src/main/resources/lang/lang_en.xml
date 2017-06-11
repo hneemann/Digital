@@ -529,8 +529,8 @@ The names of the variables may not be unique.</string>
     <string name="err_invalidTransmissionGateState">The two control inputs of a transmission gate must be inverted!</string>
     <string name="err_nameUsedTwice_N">Signal {0} is used twice!</string>
     <string name="err_errorParsingTestdata">Error parsing the test data.</string>
-    <string name="err_backtracLoopFound">Thes model contains circular dependencies.</string>
-    <string name="err_backtracOf_N_isImpossible">The model component {0} can not be analysed.</string>
+    <string name="err_backtrackLoopFound">The circuit contains unbuffered circular dependencies.</string>
+    <string name="err_backtrackOf_N_isImpossible">The model component {0} can not be analysed.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>

@@ -864,7 +864,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     new TableDialog(Main.this, new ModelAnalyser(model).analyse(), library, shapeFactory, getBaseFileName())
                             .setVisible(true);
                     ensureModelIsStopped();
-                } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | RuntimeException e1) {
+                } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | BacktrackException | RuntimeException e1) {
                     showErrorAndStopModel(Lang.get("msg_analyseErr"), e1);
                 }
             }
