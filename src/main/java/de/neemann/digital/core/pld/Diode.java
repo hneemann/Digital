@@ -10,7 +10,7 @@ import de.neemann.digital.core.element.Keys;
  * A diode needed to create wired elements
  * Used to build a wired OR or AND.
  */
-public class Diode implements Element, Observer {
+public class Diode implements Element, NodeInterface {
 
     /**
      * The diodes description

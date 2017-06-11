@@ -41,7 +41,7 @@ public class Model implements Iterable<Node> {
     /**
      * Maximal number of calculation loops before oscillating behaviour is detected
      */
-    private static final int MAX_COUNTER = 1000;
+    public static final int MAX_LOOP_COUNTER = 1000;
 
     private final ArrayList<Clock> clocks;
     private final ArrayList<Break> breaks;
@@ -191,7 +191,7 @@ public class Model implements Iterable<Node> {
         int counter = 0;
         if (needsUpdate()) {
             while (needsUpdate()) {
-                if (counter++ > MAX_COUNTER) {
+                if (counter++ > MAX_LOOP_COUNTER) {
                     throw new NodeException(Lang.get("err_seemsToOscillate")).addNodes(nodesToUpdateNext);
                 }
                 doMicroStep(noise);

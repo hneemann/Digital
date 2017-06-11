@@ -539,6 +539,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_invalidTransmissionGateState">Die Steuereingänge eines Transmission-Gates müssen invertiert beschaltet werden!</string>
     <string name="err_nameUsedTwice_N">Signal {0} wurde mehrfach verwendet!</string>
     <string name="err_errorParsingTestdata">Fehler beim Einlesen der Testdaten.</string>
+    <string name="err_backtracLoopFound">Das Model enthält zirkuläre Abhängigkeiten.</string>
+    <string name="err_backtracOf_N_isImpossible">Die Modelkomponente {0} kann nicht analysiert werden.</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

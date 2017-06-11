@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.model;
 
+import de.neemann.digital.core.NodeWithoutDelay;
 import de.neemann.digital.core.ObservableValue;
 
 import java.util.HashSet;
@@ -51,7 +52,12 @@ public class InverterConfig {
             return orig;
 
         ObservableValue out = new ObservableValue("~" + orig.getName(), orig.getBits());
-        orig.addObserver(() -> out.set(~orig.getValue(), orig.isHighZ()));
+        orig.addObserver(new NodeWithoutDelay(out) {
+            @Override
+            public void hasChanged() {
+                out.set(~orig.getValue(), orig.isHighZ());
+            }
+        });
         out.set(~orig.getValue(), orig.isHighZ());
         return out;
     }

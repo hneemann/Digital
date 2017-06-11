@@ -12,7 +12,7 @@ import de.neemann.digital.lang.Lang;
 /**
  * A simple switch
  */
-public class Switch implements Element, Observer {
+public class Switch implements Element, NodeInterface {
 
     /**
      * The switch description

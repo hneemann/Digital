@@ -11,7 +11,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * A diode needed to pull a wire to VDD.
  * Used to build a wired OR.
  */
-public class DiodeForward implements Element, Observer {
+public class DiodeForward implements Element, NodeInterface {
 
     /**
      * The diodes description

@@ -84,7 +84,12 @@ public class ModelAnalyser {
             inputs.add(sig);
 
             ObservableValue notQ = ff.getOutputs().get(1);
-            q.addObserver(() -> notQ.setValue(~q.getValue()));
+            q.addObserver(new NodeWithoutDelay(notQ) {
+                @Override
+                public void hasChanged() {
+                    notQ.setValue(~q.getValue());
+                }
+            });
         }
 
         if (inputs.size() == 0)
@@ -167,10 +172,13 @@ public class ModelAnalyser {
                     final ObservableValue qout = ff.getOutputs().get(0);
                     final ObservableValue nqout = ff.getOutputs().get(1);
                     ObservableValue spq = outsp.getOutputs().get(0);
-                    spq.addObserver(() -> {
-                        final long value = spq.getValue();
-                        qout.setValue(value);
-                        nqout.setValue(~value);
+                    spq.addObserver(new NodeWithoutDelay(qout, nqout) {
+                        @Override
+                        public void hasChanged() {
+                            final long value = spq.getValue();
+                            qout.setValue(value);
+                            nqout.setValue(~value);
+                        }
                     });
 
                 } catch (NodeException e) {
@@ -216,7 +224,12 @@ public class ModelAnalyser {
                 try {
                     Splitter sp = Splitter.createNToOne(bits);
                     final ObservableValue out = sp.getOutputs().get(0);
-                    out.addObserver(() -> s.getValue().setValue(out.getValue()));
+                    out.addObserver(new NodeWithoutDelay(s.getValue()) {
+                        @Override
+                        public void hasChanged() {
+                            s.getValue().setValue(out.getValue());
+                        }
+                    });
                     out.fireHasChanged();
 
                     ObservableValues.Builder builder = new ObservableValues.Builder();
@@ -338,5 +351,17 @@ public class ModelAnalyser {
         }
     }
 
+    /**
+     * @return the models inputs
+     */
+    public ArrayList<Signal> getInputs() {
+        return inputs;
+    }
 
+    /**
+     * @return the models outputs
+     */
+    public ArrayList<Signal> getOutputs() {
+        return outputs;
+    }
 }

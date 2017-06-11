@@ -141,14 +141,22 @@ public class Splitter implements Element {
                 final ObservableValue inValue = inputs.get(in.number);
                 final ObservableValue outValue = outputs.get(out.number);
                 if (highZIn)
-                    inValue.addObserverToValue(() -> {
-                        if (inValue.isHighZ())
-                            outValue.set(0, true);
-                        else
-                            outValue.set(inValue.getValue() >> bitPos, false);
+                    inValue.addObserverToValue(new NodeWithoutDelay(outValue) {
+                        @Override
+                        public void hasChanged() {
+                            if (inValue.isHighZ())
+                                outValue.set(0, true);
+                            else
+                                outValue.set(inValue.getValue() >> bitPos, false);
+                        }
                     });
                 else
-                    inValue.addObserverToValue(() -> outValue.setValue(inValue.getValue() >> bitPos));
+                    inValue.addObserverToValue(new NodeWithoutDelay(outValue) {
+                        @Override
+                        public void hasChanged() {
+                            outValue.setValue(inValue.getValue() >> bitPos);
+                        }
+                    });
                 break; // done!! out is completely filled!
             }
 
@@ -163,10 +171,13 @@ public class Splitter implements Element {
                 final long mask = ~(((1L << in.bits) - 1) << bitPos);
                 final ObservableValue inValue = inputs.get(in.number);
                 final ObservableValue outValue = outputs.get(out.number);
-                inputs.get(in.number).addObserverToValue(() -> {
-                    long in1 = inValue.getValue();
-                    long out1 = outValue.getValue();
-                    outValue.setValue((out1 & mask) | (in1 << bitPos));
+                inputs.get(in.number).addObserverToValue(new NodeWithoutDelay(outValue) {
+                    @Override
+                    public void hasChanged() {
+                        long in1 = inValue.getValue();
+                        long out1 = outValue.getValue();
+                        outValue.setValue((out1 & mask) | (in1 << bitPos));
+                    }
                 });
                 continue; // done with this input, its completely copied to the output!
             }
@@ -180,10 +191,13 @@ public class Splitter implements Element {
                 final int shift = out.getPos() - in.getPos();
                 final ObservableValue inValue = inputs.get(in.number);
                 final ObservableValue outValue = outputs.get(out.number);
-                inputs.get(in.number).addObserverToValue(() -> {
-                    long in12 = inValue.getValue();
-                    long out12 = outValue.getValue();
-                    outValue.setValue((out12 & mask) | (in12 >> shift));
+                inputs.get(in.number).addObserverToValue(new NodeWithoutDelay(outValue) {
+                    @Override
+                    public void hasChanged() {
+                        long in12 = inValue.getValue();
+                        long out12 = outValue.getValue();
+                        outValue.setValue((out12 & mask) | (in12 >> shift));
+                    }
                 });
                 continue;
             }
@@ -194,10 +208,13 @@ public class Splitter implements Element {
             final long mask = ~(((1L << bitsToCopy) - 1) << shift);
             final ObservableValue inValue = inputs.get(in.number);
             final ObservableValue outValue = outputs.get(out.number);
-            inputs.get(in.number).addObserverToValue(() -> {
-                long in13 = inValue.getValue();
-                long out13 = outValue.getValue();
-                outValue.setValue((out13 & mask) | (in13 << shift));
+            inputs.get(in.number).addObserverToValue(new NodeWithoutDelay(outValue) {
+                @Override
+                public void hasChanged() {
+                    long in13 = inValue.getValue();
+                    long out13 = outValue.getValue();
+                    outValue.setValue((out13 & mask) | (in13 << shift));
+                }
             });
 
         }

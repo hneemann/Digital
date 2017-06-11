@@ -8,7 +8,7 @@ import java.util.Iterator;
  *
  * @author hneemann
  */
-public class Observable {
+public class Observable implements Iterable<Observer> {
     private final ArrayList<Observer> observers;
 
     /**
@@ -74,5 +74,10 @@ public class Observable {
      */
     public boolean hasObserver(Observer observer) {
         return observers.contains(observer);
+    }
+
+    @Override
+    public Iterator<Observer> iterator() {
+        return observers.iterator();
     }
 }

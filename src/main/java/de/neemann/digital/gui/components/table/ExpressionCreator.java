@@ -82,7 +82,7 @@ public class ExpressionCreator {
         TableReducer tr = new TableReducer(vars, boolTable);
         List<Variable> localVars = vars;
         if (tr.canReduce()) {
-            LOGGER.debug(resultName + " reduced from " + vars.size() + " to " + tr.getVars().size() + " variables");
+            LOGGER.debug(resultName + " reduced from " + vars.size() + " to " + tr.getVars().size() + " variables ("+tr.getVars()+")");
             boolTable = tr.getTable();
             localVars = tr.getVars();
         }

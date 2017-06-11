@@ -104,7 +104,7 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return this for chained calls
      */
     public ObservableValue addObserverToValue(Observer observer) {
-        super.addObserver(observer);
+        addObserver(observer);
         return this;
     }
 

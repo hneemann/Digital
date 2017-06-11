@@ -16,7 +16,7 @@ import java.io.File;
  *
  * @author hneemann
  */
-public abstract class Node implements Observer {
+public abstract class Node implements NodeInterface {
 
     private final boolean hasState;
     private Model model;

@@ -22,7 +22,7 @@ public interface Element {
     void setInputs(ObservableValues inputs) throws NodeException;
 
     /**
-     * When the connections between the elements are build all outputs a collected
+     * When the connections between the elements are build, all outputs are collected
      * by calling this method. After the interconnection they are set to the inputs
      * by calling <code>setInputs()</code>
      *
