@@ -121,7 +121,7 @@
     <chapter name="The ATF1502AS">
         <par>
             The chip <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS"><e>ATF1502AS</e></a> is a simple
-            CPLD with 32 macrocells. It is identical to the CoolRunner I from Xilinx. It is available in a PLCC
+            CPLD with 32 macrocells. It is identical to the XCR5032C from Xilinx. It is available in a PLCC
             package, which makes it suitable for laboratory exercises: If an IC is destroyed during exercises, it
             can simply be replaced. In addition, with the
             <a href="http://www.atmel.com/tools/atdh1150usb.aspx"><e>ATDH1150USB</e></a>

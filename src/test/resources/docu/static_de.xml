@@ -126,7 +126,7 @@
     <chapter name="Der ATF1502AS">
         <par>
             Der Baustein <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS"><e>ATF1502AS</e></a>
-            ist ein einfaches CPLD mit 32 Makrozellen. Er ist baugleich mit dem CoolRunner I von
+            ist ein einfaches CPLD mit 32 Makrozellen. Er ist baugleich mit dem XCR5032C von
             Xilinx. Er ist in einem PLCC Gehäuse verfügbar, was ihn für Laborversuche gut geeignet erscheinen lässt:
             Sollte ein IC bei Versuchen zerstört werden, kann es einfach ersetzt werden.
             Zudem ist mit dem <a href="http://www.atmel.com/tools/atdh1150usb.aspx"><e>ATDH1150USB</e></a>
