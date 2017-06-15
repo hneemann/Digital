@@ -84,7 +84,13 @@ public final class Lang {
         bundle = new Bundle("lang/lang");
         defaultBundle = bundle.getResources("en");
         String lang = PREFS.get(LANGUAGE, Locale.getDefault().getLanguage());
-        localeBundle = bundle.getResources(lang);
+        try {
+            localeBundle = bundle.getResources(lang);
+        } catch (Exception e) {
+            localeBundle = null;
+            System.err.println("error reading translation for "+lang);
+            e.printStackTrace();
+        }
 
         if (localeBundle != null)
             currentLanguage = new Language(lang);
