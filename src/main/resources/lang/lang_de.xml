@@ -914,6 +914,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_inputsToInvert">Zu invertierende Eingänge</string>
     <string name="msg_none">keine</string>
     <string name="msg_errGettingPinNames">Die Namen der Pins konnten nicht ermittelt werden.</string>
+    <string name="msg_errInFile_N">Aufgetreten in Datei {0}!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

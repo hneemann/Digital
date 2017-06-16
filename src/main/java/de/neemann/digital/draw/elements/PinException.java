@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.elements;
 
+import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.draw.model.Net;
 
 /**
@@ -7,7 +8,7 @@ import de.neemann.digital.draw.model.Net;
  *
  * @author hneemann
  */
-public class PinException extends Exception {
+public class PinException extends ExceptionWithOrigin {
     private VisualElement element;
     private Net net;
 

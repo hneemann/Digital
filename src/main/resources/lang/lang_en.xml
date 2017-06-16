@@ -901,6 +901,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_inputsToInvert">Inputs to invert</string>
     <string name="msg_none">none</string>
     <string name="msg_errGettingPinNames">Could not determine the names of the pins.</string>
+    <string name="msg_errInFile_N">Occurred in file {0}!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

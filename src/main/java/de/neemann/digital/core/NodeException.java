@@ -8,7 +8,6 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * This exception is thrown if there was a problem creating or running the model.
@@ -17,7 +16,7 @@ import java.util.HashSet;
  *
  * @author hneemann
  */
-public class NodeException extends Exception {
+public class NodeException extends ExceptionWithOrigin {
     private final ArrayList<Node> nodes;
     private final ImmutableList<ObservableValue> values;
     private final int input;
@@ -88,11 +87,7 @@ public class NodeException extends Exception {
         }
 
         if (nodes != null && nodes.size() > 0) {
-            HashSet<File> origins = new HashSet<>();
             for (Node node : nodes) {
-                if (node != null && node.getOrigin() != null && node.getOrigin().length() > 0)
-                    origins.add(node.getOrigin());
-
                 if (node != null)
                     try { // pick the nodes description if available
                         final Field field = node.getClass().getField("DESCRIPTION");
@@ -111,8 +106,6 @@ public class NodeException extends Exception {
                         // ignore an error accessing the ElementTypeDescription
                     }
             }
-            for (File o : origins)
-                items.addItem(o.getName());
         }
 
         return items.toString();
@@ -152,6 +145,17 @@ public class NodeException extends Exception {
                 sb.append(")");
             return sb.toString();
         }
+    }
 
+    @Override
+    public File getOrigin() {
+        File o = super.getOrigin();
+        if (o != null)
+            return o;
+
+        for (Node n : nodes)
+            if (n.getOrigin() != null)
+                return n.getOrigin();
+        return null;
     }
 }

@@ -1,9 +1,11 @@
 package de.neemann.gui;
 
+import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 /**
  * Used to show error messages.
@@ -44,6 +46,16 @@ public class ErrorMessage implements Runnable {
         if (message.length() > 0)
             message.append('\n');
         addExceptionMessage(e);
+
+        if (e instanceof ExceptionWithOrigin)  {
+            File o = ((ExceptionWithOrigin) e).getOrigin();
+            if (o!=null) {
+                if (message.length() > 0)
+                    message.append('\n');
+                message.append(Lang.get("msg_errInFile_N", o.getName()));
+            }
+        }
+
         return this;
     }
 

@@ -2,6 +2,7 @@ Release Notes
 
 planned as v0.13
 - In case of oscillations almost all effected components are shown.
+- If an error occurs, the name of the affected file is shown.
 
 v0.12.1, released on 05. Jun 2016
 - added a fuse to simulate a PROM or PAL.

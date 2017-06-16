@@ -32,6 +32,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
     private final NetList netList;
     private final ArrayList<ModelEntry> entries;
     private final HashMap<String, Pin> ioMap;
+    private final File origin;
 
     /**
      * Creates the ModelDescription.
@@ -69,7 +70,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @param circuit         the circuit to use
      * @param library         the library to use
      * @param isNestedCircuit if true the model is created for use as nested element
-     * @param fileName        only used for better messages in exceptions
+     * @param origin          only used for better messages in exceptions
      * @param netList         the NetList of the model. If known it is not necessary to create it.
      * @param subName         name of the circuit, used to name unique elements
      * @param depth           recursion depth, used to detect a circuit which contains itself
@@ -77,7 +78,8 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, File fileName, NetList netList, String subName, int depth) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, File origin, NetList netList, String subName, int depth) throws PinException, NodeException, ElementNotFoundException {
+        this.origin = origin;
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
@@ -86,107 +88,112 @@ public class ModelCreator implements Iterable<ModelEntry> {
         else
             ioMap = null;
 
-        for (VisualElement ve : circuit.getElements()) {
-            Pins pins = ve.getPins();
-            ElementTypeDescription elementType = library.getElementType(ve.getElementName());
-            ElementAttributes attr = ve.getElementAttributes();
-            if (attr.getCleanLabel().contains("*")) {
-                attr = new ElementAttributes(attr);
-                attr.set(Keys.LABEL, attr.getCleanLabel().replace("*", subName));
-            }
-            Element element = elementType.createElement(attr);
-            ve.setElement(element);
-            pins.bindOutputsToOutputPins(element.getOutputs());
-
-            // sets the nodes origin to create better error messages
-            if (element instanceof Node)
-                ((Node) element).setOrigin(fileName);
-
-            // if handled as nested element, don't put pins in EntryList, but put the pins in a
-            // separate map to connect it with the parent!
-            boolean isNotAIO = true;
-            if (isNestedCircuit) {
-                if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION || elementType == Clock.DESCRIPTION) {
-                    String label = ve.getElementAttributes().getLabel();
-                    if (label == null || label.length() == 0)
-                        throw new PinException(Lang.get("err_pinWithoutName", fileName));
-                    if (pins.size() != 1)
-                        throw new PinException(Lang.get("err_N_isNotInputOrOutput", label, fileName));
-                    if (ioMap.containsKey(label))
-                        throw new PinException(Lang.get("err_duplicatePinLabel", label, fileName));
-
-                    ioMap.put(label, pins.get(0));
-                    isNotAIO = false;
+        try {
+            for (VisualElement ve : circuit.getElements()) {
+                Pins pins = ve.getPins();
+                ElementTypeDescription elementType = library.getElementType(ve.getElementName());
+                ElementAttributes attr = ve.getElementAttributes();
+                if (attr.getCleanLabel().contains("*")) {
+                    attr = new ElementAttributes(attr);
+                    attr.set(Keys.LABEL, attr.getCleanLabel().replace("*", subName));
                 }
-            }
+                Element element = elementType.createElement(attr);
+                ve.setElement(element);
+                pins.bindOutputsToOutputPins(element.getOutputs());
 
-            if (isNotAIO)
-                entries.add(new ModelEntry(element, pins, ve, elementType.getInputDescription(ve.getElementAttributes()), isNestedCircuit));
+                // sets the nodes origin to create better error messages
+                if (element instanceof Node)
+                    ((Node) element).setOrigin(origin);
 
-            for (Pin p : pins)
-                netList.add(p);
-        }
+                // if handled as nested element, don't put pins in EntryList, but put the pins in a
+                // separate map to connect it with the parent!
+                boolean isNotAIO = true;
+                if (isNestedCircuit) {
+                    if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION || elementType == Clock.DESCRIPTION) {
+                        String label = ve.getElementAttributes().getLabel();
+                        if (label == null || label.length() == 0)
+                            throw new PinException(Lang.get("err_pinWithoutName", origin));
+                        if (pins.size() != 1)
+                            throw new PinException(Lang.get("err_N_isNotInputOrOutput", label, origin));
+                        if (ioMap.containsKey(label))
+                            throw new PinException(Lang.get("err_duplicatePinLabel", label, origin));
 
-        // connect all custom elements to the parents net
-        ArrayList<ModelCreator> cmdl = new ArrayList<>();
-        Iterator<ModelEntry> it = entries.iterator();
-        while (it.hasNext()) {
-            ModelEntry me = it.next();
-            if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
-                CustomElement ce = (CustomElement) me.getElement();
-                ModelCreator child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()), depth + 1);
-                cmdl.add(child);
-
-                HashMap<Net, Net> netMatch = new HashMap<>();
-
-                for (Pin p : me.getPins()) {                     // connect the custom elements to the parents net
-                    Net childNet = child.getNetOfIOandRemove(p.getName());
-
-                    Net otherParentNet = netMatch.get(childNet);
-                    if (otherParentNet != null) {
-                        // direct connection!
-                        // two nets in the parent are connected directly by the nested circuit
-                        // merge the nets in the parent!
-
-                        // remove the childs inner pin which is already added to the other net
-                        Pin insertedPin = child.getPinOfIO(p.getName());
-                        otherParentNet.removePin(insertedPin);
-
-                        Net parentNet = netList.getNetOfPin(p);
-                        if (parentNet != null) {
-                            // Disconnect the parents net from the pin
-                            parentNet.removePin(p);
-
-                            // connect the two parent nets if they are not already the same
-                            if (otherParentNet != parentNet) {
-                                otherParentNet.addNet(parentNet);
-                                netList.remove(parentNet);
-                            }
-                        }
-                    } else {
-                        Net parentNet = netList.getNetOfPin(p);
-                        if (parentNet != null) {
-                            // Disconnect the parents net from the pin
-                            parentNet.removePin(p);
-                            // and connect it to the nested inner net!
-                            parentNet.addAll(childNet.getPins());
-
-                            // store net connection
-                            netMatch.put(childNet, parentNet);
-                        }
+                        ioMap.put(label, pins.get(0));
+                        isNotAIO = false;
                     }
                 }
 
-                // remove connected nets form child
-                for (Net childNet : netMatch.keySet())
-                    child.remove(childNet);
+                if (isNotAIO)
+                    entries.add(new ModelEntry(element, pins, ve, elementType.getInputDescription(ve.getElementAttributes()), isNestedCircuit));
 
-                it.remove();
+                for (Pin p : pins)
+                    netList.add(p);
             }
-        }
-        for (ModelCreator md : cmdl) {       // put the elements of the custom element to the parent
-            entries.addAll(md.entries);
-            netList.add(md.netList);
+
+            // connect all custom elements to the parents net
+            ArrayList<ModelCreator> cmdl = new ArrayList<>();
+            Iterator<ModelEntry> it = entries.iterator();
+            while (it.hasNext()) {
+                ModelEntry me = it.next();
+                if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
+                    CustomElement ce = (CustomElement) me.getElement();
+                    ModelCreator child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()), depth + 1);
+                    cmdl.add(child);
+
+                    HashMap<Net, Net> netMatch = new HashMap<>();
+
+                    for (Pin p : me.getPins()) {                     // connect the custom elements to the parents net
+                        Net childNet = child.getNetOfIOandRemove(p.getName());
+
+                        Net otherParentNet = netMatch.get(childNet);
+                        if (otherParentNet != null) {
+                            // direct connection!
+                            // two nets in the parent are connected directly by the nested circuit
+                            // merge the nets in the parent!
+
+                            // remove the childs inner pin which is already added to the other net
+                            Pin insertedPin = child.getPinOfIO(p.getName());
+                            otherParentNet.removePin(insertedPin);
+
+                            Net parentNet = netList.getNetOfPin(p);
+                            if (parentNet != null) {
+                                // Disconnect the parents net from the pin
+                                parentNet.removePin(p);
+
+                                // connect the two parent nets if they are not already the same
+                                if (otherParentNet != parentNet) {
+                                    otherParentNet.addNet(parentNet);
+                                    netList.remove(parentNet);
+                                }
+                            }
+                        } else {
+                            Net parentNet = netList.getNetOfPin(p);
+                            if (parentNet != null) {
+                                // Disconnect the parents net from the pin
+                                parentNet.removePin(p);
+                                // and connect it to the nested inner net!
+                                parentNet.addAll(childNet.getPins());
+
+                                // store net connection
+                                netMatch.put(childNet, parentNet);
+                            }
+                        }
+                    }
+
+                    // remove connected nets form child
+                    for (Net childNet : netMatch.keySet())
+                        child.remove(childNet);
+
+                    it.remove();
+                }
+            }
+            for (ModelCreator md : cmdl) {       // put the elements of the custom element to the parent
+                entries.addAll(md.entries);
+                netList.add(md.netList);
+            }
+        } catch (PinException | NodeException e) {
+            e.setOrigin(origin);
+            throw e;
         }
     }
 
@@ -232,24 +239,28 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException NodeException
      */
     public Model createModel(boolean attachWires) throws PinException, NodeException {
+        try {
+            Model m = new Model();
 
-        Model m = new Model();
+            for (Net n : netList)
+                n.interconnect(m, attachWires);
 
-        for (Net n : netList)
-            n.interconnect(m, attachWires);
+            for (ModelEntry e : entries)
+                e.applyInputs();
 
-        for (ModelEntry e : entries)
-            e.applyInputs();
+            for (ModelEntry e : entries)
+                e.getElement().registerNodes(m);
 
-        for (ModelEntry e : entries)
-            e.getElement().registerNodes(m);
+            for (ModelEntry e : entries) {
+                e.getElement().init(m);
+                e.getVisualElement().getShape().registerModel(this, m, e);
+            }
 
-        for (ModelEntry e : entries) {
-            e.getElement().init(m);
-            e.getVisualElement().getShape().registerModel(this, m, e);
+            return m;
+        } catch (PinException | NodeException e) {
+            e.setOrigin(origin);
+            throw e;
         }
-
-        return m;
     }
 
     /**
