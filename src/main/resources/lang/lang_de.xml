@@ -764,8 +764,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_create">Erzeugen</string>
     <string name="menu_table_createCUPL">CUPL</string>
     <string name="menu_table_createCUPL_tt">Erzeugt eine CUPL Quelldatei welche die Schaltung beschreibt.</string>
-    <string name="menu_table_createTT2">TT2</string>
-    <string name="menu_table_createTT2_tt">Erzeugt eine dem Berkeley Logic Interchange Format (BLIF) ähnliche Beschreibung der Logik.</string>
+    <string name="menu_table_createTT2">TT2 / JED</string>
+    <string name="menu_table_createTT2_tt">Erzeugt eine dem Berkeley Logic Interchange Format (BLIF) ähnliche Beschreibung der Logik.
+        Danach wird der Atmel-Fitter gestartet, um daraus die JEDEC Datei zu erzeugen.</string>
     <string name="menu_table_createCircuit">Schaltung</string>
     <string name="menu_table_createCircuit_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht.</string>
     <string name="menu_table_createCircuitJK">Schaltung mit JK Flipflops</string>

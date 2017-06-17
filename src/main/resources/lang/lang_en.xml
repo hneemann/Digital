@@ -755,8 +755,9 @@ The names of the variables may not be unique.</string>
     <string name="menu_table_create">Create</string>
     <string name="menu_table_createCUPL">CUPL source</string>
     <string name="menu_table_createCUPL_tt">Creates a CUPL source file containing the define circuit.</string>
-    <string name="menu_table_createTT2">TT2</string>
-    <string name="menu_table_createTT2_tt">Creates a file containing the circuit similar to the Berkeley Logic Interchange Format (BLIF).</string>
+    <string name="menu_table_createTT2">TT2 / JED</string>
+    <string name="menu_table_createTT2_tt">Creates a file containing the circuit similar to the Berkeley Logic Interchange Format (BLIF).
+        After that the Atmel fitter is started to create the JEDEC file. </string>
     <string name="menu_table_createCircuit">Circuit</string>
     <string name="menu_table_createCircuit_tt">Creates a circuit which reproduces the truth table.</string>
     <string name="menu_table_createCircuitJK">Circuit with JK flip-flops</string>
