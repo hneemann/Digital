@@ -5,7 +5,6 @@ import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 /**
  * Used to show error messages.
@@ -47,12 +46,11 @@ public class ErrorMessage implements Runnable {
             message.append('\n');
         addExceptionMessage(e);
 
-        if (e instanceof ExceptionWithOrigin)  {
-            File o = ((ExceptionWithOrigin) e).getOrigin();
-            if (o!=null) {
-                if (message.length() > 0)
-                    message.append('\n');
-                message.append(Lang.get("msg_errInFile_N", o.getName()));
+        if (e instanceof ExceptionWithOrigin) {
+            String orig = ((ExceptionWithOrigin) e).getOriginStr();
+            if (orig != null) {
+                if (message.length() > 0) message.append('\n');
+                message.append(Lang.get("msg_errInFile_N", orig));
             }
         }
 

@@ -3,11 +3,11 @@ package de.neemann.digital.core;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.ImmutableList;
 import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * This exception is thrown if there was a problem creating or running the model.
@@ -121,41 +121,72 @@ public class NodeException extends ExceptionWithOrigin {
     }
 
     private final static class ItemConcatenation {
-        private final StringBuilder sb;
-        private boolean open;
+        private final String message;
+        private final HashMap<String, Item> items;
 
         private ItemConcatenation(String message) {
-            this.sb = new StringBuilder(message);
-            open = false;
+            this.message = message;
+            items = new HashMap<>();
         }
 
         private void addItem(String item) {
-            if (open)
-                sb.append(", ");
-            else {
-                sb.append(" (");
-                open = true;
-            }
-            sb.append(item);
+            Item it = items.computeIfAbsent(item, Item::new);
+            it.incUsage();
         }
 
         @Override
         public String toString() {
-            if (open)
-                sb.append(")");
-            return sb.toString();
+            if (items.isEmpty())
+                return message;
+
+            StringBuilder sb = new StringBuilder();
+            boolean first = true;
+            for (Item e : items.values()) {
+                if (first)
+                    first = false;
+                else
+                    sb.append(", ");
+                sb.append(e);
+            }
+
+            return message + "\n" + Lang.get("msg_affectedComponentsAre_N", sb.toString());
+        }
+    }
+
+    private final static class Item {
+        private final String item;
+        private int usage;
+
+        private Item(String item) {
+            this.item = item;
+        }
+
+        private void incUsage() {
+            usage++;
+        }
+
+        @Override
+        public String toString() {
+            if (usage == 1)
+                return item;
+            else
+                return usage + "*" + item;
         }
     }
 
     @Override
-    public File getOrigin() {
-        File o = super.getOrigin();
+    public Set<File> getOrigin() {
+        Set<File> o = super.getOrigin();
         if (o != null)
             return o;
 
+        HashSet<File> originSet = null;
         for (Node n : nodes)
-            if (n.getOrigin() != null)
-                return n.getOrigin();
-        return null;
+            if (n.getOrigin() != null) {
+                if (originSet == null) originSet = new HashSet<>();
+                originSet.add(n.getOrigin());
+            }
+        return originSet;
     }
+
 }

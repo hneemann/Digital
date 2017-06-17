@@ -121,7 +121,7 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Counter_pin_clr">Setzt den Zähler auf 0 zurück wenn dieser Eingang auf 1 gesetzt wird.</string>
     <string name="elem_Counter_pin_ovf">Overflow Ausgang. Hat der Zähler das Maximum erreicht, wird dieser Ausgang für eine Taktdauer 1.</string>
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
-    <string name="elem_D_FF">D-FlipFLop</string>
+    <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">Ein Baustein zum Speichern eines Bits. Der an Eingang D anliegende Wert wird abgespeichert wenn Eingang C auf 1 wechselt.</string>
     <string name="elem_D_FF_pin_D">Das zu speichernde Bit.</string>
@@ -185,7 +185,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_JK_FF_AS_pin_Set">asynchrones setzen</string>
     <string name="elem_JK_FF_AS_pin_Clr">asynchrones löschen</string>
 
-    <string name="elem_D_FF_AS">D-FlipFLop, asynchron</string>
+    <string name="elem_D_FF_AS">D-FlipFlop, asynchron</string>
     <string name="elem_D_FF_AS_short">D-AS</string>
     <string name="elem_D_FF_AS_tt">Ein Baustein zum Speichern eines Bits. Der an Eingang D anliegende Wert wird abgespeichert wenn Eingang C auf 1 wechselt.</string>
     <string name="elem_D_FF_AS_pin_D">Das zu speichernde Bit.</string>
@@ -914,7 +914,8 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_inputsToInvert">Zu invertierende Eingänge</string>
     <string name="msg_none">keine</string>
     <string name="msg_errGettingPinNames">Die Namen der Pins konnten nicht ermittelt werden.</string>
-    <string name="msg_errInFile_N">Aufgetreten in Datei {0}!</string>
+    <string name="msg_errInFile_N">Aufgetreten in Datei {0}.</string>
+    <string name="msg_affectedComponentsAre_N">Betroffen sind: {0}.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
