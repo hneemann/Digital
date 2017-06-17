@@ -19,7 +19,7 @@ public class ExceptionWithOrigin extends Exception {
      * @param e the exception
      * @return the origin or null;
      */
-    public static String getOrigin(Throwable e) {
+    public static String getOriginOf(Throwable e) {
         while (e != null) {
             if (e instanceof ExceptionWithOrigin) {
                 String orig = ((ExceptionWithOrigin) e).getOriginStr();
