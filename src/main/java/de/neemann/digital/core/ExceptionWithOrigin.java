@@ -11,6 +11,26 @@ import java.util.Set;
 public class ExceptionWithOrigin extends Exception {
     private Set<File> origin;
 
+
+    /**
+     * Returns the file or the files that caused the given exception.
+     * If no origin is found null is returned.
+     *
+     * @param e the exception
+     * @return the origin or null;
+     */
+    public static String getOrigin(Throwable e) {
+        while (e != null) {
+            if (e instanceof ExceptionWithOrigin) {
+                String orig = ((ExceptionWithOrigin) e).getOriginStr();
+                if (orig != null)
+                    return orig;
+            }
+            e = e.getCause();
+        }
+        return null;
+    }
+
     /**
      * Creates a new exception
      *
@@ -49,7 +69,7 @@ public class ExceptionWithOrigin extends Exception {
     /**
      * @return the origin of the error as a string
      */
-    public String getOriginStr() {
+    private String getOriginStr() {
         Set<File> orig = getOrigin();
         if (orig == null || orig.isEmpty())
             return null;
@@ -68,20 +88,10 @@ public class ExceptionWithOrigin extends Exception {
      * @param origin the file which had caused the exception
      */
     public void setOrigin(File origin) {
-        if (getOrigin() == null) {
+        if (this.origin == null && origin != null) {
             this.origin = new HashSet<>();
             this.origin.add(origin);
         }
-    }
-
-    /**
-     * Sets the origin of an error
-     *
-     * @param origin a set of file which had caused the exception
-     */
-    public void setOrigin(Set<File> origin) {
-        if (getOrigin() == null)
-            this.origin = origin;
     }
 
 }

@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +27,7 @@ public class ModelEntry {
     private final Pins pins;
     private final PinDescriptions inputNames;
     private final boolean isNestedElement;
+    private final File origin;            // Only used to create better error messages
     private final VisualElement visualElement;
     private IOState ioState;
 
@@ -37,13 +39,15 @@ public class ModelEntry {
      * @param visualElement   the visual element which has created the element
      * @param inputNames      the pin descriptions of the inputs.
      * @param isNestedElement true if this visual element is a nested included element
+     * @param origin          Used to create better error messages
      */
-    public ModelEntry(Element element, Pins pins, VisualElement visualElement, PinDescriptions inputNames, boolean isNestedElement) {
+    public ModelEntry(Element element, Pins pins, VisualElement visualElement, PinDescriptions inputNames, boolean isNestedElement, File origin) {
         this.element = element;
         this.pins = pins;
         this.visualElement = visualElement;
         this.inputNames = inputNames;
         this.isNestedElement = isNestedElement;
+        this.origin = origin;
     }
 
     /**
@@ -53,43 +57,48 @@ public class ModelEntry {
      * @throws NodeException NodeException
      */
     public void applyInputs() throws PinException, NodeException {
-        HashMap<String, Pin> ins = pins.getInputs();
+        try {
+            HashMap<String, Pin> ins = pins.getInputs();
 
-        InverterConfig ic = visualElement.getElementAttributes().get(Keys.INVERTERCONFIG);
+            InverterConfig ic = visualElement.getElementAttributes().get(Keys.INVERTERCONFIG);
 
-        ObservableValues values = ObservableValues.EMPTY_LIST;
-        ArrayList<ObservableValue> inputs = new ArrayList<>();
-        for (PinDescription inputName : inputNames) {
-            Pin pin = ins.get(inputName.getName());
-            if (pin == null)
-                throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputName, visualElement), visualElement);
+            ObservableValues values = ObservableValues.EMPTY_LIST;
+            ArrayList<ObservableValue> inputs = new ArrayList<>();
+            for (PinDescription inputName : inputNames) {
+                Pin pin = ins.get(inputName.getName());
+                if (pin == null)
+                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputName, visualElement), visualElement);
 
-            ObservableValue value = pin.getValue();
-            if (value == null)
-                throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputName, visualElement), visualElement);
+                ObservableValue value = pin.getValue();
+                if (value == null)
+                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputName, visualElement), visualElement);
 
-            inputs.add(ic.invert(inputName.getName(), value));
-        }
-
-        ArrayList<ObservableValue> bidirect = null;
-        for (Pin p : pins) {
-            if (p.getDirection() == Pin.Direction.both) {
-                if (bidirect == null)
-                    bidirect = new ArrayList<>();
-                final ObservableValue readerValue = p.getReaderValue();
-                if (readerValue == null)
-                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", p.getName(), visualElement), visualElement);
-                bidirect.add(readerValue);
+                inputs.add(ic.invert(inputName.getName(), value));
             }
-        }
-        if (bidirect != null)
-            inputs.addAll(bidirect);
 
-        if (inputs.size() > 0) {
-            values = new ObservableValues(inputs);
-            element.setInputs(values);
+            ArrayList<ObservableValue> bidirect = null;
+            for (Pin p : pins) {
+                if (p.getDirection() == Pin.Direction.both) {
+                    if (bidirect == null)
+                        bidirect = new ArrayList<>();
+                    final ObservableValue readerValue = p.getReaderValue();
+                    if (readerValue == null)
+                        throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", p.getName(), visualElement), visualElement);
+                    bidirect.add(readerValue);
+                }
+            }
+            if (bidirect != null)
+                inputs.addAll(bidirect);
+
+            if (inputs.size() > 0) {
+                values = new ObservableValues(inputs);
+                element.setInputs(values);
+            }
+            ioState = new IOState(values, element.getOutputs(), element);
+        } catch (PinException | NodeException e) {
+            e.setOrigin(origin);
+            throw e;
         }
-        ioState = new IOState(values, element.getOutputs(), element);
     }
 
     /**

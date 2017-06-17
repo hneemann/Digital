@@ -124,7 +124,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 }
 
                 if (isNotAIO)
-                    entries.add(new ModelEntry(element, pins, ve, elementType.getInputDescription(ve.getElementAttributes()), isNestedCircuit));
+                    entries.add(new ModelEntry(element, pins, ve, elementType.getInputDescription(ve.getElementAttributes()), isNestedCircuit, origin));
 
                 for (Pin p : pins)
                     netList.add(p);

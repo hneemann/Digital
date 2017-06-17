@@ -46,12 +46,10 @@ public class ErrorMessage implements Runnable {
             message.append('\n');
         addExceptionMessage(e);
 
-        if (e instanceof ExceptionWithOrigin) {
-            String orig = ((ExceptionWithOrigin) e).getOriginStr();
-            if (orig != null) {
-                if (message.length() > 0) message.append('\n');
-                message.append(Lang.get("msg_errInFile_N", orig));
-            }
+        String orig = ExceptionWithOrigin.getOrigin(e);
+        if (orig != null) {
+            if (message.length() > 0) message.append('\n');
+            message.append(Lang.get("msg_errInFile_N", orig));
         }
 
         return this;

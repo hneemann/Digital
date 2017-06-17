@@ -83,7 +83,7 @@ public class NodeException extends ExceptionWithOrigin {
         ItemConcatenation items = new ItemConcatenation(super.getMessage());
         if (values != null && values.size() > 0) {
             for (ObservableValue ov : values)
-                items.addItem(ov.getName());
+                items.addItem(Lang.get("msg_signal_N", ov.getName()));
         }
 
         if (nodes != null && nodes.size() > 0) {
