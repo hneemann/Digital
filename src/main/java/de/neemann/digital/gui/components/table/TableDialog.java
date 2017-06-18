@@ -228,7 +228,7 @@ public class TableDialog extends JDialog {
         if (pins.containsKey(name))
             attr.set(Keys.PIN, pins.get(name).toString());
         ElementAttributes modified = new AttributeDialog(this, pos, LIST, attr).showDialog();
-        if (modified!=null) {
+        if (modified != null) {
             pins.remove(name);
             final String newName = modified.get(Keys.LABEL).trim().replace(' ', '_');
             final String pinStr = modified.get(Keys.PIN).trim();
@@ -457,46 +457,46 @@ public class TableDialog extends JDialog {
         hardware.add(gal22v10);
 
 
-        JMenu atf1502 = new JMenu("ATF1502");
-        atf1502.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCUPL(new ATF1502CuplExporter());
-            }
-        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
-        atf1502.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createHardware(
-                        new ExpressionToFileExporter(new ATF1502TT2Exporter(filename.getName()))
-                                .addProcessingStep(new StartATF1502Fitter(TableDialog.this))
-                                .addProcessingStep(new CreateCHN("ATF1502AS")), filename, "tt2");
-            }
-        }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());
-        hardware.add(atf1502);
-
-        JMenu atf1504 = new JMenu("ATF1504");
-        atf1504.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCUPL(new ATF1504CuplExporter());
-            }
-        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
-        atf1504.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createHardware(
-                        new ExpressionToFileExporter(new ATF1504TT2Exporter(filename.getName()))
-                                .addProcessingStep(new StartATF1504Fitter(TableDialog.this))
-                                .addProcessingStep(new CreateCHN("ATF1504AS")), filename, "tt2");
-            }
-        }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());
-        hardware.add(atf1504);
-
+        hardware.add(createATF150XExporterMenu("ATF1502",
+                new ATF1502CuplExporter(),
+                new ExpressionToFileExporter(new ATF1502TT2Exporter(filename.getName()))
+                        .addProcessingStep(new StartATF1502Fitter(TableDialog.this))
+                        .addProcessingStep(new CreateCHN("ATF1502AS"))
+        ));
+        hardware.add(createATF150XExporterMenu("ATF1504",
+                new ATF1504CuplExporter(),
+                new ExpressionToFileExporter(new ATF1504TT2Exporter(filename.getName()))
+                        .addProcessingStep(new StartATF1504Fitter(TableDialog.this))
+                        .addProcessingStep(new CreateCHN("ATF1504AS"))
+        ));
+        /*
+        hardware.add(createATF150XExporterMenu("ATF1508",
+                new ATF1508CuplExporter(),
+                new ExpressionToFileExporter(new ATF1508TT2Exporter(filename.getName()))
+                        .addProcessingStep(new StartATF1508Fitter(TableDialog.this))
+                        .addProcessingStep(new CreateCHN("ATF1508AS"))
+        ));*/
 
         createMenu.add(hardware);
 
         return createMenu;
+    }
+
+    private JMenuItem createATF150XExporterMenu(String menuName, CuplExporter cuplExporter, ExpressionToFileExporter expressionToFileExporter) {
+        JMenu menu = new JMenu(menuName);
+        menu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCUPL(cuplExporter);
+            }
+        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+        menu.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createHardware(expressionToFileExporter, filename, "tt2");
+            }
+        }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());
+        return menu;
     }
 
     private boolean createHardware(ExpressionToFileExporter expressionExporter, File filename, String suffix) {

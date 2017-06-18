@@ -21,13 +21,28 @@ public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess 
     private final JDialog parent;
     private final File fitterExe;
 
+    private static File getFitterExe(String fitterName) {
+        File fitter = Settings.getInstance().get(Keys.SETTINGS_ATF1502_FITTER);
+        return new File(fitter.getParentFile(), fitterName);
+    }
+
     /**
      * Creates a new instance
      *
      * @param parent the parent dialog
      */
     public StartATF1502Fitter(JDialog parent) {
-        this(parent, Settings.getInstance().get(Keys.SETTINGS_ATF1502_FITTER));
+        this(parent, getFitterExe("fit1502.exe"));
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param parent     the parent dialog
+     * @param fitterName name of the needed fitter
+     */
+    StartATF1502Fitter(JDialog parent, String fitterName) {
+        this(parent, getFitterExe(fitterName));
     }
 
     /**
@@ -36,7 +51,7 @@ public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess 
      * @param parent    the parent dialog
      * @param fitterExe fitter executable
      */
-    public StartATF1502Fitter(JDialog parent, File fitterExe) {
+    private StartATF1502Fitter(JDialog parent, File fitterExe) {
         this.parent = parent;
         this.fitterExe = fitterExe;
     }
