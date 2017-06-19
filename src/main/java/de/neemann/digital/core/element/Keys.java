@@ -1,6 +1,7 @@
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.model.InverterConfig;
@@ -56,10 +57,16 @@ public final class Keys {
             = new Key<>("Value", 1);
 
     /**
-     * The default value of inputs
+     * The default value of elements
      */
     public static final Key<Integer> DEFAULT
             = new Key<>("Default", 0);
+
+    /**
+     * The default value of inputs
+     */
+    public static final Key<InValue> INPUT_DEFAULT
+            = new Key<>("InDefault", new InValue(0));
 
     /**
      * Color of LEDs

@@ -23,7 +23,7 @@ public class FileScanner {
         if (errors.isEmpty())
             return count;
 
-        System.out.println("errors:");
+        System.err.println("errors:");
         for (Error e : errors) {
             System.err.println("----> error in: " + e.f);
             e.e.printStackTrace();

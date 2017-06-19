@@ -555,6 +555,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Data_tt">Die Daten, welche in diesem Element gespeichert sind.</string>
     <string name="key_Default">Vorgabe</string>
     <string name="key_Default_tt">Dieser Wert wird beim Schaltungsstart gesetzt</string>
+    <string name="key_InDefault">Vorgabe</string>
+    <string name="key_InDefault_tt">Dieser Wert wird beim Schaltungsstart gesetzt. Ein "Z" steht für "hochohmig".</string>
+    <string name="key_isHighZ">Eingang kann hochohmig sein</string>
+    <string name="key_isHighZ_tt">Wenn gesetzt ist ein hochohmiger Eingang erlaubt. Ein hochohmiger Eingang ist auch
+        erlaubt, wenn der Vorgabewert auf hochohmig ("Z") gesetzt wird.</string>
     <string name="key_Description">Beschreibung</string>
     <string name="key_Description_tt">Eine kurze Beschreibung des Elementes.</string>
     <string name="key_Frequency">Frequenz/Hz</string>
@@ -601,8 +606,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_intFormat_dec">Dezimal</string>
     <string name="key_intFormat_def">Vorgabe</string>
     <string name="key_intFormat_hex">Hexadezimal</string>
-    <string name="key_isHighZ">Eingang kann hochohmig sein</string>
-    <string name="key_isHighZ_tt">Wenn gesetzt ist ein hochohmiger Eingang erlaubt.</string>
     <string name="key_maxStepCount">Maximale Messpunktezahl</string>
     <string name="key_maxStepCount_tt">Die maximale Anzahl an Messpunkten die gespeichert werden, bevor die ältesten Messungen verworfen werden.</string>
     <string name="key_microStep">Zeige Einzelgatterschritte</string>

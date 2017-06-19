@@ -545,6 +545,11 @@ The names of the variables may not be unique.</string>
     <string name="key_Data_tt">The values stored in this element.</string>
     <string name="key_Default">Default</string>
     <string name="key_Default_tt">This value is set if the circuit is started</string>
+    <string name="key_InDefault">Default</string>
+    <string name="key_InDefault_tt">This value is set if the circuit is started. A "Z" means high-z state.</string>
+    <string name="key_isHighZ">Is three-state input</string>
+    <string name="key_isHighZ_tt">If set the input is allowed to be in high-z state. This is also allowed
+        if high-z ("Z") is set as the default value.</string>
     <string name="key_Description">Description</string>
     <string name="key_Description_tt">A short description of this element and its usage.</string>
     <string name="key_Frequency">Frequency/Hz</string>
@@ -591,8 +596,6 @@ The names of the variables may not be unique.</string>
     <string name="key_intFormat_dec">decimal</string>
     <string name="key_intFormat_def">default</string>
     <string name="key_intFormat_hex">hex</string>
-    <string name="key_isHighZ">Is three-state input</string>
-    <string name="key_isHighZ_tt">If set the input is allowed to be in high-z state.</string>
     <string name="key_maxStepCount">Max number of steps to show</string>
     <string name="key_maxStepCount_tt">The maximal number of values stored. If the maximum number is reached, the oldest values are discarded.</string>
     <string name="key_microStep">Show single gate steps</string>

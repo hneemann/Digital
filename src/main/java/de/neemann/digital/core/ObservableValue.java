@@ -261,7 +261,7 @@ public class ObservableValue extends Observable implements PinDescription {
      *
      * @return the actual value.
      */
-    public long getValueIgnoreBurn() {
+    public long getValueIgnoreHighZ() {
         return value;
     }
 

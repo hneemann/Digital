@@ -21,17 +21,17 @@ public class In implements Element {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
             String d = elementAttributes.get(Keys.DESCRIPTION);
-            if (d.length()>0)
+            if (d.length() > 0)
                 return d;
             else
                 return super.getDescription(elementAttributes);
         }
     }
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.IS_HIGH_Z)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.DEFAULT)
+            .addAttribute(Keys.INPUT_DEFAULT)
+            .addAttribute(Keys.IS_HIGH_Z)
             .addAttribute(Keys.DESCRIPTION)
             .addAttribute(Keys.PINNUMBER);
 
@@ -45,10 +45,11 @@ public class In implements Element {
      * @param attributes the inputs attributes
      */
     public In(ElementAttributes attributes) {
-        boolean highZ = attributes.get(Keys.IS_HIGH_Z);
+        InValue value = attributes.get(Keys.INPUT_DEFAULT);
+        boolean highZ = attributes.get(Keys.IS_HIGH_Z) || value.isHighZ();
         pinNumber = attributes.get(Keys.PINNUMBER);
         output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION).setPinNumber(pinNumber);
-        output.setValue(attributes.get(Keys.DEFAULT));
+        output.set(value.getValue(), value.isHighZ());
         label = attributes.getCleanLabel();
     }
 

@@ -543,6 +543,10 @@
           <string>Default</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="200" y="660"/>
     </visualElement>

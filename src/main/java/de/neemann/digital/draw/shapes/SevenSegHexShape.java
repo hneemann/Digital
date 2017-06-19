@@ -43,7 +43,7 @@ public class SevenSegHexShape extends SevenShape {
         if (i == 7) {
             return dp.getBool();
         } else {
-            int v = (int) input.getValueIgnoreBurn() & 0xf;
+            int v = (int) input.getValueIgnoreHighZ() & 0xf;
             v = TABLE[v];
             return (v & (1 << i)) != 0;
         }

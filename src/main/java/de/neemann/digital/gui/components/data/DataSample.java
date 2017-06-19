@@ -73,7 +73,7 @@ public class DataSample {
      */
     public DataSample fillWith(ArrayList<Signal> signals) {
         for (int i = 0; i < signals.size(); i++)
-            values[i] = signals.get(i).getValue().getValueIgnoreBurn();
+            values[i] = signals.get(i).getValue().getValueIgnoreHighZ();
         return this;
     }
 

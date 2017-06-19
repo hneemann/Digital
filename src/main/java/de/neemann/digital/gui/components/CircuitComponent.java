@@ -5,6 +5,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.gui.components.modification.*;
@@ -911,10 +912,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (ve.equalsDescription(In.DESCRIPTION)) {
                     ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
                     if (ov != null) {
-                        int newValue = (int) ov.getValue();
-                        int oldValue = ve.getElementAttributes().get(Keys.DEFAULT);
-                        if (newValue != oldValue)
-                            builder.add(new ModifyAttribute<>(ve, Keys.DEFAULT, newValue));
+                        InValue newValue = new InValue(ov);
+                        InValue oldValue = ve.getElementAttributes().get(Keys.INPUT_DEFAULT);
+                        if (!newValue.equals(oldValue))
+                            builder.add(new ModifyAttribute<>(ve, Keys.INPUT_DEFAULT, newValue));
                     }
                 }
             modify(builder.build());

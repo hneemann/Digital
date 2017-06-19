@@ -89,13 +89,13 @@ public class SevenSegShape extends SevenShape {
 
         if (persistence && commonCatode) {
             if (!ccin.isHighZ() && !ccin.getBool())
-                data[i] = inputs.get(i).getValueIgnoreBurn() > 0;
+                data[i] = inputs.get(i).getValueIgnoreHighZ() > 0;
             return data[i];
         } else {
             if (commonCatode && (ccin.isHighZ() || ccin.getBool()))
                 return false;
 
-            return inputs.get(i).getValueIgnoreBurn() > 0;
+            return inputs.get(i).getValueIgnoreHighZ() > 0;
         }
     }
 

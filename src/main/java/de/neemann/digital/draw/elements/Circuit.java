@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
@@ -74,6 +75,9 @@ public class Circuit {
         xStream.alias("vector", Vector.class);
         xStream.aliasAttribute(Vector.class, "x", "x");
         xStream.aliasAttribute(Vector.class, "y", "y");
+        xStream.alias("value", InValue.class);
+        xStream.aliasAttribute(InValue.class, "value", "v");
+        xStream.aliasAttribute(InValue.class, "highZ", "z");
         xStream.addImplicitCollection(ElementAttributes.class, "attributes");
         xStream.alias("data", DataField.class);
         xStream.registerConverter(new DataFieldConverter());

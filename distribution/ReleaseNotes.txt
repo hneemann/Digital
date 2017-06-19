@@ -3,6 +3,10 @@ Release Notes
 planned as v0.13
 - In case of oscillations almost all affected components are shown.
 - If an error occurs, the name of the affected circuit file is shown.
+- An input can have "high z" value as its default value.
+  CAUTION: All default values are lost! If you have built a circuit that contains
+  test cases that depend on a non-null default value, this tests will fail. To
+  resolve this issue, reset the default value.
 
 v0.12.1, released on 05. Jun 2016
 - added a fuse to simulate a PROM or PAL.

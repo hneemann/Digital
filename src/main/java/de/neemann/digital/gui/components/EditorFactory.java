@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
@@ -44,6 +45,7 @@ public final class EditorFactory {
     private EditorFactory() {
         add(String.class, StringEditor.class);
         add(Integer.class, IntegerEditor.class);
+        add(InValue.class, InValueEditor.class);
         add(File.class, FileEditor.class);
         add(Color.class, ColorEditor.class);
         add(Boolean.class, BooleanEditor.class);
@@ -206,6 +208,28 @@ public final class EditorFactory {
             }
 
             return value;
+        }
+    }
+
+    private final static class InValueEditor extends LabelEditor<InValue> {
+        private static final String[] DEFAULTS = {"Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
+        private final JComboBox<String> comboBox;
+
+        public InValueEditor(InValue value, Key<Integer> key) {
+            comboBox = new JComboBox<>(DEFAULTS);
+            comboBox.setEditable(true);
+            comboBox.setSelectedItem(value.toString());
+        }
+
+        @Override
+        public JComponent getComponent(ElementAttributes attr) {
+            return comboBox;
+        }
+
+        @Override
+        public InValue getValue() {
+            Object item = comboBox.getSelectedItem();
+            return new InValue(item.toString());
         }
     }
 
