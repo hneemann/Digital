@@ -921,6 +921,8 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_errInFile_N">Aufgetreten in Datei {0}.</string>
     <string name="msg_affectedComponentsAre_N">Betroffen sind: {0}.</string>
     <string name="msg_signal_N">Leitung {0}</string>
+    <string name="msg_invalidSignalsAnalysed">Wenn Ein- oder Ausgänge keinen Namen haben, werden diese nicht
+        als Variablen in die Analyse einbezogen, sondern wie Konstanten behandelt!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

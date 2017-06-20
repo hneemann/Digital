@@ -60,6 +60,7 @@ public class Model implements Iterable<Node> {
     private boolean isInitialized = false;
     private WindowPosManager windowPosManager;
     private HashSet<Node> oscillatingNodes;
+    private boolean isInvalidSignal = false;
 
     /**
      * Creates a new model
@@ -422,7 +423,8 @@ public class Model implements Iterable<Node> {
         if (signal.isValid()) {
             signals.add(signal);
             inputs.add(signal);
-        }
+        } else
+            isInvalidSignal = true;
     }
 
     /**
@@ -441,7 +443,15 @@ public class Model implements Iterable<Node> {
         if (signal.isValid()) {
             signals.add(signal);
             outputs.add(signal);
-        }
+        } else
+            isInvalidSignal = true;
+    }
+
+    /**
+     * @return true if there was an invalid signal
+     */
+    public boolean isInvalidSignal() {
+        return isInvalidSignal;
     }
 
     /**
