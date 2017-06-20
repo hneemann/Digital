@@ -316,7 +316,7 @@ public final class Keys {
      * Fitter for the atf1502
      */
     public static final Key<File> SETTINGS_ATF1502_FITTER
-            = new Key<>("atf1502Fitter", new File("fit1502.exe"));
+            = new Key<>("atf1502Fitter", new File("c:/Wincupl/WinCupl/Fitters/fit1502.exe"));
 
     /**
      * A pin number, empty means no pin assigned
