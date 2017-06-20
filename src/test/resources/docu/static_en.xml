@@ -148,8 +148,6 @@
             <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a>.
             <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a> is available on the ATMEL/Microchip
             website.
-            From the <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a> installation, only the file
-            <e>fit1502.exe</e> is needed and this file can be stored in any folder.
             On Linux systems, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
         </par>
     </chapter>

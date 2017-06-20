@@ -155,9 +155,6 @@
             im Ordner <e>WinCupl\Fitters</e>.
             <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a> wiederum ist auf der ATMEL/Microchip
             Webseite verfügbar.
-            Aus der
-            <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a>-Installation wird nur die Datei
-            <e>fit1502.exe</e> benötigt und diese kann in jedem Ordner abgelegt werden.
             Unter Linux lässt sich <e>fit1502.exe</e> ebenfalls von Digital starten, wenn <e>wine</e> installiert ist.
         </par>
     </chapter>
