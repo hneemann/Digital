@@ -7,6 +7,8 @@ planned as v0.13
   CAUTION: All default values are lost! If you have built a circuit that contains
   test cases that depend on a non-null default value, this tests will fail. To
   resolve this issue, reset the default value.
+- A warning message shows up if a circuit with unnamed inputs/outputs is analysed.
+- Comments are allowed in hex files.
 
 v0.12.1, released on 05. Jun 2016
 - added a fuse to simulate a PROM or PAL.

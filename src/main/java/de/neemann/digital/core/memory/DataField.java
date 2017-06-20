@@ -72,11 +72,18 @@ public class DataField {
             int pos = 0;
             while ((line = br.readLine()) != null) {
                 try {
-                    long v = Long.parseLong(line, 16);
-                    if (pos == data.length)
-                        data = Arrays.copyOf(data, data.length * 2);
-                    data[pos] = v;
-                    pos++;
+                    int p = line.indexOf('#');
+                    if (p >= 0)
+                        line = line.substring(0, p).trim();
+                    else
+                        line = line.trim();
+                    if (line.length() > 0) {
+                        long v = Long.parseLong(line, 16);
+                        if (pos == data.length)
+                            data = Arrays.copyOf(data, data.length * 2);
+                        data[pos] = v;
+                        pos++;
+                    }
                 } catch (NumberFormatException e) {
                     throw new IOException(e);
                 }
