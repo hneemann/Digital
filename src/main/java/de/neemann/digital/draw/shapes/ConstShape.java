@@ -15,6 +15,7 @@ import de.neemann.digital.draw.graphics.Vector;
 
 /**
  * The constant shape
+ *
  * @author hneemann
  */
 public class ConstShape implements Shape {
@@ -31,7 +32,9 @@ public class ConstShape implements Shape {
      */
     public ConstShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
-        this.value = ObservableValue.getHexString(attr.get(Keys.VALUE));
+        int bits = attr.getBits();
+        long mask = (1L << bits) - 1;
+        this.value = ObservableValue.getHexString(attr.get(Keys.VALUE) & mask);
     }
 
     @Override
