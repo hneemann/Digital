@@ -8,11 +8,14 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.wiring.bus.BusModelStateObserver;
 import de.neemann.digital.core.wiring.bus.CommonBusValue;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A simple switch
  */
 public class Switch implements Element, NodeInterface {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Switch.class);
 
     /**
      * The switch description
@@ -28,6 +31,9 @@ public class Switch implements Element, NodeInterface {
     private final int bits;
     private boolean closed;
     private SwitchModel switchModel;
+
+    private static int debugSwitchReal;
+    private static int debugSwitchSimple;
 
     /**
      * Creates a new instance
@@ -83,6 +89,9 @@ public class Switch implements Element, NodeInterface {
                 throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
             }
         }
+
+        if (switchModel instanceof RealSwitch) debugSwitchReal++;
+        else debugSwitchSimple++;
     }
 
     @Override
@@ -99,6 +108,12 @@ public class Switch implements Element, NodeInterface {
         switchModel.setModel(model);
         switchModel.setClosed(closed);
         hasChanged();
+
+        if (debugSwitchSimple != 0 || debugSwitchReal != 0) {
+            LOGGER.debug(debugSwitchSimple + " simple and " + debugSwitchReal + " real switches created");
+            debugSwitchSimple = 0;
+            debugSwitchReal = 0;
+        }
     }
 
     @Override
