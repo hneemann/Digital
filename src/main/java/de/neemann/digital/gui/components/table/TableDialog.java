@@ -37,10 +37,7 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.MyFileChooser;
-import de.neemann.gui.Screen;
-import de.neemann.gui.ToolTipAction;
+import de.neemann.gui.*;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -208,7 +205,7 @@ public class TableDialog extends JDialog {
 
         bar.add(createSetMenu());
 
-        bar.add(createCreateMenu(parent));
+        bar.add(createCreateMenu());
 
         setJMenuBar(bar);
 
@@ -362,7 +359,7 @@ public class TableDialog extends JDialog {
         setModel(new TruthTableTableModel(t));
     }
 
-    private JMenu createCreateMenu(JFrame parent) {
+    private JMenu createCreateMenu() {
         JMenu createMenu = new JMenu(Lang.get("menu_table_create"));
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuit")) {
             @Override
@@ -427,11 +424,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
-                if (createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed"))
-                    new ShowStringDialog(parent,
-                            Lang.get("win_pinMapDialog"),
-                            jedecExporter.getPinMapping().toString())
-                            .setVisible(true);
+                createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed");
             }
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
         hardware.add(gal16v8);
@@ -447,11 +440,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Gal22v10JEDECExporter jedecExporter = new Gal22v10JEDECExporter();
-                if (createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed"))
-                    new ShowStringDialog(parent,
-                            Lang.get("win_pinMapDialog"),
-                            jedecExporter.getPinMapping().toString())
-                            .setVisible(true);
+                createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed");
             }
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
         hardware.add(gal22v10);
@@ -519,6 +508,14 @@ public class TableDialog extends JDialog {
                 new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
             }
         }
+
+        ArrayList<String> pinsWithoutNumber = model.getTable().getPinsWithoutNumber();
+        if (pinsWithoutNumber != null)
+            JOptionPane.showMessageDialog(TableDialog.this,
+                    new LineBreaker().toHTML().breakLines(Lang.get("msg_thereAreMissingPinNumbers", pinsWithoutNumber)),
+                    Lang.get("msg_warning"),
+                    JOptionPane.WARNING_MESSAGE);
+
         return result;
     }
 

@@ -534,6 +534,19 @@ public class Model implements Iterable<Node> {
     }
 
     /**
+     * @return list of pins without a number
+     */
+    public ArrayList<String> getPinsWithoutNumber() {
+        ArrayList<String> sigWithoutPinNumber = null;
+        for (Signal s : signals)
+            if (s.missingPinNumber()) {
+                if (sigWithoutPinNumber == null) sigWithoutPinNumber = new ArrayList<>();
+                sigWithoutPinNumber.add(s.getName());
+            }
+        return sigWithoutPinNumber;
+    }
+
+    /**
      * A filter for nodes.
      *
      * @param <NODE>

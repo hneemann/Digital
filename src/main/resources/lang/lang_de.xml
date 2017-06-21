@@ -923,6 +923,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_signal_N">Leitung {0}</string>
     <string name="msg_invalidSignalsAnalysed">Wenn Ein- oder Ausgänge keinen Namen haben, werden diese nicht
         als Variablen in die Analyse einbezogen, sondern wie Konstanten behandelt!</string>
+    <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
@@ -938,7 +939,6 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="win_measures">Messwerte</string>
     <string name="win_measures_fullstep">Messwerte im Vollschrittmodus</string>
     <string name="win_measures_microstep">Messwerte im Einzelgattermodus</string>
-    <string name="win_pinMapDialog">Pin-Zuordnung</string>
     <string name="win_saveChanges">Änderungen speichern?</string>
     <string name="win_stateChanged">Die Datei wurde verändert!</string>
     <string name="win_table">Tabelle</string>

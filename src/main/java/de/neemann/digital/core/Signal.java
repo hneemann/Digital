@@ -7,6 +7,7 @@ public final class Signal implements Comparable<Signal> {
     private final String name;
     private final ObservableValue value;
     private int pinNumber;
+    private boolean isPin = false;
 
     /**
      * Creates a new Instance
@@ -35,6 +36,7 @@ public final class Signal implements Comparable<Signal> {
      */
     public Signal setPinNumber(int pinNumber) {
         this.pinNumber = pinNumber;
+        isPin = true;
         return this;
     }
 
@@ -92,4 +94,10 @@ public final class Signal implements Comparable<Signal> {
     }
 
 
+    /**
+     * @return true if a pin number is missing
+     */
+    public boolean missingPinNumber() {
+        return isPin && pinNumber <= 0;
+    }
 }

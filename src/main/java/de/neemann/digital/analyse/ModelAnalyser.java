@@ -268,7 +268,7 @@ public class ModelAnalyser {
             }
         };
 
-        TruthTable tt = new TruthTable();
+        TruthTable tt = new TruthTable().setPinsWithoutNumber(model.getPinsWithoutNumber());
         for (Signal s : inputs)
             tt.addVariable(s.getName());
 

@@ -910,6 +910,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_signal_N">Signal {0}</string>
     <string name="msg_invalidSignalsAnalysed">If inputs or outputs have no name set, they are not included
         as variables in the analysis, but treated as constants!</string>
+    <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
@@ -925,7 +926,6 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="win_measures">Measurements</string>
     <string name="win_measures_fullstep">Measurements full clock step</string>
     <string name="win_measures_microstep">Measurements single gate step</string>
-    <string name="win_pinMapDialog">Pin Mapping</string>
     <string name="win_saveChanges">Save Changes?</string>
     <string name="win_stateChanged">State Changed!</string>
     <string name="win_table">Table</string>

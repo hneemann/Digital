@@ -28,6 +28,7 @@ public class TruthTable {
     private final ArrayList<Result> results;
     private final TreeMap<String, Integer> pins;
     private transient BitSetter bitSetter;
+    private ArrayList<String> pinsWithoutNumber = null;
 
     /**
      * Load the given file and returns a truth table instance
@@ -462,6 +463,26 @@ public class TruthTable {
     public TreeMap<String, Integer> getPins() {
         return pins;
     }
+
+
+    /**
+     * Sets the missing pin number flag
+     *
+     * @param pinsWithoutNumber list of pins without a number or null
+     * @return this for chained calls
+     */
+    public TruthTable setPinsWithoutNumber(ArrayList<String> pinsWithoutNumber) {
+        this.pinsWithoutNumber = pinsWithoutNumber;
+        return this;
+    }
+
+    /**
+     * @return list of pins without a number or null
+     */
+    public ArrayList<String> getPinsWithoutNumber() {
+        return pinsWithoutNumber;
+    }
+
 
     /**
      * A single result column
