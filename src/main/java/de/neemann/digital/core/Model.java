@@ -546,6 +546,7 @@ public class Model implements Iterable<Node> {
         return sigWithoutPinNumber;
     }
 
+
     /**
      * A filter for nodes.
      *
@@ -574,6 +575,21 @@ public class Model implements Iterable<Node> {
     public void removeNode(Node node) {
         nodes.remove(node);
     }
+
+    /**
+     * replaces a node by an other node
+     *
+     * @param oldNode old node
+     * @param newNode new node
+     * @throws NodeException NodeException
+     */
+    public void replace(Node oldNode, Node newNode) throws NodeException {
+        int i = nodes.indexOf(oldNode);
+        if (i < 0)
+            throw new NodeException("node not found", oldNode, -1, null);
+        nodes.set(i, newNode);
+    }
+
 
     /**
      * Returns the input with the given name.

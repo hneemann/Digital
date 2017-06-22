@@ -27,7 +27,7 @@ public class FlipflopJK extends Node implements Element {
             .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
-    private final Boolean isProbe;
+    private final boolean isProbe;
     private final String label;
     private ObservableValue jVal;
     private ObservableValue kVal;
@@ -53,6 +53,23 @@ public class FlipflopJK extends Node implements Element {
         out = def > 0;
         q.setBool(out);
         qn.setBool(!out);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param label the label
+     * @param q     the output
+     * @param qn    the inverted output
+     */
+    public FlipflopJK(String label, ObservableValue q, ObservableValue qn) {
+        super(true);
+        this.q = q;
+        this.qn = qn;
+        isProbe = false;
+        this.label = label;
+        q.setBool(false);
+        qn.setBool(true);
     }
 
     @Override

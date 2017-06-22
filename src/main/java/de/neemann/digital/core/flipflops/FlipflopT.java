@@ -112,6 +112,13 @@ public class FlipflopT extends Node implements Element {
     }
 
     /**
+     * @return enable value or null if not available
+     */
+    public ObservableValue getEnableVal() {
+        return enable;
+    }
+
+    /**
      * @return the label
      */
     public String getLabel() {

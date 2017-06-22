@@ -4,7 +4,12 @@
   <attributes/>
   <visualElements>
     <visualElement>
-      <elementName>JK_FF</elementName>
+      <elementName>Clock</elementName>
+      <elementAttributes/>
+      <pos x="80" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>T_FF</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -14,23 +19,19 @@
       <pos x="160" y="-60"/>
     </visualElement>
     <visualElement>
-      <elementName>Clock</elementName>
-      <elementAttributes/>
-      <pos x="80" y="100"/>
-    </visualElement>
-    <visualElement>
       <elementName>T_FF</elementName>
       <elementAttributes>
-        <entry>
-          <string>withEnable</string>
-          <boolean>false</boolean>
-        </entry>
         <entry>
           <string>Label</string>
           <string>Q_0n</string>
         </entry>
       </elementAttributes>
       <pos x="160" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="140" y="60"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -39,16 +40,16 @@
       <p2 x="240" y="80"/>
     </wire>
     <wire>
-      <p1 x="120" y="80"/>
+      <p1 x="140" y="80"/>
       <p2 x="160" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="140" y="-20"/>
-      <p2 x="160" y="-20"/>
     </wire>
     <wire>
       <p1 x="80" y="100"/>
       <p2 x="120" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="100"/>
+      <p2 x="160" y="100"/>
     </wire>
     <wire>
       <p1 x="140" y="20"/>
@@ -68,19 +69,15 @@
     </wire>
     <wire>
       <p1 x="120" y="-40"/>
-      <p2 x="120" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="120" y="80"/>
       <p2 x="120" y="100"/>
     </wire>
     <wire>
       <p1 x="140" y="-60"/>
-      <p2 x="140" y="-20"/>
+      <p2 x="140" y="20"/>
     </wire>
     <wire>
-      <p1 x="140" y="-20"/>
-      <p2 x="140" y="20"/>
+      <p1 x="140" y="60"/>
+      <p2 x="140" y="80"/>
     </wire>
   </wires>
 </circuit>

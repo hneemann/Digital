@@ -254,8 +254,8 @@ public class ModelAnalyser {
      * Analyses the circuit
      *
      * @return the generated truth table
-     * @throws NodeException     NodeException
-     * @throws PinException      PinException
+     * @throws NodeException      NodeException
+     * @throws PinException       PinException
      * @throws BacktrackException BacktrackException
      */
     public TruthTable analyse() throws NodeException, PinException, BacktrackException {
@@ -303,8 +303,6 @@ public class ModelAnalyser {
         for (FlipflopJK jk : jkList) {
             checkClock(jk);
 
-            // remove JK-ff from model
-            model.removeNode(jk);
             jk.getClockVal().removeObserver(jk);
             jk.getjVal().removeObserver(jk);
             jk.getkVal().removeObserver(jk);
@@ -330,28 +328,32 @@ public class ModelAnalyser {
             model.add(a2);
             model.add(nk);
             model.add(or);
-            model.add(d);
+            model.replace(jk, d);
         }
     }
 
     private void replaceTFF() throws NodeException, AnalyseException {
-        List<FlipflopT> jkList = model.findNode(FlipflopT.class);
+        List<FlipflopT> tList = model.findNode(FlipflopT.class);
 
-        for (FlipflopT tff : jkList) {
+        for (FlipflopT tff : tList) {
             checkClock(tff);
-
-            // remove T-ff from model
-            model.removeNode(tff);
             tff.getClockVal().removeObserver(tff);
-
-            // create d ff
             ObservableValue q = tff.getOutputs().get(0);
             ObservableValue qn = tff.getOutputs().get(1);
-            FlipflopD d = new FlipflopD(tff.getLabel(), q, qn);
 
-            d.setInputs(new ObservableValues(qn, getClock()));
-
-            model.add(d);
+            ObservableValue enable = tff.getEnableVal();
+            if (enable == null) {
+                // create d ff
+                FlipflopD d = new FlipflopD(tff.getLabel(), q, qn);
+                d.setInputs(new ObservableValues(qn, getClock()));
+                model.replace(tff, d);
+            } else {
+                // create jk ff
+                enable.removeObserver(tff);
+                FlipflopJK jk = new FlipflopJK(tff.getLabel(), q, qn);
+                jk.setInputs(new ObservableValues(enable, getClock(), enable));
+                model.replace(tff, jk);
+            }
         }
     }
 

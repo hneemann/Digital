@@ -51,6 +51,12 @@ public class ModelAnalyserTest extends TestCase {
         check2BitCounter(tt);
     }
 
+    public void testAnalyzerTFFEnable() throws Exception {
+        Model model = new ToBreakRunner("dig/analyze/analyzeTestTFFEnable.dig", false).getModel();
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
     private void check2BitCounter(TruthTable tt) {
         assertEquals(4, tt.getRows());
         assertEquals(4, tt.getCols());
