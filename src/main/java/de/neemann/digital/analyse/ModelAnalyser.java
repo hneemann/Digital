@@ -46,8 +46,8 @@ public class ModelAnalyser {
         this.model = model;
 
         try {
-            replaceJKFF();
             replaceTFF();
+            replaceJKFF();
         } catch (NodeException e) {
             throw new AnalyseException(e);
         }

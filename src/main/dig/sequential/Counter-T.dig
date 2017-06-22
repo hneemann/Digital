@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>Out</elementName>
@@ -11,7 +12,6 @@
         </entry>
       </elementAttributes>
       <pos x="400" y="460"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -26,7 +26,6 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -37,7 +36,6 @@
         </entry>
       </elementAttributes>
       <pos x="560" y="460"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -48,7 +46,6 @@
         </entry>
       </elementAttributes>
       <pos x="720" y="460"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -59,7 +56,6 @@
         </entry>
       </elementAttributes>
       <pos x="880" y="460"/>
-      <rotate>3</rotate>
     </visualElement>
     <visualElement>
       <elementName>T_FF</elementName>
@@ -67,6 +63,10 @@
         <entry>
           <string>valueIsProbe</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>withEnable</string>
+          <boolean>false</boolean>
         </entry>
         <entry>
           <string>Label</string>
@@ -74,7 +74,6 @@
         </entry>
       </elementAttributes>
       <pos x="320" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>T_FF</elementName>
@@ -82,14 +81,23 @@
         <entry>
           <string>valueIsProbe</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>withEnable</string>
+          <boolean>false</boolean>
         </entry>
         <entry>
           <string>Label</string>
           <string>Q_1</string>
         </entry>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>C</string>
+          </inverterConfig>
+        </entry>
       </elementAttributes>
       <pos x="480" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>T_FF</elementName>
@@ -97,14 +105,23 @@
         <entry>
           <string>valueIsProbe</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>withEnable</string>
+          <boolean>false</boolean>
         </entry>
         <entry>
           <string>Label</string>
           <string>Q_2</string>
         </entry>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>C</string>
+          </inverterConfig>
+        </entry>
       </elementAttributes>
       <pos x="640" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>T_FF</elementName>
@@ -114,12 +131,21 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>withEnable</string>
+          <boolean>false</boolean>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Q_3</string>
         </entry>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>C</string>
+          </inverterConfig>
+        </entry>
       </elementAttributes>
       <pos x="800" y="360"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
@@ -138,7 +164,6 @@
         </entry>
       </elementAttributes>
       <pos x="220" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -149,7 +174,6 @@
         </entry>
       </elementAttributes>
       <pos x="260" y="80"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>
@@ -158,44 +182,32 @@
       <p2 x="560" y="360"/>
     </wire>
     <wire>
-      <p1 x="600" y="360"/>
-      <p2 x="640" y="360"/>
+      <p1 x="280" y="360"/>
+      <p2 x="320" y="360"/>
     </wire>
     <wire>
       <p1 x="380" y="360"/>
       <p2 x="400" y="360"/>
     </wire>
     <wire>
-      <p1 x="280" y="360"/>
-      <p2 x="320" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="360"/>
-      <p2 x="480" y="360"/>
-    </wire>
-    <wire>
       <p1 x="700" y="360"/>
       <p2 x="720" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="760" y="360"/>
-      <p2 x="800" y="360"/>
     </wire>
     <wire>
       <p1 x="860" y="360"/>
       <p2 x="880" y="360"/>
     </wire>
     <wire>
-      <p1 x="540" y="380"/>
-      <p2 x="600" y="380"/>
+      <p1 x="560" y="360"/>
+      <p2 x="620" y="360"/>
     </wire>
     <wire>
-      <p1 x="380" y="380"/>
-      <p2 x="440" y="380"/>
+      <p1 x="400" y="360"/>
+      <p2 x="460" y="360"/>
     </wire>
     <wire>
-      <p1 x="700" y="380"/>
-      <p2 x="760" y="380"/>
+      <p1 x="720" y="360"/>
+      <p2 x="780" y="360"/>
     </wire>
     <wire>
       <p1 x="560" y="360"/>
@@ -212,18 +224,6 @@
     <wire>
       <p1 x="720" y="360"/>
       <p2 x="720" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="360"/>
-      <p2 x="440" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="760" y="360"/>
-      <p2 x="760" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="360"/>
-      <p2 x="600" y="380"/>
     </wire>
   </wires>
 </circuit>

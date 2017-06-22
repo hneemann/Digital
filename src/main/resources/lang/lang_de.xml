@@ -331,8 +331,9 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_Sub_pin_c_o">Ausgang gibt 1 aus wenn bei der Substraktion ein Überlauf aufgetreten ist.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
     <string name="elem_T_FF_short">T</string>
-    <string name="elem_T_FF_tt">Wechselt den Status der Ausgänge mit jeder 1 am Eingang.</string>
-    <string name="elem_T_FF_pin_C">Dieser Eingang nimmt ein Bit entgegen und wechselt jedes mal die Ausgänge wenn er auf 1 gesetzt wird (toggle).</string>
+    <string name="elem_T_FF_tt">Speichert ein Bit welches sich mit einem Eingang umschalten lässt.</string>
+    <string name="elem_T_FF_pin_T">Aktiviert die Umschaltfunktion.</string>
+    <string name="elem_T_FF_pin_C">Dieser Eingang schaltet das Flipflop um. Wenn ein T-Eingang vorhanden ist passiert das nur, wenn T auf 1 gesetzt ist.</string>
     <string name="elem_T_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
     <string name="elem_T_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
     <string name="elem_Terminal">Terminal</string>
@@ -668,6 +669,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_fontSize">Schriftgröße im Menü [%]</string>
     <string name="key_fontSize_tt">Für die Menüs kann eine abweichende Schriftgröße gewählt werden.
         Angabe in Prozent der Standardgröße.</string>
+    <string name="key_withEnable">Enable Eingang</string>
+    <string name="key_withEnable_tt">Wenn gesetzt, ist ein Enable-Eingang (T) vorhanden.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

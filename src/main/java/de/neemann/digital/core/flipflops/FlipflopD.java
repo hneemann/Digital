@@ -25,7 +25,7 @@ public class FlipflopD extends Node implements Element {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
-            .addAttribute(Keys.INVERTERCONFIG)
+            .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final int bits;

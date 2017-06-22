@@ -44,7 +44,7 @@ public abstract class IEEEGenericShape implements Shape {
         this.inputs = inputs;
         this.outputs = outputs;
         this.invert = invert;
-        inverterConfig = attr.get(Keys.INVERTERCONFIG);
+        inverterConfig = attr.get(Keys.INVERTER_CONFIG);
     }
 
     @Override

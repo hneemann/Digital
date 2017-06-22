@@ -20,7 +20,7 @@ public class XOr extends Node implements Element {
             = new ElementTypeDescription(XOr.class, input("a"), input("b"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.INVERTERCONFIG);
+            .addAttribute(Keys.INVERTER_CONFIG);
 
     private final int bits;
     private final ObservableValue out;

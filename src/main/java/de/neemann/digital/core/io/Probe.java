@@ -22,7 +22,7 @@ public class Probe implements Element {
             = new ElementTypeDescription("Probe", Probe.class, input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.INTFORMAT);
+            .addAttribute(Keys.INT_FORMAT);
 
     private final String label;
     private ObservableValue value;

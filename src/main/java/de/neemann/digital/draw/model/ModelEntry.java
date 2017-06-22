@@ -60,7 +60,7 @@ public class ModelEntry {
         try {
             HashMap<String, Pin> ins = pins.getInputs();
 
-            InverterConfig ic = visualElement.getElementAttributes().get(Keys.INVERTERCONFIG);
+            InverterConfig ic = visualElement.getElementAttributes().get(Keys.INVERTER_CONFIG);
 
             ObservableValues values = ObservableValues.EMPTY_LIST;
             ArrayList<ObservableValue> inputs = new ArrayList<>();

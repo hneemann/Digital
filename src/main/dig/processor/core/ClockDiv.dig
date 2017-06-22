@@ -28,7 +28,12 @@ dann ausgeführt.</string>
     </visualElement>
     <visualElement>
       <elementName>T_FF</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>withEnable</string>
+          <boolean>false</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="440" y="300"/>
     </visualElement>
     <visualElement>

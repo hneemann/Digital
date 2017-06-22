@@ -24,7 +24,7 @@ public class FlipflopJK extends Node implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
-            .addAttribute(Keys.INVERTERCONFIG)
+            .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final Boolean isProbe;

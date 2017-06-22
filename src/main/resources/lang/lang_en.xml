@@ -325,8 +325,9 @@
     <string name="elem_Sub_pin_c_o">Output returns 1 if an overflow occurred.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
     <string name="elem_T_FF_short">T</string>
-    <string name="elem_T_FF_tt">A component with one input. Toggles the state of the output on a rising edge at the input.</string>
-    <string name="elem_T_FF_pin_C">Clock. A rising edge toggles the output.</string>
+    <string name="elem_T_FF_tt">Stores a single bit. Toggles the state on a rising edge at input C.</string>
+    <string name="elem_T_FF_pin_T">Enables the toggle function.</string>
+    <string name="elem_T_FF_pin_C">Clock. A rising edge toggles the output, if input T is set to 1.</string>
     <string name="elem_T_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_T_FF_pin_¬Q">Returns the negated stored value.</string>
     <string name="elem_Terminal">Terminal</string>
@@ -657,6 +658,8 @@ The names of the variables may not be unique.</string>
     <string name="key_inverterConfig_tt">You can select the inputs that are to be inverted.</string>
     <string name="key_fontSize">Menus Font Size [%]</string>
     <string name="key_fontSize_tt">Size of the fonts used in the menu in percent of the default size.</string>
+    <string name="key_withEnable">Enable Input</string>
+    <string name="key_withEnable_tt">If set an enable input (T) is available.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

@@ -20,7 +20,7 @@ public class XNOr extends XOr {
             = new ElementTypeDescription(XNOr.class, input("a"), input("b"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.INVERTERCONFIG);
+            .addAttribute(Keys.INVERTER_CONFIG);
 
     /**
      * Creates a new instance

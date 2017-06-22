@@ -41,7 +41,7 @@ public class ProbeShape implements Shape {
         if (label == null || label.length() == 0)
             label = Lang.get("name");
         this.label = label;
-        this.format = attr.get(Keys.INTFORMAT);
+        this.format = attr.get(Keys.INT_FORMAT);
     }
 
     @Override

@@ -166,7 +166,7 @@ public final class ShapeFactory {
                                 pt.getOutputDescriptions(elementAttributes),
                                 elementAttributes.getLabel(),
                                 true)
-                                .setInverterConfig(elementAttributes.get(Keys.INVERTERCONFIG));
+                                .setInverterConfig(elementAttributes.get(Keys.INVERTER_CONFIG));
                     }
                 }
             } else {
@@ -200,7 +200,7 @@ public final class ShapeFactory {
         public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException {
             return new GenericShape(name, inputs, outputs)
                     .invert(invers)
-                    .setInverterConfig(attributes.get(Keys.INVERTERCONFIG));
+                    .setInverterConfig(attributes.get(Keys.INVERTER_CONFIG));
         }
     }
 }

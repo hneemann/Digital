@@ -76,7 +76,7 @@ public abstract class FanIn extends Node implements Element {
             addAttribute(Keys.ROTATE);
             addAttribute(Keys.BITS);
             addAttribute(Keys.INPUT_COUNT);
-            addAttribute(Keys.INVERTERCONFIG);
+            addAttribute(Keys.INVERTER_CONFIG);
         }
 
         @Override

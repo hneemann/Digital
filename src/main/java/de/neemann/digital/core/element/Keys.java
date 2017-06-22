@@ -277,7 +277,7 @@ public final class Keys {
     /**
      * output format for numbers
      */
-    public static final Key.KeyEnum<IntFormat> INTFORMAT
+    public static final Key.KeyEnum<IntFormat> INT_FORMAT
             = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values());
 
     /**
@@ -365,7 +365,7 @@ public final class Keys {
     /**
      * contains the input inverter config
      */
-    public static final Key<InverterConfig> INVERTERCONFIG
+    public static final Key<InverterConfig> INVERTER_CONFIG
             = new Key<>("inverterConfig", new InverterConfig());
 
 
@@ -377,5 +377,11 @@ public final class Keys {
                     .setComboBoxValues(new Integer[]{100, 120, 150, 180, 200, 250, 300})
                     .setMin(50)
                     .setMax(400);
+
+    /**
+     * true if a enable input is needed
+     */
+    public static final Key<Boolean> WITH_ENABLE
+            = new Key<>("withEnable", true);
 
 }
