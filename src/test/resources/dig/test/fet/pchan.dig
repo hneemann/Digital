@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
@@ -44,6 +45,10 @@
         <entry>
           <string>Label</string>
           <string>D</string>
+        </entry>
+        <entry>
+          <string>isHighZ</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="500" y="280"/>

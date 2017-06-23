@@ -4,7 +4,10 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>10 Transistor Full Adder</string>
+      <string>10 Transistor Full Adder
+The drivers represent p-channel fets. Needed to 
+avoid the resistance problem 
+(see https://github.com/hneemann/Digital/issues/30).</string>
     </entry>
   </attributes>
   <visualElements>
@@ -51,10 +54,6 @@
     <visualElement>
       <elementName>Testcase</elementName>
       <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>Failing</string>
-        </entry>
         <entry>
           <string>Testdata</string>
           <testData>
@@ -141,16 +140,6 @@
       <pos x="780" y="560"/>
     </visualElement>
     <visualElement>
-      <elementName>PFET</elementName>
-      <elementAttributes/>
-      <pos x="840" y="320"/>
-    </visualElement>
-    <visualElement>
-      <elementName>PFET</elementName>
-      <elementAttributes/>
-      <pos x="900" y="320"/>
-    </visualElement>
-    <visualElement>
       <elementName>NFET</elementName>
       <elementAttributes/>
       <pos x="860" y="400"/>
@@ -215,6 +204,34 @@
       <elementAttributes/>
       <pos x="1020" y="360"/>
     </visualElement>
+    <visualElement>
+      <elementName>DriverInvSel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="860" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>DriverInvSel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="920" y="340"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -230,20 +247,8 @@
       <p2 x="1100" y="320"/>
     </wire>
     <wire>
-      <p1 x="880" y="320"/>
-      <p2 x="900" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="800" y="320"/>
-      <p2 x="840" y="320"/>
-    </wire>
-    <wire>
       <p1 x="1100" y="320"/>
       <p2 x="1120" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="960" y="240"/>
-      <p2 x="1160" y="240"/>
     </wire>
     <wire>
       <p1 x="1120" y="480"/>
@@ -256,6 +261,26 @@
     <wire>
       <p1 x="1120" y="260"/>
       <p2 x="1140" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="460"/>
+      <p2 x="1160" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="780" y="620"/>
+      <p2 x="1160" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="240"/>
+      <p2 x="1160" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="340"/>
+      <p2 x="840" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="340"/>
+      <p2 x="900" y="340"/>
     </wire>
     <wire>
       <p1 x="780" y="500"/>
@@ -271,11 +296,15 @@
     </wire>
     <wire>
       <p1 x="780" y="280"/>
-      <p2 x="860" y="280"/>
+      <p2 x="800" y="280"/>
     </wire>
     <wire>
       <p1 x="860" y="280"/>
       <p2 x="880" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="280"/>
+      <p2 x="860" y="280"/>
     </wire>
     <wire>
       <p1 x="800" y="440"/>
@@ -326,28 +355,20 @@
       <p2 x="1120" y="540"/>
     </wire>
     <wire>
-      <p1 x="1100" y="460"/>
-      <p2 x="1160" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="780" y="620"/>
-      <p2 x="1160" y="620"/>
-    </wire>
-    <wire>
       <p1 x="800" y="260"/>
-      <p2 x="800" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="800" y="320"/>
-      <p2 x="800" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="800" y="280"/>
       <p2 x="800" y="320"/>
     </wire>
     <wire>
+      <p1 x="800" y="320"/>
+      <p2 x="800" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="340"/>
+      <p2 x="800" y="440"/>
+    </wire>
+    <wire>
       <p1 x="880" y="280"/>
-      <p2 x="880" y="320"/>
+      <p2 x="880" y="340"/>
     </wire>
     <wire>
       <p1 x="880" y="380"/>
@@ -474,4 +495,5 @@
       <p2 x="1100" y="460"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
