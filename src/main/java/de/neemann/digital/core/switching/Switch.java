@@ -18,6 +18,11 @@ public class Switch implements Element, NodeInterface {
     private static final Logger LOGGER = LoggerFactory.getLogger(Switch.class);
 
     /**
+     * Defines a direction for the switch. NO means no direction is given, the switch is bidirectional.
+     */
+    public enum Unidirectional {NO, FROM1TO2, FROM2TO1}
+
+    /**
      * The switch description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Switch.class)
@@ -31,9 +36,11 @@ public class Switch implements Element, NodeInterface {
     private final int bits;
     private boolean closed;
     private SwitchModel switchModel;
+    private Unidirectional unidirectional = Unidirectional.NO;
 
     private static int debugSwitchReal;
     private static int debugSwitchSimple;
+
 
     /**
      * Creates a new instance
@@ -44,6 +51,17 @@ public class Switch implements Element, NodeInterface {
         this(attr, attr.get(Keys.CLOSED), "out1", "out2");
         output1.setPinDescription(DESCRIPTION);
         output2.setPinDescription(DESCRIPTION);
+    }
+
+    /**
+     * Sets this switch to unidirectional
+     *
+     * @param unidirectional the state
+     * @return this for chained calls
+     */
+    public Switch setUnidirectional(Unidirectional unidirectional) {
+        this.unidirectional = unidirectional;
+        return this;
     }
 
     /**
@@ -65,40 +83,50 @@ public class Switch implements Element, NodeInterface {
     public void setInputs(ObservableValues inputs) throws NodeException {
         ObservableValue input1 = inputs.get(0).addObserverToValue(this).checkBits(bits, null);
         ObservableValue input2 = inputs.get(1).addObserverToValue(this).checkBits(bits, null);
-        if (input1 instanceof CommonBusValue) {
-            if (input2 instanceof CommonBusValue) {
-                final CommonBusValue in1 = (CommonBusValue) input1;
-                final CommonBusValue in2 = (CommonBusValue) input2;
-                ObservableValue constant = in1.searchConstant();
-                if (constant != null)
-                    switchModel = new SimpleSwitch(constant, output2);
-                else {
-                    constant = in2.searchConstant();
-                    if (constant != null)
-                        switchModel = new SimpleSwitch(constant, output1);
-                    else {
-                        // not a constant
-                        boolean def1 = in1.isAlwaysDefined();
-                        boolean def2 = in2.isAlwaysDefined();
-                        if (def1 == def2)
-                            switchModel = new RealSwitch(in1, in2);
+        switch (unidirectional) {
+            case NO:
+                if (input1 instanceof CommonBusValue) {
+                    if (input2 instanceof CommonBusValue) {
+                        final CommonBusValue in1 = (CommonBusValue) input1;
+                        final CommonBusValue in2 = (CommonBusValue) input2;
+                        ObservableValue constant = in1.searchConstant();
+                        if (constant != null)
+                            switchModel = new SimpleSwitch(constant, output2);
                         else {
-                            if (def1)
-                                switchModel = new SimpleSwitch(input1, output2);
-                            else
-                                switchModel = new SimpleSwitch(input2, output1);
+                            constant = in2.searchConstant();
+                            if (constant != null)
+                                switchModel = new SimpleSwitch(constant, output1);
+                            else {
+                                // not a constant
+                                boolean def1 = in1.isAlwaysDefined();
+                                boolean def2 = in2.isAlwaysDefined();
+                                if (def1 == def2)
+                                    switchModel = new RealSwitch(in1, in2);
+                                else {
+                                    if (def1)
+                                        switchModel = new SimpleSwitch(input1, output2);
+                                    else
+                                        switchModel = new SimpleSwitch(input2, output1);
+                                }
+                            }
                         }
+                    } else {
+                        switchModel = new SimpleSwitch(input1, output2);
+                    }
+                } else {
+                    if (input2 instanceof CommonBusValue) {
+                        switchModel = new SimpleSwitch(input2, output1);
+                    } else {
+                        throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
                     }
                 }
-            } else {
+                break;
+            case FROM1TO2:
                 switchModel = new SimpleSwitch(input1, output2);
-            }
-        } else {
-            if (input2 instanceof CommonBusValue) {
+                break;
+            case FROM2TO1:
                 switchModel = new SimpleSwitch(input2, output1);
-            } else {
-                throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
-            }
+                break;
         }
 
         if (switchModel instanceof RealSwitch) debugSwitchReal++;

@@ -33,7 +33,12 @@ avoid the resistance problem
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="840" y="320"/>
     </visualElement>
     <visualElement>
@@ -53,7 +58,12 @@ avoid the resistance problem
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="1080" y="380"/>
     </visualElement>
     <visualElement>
@@ -190,55 +200,47 @@ avoid the resistance problem
       <pos x="1100" y="300"/>
     </visualElement>
     <visualElement>
-      <elementName>Driver</elementName>
+      <elementName>NFET</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="900" y="420"/>
+      <pos x="880" y="400"/>
     </visualElement>
     <visualElement>
-      <elementName>Driver</elementName>
+      <elementName>NFET</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="480"/>
+      <pos x="1120" y="460"/>
     </visualElement>
     <visualElement>
-      <elementName>Driver</elementName>
+      <elementName>NFET</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="480"/>
+      <pos x="1040" y="460"/>
     </visualElement>
     <visualElement>
-      <elementName>Driver</elementName>
+      <elementName>NFET</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="820" y="420"/>
+      <pos x="800" y="400"/>
     </visualElement>
   </visualElements>
   <wires>
-    <wire>
-      <p1 x="1100" y="480"/>
-      <p2 x="1120" y="480"/>
-    </wire>
-    <wire>
-      <p1 x="1020" y="480"/>
-      <p2 x="1040" y="480"/>
-    </wire>
     <wire>
       <p1 x="780" y="480"/>
       <p2 x="900" y="480"/>
@@ -262,14 +264,6 @@ avoid the resistance problem
     <wire>
       <p1 x="1020" y="640"/>
       <p2 x="1100" y="640"/>
-    </wire>
-    <wire>
-      <p1 x="860" y="420"/>
-      <p2 x="880" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="780" y="420"/>
-      <p2 x="800" y="420"/>
     </wire>
     <wire>
       <p1 x="740" y="260"/>
@@ -310,6 +304,22 @@ avoid the resistance problem
     <wire>
       <p1 x="760" y="720"/>
       <p2 x="1140" y="720"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="500"/>
+      <p2 x="1120" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="500"/>
+      <p2 x="1040" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="860" y="440"/>
+      <p2 x="880" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="780" y="440"/>
+      <p2 x="800" y="440"/>
     </wire>
     <wire>
       <p1 x="1060" y="440"/>
@@ -428,7 +438,7 @@ avoid the resistance problem
       <p2 x="1100" y="440"/>
     </wire>
     <wire>
-      <p1 x="1100" y="480"/>
+      <p1 x="1100" y="500"/>
       <p2 x="1100" y="520"/>
     </wire>
     <wire>
@@ -444,7 +454,7 @@ avoid the resistance problem
       <p2 x="860" y="260"/>
     </wire>
     <wire>
-      <p1 x="860" y="420"/>
+      <p1 x="860" y="440"/>
       <p2 x="860" y="460"/>
     </wire>
     <wire>
@@ -453,22 +463,22 @@ avoid the resistance problem
     </wire>
     <wire>
       <p1 x="780" y="320"/>
-      <p2 x="780" y="420"/>
+      <p2 x="780" y="440"/>
     </wire>
     <wire>
-      <p1 x="780" y="420"/>
+      <p1 x="780" y="440"/>
       <p2 x="780" y="480"/>
     </wire>
     <wire>
       <p1 x="1020" y="380"/>
-      <p2 x="1020" y="480"/>
+      <p2 x="1020" y="500"/>
     </wire>
     <wire>
       <p1 x="1020" y="540"/>
       <p2 x="1020" y="640"/>
     </wire>
     <wire>
-      <p1 x="1020" y="480"/>
+      <p1 x="1020" y="500"/>
       <p2 x="1020" y="540"/>
     </wire>
   </wires>

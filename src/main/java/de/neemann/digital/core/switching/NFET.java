@@ -20,6 +20,7 @@ public class NFET extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(NFET.class, input("G"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
+            .addAttribute(Keys.FET_UNIDIRECTIONAL)
             .addAttribute(Keys.LABEL);
 
     private final Switch s;
@@ -38,10 +39,14 @@ public class NFET extends Node implements Element {
     }
 
     NFET(ElementAttributes attr, boolean pChan) {
-        if (pChan)
+        boolean uniDir = attr.get(Keys.FET_UNIDIRECTIONAL);
+        if (pChan) {
             s = new Switch(attr, false, "S", "D");
-        else
+            if (uniDir) s.setUnidirectional(Switch.Unidirectional.FROM1TO2);
+        } else {
             s = new Switch(attr, false, "D", "S");
+            if (uniDir) s.setUnidirectional(Switch.Unidirectional.FROM2TO1);
+        }
     }
 
     @Override

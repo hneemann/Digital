@@ -660,6 +660,10 @@ The names of the variables may not be unique.</string>
     <string name="key_fontSize_tt">Size of the fonts used in the menu in percent of the default size.</string>
     <string name="key_withEnable">Enable Input</string>
     <string name="key_withEnable_tt">If set an enable input (T) is available.</string>
+    <string name="key_unidirectional">Unidirectional</string>
+    <string name="key_unidirectional_tt">Unidirectional transistors propagate a signal only from source to drain. They are
+        much faster to simulate than bidirectional transistors. But there is no feedback from drain to source which may
+        cause issues.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

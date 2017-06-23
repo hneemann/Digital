@@ -671,6 +671,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Angabe in Prozent der Standardgröße.</string>
     <string name="key_withEnable">Enable Eingang</string>
     <string name="key_withEnable_tt">Wenn gesetzt, ist ein Enable-Eingang (T) vorhanden.</string>
+    <string name="key_unidirectional">Unidirektional</string>
+    <string name="key_unidirectional_tt">Unidirektionale Transitoren wirken nur von Source zu Drain. Sie können deutlich
+        schneller simuliert werden, als bidirektionale Transistoren. Es gibt jedoch keine Rückwirkung von Drain zu Source was
+        unter Umständen zu Problemen führt.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

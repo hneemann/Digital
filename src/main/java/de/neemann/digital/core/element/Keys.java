@@ -384,4 +384,10 @@ public final class Keys {
     public static final Key<Boolean> WITH_ENABLE
             = new Key<>("withEnable", true);
 
+    /**
+     * true to simulate a unidirectional FET
+     */
+    public static final Key<Boolean> FET_UNIDIRECTIONAL
+            = new Key<>("unidirectional", false);
+
 }
