@@ -30,7 +30,6 @@ public class Test74xx extends TestCase {
     }
 
     private void check(File dig) throws PinException, NodeException, ElementNotFoundException, IOException {
-        System.out.println(dig);
         Circuit circuit = new ToBreakRunner(dig).getCircuit();
         assertTrue("is not DIL", circuit.getAttributes().get(Keys.IS_DIL));
         assertTrue("is not locked", circuit.getAttributes().get(Keys.LOCKED_MODE));

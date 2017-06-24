@@ -19,11 +19,11 @@ public class FileScanner {
     public int scan(File path) throws Exception {
         errors = new ArrayList<>();
         int count = scanIntern(path);
-        System.out.println("tested "+count+" examples");
+        System.out.println("tested " + count + " examples");
         if (errors.isEmpty())
             return count;
 
-        System.err.println("errors:");
+        System.err.println("errors: " + errors.size());
         for (Error e : errors) {
             System.err.println("----> error in: " + e.f);
             e.e.printStackTrace();
