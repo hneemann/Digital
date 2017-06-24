@@ -55,17 +55,32 @@
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="900" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="1100" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="1100" y="380"/>
     </visualElement>
     <visualElement>

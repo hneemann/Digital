@@ -4,10 +4,7 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>10 Transistor Full Adder
-The drivers represent p-channel fets. Needed to 
-avoid the resistance problem 
-(see https://github.com/hneemann/Digital/issues/30).</string>
+      <string>10 Transistor Full Adder</string>
     </entry>
   </attributes>
   <visualElements>

@@ -5,9 +5,9 @@
     <entry>
       <string>Description</string>
       <string>Static Energy Recovery Full Adder (SERF)
-The drivers represent n-channel fets. Needed to 
-avoid the resistance problem 
-(see https://github.com/hneemann/Digital/issues/30).</string>
+R. Shalem,  E. John,  and L. K.  John, 
+“A novel low-power energy recovery full adder cell”, 
+in Proc. Great Lakes Symp. VLSI , Feb. 1999, pp. 380 – 383.</string>
     </entry>
   </attributes>
   <visualElements>
