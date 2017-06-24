@@ -662,8 +662,9 @@ The names of the variables may not be unique.</string>
     <string name="key_withEnable_tt">If set an enable input (T) is available.</string>
     <string name="key_unidirectional">Unidirectional</string>
     <string name="key_unidirectional_tt">Unidirectional transistors propagate a signal only from source to drain. They are
-        much faster to simulate than bidirectional transistors. But there is no feedback from drain to source which may
-        cause issues.</string>
+        much faster to simulate than bidirectional transistors. Since there is no feedback from drain to source, in this
+        mode, the transistor can not short the connected wires when it is conducting. Thus, this mode is necessary to
+        simulate certain CMOS circuits.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

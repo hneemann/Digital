@@ -13,6 +13,7 @@ planned as v0.13
 - A warning message shows up if a circuit with unnamed inputs/outputs is analysed.
 - A warning message shows up if a circuit with missing pin numbers is exported to a
   hardware-related file.
+- Unidirectional FETs are added to overcome certain CMOS issues.
 - Comments are allowed in hex files.
 
 v0.12.1, released on 05. Jun 2016

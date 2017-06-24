@@ -673,8 +673,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_withEnable_tt">Wenn gesetzt, ist ein Enable-Eingang (T) vorhanden.</string>
     <string name="key_unidirectional">Unidirektional</string>
     <string name="key_unidirectional_tt">Unidirektionale Transitoren wirken nur von Source zu Drain. Sie können deutlich
-        schneller simuliert werden, als bidirektionale Transistoren. Es gibt jedoch keine Rückwirkung von Drain zu Source was
-        unter Umständen zu Problemen führt.</string>
+        schneller simuliert werden, als bidirektionale Transistoren. Da es keine Rückwirkung von Drain zu Source gibt, können
+        Transistoren in diesem Modus auch keine Kurzschlüsse über die Drain-Source Strecke verursachen. Daher kann dieser
+        Modus in manchen CMOS-Schaltungen erforderlich sein.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
