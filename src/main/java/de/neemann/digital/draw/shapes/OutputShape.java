@@ -13,6 +13,8 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+
 /**
  * The output shape
  * @author hneemann
@@ -64,20 +66,25 @@ public class OutputShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        Style style = Style.NORMAL;
-        if (ioState != null) {
-            ObservableValue value = ioState.getInput(0);
-            style = Style.getWireStyle(value);
-            if (value.getBits() > 1) {
-                Vector textPos = new Vector(1 + SIZE, -4 - SIZE);
-                graphic.drawText(textPos, textPos.add(1, 0), value.getValueString(), Orientation.CENTERBOTTOM, Style.NORMAL);
+        if (graphic.isFlagSet("LaTeX")) {
+            Vector textPos = new Vector(SIZE2, 0);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+        } else {
+            Style style = Style.NORMAL;
+            if (ioState != null) {
+                ObservableValue value = ioState.getInput(0);
+                style = Style.getWireStyle(value);
+                if (value.getBits() > 1) {
+                    Vector textPos = new Vector(1 + SIZE, -4 - SIZE);
+                    graphic.drawText(textPos, textPos.add(1, 0), value.getValueString(), Orientation.CENTERBOTTOM, Style.NORMAL);
+                }
             }
-        }
 
-        Vector center = new Vector(1 + SIZE, 0);
-        graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
-        graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);
-        Vector textPos = new Vector(SIZE * 3, 0);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+            Vector center = new Vector(1 + SIZE, 0);
+            graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
+            graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);
+            Vector textPos = new Vector(SIZE * 3, 0);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+        }
     }
 }

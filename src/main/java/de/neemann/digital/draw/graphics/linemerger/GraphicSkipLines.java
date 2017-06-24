@@ -50,4 +50,9 @@ public class GraphicSkipLines implements Graphic {
     public void closeGroup() {
         delegate.closeGroup();
     }
+
+    @Override
+    public boolean isFlagSet(String name) {
+        return delegate.isFlagSet(name);
+    }
 }

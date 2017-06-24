@@ -112,6 +112,12 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     public String getColor(Style style) {
         if (style == Style.WIRE) return super.getColor(Style.NORMAL);
         if (style == Style.WIRE_OUT) return super.getColor(Style.NORMAL);
+        if (style == Style.SHAPE_PIN) return super.getColor(Style.NORMAL);
         return super.getColor(style);
+    }
+
+    @Override
+    public boolean isFlagSet(String name) {
+        return name.equals("LaTeX");
     }
 }

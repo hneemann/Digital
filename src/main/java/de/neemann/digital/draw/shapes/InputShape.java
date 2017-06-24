@@ -17,6 +17,7 @@ import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 import static de.neemann.digital.draw.shapes.OutputShape.RAD;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
@@ -89,21 +90,26 @@ public class InputShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        Style style = Style.NORMAL;
-        if (ioState != null) {
-            ObservableValue value = ioState.getOutput(0);
-            style = Style.getWireStyle(value);
-            if (value.getBits() > 1) {
-                Vector textPos = new Vector(-1 - SIZE, -4 - SIZE);
-                graphic.drawText(textPos, textPos.add(1, 0), value.getValueString(), Orientation.CENTERBOTTOM, Style.NORMAL);
+        if (graphic.isFlagSet("LaTeX")) {
+            Vector textPos = new Vector(-SIZE2, 0);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
+        } else {
+            Style style = Style.NORMAL;
+            if (ioState != null) {
+                ObservableValue value = ioState.getOutput(0);
+                style = Style.getWireStyle(value);
+                if (value.getBits() > 1) {
+                    Vector textPos = new Vector(-1 - SIZE, -4 - SIZE);
+                    graphic.drawText(textPos, textPos.add(1, 0), value.getValueString(), Orientation.CENTERBOTTOM, Style.NORMAL);
+                }
             }
+
+            Vector center = new Vector(-1 - SIZE, 0);
+            graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
+            graphic.drawPolygon(new Polygon(true).add(-SIZE * 2 - 1, -SIZE).add(-1, -SIZE).add(-1, SIZE).add(-SIZE * 2 - 1, SIZE), Style.NORMAL);
+
+            Vector textPos = new Vector(-SIZE * 3, 0);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
         }
-
-        Vector center = new Vector(-1 - SIZE, 0);
-        graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
-        graphic.drawPolygon(new Polygon(true).add(-SIZE * 2 - 1, -SIZE).add(-1, -SIZE).add(-1, SIZE).add(-SIZE * 2 - 1, SIZE), Style.NORMAL);
-
-        Vector textPos = new Vector(-SIZE * 3, 0);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
     }
 }

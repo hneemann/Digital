@@ -44,4 +44,9 @@ public class GraphicTransform implements Graphic {
     private Vector transform(Vector v) {
         return transform.transform(v);
     }
+
+    @Override
+    public boolean isFlagSet(String name) {
+        return parent.isFlagSet(name);
+    }
 }

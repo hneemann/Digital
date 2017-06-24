@@ -58,4 +58,14 @@ public interface Graphic {
     default void closeGroup() {
     }
 
+    /**
+     * Returns true if the given flag is set
+     *
+     * @param name the flags name
+     * @return true if the given flag is set
+     */
+    default boolean isFlagSet(String name) {
+        return false;
+    }
+
 }

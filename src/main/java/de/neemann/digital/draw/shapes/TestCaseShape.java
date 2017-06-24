@@ -46,14 +46,16 @@ public class TestCaseShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        Polygon pol = new Polygon(true)
-                .add(SIZE2, SIZE2)
-                .add(SIZE2 + SIZE * 4, SIZE2)
-                .add(SIZE2 + SIZE * 4, SIZE * 2 + SIZE2)
-                .add(SIZE2, SIZE * 2 + SIZE2);
-        graphic.drawPolygon(pol, TESTSTYLE);
-        graphic.drawPolygon(pol, Style.THIN);
-        graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), new Vector(SIZE * 4, SIZE + SIZE2), "Test", Orientation.CENTERCENTER, Style.NORMAL);
-        graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), new Vector(SIZE * 4, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
+        if (!graphic.isFlagSet("LaTeX")) {
+            Polygon pol = new Polygon(true)
+                    .add(SIZE2, SIZE2)
+                    .add(SIZE2 + SIZE * 4, SIZE2)
+                    .add(SIZE2 + SIZE * 4, SIZE * 2 + SIZE2)
+                    .add(SIZE2, SIZE * 2 + SIZE2);
+            graphic.drawPolygon(pol, TESTSTYLE);
+            graphic.drawPolygon(pol, Style.THIN);
+            graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), new Vector(SIZE * 4, SIZE + SIZE2), "Test", Orientation.CENTERCENTER, Style.NORMAL);
+            graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), new Vector(SIZE * 4, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
+        }
     }
 }
