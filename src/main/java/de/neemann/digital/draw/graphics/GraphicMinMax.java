@@ -15,6 +15,7 @@ import static de.neemann.digital.core.element.ElementAttributes.cleanLabel;
 public class GraphicMinMax implements Graphic {
 
     private final boolean includeText;
+    private final Graphic parent;
     private Vector min;
     private Vector max;
 
@@ -22,16 +23,27 @@ public class GraphicMinMax implements Graphic {
      * Creates a new instance
      */
     public GraphicMinMax() {
-        this(true);
+        this(true, null);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param parent oly used to provide the flags
+     */
+    public GraphicMinMax(Graphic parent) {
+        this(true, parent);
     }
 
     /**
      * Creates a new instance
      *
      * @param includeText true if text is included in measurement
+     * @param parent      oly used to provide the flags
      */
-    public GraphicMinMax(boolean includeText) {
+    public GraphicMinMax(boolean includeText, Graphic parent) {
         this.includeText = includeText;
+        this.parent = parent;
     }
 
     @Override
@@ -134,5 +146,13 @@ public class GraphicMinMax implements Graphic {
      */
     public Vector getMax() {
         return max;
+    }
+
+    @Override
+    public boolean isFlagSet(String name) {
+        if (parent == null)
+            return false;
+        else
+            return parent.isFlagSet(name);
     }
 }

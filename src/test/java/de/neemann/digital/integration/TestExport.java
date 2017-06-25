@@ -28,7 +28,7 @@ public class TestExport extends TestCase {
     public void testSVGExport() throws NodeException, PinException, IOException, ElementNotFoundException {
         ByteArrayOutputStream baos
                 = export("../../main/dig/processor/Processor.dig",
-                (out, min, max) -> new GraphicSVGIndex(out, min, max, null, 15));
+                (out) -> new GraphicSVGIndex(out, null, 15));
 
         assertTrue(baos.size() > 20000);
     }
@@ -36,7 +36,7 @@ public class TestExport extends TestCase {
     public void testSVGExportLaTeX() throws NodeException, PinException, IOException, ElementNotFoundException {
         ByteArrayOutputStream baos
                 = export("../../main/dig/processor/Processor.dig",
-                (out, min, max) -> new GraphicSVGLaTeX(out, min, max, null, 15));
+                (out) -> new GraphicSVGLaTeX(out, null, 15));
 
         assertTrue(baos.size() > 15000);
     }
@@ -44,7 +44,7 @@ public class TestExport extends TestCase {
     public void testPNGExport() throws NodeException, PinException, IOException, ElementNotFoundException {
         ByteArrayOutputStream baos
                 = export("../../main/dig/processor/Processor.dig",
-                (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1));
+                (out) -> new GraphicsImage(out, "PNG", 1));
 
         assertTrue(baos.size() > 45000);
     }

@@ -1,6 +1,7 @@
 package de.neemann.digital.integration;
 
 import de.neemann.digital.draw.graphics.Export;
+import de.neemann.digital.draw.graphics.GraphicTransform;
 import de.neemann.digital.draw.graphics.GraphicsImage;
 import de.neemann.digital.gui.components.data.DataSample;
 import de.neemann.digital.gui.components.data.DataSet;
@@ -45,7 +46,7 @@ public class TestData extends TestCase {
         // try to write data to graphics instance
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new Export(toBreakRunner.getCircuit(),
-                (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1))
+                (out) -> new GraphicsImage(out, "PNG", 1))
                 .export(baos);
 
         assertTrue(baos.size() > 15000);

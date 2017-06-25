@@ -128,7 +128,8 @@ public class GifExporter extends JDialog implements ModelStateObserver, ModelMod
     }
 
     private BufferedImage createBufferedImage() throws IOException {
-        GraphicsImage gri = GraphicsImage.create(null, minMax.getMin(), minMax.getMax(), "gif", 1);
+        GraphicsImage gri = new GraphicsImage(null, "gif", 1);
+        gri.setBoundingBox(minMax.getMin(), minMax.getMax());
         BufferedImage bi = gri.getBufferedImage();
         Graphics gr = bi.getGraphics();
         gr.setColor(Color.WHITE);

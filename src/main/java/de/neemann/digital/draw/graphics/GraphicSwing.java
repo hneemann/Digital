@@ -14,10 +14,10 @@ import static de.neemann.digital.core.element.ElementAttributes.cleanLabel;
  */
 public class GraphicSwing implements Graphic {
 
-    private final Graphics2D gr;
     private final int minFontSize;
     private int pixelSize;
     private Style lastStyle;
+    private Graphics2D gr;
 
     /**
      * Creates a new instance
@@ -38,7 +38,17 @@ public class GraphicSwing implements Graphic {
         this.gr = gr;
         this.pixelSize = pixelSize;
         this.minFontSize = pixelSize * 3;
-        gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        if (gr != null)
+            gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+    }
+
+    /**
+     * Set the graphics instance to use
+     *
+     * @param gr the Graphics2D to draw to
+     */
+    protected void setGraphics2D(Graphics2D gr) {
+        this.gr = gr;
     }
 
     @Override

@@ -39,7 +39,7 @@ public class TestShapes extends TestCase {
         // try to write circuit to graphics instance
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new Export(circuit,
-                (out, min, max) -> GraphicsImage.create(out, min, max, "PNG", 1))
+                (out) -> new GraphicsImage(out, "PNG", 1))
                 .export(baos);
 
         assertTrue(baos.size() > 30000);

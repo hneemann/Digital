@@ -18,26 +18,22 @@ public class GraphicSVGIndex extends GraphicSVG {
      * Creates new instance
      *
      * @param out the file
-     * @param min  upper left corner
-     * @param max  lower right corner
      * @throws IOException IOException
      */
-    public GraphicSVGIndex(OutputStream out, Vector min, Vector max) throws IOException {
-        super(out, min, max);
+    public GraphicSVGIndex(OutputStream out) throws IOException {
+        super(out);
     }
 
     /**
      * Creates new instance
      *
      * @param out      the output stream to use
-     * @param min      upper left corner
-     * @param max      lower right corner
      * @param source   source file, only used to create a comment in the SVG file
      * @param svgScale the scaling
      * @throws IOException IOException
      */
-    public GraphicSVGIndex(OutputStream out, Vector min, Vector max, File source, int svgScale) throws IOException {
-        super(out, min, max, source, svgScale);
+    public GraphicSVGIndex(OutputStream out, File source, int svgScale) throws IOException {
+        super(out, source, svgScale);
     }
 
     @Override

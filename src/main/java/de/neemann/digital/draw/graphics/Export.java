@@ -36,10 +36,13 @@ public class Export {
      * @throws IOException IOException
      */
     public void export(OutputStream out) throws IOException {
-        GraphicMinMax minMax = new GraphicMinMax();
+        Graphic gr = factory.create(out);
+
+        GraphicMinMax minMax = new GraphicMinMax(gr);
         circuit.drawTo(minMax);
 
-        Graphic gr = factory.create(out, minMax.getMin(), minMax.getMax());
+        gr.setBoundingBox(minMax.getMin(), minMax.getMax());
+
         try {
 
             GraphicLineCollector glc = new GraphicLineCollector();

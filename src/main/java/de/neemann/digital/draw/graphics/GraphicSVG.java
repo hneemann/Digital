@@ -3,6 +3,8 @@ package de.neemann.digital.draw.graphics;
 import java.io.*;
 import java.util.Date;
 
+import static java.lang.System.out;
+
 /**
  * Used to create a SVG representation of the circuit.
  * Don't use this implementation directly. Use {@link GraphicSVGIndex} to create plain SVG or
@@ -12,65 +14,74 @@ import java.util.Date;
  */
 public class GraphicSVG implements Graphic, Closeable {
     private static final int DEF_SCALE = 15;
-    private final BufferedWriter w;
+    private final OutputStream out;
+    private final File source;
+    private final int svgScale;
+    private BufferedWriter w;
 
     /**
      * Creates a new instance.
      *
      * @param out the stream
-     * @param min upper left corner
-     * @param max lower right corner
      * @throws IOException IOException
      */
-    public GraphicSVG(OutputStream out, Vector min, Vector max) throws IOException {
-        this(out, min, max, null, DEF_SCALE);
+    public GraphicSVG(OutputStream out) throws IOException {
+        this(out, null, DEF_SCALE);
     }
 
     /**
      * Creates a new instance.
      *
      * @param file     the file
-     * @param min      upper left corner
-     * @param max      lower right corner
      * @param source   source file, only used to create a comment in the SVG file
      * @param svgScale the scaling
      * @throws IOException IOException
      */
-    public GraphicSVG(File file, Vector min, Vector max, File source, int svgScale) throws IOException {
-        this(new FileOutputStream(file), min, max, source, svgScale);
+    public GraphicSVG(File file, File source, int svgScale) throws IOException {
+        this(new FileOutputStream(file), source, svgScale);
     }
 
     /**
      * Creates a new instance.
      *
      * @param out      the stream to write the file to
-     * @param min      upper left corner
-     * @param max      lower right corner
      * @param source   source file, only used to create a comment in the SVG file
      * @param svgScale the scaling
      * @throws IOException IOException
      */
-    public GraphicSVG(OutputStream out, Vector min, Vector max, File source, int svgScale) throws IOException {
-        w = new BufferedWriter(new OutputStreamWriter(out, "utf-8"));
-        w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
-                + "<!-- Created with Digital by H.Neemann -->\n");
-        w.write("<!-- created: " + new Date() + " -->\n");
-        if (source != null) {
-            w.write("<!-- source: " + source.getPath() + " -->\n");
+    public GraphicSVG(OutputStream out, File source, int svgScale) throws IOException {
+        this.out = out;
+        this.source = source;
+        this.svgScale = svgScale;
+    }
+
+    @Override
+    public Graphic setBoundingBox(Vector min, Vector max) {
+        try {
+            w = new BufferedWriter(new OutputStreamWriter(out, "utf-8"));
+            w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+                    + "<!-- Created with Digital by H.Neemann -->\n");
+            w.write("<!-- created: " + new Date() + " -->\n");
+            if (source != null) {
+                w.write("<!-- source: " + source.getPath() + " -->\n");
+            }
+            w.write("\n"
+                    + "<svg\n"
+                    + "   xmlns:svg=\"http://www.w3.org/2000/svg\"\n"
+                    + "   xmlns=\"http://www.w3.org/2000/svg\"\n");
+            double width = (max.x - min.x + Style.MAXLINETHICK) * svgScale / 100.0;
+            double height = (max.y - min.y + Style.MAXLINETHICK) * svgScale / 100.0;
+
+            final int lineCorr = Style.MAXLINETHICK / 2;
+
+            w.write("   width=\"" + width + "mm\"\n"
+                    + "   height=\"" + height + "mm\"\n"
+                    + "   viewBox=\"" + (min.x - lineCorr) + " " + (min.y - lineCorr) + " " + (max.x - min.x + Style.MAXLINETHICK) + " " + (max.y - min.y + Style.MAXLINETHICK) + "\">\n");
+            w.write("<g stroke-linecap=\"square\">\n");
+            return this;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        w.write("\n"
-                + "<svg\n"
-                + "   xmlns:svg=\"http://www.w3.org/2000/svg\"\n"
-                + "   xmlns=\"http://www.w3.org/2000/svg\"\n");
-
-        double width = (max.x - min.x + Style.MAXLINETHICK) * svgScale / 100.0;
-        double height = (max.y - min.y + Style.MAXLINETHICK) * svgScale / 100.0;
-
-        final int lineCorr = Style.MAXLINETHICK / 2;
-        w.write("   width=\"" + width + "mm\"\n"
-                + "   height=\"" + height + "mm\"\n"
-                + "   viewBox=\"" + (min.x - lineCorr) + " " + (min.y - lineCorr) + " " + (max.x - min.x + Style.MAXLINETHICK) + " " + (max.y - min.y + Style.MAXLINETHICK) + "\">\n");
-        w.write("<g stroke-linecap=\"square\">\n");
     }
 
     @Override

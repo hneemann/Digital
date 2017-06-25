@@ -7,7 +7,8 @@ import junit.framework.TestCase;
  */
 public class GraphicSVGLaTeXTest extends TestCase {
     public void testFormatText() throws Exception {
-        GraphicSVGLaTeX gs = new GraphicSVGLaTeX(System.out, new Vector(0, 0), new Vector(30, 30), null, 30);
+        GraphicSVGLaTeX gs = new GraphicSVGLaTeX(System.out, null, 30);
+        gs.setBoundingBox(new Vector(0, 0), new Vector(30, 30));
 
         assertEquals("$Z_{0}$", gs.formatText("Z_0", Style.NORMAL.getFontSize()));
         assertEquals("\\&amp;", gs.formatText("&", Style.NORMAL.getFontSize()));

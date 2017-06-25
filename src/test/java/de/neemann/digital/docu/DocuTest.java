@@ -116,10 +116,11 @@ public class DocuTest extends TestCase {
     }
 
     private void writeSVG(File imageFile, VisualElement ve) throws IOException {
-        GraphicMinMax minMax = new GraphicMinMax(true);
-        ve.drawTo(minMax, null);
         try (FileOutputStream out = new FileOutputStream(imageFile)) {
-            try (GraphicSVG svg = new GraphicSVG(out, minMax.getMin(), minMax.getMax(), null, 20)) {
+            try (GraphicSVG svg = new GraphicSVG(out, null, 20)) {
+                GraphicMinMax minMax = new GraphicMinMax(true, svg);
+                ve.drawTo(minMax, null);
+                svg.setBoundingBox(minMax.getMin(), minMax.getMax());
                 ve.drawTo(svg, null);
             }
         }

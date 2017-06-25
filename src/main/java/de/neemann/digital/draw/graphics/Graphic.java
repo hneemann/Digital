@@ -10,6 +10,19 @@ package de.neemann.digital.draw.graphics;
 public interface Graphic {
 
     /**
+     * Sets the bounding box of the future usage of this instance
+     * Instances that create a file will use this bounding box th write a header.
+     * So this method needs to be called before a draw-Method is called.
+     *
+     * @param min upper left corner
+     * @param max lower right corner
+     * @return this for chained calls
+     */
+    default Graphic setBoundingBox(Vector min, Vector max) {
+        return this;
+    }
+
+    /**
      * Draws a line
      *
      * @param p1    first point

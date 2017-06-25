@@ -14,20 +14,29 @@ import java.io.OutputStream;
  */
 public final class GraphicsImage extends GraphicSwing implements Closeable {
 
+    private final OutputStream out;
+    private final String format;
+    private final float scale;
+    private BufferedImage bi;
+
     /**
-     * Creates a new instance of this class
+     * Creates a new instance
      *
-     * @param out    the OutputStream to write the image to
-     * @param min    upper left corner
-     * @param max    lower right corner
+     * @param out    the output stream
      * @param format the format to write
-     * @param scale  the scaling of the created image
-     * @return the {@link Graphic} instance
+     * @param scale  the scaling
      */
-    public static GraphicsImage create(OutputStream out, Vector min, Vector max, String format, float scale) {
+    public GraphicsImage(OutputStream out, String format, float scale) {
+        super(null);
+        this.out = out;
+        this.format = format;
+        this.scale = scale;
+    }
+
+    @Override
+    public Graphic setBoundingBox(Vector min, Vector max) {
         int thickness = Style.MAXLINETHICK;
-        BufferedImage bi
-                = new BufferedImage(
+        bi = new BufferedImage(
                 Math.round((max.x - min.x + thickness * 2) * scale),
                 Math.round((max.y - min.y + thickness * 2) * scale),
                 BufferedImage.TYPE_INT_ARGB);
@@ -42,19 +51,8 @@ public final class GraphicsImage extends GraphicSwing implements Closeable {
 
         gr.scale(scale, scale);
         gr.translate(thickness - min.x, thickness - min.y);
-
-        return new GraphicsImage(out, gr, bi, format);
-    }
-
-    private final OutputStream out;
-    private final BufferedImage bi;
-    private final String format;
-
-    private GraphicsImage(OutputStream out, Graphics2D gr, BufferedImage bi, String format) {
-        super(gr);
-        this.out = out;
-        this.bi = bi;
-        this.format = format;
+        setGraphics2D(gr);
+        return this;
     }
 
     @Override

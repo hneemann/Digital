@@ -204,14 +204,14 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     public GraphicMinMax getMinMax(boolean includeText) {
         if (includeText) {
             if (minMaxText == null) {
-                GraphicMinMax mm = new GraphicMinMax(true);
+                GraphicMinMax mm = new GraphicMinMax(true, null);
                 drawShape(mm, null);
                 minMaxText = mm;
             }
             return minMaxText;
         } else {
             if (minMax == null) {
-                GraphicMinMax mm = new GraphicMinMax(false);
+                GraphicMinMax mm = new GraphicMinMax(false, null);
                 drawShape(mm, null);
                 minMax = mm;
             }
