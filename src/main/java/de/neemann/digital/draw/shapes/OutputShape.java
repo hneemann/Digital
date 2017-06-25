@@ -17,6 +17,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * The output shape
+ *
  * @author hneemann
  */
 public class OutputShape implements Shape {
@@ -28,6 +29,9 @@ public class OutputShape implements Shape {
      * Inner circle size used for inputs and outputs
      */
     public static final Vector RAD = new Vector(SIZE - 6, SIZE - 6);
+
+
+    static final Vector LATEX_RAD = new Vector(Style.MAXLINETHICK, Style.MAXLINETHICK);
     /**
      * Outer circle size used for inputs and outputs
      */
@@ -45,11 +49,11 @@ public class OutputShape implements Shape {
      */
     public OutputShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
-        int pinNumber =attr.get(Keys.PINNUMBER);
-        if (pinNumber==0)
+        int pinNumber = attr.get(Keys.PINNUMBER);
+        if (pinNumber == 0)
             this.label = attr.getLabel();
         else
-            this.label = attr.getLabel()+" ("+pinNumber+")";
+            this.label = attr.getLabel() + " (" + pinNumber + ")";
     }
 
     @Override
@@ -67,7 +71,9 @@ public class OutputShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         if (graphic.isFlagSet("LaTeX")) {
-            Vector textPos = new Vector(SIZE2, 0);
+            Vector center = new Vector(LATEX_RAD.x, 0);
+            graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
+            Vector textPos = new Vector(SIZE2 + LATEX_RAD.x, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
         } else {
             Style style = Style.NORMAL;

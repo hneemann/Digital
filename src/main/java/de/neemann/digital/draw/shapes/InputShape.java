@@ -18,6 +18,7 @@ import de.neemann.digital.gui.sync.Sync;
 import java.awt.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.draw.shapes.OutputShape.LATEX_RAD;
 import static de.neemann.digital.draw.shapes.OutputShape.RAD;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
@@ -41,11 +42,11 @@ public class InputShape implements Shape {
      */
     public InputShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
-        int pinNumber =attr.get(Keys.PINNUMBER);
-        if (pinNumber==0)
+        int pinNumber = attr.get(Keys.PINNUMBER);
+        if (pinNumber == 0)
             this.label = attr.getLabel();
         else
-            this.label = attr.getLabel()+" ("+pinNumber+")";
+            this.label = attr.getLabel() + " (" + pinNumber + ")";
     }
 
     @Override
@@ -91,7 +92,9 @@ public class InputShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
         if (graphic.isFlagSet("LaTeX")) {
-            Vector textPos = new Vector(-SIZE2, 0);
+            Vector center = new Vector(-LATEX_RAD.x, 0);
+            graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
+            Vector textPos = new Vector(-SIZE2-LATEX_RAD.x, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
         } else {
             Style style = Style.NORMAL;
