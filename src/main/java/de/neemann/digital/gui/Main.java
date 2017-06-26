@@ -67,6 +67,7 @@ import static javax.swing.JOptionPane.showInputDialog;
 
 /**
  * The main frame of the Digital Simulator
+ * Set log level: -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
  *
  * @author hneemann
  */
