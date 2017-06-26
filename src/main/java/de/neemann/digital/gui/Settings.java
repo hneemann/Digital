@@ -51,11 +51,13 @@ public final class Settings implements AttributeListener {
         filename = new File(new File(System.getProperty("user.home")), ".digital.cfg");
 
         ElementAttributes attr = null;
-        XStream xStream = Circuit.getxStream();
-        try (InputStream in = new FileInputStream(filename)) {
-            attr = (ElementAttributes) xStream.fromXML(in);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (filename.exists()) {
+            XStream xStream = Circuit.getxStream();
+            try (InputStream in = new FileInputStream(filename)) {
+                attr = (ElementAttributes) xStream.fromXML(in);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         if (attr == null) {
