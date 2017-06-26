@@ -15,8 +15,8 @@
           <int>2</int>
         </entry>
         <entry>
-          <string>Default</string>
-          <int>1</int>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="280" y="220"/>

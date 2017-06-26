@@ -158,11 +158,11 @@ public class ModelAnalyser {
                     String label = ff.getLabel();
                     if (label.length() == 0)
                         label = createUniqueName(ff);
-                    for (int i = 0; i < ff.getBits(); i++) {
+                    for (int i = ff.getBits() - 1; i >= 0; i--) {
                         ObservableValue qn = new ObservableValue("", 1);
                         ObservableValue nqn = new ObservableValue("", 1);
                         FlipflopD newff = new FlipflopD(label + i, qn, nqn);
-                        spinput.add(qn);
+                        spinput.addAtTop(qn);
                         model.add(newff);
                         newff.setInputs(new ObservableValues(insp.getOutputs().get(i), getClock()));
                         out.add(newff);
@@ -182,6 +182,7 @@ public class ModelAnalyser {
                             nqout.setValue(~value);
                         }
                     });
+                    spq.fireHasChanged();
 
                 } catch (NodeException e) {
                     throw new AnalyseException(e);

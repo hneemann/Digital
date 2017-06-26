@@ -48,6 +48,17 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
         }
 
         /**
+         * Adds a value at top of list
+         *
+         * @param val the value to add
+         * @return the builder
+         */
+        public Builder addAtTop(ObservableValue val) {
+            values.add(0, val);
+            return this;
+        }
+
+        /**
          * @return the {@link ObservableValues} instance
          */
         public ObservableValues build() {
