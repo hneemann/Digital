@@ -67,8 +67,8 @@
         You can use the component to implement a BRK assembly instruction.
         Then you can run a simulated processor until a BRK instruction is reached.</string>
     <string name="elem_Button">Button</string>
-    <string name="elem_Button_tt">A simple button which resets back to its original state (0) when not held down. Outputs a 1 if held down.</string>
-    <string name="elem_Button_pin_out">Returns 1 if pressed else 0. Resets back to 0 when not held down.</string>
+    <string name="elem_Button_tt">A simple button which resets back to its original state when not held down.</string>
+    <string name="elem_Button_pin_out">The output signal of the button.</string>
     <string name="elem_Clock">Clock Input</string>
     <string name="elem_Clock_pin_C">Alternates 0 and 1 with the set clock speed.</string>
     <string name="elem_Clock_tt">A clock signal. Its possible to control it by the real time clock. Clock speed (in Hz) can be set in attributes dialog.</string>
@@ -665,6 +665,8 @@ The names of the variables may not be unique.</string>
         much faster to simulate than bidirectional transistors. Since there is no feedback from drain to source, in this
         mode, the transistor can not short the connected wires when it is conducting. Thus, this mode is necessary to
         simulate certain CMOS circuits.</string>
+    <string name="key_activeLow">Active Low</string>
+    <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

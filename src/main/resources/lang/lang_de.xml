@@ -67,8 +67,8 @@
 Dieses Element kann verwendet werden, um einen Assemblerbefehl BRK zu implementieren.
 Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</string>
     <string name="elem_Button">Taster</string>
-    <string name="elem_Button_tt">Ein einfacher Taster, welcher in seinen Ausgangszustand (0) zurückkehrt wenn er nicht gehalten wird. Am Ausgang liegt eine 1 an solange der Taster gedrückt ist.</string>
-    <string name="elem_Button_pin_out">Gibt 1 zurück wenn gedrückt, sonst 0. Setzt sich auf 0 zurück wenn nicht gehalten.</string>
+    <string name="elem_Button_tt">Ein einfacher Taster, welcher in seinen Ausgangszustand zurückkehrt wenn er nicht gehalten wird.</string>
+    <string name="elem_Button_pin_out">Das Ausgangssignal des Tasters.</string>
     <string name="elem_Clock">Takteingang</string>
     <string name="elem_Clock_pin_C">Wechselt im vorgegebenen Takt zwischen 0 und 1.</string>
     <string name="elem_Clock_tt">Ein Takstignal. Dieses Taksignal kann über die Echtzeituhr gesteuert werden. Die Taktfrequenz kann im Attribute-Dialog eingestellt werden.</string>
@@ -676,6 +676,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         schneller simuliert werden, als bidirektionale Transistoren. Da es keine Rückwirkung von Drain zu Source gibt, können
         Transistoren in diesem Modus auch keine Kurzschlüsse über die Drain-Source Strecke verursachen. Daher kann dieser
         Modus in manchen CMOS-Schaltungen erforderlich sein.</string>
+    <string name="key_activeLow">Active Low</string>
+    <string name="key_activeLow_tt">Wenn gesetzt, ist der Ausgang im aktiven Zustand Low.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

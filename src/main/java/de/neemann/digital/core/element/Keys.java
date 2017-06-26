@@ -390,4 +390,10 @@ public final class Keys {
     public static final Key<Boolean> FET_UNIDIRECTIONAL
             = new Key<>("unidirectional", false);
 
+    /**
+     * true if component is active low
+     */
+    public static final Key<Boolean> ACTIVE_LOW
+            = new Key<>("activeLow", false);
+
 }

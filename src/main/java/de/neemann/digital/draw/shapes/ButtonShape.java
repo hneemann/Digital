@@ -1,10 +1,10 @@
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.io.Button;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -28,7 +28,7 @@ public class ButtonShape implements Shape {
 
     private final String label;
     private final PinDescriptions outputs;
-    private IOState ioState;
+    private Button button;
 
     /**
      * Creates a new instance
@@ -49,7 +49,7 @@ public class ButtonShape implements Shape {
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        this.ioState = ioState;
+        this.button = (Button) ioState.getElement();
         ioState.getOutput(0).addObserverToValue(guiObserver);
         return new InteractorInterface() {
             @Override
@@ -59,19 +59,13 @@ public class ButtonShape implements Shape {
 
             @Override
             public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
-                modelSync.access(() -> {
-                    ObservableValue value = ioState.getOutput(0);
-                    value.setValue(1);
-                });
+                modelSync.access(() -> button.setPressed(true));
                 return true;
             }
 
             @Override
             public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
-                modelSync.access(() -> {
-                    ObservableValue value = ioState.getOutput(0);
-                    value.setValue(0);
-                });
+                modelSync.access(() -> button.setPressed(false));
                 return true;
             }
 
@@ -84,10 +78,10 @@ public class ButtonShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        boolean down = false;
-        if (ioState != null) down = ioState.getOutput(0).getBool();
+        boolean isPressed = false;
+        if (button != null) isPressed = button.isPressed();
 
-        if (down) {
+        if (isPressed) {
             graphic.drawPolygon(new Polygon(true)
                     .add(-SIZE * 2 - 1, -SIZE)
                     .add(-1, -SIZE)
@@ -108,7 +102,6 @@ public class ButtonShape implements Shape {
                     .add(t - SIZE * 2 - 1 - HEIGHT, SIZE - HEIGHT), Style.NORMAL);
             graphic.drawLine(new Vector(-1 - HEIGHT, SIZE - HEIGHT), new Vector(-1 - t, SIZE - t), Style.NORMAL);
         }
-
 
         Vector textPos = new Vector(-SIZE * 3, -4);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);

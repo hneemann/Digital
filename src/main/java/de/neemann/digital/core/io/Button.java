@@ -19,10 +19,13 @@ public class Button implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Button.class)
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.ACTIVE_LOW);
 
     private final ObservableValue output;
     private final String label;
+    private final Boolean invert;
+    private boolean pressed;
 
     /**
      * Creates a new instance
@@ -32,6 +35,8 @@ public class Button implements Element {
     public Button(ElementAttributes attributes) {
         output = new ObservableValue("out", 1).setPinDescription(DESCRIPTION);
         label = attributes.get(Keys.LABEL);
+        invert = attributes.get(Keys.ACTIVE_LOW);
+        output.setValue(invert ? 1 : 0);
     }
 
     @Override
@@ -47,5 +52,28 @@ public class Button implements Element {
     @Override
     public void registerNodes(Model model) {
         model.addSignal(new Signal(label, output));
+    }
+
+    /**
+     * Sets the buttons state
+     *
+     * @param pressed true if pressed
+     */
+    public void setPressed(boolean pressed) {
+        if (pressed != this.pressed) {
+            this.pressed = pressed;
+            if (pressed ^ invert) {
+                output.setValue(1);
+            } else {
+                output.setValue(0);
+            }
+        }
+    }
+
+    /**
+     * @return true if pressed
+     */
+    public boolean isPressed() {
+        return pressed;
     }
 }
