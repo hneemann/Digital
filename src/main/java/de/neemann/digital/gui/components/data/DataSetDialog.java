@@ -8,6 +8,7 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.IconCreator;
 import de.neemann.gui.MyFileChooser;
 import de.neemann.gui.ToolTipAction;
 
@@ -32,6 +33,10 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
     private final Sync modelSync;
     private DataSet dataSet;
     private DataSetObserver dataSetObserver;
+
+    private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
+    private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
+    private static final Icon ICON_ZOOM_OUT = IconCreator.create("View-zoom-out.png");
 
     /**
      * Creates a new instance
@@ -64,6 +69,33 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         scrollPane = new JScrollPane(dsc);
         getContentPane().add(scrollPane);
 
+        JToolBar toolBar = new JToolBar();
+        ToolTipAction maximize = new ToolTipAction(Lang.get("menu_maximize"), ICON_EXPAND) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dsc.fitData(scrollPane.getWidth() - scrollPane.getInsets().left - scrollPane.getInsets().right);
+            }
+        }.setAccelerator("F1");
+        ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOM_IN) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dsc.scale(1.25f);
+            }
+        }.setAccelerator("control PLUS");
+        ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dsc.scale(0.8f);
+            }
+        }.setAccelerator("control MINUS");
+
+        toolBar.add(zoomIn.createJButtonNoText());
+        toolBar.add(zoomOut.createJButtonNoText());
+        toolBar.add(maximize.createJButtonNoText());
+
+        getContentPane().add(toolBar, BorderLayout.NORTH);
+        pack();
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -90,8 +122,14 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
                         .checkOverwrite(file -> dataSet.saveCSV(file));
             }
         }.setToolTip(Lang.get("menu_saveData_tt")).createJMenuItem());
-        setJMenuBar(bar);
 
+        JMenu view = new JMenu(Lang.get("menu_view"));
+        bar.add(view);
+        view.add(maximize.createJMenuItem());
+        view.add(zoomOut.createJMenuItem());
+        view.add(zoomIn.createJMenuItem());
+
+        setJMenuBar(bar);
         pack();
         setLocationRelativeTo(owner);
     }
@@ -112,8 +150,10 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         SwingUtilities.invokeLater(() -> {
             dsc.revalidate();
             dsc.repaint();
-            JScrollBar bar = scrollPane.getHorizontalScrollBar();
-            bar.setValue(bar.getMaximum());
+            SwingUtilities.invokeLater(() -> {
+                JScrollBar bar = scrollPane.getHorizontalScrollBar();
+                bar.setValue(bar.getMaximum());
+            });
         });
     }
 }

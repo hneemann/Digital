@@ -24,6 +24,7 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     private final int maxTextLength;
     private DataSample min;
     private DataSample max;
+    private double size = SIZE;
 
     /**
      * Creates a simple dummy DataSet used for creating the DataShape
@@ -138,6 +139,25 @@ public class DataSet implements Iterable<DataSample>, Drawable {
     private static final int SEP2 = 5;
     private static final int SEP = SEP2 * 2;
 
+    /**
+     * Fits the data in the visible area
+     *
+     * @param width width of the frame
+     */
+    public void fitInside(int width) {
+        size = ((double) (width - getTextBorder())) / size();
+    }
+
+    /**
+     * Apply a scaling factor
+     *
+     * @param f the factor
+     */
+    public void scale(double f) {
+        size *= f;
+        if (size < Style.NORMAL.getThickness()) size = Style.NORMAL.getThickness();
+        if (size > SIZE * 4) size = SIZE * 4;
+    }
 
     @Override
     synchronized public void drawTo(Graphic g, Style highLight) {
@@ -148,32 +168,33 @@ public class DataSet implements Iterable<DataSample>, Drawable {
         for (int i = 0; i < signalSize(); i++) {
             String text = getSignal(i).getName();
             g.drawText(new Vector(x - 2, y + yOffs), new Vector(x + 1, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
-            g.drawLine(new Vector(x, y - SEP2), new Vector(x + SIZE * size(), y - SEP2), Style.DASH);
+            g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * size()), y - SEP2), Style.DASH);
             y += SIZE + SEP;
         }
-        g.drawLine(new Vector(x, y - SEP2), new Vector(x + SIZE * size(), y - SEP2), Style.DASH);
+        g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * size()), y - SEP2), Style.DASH);
 
 
         int[] lastRy = new int[signalSize()];
         boolean first = true;
+        double pos = 0;
         for (DataSample s : this) {
-            g.drawLine(new Vector(x, BORDER - SEP2), new Vector(x, (SIZE + SEP) * signalSize() + BORDER - SEP2), Style.DASH);
+            int xx = (int) (pos + x);
+            g.drawLine(new Vector(xx, BORDER - SEP2), new Vector(xx, (SIZE + SEP) * signalSize() + BORDER - SEP2), Style.DASH);
             y = BORDER;
             for (int i = 0; i < signalSize(); i++) {
 
                 long width = getWidth(i);
                 if (width == 0) width = 1;
-                //int ry = (int) (SIZE-(SIZE*(s.getValue(i)-dataSet.getMin().getValue(i)))/ width);
                 int ry = (int) (SIZE - (SIZE * s.getValue(i)) / width);
-                g.drawLine(new Vector(x, y + ry), new Vector(x + SIZE, y + ry), Style.NORMAL);
+                g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), Style.NORMAL);
                 if (!first && ry != lastRy[i])
-                    g.drawLine(new Vector(x, y + lastRy[i]), new Vector(x, y + ry), Style.NORMAL);
+                    g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), Style.NORMAL);
 
                 lastRy[i] = ry;
                 y += SIZE + SEP;
             }
             first = false;
-            x += SIZE;
+            pos += size;
         }
         g.drawLine(new Vector(x, BORDER - SEP2), new Vector(x, (SIZE + SEP) * signalSize() + BORDER - SEP2), Style.DASH);
     }
@@ -194,6 +215,13 @@ public class DataSet implements Iterable<DataSample>, Drawable {
      */
     public int getGraphicHeight() {
         return signalSize() * (SIZE + SEP) + 2 * BORDER;
+    }
+
+    /**
+     * @return the current width of the graphical representation
+     */
+    public int getCurrentGraphicWidth() {
+        return getTextBorder() + (int) (size() * size);
     }
 
     /**

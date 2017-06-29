@@ -21,6 +21,10 @@ public class DataSetComponent extends JComponent {
      */
     public DataSetComponent(DataSet dataSet) {
         this.dataSet = dataSet;
+        addMouseWheelListener(e -> {
+            double f = Math.pow(0.9, e.getWheelRotation());
+            scale(f);  // ToDo keep relative mouse position
+        });
     }
 
     @Override
@@ -34,8 +38,30 @@ public class DataSetComponent extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        int w = dataSet.getGraphicWidth();
+        int w = dataSet.getCurrentGraphicWidth();
         if (w < 600) w = 600;
         return new Dimension(w, dataSet.getGraphicHeight());
+    }
+
+    /**
+     * Apply a scaling factor
+     *
+     * @param f the factor
+     */
+    public void scale(double f) {
+        revalidate();
+        repaint();
+        dataSet.scale(f);
+    }
+
+    /**
+     * Fits the data to the visible area
+     *
+     * @param width the clients width
+     */
+    public void fitData(int width) {
+        dataSet.fitInside(width);
+        revalidate();
+        repaint();
     }
 }
