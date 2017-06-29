@@ -83,11 +83,19 @@ public class Parser {
 
     private Expression parseAnd() throws IOException, ParseException {
         Expression ex = parseSimpleExp();
-        while (tokenizer.peek() == AND) {
-            tokenizer.consume();
-            ex = Operation.and(ex, parseSimpleExp());
+        while (true) {
+            if (tokenizer.peek() == AND) {
+                tokenizer.consume();
+                ex = Operation.and(ex, parseSimpleExp());
+            } else if (isSimpleEx(tokenizer.peek())) {
+                ex = Operation.and(ex, parseSimpleExp());
+            } else
+                return ex;
         }
-        return ex;
+    }
+
+    private boolean isSimpleEx(Tokenizer.Token tok) {
+        return tok == NOT || tok == OPEN || tok == IDENT || tok == ONE || tok == ZERO;
     }
 
     private Expression parseSimpleExp() throws IOException, ParseException {

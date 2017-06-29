@@ -47,6 +47,7 @@ public class ParserTest extends TestCase {
         assertTrue(createSingle("a∧b") instanceof Operation.And);
         assertTrue(createSingle("a&b") instanceof Operation.And);
         assertTrue(createSingle("a&&b") instanceof Operation.And);
+        assertTrue(createSingle("a b") instanceof Operation.And);
     }
 
     public void testParseParenthesis() throws Exception {
@@ -100,8 +101,28 @@ public class ParserTest extends TestCase {
         assertEquals(new Variable("B"), simplified);
     }
 
+    public void testParseRegressionOmitAnd() throws Exception {
+        Expression e = createSingle("B(B+A)(B+C)(A+B+C)");
+        Expression simplified = QuineMcCluskey.simplify(e);
+        assertEquals(new Variable("B"), simplified);
+
+        e = createSingle("B (B+A) (B+C) (A+B+C)");
+        simplified = QuineMcCluskey.simplify(e);
+        assertEquals(new Variable("B"), simplified);
+    }
+
     public void testParseRegression2() throws Exception {
         Expression e = createSingle("(C ∨ B) ∧ (A ∨ C) ∧ (B ∨ ¬C) ∧ (C ∨ ¬A)");
+        Expression simplified = QuineMcCluskey.simplify(e);
+        assertTrue(simplified instanceof Operation.And);
+        ArrayList<Expression> expList = ((Operation) simplified).getExpressions();
+        assertEquals(2, expList.size());
+        assertEquals(new Variable("B"), expList.get(0));
+        assertEquals(new Variable("C"), expList.get(1));
+    }
+
+    public void testParseRegression2OmitAnd() throws Exception {
+        Expression e = createSingle("(C ∨ B)  (A ∨ C)  (B ∨ ¬C)  (C ∨ ¬A)");
         Expression simplified = QuineMcCluskey.simplify(e);
         assertTrue(simplified instanceof Operation.And);
         ArrayList<Expression> expList = ((Operation) simplified).getExpressions();
