@@ -15,6 +15,7 @@ planned as v0.13
   hardware-related file.
 - Unidirectional FETs are added to overcome certain CMOS issues.
 - Comments are allowed in hex files.
+- Added zooming to measurement graphs
 
 v0.12.1, released on 05. Jun 2016
 - added a fuse to simulate a PROM or PAL.
