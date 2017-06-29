@@ -68,6 +68,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         dsc = new DataSetComponent(dataSet);
         scrollPane = new JScrollPane(dsc);
         getContentPane().add(scrollPane);
+        dsc.setScrollPane(scrollPane);
 
         JToolBar toolBar = new JToolBar();
         ToolTipAction maximize = new ToolTipAction(Lang.get("menu_maximize"), ICON_EXPAND) {
@@ -79,13 +80,15 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
         ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOM_IN) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dsc.scale(1.25f);
+                Rectangle r = scrollPane.getViewport().getViewRect();
+                dsc.scale(1.25f, r.x + r.width / 2);
             }
         }.setAccelerator("control PLUS");
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dsc.scale(0.8f);
+                Rectangle r = scrollPane.getViewport().getViewRect();
+                dsc.scale(0.8f, r.x + r.width / 2);
             }
         }.setAccelerator("control MINUS");
 

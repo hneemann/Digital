@@ -13,6 +13,7 @@ import java.awt.*;
  */
 public class DataSetComponent extends JComponent {
     private final DataSet dataSet;
+    private JScrollPane scrollPane;
 
     /**
      * Creates a new dataSet
@@ -23,7 +24,7 @@ public class DataSetComponent extends JComponent {
         this.dataSet = dataSet;
         addMouseWheelListener(e -> {
             double f = Math.pow(0.9, e.getWheelRotation());
-            scale(f);  // ToDo keep relative mouse position
+            scale(f, e.getX());
         });
     }
 
@@ -46,12 +47,17 @@ public class DataSetComponent extends JComponent {
     /**
      * Apply a scaling factor
      *
-     * @param f the factor
+     * @param f    the factor
+     * @param xPos fixed position
      */
-    public void scale(double f) {
+    public void scale(double f, int xPos) {
         revalidate();
         repaint();
         dataSet.scale(f);
+
+        int x = (int) (xPos * f) - (xPos - (int) scrollPane.getViewport().getViewRect().getX());
+        if (x < 0) x = 0;
+        scrollPane.getViewport().setViewPosition(new Point(x, 0));
     }
 
     /**
@@ -63,5 +69,14 @@ public class DataSetComponent extends JComponent {
         dataSet.fitInside(width);
         revalidate();
         repaint();
+    }
+
+    /**
+     * Sets the used scroll pane
+     *
+     * @param scrollPane the scroll pane witch contains this component
+     */
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
     }
 }
