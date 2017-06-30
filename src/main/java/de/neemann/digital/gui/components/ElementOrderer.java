@@ -38,6 +38,7 @@ public class ElementOrderer<T> extends JDialog {
         super(owner, title, true);
         this.data = data;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
 
         listModel = new MyListModel<T>(data);
         list = new JList<T>(listModel);
