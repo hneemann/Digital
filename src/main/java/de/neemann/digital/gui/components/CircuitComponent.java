@@ -328,7 +328,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param parent the parent component
      */
     public void editCircuitAttributes(Component parent) {
-        ElementAttributes modifiedAttributes = new AttributeDialog(parent, ATTR_LIST, circuit.getAttributes()).showDialog();
+        editCircuitAttributes(parent, ATTR_LIST);
+    }
+
+    /**
+     * Opens the attribute editor
+     *
+     * @param parent   the parent component
+     * @param attrList the list of keys to edit
+     */
+    public void editCircuitAttributes(Component parent, java.util.List<Key> attrList) {
+        ElementAttributes modifiedAttributes = new AttributeDialog(parent, attrList, circuit.getAttributes()).showDialog();
         if (modifiedAttributes != null)
             modify(new ModifyCircuitAttributes(modifiedAttributes));
     }

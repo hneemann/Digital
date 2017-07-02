@@ -115,7 +115,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private final ShapeFactory shapeFactory;
     private final JLabel statusLabel;
     private final StateManager stateManager = new StateManager();
-    private final ElementAttributes settings = new ElementAttributes();
     private final ScheduledThreadPoolExecutor timerExecutor = new ScheduledThreadPoolExecutor(1);
     private final WindowPosManager windowPosManager = new WindowPosManager();
     private final InsertHistory insertHistory;
@@ -785,9 +784,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction editRunAttributes = new ToolTipAction(Lang.get("menu_editRunAttributes")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                settings.getValuesFrom(
-                        new AttributeDialog(Main.this, ATTR_LIST, settings)
-                                .showDialog());
+                circuitComponent.editCircuitAttributes(Main.this, ATTR_LIST);
             }
         }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
 
@@ -1000,6 +997,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             doStep.setEnabled(false);
             runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
 
+            ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_TABLE))
                 windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync)).setVisible(true);
@@ -1290,6 +1288,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private void setDebug(boolean debug) {
+        ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
         settings.set(Keys.SHOW_DATA_TABLE, debug);
     }
 
