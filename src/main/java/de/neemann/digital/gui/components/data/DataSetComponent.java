@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.components.data;
 
+import de.neemann.digital.data.DataPlotter;
+import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.draw.graphics.GraphicSwing;
 
 import javax.swing.*;
@@ -12,7 +14,7 @@ import java.awt.*;
  * @author hneemann
  */
 public class DataSetComponent extends JComponent {
-    private final DataSet dataSet;
+    private final DataPlotter plotter;
     private JScrollPane scrollPane;
 
     /**
@@ -20,8 +22,8 @@ public class DataSetComponent extends JComponent {
      *
      * @param dataSet the dataSet to paint
      */
-    public DataSetComponent(DataSet dataSet) {
-        this.dataSet = dataSet;
+    public DataSetComponent(ValueTable dataSet) {
+        plotter = new DataPlotter(dataSet);
         addMouseWheelListener(e -> {
             double f = Math.pow(0.9, e.getWheelRotation());
             scale(f, e.getX());
@@ -34,14 +36,14 @@ public class DataSetComponent extends JComponent {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        dataSet.drawTo(new GraphicSwing(g2), null);
+        plotter.drawTo(new GraphicSwing(g2), null);
     }
 
     @Override
     public Dimension getPreferredSize() {
-        int w = dataSet.getCurrentGraphicWidth();
+        int w = plotter.getCurrentGraphicWidth();
         if (w < 600) w = 600;
-        return new Dimension(w, dataSet.getGraphicHeight());
+        return new Dimension(w, plotter.getGraphicHeight());
     }
 
     /**
@@ -53,7 +55,7 @@ public class DataSetComponent extends JComponent {
     public void scale(double f, int xPos) {
         revalidate();
         repaint();
-        dataSet.scale(f);
+        f=plotter.scale(f);
 
         int x = (int) (xPos * f) - (xPos - (int) scrollPane.getViewport().getViewRect().getX());
         if (x < 0) x = 0;
@@ -66,7 +68,7 @@ public class DataSetComponent extends JComponent {
      * @param width the clients width
      */
     public void fitData(int width) {
-        dataSet.fitInside(width);
+        plotter.fitInside(width);
         revalidate();
         repaint();
     }

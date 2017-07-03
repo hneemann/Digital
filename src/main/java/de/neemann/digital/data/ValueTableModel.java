@@ -6,7 +6,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 /**
- * The table model to present a test result.
+ * The table model to represent a value table.
  * <p>
  * Created by hneemann on 24.08.16.
  */

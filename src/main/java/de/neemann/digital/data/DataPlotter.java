@@ -18,17 +18,6 @@ public class DataPlotter implements Drawable {
     private double size = SIZE;
 
     /**
-     * Creates a simple dummy DataSet used for creating the DataShape
-     */
-    public DataPlotter() {
-        this(new ValueTable("A", "B", "C")
-                .add(new Value[]{new Value(0), new Value(0), new Value(0)})
-                .add(new Value[]{new Value(0), new Value(1), new Value(0)})
-                .add(new Value[]{new Value(0), new Value(1), new Value(0)})
-        );
-    }
-
-    /**
      * Creates a new instance
      *
      * @param data the signals used to collect DataSamples
@@ -62,15 +51,18 @@ public class DataPlotter implements Drawable {
      * Apply a scaling factor
      *
      * @param f the factor
+     * @return the scaling factor really applied
      */
-    public void scale(double f) {
+    public double scale(double f) {
+        double oldSize = size;
         size *= f;
         if (size < Style.NORMAL.getThickness()) size = Style.NORMAL.getThickness();
-        if (size > SIZE * 4) size = SIZE * 4;
+        if (size > SIZE) size = SIZE;
+        return size / oldSize;
     }
 
     @Override
-    synchronized public void drawTo(Graphic g, Style highLight) {
+    public void drawTo(Graphic g, Style highLight) {
         int x = getTextBorder();
 
         int yOffs = SIZE / 2;
@@ -112,13 +104,6 @@ public class DataPlotter implements Drawable {
 
     private int getTextBorder() {
         return maxTextLength * Style.NORMAL.getFontSize() / 2 + BORDER + SEP;
-    }
-
-    /**
-     * @return the preferred width of the graphical representation
-     */
-    public int getGraphicWidth() {
-        return getTextBorder() + data.getRows() * SIZE;
     }
 
     /**

@@ -2,6 +2,7 @@ package de.neemann.digital.data;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -13,6 +14,7 @@ public class ValueTable implements Iterable<Value[]> {
     private final String[] names;
     private final ArrayList<Value[]> values;
     private final long[] max;
+    private int maxSize = 0;
 
     /**
      * Creates a new table.
@@ -48,10 +50,21 @@ public class ValueTable implements Iterable<Value[]> {
      * @return this for chained calls
      */
     public ValueTable add(Value[] row) {
+        if (maxSize > 0 && values.size() >= maxSize) {
+            while (values.size() >= maxSize)
+                values.remove(0);
+            Arrays.fill(max, 0);
+            for (Value[] v : values)
+                checkMax(v);
+        }
         values.add(row);
+        checkMax(row);
+        return this;
+    }
+
+    private void checkMax(Value[] row) {
         for (int i = 0; i < row.length; i++)
             if (max[i] < row[i].getValue()) max[i] = row[i].getValue();
-        return this;
     }
 
     /**
@@ -132,4 +145,22 @@ public class ValueTable implements Iterable<Value[]> {
         }
     }
 
+    /**
+     * clear all values
+     */
+    public void clear() {
+        values.clear();
+        Arrays.fill(max, 0);
+    }
+
+    /**
+     * set the maximum size for this table
+     *
+     * @param maxSize the max size
+     * @return this for chained calls
+     */
+    public ValueTable setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
+        return this;
+    }
 }

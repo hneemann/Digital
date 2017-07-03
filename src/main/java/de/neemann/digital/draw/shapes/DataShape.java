@@ -7,6 +7,9 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.data.DataPlotter;
+import de.neemann.digital.data.Value;
+import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
@@ -15,7 +18,6 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.OrderMerger;
-import de.neemann.digital.gui.components.data.DataSet;
 import de.neemann.digital.gui.components.data.DataSetObserver;
 import de.neemann.digital.gui.sync.Sync;
 
@@ -31,7 +33,7 @@ public class DataShape implements Shape {
 
     private final boolean microStep;
     private final int maxSize;
-    private DataSet dataSet;
+    private ValueTable logData;
 
     /**
      * Creates a new instance
@@ -55,7 +57,7 @@ public class DataShape implements Shape {
         return new Interactor() {
             @Override
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
-                dataSet.clear();
+                logData.clear();
                 return false;
             }
         };
@@ -63,10 +65,12 @@ public class DataShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        if (dataSet == null) {
-            dataSet = new DataSet();
+        if (logData == null) {
+            logData = new ValueTable("A", "B", "C")
+                    .add(new Value[]{new Value(0), new Value(0), new Value(0)})
+                    .add(new Value[]{new Value(0), new Value(1), new Value(0)});
         }
-        dataSet.drawTo(graphic, null);
+        new DataPlotter(logData).drawTo(graphic, null);
     }
 
     @Override
@@ -79,9 +83,8 @@ public class DataShape implements Shape {
             }
         }.order(signals);
 
-        dataSet = new DataSet(signals, maxSize);
-
-        DataSetObserver dataSetObserver = new DataSetObserver(microStep, dataSet);
+        DataSetObserver dataSetObserver = new DataSetObserver(microStep, signals, maxSize);
+        logData = dataSetObserver.getLogData();
         model.addObserver(dataSetObserver);
     }
 }

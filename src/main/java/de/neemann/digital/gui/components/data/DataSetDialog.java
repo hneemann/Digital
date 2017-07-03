@@ -4,6 +4,7 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.sync.Sync;
@@ -31,7 +32,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
     private final DataSetComponent dsc;
     private final JScrollPane scrollPane;
     private final Sync modelSync;
-    private DataSet dataSet;
+    private ValueTable logData;
     private DataSetObserver dataSetObserver;
 
     private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
@@ -61,11 +62,11 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
             }
         }.order(signals);
 
-        dataSet = new DataSet(signals, MAX_SAMPLE_SIZE);
 
-        dataSetObserver = new DataSetObserver(microStep, dataSet);
+        dataSetObserver = new DataSetObserver(microStep, signals, MAX_SAMPLE_SIZE);
+        logData = dataSetObserver.getLogData();
 
-        dsc = new DataSetComponent(dataSet);
+        dsc = new DataSetComponent(logData);
         scrollPane = new JScrollPane(dsc);
         getContentPane().add(scrollPane);
         dsc.setScrollPane(scrollPane);
@@ -122,7 +123,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
                 JFileChooser fileChooser = new MyFileChooser();
                 fileChooser.setFileFilter(new FileNameExtensionFilter("Comma Separated Values", "csv"));
                 new SaveAsHelper(DataSetDialog.this, fileChooser, "csv")
-                        .checkOverwrite(file -> dataSet.saveCSV(file));
+                        .checkOverwrite(file -> logData.saveCSV(file));
             }
         }.setToolTip(Lang.get("menu_saveData_tt")).createJMenuItem());
 

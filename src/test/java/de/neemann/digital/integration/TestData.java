@@ -1,10 +1,9 @@
 package de.neemann.digital.integration;
 
+import de.neemann.digital.data.Value;
+import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.draw.graphics.Export;
-import de.neemann.digital.draw.graphics.GraphicTransform;
 import de.neemann.digital.draw.graphics.GraphicsImage;
-import de.neemann.digital.gui.components.data.DataSample;
-import de.neemann.digital.gui.components.data.DataSet;
 import de.neemann.digital.gui.components.data.DataSetObserver;
 import junit.framework.TestCase;
 
@@ -27,19 +26,19 @@ public class TestData extends TestCase {
         ToBreakRunner toBreakRunner = new ToBreakRunner("dig/data.dig").runToBreak(31);
 
         // check recorded data
-        DataSet dataSet = toBreakRunner.getModel()
+        ValueTable dataSet = toBreakRunner.getModel()
                 .getObserver(DataSetObserver.class)
-                .getDataSet();
+                .getLogData();
 
-        assertEquals(31, dataSet.size());
+        assertEquals(31, dataSet.getRows());
         int i = 0;
-        for (DataSample ds : dataSet) {
-            assertEquals((~i) & 1, ds.getValue(0)); // clock
+        for (Value[] ds : dataSet) {
+            assertEquals((~i) & 1, ds[0].getValue()); // clock
             int s = i / 2 + 1;
-            assertEquals(s & 1, ds.getValue(1));//q_0
-            assertEquals((s >> 1) & 1, ds.getValue(2));//q_1
-            assertEquals((s >> 2) & 1, ds.getValue(3));//q_2
-            assertEquals((s >> 3) & 1, ds.getValue(4));//q_3
+            assertEquals(s & 1, ds[1].getValue());//q_0
+            assertEquals((s >> 1) & 1, ds[2].getValue());//q_1
+            assertEquals((s >> 2) & 1, ds[3].getValue());//q_2
+            assertEquals((s >> 3) & 1, ds[4].getValue());//q_3
             i++;
         }
 
