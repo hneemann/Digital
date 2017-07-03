@@ -68,7 +68,7 @@ public class Value {
      *
      * @param val the value
      */
-    public Value(int val) {
+    public Value(long val) {
         this.value = val;
         this.type = Type.NORMAL;
     }
@@ -92,7 +92,7 @@ public class Value {
      * @param val the string
      */
     public Value(String val) {
-        val = val.trim();
+        val = val.trim().toUpperCase();
         switch (val) {
             case "X":
                 value = 0;

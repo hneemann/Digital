@@ -1,24 +1,37 @@
 package de.neemann.digital.data;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Stores values in a table
  * Created by hneemann on 03.07.17.
  */
-public class ValueTable {
+public class ValueTable implements Iterable<Value[]> {
 
-    private final ArrayList<String> names;
+    private final String[] names;
     private final ArrayList<Value[]> values;
+    private final long[] max;
 
     /**
      * Creates a new table.
      *
-     * @param names the cignal names
+     * @param names the signal names
      */
     public ValueTable(ArrayList<String> names) {
+        this(names.toArray(new String[names.size()]));
+    }
+
+    /**
+     * Creates a new table.
+     *
+     * @param names the signal names
+     */
+    public ValueTable(String... names) {
         this.names = names;
         values = new ArrayList<>();
+        max = new long[names.length];
     }
 
     /**
@@ -32,9 +45,13 @@ public class ValueTable {
      * add values without copying them
      *
      * @param row a row to insert, values are not copied!
+     * @return this for chained calls
      */
-    public void add(Value[] row) {
+    public ValueTable add(Value[] row) {
         values.add(row);
+        for (int i = 0; i < row.length; i++)
+            if (max[i] < row[i].getValue()) max[i] = row[i].getValue();
+        return this;
     }
 
     /**
@@ -50,18 +67,69 @@ public class ValueTable {
 
     /**
      * the number of signals
+     *
      * @return the column count
      */
     public int getColumns() {
-        return names.size();
+        return names.length;
     }
 
     /**
      * Returns the column names
+     *
      * @param col the column
      * @return the name
      */
     public String getColumnName(int col) {
-        return names.get(col);
+        return names[col];
     }
+
+    @Override
+    public Iterator<Value[]> iterator() {
+        return values.iterator();
+    }
+
+    /**
+     * Returns the max value stored in the given column
+     *
+     * @param col the column
+     * @return the max value
+     */
+    public long getMax(int col) {
+        return max[col];
+    }
+
+    /**
+     * Stores the data in  csv file
+     *
+     * @param file the file
+     * @throws IOException IOException
+     */
+    public void saveCSV(File file) throws IOException {
+        saveCSV(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8")));
+    }
+
+    /**
+     * Stores the data in  csv file
+     *
+     * @param w the writer
+     * @throws IOException IOException
+     */
+    public void saveCSV(BufferedWriter w) throws IOException {
+        try {
+            w.write("\"step\"");
+            for (String s : names)
+                w.write(",\"" + s + '"');
+            w.write("\n");
+            int row = 0;
+            for (Value[] s : this) {
+                w.write("\"" + (row++) + "\"");
+                for (Value value : s) w.write(",\"" + value + "\"");
+                w.write("\n");
+            }
+        } finally {
+            w.close();
+        }
+    }
+
 }
