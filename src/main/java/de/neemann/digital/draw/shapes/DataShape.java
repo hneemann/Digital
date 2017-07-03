@@ -3,7 +3,6 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.Signal;
-import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -16,12 +15,9 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
-import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.components.data.ValueTableObserver;
-import de.neemann.digital.gui.sync.Sync;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -54,13 +50,7 @@ public class DataShape implements Shape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        return new Interactor() {
-            @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
-                logData.clear();
-                return false;
-            }
-        };
+        return null;
     }
 
     @Override

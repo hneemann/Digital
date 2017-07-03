@@ -47,9 +47,9 @@ public class ValueTableObserver implements ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event == ModelEvent.STARTED) {
+        if (event == ModelEvent.STARTED)
             logData.clear();
-        }
+
         if (event == ModelEvent.MANUALCHANGE && type == ModelEvent.MICROSTEP) {
             if (manualSample == null)
                 manualSample = new Value[logData.getColumns()];
