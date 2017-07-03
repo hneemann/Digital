@@ -35,6 +35,8 @@ public class TestResultDialog extends JDialog {
     private static final Color PASSED_COLOR = new Color(200, 255, 200);
     private static final Icon ICON_FAILED = IconCreator.create("testFailed.png");
     private static final Icon ICON_PASSED = IconCreator.create("testPassed.png");
+    private static final Icon ICON_GRAPH = IconCreator.create("measurement-graph.png");
+
 
     private final ArrayList<ValueTable> resultTableData;
 
@@ -101,7 +103,7 @@ public class TestResultDialog extends JDialog {
 
         JMenuBar bar = new JMenuBar();
         JMenu view = new JMenu(Lang.get("menu_view"));
-        ToolTipAction asGraph = new ToolTipAction(Lang.get("menu_showDataAsGraph")) {
+        ToolTipAction asGraph = new ToolTipAction(Lang.get("menu_showDataAsGraph"), ICON_GRAPH) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 int tab = tp.getSelectedIndex();
@@ -112,6 +114,10 @@ public class TestResultDialog extends JDialog {
         view.add(asGraph.createJMenuItem());
         bar.add(view);
         setJMenuBar(bar);
+
+        JToolBar toolBar = new JToolBar();
+        toolBar.add(asGraph.createJButtonNoText());
+        getContentPane().add(toolBar, BorderLayout.NORTH);
 
         getContentPane().add(tp);
         pack();

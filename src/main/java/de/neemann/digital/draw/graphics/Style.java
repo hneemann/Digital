@@ -26,6 +26,14 @@ public class Style {
      */
     public static final Style NORMAL = new Style(LINETHICK, false, Color.BLACK);
     /**
+     * used for all lines to draw the failed state
+     */
+    public static final Style FAILED = new Style(LINETHICK, false, Color.RED);
+    /**
+     * used for all lines to draw the passed state
+     */
+    public static final Style PASS = new Style(LINETHICK, false, Color.GREEN);
+    /**
      * Used for text which is integral part of the shape.
      * Text which uses this style is always included in sizing!
      * Used for text only elements.

@@ -18,6 +18,7 @@
 ./expicon.sh View-zoom-out
 ./expicon.sh edit-redo
 ./expicon.sh edit-undo
+./expicon.sh measurement-graph
 
 ./exptest.sh testFailed
 ./exptest.sh testPassed

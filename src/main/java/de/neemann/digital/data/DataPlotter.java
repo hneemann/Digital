@@ -89,13 +89,35 @@ public class DataPlotter implements Drawable {
                 g.drawLine(new Vector(xx, BORDER - SEP2), new Vector(xx, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
                 y = BORDER;
                 for (int i = 0; i < signals; i++) {
+                    Style style;
+                    switch (s[i].getState()) {
+                        case FAIL:
+                            style=Style.FAILED;
+                            break;
+                        case PASS:
+                            style=Style.PASS;
+                            break;
+                        default:
+                            style=Style.NORMAL;
+                    }
 
                     long width = data.getMax(i);
                     if (width == 0) width = 1;
-                    int ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
-                    g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), Style.NORMAL);
-                    if (!first && ry != lastRy[i])
-                        g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), Style.NORMAL);
+                    int ry;
+                    if (s[i].getType() == Value.Type.CLOCK) {
+                        ry = 0;
+                        g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size / 2), y + ry), style);
+                        if (!first && ry != lastRy[i])
+                            g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
+                        ry = SIZE;
+                        g.drawLine(new Vector((int) (xx + size / 2), y + ry), new Vector((int) (xx + size), y + ry), style);
+                        g.drawLine(new Vector((int) (xx + size / 2), y), new Vector((int) (xx + size / 2), y + SIZE), style);
+                    } else {
+                        ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
+                        g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
+                        if (!first && ry != lastRy[i])
+                            g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
+                    }
 
                     lastRy[i] = ry;
                     y += SIZE + SEP;
@@ -103,7 +125,7 @@ public class DataPlotter implements Drawable {
                 first = false;
                 pos += size;
             }
-            g.drawLine(new Vector(x, BORDER - SEP2), new Vector(x, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
+            g.drawLine(new Vector((int) (pos + x), BORDER - SEP2), new Vector((int) (pos + x), (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
         });
     }
 
