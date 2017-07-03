@@ -27,7 +27,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.TestData;
+import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.language.Language;
 
 import java.io.*;
@@ -81,7 +81,7 @@ public class Circuit {
         xStream.addImplicitCollection(ElementAttributes.class, "attributes");
         xStream.alias("data", DataField.class);
         xStream.registerConverter(new DataFieldConverter());
-        xStream.alias("testData", TestData.class);
+        xStream.alias("testData", TestCaseDescription.class);
         xStream.alias("inverterConfig", InverterConfig.class);
         xStream.addImplicitCollection(InverterConfig.class, "inputs");
         xStream.ignoreUnknownElements();

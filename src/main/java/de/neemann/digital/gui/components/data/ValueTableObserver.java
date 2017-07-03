@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author hneemann
  */
-public class DataSetObserver implements ModelStateObserver {
+public class ValueTableObserver implements ModelStateObserver {
 
     private final ValueTable logData;
     private final ModelEvent type;
@@ -28,7 +28,7 @@ public class DataSetObserver implements ModelStateObserver {
      * @param signals   the signals to log
      * @param maxSize   the maximum number of data points to store
      */
-    public DataSetObserver(boolean microStep, ArrayList<Signal> signals, int maxSize) {
+    public ValueTableObserver(boolean microStep, ArrayList<Signal> signals, int maxSize) {
         this.signals = signals;
         if (microStep)
             this.type = ModelEvent.MICROSTEP;

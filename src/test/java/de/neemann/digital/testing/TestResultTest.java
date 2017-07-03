@@ -37,26 +37,26 @@ public class TestResultTest extends TestCase {
 
     public void testResultOk() throws Exception {
         Model model = getModel("A^B");
-        TestData data = new TestData(
+        TestCaseDescription data = new TestCaseDescription(
                 "A B Y\n"
                         + "0 0 0\n"
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestExecuter tr = new TestExecuter(data).create(model);
+        TestExecutor tr = new TestExecutor(data).create(model);
         assertEquals(4,tr.getResult().getRows());
         assertTrue(tr.allPassed());
     }
 
     public void testResultError() throws Exception {
         Model model = getModel("A+B");
-        TestData data = new TestData(
+        TestCaseDescription data = new TestCaseDescription(
                 "A B Y\n"
                         + "0 0 0\n"
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestExecuter te = new TestExecuter(data).create(model);
+        TestExecutor te = new TestExecutor(data).create(model);
         ValueTable tr = te.getResult();
         assertEquals(4,tr.getRows());
         assertFalse(te.allPassed());
@@ -68,13 +68,13 @@ public class TestResultTest extends TestCase {
 
     public void testResultDontCare() throws Exception {
         Model model = getModel("A+B");
-        TestData data = new TestData(
+        TestCaseDescription data = new TestCaseDescription(
                 "A B Y\n"
                         + "0 0 0\n"
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 x\n");
-        TestExecuter te = new TestExecuter(data).create(model);
+        TestExecutor te = new TestExecutor(data).create(model);
         ValueTable tr = te.getResult();
         assertEquals(4,tr.getRows());
         assertTrue(te.allPassed());
@@ -82,13 +82,13 @@ public class TestResultTest extends TestCase {
 
     public void testResultDontCare2() throws Exception {
         Model model = getModel("A+B");
-        TestData data = new TestData(
+        TestCaseDescription data = new TestCaseDescription(
                 "A B Y\n"
                         + "0 0 x\n"
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 1\n");
-        TestExecuter te = new TestExecuter(data).create(model);
+        TestExecutor te = new TestExecutor(data).create(model);
         ValueTable tr = te.getResult();
         assertEquals(4,tr.getRows());
         assertTrue(te.allPassed());
@@ -96,11 +96,11 @@ public class TestResultTest extends TestCase {
 
     public void testResultDontCareInput() throws Exception {
         Model model = getModel("A*0+B");
-        TestData data = new TestData(
+        TestCaseDescription data = new TestCaseDescription(
                 "A B Y\n"
                         + "x 0 0\n"
                         + "x 1 1\n");
-        TestExecuter te = new TestExecuter(data).create(model);
+        TestExecutor te = new TestExecutor(data).create(model);
         ValueTable tr = te.getResult();
         assertEquals(4,tr.getRows());
         assertTrue(te.allPassed());
@@ -108,11 +108,11 @@ public class TestResultTest extends TestCase {
 
     public void testResultDontCareInput2() throws Exception {
         Model model = getModel("A*0+B*0+C");
-        TestData data = new TestData(
+        TestCaseDescription data = new TestCaseDescription(
                 "A B C Y\n"
                         + "x x 0 0\n"
                         + "x x 1 1\n");
-        TestExecuter te = new TestExecuter(data).create(model);
+        TestExecutor te = new TestExecutor(data).create(model);
         ValueTable tr = te.getResult();
         assertEquals(8,tr.getRows());
         assertTrue(te.allPassed());

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class LineListenerResolveDontCare implements LineListener {
 
     private final LineListener parent;
-    private final ArrayList<TestExecuter.TestSignal> inputs;
+    private final ArrayList<TestExecutor.TestSignal> inputs;
 
     /**
      * Create a new instance
@@ -20,33 +20,33 @@ public class LineListenerResolveDontCare implements LineListener {
      * @param parent the parent listener
      * @param inputs the input test signals
      */
-    public LineListenerResolveDontCare(LineListener parent, ArrayList<TestExecuter.TestSignal> inputs) {
+    public LineListenerResolveDontCare(LineListener parent, ArrayList<TestExecutor.TestSignal> inputs) {
         this.parent = parent;
         this.inputs = inputs;
     }
 
     @Override
-    public void add(Value[] rowWithDontCare) {
+    public void add(Value[] row) {
         ArrayList<Integer> dcIndex = null;
-        for (TestExecuter.TestSignal in : inputs) {
-            if (rowWithDontCare[in.getIndex()].getType() == Value.Type.DONTCARE) {
+        for (TestExecutor.TestSignal in : inputs) {
+            if (row[in.getIndex()].getType() == Value.Type.DONTCARE) {
                 if (dcIndex == null)
                     dcIndex = new ArrayList<>();
                 dcIndex.add(in.getIndex());
             }
         }
         if (dcIndex == null)
-            parent.add(rowWithDontCare);
+            parent.add(row);
         else {
             int count = 1 << dcIndex.size();
             for (int n = 0; n < count; n++) {
                 int mask = 1;
                 for (int in : dcIndex) {
                     boolean val = (n & mask) != 0;
-                    rowWithDontCare[in] = new Value(val ? 1 : 0);
+                    row[in] = new Value(val ? 1 : 0);
                     mask *= 2;
                 }
-                parent.add(rowWithDontCare);
+                parent.add(row);
             }
         }
     }

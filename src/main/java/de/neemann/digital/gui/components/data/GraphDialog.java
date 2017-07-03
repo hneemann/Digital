@@ -28,12 +28,12 @@ import java.util.List;
  *
  * @author hneemann
  */
-public class DataSetDialog extends JDialog implements ModelStateObserver {
+public class GraphDialog extends JDialog implements ModelStateObserver {
     private static final int MAX_SAMPLE_SIZE = 1000;
-    private final DataSetComponent dsc;
+    private final GraphComponent dsc;
     private final JScrollPane scrollPane;
     private final Sync modelSync;
-    private DataSetObserver dataSetObserver;
+    private ValueTableObserver valueTableObserver;
 
     private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
     private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
@@ -50,7 +50,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
      * @param modelSync the lock to access the model
      * @return the created instance
      */
-    public static DataSetDialog createLiveDialog(Frame owner, Model model, boolean microStep, List<String> ordering, Sync modelSync) {
+    public static GraphDialog createLiveDialog(Frame owner, Model model, boolean microStep, List<String> ordering, Sync modelSync) {
         String title;
         if (microStep)
             title = Lang.get("win_measures_microstep");
@@ -65,10 +65,10 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
             }
         }.order(signals);
 
-        DataSetObserver dataSetObserver = new DataSetObserver(microStep, signals, MAX_SAMPLE_SIZE);
-        ValueTable logData = dataSetObserver.getLogData();
+        ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, MAX_SAMPLE_SIZE);
+        ValueTable logData = valueTableObserver.getLogData();
 
-        return new DataSetDialog(owner, title, model, logData, dataSetObserver, modelSync);
+        return new GraphDialog(owner, title, model, logData, valueTableObserver, modelSync);
     }
 
     /**
@@ -78,7 +78,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
      * @param title   the frame title
      * @param logData the data to visualize
      */
-    public DataSetDialog(Frame owner, String title, ValueTable logData) {
+    public GraphDialog(Frame owner, String title, ValueTable logData) {
         this(owner, title, null, logData, null, NoSync.INST);
     }
 
@@ -91,14 +91,14 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
      * @param logData   the data to visualize
      * @param modelSync used to access the running model
      */
-    private DataSetDialog(Frame owner, String title, Model model, ValueTable logData, DataSetObserver dataSetObserver, Sync modelSync) {
+    private GraphDialog(Frame owner, String title, Model model, ValueTable logData, ValueTableObserver valueTableObserver, Sync modelSync) {
         super(owner, title, false);
-        this.dataSetObserver = dataSetObserver;
+        this.valueTableObserver = valueTableObserver;
         this.modelSync = modelSync;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
-        dsc = new DataSetComponent(logData, modelSync);
+        dsc = new GraphComponent(logData, modelSync);
         scrollPane = new JScrollPane(dsc);
         getContentPane().add(scrollPane);
         dsc.setScrollPane(scrollPane);
@@ -136,12 +136,12 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
             addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowOpened(WindowEvent e) {
-                    modelSync.access(() -> model.addObserver(DataSetDialog.this));
+                    modelSync.access(() -> model.addObserver(GraphDialog.this));
                 }
 
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    modelSync.access(() -> model.removeObserver(DataSetDialog.this));
+                    modelSync.access(() -> model.removeObserver(GraphDialog.this));
                 }
             });
 
@@ -155,7 +155,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new MyFileChooser();
                 fileChooser.setFileFilter(new FileNameExtensionFilter("Comma Separated Values", "csv"));
-                new SaveAsHelper(DataSetDialog.this, fileChooser, "csv")
+                new SaveAsHelper(GraphDialog.this, fileChooser, "csv")
                         .checkOverwrite(logData::saveCSV);
             }
         }.setToolTip(Lang.get("menu_saveData_tt")).createJMenuItem());
@@ -174,7 +174,7 @@ public class DataSetDialog extends JDialog implements ModelStateObserver {
     @Override
     public void handleEvent(ModelEvent event) {
         modelSync.access(() -> {
-            dataSetObserver.handleEvent(event);
+            valueTableObserver.handleEvent(event);
         });
         SwingUtilities.invokeLater(() -> {
             dsc.revalidate();

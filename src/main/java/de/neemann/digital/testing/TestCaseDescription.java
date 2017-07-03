@@ -13,18 +13,18 @@ import java.util.ArrayList;
  *
  * @author hneemann
  */
-public class TestData {
+public class TestCaseDescription {
 
     /**
      * the default instance
      */
-    public static final TestData DEFAULT = new TestData("");
+    public static final TestCaseDescription DEFAULT = new TestCaseDescription("");
 
     private String dataString;
     private transient LineEmitter lines;
     private transient ArrayList<String> names;
 
-    TestData(String data) {
+    TestCaseDescription(String data) {
         this.dataString = data;
     }
 
@@ -33,7 +33,7 @@ public class TestData {
      *
      * @param valueToCopy the instance to copy
      */
-    public TestData(TestData valueToCopy) {
+    public TestCaseDescription(TestCaseDescription valueToCopy) {
         this(valueToCopy.dataString);
     }
 
@@ -95,9 +95,9 @@ public class TestData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TestData testData = (TestData) o;
+        TestCaseDescription testCaseDescription = (TestCaseDescription) o;
 
-        return dataString != null ? dataString.equals(testData.dataString) : testData.dataString == null;
+        return dataString != null ? dataString.equals(testCaseDescription.dataString) : testCaseDescription.dataString == null;
     }
 
     @Override

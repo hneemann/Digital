@@ -15,7 +15,7 @@ public class TestDataTest extends TestCase {
     private static final String DATA3 = "A B\n0 0\n0 1\n1 0\n1 U";
 
     public void testSetDataNonParseable() throws Exception {
-        TestData td = new TestData(DATA1);
+        TestCaseDescription td = new TestCaseDescription(DATA1);
 
         LineCollector cl = new LineCollector(td.getLines());
 
@@ -34,7 +34,7 @@ public class TestDataTest extends TestCase {
     }
 
     public void testSetDataParseable() throws Exception {
-        TestData td = new TestData(DATA1);
+        TestCaseDescription td = new TestCaseDescription(DATA1);
 
         LineCollector cl = new LineCollector(td.getLines());
 

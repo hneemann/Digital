@@ -6,7 +6,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.EditorFactory;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.TestData;
+import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -16,10 +16,10 @@ import java.awt.event.ActionEvent;
 /**
  * @author hneemann
  */
-public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
+public class TestCaseDesctiptionEditor extends EditorFactory.LabelEditor<TestCaseDescription> {
 
-    private final TestData data;
-    private final Key<TestData> key;
+    private final TestCaseDescription data;
+    private final Key<TestCaseDescription> key;
 
     /**
      * Creates a new editor
@@ -27,13 +27,13 @@ public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
      * @param data the data to edit
      * @param key  the data key
      */
-    public TestDataEditor(TestData data, Key<TestData> key) {
-        this.data = new TestData(data);
+    public TestCaseDesctiptionEditor(TestCaseDescription data, Key<TestCaseDescription> key) {
+        this.data = new TestCaseDescription(data);
         this.key = key;
     }
 
     @Override
-    public TestData getValue() {
+    public TestCaseDescription getValue() {
         return data;
     }
 
@@ -44,7 +44,7 @@ public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
         panel.add(new ToolTipAction(Lang.get("btn_edit")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TestDataDialog(panel, data, null).setVisible(true);
+                new TestCaseDescriptionDialog(panel, data, null).setVisible(true);
             }
         }.createJButton());
 
@@ -52,8 +52,8 @@ public class TestDataEditor extends EditorFactory.LabelEditor<TestData> {
             @Override
             public void actionPerformed(ActionEvent e) {
                 getAttributeDialog().fireOk();
-                VisualElement visualElement = TestDataEditor.this.getAttributeDialog().getVisualElement();
-                TestDataDialog dialog = new TestDataDialog(getAttributeDialog().getDialogParent(), data, visualElement);
+                VisualElement visualElement = TestCaseDesctiptionEditor.this.getAttributeDialog().getVisualElement();
+                TestCaseDescriptionDialog dialog = new TestCaseDescriptionDialog(getAttributeDialog().getDialogParent(), data, visualElement);
                 Main main = getAttributeDialog().getMain();
                 if (main != null)
                     main.getWindowPosManager().register("testdata", dialog);

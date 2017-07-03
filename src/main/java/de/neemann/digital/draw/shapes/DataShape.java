@@ -18,7 +18,7 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.OrderMerger;
-import de.neemann.digital.gui.components.data.DataSetObserver;
+import de.neemann.digital.gui.components.data.ValueTableObserver;
 import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
@@ -83,8 +83,8 @@ public class DataShape implements Shape {
             }
         }.order(signals);
 
-        DataSetObserver dataSetObserver = new DataSetObserver(microStep, signals, maxSize);
-        logData = dataSetObserver.getLogData();
-        model.addObserver(dataSetObserver);
+        ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, maxSize);
+        logData = valueTableObserver.getLogData();
+        model.addObserver(valueTableObserver);
     }
 }

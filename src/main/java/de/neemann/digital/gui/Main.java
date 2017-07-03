@@ -23,7 +23,7 @@ import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.*;
-import de.neemann.digital.gui.components.data.DataSetDialog;
+import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.modification.Modifications;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
@@ -1003,9 +1003,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync)).setVisible(true);
 
             if (settings.get(Keys.SHOW_DATA_GRAPH))
-                windowPosManager.register("dataSet", DataSetDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
+                windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
-                windowPosManager.register("dataSetMicro", DataSetDialog.createLiveDialog(this, model, true, ordering, modelSync)).setVisible(true);
+                windowPosManager.register("dataSetMicro", GraphDialog.createLiveDialog(this, model, true, ordering, modelSync)).setVisible(true);
 
             if (modelModifier != null)
                 modelModifier.preInit(model);

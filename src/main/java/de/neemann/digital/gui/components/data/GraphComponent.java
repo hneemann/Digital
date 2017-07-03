@@ -14,7 +14,7 @@ import java.awt.*;
  *
  * @author hneemann
  */
-public class DataSetComponent extends JComponent {
+public class GraphComponent extends JComponent {
     private final DataPlotter plotter;
     /**
      * The data stored in the plotter needs to be seen as part of the model.
@@ -28,7 +28,7 @@ public class DataSetComponent extends JComponent {
      * @param dataSet   the dataSet to paint
      * @param modelSync lock to access the model
      */
-    public DataSetComponent(ValueTable dataSet, Sync modelSync) {
+    public GraphComponent(ValueTable dataSet, Sync modelSync) {
         plotter = new DataPlotter(dataSet).setModelSync(modelSync);
         addMouseWheelListener(e -> {
             double f = Math.pow(0.9, e.getWheelRotation());

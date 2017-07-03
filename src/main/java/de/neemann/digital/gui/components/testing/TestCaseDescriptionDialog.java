@@ -7,8 +7,8 @@ import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
-import de.neemann.digital.testing.TestData;
 import de.neemann.digital.testing.Transitions;
 import de.neemann.digital.testing.parser.ParserException;
 import de.neemann.gui.ErrorMessage;
@@ -25,7 +25,7 @@ import java.io.IOException;
  *
  * @author hneemann
  */
-public class TestDataDialog extends JDialog {
+public class TestCaseDescriptionDialog extends JDialog {
 
     /**
      * Creates a new data dialog
@@ -34,7 +34,7 @@ public class TestDataDialog extends JDialog {
      * @param data    the data to edit
      * @param element the element to be modified
      */
-    public TestDataDialog(Component parent, TestData data, VisualElement element) {
+    public TestCaseDescriptionDialog(Component parent, TestCaseDescription data, VisualElement element) {
         super(SwingUtilities.getWindowAncestor(parent),
                 Lang.get("key_Testdata"),
                 element == null ? ModalityType.APPLICATION_MODAL : ModalityType.MODELESS);
@@ -56,7 +56,7 @@ public class TestDataDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new ShowStringDialog(
-                        TestDataDialog.this,
+                        TestCaseDescriptionDialog.this,
                         Lang.get("msg_testVectorHelpTitle"),
                         Lang.get("msg_testVectorHelp"), true)
                         .setVisible(true);
@@ -75,7 +75,7 @@ public class TestDataDialog extends JDialog {
                                 text.setText(tr.getCompletedText());
                             }
                         } catch (ParserException | IOException | PinException e1) {
-                            new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
+                            new ErrorMessage(e1.getMessage()).show(TestCaseDescriptionDialog.this);
                         }
                     }
                 }
@@ -94,7 +94,7 @@ public class TestDataDialog extends JDialog {
                             cc.getMain().startTests();
                         }
                     } catch (ParserException | IOException e1) {
-                        new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
+                        new ErrorMessage(e1.getMessage()).show(TestCaseDescriptionDialog.this);
                     }
                 }
             }.createJButton());
@@ -109,11 +109,11 @@ public class TestDataDialog extends JDialog {
                             && !initialDataString.equals(data.getDataString())
                             && parent instanceof CircuitComponent) {
                         CircuitComponent cc = (CircuitComponent) parent;
-                        cc.modify(new ModifyAttribute<>(element, TestCaseElement.TESTDATA, new TestData(data)));
+                        cc.modify(new ModifyAttribute<>(element, TestCaseElement.TESTDATA, new TestCaseDescription(data)));
                     }
                     dispose();
                 } catch (ParserException | IOException e1) {
-                    new ErrorMessage(e1.getMessage()).show(TestDataDialog.this);
+                    new ErrorMessage(e1.getMessage()).show(TestCaseDescriptionDialog.this);
                 }
             }
         }.createJButton());

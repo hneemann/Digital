@@ -4,7 +4,7 @@ import de.neemann.digital.data.Value;
 import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.draw.graphics.Export;
 import de.neemann.digital.draw.graphics.GraphicsImage;
-import de.neemann.digital.gui.components.data.DataSetObserver;
+import de.neemann.digital.gui.components.data.ValueTableObserver;
 import junit.framework.TestCase;
 
 import java.io.BufferedWriter;
@@ -14,7 +14,7 @@ import java.io.StringWriter;
 /**
  * @author hneemann
  */
-public class TestData extends TestCase {
+public class TestCaseDescription extends TestCase {
 
     /**
      * Runs a 4 bit counter build from JK flip flops 16 ticks.
@@ -27,7 +27,7 @@ public class TestData extends TestCase {
 
         // check recorded data
         ValueTable dataSet = toBreakRunner.getModel()
-                .getObserver(DataSetObserver.class)
+                .getObserver(ValueTableObserver.class)
                 .getLogData();
 
         assertEquals(31, dataSet.getRows());

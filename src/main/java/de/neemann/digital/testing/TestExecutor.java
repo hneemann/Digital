@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- * Stores the test results created by a single {@link TestData} instance.
+ * Stores the test results created by a single {@link TestCaseDescription} instance.
  * The class also performs the tests.
  *
  * @author hneemann
  */
-public class TestExecuter {
+public class TestExecutor {
     private static final int MAX_RESULTS = 1 << 10;
     private static final int ERR_RESULTS = MAX_RESULTS * 2;
 
@@ -37,13 +37,13 @@ public class TestExecuter {
     /**
      * Creates a new testing result
      *
-     * @param testData the testing data
+     * @param testCaseDescription the testing data
      * @throws TestingDataException DataException
      */
-    public TestExecuter(TestData testData) throws TestingDataException {
-        names = testData.getNames();
+    public TestExecutor(TestCaseDescription testCaseDescription) throws TestingDataException {
+        names = testCaseDescription.getNames();
         results = new ValueTable(names);
-        lines = testData.getLines();
+        lines = testCaseDescription.getLines();
     }
 
     /**
@@ -54,7 +54,7 @@ public class TestExecuter {
      * @throws TestingDataException DataException
      * @throws NodeException        NodeException
      */
-    public TestExecuter create(Model model) throws TestingDataException, NodeException {
+    public TestExecutor create(Model model) throws TestingDataException, NodeException {
         allPassed = true;
         HashSet<String> usedSignals = new HashSet<>();
 

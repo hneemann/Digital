@@ -10,7 +10,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.gui.components.data.DataSetDialog;
+import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.*;
 import de.neemann.gui.ErrorMessage;
@@ -66,22 +66,22 @@ public class TestResultDialog extends JDialog {
         for (TestSet ts : tsl) {
             Model model = new ModelCreator(circuit, library).createModel(false);
 
-            TestExecuter testExecuter = new TestExecuter(ts.data).create(model);
+            TestExecutor testExecutor = new TestExecutor(ts.data).create(model);
 
-            if (testExecuter.getException() != null)
-                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorWhileExecutingTests_N0", ts.name)).addCause(testExecuter.getException()).setComponent(this));
+            if (testExecutor.getException() != null)
+                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorWhileExecutingTests_N0", ts.name)).addCause(testExecutor.getException()).setComponent(this));
 
-            JTable table = new JTable(new ValueTableModel(testExecuter.getResult()));
+            JTable table = new JTable(new ValueTableModel(testExecutor.getResult()));
             table.setDefaultRenderer(Value.class, new ValueRenderer());
             table.setDefaultRenderer(Integer.class, new NumberRenderer());
             final Font font = table.getFont();
             table.getColumnModel().getColumn(0).setMaxWidth(font.getSize() * 4);
             table.setRowHeight(font.getSize() * 6 / 5);
-            resultTableData.add(testExecuter.getResult());
+            resultTableData.add(testExecutor.getResult());
 
             String tabName;
             Icon tabIcon;
-            if (testExecuter.allPassed()) {
+            if (testExecutor.allPassed()) {
                 tabName = Lang.get("msg_test_N_Passed", ts.name);
                 tabIcon = ICON_PASSED;
             } else {
@@ -89,11 +89,11 @@ public class TestResultDialog extends JDialog {
                 tabIcon = ICON_FAILED;
                 errorTabIndex = i;
             }
-            if (testExecuter.toManyResults())
+            if (testExecutor.toManyResults())
                 tabName += " " + Lang.get("msg_test_missingLines");
 
             tp.addTab(tabName, tabIcon, new JScrollPane(table));
-            if (testExecuter.toManyResults())
+            if (testExecutor.toManyResults())
                 tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
             i++;
         }
@@ -108,7 +108,7 @@ public class TestResultDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 int tab = tp.getSelectedIndex();
                 if (tab < 0) tab = 0;
-                new DataSetDialog(owner, Lang.get("win_testdata_N", tp.getTitleAt(tab)), resultTableData.get(tab)).setVisible(true);
+                new GraphDialog(owner, Lang.get("win_testdata_N", tp.getTitleAt(tab)), resultTableData.get(tab)).setVisible(true);
             }
         }.setToolTip(Lang.get("menu_showDataAsGraph_tt"));
         view.add(asGraph.createJMenuItem());
@@ -125,12 +125,12 @@ public class TestResultDialog extends JDialog {
     }
 
     /**
-     * A TestSet contains the {@link TestData} and the name of the TestData.
+     * A TestSet contains the {@link TestCaseDescription} and the name of the TestData.
      * Is only a value bean
      */
     public static class TestSet implements Comparable<TestSet> {
 
-        private final TestData data;
+        private final TestCaseDescription data;
         private final String name;
 
         /**
@@ -139,7 +139,7 @@ public class TestResultDialog extends JDialog {
          * @param data the TestData
          * @param name the name of the data, eg. the used label
          */
-        public TestSet(TestData data, String name) {
+        public TestSet(TestCaseDescription data, String name) {
             this.data = data;
             this.name = name;
         }
