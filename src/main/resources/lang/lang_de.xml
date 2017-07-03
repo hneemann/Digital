@@ -83,7 +83,7 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Const_pin_out">Gibt den gesetzten Wert als Konstante aus.</string>
     <string name="elem_Const_tt">Ein Element, welches einen eingestellten konstanten Wert ausgibt. Die Konstante kann über den Attribute-Dialog festgelegt werden.</string>
     <string name="elem_Ground">Masse</string>
-    <string name="elem_Ground_tt">Eine Messeverbindung. Gibt immer Null aus.</string>
+    <string name="elem_Ground_tt">Eine Masseverbindung. Gibt immer Null aus.</string>
     <string name="elem_Ground_pin_out">Dieser Ausgang gibt immer 0 aus.</string>
     <string name="elem_VDD">Betriebsspannung</string>
     <string name="elem_VDD_tt">Anschluss zur Betriebsspannung. Gibt immer Eins aus.</string>
@@ -863,6 +863,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_undo_tt">Letzte Aktion rückgängig machen</string>
     <string name="menu_redo">Wiederherstellen</string>
     <string name="menu_redo_tt">Letzte rückgängig gemachte Aktion wieder herstellen.</string>
+    <string name="menu_showDataAsGraph">Als Graph anzeigen.</string>
+    <string name="menu_showDataAsGraph_tt">Zeigt die Daten als Graph an.</string>
 
     <string name="message">Digital
 
