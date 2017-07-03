@@ -29,7 +29,7 @@ import de.neemann.digital.gui.components.modification.Modifications;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.gui.components.modification.ModifyMeasurementOrdering;
 import de.neemann.digital.gui.components.table.TableDialog;
-import de.neemann.digital.gui.components.testing.TestResultDialog;
+import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
 import de.neemann.digital.gui.components.tree.SelectTree;
 import de.neemann.digital.gui.remote.DigitalHandler;
@@ -828,17 +828,17 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      */
     public void startTests() {
         try {
-            ArrayList<TestResultDialog.TestSet> tsl = new ArrayList<>();
+            ArrayList<ValueTableDialog.TestSet> tsl = new ArrayList<>();
             for (VisualElement el : circuitComponent.getCircuit().getElements())
                 if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
-                    tsl.add(new TestResultDialog.TestSet(
+                    tsl.add(new ValueTableDialog.TestSet(
                             el.getElementAttributes().get(TestCaseElement.TESTDATA),
                             el.getElementAttributes().getCleanLabel()));
 
             if (tsl.isEmpty())
                 throw new TestingDataException(Lang.get("err_noTestData"));
 
-            windowPosManager.register("testResult", new TestResultDialog(Main.this, tsl, circuitComponent.getCircuit(), library)).setVisible(true);
+            windowPosManager.register("testResult", new ValueTableDialog(Main.this).addTestResult(tsl, circuitComponent.getCircuit(), library)).setVisible(true);
 
             ensureModelIsStopped();
         } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {

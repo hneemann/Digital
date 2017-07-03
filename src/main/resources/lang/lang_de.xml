@@ -865,6 +865,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_redo_tt">Letzte rückgängig gemachte Aktion wieder herstellen.</string>
     <string name="menu_showDataAsGraph">Zeige Graph</string>
     <string name="menu_showDataAsGraph_tt">Zeigt die Daten als Graph an.</string>
+    <string name="menu_showDataAsTable">Zeige Tabelle</string>
+    <string name="menu_showDataAsTable_tt">Zeigt die Daten als Tabelle an.</string>
 
     <string name="message">Digital
 

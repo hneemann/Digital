@@ -7,6 +7,7 @@ import de.neemann.digital.core.Signal;
 import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.OrderMerger;
+import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
@@ -33,6 +34,7 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
     private final GraphComponent dsc;
     private final JScrollPane scrollPane;
     private final Sync modelSync;
+    private final ToolTipAction showTable;
     private ValueTableObserver valueTableObserver;
 
     private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
@@ -50,7 +52,7 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
      * @param modelSync the lock to access the model
      * @return the created instance
      */
-    public static GraphDialog createLiveDialog(Frame owner, Model model, boolean microStep, List<String> ordering, Sync modelSync) {
+    public static GraphDialog createLiveDialog(JFrame owner, Model model, boolean microStep, List<String> ordering, Sync modelSync) {
         String title;
         if (microStep)
             title = Lang.get("win_measures_microstep");
@@ -78,7 +80,7 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
      * @param title   the frame title
      * @param logData the data to visualize
      */
-    public GraphDialog(Frame owner, String title, ValueTable logData) {
+    public GraphDialog(JFrame owner, String title, ValueTable logData) {
         this(owner, title, null, logData, null, NoSync.INST);
     }
 
@@ -91,7 +93,7 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
      * @param logData   the data to visualize
      * @param modelSync used to access the running model
      */
-    private GraphDialog(Frame owner, String title, Model model, ValueTable logData, ValueTableObserver valueTableObserver, Sync modelSync) {
+    private GraphDialog(JFrame owner, String title, Model model, ValueTable logData, ValueTableObserver valueTableObserver, Sync modelSync) {
         super(owner, title, false);
         this.valueTableObserver = valueTableObserver;
         this.modelSync = modelSync;
@@ -124,6 +126,13 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
                 dsc.scale(0.8f, r.x + r.width / 2);
             }
         }.setAccelerator("control MINUS");
+
+        showTable = new ToolTipAction(Lang.get("menu_showDataAsTable")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ValueTableDialog(owner).addValueTable("Data", logData).disableGraph().setVisible(true);
+            }
+        }.setToolTip(Lang.get("menu_showDataAsTable_tt"));
 
         toolBar.add(zoomIn.createJButtonNoText());
         toolBar.add(zoomOut.createJButtonNoText());
@@ -165,6 +174,8 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
         view.add(maximize.createJMenuItem());
         view.add(zoomOut.createJMenuItem());
         view.add(zoomIn.createJMenuItem());
+        view.addSeparator();
+        view.add(showTable.createJMenuItem());
 
         setJMenuBar(bar);
         pack();
@@ -184,5 +195,15 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
                 bar.setValue(bar.getMaximum());
             });
         });
+    }
+
+    /**
+     * Disable the show as table function
+     *
+     * @return this for chained calls
+     */
+    public GraphDialog disableTable() {
+        showTable.setActive(false);
+        return this;
     }
 }

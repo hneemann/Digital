@@ -853,6 +853,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_redo_tt">Apply last reverted modification again.</string>
     <string name="menu_showDataAsGraph">Show graph</string>
     <string name="menu_showDataAsGraph_tt">Show the data as a Graph.</string>
+    <string name="menu_showDataAsTable">Show table</string>
+    <string name="menu_showDataAsTable_tt">Shows values as a table.</string>
 
 
     <string name="message">Digital
