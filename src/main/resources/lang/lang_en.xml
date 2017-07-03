@@ -851,6 +851,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_undo_tt">Revert last modification</string>
     <string name="menu_redo">Redo</string>
     <string name="menu_redo_tt">Apply last reverted modification again.</string>
+    <string name="menu_showDataAsGraph">Show graph</string>
+    <string name="menu_showDataAsGraph_tt">Show the data as a Graph.</string>
 
 
     <string name="message">Digital
@@ -941,6 +943,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="win_table">Table</string>
     <string name="win_table_exportDialog">Export</string>
     <string name="win_itempicker_title">Select</string>
+    <string name="win_testdata_N">Testdata {0}</string>
 
     <string name="btn_help">Help</string>
 

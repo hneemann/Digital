@@ -13,16 +13,20 @@ public interface Sync {
      * Calls the given runnable
      *
      * @param run the runnable to execute
+     * @param <A> the type oth the runnable
+     * @return the given runnable. Used for chained calls
      */
-    void access(Runnable run);
+    <A extends Runnable> A access(A run);
 
     /**
      * Same as access, but catches an exception
      *
      * @param run the runnable to execute
+     * @param <A> the type oth the runnable
+     * @return the given runnable. Used for chained calls
      * @throws NodeException NodeException
      */
-    void accessNEx(ModelRun run) throws NodeException;
+    <A extends Sync.ModelRun> A accessNEx(A run) throws NodeException;
 
     /**
      * Like runnable but throws an exception

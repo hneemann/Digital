@@ -863,7 +863,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_undo_tt">Letzte Aktion rückgängig machen</string>
     <string name="menu_redo">Wiederherstellen</string>
     <string name="menu_redo_tt">Letzte rückgängig gemachte Aktion wieder herstellen.</string>
-    <string name="menu_showDataAsGraph">Als Graph anzeigen.</string>
+    <string name="menu_showDataAsGraph">Zeige Graph</string>
     <string name="menu_showDataAsGraph_tt">Zeigt die Daten als Graph an.</string>
 
     <string name="message">Digital
@@ -947,6 +947,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="tt_moveItemDown">Eintrag nach unten schieben</string>
     <string name="tt_moveItemUp">Eintrag nach oben schieben</string>
     <string name="win_allSolutions">Alle möglichen Lösungen</string>
+    <string name="win_testdata_N">Testdaten {0}</string>
     <string name="win_confirmExit">Beenden bestätigen!</string>
     <string name="win_measures">Messwerte</string>
     <string name="win_measures_fullstep">Messwerte im Vollschrittmodus</string>

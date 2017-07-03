@@ -20,20 +20,22 @@ public class LockSync implements Sync {
     }
 
     @Override
-    public void access(Runnable run) {
+    public <A extends Runnable> A access(A run) {
         lock.lock();
         try {
             run.run();
+            return run;
         } finally {
             lock.unlock();
         }
     }
 
     @Override
-    public void accessNEx(Sync.ModelRun run) throws NodeException {
+    public <A extends Sync.ModelRun> A  accessNEx(A run) throws NodeException {
         lock.lock();
         try {
             run.run();
+            return run;
         } finally {
             lock.unlock();
         }

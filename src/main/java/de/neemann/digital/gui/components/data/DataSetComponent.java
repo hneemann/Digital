@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components.data;
 import de.neemann.digital.data.DataPlotter;
 import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.draw.graphics.GraphicSwing;
+import de.neemann.digital.gui.sync.Sync;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,15 +16,20 @@ import java.awt.*;
  */
 public class DataSetComponent extends JComponent {
     private final DataPlotter plotter;
+    /**
+     * The data stored in the plotter needs to be seen as part of the model.
+     * So a lock is necessary to access the data.
+     */
     private JScrollPane scrollPane;
 
     /**
      * Creates a new dataSet
      *
-     * @param dataSet the dataSet to paint
+     * @param dataSet   the dataSet to paint
+     * @param modelSync lock to access the model
      */
-    public DataSetComponent(ValueTable dataSet) {
-        plotter = new DataPlotter(dataSet);
+    public DataSetComponent(ValueTable dataSet, Sync modelSync) {
+        plotter = new DataPlotter(dataSet).setModelSync(modelSync);
         addMouseWheelListener(e -> {
             double f = Math.pow(0.9, e.getWheelRotation());
             scale(f, e.getX());
@@ -55,8 +61,8 @@ public class DataSetComponent extends JComponent {
     public void scale(double f, int xPos) {
         revalidate();
         repaint();
-        f=plotter.scale(f);
-
+        f = plotter.scale(f);
+        // keep relative mouse position
         int x = (int) (xPos * f) - (xPos - (int) scrollPane.getViewport().getViewRect().getX());
         if (x < 0) x = 0;
         scrollPane.getViewport().setViewPosition(new Point(x, 0));

@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.data.ValueTableModel;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.draw.elements.Circuit;
@@ -9,15 +10,18 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.gui.components.data.DataSetDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.*;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.IconCreator;
 import de.neemann.gui.LineBreaker;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -31,6 +35,8 @@ public class TestResultDialog extends JDialog {
     private static final Color PASSED_COLOR = new Color(200, 255, 200);
     private static final Icon ICON_FAILED = IconCreator.create("testFailed.png");
     private static final Icon ICON_PASSED = IconCreator.create("testPassed.png");
+
+    private final ArrayList<ValueTable> resultTableData;
 
     /**
      * Creates a new result dialog.
@@ -50,6 +56,8 @@ public class TestResultDialog extends JDialog {
 
         Collections.sort(tsl);
 
+        resultTableData = new ArrayList<>();
+
         JTabbedPane tp = new JTabbedPane();
         int i = 0;
         int errorTabIndex = -1;
@@ -65,8 +73,9 @@ public class TestResultDialog extends JDialog {
             table.setDefaultRenderer(Value.class, new ValueRenderer());
             table.setDefaultRenderer(Integer.class, new NumberRenderer());
             final Font font = table.getFont();
-            table.getColumnModel().getColumn(0).setMaxWidth(font.getSize()*4);
+            table.getColumnModel().getColumn(0).setMaxWidth(font.getSize() * 4);
             table.setRowHeight(font.getSize() * 6 / 5);
+            resultTableData.add(testExecuter.getResult());
 
             String tabName;
             Icon tabIcon;
@@ -88,6 +97,21 @@ public class TestResultDialog extends JDialog {
         }
         if (errorTabIndex >= 0)
             tp.setSelectedIndex(errorTabIndex);
+
+
+        JMenuBar bar = new JMenuBar();
+        JMenu view = new JMenu(Lang.get("menu_view"));
+        ToolTipAction asGraph = new ToolTipAction(Lang.get("menu_showDataAsGraph")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int tab = tp.getSelectedIndex();
+                if (tab < 0) tab = 0;
+                new DataSetDialog(owner, Lang.get("win_testdata_N", tp.getTitleAt(tab)), resultTableData.get(tab)).setVisible(true);
+            }
+        }.setToolTip(Lang.get("menu_showDataAsGraph_tt"));
+        view.add(asGraph.createJMenuItem());
+        bar.add(view);
+        setJMenuBar(bar);
 
         getContentPane().add(tp);
         pack();
