@@ -1,6 +1,6 @@
 package de.neemann.digital.testing.parser;
 
-import de.neemann.digital.testing.Value;
+import de.neemann.digital.data.Value;
 
 /**
  * Listener for truth table lines

@@ -7,6 +7,7 @@ import de.neemann.digital.builder.BuilderException;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -42,8 +43,8 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestResult tr = new TestResult(data).create(model);
-        assertEquals(4,tr.getRows());
+        TestExecuter tr = new TestExecuter(data).create(model);
+        assertEquals(4,tr.getResult().getRows());
         assertTrue(tr.allPassed());
     }
 
@@ -55,13 +56,14 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestResult tr = new TestResult(data).create(model);
+        TestExecuter te = new TestExecuter(data).create(model);
+        ValueTable tr = te.getResult();
         assertEquals(4,tr.getRows());
-        assertFalse(tr.allPassed());
-        assertEquals(true, ((MatchedValue) tr.getResultValue(0, 2)).isPassed());
-        assertEquals(true, ((MatchedValue) tr.getResultValue(1, 2)).isPassed());
-        assertEquals(true, ((MatchedValue) tr.getResultValue(2, 2)).isPassed());
-        assertEquals(false, ((MatchedValue) tr.getResultValue(3, 2)).isPassed());
+        assertFalse(te.allPassed());
+        assertEquals(true, ((MatchedValue) tr.getValue(0, 2)).isPassed());
+        assertEquals(true, ((MatchedValue) tr.getValue(1, 2)).isPassed());
+        assertEquals(true, ((MatchedValue) tr.getValue(2, 2)).isPassed());
+        assertEquals(false, ((MatchedValue) tr.getValue(3, 2)).isPassed());
     }
 
     public void testResultDontCare() throws Exception {
@@ -72,9 +74,10 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 x\n");
-        TestResult tr = new TestResult(data).create(model);
+        TestExecuter te = new TestExecuter(data).create(model);
+        ValueTable tr = te.getResult();
         assertEquals(4,tr.getRows());
-        assertTrue(tr.allPassed());
+        assertTrue(te.allPassed());
     }
 
     public void testResultDontCare2() throws Exception {
@@ -85,9 +88,10 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 1\n");
-        TestResult tr = new TestResult(data).create(model);
+        TestExecuter te = new TestExecuter(data).create(model);
+        ValueTable tr = te.getResult();
         assertEquals(4,tr.getRows());
-        assertTrue(tr.allPassed());
+        assertTrue(te.allPassed());
     }
 
     public void testResultDontCareInput() throws Exception {
@@ -96,9 +100,10 @@ public class TestResultTest extends TestCase {
                 "A B Y\n"
                         + "x 0 0\n"
                         + "x 1 1\n");
-        TestResult tr = new TestResult(data).create(model);
+        TestExecuter te = new TestExecuter(data).create(model);
+        ValueTable tr = te.getResult();
         assertEquals(4,tr.getRows());
-        assertTrue(tr.allPassed());
+        assertTrue(te.allPassed());
     }
 
     public void testResultDontCareInput2() throws Exception {
@@ -107,9 +112,10 @@ public class TestResultTest extends TestCase {
                 "A B C Y\n"
                         + "x x 0 0\n"
                         + "x x 1 1\n");
-        TestResult tr = new TestResult(data).create(model);
+        TestExecuter te = new TestExecuter(data).create(model);
+        ValueTable tr = te.getResult();
         assertEquals(8,tr.getRows());
-        assertTrue(tr.allPassed());
+        assertTrue(te.allPassed());
     }
 
 }

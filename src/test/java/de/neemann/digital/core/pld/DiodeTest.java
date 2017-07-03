@@ -3,7 +3,7 @@ package de.neemann.digital.core.pld;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.testing.Value;
+import de.neemann.digital.data.Value;
 import junit.framework.TestCase;
 
 import java.io.IOException;

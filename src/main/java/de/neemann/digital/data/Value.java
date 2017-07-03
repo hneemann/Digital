@@ -1,4 +1,4 @@
-package de.neemann.digital.testing;
+package de.neemann.digital.data;
 
 import de.neemann.digital.core.ObservableValue;
 
@@ -10,7 +10,7 @@ import de.neemann.digital.core.ObservableValue;
 public class Value {
 
     /**
-     * Types of values
+     * Types of value
      */
     public enum Type {
         /**
@@ -29,6 +29,25 @@ public class Value {
          * its a clock value which is handled as a 0-1-0 sequence
          */
         CLOCK
+    }
+
+    /**
+     * state of value
+     */
+    public enum State {
+        /**
+         * a normals value
+         */
+        NORMAL,
+        /**
+         * value is a passed test
+         */
+        PASS,
+        /**
+         * value is a failed test
+         */
+        FAIL
+
     }
 
     private final long value;
@@ -133,6 +152,13 @@ public class Value {
      */
     public Type getType() {
         return type;
+    }
+
+    /**
+     * @return the state of this value
+     */
+    public State getState() {
+        return State.NORMAL;
     }
 
     /**

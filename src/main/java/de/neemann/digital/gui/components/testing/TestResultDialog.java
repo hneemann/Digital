@@ -2,6 +2,8 @@ package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.data.ValueTableModel;
+import de.neemann.digital.data.Value;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -54,13 +56,13 @@ public class TestResultDialog extends JDialog {
         for (TestSet ts : tsl) {
             Model model = new ModelCreator(circuit, library).createModel(false);
 
-            TestResult tr = new TestResult(ts.data).create(model);
+            TestExecuter testExecuter = new TestExecuter(ts.data).create(model);
 
-            if (tr.getException() != null)
-                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorWhileExecutingTests_N0", ts.name)).addCause(tr.getException()).setComponent(this));
+            if (testExecuter.getException() != null)
+                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorWhileExecutingTests_N0", ts.name)).addCause(testExecuter.getException()).setComponent(this));
 
-            JTable table = new JTable(new TestResultModel(tr));
-            table.setDefaultRenderer(MatchedValue.class, new MatchedValueRenderer());
+            JTable table = new JTable(new ValueTableModel(testExecuter.getResult()));
+            table.setDefaultRenderer(Value.class, new ValueRenderer());
             table.setDefaultRenderer(Integer.class, new NumberRenderer());
             final Font font = table.getFont();
             table.getColumnModel().getColumn(0).setMaxWidth(font.getSize()*4);
@@ -68,7 +70,7 @@ public class TestResultDialog extends JDialog {
 
             String tabName;
             Icon tabIcon;
-            if (tr.allPassed()) {
+            if (testExecuter.allPassed()) {
                 tabName = Lang.get("msg_test_N_Passed", ts.name);
                 tabIcon = ICON_PASSED;
             } else {
@@ -76,11 +78,11 @@ public class TestResultDialog extends JDialog {
                 tabIcon = ICON_FAILED;
                 errorTabIndex = i;
             }
-            if (tr.toManyResults())
+            if (testExecuter.toManyResults())
                 tabName += " " + Lang.get("msg_test_missingLines");
 
             tp.addTab(tabName, tabIcon, new JScrollPane(table));
-            if (tr.toManyResults())
+            if (testExecuter.toManyResults())
                 tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
             i++;
         }
@@ -134,7 +136,7 @@ public class TestResultDialog extends JDialog {
         }
     }
 
-    private static class MatchedValueRenderer extends DefaultTableCellRenderer {
+    private static class ValueRenderer extends DefaultTableCellRenderer {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -144,13 +146,17 @@ public class TestResultDialog extends JDialog {
                 comp.setText(v.toString());
                 comp.setHorizontalAlignment(JLabel.CENTER);
 
-                if (v instanceof MatchedValue) {
-                    if (((MatchedValue) v).isPassed())
-                        comp.setBackground(PASSED_COLOR);
-                    else
+                switch (((Value) value).getState()) {
+                    case NORMAL:
+                        comp.setBackground(Color.WHITE);
+                        break;
+                    case FAIL:
                         comp.setBackground(FAILED_COLOR);
-                } else
-                    comp.setBackground(Color.WHITE);
+                        break;
+                    case PASS:
+                        comp.setBackground(PASSED_COLOR);
+                        break;
+                }
             }
             return comp;
         }

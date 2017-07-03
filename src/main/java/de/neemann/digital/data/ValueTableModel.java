@@ -1,8 +1,6 @@
-package de.neemann.digital.gui.components.testing;
+package de.neemann.digital.data;
 
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.MatchedValue;
-import de.neemann.digital.testing.TestResult;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -12,27 +10,27 @@ import javax.swing.table.TableModel;
  * <p>
  * Created by hneemann on 24.08.16.
  */
-public class TestResultModel implements TableModel {
+public class ValueTableModel implements TableModel {
 
-    private final TestResult testResult;
+    private final ValueTable values;
 
     /**
      * Creates a new table model
      *
-     * @param testResult the testresult to wrap
+     * @param values the values to wrap
      */
-    public TestResultModel(TestResult testResult) {
-        this.testResult = testResult;
+    public ValueTableModel(ValueTable values) {
+        this.values = values;
     }
 
     @Override
     public int getRowCount() {
-        return testResult.getRows();
+        return values.getRows();
     }
 
     @Override
     public int getColumnCount() {
-        return testResult.getSignalCount() + 1;
+        return values.getColumns() + 1;
     }
 
     @Override
@@ -40,7 +38,7 @@ public class TestResultModel implements TableModel {
         if (columnIndex == 0)
             return Lang.get("number");
         else
-            return testResult.getSignalName(columnIndex - 1);
+            return values.getColumnName(columnIndex - 1);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class TestResultModel implements TableModel {
         if (columnIndex == 0)
             return Integer.class;
         else
-            return MatchedValue.class;
+            return Value.class;
     }
 
     @Override
@@ -61,7 +59,7 @@ public class TestResultModel implements TableModel {
         if (columnIndex == 0)
             return rowIndex;
         else
-            return testResult.getResultValue(rowIndex, columnIndex - 1);
+            return values.getValue(rowIndex, columnIndex - 1);
     }
 
 

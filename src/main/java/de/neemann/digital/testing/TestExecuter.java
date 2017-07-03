@@ -5,6 +5,8 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.data.Value;
+import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.LineEmitter;
@@ -19,13 +21,13 @@ import java.util.HashSet;
  *
  * @author hneemann
  */
-public class TestResult {
+public class TestExecuter {
     private static final int MAX_RESULTS = 1 << 10;
     private static final int ERR_RESULTS = MAX_RESULTS * 2;
 
     private final ArrayList<String> names;
     private final LineEmitter lines;
-    private final ArrayList<Value[]> results;
+    private final ValueTable results;
     private boolean allPassed;
     private Exception exception;
     private boolean toManyResults = false;
@@ -38,10 +40,10 @@ public class TestResult {
      * @param testData the testing data
      * @throws TestingDataException DataException
      */
-    public TestResult(TestData testData) throws TestingDataException {
+    public TestExecuter(TestData testData) throws TestingDataException {
         names = testData.getNames();
+        results = new ValueTable(names);
         lines = testData.getLines();
-        results = new ArrayList<>();
     }
 
     /**
@@ -52,7 +54,7 @@ public class TestResult {
      * @throws TestingDataException DataException
      * @throws NodeException        NodeException
      */
-    public TestResult create(Model model) throws TestingDataException, NodeException {
+    public TestExecuter create(Model model) throws TestingDataException, NodeException {
         allPassed = true;
         HashSet<String> usedSignals = new HashSet<>();
 
@@ -162,7 +164,7 @@ public class TestResult {
             }
         }
 
-        if (results.size() < (ok ? MAX_RESULTS : ERR_RESULTS))
+        if (results.getRows() < (ok ? MAX_RESULTS : ERR_RESULTS))
             results.add(res);
         else
             toManyResults = true;
@@ -199,38 +201,10 @@ public class TestResult {
     }
 
     /**
-     * @return the number of rows
+     * @return return the result
      */
-    public int getRows() {
-        return results.size();
-    }
-
-    /**
-     * @return the number of signals
-     */
-    public int getSignalCount() {
-        return names.size();
-    }
-
-    /**
-     * returns a signal name
-     *
-     * @param index the index of the requested signals name
-     * @return the signals name
-     */
-    public String getSignalName(int index) {
-        return names.get(index);
-    }
-
-    /**
-     * Returns the typed value
-     *
-     * @param rowIndex    rowIndex
-     * @param columnIndex columnIndex
-     * @return the value
-     */
-    public Value getResultValue(int rowIndex, int columnIndex) {
-        return results.get(rowIndex)[columnIndex];
+    public ValueTable getResult() {
+        return results;
     }
 
     /**

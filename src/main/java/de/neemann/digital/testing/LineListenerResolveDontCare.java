@@ -1,5 +1,6 @@
 package de.neemann.digital.testing;
 
+import de.neemann.digital.data.Value;
 import de.neemann.digital.testing.parser.LineListener;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class LineListenerResolveDontCare implements LineListener {
 
     private final LineListener parent;
-    private final ArrayList<TestResult.TestSignal> inputs;
+    private final ArrayList<TestExecuter.TestSignal> inputs;
 
     /**
      * Create a new instance
@@ -19,7 +20,7 @@ public class LineListenerResolveDontCare implements LineListener {
      * @param parent the parent listener
      * @param inputs the input test signals
      */
-    public LineListenerResolveDontCare(LineListener parent, ArrayList<TestResult.TestSignal> inputs) {
+    public LineListenerResolveDontCare(LineListener parent, ArrayList<TestExecuter.TestSignal> inputs) {
         this.parent = parent;
         this.inputs = inputs;
     }
@@ -27,7 +28,7 @@ public class LineListenerResolveDontCare implements LineListener {
     @Override
     public void add(Value[] rowWithDontCare) {
         ArrayList<Integer> dcIndex = null;
-        for (TestResult.TestSignal in : inputs) {
+        for (TestExecuter.TestSignal in : inputs) {
             if (rowWithDontCare[in.getIndex()].getType() == Value.Type.DONTCARE) {
                 if (dcIndex == null)
                     dcIndex = new ArrayList<>();

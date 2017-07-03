@@ -1,6 +1,7 @@
 package de.neemann.digital.testing;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.data.Value;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -18,7 +19,7 @@ public class MatchedValue extends Value {
      * @param expected the expected value
      * @param found    the found value
      */
-    public MatchedValue(Value expected, ObservableValue found) {
+    MatchedValue(Value expected, ObservableValue found) {
         super(found);
         this.expected = expected;
     }
@@ -26,7 +27,7 @@ public class MatchedValue extends Value {
     /**
      * @return true if test is passed
      */
-    public boolean isPassed() {
+    boolean isPassed() {
         return isEqualTo(expected);
     }
 
@@ -36,5 +37,13 @@ public class MatchedValue extends Value {
             return super.toString();
         else
             return Lang.get("msg_testExp_N0_found_N1", expected, super.toString());
+    }
+
+    @Override
+    public State getState() {
+        if (isPassed())
+            return State.PASS;
+        else
+            return State.FAIL;
     }
 }

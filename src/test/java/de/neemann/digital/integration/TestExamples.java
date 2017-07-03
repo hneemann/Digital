@@ -5,7 +5,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestData;
-import de.neemann.digital.testing.TestResult;
+import de.neemann.digital.testing.TestExecuter;
 import junit.framework.TestCase;
 
 import java.io.File;
@@ -69,7 +69,7 @@ public class TestExamples extends TestCase {
                     TestData td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
 
                     Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
-                    TestResult tr = new TestResult(td).create(model);
+                    TestExecuter tr = new TestExecuter(td).create(model);
 
                     if (label.contains("Failing"))
                         assertFalse(dig.getName() + ":" + label, tr.allPassed());

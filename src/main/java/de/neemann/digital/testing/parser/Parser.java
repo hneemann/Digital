@@ -1,7 +1,7 @@
 package de.neemann.digital.testing.parser;
 
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.Value;
+import de.neemann.digital.data.Value;
 
 import java.io.BufferedReader;
 import java.io.IOException;
