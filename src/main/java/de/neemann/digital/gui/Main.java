@@ -838,7 +838,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (tsl.isEmpty())
                 throw new TestingDataException(Lang.get("err_noTestData"));
 
-            windowPosManager.register("testResult", new ValueTableDialog(Main.this).addTestResult(tsl, circuitComponent.getCircuit(), library)).setVisible(true);
+            windowPosManager.register("testResult", new ValueTableDialog(Main.this, Lang.get("msg_testResult"))
+                    .addTestResult(tsl, circuitComponent.getCircuit(), library))
+                    .setVisible(true);
 
             ensureModelIsStopped();
         } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {

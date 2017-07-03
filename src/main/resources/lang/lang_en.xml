@@ -946,6 +946,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="win_table_exportDialog">Export</string>
     <string name="win_itempicker_title">Select</string>
     <string name="win_testdata_N">Testdata {0}</string>
+    <string name="win_data">Data</string>
 
     <string name="btn_help">Help</string>
 

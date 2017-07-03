@@ -950,6 +950,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="tt_moveItemUp">Eintrag nach oben schieben</string>
     <string name="win_allSolutions">Alle möglichen Lösungen</string>
     <string name="win_testdata_N">Testdaten {0}</string>
+    <string name="win_data">Daten</string>
     <string name="win_confirmExit">Beenden bestätigen!</string>
     <string name="win_measures">Messwerte</string>
     <string name="win_measures_fullstep">Messwerte im Vollschrittmodus</string>

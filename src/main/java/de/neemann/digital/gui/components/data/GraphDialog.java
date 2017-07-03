@@ -130,7 +130,9 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
         showTable = new ToolTipAction(Lang.get("menu_showDataAsTable")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ValueTableDialog(owner).addValueTable("Data", logData).disableGraph().setVisible(true);
+                new ValueTableDialog(owner, title)
+                        .addValueTable(Lang.get("win_data"), logData).disableGraph()
+                        .setVisible(true);
             }
         }.setToolTip(Lang.get("menu_showDataAsTable_tt"));
 

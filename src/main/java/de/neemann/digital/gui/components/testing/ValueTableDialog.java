@@ -46,9 +46,10 @@ public class ValueTableDialog extends JDialog {
      * Creates a new result dialog.
      *
      * @param owner the parent frame
+     * @param title the frame title
      */
-    public ValueTableDialog(JFrame owner) {
-        super(owner, Lang.get("msg_testResult"), false);
+    public ValueTableDialog(JFrame owner, String title) {
+        super(owner, title, false);
         this.owner = owner;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
