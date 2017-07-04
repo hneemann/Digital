@@ -275,7 +275,7 @@
             <elementName>Text</elementName>
             <elementAttributes>
                 <entry>
-                    <string>Label</string>
+                    <string>Description</string>
                     <string>Master</string>
                 </entry>
             </elementAttributes>
@@ -286,7 +286,7 @@
             <elementName>Text</elementName>
             <elementAttributes>
                 <entry>
-                    <string>Label</string>
+                    <string>Description</string>
                     <string>Slave</string>
                 </entry>
             </elementAttributes>

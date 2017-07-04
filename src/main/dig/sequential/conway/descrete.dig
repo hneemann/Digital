@@ -182,7 +182,7 @@ into a LUT to speedup the cellular automaton.</string>
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>birth</string>
         </entry>
       </elementAttributes>
@@ -226,7 +226,7 @@ into a LUT to speedup the cellular automaton.</string>
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>survive</string>
         </entry>
       </elementAttributes>
@@ -275,7 +275,7 @@ next state. Is used to initialize the cell.</string>
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>neighbours</string>
         </entry>
       </elementAttributes>

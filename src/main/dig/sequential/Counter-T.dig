@@ -169,7 +169,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Asynchroner Zähler mit T-Flipflops</string>
         </entry>
       </elementAttributes>

@@ -138,7 +138,7 @@ auszuprobieren.</string>
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>*</string>
         </entry>
       </elementAttributes>
@@ -148,7 +148,7 @@ auszuprobieren.</string>
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>=</string>
         </entry>
       </elementAttributes>

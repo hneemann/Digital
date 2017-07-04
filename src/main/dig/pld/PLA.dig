@@ -967,7 +967,7 @@ A B C D  Y_3
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>AND Matrix</string>
         </entry>
       </elementAttributes>
@@ -977,7 +977,7 @@ A B C D  Y_3
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>OR Matrix</string>
         </entry>
       </elementAttributes>

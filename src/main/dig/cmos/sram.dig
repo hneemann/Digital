@@ -1349,7 +1349,7 @@ repeat(16) bits(4,n)    0  x    0
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>16-Bit SRAM</string>
         </entry>
       </elementAttributes>

@@ -117,7 +117,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>$R$</string>
         </entry>
       </elementAttributes>

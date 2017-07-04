@@ -157,7 +157,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Synchroner Zähler mit JK-Flipflops</string>
         </entry>
       </elementAttributes>
