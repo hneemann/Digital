@@ -1,9 +1,6 @@
 package de.neemann.digital.gui.components.data;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserver;
-import de.neemann.digital.core.Signal;
+import de.neemann.digital.core.*;
 import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.OrderMerger;
@@ -29,13 +26,11 @@ import java.util.List;
  *
  * @author hneemann
  */
-public class GraphDialog extends JDialog implements ModelStateObserver {
+public class GraphDialog extends JDialog implements Observer {
     private static final int MAX_SAMPLE_SIZE = 1000;
     private final GraphComponent dsc;
     private final JScrollPane scrollPane;
-    private final Sync modelSync;
     private final ToolTipAction showTable;
-    private ValueTableObserver valueTableObserver;
 
     private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
     private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
@@ -95,8 +90,6 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
      */
     private GraphDialog(JFrame owner, String title, Model model, ValueTable logData, ValueTableObserver valueTableObserver, Sync modelSync) {
         super(owner, title, false);
-        this.valueTableObserver = valueTableObserver;
-        this.modelSync = modelSync;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
@@ -104,6 +97,8 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
         scrollPane = new JScrollPane(dsc);
         getContentPane().add(scrollPane);
         dsc.setScrollPane(scrollPane);
+
+        logData.addObserver(this);
 
         JToolBar toolBar = new JToolBar();
         ToolTipAction maximize = new ToolTipAction(Lang.get("menu_maximize"), ICON_EXPAND) {
@@ -147,12 +142,12 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
             addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowOpened(WindowEvent e) {
-                    modelSync.access(() -> model.addObserver(GraphDialog.this));
+                    modelSync.access(() -> model.addObserver(valueTableObserver));
                 }
 
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    modelSync.access(() -> model.removeObserver(GraphDialog.this));
+                    modelSync.access(() -> model.removeObserver(valueTableObserver));
                 }
             });
 
@@ -185,10 +180,7 @@ public class GraphDialog extends JDialog implements ModelStateObserver {
     }
 
     @Override
-    public void handleEvent(ModelEvent event) {
-        modelSync.access(() -> {
-            valueTableObserver.handleEvent(event);
-        });
+    public void hasChanged() {
         SwingUtilities.invokeLater(() -> {
             dsc.revalidate();
             dsc.repaint();
