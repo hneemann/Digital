@@ -92,26 +92,27 @@ public class DataPlotter implements Drawable {
                     Style style;
                     switch (s[i].getState()) {
                         case FAIL:
-                            style=Style.FAILED;
+                            style = Style.FAILED;
                             break;
                         case PASS:
-                            style=Style.PASS;
+                            style = Style.PASS;
                             break;
                         default:
-                            style=Style.NORMAL;
+                            style = Style.NORMAL;
                     }
 
                     long width = data.getMax(i);
                     if (width == 0) width = 1;
                     int ry;
                     if (s[i].getType() == Value.Type.CLOCK) {
+                        int xdown = (int) (size / 4);
                         ry = 0;
-                        g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size / 2), y + ry), style);
+                        g.drawLine(new Vector(xx, y + ry), new Vector(xx + xdown, y + ry), style);
                         if (!first && ry != lastRy[i])
                             g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
                         ry = SIZE;
-                        g.drawLine(new Vector((int) (xx + size / 2), y + ry), new Vector((int) (xx + size), y + ry), style);
-                        g.drawLine(new Vector((int) (xx + size / 2), y), new Vector((int) (xx + size / 2), y + SIZE), style);
+                        g.drawLine(new Vector(xx + xdown, y + ry), new Vector((int) (xx + size), y + ry), style);
+                        g.drawLine(new Vector(xx + xdown, y), new Vector(xx + xdown, y + SIZE), style);
                     } else {
                         ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
                         g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
