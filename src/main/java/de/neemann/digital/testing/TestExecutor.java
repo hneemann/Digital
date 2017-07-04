@@ -132,19 +132,25 @@ public class TestExecutor {
         try {
             if (clockIsUsed) {  // a clock signal is used
                 model.doStep();  // propagate all except clock
+                addClockRow(row.length);
 
                 // set clock
                 for (TestSignal in : inputs)
-                    if (row[in.index].getType() == Value.Type.CLOCK)
+                    if (row[in.index].getType() == Value.Type.CLOCK) {
                         row[in.index].copyTo(in.value);
+                        res[in.index] = row[in.index];
+                    }
 
                 // propagate clock change
                 model.doStep();
+                addClockRow(row.length);
 
                 // restore clock
                 for (TestSignal in : inputs)   // invert the clock values
-                    if (row[in.index].getType() == Value.Type.CLOCK)
+                    if (row[in.index].getType() == Value.Type.CLOCK) {
                         in.value.setBool(!in.value.getBool());
+                        res[in.index] = new Value(in.value);
+                    }
             }
 
             model.doStep();
@@ -167,6 +173,18 @@ public class TestExecutor {
         if (results.getRows() < (ok ? MAX_RESULTS : ERR_RESULTS))
             results.add(res);
         else
+            toManyResults = true;
+    }
+
+    private void addClockRow(int cols) {
+        if (results.getRows() < ERR_RESULTS) {
+            Value[] r = new Value[cols];
+            for (TestSignal out : outputs)
+                r[out.index] = new Value(out.value);
+            for (TestSignal in : inputs)
+                r[in.index] = new Value(in.value);
+            results.add(r).omitInTable();
+        } else
             toManyResults = true;
     }
 

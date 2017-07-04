@@ -15,6 +15,7 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
 
     private final String[] names;
     private final ArrayList<Value[]> values;
+    private ArrayList<Integer> tableRowIndex;
     private final long[] max;
     private int maxSize = 0;
 
@@ -46,6 +47,16 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
     }
 
     /**
+     * @return number of rows in a table
+     */
+    public int getTableRows() {
+        if (tableRowIndex == null)
+            return values.size();
+        else
+            return tableRowIndex.size();
+    }
+
+    /**
      * add values without copying them
      *
      * @param row a row to insert, values are not copied!
@@ -53,19 +64,42 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
      */
     public ValueTable add(Value[] row) {
         if (maxSize > 0 && values.size() >= maxSize) {
+
+            if (tableRowIndex != null)
+                throw new RuntimeException("delete not allowed if table index is present");
+
             while (values.size() >= maxSize)
                 values.remove(0);
             Arrays.fill(max, 0);
             for (Value[] v : values)
                 checkMax(v);
         }
+        if (tableRowIndex != null)
+            tableRowIndex.add(values.size());
         values.add(row);
+
         checkMax(row);
 
         fireHasChanged();
 
         return this;
     }
+
+    /**
+     * omit the last added value in a table representation
+     *
+     * @return this for chained calls
+     */
+    public ValueTable omitInTable() {
+        if (tableRowIndex == null) {
+            tableRowIndex = new ArrayList<>();
+            for (int i = 0; i < values.size(); i++)
+                tableRowIndex.add(i);
+        }
+        tableRowIndex.remove(tableRowIndex.size() - 1);
+        return this;
+    }
+
 
     private void checkMax(Value[] row) {
         for (int i = 0; i < row.length; i++)
@@ -75,12 +109,26 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
     /**
      * provides the values
      *
-     * @param rowIndex    the wow
+     * @param rowIndex    the row
      * @param columnIndex the column
      * @return the value stored at the given position
      */
     public Value getValue(int rowIndex, int columnIndex) {
         return values.get(rowIndex)[columnIndex];
+    }
+
+    /**
+     * provides the values for the use in a table
+     *
+     * @param rowIndex    the row
+     * @param columnIndex the column
+     * @return the value stored at the given position
+     */
+    public Value getTableValue(int rowIndex, int columnIndex) {
+        if (tableRowIndex == null)
+            return values.get(rowIndex)[columnIndex];
+        else
+            return values.get(tableRowIndex.get(rowIndex))[columnIndex];
     }
 
     /**

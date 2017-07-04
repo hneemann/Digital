@@ -104,21 +104,10 @@ public class DataPlotter implements Drawable {
                     long width = data.getMax(i);
                     if (width == 0) width = 1;
                     int ry;
-                    if (s[i].getType() == Value.Type.CLOCK) {
-                        int xdown = (int) (size / 4);
-                        ry = 0;
-                        g.drawLine(new Vector(xx, y + ry), new Vector(xx + xdown, y + ry), style);
-                        if (!first && ry != lastRy[i])
-                            g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
-                        ry = SIZE;
-                        g.drawLine(new Vector(xx + xdown, y + ry), new Vector((int) (xx + size), y + ry), style);
-                        g.drawLine(new Vector(xx + xdown, y), new Vector(xx + xdown, y + SIZE), style);
-                    } else {
-                        ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
-                        g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
-                        if (!first && ry != lastRy[i])
-                            g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
-                    }
+                    ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
+                    g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
+                    if (!first && ry != lastRy[i])
+                        g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
 
                     lastRy[i] = ry;
                     y += SIZE + SEP;

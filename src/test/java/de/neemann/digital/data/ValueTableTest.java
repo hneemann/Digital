@@ -44,4 +44,17 @@ public class ValueTableTest extends TestCase {
         assertEquals(4,t.getMax(1));
         assertEquals(3,t.getMax(2));
     }
+
+    public void testOmit() {
+        ValueTable t = new ValueTable("A");
+        t.add(new Value[]{new Value(1)});
+        t.add(new Value[]{new Value(2)}).omitInTable();
+        t.add(new Value[]{new Value(3)});
+        t.add(new Value[]{new Value(4)}).omitInTable();
+        t.add(new Value[]{new Value(5)});
+        assertEquals(3,t.getTableRows());
+        assertTrue(new Value(1).isEqualTo(t.getTableValue(0,0)));
+        assertTrue(new Value(3).isEqualTo(t.getTableValue(1,0)));
+        assertTrue(new Value(5).isEqualTo(t.getTableValue(2,0)));
+    }
 }

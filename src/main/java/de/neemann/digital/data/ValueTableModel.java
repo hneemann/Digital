@@ -32,7 +32,7 @@ public class ValueTableModel implements TableModel, Observer {
 
     @Override
     public int getRowCount() {
-        return values.getRows();
+        return values.getTableRows();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ValueTableModel implements TableModel, Observer {
         if (columnIndex == 0)
             return rowIndex;
         else
-            return values.getValue(rowIndex, columnIndex - 1);
+            return values.getTableValue(rowIndex, columnIndex - 1);
     }
 
 
