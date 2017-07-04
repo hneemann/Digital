@@ -1,8 +1,11 @@
 package de.neemann.digital.gui.components.data;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.data.ValueTable;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.gui.SaveAsHelper;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.sync.NoSync;
@@ -18,6 +21,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -163,6 +167,8 @@ public class GraphDialog extends JDialog implements Observer {
                         .checkOverwrite(logData::saveCSV);
             }
         }.setToolTip(Lang.get("menu_saveData_tt")).createJMenuItem());
+        file.add(new ExportAction(Lang.get("menu_exportSVG"), GraphicSVGIndex::new).createJMenuItem());
+        file.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), GraphicSVGLaTeX::new).createJMenuItem());
 
         JMenu view = new JMenu(Lang.get("menu_view"));
         bar.add(view);
@@ -197,5 +203,42 @@ public class GraphDialog extends JDialog implements Observer {
     public GraphDialog disableTable() {
         showTable.setActive(false);
         return this;
+    }
+
+    private final class ExportAction extends ToolTipAction {
+        private final ExportFactory factory;
+
+        private ExportAction(String title, ExportFactory factory) {
+            super(title);
+            this.factory = factory;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fileChooser = new MyFileChooser();
+
+            ElementAttributes settings = Settings.getInstance().getAttributes();
+            File exportDir = settings.getFile("exportDirectory");
+            if (exportDir != null)
+                fileChooser.setCurrentDirectory(exportDir);
+
+
+            fileChooser.setFileFilter(new FileNameExtensionFilter("SVG", "svg"));
+            new SaveAsHelper(GraphDialog.this, fileChooser, "svg")
+                    .checkOverwrite(file -> {
+                        settings.setFile("exportDirectory", file.getParentFile());
+                        Graphic gr = factory.create(new FileOutputStream(file));
+                        try {
+                            GraphicMinMax minMax = new GraphicMinMax();
+                            dsc.getPlotter().drawTo(minMax, null);
+                            gr.setBoundingBox(minMax.getMin(), minMax.getMax());
+                            dsc.getPlotter().drawTo(gr, null);
+                        } finally {
+                            if (gr instanceof Closeable)
+                                ((Closeable) gr).close();
+                        }
+                    });
+        }
+
     }
 }

@@ -76,8 +76,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
 
-    private static File lastExportDirectory;
-
     /**
      * @return true if experimental features are enabled
      */
@@ -1205,13 +1203,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (filename != null)
                 fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, suffix));
 
-            if (lastExportDirectory != null)
-                fc.setCurrentDirectory(lastExportDirectory);
+            ElementAttributes settings = Settings.getInstance().getAttributes();
+            File exportDir = settings.getFile("exportDirectory");
+            if (exportDir != null)
+                fc.setCurrentDirectory(exportDir);
 
             fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
             new SaveAsHelper(Main.this, fc, suffix).checkOverwrite(
                     file -> {
-                        lastExportDirectory = file.getParentFile();
+                        settings.setFile("exportDirectory", file.getParentFile());
                         try (OutputStream out = new FileOutputStream(file)) {
                             new Export(circuitComponent.getCircuit(), exportFactory).export(out);
                         }
@@ -1234,13 +1234,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (filename != null)
                 fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, "gif"));
 
-            if (lastExportDirectory != null)
-                fc.setCurrentDirectory(lastExportDirectory);
+            ElementAttributes settings = Settings.getInstance().getAttributes();
+            File exportDir = settings.getFile("exportDirectory");
+            if (exportDir != null)
+                fc.setCurrentDirectory(exportDir);
 
             fc.addChoosableFileFilter(new FileNameExtensionFilter(name, "gif"));
             new SaveAsHelper(Main.this, fc, "gif").checkOverwrite(
                     file -> {
-                        lastExportDirectory = file.getParentFile();
+                        settings.setFile("exportDirectory", file.getParentFile());
                         GifExporter gifExporter = new GifExporter(Main.this, circuitComponent.getCircuit(), 500, file);
                         setDebug(false);
                         windowPosManager.closeAll();

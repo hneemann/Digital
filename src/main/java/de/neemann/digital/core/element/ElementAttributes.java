@@ -216,9 +216,15 @@ public class ElementAttributes {
      * @param file    the file
      */
     public void setFile(String fileKey, File file) {
-        if (attributes == null)
-            attributes = new HashMap<>();
-        attributes.put(fileKey, file.getPath());
+        if (file == null) {
+            if (attributes != null)
+                attributes.remove(fileKey);
+        } else if (!file.equals(getFile(fileKey))) {
+            if (attributes == null)
+                attributes = new HashMap<>();
+            attributes.put(fileKey, file.getPath());
+            fireValueChanged();
+        }
     }
 
     /**

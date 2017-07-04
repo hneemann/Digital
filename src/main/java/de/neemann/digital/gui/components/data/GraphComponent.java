@@ -87,4 +87,11 @@ public class GraphComponent extends JComponent {
     public void setScrollPane(JScrollPane scrollPane) {
         this.scrollPane = scrollPane;
     }
+
+    /**
+     * @return the data plotter
+     */
+    public DataPlotter getPlotter() {
+        return plotter;
+    }
 }
