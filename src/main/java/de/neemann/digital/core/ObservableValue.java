@@ -11,6 +11,7 @@ public class ObservableValue extends Observable implements PinDescription {
 
     private final String name;
     private final long mask;
+    private final long signedFlag;
     private final boolean supportsHighZ;
     private final int bits;
     private long value;
@@ -45,6 +46,7 @@ public class ObservableValue extends Observable implements PinDescription {
             mask = -1;
         else
             mask = (1L << bits) - 1;
+        signedFlag = 1 << (bits - 1);
         this.name = name;
         supportsHighZ = highZ;
     }
@@ -138,6 +140,17 @@ public class ObservableValue extends Observable implements PinDescription {
         else {
             return getHexString(value);
         }
+    }
+
+    /**
+     * returns the actual value as a signed long
+     *
+     * @return the signed value
+     */
+    public long getValueSigned() {
+        long v = getValue();
+        if ((v & signedFlag) != 0) v |= ~mask;
+        return v;
     }
 
     /**

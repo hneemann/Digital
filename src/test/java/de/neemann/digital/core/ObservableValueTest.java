@@ -25,4 +25,24 @@ public class ObservableValueTest extends TestCase {
         assertEquals((1L << 62) - 1, v.getValue());
     }
 
+    public void testSigned() {
+        ObservableValue v = new ObservableValue("z", 4);
+        assertEquals(0, v.setValue(0).getValueSigned());
+        assertEquals(1, v.setValue(1).getValueSigned());
+        assertEquals(7, v.setValue(7).getValueSigned());
+        assertEquals(-8, v.setValue(8).getValueSigned());
+        assertEquals(-1, v.setValue(15).getValueSigned());
+        assertEquals(-1, v.setValue(-1).getValueSigned());
+
+        v = new ObservableValue("z", 1);
+        assertEquals(0, v.setValue(0).getValueSigned());
+        assertEquals(-1, v.setValue(1).getValueSigned());
+
+        v = new ObservableValue("z", 8);
+        assertEquals(127, v.setValue(127).getValueSigned());
+        assertEquals(-128, v.setValue(128).getValueSigned());
+        assertEquals(255, v.setValue(-1).getValue());
+        assertEquals(-1, v.setValue(-1).getValueSigned());
+    }
+
 }
