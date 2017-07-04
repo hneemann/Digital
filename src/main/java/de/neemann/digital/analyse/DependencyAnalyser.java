@@ -52,7 +52,7 @@ public class DependencyAnalyser {
         if (!effected.contains(value)) {
             effected.add(value);
 
-            for (Observer o : value) {
+            for (Observer o : value.getObservers()) {
                 if ((o instanceof NodeInterface)) {
                     ObservableValues outputs = ((NodeInterface) o).getOutputs();
                     for (ObservableValue co : outputs)

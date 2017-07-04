@@ -1,5 +1,7 @@
 package de.neemann.digital.data;
 
+import de.neemann.digital.core.Observable;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +11,7 @@ import java.util.Iterator;
  * Stores values in a table
  * Created by hneemann on 03.07.17.
  */
-public class ValueTable implements Iterable<Value[]> {
+public class ValueTable extends Observable implements Iterable<Value[]> {
 
     private final String[] names;
     private final ArrayList<Value[]> values;
@@ -59,6 +61,9 @@ public class ValueTable implements Iterable<Value[]> {
         }
         values.add(row);
         checkMax(row);
+
+        fireHasChanged();
+
         return this;
     }
 
@@ -151,6 +156,7 @@ public class ValueTable implements Iterable<Value[]> {
     public void clear() {
         values.clear();
         Arrays.fill(max, 0);
+        fireHasChanged();
     }
 
     /**
