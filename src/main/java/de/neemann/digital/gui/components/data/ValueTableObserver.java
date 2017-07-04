@@ -35,14 +35,10 @@ public class ValueTableObserver implements ModelStateObserver {
         else
             this.type = ModelEvent.STEP;
 
-        this.logData = new ValueTable(createNames(signals)).setMaxSize(maxSize);
-    }
-
-    private String[] createNames(ArrayList<Signal> signals) {
         String[] names = new String[signals.size()];
         for (int i = 0; i < signals.size(); i++)
             names[i] = signals.get(i).getName();
-        return names;
+        this.logData = new ValueTable(names).setMaxSize(maxSize);
     }
 
     @Override

@@ -26,6 +26,7 @@ import java.util.Collections;
 
 /**
  * Dialog to show the testing results.
+ * ToDo: Sync of data access is missing!
  *
  * @author hneemann
  */

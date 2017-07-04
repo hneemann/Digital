@@ -36,7 +36,6 @@ public class GraphDialog extends JDialog implements Observer {
     private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
     private static final Icon ICON_ZOOM_OUT = IconCreator.create("View-zoom-out.png");
 
-
     /**
      * Creates a instance prepared for "live logging"
      *
@@ -63,9 +62,22 @@ public class GraphDialog extends JDialog implements Observer {
         }.order(signals);
 
         ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, MAX_SAMPLE_SIZE);
-        ValueTable logData = valueTableObserver.getLogData();
 
-        return new GraphDialog(owner, title, model, logData, valueTableObserver, modelSync);
+        GraphDialog graphDialog = new GraphDialog(owner, title, valueTableObserver.getLogData(), modelSync);
+
+        graphDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                modelSync.access(() -> model.addObserver(valueTableObserver));
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                modelSync.access(() -> model.removeObserver(valueTableObserver));
+            }
+        });
+
+        return graphDialog;
     }
 
     /**
@@ -76,7 +88,7 @@ public class GraphDialog extends JDialog implements Observer {
      * @param logData the data to visualize
      */
     public GraphDialog(JFrame owner, String title, ValueTable logData) {
-        this(owner, title, null, logData, null, NoSync.INST);
+        this(owner, title, logData, NoSync.INST);
     }
 
     /**
@@ -84,11 +96,10 @@ public class GraphDialog extends JDialog implements Observer {
      *
      * @param owner     the parent frame
      * @param title     the frame title
-     * @param model     the model used to collect the data
      * @param logData   the data to visualize
      * @param modelSync used to access the running model
      */
-    private GraphDialog(JFrame owner, String title, Model model, ValueTable logData, ValueTableObserver valueTableObserver, Sync modelSync) {
+    private GraphDialog(JFrame owner, String title, ValueTable logData, Sync modelSync) {
         super(owner, title, false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -125,7 +136,7 @@ public class GraphDialog extends JDialog implements Observer {
         showTable = new ToolTipAction(Lang.get("menu_showDataAsTable")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ValueTableDialog(owner, title)
+                new ValueTableDialog(owner, title) // ToDo pass modelSync to ValueTableDialog
                         .addValueTable(Lang.get("win_data"), logData).disableGraph()
                         .setVisible(true);
             }
@@ -137,19 +148,6 @@ public class GraphDialog extends JDialog implements Observer {
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
         pack();
-
-        if (model != null)
-            addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowOpened(WindowEvent e) {
-                    modelSync.access(() -> model.addObserver(valueTableObserver));
-                }
-
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    modelSync.access(() -> model.removeObserver(valueTableObserver));
-                }
-            });
 
         scrollPane.getViewport().setPreferredSize(dsc.getPreferredSize());
 
