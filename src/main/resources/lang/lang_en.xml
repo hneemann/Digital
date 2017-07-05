@@ -564,6 +564,7 @@ The names of the variables may not be unique.</string>
     <string name="key_Size">Size</string>
     <string name="key_Size_tt">The size of the component in the circuit.</string>
     <string name="key_Language">Language</string>
+    <string name="key_Language_tt">Language of the GUI. Will only take effect after a restart.</string>
     <string name="key_NetName">Net name</string>
     <string name="key_NetName_tt">All nets with identical name are connected together.</string>
     <string name="key_InputSplitting">Input Splitting</string>
@@ -600,13 +601,18 @@ The names of the variables may not be unique.</string>
     <string name="key_maxStepCount">Max number of steps to show</string>
     <string name="key_maxStepCount_tt">The maximal number of values stored. If the maximum number is reached, the oldest values are discarded.</string>
     <string name="key_microStep">Show single gate steps</string>
+    <string name="key_microStep_tt">Shows all single step steps in the graphic.</string>
     <string name="key_rotation">Rotation</string>
     <string name="key_rotation_tt">The orientation of the Element in the circuit.</string>
     <string name="key_runRealTime">Start real time clock</string>
     <string name="key_runRealTime_tt">If enabled the runtime clock is started when the circuit is started</string>
     <string name="key_showDataGraph">Show measurement graph</string>
+    <string name="key_showDataGraph_tt">When the simulation is started, a graph with the measured values is shown.</string>
     <string name="key_showDataGraphMicro">Show measurement graph in single gate step mode</string>
+    <string name="key_showDataGraphMicro_tt">When the simulation is started, a graph with the measured values in the
+        gate step mode is shown. All gate changes are included in the graph.</string>
     <string name="key_showDataTable">Show measurement values</string>
+    <string name="key_showDataTable_tt">When the simulation is started, a table with the measured values is shown.</string>
     <string name="key_showList">Show list file if available</string>
     <string name="key_termHeight">Lines</string>
     <string name="key_termHeight_tt">The number of lines to show.</string>

@@ -574,6 +574,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Size">Größe</string>
     <string name="key_Size_tt">Die Größe des Elements in der Schaltung.</string>
     <string name="key_Language">Sprache</string>
+    <string name="key_Language_tt">Sprache der Oberfläche. Wird erst nach einem Neustart wirksam.</string>
     <string name="key_NetName">Netzname</string>
     <string name="key_NetName_tt">Alle Netze mit identischem Namen werden miteinander verbunden.</string>
     <string name="key_InputSplitting">Eingangsaufteilung</string>
@@ -610,13 +611,18 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_maxStepCount">Maximale Messpunktezahl</string>
     <string name="key_maxStepCount_tt">Die maximale Anzahl an Messpunkten die gespeichert werden, bevor die ältesten Messungen verworfen werden.</string>
     <string name="key_microStep">Zeige Einzelgatterschritte</string>
+    <string name="key_microStep_tt">Zeigt in der Grafik alle Einzelgatterschritte an.</string>
     <string name="key_rotation">Rotation</string>
     <string name="key_rotation_tt">Legt die Ausrichtung des Elementes in der Schaltung fest.</string>
     <string name="key_runRealTime">Echtzeittakt starten</string>
     <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet.</string>
     <string name="key_showDataGraph">Zeige Messwertegraph</string>
+    <string name="key_showDataGraph_tt">Beim Start der Simulation wird ein Graph mit den Messwerten angezeigt.</string>
     <string name="key_showDataGraphMicro">Zeige Messwertgraph im Gatterschrittmodus</string>
+    <string name="key_showDataGraphMicro_tt">Beim Start der Simulation wird ein Graph mit den Messwerten im Gatterschrittmodus
+        angezeigt. Dabei werden alle Gatterwechsel angezeigt.</string>
     <string name="key_showDataTable">Zeige Messwertetabelle</string>
+    <string name="key_showDataTable_tt">Beim Start der Simulation wird eine Tabelle mit den Messwerten angezeigt.</string>
     <string name="key_showList">Zeige Listing an, wenn verfügbar</string>
     <string name="key_termHeight">Zeilen</string>
     <string name="key_termHeight_tt">Die Anzahl der anzuzeigenden Zeilen.</string>

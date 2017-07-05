@@ -76,6 +76,13 @@ public class Key<VALUE> {
     }
 
     /**
+     * @return the language key
+     */
+    public String getLangKey() {
+        return langKey;
+    }
+
+    /**
      * A integer attribute.
      * Stores additional combo box values
      */
