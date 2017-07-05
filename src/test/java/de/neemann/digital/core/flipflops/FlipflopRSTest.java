@@ -11,7 +11,7 @@ import static de.neemann.digital.core.ObservableValues.ovs;
 /**
  * @author hneemann
  */
-public class FlipflopRS_Test extends TestCase {
+public class FlipflopRSTest extends TestCase {
     public void testFlipFlop() throws Exception {
         ObservableValue s = new ObservableValue("s", 1);
         ObservableValue c = new ObservableValue("c", 1);

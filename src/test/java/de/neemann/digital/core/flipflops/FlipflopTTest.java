@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 /**
  * @author hneemann
  */
-public class FlipflopT_Test extends TestCase {
+public class FlipflopTTest extends TestCase {
 
     public void testFlipFlop() throws Exception {
         ObservableValue c = new ObservableValue("c", 1);
