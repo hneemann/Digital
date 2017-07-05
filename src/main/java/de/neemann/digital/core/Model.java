@@ -443,8 +443,7 @@ public class Model implements Iterable<Node> {
         if (signal.isValid()) {
             signals.add(signal);
             outputs.add(signal);
-        } else
-            isInvalidSignal = true;
+        }
     }
 
     /**
