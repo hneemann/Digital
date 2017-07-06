@@ -44,6 +44,8 @@ public class ParserExpressionTest extends TestCase {
         assertEquals(1, new Parser("(n>>8)*(n&255)").getValue(new ContextWithVar("n").setValue(257)));
 
         assertEquals(0x11, new Parser("0x10+1").getValue());
+        assertEquals(0b11, new Parser("0b10+1").getValue());
+
         assertEquals(6, new Parser("a*b").getValue(new ContextWithVar(new ContextWithVar("a").setValue(2),"b").setValue(3)));
     }
 

@@ -124,7 +124,7 @@ public class Parser {
                 line = new LineEmitterSimple(names.size(), tok.getLine());
             switch (token) {
                 case NUMBER:
-                    Value num = new Value(tok.getIdent());
+                    Value num = new Value(convToLong(tok.getIdent()));
                     line.add((vals, context) -> vals.add(num));
                     break;
                 case BITS:
@@ -154,6 +154,18 @@ public class Parser {
                 default:
                     throw newUnexpectedToken(token);
             }
+        }
+    }
+
+    private long convToLong(String num) throws ParserException {
+        try {
+            num = num.trim().toLowerCase();
+            if (num.startsWith("0b"))
+                return Long.parseLong(num.substring(2), 2);
+            else
+                return Long.decode(num);
+        } catch (NumberFormatException e) {
+            throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
         }
     }
 
@@ -349,12 +361,8 @@ public class Parser {
                 String name = tok.getIdent();
                 return (c) -> c.getVar(name);
             case NUMBER:
-                try {
-                    long num = Long.decode(tok.getIdent());
-                    return (c) -> num;
-                } catch (NumberFormatException e) {
-                    throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
-                }
+                long num = convToLong(tok.getIdent());
+                return (c) -> num;
             case SUB:
                 Expression negExp = parseIdent();
                 return (c) -> -negExp.value(c);
