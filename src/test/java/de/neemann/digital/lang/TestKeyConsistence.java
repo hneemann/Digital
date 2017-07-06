@@ -31,6 +31,12 @@ public class TestKeyConsistence extends TestCase {
             Key key = ((Key) f.get(null));
             checkKey(key.getLangKey());
             checkKey(key.getLangKey() + "_tt");
+
+            if (key instanceof Key.KeyEnum) {
+                Key.KeyEnum ke = (Key.KeyEnum) key;
+                for (Enum v : ke.getValues())
+                    checkKey(ke.getLangKey(v));
+            }
         }
     }
 

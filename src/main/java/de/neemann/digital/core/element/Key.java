@@ -68,7 +68,7 @@ public class Key<VALUE> {
      * @return the keys description
      */
     public String getDescription() {
-        String d=Lang.getNull(langKey + "_tt");
+        String d = Lang.getNull(langKey + "_tt");
         if (d != null)
             return d;
         else
@@ -162,7 +162,17 @@ public class Key<VALUE> {
 
             names = new String[values.length];
             for (int i = 0; i < values.length; i++)
-                names[i] = Lang.get("key_" + key.replace(" ", "") + "_" + values[i].name());
+                names[i] = Lang.get(getLangKey(values[i]));
+        }
+
+        /**
+         * creates the language key for the enum values
+         *
+         * @param value the value
+         * @return the language key
+         */
+        public String getLangKey(E value) {
+            return getLangKey() + "_" + value.name();
         }
 
         /**
