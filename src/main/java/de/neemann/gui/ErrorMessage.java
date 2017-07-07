@@ -89,9 +89,15 @@ public class ErrorMessage implements Runnable {
      * @return this for call chaining
      */
     public ErrorMessage show(Component parent) {
-        JOptionPane.showMessageDialog(parent,
-                new LineBreaker(120).toHTML().preserveContainedLineBreaks().breakLines(message.toString()),
-                Lang.get("error"), JOptionPane.ERROR_MESSAGE);
+        JOptionPane optionPane = new JOptionPane(
+                new LineBreaker(120)
+                        .toHTML()
+                        .preserveContainedLineBreaks()
+                        .breakLines(message.toString()),
+                JOptionPane.ERROR_MESSAGE);
+        JDialog dialog = optionPane.createDialog(parent, Lang.get("error"));
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
         return this;
     }
 
