@@ -32,8 +32,13 @@ public class TextShape implements Shape {
     public TextShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         String text = attr.get(Keys.DESCRIPTION);
 
-        if (text.length() == 0)  // ToDo: used to show the text from old files.
+        if (text.length() == 0) { // ToDo: used to be compatible with old files. Can be removed in the future
             text = attr.getLabel();
+            if (text.length() > 0) {
+                attr.set(Keys.DESCRIPTION, text);
+                attr.set(Keys.LABEL, "");
+            }
+        }
 
         if (text.length() == 0)
             text = Lang.get("elem_Text");

@@ -1,6 +1,7 @@
 Release Notes
 
 planned as v0.13
+- Added a barrel shifter (thanks to roy77)
 - In case of oscillations almost all affected components are shown.
 - If an error occurs, the name of the affected circuit file is shown.
 - An input can have "high z" value as its default value.
@@ -18,8 +19,6 @@ planned as v0.13
 - Added zooming to measurement graphs.
 - Test results can be displayed as measurement graphs.
 - The Text component is able to show multiple lines.
-  CAUTION: If you modify the text in an text component created in the past, you have to
-           reenter the text.
 
 v0.12.1, released on 05. Jun 2016
 - added a fuse to simulate a PROM or PAL.
