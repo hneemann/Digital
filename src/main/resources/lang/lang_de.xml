@@ -212,7 +212,7 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_Mul_pin_b">Eingang b für Multiplikation.</string>
     <string name="elem_Mul_pin_mul">Ausgang mit dem Ergebnis der Multiplikation.</string>
     <string name="elem_BarrelShifter">Verschieber</string>
-    <string name="elem_BarrelShifter_tt">Ein Baustein zum Bitschieben. Verschiebt Eingang in den an Eingang shift angegebenen Wert.</string>
+    <string name="elem_BarrelShifter_tt">Ein Baustein zum Bitschieben. Verschiebt einen Wert um die am Eingang shift angegebene Anzahl von Bits.</string>
     <string name="elem_BarrelShifter_pin_in">Eingang mit zu verschiebenden Bits.</string>    
     <string name="elem_BarrelShifter_pin_shift">Eingang mit Weite der Verschiebung.</string>    
     <string name="elem_BarrelShifter_pin_out">Ausgang mit dem Ergebnis der Verschiebeoperation.</string>    
