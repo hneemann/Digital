@@ -2,6 +2,8 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.arithmetic.BarrelShifterMode;
+import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.IntFormat;
@@ -51,6 +53,8 @@ public final class EditorFactory {
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
         add(Rotation.class, RotationEditor.class);
+        add(BarrelShifterMode.class, BarrelShifterModeEditor.class);
+        add(LeftRightFormat.class, LeftRightFormatsEditor.class);
         add(IntFormat.class, IntFormatsEditor.class);
         add(Language.class, LanguageEditor.class);
         add(TestCaseDescription.class, TestCaseDesctiptionEditor.class);
@@ -460,6 +464,18 @@ public final class EditorFactory {
 
     private static final class IntFormatsEditor extends EnumEditor<IntFormat> {
         public IntFormatsEditor(IntFormat value, Key<IntFormat> key) {
+            super(value, key);
+        }
+    }
+
+    private static final class BarrelShifterModeEditor extends EnumEditor<BarrelShifterMode> {
+        public BarrelShifterModeEditor(BarrelShifterMode value, Key<BarrelShifterMode> key) {
+            super(value, key);
+        }
+    }
+
+    private static final class LeftRightFormatsEditor extends EnumEditor<LeftRightFormat> {
+        public LeftRightFormatsEditor(LeftRightFormat value, Key<LeftRightFormat> key) {
             super(value, key);
         }
     }

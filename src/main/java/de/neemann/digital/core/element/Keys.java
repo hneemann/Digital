@@ -1,6 +1,8 @@
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.core.arithmetic.BarrelShifterMode;
+import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
@@ -299,6 +301,24 @@ public final class Keys {
      */
     public static final Key<Boolean> RELAY_NORMALLY_CLOSED
             = new Key<>("relayNormallyClosed", false);
+
+    /**
+     * flag used by a barrelshifter to indicate if data are rotated
+     */
+    public static final Key<BarrelShifterMode> BARREL_SHIFTER_MODE
+            = new Key.KeyEnum<>("barrelShifterMode", BarrelShifterMode.normal, BarrelShifterMode.values());
+
+    /**
+     * flag used by a barrelshifter to indicate shift direction
+     */
+    public static final Key<LeftRightFormat> DIRECTION
+            = new Key.KeyEnum<>("direction", LeftRightFormat.left, LeftRightFormat.values());
+
+    /**
+     * flag used by a barrelshifter to indicate if shift value is signed
+     */
+    public static final Key<Boolean> BARREL_SIGNED
+            = new Key<>("barrelSigned", false);
 
     /**
      * Used to indicate if the 7-seg display has a common cathode output

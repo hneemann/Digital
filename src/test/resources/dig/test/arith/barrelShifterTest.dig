@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>D flip flop based on a SRAM cell.</string>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>BarrelShifter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>U_N_L</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="-120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Data</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="17" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="-160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Shift</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="2" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="-60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>UNL</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Data</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>UNL</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="-200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BarrelShifter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>U_R_L</string>
+        </entry>
+        <entry>
+          <string>datarotate</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>barrelShifterMode</string>
+          <barrelShifterMode>rotate</barrelShifterMode>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Signed</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BarrelShifter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Signed</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>S_R_L</string>
+        </entry>
+        <entry>
+          <string>datarotate</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>barrelShifterMode</string>
+          <barrelShifterMode>rotate</barrelShifterMode>
+        </entry>
+        <entry>
+          <string>barrelSigned</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>URL</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SRL</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>3,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>4</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>Data Shift Signed UNL URL SNL SRL
+12    0      0    12  12 12 12
+12    1      0    24  24 24 24
+12    2      0    48  48 48 48
+17    2      0     4   5  4  5
+12    3      0    32  33 32 33
+12    3      1    32  33  0 24
+12    7      1     0  24  6  6
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="20" y="-280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>URL</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="-60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SRL</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Neg</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="700"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>shift</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="700"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BarrelShifter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Signed</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>S_N_R</string>
+        </entry>
+        <entry>
+          <string>datarotate</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>barrelSigned</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="580"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SNR</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SNR</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BarrelShifter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>U_N_R</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>direction</string>
+          <direction>right</direction>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>UNR</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>UNR</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BarrelShifter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Signed</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>S_N_L</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>barrelSigned</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SNL</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SNL</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BarrelShifter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>U_A_R</string>
+        </entry>
+        <entry>
+          <string>datarotate</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>barrelShifterMode</string>
+          <barrelShifterMode>arithmetic</barrelShifterMode>
+        </entry>
+        <entry>
+          <string>direction</string>
+          <direction>right</direction>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>UAR</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>UAR</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="200"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="220" y="0"/>
+      <p2 x="260" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="580"/>
+      <p2 x="260" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="260"/>
+      <p2 x="460" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="260"/>
+      <p2 x="520" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="-140"/>
+      <p2 x="520" y="-140"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="140"/>
+      <p2 x="460" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="140"/>
+      <p2 x="520" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="460"/>
+      <p2 x="260" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="-80"/>
+      <p2 x="180" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="-80"/>
+      <p2 x="260" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="400"/>
+      <p2 x="260" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="20"/>
+      <p2 x="460" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="20"/>
+      <p2 x="520" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="280"/>
+      <p2 x="160" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="280"/>
+      <p2 x="260" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="600"/>
+      <p2 x="460" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="600"/>
+      <p2 x="520" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="80" y="-160"/>
+      <p2 x="160" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="-160"/>
+      <p2 x="220" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="160"/>
+      <p2 x="260" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="480"/>
+      <p2 x="460" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="480"/>
+      <p2 x="520" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="-100"/>
+      <p2 x="460" y="-100"/>
+    </wire>
+    <wire>
+      <p1 x="80" y="360"/>
+      <p2 x="120" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="360"/>
+      <p2 x="260" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="40"/>
+      <p2 x="260" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="620"/>
+      <p2 x="260" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="240"/>
+      <p2 x="260" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="500"/>
+      <p2 x="260" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="-120"/>
+      <p2 x="260" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="120"/>
+      <p2 x="260" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="80" y="-60"/>
+      <p2 x="120" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="380"/>
+      <p2 x="460" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="380"/>
+      <p2 x="520" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="700"/>
+      <p2 x="280" y="700"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="-200"/>
+      <p2 x="160" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="280"/>
+      <p2 x="160" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="620"/>
+      <p2 x="160" y="700"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="500"/>
+      <p2 x="160" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="400"/>
+      <p2 x="160" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="-80"/>
+      <p2 x="180" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="160"/>
+      <p2 x="180" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="40"/>
+      <p2 x="180" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="-80"/>
+      <p2 x="120" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="300"/>
+      <p2 x="120" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="-60"/>
+      <p2 x="120" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="320"/>
+      <p2 x="460" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="420"/>
+      <p2 x="460" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="-200"/>
+      <p2 x="460" y="-140"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="-60"/>
+      <p2 x="460" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="540"/>
+      <p2 x="460" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="80"/>
+      <p2 x="460" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="200"/>
+      <p2 x="460" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="-140"/>
+      <p2 x="460" y="-100"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="-160"/>
+      <p2 x="220" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="360"/>
+      <p2 x="220" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="240"/>
+      <p2 x="220" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="120"/>
+      <p2 x="220" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="0"/>
+      <p2 x="220" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="-120"/>
+      <p2 x="220" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="460"/>
+      <p2 x="220" y="580"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

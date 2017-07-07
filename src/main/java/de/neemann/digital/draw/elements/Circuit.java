@@ -6,6 +6,8 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.arithmetic.BarrelShifterMode;
+import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
@@ -68,6 +70,8 @@ public class Circuit {
         xStream.alias("wire", Wire.class);
         xStream.alias("circuit", Circuit.class);
         xStream.alias("intFormat", IntFormat.class);
+        xStream.alias("barrelShifterMode", BarrelShifterMode.class);
+        xStream.alias("direction", LeftRightFormat.class);
         xStream.alias("rotation", Rotation.class);
         xStream.aliasAttribute(Rotation.class, "rotation", "rotation");
         xStream.alias("language", Language.class);
