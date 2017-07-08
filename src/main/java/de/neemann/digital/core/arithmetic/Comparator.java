@@ -31,8 +31,6 @@ public class Comparator extends Node implements Element {
     private final ObservableValue aklb;
     private final ObservableValue equals;
     private final ObservableValue agrb;
-    private final int maskAnd;
-    private final int maskOr;
     private ObservableValue a;
     private ObservableValue b;
     private long valueA;
@@ -46,8 +44,6 @@ public class Comparator extends Node implements Element {
     public Comparator(ElementAttributes attributes) {
         signed = attributes.get(Keys.SIGNED);
         bits = attributes.get(Keys.BITS);
-        this.maskAnd = 1 << (bits - 1);
-        this.maskOr = ~((1 << bits) - 1);
 
         this.agrb = new ObservableValue(">", 1).setPinDescription(DESCRIPTION);
         this.equals = new ObservableValue("=", 1).setPinDescription(DESCRIPTION);
@@ -56,8 +52,13 @@ public class Comparator extends Node implements Element {
 
     @Override
     public void readInputs() throws NodeException {
-        valueA = a.getValue();
-        valueB = b.getValue();
+        if (signed) {
+            valueA = a.getValueSigned();
+            valueB = b.getValueSigned();
+        } else {
+            valueA = a.getValue();
+            valueB = b.getValue();
+        }
     }
 
     @Override
@@ -68,23 +69,10 @@ public class Comparator extends Node implements Element {
             agrb.setValue(0);
         } else {
             equals.setValue(0);
-
-            if (signed) {
-                valueA = signeExtend(valueA);
-                valueB = signeExtend(valueB);
-            }
-
             boolean kl = valueA < valueB;
             aklb.setBool(kl);
             agrb.setBool(!kl);
         }
-    }
-
-    private long signeExtend(long v) {
-        if ((v & maskAnd) != 0)
-            return v | maskOr;
-        else
-            return v;
     }
 
     @Override

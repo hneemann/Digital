@@ -53,6 +53,9 @@ public class ComparatorTest extends TestCase {
         sc.check(8, 2, 0, 0, 1);
         sc.check(15, 2, 0, 0, 1);
         sc.check(13, 15, 0, 0, 1);
+
+        sc.check(-2, -3, 1, 0, 0);
+        sc.check(-7, -8, 1, 0, 0);
     }
 
 
