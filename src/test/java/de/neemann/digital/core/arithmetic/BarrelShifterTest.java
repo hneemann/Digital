@@ -26,6 +26,9 @@ public class BarrelShifterTest extends TestCase {
         bsTest.check(0b001100, -1, 0b000000);
         bsTest.check(0b001100, -4, 0b000000);
         bsTest.check(0b001100, -5, 0b100000);
+
+        for (int s = 0; s < 7; s++)
+            bsTest.check(1, s, (1 << s) & 0b111111);
     }
 
     public void testRotateUnsignedLeft() throws Exception {
@@ -39,6 +42,9 @@ public class BarrelShifterTest extends TestCase {
         bsTest.check(0b001100, -1, 0b011000);
         bsTest.check(0b001100, -4, 0b000011);
         bsTest.check(0b001100, -5, 0b100001);
+
+        for (int s = 0; s < 7; s++)
+            bsTest.check(0b10101010, s, (s & 1) == 0 ? 0b10101010 : 0b01010101);
     }
 
     public void testNormalSignedLeft() throws Exception {
@@ -115,20 +121,27 @@ public class BarrelShifterTest extends TestCase {
     }
 
     public void testShiftSizeCalculationTest() throws Exception {
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 1, 1);
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 2, 2);
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 3, 2);
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 4, 3);
         getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 7, 3);
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 8, 4);
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 15, 4);
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 16, 5);
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 31, 5);
+        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 32, 6);
+
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 1, 2);
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 2, 3);
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 3, 3);
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 4, 4);
         getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 7, 4);
-        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.right, 7, 4);
-        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 8, 3);
-        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 8, 4);
-        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.right, 8, 4);
-        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 9, 4);
-        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 9, 5);
-        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.right, 9, 5);
-        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 16, 4);
-        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 16, 5);
-        getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 17, 5);
-        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 17, 6);
-        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.right, 17, 6);
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 8, 5);
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 15, 5);
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 16, 6);
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 31, 6);
+        getTestExecuter(BarrelShifterMode.rotate, true, LeftRightFormat.left, 32, 7);
     }
 
     private TestExecuter getTestExecuter(BarrelShifterMode mode, boolean signed, LeftRightFormat direction, int valueWidth, int shiftWidth) throws Exception {

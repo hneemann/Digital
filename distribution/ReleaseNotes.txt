@@ -11,7 +11,7 @@ planned as v0.13
 - added an enable input to the T flip-flop
   CAUTION: By default this input is activated now. In circuits which used the T flip-flop
            in the past, the new input needs to be disabled.
-- A warning message shows up if a circuit with unnamed inputs/outputs is analysed.
+- A warning message shows up if a circuit with unnamed inputs is analysed.
 - A warning message shows up if a circuit with missing pin numbers is exported to a
   hardware-related file.
 - Unidirectional FETs are added to overcome certain CMOS issues.

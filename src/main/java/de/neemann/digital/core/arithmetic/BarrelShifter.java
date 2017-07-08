@@ -52,7 +52,7 @@ public class BarrelShifter extends Node implements Element {
         signed = attributes.get(Keys.BARREL_SIGNED);
 
         int sBits = 1;
-        while ((1 << sBits) < bits)
+        while ((1 << sBits) <= bits)
             sBits++;
 
         if (signed)
