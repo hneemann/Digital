@@ -1,6 +1,6 @@
 Release Notes
 
-planned as v0.13
+HEAD, planned as v0.13
 - Added a barrel shifter (thanks to roy77)
 - In case of oscillations almost all affected components are shown.
 - If an error occurs, the name of the affected circuit file is shown.

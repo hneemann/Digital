@@ -83,6 +83,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${basedir}/src/main/dig/nmos</directory>
+            <outputDirectory>/examples/nmos/</outputDirectory>
+            <includes>
+                <include>*.dig</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${basedir}/src/main/dig/test</directory>
             <outputDirectory>/examples/test/</outputDirectory>
             <includes>
