@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.ModelEvent;
+import de.neemann.digital.core.ModelStateObserver;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
@@ -19,7 +21,11 @@ import java.util.Arrays;
  * @author hneemann
  * @author Rüdiger Heintz
  */
-public final class SingleValueDialog extends JDialog {
+public final class SingleValueDialog extends JDialog implements ModelStateObserver {
+
+    private final ObservableValue value;
+    private final CircuitComponent circuitComponent;
+    private final Sync modelSync;
 
     private enum InMode {
         HEX(Lang.get("attr_dialogHex")),
@@ -55,11 +61,22 @@ public final class SingleValueDialog extends JDialog {
     private JCheckBox[] checkBoxes;
     private boolean programmaticModifyingFormat = false;
     private long editValue;
-    private boolean ok = false;
 
-    private SingleValueDialog(Point pos, String label, ObservableValue value) {
-        super((Frame) null, Lang.get("win_valueInputTitle_N", label), true);
+    /**
+     * Edits a single value
+     *
+     * @param pos              the position to pop up the dialog
+     * @param label            the name of the value
+     * @param value            the value to edit
+     * @param circuitComponent the component which contains the circuit
+     * @param modelSync        used to access the running model
+     */
+    public SingleValueDialog(Point pos, String label, ObservableValue value, CircuitComponent circuitComponent, Sync modelSync) {
+        super((Frame) null, Lang.get("win_valueInputTitle_N", label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.value = value;
+        this.circuitComponent = circuitComponent;
+        this.modelSync = modelSync;
 
         editValue = value.getValue();
         supportsHighZ = value.supportsHighZ();
@@ -89,12 +106,19 @@ public final class SingleValueDialog extends JDialog {
         JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ok = true;
+                apply();
                 dispose();
             }
         });
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton applyButton = new JButton(new AbstractAction(Lang.get("btn_apply")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                apply();
+            }
+        });
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
         buttonPanel.add(okButton);
+        buttonPanel.add(applyButton);
         getContentPane().add(buttonPanel, BorderLayout.EAST);
 
         getRootPane().setDefaultButton(okButton);
@@ -103,10 +127,25 @@ public final class SingleValueDialog extends JDialog {
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         pack();
-        setLocation(pos.x, pos.y);
+        setLocation(pos.x - getWidth(), pos.y - getHeight() / 2);
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
         setAlwaysOnTop(true);
+    }
+
+    private void apply() {
+        if (getSelectedFormat().equals(InMode.HIGHZ)) {
+            modelSync.access(() -> value.set(0, true));
+        } else {
+            modelSync.access(() -> value.set(editValue, false));
+        }
+        circuitComponent.modelHasChanged();
+    }
+
+    @Override
+    public void handleEvent(ModelEvent event) {
+        if (event.equals(ModelEvent.STOPPED))
+            dispose();
     }
 
     private JPanel createCheckBoxPanel(int bits, long value) {
@@ -201,31 +240,6 @@ public final class SingleValueDialog extends JDialog {
                 checkBoxes[i].setSelected((editValue & (1L << i)) != 0);
         }
     }
-
-    private boolean showDialog() {
-        setVisible(true);
-        return ok;
-    }
-
-    /**
-     * Edits a single value
-     *
-     * @param pos       the position to pop up the dialog
-     * @param label     the name of the value
-     * @param value     the value to edit
-     * @param modelSync used to access the running model
-     */
-    public static void editValue(Point pos, String label, ObservableValue value, Sync modelSync) {
-        SingleValueDialog svd = new SingleValueDialog(pos, label, value);
-        if (svd.showDialog()) {
-            if (svd.getSelectedFormat().equals(InMode.HIGHZ)) {
-                modelSync.access(() -> value.set(0, true));
-            } else {
-                modelSync.access(() -> value.set(svd.editValue, false));
-            }
-        }
-    }
-
 
     private static final class MyDocumentListener implements DocumentListener {
         private final Runnable runnable;

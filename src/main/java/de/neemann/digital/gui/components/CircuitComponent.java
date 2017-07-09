@@ -1853,11 +1853,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
             boolean modelHasChanged = actor.interact(CircuitComponent.this, p, getPosVector(e), modelSync);
             if (modelHasChanged) {
-                if (manualChangeObserver != null)
-                    manualChangeObserver.hasChanged();
+                modelHasChanged();
             } else
                 repaintNeeded();
         }
+    }
+
+    /**
+     * call this method if the model has changed manually
+     */
+    public void modelHasChanged() {
+        if (manualChangeObserver != null)
+            manualChangeObserver.hasChanged();
     }
 
     /**

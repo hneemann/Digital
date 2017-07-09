@@ -6,6 +6,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.io.In;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -18,9 +19,7 @@ import de.neemann.digital.gui.sync.Sync;
 import java.awt.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-import static de.neemann.digital.draw.shapes.OutputShape.LATEX_RAD;
-import static de.neemann.digital.draw.shapes.OutputShape.RAD;
-import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
+import static de.neemann.digital.draw.shapes.OutputShape.*;
 
 /**
  * The input shape
@@ -32,6 +31,7 @@ public class InputShape implements Shape {
     private final String label;
     private final PinDescriptions outputs;
     private IOState ioState;
+    private SingleValueDialog dialog;
 
     /**
      * Creates a new instance
@@ -71,10 +71,15 @@ public class InputShape implements Shape {
                         } else
                             value.setValue(1 - value.getValue());
                     });
+                    return true;
                 } else {
-                    SingleValueDialog.editValue(pos, label, value, modelSync);
+                    if (dialog == null) {
+                        dialog = new SingleValueDialog(pos, label, value, cc, modelSync);
+                        ((In) element).getModel().addObserver(dialog);
+                    }
+                    dialog.setVisible(true);
+                    return false;
                 }
-                return true;
             }
         };
     }
@@ -94,7 +99,7 @@ public class InputShape implements Shape {
         if (graphic.isFlagSet("LaTeX")) {
             Vector center = new Vector(-LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
-            Vector textPos = new Vector(-SIZE2-LATEX_RAD.x, 0);
+            Vector textPos = new Vector(-SIZE2 - LATEX_RAD.x, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
         } else {
             Style style = Style.NORMAL;

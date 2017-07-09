@@ -39,6 +39,7 @@
     <string name="btn_newName">Neuer Name</string>
     <string name="btn_saveAnyway">Trotzdem speichern</string>
     <string name="btn_overwrite">Überschreiben</string>
+    <string name="btn_apply">Setzen</string>
     <string name="msg_warning">Warnung</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>

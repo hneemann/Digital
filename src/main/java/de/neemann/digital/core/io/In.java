@@ -38,6 +38,7 @@ public class In implements Element {
     private final ObservableValue output;
     private final String label;
     private final int pinNumber;
+    private Model model;
 
     /**
      * Create a new instance
@@ -66,5 +67,13 @@ public class In implements Element {
     @Override
     public void registerNodes(Model model) {
         model.addInput(new Signal(label, output).setPinNumber(pinNumber));
+        this.model = model;
+    }
+
+    /**
+     * @return the model this input is attached to
+     */
+    public Model getModel() {
+        return model;
     }
 }
