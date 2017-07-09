@@ -72,7 +72,7 @@ public class InputShape implements Shape {
                             value.setValue(1 - value.getValue());
                     });
                 } else {
-                    SingleValueDialog.editValue(pos, value, modelSync);
+                    SingleValueDialog.editValue(pos, label, value, modelSync);
                 }
                 return true;
             }

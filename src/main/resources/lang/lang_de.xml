@@ -982,6 +982,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="win_table">Tabelle</string>
     <string name="win_table_exportDialog">Export</string>
     <string name="win_itempicker_title">Auswahl</string>
+    <string name="win_valueInputTitle_N">Eingabe {0}</string>
     <string name="btn_help">Hilfe</string>
     <string name="msg_expressionHelpTitle">Ausdrücke</string>
     <string name="msg_expressionHelp">Zur Definition eines Ausdruckes können alle üblichen

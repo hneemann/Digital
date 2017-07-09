@@ -57,8 +57,8 @@ public final class SingleValueDialog extends JDialog {
     private long editValue;
     private boolean ok = false;
 
-    private SingleValueDialog(Point pos, ObservableValue value) {
-        super((Frame) null, Lang.get("attr_dialogTitle"), true);
+    private SingleValueDialog(Point pos, String label, ObservableValue value) {
+        super((Frame) null, Lang.get("win_valueInputTitle_N", label), true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         editValue = value.getValue();
@@ -211,11 +211,12 @@ public final class SingleValueDialog extends JDialog {
      * Edits a single value
      *
      * @param pos       the position to pop up the dialog
+     * @param label     the name of the value
      * @param value     the value to edit
      * @param modelSync used to access the running model
      */
-    public static void editValue(Point pos, ObservableValue value, Sync modelSync) {
-        SingleValueDialog svd = new SingleValueDialog(pos, value);
+    public static void editValue(Point pos, String label, ObservableValue value, Sync modelSync) {
+        SingleValueDialog svd = new SingleValueDialog(pos, label, value);
         if (svd.showDialog()) {
             if (svd.getSelectedFormat().equals(InMode.HIGHZ)) {
                 modelSync.access(() -> value.set(0, true));
