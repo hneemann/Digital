@@ -74,8 +74,8 @@ public class ParserTest extends TestCase {
     public void testParseLet() throws Exception {
         Expression exp = createSingle("let u=a+b");
         assertTrue(exp instanceof NamedExpression);
-        assertEquals("u", ((NamedExpression)exp).getName());
-        assertTrue(((NamedExpression)exp).getExpression() instanceof Operation.Or);
+        assertEquals("u", ((NamedExpression) exp).getName());
+        assertTrue(((NamedExpression) exp).getExpression() instanceof Operation.Or);
     }
 
     public void testParseLetError() throws Exception {
@@ -93,6 +93,20 @@ public class ParserTest extends TestCase {
         assertEquals(new Variable("a"), expList.get(0));
         assertEquals(new Variable("b"), expList.get(1));
         assertEquals(new Variable("c"), expList.get(2));
+    }
+
+    public void testParseList2() throws Exception {
+        ArrayList<Expression> expList = new Parser("let u=a,let v=b,let w=c").parse();
+        assertEquals(3, expList.size());
+        assertTrue(expList.get(0) instanceof NamedExpression);
+        assertEquals(((NamedExpression) expList.get(0)).getName(), "u");
+        assertEquals(((NamedExpression) expList.get(0)).getExpression(), new Variable("a"));
+        assertTrue(expList.get(1) instanceof NamedExpression);
+        assertEquals(((NamedExpression) expList.get(1)).getName(), "v");
+        assertEquals(((NamedExpression) expList.get(1)).getExpression(), new Variable("b"));
+        assertTrue(expList.get(2) instanceof NamedExpression);
+        assertEquals(((NamedExpression) expList.get(2)).getName(), "w");
+        assertEquals(((NamedExpression) expList.get(2)).getExpression(), new Variable("c"));
     }
 
     public void testParseRegression() throws Exception {
