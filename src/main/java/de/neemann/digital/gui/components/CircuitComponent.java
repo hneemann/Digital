@@ -653,6 +653,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
+    /**
+     * Adds the given list of elements to insert to the circuit
+     *
+     * @param elements the list of elements to insert
+     */
+    public void setPartsToInsert(ArrayList<Movable> elements) {
+        parent.ensureModelIsStopped();
+        mouseInsertList.activate(elements, getPosVector(lastMousePos.x, lastMousePos.y));
+        repaintNeeded();
+    }
+
 
     private BufferedImage buffer;
     private int highlightedPaintedSize;
@@ -1732,6 +1743,23 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             this.elements = elements;
             lastPos = pos;
+
+            Vector max = null;
+            for (Movable m : elements)
+                if (m instanceof VisualElement) {
+                    GraphicMinMax mm = ((VisualElement) m).getMinMax(false);
+                    if (max == null)
+                        max = mm.getMax();
+                    else
+                        max = Vector.max(max, mm.getMax());
+                }
+
+            if (max != null) {
+                Vector delta = CircuitComponent.raster(lastPos.sub(max));
+                for (Movable m : elements)
+                    m.move(delta);
+            }
+
             deleteAction.setActive(true);
             rotateAction.setEnabled(true);
         }

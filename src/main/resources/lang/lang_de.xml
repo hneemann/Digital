@@ -449,6 +449,14 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_LightBulb_pin_A">Anschluss</string>
     <string name="elem_LightBulb_pin_B">Anschluss</string>
 
+    <string name="elem_PowerSupply">Versorgung</string>
+    <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen sind.
+        Kann im Zusammenhang mit den 74xx Bausteinen verwendet werden, um Anschlüsse für die Spannungsversorgung
+        zu erzeugen, welche dann auch auf korrekte Beschaltung geprüft werden.</string>
+    <string name="elem_PowerSupply_pin_VDD">Muss mit VDD verbunden werden!</string>
+    <string name="elem_PowerSupply_pin_GND">Muss mit GND verbunden werden!</string>
+
+
     <string name="error">Fehler</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in Element {1} ist werder Eingang noch Ausgang</string>
     <string name="err_aSingleClockNecessary">Es muss genau ein Taktelement geben. Alle Flipflops müssen an diesem Takt hängen.</string>
@@ -547,6 +555,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_nameUsedTwice_N">Signal {0} wurde mehrfach verwendet!</string>
     <string name="err_errorParsingTestdata">Fehler beim Einlesen der Testdaten.</string>
     <string name="err_backtrackOf_N_isImpossible">Die Modelkomponente {0} kann nicht analysiert werden.</string>
+    <string name="err_errorInPowerSupply">Fehler in der Stromversorgung.</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -890,6 +899,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_showDataAsGraph_tt">Zeigt die Daten als Graph an.</string>
     <string name="menu_showDataAsTable">Zeige Tabelle</string>
     <string name="menu_showDataAsTable_tt">Zeigt die Daten als Tabelle an.</string>
+    <string name="menu_addPowerSupply">Spannungsversorung ergänzen</string>
+    <string name="menu_addPowerSupply_tt">Erweitert die Schaltung um eine Spannungsversorung.</string>
 
     <string name="message">Digital
 
