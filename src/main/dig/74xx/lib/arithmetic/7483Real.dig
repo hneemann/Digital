@@ -21,7 +21,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Der Übetrag vom Addierer welcher die 
+          <string>Der Übertrag vom Addierer welcher die
 niederwertigeren Bits addiert. Werden die 
 niederwertigsten Bits addiert, ist dieser Eingang 
 Null.</string>
