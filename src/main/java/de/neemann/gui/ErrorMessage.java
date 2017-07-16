@@ -98,6 +98,7 @@ public class ErrorMessage implements Runnable {
         JDialog dialog = optionPane.createDialog(parent, Lang.get("error"));
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
+        dialog.dispose();
         return this;
     }
 
