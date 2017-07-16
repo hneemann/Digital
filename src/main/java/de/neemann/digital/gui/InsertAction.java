@@ -42,17 +42,19 @@ public final class InsertAction extends ToolTipAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        VisualElement visualElement = new VisualElement(node.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
-        circuitComponent.setPartToInsert(visualElement);
-        if (getIcon() == null) {
-            try {
-                node.getDescription();
-                setIcon(node.getIcon(shapeFactory));
-            } catch (IOException ex) {
-                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel_N0", node.getName())).addCause(ex));
+        if (node.isUnique()) {
+            VisualElement visualElement = new VisualElement(node.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
+            circuitComponent.setPartToInsert(visualElement);
+            if (getIcon() == null) {
+                try {
+                    node.getDescription();
+                    setIcon(node.getIcon(shapeFactory));
+                } catch (IOException ex) {
+                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel_N0", node.getName())).addCause(ex));
+                }
             }
+            insertHistory.add(this);
         }
-        insertHistory.add(this);
     }
 
     /**
@@ -95,7 +97,7 @@ public final class InsertAction extends ToolTipAction {
     /**
      * Implements a lazy loading of the tooltips.
      * Avoids the reading of all tooltips from the lib files if menu is created.
-     * This code ensures, that the tooltips are onli loaded from the file if the text is shown to the user.
+     * This code ensures that the tooltips are only loaded from the file if the text is shown to the user.
      *
      * @return the JMenuItem created
      */
@@ -108,6 +110,7 @@ public final class InsertAction extends ToolTipAction {
             }
         };
         i.addActionListener(InsertAction.this);
+        i.setEnabled(node.isUnique());
         ToolTipManager.sharedInstance().registerComponent(i);
         return i;
     }
