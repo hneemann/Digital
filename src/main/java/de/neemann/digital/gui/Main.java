@@ -234,7 +234,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         setJMenuBar(menuBar);
-        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE);
+        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE+"\n\nlib: "+ElementLibrary.getLibPath());
         help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

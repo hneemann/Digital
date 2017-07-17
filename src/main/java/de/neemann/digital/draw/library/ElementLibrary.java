@@ -45,6 +45,21 @@ import java.util.*;
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);
 
+    /**
+     * @return the additional library path
+     */
+    public static String getLibPath() {
+        String path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace('\\', '/');
+        if (path.endsWith("/target/classes/"))
+            return path.substring(0, path.length() - 16) + "/src/main/dig/lib";
+        if (path.endsWith("/target/Digital.jar"))
+            return path.substring(0, path.length() - 19) + "/src/main/dig/lib";
+        if (path.endsWith("Digital.jar"))
+            return path.substring(0, path.length() - 12) + "/examples/lib";
+
+        return null;
+    }
+
     private final HashMap<String, LibraryNode> map = new HashMap<>();
     private final HashSet<String> isProgrammable = new HashSet<>();
     private final ArrayList<LibraryListener> listeners = new ArrayList<>();
@@ -276,6 +291,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void rescanFolder() throws IOException {
         LOGGER.debug("rescan folder");
+        LOGGER.info("library " + getLibPath());
         LibraryNode changedNode = null;
         if (rootLibraryPath != null) {
             if (customNode == null) {
@@ -311,7 +327,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             l.libraryChanged(node);
     }
 
-    private int scanFolder(File path, LibraryNode node) {
+    private static int scanFolder(File path, LibraryNode node) {
         int num = 0;
         File[] list = path.listFiles();
         if (list != null) {
