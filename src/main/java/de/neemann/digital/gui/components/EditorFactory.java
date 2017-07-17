@@ -300,14 +300,22 @@ public final class EditorFactory {
 
         private final JPanel panel;
         private final JTextField textField;
+        private final boolean directoryOnly;
 
         public FileEditor(File value, Key<File> key) {
+            if (key instanceof Key.KeyFile)
+                directoryOnly = ((Key.KeyFile) key).isDirectoryOnly();
+            else
+                directoryOnly = false;
+
             panel = new JPanel(new BorderLayout());
             textField = new JTextField(value.getPath(), 20);
             JButton button = new JButton(new AbstractAction("...") {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser(FileEditor.this.getValue());
+                    if (directoryOnly)
+                        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION)
                         textField.setText(fc.getSelectedFile().getPath());
                 }

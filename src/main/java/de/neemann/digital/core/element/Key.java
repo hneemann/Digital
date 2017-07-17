@@ -2,6 +2,8 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
+
 /**
  * Class is used to define the keys used to access the models attributes
  *
@@ -144,6 +146,38 @@ public class Key<VALUE> {
             setMin(1);
             setMax(64);
             setComboBoxValues(VALUES);
+        }
+    }
+
+    /**
+     * Stores a file
+     */
+    public static final class KeyFile extends Key<File> {
+
+
+        private boolean directoryOnly;
+
+        KeyFile(String key, File def) {
+            super(key, def);
+            setDirectoryOnly(false);
+        }
+
+        /**
+         * Set the directory only mode
+         *
+         * @param directoryOnly if true you can select only directories
+         * @return this for chained calls
+         */
+        public KeyFile setDirectoryOnly(boolean directoryOnly) {
+            this.directoryOnly = directoryOnly;
+            return this;
+        }
+
+        /**
+         * @return true if you can select only directories
+         */
+        public boolean isDirectoryOnly() {
+            return directoryOnly;
         }
     }
 

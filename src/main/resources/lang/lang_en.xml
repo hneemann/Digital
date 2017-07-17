@@ -664,8 +664,8 @@ The names of the variables may not be unique.</string>
     <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering disappears.
         With this option you can stabilize the display by keeping the LEDs on until the common cathode goes down again.
         This simulates a frequency above the critical flicker fusion frequency.</string>
-    <string name="key_atf1502Fitter">ATF1502 Fitter</string>
-    <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF1502. Enter the full path to the file fit1502.exe provided by ATMEL.</string>
+    <string name="key_atf1502Fitter">ATF15xx Fitter</string>
+    <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF15xx. Enter the directory which countains the fit15xx.exe files provided by ATMEL.</string>
     <string name="key_pin">Pin number</string>
     <string name="key_pin_tt">An empty field means this signal is not assigned to a pin.</string>
     <string name="key_rowDataBits">Rows</string>
@@ -697,6 +697,8 @@ The names of the variables may not be unique.</string>
         simulate certain CMOS circuits.</string>
     <string name="key_activeLow">Active Low</string>
     <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
+    <string name="key_libraryPath">Library</string>
+    <string name="key_libraryPath_tt">Library with predefined subcircuits. Contains, for example, the components of the 74xx series.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

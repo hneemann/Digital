@@ -17,6 +17,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.graphics.LedMatrix;
@@ -48,16 +49,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     /**
      * @return the additional library path
      */
-    public static String getLibPath() {
+    public static File getLibPath() {
         String path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace('\\', '/');
         if (path.endsWith("/target/classes/"))
-            return path.substring(0, path.length() - 16) + "/src/main/dig/lib";
+            return new File(path.substring(0, path.length() - 16) + "/src/main/dig/lib");
         if (path.endsWith("/target/Digital.jar"))
-            return path.substring(0, path.length() - 19) + "/src/main/dig/lib";
+            return new File(path.substring(0, path.length() - 19) + "/src/main/dig/lib");
         if (path.endsWith("Digital.jar"))
-            return path.substring(0, path.length() - 12) + "/examples/lib";
+            return new File(path.substring(0, path.length() - 12) + "/examples/lib");
 
-        return null;
+        return new File("noLibFound");
     }
 
     private final HashMap<String, LibraryNode> map = new HashMap<>();
@@ -291,9 +292,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void rescanFolder() throws IOException {
         LOGGER.debug("rescan folder");
-        LOGGER.info("library " + getLibPath());
+        File libPath = Settings.getInstance().get(Keys.SETTINGS_LIBRARY_PATH);
+        if (libPath != null && !libPath.exists()) libPath = null;
+
         LibraryNode changedNode = null;
-        if (rootLibraryPath != null) {
+        if (rootLibraryPath != null || libPath != null) {
             if (customNode == null) {
                 customNode = new LibraryNode(Lang.get("menu_custom"));
                 root.add(customNode);
@@ -302,8 +305,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 customNode.removeAll();
                 changedNode = customNode;
             }
-
-            int num = scanFolder(rootLibraryPath, customNode);
+            int num = 0;
+            if (libPath != null)
+                num += scanFolder(libPath, customNode);
+            if (rootLibraryPath != null)
+                num += scanFolder(rootLibraryPath, customNode);
             LOGGER.debug("found " + num + " files");
         } else if (customNode != null) {
             root.remove(customNode);

@@ -6,6 +6,7 @@ import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
@@ -336,7 +337,7 @@ public final class Keys {
      * Fitter for the atf1502
      */
     public static final Key<File> SETTINGS_ATF1502_FITTER
-            = new Key<>("atf1502Fitter", new File("c:/Wincupl/WinCupl/Fitters/fit1502.exe"));
+            = new Key.KeyFile("atf1502Fitter", new File("c:/Wincupl/WinCupl/Fitters")).setDirectoryOnly(true);
 
     /**
      * A pin number, empty means no pin assigned
@@ -416,4 +417,9 @@ public final class Keys {
     public static final Key<Boolean> ACTIVE_LOW
             = new Key<>("activeLow", false);
 
+    /**
+     * Fitter for the atf1502
+     */
+    public static final Key<File> SETTINGS_LIBRARY_PATH
+            = new Key.KeyFile("libraryPath", ElementLibrary.getLibPath()).setDirectoryOnly(true);
 }

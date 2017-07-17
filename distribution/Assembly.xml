@@ -36,6 +36,13 @@
             <directory>${basedir}/src/main/dig/74xx</directory>
             <outputDirectory>/examples/74xx/</outputDirectory>
             <includes>
+                <include>*.dig</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/src/main/dig/lib</directory>
+            <outputDirectory>/examples/lib/</outputDirectory>
+            <includes>
                 <include>**/*.dig</include>
                 <include>**/*.txt</include>
             </includes>

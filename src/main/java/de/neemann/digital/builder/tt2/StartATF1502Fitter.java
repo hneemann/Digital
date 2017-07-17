@@ -23,7 +23,7 @@ public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess 
 
     private static File getFitterExe(String fitterName) {
         File fitter = Settings.getInstance().get(Keys.SETTINGS_ATF1502_FITTER);
-        return new File(fitter.getParentFile(), fitterName);
+        return new File(fitter, fitterName);
     }
 
     /**
