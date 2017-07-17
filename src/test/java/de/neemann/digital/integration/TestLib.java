@@ -20,18 +20,28 @@ import java.util.HashSet;
  * Tests the files in the 74xx/lib folder for consistency.
  * Created by hneemann on 13.05.17.
  */
-public class Test74xx extends TestCase {
+public class TestLib extends TestCase {
     private HashMap<String, File> descrMap;
+    private int count74xx;
 
-    public void test74xx() throws Exception {
-        File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/74xx/lib");
+    public void testLib() throws Exception {
+        File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/lib");
         descrMap = new HashMap<>();
         new FileScanner(this::check).scan(examples);
+        assertTrue(count74xx >= 58);
     }
 
     private void check(File dig) throws PinException, NodeException, ElementNotFoundException, IOException {
         Circuit circuit = new ToBreakRunner(dig).getCircuit();
-        assertTrue("is not DIL", circuit.getAttributes().get(Keys.IS_DIL));
+        boolean is74xx = dig.getPath().contains("74xx");
+
+        System.out.println(dig);
+
+        if (is74xx) {
+            assertTrue("is not DIL", circuit.getAttributes().get(Keys.IS_DIL));
+            count74xx++;
+        }
+
         assertTrue("is not locked", circuit.getAttributes().get(Keys.LOCKED_MODE));
 
         final String descr = circuit.getAttributes().get(Keys.DESCRIPTION);
@@ -39,10 +49,10 @@ public class Test74xx extends TestCase {
 
         File f = descrMap.get(descr);
         if (f != null)
-            fail("duplicate description '"+descr+"' in " + f + " and " + dig);
+            fail("duplicate description '" + descr + "' in " + f + " and " + dig);
         descrMap.put(descr, dig);
 
-        PinChecker pc = new PinChecker();
+        PinChecker pc = new PinChecker(is74xx);
         for (VisualElement e : circuit.getElements()) {
             if (e.equalsDescription(In.DESCRIPTION))
                 pc.checkPin(e);
@@ -57,8 +67,10 @@ public class Test74xx extends TestCase {
     private class PinChecker {
         private final HashSet<Integer> pinMap;
         private final HashSet<String> nameMap;
+        private final boolean is74xx;
 
-        private PinChecker() {
+        private PinChecker(boolean is74xx) {
+            this.is74xx = is74xx;
             pinMap = new HashSet<>();
             nameMap = new HashSet<>();
         }
@@ -66,12 +78,15 @@ public class Test74xx extends TestCase {
         private void checkPin(VisualElement e) {
             int pn = e.getElementAttributes().get(Keys.PINNUMBER);
             final String label = e.getElementAttributes().getLabel();
-            assertTrue("missing pin number: " + label, pn != 0);
 
-            assertFalse("non unique pin number: " + pn, pinMap.contains(pn));
-            pinMap.add(pn);
+            if (is74xx) {
+                assertTrue("missing pin number: " + label, pn != 0);
 
-            assertFalse("non unique pin name: " + label, nameMap.contains(label));
+                assertFalse("non unique pin number: " + pn, pinMap.contains(pn));
+                pinMap.add(pn);
+            }
+
+            assertFalse("non unique pin label: " + label, nameMap.contains(label));
             nameMap.add(label);
 
             assertTrue("missing pin label", label.length() > 0);
