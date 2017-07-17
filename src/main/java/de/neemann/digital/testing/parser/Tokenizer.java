@@ -288,6 +288,7 @@ public class Tokenizer {
                         return Token.IDENT;
                     } else
                         return Token.EOL;
+                case '\t':
                 case ' ':
                     if (builder.length() > 0) {
                         return Token.IDENT;

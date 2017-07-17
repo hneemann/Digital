@@ -5,7 +5,6 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Movable;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.graphics.GraphicMinMax;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 
@@ -74,27 +73,14 @@ public class CircuitTransferable implements Transferable {
             return null;
 
         XStream xStream = Circuit.getxStream();
-        Vector max = null;
         try (Reader in = new StringReader(data.toString())) {
             ArrayList<Movable> elements = (ArrayList<Movable>) xStream.fromXML(in);
             if (elements == null)
                 return null;
 
             for (Movable m : elements)
-                if (m instanceof VisualElement) {
+                if (m instanceof VisualElement)
                     ((VisualElement) m).setShapeFactory(shapeFactory);
-                    GraphicMinMax mm = ((VisualElement) m).getMinMax(false);
-                    if (max == null)
-                        max = mm.getMax();
-                    else
-                        max = Vector.max(max, mm.getMax());
-                }
-
-            if (max != null) {
-                Vector delta = CircuitComponent.raster(lastMousePos.sub(max));
-                for (Movable m : elements)
-                    m.move(delta);
-            }
 
             return elements;
         }

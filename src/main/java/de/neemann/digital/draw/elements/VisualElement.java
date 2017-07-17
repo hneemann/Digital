@@ -75,6 +75,21 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     }
 
     /**
+     * Sets a key.
+     * Use only to construct an instance.
+     * Don't use this function to modify an existing instance!
+     *
+     * @param key the key
+     * @param val the value to set
+     * @param <V> the type of the value
+     * @return this for chained calls
+     */
+    public <V> VisualElement setAttribute(Key<V> key, V val) {
+        elementAttributes.set(key, val);
+        return this;
+    }
+
+    /**
      * @return the elements attributes
      */
     public ElementAttributes getElementAttributes() {

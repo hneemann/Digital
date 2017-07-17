@@ -439,6 +439,12 @@
     <string name="elem_LightBulb_pin_A">Connection</string>
     <string name="elem_LightBulb_pin_B">Connection</string>
 
+    <string name="elem_PowerSupply">Power</string>
+    <string name="elem_PowerSupply_tt">Has no function. Makes sure that VDD and GND are connected.
+        Can be used in 74xx circuits to generate the pins for the voltage supply, which are tested for correct wiring.</string>
+    <string name="elem_PowerSupply_pin_VDD">Must be connected to VDD!</string>
+    <string name="elem_PowerSupply_pin_GND">Must be connected to GND!</string>
+
     <string name="error">Error</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>
     <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock signal.</string>
@@ -537,6 +543,7 @@ The names of the variables may not be unique.</string>
     <string name="err_nameUsedTwice_N">Signal {0} is used twice!</string>
     <string name="err_errorParsingTestdata">Error parsing the test data.</string>
     <string name="err_backtrackOf_N_isImpossible">The model component {0} can not be analysed.</string>
+    <string name="err_errorInPowerSupply">Error in wiring of power supply.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -878,6 +885,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_showDataAsGraph_tt">Show the data as a Graph.</string>
     <string name="menu_showDataAsTable">Show table</string>
     <string name="menu_showDataAsTable_tt">Shows values as a table.</string>
+    <string name="menu_addPowerSupply">Add power supply</string>
+    <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
 
 
     <string name="message">Digital

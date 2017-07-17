@@ -137,6 +137,18 @@ public class ParserTest extends TestCase {
         assertEquals(1, td.getLines().size());
     }
 
+    public void testHeaderTabs() throws TestingDataException, IOException, ParserException {
+        Parser parser = new Parser("A\tB\tC \t D\n1\t1\t1\t1").parse();
+        LineCollector td = new LineCollector(parser);
+        assertEquals(4, td.getNames().size());
+        assertEquals("A", td.getNames().get(0));
+        assertEquals("B", td.getNames().get(1));
+        assertEquals("C", td.getNames().get(2));
+        assertEquals("D", td.getNames().get(3));
+        assertEquals(1, td.getLines().size());
+        assertEquals(4, td.getLines().get(0).length);
+    }
+
     public void testEmptyLines() throws TestingDataException, IOException, ParserException {
         Parser parser = new Parser("A_i B_i C_i-1 C_i S_i\n" +
                 " 0   0   0     0   0\n" +

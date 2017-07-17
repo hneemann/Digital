@@ -75,20 +75,17 @@ public class ErrorMessage implements Runnable {
 
     /**
      * Shows the error message
-     *
-     * @return this for call chaining
      */
-    public ErrorMessage show() {
-        return show(null);
+    public void show() {
+        show(null);
     }
 
     /**
      * Shows the error message
      *
      * @param parent the parent
-     * @return this for call chaining
      */
-    public ErrorMessage show(Component parent) {
+    public void show(Component parent) {
         JOptionPane optionPane = new JOptionPane(
                 new LineBreaker(120)
                         .toHTML()
@@ -98,7 +95,7 @@ public class ErrorMessage implements Runnable {
         JDialog dialog = optionPane.createDialog(parent, Lang.get("error"));
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
-        return this;
+        dialog.dispose();
     }
 
     /**

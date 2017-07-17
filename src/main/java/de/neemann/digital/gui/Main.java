@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.io.PowerSupply;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
@@ -63,6 +64,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static javax.swing.JOptionPane.showInputDialog;
 
 /**
@@ -232,7 +234,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         setJMenuBar(menuBar);
-        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE);
+        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE+"\n\nlib: "+ElementLibrary.getLibPath());
         help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -709,6 +711,42 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
             }
         }.setToolTip(Lang.get("menu_removePinNumbers_tt")).createJMenuItem());
+
+        special.add(new ToolTipAction(Lang.get("menu_addPowerSupply")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (!circuitComponent.isLocked()) {
+                    int maxNum = 0;
+                    for (VisualElement v : circuitComponent.getCircuit().getElements()) {
+                        if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION))
+                            maxNum = Math.max(maxNum, v.getElementAttributes().get(Keys.PINNUMBER));
+                    }
+                    if ((maxNum & 1) != 0) maxNum++;
+
+                    // defines the power supply circuit
+                    ArrayList<Movable> list = new ArrayList<>();
+                    list.add(new VisualElement(PowerSupply.DESCRIPTION.getName())
+                            .setShapeFactory(shapeFactory)
+                            .setPos(new Vector(SIZE * 2, 0)));
+                    list.add(new VisualElement(In.DESCRIPTION.getName())
+                            .setShapeFactory(shapeFactory)
+                            .setAttribute(Keys.LABEL, "VDD")
+                            .setAttribute(Keys.PINNUMBER, maxNum)
+                            .setPos(new Vector(0, 0)));
+                    list.add(new VisualElement(In.DESCRIPTION.getName())
+                            .setShapeFactory(shapeFactory)
+                            .setAttribute(Keys.LABEL, "GND")
+                            .setAttribute(Keys.PINNUMBER, maxNum / 2)
+                            .setPos(new Vector(0, SIZE * 2)));
+                    list.add(new Wire(new Vector(0, 0), new Vector(SIZE * 2, 0)));
+                    list.add(new Wire(new Vector(0, SIZE * 2), new Vector(SIZE, SIZE * 2)));
+                    list.add(new Wire(new Vector(SIZE, SIZE * 2), new Vector(SIZE, SIZE)));
+                    list.add(new Wire(new Vector(SIZE, SIZE), new Vector(SIZE * 2, SIZE)));
+                    circuitComponent.setPartsToInsert(list);
+                }
+            }
+        }.setToolTip(Lang.get("menu_addPowerSupply_tt")).createJMenuItem());
+
         return special;
     }
 
