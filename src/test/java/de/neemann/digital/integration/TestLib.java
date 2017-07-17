@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 /**
- * Tests the files in the 74xx/lib folder for consistency.
+ * Tests the files in the lib folder for consistency.
  * Created by hneemann on 13.05.17.
  */
 public class TestLib extends TestCase {
@@ -34,8 +34,6 @@ public class TestLib extends TestCase {
     private void check(File dig) throws PinException, NodeException, ElementNotFoundException, IOException {
         Circuit circuit = new ToBreakRunner(dig).getCircuit();
         boolean is74xx = dig.getPath().contains("74xx");
-
-        System.out.println(dig);
 
         if (is74xx) {
             assertTrue("is not DIL", circuit.getAttributes().get(Keys.IS_DIL));
