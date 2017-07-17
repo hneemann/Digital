@@ -359,4 +359,11 @@ public class LibraryNode implements Iterable<LibraryNode> {
     public boolean isUnique() {
         return unique;
     }
+
+    /**
+     * @return the file containing this circuit
+     */
+    public File getFile() {
+        return file;
+    }
 }

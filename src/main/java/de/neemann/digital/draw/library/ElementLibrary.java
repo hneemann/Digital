@@ -66,7 +66,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private final ArrayList<LibraryListener> listeners = new ArrayList<>();
     private final LibraryNode root;
     private ShapeFactory shapeFactory;
-    private LibraryNode customNode;
+    private ElementLibraryFolder custom;
+    private ElementLibraryFolder library;
     private File rootLibraryPath;
 
     /**
@@ -159,6 +160,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         populateNodeMap();
 
+        custom = new ElementLibraryFolder(root, Lang.get("menu_custom"));
+        library = new ElementLibraryFolder(root, Lang.get("menu_library"));
+
         isProgrammable.clear();
         root.traverse(libraryNode -> {
             ElementTypeDescription d = libraryNode.getDescriptionOrNull();
@@ -190,7 +194,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * @return the node with the custom elements
      */
     public LibraryNode getCustomNode() {
-        return customNode;
+        return custom.getNode();
     }
 
     private void populateNodeMap() {
@@ -295,32 +299,19 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         File libPath = Settings.getInstance().get(Keys.SETTINGS_LIBRARY_PATH);
         if (libPath != null && !libPath.exists()) libPath = null;
 
-        LibraryNode changedNode = null;
-        if (rootLibraryPath != null || libPath != null) {
-            if (customNode == null) {
-                customNode = new LibraryNode(Lang.get("menu_custom"));
-                root.add(customNode);
-                changedNode = root;
-            } else {
-                customNode.removeAll();
-                changedNode = customNode;
-            }
-            int num = 0;
-            if (libPath != null)
-                num += scanFolder(libPath, customNode);
-            if (rootLibraryPath != null)
-                num += scanFolder(rootLibraryPath, customNode);
-            LOGGER.debug("found " + num + " files");
-        } else if (customNode != null) {
-            root.remove(customNode);
-            customNode = null;
-            changedNode = root;
-        }
+        LibraryNode cn1 = library.scanFolder(libPath);
+        LibraryNode cn2 = custom.scanFolder(rootLibraryPath);
 
         populateNodeMap();
 
-        if (changedNode != null)
-            fireLibraryChanged(changedNode);
+        if (cn1 == root || cn2 == root) {
+            fireLibraryChanged(root);
+        } else {
+            if (cn1 != null)
+                fireLibraryChanged(cn1);
+            if (cn2 != null)
+                fireLibraryChanged(cn2);
+        }
     }
 
     /**
@@ -331,31 +322,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     void fireLibraryChanged(LibraryNode node) {
         for (LibraryListener l : listeners)
             l.libraryChanged(node);
-    }
-
-    private static int scanFolder(File path, LibraryNode node) {
-        int num = 0;
-        File[] list = path.listFiles();
-        if (list != null) {
-            ArrayList<File> orderedList = new ArrayList<>(Arrays.asList(list));
-            orderedList.sort((f1, f2) -> NumStringComparator.compareStr(f1.getName(), f2.getName()));
-            for (File f : orderedList) {
-                if (f.isDirectory()) {
-                    LibraryNode n = new LibraryNode(f.getName());
-                    num += scanFolder(f, n);
-                    if (!n.isEmpty())
-                        node.add(n);
-                }
-            }
-            for (File f : orderedList) {
-                final String name = f.getName();
-                if (f.isFile() && name.endsWith(".dig")) {
-                    node.add(new LibraryNode(f));
-                    num++;
-                }
-            }
-        }
-        return num;
     }
 
     /**
@@ -598,8 +564,12 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                     map.put(name, libraryNode);
                     libraryNode.setUnique(true);
                 } else {
-                    presentNode.setUnique(false);
-                    libraryNode.setUnique(false);
+                    if (presentNode.getFile().equals(libraryNode.getFile()))
+                        libraryNode.setUnique(true);
+                    else {
+                        presentNode.setUnique(false); // ToDo does not work if there are more than two duplicates and
+                        libraryNode.setUnique(false); // some of the duplicates point to the same file
+                    }
                 }
             }
         }

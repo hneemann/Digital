@@ -734,6 +734,7 @@ The names of the variables may not be unique.</string>
     <string name="menu_cut">Cut</string>
     <string name="menu_copy">Copy</string>
     <string name="menu_custom">Custom</string>
+    <string name="menu_library">Library</string>
     <string name="menu_delete">Delete components</string>
     <string name="menu_delete_tt">Delete selected single component or group of components.</string>
     <string name="menu_edit">Edit</string>

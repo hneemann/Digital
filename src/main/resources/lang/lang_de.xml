@@ -747,6 +747,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_cut">Ausschneiden</string>
     <string name="menu_copy">Kopieren</string>
     <string name="menu_custom">Benutzerdefiniert</string>
+    <string name="menu_library">Bibliothek</string>
     <string name="menu_delete">Löschen</string>
     <string name="menu_delete_tt">Löscht ausgewählte Elemente</string>
     <string name="menu_edit">Bearbeiten</string>
