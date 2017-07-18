@@ -15,8 +15,8 @@
       <string>Dual J-K negative-edge-triggered flip-flop, clear and preset</string>
     </entry>
     <entry>
-      <string>Width</string>
-      <int>5</int>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
     </entry>
   </attributes>
   <visualElements>
