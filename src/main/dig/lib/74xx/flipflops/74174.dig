@@ -23,6 +23,12 @@
           <string>Bits</string>
           <int>6</int>
         </entry>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>Clr</string>
+          </inverterConfig>
+        </entry>
       </elementAttributes>
       <pos x="460" y="220"/>
     </visualElement>
@@ -62,7 +68,7 @@
           <int>9</int>
         </entry>
       </elementAttributes>
-      <pos x="420" y="260"/>
+      <pos x="400" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -80,12 +86,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="360" y="300"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="380" y="300"/>
+      <pos x="400" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -292,7 +293,7 @@
       <p2 x="600" y="320"/>
     </wire>
     <wire>
-      <p1 x="420" y="260"/>
+      <p1 x="400" y="260"/>
       <p2 x="460" y="260"/>
     </wire>
     <wire>
@@ -308,8 +309,8 @@
       <p2 x="200" y="340"/>
     </wire>
     <wire>
-      <p1 x="440" y="280"/>
-      <p2 x="460" y="280"/>
+      <p1 x="420" y="280"/>
+      <p2 x="440" y="280"/>
     </wire>
     <wire>
       <p1 x="180" y="280"/>
@@ -332,12 +333,8 @@
       <p2 x="740" y="220"/>
     </wire>
     <wire>
-      <p1 x="360" y="300"/>
-      <p2 x="380" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="420" y="300"/>
-      <p2 x="440" y="300"/>
+      <p1 x="400" y="300"/>
+      <p2 x="420" y="300"/>
     </wire>
     <wire>
       <p1 x="40" y="300"/>
@@ -348,8 +345,8 @@
       <p2 x="740" y="300"/>
     </wire>
     <wire>
-      <p1 x="440" y="280"/>
-      <p2 x="440" y="300"/>
+      <p1 x="420" y="280"/>
+      <p2 x="420" y="300"/>
     </wire>
   </wires>
 </circuit>
