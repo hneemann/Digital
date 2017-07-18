@@ -13,7 +13,7 @@ import java.io.File;
 /**
  * Reads all examples and tries to create the model.
  * Makes sure that all examples are creatable (one can build the model)
- * Does not ensure that they work correctly if no tests are present in the model!
+ * Does not ensure that they work correctly if no tests are present in the circuit!
  *
  * @author hneemann
  */
