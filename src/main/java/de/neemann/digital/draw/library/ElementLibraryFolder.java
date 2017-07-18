@@ -22,7 +22,7 @@ public class ElementLibraryFolder {
     /**
      * create a new folder manager
      *
-     * @param root the root node
+     * @param root      the root node
      * @param menuTitle string to show in menu
      */
     public ElementLibraryFolder(LibraryNode root, String menuTitle) {
@@ -37,15 +37,6 @@ public class ElementLibraryFolder {
         return node;
     }
 
-    private boolean hasChanged(File path) {
-        File lp = lastPath;
-        lastPath = path;
-
-        if (lp == path) return false;
-
-        return lp == null || !lp.equals(path);
-    }
-
     /**
      * scans the given folder
      *
@@ -54,23 +45,21 @@ public class ElementLibraryFolder {
      */
     public LibraryNode scanFolder(File path) {
         LibraryNode changedNode = null;
-        if (hasChanged(path)) {
-            if (path != null) {
-                if (node == null) {
-                    node = new LibraryNode(menuTitle);
-                    root.add(node);
-                    changedNode = root;
-                } else {
-                    node.removeAll();
-                    changedNode = node;
-                }
-                int num = scanFolder(path, node);
-                LOGGER.debug("found " + num + " files in " + path);
-            } else if (node != null) {
-                root.remove(node);
-                node = null;
+        if (path != null) {
+            if (node == null) {
+                node = new LibraryNode(menuTitle);
+                root.add(node);
                 changedNode = root;
+            } else {
+                node.removeAll();
+                changedNode = node;
             }
+            int num = scanFolder(path, node);
+            LOGGER.debug("found " + num + " files in " + path);
+        } else if (node != null) {
+            root.remove(node);
+            node = null;
+            changedNode = root;
         }
         return changedNode;
     }

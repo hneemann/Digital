@@ -67,7 +67,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private final LibraryNode root;
     private ShapeFactory shapeFactory;
     private ElementLibraryFolder custom;
-    private ElementLibraryFolder library;
     private File rootLibraryPath;
 
     /**
@@ -161,7 +160,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         populateNodeMap();
 
         custom = new ElementLibraryFolder(root, Lang.get("menu_custom"));
-        library = new ElementLibraryFolder(root, Lang.get("menu_library"));
+
+        File libPath = Settings.getInstance().get(Keys.SETTINGS_LIBRARY_PATH);
+        if (libPath != null && libPath.exists())
+            new ElementLibraryFolder(root, Lang.get("menu_library")).scanFolder(libPath);
 
         isProgrammable.clear();
         root.traverse(libraryNode -> {
@@ -296,22 +298,12 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void rescanFolder() throws IOException {
         LOGGER.debug("rescan folder");
-        File libPath = Settings.getInstance().get(Keys.SETTINGS_LIBRARY_PATH);
-        if (libPath != null && !libPath.exists()) libPath = null;
-
-        LibraryNode cn1 = library.scanFolder(libPath);
-        LibraryNode cn2 = custom.scanFolder(rootLibraryPath);
+        LibraryNode cn = custom.scanFolder(rootLibraryPath);
 
         populateNodeMap();
 
-        if (cn1 == root || cn2 == root) {
-            fireLibraryChanged(root);
-        } else {
-            if (cn1 != null)
-                fireLibraryChanged(cn1);
-            if (cn2 != null)
-                fireLibraryChanged(cn2);
-        }
+        if (cn != null)
+            fireLibraryChanged(cn);
     }
 
     /**
