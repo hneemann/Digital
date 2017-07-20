@@ -592,6 +592,43 @@
       </elementAttributes>
       <pos x="620" y="-1120"/>
     </visualElement>
+    <visualElement>
+      <elementName>PowerSupply</elementName>
+      <elementAttributes/>
+      <pos x="-140" y="-520"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VCC</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="-180" y="-520"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>GND</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-180" y="-480"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -613,6 +650,10 @@
     <wire>
       <p1 x="560" y="-520"/>
       <p2 x="600" y="-520"/>
+    </wire>
+    <wire>
+      <p1 x="-180" y="-520"/>
+      <p2 x="-140" y="-520"/>
     </wire>
     <wire>
       <p1 x="560" y="520"/>
@@ -1043,6 +1084,10 @@
       <p2 x="500" y="860"/>
     </wire>
     <wire>
+      <p1 x="-180" y="-480"/>
+      <p2 x="-160" y="-480"/>
+    </wire>
+    <wire>
       <p1 x="100" y="-740"/>
       <p2 x="120" y="-740"/>
     </wire>
@@ -1125,6 +1170,10 @@
     <wire>
       <p1 x="460" y="-500"/>
       <p2 x="500" y="-500"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-500"/>
+      <p2 x="-140" y="-500"/>
     </wire>
     <wire>
       <p1 x="420" y="500"/>
@@ -1653,6 +1702,10 @@
     <wire>
       <p1 x="-160" y="-1080"/>
       <p2 x="-160" y="-720"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-500"/>
+      <p2 x="-160" y="-480"/>
     </wire>
   </wires>
 </circuit>

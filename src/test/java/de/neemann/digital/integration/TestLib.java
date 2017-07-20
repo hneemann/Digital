@@ -59,6 +59,11 @@ public class TestLib extends TestCase {
             if (e.equalsDescription(Clock.DESCRIPTION))
                 pc.checkPin(e);
         }
+
+        if (is74xx) {
+            assertTrue("GND is missing", pc.isGND);
+            assertTrue("VCC is missing", pc.isVCC);
+        }
     }
 
 
@@ -66,6 +71,8 @@ public class TestLib extends TestCase {
         private final HashSet<Integer> pinMap;
         private final HashSet<String> nameMap;
         private final boolean is74xx;
+        private boolean isVCC = false;
+        private boolean isGND = false;
 
         private PinChecker(boolean is74xx) {
             this.is74xx = is74xx;
@@ -76,6 +83,11 @@ public class TestLib extends TestCase {
         private void checkPin(VisualElement e) {
             int pn = e.getElementAttributes().get(Keys.PINNUMBER);
             final String label = e.getElementAttributes().getLabel();
+
+            if (label.equalsIgnoreCase("VCC"))
+                isVCC = true;
+            if (label.equalsIgnoreCase("GND"))
+                isGND = true;
 
             if (is74xx) {
                 assertTrue("missing pin number: " + label, pn != 0);

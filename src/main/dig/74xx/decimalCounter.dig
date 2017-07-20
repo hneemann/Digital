@@ -6,6 +6,10 @@
       <string>Description</string>
       <string>12-bit BCD counter</string>
     </entry>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>
@@ -205,11 +209,41 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
       </elementAttributes>
       <pos x="180" y="-100"/>
     </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="-160" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="180" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="520" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="0" y="-500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="340" y="-500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="680" y="-500"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
       <p1 x="420" y="-520"/>
-      <p2 x="680" y="-520"/>
+      <p2 x="700" y="-520"/>
     </wire>
     <wire>
       <p1 x="500" y="-440"/>
@@ -242,6 +276,18 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
     <wire>
       <p1 x="660" y="-200"/>
       <p2 x="680" y="-200"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-200"/>
+      <p2 x="-140" y="-200"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="-200"/>
+      <p2 x="200" y="-200"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="-200"/>
+      <p2 x="540" y="-200"/>
     </wire>
     <wire>
       <p1 x="180" y="-360"/>
@@ -305,7 +351,7 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
     </wire>
     <wire>
       <p1 x="140" y="-160"/>
-      <p2 x="520" y="-160"/>
+      <p2 x="500" y="-160"/>
     </wire>
     <wire>
       <p1 x="520" y="-400"/>
@@ -332,12 +378,12 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
       <p2 x="380" y="-400"/>
     </wire>
     <wire>
-      <p1 x="520" y="-240"/>
+      <p1 x="500" y="-240"/>
       <p2 x="540" y="-240"/>
     </wire>
     <wire>
       <p1 x="660" y="-240"/>
-      <p2 x="680" y="-240"/>
+      <p2 x="700" y="-240"/>
     </wire>
     <wire>
       <p1 x="140" y="-240"/>
@@ -366,6 +412,18 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
     <wire>
       <p1 x="-160" y="-480"/>
       <p2 x="-140" y="-480"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="-480"/>
+      <p2 x="0" y="-480"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="-480"/>
+      <p2 x="340" y="-480"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="-480"/>
+      <p2 x="680" y="-480"/>
     </wire>
     <wire>
       <p1 x="520" y="-320"/>
@@ -400,6 +458,10 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
       <p2 x="0" y="-240"/>
     </wire>
     <wire>
+      <p1 x="0" y="-500"/>
+      <p2 x="0" y="-480"/>
+    </wire>
+    <wire>
       <p1 x="0" y="-240"/>
       <p2 x="0" y="-200"/>
     </wire>
@@ -416,20 +478,28 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
       <p2 x="500" y="-440"/>
     </wire>
     <wire>
+      <p1 x="500" y="-240"/>
+      <p2 x="500" y="-160"/>
+    </wire>
+    <wire>
       <p1 x="340" y="-260"/>
       <p2 x="340" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="-500"/>
+      <p2 x="340" y="-480"/>
     </wire>
     <wire>
       <p1 x="340" y="-240"/>
       <p2 x="340" y="-200"/>
     </wire>
     <wire>
-      <p1 x="180" y="-500"/>
-      <p2 x="180" y="-480"/>
+      <p1 x="180" y="-200"/>
+      <p2 x="180" y="-180"/>
     </wire>
     <wire>
-      <p1 x="180" y="-320"/>
-      <p2 x="180" y="-280"/>
+      <p1 x="180" y="-500"/>
+      <p2 x="180" y="-480"/>
     </wire>
     <wire>
       <p1 x="180" y="-400"/>
@@ -440,6 +510,10 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
       <p2 x="180" y="-320"/>
     </wire>
     <wire>
+      <p1 x="180" y="-320"/>
+      <p2 x="180" y="-280"/>
+    </wire>
+    <wire>
       <p1 x="180" y="-480"/>
       <p2 x="180" y="-400"/>
     </wire>
@@ -448,32 +522,36 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
       <p2 x="680" y="-200"/>
     </wire>
     <wire>
-      <p1 x="680" y="-520"/>
-      <p2 x="680" y="-240"/>
+      <p1 x="680" y="-500"/>
+      <p2 x="680" y="-480"/>
     </wire>
     <wire>
-      <p1 x="520" y="-240"/>
-      <p2 x="520" y="-160"/>
+      <p1 x="520" y="-200"/>
+      <p2 x="520" y="-180"/>
     </wire>
     <wire>
       <p1 x="520" y="-500"/>
       <p2 x="520" y="-480"/>
     </wire>
     <wire>
-      <p1 x="520" y="-360"/>
-      <p2 x="520" y="-320"/>
-    </wire>
-    <wire>
       <p1 x="520" y="-480"/>
       <p2 x="520" y="-400"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="-400"/>
+      <p2 x="520" y="-360"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="-360"/>
+      <p2 x="520" y="-320"/>
     </wire>
     <wire>
       <p1 x="520" y="-320"/>
       <p2 x="520" y="-280"/>
     </wire>
     <wire>
-      <p1 x="520" y="-400"/>
-      <p2 x="520" y="-360"/>
+      <p1 x="700" y="-520"/>
+      <p2 x="700" y="-240"/>
     </wire>
     <wire>
       <p1 x="140" y="-440"/>
@@ -484,16 +562,24 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
       <p2 x="140" y="-160"/>
     </wire>
     <wire>
+      <p1 x="-160" y="-200"/>
+      <p2 x="-160" y="-180"/>
+    </wire>
+    <wire>
       <p1 x="-160" y="-500"/>
       <p2 x="-160" y="-480"/>
     </wire>
     <wire>
-      <p1 x="-160" y="-320"/>
-      <p2 x="-160" y="-280"/>
-    </wire>
-    <wire>
       <p1 x="-160" y="-480"/>
       <p2 x="-160" y="-400"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-280"/>
+      <p2 x="-160" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-320"/>
+      <p2 x="-160" y="-280"/>
     </wire>
     <wire>
       <p1 x="-160" y="-360"/>
@@ -502,10 +588,6 @@ repeat(1000) C bits(4,((n+1)/100)%10) bits(4,((n+1)/10)%10) bits(4,(n+1)%10)</da
     <wire>
       <p1 x="-160" y="-400"/>
       <p2 x="-160" y="-360"/>
-    </wire>
-    <wire>
-      <p1 x="-160" y="-280"/>
-      <p2 x="-160" y="-240"/>
     </wire>
   </wires>
 </circuit>

@@ -280,6 +280,43 @@
       </elementAttributes>
       <pos x="400" y="220"/>
     </visualElement>
+    <visualElement>
+      <elementName>PowerSupply</elementName>
+      <elementAttributes/>
+      <pos x="260" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VCC</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>14</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>GND</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>7</int>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="180"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -345,6 +382,10 @@
     <wire>
       <p1 x="920" y="400"/>
       <p2 x="1100" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="160"/>
+      <p2 x="260" y="160"/>
     </wire>
     <wire>
       <p1 x="1580" y="260"/>
@@ -413,6 +454,10 @@
     <wire>
       <p1 x="1660" y="260"/>
       <p2 x="1700" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="180"/>
+      <p2 x="240" y="180"/>
     </wire>
     <wire>
       <p1 x="1460" y="280"/>
@@ -551,6 +596,10 @@
       <p2 x="1300" y="220"/>
     </wire>
     <wire>
+      <p1 x="220" y="140"/>
+      <p2 x="260" y="140"/>
+    </wire>
+    <wire>
       <p1 x="1280" y="300"/>
       <p2 x="1280" y="400"/>
     </wire>
@@ -649,6 +698,10 @@
     <wire>
       <p1 x="560" y="260"/>
       <p2 x="560" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="160"/>
+      <p2 x="240" y="180"/>
     </wire>
     <wire>
       <p1 x="1460" y="300"/>

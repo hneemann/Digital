@@ -672,6 +672,43 @@
       </elementAttributes>
       <pos x="640" y="140"/>
     </visualElement>
+    <visualElement>
+      <elementName>PowerSupply</elementName>
+      <elementAttributes/>
+      <pos x="-500" y="-500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VCC</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="-540" y="-500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>GND</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-540" y="-460"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -1051,6 +1088,10 @@
       <p2 x="500" y="-460"/>
     </wire>
     <wire>
+      <p1 x="-540" y="-460"/>
+      <p2 x="-520" y="-460"/>
+    </wire>
+    <wire>
       <p1 x="460" y="460"/>
       <p2 x="500" y="460"/>
     </wire>
@@ -1131,6 +1172,10 @@
       <p2 x="-200" y="-1120"/>
     </wire>
     <wire>
+      <p1 x="-520" y="-480"/>
+      <p2 x="-500" y="-480"/>
+    </wire>
+    <wire>
       <p1 x="-500" y="-740"/>
       <p2 x="-440" y="-740"/>
     </wire>
@@ -1205,6 +1250,10 @@
     <wire>
       <p1 x="460" y="-500"/>
       <p2 x="500" y="-500"/>
+    </wire>
+    <wire>
+      <p1 x="-540" y="-500"/>
+      <p2 x="-500" y="-500"/>
     </wire>
     <wire>
       <p1 x="420" y="500"/>
@@ -1413,6 +1462,10 @@
     <wire>
       <p1 x="-520" y="-1200"/>
       <p2 x="-520" y="-720"/>
+    </wire>
+    <wire>
+      <p1 x="-520" y="-480"/>
+      <p2 x="-520" y="-460"/>
     </wire>
     <wire>
       <p1 x="360" y="-1200"/>

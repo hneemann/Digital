@@ -640,6 +640,43 @@ counter, synchronous reset</string>
       </elementAttributes>
       <pos x="-80" y="400"/>
     </visualElement>
+    <visualElement>
+      <elementName>PowerSupply</elementName>
+      <elementAttributes/>
+      <pos x="-40" y="-440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VCC</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="-440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>GND</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="-400"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -699,30 +736,6 @@ counter, synchronous reset</string>
       <p2 x="1060" y="-260"/>
     </wire>
     <wire>
-      <p1 x="1200" y="-100"/>
-      <p2 x="1240" y="-100"/>
-    </wire>
-    <wire>
-      <p1 x="-60" y="100"/>
-      <p2 x="-40" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="160" y="100"/>
-      <p2 x="320" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="840" y="100"/>
-      <p2 x="1060" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="320" y="100"/>
-      <p2 x="580" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="580" y="100"/>
-      <p2 x="840" y="100"/>
-    </wire>
-    <wire>
       <p1 x="-80" y="-200"/>
       <p2 x="-40" y="-200"/>
     </wire>
@@ -759,18 +772,6 @@ counter, synchronous reset</string>
       <p2 x="1080" y="200"/>
     </wire>
     <wire>
-      <p1 x="60" y="40"/>
-      <p2 x="240" y="40"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="-300"/>
-      <p2 x="1220" y="-300"/>
-    </wire>
-    <wire>
-      <p1 x="1220" y="-300"/>
-      <p2 x="1360" y="-300"/>
-    </wire>
-    <wire>
       <p1 x="20" y="140"/>
       <p2 x="40" y="140"/>
     </wire>
@@ -791,20 +792,8 @@ counter, synchronous reset</string>
       <p2 x="880" y="-80"/>
     </wire>
     <wire>
-      <p1 x="-60" y="-240"/>
-      <p2 x="-40" y="-240"/>
-    </wire>
-    <wire>
-      <p1 x="540" y="-240"/>
-      <p2 x="660" y="-240"/>
-    </wire>
-    <wire>
-      <p1 x="880" y="-240"/>
-      <p2 x="1020" y="-240"/>
-    </wire>
-    <wire>
-      <p1 x="1020" y="-240"/>
-      <p2 x="1320" y="-240"/>
+      <p1 x="-80" y="-400"/>
+      <p2 x="-60" y="-400"/>
     </wire>
     <wire>
       <p1 x="-80" y="400"/>
@@ -875,14 +864,6 @@ counter, synchronous reset</string>
       <p2 x="1280" y="340"/>
     </wire>
     <wire>
-      <p1 x="1080" y="-120"/>
-      <p2 x="1100" y="-120"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="-120"/>
-      <p2 x="1120" y="-120"/>
-    </wire>
-    <wire>
       <p1 x="380" y="-280"/>
       <p2 x="500" y="-280"/>
     </wire>
@@ -897,14 +878,6 @@ counter, synchronous reset</string>
     <wire>
       <p1 x="800" y="-280"/>
       <p2 x="1080" y="-280"/>
-    </wire>
-    <wire>
-      <p1 x="-60" y="120"/>
-      <p2 x="40" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="40" y="120"/>
-      <p2 x="80" y="120"/>
     </wire>
     <wire>
       <p1 x="1180" y="-220"/>
@@ -933,6 +906,82 @@ counter, synchronous reset</string>
     <wire>
       <p1 x="260" y="-220"/>
       <p2 x="520" y="-220"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="-100"/>
+      <p2 x="1240" y="-100"/>
+    </wire>
+    <wire>
+      <p1 x="-60" y="-420"/>
+      <p2 x="-40" y="-420"/>
+    </wire>
+    <wire>
+      <p1 x="-60" y="100"/>
+      <p2 x="-40" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="100"/>
+      <p2 x="320" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="840" y="100"/>
+      <p2 x="1060" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="100"/>
+      <p2 x="580" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="100"/>
+      <p2 x="840" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="60" y="40"/>
+      <p2 x="240" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="-300"/>
+      <p2 x="1220" y="-300"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="-300"/>
+      <p2 x="1360" y="-300"/>
+    </wire>
+    <wire>
+      <p1 x="-60" y="-240"/>
+      <p2 x="-40" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="-240"/>
+      <p2 x="660" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="-240"/>
+      <p2 x="1020" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="-240"/>
+      <p2 x="1320" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="1080" y="-120"/>
+      <p2 x="1100" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="-120"/>
+      <p2 x="1120" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="-440"/>
+      <p2 x="-40" y="-440"/>
+    </wire>
+    <wire>
+      <p1 x="-60" y="120"/>
+      <p2 x="40" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="40" y="120"/>
+      <p2 x="80" y="120"/>
     </wire>
     <wire>
       <p1 x="660" y="380"/>
@@ -1157,6 +1206,10 @@ counter, synchronous reset</string>
     <wire>
       <p1 x="-60" y="-320"/>
       <p2 x="-60" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="-60" y="-420"/>
+      <p2 x="-60" y="-400"/>
     </wire>
     <wire>
       <p1 x="1340" y="400"/>

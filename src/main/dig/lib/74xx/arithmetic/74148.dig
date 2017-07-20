@@ -473,6 +473,43 @@
       </elementAttributes>
       <pos x="-20" y="-60"/>
     </visualElement>
+    <visualElement>
+      <elementName>PowerSupply</elementName>
+      <elementAttributes/>
+      <pos x="240" y="-120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VCC</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="-120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>GND</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="-80"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -680,6 +717,10 @@
       <p2 x="-20" y="-80"/>
     </wire>
     <wire>
+      <p1 x="200" y="-80"/>
+      <p2 x="220" y="-80"/>
+    </wire>
+    <wire>
       <p1 x="-40" y="80"/>
       <p2 x="20" y="80"/>
     </wire>
@@ -728,6 +769,10 @@
       <p2 x="100" y="1120"/>
     </wire>
     <wire>
+      <p1 x="220" y="-100"/>
+      <p2 x="240" y="-100"/>
+    </wire>
+    <wire>
       <p1 x="100" y="100"/>
       <p2 x="120" y="100"/>
     </wire>
@@ -774,6 +819,10 @@
     <wire>
       <p1 x="-200" y="500"/>
       <p2 x="20" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="-120"/>
+      <p2 x="240" y="-120"/>
     </wire>
     <wire>
       <p1 x="-360" y="120"/>
@@ -1146,6 +1195,10 @@
     <wire>
       <p1 x="-60" y="1280"/>
       <p2 x="-60" y="1340"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="-100"/>
+      <p2 x="220" y="-80"/>
     </wire>
     <wire>
       <p1 x="-320" y="-100"/>

@@ -349,6 +349,43 @@
       </elementAttributes>
       <pos x="940" y="200"/>
     </visualElement>
+    <visualElement>
+      <elementName>PowerSupply</elementName>
+      <elementAttributes/>
+      <pos x="320" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VCC</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>GND</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="40"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -370,6 +407,10 @@
     <wire>
       <p1 x="780" y="160"/>
       <p2 x="940" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="0"/>
+      <p2 x="320" y="0"/>
     </wire>
     <wire>
       <p1 x="460" y="420"/>
@@ -402,6 +443,10 @@
     <wire>
       <p1 x="780" y="200"/>
       <p2 x="940" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="40"/>
+      <p2 x="300" y="40"/>
     </wire>
     <wire>
       <p1 x="620" y="140"/>
@@ -458,6 +503,10 @@
     <wire>
       <p1 x="320" y="340"/>
       <p2 x="640" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="20"/>
+      <p2 x="320" y="20"/>
     </wire>
     <wire>
       <p1 x="660" y="440"/>
@@ -522,6 +571,10 @@
     <wire>
       <p1 x="460" y="220"/>
       <p2 x="460" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="20"/>
+      <p2 x="300" y="40"/>
     </wire>
   </wires>
 </circuit>
