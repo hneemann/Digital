@@ -6,10 +6,6 @@
       <string>Description</string>
       <string>12-bit BCD counter</string>
     </entry>
-    <entry>
-      <string>lockedMode</string>
-      <boolean>true</boolean>
-    </entry>
   </attributes>
   <visualElements>
     <visualElement>

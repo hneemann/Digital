@@ -49,9 +49,9 @@ public class PowerSupply extends Node implements Element {
     @Override
     public void readInputs() throws NodeException {
         if (vcc.getValue() != 1 || vcc.isHighZ())
-            throw new NodeException(Lang.get("err_errorInPowerSupply", "VCC"), vcc);
+            throw new NodeException(Lang.get("err_errorInPowerSupply", "VCC"), this, 0, vcc.asList());
         if (gnd.getValue() != 0 || gnd.isHighZ())
-            throw new NodeException(Lang.get("err_errorInPowerSupply", "GND"), gnd);
+            throw new NodeException(Lang.get("err_errorInPowerSupply", "GND"), this, 1, gnd.asList());
     }
 
     @Override

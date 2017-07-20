@@ -6,10 +6,6 @@
       <string>Description</string>
       <string>12-bit hex counter</string>
     </entry>
-    <entry>
-      <string>lockedMode</string>
-      <boolean>true</boolean>
-    </entry>
   </attributes>
   <visualElements>
     <visualElement>
@@ -220,11 +216,6 @@ repeat(2&lt;&lt;12) C bits(4,(n+1)&gt;&gt;8) bits(4,(n+1)&gt;&gt;4) bits(4,(n+1)
       <pos x="0" y="-500"/>
     </visualElement>
     <visualElement>
-      <elementName>VDD</elementName>
-      <elementAttributes/>
-      <pos x="680" y="-500"/>
-    </visualElement>
-    <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
       <pos x="520" y="-180"/>
@@ -238,6 +229,11 @@ repeat(2&lt;&lt;12) C bits(4,(n+1)&gt;&gt;8) bits(4,(n+1)&gt;&gt;4) bits(4,(n+1)
       <elementName>Ground</elementName>
       <elementAttributes/>
       <pos x="-160" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="680" y="-500"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -562,12 +558,12 @@ repeat(2&lt;&lt;12) C bits(4,(n+1)&gt;&gt;8) bits(4,(n+1)&gt;&gt;4) bits(4,(n+1)
       <p2 x="140" y="-160"/>
     </wire>
     <wire>
-      <p1 x="-160" y="-500"/>
-      <p2 x="-160" y="-480"/>
-    </wire>
-    <wire>
       <p1 x="-160" y="-200"/>
       <p2 x="-160" y="-180"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-500"/>
+      <p2 x="-160" y="-480"/>
     </wire>
     <wire>
       <p1 x="-160" y="-480"/>
