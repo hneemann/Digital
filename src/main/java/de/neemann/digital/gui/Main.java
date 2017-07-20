@@ -62,6 +62,7 @@ import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
@@ -235,7 +236,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         setJMenuBar(menuBar);
-        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE+"\n\nlib: "+ElementLibrary.getLibPath());
+        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE + "\n\nlib: " + ElementLibrary.getLibPath());
         help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -718,11 +719,26 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!circuitComponent.isLocked()) {
                     int maxNum = 0;
+                    HashSet<Integer> pinsUsed = new HashSet<>();
                     for (VisualElement v : circuitComponent.getCircuit().getElements()) {
-                        if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION))
-                            maxNum = Math.max(maxNum, v.getElementAttributes().get(Keys.PINNUMBER));
+                        if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION)) {
+                            Integer pin = v.getElementAttributes().get(Keys.PINNUMBER);
+                            maxNum = Math.max(maxNum, pin);
+                            pinsUsed.add(pin);
+                        }
                     }
-                    if ((maxNum & 1) != 0) maxNum++;
+                    int guessedVCC = 0;
+                    int guessedGND = 0;
+                    if ((maxNum & 1) != 0) {
+                        maxNum++;
+                        guessedVCC = maxNum;
+                        guessedGND = maxNum / 2;
+                    }
+
+                    if (pinsUsed.contains(guessedGND) || pinsUsed.contains(guessedVCC)) {
+                        guessedGND = 0;
+                        guessedVCC = 0;
+                    }
 
                     // defines the power supply circuit
                     ArrayList<Movable> list = new ArrayList<>();
@@ -732,13 +748,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     list.add(new VisualElement(In.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
                             .setAttribute(Keys.LABEL, "VCC")
-                            .setAttribute(Keys.PINNUMBER, maxNum)
+                            .setAttribute(Keys.PINNUMBER, guessedVCC)
                             .setAttribute(Keys.INPUT_DEFAULT, new InValue(1))
                             .setPos(new Vector(0, 0)));
                     list.add(new VisualElement(In.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
                             .setAttribute(Keys.LABEL, "GND")
-                            .setAttribute(Keys.PINNUMBER, maxNum / 2)
+                            .setAttribute(Keys.PINNUMBER, guessedGND)
                             .setPos(new Vector(0, SIZE * 2)));
                     list.add(new Wire(new Vector(0, 0), new Vector(SIZE * 2, 0)));
                     list.add(new Wire(new Vector(0, SIZE * 2), new Vector(SIZE, SIZE * 2)));
