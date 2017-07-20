@@ -20,7 +20,7 @@ public class PowerSupply implements Element {
      * Enforces a power supply
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(PowerSupply.class, input("VCC"), input("GND"))
+            = new ElementTypeDescription(PowerSupply.class, input("VDD"), input("GND"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL);
 
