@@ -730,7 +730,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             .setPos(new Vector(SIZE * 2, 0)));
                     list.add(new VisualElement(In.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
-                            .setAttribute(Keys.LABEL, "VDD")
+                            .setAttribute(Keys.LABEL, "VCC")
                             .setAttribute(Keys.PINNUMBER, maxNum)
                             .setPos(new Vector(0, 0)));
                     list.add(new VisualElement(In.DESCRIPTION.getName())
