@@ -14,7 +14,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * Enforces a power supply
  * Created by hneemann on 15.07.17.
  */
-public class PowerSupply implements Element {
+public class PowerSupply extends Node implements Element {
 
     /**
      * Enforces a power supply
@@ -23,6 +23,9 @@ public class PowerSupply implements Element {
             = new ElementTypeDescription(PowerSupply.class, input("VDD"), input("GND"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL);
+
+    private ObservableValue vcc;
+    private ObservableValue gnd;
 
     /**
      * Creates a new instance
@@ -34,13 +37,8 @@ public class PowerSupply implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        check(inputs.get(0).checkBits(1, null, 0), 1);
-        check(inputs.get(1).checkBits(1, null, 1), 0);
-    }
-
-    private void check(ObservableValue val, int expected) throws NodeException {
-        if (!val.isConstant() || val.getValue() != expected)
-            throw new NodeException(Lang.get("err_errorInPowerSupply"), val);
+        vcc = inputs.get(0).checkBits(1, null, 0).addObserverToValue(this);
+        gnd = inputs.get(1).checkBits(1, null, 1).addObserverToValue(this);
     }
 
     @Override
@@ -49,6 +47,15 @@ public class PowerSupply implements Element {
     }
 
     @Override
-    public void registerNodes(Model model) {
+    public void readInputs() throws NodeException {
+        if (vcc.getValue() != 1 || vcc.isHighZ())
+            throw new NodeException(Lang.get("err_errorInPowerSupply", "VCC"), vcc);
+        if (gnd.getValue() != 0 || gnd.isHighZ())
+            throw new NodeException(Lang.get("err_errorInPowerSupply", "GND"), gnd);
     }
+
+    @Override
+    public void writeOutputs() throws NodeException {
+    }
+
 }

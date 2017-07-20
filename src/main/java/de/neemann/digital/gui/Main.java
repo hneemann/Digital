@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.io.PowerSupply;
 import de.neemann.digital.core.memory.ROM;
@@ -732,6 +733,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             .setShapeFactory(shapeFactory)
                             .setAttribute(Keys.LABEL, "VCC")
                             .setAttribute(Keys.PINNUMBER, maxNum)
+                            .setAttribute(Keys.INPUT_DEFAULT, new InValue(1))
                             .setPos(new Vector(0, 0)));
                     list.add(new VisualElement(In.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
