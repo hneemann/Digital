@@ -62,9 +62,13 @@ public class ExceptionWithOrigin extends Exception {
      * @return the origin of the error
      */
     public Set<File> getOrigin() {
-        HashSet<File> s = new HashSet<>();
-        s.add(origin);
-        return s;
+        if (origin == null)
+            return null;
+        else {
+            HashSet<File> os = new HashSet<>();
+            os.add(origin);
+            return os;
+        }
     }
 
     /**
