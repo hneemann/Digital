@@ -34,6 +34,7 @@ Folgende Features zeichnen Digital aus:
 - Analyse und Synthese von kombinatorischen Schaltungen und Schaltwerken.
 - Einfaches Testen von Schaltungen: Es können Testfälle erstellt und aussgeführt werden.
 - Viele Beispiele: Vom Transmission-Gate D-FF bis zum kompletten MIPS-ähnlichem Prozessor.
+- Enthält eine Bibliothek mit den am häufgsten genutzen Schaltkreisen der 74xx Serie. 
 - Fast-Run-Mode um eine Simulation ohne Aktualisierung des HMI durchzuführen.
   Ein einfacher Prozessor kann mit 100kHz getaktet werden.
 - Einfache Remote TCP-Schnittstelle um z.B. mit einer [Assembler-IDE](https://github.com/hneemann/Assembler) den Simulator zu steuern.

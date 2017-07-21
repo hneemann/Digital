@@ -32,6 +32,7 @@ These are the main features of Digital:
 - Analysis and synthesis of combinatorial and sequential circuits.
 - Simple testing of circuits: You can create test cases and execute them to verify your design.
 - Many examples: From a transmission gate D-flip-flop to a complete (simple) MIPS-like single cycle CPU.
+- Contains a library with the most commonly used 74xx series integrated circuits. 
 - Fast-run mode to perform a simulation without updating the GUI.
   A simple processor can be clocked at 100kHz.
 - Simple remote TCP interface which  e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
