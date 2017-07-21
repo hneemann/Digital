@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.elements;
 
+import de.neemann.digital.core.Node;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.graphics.*;
@@ -294,7 +295,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         Pins pins = shape.getPins();
         Pins transformed = new Pins();
         for (Pin p : pins)
-            transformed.add(new Pin(tr.transform(p.getPos()), p));
+            transformed.add(new Pin(tr.transform(p.getPos()), p).setVisualElement(this));
         return transformed;
     }
 
@@ -384,11 +385,18 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder(elementName);
         String lab = elementAttributes.getCleanLabel();
         if (lab != null && lab.length() > 0)
-            return elementName + " (" + lab + ")";
-        else
-            return elementName + " " + pos;
+            sb.append(" (").append(lab).append(")");
+
+        if (element != null && element instanceof Node) {
+            Node n = (Node) element;
+            if (n.getOrigin() != null)
+                sb.append("; ").append(n.getOrigin().getName());
+        }
+
+        return sb.toString();
     }
 
     /**

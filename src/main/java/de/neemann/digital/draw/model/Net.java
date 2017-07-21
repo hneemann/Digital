@@ -231,6 +231,9 @@ public class Net {
 
     @Override
     public String toString() {
-        return labelSet + "/" + pins;
+        if (labelSet.isEmpty())
+            return pins.toString();
+        else
+            return labelSet + "/" + pins;
     }
 }
