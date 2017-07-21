@@ -150,7 +150,7 @@ public class Net {
         }
 
         if (outputs.size() == 0)
-            throw new PinException(Lang.get("err_onOutConnectedToWire", this.toString()), this);
+            throw new PinException(Lang.get("err_noOutConnectedToWire", this.toString()), this);
 
         ObservableValue value = null;
         if (outputs.size() == 1 && outputs.get(0).getPullResistor() == PinDescription.PullResistor.none) {
