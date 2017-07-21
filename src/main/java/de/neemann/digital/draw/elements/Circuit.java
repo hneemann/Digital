@@ -57,6 +57,7 @@ public class Circuit {
     private transient boolean modified = false;
     private transient ArrayList<CircRect> recs;
     private transient ArrayList<ChangedListener> listeners;
+    private transient File origin;
 
     /**
      * Creates a proper configured XStream instance
@@ -117,7 +118,7 @@ public class Circuit {
                     e.setPos(e.getPos().mul(2));
                 circuit.version = 1;
             }
-
+            circuit.origin = filename;
             return circuit;
         }
     }
@@ -134,6 +135,7 @@ public class Circuit {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             xStream.marshal(this, new PrettyPrintWriter(out));
             modified = false;
+            origin = filename;
         }
     }
 
@@ -475,6 +477,7 @@ public class Circuit {
 
     /**
      * Sets this circuits state to not modified
+     *
      * @param modified the modified state
      */
     public void setModified(boolean modified) {
@@ -614,6 +617,13 @@ public class Circuit {
         if (recs == null)
             recs = new ArrayList<>();
         recs.add(new CircRect(pos, size));
+    }
+
+    /**
+     * @return the file origin of this circuit, may be null
+     */
+    public File getOrigin() {
+        return origin;
     }
 
     private static final class CircRect {

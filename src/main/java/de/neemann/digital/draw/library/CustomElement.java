@@ -10,8 +10,6 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.lang.Lang;
 
-import java.io.File;
-
 /**
  * This class represents a custom, nested element.
  * So it is possible to use an element in the circuit witch is made from an
@@ -24,7 +22,6 @@ public class CustomElement implements Element {
 
     private final Circuit circuit;
     private final ElementLibrary library;
-    private final File name;
     private NetList netList;
 
     /**
@@ -32,12 +29,10 @@ public class CustomElement implements Element {
      *
      * @param circuit the inner circuit
      * @param library the library to use.
-     * @param name    the name of the element
      */
-    public CustomElement(Circuit circuit, ElementLibrary library, File name) {
+    public CustomElement(Circuit circuit, ElementLibrary library) {
         this.circuit = circuit;
         this.library = library;
-        this.name = name;
     }
 
     /**
@@ -56,9 +51,9 @@ public class CustomElement implements Element {
             netList = new NetList(circuit);
 
         if (depth > MAX_DEPTH)
-            throw new NodeException(Lang.get("err_recursiveNestingAt_N0", name.getName()));
+            throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
 
-        return new ModelCreator(circuit, library, true, name, new NetList(netList), subName, depth);
+        return new ModelCreator(circuit, library, true, new NetList(netList), subName, depth);
     }
 
     @Override

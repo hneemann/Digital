@@ -10,6 +10,7 @@ import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,6 +28,7 @@ public class Net {
     private final ArrayList<Pin> pins;
     private final ArrayList<Wire> wires;
     private final HashSet<String> labelSet;
+    private File origin;
 
     /**
      * Creates a copy of the given net
@@ -38,6 +40,7 @@ public class Net {
         wires = null;            // wires not needed
         pins = new ArrayList<>(toCopy.pins); // Pins are changed so create a deep copy
         labelSet = new HashSet<>(toCopy.labelSet); //ToDo copy necessary?
+        origin = toCopy.origin;
     }
 
     /**
@@ -235,5 +238,21 @@ public class Net {
             return pins.toString();
         else
             return labelSet + "/" + pins;
+    }
+
+    /**
+     * Sets the origin of this net
+     *
+     * @param origin the origin
+     */
+    public void setOrigin(File origin) {
+        this.origin = origin;
+    }
+
+    /**
+     * @return the origin of this net
+     */
+    public File getOrigin() {
+        return origin;
     }
 }

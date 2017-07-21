@@ -416,7 +416,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             }
             ElementTypeDescriptionCustom description =
                     new ElementTypeDescriptionCustom(file,
-                            attributes -> new CustomElement(circuit, ElementLibrary.this, file),
+                            attributes -> new CustomElement(circuit, ElementLibrary.this),
                             circuit.getAttributes(), circuit.getInputNames());
             description.setShortName(createShortName(file));
 

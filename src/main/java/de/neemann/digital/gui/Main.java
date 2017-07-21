@@ -316,7 +316,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 try {
                     ElementLibrary.ElementTypeDescriptionCustom description =
                             new ElementLibrary.ElementTypeDescriptionCustom(file,
-                                    attributes -> new CustomElement(circuit, library, filename),
+                                    attributes -> new CustomElement(circuit, library),
                                     circuit.getAttributes(), circuit.getInputNames());
                     description.setShortName(name);
                     description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));

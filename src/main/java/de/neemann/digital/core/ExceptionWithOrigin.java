@@ -9,8 +9,7 @@ import java.util.Set;
  * Created by hneemann on 16.06.17.
  */
 public class ExceptionWithOrigin extends Exception {
-    private Set<File> origin;
-
+    private File origin;
 
     /**
      * Returns the file or the files that caused the given exception.
@@ -22,9 +21,9 @@ public class ExceptionWithOrigin extends Exception {
     public static String getOriginOf(Throwable e) {
         while (e != null) {
             if (e instanceof ExceptionWithOrigin) {
-                String orig = ((ExceptionWithOrigin) e).getOriginStr();
-                if (orig != null)
-                    return orig;
+                String originStr = ((ExceptionWithOrigin) e).getOriginStr();
+                if (originStr != null)
+                    return originStr;
             }
             e = e.getCause();
         }
@@ -63,7 +62,9 @@ public class ExceptionWithOrigin extends Exception {
      * @return the origin of the error
      */
     public Set<File> getOrigin() {
-        return origin;
+        HashSet<File> s = new HashSet<>();
+        s.add(origin);
+        return s;
     }
 
     /**
@@ -88,9 +89,9 @@ public class ExceptionWithOrigin extends Exception {
      * @param origin the file which had caused the exception
      */
     public void setOrigin(File origin) {
-        if (this.origin == null && origin != null) {
-            this.origin = new HashSet<>();
-            this.origin.add(origin);
+        if (origin != null) {
+            if (this.origin == null)
+                this.origin = origin;
         }
     }
 

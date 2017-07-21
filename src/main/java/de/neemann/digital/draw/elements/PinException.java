@@ -32,6 +32,7 @@ public class PinException extends ExceptionWithOrigin {
     public PinException(String message, Net net) {
         super(message);
         this.net = net;
+        setOrigin(net.getOrigin());
     }
 
     /**

@@ -1,6 +1,5 @@
 package de.neemann.digital.draw.elements;
 
-import de.neemann.digital.core.Node;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.graphics.*;
@@ -385,18 +384,11 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(elementName);
         String lab = elementAttributes.getCleanLabel();
         if (lab != null && lab.length() > 0)
-            sb.append(" (").append(lab).append(")");
-
-        if (element != null && element instanceof Node) {
-            Node n = (Node) element;
-            if (n.getOrigin() != null)
-                sb.append("; ").append(n.getOrigin().getName());
-        }
-
-        return sb.toString();
+            return elementName + " (" + lab + ")";
+        else
+            return elementName;
     }
 
     /**

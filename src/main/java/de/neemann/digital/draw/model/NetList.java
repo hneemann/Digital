@@ -43,6 +43,9 @@ public class NetList implements Iterable<Net> {
                 found.addLabel(label);
             }
 
+        for (Net n : netList)
+            n.setOrigin(circuit.getOrigin());
+
         mergeLabels();
     }
 
