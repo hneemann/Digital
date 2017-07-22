@@ -6,6 +6,7 @@ HEAD, planned as v0.13
   So far, the library contains only the 74xx circuits.
 - In case of oscillations almost all affected components are shown.
 - If an error occurs, the name of the affected circuit file is shown.
+- If an error occurs, the causing subcircuit is highlighted.
 - An input can have "high z" value as its default value.
   CAUTION: All inputs have lost their default values! If you have build a circuit that
            contains test cases that depend on a non-null default value, this tests
