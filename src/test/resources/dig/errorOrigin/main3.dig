@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes/>
+      <pos x="140" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="280" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>midOk.dig</elementName>
+      <elementAttributes/>
+      <pos x="180" y="240"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="140" y="240"/>
+      <p2 x="180" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="260"/>
+      <p2 x="280" y="260"/>
+    </wire>
+  </wires>
+</circuit>

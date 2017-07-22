@@ -1081,6 +1081,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (cause instanceof NodeException) {
                 NodeException e = (NodeException) cause;
                 circuitComponent.addHighLightedWires(e.getValues());
+                circuitComponent.addHighLighted(e.getVisualElement());
                 if (modelCreator != null)
                     modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
             } else if (cause instanceof PinException) {

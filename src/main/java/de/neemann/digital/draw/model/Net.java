@@ -6,6 +6,7 @@ import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.wiring.bus.DataBus;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
@@ -29,14 +30,17 @@ public class Net {
     private final ArrayList<Wire> wires;
     private final HashSet<String> labelSet;
     private File origin;
+    private VisualElement visualElement; // only used to create better error messages
 
     /**
      * Creates a copy of the given net
      *
-     * @param toCopy the net to copy
+     * @param toCopy        the net to copy
+     * @param visualElement the containing visual element, only used to create better error messages
      */
-    public Net(Net toCopy) {
+    public Net(Net toCopy, VisualElement visualElement) {
         points = toCopy.points;  // no deep copy of points necessary
+        this.visualElement = visualElement;
         wires = null;            // wires not needed
         pins = new ArrayList<>(toCopy.pins); // Pins are changed so create a deep copy
         labelSet = new HashSet<>(toCopy.labelSet); //ToDo copy necessary?
@@ -254,5 +258,12 @@ public class Net {
      */
     public File getOrigin() {
         return origin;
+    }
+
+    /**
+     * @return the containing visual element
+     */
+    public VisualElement getVisualElement() {
+        return visualElement;
     }
 }

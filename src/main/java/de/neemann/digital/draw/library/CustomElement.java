@@ -6,6 +6,7 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.lang.Lang;
@@ -39,21 +40,22 @@ public class CustomElement implements Element {
      * Gets a {@link ModelCreator} of this circuit.
      * Every time this method is called a new {@link ModelCreator} is created.
      *
-     * @param subName name of the circuit, used to name unique elements
-     * @param depth   recursion depth, used to detect a circuit which contains itself
+     * @param subName                 name of the circuit, used to name unique elements
+     * @param depth                   recursion depth, used to detect a circuit which contains itself
+     * @param containingVisualElement the containing visual element
      * @return the {@link ModelCreator}
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator getModelDescription(String subName, int depth) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator getModelCreator(String subName, int depth, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
         if (netList == null)
             netList = new NetList(circuit);
 
         if (depth > MAX_DEPTH)
             throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
 
-        return new ModelCreator(circuit, library, true, new NetList(netList), subName, depth);
+        return new ModelCreator(circuit, library, true, new NetList(netList, containingVisualElement), subName, depth, containingVisualElement);
     }
 
     @Override

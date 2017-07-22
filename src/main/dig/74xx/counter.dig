@@ -6,10 +6,6 @@
       <string>Description</string>
       <string>Three digit BCD counter with seven seg displays.</string>
     </entry>
-    <entry>
-      <string>lockedMode</string>
-      <boolean>true</boolean>
-    </entry>
   </attributes>
   <visualElements>
     <visualElement>

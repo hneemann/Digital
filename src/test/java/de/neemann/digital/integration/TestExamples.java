@@ -1,6 +1,7 @@
 package de.neemann.digital.integration;
 
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.testing.TestCaseElement;
@@ -60,6 +61,10 @@ public class TestExamples extends TestCase {
             } else
                 throw e;
         }
+
+        boolean isLib = dig.getPath().replace('\\', '/').contains("/lib/");
+
+        assertTrue("wrong locked mode", isLib == br.getCircuit().getAttributes().get(Keys.LOCKED_MODE));
 
         try {
             for (VisualElement el : br.getCircuit().getElements())

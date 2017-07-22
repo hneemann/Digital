@@ -59,23 +59,24 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
-        this(circuit, library, readAsCustom, new NetList(circuit), "", 0);
+        this(circuit, library, readAsCustom, new NetList(circuit), "", 0, null);
     }
 
     /**
      * Creates a new instance
      *
-     * @param circuit         the circuit to use
-     * @param library         the library to use
-     * @param isNestedCircuit if true the model is created for use as nested element
-     * @param netList         the NetList of the model. If known it is not necessary to create it.
-     * @param subName         name of the circuit, used to name unique elements
-     * @param depth           recursion depth, used to detect a circuit which contains itself
+     * @param circuit                 the circuit to use
+     * @param library                 the library to use
+     * @param isNestedCircuit         if true the model is created for use as nested element
+     * @param netList                 the NetList of the model. If known it is not necessary to create it.
+     * @param subName                 name of the circuit, used to name unique elements
+     * @param depth                   recursion depth, used to detect a circuit which contains itself
+     * @param containingVisualElement th topmost containig visual element
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, NetList netList, String subName, int depth) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, NetList netList, String subName, int depth, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
@@ -86,6 +87,10 @@ public class ModelCreator implements Iterable<ModelEntry> {
 
         try {
             for (VisualElement ve : circuit.getElements()) {
+                VisualElement cve = ve;
+                if (containingVisualElement != null)
+                    cve = containingVisualElement;
+
                 Pins pins = ve.getPins();
                 ElementTypeDescription elementType = library.getElementType(ve.getElementName());
                 ElementAttributes attr = ve.getElementAttributes();
@@ -108,11 +113,11 @@ public class ModelCreator implements Iterable<ModelEntry> {
                     if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION || elementType == Clock.DESCRIPTION) {
                         String label = ve.getElementAttributes().getLabel();
                         if (label == null || label.length() == 0)
-                            throw new PinException(Lang.get("err_pinWithoutName", circuit.getOrigin()));
+                            throw new PinException(Lang.get("err_pinWithoutName", circuit.getOrigin()), cve);
                         if (pins.size() != 1)
-                            throw new PinException(Lang.get("err_N_isNotInputOrOutput", label, circuit.getOrigin()));
+                            throw new PinException(Lang.get("err_N_isNotInputOrOutput", label, circuit.getOrigin()), cve);
                         if (ioMap.containsKey(label))
-                            throw new PinException(Lang.get("err_duplicatePinLabel", label, circuit.getOrigin()));
+                            throw new PinException(Lang.get("err_duplicatePinLabel", label, circuit.getOrigin()), cve);
 
                         ioMap.put(label, pins.get(0));
                         isNotAIO = false;
@@ -120,7 +125,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 }
 
                 if (isNotAIO)
-                    entries.add(new ModelEntry(element, pins, ve, elementType.getInputDescription(ve.getElementAttributes()), isNestedCircuit, circuit.getOrigin()));
+                    entries.add(new ModelEntry(element, pins, ve, elementType.getInputDescription(ve.getElementAttributes()), isNestedCircuit, circuit.getOrigin(), cve));
 
                 for (Pin p : pins)
                     netList.add(p);
@@ -133,7 +138,10 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 ModelEntry me = it.next();
                 if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
                     CustomElement ce = (CustomElement) me.getElement();
-                    ModelCreator child = ce.getModelDescription(combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()), depth + 1);
+                    ModelCreator child = ce.getModelCreator(
+                            combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()),
+                            depth + 1,
+                            containingVisualElement != null ? containingVisualElement : me.getVisualElement());
                     modelCreators.add(child);
 
                     HashMap<Net, Net> netMatch = new HashMap<>();
@@ -189,6 +197,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
             }
         } catch (PinException | NodeException e) {
             e.setOrigin(circuit.getOrigin());
+            e.setVisualElement(containingVisualElement);
             throw e;
         }
     }
@@ -281,7 +290,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
         for (ModelEntry me : entries) {
             Element element = me.getElement();
             if (element instanceof Node && nodeSet.contains(element))
-                highLighted.add(me.getVisualElement());
+                highLighted.add(me.getContainingVisualElement());
         }
     }
 

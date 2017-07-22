@@ -1,5 +1,7 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.draw.elements.VisualElement;
+
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +12,7 @@ import java.util.Set;
  */
 public class ExceptionWithOrigin extends Exception {
     private File origin;
+    private VisualElement visualElement;
 
     /**
      * Returns the file or the files that caused the given exception.
@@ -99,4 +102,21 @@ public class ExceptionWithOrigin extends Exception {
         }
     }
 
+    /**
+     * Sets the visual element which caused this error
+     *
+     * @param visualElement the visual element
+     * @return this for chained calls
+     */
+    public ExceptionWithOrigin setVisualElement(VisualElement visualElement) {
+        this.visualElement = visualElement;
+        return this;
+    }
+
+    /**
+     * @return the visual element which caused this error
+     */
+    public VisualElement getVisualElement() {
+        return visualElement;
+    }
 }

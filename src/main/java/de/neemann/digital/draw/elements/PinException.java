@@ -9,18 +9,17 @@ import de.neemann.digital.draw.model.Net;
  * @author hneemann
  */
 public class PinException extends ExceptionWithOrigin {
-    private VisualElement element;
     private Net net;
 
     /**
      * Creates a new instance
      *
-     * @param message the message
-     * @param element the visual element affected
+     * @param message       the message
+     * @param visualElement the visual element affected
      */
-    public PinException(String message, VisualElement element) {
+    public PinException(String message, VisualElement visualElement) {
         super(message);
-        this.element = element;
+        setVisualElement(visualElement);
     }
 
     /**
@@ -33,6 +32,7 @@ public class PinException extends ExceptionWithOrigin {
         super(message);
         this.net = net;
         setOrigin(net.getOrigin());
+        setVisualElement(net.getVisualElement());
     }
 
     /**
@@ -42,13 +42,6 @@ public class PinException extends ExceptionWithOrigin {
      */
     public PinException(String message) {
         super(message);
-    }
-
-    /**
-     * @return the effected element
-     */
-    public VisualElement getVisualElement() {
-        return element;
     }
 
     /**

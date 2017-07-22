@@ -27,27 +27,30 @@ public class ModelEntry {
     private final Pins pins;
     private final PinDescriptions inputNames;
     private final boolean isNestedElement;
-    private final File origin;            // Only used to create better error messages
+    private final File origin;                           // Only used to create better error messages
+    private final VisualElement containingVisualElement; // Only used to create better error messages
     private final VisualElement visualElement;
     private IOState ioState;
 
     /**
      * Creates a new instance
      *
-     * @param element         the element which is created
-     * @param pins            the pins transformed in the circuits coordinate system
-     * @param visualElement   the visual element which has created the element
-     * @param inputNames      the pin descriptions of the inputs.
-     * @param isNestedElement true if this visual element is a nested included element
-     * @param origin          Used to create better error messages
+     * @param element                 the element which is created
+     * @param pins                    the pins transformed in the circuits coordinate system
+     * @param visualElement           the visual element which has created the element
+     * @param inputNames              the pin descriptions of the inputs.
+     * @param isNestedElement         true if this visual element is a nested included element
+     * @param origin                  Used to create better error messages
+     * @param containingVisualElement only used to create better error messages
      */
-    public ModelEntry(Element element, Pins pins, VisualElement visualElement, PinDescriptions inputNames, boolean isNestedElement, File origin) {
+    public ModelEntry(Element element, Pins pins, VisualElement visualElement, PinDescriptions inputNames, boolean isNestedElement, File origin, VisualElement containingVisualElement) {
         this.element = element;
         this.pins = pins;
         this.visualElement = visualElement;
         this.inputNames = inputNames;
         this.isNestedElement = isNestedElement;
         this.origin = origin;
+        this.containingVisualElement = containingVisualElement;
     }
 
     /**
@@ -67,11 +70,11 @@ public class ModelEntry {
             for (PinDescription inputName : inputNames) {
                 Pin pin = ins.get(inputName.getName());
                 if (pin == null)
-                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputName, visualElement), visualElement);
+                    throw new PinException(Lang.get("err_pin_N0_atElement_N1_notFound", inputName, visualElement), containingVisualElement);
 
                 ObservableValue value = pin.getValue();
                 if (value == null)
-                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputName, visualElement), visualElement);
+                    throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", inputName, visualElement), containingVisualElement);
 
                 inputs.add(ic.invert(inputName.getName(), value));
             }
@@ -83,7 +86,7 @@ public class ModelEntry {
                         bidirect = new ArrayList<>();
                     final ObservableValue readerValue = p.getReaderValue();
                     if (readerValue == null)
-                        throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", p.getName(), visualElement), visualElement);
+                        throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", p.getName(), visualElement), containingVisualElement);
                     bidirect.add(readerValue);
                 }
             }
@@ -140,5 +143,12 @@ public class ModelEntry {
      */
     public IOState getIoState() {
         return ioState;
+    }
+
+    /**
+     * @return the containing visual element
+     */
+    public VisualElement getContainingVisualElement() {
+        return containingVisualElement;
     }
 }

@@ -65,12 +65,13 @@ public class NetList implements Iterable<Net> {
     /**
      * Creates a copy of the given net list
      *
-     * @param toCopy the net list to copy
+     * @param toCopy        the net list to copy
+     * @param visualElement the containing visual element, only used to create better error messages
      */
-    public NetList(NetList toCopy) {
+    public NetList(NetList toCopy, VisualElement visualElement) {
         netList = new ArrayList<>();
         for (Net net : toCopy)
-            netList.add(new Net(net));
+            netList.add(new Net(net, visualElement));
     }
 
     /**
