@@ -100,6 +100,7 @@ public class ModelEntry {
             ioState = new IOState(values, element.getOutputs(), element);
         } catch (PinException | NodeException e) {
             e.setOrigin(origin);
+            e.setVisualElement(containingVisualElement);
             throw e;
         }
     }

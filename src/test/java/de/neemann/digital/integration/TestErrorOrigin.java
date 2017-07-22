@@ -60,4 +60,15 @@ public class TestErrorOrigin extends TestCase {
         }
     }
 
+    public void testErrorMessage5() throws PinException, NodeException, ElementNotFoundException, IOException {
+        try {
+            new ToBreakRunner("/dig/errorOrigin/main5.dig");
+            fail();
+        } catch (NodeException e) {
+            assertNotNull(e.getVisualElement());
+            assertEquals("midBit.dig", e.getVisualElement().getElementName());
+            checkOrigin(e, "src/test/resources/dig/errorOrigin/innerBit.dig");
+        }
+    }
+
 }
