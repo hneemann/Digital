@@ -273,12 +273,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     if (cl.size() == 1) {
                         ObservableValue clkVal = cl.get(0).getClockOutput();
                         clkVal.setBool(!clkVal.getBool());
-                        try {
-                            model.doStep();
-                            circuitComponent.repaintNeeded();
-                        } catch (NodeException | RuntimeException e) {
-                            showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
-                        }
+                        circuitComponent.modelHasChanged();
                     }
                 }
             }
