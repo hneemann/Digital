@@ -8,14 +8,11 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.wiring.bus.BusModelStateObserver;
 import de.neemann.digital.core.wiring.bus.CommonBusValue;
 import de.neemann.digital.lang.Lang;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A simple switch
  */
 public class Switch implements Element, NodeInterface {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Switch.class);
 
     /**
      * Defines a direction for the switch. NO means no direction is given, the switch is bidirectional.
@@ -37,10 +34,6 @@ public class Switch implements Element, NodeInterface {
     private boolean closed;
     private SwitchModel switchModel;
     private Unidirectional unidirectional = Unidirectional.NO;
-
-    private static int debugSwitchReal;
-    private static int debugSwitchSimple;
-
 
     /**
      * Creates a new instance
@@ -128,9 +121,6 @@ public class Switch implements Element, NodeInterface {
                 switchModel = new SimpleSwitch(input2, output1);
                 break;
         }
-
-        if (switchModel instanceof RealSwitch) debugSwitchReal++;
-        else debugSwitchSimple++;
     }
 
     @Override
@@ -147,12 +137,6 @@ public class Switch implements Element, NodeInterface {
         switchModel.setModel(model);
         switchModel.setClosed(closed);
         hasChanged();
-
-        if (debugSwitchSimple != 0 || debugSwitchReal != 0) {
-            LOGGER.debug(debugSwitchSimple + " simple and " + debugSwitchReal + " real switches created");
-            debugSwitchSimple = 0;
-            debugSwitchReal = 0;
-        }
     }
 
     @Override

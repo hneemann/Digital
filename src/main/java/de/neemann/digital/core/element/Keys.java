@@ -34,7 +34,7 @@ public final class Keys {
     /**
      * number of inputs in simple gates like And and Or
      */
-    public static final Key.KeyInteger INPUT_COUNT  //  // needs to have the same default value as ADDR_BITS!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
+    public static final Key.KeyInteger INPUT_COUNT  // needs to have the same default value as ADDR_BITS!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
             = new Key.KeyInteger("Inputs", 2)
             .setComboBoxValues(new Integer[]{2, 3, 4, 5})
             .setMin(2);
