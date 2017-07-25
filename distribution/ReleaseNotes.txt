@@ -1,12 +1,16 @@
 Release Notes
 
-HEAD, planned as v0.13
-- Added a barrel shifter (thanks to roy77)
+v0.13, released on 25. Jul 2017
 - Introduced a library of sub circuits which are available in every circuit.
   So far, the library contains only the 74xx circuits.
-- In case of oscillations almost all affected components are shown.
-- If an error occurs, the name of the affected circuit file is shown.
-- If an error occurs, the causing sub circuit is highlighted.
+- Added a barrel shifter (thanks to roy77)
+- some improvements concerning error messages:
+  - In case of oscillations almost all affected components are shown.
+  - If an error occurs, the name of the affected circuit file is shown.
+  - If an error occurs, the causing sub circuit is highlighted.
+  - A warning message shows up if a circuit with unnamed inputs is analysed.
+  - A warning message shows up if a circuit with missing pin numbers is exported to a
+    hardware-related file.
 - An input can have "high z" value as its default value.
   CAUTION: All inputs have lost their default values! If you have build a circuit that
            contains test cases that depend on a non-null default value, this tests
@@ -14,21 +18,19 @@ HEAD, planned as v0.13
 - Added an enable input to the T flip-flop
   CAUTION: By default this input is activated now. In circuits which used the T flip-flop
            in the past, the new input needs to be disabled.
-- A warning message shows up if a circuit with unnamed inputs is analysed.
-- A warning message shows up if a circuit with missing pin numbers is exported to a
-  hardware-related file.
 - Unidirectional FETs are added to overcome certain CMOS issues.
-- Comments are allowed in hex files.
 - Added zooming to measurement graphs.
 - Test results can be displayed as measurement graphs.
 - The Text component is able to show multiple lines.
+- Comments are allowed in hex files.
+- Some minor bug fixes
 
-v0.12.1, released on 05. Jun 2016
+v0.12.1, released on 05. Jun 2017
 - added a fuse to simulate a PROM or PAL.
 - added some more CMOS examples
 - Improved flexibility of the splitter.
 
-v0.12, released on 02. Jun 2016
+v0.12, released on 02. Jun 2017
 - Added undo/redo functions.
 - New wire drawing mode: If a wire is added it is rectangular by default.
   In rectangular mode "F" flips the wire and pressing "D" switches to diagonal mode.
