@@ -42,6 +42,7 @@ import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.gui.sync.LockSync;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
+import de.neemann.digital.hdl.vhdl.VHDLExporter;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
@@ -290,7 +291,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOM_IN) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.scaleCircuit(1/0.9);
+                circuitComponent.scaleCircuit(1 / 0.9);
             }
         }.setAccelerator("control PLUS");
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
@@ -478,6 +479,31 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out) -> new GraphicsImage(out, "PNG", 2)));
         if (enableExperimental())
             export.add(new ExportGifAction(Lang.get("menu_exportAnimatedGIF")));
+
+        if (enableExperimental())
+            export.add(new ToolTipAction(Lang.get("menu_exportVHDL")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    JFileChooser fc = new MyFileChooser();
+                    if (filename != null)
+                        fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, "vhdl"));
+
+                    ElementAttributes settings = Settings.getInstance().getAttributes();
+                    File exportDir = settings.getFile("exportDirectory");
+                    if (exportDir != null)
+                        fc.setCurrentDirectory(exportDir);
+
+                    fc.addChoosableFileFilter(new FileNameExtensionFilter("VHDL", "vhdl"));
+                    new SaveAsHelper(Main.this, fc, "vhdl").checkOverwrite(
+                            file -> {
+                                settings.setFile("exportDirectory", file.getParentFile());
+                                try (OutputStream out = new FileOutputStream(file)) {
+                                    new VHDLExporter(library, out).export(circuitComponent.getCircuit());
+                                }
+                            }
+                    );
+                }
+            }.setToolTip(Lang.get("menu_exportVHDL_tt")).createJMenuItem());
 
         JMenu file = new JMenu(Lang.get("menu_file"));
         menuBar.add(file);

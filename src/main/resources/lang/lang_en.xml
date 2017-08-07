@@ -544,6 +544,7 @@ The names of the variables may not be unique.</string>
     <string name="err_errorParsingTestdata">Error parsing the test data.</string>
     <string name="err_backtrackOf_N_isImpossible">The model component {0} can not be analysed.</string>
     <string name="err_errorInPowerSupply">Error in wiring of power supply at {0}.</string>
+    <string name="err_exporting_vhdl">Error during export to VHDL.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -890,7 +891,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_showDataAsTable_tt">Shows values as a table.</string>
     <string name="menu_addPowerSupply">Add power supply</string>
     <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
-
+    <string name="menu_exportVHDL">Export to VHDL</string>
+    <string name="menu_exportVHDL_tt">Exports the circuit to VHDL</string>
 
     <string name="message">Digital
 
