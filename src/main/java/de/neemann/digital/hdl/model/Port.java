@@ -43,6 +43,17 @@ public class Port {
     }
 
     /**
+     * Copy constructor
+     *
+     * @param p port to copy
+     */
+    public Port(Port p) {
+        this(p.origName, p.direction);
+        bits = p.bits;
+        signal = p.signal;
+    }
+
+    /**
      * @return the name of the port
      */
     public String getName() {

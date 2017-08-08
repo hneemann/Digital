@@ -108,10 +108,12 @@ public class VHDLExporter implements Closeable {
         int g = 0;
         for (HDLNode node : model) {
             out.println("  gate" + (g++) + " : " + getVhdlEntityName(node));
+            vhdlLibrary.writeGenericMap(out, node);
             writePortMap(node);
         }
         out.println("end " + model.getName() + "_arch;");
     }
+
 
     private void writePortMap(HDLNode node) throws HDLException {
         out.print("    port map ( ");
@@ -137,7 +139,7 @@ public class VHDLExporter implements Closeable {
 
     private void writeComponent(HDLNode node) throws ElementNotFoundException, NodeException, PinException, HDLException {
         out.println("\n  component " + getVhdlEntityName(node));
-        writePort(out, "    ", node.getPorts());
+        vhdlLibrary.writePorts(out, node);
         out.println("  end component;");
     }
 
@@ -156,8 +158,14 @@ public class VHDLExporter implements Closeable {
         out.println("USE ieee.std_logic_1164.all;\n");
     }
 
-
-    private static String getDirection(Port p) throws HDLException {
+    /**
+     * Returns the VHDL direction qualifier
+     *
+     * @param p the port
+     * @return the direction
+     * @throws HDLException HDLException
+     */
+    public static String getDirection(Port p) throws HDLException {
         switch (p.getDirection()) {
             case in:
                 return "in";
@@ -168,7 +176,14 @@ public class VHDLExporter implements Closeable {
         }
     }
 
-    private static String getType(int bits) throws HDLException {
+    /**
+     * returns the vhdl type
+     *
+     * @param bits the number of bits
+     * @return the type
+     * @throws HDLException HDLException
+     */
+    public static String getType(int bits) throws HDLException {
         if (bits == 0)
             throw new HDLException("bit number not available");
         if (bits == 1)

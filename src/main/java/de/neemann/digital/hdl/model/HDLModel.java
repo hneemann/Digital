@@ -14,19 +14,16 @@ import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.draw.model.NetList;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Hierarchical model of the circuit
  */
 public class HDLModel implements HDLInterface, Iterable<HDLNode> {
 
-    private final HashMap<VisualElement, HDLNode> nodeMap;
+    private final ArrayList<HDLNode> nodeList;
     private final Ports ports;
-    private final Collection<Signal> signals;
+    private final ArrayList<Signal> signals;
     private final File origin;
     private int signalNumber;
     private String name;
@@ -46,7 +43,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
         origin = circuit.getOrigin();
         try {
             ports = new Ports();
-            nodeMap = new HashMap<>();
+            nodeList = new ArrayList<>();
             NetList nets = new NetList(circuit);
             HashMap<Net, Signal> signalMap = new HashMap<>();
 
@@ -61,54 +58,54 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
                     addNode(v, library, modelList);
             }
 
-            HashMap<VisualElement, HDLNode> inverterNodes = new HashMap<>();
-            HashMap<String, Signal> invertedSignals = new HashMap<>();
-
-            for (HDLNode node : nodeMap.values()) {
+            for (HDLNode node : nodeList) {
                 VisualElement ve = node.getVisualElement();
-                InverterConfig inverterConfig = ve.getElementAttributes().get(Keys.INVERTER_CONFIG);
                 Pins pins = ve.getPins();
                 for (Pin p : pins) {
                     Net n = nets.getNetOfPos(p.getPos());
                     if (n != null) {
                         final Signal s = signalMap.computeIfAbsent(n, Net -> new Signal("S" + (signalNumber++)));
-
-                        if (inverterConfig.contains(p.getName())) {
-                            String invName = s.getName() + "_Neg";
-                            Signal sNeg = invertedSignals.get(invName);
-                            if (sNeg == null) {
-                                sNeg = new Signal(invName);
-                                invertedSignals.put(invName, sNeg);
-                                s.copyBitsTo(sNeg);
-                                VisualElement vi = new VisualElement(Not.DESCRIPTION.getName());
-                                HDLNode negNode = new HDLNode(vi, library, modelList);
-                                Ports negPorts = negNode.getPorts();
-                                sNeg.addPort(negPorts.getOutputs().get(0));
-                                s.addPort(negPorts.getInputs().get(0));
-                                inverterNodes.put(vi, negNode);
-                            }
-                            node.setPinToSignal(p, sNeg);
-                        } else
-                            node.setPinToSignal(p, s);
+                        node.setPinToSignal(p, s);
                     }
                 }
             }
-            nodeMap.putAll(inverterNodes);
-
             for (Signal s : signalMap.values())
                 s.checkBits();
 
-            for (Signal s : invertedSignals.values())
-                s.checkBits();
+            signals = new ArrayList<>();
+            signals.addAll(signalMap.values());
 
-            if (invertedSignals.isEmpty())
-                signals = signalMap.values();
-            else {
-                ArrayList<Signal> sigs = new ArrayList<>();
-                sigs.addAll(signalMap.values());
-                sigs.addAll(invertedSignals.values());
-                signals = sigs;
+            HashMap<String, Signal> negSignals = new HashMap<>();
+            ArrayList<HDLNode> negNodes = new ArrayList<>();
+
+            for (HDLNode node : nodeList) {
+                InverterConfig ic = node.get(Keys.INVERTER_CONFIG);
+                if (!ic.isEmpty()) {
+                    for (Port p : node.getPorts().getInputs()) {
+                        if (ic.contains(p.getOrigName())) {
+                            String negName = p.getSignal().getName() + "_Neg";
+                            Signal nSig = negSignals.get(negName);
+                            if (nSig == null) {
+                                nSig = new Signal(negName);
+                                nSig.setBits(p.getBits());
+                                negSignals.put(negName, nSig);
+                                signals.add(nSig);
+                                VisualElement vi = new VisualElement(Not.DESCRIPTION.getName()).setAttribute(Keys.BITS, p.getBits());
+                                HDLNode n = new HDLNode(vi, library, modelList);
+                                n.getPorts().getInputs().get(0).setBits(p.getBits());
+                                p.getSignal().addPort(n.getPorts().getInputs().get(0));
+                                nSig.addPort(n.getPorts().getOutputs().get(0));
+                                negNodes.add(n);
+                            }
+                            nSig.addPort(p);
+                        }
+                    }
+                }
             }
+            nodeList.addAll(negNodes);
+
+            Collections.sort(signals);
+
         } catch (HDLException | PinException | NodeException e) {
             e.setOrigin(origin);
             throw e;
@@ -117,7 +114,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
 
     private void addNode(VisualElement v, ElementLibrary library, ModelList modelList) throws ElementNotFoundException, PinException, NodeException, HDLException {
         if (!v.equalsDescription(Tunnel.DESCRIPTION))
-            nodeMap.put(v, new HDLNode(v, library, modelList));
+            nodeList.add(new HDLNode(v, library, modelList));
     }
 
     private void addPort(VisualElement out, NetList nets, Port.Direction direction, int bits, HashMap<Net, Signal> signalMap) {
@@ -136,14 +133,14 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
 
     @Override
     public Iterator<HDLNode> iterator() {
-        return nodeMap.values().iterator();
+        return nodeList.iterator();
     }
 
     /**
      * @return the number of nodes
      */
     public int size() {
-        return nodeMap.size();
+        return nodeList.size();
     }
 
     /**

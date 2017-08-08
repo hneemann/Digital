@@ -8,8 +8,8 @@ import de.neemann.digital.hdl.vhdl.lib.OperateVHDL;
 import de.neemann.digital.lang.Lang;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * The library of VHDL entities
@@ -17,7 +17,7 @@ import java.util.HashSet;
 public class VHDLLibrary {
 
     private final HashMap<String, VHDLEntity> map;
-    private HashSet<HDLNode> nodeset = new HashSet<>();
+    private ArrayList<HDLNode> nodeList = new ArrayList<>();
 
     /**
      * Creates a new instance
@@ -46,7 +46,8 @@ public class VHDLLibrary {
      * @throws HDLException HDLException
      */
     public String getName(HDLNode node) throws HDLException {
-        nodeset.add(node);
+        if (!nodeList.contains(node))
+            nodeList.add(node);
         return getEntity(node).getName(node);
     }
 
@@ -56,13 +57,29 @@ public class VHDLLibrary {
             out.println("\n-- " + e.getName(node) + "\n");
             VHDLExporter.writeHeader(out);
             out.println("entity " + e.getName(node) + " is");
-            VHDLExporter.writePort(out, "  ", node.getPorts());
+            writePorts(out, node);
             out.println("end " + e.getName(node) + ";\n");
             out.println("architecture " + e.getName(node) + "_arch of " + e.getName(node) + " is");
             out.println("begin");
             e.printTo(out, node);
             out.println("end " + e.getName(node) + "_arch;");
         }
+    }
+
+    /**
+     * Writes the ports to the file
+     *
+     * @param out  the output stream
+     * @param node the node
+     * @throws HDLException HDLException
+     */
+    public void writePorts(PrintStream out, HDLNode node) throws HDLException {
+        VHDLEntity e = getEntity(node);
+        if (e.hasGenerics(node)) {
+            e.writeGenerics(out, node);
+            e.writeGenericPorts(out, node);
+        } else
+            VHDLExporter.writePort(out, "  ", node.getPorts());
     }
 
     /**
@@ -73,7 +90,21 @@ public class VHDLLibrary {
      */
     public void finish(PrintStream out) throws HDLException {
         out.println("\n-- library components");
-        for (HDLNode n : nodeset)
+        for (HDLNode n : nodeList)
             printTo(out, n);
+    }
+
+    /**
+     * Writes the generic map to the given stream
+     *
+     * @param out  the output stream
+     * @param node the node
+     * @throws HDLException HDLException
+     */
+    public void writeGenericMap(PrintStream out, HDLNode node) throws HDLException {
+        VHDLEntity e = getEntity(node);
+        if (e.hasGenerics(node))
+            e.writeGenericMap(out, node);
+
     }
 }

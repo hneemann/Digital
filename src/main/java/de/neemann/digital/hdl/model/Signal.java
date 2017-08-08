@@ -7,12 +7,11 @@ import java.util.ArrayList;
 /**
  * represents a signal
  */
-public class Signal {
+public class Signal implements Comparable<Signal> {
     private final String name;
     private final ArrayList<Port> ports;
     private int bits;
     private boolean isPort = false;
-    private Signal sNeg;
 
     /**
      * Creates a new signal
@@ -63,9 +62,6 @@ public class Signal {
         if (isInput && bits == 0)
             throw new HDLException(Lang.get("err_noOutConnectedToWire", ports));
 
-        if (sNeg != null)
-            sNeg.bits = bits;
-
         for (Port p : ports)
             p.setBits(bits);
     }
@@ -101,13 +97,18 @@ public class Signal {
         return name;
     }
 
+
+    @Override
+    public int compareTo(Signal signal) {
+        return name.compareTo(signal.name);
+    }
+
     /**
-     * Sets a signal which bit size is the same as this signal.
-     * Used for the generated inverter nodes.
+     * Set the number of bits
      *
-     * @param sNeg the signal to track
+     * @param bits the number of bits
      */
-    public void copyBitsTo(Signal sNeg) {
-        this.sNeg = sNeg;
+    public void setBits(int bits) {
+        this.bits = bits;
     }
 }
