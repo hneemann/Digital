@@ -28,4 +28,13 @@ public class HDLModelTest extends TestCase {
         assertEquals(3, model.getPorts().size());
     }
 
+    public void testNegUsages() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException {
+        ToBreakRunner br = new ToBreakRunner("dig/hdl/neg.dig");
+        HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary(), new ModelList(br.getLibrary()));
+
+        assertEquals(2, model.size());
+        assertEquals(3, model.getSignals().size());
+        assertEquals(2, model.getPorts().size());
+    }
+
 }

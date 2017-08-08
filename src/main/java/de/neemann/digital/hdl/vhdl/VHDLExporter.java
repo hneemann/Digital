@@ -72,7 +72,10 @@ public class VHDLExporter implements Closeable {
 
             vhdlLibrary.finish(out);
 
-        } catch (HDLException | PinException | ElementNotFoundException | NodeException e) {
+        } catch (HDLException | PinException | NodeException e) {
+            e.setOrigin(circuit.getOrigin());
+            throw new IOException(Lang.get("err_exporting_vhdl"), e);
+        } catch (ElementNotFoundException e) {
             throw new IOException(Lang.get("err_exporting_vhdl"), e);
         }
         return this;
@@ -165,7 +168,9 @@ public class VHDLExporter implements Closeable {
         }
     }
 
-    private static String getType(int bits) {
+    private static String getType(int bits) throws HDLException {
+        if (bits == 0)
+            throw new HDLException("bit number not available");
         if (bits == 1)
             return "std_logic";
         else

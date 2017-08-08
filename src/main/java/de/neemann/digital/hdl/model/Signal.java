@@ -20,7 +20,7 @@ public class Signal {
      * @param name the name of the signal
      */
     public Signal(String name) {
-        this.name = "SIG_" + name;
+        this.name = name;
         ports = new ArrayList<>();
     }
 

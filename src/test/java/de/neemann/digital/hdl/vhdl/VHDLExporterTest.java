@@ -22,4 +22,16 @@ public class VHDLExporterTest extends TestCase {
         System.out.println(vhdl);
     }
 
+    public void testXorNeg() throws IOException, ElementNotFoundException, PinException, NodeException {
+        ToBreakRunner br = new ToBreakRunner("dig/hdl/xorNeg.dig");
+        String vhdl = new VHDLExporter(br.getLibrary()).export(br.getCircuit()).toString();
+        System.out.println(vhdl);
+    }
+
+    public void testNeg() throws IOException, ElementNotFoundException, PinException, NodeException {
+        ToBreakRunner br = new ToBreakRunner("dig/hdl/neg.dig");
+        String vhdl = new VHDLExporter(br.getLibrary()).export(br.getCircuit()).toString();
+        System.out.println(vhdl);
+    }
+
 }

@@ -6,9 +6,23 @@ package de.neemann.digital.hdl.model;
 public class Port {
 
     /**
+     * Prefix used for ports.
+     */
+    public static final String PREFIX = "PORT_";
+
+    /**
      * a ports direction
      */
-    public enum Direction {in, out}
+    public enum Direction {
+        /**
+         * port is input
+         */
+        in,
+        /**
+         * port is output
+         */
+        out
+    }
 
     private final String name;
     private final String origName;
@@ -23,8 +37,8 @@ public class Port {
      * @param direction the direction
      */
     public Port(String name, Direction direction) {
-        this.origName=name;
-        this.name = "SIG_"+name;
+        this.origName = name;
+        this.name = PREFIX + name;
         this.direction = direction;
     }
 

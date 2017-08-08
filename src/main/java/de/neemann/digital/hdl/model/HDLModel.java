@@ -75,14 +75,23 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
 
                         if (inverterConfig.contains(p.getName())) {
                             String invName = s.getName() + "_Neg";
-                            Signal sNeg = invertedSignals.computeIfAbsent(invName, Net -> new Signal(invName));
-                            s.copyBitsTo(sNeg);
-                            VisualElement vi = new VisualElement(Not.DESCRIPTION.getName());
-                            HDLNode negNode = new HDLNode(vi, library, modelList);
-                            Ports negPorts = negNode.getPorts();
-                            negPorts.get(0).ensure(Port.Direction.out).setSignal(sNeg);
-                            negPorts.get(1).ensure(Port.Direction.in).setSignal(s);
-                            inverterNodes.put(vi, negNode);
+                            Signal sNeg = invertedSignals.computeIfAbsent(invName, Net -> {
+                                Signal sNegL = new Signal(invName);
+                                s.copyBitsTo(sNegL);
+
+                                VisualElement vi = new VisualElement(Not.DESCRIPTION.getName());
+                                try {
+                                    HDLNode negNode = new HDLNode(vi, library, modelList);
+                                    Ports negPorts = negNode.getPorts();
+                                    negPorts.get(0).ensure(Port.Direction.out).setSignal(sNegL);
+                                    s.addPort(negPorts.get(1).ensure(Port.Direction.in));
+                                    inverterNodes.put(vi, negNode);
+                                } catch (ElementNotFoundException | NodeException | HDLException | PinException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                                return sNegL;
+                            });
                             node.setPinToSignal(p, sNeg);
                         } else
                             node.setPinToSignal(p, s);
@@ -121,7 +130,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
         Port port = new Port(name, direction);
         port.setBits(bits);
         Net n = nets.getNetOfPos(out.getPins().get(0).getPos());
-        signalMap.computeIfAbsent(n, Net -> new Signal(name).setIsPort()).addPort(port);
+        signalMap.computeIfAbsent(n, Net -> new Signal(Port.PREFIX + name).setIsPort()).addPort(port);
         ports.add(port);
     }
 
