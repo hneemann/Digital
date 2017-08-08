@@ -83,8 +83,8 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
                                 VisualElement vi = new VisualElement(Not.DESCRIPTION.getName());
                                 HDLNode negNode = new HDLNode(vi, library, modelList);
                                 Ports negPorts = negNode.getPorts();
-                                negPorts.get(0).ensure(Port.Direction.out).setSignal(sNeg);
-                                s.addPort(negPorts.get(1).ensure(Port.Direction.in));
+                                sNeg.addPort(negPorts.getOutputs().get(0));
+                                s.addPort(negPorts.getInputs().get(0));
                                 inverterNodes.put(vi, negNode);
                             }
                             node.setPinToSignal(p, sNeg);

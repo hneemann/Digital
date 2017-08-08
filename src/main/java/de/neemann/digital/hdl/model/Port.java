@@ -99,18 +99,4 @@ public class Port {
     public Direction getDirection() {
         return direction;
     }
-
-    /**
-     * Helper to ensure that this port has the expected direction
-     *
-     * @param expected the expected direction
-     * @return this for chained calls
-     * @throws HDLException HDLException
-     */
-    public Port ensure(Direction expected) throws HDLException {
-        if (expected != direction)
-            throw new HDLException("wrong direction");
-        return this;
-    }
-
 }
