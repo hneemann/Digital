@@ -9,6 +9,7 @@ import de.neemann.digital.hdl.model.*;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -111,6 +112,26 @@ public class VHDLExporter implements Closeable {
             vhdlLibrary.writeGenericMap(out, node);
             writePortMap(node);
         }
+
+        // direct connection from input to output
+        for (Port o : model.getPorts().getOutputs()) {
+            if (!o.getSignal().isWritten()) {
+                ArrayList<Port> ports = o.getSignal().getPorts();
+                Port inPort = null;
+                for (Port p : ports) {
+                    if (p.getDirection() == Port.Direction.in) {
+                        if (inPort != null)
+                            throw new HDLException("wrong interconnect");
+                        inPort = p;
+                    }
+                }
+                if (inPort == null)
+                    throw new HDLException("wrong interconnect");
+
+                out.println("  " + o.getName() + " <= " + inPort.getName() + ";");
+            }
+        }
+
         out.println("end " + model.getName() + "_arch;");
     }
 
@@ -121,10 +142,9 @@ public class VHDLExporter implements Closeable {
         for (Port p : node.getPorts()) {
             if (p.getSignal() != null) {
                 comma.check(out);
-                if (p.getSignal().isPort())
-                    out.print(p.getName() + " => " + p.getSignal().getName());
-                else
-                    out.print(p.getName() + " => " + p.getSignal().getName());
+                out.print(p.getName() + " => " + p.getSignal().getName());
+                if (p.getDirection() == Port.Direction.out)
+                    p.getSignal().setIsWritten();
             }
         }
         out.println(" );");

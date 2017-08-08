@@ -12,6 +12,7 @@ public class Signal implements Comparable<Signal> {
     private final ArrayList<Port> ports;
     private int bits;
     private boolean isPort = false;
+    private boolean written = false;
 
     /**
      * Creates a new signal
@@ -110,5 +111,32 @@ public class Signal implements Comparable<Signal> {
      */
     public void setBits(int bits) {
         this.bits = bits;
+    }
+
+    /**
+     * Sets this signal to "is written"
+     *
+     * @throws HDLException HDLException
+     */
+    public void setIsWritten() throws HDLException {
+        if (written)
+            throw new HDLException(name + " is written twice");
+        written = true;
+    }
+
+    /**
+     * Checks if this signal is written
+     *
+     * @return true if signal is written
+     */
+    public boolean isWritten() {
+        return written;
+    }
+
+    /**
+     * @return the list of ports connected to this signal
+     */
+    public ArrayList<Port> getPorts() {
+        return ports;
     }
 }
