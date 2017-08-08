@@ -143,6 +143,19 @@ public class NetList implements Iterable<Net> {
     }
 
     /**
+     * Returns the net of the given position
+     *
+     * @param pos the position
+     * @return the net
+     */
+    public Net getNetOfPos(Vector pos) {
+        for (Net n : netList)
+            if (n.contains(pos))
+                return n;
+        return null;
+    }
+
+    /**
      * Removes a net from this net list
      *
      * @param childNet the net to remove

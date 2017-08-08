@@ -557,6 +557,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_backtrackOf_N_isImpossible">Die Modelkomponente {0} kann nicht analysiert werden.</string>
     <string name="err_errorInPowerSupply">Fehler in der Stromversorgung an {0}.</string>
     <string name="err_exporting_vhdl">Fehler beim Export zu VHDL.</string>
+    <string name="err_vhdlUnknownPortType_N">Unbekannter Port typ.</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

@@ -545,6 +545,7 @@ The names of the variables may not be unique.</string>
     <string name="err_backtrackOf_N_isImpossible">The model component {0} can not be analysed.</string>
     <string name="err_errorInPowerSupply">Error in wiring of power supply at {0}.</string>
     <string name="err_exporting_vhdl">Error during export to VHDL.</string>
+    <string name="err_vhdlUnknownPortType_N">Unknown type of port.</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>

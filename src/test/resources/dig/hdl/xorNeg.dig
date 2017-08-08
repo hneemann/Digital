@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>In_1</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>In_2</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes/>
+      <pos x="480" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="260"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="320" y="240"/>
+      <p2 x="360" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="280"/>
+      <p2 x="360" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="240"/>
+      <p2 x="480" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="240"/>
+      <p2 x="380" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="320"/>
+      <p2 x="320" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="320"/>
+      <p2 x="360" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="260"/>
+      <p2 x="560" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="280"/>
+      <p2 x="480" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="280"/>
+      <p2 x="380" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="200"/>
+      <p2 x="320" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="200"/>
+      <p2 x="360" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="220"/>
+      <p2 x="460" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="300"/>
+      <p2 x="460" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="200"/>
+      <p2 x="320" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="280"/>
+      <p2 x="320" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="220"/>
+      <p2 x="460" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="280"/>
+      <p2 x="460" y="300"/>
+    </wire>
+  </wires>
+</circuit>
