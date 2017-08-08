@@ -16,12 +16,10 @@ import java.io.IOException;
 
 public class VHDLExporterTest extends TestCase {
 
-    public void testPortIn() throws IOException, ElementNotFoundException, PinException, NodeException {
+    public void testXor() throws IOException, ElementNotFoundException, PinException, NodeException {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/xor.dig");
         String vhdl = new VHDLExporter(br.getLibrary()).export(br.getCircuit()).toString();
         System.out.println(vhdl);
     }
-
-
 
 }

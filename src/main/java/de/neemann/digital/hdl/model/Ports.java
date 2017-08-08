@@ -8,12 +8,16 @@ import java.util.Iterator;
  */
 public class Ports implements Iterable<Port> {
     private ArrayList<Port> ports;
+    private ArrayList<Port> outputs;
+    private ArrayList<Port> inputs;
 
     /**
      * creates a new instance
      */
     public Ports() {
         ports = new ArrayList<>();
+        inputs = new ArrayList<>();
+        outputs = new ArrayList<>();
     }
 
     @Override
@@ -28,6 +32,10 @@ public class Ports implements Iterable<Port> {
      */
     public void add(Port port) {
         ports.add(port);
+        if (port.getDirection() == Port.Direction.in)
+            inputs.add(port);
+        else
+            outputs.add(port);
     }
 
     @Override
@@ -51,4 +59,19 @@ public class Ports implements Iterable<Port> {
     public Port get(int i) {
         return ports.get(i);
     }
+
+    /**
+     * @return the list of outputs
+     */
+    public ArrayList<Port> getOutputs() {
+        return outputs;
+    }
+
+    /**
+     * @return the list of inputs
+     */
+    public ArrayList<Port> getInputs() {
+        return inputs;
+    }
+
 }

@@ -210,9 +210,9 @@
     <string name="elem_Mul_pin_mul">Output for the result of the multiplication.</string>
     <string name="elem_BarrelShifter">Shift</string>
     <string name="elem_BarrelShifter_tt">A component for bit shifting. Shift input in by the value defined from input shift.</string>
-    <string name="elem_BarrelShifter_pin_in">Input with bits to be shifted.</string>    
-    <string name="elem_BarrelShifter_pin_shift">Input with shift width.</string>    
-    <string name="elem_BarrelShifter_pin_out">Output with shifted value.</string>    
+    <string name="elem_BarrelShifter_pin_in">Input with bits to be shifted.</string>
+    <string name="elem_BarrelShifter_pin_shift">Input with shift width.</string>
+    <string name="elem_BarrelShifter_pin_out">Output with shifted value.</string>
     <string name="elem_Multiplexer">Multiplexer</string>
     <string name="elem_Multiplexer_input">The {0}. input of the multiplexer.</string>
     <string name="elem_Multiplexer_output">The value of the selected input.</string>
@@ -546,6 +546,7 @@ The names of the variables may not be unique.</string>
     <string name="err_errorInPowerSupply">Error in wiring of power supply at {0}.</string>
     <string name="err_exporting_vhdl">Error during export to VHDL.</string>
     <string name="err_vhdlUnknownPortType_N">Unknown type of port.</string>
+    <string name="err_noVhdlEntity_N">No VHDL code for {0} available!</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -612,8 +613,8 @@ The names of the variables may not be unique.</string>
     <string name="key_intFormat_bin">bin</string>
     <string name="key_intFormat_dec">decimal</string>
     <string name="key_intFormat_def">default</string>
-    <string name="key_intFormat_hex">hex</string>    
-    <string name="key_barrelSigned">shift input has sign</string>    
+    <string name="key_intFormat_hex">hex</string>
+    <string name="key_barrelSigned">shift input has sign</string>
     <string name="key_barrelSigned_tt">shift input data has two complement format</string>
     <string name="key_barrelShifterMode">Mode</string>
     <string name="key_barrelShifterMode_tt">Mode of barrel shifter</string>

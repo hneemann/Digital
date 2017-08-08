@@ -11,6 +11,7 @@ public class Port {
     public enum Direction {in, out}
 
     private final String name;
+    private final String origName;
     private final Direction direction;
     private int bits = 0;
     private Signal signal;
@@ -22,7 +23,8 @@ public class Port {
      * @param direction the direction
      */
     public Port(String name, Direction direction) {
-        this.name = name;
+        this.origName=name;
+        this.name = "SIG_"+name;
         this.direction = direction;
     }
 
@@ -31,6 +33,13 @@ public class Port {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * @return the original name
+     */
+    public String getOrigName() {
+        return origName;
     }
 
     /**

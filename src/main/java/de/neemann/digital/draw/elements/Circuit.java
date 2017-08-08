@@ -582,6 +582,11 @@ public class Circuit {
                     public ObservableValue addObserverToValue(Observer observer) {
                         throw new RuntimeException("invalid call!");
                     }
+
+                    @Override
+                    public int getBits() {
+                        throw new RuntimeException("invalid call!");
+                    }
                 }.setDescription(descr).setPinNumber(attr.get(Keys.PINNUMBER)));
             }
         }

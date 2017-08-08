@@ -72,4 +72,11 @@ public class CustomElement implements Element {
     public void registerNodes(Model model) {
         throw new RuntimeException("invalid call!");
     }
+
+    /**
+     * @return the circuit which is represented by this element
+     */
+    public Circuit getCircuit() {
+        return circuit;
+    }
 }

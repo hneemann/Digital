@@ -20,7 +20,7 @@ public class Signal {
      * @param name the name of the signal
      */
     public Signal(String name) {
-        this.name = name;
+        this.name = "SIG_" + name;
         ports = new ArrayList<>();
     }
 
@@ -46,6 +46,7 @@ public class Signal {
      * @throws HDLException HDLException
      */
     public void checkBits() throws HDLException {
+        boolean isInput = false;
         for (Port p : ports) {
             int portBits = p.getBits();
             if (portBits != 0) {
@@ -56,9 +57,11 @@ public class Signal {
                         throw new HDLException(Lang.get("err_notAllOutputsSameBits"));
                 }
             }
+            if (p.getDirection() == Port.Direction.in)
+                isInput = true;
         }
-        if (bits == 0)
-            throw new HDLException(Lang.get("err_noOutConnectedToWire"));
+        if (isInput && bits == 0)
+            throw new HDLException(Lang.get("err_noOutConnectedToWire", ports));
 
         if (sNeg != null)
             sNeg.bits = bits;

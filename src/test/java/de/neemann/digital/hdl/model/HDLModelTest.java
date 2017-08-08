@@ -12,20 +12,20 @@ public class HDLModelTest extends TestCase {
 
     public void testXor() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/xor.dig");
-        HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary());
+        HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary(), new ModelList(br.getLibrary()));
 
-        assertEquals(5,model.size());
-        assertEquals(7,model.getSignals().size());
-        assertEquals(3,model.getPorts().size());
+        assertEquals(5, model.size());
+        assertEquals(7, model.getSignals().size());
+        assertEquals(3, model.getPorts().size());
     }
 
     public void testXorNeg() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/xorNeg.dig");
-        HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary());
+        HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary(), new ModelList(br.getLibrary()));
 
-        assertEquals(5,model.size());
-        assertEquals(7,model.getSignals().size());
-        assertEquals(3,model.getPorts().size());
+        assertEquals(5, model.size());
+        assertEquals(7, model.getSignals().size());
+        assertEquals(3, model.getPorts().size());
     }
 
 }
