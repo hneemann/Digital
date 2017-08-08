@@ -50,7 +50,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
             for (VisualElement v : circuit.getElements()) {
                 if (v.equalsDescription(Clock.DESCRIPTION))
                     addPort(v, nets, Port.Direction.in, 1, signalMap);
-                if (v.equalsDescription(In.DESCRIPTION))
+                else if (v.equalsDescription(In.DESCRIPTION))
                     addPort(v, nets, Port.Direction.in, v.getElementAttributes().getBits(), signalMap);
                 else if (v.equalsDescription(Out.DESCRIPTION))
                     addPort(v, nets, Port.Direction.out, v.getElementAttributes().getBits(), signalMap);
