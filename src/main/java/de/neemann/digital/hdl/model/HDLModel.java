@@ -75,23 +75,18 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
 
                         if (inverterConfig.contains(p.getName())) {
                             String invName = s.getName() + "_Neg";
-                            Signal sNeg = invertedSignals.computeIfAbsent(invName, Net -> {
-                                Signal sNegL = new Signal(invName);
-                                s.copyBitsTo(sNegL);
-
+                            Signal sNeg = invertedSignals.get(invName);
+                            if (sNeg == null) {
+                                sNeg = new Signal(invName);
+                                invertedSignals.put(invName, sNeg);
+                                s.copyBitsTo(sNeg);
                                 VisualElement vi = new VisualElement(Not.DESCRIPTION.getName());
-                                try {
-                                    HDLNode negNode = new HDLNode(vi, library, modelList);
-                                    Ports negPorts = negNode.getPorts();
-                                    negPorts.get(0).ensure(Port.Direction.out).setSignal(sNegL);
-                                    s.addPort(negPorts.get(1).ensure(Port.Direction.in));
-                                    inverterNodes.put(vi, negNode);
-                                } catch (ElementNotFoundException | NodeException | HDLException | PinException e) {
-                                    throw new RuntimeException(e);
-                                }
-
-                                return sNegL;
-                            });
+                                HDLNode negNode = new HDLNode(vi, library, modelList);
+                                Ports negPorts = negNode.getPorts();
+                                negPorts.get(0).ensure(Port.Direction.out).setSignal(sNeg);
+                                s.addPort(negPorts.get(1).ensure(Port.Direction.in));
+                                inverterNodes.put(vi, negNode);
+                            }
                             node.setPinToSignal(p, sNeg);
                         } else
                             node.setPinToSignal(p, s);
