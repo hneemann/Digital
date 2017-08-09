@@ -236,7 +236,10 @@ public class Splitter implements Element {
             v.fireHasChanged();
     }
 
-    static final class Ports implements Iterable<Port> {
+    /**
+     * A splitter port list
+     */
+    public static final class Ports implements Iterable<Port> {
         private final ArrayList<Port> ports;
         private int bits = 0;
 
@@ -244,7 +247,13 @@ public class Splitter implements Element {
             ports = new ArrayList<>();
         }
 
-        Ports(String definition) throws BitsException {
+        /**
+         * Creates a new instance
+         *
+         * @param definition the splitter definition
+         * @throws BitsException BitsException
+         */
+        public Ports(String definition) throws BitsException {
             this();
             StringTokenizer st = new StringTokenizer(definition, ",", false);
             while (st.hasMoreTokens()) {
@@ -300,11 +309,14 @@ public class Splitter implements Element {
                 bits = b;
         }
 
+        /**
+         * @return the number of bits
+         */
         public int getBits() {
             return bits;
         }
 
-        public PinDescriptions getNames(PinDescription.Direction dir) {
+        private PinDescriptions getNames(PinDescription.Direction dir) {
             PinInfo[] name = new PinInfo[ports.size()];
             for (int i = 0; i < name.length; i++) {
                 final Port port = ports.get(i);
@@ -317,7 +329,7 @@ public class Splitter implements Element {
             return new PinDescriptions(name);
         }
 
-        public ObservableValues getOutputs(boolean isHighZ) {
+        ObservableValues getOutputs(boolean isHighZ) {
             ArrayList<ObservableValue> outputs = new ArrayList<>(ports.size());
             for (Port p : ports) {
                 if (p.getBits() == 1)
@@ -328,6 +340,12 @@ public class Splitter implements Element {
             return new ObservableValues(outputs);
         }
 
+        /**
+         * returns the port with the given index
+         *
+         * @param i the ports index
+         * @return the port
+         */
         public Port getPort(int i) {
             return ports.get(i);
         }
@@ -338,13 +356,16 @@ public class Splitter implements Element {
         }
     }
 
-    private static final class Port {
+    /**
+     * A single splitter port.
+     */
+    public static final class Port {
         private final int bits;
         private final int pos;
         private final String name;
         private int number;
 
-        Port(int pos, int bits) {
+        private Port(int pos, int bits) {
             this.pos = pos;
             this.bits = bits;
             if (bits == 1)
@@ -355,19 +376,28 @@ public class Splitter implements Element {
                 name = "" + pos + "-" + (pos + bits - 1);
         }
 
+        /**
+         * @return the number of bits in this port
+         */
         public int getBits() {
             return bits;
         }
 
+        /**
+         * @return the position of this port
+         */
         public int getPos() {
             return pos;
         }
 
+        /**
+         * @return the name of this port
+         */
         public String getName() {
             return name;
         }
 
-        public void setNumber(int number) {
+        private void setNumber(int number) {
             this.number = number;
         }
     }

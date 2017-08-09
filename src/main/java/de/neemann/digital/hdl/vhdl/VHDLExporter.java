@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -79,6 +80,8 @@ public class VHDLExporter implements Closeable {
     }
 
     private void export(HDLModel model) throws PinException, HDLException, ElementNotFoundException, NodeException, IOException {
+        SplitterHandler splitterHandler = new SplitterHandler(model, out);
+
         out.println("LIBRARY ieee;");
         out.println("USE ieee.std_logic_1164.all;\n");
         out.print("entity ").print(model.getName()).println(" is").inc();
@@ -88,13 +91,17 @@ public class VHDLExporter implements Closeable {
         out.println("\narchitecture " + model.getName() + "_arch of " + model.getName() + " is");
 
         HashSet<String> componentsWritten = new HashSet<>();
-        for (HDLNode node : model) {
-            String nodeName = getVhdlEntityName(node);
-            if (!componentsWritten.contains(nodeName)) {
-                writeComponent(node);
-                componentsWritten.add(nodeName);
+        for (HDLNode node : model)
+            if (node.is(Splitter.DESCRIPTION))
+                splitterHandler.register(node);
+            else {
+                String nodeName = getVhdlEntityName(node);
+                if (!componentsWritten.contains(nodeName)) {
+                    writeComponent(node);
+                    componentsWritten.add(nodeName);
+                }
             }
-        }
+
         out.println().inc();
         for (Signal sig : model.getSignals()) {
             if (!sig.isPort()) {
@@ -107,13 +114,15 @@ public class VHDLExporter implements Closeable {
         }
 
         out.dec().println("begin").inc();
+        splitterHandler.write();
         int g = 0;
-        for (HDLNode node : model) {
-            out.print("gate").print(g++).print(" : ").println(getVhdlEntityName(node)).inc();
-            vhdlLibrary.writeGenericMap(out, node);
-            writePortMap(node);
-            out.dec();
-        }
+        for (HDLNode node : model)
+            if (!node.is(Splitter.DESCRIPTION)) {
+                out.print("gate").print(g++).print(" : ").println(getVhdlEntityName(node)).inc();
+                vhdlLibrary.writeGenericMap(out, node);
+                writePortMap(node);
+                out.dec();
+            }
 
         // direct connection from input to output
         for (Port o : model.getPorts().getOutputs()) {
@@ -136,6 +145,11 @@ public class VHDLExporter implements Closeable {
 
         out.dec().print("end ").print(model.getName()).println("_arch;");
     }
+
+    private boolean isSpecialNode(HDLNode node) {
+        return node.is(Splitter.DESCRIPTION);
+    }
+
 
     private void writePortMap(HDLNode node) throws HDLException, IOException {
         out.print("port map ( ");
@@ -189,5 +203,4 @@ public class VHDLExporter implements Closeable {
     public void close() throws IOException {
         out.close();
     }
-
 }

@@ -46,4 +46,13 @@ public class HDLModelTest extends TestCase {
         assertEquals(2, model.getPorts().size());
     }
 
+    public void testSplitter() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException {
+        ToBreakRunner br = new ToBreakRunner("dig/hdl/splitter.dig");
+        HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary(), new ModelList(br.getLibrary()));
+
+        assertEquals(1, model.size());
+        assertEquals(4, model.getSignals().size());
+        assertEquals(4, model.getPorts().size());
+    }
+
 }

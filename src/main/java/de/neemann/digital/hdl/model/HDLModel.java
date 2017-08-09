@@ -184,4 +184,15 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
     public String getName() {
         return name;
     }
+
+    /**
+     * Creates a new signal.
+     *
+     * @return the new signal
+     */
+    public Signal createSignal() {
+        Signal s = new Signal("S" + (signalNumber++));
+        signals.add(s);
+        return s;
+    }
 }

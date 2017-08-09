@@ -89,6 +89,16 @@ public class HDLNode implements HDLInterface {
         throw new HDLException(Lang.get("err_pin_N_notFound", pin.getName()));
     }
 
+    /**
+     * tests if this node represents a element of the given type
+     *
+     * @param description the element
+     * @return true if node represents such an element
+     */
+    public boolean is(ElementTypeDescription description) {
+        return visualElement.equalsDescription(description);
+    }
+
     private interface BitProvider {
         int getBits(int i);
     }
