@@ -101,7 +101,7 @@ public class SplitterHandler {
         }
 
         private void writeRange(Splitter.Port p) throws IOException {
-            if (p.getBits()>1) {
+            if (p.getBits() > 1) {
                 out.print(p.getPos() + p.getBits() - 1);
                 out.print(" downto ");
                 out.print(p.getPos());
