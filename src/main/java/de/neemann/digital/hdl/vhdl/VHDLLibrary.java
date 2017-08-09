@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.wiring.Decoder;
 import de.neemann.digital.core.wiring.Multiplexer;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
@@ -35,6 +36,7 @@ public class VHDLLibrary {
         map.put(Not.DESCRIPTION.getName(), new NotVHDL());
 
         map.put(Multiplexer.DESCRIPTION.getName(), new MultiplexerVHDL());
+        map.put(Decoder.DESCRIPTION.getName(), new DecoderVHDL());
     }
 
     private VHDLEntity getEntity(HDLNode node) throws HDLException {

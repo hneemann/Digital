@@ -72,7 +72,7 @@ public class MultiplexerVHDL extends VHDLEntitySimple {
         for (int i = 1; i < inputs.size(); i++)
             out.print(inputs.get(i).getName()).print(" when ").print(getBin(i - 1, sel)).println(",");
 
-        if (node.get(Keys.BITS)==1)
+        if (node.get(Keys.BITS) == 1)
             out.println("'0' when others;");
         else
             out.println("std_logic_vector(to_unsigned(0,bitCount)) when others;");
@@ -85,7 +85,14 @@ public class MultiplexerVHDL extends VHDLEntitySimple {
             first.add(sel);
     }
 
-    private String getBin(int val, int bits) {
+    /**
+     * Returns the given value as a VHDL string
+     *
+     * @param val  the value
+     * @param bits the number of bits
+     * @return the string representation
+     */
+    public static String getBin(int val, int bits) {
         String s = Integer.toBinaryString(val);
         while (s.length() < bits)
             s = "0" + s;

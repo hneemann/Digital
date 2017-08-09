@@ -1,8 +1,9 @@
-package de.neemann.digital.hdl.vhdl;
+package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.hdl.vhdl.VHDLExporter;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
