@@ -1,12 +1,12 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.wiring.Multiplexer;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
+import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.vhdl.lib.NotVHDL;
-import de.neemann.digital.hdl.vhdl.lib.OperateVHDL;
-import de.neemann.digital.hdl.vhdl.lib.VHDLEntity;
+import de.neemann.digital.hdl.vhdl.lib.*;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
@@ -33,6 +33,8 @@ public class VHDLLibrary {
         map.put(XOr.DESCRIPTION.getName(), new OperateVHDL("XOR", false));
         map.put(XNOr.DESCRIPTION.getName(), new OperateVHDL("XOR", true));
         map.put(Not.DESCRIPTION.getName(), new NotVHDL());
+
+        map.put(Multiplexer.DESCRIPTION.getName(), new MultiplexerVHDL());
     }
 
     private VHDLEntity getEntity(HDLNode node) throws HDLException {
@@ -60,6 +62,7 @@ public class VHDLLibrary {
         if (e.needsOutput(node)) {
             out.println("\n-- " + e.getName(node) + "\n");
             e.writeHeader(out, node);
+            out.println();
             out.println("entity " + e.getName(node) + " is").inc();
             e.writeDeclaration(out, node);
             out.dec().println("end " + e.getName(node) + ";\n");
@@ -76,11 +79,21 @@ public class VHDLLibrary {
      * @param out  the output stream
      * @param node the node
      * @throws HDLException HDLException
-     * @throws IOException IOException
+     * @throws IOException  IOException
      */
     public void writeDeclaration(CodePrinter out, HDLNode node) throws HDLException, IOException {
-        VHDLEntity e = getEntity(node);
-        e.writeDeclaration(out, node);
+        if (node.isCustom()) {
+            out.println("port (").inc();
+            Separator semic = new Separator(";\n");
+            for (Port p : node.getPorts()) {
+                semic.check(out);
+                VHDLEntitySimple.writePort(out, p);
+            }
+            out.println(" );").dec();
+        } else {
+            VHDLEntity e = getEntity(node);
+            e.writeDeclaration(out, node);
+        }
     }
 
     /**
@@ -88,7 +101,7 @@ public class VHDLLibrary {
      *
      * @param out the pront stream
      * @throws HDLException HDLException
-     * @throws IOException IOException
+     * @throws IOException  IOException
      */
     public void finish(CodePrinter out) throws HDLException, IOException {
         out.println("\n-- library components");
@@ -102,10 +115,12 @@ public class VHDLLibrary {
      * @param out  the output stream
      * @param node the node
      * @throws HDLException HDLException
-     * @throws IOException IOException
+     * @throws IOException  IOException
      */
     public void writeGenericMap(CodePrinter out, HDLNode node) throws HDLException, IOException {
-        VHDLEntity e = getEntity(node);
-        e.writeGenericMap(out, node);
+        if (!node.isCustom()) {
+            VHDLEntity e = getEntity(node);
+            e.writeGenericMap(out, node);
+        }
     }
 }

@@ -27,7 +27,7 @@ public abstract class VHDLEntitySimple implements VHDLEntity {
     @Override
     public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
         out.println("LIBRARY ieee;");
-        out.println("USE ieee.std_logic_1164.all;\n");
+        out.println("USE ieee.std_logic_1164.all;");
     }
 
     @Override
@@ -36,9 +36,53 @@ public abstract class VHDLEntitySimple implements VHDLEntity {
         Separator semic = new Separator(";\n");
         for (Port p : node.getPorts()) {
             semic.check(out);
-            out.print(p.getName()).print(": ").print(getDirection(p)).print(" ").print(getType(p.getBits()));
+            writePort(out, p);
         }
         out.println(" );").dec();
+    }
+
+    /**
+     * Writes a simple port declaration.
+     *
+     * @param out the output stream
+     * @param p   the port
+     * @throws IOException  IOException
+     * @throws HDLException HDLException
+     */
+    public static void writePort(CodePrinter out, Port p) throws IOException, HDLException {
+        out.print(p.getName()).print(": ").print(getDirection(p)).print(" ").print(getType(p.getBits()));
+    }
+
+    /**
+     * Writes a simple port declaration with generic bitCount.
+     *
+     * @param out the output stream
+     * @param p   the port
+     * @throws IOException  IOException
+     * @throws HDLException HDLException
+     */
+    public static void writePortGeneric(CodePrinter out, Port p) throws IOException, HDLException {
+        writePortGeneric(out, p, "bitCount");
+    }
+
+    /**
+     * Writes a simple port declaration with generic bitCount.
+     * The name of the generic var is given.
+     *
+     * @param out        the output stream
+     * @param p          the port
+     * @param genericVar name of the variable defining the bit count
+     * @throws IOException  IOException
+     * @throws HDLException HDLException
+     */
+    public static void writePortGeneric(CodePrinter out, Port p, String genericVar) throws IOException, HDLException {
+        out.print(p.getName())
+                .print(": ")
+                .print(getDirection(p))
+                .print(" ")
+                .print("std_logic_vector ( (")
+                .print(genericVar)
+                .print("-1)  downto 0)");
     }
 
     @Override
