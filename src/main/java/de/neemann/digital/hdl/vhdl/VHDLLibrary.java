@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.core.wiring.Decoder;
 import de.neemann.digital.core.wiring.Multiplexer;
 import de.neemann.digital.hdl.model.HDLException;
@@ -24,8 +25,10 @@ public class VHDLLibrary {
 
     /**
      * Creates a new instance
+     *
+     * @throws IOException IOException
      */
-    public VHDLLibrary() {
+    public VHDLLibrary() throws IOException {
         map = new HashMap<>();
         map.put(And.DESCRIPTION.getName(), new OperateVHDL("AND", false));
         map.put(NAnd.DESCRIPTION.getName(), new OperateVHDL("AND", true));
@@ -37,6 +40,7 @@ public class VHDLLibrary {
 
         map.put(Multiplexer.DESCRIPTION.getName(), new MultiplexerVHDL());
         map.put(Decoder.DESCRIPTION.getName(), new DecoderVHDL());
+        map.put(FlipflopD.DESCRIPTION.getName(), new VHDLFile("D_FF"));
     }
 
     private VHDLEntity getEntity(HDLNode node) throws HDLException {
@@ -69,9 +73,12 @@ public class VHDLLibrary {
             e.writeDeclaration(out, node);
             out.dec().println("end " + e.getName(node) + ";\n");
             out.println("architecture " + e.getName(node) + "_arch of " + e.getName(node) + " is");
-            out.println("begin").inc();
+            if (!e.createsSignals())
+                out.println("begin").inc();
             e.writeArchitecture(out, node);
-            out.dec().println("end " + e.getName(node) + "_arch;");
+            if (!e.createsSignals())
+                out.dec();
+            out.println("end " + e.getName(node) + "_arch;");
         }
     }
 

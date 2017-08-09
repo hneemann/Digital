@@ -37,7 +37,10 @@ public class DecoderVHDLTest extends TestCase {
                 "\n" +
                 "begin\n" +
                 "  gate0 : MUX_GATE_1\n" +
-                "    port map ( PORT_out_0 => PORT_A , PORT_out_1 => PORT_B , PORT_sel => PORT_Sel );\n" +
+                "    port map (\n" +
+                "      PORT_out_0 => PORT_A,\n" +
+                "      PORT_out_1 => PORT_B,\n" +
+                "      PORT_sel => PORT_Sel );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +
@@ -91,7 +94,12 @@ public class DecoderVHDLTest extends TestCase {
                 "\n" +
                 "begin\n" +
                 "  gate0 : MUX_GATE_2\n" +
-                "    port map ( PORT_out_0 => PORT_A , PORT_out_1 => PORT_B , PORT_out_2 => PORT_C , PORT_out_3 => PORT_D , PORT_sel => PORT_Sel );\n" +
+                "    port map (\n" +
+                "      PORT_out_0 => PORT_A,\n" +
+                "      PORT_out_1 => PORT_B,\n" +
+                "      PORT_out_2 => PORT_C,\n" +
+                "      PORT_out_3 => PORT_D,\n" +
+                "      PORT_sel => PORT_Sel );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +

@@ -39,7 +39,11 @@ public class MultiplexerTest extends TestCase {
                 "\n" +
                 "begin\n" +
                 "  gate0 : MUX_GATE_1\n" +
-                "    port map ( PORT_out => PORT_C , PORT_sel => PORT_Sel , PORT_in_0 => PORT_A , PORT_in_1 => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_C,\n" +
+                "      PORT_sel => PORT_Sel,\n" +
+                "      PORT_in_0 => PORT_A,\n" +
+                "      PORT_in_1 => PORT_B );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +
@@ -99,7 +103,13 @@ public class MultiplexerTest extends TestCase {
                 "\n" +
                 "begin\n" +
                 "  gate0 : MUX_GATE_2\n" +
-                "    port map ( PORT_out => PORT_Y , PORT_sel => PORT_Sel , PORT_in_0 => PORT_A , PORT_in_1 => PORT_B , PORT_in_2 => PORT_C , PORT_in_3 => PORT_D );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_Y,\n" +
+                "      PORT_sel => PORT_Sel,\n" +
+                "      PORT_in_0 => PORT_A,\n" +
+                "      PORT_in_1 => PORT_B,\n" +
+                "      PORT_in_2 => PORT_C,\n" +
+                "      PORT_in_3 => PORT_D );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +
@@ -165,7 +175,13 @@ public class MultiplexerTest extends TestCase {
                 "begin\n" +
                 "  gate0 : MUX_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 4)\n" +
-                "    port map ( PORT_out => PORT_Y , PORT_sel => PORT_Sel , PORT_in_0 => PORT_A , PORT_in_1 => PORT_B , PORT_in_2 => PORT_C , PORT_in_3 => PORT_D );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_Y,\n" +
+                "      PORT_sel => PORT_Sel,\n" +
+                "      PORT_in_0 => PORT_A,\n" +
+                "      PORT_in_1 => PORT_B,\n" +
+                "      PORT_in_2 => PORT_C,\n" +
+                "      PORT_in_3 => PORT_D );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +

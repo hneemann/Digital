@@ -49,6 +49,7 @@ public interface VHDLEntity {
 
     /**
      * Writes the architecture
+     *
      * @param out  the code printer
      * @param node the node
      * @throws IOException  IOException
@@ -67,4 +68,10 @@ public interface VHDLEntity {
      */
     void writeGenericMap(CodePrinter out, HDLNode node) throws IOException, HDLException;
 
+    /**
+     * @return true is this entity creates signals in the architecture
+     */
+    default boolean createsSignals() {
+        return false;
+    }
 }

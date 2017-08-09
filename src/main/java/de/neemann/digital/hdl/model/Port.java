@@ -38,7 +38,7 @@ public class Port {
      */
     public Port(String name, Direction direction) {
         this.origName = name;
-        this.name = PREFIX + name.replace('-', '_');
+        this.name = PREFIX + name.replace('-', '_').replace("\u00AC", "not");
         this.direction = direction;
     }
 

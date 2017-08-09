@@ -59,15 +59,28 @@ public class VHDLExporterTest extends TestCase {
                 "  signal S3: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_2\n" +
-                "    port map ( PORT_out => S1 , PORT_In_1 => S0 , PORT_In_2 => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_out => S1,\n" +
+                "      PORT_In_1 => S0,\n" +
+                "      PORT_In_2 => PORT_B );\n" +
                 "  gate1 : AND_GATE_2\n" +
-                "    port map ( PORT_out => S3 , PORT_In_1 => PORT_A , PORT_In_2 => S2 );\n" +
+                "    port map (\n" +
+                "      PORT_out => S3,\n" +
+                "      PORT_In_1 => PORT_A,\n" +
+                "      PORT_In_2 => S2 );\n" +
                 "  gate2 : OR_GATE_2\n" +
-                "    port map ( PORT_out => PORT_Y , PORT_In_1 => S1 , PORT_In_2 => S3 );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_Y,\n" +
+                "      PORT_In_1 => S1,\n" +
+                "      PORT_In_2 => S3 );\n" +
                 "  gate3 : NOT_GATE\n" +
-                "    port map ( PORT_out => S2 , PORT_in => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_out => S2,\n" +
+                "      PORT_in => PORT_B );\n" +
                 "  gate4 : NOT_GATE\n" +
-                "    port map ( PORT_out => S0 , PORT_in => PORT_A );\n" +
+                "    port map (\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_in => PORT_A );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +
@@ -166,15 +179,28 @@ public class VHDLExporterTest extends TestCase {
                 "  signal S1: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_2\n" +
-                "    port map ( PORT_out => S0 , PORT_In_1 => PORT_A_Neg , PORT_In_2 => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_In_1 => PORT_A_Neg,\n" +
+                "      PORT_In_2 => PORT_B );\n" +
                 "  gate1 : AND_GATE_2\n" +
-                "    port map ( PORT_out => S1 , PORT_In_1 => PORT_A , PORT_In_2 => PORT_B_Neg );\n" +
+                "    port map (\n" +
+                "      PORT_out => S1,\n" +
+                "      PORT_In_1 => PORT_A,\n" +
+                "      PORT_In_2 => PORT_B_Neg );\n" +
                 "  gate2 : OR_GATE_2\n" +
-                "    port map ( PORT_out => PORT_Y , PORT_In_1 => S0 , PORT_In_2 => S1 );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_Y,\n" +
+                "      PORT_In_1 => S0,\n" +
+                "      PORT_In_2 => S1 );\n" +
                 "  gate3 : NOT_GATE\n" +
-                "    port map ( PORT_out => PORT_A_Neg , PORT_in => PORT_A );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_A_Neg,\n" +
+                "      PORT_in => PORT_A );\n" +
                 "  gate4 : NOT_GATE\n" +
-                "    port map ( PORT_out => PORT_B_Neg , PORT_in => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_B_Neg,\n" +
+                "      PORT_in => PORT_B );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +
@@ -262,9 +288,14 @@ public class VHDLExporterTest extends TestCase {
                 "  signal PORT_A_Neg: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : OR_GATE_2\n" +
-                "    port map ( PORT_out => PORT_Y , PORT_In_1 => PORT_A_Neg , PORT_In_2 => PORT_A_Neg );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_Y,\n" +
+                "      PORT_In_1 => PORT_A_Neg,\n" +
+                "      PORT_In_2 => PORT_A_Neg );\n" +
                 "  gate1 : NOT_GATE\n" +
-                "    port map ( PORT_out => PORT_A_Neg , PORT_in => PORT_A );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_A_Neg,\n" +
+                "      PORT_in => PORT_A );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +
@@ -350,19 +381,32 @@ public class VHDLExporterTest extends TestCase {
                 "begin\n" +
                 "  gate0 : AND_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +
-                "    port map ( PORT_out => S0 , PORT_In_1 => PORT_A_Neg , PORT_In_2 => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_In_1 => PORT_A_Neg,\n" +
+                "      PORT_In_2 => PORT_B );\n" +
                 "  gate1 : AND_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +
-                "    port map ( PORT_out => S1 , PORT_In_1 => PORT_A , PORT_In_2 => PORT_B_Neg );\n" +
+                "    port map (\n" +
+                "      PORT_out => S1,\n" +
+                "      PORT_In_1 => PORT_A,\n" +
+                "      PORT_In_2 => PORT_B_Neg );\n" +
                 "  gate2 : OR_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +
-                "    port map ( PORT_out => PORT_Y , PORT_In_1 => S0 , PORT_In_2 => S1 );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_Y,\n" +
+                "      PORT_In_1 => S0,\n" +
+                "      PORT_In_2 => S1 );\n" +
                 "  gate3 : NOT_GATE_BUS\n" +
                 "    generic map ( bitCount => 2)\n" +
-                "    port map ( PORT_out => PORT_A_Neg , PORT_in => PORT_A );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_A_Neg,\n" +
+                "      PORT_in => PORT_A );\n" +
                 "  gate4 : NOT_GATE_BUS\n" +
                 "    generic map ( bitCount => 2)\n" +
-                "    port map ( PORT_out => PORT_B_Neg , PORT_in => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_B_Neg,\n" +
+                "      PORT_in => PORT_B );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n" +
@@ -472,7 +516,10 @@ public class VHDLExporterTest extends TestCase {
                 "\n" +
                 "begin\n" +
                 "  gate0 : and_dig\n" +
-                "    port map ( PORT_Out => PORT_C , PORT_A => PORT_A , PORT_B => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_Out => PORT_C,\n" +
+                "      PORT_A => PORT_A,\n" +
+                "      PORT_B => PORT_B );\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- and_dig\n" +
@@ -498,7 +545,10 @@ public class VHDLExporterTest extends TestCase {
                 "\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_2\n" +
-                "    port map ( PORT_out => PORT_Out , PORT_In_1 => PORT_A , PORT_In_2 => PORT_B );\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_Out,\n" +
+                "      PORT_In_1 => PORT_A,\n" +
+                "      PORT_In_2 => PORT_B );\n" +
                 "end and_dig_arch;\n" +
                 "\n" +
                 "-- library components\n" +

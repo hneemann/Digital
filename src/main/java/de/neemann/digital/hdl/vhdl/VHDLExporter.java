@@ -29,8 +29,9 @@ public class VHDLExporter implements Closeable {
      * Creates a new exporter
      *
      * @param library the library
+     * @throws IOException IOException
      */
-    public VHDLExporter(ElementLibrary library) {
+    public VHDLExporter(ElementLibrary library) throws IOException {
         this(library, new CodePrinterStr());
     }
 
@@ -39,8 +40,9 @@ public class VHDLExporter implements Closeable {
      *
      * @param library the library
      * @param out     the output stream
+     * @throws IOException IOException
      */
-    public VHDLExporter(ElementLibrary library, CodePrinter out) {
+    public VHDLExporter(ElementLibrary library, CodePrinter out) throws IOException {
         this.library = library;
         this.out = out;
         vhdlLibrary = new VHDLLibrary();
@@ -152,8 +154,8 @@ public class VHDLExporter implements Closeable {
 
 
     private void writePortMap(HDLNode node) throws HDLException, IOException {
-        out.print("port map ( ");
-        Separator comma = new Separator(" , ");
+        out.println("port map (").inc();
+        Separator comma = new Separator(",\n");
         for (Port p : node.getPorts()) {
             if (p.getSignal() != null) {
                 comma.check(out);
@@ -162,7 +164,7 @@ public class VHDLExporter implements Closeable {
                     p.getSignal().setIsWritten();
             }
         }
-        out.println(" );");
+        out.println(" );").dec();
     }
 
     private String getVhdlEntityName(HDLNode node) throws HDLException {
