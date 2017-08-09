@@ -42,6 +42,7 @@ import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.gui.sync.LockSync;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
+import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl.VHDLExporter;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
@@ -497,7 +498,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     new SaveAsHelper(Main.this, fc, "vhdl").checkOverwrite(
                             file -> {
                                 settings.setFile("exportDirectory", file.getParentFile());
-                                try (VHDLExporter vhdl = new VHDLExporter(library, new FileOutputStream(file))) {
+                                try (VHDLExporter vhdl = new VHDLExporter(library, new CodePrinter(new FileOutputStream(file)))) {
                                     vhdl.export(circuitComponent.getCircuit());
                                 }
                             }

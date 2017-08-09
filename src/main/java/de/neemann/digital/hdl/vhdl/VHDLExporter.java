@@ -6,6 +6,9 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.*;
+import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
+import de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
@@ -17,9 +20,8 @@ import java.util.HashSet;
  */
 public class VHDLExporter implements Closeable {
 
-    private final PrintStream out;
+    private final CodePrinter out;
     private final ElementLibrary library;
-    private final ByteArrayOutputStream buffer;
     private final VHDLLibrary vhdlLibrary;
 
     /**
@@ -28,7 +30,7 @@ public class VHDLExporter implements Closeable {
      * @param library the library
      */
     public VHDLExporter(ElementLibrary library) {
-        this(library, new ByteArrayOutputStream());
+        this(library, new CodePrinterStr());
     }
 
     /**
@@ -37,15 +39,9 @@ public class VHDLExporter implements Closeable {
      * @param library the library
      * @param out     the output stream
      */
-    public VHDLExporter(ElementLibrary library, OutputStream out) {
+    public VHDLExporter(ElementLibrary library, CodePrinter out) {
         this.library = library;
-        if (out instanceof ByteArrayOutputStream)
-            buffer = (ByteArrayOutputStream) out;
-        else
-            buffer = null;
-
-        this.out = new PrintStream(out);
-
+        this.out = out;
         vhdlLibrary = new VHDLLibrary();
     }
 
@@ -82,11 +78,12 @@ public class VHDLExporter implements Closeable {
         return this;
     }
 
-    private void export(HDLModel model) throws PinException, HDLException, ElementNotFoundException, NodeException {
-        writeHeader(out);
-        out.println("entity " + model.getName() + " is");
-        writePort(out, "  ", model.getPorts());
-        out.println("end " + model.getName() + ";");
+    private void export(HDLModel model) throws PinException, HDLException, ElementNotFoundException, NodeException, IOException {
+        out.println("LIBRARY ieee;");
+        out.println("USE ieee.std_logic_1164.all;\n");
+        out.print("entity ").print(model.getName()).println(" is").inc();
+        writePort(out, model.getPorts());
+        out.dec().println("end " + model.getName() + ";");
 
         out.println("\narchitecture " + model.getName() + "_arch of " + model.getName() + " is");
 
@@ -98,19 +95,24 @@ public class VHDLExporter implements Closeable {
                 componentsWritten.add(nodeName);
             }
         }
-        out.println();
+        out.println().inc();
         for (Signal sig : model.getSignals()) {
             if (!sig.isPort()) {
-                out.println("  signal " + sig.getName() + ": " + getType(sig.getBits()) + ";");
+                out.print("signal ");
+                out.print(sig.getName());
+                out.print(": ");
+                out.print(VHDLEntitySimple.getType(sig.getBits()));
+                out.println(";");
             }
         }
 
-        out.println("begin");
+        out.dec().println("begin").inc();
         int g = 0;
         for (HDLNode node : model) {
-            out.println("  gate" + (g++) + " : " + getVhdlEntityName(node));
+            out.print("gate").print(g++).print(" : ").println(getVhdlEntityName(node)).inc();
             vhdlLibrary.writeGenericMap(out, node);
             writePortMap(node);
+            out.dec();
         }
 
         // direct connection from input to output
@@ -128,16 +130,15 @@ public class VHDLExporter implements Closeable {
                 if (inPort == null)
                     throw new HDLException("wrong interconnect");
 
-                out.println("  " + o.getName() + " <= " + inPort.getName() + ";");
+                out.print(o.getName()).print(" <= ").print(inPort.getName()).println(";");
             }
         }
 
-        out.println("end " + model.getName() + "_arch;");
+        out.dec().print("end ").print(model.getName()).println("_arch;");
     }
 
-
-    private void writePortMap(HDLNode node) throws HDLException {
-        out.print("    port map ( ");
+    private void writePortMap(HDLNode node) throws HDLException, IOException {
+        out.print("port map ( ");
         Separator comma = new Separator(" , ");
         for (Port p : node.getPorts()) {
             if (p.getSignal() != null) {
@@ -157,68 +158,31 @@ public class VHDLExporter implements Closeable {
             return vhdlLibrary.getName(node);
     }
 
-    private void writeComponent(HDLNode node) throws ElementNotFoundException, NodeException, PinException, HDLException {
-        out.println("\n  component " + getVhdlEntityName(node));
-        vhdlLibrary.writePorts(out, node);
-        out.println("  end component;");
+    private void writeComponent(HDLNode node) throws ElementNotFoundException, NodeException, PinException, HDLException, IOException {
+        out.println().inc();
+        out.print("component ").println(getVhdlEntityName(node)).inc();
+        vhdlLibrary.writeDeclaration(out, node);
+        out.dec().println("end component;").dec();
     }
 
-    static void writePort(PrintStream out, String blanks, Ports ports) throws HDLException {
-        out.println(blanks + "port (");
+    private void writePort(CodePrinter out, Ports ports) throws HDLException, IOException {
+        out.println("port (");
         Separator semic = new Separator(";\n");
         for (Port p : ports) {
             semic.check(out);
-            out.print(blanks + "  " + p.getName() + ": " + getDirection(p) + " " + getType(p.getBits()));
+            out.print("  ");
+            out.print(p.getName());
+            out.print(": ");
+            out.print(VHDLEntitySimple.getDirection(p));
+            out.print(" ");
+            out.print(VHDLEntitySimple.getType(p.getBits()));
         }
         out.println(" );");
     }
 
-    static void writeHeader(PrintStream out) {
-        out.println("LIBRARY ieee;");
-        out.println("USE ieee.std_logic_1164.all;\n");
-    }
-
-    /**
-     * Returns the VHDL direction qualifier
-     *
-     * @param p the port
-     * @return the direction
-     * @throws HDLException HDLException
-     */
-    public static String getDirection(Port p) throws HDLException {
-        switch (p.getDirection()) {
-            case in:
-                return "in";
-            case out:
-                return "out";
-            default:
-                throw new HDLException(Lang.get("err_vhdlUnknownPortType_N", p.getDirection().toString()));
-        }
-    }
-
-    /**
-     * returns the vhdl type
-     *
-     * @param bits the number of bits
-     * @return the type
-     * @throws HDLException HDLException
-     */
-    public static String getType(int bits) throws HDLException {
-        if (bits == 0)
-            throw new HDLException("bit number not available");
-        if (bits == 1)
-            return "std_logic";
-        else
-            return "std_logic_vector (" + (bits - 1) + " downto 0)";
-    }
-
     @Override
     public String toString() {
-        if (buffer != null) {
-            out.flush();
-            return buffer.toString();
-        } else
-            return "unknown";
+        return out.toString();
     }
 
     @Override

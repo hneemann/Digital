@@ -34,23 +34,23 @@ public class VHDLExporterTest extends TestCase {
                 "architecture main_arch of main is\n" +
                 "\n" +
                 "  component AND_GATE_2\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic;\n" +
-                "    PORT_In_1: in std_logic;\n" +
-                "    PORT_In_2: in std_logic );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_In_1: in std_logic;\n" +
+                "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  component OR_GATE_2\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic;\n" +
-                "    PORT_In_1: in std_logic;\n" +
-                "    PORT_In_2: in std_logic );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_In_1: in std_logic;\n" +
+                "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  component NOT_GATE\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic;\n" +
-                "    PORT_in: in std_logic );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  signal S0: std_logic;\n" +
@@ -141,23 +141,23 @@ public class VHDLExporterTest extends TestCase {
                 "architecture main_arch of main is\n" +
                 "\n" +
                 "  component AND_GATE_2\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic;\n" +
-                "    PORT_In_1: in std_logic;\n" +
-                "    PORT_In_2: in std_logic );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_In_1: in std_logic;\n" +
+                "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  component OR_GATE_2\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic;\n" +
-                "    PORT_In_1: in std_logic;\n" +
-                "    PORT_In_2: in std_logic );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_In_1: in std_logic;\n" +
+                "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  component NOT_GATE\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic;\n" +
-                "    PORT_in: in std_logic );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  signal PORT_A_Neg: std_logic;\n" +
@@ -247,16 +247,16 @@ public class VHDLExporterTest extends TestCase {
                 "architecture main_arch of main is\n" +
                 "\n" +
                 "  component OR_GATE_2\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic;\n" +
-                "    PORT_In_1: in std_logic;\n" +
-                "    PORT_In_2: in std_logic );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_In_1: in std_logic;\n" +
+                "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  component NOT_GATE\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic;\n" +
-                "    PORT_in: in std_logic );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  signal PORT_A_Neg: std_logic;\n" +
@@ -321,26 +321,26 @@ public class VHDLExporterTest extends TestCase {
                 "architecture main_arch of main is\n" +
                 "\n" +
                 "  component AND_GATE_BUS_2\n" +
-                "  generic ( bitCount : integer );\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
-                "    PORT_In_1: in std_logic_vector ((bitCount-1) downto 0);\n" +
-                "    PORT_In_2: in std_logic_vector ((bitCount-1) downto 0) );\n" +
+                "    generic ( bitCount : integer );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
+                "      PORT_In_1: in std_logic_vector ((bitCount-1) downto 0);\n" +
+                "      PORT_In_2: in std_logic_vector ((bitCount-1) downto 0) );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  component OR_GATE_BUS_2\n" +
-                "  generic ( bitCount : integer );\n" +
-                "  port (\n" +
-                "    PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
-                "    PORT_In_1: in std_logic_vector ((bitCount-1) downto 0);\n" +
-                "    PORT_In_2: in std_logic_vector ((bitCount-1) downto 0) );\n" +
+                "    generic ( bitCount : integer );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
+                "      PORT_In_1: in std_logic_vector ((bitCount-1) downto 0);\n" +
+                "      PORT_In_2: in std_logic_vector ((bitCount-1) downto 0) );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  component NOT_GATE_BUS\n" +
-                "  generic ( bitCount : integer );\n" +
-                "  port ( \n" +
-                "    PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
-                "    PORT_in: in std_logic_vector ((bitCount-1) downto 0) );\n" +
+                "    generic ( bitCount : integer );\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
+                "      PORT_in: in std_logic_vector ((bitCount-1) downto 0) );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  signal PORT_A_Neg: std_logic_vector (1 downto 0);\n" +
@@ -410,7 +410,7 @@ public class VHDLExporterTest extends TestCase {
                 "\n" +
                 "entity NOT_GATE_BUS is\n" +
                 "  generic ( bitCount : integer );\n" +
-                "  port ( \n" +
+                "  port (\n" +
                 "    PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
                 "    PORT_in: in std_logic_vector ((bitCount-1) downto 0) );\n" +
                 "end NOT_GATE_BUS;\n" +

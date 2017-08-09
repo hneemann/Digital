@@ -3,11 +3,13 @@ package de.neemann.digital.hdl.vhdl;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
+import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl.lib.NotVHDL;
 import de.neemann.digital.hdl.vhdl.lib.OperateVHDL;
+import de.neemann.digital.hdl.vhdl.lib.VHDLEntity;
 import de.neemann.digital.lang.Lang;
 
-import java.io.PrintStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,6 +30,8 @@ public class VHDLLibrary {
         map.put(NAnd.DESCRIPTION.getName(), new OperateVHDL("AND", true));
         map.put(Or.DESCRIPTION.getName(), new OperateVHDL("OR", false));
         map.put(NOr.DESCRIPTION.getName(), new OperateVHDL("OR", true));
+        map.put(XOr.DESCRIPTION.getName(), new OperateVHDL("XOR", false));
+        map.put(XNOr.DESCRIPTION.getName(), new OperateVHDL("XOR", true));
         map.put(Not.DESCRIPTION.getName(), new NotVHDL());
     }
 
@@ -51,18 +55,18 @@ public class VHDLLibrary {
         return getEntity(node).getName(node);
     }
 
-    private void printTo(PrintStream out, HDLNode node) throws HDLException {
+    private void printTo(CodePrinter out, HDLNode node) throws HDLException, IOException {
         VHDLEntity e = getEntity(node);
         if (e.needsOutput(node)) {
             out.println("\n-- " + e.getName(node) + "\n");
-            VHDLExporter.writeHeader(out);
-            out.println("entity " + e.getName(node) + " is");
-            writePorts(out, node);
-            out.println("end " + e.getName(node) + ";\n");
+            e.writeHeader(out, node);
+            out.println("entity " + e.getName(node) + " is").inc();
+            e.writeDeclaration(out, node);
+            out.dec().println("end " + e.getName(node) + ";\n");
             out.println("architecture " + e.getName(node) + "_arch of " + e.getName(node) + " is");
-            out.println("begin");
-            e.printTo(out, node);
-            out.println("end " + e.getName(node) + "_arch;");
+            out.println("begin").inc();
+            e.writeArchitecture(out, node);
+            out.dec().println("end " + e.getName(node) + "_arch;");
         }
     }
 
@@ -72,14 +76,11 @@ public class VHDLLibrary {
      * @param out  the output stream
      * @param node the node
      * @throws HDLException HDLException
+     * @throws IOException IOException
      */
-    public void writePorts(PrintStream out, HDLNode node) throws HDLException {
+    public void writeDeclaration(CodePrinter out, HDLNode node) throws HDLException, IOException {
         VHDLEntity e = getEntity(node);
-        if (e.hasGenerics(node)) {
-            e.writeGenerics(out, node);
-            e.writeGenericPorts(out, node);
-        } else
-            VHDLExporter.writePort(out, "  ", node.getPorts());
+        e.writeDeclaration(out, node);
     }
 
     /**
@@ -87,8 +88,9 @@ public class VHDLLibrary {
      *
      * @param out the pront stream
      * @throws HDLException HDLException
+     * @throws IOException IOException
      */
-    public void finish(PrintStream out) throws HDLException {
+    public void finish(CodePrinter out) throws HDLException, IOException {
         out.println("\n-- library components");
         for (HDLNode n : nodeList)
             printTo(out, n);
@@ -100,11 +102,10 @@ public class VHDLLibrary {
      * @param out  the output stream
      * @param node the node
      * @throws HDLException HDLException
+     * @throws IOException IOException
      */
-    public void writeGenericMap(PrintStream out, HDLNode node) throws HDLException {
+    public void writeGenericMap(CodePrinter out, HDLNode node) throws HDLException, IOException {
         VHDLEntity e = getEntity(node);
-        if (e.hasGenerics(node))
-            e.writeGenericMap(out, node);
-
+        e.writeGenericMap(out, node);
     }
 }

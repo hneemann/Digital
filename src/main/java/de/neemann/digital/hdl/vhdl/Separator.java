@@ -1,6 +1,8 @@
 package de.neemann.digital.hdl.vhdl;
 
-import java.io.PrintStream;
+import de.neemann.digital.hdl.printer.CodePrinter;
+
+import java.io.IOException;
 
 /**
  * Used to create separators
@@ -22,8 +24,9 @@ public final class Separator {
      * Inserts the separator
      *
      * @param out the print stream
+     * @throws IOException IOException
      */
-    public void check(PrintStream out) {
+    public void check(CodePrinter out) throws IOException {
         if (first)
             first = false;
         else
