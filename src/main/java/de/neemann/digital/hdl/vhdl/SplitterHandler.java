@@ -80,9 +80,7 @@ public class SplitterHandler {
             for (int i = 0; i < node.getPorts().getInputs().size(); i++) {
                 Splitter.Port p = inputs.getPort(i);
                 out.print(bus.getName()).print('(');
-                out.print(p.getPos() + p.getBits() - 1);
-                out.print(" downto ");
-                out.print(p.getPos());
+                writeRange(p);
                 out.print(") <= ");
                 out.print(node.getPorts().getInputs().get(i).getSignal().getName());
                 out.println(";");
@@ -91,15 +89,24 @@ public class SplitterHandler {
             for (int i = 0; i < node.getPorts().getOutputs().size(); i++) {
                 Splitter.Port p = outputs.getPort(i);
                 Signal outSig = node.getPorts().getOutputs().get(i).getSignal();
-                outSig.setIsWritten();
-                out.print(outSig.getName());
-                out.print(" <= ");
-                out.print(bus.getName()).print('(');
+                if (outSig != null) {
+                    outSig.setIsWritten();
+                    out.print(outSig.getName());
+                    out.print(" <= ");
+                    out.print(bus.getName()).print('(');
+                    writeRange(p);
+                    out.println(");");
+                }
+            }
+        }
+
+        private void writeRange(Splitter.Port p) throws IOException {
+            if (p.getBits()>1) {
                 out.print(p.getPos() + p.getBits() - 1);
                 out.print(" downto ");
                 out.print(p.getPos());
-                out.println(");");
-            }
+            } else
+                out.print(p.getPos());
         }
     }
 }
