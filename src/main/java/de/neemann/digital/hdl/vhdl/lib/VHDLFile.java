@@ -4,6 +4,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,8 +13,9 @@ import java.util.ArrayList;
  * Reads a file with the vhdl code to create the entity
  */
 public class VHDLFile implements VHDLEntity {
+    private final static String ENTITY_PREFIX = "DIG_";
 
-    private final String name;
+    private final String entityName;
     private final ArrayList<String> vhdl;
     private final boolean hasData;
     private final Interval port;
@@ -24,15 +26,15 @@ public class VHDLFile implements VHDLEntity {
     /**
      * Creates a new instance
      *
-     * @param name the filename
+     * @param elementName the filename
      * @throws IOException IOException
      */
-    public VHDLFile(String name) throws IOException {
-        this.name = name;
-        vhdl = readFile(name);
+    public VHDLFile(String elementName) throws IOException {
+        this.entityName = ENTITY_PREFIX + elementName;
+        vhdl = readFile(entityName);
         hasData = hasdata();
-        port = extract("entity " + name + " is", "end " + name + ";");
-        arch = extract("architecture " + name + "_arch of " + name + " is", "end " + name + "_arch;");
+        port = extract("entity " + entityName + " is", "end " + entityName + ";");
+        arch = extract("architecture " + entityName + "_arch of " + entityName + " is", "end " + entityName + "_arch;");
     }
 
     private boolean hasdata() {
@@ -55,13 +57,31 @@ public class VHDLFile implements VHDLEntity {
 
     private ArrayList<String> readFile(String name) throws IOException {
         ArrayList<String> vhdl = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("vhdl/" + name + ".vhdl")))) {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(createFileName(name));
+        if (inputStream == null)
+            throw new IOException("file not present: " + createFileName(name));
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = in.readLine()) != null)
                 vhdl.add(line);
         }
         return vhdl;
     }
+
+    private static String createFileName(String name) {
+        return "vhdl/" + name + ".vhdl";
+    }
+
+    /**
+     * Creates the name of the file used to load the vhdl file for the given element
+     *
+     * @param elementName the element name
+     * @return the filename
+     */
+    public static String neededFileName(String elementName) {
+        return createFileName(ENTITY_PREFIX + elementName);
+    }
+
 
     @Override
     public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
@@ -73,11 +93,11 @@ public class VHDLFile implements VHDLEntity {
     public String getName(HDLNode node) {
         if (hasData) {
             if (node.get(Keys.BITS) > 1)
-                return name + "_BUS";
+                return entityName + "_BUS";
             else
-                return name;
+                return entityName;
         } else
-            return name;
+            return entityName;
     }
 
     @Override
@@ -142,5 +162,36 @@ public class VHDLFile implements VHDLEntity {
             this.start = start;
             this.end = end;
         }
+    }
+
+    private static final class Dummy extends VHDLEntitySimple {
+
+        @Override
+        public String getName(HDLNode node) {
+            return node.getVisualElement().getElementName();
+        }
+
+        @Override
+        public void writeArchitecture(CodePrinter out, HDLNode node) throws IOException, HDLException {
+        }
+    }
+
+    /**
+     * Creates the needed chdl interface for the given node
+     *
+     * @param node the node
+     * @return the interface
+     * @throws IOException  IOException
+     * @throws HDLException HDLException
+     */
+    public static String getInterface(HDLNode node) throws IOException, HDLException {
+        Dummy d = new Dummy();
+        CodePrinterStr out = new CodePrinterStr();
+        d.writeHeader(out, node);
+        out.println();
+        out.println("entity " + ENTITY_PREFIX + node.getVisualElement().getElementName() + " is").inc();
+        d.writeDeclaration(out, node);
+        out.dec().println("end " + ENTITY_PREFIX + node.getVisualElement().getElementName() + " ;");
+        return out.toString();
     }
 }

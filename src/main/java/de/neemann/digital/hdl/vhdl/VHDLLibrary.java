@@ -1,7 +1,6 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.basic.*;
-import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.core.wiring.Decoder;
 import de.neemann.digital.core.wiring.Multiplexer;
 import de.neemann.digital.hdl.model.HDLException;
@@ -10,6 +9,8 @@ import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl.lib.*;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.HashMap;
  */
 public class VHDLLibrary {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(VHDLLibrary.class);
     private final HashMap<String, VHDLEntity> map;
     private ArrayList<HDLNode> nodeList = new ArrayList<>();
 
@@ -40,13 +42,28 @@ public class VHDLLibrary {
 
         map.put(Multiplexer.DESCRIPTION.getName(), new MultiplexerVHDL());
         map.put(Decoder.DESCRIPTION.getName(), new DecoderVHDL());
-        map.put(FlipflopD.DESCRIPTION.getName(), new VHDLFile("D_FF"));
     }
 
     private VHDLEntity getEntity(HDLNode node) throws HDLException {
-        VHDLEntity e = map.get(node.getVisualElement().getElementName());
+        String elementName = node.getVisualElement().getElementName();
+        VHDLEntity e = map.get(elementName);
+        if (e == null) {
+            try {
+                e = new VHDLFile(elementName);
+                map.put(elementName, e);
+            } catch (IOException e1) {
+                try {
+                    LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName));
+                    LOGGER.info("Missing interface:\n\n" + VHDLFile.getInterface(node));
+                    LOGGER.info("You should replace the types for the data with '{{data}}'");
+                } catch (IOException e2) {
+                    e2.printStackTrace();
+                }
+            }
+        }
+
         if (e == null)
-            throw new HDLException(Lang.get("err_noVhdlEntity_N", node.getVisualElement().getElementName()));
+            throw new HDLException(Lang.get("err_noVhdlEntity_N", elementName));
         return e;
     }
 

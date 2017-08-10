@@ -1,14 +1,14 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
-entity D_FF is
+entity DIG_D_FF is
    port ( PORT_D  : in {{data}};
           PORT_C  : in std_logic;
           PORT_Q  : out {{data}};
           PORT_notQ : out {{data}} );
-end D_FF;
+end DIG_D_FF;
 
-architecture D_FF_arch of D_FF is
+architecture DIG_D_FF_arch of DIG_D_FF is
 
    signal state : {{data}};
 
@@ -23,4 +23,4 @@ begin
       end if;
    end process ff;
 
-end D_FF_arch;
+end DIG_D_FF_arch;

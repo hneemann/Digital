@@ -32,14 +32,14 @@ public class VHDLFileTest extends TestCase {
                 "\n" +
                 "architecture main_arch of main is\n" +
                 "\n" +
-                "  component D_FF\n" +
+                "  component DIG_D_FF\n" +
                 "       port ( PORT_D  : in std_logic;\n" +
                 "              PORT_C  : in std_logic;\n" +
                 "              PORT_Q  : out std_logic;\n" +
                 "              PORT_notQ : out std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  component D_FF_BUS\n" +
+                "  component DIG_D_FF_BUS\n" +
                 "    generic ( bitCount : integer );\n" +
                 "       port ( PORT_D  : in std_logic_vector((bitCount-1) downto 0);\n" +
                 "              PORT_C  : in std_logic;\n" +
@@ -48,13 +48,13 @@ public class VHDLFileTest extends TestCase {
                 "  end component;\n" +
                 "\n" +
                 "begin\n" +
-                "  gate0 : D_FF\n" +
+                "  gate0 : DIG_D_FF\n" +
                 "    port map (\n" +
                 "      PORT_Q => PORT_Q,\n" +
                 "      PORT_notQ => PORT_nQ,\n" +
                 "      PORT_D => PORT_D,\n" +
                 "      PORT_C => PORT_C );\n" +
-                "  gate1 : D_FF_BUS\n" +
+                "  gate1 : DIG_D_FF_BUS\n" +
                 "    generic map ( bitCount => 3)\n" +
                 "    port map (\n" +
                 "      PORT_Q => PORT_Q3,\n" +
@@ -65,19 +65,19 @@ public class VHDLFileTest extends TestCase {
                 "\n" +
                 "-- library components\n" +
                 "\n" +
-                "-- D_FF\n" +
+                "-- DIG_D_FF\n" +
                 "\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
                 "\n" +
-                "entity D_FF is\n" +
+                "entity DIG_D_FF is\n" +
                 "     port ( PORT_D  : in std_logic;\n" +
                 "            PORT_C  : in std_logic;\n" +
                 "            PORT_Q  : out std_logic;\n" +
                 "            PORT_notQ : out std_logic );\n" +
-                "end D_FF;\n" +
+                "end DIG_D_FF;\n" +
                 "\n" +
-                "architecture D_FF_arch of D_FF is\n" +
+                "architecture DIG_D_FF_arch of DIG_D_FF is\n" +
                 "\n" +
                 "   signal state : std_logic;\n" +
                 "\n" +
@@ -91,22 +91,22 @@ public class VHDLFileTest extends TestCase {
                 "        state  <= PORT_D;\n" +
                 "      end if;\n" +
                 "   end process ff;\n" +
-                "end D_FF_arch;\n" +
+                "end DIG_D_FF_arch;\n" +
                 "\n" +
-                "-- D_FF_BUS\n" +
+                "-- DIG_D_FF_BUS\n" +
                 "\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
                 "\n" +
-                "entity D_FF_BUS is\n" +
+                "entity DIG_D_FF_BUS is\n" +
                 "  generic ( bitCount : integer );\n" +
                 "     port ( PORT_D  : in std_logic_vector((bitCount-1) downto 0);\n" +
                 "            PORT_C  : in std_logic;\n" +
                 "            PORT_Q  : out std_logic_vector((bitCount-1) downto 0);\n" +
                 "            PORT_notQ : out std_logic_vector((bitCount-1) downto 0) );\n" +
-                "end D_FF_BUS;\n" +
+                "end DIG_D_FF_BUS;\n" +
                 "\n" +
-                "architecture D_FF_BUS_arch of D_FF_BUS is\n" +
+                "architecture DIG_D_FF_BUS_arch of DIG_D_FF_BUS is\n" +
                 "\n" +
                 "   signal state : std_logic_vector((bitCount-1) downto 0);\n" +
                 "\n" +
@@ -120,6 +120,6 @@ public class VHDLFileTest extends TestCase {
                 "        state  <= PORT_D;\n" +
                 "      end if;\n" +
                 "   end process ff;\n" +
-                "end D_FF_BUS_arch;\n", vhdl);
+                "end DIG_D_FF_BUS_arch;\n", vhdl);
     }
 }
