@@ -52,8 +52,9 @@ public class VHDLLibrary {
                 e = new VHDLFile(elementName);
                 map.put(elementName, e);
             } catch (IOException e1) {
+                e1.printStackTrace();
                 try {
-                    LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName));
+                    LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName) + "'");
                     LOGGER.info("Missing interface:\n\n" + VHDLFile.getInterface(node));
                     LOGGER.info("You should replace the types for the data with '{{data}}'");
                 } catch (IOException e2) {

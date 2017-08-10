@@ -189,9 +189,15 @@ public class VHDLFile implements VHDLEntity {
         CodePrinterStr out = new CodePrinterStr();
         d.writeHeader(out, node);
         out.println();
-        out.println("entity " + ENTITY_PREFIX + node.getVisualElement().getElementName() + " is").inc();
+        String name = ENTITY_PREFIX + node.getVisualElement().getElementName();
+        out.println("entity " + name + " is").inc();
         d.writeDeclaration(out, node);
-        out.dec().println("end " + ENTITY_PREFIX + node.getVisualElement().getElementName() + " ;");
+        out.dec().println("end " + name + ";");
+        out.println();
+        out.println("architecture " + name + "_arch of " + name + " is");
+        out.println("begin");
+        out.println();
+        out.println("end " + name + "_arch;");
         return out.toString();
     }
 }
