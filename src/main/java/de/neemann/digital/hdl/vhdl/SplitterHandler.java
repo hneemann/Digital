@@ -9,6 +9,8 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static de.neemann.digital.hdl.vhdl.VHDLExporter.SIG_SUFFIX;
+
 /**
  * Handles all the splitters in a circuit
  */
@@ -92,6 +94,8 @@ public class SplitterHandler {
                 if (outSig != null) {
                     outSig.setIsWritten();
                     out.print(outSig.getName());
+                    if (outSig.isOutPort())
+                        out.print(SIG_SUFFIX);
                     out.print(" <= ");
                     out.print(bus.getName()).print('(');
                     writeRange(p);

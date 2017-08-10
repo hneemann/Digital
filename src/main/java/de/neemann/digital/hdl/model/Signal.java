@@ -11,7 +11,7 @@ public class Signal implements Comparable<Signal> {
     private final String name;
     private final ArrayList<Port> ports;
     private int bits;
-    private boolean isPort = false;
+    private Port.Direction portDirection;
     private boolean written = false;
     private long constant;
     private boolean isConstant;
@@ -74,10 +74,11 @@ public class Signal implements Comparable<Signal> {
     /**
      * Marks this signal as a signal describing a port
      *
+     * @param direction the direction of the port
      * @return this for chained calls
      */
-    public Signal setIsPort() {
-        isPort = true;
+    public Signal setIsPort(Port.Direction direction) {
+        portDirection = direction;
         return this;
     }
 
@@ -85,8 +86,23 @@ public class Signal implements Comparable<Signal> {
      * @return true if this signal represents a port
      */
     public boolean isPort() {
-        return isPort;
+        return portDirection != null;
     }
+
+    /**
+     * @return true if this is an input port
+     */
+    public boolean isInPort() {
+        return portDirection == Port.Direction.in;
+    }
+
+    /**
+     * @return true if this is an output port
+     */
+    public boolean isOutPort() {
+        return portDirection == Port.Direction.out;
+    }
+
 
     /**
      * @return the number of bits

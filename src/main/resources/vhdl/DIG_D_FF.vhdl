@@ -22,5 +22,4 @@ begin
         state  <= PORT_D;
       end if;
    end process ff;
-
 end DIG_D_FF_arch;

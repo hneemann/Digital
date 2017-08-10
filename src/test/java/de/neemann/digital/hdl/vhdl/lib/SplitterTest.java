@@ -30,12 +30,16 @@ public class SplitterTest extends TestCase {
                 "\n" +
                 "architecture main_arch of main is\n" +
                 "\n" +
+                "  signal PORT_Y_sig: std_logic_vector (2 downto 0);\n" +
+                "  signal PORT_Z_sig: std_logic_vector (4 downto 0);\n" +
                 "  signal S0: std_logic_vector (7 downto 0);\n" +
                 "begin\n" +
+                "  PORT_Y <= PORT_Y_sig;\n" +
+                "  PORT_Z <= PORT_Z_sig;\n" +
                 "  S0(3 downto 0) <= PORT_A;\n" +
                 "  S0(7 downto 4) <= PORT_B;\n" +
-                "  PORT_Y <= S0(2 downto 0);\n" +
-                "  PORT_Z <= S0(7 downto 3);\n" +
+                "  PORT_Y_sig <= S0(2 downto 0);\n" +
+                "  PORT_Z_sig <= S0(7 downto 3);\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n", vhdl);
@@ -58,11 +62,13 @@ public class SplitterTest extends TestCase {
                 "\n" +
                 "architecture main_arch of main is\n" +
                 "\n" +
+                "  signal PORT_9SD_sig: std_logic_vector (15 downto 0);\n" +
                 "  signal S0: std_logic_vector (7 downto 0);\n" +
                 "  signal S1: std_logic;\n" +
                 "  signal S2: std_logic_vector (15 downto 0);\n" +
                 "  signal S3: std_logic_vector (15 downto 0);\n" +
                 "begin\n" +
+                "  PORT_9SD <= PORT_9SD_sig;\n" +
                 "  S2(15 downto 0) <= PORT_inst;\n" +
                 "  S0 <= S2(7 downto 0);\n" +
                 "  S1 <= S2(8);\n" +
@@ -75,7 +81,7 @@ public class SplitterTest extends TestCase {
                 "  S3(13) <= S1;\n" +
                 "  S3(14) <= S1;\n" +
                 "  S3(15) <= S1;\n" +
-                "  PORT_9SD <= S3(15 downto 0);\n" +
+                "  PORT_9SD_sig <= S3(15 downto 0);\n" +
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n", vhdl);

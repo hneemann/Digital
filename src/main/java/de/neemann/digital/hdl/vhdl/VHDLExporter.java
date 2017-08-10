@@ -23,6 +23,10 @@ import java.util.HashSet;
  * Exports the given circuit to vhdl
  */
 public class VHDLExporter implements Closeable {
+    /**
+     * suffix for signals which are mapped output ports
+     */
+    public static final String SIG_SUFFIX = "_sig";
 
     private final CodePrinter out;
     private final ElementLibrary library;
@@ -110,9 +114,11 @@ public class VHDLExporter implements Closeable {
 
         out.println().inc();
         for (Signal sig : model.getSignals()) {
-            if (!sig.isPort()) {
+            if (!sig.isInPort()) {
                 out.print("signal ");
                 out.print(sig.getName());
+                if (sig.isOutPort())
+                    out.print(SIG_SUFFIX);
                 out.print(": ");
                 out.print(VHDLEntitySimple.getType(sig.getBits()));
                 out.println(";");
@@ -120,6 +126,12 @@ public class VHDLExporter implements Closeable {
         }
 
         out.dec().println("begin").inc();
+
+        // map output ports to signals
+        for (Signal sig : model.getSignals()) {
+            if (sig.isOutPort())
+                out.print(sig.getName()).print(" <= ").print(sig.getName()).print(SIG_SUFFIX).println(";");
+        }
 
         for (Signal s : model.getSignals()) {
             if (s.isConstant()) {
@@ -179,6 +191,8 @@ public class VHDLExporter implements Closeable {
             if (p.getSignal() != null) {
                 comma.check(out);
                 out.print(p.getName() + " => " + p.getSignal().getName());
+                if (p.getSignal().isOutPort())
+                    out.print(SIG_SUFFIX);
                 if (p.getDirection() == Port.Direction.out)
                     p.getSignal().setIsWritten();
             }

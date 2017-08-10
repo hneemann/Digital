@@ -36,11 +36,15 @@ public class DecoderVHDLTest extends TestCase {
                 "      PORT_sel: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
+                "  signal PORT_A_sig: std_logic;\n" +
+                "  signal PORT_B_sig: std_logic;\n" +
                 "begin\n" +
+                "  PORT_A <= PORT_A_sig;\n" +
+                "  PORT_B <= PORT_B_sig;\n" +
                 "  gate0 : MUX_GATE_1\n" +
                 "    port map (\n" +
-                "      PORT_out_0 => PORT_A,\n" +
-                "      PORT_out_1 => PORT_B,\n" +
+                "      PORT_out_0 => PORT_A_sig,\n" +
+                "      PORT_out_1 => PORT_B_sig,\n" +
                 "      PORT_sel => PORT_Sel );\n" +
                 "end main_arch;\n" +
                 "\n" +
@@ -94,13 +98,21 @@ public class DecoderVHDLTest extends TestCase {
                 "      PORT_sel: in std_logic_vector (1 downto 0) );\n" +
                 "  end component;\n" +
                 "\n" +
+                "  signal PORT_A_sig: std_logic;\n" +
+                "  signal PORT_B_sig: std_logic;\n" +
+                "  signal PORT_C_sig: std_logic;\n" +
+                "  signal PORT_D_sig: std_logic;\n" +
                 "begin\n" +
+                "  PORT_A <= PORT_A_sig;\n" +
+                "  PORT_B <= PORT_B_sig;\n" +
+                "  PORT_C <= PORT_C_sig;\n" +
+                "  PORT_D <= PORT_D_sig;\n" +
                 "  gate0 : MUX_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out_0 => PORT_A,\n" +
-                "      PORT_out_1 => PORT_B,\n" +
-                "      PORT_out_2 => PORT_C,\n" +
-                "      PORT_out_3 => PORT_D,\n" +
+                "      PORT_out_0 => PORT_A_sig,\n" +
+                "      PORT_out_1 => PORT_B_sig,\n" +
+                "      PORT_out_2 => PORT_C_sig,\n" +
+                "      PORT_out_3 => PORT_D_sig,\n" +
                 "      PORT_sel => PORT_Sel );\n" +
                 "end main_arch;\n" +
                 "\n" +

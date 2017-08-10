@@ -123,7 +123,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
         Port port = new Port(name, direction);
         port.setBits(bits);
         Net n = nets.getNetOfPos(out.getPins().get(0).getPos());
-        signalMap.computeIfAbsent(n, Net -> new Signal(Port.PREFIX + name).setIsPort()).addPort(port);
+        signalMap.computeIfAbsent(n, Net -> new Signal(Port.PREFIX + name).setIsPort(direction)).addPort(port);
         ports.add(port);
     }
 

@@ -131,7 +131,7 @@ public class VHDLFile implements VHDLEntity {
 
     @Override
     public void writeArchitecture(CodePrinter out, HDLNode node) throws IOException, HDLException {
-        for (int i = arch.start + 1; i < arch.end - 1; i++)
+        for (int i = arch.start + 1; i < arch.end; i++)
             out.println(transform(vhdl.get(i), node));
 
         if (hasData) {

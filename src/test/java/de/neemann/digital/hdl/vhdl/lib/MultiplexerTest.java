@@ -38,10 +38,12 @@ public class MultiplexerTest extends TestCase {
                 "      PORT_in_1: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
+                "  signal PORT_C_sig: std_logic;\n" +
                 "begin\n" +
+                "  PORT_C <= PORT_C_sig;\n" +
                 "  gate0 : MUX_GATE_1\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_C,\n" +
+                "      PORT_out => PORT_C_sig,\n" +
                 "      PORT_sel => PORT_Sel,\n" +
                 "      PORT_in_0 => PORT_A,\n" +
                 "      PORT_in_1 => PORT_B );\n" +
@@ -103,10 +105,12 @@ public class MultiplexerTest extends TestCase {
                 "      PORT_in_3: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
+                "  signal PORT_Y_sig: std_logic;\n" +
                 "begin\n" +
+                "  PORT_Y <= PORT_Y_sig;\n" +
                 "  gate0 : MUX_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
+                "      PORT_out => PORT_Y_sig,\n" +
                 "      PORT_sel => PORT_Sel,\n" +
                 "      PORT_in_0 => PORT_A,\n" +
                 "      PORT_in_1 => PORT_B,\n" +
@@ -175,11 +179,13 @@ public class MultiplexerTest extends TestCase {
                 "      PORT_in_3: in std_logic_vector ( (bitCount-1)  downto 0) );\n" +
                 "  end component;\n" +
                 "\n" +
+                "  signal PORT_Y_sig: std_logic_vector (3 downto 0);\n" +
                 "begin\n" +
+                "  PORT_Y <= PORT_Y_sig;\n" +
                 "  gate0 : MUX_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 4)\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
+                "      PORT_out => PORT_Y_sig,\n" +
                 "      PORT_sel => PORT_Sel,\n" +
                 "      PORT_in_0 => PORT_A,\n" +
                 "      PORT_in_1 => PORT_B,\n" +
