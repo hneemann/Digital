@@ -29,6 +29,8 @@ public class Port {
     private final Direction direction;
     private int bits = 0;
     private Signal signal;
+    private boolean isConstant;
+    private long constant;
 
     /**
      * Creates a new port
@@ -117,5 +119,29 @@ public class Port {
      */
     public Direction getDirection() {
         return direction;
+    }
+
+    /**
+     * Sets this port to a constant value
+     *
+     * @param constant the value
+     */
+    public void setConstant(long constant) {
+        isConstant = true;
+        this.constant = constant;
+    }
+
+    /**
+     * @return true if this port is a constant
+     */
+    public boolean isConstant() {
+        return isConstant;
+    }
+
+    /**
+     * @return the constant value
+     */
+    public long getConstant() {
+        return constant;
     }
 }

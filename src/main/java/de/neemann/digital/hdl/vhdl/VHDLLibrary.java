@@ -55,7 +55,7 @@ public class VHDLLibrary {
                 e1.printStackTrace();
                 try {
                     LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName) + "'");
-                    LOGGER.info("Missing interface:\n\n" + VHDLFile.getInterface(node));
+                    LOGGER.info("VHDL template:\n\n" + VHDLFile.getVHDLTemplate(node));
                     LOGGER.info("You should replace the types for the data with '{{data}}'");
                 } catch (IOException e2) {
                     e2.printStackTrace();

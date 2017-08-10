@@ -78,6 +78,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
             HashMap<String, Signal> negSignals = new HashMap<>();
             ArrayList<HDLNode> negNodes = new ArrayList<>();
 
+            // handle the inverters at the components inputs
             for (HDLNode node : nodeList) {
                 InverterConfig ic = node.get(Keys.INVERTER_CONFIG);
                 if (!ic.isEmpty()) {

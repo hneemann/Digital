@@ -43,16 +43,20 @@ public class HDLNode implements HDLInterface {
         isCustom = element instanceof CustomElement;
         if (isCustom) {
             HDLModel model = modelList.getModel(((CustomElement) element).getCircuit(), visualElement.getElementName());
-            bitProvider = model::getOutputBits;
+            bitProvider = i -> new ValueModel(model, i);
         } else {
             final ObservableValues o = element.getOutputs();
-            bitProvider = i -> o.get(i).getBits();
+            bitProvider = i -> new ValueObservableModel(o, i);
         }
 
         ports = new Ports();
         for (int i = 0; i < outputs.size(); i++) {
             Port port = new Port(outputs.get(i).getName(), Port.Direction.out);
-            port.setBits(bitProvider.getBits(i));
+            Value value = bitProvider.getValue(i);
+            port.setBits(value.getBits());
+            if (value.isConstant())
+                port.setConstant(value.getConstant());
+
             ports.add(port);
 
         }
@@ -100,7 +104,66 @@ public class HDLNode implements HDLInterface {
     }
 
     private interface BitProvider {
-        int getBits(int i);
+        Value getValue(int i);
+    }
+
+    private interface Value {
+
+        int getBits();
+
+        boolean isConstant();
+
+        long getConstant();
+    }
+
+    private static final class ValueModel implements Value {
+        private final HDLModel model;
+        private final int i;
+
+        private ValueModel(HDLModel model, int i) {
+            this.model = model;
+            this.i = i;
+        }
+
+        @Override
+        public int getBits() {
+            return model.getOutputBits(i);
+        }
+
+        @Override
+        public boolean isConstant() {
+            return false;
+        }
+
+        @Override
+        public long getConstant() {
+            throw new RuntimeException("invalid call");
+        }
+    }
+
+    private static final class ValueObservableModel implements Value {
+        private final ObservableValues observableValues;
+        private final int i;
+
+        private ValueObservableModel(ObservableValues observableValues, int i) {
+            this.observableValues = observableValues;
+            this.i = i;
+        }
+
+        @Override
+        public int getBits() {
+            return observableValues.get(i).getBits();
+        }
+
+        @Override
+        public boolean isConstant() {
+            return observableValues.get(i).isConstant();
+        }
+
+        @Override
+        public long getConstant() {
+            return observableValues.get(i).getValue();
+        }
     }
 
     /**
@@ -120,4 +183,5 @@ public class HDLNode implements HDLInterface {
     public <V> V get(Key<V> key) {
         return visualElement.getElementAttributes().get(key);
     }
+
 }

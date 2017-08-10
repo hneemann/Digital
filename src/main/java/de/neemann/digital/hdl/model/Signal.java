@@ -13,6 +13,8 @@ public class Signal implements Comparable<Signal> {
     private int bits;
     private boolean isPort = false;
     private boolean written = false;
+    private long constant;
+    private boolean isConstant;
 
     /**
      * Creates a new signal
@@ -59,6 +61,8 @@ public class Signal implements Comparable<Signal> {
             }
             if (p.getDirection() == Port.Direction.in)
                 isInput = true;
+            if (p.getDirection() == Port.Direction.out && p.isConstant())
+                setConstant(p.getConstant());
         }
         if (isInput && bits == 0)
             throw new HDLException(Lang.get("err_noOutConnectedToWire", ports));
@@ -139,4 +143,24 @@ public class Signal implements Comparable<Signal> {
     public ArrayList<Port> getPorts() {
         return ports;
     }
+
+    private void setConstant(long constant) {
+        isConstant = true;
+        this.constant = constant;
+    }
+
+    /**
+     * @return true if this is a constant
+     */
+    public boolean isConstant() {
+        return isConstant;
+    }
+
+    /**
+     * @return the constant value
+     */
+    public long getConstant() {
+        return constant;
+    }
+
 }

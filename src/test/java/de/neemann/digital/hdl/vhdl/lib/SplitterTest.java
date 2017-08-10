@@ -18,6 +18,7 @@ public class SplitterTest extends TestCase {
                 "\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
+                "USE ieee.numeric_std.all;\n" +
                 "\n" +
                 "entity main is\n" +
                 "  port (\n" +
@@ -47,6 +48,7 @@ public class SplitterTest extends TestCase {
                 "\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
+                "USE ieee.numeric_std.all;\n" +
                 "\n" +
                 "entity main is\n" +
                 "  port (\n" +

@@ -184,7 +184,7 @@ public class VHDLFile implements VHDLEntity {
      * @throws IOException  IOException
      * @throws HDLException HDLException
      */
-    public static String getInterface(HDLNode node) throws IOException, HDLException {
+    public static String getVHDLTemplate(HDLNode node) throws IOException, HDLException {
         Dummy d = new Dummy();
         CodePrinterStr out = new CodePrinterStr();
         d.writeHeader(out, node);

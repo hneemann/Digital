@@ -1,6 +1,9 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.io.Const;
+import de.neemann.digital.core.io.Ground;
+import de.neemann.digital.core.io.VDD;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -85,7 +88,8 @@ public class VHDLExporter implements Closeable {
         SplitterHandler splitterHandler = new SplitterHandler(model, out);
 
         out.println("LIBRARY ieee;");
-        out.println("USE ieee.std_logic_1164.all;\n");
+        out.println("USE ieee.std_logic_1164.all;");
+        out.println("USE ieee.numeric_std.all;\n");
         out.print("entity ").print(model.getName()).println(" is").inc();
         writePort(out, model.getPorts());
         out.dec().println("end " + model.getName() + ";");
@@ -96,7 +100,7 @@ public class VHDLExporter implements Closeable {
         for (HDLNode node : model)
             if (node.is(Splitter.DESCRIPTION))
                 splitterHandler.register(node);
-            else {
+            else if (!isConstant(node)) {
                 String nodeName = getVhdlEntityName(node);
                 if (!componentsWritten.contains(nodeName)) {
                     writeComponent(node);
@@ -116,10 +120,24 @@ public class VHDLExporter implements Closeable {
         }
 
         out.dec().println("begin").inc();
+
+        for (Signal s : model.getSignals()) {
+            if (s.isConstant()) {
+                s.setIsWritten();
+                out.print(s.getName());
+                out.print(" <= ");
+                if (s.getBits() > 1)
+                    out.print("std_logic_vector(to_unsigned(").print(s.getConstant()).print(",").print(s.getBits()).println("));");
+                else
+                    out.print("'").print(s.getConstant()).println("';");
+            }
+        }
+
         splitterHandler.write();
+
         int g = 0;
         for (HDLNode node : model)
-            if (!node.is(Splitter.DESCRIPTION)) {
+            if (!node.is(Splitter.DESCRIPTION) && !isConstant(node)) {
                 out.print("gate").print(g++).print(" : ").println(getVhdlEntityName(node)).inc();
                 vhdlLibrary.writeGenericMap(out, node);
                 writePortMap(node);
@@ -148,10 +166,11 @@ public class VHDLExporter implements Closeable {
         out.dec().print("end ").print(model.getName()).println("_arch;");
     }
 
-    private boolean isSpecialNode(HDLNode node) {
-        return node.is(Splitter.DESCRIPTION);
+    private boolean isConstant(HDLNode node) {
+        return node.is(Ground.DESCRIPTION)
+                || node.is(VDD.DESCRIPTION)
+                || node.is(Const.DESCRIPTION);
     }
-
 
     private void writePortMap(HDLNode node) throws HDLException, IOException {
         out.println("port map (").inc();

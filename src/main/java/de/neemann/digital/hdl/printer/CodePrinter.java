@@ -90,6 +90,18 @@ public class CodePrinter implements Closeable {
     }
 
     /**
+     * Prints a long
+     *
+     * @param l the int to print
+     * @return this for chained calls
+     * @throws IOException IOException
+     */
+    public CodePrinter print(long l) throws IOException {
+        print(Long.toString(l));
+        return this;
+    }
+
+    /**
      * Prints the given character
      *
      * @param c the character to print
