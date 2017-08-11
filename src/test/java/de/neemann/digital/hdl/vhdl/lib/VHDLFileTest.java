@@ -64,7 +64,8 @@ public class VHDLFileTest extends TestCase {
                 "      PORT_D => PORT_D,\n" +
                 "      PORT_C => PORT_C );\n" +
                 "  gate1 : DIG_D_FF_BUS\n" +
-                "    generic map ( bitCount => 3)\n" +
+                "    generic map (\n" +
+                "      bitCount => 3 )\n" +
                 "    port map (\n" +
                 "      PORT_Q => PORT_Q3_sig,\n" +
                 "      PORT_notQ => PORT_nQ3_sig,\n" +

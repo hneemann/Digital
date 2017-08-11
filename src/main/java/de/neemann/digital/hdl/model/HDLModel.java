@@ -28,6 +28,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
     private final File origin;
     private int signalNumber;
     private String name;
+    private ArrayList<HDLClock> clocks;
 
     /**
      * Creates a new model
@@ -49,9 +50,12 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
             HashMap<Net, Signal> signalMap = new HashMap<>();
 
             for (VisualElement v : circuit.getElements()) {
-                if (v.equalsDescription(Clock.DESCRIPTION))
-                    addPort(v, nets, Port.Direction.in, 1, signalMap);
-                else if (v.equalsDescription(In.DESCRIPTION))
+                if (v.equalsDescription(Clock.DESCRIPTION)) {
+                    Port cl = addPort(v, nets, Port.Direction.in, 1, signalMap);
+                    if (clocks == null)
+                        clocks = new ArrayList<>();
+                    clocks.add(new HDLClock(cl, v.getElementAttributes().get(Keys.FREQUENCY)));
+                } else if (v.equalsDescription(In.DESCRIPTION))
                     addPort(v, nets, Port.Direction.in, v.getElementAttributes().getBits(), signalMap);
                 else if (v.equalsDescription(Out.DESCRIPTION))
                     addPort(v, nets, Port.Direction.out, v.getElementAttributes().getBits(), signalMap);
@@ -121,7 +125,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
             nodeList.add(new HDLNode(v, library, modelList));
     }
 
-    private void addPort(VisualElement out, NetList nets, Port.Direction direction, int bits, HashMap<Net, Signal> signalMap) {
+    private Port addPort(VisualElement out, NetList nets, Port.Direction direction, int bits, HashMap<Net, Signal> signalMap) {
         String name = out.getElementAttributes().getCleanLabel();
         Port port = new Port(name, direction);
         port.setPinNumber(out.getElementAttributes().get(Keys.PINNUMBER));
@@ -129,6 +133,14 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
         Net n = nets.getNetOfPos(out.getPins().get(0).getPos());
         signalMap.computeIfAbsent(n, Net -> new Signal(Port.PREFIX + name).setIsPort(direction)).addPort(port);
         ports.add(port);
+        return port;
+    }
+
+    /**
+     * @return the used clocks or null if no clock is present
+     */
+    public ArrayList<HDLClock> getClocks() {
+        return clocks;
     }
 
     @Override
@@ -199,5 +211,35 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
         Signal s = new Signal("S" + (signalNumber++));
         signals.add(s);
         return s;
+    }
+
+    /**
+     * Integrate clocks.
+     * Inserts a clock divider to match the frequency given in the model
+     *
+     * @param period clock period in ns
+     */
+    public void integrateClocks(int period) {
+        for (HDLClock c : clocks) {
+            int freq = c.getFrequency();
+
+            int counter = 1000000000 / (period * freq *2);
+            int bits = 1;
+            while ((1 << bits) < counter) bits++;
+
+            Port cOut = new Port("out", Port.Direction.out).setBits(1);
+            Port cIn = new Port("in", Port.Direction.in).setBits(1);
+
+            Signal newSig = createSignal().setBits(1);
+            Port oldClockPort = c.getClockPort();
+            Signal oldSig = oldClockPort.getSignal();
+
+            for (Port po : oldClockPort.getSignal().getPorts())
+                po.setSignal(newSig);
+            newSig.addPort(cOut);
+            oldSig.addPort(cIn);
+
+            nodeList.add(new HDLClockNode(bits, counter, new Ports().add(cIn).add(cOut)));
+        }
     }
 }

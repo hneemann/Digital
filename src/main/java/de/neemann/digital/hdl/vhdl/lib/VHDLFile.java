@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
@@ -8,6 +9,7 @@ import de.neemann.digital.hdl.printer.CodePrinterStr;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Reads a file with the vhdl code to create the entity
@@ -22,6 +24,7 @@ public class VHDLFile implements VHDLEntity {
     private final Interval arch;
     private boolean written = false;
     private boolean writtenBus = false;
+    private ArrayList<String> generics = new ArrayList<>();
 
     /**
      * Creates a new instance
@@ -34,7 +37,28 @@ public class VHDLFile implements VHDLEntity {
         vhdl = readFile(entityName);
         hasData = hasdata();
         port = extract("entity " + entityName + " is", "end " + entityName + ";");
+        extractGenerics(port);
+
         arch = extract("architecture " + entityName + "_arch of " + entityName + " is", "end " + entityName + "_arch;");
+    }
+
+    private void extractGenerics(Interval port) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        for (int i = port.start + 1; i < port.end; i++)
+            sb.append(vhdl.get(i)).append(' ');
+        StringTokenizer st = new StringTokenizer(sb.toString(), "(), :;\t");
+        if (st.hasMoreTokens() && st.nextToken().equalsIgnoreCase("generic")) {
+            while (st.hasMoreTokens()) {
+                String t = st.nextToken();
+                if (t.equalsIgnoreCase("port")) break;
+
+                generics.add(t);
+                if (!st.hasMoreTokens()) break;
+                t = st.nextToken();
+                if (!t.equalsIgnoreCase("integer"))
+                    throw new IOException("only generic integers are supported, not '" + t + "'!");
+            }
+        }
     }
 
     private boolean hasdata() {
@@ -145,8 +169,12 @@ public class VHDLFile implements VHDLEntity {
 
     @Override
     public void writeGenericMap(CodePrinter out, HDLNode node) throws IOException, HDLException {
+        GenericWriter gw = new GenericWriter(out);
         if (hasData && node.get(Keys.BITS) > 1)
-            out.print("generic map ( bitCount => ").print(node.get(Keys.BITS)).println(")");
+            gw.print("bitCount => " + node.get(Keys.BITS));
+        for (String g : generics)
+            gw.print(g + " => " + node.get(new Key<>(g, 0)).toString());
+        gw.close();
     }
 
     @Override
@@ -189,7 +217,7 @@ public class VHDLFile implements VHDLEntity {
         CodePrinterStr out = new CodePrinterStr();
         d.writeHeader(out, node);
         out.println();
-        String name = ENTITY_PREFIX + node.getVisualElement().getElementName();
+        String name = ENTITY_PREFIX + node.getName();
         out.println("entity " + name + " is").inc();
         d.writeDeclaration(out, node);
         out.dec().println("end " + name + ";");
@@ -199,5 +227,29 @@ public class VHDLFile implements VHDLEntity {
         out.println();
         out.println("end " + name + "_arch;");
         return out.toString();
+    }
+
+    private static final class GenericWriter {
+        private final CodePrinter out;
+        private boolean open;
+
+        private GenericWriter(CodePrinter out) {
+            this.out = out;
+            open = false;
+        }
+
+        public void print(String gen) throws IOException {
+            if (!open) {
+                out.println("generic map (").inc();
+                open = true;
+            } else
+                out.println(",");
+            out.print(gen);
+        }
+
+        public void close() throws IOException {
+            if (open)
+                out.println(" )").dec();
+        }
     }
 }

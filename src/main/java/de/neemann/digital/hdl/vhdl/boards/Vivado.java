@@ -9,11 +9,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Creates the needed vivado files
+ * Creates the needed vivado files.
+ * Up to now only the constrains file containing the pin assignments is created
  */
 public class Vivado implements BoardInterface {
 
-    private final HDLModel model;
     private final String pinIoType;
     private final String clockPin;
     private final int periodns;
@@ -21,20 +21,18 @@ public class Vivado implements BoardInterface {
     /**
      * Creates a new instance
      *
-     * @param model     the model
      * @param pinIoType the pin output type
      * @param clockPin  the pin the clock is connected to
      * @param periodns  the clock period in nano seconds
      */
-    public Vivado(HDLModel model, String pinIoType, String clockPin, int periodns) {
-        this.model = model;
+    public Vivado(String pinIoType, String clockPin, int periodns) {
         this.pinIoType = pinIoType;
         this.clockPin = clockPin;
         this.periodns = periodns;
     }
 
     @Override
-    public void writeFiles(File path) throws IOException {
+    public void writeFiles(File path, HDLModel model) throws IOException {
         File f = new File(path.getParentFile(), path.getName().replace('.', '_') + "_constrains.xdc");
         try (CodePrinter out = new CodePrinter(new FileOutputStream(f))) {
             for (Port p : model.getPorts()) {
@@ -59,5 +57,10 @@ public class Vivado implements BoardInterface {
             out.println("set_property CFGBVS VCCO  [current_design]");
             out.println("set_property CONFIG_VOLTAGE 3.3 [current_design]");
         }
+    }
+
+    @Override
+    public int getClockPeriod() {
+        return periodns;
     }
 }

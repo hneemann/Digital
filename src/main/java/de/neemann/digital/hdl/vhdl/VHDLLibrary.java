@@ -45,7 +45,7 @@ public class VHDLLibrary {
     }
 
     private VHDLEntity getEntity(HDLNode node) throws HDLException {
-        String elementName = node.getVisualElement().getElementName();
+        String elementName = node.getName();
         VHDLEntity e = map.get(elementName);
         if (e == null) {
             try {

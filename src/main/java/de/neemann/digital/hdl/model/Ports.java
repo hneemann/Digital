@@ -29,13 +29,15 @@ public class Ports implements Iterable<Port> {
      * Adds a port to this list
      *
      * @param port the port to add
+     * @return this for chained calls
      */
-    public void add(Port port) {
+    public Ports add(Port port) {
         ports.add(port);
         if (port.getDirection() == Port.Direction.in)
             inputs.add(port);
         else
             outputs.add(port);
+        return this;
     }
 
     @Override

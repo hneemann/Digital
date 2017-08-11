@@ -4,7 +4,6 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.components.data.DummyElement;
-import de.neemann.digital.hdl.model.HDLModel;
 
 /**
  * Provides additional information for a specific board
@@ -29,10 +28,9 @@ public final class BoardProvider {
      * Returns a spscific board
      *
      * @param circuit the circuit
-     * @param model   the model
      * @return the board or null
      */
-    public BoardInterface getBoard(Circuit circuit, HDLModel model) {
+    public BoardInterface getBoard(Circuit circuit) {
         String board = null;
         for (VisualElement element : circuit.getElements()) {
             if (element.equalsDescription(DummyElement.TEXTDESCRIPTION)) {
@@ -47,7 +45,7 @@ public final class BoardProvider {
             return null;
 
         if (board.equals("basys3"))
-            return new Vivado(model, "LVCMOS33", "W5", 10);
+            return new Vivado("LVCMOS33", "W5", 10);
 
         return null;
     }

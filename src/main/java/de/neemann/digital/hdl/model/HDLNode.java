@@ -18,8 +18,25 @@ import de.neemann.digital.lang.Lang;
 public class HDLNode implements HDLInterface {
 
     private final boolean isCustom;
-    private VisualElement visualElement;
+    private final VisualElement visualElement;
+    private final ElementAttributes attr;
+    private final String name;
     private Ports ports;
+
+    /**
+     * Creates a new node
+     *
+     * @param ports the ports of the node
+     * @param name  the name of this node
+     * @param attr  the attributes of the node
+     */
+    public HDLNode(Ports ports, String name, ElementAttributes attr) {
+        this.attr = attr;
+        this.isCustom = false;
+        this.visualElement = null;
+        this.ports = ports;
+        this.name = name;
+    }
 
     /**
      * Creates a new instance
@@ -34,6 +51,8 @@ public class HDLNode implements HDLInterface {
      */
     public HDLNode(VisualElement visualElement, ElementLibrary library, ModelList modelList) throws ElementNotFoundException, NodeException, PinException, HDLException {
         this.visualElement = visualElement;
+        this.attr = visualElement.getElementAttributes();
+        this.name = visualElement.getElementName();
         ElementTypeDescription description = library.getElementType(visualElement.getElementName());
         ElementAttributes attr = visualElement.getElementAttributes();
         PinDescriptions inputs = description.getInputDescription(attr);
@@ -100,7 +119,14 @@ public class HDLNode implements HDLInterface {
      * @return true if node represents such an element
      */
     public boolean is(ElementTypeDescription description) {
-        return visualElement.equalsDescription(description);
+        return description.getName().equals(name);
+    }
+
+    /**
+     * @return the name of this node
+     */
+    public String getName() {
+        return name;
     }
 
     private interface BitProvider {
@@ -181,7 +207,11 @@ public class HDLNode implements HDLInterface {
      * @return the value
      */
     public <V> V get(Key<V> key) {
-        return visualElement.getElementAttributes().get(key);
+        return attr.get(key);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

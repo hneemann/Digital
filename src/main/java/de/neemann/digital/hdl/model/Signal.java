@@ -35,10 +35,12 @@ public class Signal implements Comparable<Signal> {
      * Add a port to this signal
      *
      * @param port the port
+     * @return this for chained calls
      */
-    public void addPort(Port port) {
+    public Signal addPort(Port port) {
         port.setSignal(this);
         ports.add(port);
+        return this;
     }
 
     /**
@@ -128,9 +130,11 @@ public class Signal implements Comparable<Signal> {
      * Set the number of bits
      *
      * @param bits the number of bits
+     * @return this for chained calls
      */
-    public void setBits(int bits) {
+    public Signal setBits(int bits) {
         this.bits = bits;
+        return this;
     }
 
     /**

@@ -110,9 +110,11 @@ public class Port {
      * Sets the number of bits of this signal
      *
      * @param bits the number of bits
+     * @return this for chained calls
      */
-    public void setBits(int bits) {
+    public Port setBits(int bits) {
         this.bits = bits;
+        return this;
     }
 
     /**

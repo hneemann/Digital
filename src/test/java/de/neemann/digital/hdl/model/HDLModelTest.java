@@ -55,4 +55,15 @@ public class HDLModelTest extends TestCase {
         assertEquals(4, model.getPorts().size());
     }
 
+
+    public void testClock() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException {
+        ToBreakRunner br = new ToBreakRunner("dig/hdl/Clock.dig");
+        HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary(), new ModelList(br.getLibrary()));
+        model.integrateClocks(10);
+
+        assertEquals(2, model.size());
+        assertEquals(4, model.getSignals().size());
+        assertEquals(3, model.getPorts().size());
+    }
+
 }
