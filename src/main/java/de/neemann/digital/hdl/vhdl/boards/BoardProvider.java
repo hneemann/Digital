@@ -47,7 +47,7 @@ public final class BoardProvider {
             return null;
 
         if (board.equals("basys3"))
-            return new Vivado(model, "stdttl");
+            return new Vivado(model, "LVCMOS33", "W5", 10);
 
         return null;
     }

@@ -477,8 +477,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (des != null && des.length() > 0) {
             text += ": " + des;
         }
-        if (p.getPinNumber().length() > 0)
-            text += " (" + Lang.get("msg_pin_N", p.getPinNumber()) + ")";
+        String pinNumber = p.getPinNumber();
+        if (pinNumber != null && pinNumber.length() > 0)
+            text += " (" + Lang.get("msg_pin_N", pinNumber) + ")";
         return checkToolTip(text);
     }
 
