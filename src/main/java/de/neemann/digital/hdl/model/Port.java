@@ -31,6 +31,7 @@ public class Port {
     private Signal signal;
     private boolean isConstant;
     private long constant;
+    private String pinNumber;
 
     /**
      * Creates a new port
@@ -144,4 +145,21 @@ public class Port {
     public long getConstant() {
         return constant;
     }
+
+    /**
+     * Sets the pin number
+     *
+     * @param number the pin number
+     */
+    public void setPinNumber(String number) {
+        this.pinNumber = number;
+    }
+
+    /**
+     * @return the pin number
+     */
+    public String getPinNumber() {
+        return pinNumber;
+    }
+
 }

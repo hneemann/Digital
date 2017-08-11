@@ -8,8 +8,20 @@ import java.io.*;
 public class CodePrinter implements Closeable {
     protected final OutputStream out;
     private final int indentWidth;
+    private File file;
     private int ident = 0;
     private boolean newLine = true;
+
+    /**
+     * Creates a new instance
+     *
+     * @param file the output file
+     * @throws FileNotFoundException FileNotFoundException
+     */
+    public CodePrinter(File file) throws FileNotFoundException {
+        this(new FileOutputStream(file), 2);
+        this.file = file;
+    }
 
     /**
      * Creates a new instance
@@ -142,4 +154,10 @@ public class CodePrinter implements Closeable {
         return this;
     }
 
+    /**
+     * @return the file or null if file is not known
+     */
+    public File getFile() {
+        return file;
+    }
 }

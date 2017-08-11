@@ -12,6 +12,8 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.*;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
+import de.neemann.digital.hdl.vhdl.boards.BoardInterface;
+import de.neemann.digital.hdl.vhdl.boards.BoardProvider;
 import de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple;
 import de.neemann.digital.lang.Lang;
 
@@ -31,6 +33,7 @@ public class VHDLExporter implements Closeable {
     private final CodePrinter out;
     private final ElementLibrary library;
     private final VHDLLibrary vhdlLibrary;
+    private BoardInterface board;
 
     /**
      * Creates a new exporter
@@ -78,6 +81,13 @@ public class VHDLExporter implements Closeable {
             }
 
             vhdlLibrary.finish(out);
+
+            File f = out.getFile();
+            if (f != null) {
+                board = BoardProvider.getInstance().getBoard(circuit, model);
+                if (board != null)
+                    board.writeFiles(f);
+            }
 
         } catch (HDLException | PinException | NodeException e) {
             e.setOrigin(circuit.getOrigin());

@@ -498,7 +498,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     new SaveAsHelper(Main.this, fc, "vhdl").checkOverwrite(
                             file -> {
                                 settings.setFile("exportDirectory", file.getParentFile());
-                                try (VHDLExporter vhdl = new VHDLExporter(library, new CodePrinter(new FileOutputStream(file)))) {
+                                try (VHDLExporter vhdl = new VHDLExporter(library, new CodePrinter(file))) {
                                     vhdl.export(circuitComponent.getCircuit());
                                 }
                             }
