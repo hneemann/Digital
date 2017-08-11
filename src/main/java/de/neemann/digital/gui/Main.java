@@ -726,9 +726,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 || v.equalsDescription(Clock.DESCRIPTION)
                                 || v.equalsDescription(Out.DESCRIPTION)) {
                             ElementAttributes attr = v.getElementAttributes();
-                            int p = attr.get(Keys.PINNUMBER);
-                            if (p > 0)
-                                builder.add(new ModifyAttribute<>(v, Keys.PINNUMBER, 0));
+                            String p = attr.get(Keys.PINNUMBER);
+                            if (p.length() > 0)
+                                builder.add(new ModifyAttribute<>(v, Keys.PINNUMBER, ""));
                         }
                     }
                     circuitComponent.modify(builder.build());
@@ -744,7 +744,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     HashSet<Integer> pinsUsed = new HashSet<>();
                     for (VisualElement v : circuitComponent.getCircuit().getElements()) {
                         if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Out.DESCRIPTION)) {
-                            Integer pin = v.getElementAttributes().get(Keys.PINNUMBER);
+                            int pin = v.getElementAttributes().getIntPinNumber();
                             maxNum = Math.max(maxNum, pin);
                             pinsUsed.add(pin);
                         }
@@ -770,13 +770,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     list.add(new VisualElement(In.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
                             .setAttribute(Keys.LABEL, "VCC")
-                            .setAttribute(Keys.PINNUMBER, guessedVCC)
+                            .setAttribute(Keys.PINNUMBER, Integer.toString(guessedVCC))
                             .setAttribute(Keys.INPUT_DEFAULT, new InValue(1))
                             .setPos(new Vector(0, 0)));
                     list.add(new VisualElement(In.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
                             .setAttribute(Keys.LABEL, "GND")
-                            .setAttribute(Keys.PINNUMBER, guessedGND)
+                            .setAttribute(Keys.PINNUMBER, Integer.toString(guessedGND))
                             .setPos(new Vector(0, SIZE * 2)));
                     list.add(new Wire(new Vector(0, 0), new Vector(SIZE * 2, 0)));
                     list.add(new Wire(new Vector(0, SIZE * 2), new Vector(SIZE, SIZE * 2)));

@@ -57,7 +57,7 @@ public class Out implements Element {
 
     private final int[] bits;
     private final String label;
-    private final int pinNumber;
+    private final String pinNumber;
     private ObservableValue value;
 
     /**
@@ -79,7 +79,7 @@ public class Out implements Element {
     public Out(int... bits) {
         this.bits = bits;
         label = null;
-        pinNumber = 0;
+        pinNumber = "";
     }
 
     @Override

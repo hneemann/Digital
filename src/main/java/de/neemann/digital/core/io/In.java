@@ -37,7 +37,7 @@ public class In implements Element {
 
     private final ObservableValue output;
     private final String label;
-    private final int pinNumber;
+    private final String pinNumber;
     private Model model;
 
     /**

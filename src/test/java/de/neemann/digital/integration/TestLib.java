@@ -81,7 +81,7 @@ public class TestLib extends TestCase {
         }
 
         private void checkPin(VisualElement e) {
-            int pn = e.getElementAttributes().get(Keys.PINNUMBER);
+            int pn = e.getElementAttributes().getIntPinNumber();
             final String label = e.getElementAttributes().getLabel();
 
             if (label.equalsIgnoreCase("VCC"))

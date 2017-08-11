@@ -366,9 +366,8 @@ public final class Keys {
     /**
      * the pin number
      */
-    public static final Key.KeyInteger PINNUMBER =
-            new Key.KeyInteger("pinNumber", 0)
-                    .setMin(0);
+    public static final Key<String> PINNUMBER =
+            new Key<>("pinNumber", "");
 
     /**
      * the pin count

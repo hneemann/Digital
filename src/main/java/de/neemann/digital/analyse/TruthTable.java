@@ -26,7 +26,7 @@ public class TruthTable {
 
     private final ArrayList<Variable> variables;
     private final ArrayList<Result> results;
-    private final TreeMap<String, Integer> pins;
+    private final TreeMap<String, String> pins;
     private transient BitSetter bitSetter;
     private ArrayList<String> pinsWithoutNumber = null;
 
@@ -453,14 +453,14 @@ public class TruthTable {
      * @throws NodeException NodeException
      */
     public void addPinNumber(Signal s) throws NodeException {
-        int p = s.getPinNumber();
-        if (p > 0) pins.put(s.getName(), p);
+        String p = s.getPinNumber();
+        if (p!=null && p.length() > 0) pins.put(s.getName(), p);
     }
 
     /**
      * @return the assigned pins
      */
-    public TreeMap<String, Integer> getPins() {
+    public TreeMap<String, String> getPins() {
         return pins;
     }
 

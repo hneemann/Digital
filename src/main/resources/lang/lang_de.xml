@@ -559,6 +559,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_exporting_vhdl">Fehler beim Export zu VHDL.</string>
     <string name="err_vhdlUnknownPortType_N">Unbekannter Port typ.</string>
     <string name="err_noVhdlEntity_N">Kein VHDL Code für {0} verfügbar!</string>
+    <string name="err_pinIsNotANumber_N">Die Pinnummer {0} ist keine Zahl!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -692,7 +693,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_isDIL">DIL-Gehäuse verwenden</string>
     <string name="key_isDIL_tt">Wird diese Schaltung eingebettet, wird sie in einem DIL-Gehäuse angezeigt.
         Um die Pins korrekt zuordnen zu können, ist an den Eingängen und Ausgängen die Pinnummer anzugeben.</string>
-    <string name="key_pinNumber">Pinnumber</string>
+    <string name="key_pinNumber">Pinnummer</string>
     <string name="key_pinNumber_tt">Nummer dieses Pins. Wird für die Darstellung einer Schaltung als DIL-Gehäuse und die
         Pinzuordnung bei der Programmierung eines CPLD verwendet.</string>
     <string name="key_pinCount">Pinanzahl DIL</string>

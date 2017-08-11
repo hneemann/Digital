@@ -19,7 +19,7 @@ public class ObservableValue extends Observable implements PinDescription {
     private boolean bidirectional;
     private boolean isConstant = false;
     private String description;
-    private int pinNumber;
+    private String pinNumber;
 
     /**
      * Creates a new instance
@@ -337,7 +337,7 @@ public class ObservableValue extends Observable implements PinDescription {
     }
 
     @Override
-    public int getPinNumber() {
+    public String getPinNumber() {
         return pinNumber;
     }
 
@@ -347,7 +347,7 @@ public class ObservableValue extends Observable implements PinDescription {
      * @param pinNumber the pin number
      * @return this for chained calls
      */
-    public ObservableValue setPinNumber(int pinNumber) {
+    public ObservableValue setPinNumber(String pinNumber) {
         this.pinNumber = pinNumber;
         return this;
     }

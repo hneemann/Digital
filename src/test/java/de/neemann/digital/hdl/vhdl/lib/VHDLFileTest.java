@@ -94,9 +94,9 @@ public class VHDLFileTest extends TestCase {
                 "   PORT_Q    <= state;\n" +
                 "   PORT_notQ <= NOT( state );\n" +
                 "\n" +
-                "   ff : process( PORT_D, PORT_C )\n" +
+                "   process(PORT_C)\n" +
                 "   begin\n" +
-                "      if (PORT_C'event AND (PORT_C = '1')) then\n" +
+                "      if rising_edge(PORT_C) then\n" +
                 "        state  <= PORT_D;\n" +
                 "      end if;\n" +
                 "   end process ff;\n" +
@@ -123,9 +123,9 @@ public class VHDLFileTest extends TestCase {
                 "   PORT_Q    <= state;\n" +
                 "   PORT_notQ <= NOT( state );\n" +
                 "\n" +
-                "   ff : process( PORT_D, PORT_C )\n" +
+                "   process(PORT_C)\n" +
                 "   begin\n" +
-                "      if (PORT_C'event AND (PORT_C = '1')) then\n" +
+                "      if rising_edge(PORT_C) then\n" +
                 "        state  <= PORT_D;\n" +
                 "      end if;\n" +
                 "   end process ff;\n" +

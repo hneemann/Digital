@@ -42,8 +42,8 @@ public class InputShape implements Shape {
      */
     public InputShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
-        int pinNumber = attr.get(Keys.PINNUMBER);
-        if (pinNumber == 0)
+        String pinNumber = attr.get(Keys.PINNUMBER);
+        if (pinNumber.length() == 0)
             this.label = attr.getLabel();
         else
             this.label = attr.getLabel() + " (" + pinNumber + ")";

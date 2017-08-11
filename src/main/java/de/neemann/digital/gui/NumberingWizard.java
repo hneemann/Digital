@@ -72,7 +72,7 @@ public class NumberingWizard extends JDialog implements CircuitComponent.WizardN
         if (clicked.equalsDescription(In.DESCRIPTION)
                 || clicked.equalsDescription(Clock.DESCRIPTION)
                 || clicked.equalsDescription(Out.DESCRIPTION)) {
-            circuitComponent.modify(new ModifyAttribute<>(clicked, Keys.PINNUMBER, pinNumber));
+            circuitComponent.modify(new ModifyAttribute<>(clicked, Keys.PINNUMBER, Integer.toString(pinNumber)));
             pinNumber++;
             setPinNumber(pinNumber);
         }

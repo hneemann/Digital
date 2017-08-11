@@ -47,6 +47,6 @@ public interface PinDescription {
     /**
      * @return the pin number
      */
-    int getPinNumber();
+    String getPinNumber();
 
 }

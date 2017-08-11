@@ -125,7 +125,13 @@ public class DILShape implements Shape {
         }
 
         private void add(PinDescription p) {
-            final int num = p.getPinNumber();
+            int num;
+            try {
+                num = Integer.parseInt(p.getPinNumber());
+            } catch (NumberFormatException e) {
+                num = 0;
+            }
+
             if (num == 0 || map.containsKey(num))
                 notAssigned.add(p);
             else {

@@ -51,6 +51,12 @@ public class ElementAttributes {
             VALUE value = (VALUE) attributes.get(key.getKey());
             if (value == null)
                 return key.getDefault();
+
+            // needed to fix files with int pin numbers!
+            if (key == Keys.PINNUMBER && value instanceof Integer) {
+                value = (VALUE) value.toString();
+                attributes.put(key.getKey(), value);
+            }
             return value;
         }
     }
@@ -274,5 +280,17 @@ public class ElementAttributes {
      */
     public <VALUE> boolean equalsKey(Key<VALUE> key, ElementAttributes other) {
         return get(key).equals(other.get(key));
+    }
+
+    /**
+     * @return an integer pin number
+     */
+    public int getIntPinNumber() {
+        String pin = get(Keys.PINNUMBER);
+        try {
+            return Integer.parseInt(pin);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

@@ -221,22 +221,17 @@ public class TableDialog extends JDialog {
         ElementAttributes attr = new ElementAttributes();
         final String name = model.getColumnName(columnIndex);
         attr.set(Keys.LABEL, name);
-        final TreeMap<String, Integer> pins = model.getTable().getPins();
+        final TreeMap<String, String> pins = model.getTable().getPins();
         if (pins.containsKey(name))
-            attr.set(Keys.PIN, pins.get(name).toString());
+            attr.set(Keys.PIN, pins.get(name));
         ElementAttributes modified = new AttributeDialog(this, pos, LIST, attr).showDialog();
         if (modified != null) {
             pins.remove(name);
             final String newName = modified.get(Keys.LABEL).trim().replace(' ', '_');
             final String pinStr = modified.get(Keys.PIN).trim();
-            if (pinStr.length() > 0) {
-                try {
-                    int p = Integer.parseInt(pinStr);
-                    pins.put(newName, p);
-                } catch (NumberFormatException e) {
-                    // Do nothing!
-                }
-            }
+            if (pinStr.length() > 0)
+                pins.put(newName, pinStr);
+
             if (!newName.equals(name))
                 model.setColumnName(columnIndex, newName);
         }

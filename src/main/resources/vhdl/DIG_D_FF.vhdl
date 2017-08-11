@@ -16,9 +16,9 @@ begin
    PORT_Q    <= state;
    PORT_notQ <= NOT( state );
 
-   ff : process( PORT_D, PORT_C )
+   process(PORT_C)
    begin
-      if (PORT_C'event AND (PORT_C = '1')) then
+      if rising_edge(PORT_C) then
         state  <= PORT_D;
       end if;
    end process ff;

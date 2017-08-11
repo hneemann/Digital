@@ -45,7 +45,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final boolean useJKff;
     private final ArrayList<Variable> desiredVarOrdering;
     private int pos;
-    private TreeMap<String, Integer> pins;
+    private TreeMap<String, String> pins;
 
     /**
      * Creates a new builder.
@@ -401,8 +401,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private void checkPinNumber(VisualElement pin) {
         if (pins != null) {
             String name = pin.getElementAttributes().getLabel();
-            Integer num = pins.get(name);
-            if (num != null && num > 0) {
+            String num = pins.get(name);
+            if (num != null && num.length() > 0) {
                 pin.getElementAttributes().set(Keys.PINNUMBER, num);
             }
         }
@@ -414,7 +414,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
      * @param pins the pin mapping
      * @return this for chained calls
      */
-    public CircuitBuilder setPins(TreeMap<String, Integer> pins) {
+    public CircuitBuilder setPins(TreeMap<String, String> pins) {
         this.pins = pins;
         return this;
 

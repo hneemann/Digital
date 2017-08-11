@@ -6,7 +6,7 @@ package de.neemann.digital.core;
 public final class Signal implements Comparable<Signal> {
     private final String name;
     private final ObservableValue value;
-    private int pinNumber;
+    private String pinNumber;
     private boolean isPin = false;
 
     /**
@@ -34,7 +34,7 @@ public final class Signal implements Comparable<Signal> {
      * @param pinNumber the pin number
      * @return this for chained calls
      */
-    public Signal setPinNumber(int pinNumber) {
+    public Signal setPinNumber(String pinNumber) {
         this.pinNumber = pinNumber;
         isPin = true;
         return this;
@@ -46,7 +46,7 @@ public final class Signal implements Comparable<Signal> {
      * @return the pin number of -1 if no pin is given
      * @throws NodeException invalid pin number
      */
-    public int getPinNumber() throws NodeException {
+    public String getPinNumber() throws NodeException {
         return pinNumber;
     }
 
@@ -98,6 +98,6 @@ public final class Signal implements Comparable<Signal> {
      * @return true if a pin number is missing
      */
     public boolean missingPinNumber() {
-        return isPin && pinNumber <= 0;
+        return isPin && pinNumber.length() == 0;
     }
 }

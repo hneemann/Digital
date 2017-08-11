@@ -153,10 +153,15 @@ public class PinMap {
      * @return this for chained calls
      * @throws PinMapException PinMapException
      */
-    public PinMap addAll(Map<String, Integer> pinMap) throws PinMapException {
+    public PinMap addAll(Map<String, String> pinMap) throws PinMapException {
         if (pinMap != null)
-            for (Map.Entry<String, Integer> e : pinMap.entrySet())
-                assignPin(e.getKey(), e.getValue());
+            for (Map.Entry<String, String> e : pinMap.entrySet()) {
+                try {
+                    assignPin(e.getKey(), Integer.parseInt(e.getValue()));
+                } catch (NumberFormatException ex) {
+                    throw new PinMapException(Lang.get("err_pinIsNotANumber_N", e.getValue()));
+                }
+            }
         return this;
     }
 
