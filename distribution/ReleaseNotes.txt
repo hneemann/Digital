@@ -1,5 +1,9 @@
 Release Notes
 
+HEAD, planned as v0.14
+- Added VHDL export (Not yet complete!)
+- Pin numbers are strings to allow FPGA pin names like "U16".
+
 v0.13, released on 25. Jul 2017
 - Introduced a library of sub circuits which are available in every circuit.
   So far, the library contains only the 74xx circuits.
