@@ -52,13 +52,11 @@ public class ClockTest extends TestCase {
                 "        PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_Y0_sig: std_logic;\n" +
                 "  signal S0: std_logic;\n" +
                 "begin\n" +
-                "  PORT_Y0 <= PORT_Y0_sig;\n" +
                 "  gate0 : XOR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y0_sig,\n" +
+                "      PORT_out => PORT_Y0,\n" +
                 "      PORT_a => PORT_A,\n" +
                 "      PORT_b => S0 );\n" +
                 "  gate1 : DIG_simpleClockDivider\n" +

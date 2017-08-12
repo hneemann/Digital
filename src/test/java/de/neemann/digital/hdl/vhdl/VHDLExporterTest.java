@@ -54,13 +54,11 @@ public class VHDLExporterTest extends TestCase {
                 "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_Y_sig: std_logic;\n" +
                 "  signal S0: std_logic;\n" +
                 "  signal S1: std_logic;\n" +
                 "  signal S2: std_logic;\n" +
                 "  signal S3: std_logic;\n" +
                 "begin\n" +
-                "  PORT_Y <= PORT_Y_sig;\n" +
                 "  gate0 : AND_GATE_2\n" +
                 "    port map (\n" +
                 "      PORT_out => S1,\n" +
@@ -73,7 +71,7 @@ public class VHDLExporterTest extends TestCase {
                 "      PORT_In_2 => S2 );\n" +
                 "  gate2 : OR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y_sig,\n" +
+                "      PORT_out => PORT_Y,\n" +
                 "      PORT_In_1 => S1,\n" +
                 "      PORT_In_2 => S3 );\n" +
                 "  gate3 : NOT_GATE\n" +
@@ -179,11 +177,9 @@ public class VHDLExporterTest extends TestCase {
                 "\n" +
                 "  signal PORT_A_Neg: std_logic;\n" +
                 "  signal PORT_B_Neg: std_logic;\n" +
-                "  signal PORT_Y_sig: std_logic;\n" +
                 "  signal S0: std_logic;\n" +
                 "  signal S1: std_logic;\n" +
                 "begin\n" +
-                "  PORT_Y <= PORT_Y_sig;\n" +
                 "  gate0 : AND_GATE_2\n" +
                 "    port map (\n" +
                 "      PORT_out => S0,\n" +
@@ -196,7 +192,7 @@ public class VHDLExporterTest extends TestCase {
                 "      PORT_In_2 => PORT_B_Neg );\n" +
                 "  gate2 : OR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y_sig,\n" +
+                "      PORT_out => PORT_Y,\n" +
                 "      PORT_In_1 => S0,\n" +
                 "      PORT_In_2 => S1 );\n" +
                 "  gate3 : NOT_GATE\n" +
@@ -293,12 +289,10 @@ public class VHDLExporterTest extends TestCase {
                 "  end component;\n" +
                 "\n" +
                 "  signal PORT_A_Neg: std_logic;\n" +
-                "  signal PORT_Y_sig: std_logic;\n" +
                 "begin\n" +
-                "  PORT_Y <= PORT_Y_sig;\n" +
                 "  gate0 : OR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y_sig,\n" +
+                "      PORT_out => PORT_Y,\n" +
                 "      PORT_In_1 => PORT_A_Neg,\n" +
                 "      PORT_In_2 => PORT_A_Neg );\n" +
                 "  gate1 : NOT_GATE\n" +
@@ -386,11 +380,9 @@ public class VHDLExporterTest extends TestCase {
                 "\n" +
                 "  signal PORT_A_Neg: std_logic_vector (1 downto 0);\n" +
                 "  signal PORT_B_Neg: std_logic_vector (1 downto 0);\n" +
-                "  signal PORT_Y_sig: std_logic_vector (1 downto 0);\n" +
                 "  signal S0: std_logic_vector (1 downto 0);\n" +
                 "  signal S1: std_logic_vector (1 downto 0);\n" +
                 "begin\n" +
-                "  PORT_Y <= PORT_Y_sig;\n" +
                 "  gate0 : AND_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +
                 "    port map (\n" +
@@ -406,7 +398,7 @@ public class VHDLExporterTest extends TestCase {
                 "  gate2 : OR_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y_sig,\n" +
+                "      PORT_out => PORT_Y,\n" +
                 "      PORT_In_1 => S0,\n" +
                 "      PORT_In_2 => S1 );\n" +
                 "  gate3 : NOT_GATE_BUS\n" +
@@ -528,12 +520,10 @@ public class VHDLExporterTest extends TestCase {
                 "      PORT_B: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_C_sig: std_logic;\n" +
                 "begin\n" +
-                "  PORT_C <= PORT_C_sig;\n" +
                 "  gate0 : and_dig\n" +
                 "    port map (\n" +
-                "      PORT_Out => PORT_C_sig,\n" +
+                "      PORT_Out => PORT_C,\n" +
                 "      PORT_A => PORT_A,\n" +
                 "      PORT_B => PORT_B );\n" +
                 "end main_arch;\n" +
@@ -560,12 +550,10 @@ public class VHDLExporterTest extends TestCase {
                 "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_Out_sig: std_logic;\n" +
                 "begin\n" +
-                "  PORT_Out <= PORT_Out_sig;\n" +
                 "  gate0 : AND_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Out_sig,\n" +
+                "      PORT_out => PORT_Out,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
                 "      PORT_In_2 => PORT_B );\n" +
                 "end and_dig_arch;\n" +
@@ -589,5 +577,88 @@ public class VHDLExporterTest extends TestCase {
                 "  PORT_out <= PORT_In_1 AND PORT_In_2;\n" +
                 "end AND_GATE_2_arch;\n", vhdl);
     }
+
+    public void testReadOutput() throws IOException, ElementNotFoundException, PinException, NodeException {
+        ToBreakRunner br = new ToBreakRunner("dig/hdl/readOutput.dig");
+        String vhdl = new VHDLExporter(br.getLibrary()).export(br.getCircuit()).toString();
+        assertEquals("-- auto generated by Digital\n" +
+                "\n" +
+                "LIBRARY ieee;\n" +
+                "USE ieee.std_logic_1164.all;\n" +
+                "USE ieee.numeric_std.all;\n" +
+                "\n" +
+                "entity main is\n" +
+                "  port (\n" +
+                "    PORT_A: in std_logic;\n" +
+                "    PORT_Y: out std_logic;\n" +
+                "    PORT_Z: out std_logic;\n" +
+                "    PORT_B: in std_logic );\n" +
+                "end main;\n" +
+                "\n" +
+                "architecture main_arch of main is\n" +
+                "\n" +
+                "  component NOT_GATE\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_in: in std_logic );\n" +
+                "  end component;\n" +
+                "\n" +
+                "  component AND_GATE_2\n" +
+                "    port (\n" +
+                "      PORT_out: out std_logic;\n" +
+                "      PORT_In_1: in std_logic;\n" +
+                "      PORT_In_2: in std_logic );\n" +
+                "  end component;\n" +
+                "\n" +
+                "  signal S0: std_logic;\n" +
+                "begin\n" +
+                "  gate0 : NOT_GATE\n" +
+                "    port map (\n" +
+                "      PORT_out => PORT_Z,\n" +
+                "      PORT_in => S0 );\n" +
+                "  gate1 : AND_GATE_2\n" +
+                "    port map (\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_In_1 => PORT_A,\n" +
+                "      PORT_In_2 => PORT_B );\n" +
+                "  PORT_Y <= S0;\n" +
+                "end main_arch;\n" +
+                "\n" +
+                "-- library components\n" +
+                "\n" +
+                "-- NOT_GATE\n" +
+                "\n" +
+                "LIBRARY ieee;\n" +
+                "USE ieee.std_logic_1164.all;\n" +
+                "\n" +
+                "entity NOT_GATE is\n" +
+                "  port (\n" +
+                "    PORT_out: out std_logic;\n" +
+                "    PORT_in: in std_logic );\n" +
+                "end NOT_GATE;\n" +
+                "\n" +
+                "architecture NOT_GATE_arch of NOT_GATE is\n" +
+                "begin\n" +
+                "  PORT_out <=  NOT( PORT_in );\n" +
+                "end NOT_GATE_arch;\n" +
+                "\n" +
+                "-- AND_GATE_2\n" +
+                "\n" +
+                "LIBRARY ieee;\n" +
+                "USE ieee.std_logic_1164.all;\n" +
+                "\n" +
+                "entity AND_GATE_2 is\n" +
+                "  port (\n" +
+                "    PORT_out: out std_logic;\n" +
+                "    PORT_In_1: in std_logic;\n" +
+                "    PORT_In_2: in std_logic );\n" +
+                "end AND_GATE_2;\n" +
+                "\n" +
+                "architecture AND_GATE_2_arch of AND_GATE_2 is\n" +
+                "begin\n" +
+                "  PORT_out <= PORT_In_1 AND PORT_In_2;\n" +
+                "end AND_GATE_2_arch;\n", vhdl);
+    }
+
 
 }

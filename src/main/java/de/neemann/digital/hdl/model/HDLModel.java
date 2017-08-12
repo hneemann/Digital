@@ -230,12 +230,9 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
             Port cOut = new Port("out", Port.Direction.out).setBits(1);
             Port cIn = new Port("in", Port.Direction.in).setBits(1);
 
-            Signal newSig = createSignal().setBits(1);
-            Port oldClockPort = c.getClockPort();
-            Signal oldSig = oldClockPort.getSignal();
-
-            for (Port po : oldClockPort.getSignal().getPorts())
-                po.setSignal(newSig);
+            Signal oldSig = c.getClockPort().getSignal();
+            Signal newSig = createSignal();
+            oldSig.replaceWith(newSig);
             newSig.addPort(cOut);
             oldSig.addPort(cIn);
 

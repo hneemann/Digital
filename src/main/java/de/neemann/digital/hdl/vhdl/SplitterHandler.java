@@ -9,8 +9,6 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static de.neemann.digital.hdl.vhdl.VHDLExporter.SIG_SUFFIX;
-
 /**
  * Handles all the splitters in a circuit
  */
@@ -70,9 +68,6 @@ public class SplitterHandler {
             inputs = new Splitter.Ports(node.get(Keys.INPUT_SPLIT));
             outputs = new Splitter.Ports(node.get(Keys.OUTPUT_SPLIT));
 
-            if (inputs.getBits() != outputs.getBits())
-                throw new HDLException("err_splitterBitsMismatch");
-
             bus.setBits(inputs.getBits());
         }
 
@@ -94,8 +89,6 @@ public class SplitterHandler {
                 if (outSig != null) {
                     outSig.setIsWritten();
                     out.print(outSig.getName());
-                    if (outSig.isOutPort())
-                        out.print(SIG_SUFFIX);
                     out.print(" <= ");
                     out.print(bus.getName()).print('(');
                     writeRange(p);

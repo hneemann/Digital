@@ -48,27 +48,19 @@ public class VHDLFileTest extends TestCase {
                 "              PORT_notQ : out std_logic_vector((bitCount-1) downto 0) );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_Q_sig: std_logic;\n" +
-                "  signal PORT_Q3_sig: std_logic_vector (2 downto 0);\n" +
-                "  signal PORT_nQ_sig: std_logic;\n" +
-                "  signal PORT_nQ3_sig: std_logic_vector (2 downto 0);\n" +
                 "begin\n" +
-                "  PORT_Q <= PORT_Q_sig;\n" +
-                "  PORT_Q3 <= PORT_Q3_sig;\n" +
-                "  PORT_nQ <= PORT_nQ_sig;\n" +
-                "  PORT_nQ3 <= PORT_nQ3_sig;\n" +
                 "  gate0 : DIG_D_FF\n" +
                 "    port map (\n" +
-                "      PORT_Q => PORT_Q_sig,\n" +
-                "      PORT_notQ => PORT_nQ_sig,\n" +
+                "      PORT_Q => PORT_Q,\n" +
+                "      PORT_notQ => PORT_nQ,\n" +
                 "      PORT_D => PORT_D,\n" +
                 "      PORT_C => PORT_C );\n" +
                 "  gate1 : DIG_D_FF_BUS\n" +
                 "    generic map (\n" +
                 "      bitCount => 3 )\n" +
                 "    port map (\n" +
-                "      PORT_Q => PORT_Q3_sig,\n" +
-                "      PORT_notQ => PORT_nQ3_sig,\n" +
+                "      PORT_Q => PORT_Q3,\n" +
+                "      PORT_notQ => PORT_nQ3,\n" +
                 "      PORT_D => PORT_D3,\n" +
                 "      PORT_C => PORT_C );\n" +
                 "end main_arch;\n" +

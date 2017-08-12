@@ -25,11 +25,6 @@ import java.util.HashSet;
  * Exports the given circuit to vhdl
  */
 public class VHDLExporter implements Closeable {
-    /**
-     * suffix for signals which are mapped output ports
-     */
-    public static final String SIG_SUFFIX = "_sig";
-
     private final CodePrinter out;
     private final ElementLibrary library;
     private final VHDLLibrary vhdlLibrary;
@@ -116,6 +111,9 @@ public class VHDLExporter implements Closeable {
 
         out.println("\narchitecture " + model.getName() + "_arch of " + model.getName() + " is");
 
+        // ensure outputs are only written!
+        ArrayList<PortToSignal> portsToSignal = createPortsToSignalList(model);
+
         HashSet<String> componentsWritten = new HashSet<>();
         for (HDLNode node : model)
             if (node.is(Splitter.DESCRIPTION))
@@ -130,11 +128,9 @@ public class VHDLExporter implements Closeable {
 
         out.println().inc();
         for (Signal sig : model.getSignals()) {
-            if (!sig.isInPort()) {
+            if (!sig.isPort()) {
                 out.print("signal ");
                 out.print(sig.getName());
-                if (sig.isOutPort())
-                    out.print(SIG_SUFFIX);
                 out.print(": ");
                 out.print(VHDLEntitySimple.getType(sig.getBits()));
                 out.println(";");
@@ -142,12 +138,6 @@ public class VHDLExporter implements Closeable {
         }
 
         out.dec().println("begin").inc();
-
-        // map output ports to signals
-        for (Signal sig : model.getSignals()) {
-            if (sig.isOutPort())
-                out.print(sig.getName()).print(" <= ").print(sig.getName()).print(SIG_SUFFIX).println(";");
-        }
 
         for (Signal s : model.getSignals()) {
             if (s.isConstant()) {
@@ -191,6 +181,10 @@ public class VHDLExporter implements Closeable {
             }
         }
 
+        // map signals to output ports
+        for (PortToSignal sig : portsToSignal)
+            out.print(sig.getOldSig().getName()).print(" <= ").print(sig.getNewSig().getName()).println(";");
+
         out.dec().print("end ").print(model.getName()).println("_arch;");
     }
 
@@ -207,8 +201,6 @@ public class VHDLExporter implements Closeable {
             if (p.getSignal() != null) {
                 comma.check(out);
                 out.print(p.getName() + " => " + p.getSignal().getName());
-                if (p.getSignal().isOutPort())
-                    out.print(SIG_SUFFIX);
                 if (p.getDirection() == Port.Direction.out)
                     p.getSignal().setIsWritten();
             }
@@ -264,5 +256,42 @@ public class VHDLExporter implements Closeable {
     protected void fixClocks(HDLModel model) {
         if (model.getClocks() != null && board != null)
             model.integrateClocks(board.getClockPeriod());
+    }
+
+    private ArrayList<PortToSignal> createPortsToSignalList(HDLModel model) {
+        HashSet<Signal> signalsRead = new HashSet<>();
+        for (HDLNode n : model) {
+            for (Port read : n.getPorts().getInputs())
+                signalsRead.add(read.getSignal());
+        }
+
+        ArrayList<PortToSignal> mapList = new ArrayList<>();
+        for (Port out : model.getPorts().getOutputs()) {
+            if (signalsRead.contains(out.getSignal())) {
+                Signal newSig = model.createSignal();
+                Signal oldSig = out.getSignal();
+                oldSig.replaceWith(newSig);
+                mapList.add(new PortToSignal(oldSig, newSig));
+            }
+        }
+        return mapList;
+    }
+
+    private static final class PortToSignal {
+        private final Signal oldSig;
+        private final Signal newSig;
+
+        private PortToSignal(Signal oldSig, Signal newSig) {
+            this.oldSig = oldSig;
+            this.newSig = newSig;
+        }
+
+        private Signal getOldSig() {
+            return oldSig;
+        }
+
+        private Signal getNewSig() {
+            return newSig;
+        }
     }
 }

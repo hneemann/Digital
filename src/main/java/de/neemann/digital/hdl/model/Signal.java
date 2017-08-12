@@ -183,4 +183,14 @@ public class Signal implements Comparable<Signal> {
         return constant;
     }
 
+    /**
+     * Replaces this signal in all associated ports.
+     *
+     * @param s the new signal used by all ports of this signal
+     */
+    public void replaceWith(Signal s) {
+        s.setBits(bits);
+        for (Port p : ports)
+            p.setSignal(s);
+    }
 }

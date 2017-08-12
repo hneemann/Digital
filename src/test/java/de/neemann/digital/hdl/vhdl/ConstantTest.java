@@ -34,14 +34,12 @@ public class ConstantTest extends TestCase {
                 "      PORT_b: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_Y_sig: std_logic;\n" +
                 "  signal S0: std_logic;\n" +
                 "begin\n" +
-                "  PORT_Y <= PORT_Y_sig;\n" +
                 "  S0 <= '0';\n" +
                 "  gate0 : XOR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y_sig,\n" +
+                "      PORT_out => PORT_Y,\n" +
                 "      PORT_a => PORT_A,\n" +
                 "      PORT_b => S0 );\n" +
                 "end main_arch;\n" +
@@ -91,15 +89,13 @@ public class ConstantTest extends TestCase {
                 "      PORT_b: in std_logic_vector ((bitCount-1) downto 0) );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_Y_sig: std_logic_vector (2 downto 0);\n" +
                 "  signal S0: std_logic_vector (2 downto 0);\n" +
                 "begin\n" +
-                "  PORT_Y <= PORT_Y_sig;\n" +
                 "  S0 <= std_logic_vector(to_unsigned(0,3));\n" +
                 "  gate0 : XOR_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 3)\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y_sig,\n" +
+                "      PORT_out => PORT_Y,\n" +
                 "      PORT_a => PORT_A,\n" +
                 "      PORT_b => S0 );\n" +
                 "end main_arch;\n" +
