@@ -191,6 +191,17 @@ public class Signal implements Comparable<Signal> {
     public void replaceWith(Signal s) {
         s.setBits(bits);
         for (Port p : ports)
-            p.setSignal(s);
+            s.addPort(p);
+        ports.clear();
+    }
+
+    /**
+     * removed a port from this signal
+     *
+     * @param port the port to remove
+     */
+    public void removePort(Port port) {
+        ports.remove(port);
+        port.setSignal(null);
     }
 }
