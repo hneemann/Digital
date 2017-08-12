@@ -13,7 +13,7 @@ import java.util.HashSet;
 import static de.neemann.digital.hdl.vhdl.lib.MultiplexerVHDL.getBin;
 
 /**
- * the multiplexer VHDL entity
+ * the demultiplexer VHDL entity
  */
 public class DemultiplexerVHDL extends VHDLEntitySimple {
     private HashSet<Integer> first = new HashSet<>();
