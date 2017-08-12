@@ -21,5 +21,5 @@ begin
       if rising_edge(PORT_C) then
         state  <= PORT_D;
       end if;
-   end process ff;
+   end process;
 end DIG_D_FF_arch;
