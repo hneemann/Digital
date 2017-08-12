@@ -92,7 +92,7 @@ public class VHDLFileTest extends TestCase {
                 "      if rising_edge(PORT_C) then\n" +
                 "        state  <= PORT_D;\n" +
                 "      end if;\n" +
-                "   end process ff;\n" +
+                "   end process;\n" +
                 "end DIG_D_FF_arch;\n" +
                 "\n" +
                 "-- DIG_D_FF_BUS\n" +
@@ -121,7 +121,7 @@ public class VHDLFileTest extends TestCase {
                 "      if rising_edge(PORT_C) then\n" +
                 "        state  <= PORT_D;\n" +
                 "      end if;\n" +
-                "   end process ff;\n" +
+                "   end process;\n" +
                 "end DIG_D_FF_BUS_arch;\n", vhdl);
     }
 }
