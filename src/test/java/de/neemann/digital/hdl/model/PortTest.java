@@ -1,11 +1,9 @@
 package de.neemann.digital.hdl.model;
 
-import org.junit.Test;
+import junit.framework.TestCase;
 
-import static org.junit.Assert.*;
+public class PortTest extends TestCase {
 
-public class PortTest {
-    @Test
     public void testIsNameValid() throws Exception {
         assertTrue(Port.isNameValid("test"));
         assertTrue(Port.isNameValid("test_2"));
@@ -15,6 +13,19 @@ public class PortTest {
         assertFalse(Port.isNameValid("test()++hallo"));
         assertFalse(Port.isNameValid("test_"));
         assertFalse(Port.isNameValid(""));
+    }
+
+    public void testDuplicateName() throws HDLException {
+        Ports p = new Ports();
+        p.add(new Port("a", Port.Direction.out));
+        p.add(new Port("b", Port.Direction.out));
+
+        try {
+            p.add(new Port("A", Port.Direction.out));
+            fail();
+        } catch (HDLException e) {
+            // expected
+        }
     }
 
 }
