@@ -140,7 +140,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
             nodeList.add(new HDLNode(v, library, modelList));
     }
 
-    private Port addPort(VisualElement out, NetList nets, Port.Direction direction, int bits, HashMap<Net, Signal> signalMap) {
+    private Port addPort(VisualElement out, NetList nets, Port.Direction direction, int bits, HashMap<Net, Signal> signalMap) throws HDLException {
         String name = out.getElementAttributes().getCleanLabel();
         Port port = new Port(name, direction);
         port.setPinNumber(out.getElementAttributes().get(Keys.PINNUMBER));
@@ -237,8 +237,9 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
      * Inserts a clock divider to match the frequency given in the model
      *
      * @param period clock period in ns
+     * @throws HDLException HDLException
      */
-    public void integrateClocks(int period) {
+    public void integrateClocks(int period) throws HDLException {
         for (HDLClock c : clocks) {
             int freq = c.getFrequency();
             int counter = 1000000000 / (period * freq * 2);

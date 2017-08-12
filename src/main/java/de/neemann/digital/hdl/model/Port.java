@@ -1,5 +1,7 @@
 package de.neemann.digital.hdl.model;
 
+import de.neemann.digital.lang.Lang;
+
 /**
  * represents a port
  */
@@ -38,8 +40,9 @@ public class Port {
      *
      * @param name      the name
      * @param direction the direction
+     * @throws HDLException if name is invalid
      */
-    public Port(String name, Direction direction) {
+    public Port(String name, Direction direction) throws HDLException {
         this.origName = name;
 
         name = name
@@ -49,16 +52,39 @@ public class Port {
                 .replace("<", "le")
                 .replace(">", "gr");
 
+        if (!isNameValid(name))
+            throw new HDLException(Lang.get("err_notAValidName", name));
+
         this.name = PREFIX + name;
         this.direction = direction;
+    }
+
+    /**
+     * Does a name cleanup to avoid illegal vhdl names
+     *
+     * @param name the original name
+     * @return the cleand up name
+     */
+    public static boolean isNameValid(String name) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            if (!((c >= '0' && c <= '9')
+                    || (c >= 'a' && c <= 'z')
+                    || (c >= 'A' && c <= 'Z')
+                    || (c == '_')))
+                return false;
+        }
+        return name.length() > 0 && name.charAt(name.length() - 1) != '_';
     }
 
     /**
      * Copy constructor
      *
      * @param p port to copy
+     * @throws HDLException if name is invalid
      */
-    public Port(Port p) {
+    public Port(Port p) throws HDLException {
         this(p.origName, p.direction);
         bits = p.bits;
         signal = p.signal;

@@ -549,6 +549,7 @@ The names of the variables may not be unique.</string>
     <string name="err_noVhdlEntity_N">No VHDL code for {0} available!</string>
     <string name="err_pinIsNotANumber_N">The pin nummer {0} is not a integer!</string>
     <string name="err_clockOnlyAllowedInRoot">A clock is only allowed in the topmost circuit!</string>
+    <string name="err_notAValidName">The name {0} is not valid!</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>

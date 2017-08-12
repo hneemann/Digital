@@ -17,7 +17,7 @@ public class ClockTest extends TestCase {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/Clock.dig");
         String vhdl = new VHDLExporter(br.getLibrary()) {
             @Override
-            protected void fixClocks(HDLModel model) {
+            protected void fixClocks(HDLModel model) throws HDLException {
                 model.integrateClocks(10);
             }
         }.export(br.getCircuit()).toString();
@@ -123,7 +123,7 @@ public class ClockTest extends TestCase {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/Clock2.dig");
         String vhdl = new VHDLExporter(br.getLibrary()) {
             @Override
-            protected void fixClocks(HDLModel model) {
+            protected void fixClocks(HDLModel model) throws HDLException {
                 model.integrateClocks(10);
             }
         }.export(br.getCircuit()).toString();

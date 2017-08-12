@@ -252,8 +252,9 @@ public class VHDLExporter implements Closeable {
      * Introduces aditional nodes to reduce the clock speed
      *
      * @param model the model to modify
+     * @throws HDLException HDLException
      */
-    protected void fixClocks(HDLModel model) {
+    protected void fixClocks(HDLModel model) throws HDLException {
         if (model.getClocks() != null && board != null)
             model.integrateClocks(board.getClockPeriod());
     }

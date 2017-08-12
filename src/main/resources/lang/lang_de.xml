@@ -561,6 +561,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_noVhdlEntity_N">Kein VHDL Code für {0} verfügbar!</string>
     <string name="err_pinIsNotANumber_N">Die Pinnummer {0} ist keine Zahl!</string>
     <string name="err_clockOnlyAllowedInRoot">Ein Taktelement ist nur im Hauptmodel erlaubt!</string>
+    <string name="err_notAValidName">Der Name {0} ist nicht erlaubt!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
