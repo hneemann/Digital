@@ -193,7 +193,6 @@ public class MultiplexerTest extends TestCase {
                 "\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
-                "USE ieee.numeric_std.all;\n" +
                 "\n" +
                 "entity MUX_GATE_BUS_2 is\n" +
                 "  generic ( bitCount : integer );\n" +
@@ -214,7 +213,7 @@ public class MultiplexerTest extends TestCase {
                 "      PORT_in_1 when \"01\",\n" +
                 "      PORT_in_2 when \"10\",\n" +
                 "      PORT_in_3 when \"11\",\n" +
-                "      std_logic_vector(to_unsigned(0,bitCount)) when others;\n" +
+                "      (others => '0') when others;\n" +
                 "end MUX_GATE_BUS_2_arch;\n",vhdl);
     }
 

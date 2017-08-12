@@ -29,13 +29,6 @@ public class DemultiplexerVHDL extends VHDLEntitySimple {
     }
 
     @Override
-    public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
-        super.writeHeader(out, node);
-        if (node.get(Keys.BITS) > 1)
-            out.println("USE ieee.numeric_std.all;");
-    }
-
-    @Override
     public boolean needsOutput(HDLNode node) {
         int sel = node.get(Keys.SELECTOR_BITS);
         if (node.get(Keys.BITS) > 1)

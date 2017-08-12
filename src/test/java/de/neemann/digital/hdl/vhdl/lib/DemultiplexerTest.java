@@ -113,7 +113,6 @@ public class DemultiplexerTest extends TestCase {
                 "\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
-                "USE ieee.numeric_std.all;\n" +
                 "\n" +
                 "entity DEMUX_GATE_BUS_1 is\n" +
                 "  generic ( bitCount : integer );\n" +
@@ -181,7 +180,6 @@ public class DemultiplexerTest extends TestCase {
                 "\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
-                "USE ieee.numeric_std.all;\n" +
                 "\n" +
                 "entity DEMUX_GATE_BUS_2 is\n" +
                 "  generic ( bitCount : integer );\n" +

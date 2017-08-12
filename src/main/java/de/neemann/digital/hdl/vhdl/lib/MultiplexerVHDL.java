@@ -27,13 +27,6 @@ public class MultiplexerVHDL extends VHDLEntitySimple {
     }
 
     @Override
-    public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
-        super.writeHeader(out, node);
-        if (node.get(Keys.BITS) > 1)
-            out.println("USE ieee.numeric_std.all;");
-    }
-
-    @Override
     public boolean needsOutput(HDLNode node) {
         int sel = node.get(Keys.SELECTOR_BITS);
         if (node.get(Keys.BITS) > 1)
@@ -75,7 +68,7 @@ public class MultiplexerVHDL extends VHDLEntitySimple {
         if (node.get(Keys.BITS) == 1)
             out.println("'0' when others;");
         else
-            out.println("std_logic_vector(to_unsigned(0,bitCount)) when others;");
+            out.println("(others => '0') when others;");
 
         out.dec().dec();
 
