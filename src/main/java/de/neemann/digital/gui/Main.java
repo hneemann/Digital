@@ -478,33 +478,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
         export.add(new ExportAction(Lang.get("menu_exportPNGSmall"), "png", (out) -> new GraphicsImage(out, "PNG", 1)));
         export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out) -> new GraphicsImage(out, "PNG", 2)));
+
         if (enableExperimental())
             export.add(new ExportGifAction(Lang.get("menu_exportAnimatedGIF")));
 
         if (enableExperimental())
-            export.add(new ToolTipAction(Lang.get("menu_exportVHDL")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    JFileChooser fc = new MyFileChooser();
-                    if (filename != null)
-                        fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, "vhdl"));
-
-                    ElementAttributes settings = Settings.getInstance().getAttributes();
-                    File exportDir = settings.getFile("exportDirectory");
-                    if (exportDir != null)
-                        fc.setCurrentDirectory(exportDir);
-
-                    fc.addChoosableFileFilter(new FileNameExtensionFilter("VHDL", "vhdl"));
-                    new SaveAsHelper(Main.this, fc, "vhdl").checkOverwrite(
-                            file -> {
-                                settings.setFile("exportDirectory", file.getParentFile());
-                                try (VHDLExporter vhdl = new VHDLExporter(library, new CodePrinter(file))) {
-                                    vhdl.export(circuitComponent.getCircuit());
-                                }
-                            }
-                    );
-                }
-            }.setToolTip(Lang.get("menu_exportVHDL_tt")).createJMenuItem());
+            export.add(createVHDLExportAction().createJMenuItem());
 
         JMenu file = new JMenu(Lang.get("menu_file"));
         menuBar.add(file);
@@ -522,6 +501,41 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         toolBar.add(save.createJButtonNoText());
 
         return save;
+    }
+
+    private ToolTipAction createVHDLExportAction() {
+        return new ToolTipAction(Lang.get("menu_exportVHDL")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                // check model for errors
+                try {
+                    new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
+                } catch (PinException | NodeException | ElementNotFoundException e) {
+                    new ErrorMessage(Lang.get("msg_modelHasErrors")).addCause(e).show(Main.this);
+                    return;
+                }
+
+                JFileChooser fc = new MyFileChooser();
+                if (filename != null)
+                    fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, "vhdl"));
+
+                ElementAttributes settings = Settings.getInstance().getAttributes();
+                File exportDir = settings.getFile("exportDirectory");
+                if (exportDir != null)
+                    fc.setCurrentDirectory(exportDir);
+
+                fc.addChoosableFileFilter(new FileNameExtensionFilter("VHDL", "vhdl"));
+                new SaveAsHelper(Main.this, fc, "vhdl").checkOverwrite(
+                        file -> {
+                            settings.setFile("exportDirectory", file.getParentFile());
+                            try (VHDLExporter vhdl = new VHDLExporter(library, new CodePrinter(file))) {
+                                vhdl.export(circuitComponent.getCircuit());
+                            }
+                        }
+                );
+            }
+        }.setToolTip(Lang.get("menu_exportVHDL_tt"));
     }
 
     private File getBaseFileName() {

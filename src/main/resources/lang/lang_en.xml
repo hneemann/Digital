@@ -966,6 +966,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_invalidSignalsAnalysed">If inputs have no name set, they are not included
         as variables in the analysis, but treated as constants!</string>
     <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!</string>
+    <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

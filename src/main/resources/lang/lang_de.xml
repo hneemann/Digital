@@ -982,6 +982,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_invalidSignalsAnalysed">Wenn Eingänge keinen Namen haben, werden diese nicht
         als Variablen in die Analyse einbezogen, sondern wie Konstanten behandelt!</string>
     <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
+    <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
