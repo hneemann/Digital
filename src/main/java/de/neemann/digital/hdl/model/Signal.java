@@ -19,6 +19,15 @@ public class Signal implements Comparable<Signal> {
     /**
      * Creates a new signal
      *
+     * @param number the name of the signal
+     */
+    public Signal(int number) {
+        this("S" + number);
+    }
+
+    /**
+     * Creates a new signal
+     *
      * @param name the name of the signal
      */
     public Signal(String name) {

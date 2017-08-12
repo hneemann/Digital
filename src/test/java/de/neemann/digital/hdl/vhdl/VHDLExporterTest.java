@@ -1,13 +1,7 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.io.In;
-import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
@@ -225,10 +219,10 @@ public class VHDLExporterTest extends TestCase {
                 "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_A_Neg: std_logic;\n" +
-                "  signal PORT_B_Neg: std_logic;\n" +
                 "  signal S0: std_logic;\n" +
                 "  signal S1: std_logic;\n" +
+                "  signal PORT_A_Neg: std_logic;\n" +
+                "  signal PORT_B_Neg: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_2\n" +
                 "    port map (\n" +
@@ -428,10 +422,10 @@ public class VHDLExporterTest extends TestCase {
                 "      PORT_in: in std_logic_vector ((bitCount-1) downto 0) );\n" +
                 "  end component;\n" +
                 "\n" +
-                "  signal PORT_A_Neg: std_logic_vector (1 downto 0);\n" +
-                "  signal PORT_B_Neg: std_logic_vector (1 downto 0);\n" +
                 "  signal S0: std_logic_vector (1 downto 0);\n" +
                 "  signal S1: std_logic_vector (1 downto 0);\n" +
+                "  signal PORT_A_Neg: std_logic_vector (1 downto 0);\n" +
+                "  signal PORT_B_Neg: std_logic_vector (1 downto 0);\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +

@@ -40,7 +40,7 @@ public class ModelList implements Iterable<HDLModel> {
     public HDLModel getModel(Circuit circuit, String name) throws PinException, NodeException, HDLException, ElementNotFoundException {
         HDLModel m = models.get(circuit);
         if (m == null) {
-            m = new HDLModel(circuit, library, this).setName(name);
+            m = new HDLModel(circuit, library, this, false).setName(name);
             models.put(circuit, m);
         }
         return m;
