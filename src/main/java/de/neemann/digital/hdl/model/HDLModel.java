@@ -13,6 +13,7 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.testing.TestCaseElement;
 
 import java.io.File;
 import java.util.*;
@@ -136,7 +137,8 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
     private void addNode(VisualElement v, ElementLibrary library, ModelList modelList) throws ElementNotFoundException, PinException, NodeException, HDLException {
         if (!v.equalsDescription(Tunnel.DESCRIPTION)
                 && !v.equalsDescription(DummyElement.TEXTDESCRIPTION)
-                && !v.equalsDescription(DummyElement.DATADESCRIPTION))
+                && !v.equalsDescription(DummyElement.DATADESCRIPTION)
+                && !v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
             nodeList.add(new HDLNode(v, library, modelList));
     }
 
@@ -147,7 +149,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
         port.setBits(bits);
         Net n = nets.getNetOfPos(out.getPins().get(0).getPos());
         signalMap.computeIfAbsent(n, Net -> {
-            Signal s = new Signal(Port.PREFIX + name).setIsPort(direction);
+            Signal s = new Signal(port.getName()).setIsPort(direction);
             signals.add(s);
             return s;
         }).addPort(port);
