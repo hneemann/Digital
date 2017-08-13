@@ -18,7 +18,13 @@ public class FileScanner {
 
     public int scan(File path) throws Exception {
         errors = new ArrayList<>();
-        int count = scanIntern(path);
+        int count;
+        try {
+            count = scanIntern(path);
+        } catch (SkipAllException e) {
+            System.out.println("all tests are skipped: " + e.getMessage());
+            return -1;
+        }
         System.out.println("tested " + count + " examples");
         if (errors.isEmpty())
             return count;
@@ -31,7 +37,7 @@ public class FileScanner {
         throw new Exception("errors testing files");
     }
 
-    private int scanIntern(File path) throws IOException {
+    private int scanIntern(File path) throws IOException, SkipAllException {
         int count = 0;
         File[] files = path.listFiles();
         if (files != null) {
@@ -44,6 +50,8 @@ public class FileScanner {
                     if (f.getName().endsWith(".dig")) {
                         try {
                             test.check(f);
+                        } catch (SkipAllException e) {
+                            throw e;
                         } catch (Throwable e) {
                             errors.add(new Error(f, e));
                         }
@@ -67,6 +75,12 @@ public class FileScanner {
         private Error(File f, Throwable e) {
             this.f = f;
             this.e = e;
+        }
+    }
+
+    public static class SkipAllException extends Exception {
+        public SkipAllException(String s) {
+            super(s);
         }
     }
 }

@@ -24,7 +24,7 @@ public class VHDLFile implements VHDLEntity {
     private final Interval arch;
     private boolean written = false;
     private boolean writtenBus = false;
-    private ArrayList<String> generics = new ArrayList<>();
+    private ArrayList<Generic> generics = new ArrayList<>();
 
     /**
      * Creates a new instance
@@ -49,14 +49,13 @@ public class VHDLFile implements VHDLEntity {
         StringTokenizer st = new StringTokenizer(sb.toString(), "(), :;\t");
         if (st.hasMoreTokens() && st.nextToken().equalsIgnoreCase("generic")) {
             while (st.hasMoreTokens()) {
-                String t = st.nextToken();
-                if (t.equalsIgnoreCase("port")) break;
+                String name = st.nextToken();
+                if (name.equalsIgnoreCase("port")) break;
 
-                generics.add(t);
                 if (!st.hasMoreTokens()) break;
-                t = st.nextToken();
-                if (!t.equalsIgnoreCase("integer"))
-                    throw new IOException("only generic integers are supported, not '" + t + "'!");
+                String type = st.nextToken();
+
+                generics.add(new Generic(name, type.toLowerCase()));
             }
         }
     }
@@ -145,11 +144,16 @@ public class VHDLFile implements VHDLEntity {
 
     private String transform(String s, HDLNode node) throws HDLException {
         String type;
+        String zero;
         if (hasData && node.get(Keys.BITS) > 1) {
             type = "std_logic_vector((bitCount-1) downto 0)";
-        } else
+            zero="(others => '0')";
+        } else {
             type = "std_logic";
-        return s.replace("{{data}}", type);
+            zero="'0'";
+        }
+        return s.replace("{{data}}", type)
+                .replace("{{zero}}", zero);
     }
 
 
@@ -172,8 +176,9 @@ public class VHDLFile implements VHDLEntity {
         GenericWriter gw = new GenericWriter(out);
         if (hasData && node.get(Keys.BITS) > 1)
             gw.print("bitCount => " + node.get(Keys.BITS));
-        for (String g : generics)
-            gw.print(g + " => " + node.get(new Key<>(g, 0)).toString());
+        for (Generic g : generics) {
+            gw.print(g.name + " => " + g.toValueString(node.get(new Key<>(g.name, 0))));
+        }
         gw.close();
     }
 
@@ -227,6 +232,28 @@ public class VHDLFile implements VHDLEntity {
         out.println();
         out.println("end " + name + "_arch;");
         return out.toString();
+    }
+
+    private static final class Generic {
+
+        private final String name;
+        private final String type;
+
+        private Generic(String name, String type) {
+            this.name = name;
+            this.type = type;
+        }
+
+        private String toValueString(int value) throws IOException {
+            switch (type) {
+                case "integer":
+                    return Integer.toString(value);
+                case "std_logic":
+                    return "'" + (value & 1) + "'";
+                default:
+                    throw new IOException("generic " + type + " is not supported!");
+            }
+        }
     }
 
     private static final class GenericWriter {

@@ -51,7 +51,7 @@ public class VHDLTestBenchCreator {
      * Writes the test benches
      *
      * @param file the original vhdl file
-     * @throws IOException IOException
+     * @throws IOException  IOException
      * @throws HDLException HDLException
      */
     public void write(File file) throws IOException, HDLException {
@@ -145,12 +145,11 @@ public class VHDLTestBenchCreator {
 
         for (Port p : model.getPorts().getInputs())
             out.print(p.getName()).print(" <= patterns(i).").print(p.getName()).println(";");
-        out.println("wait for 1 ns;");
+        out.println("wait for 10 ns;");
         for (Port p : model.getPorts().getOutputs()) {
-            out.print("assert ").print(p.getName()).print(" = patterns(i).").print(p.getName()).println().inc();
-            out.print("report \"wrong value for ").print(p.getName()).println("\" severity error;").dec();
+            out.print("assert std_match(").print(p.getName()).print(", patterns(i).").print(p.getName()).println(")").inc();
+            out.print("report \"wrong value for ").print(p.getName()).println(" i=\" & integer'image(i) severity error;").dec();
         }
-
 
         out.dec().println("end loop;");
         out.println("wait;");
@@ -172,25 +171,68 @@ public class VHDLTestBenchCreator {
         @Override
         public void add(Value[] values) {
             try {
-                lineSep.check(out);
-                out.print("(");
-                Separator sep = new Separator(", ");
-                for (int i = 0; i < values.length; i++) {
-                    sep.check(out);
-                    Value val = values[i];
-                    if (val.getType() == Value.Type.NORMAL) {
-                        int bits = dataOrder.get(i).getBits();
-                        if (bits > 1)
-                            out.print("std_logic_vector(to_unsigned(").print(val.getValue()).print(",").print(bits).println("))");
-                        else
-                            out.print("'").print(val.getValue()).print("'");
-                    } else
-                        throw new RuntimeException("values of type " + val.getType() + " are not allowed");
+                boolean containsClock = false;
+                for (Value v : values)
+                    if (v.getType() == Value.Type.CLOCK)
+                        containsClock = true;
+                if (containsClock) {
+                    lineSep.check(out);
+                    writeValues(values, true, 0);
+                    lineSep.check(out);
+                    writeValues(values, true, 1);
                 }
-                out.print(")");
+                lineSep.check(out);
+                writeValues(values, false, 0);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        private void writeValues(Value[] values, boolean isClock, int clock) throws IOException {
+            out.print("(");
+            Separator sep = new Separator(", ");
+            for (int i = 0; i < values.length; i++) {
+                sep.check(out);
+                Value val = values[i];
+                switch (val.getType()) {
+                    case NORMAL:
+                        int bits = dataOrder.get(i).getBits();
+                        if (isClock && dataOrder.get(i).getDirection() == Port.Direction.out)
+                            writeDontCare(bits);
+                        else
+                            writeValue(val.getValue(), bits);
+                        break;
+                    case DONTCARE:
+                        out.print("'-'");
+                        break;
+                    case CLOCK:
+                        out.print("'").print(clock).print("'");
+                        break;
+                    default:
+                        throw new RuntimeException("values of type " + val.getType() + " are not allowed");
+                }
+            }
+            out.print(")");
+        }
+
+        private void writeDontCare(int bits) throws IOException {
+            if (bits > 1) {
+                out.print("\"");
+                for (int i = 0; i < bits; i++)
+                    out.print("-");
+                out.print("\"");
+            } else
+                out.print("'-'");
+        }
+
+        private void writeValue(long val, int bits) throws IOException {
+            if (bits > 1) {
+                String str = Long.toBinaryString(val);
+                while (str.length() < bits)
+                    str = '0' + str;
+                out.print("\"").print(str).print("\"");
+            } else
+                out.print("'").print(val).print("'");
         }
     }
 }

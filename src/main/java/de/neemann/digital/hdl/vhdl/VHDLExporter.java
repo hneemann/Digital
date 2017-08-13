@@ -29,6 +29,7 @@ public class VHDLExporter implements Closeable {
     private final ElementLibrary library;
     private final VHDLLibrary vhdlLibrary;
     private BoardInterface board;
+    private VHDLTestBenchCreator testBenches;
 
     /**
      * Creates a new exporter
@@ -90,8 +91,10 @@ public class VHDLExporter implements Closeable {
             if (board != null)
                 board.writeFiles(f, model);
 
-            if (out.getFile() != null)
-                new VHDLTestBenchCreator(circuit, model).write(out.getFile());
+            if (out.getFile() != null) {
+                testBenches = new VHDLTestBenchCreator(circuit, model);
+                testBenches.write(out.getFile());
+            }
 
         } catch (HDLException | PinException | NodeException e) {
             e.setOrigin(circuit.getOrigin());
@@ -256,6 +259,13 @@ public class VHDLExporter implements Closeable {
     @Override
     public void close() throws IOException {
         out.close();
+    }
+
+    /**
+     * @return the test bench creator
+     */
+    public VHDLTestBenchCreator getTestBenches() {
+        return testBenches;
     }
 
     /**

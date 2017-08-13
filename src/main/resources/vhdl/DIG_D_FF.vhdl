@@ -10,7 +10,7 @@ end DIG_D_FF;
 
 architecture DIG_D_FF_arch of DIG_D_FF is
 
-   signal state : {{data}};
+   signal state : {{data}} := {{zero}};
 
 begin
    PORT_Q    <= state;

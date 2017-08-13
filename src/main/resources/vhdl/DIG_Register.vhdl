@@ -10,7 +10,7 @@ entity DIG_Register is
 end DIG_Register;
 
 architecture DIG_Register_arch of DIG_Register is
-  signal state : {{data}};
+  signal state : {{data}} := {{zero}};
 begin
    PORT_Q    <= state;
 

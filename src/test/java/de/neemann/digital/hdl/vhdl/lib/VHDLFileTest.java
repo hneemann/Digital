@@ -81,7 +81,7 @@ public class VHDLFileTest extends TestCase {
                 "\n" +
                 "architecture DIG_D_FF_arch of DIG_D_FF is\n" +
                 "\n" +
-                "   signal state : std_logic;\n" +
+                "   signal state : std_logic := '0';\n" +
                 "\n" +
                 "begin\n" +
                 "   PORT_Q    <= state;\n" +
@@ -110,7 +110,7 @@ public class VHDLFileTest extends TestCase {
                 "\n" +
                 "architecture DIG_D_FF_BUS_arch of DIG_D_FF_BUS is\n" +
                 "\n" +
-                "   signal state : std_logic_vector((bitCount-1) downto 0);\n" +
+                "   signal state : std_logic_vector((bitCount-1) downto 0) := (others => '0');\n" +
                 "\n" +
                 "begin\n" +
                 "   PORT_Q    <= state;\n" +

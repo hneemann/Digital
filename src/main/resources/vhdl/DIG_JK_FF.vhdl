@@ -2,6 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
 entity DIG_JK_FF is
+  generic (Default : std_logic);
   port (
     PORT_Q: out std_logic;
     PORT_notQ: out std_logic;
@@ -11,7 +12,7 @@ entity DIG_JK_FF is
 end DIG_JK_FF;
 
 architecture DIG_JK_FF_arch of DIG_JK_FF is
-  signal temp: std_logic;
+  signal temp: std_logic := Default;
 begin
   process (PORT_C)
   begin
