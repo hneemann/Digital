@@ -90,6 +90,9 @@ public class VHDLExporter implements Closeable {
             if (board != null)
                 board.writeFiles(f, model);
 
+            if (out.getFile() != null)
+                new VHDLTestBenchCreator(circuit, model).write(out.getFile());
+
         } catch (HDLException | PinException | NodeException e) {
             e.setOrigin(circuit.getOrigin());
             throw new IOException(Lang.get("err_exporting_vhdl"), e);
@@ -222,7 +225,15 @@ public class VHDLExporter implements Closeable {
         out.dec().println("end component;").dec();
     }
 
-    private void writePort(CodePrinter out, Ports ports) throws HDLException, IOException {
+    /**
+     * Writes the given ports to the output
+     *
+     * @param out   the output stream
+     * @param ports the ports
+     * @throws HDLException HDLException
+     * @throws IOException  IOException
+     */
+    public static void writePort(CodePrinter out, Ports ports) throws HDLException, IOException {
         out.println("port (");
         Separator semic = new Separator(";\n");
         for (Port p : ports) {

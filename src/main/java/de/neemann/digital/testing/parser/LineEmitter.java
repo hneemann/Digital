@@ -7,7 +7,7 @@ package de.neemann.digital.testing.parser;
 public interface LineEmitter {
 
     /**
-     * Is called to imit the described line to the listener
+     * Is called to eimit the described line to the listener
      *
      * @param listener the listener to emit the lines
      * @param context  the context

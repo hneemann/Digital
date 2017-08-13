@@ -14,4 +14,14 @@ public class HDLException extends ExceptionWithOrigin {
     public HDLException(String message) {
         super(message);
     }
+
+    /**
+     * Creates a new instance
+     *
+     * @param message message
+     * @param cause   cause
+     */
+    public HDLException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
