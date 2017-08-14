@@ -37,8 +37,8 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(7, tested);
-            assertEquals(7, testBenches);
+            assertEquals(9, tested);
+            assertEquals(9, testBenches);
         }
     }
 
@@ -53,7 +53,7 @@ public class TestInSimulator extends TestCase {
     }
 
 //    public void testInSimulatorDebug() throws Exception {
-//        check(new File(Resources.getRoot(), "/dig/hdl/integration/naming-main.dig"));
+//        check(new File(Resources.getRoot(), "/dig/test/vhdl/driver2.dig"));
 //    }
 
     private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {

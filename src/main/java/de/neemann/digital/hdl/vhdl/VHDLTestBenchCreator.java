@@ -149,14 +149,29 @@ public class VHDLTestBenchCreator {
             out.print(p.getName()).print(" <= patterns(i).").print(p.getName()).println(";");
         out.println("wait for 10 ns;");
         for (Port p : model.getPorts().getOutputs()) {
-            out.print("assert std_match(").print(p.getName()).print(", patterns(i).").print(p.getName()).println(")").inc();
-            out.print("report \"wrong value for ").print(p.getName()).println(" i=\" & integer'image(i) severity error;").dec();
+            out.print("assert std_match(").print(p.getName()).print(", patterns(i).").print(p.getName()).print(")");
+            out.print(" OR (").print(p.getName()).print(" = ");
+            writeCharValue(out, 'Z', p.getBits());
+            out.print(" AND patterns(i).").print(p.getName()).print(" = ");
+            writeCharValue(out, 'Z', p.getBits());
+            out.print(")");
+            out.println().inc().print("report \"wrong value for ").print(p.getName()).println(" i=\" & integer'image(i) severity error;").dec();
         }
 
         out.dec().println("end loop;");
         out.println("wait;");
         out.dec().println("end process;");
         out.dec().println("end behav;");
+    }
+
+    private static void writeCharValue(CodePrinter out, char c, int bits) throws IOException {
+        if (bits > 1) {
+            out.print("\"");
+            for (int i = 0; i < bits; i++)
+                out.print(c);
+            out.print("\"");
+        } else
+            out.print("'").print(c).print("'");
     }
 
     private static final class LineListenerVHDL implements LineListener {
@@ -206,12 +221,15 @@ public class VHDLTestBenchCreator {
                     case NORMAL:
                         int bits = dataOrder.get(i).getBits();
                         if (isClock && dataOrder.get(i).getDirection() == Port.Direction.out)
-                            writeDontCare(bits);
+                            writeCharValue(out, '-', bits);
                         else
                             writeValue(val.getValue(), bits);
                         break;
                     case DONTCARE:
-                        out.print("'-'");
+                        writeCharValue(out, '-', dataOrder.get(i).getBits());
+                        break;
+                    case HIGHZ:
+                        writeCharValue(out, 'Z', dataOrder.get(i).getBits());
                         break;
                     case CLOCK:
                         out.print("'").print(clock).print("'");
@@ -221,16 +239,6 @@ public class VHDLTestBenchCreator {
                 }
             }
             out.print(")");
-        }
-
-        private void writeDontCare(int bits) throws IOException {
-            if (bits > 1) {
-                out.print("\"");
-                for (int i = 0; i < bits; i++)
-                    out.print("-");
-                out.print("\"");
-            } else
-                out.print("'-'");
         }
 
         private void writeValue(long val, int bits) throws IOException {

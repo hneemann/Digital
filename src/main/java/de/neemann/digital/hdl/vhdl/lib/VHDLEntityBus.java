@@ -22,7 +22,11 @@ public abstract class VHDLEntityBus extends VHDLEntitySimple {
             Separator semic = new Separator(";\n");
             for (Port p : node.getPorts()) {
                 semic.check(out);
-                out.print(p.getName()).print(": ").print(getDirection(p)).print(" std_logic_vector ((bitCount-1) downto 0)");
+                out.print(p.getName()).print(": ").print(getDirection(p));
+                if (p.getBits()>1)
+                    out.print(" std_logic_vector ((bitCount-1) downto 0)");
+                else
+                    out.print(" std_logic");
             }
             out.println(" );").dec();
         } else

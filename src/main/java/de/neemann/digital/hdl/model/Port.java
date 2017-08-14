@@ -61,6 +61,7 @@ public class Port {
     public static String getHDLName(String name) throws HDLException {
         name = name
                 .replace('.', '_')
+                .replace(',', '_')
                 .replace('-', '_')
                 .replace("\u00AC", "not")
                 .replace("~", "not")

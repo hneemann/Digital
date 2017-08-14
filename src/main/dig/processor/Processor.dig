@@ -259,7 +259,7 @@ Single-Cycle CPU.</string>
       <pos x="1360" y="140"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Flags.dig</elementName>
+      <elementName>Flags.dig</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
@@ -717,7 +717,7 @@ Single-Cycle CPU.</string>
       <pos x="1340" y="200"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Graphics.dig</elementName>
+      <elementName>Graphics.dig</elementName>
       <elementAttributes/>
       <pos x="1360" y="320"/>
     </visualElement>
