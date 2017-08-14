@@ -26,8 +26,9 @@ public interface VHDLEntity {
      *
      * @param node the node
      * @return the name
+     * @throws HDLException HDLException
      */
-    String getName(HDLNode node);
+    String getName(HDLNode node) throws HDLException;
 
     /**
      * Returns true if this node needs to create a entity
@@ -69,7 +70,7 @@ public interface VHDLEntity {
     void writeGenericMap(CodePrinter out, HDLNode node) throws IOException, HDLException;
 
     /**
-     * @return true is this entity creates signals in the architecture
+     * @return true if this entity creates signals in the architecture
      */
     default boolean createsSignals() {
         return false;

@@ -223,7 +223,7 @@ public class VHDLTestBenchCreator {
                         if (isClock && dataOrder.get(i).getDirection() == Port.Direction.out)
                             writeCharValue(out, '-', bits);
                         else
-                            writeValue(val.getValue(), bits);
+                            VHDLExporter.writeValue(out, val.getValue(), bits);
                         break;
                     case DONTCARE:
                         writeCharValue(out, '-', dataOrder.get(i).getBits());
@@ -239,16 +239,6 @@ public class VHDLTestBenchCreator {
                 }
             }
             out.print(")");
-        }
-
-        private void writeValue(long val, int bits) throws IOException {
-            if (bits > 1) {
-                String str = Long.toBinaryString(val);
-                while (str.length() < bits)
-                    str = '0' + str;
-                out.print("\"").print(str).print("\"");
-            } else
-                out.print("'").print(val).print("'");
         }
     }
 }

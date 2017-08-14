@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
@@ -44,6 +45,8 @@ public class VHDLLibrary {
         map.put(Demultiplexer.DESCRIPTION.getName(), new DemultiplexerVHDL());
         map.put(Driver.DESCRIPTION.getName(), new DriverVHDL(false));
         map.put(DriverInvSel.DESCRIPTION.getName(), new DriverVHDL(true));
+
+        map.put(ROM.DESCRIPTION.getName(), new ROMVHDL());
     }
 
     private VHDLEntity getEntity(HDLNode node) throws HDLException {
@@ -54,11 +57,9 @@ public class VHDLLibrary {
                 e = new VHDLFile(elementName);
                 map.put(elementName, e);
             } catch (IOException e1) {
-                e1.printStackTrace();
                 try {
                     LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName) + "'");
                     LOGGER.info("VHDL template:\n\n" + VHDLFile.getVHDLTemplate(node));
-                    LOGGER.info("You should replace the types for the data with '{{data}}'");
                 } catch (IOException e2) {
                     e2.printStackTrace();
                 }

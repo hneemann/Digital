@@ -251,6 +251,27 @@ public class VHDLExporter implements Closeable {
         out.println(" );");
     }
 
+    /**
+     * Writes a value to the given stream
+     *
+     * @param out  the output code printer
+     * @param val  the value
+     * @param bits the number of bits
+     * @throws IOException IOException
+     */
+    public static void writeValue(CodePrinter out, long val, int bits) throws IOException {
+        if (bits > 1) {
+            val = val & ((1 << bits) - 1);
+            out.print("\"");
+            String str = Long.toBinaryString(val);
+            for (int i = bits - str.length(); i > 0; i--)
+                out.print('0');
+            out.print(str).print("\"");
+        } else
+            out.print("'").print(val).print("'");
+    }
+
+
     @Override
     public String toString() {
         return out.toString();

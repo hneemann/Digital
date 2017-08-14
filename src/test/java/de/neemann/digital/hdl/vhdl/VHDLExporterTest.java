@@ -3,12 +3,27 @@ package de.neemann.digital.hdl.vhdl;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
 import java.io.IOException;
 
 public class VHDLExporterTest extends TestCase {
+
+    public void testWriteValue() throws IOException {
+        CodePrinterStr out = new CodePrinterStr();
+        VHDLExporter.writeValue(out,0,1);
+        assertEquals("'0'", out.toString());
+
+        out = new CodePrinterStr();
+        VHDLExporter.writeValue(out,5,4);
+        assertEquals("\"0101\"", out.toString());
+
+        out = new CodePrinterStr();
+        VHDLExporter.writeValue(out,16,4);
+        assertEquals("\"0000\"", out.toString());
+    }
 
     public void testNegSimple() throws IOException, ElementNotFoundException, PinException, NodeException {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/negSimple.dig");
