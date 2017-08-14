@@ -4,6 +4,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.HDLException;
+import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
@@ -38,6 +39,16 @@ public class TestInSimulator extends TestCase {
         }
     }
 
+    public void testDistributedInSimulator() throws Exception {
+        File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
+        int tested = new FileScanner(this::check).scan(examples);
+        // if tested is negative, ghdl was not found and tests are skipped!
+        if (tested >= 0) {
+            assertEquals(1, tested);
+            assertEquals(1, testBenches);
+        }
+    }
+
 //    public void testInSimulatorDebug() throws Exception {
 //        check(new File(Resources.getRoot(), "/dig/hdl/integration/naming-main.dig"));
 //    }
@@ -47,7 +58,12 @@ public class TestInSimulator extends TestCase {
         File dir = Files.createTempDirectory("digital_vhdl_test_").toFile();
         File vhdlFile = new File(dir, file.getName().replace('.', '_') + ".vhdl");
         CodePrinter out = new CodePrinter(vhdlFile);
-        try (VHDLExporter vhdl = new VHDLExporter(br.getLibrary(), out)) {
+        try (VHDLExporter vhdl = new VHDLExporter(br.getLibrary(), out){
+            @Override
+            protected void fixClocks(HDLModel model) throws HDLException {
+                // disable clock divider!
+            }
+        }) {
             vhdl.export(br.getCircuit());
             VHDLTestBenchCreator tb = vhdl.getTestBenches();
             out.close();
@@ -70,7 +86,7 @@ public class TestInSimulator extends TestCase {
             checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--ieee=synopsys", module));
             String result = startProcess(vhdlFile.getParentFile(), GHDL, "-r", "--ieee=synopsys", module, "--vcd=" + module + ".vcd");
             if (result.contains("(assertion error)"))
-                throw new HDLException("test bench " + name + " faild:\n" + result);
+                throw new HDLException("test bench " + name + " failed:\n" + result);
             checkWarn(testbench, result);
             testBenches++;
         }
