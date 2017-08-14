@@ -9,6 +9,8 @@ import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -21,13 +23,15 @@ import java.util.ArrayList;
  * Test vhdl files in ghdl simulator
  */
 public class TestInSimulator extends TestCase {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestInSimulator.class);
+    private static final String GHDL = System.getProperty("ghdl", "ghdl");
 
     private int testBenches;
 
     public void testInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
         int tested = new FileScanner(this::check).scan(examples);
-        // if tested is negative ghdl was not found and tests are skipped!
+        // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
             assertEquals(28, tested);
             assertEquals(5, testBenches);
@@ -49,20 +53,22 @@ public class TestInSimulator extends TestCase {
             out.close();
             runGHDL(vhdlFile, tb.getTestFileWritten());
         }
-        for (File f : dir.listFiles())
-            f.delete();
-        dir.delete();
+        File[] filesInDir = dir.listFiles();
+        if (filesInDir != null)
+            for (File f : filesInDir)
+                if (!f.delete()) LOGGER.warn("file " + f + " could not be deleted!");
+        if (!dir.delete()) LOGGER.warn("dir " + dir + " could not be deleted!");
     }
 
     private void runGHDL(File vhdlFile, ArrayList<File> testFileWritten) throws IOException, FileScanner.SkipAllException, HDLException {
-        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), "ghdl", "-a", "--ieee=synopsys", vhdlFile.getName()));
-        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), "ghdl", "-e", "--ieee=synopsys", "main"));
+        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--ieee=synopsys", vhdlFile.getName()));
+        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--ieee=synopsys", "main"));
         for (File testbench : testFileWritten) {
             String name = testbench.getName();
-            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), "ghdl", "-a", "--ieee=synopsys", name));
+            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--ieee=synopsys", name));
             String module = name.substring(0, name.length() - 5);
-            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), "ghdl", "-e", "--ieee=synopsys", module));
-            String result = startProcess(vhdlFile.getParentFile(), "ghdl", "-r", "--ieee=synopsys", module, "--vcd=" + module + ".vcd");
+            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--ieee=synopsys", module));
+            String result = startProcess(vhdlFile.getParentFile(), GHDL, "-r", "--ieee=synopsys", module, "--vcd=" + module + ".vcd");
             if (result.contains("(assertion error)"))
                 throw new HDLException("test bench " + name + " faild:\n" + result);
             checkWarn(testbench, result);
@@ -84,7 +90,7 @@ public class TestInSimulator extends TestCase {
         try {
             p = pb.start();
         } catch (IOException e) {
-            throw new FileScanner.SkipAllException("ghdl (https://github.com/tgingold/ghdl) is not installed!");
+            throw new FileScanner.SkipAllException("ghdl (https://github.com/tgingold/ghdl) is not installed! Add ghdl binary to the system path or set system property 'ghdl' to ghdl binary");
         }
         ReaderThread rt = new ReaderThread(p.getInputStream());
         rt.start();
@@ -124,7 +130,7 @@ public class TestInSimulator extends TestCase {
                     in.close();
                 }
             } catch (IOException e) {
-
+                // do nothing, simply end the thread
             }
         }
 
