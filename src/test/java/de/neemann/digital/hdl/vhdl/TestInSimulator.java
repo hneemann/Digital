@@ -30,11 +30,11 @@ public class TestInSimulator extends TestCase {
     private int testBenches;
 
     public void testInSimulator() throws Exception {
-        File examples = new File(Resources.getRoot(), "/dig/hdl");
+        File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(28, tested);
+            assertEquals(5, tested);
             assertEquals(5, testBenches);
         }
     }
