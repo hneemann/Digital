@@ -37,8 +37,8 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(9, tested);
-            assertEquals(9, testBenches);
+            assertEquals(11, tested);
+            assertEquals(11, testBenches);
         }
     }
 
