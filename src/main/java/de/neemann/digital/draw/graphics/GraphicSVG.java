@@ -12,7 +12,7 @@ import static java.lang.System.out;
  *
  * @author hneemann
  */
-public class GraphicSVG implements Graphic, Closeable {
+public class GraphicSVG implements Graphic {
     private static final int DEF_SCALE = 15;
     private final OutputStream out;
     private final File source;

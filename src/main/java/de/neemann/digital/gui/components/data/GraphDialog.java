@@ -227,15 +227,11 @@ public class GraphDialog extends JDialog implements Observer {
             new SaveAsHelper(GraphDialog.this, fileChooser, "svg")
                     .checkOverwrite(file -> {
                         settings.setFile("exportDirectory", file.getParentFile());
-                        Graphic gr = factory.create(new FileOutputStream(file));
-                        try {
+                        try (Graphic gr = factory.create(new FileOutputStream(file))) {
                             GraphicMinMax minMax = new GraphicMinMax();
                             dsc.getPlotter().drawTo(minMax, null);
                             gr.setBoundingBox(minMax.getMin(), minMax.getMax());
                             dsc.getPlotter().drawTo(gr, null);
-                        } finally {
-                            if (gr instanceof Closeable)
-                                ((Closeable) gr).close();
                         }
                     });
         }

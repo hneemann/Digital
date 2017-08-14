@@ -1,5 +1,8 @@
 package de.neemann.digital.draw.graphics;
 
+import java.io.Closeable;
+import java.io.IOException;
+
 /**
  * Interface used to draw the circuit.
  * There are implementations to draw on a {@link java.awt.Graphics2D} instance ({@link GraphicSwing}) but also
@@ -7,7 +10,7 @@ package de.neemann.digital.draw.graphics;
  *
  * @author hneemann
  */
-public interface Graphic {
+public interface Graphic extends Closeable {
 
     /**
      * Sets the bounding box of the future usage of this instance
@@ -81,4 +84,12 @@ public interface Graphic {
         return false;
     }
 
+
+    /**
+     * closes the graphics instance
+     *
+     * @throws IOException IOException
+     */
+    default void close() throws IOException {
+    }
 }
