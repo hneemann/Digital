@@ -67,7 +67,7 @@ public class VHDLTestBenchCreator {
             else
                 testName = filename + "_tb";
 
-            testName=Port.getHDLName(testName);
+            testName = Port.getHDLName(testName);
 
             File f = new File(file.getParentFile(), testName + ".vhdl");
             testFileWritten.add(f);
@@ -163,11 +163,17 @@ public class VHDLTestBenchCreator {
         private final CodePrinter out;
         private final ArrayList<Port> dataOrder;
         private final Separator lineSep;
+        private int line = 0;
 
         private LineListenerVHDL(CodePrinter out, ArrayList<Port> dataOrder) {
             this.out = out;
             this.dataOrder = dataOrder;
-            lineSep = new Separator(",\n");
+            lineSep = new Separator("") {
+                @Override
+                public String getSeperator() {
+                    return ", -- i=" + (line++) + "\n";
+                }
+            };
         }
 
         @Override

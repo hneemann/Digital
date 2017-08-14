@@ -17,9 +17,7 @@ begin
   process (PORT_C)
   begin
     if rising_edge(PORT_C) then
-      if (PORT_J='0' and PORT_K='0') then
-         temp <= temp;
-      elsif (PORT_J='0' and PORT_K='1') then
+      if (PORT_J='0' and PORT_K='1') then
          temp <= '0';
       elsif (PORT_J='1' and PORT_K='0') then
          temp <= '1';

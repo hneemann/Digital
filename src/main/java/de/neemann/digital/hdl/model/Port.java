@@ -63,6 +63,7 @@ public class Port {
                 .replace('.', '_')
                 .replace('-', '_')
                 .replace("\u00AC", "not")
+                .replace("~", "not")
                 .replace("=", "eq")
                 .replace("<", "le")
                 .replace(">", "gr");

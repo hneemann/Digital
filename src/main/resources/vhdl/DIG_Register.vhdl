@@ -12,9 +12,9 @@ end DIG_Register;
 architecture DIG_Register_arch of DIG_Register is
   signal state : {{data}} := {{zero}};
 begin
-   PORT_Q    <= state;
+   PORT_Q <= state;
 
-   process(PORT_C)
+   process ( PORT_C )
    begin
       if rising_edge(PORT_C) and (PORT_en='1') then
         state <= PORT_D;

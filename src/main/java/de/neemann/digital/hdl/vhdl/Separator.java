@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Used to create separators
  */
-public final class Separator {
+public class Separator {
     private final String sep;
     private boolean first = true;
 
@@ -30,6 +30,13 @@ public final class Separator {
         if (first)
             first = false;
         else
-            out.print(sep);
+            out.print(getSeperator());
+    }
+
+    /**
+     * @return the separator
+     */
+    public String getSeperator() {
+        return sep;
     }
 }

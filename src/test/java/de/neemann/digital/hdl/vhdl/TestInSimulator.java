@@ -18,7 +18,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Test vhdl files in ghdl simulator
@@ -34,8 +37,8 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(5, tested);
-            assertEquals(5, testBenches);
+            assertEquals(7, tested);
+            assertEquals(7, testBenches);
         }
     }
 
@@ -55,7 +58,7 @@ public class TestInSimulator extends TestCase {
 
     private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);
-        File dir = Files.createTempDirectory("digital_vhdl_test_").toFile();
+        File dir = Files.createTempDirectory("digital_vhdl_"+getTime()+"_").toFile();
         File vhdlFile = new File(dir, file.getName().replace('.', '_') + ".vhdl");
         CodePrinter out = new CodePrinter(vhdlFile);
         try (VHDLExporter vhdl = new VHDLExporter(br.getLibrary(), out){
@@ -123,6 +126,11 @@ public class TestInSimulator extends TestCase {
         } catch (InterruptedException e) {
             throw new IOException(e);
         }
+    }
+
+    private String getTime() {
+        DateFormat f = new SimpleDateFormat("YY-MM-dd_HH-mm_ss");
+        return f.format(new Date());
     }
 
     private static final class ReaderThread extends Thread {
