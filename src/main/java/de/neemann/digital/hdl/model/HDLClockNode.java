@@ -7,7 +7,6 @@ import de.neemann.digital.core.element.Key;
  * Represents a special node inserted in the vhdl model the reduce the clock speed.
  */
 public class HDLClockNode extends HDLNode {
-    private static final Key<Integer> BITS_KEY = new Key<>("bits", 0);
     private static final Key<Integer> COUNTER_KEY = new Key<>("maxCounter", 0);
     private final int maxCounter;
 
