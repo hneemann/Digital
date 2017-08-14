@@ -216,7 +216,7 @@ public class VHDLExporter implements Closeable {
 
     private String getVhdlEntityName(HDLNode node) throws HDLException {
         if (node.isCustom())
-            return node.getVisualElement().getElementName().replace('.', '_');
+            return node.getHDLName();
         else
             return vhdlLibrary.getName(node);
     }

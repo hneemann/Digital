@@ -16,8 +16,9 @@ public class HDLClockNode extends HDLNode {
      *
      * @param maxCounter the max counter value
      * @param ports      the ports of the node
+     * @throws HDLException if name is not valid
      */
-    public HDLClockNode(int maxCounter, Ports ports) {
+    public HDLClockNode(int maxCounter, Ports ports) throws HDLException {
         super(ports, "simpleClockDivider",
                 new ElementAttributes()
                         .set(COUNTER_KEY, maxCounter));

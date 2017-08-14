@@ -21,6 +21,7 @@ public class HDLNode implements HDLInterface {
     private final VisualElement visualElement;
     private final ElementAttributes attr;
     private final String name;
+    private final String hdlName;
     private Ports ports;
 
     /**
@@ -29,13 +30,15 @@ public class HDLNode implements HDLInterface {
      * @param ports the ports of the node
      * @param name  the name of this node
      * @param attr  the attributes of the node
+     * @throws HDLException if name is not valid
      */
-    public HDLNode(Ports ports, String name, ElementAttributes attr) {
+    public HDLNode(Ports ports, String name, ElementAttributes attr) throws HDLException {
         this.attr = attr;
         this.isCustom = false;
         this.visualElement = null;
         this.ports = ports;
         this.name = name;
+        this.hdlName = Port.getHDLName(name);
     }
 
     /**
@@ -53,6 +56,7 @@ public class HDLNode implements HDLInterface {
         this.visualElement = visualElement;
         this.attr = visualElement.getElementAttributes();
         this.name = visualElement.getElementName();
+        hdlName=Port.getHDLName(this.name);
         ElementTypeDescription description = library.getElementType(visualElement.getElementName());
         ElementAttributes attr = visualElement.getElementAttributes();
         PinDescriptions inputs = description.getInputDescription(attr);
@@ -125,7 +129,14 @@ public class HDLNode implements HDLInterface {
     /**
      * @return the name of this node
      */
-    public String getName() {
+    public String getHDLName() {
+        return hdlName;
+    }
+
+    /**
+     * @return the original name of the node
+     */
+    public String getOrigName() {
         return name;
     }
 

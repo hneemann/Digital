@@ -210,9 +210,10 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
      *
      * @param name the name of the model
      * @return this for chained calls
+     * @throws HDLException if name is not valid
      */
-    public HDLModel setName(String name) {
-        this.name = name.replace('.', '_').replace('/', '_').replace('\\', '_');
+    public HDLModel setName(String name) throws HDLException {
+        this.name = Port.getHDLName(name.replace('.', '_').replace('/', '_').replace('\\', '_'));
         return this;
     }
 

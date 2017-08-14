@@ -45,7 +45,22 @@ public class Port {
     public Port(String name, Direction direction) throws HDLException {
         this.origName = name;
 
+        name = getHDLName(name);
+
+        this.name = PREFIX + name;
+        this.direction = direction;
+    }
+
+    /**
+     * Returns a valid VHDL name, or throws an exception is name is not valid.
+     *
+     * @param name the original name
+     * @return the hdl name
+     * @throws HDLException if name is not valid
+     */
+    public static String getHDLName(String name) throws HDLException {
         name = name
+                .replace('.', '_')
                 .replace('-', '_')
                 .replace("\u00AC", "not")
                 .replace("=", "eq")
@@ -55,8 +70,7 @@ public class Port {
         if (!isNameValid(name))
             throw new HDLException(Lang.get("err_notAValidName", name));
 
-        this.name = PREFIX + name;
-        this.direction = direction;
+        return name;
     }
 
     /**

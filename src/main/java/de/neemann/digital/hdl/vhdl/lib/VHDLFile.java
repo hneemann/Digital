@@ -222,7 +222,7 @@ public class VHDLFile implements VHDLEntity {
         CodePrinterStr out = new CodePrinterStr();
         d.writeHeader(out, node);
         out.println();
-        String name = ENTITY_PREFIX + node.getName();
+        String name = ENTITY_PREFIX + node.getHDLName();
         out.println("entity " + name + " is").inc();
         d.writeDeclaration(out, node);
         out.dec().println("end " + name + ";");

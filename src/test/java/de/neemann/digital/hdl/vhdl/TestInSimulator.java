@@ -29,10 +29,14 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(25, tested);
-            assertEquals(2, testBenches);
+            assertEquals(28, tested);
+            assertEquals(5, testBenches);
         }
     }
+
+//    public void testInSimulatorDebug() throws Exception {
+//        check(new File(Resources.getRoot(), "/dig/hdl/integration/naming-main.dig"));
+//    }
 
     private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);

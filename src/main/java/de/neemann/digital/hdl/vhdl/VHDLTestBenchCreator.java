@@ -67,6 +67,8 @@ public class VHDLTestBenchCreator {
             else
                 testName = filename + "_tb";
 
+            testName=Port.getHDLName(testName);
+
             File f = new File(file.getParentFile(), testName + ".vhdl");
             testFileWritten.add(f);
             try (CodePrinter out = new CodePrinter(f)) {
