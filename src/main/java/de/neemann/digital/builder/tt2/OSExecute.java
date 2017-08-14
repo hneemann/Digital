@@ -50,7 +50,7 @@ public class OSExecute {
     /**
      * Starts the execution and waits for its completion.
      *
-     * @return the console output of the of the started process
+     * @return the console output of the started process
      * @throws IOException IOException
      */
     public String start() throws IOException {

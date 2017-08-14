@@ -83,7 +83,7 @@ public class VHDLFile implements VHDLEntity {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(createFileName(name));
         if (inputStream == null)
             throw new IOException("file not present: " + createFileName(name));
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "utf-8"))) {
             String line;
             while ((line = in.readLine()) != null)
                 vhdl.add(line);
@@ -147,10 +147,10 @@ public class VHDLFile implements VHDLEntity {
         String zero;
         if (hasData && node.get(Keys.BITS) > 1) {
             type = "std_logic_vector((bitCount-1) downto 0)";
-            zero="(others => '0')";
+            zero = "(others => '0')";
         } else {
             type = "std_logic";
-            zero="'0'";
+            zero = "'0'";
         }
         return s.replace("{{data}}", type)
                 .replace("{{zero}}", zero);

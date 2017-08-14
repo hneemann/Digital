@@ -135,6 +135,21 @@ public class Signal implements Comparable<Signal> {
         return name.compareTo(signal.name);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Signal signal = (Signal) o;
+
+        return name.equals(signal.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
     /**
      * Set the number of bits
      *

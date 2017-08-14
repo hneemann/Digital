@@ -81,7 +81,6 @@ public class Port {
      * @return the cleand up name
      */
     public static boolean isNameValid(String name) {
-        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < name.length(); i++) {
             char c = name.charAt(i);
             if (!((c >= '0' && c <= '9')
