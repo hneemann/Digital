@@ -482,8 +482,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         if (enableExperimental())
             export.add(new ExportGifAction(Lang.get("menu_exportAnimatedGIF")));
 
-        if (enableExperimental())
-            export.add(createVHDLExportAction().createJMenuItem());
+        export.add(createVHDLExportAction().createJMenuItem());
 
         JMenu file = new JMenu(Lang.get("menu_file"));
         menuBar.add(file);
