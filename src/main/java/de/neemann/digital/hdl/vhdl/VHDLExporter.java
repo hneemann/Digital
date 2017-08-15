@@ -110,90 +110,95 @@ public class VHDLExporter implements Closeable {
     }
 
     private void export(HDLModel model) throws PinException, HDLException, ElementNotFoundException, NodeException, IOException {
-        SplitterHandler splitterHandler = new SplitterHandler(model, out);
+        try {
+            SplitterHandler splitterHandler = new SplitterHandler(model, out);
 
-        out.println("LIBRARY ieee;");
-        out.println("USE ieee.std_logic_1164.all;");
-        out.println("USE ieee.numeric_std.all;\n");
-        out.print("entity ").print(model.getName()).println(" is").inc();
-        writePort(out, model.getPorts());
-        out.dec().println("end " + model.getName() + ";");
+            out.println("LIBRARY ieee;");
+            out.println("USE ieee.std_logic_1164.all;");
+            out.println("USE ieee.numeric_std.all;\n");
+            out.print("entity ").print(model.getName()).println(" is").inc();
+            writePort(out, model.getPorts());
+            out.dec().println("end " + model.getName() + ";");
 
-        out.println("\narchitecture " + model.getName() + "_arch of " + model.getName() + " is");
+            out.println("\narchitecture " + model.getName() + "_arch of " + model.getName() + " is");
 
-        // ensure outputs are only written!
-        ArrayList<PortToSignal> portsToSignal = createPortsToSignalList(model);
+            // ensure outputs are only written!
+            ArrayList<PortToSignal> portsToSignal = createPortsToSignalList(model);
 
-        HashSet<String> componentsWritten = new HashSet<>();
-        for (HDLNode node : model)
-            if (node.is(Splitter.DESCRIPTION))
-                splitterHandler.register(node);
-            else if (!isConstant(node)) {
-                String nodeName = getVhdlEntityName(node);
-                if (!componentsWritten.contains(nodeName)) {
-                    writeComponent(node);
-                    componentsWritten.add(nodeName);
-                }
-            }
-
-        out.println().inc();
-        for (Signal sig : model.getSignals()) {
-            if (!sig.isPort()) {
-                out.print("signal ");
-                out.print(sig.getName());
-                out.print(": ");
-                out.print(VHDLEntitySimple.getType(sig.getBits()));
-                out.println(";");
-            }
-        }
-
-        out.dec().println("begin").inc();
-
-        for (Signal s : model.getSignals()) {
-            if (s.isConstant()) {
-                s.setIsWritten();
-                out.print(s.getName());
-                out.print(" <= ");
-                out.print(s.getConstant().vhdlValue());
-                out.println(";");
-            }
-        }
-
-        splitterHandler.write();
-
-        int g = 0;
-        for (HDLNode node : model)
-            if (!node.is(Splitter.DESCRIPTION) && !isConstant(node)) {
-                out.print("gate").print(g++).print(" : ").println(getVhdlEntityName(node)).inc();
-                vhdlLibrary.writeGenericMap(out, node);
-                writePortMap(node);
-                out.dec();
-            }
-
-        // direct connection from input to output
-        for (Port o : model.getPorts().getOutputs()) {
-            if (!o.getSignal().isWritten()) {
-                ArrayList<Port> ports = o.getSignal().getPorts();
-                Port inPort = null;
-                for (Port p : ports) {
-                    if (p.getDirection() == Port.Direction.in) {
-                        if (inPort != null)
-                            throw new HDLException("wrong interconnect");
-                        inPort = p;
+            HashSet<String> componentsWritten = new HashSet<>();
+            for (HDLNode node : model)
+                if (node.is(Splitter.DESCRIPTION))
+                    splitterHandler.register(node);
+                else if (!isConstant(node)) {
+                    String nodeName = getVhdlEntityName(node);
+                    if (!componentsWritten.contains(nodeName)) {
+                        writeComponent(node);
+                        componentsWritten.add(nodeName);
                     }
                 }
-                if (inPort == null)
-                    throw new HDLException("wrong interconnect");
 
-                out.print(o.getName()).print(" <= ").print(inPort.getName()).println(";");
+            out.println().inc();
+            for (Signal sig : model.getSignals()) {
+                if (!sig.isPort()) {
+                    out.print("signal ");
+                    out.print(sig.getName());
+                    out.print(": ");
+                    out.print(VHDLEntitySimple.getType(sig.getBits()));
+                    out.println(";");
+                }
             }
+
+            out.dec().println("begin").inc();
+
+            for (Signal s : model.getSignals()) {
+                if (s.isConstant()) {
+                    s.setIsWritten();
+                    out.print(s.getName());
+                    out.print(" <= ");
+                    out.print(s.getConstant().vhdlValue());
+                    out.println(";");
+                }
+            }
+
+            splitterHandler.write();
+
+            int g = 0;
+            for (HDLNode node : model)
+                if (!node.is(Splitter.DESCRIPTION) && !isConstant(node)) {
+                    out.print("gate").print(g++).print(" : ").println(getVhdlEntityName(node)).inc();
+                    vhdlLibrary.writeGenericMap(out, node);
+                    writePortMap(node);
+                    out.dec();
+                }
+
+            // direct connection from input to output
+            for (Port o : model.getPorts().getOutputs()) {
+                if (!o.getSignal().isWritten()) {
+                    ArrayList<Port> ports = o.getSignal().getPorts();
+                    Port inPort = null;
+                    for (Port p : ports) {
+                        if (p.getDirection() == Port.Direction.in) {
+                            if (inPort != null)
+                                throw new HDLException("wrong interconnect");
+                            inPort = p;
+                        }
+                    }
+                    if (inPort == null)
+                        throw new HDLException("wrong interconnect");
+
+                    out.print(o.getName()).print(" <= ").print(inPort.getName()).println(";");
+                }
+            }
+
+            // map signals to output ports
+            for (PortToSignal sig : portsToSignal)
+                out.print(sig.getOldSig().getName()).print(" <= ").print(sig.getNewSig().getName()).println(";");
+
+            out.dec().print("end ").print(model.getName()).println("_arch;");
+        } catch (HDLException | PinException | NodeException e)  {
+            e.setOrigin(model.getOrigin());
+            throw e;
         }
-
-        // map signals to output ports
-        for (PortToSignal sig : portsToSignal)
-            out.print(sig.getOldSig().getName()).print(" <= ").print(sig.getNewSig().getName()).println(";");
-
-        out.dec().print("end ").print(model.getName()).println("_arch;");
     }
 
     private boolean isConstant(HDLNode node) {

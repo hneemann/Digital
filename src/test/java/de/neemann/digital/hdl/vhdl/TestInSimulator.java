@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl;
 
+import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
@@ -63,21 +64,25 @@ public class TestInSimulator extends TestCase {
 
     /*
     public void testInSimulatorDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "/dig/test/vhdl/bus.dig");
+        File file = new File("/home/hneemann/Dokumente/DHBW/Technische_Informatik_I/Labor/VHDL/processor/ProcessorVHDL.dig");
+        try {
+            ToBreakRunner br = new ToBreakRunner(file);
+            CodePrinterStr out = new CodePrinterStr(true);
+            System.out.println(new VHDLExporter(br.getLibrary(), out).export(br.getCircuit()));
 
-        ToBreakRunner br = new ToBreakRunner(file);
-        CodePrinterStr out = new CodePrinterStr(true);
-        System.out.println(new VHDLExporter(br.getLibrary(), out).export(br.getCircuit()));
-
-        check(file);
+            check(file);
+        } catch (Exception e) {
+            System.out.println(ExceptionWithOrigin.getOriginOf(e));
+            throw e;
+        }
     }/* */
 
     private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);
-        File dir = Files.createTempDirectory("digital_vhdl_"+getTime()+"_").toFile();
+        File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
         File vhdlFile = new File(dir, file.getName().replace('.', '_') + ".vhdl");
         CodePrinter out = new CodePrinter(vhdlFile);
-        try (VHDLExporter vhdl = new VHDLExporter(br.getLibrary(), out){
+        try (VHDLExporter vhdl = new VHDLExporter(br.getLibrary(), out) {
             @Override
             protected void fixClocks(HDLModel model) throws HDLException {
                 // disable clock divider!
