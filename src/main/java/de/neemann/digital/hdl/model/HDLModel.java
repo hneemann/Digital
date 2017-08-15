@@ -5,6 +5,8 @@ import de.neemann.digital.core.basic.Not;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.io.PowerSupply;
+import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -16,7 +18,10 @@ import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.testing.TestCaseElement;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Hierarchical model of the circuit
@@ -136,6 +141,8 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
 
     private void addNode(VisualElement v, ElementLibrary library, ModelList modelList) throws ElementNotFoundException, PinException, NodeException, HDLException {
         if (!v.equalsDescription(Tunnel.DESCRIPTION)
+                && !v.equalsDescription(Break.DESCRIPTION)
+                && !v.equalsDescription(PowerSupply.DESCRIPTION)
                 && !v.equalsDescription(DummyElement.TEXTDESCRIPTION)
                 && !v.equalsDescription(DummyElement.DATADESCRIPTION)
                 && !v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))

@@ -19,7 +19,9 @@ import de.neemann.digital.hdl.vhdl.boards.BoardProvider;
 import de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple;
 import de.neemann.digital.lang.Lang;
 
-import java.io.*;
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
