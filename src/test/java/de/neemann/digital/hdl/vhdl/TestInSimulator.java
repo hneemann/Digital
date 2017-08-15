@@ -6,6 +6,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
@@ -37,7 +38,7 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(12, tested);
+            assertEquals(13, tested);
             assertEquals(tested, testBenches);
         }
     }
@@ -52,9 +53,16 @@ public class TestInSimulator extends TestCase {
         }
     }
 
-//    public void testInSimulatorDebug() throws Exception {
-//        check(new File(Resources.getRoot(), "/dig/test/vhdl/driver2.dig"));
-//    }
+    /*
+    public void testInSimulatorDebug() throws Exception {
+        File file = new File(Resources.getRoot(), "/dig/test/vhdl/rom2.dig");
+
+        ToBreakRunner br = new ToBreakRunner(file);
+        CodePrinterStr out = new CodePrinterStr(true);
+        System.out.println(new VHDLExporter(br.getLibrary(), out).export(br.getCircuit()));
+
+        check(file);
+    }/* */
 
     private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);

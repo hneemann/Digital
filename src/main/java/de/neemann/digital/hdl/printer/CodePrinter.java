@@ -77,6 +77,16 @@ public class CodePrinter implements Closeable {
     }
 
     /**
+     * prints a end of line
+     *
+     * @throws IOException IOException
+     */
+    public void eol() throws IOException {
+        print('\n');
+    }
+
+
+    /**
      * Prints the given string
      *
      * @param str the string to print
@@ -128,9 +138,20 @@ public class CodePrinter implements Closeable {
             newLine = false;
         }
         out.write(c);
-        if (c == '\n')
+        if (c == '\n') {
             newLine = true;
+            eolIsWritten();
+        }
         return this;
+    }
+
+    /**
+     * called after a eol is written.
+     * Does nothing in this implementation.
+     *
+     * @throws IOException IOException
+     */
+    protected void eolIsWritten() throws IOException {
     }
 
     /**

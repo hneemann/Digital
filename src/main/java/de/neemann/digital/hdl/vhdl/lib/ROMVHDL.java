@@ -1,7 +1,6 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -10,18 +9,26 @@ import de.neemann.digital.hdl.vhdl.Separator;
 import de.neemann.digital.hdl.vhdl.VHDLExporter;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 /**
  * Creates the code for a ROM
  */
 public class ROMVHDL extends VHDLEntitySimple {
+    private HashSet<String> nameSet = new HashSet<>();
+
     @Override
     public String getName(HDLNode node) throws HDLException {
+        String name;
         try {
-            return "DIG_ROM_" + Port.getHDLName(node.get(Keys.LABEL));
+            name = "DIG_ROM_" + Port.getHDLName(node.get(Keys.LABEL));
         } catch (HDLException e) {
             throw new HDLException("Rom has no valid label");
         }
+        if (nameSet.contains(name))
+            throw new HDLException("Rom name " + node.get(Keys.LABEL) + " is used twice!");
+        nameSet.add(name);
+        return name;
     }
 
     @Override
@@ -37,26 +44,43 @@ public class ROMVHDL extends VHDLEntitySimple {
 
     @Override
     public void writeArchitecture(CodePrinter out, HDLNode node) throws IOException, HDLException {
-        DataField data = node.get(Keys.DATA).getMinimized();
+        long[] data = node.get(Keys.DATA).getMinimized().getData();
 
-        Integer dataBits = node.get(Keys.BITS);
+        int dataBits = node.get(Keys.BITS);
+        int addrBits = node.get(Keys.ADDR_BITS);
+
         out.inc().print("type mem is array ( 0 to ")
-                .print(data.size()-1)
+                .print(data.length - 1)
                 .print(") of std_logic_vector(")
                 .print(dataBits - 1)
                 .println(" downto 0);");
 
         out.println("constant my_Rom : mem := (").inc();
         Separator sep = new Separator(",\n");
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 0; i < data.length; i++) {
             sep.check(out);
-            VHDLExporter.writeValue(out, data.getDataWord(i), dataBits);
+            VHDLExporter.writeValue(out, data[i], dataBits);
         }
         out.dec().println(");");
 
         out.dec().println("begin").inc();
 
-        out.print("PORT_D <= my_rom(to_integer(unsigned(PORT_A))) when PORT_sel='1' else (others => 'Z');");
+        out.print("process (PORT_A, PORT_sel)").eol();
+        out.print("begin").inc().eol();
+
+        out.print("if PORT_sel='0' then").inc().eol();
+        out.print("PORT_D <= (others => 'Z');").dec().eol();
+        if (data.length < (1 << addrBits)) {
+            out.print("elsif PORT_A > ");
+            VHDLExporter.writeValue(out, data.length-1, addrBits);
+            out.print(" then").inc().eol();
+            out.print("PORT_D <= (others => '0');").dec().eol();
+        }
+        out.print("else").inc().eol();
+        out.print("PORT_D <= my_rom(to_integer(unsigned(PORT_A)));").dec().eol();
+        out.print("end if;").eol();
+
+        out.dec().print("end process;").dec().eol();
     }
 
     @Override

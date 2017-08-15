@@ -79,27 +79,30 @@ public class VHDLLibrary {
      * @throws HDLException HDLException
      */
     public String getName(HDLNode node) throws HDLException {
-        if (!nodeList.contains(node))
+        if (!nodeList.contains(node)) {
             nodeList.add(node);
-        return getEntity(node).getName(node);
+            node.setHDLName(getEntity(node).getName(node));
+
+        }
+        return node.getHDLName();
     }
 
     private void printTo(CodePrinter out, HDLNode node) throws HDLException, IOException {
         VHDLEntity e = getEntity(node);
         if (e.needsOutput(node)) {
-            out.println("\n-- " + e.getName(node) + "\n");
+            out.println("\n-- " + node.getHDLName() + "\n");
             e.writeHeader(out, node);
             out.println();
-            out.println("entity " + e.getName(node) + " is").inc();
+            out.println("entity " + node.getHDLName() + " is").inc();
             e.writeDeclaration(out, node);
-            out.dec().println("end " + e.getName(node) + ";\n");
-            out.println("architecture " + e.getName(node) + "_arch of " + e.getName(node) + " is");
+            out.dec().println("end " + node.getHDLName() + ";\n");
+            out.println("architecture " + node.getHDLName() + "_arch of " + node.getHDLName() + " is");
             if (!e.createsSignals())
                 out.println("begin").inc();
             e.writeArchitecture(out, node);
             if (!e.createsSignals())
                 out.dec();
-            out.println("end " + e.getName(node) + "_arch;");
+            out.println("end " + node.getHDLName() + "_arch;");
         }
     }
 

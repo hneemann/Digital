@@ -21,7 +21,7 @@ public class HDLNode implements HDLInterface {
     private final VisualElement visualElement;
     private final ElementAttributes attr;
     private final String name;
-    private final String hdlName;
+    private String hdlName;
     private Ports ports;
 
     /**
@@ -56,7 +56,7 @@ public class HDLNode implements HDLInterface {
         this.visualElement = visualElement;
         this.attr = visualElement.getElementAttributes();
         this.name = visualElement.getElementName();
-        hdlName=Port.getHDLName(this.name);
+        hdlName = Port.getHDLName(this.name);
         ElementTypeDescription description = library.getElementType(visualElement.getElementName());
         ElementAttributes attr = visualElement.getElementAttributes();
         PinDescriptions inputs = description.getInputDescription(attr);
@@ -131,6 +131,15 @@ public class HDLNode implements HDLInterface {
      */
     public String getHDLName() {
         return hdlName;
+    }
+
+    /**
+     * Sets the hdl name of this node
+     *
+     * @param hdlName the hdl name
+     */
+    public void setHDLName(String hdlName) {
+        this.hdlName = hdlName;
     }
 
     /**
