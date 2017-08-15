@@ -39,7 +39,7 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(15, tested);
+            assertEquals(13, tested);
             assertEquals(tested, testBenches);
         }
     }
@@ -49,7 +49,7 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0)
-            assertEquals(26, tested);
+            assertEquals(24, tested);
     }
 
     public void testDistributedInSimulator() throws Exception {

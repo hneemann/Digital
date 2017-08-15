@@ -144,6 +144,7 @@ public class ConstantTest extends TestCase {
                 "-- library components\n", vhdl);
     }
 
+    /*
     public void testPullUp() throws IOException, ElementNotFoundException, PinException, NodeException {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/constPullUp.dig");
         String vhdl = new VHDLExporter(br.getLibrary()).export(br.getCircuit()).toString();
@@ -188,6 +189,6 @@ public class ConstantTest extends TestCase {
                 "end main_arch;\n" +
                 "\n" +
                 "-- library components\n", vhdl);
-    }
+    }*/
 
 }
