@@ -19,5 +19,5 @@ begin
       if rising_edge(PORT_C) and (PORT_en='1') then
         state <= PORT_D;
       end if;
-   end process ff;
+   end process;
 end DIG_Register_arch;
