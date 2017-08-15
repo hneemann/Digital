@@ -4,6 +4,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.hdl.model.HDLConstant;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.model.Port;
@@ -150,12 +151,14 @@ public class VHDLTestBenchCreator {
         out.println("wait for 10 ns;");
         for (Port p : model.getPorts().getOutputs()) {
             out.print("assert std_match(").print(p.getName()).print(", patterns(i).").print(p.getName()).print(")");
-            out.print(" OR (").print(p.getName()).print(" = ");
-            writeCharValue(out, 'Z', p.getBits());
-            out.print(" AND patterns(i).").print(p.getName()).print(" = ");
-            writeCharValue(out, 'Z', p.getBits());
-            out.print(")");
-            out.println().inc().print("report \"wrong value for ").print(p.getName()).println(" i=\" & integer'image(i) severity error;").dec();
+            out.print(" OR (")
+                    .print(p.getName())
+                    .print(" = ")
+                    .print(new HDLConstant(HDLConstant.Type.highz, p.getBits()).vhdlValue())
+                    .print(" AND patterns(i).").print(p.getName()).print(" = ")
+                    .print(new HDLConstant(HDLConstant.Type.highz, p.getBits()).vhdlValue())
+                    .print(")").eol();
+            out.inc().print("report \"wrong value for ").print(p.getName()).println(" i=\" & integer'image(i) severity error;").dec();
         }
 
         out.dec().println("end loop;");
@@ -164,6 +167,7 @@ public class VHDLTestBenchCreator {
         out.dec().println("end behav;");
     }
 
+    /*
     private static void writeCharValue(CodePrinter out, char c, int bits) throws IOException {
         if (bits > 1) {
             out.print("\"");
@@ -172,7 +176,7 @@ public class VHDLTestBenchCreator {
             out.print("\"");
         } else
             out.print("'").print(c).print("'");
-    }
+    }*/
 
     private static final class LineListenerVHDL implements LineListener {
         private final CodePrinter out;
@@ -206,30 +210,30 @@ public class VHDLTestBenchCreator {
                 }
                 lineSep.check(out);
                 writeValues(values, false, 0);
-            } catch (IOException e) {
+            } catch (IOException | HDLException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        private void writeValues(Value[] values, boolean isClock, int clock) throws IOException {
+        private void writeValues(Value[] values, boolean isClock, int clock) throws IOException, HDLException {
             out.print("(");
             Separator sep = new Separator(", ");
             for (int i = 0; i < values.length; i++) {
                 sep.check(out);
                 Value val = values[i];
+                int bits = dataOrder.get(i).getBits();
                 switch (val.getType()) {
                     case NORMAL:
-                        int bits = dataOrder.get(i).getBits();
                         if (isClock && dataOrder.get(i).getDirection() == Port.Direction.out)
-                            writeCharValue(out, '-', bits);
+                            out.print(new HDLConstant(HDLConstant.Type.dontcare, bits).vhdlValue());
                         else
-                            VHDLExporter.writeValue(out, val.getValue(), bits);
+                            out.print(new HDLConstant(val.getValue(), bits).vhdlValue());
                         break;
                     case DONTCARE:
-                        writeCharValue(out, '-', dataOrder.get(i).getBits());
+                        out.print(new HDLConstant(HDLConstant.Type.dontcare, bits).vhdlValue());
                         break;
                     case HIGHZ:
-                        writeCharValue(out, 'Z', dataOrder.get(i).getBits());
+                        out.print(new HDLConstant(HDLConstant.Type.highz, bits).vhdlValue());
                         break;
                     case CLOCK:
                         out.print("'").print(clock).print("'");

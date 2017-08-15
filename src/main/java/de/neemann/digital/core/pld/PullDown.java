@@ -47,7 +47,10 @@ public class PullDown implements Element {
     public void registerNodes(Model model) {
     }
 
-    static final class PullObservableValue extends ObservableValue {
+    /**
+     * Value that represents a pull resistor
+     */
+    public static final class PullObservableValue extends ObservableValue {
         private final PullResistor res;
 
         PullObservableValue(int bits, PullResistor res) {

@@ -4,6 +4,8 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.Ground;
 import de.neemann.digital.core.io.VDD;
+import de.neemann.digital.core.pld.PullDown;
+import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -150,10 +152,8 @@ public class VHDLExporter implements Closeable {
                 s.setIsWritten();
                 out.print(s.getName());
                 out.print(" <= ");
-                if (s.getBits() > 1)
-                    out.print("std_logic_vector(to_unsigned(").print(s.getConstant()).print(",").print(s.getBits()).println("));");
-                else
-                    out.print("'").print(s.getConstant()).println("';");
+                out.print(s.getConstant().vhdlValue());
+                out.println(";");
             }
         }
 
@@ -197,6 +197,8 @@ public class VHDLExporter implements Closeable {
     private boolean isConstant(HDLNode node) {
         return node.is(Ground.DESCRIPTION)
                 || node.is(VDD.DESCRIPTION)
+                || node.is(PullUp.DESCRIPTION)
+                || node.is(PullDown.DESCRIPTION)
                 || node.is(Const.DESCRIPTION);
     }
 
@@ -250,27 +252,6 @@ public class VHDLExporter implements Closeable {
         }
         out.println(" );");
     }
-
-    /**
-     * Writes a value to the given stream
-     *
-     * @param out  the output code printer
-     * @param val  the value
-     * @param bits the number of bits
-     * @throws IOException IOException
-     */
-    public static void writeValue(CodePrinter out, long val, int bits) throws IOException {
-        if (bits > 1) {
-            val = val & ((1 << bits) - 1);
-            out.print("\"");
-            String str = Long.toBinaryString(val);
-            for (int i = bits - str.length(); i > 0; i--)
-                out.print('0');
-            out.print(str).print("\"");
-        } else
-            out.print("'").print(val).print("'");
-    }
-
 
     @Override
     public String toString() {

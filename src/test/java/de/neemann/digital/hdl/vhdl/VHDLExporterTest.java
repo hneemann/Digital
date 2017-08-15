@@ -11,20 +11,6 @@ import java.io.IOException;
 
 public class VHDLExporterTest extends TestCase {
 
-    public void testWriteValue() throws IOException {
-        CodePrinterStr out = new CodePrinterStr();
-        VHDLExporter.writeValue(out,0,1);
-        assertEquals("'0'", out.toString());
-
-        out = new CodePrinterStr();
-        VHDLExporter.writeValue(out,5,4);
-        assertEquals("\"0101\"", out.toString());
-
-        out = new CodePrinterStr();
-        VHDLExporter.writeValue(out,16,4);
-        assertEquals("\"0000\"", out.toString());
-    }
-
     public void testNegSimple() throws IOException, ElementNotFoundException, PinException, NodeException {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/negSimple.dig");
         String vhdl = new VHDLExporter(br.getLibrary()).export(br.getCircuit()).toString();

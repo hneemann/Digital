@@ -1,12 +1,12 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.hdl.model.HDLConstant;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl.Separator;
-import de.neemann.digital.hdl.vhdl.VHDLExporter;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -59,7 +59,7 @@ public class ROMVHDL extends VHDLEntitySimple {
         Separator sep = new Separator(",\n");
         for (int i = 0; i < data.length; i++) {
             sep.check(out);
-            VHDLExporter.writeValue(out, data[i], dataBits);
+            out.print(new HDLConstant(data[i], dataBits).vhdlValue());
         }
         out.dec().println(");");
 
@@ -72,7 +72,7 @@ public class ROMVHDL extends VHDLEntitySimple {
         out.print("PORT_D <= (others => 'Z');").dec().eol();
         if (data.length < (1 << addrBits)) {
             out.print("elsif PORT_A > ");
-            VHDLExporter.writeValue(out, data.length-1, addrBits);
+            out.print(new HDLConstant(data.length - 1, addrBits).vhdlValue());
             out.print(" then").inc().eol();
             out.print("PORT_D <= (others => '0');").dec().eol();
         }

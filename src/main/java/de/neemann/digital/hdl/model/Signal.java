@@ -13,7 +13,7 @@ public class Signal implements Comparable<Signal> {
     private int bits;
     private Port.Direction portDirection;
     private boolean written = false;
-    private long constant;
+    private HDLConstant constant;
     private boolean isConstant;
 
     /**
@@ -186,7 +186,7 @@ public class Signal implements Comparable<Signal> {
         return ports;
     }
 
-    private void setConstant(long constant) {
+    private void setConstant(HDLConstant constant) {
         isConstant = true;
         this.constant = constant;
     }
@@ -201,7 +201,7 @@ public class Signal implements Comparable<Signal> {
     /**
      * @return the constant value
      */
-    public long getConstant() {
+    public HDLConstant getConstant() {
         return constant;
     }
 

@@ -3,6 +3,7 @@ package de.neemann.digital.hdl.model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -159,7 +160,7 @@ public class HDLNode implements HDLInterface {
 
         boolean isConstant();
 
-        long getConstant();
+        HDLConstant getConstant() throws HDLException;
     }
 
     private static final class ValueModel implements Value {
@@ -182,8 +183,8 @@ public class HDLNode implements HDLInterface {
         }
 
         @Override
-        public long getConstant() {
-            throw new RuntimeException("invalid call");
+        public HDLConstant getConstant() throws HDLException {
+            throw new HDLException("invalid call");
         }
     }
 
@@ -203,12 +204,24 @@ public class HDLNode implements HDLInterface {
 
         @Override
         public boolean isConstant() {
-            return observableValues.get(i).isConstant();
+            return observableValues.get(i).isConstant() || observableValues.get(i) instanceof PullDown.PullObservableValue;
         }
 
         @Override
-        public long getConstant() {
-            return observableValues.get(i).getValue();
+        public HDLConstant getConstant() throws HDLException {
+            int bits = observableValues.get(i).getBits();
+            if (observableValues.get(i) instanceof PullDown.PullObservableValue) {
+                PullDown.PullObservableValue obs = (PullDown.PullObservableValue) observableValues.get(i);
+                switch (obs.getPullResistor()) {
+                    case pullUp:
+                        return new HDLConstant(HDLConstant.Type.weakHigh, bits);
+                    case pullDown:
+                        return new HDLConstant(HDLConstant.Type.weakLow, bits);
+                    default:
+                        throw new HDLException("undefined pull resistor");
+                }
+            } else
+                return new HDLConstant(observableValues.get(i).getValue(), bits);
         }
     }
 

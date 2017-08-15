@@ -32,7 +32,7 @@ public class Port {
     private int bits = 0;
     private Signal signal;
     private boolean isConstant;
-    private long constant;
+    private HDLConstant constant;
     private String pinNumber;
 
     /**
@@ -170,7 +170,7 @@ public class Port {
      *
      * @param constant the value
      */
-    public void setConstant(long constant) {
+    public void setConstant(HDLConstant constant) {
         isConstant = true;
         this.constant = constant;
     }
@@ -185,7 +185,7 @@ public class Port {
     /**
      * @return the constant value
      */
-    public long getConstant() {
+    public HDLConstant getConstant() {
         return constant;
     }
 
