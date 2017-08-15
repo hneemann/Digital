@@ -28,7 +28,7 @@ public class CodePrinterStr extends CodePrinter {
      * @throws IOException IOException
      */
     public CodePrinterStr(boolean includeLineNumbers) throws IOException {
-        this(2, false);
+        this(2, includeLineNumbers);
     }
 
     /**

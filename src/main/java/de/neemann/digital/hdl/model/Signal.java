@@ -167,8 +167,6 @@ public class Signal implements Comparable<Signal> {
      * @throws HDLException HDLException
      */
     public void setIsWritten() throws HDLException {
-        if (written)
-            throw new HDLException(name + " is written twice");
         written = true;
     }
 

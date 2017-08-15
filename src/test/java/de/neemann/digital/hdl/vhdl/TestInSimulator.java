@@ -38,7 +38,7 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(13, tested);
+            assertEquals(14, tested);
             assertEquals(tested, testBenches);
         }
     }
@@ -55,7 +55,7 @@ public class TestInSimulator extends TestCase {
 
     /*
     public void testInSimulatorDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "/dig/test/vhdl/rom2.dig");
+        File file = new File(Resources.getRoot(), "/dig/test/vhdl/bus.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         CodePrinterStr out = new CodePrinterStr(true);
