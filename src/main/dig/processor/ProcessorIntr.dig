@@ -146,6 +146,10 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
+          <string>AddrBits</string>
+          <int>16</int>
+        </entry>
+        <entry>
           <string>isProgramMemory</string>
           <boolean>true</boolean>
         </entry>
@@ -329,6 +333,10 @@ An dieser Adresse muss sich die ISR befinden.</string>
     <visualElement>
       <elementName>RAMSinglePort</elementName>
       <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>16</int>
+        </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>

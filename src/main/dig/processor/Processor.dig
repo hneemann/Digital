@@ -152,6 +152,10 @@ Single-Cycle CPU.</string>
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
+          <string>AddrBits</string>
+          <int>16</int>
+        </entry>
+        <entry>
           <string>isProgramMemory</string>
           <boolean>true</boolean>
         </entry>
@@ -247,6 +251,10 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>RAMSinglePort</elementName>
       <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>16</int>
+        </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>

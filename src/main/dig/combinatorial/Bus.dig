@@ -23,6 +23,10 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
+          <string>AddrBits</string>
+          <int>3</int>
+        </entry>
+        <entry>
           <string>Bits</string>
           <int>8</int>
         </entry>
@@ -40,6 +44,10 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
     <visualElement>
       <elementName>ROM</elementName>
       <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>3</int>
+        </entry>
         <entry>
           <string>Bits</string>
           <int>8</int>
@@ -87,6 +95,10 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
+          <string>AddrBits</string>
+          <int>3</int>
+        </entry>
+        <entry>
           <string>Bits</string>
           <int>8</int>
         </entry>
@@ -104,6 +116,10 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
     <visualElement>
       <elementName>ROM</elementName>
       <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>3</int>
+        </entry>
         <entry>
           <string>Bits</string>
           <int>8</int>

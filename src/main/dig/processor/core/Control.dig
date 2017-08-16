@@ -78,6 +78,10 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
+          <string>AddrBits</string>
+          <int>6</int>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Logic</string>
         </entry>

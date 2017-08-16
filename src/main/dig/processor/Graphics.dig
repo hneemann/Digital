@@ -103,6 +103,10 @@ eingeblendet.</string>
       <elementName>GraphicCard</elementName>
       <elementAttributes>
         <entry>
+          <string>AddrBits</string>
+          <int>16</int>
+        </entry>
+        <entry>
           <string>graphicHeight</string>
           <int>20</int>
         </entry>

@@ -7,6 +7,10 @@
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
+          <string>AddrBits</string>
+          <int>4</int>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>ROM</string>
         </entry>

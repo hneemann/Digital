@@ -16,6 +16,10 @@ selben Adressraum.</string>
       <elementName>RAMSinglePort</elementName>
       <elementAttributes>
         <entry>
+          <string>AddrBits</string>
+          <int>15</int>
+        </entry>
+        <entry>
           <string>Bits</string>
           <int>16</int>
         </entry>
@@ -29,6 +33,10 @@ selben Adressraum.</string>
     <visualElement>
       <elementName>ROM</elementName>
       <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>15</int>
+        </entry>
         <entry>
           <string>isProgramMemory</string>
           <boolean>true</boolean>
