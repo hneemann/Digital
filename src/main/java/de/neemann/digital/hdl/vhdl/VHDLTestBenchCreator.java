@@ -76,7 +76,7 @@ public class VHDLTestBenchCreator {
                 try {
                     writeTestBench(out, testName, tc);
                 } catch (TestingDataException | ParserException | RuntimeException e) {
-                    throw new HDLException("error in testdata", e);
+                    throw new HDLException(Lang.get("err_vhdlErrorWritingTestBench"), e);
                 }
             }
         }
@@ -239,7 +239,7 @@ public class VHDLTestBenchCreator {
                         out.print("'").print(clock).print("'");
                         break;
                     default:
-                        throw new RuntimeException("values of type " + val.getType() + " are not allowed");
+                        throw new RuntimeException(Lang.get("err_vhdlValuesOfType_N_notAllowed", val.getType()));
                 }
             }
             out.print(")");

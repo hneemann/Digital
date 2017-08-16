@@ -7,6 +7,7 @@ import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl.Separator;
+import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -23,10 +24,10 @@ public class ROMVHDL extends VHDLEntitySimple {
         try {
             name = "DIG_ROM_" + Port.getHDLName(node.get(Keys.LABEL));
         } catch (HDLException e) {
-            throw new HDLException("Rom has no valid label");
+            throw new HDLException(Lang.get("err_vhdlRomHasNoValidLabel"));
         }
         if (nameSet.contains(name))
-            throw new HDLException("Rom name " + node.get(Keys.LABEL) + " is used twice!");
+            throw new HDLException(Lang.get("err_vhdlRomLabel_N_notUnique", node.get(Keys.LABEL)));
         nameSet.add(name);
         return name;
     }

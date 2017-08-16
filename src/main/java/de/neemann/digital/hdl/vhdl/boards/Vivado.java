@@ -3,6 +3,7 @@ package de.neemann.digital.hdl.vhdl.boards;
 import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,7 +39,7 @@ public class Vivado implements BoardInterface {
             for (Port p : model.getPorts()) {
                 String pinNumber = p.getPinNumber();
                 if (pinNumber == null || pinNumber.length() == 0)
-                    throw new IOException("pin without a number: " + p.getName());
+                    throw new IOException(Lang.get("err_vhdlPin_N_hasNoNumber", p.getName()));
                 out.print("set_property PACKAGE_PIN ").print(pinNumber).print(" [get_ports ").print(p.getName()).println("]");
                 out.print("set_property IOSTANDARD ").print(pinIoType).print(" [get_ports ").print(p.getName()).println("]");
 

@@ -116,7 +116,7 @@ public abstract class VHDLEntitySimple implements VHDLEntity {
      */
     public static String getType(int bits) throws HDLException {
         if (bits == 0)
-            throw new HDLException("bit number not available");
+            throw new HDLException(Lang.get("err_vhdlBitNumberNotAvailable"));
         if (bits == 1)
             return "std_logic";
         else

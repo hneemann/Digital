@@ -1,5 +1,7 @@
 package de.neemann.digital.hdl.model;
 
+import de.neemann.digital.lang.Lang;
+
 /**
  * Represets a hdl constant value
  */
@@ -102,7 +104,7 @@ public class HDLConstant {
             case highz:
                 return 'Z';
             default:
-                throw new HDLException("unknown constant type " + type);
+                throw new HDLException(Lang.get("err_vhdlUnknownConstantType_N", type));
         }
     }
 }

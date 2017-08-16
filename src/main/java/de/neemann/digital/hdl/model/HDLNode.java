@@ -218,7 +218,7 @@ public class HDLNode implements HDLInterface {
                     case pullDown:
                         return new HDLConstant(HDLConstant.Type.weakLow, bits);
                     default:
-                        throw new HDLException("undefined pull resistor");
+                        throw new HDLException("undefined pull resistor type");
                 }
             } else
                 return new HDLConstant(observableValues.get(i).getValue(), bits);

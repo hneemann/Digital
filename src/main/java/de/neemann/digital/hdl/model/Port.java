@@ -70,7 +70,7 @@ public class Port {
                 .replace(">", "gr");
 
         if (!isNameValid(name))
-            throw new HDLException(Lang.get("err_notAValidName", name));
+            throw new HDLException(Lang.get("err_vhdlNotAValidName", name));
 
         return name;
     }

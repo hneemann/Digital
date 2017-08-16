@@ -67,7 +67,7 @@ public class VHDLLibrary {
         }
 
         if (e == null)
-            throw new HDLException(Lang.get("err_noVhdlEntity_N", elementName));
+            throw new HDLException(Lang.get("err_vhdlNoEntity_N", elementName));
         return e;
     }
 

@@ -556,12 +556,20 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_errorParsingTestdata">Fehler beim Einlesen der Testdaten.</string>
     <string name="err_backtrackOf_N_isImpossible">Die Modelkomponente {0} kann nicht analysiert werden.</string>
     <string name="err_errorInPowerSupply">Fehler in der Stromversorgung an {0}.</string>
-    <string name="err_exporting_vhdl">Fehler beim Export zu VHDL.</string>
-    <string name="err_vhdlUnknownPortType_N">Unbekannter Port typ.</string>
-    <string name="err_noVhdlEntity_N">Kein VHDL Code für {0} verfügbar!</string>
     <string name="err_pinIsNotANumber_N">Die Pinnummer {0} ist keine Zahl!</string>
-    <string name="err_clockOnlyAllowedInRoot">Ein Taktelement ist nur im Hauptmodel erlaubt!</string>
-    <string name="err_notAValidName">Der Name {0} ist nicht erlaubt!</string>
+    <string name="err_vhdlExporting">Fehler beim Export zu VHDL.</string>
+    <string name="err_vhdlUnknownPortType_N">Unbekannter Port typ.</string>
+    <string name="err_vhdlNoEntity_N">Kein VHDL Code für {0} verfügbar!</string>
+    <string name="err_vhdlClockOnlyAllowedInRoot">Ein Taktelement ist nur im Hauptmodel erlaubt!</string>
+    <string name="err_vhdlNotAValidName">Der Name {0} ist nicht erlaubt!</string>
+    <string name="err_vhdlBitNumberNotAvailable">Kein Bitanzahl verfügbar!</string>
+    <string name="err_vhdlUnknownConstantType_N">Die Konstante hat einen ungültigen Typ {0}!</string>
+    <string name="err_vhdlPin_N_hasNoNumber">Der Pin {0} hat keine Nummer!</string>
+    <string name="err_vhdlErrorWritingTestBench">Fehler beim erzeugen des Testfalls!</string>
+    <string name="err_vhdlRomHasNoValidLabel">Ein Rom hat einen ungültigen oder fehlenden Namen!</string>
+    <string name="err_vhdlRomLabel_N_notUnique">Rom Name {0} ist nicht eindeutig!</string>
+    <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
+
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

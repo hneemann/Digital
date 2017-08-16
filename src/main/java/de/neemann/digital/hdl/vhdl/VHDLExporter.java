@@ -89,7 +89,7 @@ public class VHDLExporter implements Closeable {
                 out.println("-- " + m.getName());
                 out.println();
                 if (m.getClocks() != null)
-                    throw new HDLException(Lang.get("err_clockOnlyAllowedInRoot"));
+                    throw new HDLException(Lang.get("err_vhdlClockOnlyAllowedInRoot"));
 
                 export(m);
                 nodesWritten++;
@@ -108,9 +108,9 @@ public class VHDLExporter implements Closeable {
                 LOGGER.info("exported " + f + " (" + nodesWritten + " nodes)");
         } catch (HDLException | PinException | NodeException e) {
             e.setOrigin(circuit.getOrigin());
-            throw new IOException(Lang.get("err_exporting_vhdl"), e);
+            throw new IOException(Lang.get("err_vhdlExporting"), e);
         } catch (ElementNotFoundException e) {
-            throw new IOException(Lang.get("err_exporting_vhdl"), e);
+            throw new IOException(Lang.get("err_vhdlExporting"), e);
         }
         return this;
     }
