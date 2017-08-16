@@ -18,6 +18,8 @@ import de.neemann.digital.hdl.vhdl.boards.BoardInterface;
 import de.neemann.digital.hdl.vhdl.boards.BoardProvider;
 import de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.File;
@@ -29,11 +31,13 @@ import java.util.HashSet;
  * Exports the given circuit to vhdl
  */
 public class VHDLExporter implements Closeable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(VHDLExporter.class);
     private final CodePrinter out;
     private final ElementLibrary library;
     private final VHDLLibrary vhdlLibrary;
     private BoardInterface board;
     private VHDLTestBenchCreator testBenches;
+    private int nodesWritten;
 
     /**
      * Creates a new exporter
@@ -88,9 +92,10 @@ public class VHDLExporter implements Closeable {
                     throw new HDLException(Lang.get("err_clockOnlyAllowedInRoot"));
 
                 export(m);
+                nodesWritten++;
             }
 
-            vhdlLibrary.finish(out);
+            nodesWritten += vhdlLibrary.finish(out);
 
             if (board != null)
                 board.writeFiles(f, model);
@@ -99,7 +104,8 @@ public class VHDLExporter implements Closeable {
                 testBenches = new VHDLTestBenchCreator(circuit, model);
                 testBenches.write(out.getFile());
             }
-
+            if (f != null)
+                LOGGER.info("exported " + f + " (" + nodesWritten + " nodes)");
         } catch (HDLException | PinException | NodeException e) {
             e.setOrigin(circuit.getOrigin());
             throw new IOException(Lang.get("err_exporting_vhdl"), e);
@@ -195,7 +201,7 @@ public class VHDLExporter implements Closeable {
                 out.print(sig.getOldSig().getName()).print(" <= ").print(sig.getNewSig().getName()).println(";");
 
             out.dec().print("end ").print(model.getName()).println("_arch;");
-        } catch (HDLException | PinException | NodeException e)  {
+        } catch (HDLException | PinException | NodeException e) {
             e.setOrigin(model.getOrigin());
             throw e;
         }

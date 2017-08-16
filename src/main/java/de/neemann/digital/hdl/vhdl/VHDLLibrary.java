@@ -133,13 +133,15 @@ public class VHDLLibrary {
      * Adds all used library components to the vhdl file
      *
      * @param out the pront stream
+     * @return number of nodes written
      * @throws HDLException HDLException
      * @throws IOException  IOException
      */
-    public void finish(CodePrinter out) throws HDLException, IOException {
+    public int finish(CodePrinter out) throws HDLException, IOException {
         out.println("\n-- library components");
         for (HDLNode n : nodeList)
             printTo(out, n);
+        return nodeList.size();
     }
 
     /**
