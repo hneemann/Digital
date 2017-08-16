@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Der Programmzähler. 
+Hier wird der aktuelle Programmzähler gespeichert. 
+Über die verschiedenen Eingänge kann beeinflußt 
+werden, auf welche Weise der Programmzähler mit 
+dem Takt weiter geschaltet wird.</string>
+    </entry>
+    <entry>
+      <string>Width</string>
+      <int>5</int>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>Register</elementName>
+      <elementAttributes>
+        <entry>
+          <string>valueIsProbe</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>PC</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Aktueller ALU-Inhalt</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>ALU</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Add</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Add One</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <int>0</int>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Adresse des nächsten auszuführenden Befehls</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Next</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Programm Counter</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>PC</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Add</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Add ALU</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Takt</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <int>0</int>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="680" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="760" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>absoluten Sprung auslösen</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>abs</string>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>reset</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="180" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="240" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>relativen Spung auslösen</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>rel</string>
+        </entry>
+      </elementAttributes>
+      <pos x="700" y="420"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="160" y="160"/>
+      <p2 x="180" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="160"/>
+      <p2 x="260" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="160"/>
+      <p2 x="340" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="160"/>
+      <p2 x="540" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="160"/>
+      <p2 x="640" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="420" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="320"/>
+      <p2 x="580" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="320"/>
+      <p2 x="680" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="320"/>
+      <p2 x="820" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="200"/>
+      <p2 x="420" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="360"/>
+      <p2 x="580" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="40"/>
+      <p2 x="240" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="300"/>
+      <p2 x="760" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="140"/>
+      <p2 x="260" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="400"/>
+      <p2 x="740" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="-20"/>
+      <p2 x="820" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="20"/>
+      <p2 x="180" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="180"/>
+      <p2 x="420" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="180"/>
+      <p2 x="260" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="340"/>
+      <p2 x="480" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="740" y="340"/>
+      <p2 x="760" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="340"/>
+      <p2 x="580" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="280"/>
+      <p2 x="680" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="120"/>
+      <p2 x="200" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="60"/>
+      <p2 x="180" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="340"/>
+      <p2 x="480" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="40"/>
+      <p2 x="240" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="-20"/>
+      <p2 x="160" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="60"/>
+      <p2 x="160" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="740" y="340"/>
+      <p2 x="740" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="340" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="-20"/>
+      <p2 x="820" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="60"/>
+      <p2 x="200" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="780" y="340"/>
+      <p2 x="780" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="700" y="320"/>
+      <p2 x="700" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="160"/>
+      <p2 x="540" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="280"/>
+      <p2 x="540" y="320"/>
+    </wire>
+  </wires>
+</circuit>

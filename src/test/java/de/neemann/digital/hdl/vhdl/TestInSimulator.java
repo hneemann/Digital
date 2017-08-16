@@ -62,20 +62,19 @@ public class TestInSimulator extends TestCase {
         }
     }
 
-    /*
-    public void testInSimulatorDebug() throws Exception {
-        File file = new File("/home/hneemann/Dokumente/DHBW/Technische_Informatik_I/Labor/VHDL/processor/ProcessorVHDL.dig");
+    public void testInSimulatorProcessor() throws Exception {
+        File file = new File(Resources.getRoot(), "../../main/dig/processor/ProcessorVHDL.dig");
         try {
             ToBreakRunner br = new ToBreakRunner(file);
             CodePrinterStr out = new CodePrinterStr(true);
-            System.out.println(new VHDLExporter(br.getLibrary(), out).export(br.getCircuit()));
+//            System.out.println(new VHDLExporter(br.getLibrary(), out).export(br.getCircuit()));
 
             check(file);
         } catch (Exception e) {
             System.out.println(ExceptionWithOrigin.getOriginOf(e));
             throw e;
         }
-    }/* */
+    }
 
     private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);

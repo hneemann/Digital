@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Element für ein allgemeines EIngaberegister.</string>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Output</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1*4, 12</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>12</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="180"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="280" y="80"/>
+      <p2 x="440" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="80"/>
+      <p2 x="520" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="160"/>
+      <p2 x="440" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="100"/>
+      <p2 x="440" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="120"/>
+      <p2 x="440" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="140"/>
+      <p2 x="440" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="160"/>
+      <p2 x="420" y="180"/>
+    </wire>
+  </wires>
+</circuit>
