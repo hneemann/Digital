@@ -6,6 +6,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.io.PowerSupply;
+import de.neemann.digital.core.io.Probe;
 import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.wiring.Break;
@@ -146,6 +147,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
                 && !v.equalsDescription(Break.DESCRIPTION)
                 && !v.equalsDescription(PullDown.DESCRIPTION)
                 && !v.equalsDescription(PullUp.DESCRIPTION)
+                && !v.equalsDescription(Probe.DESCRIPTION)
                 && !v.equalsDescription(PowerSupply.DESCRIPTION)
                 && !v.equalsDescription(DummyElement.TEXTDESCRIPTION)
                 && !v.equalsDescription(DummyElement.DATADESCRIPTION)
