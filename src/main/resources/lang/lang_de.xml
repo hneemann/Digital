@@ -569,7 +569,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_vhdlRomHasNoValidLabel">Ein Rom hat einen ungültigen oder fehlenden Namen!</string>
     <string name="err_vhdlRomLabel_N_notUnique">Rom Name {0} ist nicht eindeutig!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
-
+    <string name="err_vhdlMultipleInputsConnectedToAnOutput">Es sind mehrere Eingänge direkt mit einem Ausgang verbunden!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

@@ -557,6 +557,7 @@ The names of the variables may not be unique.</string>
     <string name="err_vhdlRomHasNoValidLabel">A rom has a invalid or missing name!</string>
     <string name="err_vhdlRomLabel_N_notUnique">Rom name {0} is not unique!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
+    <string name="err_vhdlMultipleInputsConnectedToAnOutput">Multiple inputs are connected to an output!</string>
 
 
     <string name="key_AddrBits">Address Bits</string>

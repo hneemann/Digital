@@ -185,12 +185,12 @@ public class VHDLExporter implements Closeable {
                     for (Port p : ports) {
                         if (p.getDirection() == Port.Direction.in) {
                             if (inPort != null)
-                                throw new HDLException("wrong interconnect");
+                                throw new HDLException(Lang.get("err_vhdlMultipleInputsConnectedToAnOutput"));
                             inPort = p;
                         }
                     }
                     if (inPort == null)
-                        throw new HDLException("wrong interconnect");
+                        throw new HDLException("no input found for not written output!");
 
                     out.print(o.getName()).print(" <= ").print(inPort.getName()).println(";");
                 }
