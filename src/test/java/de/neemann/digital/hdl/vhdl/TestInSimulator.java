@@ -70,6 +70,8 @@ public class TestInSimulator extends TestCase {
 //            System.out.println(new VHDLExporter(br.getLibrary(), out).export(br.getCircuit()));
 
             check(file);
+        } catch (FileScanner.SkipAllException e) {
+            // ok if ghdl is not installed!
         } catch (Exception e) {
             System.out.println(ExceptionWithOrigin.getOriginOf(e));
             throw e;
