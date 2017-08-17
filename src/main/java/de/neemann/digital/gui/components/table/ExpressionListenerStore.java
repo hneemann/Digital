@@ -5,6 +5,8 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * ExpressionListenerStore stores the generated expressions for later use.
@@ -13,8 +15,8 @@ import java.util.ArrayList;
  */
 public class ExpressionListenerStore implements ExpressionListener {
 
-    private ExpressionListener parent;
-    private ArrayList<Result> results;
+    private final ExpressionListener parent;
+    private final ArrayList<Result> results;
     private boolean closed;
 
     /**
@@ -65,13 +67,37 @@ public class ExpressionListenerStore implements ExpressionListener {
         return results.get(0).expression.copy();
     }
 
-    private static final class Result {
+    /**
+     * @return the list of al results
+     */
+    public List<Result> getResults() {
+        return Collections.unmodifiableList(results);
+    }
+
+    /**
+     * Container for the stored expressions
+     */
+    public static final class Result {
         private final String name;
         private final Expression expression;
 
         private Result(String name, Expression expression) {
             this.name = name;
             this.expression = expression;
+        }
+
+        /**
+         * @return the expressions name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @return the expression
+         */
+        public Expression getExpression() {
+            return expression;
         }
     }
 }
