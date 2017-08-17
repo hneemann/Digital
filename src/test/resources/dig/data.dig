@@ -176,7 +176,7 @@
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
-      <pos x="140" y="420"/>
+      <pos x="140" y="400"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -209,8 +209,16 @@
       <p2 x="540" y="240"/>
     </wire>
     <wire>
-      <p1 x="120" y="400"/>
+      <p1 x="140" y="400"/>
       <p2 x="160" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="420"/>
+      <p2 x="160" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="420"/>
+      <p2 x="240" y="420"/>
     </wire>
     <wire>
       <p1 x="600" y="260"/>
@@ -219,14 +227,6 @@
     <wire>
       <p1 x="820" y="260"/>
       <p2 x="860" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="420"/>
-      <p2 x="240" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="140" y="420"/>
-      <p2 x="160" y="420"/>
     </wire>
     <wire>
       <p1 x="140" y="440"/>
@@ -366,7 +366,7 @@
     </wire>
     <wire>
       <p1 x="120" y="300"/>
-      <p2 x="120" y="400"/>
+      <p2 x="120" y="420"/>
     </wire>
     <wire>
       <p1 x="860" y="260"/>

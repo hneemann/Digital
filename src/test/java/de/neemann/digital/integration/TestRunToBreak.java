@@ -15,7 +15,7 @@ public class TestRunToBreak extends TestCase {
 
     public void testRunToBreak() throws IOException, NodeException, PinException, ElementNotFoundException {
         new ToBreakRunner("dig/runToBreak.dig")
-                .runToBreak(511);
+                .runToBreak(509);
     }
 
     /**
@@ -28,9 +28,9 @@ public class TestRunToBreak extends TestCase {
      */
     public void testCounterSplitter() throws IOException, NodeException, PinException, ElementNotFoundException {
         Register r = new ToBreakRunner("dig/CounterSplitter.dig")
-                .runToBreak(2047)
+                .runToBreak(2045)
                 .getSingleNode(Register.class);
 
-        assertEquals(0x3ff, r.getOutputs().get(0).getValue());
+        assertEquals(0x3fe, r.getOutputs().get(0).getValue());
     }
 }

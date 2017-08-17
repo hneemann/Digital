@@ -8,7 +8,8 @@ HEAD, planned as v0.14
            As a consequence of that the address bits settings in RAMs and ROMs
            are lost. To fix that reset the number of address bits.
 - Added enable input to counter component. If you have used the counter in the past
-  you have to set the en input to 1.
+  you have to set the en input to 1. The function of the overflow output now allows
+  cascading of counters.
 
 v0.13, released on 25. Jul 2017
 - Introduced a library of sub circuits which are available in every circuit.

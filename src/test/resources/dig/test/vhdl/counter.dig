@@ -21,7 +21,7 @@
           <string>clk</string>
         </entry>
       </elementAttributes>
-      <pos x="280" y="200"/>
+      <pos x="180" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -31,7 +31,7 @@
           <string>en</string>
         </entry>
       </elementAttributes>
-      <pos x="180" y="220"/>
+      <pos x="280" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -84,9 +84,10 @@
  C   0   0  0  0
 
 # normal operation
-repeat(15) C   0   1  (n+1)  0
+repeat(14) C   0   1  (n+1)  0
 
- C   0   1  0  1
+ C   0   1  15  1
+ C   0   1  0  0
  C   0   0  0  0
 
 #async clr
@@ -106,12 +107,12 @@ repeat(15) C   0   1  (n+1)  0
       <p2 x="300" y="240"/>
     </wire>
     <wire>
-      <p1 x="280" y="200"/>
-      <p2 x="300" y="200"/>
-    </wire>
-    <wire>
       <p1 x="360" y="200"/>
       <p2 x="460" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="200"/>
+      <p2 x="300" y="200"/>
     </wire>
     <wire>
       <p1 x="180" y="220"/>

@@ -20,14 +20,14 @@ public class Counter extends Node implements Element {
      * The counters {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Counter.class, input("C"), input("en"), input("clr"))
+            = new ElementTypeDescription(Counter.class, input("en"), input("C"), input("clr"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL);
 
     private final ObservableValue out;
     private final ObservableValue ovf;
-    private final int ovfValue;
+    private final int maxValue;
     private ObservableValue clockIn;
     private ObservableValue clrIn;
     private ObservableValue enable;
@@ -45,22 +45,21 @@ public class Counter extends Node implements Element {
         int bits = attributes.getBits();
         this.out = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
         this.ovf = new ObservableValue("ovf", 1).setPinDescription(DESCRIPTION);
-        ovfValue = 1 << bits;
+        maxValue = (1 << bits) - 1;
     }
 
     @Override
     public void readInputs() throws NodeException {
         boolean clock = clockIn.getBool();
-        if (clock && !lastClock) {
-            ovfOut = false;
-            if (enable.getBool()) {
+        boolean enable = this.enable.getBool();
+        if (clock && !lastClock && enable) {
+            if (counter == maxValue)
+                counter = 0;
+            else
                 counter++;
-                if (counter == ovfValue) {
-                    counter = 0;
-                    ovfOut = true;
-                }
-            }
         }
+        ovfOut = (counter == maxValue) && enable;
+
         lastClock = clock;
         if (clrIn.getBool())
             counter = 0;
@@ -74,8 +73,8 @@ public class Counter extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        clockIn = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
-        enable = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
+        enable = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
+        clockIn = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
         clrIn = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
     }
 

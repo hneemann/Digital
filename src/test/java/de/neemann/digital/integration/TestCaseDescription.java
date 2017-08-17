@@ -23,14 +23,14 @@ public class TestCaseDescription extends TestCase {
      * @throws Exception
      */
     public void testData() throws Exception {
-        ToBreakRunner toBreakRunner = new ToBreakRunner("dig/data.dig").runToBreak(31);
+        ToBreakRunner toBreakRunner = new ToBreakRunner("dig/data.dig").runToBreak(29);
 
         // check recorded data
         ValueTable dataSet = toBreakRunner.getModel()
                 .getObserver(ValueTableObserver.class)
                 .getLogData();
 
-        assertEquals(31, dataSet.getRows());
+        assertEquals(29, dataSet.getRows());
         int i = 0;
         for (Value[] ds : dataSet) {
             assertEquals((~i) & 1, ds[0].getValue()); // clock
@@ -82,8 +82,6 @@ public class TestCaseDescription extends TestCase {
                 "\"25\",\"0\",\"1\",\"0\",\"1\",\"1\"\n" +
                 "\"26\",\"1\",\"0\",\"1\",\"1\",\"1\"\n" +
                 "\"27\",\"0\",\"0\",\"1\",\"1\",\"1\"\n" +
-                "\"28\",\"1\",\"1\",\"1\",\"1\",\"1\"\n" +
-                "\"29\",\"0\",\"1\",\"1\",\"1\",\"1\"\n" +
-                "\"30\",\"1\",\"0\",\"0\",\"0\",\"0\"\n", w.toString());
+                "\"28\",\"1\",\"1\",\"1\",\"1\",\"1\"\n", w.toString());
     }
 }

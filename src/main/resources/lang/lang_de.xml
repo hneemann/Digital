@@ -120,7 +120,7 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     Die Bitbreite des Zählers kann im Attributedialog festgelegt werden.</string>
     <string name="elem_Counter_pin_C">Eingang des Taktsignals.</string>
     <string name="elem_Counter_pin_clr">Setzt den Zähler auf 0 zurück wenn dieser Eingang auf 1 gesetzt wird.</string>
-    <string name="elem_Counter_pin_ovf">Overflow Ausgang. Hat der Zähler das Maximum erreicht, wird dieser Ausgang für eine Taktdauer 1.</string>
+    <string name="elem_Counter_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, wenn der Zähler seinen Maximalwert hat und der en Eingang auf 1 gesetzt ist.</string>
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
     <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
     <string name="elem_D_FF">D-FlipFlop</string>

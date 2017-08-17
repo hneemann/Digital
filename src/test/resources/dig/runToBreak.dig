@@ -6,7 +6,7 @@
     <visualElement>
       <elementName>Clock</elementName>
       <elementAttributes/>
-      <pos x="160" y="160"/>
+      <pos x="160" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Counter</elementName>
@@ -21,7 +21,7 @@
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
-      <pos x="180" y="180"/>
+      <pos x="180" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Break</elementName>
@@ -41,11 +41,11 @@
   </visualElements>
   <wires>
     <wire>
-      <p1 x="160" y="160"/>
+      <p1 x="180" y="160"/>
       <p2 x="200" y="160"/>
     </wire>
     <wire>
-      <p1 x="180" y="180"/>
+      <p1 x="160" y="180"/>
       <p2 x="200" y="180"/>
     </wire>
     <wire>
