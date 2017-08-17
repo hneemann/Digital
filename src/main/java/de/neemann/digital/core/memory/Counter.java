@@ -20,7 +20,7 @@ public class Counter extends Node implements Element {
      * The counters {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Counter.class, input("C"), input("clr"))
+            = new ElementTypeDescription(Counter.class, input("C"), input("en"), input("clr"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL);
@@ -30,9 +30,10 @@ public class Counter extends Node implements Element {
     private final int ovfValue;
     private ObservableValue clockIn;
     private ObservableValue clrIn;
+    private ObservableValue enable;
     private boolean lastClock;
     private int counter;
-    private boolean ovfOut=false;
+    private boolean ovfOut = false;
 
     /**
      * Creates a new instance
@@ -51,12 +52,14 @@ public class Counter extends Node implements Element {
     public void readInputs() throws NodeException {
         boolean clock = clockIn.getBool();
         if (clock && !lastClock) {
-            counter++;
-            if (counter == ovfValue) {
-                counter = 0;
-                ovfOut = true;
-            } else
-                ovfOut = false;
+            ovfOut = false;
+            if (enable.getBool()) {
+                counter++;
+                if (counter == ovfValue) {
+                    counter = 0;
+                    ovfOut = true;
+                }
+            }
         }
         lastClock = clock;
         if (clrIn.getBool())
@@ -72,7 +75,8 @@ public class Counter extends Node implements Element {
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
         clockIn = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
-        clrIn = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
+        enable = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
+        clrIn = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
     }
 
     @Override

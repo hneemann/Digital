@@ -266,7 +266,7 @@
           <int>11</int>
         </entry>
       </elementAttributes>
-      <pos x="860" y="520"/>
+      <pos x="860" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -280,12 +280,17 @@
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="840" y="520"/>
+      <pos x="840" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
       <pos x="840" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="840" y="520"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -366,8 +371,16 @@
       <p2 x="1180" y="500"/>
     </wire>
     <wire>
+      <p1 x="840" y="500"/>
+      <p2 x="860" y="500"/>
+    </wire>
+    <wire>
       <p1 x="1180" y="500"/>
       <p2 x="1240" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="520"/>
+      <p2 x="1000" y="520"/>
     </wire>
     <wire>
       <p1 x="1060" y="520"/>
@@ -378,36 +391,24 @@
       <p2 x="860" y="520"/>
     </wire>
     <wire>
-      <p1 x="960" y="520"/>
-      <p2 x="1000" y="520"/>
-    </wire>
-    <wire>
       <p1 x="1160" y="520"/>
       <p2 x="1240" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="820" y="620"/>
-      <p2 x="840" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1220" y="540"/>
-      <p2 x="1240" y="540"/>
     </wire>
     <wire>
       <p1 x="840" y="540"/>
       <p2 x="860" y="540"/>
     </wire>
     <wire>
-      <p1 x="920" y="540"/>
-      <p2 x="960" y="540"/>
+      <p1 x="1220" y="540"/>
+      <p2 x="1240" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="620"/>
+      <p2 x="840" y="620"/>
     </wire>
     <wire>
       <p1 x="1120" y="560"/>
       <p2 x="1120" y="680"/>
-    </wire>
-    <wire>
-      <p1 x="960" y="520"/>
-      <p2 x="960" y="540"/>
     </wire>
     <wire>
       <p1 x="1140" y="660"/>

@@ -242,7 +242,12 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="280" y="180"/>
+      <pos x="280" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="280" y="160"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -251,12 +256,12 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <p2 x="540" y="160"/>
     </wire>
     <wire>
-      <p1 x="280" y="160"/>
-      <p2 x="300" y="160"/>
-    </wire>
-    <wire>
       <p1 x="720" y="160"/>
       <p2 x="740" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="160"/>
+      <p2 x="300" y="160"/>
     </wire>
     <wire>
       <p1 x="740" y="160"/>
@@ -307,12 +312,16 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <p2 x="580" y="240"/>
     </wire>
     <wire>
-      <p1 x="640" y="340"/>
-      <p2 x="660" y="340"/>
+      <p1 x="280" y="180"/>
+      <p2 x="300" y="180"/>
     </wire>
     <wire>
       <p1 x="560" y="180"/>
       <p2 x="660" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="340"/>
+      <p2 x="660" y="340"/>
     </wire>
     <wire>
       <p1 x="620" y="280"/>
@@ -363,8 +372,8 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <p2 x="600" y="380"/>
     </wire>
     <wire>
-      <p1 x="280" y="160"/>
-      <p2 x="280" y="180"/>
+      <p1 x="280" y="180"/>
+      <p2 x="280" y="200"/>
     </wire>
     <wire>
       <p1 x="540" y="160"/>

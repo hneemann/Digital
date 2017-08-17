@@ -1,54 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-    <version>1</version>
-    <visualElements>
-        <visualElement>
-            <elementName>Clock</elementName>
-            <elementAttributes/>
-            <pos x="160" y="160"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Counter</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Bits</string>
-                    <int>8</int>
-                </entry>
-            </elementAttributes>
-            <pos x="200" y="160"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Const</elementName>
-            <elementAttributes>
-                <entry>
-                    <string>Value</string>
-                    <int>0</int>
-                </entry>
-            </elementAttributes>
-            <pos x="180" y="180"/>
-            <rotate>0</rotate>
-        </visualElement>
-        <visualElement>
-            <elementName>Break</elementName>
-            <elementAttributes/>
-            <pos x="300" y="180"/>
-            <rotate>0</rotate>
-        </visualElement>
-    </visualElements>
-    <wires>
-        <wire>
-            <p1 x="160" y="160"/>
-            <p2 x="200" y="160"/>
-        </wire>
-        <wire>
-            <p1 x="180" y="180"/>
-            <p2 x="200" y="180"/>
-        </wire>
-        <wire>
-            <p1 x="260" y="180"/>
-            <p2 x="300" y="180"/>
-        </wire>
-    </wires>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes/>
+      <pos x="160" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Counter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="180" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Break</elementName>
+      <elementAttributes/>
+      <pos x="300" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <int>0</int>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="200"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="160" y="160"/>
+      <p2 x="200" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="180"/>
+      <p2 x="200" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="180"/>
+      <p2 x="300" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="200"/>
+      <p2 x="200" y="200"/>
+    </wire>
+  </wires>
 </circuit>

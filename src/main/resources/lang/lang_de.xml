@@ -122,6 +122,7 @@ Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.</stri
     <string name="elem_Counter_pin_clr">Setzt den Zähler auf 0 zurück wenn dieser Eingang auf 1 gesetzt wird.</string>
     <string name="elem_Counter_pin_ovf">Overflow Ausgang. Hat der Zähler das Maximum erreicht, wird dieser Ausgang für eine Taktdauer 1.</string>
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
+    <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">Ein Baustein zum Speichern eines Bits. Der an Eingang D anliegende Wert wird abgespeichert wenn Eingang C auf 1 wechselt.</string>

@@ -39,7 +39,7 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(this::check).scan(examples);
         // if tested is negative, ghdl was not found and tests are skipped!
         if (tested >= 0) {
-            assertEquals(13, tested);
+            assertEquals(14, tested);
             assertEquals(tested, testBenches);
         }
     }
@@ -65,9 +65,8 @@ public class TestInSimulator extends TestCase {
     public void testInSimulatorProcessor() throws Exception {
         File file = new File(Resources.getRoot(), "../../main/dig/processor/ProcessorVHDL.dig");
         try {
-            ToBreakRunner br = new ToBreakRunner(file);
-            CodePrinterStr out = new CodePrinterStr(true);
-//            System.out.println(new VHDLExporter(br.getLibrary(), out).export(br.getCircuit()));
+//            ToBreakRunner br = new ToBreakRunner(file);
+//            System.out.println(new VHDLExporter(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
 
             check(file);
         } catch (FileScanner.SkipAllException e) {
@@ -77,6 +76,17 @@ public class TestInSimulator extends TestCase {
             throw e;
         }
     }
+
+    /*
+    public void testInSimulatorDebug() throws Exception {
+        File file = new File(Resources.getRoot(), "dig/test/vhdl/counter.dig");
+
+        ToBreakRunner br = new ToBreakRunner(file);
+        System.out.println(new VHDLExporter(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
+
+        check(file);
+    } /* */
+
 
     private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);

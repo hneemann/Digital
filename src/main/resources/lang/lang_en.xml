@@ -121,6 +121,7 @@
     <string name="elem_Counter_pin_clr">Resets the counter value if set to 1.</string>
     <string name="elem_Counter_pin_out">Returns the counted value.</string>
     <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter has an overflow and returns to zero.</string>
+    <string name="elem_Counter_pin_en">If set to 1 the counter is enabled!</string>
 
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
