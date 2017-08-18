@@ -24,6 +24,33 @@
             editing mode again.
         </par>
     </chapter>
+    <chapter name="Hierarchical Design">
+        <par>
+            If a very complex circuit is built up, this can very quickly become very confusing. To keep track here, the
+            different parts of a circuit can be stored in different files. This mechanism also makes it possible to use
+            a subcircuit, which has been created once, several times in a further circuit.
+            This approach also offers the advantage that the files can be stored independently of each other in a
+            version control system and changes can be tracked.
+        </par>
+        <par>
+            In this case, only the file names of the subcircuits are stored in a circuit. The corresponding files of the
+            integrated subcircuits must therefore be found at the runtime of the simulation in the file system.
+            In order to support the various work methods of the users as best as possible and still to avoid a complex
+            administration of import paths, etc., a somewhat unusual import strategy is implemented.
+        </par>
+        <par>
+            Only the file names of the embedded circuits are stored in a circuits file.
+            If a file needs to be opened, all subfolders are searched for a file of the corresponding name.
+            If a suitable file is found, it is imported. This process only depends on the file name of the file to be
+            read, not on its path. Correspondingly, an error message is generated if there are several files of the
+            same name in different subfolders, since ambiguities then arise.
+        </par>
+        <par>
+            A suitable project structure therefore looks as follows: The root circuit is located in a separate folder.
+            All imported circuits must be in the same folder or subfolders. All circuits must have different names,
+            so it must not happen that there are circuits of the same name in different folders.
+        </par>
+    </chapter>
     <chapter name="Propagation Delay">
         <par>
             During the simulation every logic gate has a propagation delay. Every component from the library
@@ -59,28 +86,6 @@
             with the rectangular selection. The rectangular selection must contain the whole component.
             Then it can be moved with the mouse.  If an element is selected by a mouse click, only the component
             itself can be moved - without the connected wires.
-        </par>
-    </chapter>
-    <chapter name="File Names">
-        <par>
-            In order to decompose a circuit into several parts which are independent, e.g. can be stored and tracked in
-            a  version control system, each embedded circuit is stored in its own file.
-            The result is that in a circuit only the file names
-            of the subcircuits are stored, and these files must be found in the file system at runtime.
-            In order to support the various work methods of the users as best as possible and still to avoid a complex
-            administration of import paths, etc., a somewhat unusual import strategy is implemented.
-        </par>
-        <par>
-            Only the file names of the embedded circuits are stored in a circuits file.
-            If a file needs to be opened, all subfolders are searched for a file of the corresponding name.
-            If a suitable file is found, it is imported. This process only depends on the file name of the file to be
-            read, not on its path. Correspondingly, an error message is generated if there are several files of the
-            same name in different subfolders, since ambiguities then arise.
-        </par>
-        <par>
-            A suitable project structure therefore looks as follows: The root circuit is located in a separate folder.
-            All imported circuits must be in the same folder or subfolders. All circuits must have different names,
-            so it must not happen that there are circuits of the same name in different folders.
         </par>
     </chapter>
     <chapter name="Circuit analysis and synthesis">
