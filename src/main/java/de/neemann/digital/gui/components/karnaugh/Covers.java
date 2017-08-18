@@ -10,56 +10,115 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Creates the covers needed to draw a kv map
+ */
 public class Covers implements Iterable<Covers.Cover> {
 
     private final ArrayList<Cell> cells;
     private final List<Variable> vars;
     private final ArrayList<Cover> covers;
 
+    /**
+     * Creates a new instance
+     *
+     * @param vars the variables used
+     * @param expr the expression
+     * @throws KarnaughException KarnaughException
+     */
     public Covers(List<Variable> vars, Expression expr) throws KarnaughException {
         this.vars = vars;
         cells = new ArrayList<>();
-        for (int row = 0; row < 4; row++)
-            for (int col = 0; col < 4; col++)
-                cells.add(new Cell(row, col));
         covers = new ArrayList<>();
+        switch (vars.size()) {
+            case 2:
+                for (int row = 0; row < 2; row++)
+                    for (int col = 0; col < 2; col++)
+                        cells.add(new Cell(row, col));
+                addToRow(0, 2, 0, true);
+                addToRow(1, 2, 0, false);
+                addToCol(0, 2, 1, true);
+                addToCol(1, 2, 1, false);
+                break;
+            case 3:
+                for (int row = 0; row < 2; row++)
+                    for (int col = 0; col < 4; col++)
+                        cells.add(new Cell(row, col));
+                addToRow(0, 4, 0, true);
+                addToRow(1, 4, 0, false);
+                addToCol(0, 2, 1, true);
+                addToCol(1, 2, 1, true);
+                addToCol(2, 2, 1, false);
+                addToCol(3, 2, 1, false);
+                addToCol(0, 2, 2, false);
+                addToCol(1, 2, 2, true);
+                addToCol(2, 2, 2, true);
+                addToCol(3, 2, 2, false);
+                break;
+            case 4:
+                for (int row = 0; row < 4; row++)
+                    for (int col = 0; col < 4; col++)
+                        cells.add(new Cell(row, col));
 
-        addToRow(0, 0, true);
-        addToRow(1, 0, true);
-        addToRow(2, 0, false);
-        addToRow(3, 0, false);
-        addToRow(0, 1, false);
-        addToRow(1, 1, true);
-        addToRow(2, 1, true);
-        addToRow(3, 1, false);
-        addToCol(0, 2, true);
-        addToCol(1, 2, true);
-        addToCol(2, 2, false);
-        addToCol(3, 2, false);
-        addToCol(0, 3, false);
-        addToCol(1, 3, true);
-        addToCol(2, 3, true);
-        addToCol(3, 3, false);
+                addToRow(0, 4, 0, true);
+                addToRow(1, 4, 0, true);
+                addToRow(2, 4, 0, false);
+                addToRow(3, 4, 0, false);
+                addToRow(0, 4, 1, false);
+                addToRow(1, 4, 1, true);
+                addToRow(2, 4, 1, true);
+                addToRow(3, 4, 1, false);
+                addToCol(0, 4, 2, true);
+                addToCol(1, 4, 2, true);
+                addToCol(2, 4, 2, false);
+                addToCol(3, 4, 2, false);
+                addToCol(0, 4, 3, false);
+                addToCol(1, 4, 3, true);
+                addToCol(2, 4, 3, true);
+                addToCol(3, 4, 3, false);
+                break;
+            default:
+                throw new KarnaughException(Lang.get("err_toManyVars"));
+        }
+        createTruthTableIndex();
 
         addExpression(expr);
     }
 
-    private void addToRow(int row, int var, boolean invert) {
-        for (int col = 0; col < 4; col++)
+    private void createTruthTableIndex() {
+        for (Cell c : cells)
+            c.createTableIndex();
+    }
+
+    private void addToRow(int row, int cols, int var, boolean invert) {
+        for (int col = 0; col < cols; col++)
             getCell(row, col).add(new VarState(var, invert));
     }
 
-    private void addToCol(int col, int var, boolean invert) {
-        for (int row = 0; row < 4; row++)
+    private void addToCol(int col, int rows, int var, boolean invert) {
+        for (int row = 0; row < rows; row++)
             getCell(row, col).add(new VarState(var, invert));
     }
 
-    private Cell getCell(int row, int col) {
+    /**
+     * The given cell
+     *
+     * @param row the row
+     * @param col the column
+     * @return the cell at this position
+     */
+    public Cell getCell(int row, int col) {
         for (Cell cell : cells)
             if (cell.is(row, col)) return cell;
         throw new RuntimeException("cell not found");
     }
 
+    /**
+     * @return all cells
+     */
+    public ArrayList<Cell> getCells() {
+        return cells;
+    }
 
     private void addExpression(Expression expr) throws KarnaughException {
         if (expr instanceof Not || expr instanceof Variable) {
@@ -119,15 +178,22 @@ public class Covers implements Iterable<Covers.Cover> {
         return covers.iterator();
     }
 
+    /**
+     * @return the number of covers
+     */
     public int size() {
         return covers.size();
     }
 
+    /**
+     * a sigle cell in kv map
+     */
     public static final class Cell {
         private final int row;
         private final int col;
         private ArrayList<VarState> impl;
         private ArrayList<Cover> covers;
+        private int index;
 
         private Cell(int row, int col) {
             this.row = row;
@@ -149,14 +215,45 @@ public class Covers implements Iterable<Covers.Cover> {
                 if (cover.contains(s.not()))
                     return;
             covers.add(cover);
+            cover.incCellCount();
         }
 
-        public boolean contains(Cover cover) {
+        private boolean contains(Cover cover) {
             return covers.contains(cover);
+        }
+
+        private void createTableIndex() {
+            int tableCols = impl.size();
+            index = 0;
+            for (VarState i : impl) {
+                if (!i.invert)
+                    index += (1 << (tableCols - i.num - 1));
+            }
+        }
+
+        /**
+         * @return the row
+         */
+        public int getRow() {
+            return row;
+        }
+
+        /**
+         * @return the column
+         */
+        public int getCol() {
+            return col;
+        }
+
+        /**
+         * @return the row in the truth table this cell belongs to
+         */
+        public int getIndex() {
+            return index;
         }
     }
 
-    public static final class VarState {
+    private static final class VarState {
         private int num;
         private boolean invert;
 
@@ -183,7 +280,7 @@ public class Covers implements Iterable<Covers.Cover> {
             return result;
         }
 
-        public VarState not() {
+        private VarState not() {
             return new VarState(num, !invert);
         }
     }
@@ -191,26 +288,29 @@ public class Covers implements Iterable<Covers.Cover> {
     /**
      * a cover
      */
-    public class Cover {
+    public final class Cover {
         private final ArrayList<VarState> varStates;
         private Pos pos;
-        private int belongsTo;
+        private int cellCount;
 
-        public Cover() {
+        private Cover() {
             varStates = new ArrayList<>();
         }
 
-        public Cover add(VarState varState) {
+        private Cover add(VarState varState) {
             varStates.add(varState);
             return this;
         }
 
-        public boolean contains(VarState s) {
+        private boolean contains(VarState s) {
             return varStates.contains(s);
         }
 
+        /**
+         * @return the position of the cover
+         */
         public Pos getPos() {
-            if (pos==null) {
+            if (pos == null) {
                 int rowMin = Integer.MAX_VALUE;
                 int rowMax = Integer.MIN_VALUE;
                 int colMin = Integer.MAX_VALUE;
@@ -223,42 +323,79 @@ public class Covers implements Iterable<Covers.Cover> {
                         if (c.col < colMin) colMin = c.col;
                     }
                 }
-                pos = new Pos(rowMin, colMin, colMax - colMin + 1, rowMax - rowMin + 1);
+                int width = colMax - colMin + 1;
+                int height = rowMax - rowMin + 1;
+                pos = new Pos(rowMin, colMin, width, height, cellCount);
             }
             return pos;
+        }
+
+        private void incCellCount() {
+            cellCount++;
+        }
+
+        /**
+         * @return the size of a cover
+         */
+        public int getSize() {
+            return cellCount;
         }
     }
 
     /**
-     * The position of the cover
+     * The position of the cover.
+     * If a cover is wrapping around the borders the bounding box is returned!
+     * Check the number of cells to detect that situation.
      */
-    public static class Pos {
+    public static final class Pos {
         private final int row;
         private final int col;
         private final int width;
         private final int height;
+        private final int cellCount;
 
-        private Pos(int row, int col, int width, int height) {
+        private Pos(int row, int col, int width, int height, int cellCount) {
             this.row = row;
             this.col = col;
             this.width = width;
             this.height = height;
+            this.cellCount = cellCount;
         }
 
+
+        /**
+         * @return the row
+         */
         public int getRow() {
             return row;
         }
 
+        /**
+         * @return the column
+         */
         public int getCol() {
             return col;
         }
 
+        /**
+         * @return the width of the cover
+         */
         public int getWidth() {
             return width;
         }
 
+        /**
+         * @return the height of the cover
+         */
         public int getHeight() {
             return height;
+        }
+
+        /**
+         * @return the number of cells in the cover
+         */
+        public int getCellCount() {
+            return cellCount;
         }
     }
 }
