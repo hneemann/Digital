@@ -12,8 +12,6 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 
-import java.util.StringTokenizer;
-
 /**
  * Simple text
  *
@@ -58,12 +56,20 @@ public class TextShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        StringTokenizer st = new StringTokenizer(text, "\n");
+        StringBuilder sb = new StringBuilder();
         Vector pos = new Vector(0, 0);
-        while (st.hasMoreTokens()) {
-            String text = st.nextToken();
-            graphic.drawText(pos, pos.add(1, 0), text, Orientation.LEFTTOP, Style.NORMAL_TEXT);
-            pos = pos.add(0, Style.NORMAL_TEXT.getFontSize());
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c == '\n') {
+                if (sb.length() > 0) {
+                    graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, Style.NORMAL_TEXT);
+                    sb.setLength(0);
+                }
+                pos = pos.add(0, Style.NORMAL_TEXT.getFontSize());
+            } else
+                sb.append(c);
         }
+        if (sb.length() > 0)
+            graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, Style.NORMAL_TEXT);
     }
 }
