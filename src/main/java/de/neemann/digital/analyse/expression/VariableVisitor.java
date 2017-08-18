@@ -28,7 +28,7 @@ public class VariableVisitor implements ExpressionVisitor {
     }
 
     /**
-     * Rerurns all used variables
+     * Returns all used variables
      *
      * @return used variables
      */
