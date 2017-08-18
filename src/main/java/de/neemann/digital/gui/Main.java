@@ -249,6 +249,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
             }
         }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
+        new DocumentationLocator().addMenuTo(help);
 
         new ToolTipAction("insertLast") {
             @Override

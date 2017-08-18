@@ -904,6 +904,9 @@ The names of the variables may not be unique.</string>
     <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
     <string name="menu_exportVHDL">Export to VHDL</string>
     <string name="menu_exportVHDL_tt">Exports the circuit to VHDL</string>
+    <string name="menu_pdfDocumentation">Documentation</string>
+    <string name="menu_openPdfDocumentation">Open {0}</string>
+    <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
 
     <string name="message">Digital
 

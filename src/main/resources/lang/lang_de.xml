@@ -918,6 +918,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_addPowerSupply_tt">Erweitert die Schaltung um eine Spannungsversorung.</string>
     <string name="menu_exportVHDL">Export zu VHDL</string>
     <string name="menu_exportVHDL_tt">Exportiert die Schaltung zu VHDL</string>
+    <string name="menu_pdfDocumentation">Dokumentation</string>
+    <string name="menu_openPdfDocumentation">Öffne {0}</string>
+    <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
     <string name="message">Digital
 
