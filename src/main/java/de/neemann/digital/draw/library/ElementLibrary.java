@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 /**
@@ -50,7 +51,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * @return the additional library path
      */
     public static File getLibPath() {
-        String path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace('\\', '/');
+        String path;
+        try {
+            path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replace('\\', '/');
+        } catch (URISyntaxException e) {
+            return new File("noLibFound");
+        }
+        System.out.println(path);
         if (path.endsWith("/target/classes/"))
             return new File(path.substring(0, path.length() - 16) + "/src/main/dig/lib");
         if (path.endsWith("/target/Digital.jar"))
