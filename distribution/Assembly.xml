@@ -111,6 +111,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${basedir}/src/test/resources/dig/vhdl_distributable</directory>
+            <outputDirectory>/examples/vhdl/</outputDirectory>
+            <includes>
+                <include>*.dig</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${basedir}/target/xslt</directory>
             <outputDirectory>/docu/</outputDirectory>
             <includes>
