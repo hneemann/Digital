@@ -57,7 +57,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         } catch (URISyntaxException e) {
             return new File("noLibFound");
         }
-        System.out.println(path);
         if (path.endsWith("/target/classes/"))
             return new File(path.substring(0, path.length() - 16) + "/src/main/dig/lib");
         if (path.endsWith("/target/Digital.jar"))

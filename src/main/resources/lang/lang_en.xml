@@ -345,15 +345,11 @@
     <string name="elem_Text">Text</string>
     <string name="elem_Text_tt">Shows a text in the circuit. The text can be changed in the attributes dialog.</string>
     <string name="elem_XNOr">XNOr</string>
-    <string name="elem_XNOr_tt">A combination of XOR and NOT. The output is 1 if both input bits are equal.</string>
-    <string name="elem_XNOr_pin_a">Input a for Exclusive Not Or.</string>
-    <string name="elem_XNOr_pin_b">Input b for Exclusive Not Or.</string>
-    <string name="elem_XNOr_pin_out">Returns the result of the XNOr operation.</string>
+    <string name="elem_XNOr_tt">A combination of XOR and NOT. The output is 1 if both input bits are equal. If more than two inputs are used, it behaves
+        like cascaded xor gates ( A XOR B XOR C = (A XOR B) XOR C ).</string>
     <string name="elem_XOr">XOr</string>
-    <string name="elem_XOr_tt">The output is 0 if both input bits are equal.</string>
-    <string name="elem_XOr_pin_a">Input a for Exclusive Or.</string>
-    <string name="elem_XOr_pin_b">Input b for Exclusive Or.</string>
-    <string name="elem_XOr_pin_out">Returns result of Exclusive Or.</string>
+    <string name="elem_XOr_tt">The output is 0 if both input bits are equal. If more than two inputs are used, it behaves
+        like cascaded xor gates ( A XOR B XOR C = (A XOR B) XOR C ).</string>
     <string name="elem_Testcase">Test case</string>
     <string name="elem_Testcase_tt">Describes a test case.
         In a test case you can describe how a circuit should behave. It can then be automatically checked whether the

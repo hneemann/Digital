@@ -39,7 +39,7 @@
         <entry>
           <string>inverterConfig</string>
           <inverterConfig>
-            <string>a</string>
+            <string>In_1</string>
           </inverterConfig>
         </entry>
       </elementAttributes>

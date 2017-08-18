@@ -7,10 +7,12 @@ HEAD, planned as v0.14
 - Breaking changes
   - To generalize the VHDL export, an XML entity had to be renamed.
     As a consequence of that the address bits settings in RAMs and ROMs
-    are lost. To fix that reset the number of address bits.
+    are lost. To fix that, reset the number of address bits.
   - Added an enable input to the counter component. If you had used the counter in the past
     you have to set the en input to 1. The function of the overflow output also has
     changed (see tooltip) and now allows the cascading of counters.
+  - XOR now can have more than two inputs. If you had used the XOR gate with inverted
+    inputs, you have to reselect the inputs to invert.
 
 v0.13, released on 25. Jul 2017
 - Introduced a library of sub circuits which are available in every circuit.

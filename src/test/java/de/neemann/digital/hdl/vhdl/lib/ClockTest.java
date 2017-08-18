@@ -146,8 +146,8 @@ public class ClockTest extends TestCase {
                 "  component XOR_GATE_2\n" +
                 "    port (\n" +
                 "      PORT_out: out std_logic;\n" +
-                "      PORT_a: in std_logic;\n" +
-                "      PORT_b: in std_logic );\n" +
+                "      PORT_In_1: in std_logic;\n" +
+                "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "\n" +
                 "  component DIG_simpleClockDivider\n" +
@@ -163,8 +163,8 @@ public class ClockTest extends TestCase {
                 "  gate0 : XOR_GATE_2\n" +
                 "    port map (\n" +
                 "      PORT_out => PORT_Y0,\n" +
-                "      PORT_a => PORT_A,\n" +
-                "      PORT_b => S0 );\n" +
+                "      PORT_In_1 => PORT_A,\n" +
+                "      PORT_In_2 => S0 );\n" +
                 "  gate1 : DIG_simpleClockDivider\n" +
                 "    generic map (\n" +
                 "      maxCounter => 2500000 )\n" +
@@ -183,13 +183,13 @@ public class ClockTest extends TestCase {
                 "entity XOR_GATE_2 is\n" +
                 "  port (\n" +
                 "    PORT_out: out std_logic;\n" +
-                "    PORT_a: in std_logic;\n" +
-                "    PORT_b: in std_logic );\n" +
+                "    PORT_In_1: in std_logic;\n" +
+                "    PORT_In_2: in std_logic );\n" +
                 "end XOR_GATE_2;\n" +
                 "\n" +
                 "architecture XOR_GATE_2_arch of XOR_GATE_2 is\n" +
                 "begin\n" +
-                "  PORT_out <= PORT_a XOR PORT_b;\n" +
+                "  PORT_out <= PORT_In_1 XOR PORT_In_2;\n" +
                 "end XOR_GATE_2_arch;\n" +
                 "\n" +
                 "-- DIG_simpleClockDivider\n" +

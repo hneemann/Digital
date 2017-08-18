@@ -4,15 +4,15 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
 
 import java.util.ArrayList;
 
 /**
  * The NOr
+ *
  * @author hneemann
  */
-public class NOr extends Function {
+public class NOr extends Or {
 
     /**
      * The NOr description
@@ -25,15 +25,11 @@ public class NOr extends Function {
      * @param attributes the attributes
      */
     public NOr(ElementAttributes attributes) {
-        super(attributes.get(Keys.BITS));
+        super(attributes);
     }
 
     @Override
     protected int calculate(ArrayList<ObservableValue> inputs) throws NodeException {
-        int f = 0;
-        for (ObservableValue i : inputs) {
-            f |= i.getValue();
-        }
-        return ~f;
+        return ~super.calculate(inputs);
     }
 }
