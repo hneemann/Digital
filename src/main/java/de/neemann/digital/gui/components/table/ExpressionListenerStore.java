@@ -99,5 +99,10 @@ public class ExpressionListenerStore implements ExpressionListener {
         public Expression getExpression() {
             return expression;
         }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }

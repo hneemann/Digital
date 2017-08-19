@@ -472,7 +472,7 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="err_containsVarAndNotVar">Enthält [var] und [nicht var]</string>
     <string name="err_duplicatePinLabel">Pin {0} in Element {1} exitiert mehrfach</string>
     <string name="err_element_N_notFound">Element {0} nicht gefunden</string>
-    <string name="err_exact_N0_valuesNecessaryNot_N1">Es sind {0} Variablen erforderlich, nicht {1}</string>
+    <string name="err_exact_N0_valuesNecessaryNot_N1">Es sind {0} Werte erforderlich, nicht {1}</string>
     <string name="err_ffNeedsToBeConnectedToClock">Flipflops müssen direkt mit dem Takt verbunden sein.</string>
     <string name="err_invalidFileFormat">Ungültiges Dateiformat</string>
     <string name="err_isAlreadyInitialized">Die Schaltung wurde bereits initialisiert</string>

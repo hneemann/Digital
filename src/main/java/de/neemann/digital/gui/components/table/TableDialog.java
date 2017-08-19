@@ -36,6 +36,8 @@ import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
+import de.neemann.digital.gui.components.karnaugh.KarnaughMap;
+import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
 
@@ -79,6 +81,7 @@ public class TableDialog extends JDialog {
     private int columnIndex;
     private AllSolutionsDialog allSolutionsDialog;
     private ExpressionListenerStore lastGeneratedExpressions;
+    private KarnaughMapDialog kvMap;
 
     /**
      * Creates a new instance
@@ -95,6 +98,7 @@ public class TableDialog extends JDialog {
         this.shapeFactory = shapeFactory;
         this.filename = filename;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        kvMap = new KarnaughMapDialog(this);
 
 
         label = new JLabel();
@@ -206,6 +210,13 @@ public class TableDialog extends JDialog {
         bar.add(createSetMenu());
 
         bar.add(createCreateMenu());
+
+        bar.add(new ToolTipAction(Lang.get("menu_karnaughMap")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                kvMap.setVisible(true);
+            }
+        }.setToolTip(Lang.get("menu_karnaughMap_tt")).createJMenuItem());
 
         setJMenuBar(bar);
 
@@ -600,6 +611,8 @@ public class TableDialog extends JDialog {
 
             lastGeneratedExpressions = new ExpressionListenerStore(expressionListener);
             new ExpressionCreator(model.getTable()).create(lastGeneratedExpressions);
+
+            kvMap.setResult(model.getTable(),lastGeneratedExpressions.getResults());
 
         } catch (ExpressionException | FormatterException | AnalyseException e1) {
             lastGeneratedExpressions = null;

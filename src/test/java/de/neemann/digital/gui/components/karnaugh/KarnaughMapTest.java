@@ -6,65 +6,63 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.parser.ParseException;
 import de.neemann.digital.analyse.parser.Parser;
-import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableBoolArray;
 import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
-import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import junit.framework.TestCase;
 
 import java.io.IOException;
 
 
-public class CoversTest extends TestCase {
+public class KarnaughMapTest extends TestCase {
 
     public void testSimple2() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("(A ¬B) ∨ (¬A B)").parse().get(0);
-        Covers c = new Covers(Variable.vars(2), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp);
 
         assertEquals(2, c.size());
 
-        for (Covers.Cover co : c)
+        for (KarnaughMap.Cover co : c)
             assertEquals(1, co.getSize());
     }
 
     public void testSimple2_singleVar() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("A").parse().get(0);
-        Covers c = new Covers(Variable.vars(2), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp);
 
         assertEquals(1, c.size());
 
-        for (Covers.Cover co : c)
+        for (KarnaughMap.Cover co : c)
             assertEquals(2, co.getSize());
     }
 
     public void testSimple2_singleAnd() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("A B").parse().get(0);
-        Covers c = new Covers(Variable.vars(2), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp);
 
         assertEquals(1, c.size());
 
-        for (Covers.Cover co : c)
+        for (KarnaughMap.Cover co : c)
             assertEquals(1, co.getSize());
     }
 
     public void testSimple3() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("(A ¬C) ∨ (¬A ¬B) ∨ (B C)").parse().get(0);
-        Covers c = new Covers(Variable.vars(3), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(3), exp);
 
         assertEquals(3, c.size());
 
-        for (Covers.Cover co : c)
+        for (KarnaughMap.Cover co : c)
             assertEquals(2, co.getSize());
     }
 
     public void testSimple4() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("(¬A ¬C ¬D) ∨ (A B C) ∨ (A ¬B D) ∨ (¬A ¬B C) ∨ (¬B ¬C ¬D)").parse().get(0);
-        Covers c = new Covers(Variable.vars(4), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(4), exp);
 
         assertEquals(5, c.size());
 
-        for (Covers.Cover co : c)
+        for (KarnaughMap.Cover co : c)
             assertEquals(2, co.getSize());
     }
 
@@ -84,11 +82,11 @@ public class CoversTest extends TestCase {
                                 .fillTableWith(t)
                                 .simplify(new PrimeSelectorDefault())
                                 .getExpression();                    // create the expression
-                Covers c = new Covers(Variable.vars(vars), exp);     // create the KV covers
+                KarnaughMap c = new KarnaughMap(Variable.vars(vars), exp);     // create the KV covers
                 assertEquals(1, c.size());                 // there is only on cover
-                Covers.Cover cover = c.iterator().next();
+                KarnaughMap.Cover cover = c.iterator().next();
                 assertEquals(1, cover.getSize());          // the size of the cover is one cell
-                Covers.Pos pos = cover.getPos();
+                KarnaughMap.Pos pos = cover.getPos();
                 // the row in the truth table is the row containing the one.
                 assertEquals(row, c.getCell(pos.getRow(), pos.getCol()).getIndex());
             }
@@ -100,8 +98,8 @@ public class CoversTest extends TestCase {
      * Tests if header description in 4x4 kv map is correct
      */
     public void testHeader4() throws IOException, ParseException, KarnaughException {
-        Covers cov = new Covers(Variable.vars(4), Constant.ONE);
-        Covers.Header head = cov.getHeaderLeft();
+        KarnaughMap cov = new KarnaughMap(Variable.vars(4), Constant.ONE);
+        KarnaughMap.Header head = cov.getHeaderLeft();
         assertEquals(4, head.size());
         for (int r = 0; r < 4; r++)
             for (int c = 0; c < 4; c++)
@@ -131,8 +129,8 @@ public class CoversTest extends TestCase {
      * Tests if header description in 2x4 kv map is correct
      */
     public void testHeader3() throws IOException, ParseException, KarnaughException {
-        Covers cov = new Covers(Variable.vars(3), Constant.ONE);
-        Covers.Header head = cov.getHeaderLeft();
+        KarnaughMap cov = new KarnaughMap(Variable.vars(3), Constant.ONE);
+        KarnaughMap.Header head = cov.getHeaderLeft();
         assertEquals(2, head.size());
         for (int r = 0; r < 2; r++)
             for (int c = 0; c < 4; c++)
@@ -157,8 +155,8 @@ public class CoversTest extends TestCase {
      * Tests if header description in 2x2 kv map is correct
      */
     public void testHeader2() throws IOException, ParseException, KarnaughException {
-        Covers cov = new Covers(Variable.vars(2), Constant.ONE);
-        Covers.Header head = cov.getHeaderLeft();
+        KarnaughMap cov = new KarnaughMap(Variable.vars(2), Constant.ONE);
+        KarnaughMap.Header head = cov.getHeaderLeft();
         assertEquals(2, head.size());
         for (int r = 0; r < 2; r++)
             for (int c = 0; c < 2; c++)

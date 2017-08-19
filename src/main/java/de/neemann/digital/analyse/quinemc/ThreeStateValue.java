@@ -86,4 +86,16 @@ public enum ThreeStateValue {
                 throw new RuntimeException("don't care not allowed");
         }
     }
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case zero:
+                return "0";
+            case one:
+                return "1";
+            default:
+                return "X";
+        }
+    }
 }
