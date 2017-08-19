@@ -92,37 +92,27 @@ public class KarnaughMapComponent extends JComponent {
             gr.setStroke(new BasicStroke(STROKE_WIDTH));
 
             // draw table
-            for (int i = 0; i <= kvWidth; i++)
-                gr.drawLine((i + 1) * cellSize, 0, (i + 1) * cellSize, (kvHeight + 2) * cellSize);
+            for (int i = 0; i <= kvWidth; i++) {
+                int dy1 = isNoHeaderLine(kv.getHeaderTop(), i - 1) ? cellSize : 0;
+                int dy2 = isNoHeaderLine(kv.getHeaderBottom(), i - 1) ? cellSize : 0;
+                gr.drawLine((i + 1) * cellSize, dy1, (i + 1) * cellSize, (kvHeight + 2) * cellSize - dy2);
+            }
 
-            for (int i = 0; i <= kvHeight; i++)
-                gr.drawLine(0, (i + 1) * cellSize, (kvWidth + 2) * cellSize, (i + 1) * cellSize);
+            for (int i = 0; i <= kvHeight; i++) {
+                int dx1 = isNoHeaderLine(kv.getHeaderLeft(), i - 1) ? cellSize : 0;
+                int dx2 = isNoHeaderLine(kv.getHeaderRight(), i - 1) ? cellSize : 0;
+                gr.drawLine(dx1, (i + 1) * cellSize, (kvWidth + 2) * cellSize - dx2, (i + 1) * cellSize);
+            }
 
             // fill in content
             for (KarnaughMap.Cell cell : kv.getCells())
                 drawString(boolTable.get(cell.getIndex()).toString(), cell.getCol() + 1, cell.getRow() + 1);
 
-            // left header
-            KarnaughMap.Header header = kv.getHeaderLeft();
-            for (int i = 0; i < kvHeight; i++)
-                drawString(getStr(header.getVar(), header.getInvert(i)), 0, i + 1);
-
-            // top header
-            header = kv.getHeaderTop();
-            for (int i = 0; i < kvWidth; i++)
-                drawString(getStr(header.getVar(), header.getInvert(i)), (i + 1), 0);
-
-            // right header
-            header = kv.getHeaderRight();
-            if (header != null)
-                for (int i = 0; i < kvHeight; i++)
-                    drawString(getStr(header.getVar(), header.getInvert(i)), kvWidth + 1, i + 1);
-
-            // bottom header
-            header = kv.getHeaderBottom();
-            if (header != null)
-                for (int i = 0; i < kvWidth; i++)
-                    drawString(getStr(header.getVar(), header.getInvert(i)), i + 1, kvWidth + 1);
+            // headers
+            drawVerticalHeader(kv.getHeaderLeft(), 0);
+            drawVerticalHeader(kv.getHeaderRight(), kvWidth + 1);
+            drawHorizontalHeader(kv.getHeaderTop(), 0);
+            drawHorizontalHeader(kv.getHeaderBottom(), kvHeight + 1);
 
             // draw covers
             int color = 0;
@@ -160,11 +150,45 @@ public class KarnaughMapComponent extends JComponent {
             gr.drawString(message, 10, 20);
     }
 
+    private void drawHorizontalHeader(KarnaughMap.Header header, int pos) {
+        if (header != null)
+            for (int i = 0; i < header.size(); i++) {
+                int dx = 0;
+                if (isNoHeaderLine(header, i)) {
+                    i++;
+                    dx = cellSize / 2;
+                }
+                drawString(getStr(header.getVar(), header.getInvert(i)), i + 1, pos, dx, 0);
+            }
+    }
+
+    private void drawVerticalHeader(KarnaughMap.Header header, int pos) {
+        if (header == null) return;
+        for (int i = 0; i < header.size(); i++) {
+            int dy = 0;
+            if (isNoHeaderLine(header, i)) {
+                i++;
+                dy = cellSize / 2;
+            }
+            drawString(getStr(header.getVar(), header.getInvert(i)), pos, i + 1, 0, dy);
+        }
+    }
+
+    private boolean isNoHeaderLine(KarnaughMap.Header header, int i) {
+        if (header == null) return false;
+        if (i < 0 || i >= header.size() - 1) return false;
+        return header.getInvert(i) == header.getInvert(i + 1);
+    }
+
     private void drawString(String s, int row, int col) {
+        drawString(s, row, col, 0, 0);
+    }
+
+    private void drawString(String s, int row, int col, int xOffs, int yOffs) {
         Rectangle2D bounds = fontMetrics.getStringBounds(s, gr);
         int xPos = (int) ((cellSize - bounds.getWidth()) / 2);
         int yPos = cellSize - (int) ((cellSize - bounds.getHeight()) / 2) - fontMetrics.getDescent();
-        gr.drawString(s, row * cellSize + xPos, col * cellSize + yPos);
+        gr.drawString(s, row * cellSize + xPos - xOffs, col * cellSize + yPos - yOffs);
     }
 
     private String getStr(int var, boolean invert) {
