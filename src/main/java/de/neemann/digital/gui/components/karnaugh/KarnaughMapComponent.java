@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import static de.neemann.digital.analyse.expression.Not.not;
 
 /**
- * shows the kv map
+ * JComponent to show a kv map.
  */
 public class KarnaughMapComponent extends JComponent {
     private static final int STROKE_WIDTH = 4;
@@ -54,7 +54,7 @@ public class KarnaughMapComponent extends JComponent {
         try {
             kv = new KarnaughMap(vars, exp);
         } catch (KarnaughException e) {
-            kv = null; // ToDo show massage
+            kv = null;
             message = e.getMessage();
         }
         repaint();
