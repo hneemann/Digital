@@ -559,7 +559,8 @@ The names of the variables may not be unique.</string>
     <string name="err_vhdlRomLabel_N_notUnique">Rom name {0} is not unique!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
     <string name="err_vhdlMultipleInputsConnectedToAnOutput">Multiple inputs are connected to an output!</string>
-
+    <string name="err_toManyVars">To many variables!</string>
+    <string name="err_invalidExpression">Invalid expression!</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -882,6 +883,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_probe_memory_tt">Shows the content of memory components.</string>
     <string name="menu_treeSelect">Component Tree View</string>
     <string name="menu_treeSelect_tt">Shows a tree view of available components at the left side.</string>
+    <string name="menu_karnaughMap">KV-Map</string>
+    <string name="menu_karnaughMap_tt">Shows a KV map representation of the Table!</string>
 
     <string name="menu_special">Special 74xx Funtions</string>
     <string name="menu_addPrefix">Add IO-Prefix</string>
@@ -978,6 +981,7 @@ The icons are taken from the Tango Desktop Project.</string>
         as variables in the analysis, but treated as constants!</string>
     <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!</string>
     <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>
+    <string name="msg_noKVMapAvailable">No KV map available!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

@@ -12,6 +12,7 @@ import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import junit.framework.TestCase;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 
 public class KarnaughMapTest extends TestCase {
@@ -54,6 +55,18 @@ public class KarnaughMapTest extends TestCase {
 
         for (KarnaughMap.Cover co : c)
             assertEquals(2, co.getSize());
+    }
+
+    public void testSimple_BUG() throws IOException, ParseException, KarnaughException {
+        Expression exp = new Parser("(¬A B ¬C) ∨ (A C) ∨ ¬B").parse().get(0);
+        KarnaughMap c = new KarnaughMap(Variable.vars(3), exp);
+
+        assertEquals(3, c.size());
+
+        Iterator<KarnaughMap.Cover> it = c.iterator();
+        assertEquals(1, it.next().getSize());
+        assertEquals(2, it.next().getSize());
+        assertEquals(4, it.next().getSize());
     }
 
     public void testSimple4() throws IOException, ParseException, KarnaughException {

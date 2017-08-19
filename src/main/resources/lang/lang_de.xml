@@ -571,6 +571,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_vhdlRomLabel_N_notUnique">Rom Name {0} ist nicht eindeutig!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
     <string name="err_vhdlMultipleInputsConnectedToAnOutput">Es sind mehrere Eingänge direkt mit einem Ausgang verbunden!</string>
+    <string name="err_toManyVars">Zu viele Variablen!</string>
+    <string name="err_invalidExpression">Ungültiger Ausdruck!</string>
+
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -995,6 +998,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
         als Variablen in die Analyse einbezogen, sondern wie Konstanten behandelt!</string>
     <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
     <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
+    <string name="msg_noKVMapAvailable">Keine KV-Tafel verfügbar!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

@@ -5,6 +5,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
 
 import javax.swing.*;
@@ -31,6 +32,7 @@ public class KarnaughMapComponent extends JComponent {
     private Graphics2D gr;
     private int cellSize;
     private FontMetrics fontMetrics;
+    private String message = Lang.get("msg_noKVMapAvailable");
 
     /**
      * creates a new instance
@@ -53,7 +55,17 @@ public class KarnaughMapComponent extends JComponent {
             kv = new KarnaughMap(vars, exp);
         } catch (KarnaughException e) {
             kv = null; // ToDo show massage
+            message = e.getMessage();
         }
+        repaint();
+    }
+
+    /**
+     * Shows nothing
+     */
+    public void showNothing() {
+        kv = null;
+        message = Lang.get("msg_noKVMapAvailable");
         repaint();
     }
 
@@ -64,6 +76,7 @@ public class KarnaughMapComponent extends JComponent {
         int height = getHeight();
         gr.setColor(Color.WHITE);
         gr.fillRect(0, 0, width, height);
+        gr.setColor(Color.BLACK);
 
         if (kv != null) {
             AffineTransform trans = gr.getTransform();
@@ -76,7 +89,6 @@ public class KarnaughMapComponent extends JComponent {
 
             gr.translate((width - (kvWidth + 2) * cellSize) / 2,
                     (height - (kvHeight + 2) * cellSize) / 2);
-            gr.setColor(Color.BLACK);
             gr.setStroke(new BasicStroke(STROKE_WIDTH));
 
             // draw table
@@ -117,7 +129,7 @@ public class KarnaughMapComponent extends JComponent {
             for (KarnaughMap.Cover c : kv) {
                 gr.setColor(COVER_COLORS[color++]);
                 KarnaughMap.Pos p = c.getPos();
-                int frame = (p.inset() + 1) * (STROKE_WIDTH+1);
+                int frame = (c.getInset() + 1) * STROKE_WIDTH;
                 if (p.isSplit()) {
                     Rectangle clip = gr.getClipBounds();
                     gr.setClip((p.getCol() + 1) * cellSize + frame - STROKE_WIDTH / 2, (p.getRow() + 1) * cellSize + frame - STROKE_WIDTH / 2,
@@ -144,7 +156,8 @@ public class KarnaughMapComponent extends JComponent {
                             cellSize, cellSize);
             }
             gr.setTransform(trans);
-        }
+        } else
+            gr.drawString(message, 10, 20);
     }
 
     private void drawString(String s, int row, int col) {

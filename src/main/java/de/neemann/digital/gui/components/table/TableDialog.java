@@ -36,7 +36,6 @@ import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
-import de.neemann.digital.gui.components.karnaugh.KarnaughMap;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
@@ -612,7 +611,7 @@ public class TableDialog extends JDialog {
             lastGeneratedExpressions = new ExpressionListenerStore(expressionListener);
             new ExpressionCreator(model.getTable()).create(lastGeneratedExpressions);
 
-            kvMap.setResult(model.getTable(),lastGeneratedExpressions.getResults());
+            kvMap.setResult(model.getTable(), lastGeneratedExpressions.getResults());
 
         } catch (ExpressionException | FormatterException | AnalyseException e1) {
             lastGeneratedExpressions = null;

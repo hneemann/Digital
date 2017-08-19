@@ -42,6 +42,8 @@ public class KarnaughMapDialog extends JDialog {
                     BoolTable boolTable = getResultTable(results.get(i).getName());
                     if (boolTable != null)
                         kvComponent.setResult(table.getVars(), boolTable, results.get(i).getExpression());
+                    else
+                        kvComponent.showNothing();
                 }
             }
         });
@@ -70,7 +72,7 @@ public class KarnaughMapDialog extends JDialog {
         combo.setSelectedIndex(0);
     }
 
-    private class MyComboBoxModel implements ComboBoxModel<ExpressionListenerStore.Result> {
+    private static final class MyComboBoxModel implements ComboBoxModel<ExpressionListenerStore.Result> {
         private List<ExpressionListenerStore.Result> results;
         private ExpressionListenerStore.Result selected;
 

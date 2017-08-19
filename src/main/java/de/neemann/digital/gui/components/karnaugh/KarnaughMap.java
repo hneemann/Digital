@@ -4,6 +4,7 @@ import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -142,6 +143,8 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
             for (Expression and : ((Operation.Or) expr).getExpressions())
                 if (and instanceof Operation.And)
                     addCover(((Operation.And) and).getExpressions());
+                else if (and instanceof Not || and instanceof Variable)
+                    addCover(and);
                 else
                     throw new KarnaughException(Lang.get("err_invalidExpression"));
         } else if (!(expr instanceof Constant))
@@ -161,8 +164,15 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
 
     private void addCover(Cover cover) {
         covers.add(cover);
+
+        HashSet<Integer> insetsUsed = new HashSet<>();
         for (Cell cell : cells)
-            cell.check(cover);
+            cell.addCoverToCell(cover, insetsUsed);
+        for (int i = 0; i < 8; i++)
+            if (!insetsUsed.contains(i)) {
+                cover.inset = i;
+                break;
+            }
     }
 
     private VarState getVarOf(Expression expression) throws KarnaughException {
@@ -251,10 +261,14 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
             return (this.row == row) && (this.col == col);
         }
 
-        private void check(Cover cover) {
+        private void addCoverToCell(Cover cover, HashSet<Integer> insetsUsed) {
             for (VarState s : impl)
                 if (cover.contains(s.not()))
                     return;
+
+            for (Cover c : covers)
+                insetsUsed.add(c.inset);
+
             covers.add(cover);
             cover.incCellCount();
         }
@@ -337,6 +351,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         private final ArrayList<VarState> varStates;
         private Pos pos;
         private int cellCount;
+        private int inset = 0;
 
         private Cover() {
             varStates = new ArrayList<>();
@@ -384,6 +399,13 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
          */
         public int getSize() {
             return cellCount;
+        }
+
+        /**
+         * @return the inset of this cover;
+         */
+        public int getInset() {
+            return inset;
         }
     }
 
@@ -443,9 +465,6 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
             return width * height > cellCount;
         }
 
-        public int inset() {
-            return 0;
-        }
     }
 
     /**
