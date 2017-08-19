@@ -442,6 +442,10 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         public boolean isSplit() {
             return width * height > cellCount;
         }
+
+        public int inset() {
+            return 0;
+        }
     }
 
     /**

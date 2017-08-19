@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 
 import java.util.ArrayList;
@@ -102,7 +103,11 @@ public class ExpressionListenerStore implements ExpressionListener {
 
         @Override
         public String toString() {
-            return name;
+            try {
+                return name + " = " + FormatToExpression.defaultFormat(expression);
+            } catch (FormatterException e) {
+                return name;
+            }
         }
     }
 }

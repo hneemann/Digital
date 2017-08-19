@@ -921,6 +921,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_addPowerSupply_tt">Erweitert die Schaltung um eine Spannungsversorung.</string>
     <string name="menu_exportVHDL">Export zu VHDL</string>
     <string name="menu_exportVHDL_tt">Exportiert die Schaltung zu VHDL</string>
+    <string name="menu_karnaughMap">KV-Tafel</string>
+    <string name="menu_karnaughMap_tt">Zeigt eine KV-Tafel der Tabelle an.</string>
 
     <string name="message">Digital
 

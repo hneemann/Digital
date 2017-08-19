@@ -19,7 +19,12 @@ import static de.neemann.digital.analyse.expression.Not.not;
  * shows the kv map
  */
 public class KarnaughMapComponent extends JComponent {
-    private static final int STROKE_WIDTH = 3;
+    private static final int STROKE_WIDTH = 4;
+    private static final Color[] COVER_COLORS = new Color[]{
+            new Color(255, 0, 0, 128), new Color(0, 255, 0, 128),
+            new Color(0, 0, 255, 128), new Color(255, 0, 255, 128),
+            new Color(255, 255, 0, 128), new Color(0, 255, 255, 128),
+            new Color(128, 0, 0, 128), new Color(0, 0, 128, 128)};
     private KarnaughMap kv;
     private BoolTable boolTable;
     private ArrayList<Variable> vars;
@@ -31,7 +36,7 @@ public class KarnaughMapComponent extends JComponent {
      * creates a new instance
      */
     public KarnaughMapComponent() {
-        setPreferredSize(Screen.getInstance().scale(new Dimension(300, 300)));
+        setPreferredSize(Screen.getInstance().scale(new Dimension(400, 400)));
     }
 
     /**
@@ -108,9 +113,11 @@ public class KarnaughMapComponent extends JComponent {
                     drawString(getStr(header.getVar(), header.getInvert(i)), i + 1, kvWidth + 1);
 
             // draw covers
+            int color = 0;
             for (KarnaughMap.Cover c : kv) {
+                gr.setColor(COVER_COLORS[color++]);
                 KarnaughMap.Pos p = c.getPos();
-                int frame = 4;
+                int frame = (p.inset() + 1) * (STROKE_WIDTH+1);
                 if (p.isSplit()) {
                     Rectangle clip = gr.getClipBounds();
                     gr.setClip((p.getCol() + 1) * cellSize + frame - STROKE_WIDTH / 2, (p.getRow() + 1) * cellSize + frame - STROKE_WIDTH / 2,
