@@ -1,9 +1,6 @@
 package de.neemann.digital.gui.components.karnaugh;
 
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.expression.Not;
-import de.neemann.digital.analyse.expression.Operation;
-import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -18,6 +15,10 @@ public class Covers implements Iterable<Covers.Cover> {
     private final ArrayList<Cell> cells;
     private final List<Variable> vars;
     private final ArrayList<Cover> covers;
+    private final Header headerLeft;
+    private final Header headerRight;
+    private final Header headerBottom;
+    private final Header headerTop;
 
     /**
      * Creates a new instance
@@ -39,6 +40,10 @@ public class Covers implements Iterable<Covers.Cover> {
                 addToRow(1, 2, 0, false);
                 addToCol(0, 2, 1, true);
                 addToCol(1, 2, 1, false);
+                headerLeft = new Header(0, true, false);
+                headerTop = new Header(1, true, false);
+                headerRight = null;
+                headerBottom = null;
                 break;
             case 3:
                 for (int row = 0; row < 2; row++)
@@ -54,6 +59,10 @@ public class Covers implements Iterable<Covers.Cover> {
                 addToCol(1, 2, 2, true);
                 addToCol(2, 2, 2, true);
                 addToCol(3, 2, 2, false);
+                headerLeft = new Header(0, true, false);
+                headerTop = new Header(1, true, true, false, false);
+                headerBottom = new Header(2, false, true, true, false);
+                headerRight = null;
                 break;
             case 4:
                 for (int row = 0; row < 4; row++)
@@ -76,6 +85,10 @@ public class Covers implements Iterable<Covers.Cover> {
                 addToCol(1, 4, 3, true);
                 addToCol(2, 4, 3, true);
                 addToCol(3, 4, 3, false);
+                headerLeft = new Header(0, true, true, false, false);
+                headerRight = new Header(1, false, true, true, false);
+                headerTop = new Header(2, true, true, false, false);
+                headerBottom = new Header(3, false, true, true, false);
                 break;
             default:
                 throw new KarnaughException(Lang.get("err_toManyVars"));
@@ -131,7 +144,7 @@ public class Covers implements Iterable<Covers.Cover> {
                     addCover(((Operation.And) and).getExpressions());
                 else
                     throw new KarnaughException(Lang.get("err_invalidExpression"));
-        } else
+        } else if (!(expr instanceof Constant))
             throw new KarnaughException(Lang.get("err_invalidExpression"));
     }
 
@@ -183,6 +196,34 @@ public class Covers implements Iterable<Covers.Cover> {
      */
     public int size() {
         return covers.size();
+    }
+
+    /**
+     * @return the left header
+     */
+    public Header getHeaderLeft() {
+        return headerLeft;
+    }
+
+    /**
+     * @return the right header
+     */
+    public Header getHeaderRight() {
+        return headerRight;
+    }
+
+    /**
+     * @return the bottom header
+     */
+    public Header getHeaderBottom() {
+        return headerBottom;
+    }
+
+    /**
+     * @return the top header
+     */
+    public Header getHeaderTop() {
+        return headerTop;
     }
 
     /**
@@ -250,6 +291,10 @@ public class Covers implements Iterable<Covers.Cover> {
          */
         public int getIndex() {
             return index;
+        }
+
+        boolean hasImpl(int var, boolean invert) {
+            return impl.contains(new VarState(var, invert));
         }
     }
 
@@ -397,5 +442,43 @@ public class Covers implements Iterable<Covers.Cover> {
         public int getCellCount() {
             return cellCount;
         }
+    }
+
+    /**
+     * Defines the variables in the borders
+     */
+    public static final class Header {
+        private final int var;
+        private final boolean[] invert;
+
+        private Header(int var, boolean... invert) {
+            this.var = var;
+            this.invert = invert;
+        }
+
+        /**
+         * @return the variable
+         */
+        public int getVar() {
+            return var;
+        }
+
+        /**
+         * @return the size
+         */
+        public int size() {
+            return invert.length;
+        }
+
+        /**
+         * Returns the variables state
+         *
+         * @param i the index of the row column
+         * @return true if inverted variable
+         */
+        public boolean getInvert(int i) {
+            return invert[i];
+        }
+
     }
 }

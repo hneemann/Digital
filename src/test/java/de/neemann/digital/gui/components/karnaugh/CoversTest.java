@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components.karnaugh;
 
+import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
@@ -68,9 +69,9 @@ public class CoversTest extends TestCase {
     }
 
     /**
-     * Creates bool tables with one 1.
+     * Creates bool tables with one "one".
      * Calculates the KV map.
-     * Tests if the covered cell belongs to the one in the table!
+     * Tests if the covered cell belongs to the single "one" in the table!
      */
     public void testIndex() throws IOException, ParseException, KarnaughException, ExpressionException {
         for (int vars = 2; vars <= 4; vars++) {
@@ -88,11 +89,90 @@ public class CoversTest extends TestCase {
                 Covers.Cover cover = c.iterator().next();
                 assertEquals(1, cover.getSize());          // the size of the cover is one cell
                 Covers.Pos pos = cover.getPos();
-                                                                     // the row in the truth table is the row containing the one.
+                // the row in the truth table is the row containing the one.
                 assertEquals(row, c.getCell(pos.getRow(), pos.getCol()).getIndex());
             }
         }
     }
 
+
+    /**
+     * Tests if header description in 4x4 kv map is correct
+     */
+    public void testHeader4() throws IOException, ParseException, KarnaughException {
+        Covers cov = new Covers(Variable.vars(4), Constant.ONE);
+        Covers.Header head = cov.getHeaderLeft();
+        assertEquals(4, head.size());
+        for (int r = 0; r < 4; r++)
+            for (int c = 0; c < 4; c++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(r)));
+
+        head = cov.getHeaderRight();
+        assertEquals(4, head.size());
+        for (int r = 0; r < 4; r++)
+            for (int c = 0; c < 4; c++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(r)));
+
+        head = cov.getHeaderTop();
+        assertEquals(4, head.size());
+        for (int c = 0; c < 4; c++)
+            for (int r = 0; r < 4; r++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+
+        head = cov.getHeaderBottom();
+        assertEquals(4, head.size());
+        for (int c = 0; c < 4; c++)
+            for (int r = 0; r < 4; r++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+
+    }
+
+    /**
+     * Tests if header description in 2x4 kv map is correct
+     */
+    public void testHeader3() throws IOException, ParseException, KarnaughException {
+        Covers cov = new Covers(Variable.vars(3), Constant.ONE);
+        Covers.Header head = cov.getHeaderLeft();
+        assertEquals(2, head.size());
+        for (int r = 0; r < 2; r++)
+            for (int c = 0; c < 4; c++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(r)));
+
+        assertNull(cov.getHeaderRight());
+
+        head = cov.getHeaderTop();
+        assertEquals(4, head.size());
+        for (int c = 0; c < 4; c++)
+            for (int r = 0; r < 2; r++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+
+        head = cov.getHeaderBottom();
+        assertEquals(4, head.size());
+        for (int c = 0; c < 4; c++)
+            for (int r = 0; r < 2; r++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+    }
+
+    /**
+     * Tests if header description in 2x2 kv map is correct
+     */
+    public void testHeader2() throws IOException, ParseException, KarnaughException {
+        Covers cov = new Covers(Variable.vars(2), Constant.ONE);
+        Covers.Header head = cov.getHeaderLeft();
+        assertEquals(2, head.size());
+        for (int r = 0; r < 2; r++)
+            for (int c = 0; c < 2; c++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(r)));
+
+        assertNull(cov.getHeaderRight());
+
+        head = cov.getHeaderTop();
+        assertEquals(2, head.size());
+        for (int c = 0; c < 2; c++)
+            for (int r = 0; r < 2; r++)
+                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+
+        assertNull(cov.getHeaderBottom());
+    }
 
 }
