@@ -59,13 +59,15 @@ public class KarnaughMapComponent extends JComponent {
         int height = getHeight();
         gr.setColor(Color.WHITE);
         gr.fillRect(0, 0, width, height);
-        AffineTransform trans = gr.getTransform();
-        gr.setFont(getFont().deriveFont(cellSize * 0.5f));
 
         if (kv != null) {
+            AffineTransform trans = gr.getTransform();
+
             int kvWidth = kv.getHeaderTop().size();
             int kvHeight = kv.getHeaderLeft().size();
             cellSize = Math.min(height / (kvHeight + 3), width / (kvWidth + 3));
+            gr.setFont(gr.getFont().deriveFont(cellSize * 0.5f));
+            fontMetrics = gr.getFontMetrics();
 
             gr.translate((width - (kvWidth + 2) * cellSize) / 2,
                     (height - (kvHeight + 2) * cellSize) / 2);
@@ -139,7 +141,6 @@ public class KarnaughMapComponent extends JComponent {
     }
 
     private void drawString(String s, int row, int col) {
-        fontMetrics = gr.getFontMetrics();
         Rectangle2D bounds = fontMetrics.getStringBounds(s, gr);
         int xPos = (int) ((cellSize - bounds.getWidth()) / 2);
         int yPos = cellSize - (int) ((cellSize - bounds.getHeight()) / 2) - fontMetrics.getDescent();
