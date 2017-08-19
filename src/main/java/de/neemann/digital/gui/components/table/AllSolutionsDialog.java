@@ -20,7 +20,7 @@ public class AllSolutionsDialog extends JDialog {
      * @param owner the owner frame
      * @param font  the font to use
      */
-    public AllSolutionsDialog(JFrame owner, Font font) {
+    public AllSolutionsDialog(JDialog owner, Font font) {
         super(owner, Lang.get("win_allSolutions"), false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
 
@@ -29,11 +29,11 @@ public class AllSolutionsDialog extends JDialog {
         textPane.setFont(font);
         textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
         textPane.setEditable(false);
-        textPane.setPreferredSize(Screen.getInstance().scale(new Dimension(600, 400)));
+        textPane.setPreferredSize(Screen.getInstance().scale(new Dimension(600, 300)));
 
         getContentPane().add(new JScrollPane(textPane));
         pack();
-        setLocationRelativeTo(owner);
+        setLocation(0, 0);
     }
 
     /**

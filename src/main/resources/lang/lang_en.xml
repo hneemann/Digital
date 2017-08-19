@@ -1005,6 +1005,7 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="win_testdata_N">Testdata {0}</string>
     <string name="win_data">Data</string>
     <string name="win_valueInputTitle_N">Input {0}</string>
+    <string name="win_karnaughMap">Karnaugh-Veitch Map</string>
 
     <string name="btn_help">Help</string>
 

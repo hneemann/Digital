@@ -99,7 +99,6 @@ public class TableDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         kvMap = new KarnaughMapDialog(this);
 
-
         label = new JLabel();
         font = Screen.getInstance().getFont(1.66f);
         label.setFont(font);
@@ -116,7 +115,7 @@ public class TableDialog extends JDialog {
         table.getInputMap().put(KeyStroke.getKeyStroke("X"), "X_ACTION");
         table.getActionMap().put("X_ACTION", new SetAction(2));
 
-        allSolutionsDialog = new AllSolutionsDialog(parent, font);
+        allSolutionsDialog = new AllSolutionsDialog(this, font);
 
         JTableHeader header = table.getTableHeader();
         header.addMouseListener(new MouseAdapter() {
@@ -169,6 +168,7 @@ public class TableDialog extends JDialog {
                 }
             }
         }.createJMenuItem());
+
         reorderMenu.add(new ToolTipAction(Lang.get("menu_table_outputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -756,7 +756,7 @@ public class TableDialog extends JDialog {
                     label.setText("");
                     allSolutionsDialog.setText(html.toString());
                     if (!allSolutionsDialog.isVisible())
-                        allSolutionsDialog.setVisible(true);
+                        SwingUtilities.invokeLater(() -> allSolutionsDialog.setVisible(true));
             }
         }
     }

@@ -26,8 +26,8 @@ public class KarnaughMapDialog extends JDialog {
      *
      * @param parent the parent dialog
      */
-    public KarnaughMapDialog(Dialog parent) {
-        super(parent, Lang.get("menu_karnaughMap"), false);
+    public KarnaughMapDialog(JDialog parent) {
+        super(parent, Lang.get("win_karnaughMap"), false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         kvComponent = new KarnaughMapComponent();
         getContentPane().add(kvComponent);
@@ -62,14 +62,27 @@ public class KarnaughMapDialog extends JDialog {
     /**
      * Sets the available results
      *
-     * @param table   the table
-     * @param results the result list
+     * @param table      the table
+     * @param newResults the result list
      */
-    public void setResult(TruthTable table, List<ExpressionListenerStore.Result> results) {
+    public void setResult(TruthTable table, List<ExpressionListenerStore.Result> newResults) {
         this.table = table;
-        this.results = results;
+
+        int i = combo.getSelectedIndex();
+        String name = null;
+        if (i >= 0 && i < results.size()) name = results.get(i).getName();
+
+        this.results = newResults;
         combo.setModel(new MyComboBoxModel(results));
-        combo.setSelectedIndex(0);
+
+        i = 0;
+        for (int j = 0; j < results.size(); j++)
+            if (results.get(j).getName().equals(name)) {
+                i = j;
+                break;
+
+            }
+        combo.setSelectedIndex(i);
     }
 
     private static final class MyComboBoxModel implements ComboBoxModel<ExpressionListenerStore.Result> {

@@ -94,14 +94,10 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
             default:
                 throw new KarnaughException(Lang.get("err_toManyVars"));
         }
-        createTruthTableIndex();
-
-        addExpression(expr);
-    }
-
-    private void createTruthTableIndex() {
         for (Cell c : cells)
             c.createTableIndex();
+
+        addExpression(expr);
     }
 
     private void addToRow(int row, int cols, int var, boolean invert) {
@@ -385,7 +381,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
                 }
                 int width = colMax - colMin + 1;
                 int height = rowMax - rowMin + 1;
-                pos = new Pos(rowMin, colMin, width, height, cellCount);
+                pos = new Pos(rowMin, colMin, width, height);
             }
             return pos;
         }
@@ -407,26 +403,38 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         public int getInset() {
             return inset;
         }
+
+        /**
+         * @return true if cover is split, thus the cover is wrapping around the border
+         */
+        public boolean isDisconnected() {
+            return getPos().width * getPos().height > cellCount;
+        }
+
+        /**
+         * @return covers only the edges
+         */
+        public boolean onlyEdges() {
+            return getPos().width * getPos().height == 16 && cellCount == 4;
+        }
+
     }
 
     /**
      * The position of the cover.
      * If a cover is wrapping around the borders the bounding box is returned!
-     * Check the number of cells to detect that situation.
      */
     public static final class Pos {
         private final int row;
         private final int col;
         private final int width;
         private final int height;
-        private final int cellCount;
 
-        private Pos(int row, int col, int width, int height, int cellCount) {
+        private Pos(int row, int col, int width, int height) {
             this.row = row;
             this.col = col;
             this.width = width;
             this.height = height;
-            this.cellCount = cellCount;
         }
 
 
@@ -456,13 +464,6 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
          */
         public int getHeight() {
             return height;
-        }
-
-        /**
-         * @return true if cover is split
-         */
-        public boolean isSplit() {
-            return width * height > cellCount;
         }
 
     }

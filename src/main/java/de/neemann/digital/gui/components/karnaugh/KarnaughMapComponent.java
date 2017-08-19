@@ -24,8 +24,8 @@ public class KarnaughMapComponent extends JComponent {
     private static final Color[] COVER_COLORS = new Color[]{
             new Color(255, 0, 0, 128), new Color(0, 255, 0, 128),
             new Color(0, 0, 255, 128), new Color(255, 0, 255, 128),
-            new Color(255, 255, 0, 128), new Color(0, 255, 255, 128),
-            new Color(128, 0, 0, 128), new Color(0, 0, 128, 128)};
+            new Color(128, 0, 0, 128), new Color(0, 0, 128, 128),
+            new Color(255, 255, 0, 128), new Color(0, 255, 255, 128)};
     private KarnaughMap kv;
     private BoolTable boolTable;
     private ArrayList<Variable> vars;
@@ -120,25 +120,34 @@ public class KarnaughMapComponent extends JComponent {
                 gr.setColor(COVER_COLORS[color++]);
                 KarnaughMap.Pos p = c.getPos();
                 int frame = (c.getInset() + 1) * STROKE_WIDTH;
-                if (p.isSplit()) {
+                if (c.isDisconnected()) {
                     Rectangle clip = gr.getClipBounds();
-                    gr.setClip((p.getCol() + 1) * cellSize + frame - STROKE_WIDTH / 2, (p.getRow() + 1) * cellSize + frame - STROKE_WIDTH / 2,
-                            p.getWidth() * cellSize - frame * 2 + STROKE_WIDTH, p.getHeight() * cellSize - frame * 2 + STROKE_WIDTH);
+                    if (c.onlyEdges()) {
+                        gr.setClip(cellSize - STROKE_WIDTH / 2, cellSize - STROKE_WIDTH / 2,
+                                4 * cellSize + STROKE_WIDTH, 4 * cellSize + STROKE_WIDTH);
+                        gr.drawRoundRect(frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
+                        gr.drawRoundRect(4 * cellSize + frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
+                        gr.drawRoundRect(frame, 4 * cellSize + frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
+                        gr.drawRoundRect(4 * cellSize + frame, 4 * cellSize + frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
+                    } else {
+                        gr.setClip((p.getCol() + 1) * cellSize - STROKE_WIDTH / 2, (p.getRow() + 1) * cellSize - STROKE_WIDTH / 2,
+                                p.getWidth() * cellSize + STROKE_WIDTH, p.getHeight() * cellSize + STROKE_WIDTH);
 
-                    int xofs = 0;
-                    int yOfs = 0;
-                    if (p.getWidth() > p.getHeight())
-                        xofs = cellSize * 3;
-                    else
-                        yOfs = cellSize * 3;
+                        int xofs = 0;
+                        int yOfs = 0;
+                        if (p.getWidth() > p.getHeight())
+                            xofs = cellSize * 3;
+                        else
+                            yOfs = cellSize * 3;
 
-                    gr.drawRoundRect((p.getCol() + 1) * cellSize + frame + xofs, (p.getRow() + 1) * cellSize + frame + yOfs,
-                            p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
-                            cellSize, cellSize);
-                    gr.drawRoundRect((p.getCol() + 1) * cellSize + frame - xofs, (p.getRow() + 1) * cellSize + frame - yOfs,
-                            p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
-                            cellSize, cellSize);
+                        gr.drawRoundRect((p.getCol() + 1) * cellSize + frame + xofs, (p.getRow() + 1) * cellSize + frame + yOfs,
+                                p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
+                                cellSize, cellSize);
+                        gr.drawRoundRect((p.getCol() + 1) * cellSize + frame - xofs, (p.getRow() + 1) * cellSize + frame - yOfs,
+                                p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
+                                cellSize, cellSize);
 
+                    }
                     gr.setClip(clip.x, clip.y, clip.width, clip.height);
                 } else
                     gr.drawRoundRect((p.getCol() + 1) * cellSize + frame, (p.getRow() + 1) * cellSize + frame,
@@ -150,6 +159,13 @@ public class KarnaughMapComponent extends JComponent {
             gr.drawString(message, 10, 20);
     }
 
+    private boolean isNoHeaderLine(KarnaughMap.Header header, int i) {
+        if (header == null) return false;
+        if (i < 0 || i >= header.size() - 1) return false;
+        return header.getInvert(i) == header.getInvert(i + 1);
+    }
+
+    //CHECKSTYLE.OFF: ModifiedControlVariable
     private void drawHorizontalHeader(KarnaughMap.Header header, int pos) {
         if (header != null)
             for (int i = 0; i < header.size(); i++) {
@@ -173,12 +189,7 @@ public class KarnaughMapComponent extends JComponent {
             drawString(getStr(header.getVar(), header.getInvert(i)), pos, i + 1, 0, dy);
         }
     }
-
-    private boolean isNoHeaderLine(KarnaughMap.Header header, int i) {
-        if (header == null) return false;
-        if (i < 0 || i >= header.size() - 1) return false;
-        return header.getInvert(i) == header.getInvert(i + 1);
-    }
+    //CHECKSTYLE.ON: ModifiedControlVariable
 
     private void drawString(String s, int row, int col) {
         drawString(s, row, col, 0, 0);
@@ -202,5 +213,4 @@ public class KarnaughMapComponent extends JComponent {
             return "";
         }
     }
-
 }
