@@ -84,7 +84,9 @@ public class KarnaughMapComponent extends JComponent {
             int kvWidth = kv.getHeaderTop().size();
             int kvHeight = kv.getHeaderLeft().size();
             cellSize = (int) Math.min(height / (kvHeight + 2.5f), width / (kvWidth + 2.5f));
-            gr.setFont(gr.getFont().deriveFont(cellSize * 0.5f));
+            Font origFont = gr.getFont();
+            Font bigFont = origFont.deriveFont(cellSize * 0.5f);
+            gr.setFont(bigFont);
             fontMetrics = gr.getFontMetrics();
 
             gr.translate((width - (kvWidth + 2) * cellSize) / 2,   // center the kv map
@@ -108,8 +110,16 @@ public class KarnaughMapComponent extends JComponent {
             gr.setStroke(new BasicStroke(STROKE_WIDTH));
 
             // fill in bool table content
-            for (KarnaughMap.Cell cell : kv.getCells())
+            for (KarnaughMap.Cell cell : kv.getCells()) {
                 drawString(boolTable.get(cell.getBoolTableRow()).toString(), cell.getCol() + 1, cell.getRow() + 1);
+                gr.setColor(Color.GRAY);
+                gr.setFont(origFont);
+                gr.drawString(Integer.toString(cell.getBoolTableRow()),
+                        (cell.getCol() + 1) * cellSize + 1,
+                        (cell.getRow() + 2) * cellSize - 1);
+                gr.setColor(Color.BLACK);
+                gr.setFont(bigFont);
+            }
 
             // draw the text in the borders
             drawVerticalHeader(kv.getHeaderLeft(), 0);
