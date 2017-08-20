@@ -79,7 +79,7 @@ public class KarnaughMapComponent extends JComponent {
         gr.setColor(Color.BLACK);
 
         if (kv != null) {
-            AffineTransform trans = gr.getTransform();
+            AffineTransform trans = gr.getTransform(); // store the old transform
 
             int kvWidth = kv.getHeaderTop().size();
             int kvHeight = kv.getHeaderLeft().size();
@@ -87,12 +87,12 @@ public class KarnaughMapComponent extends JComponent {
             gr.setFont(gr.getFont().deriveFont(cellSize * 0.5f));
             fontMetrics = gr.getFontMetrics();
 
-            gr.translate((width - (kvWidth + 2) * cellSize) / 2,
+            gr.translate((width - (kvWidth + 2) * cellSize) / 2,   // center the kv map
                     (height - (kvHeight + 2) * cellSize) / 2);
 
-            gr.setStroke(new BasicStroke(STROKE_WIDTH / 2));
             // draw table
             gr.setColor(Color.GRAY);
+            gr.setStroke(new BasicStroke(STROKE_WIDTH / 2));
             for (int i = 0; i <= kvWidth; i++) {
                 int dy1 = isNoHeaderLine(kv.getHeaderTop(), i - 1) ? cellSize : 0;
                 int dy2 = isNoHeaderLine(kv.getHeaderBottom(), i - 1) ? cellSize : 0;
@@ -107,17 +107,17 @@ public class KarnaughMapComponent extends JComponent {
             gr.setColor(Color.BLACK);
             gr.setStroke(new BasicStroke(STROKE_WIDTH));
 
-            // fill in content
+            // fill in bool table content
             for (KarnaughMap.Cell cell : kv.getCells())
                 drawString(boolTable.get(cell.getBoolTableRow()).toString(), cell.getCol() + 1, cell.getRow() + 1);
 
-            // headers
+            // draw the text in the borders
             drawVerticalHeader(kv.getHeaderLeft(), 0);
             drawVerticalHeader(kv.getHeaderRight(), kvWidth + 1);
             drawHorizontalHeader(kv.getHeaderTop(), 0);
             drawHorizontalHeader(kv.getHeaderBottom(), kvHeight + 1);
 
-            // draw covers
+            // draw the covers
             int color = 0;
             for (KarnaughMap.Cover c : kv) {
                 gr.setColor(COVER_COLORS[color++]);
