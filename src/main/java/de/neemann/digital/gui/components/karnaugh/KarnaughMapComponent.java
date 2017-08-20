@@ -23,9 +23,9 @@ public class KarnaughMapComponent extends JComponent {
     private static final int STROKE_WIDTH = 4;
     private static final Color[] COVER_COLORS = new Color[]{
             new Color(255, 0, 0, 128), new Color(0, 255, 0, 128),
-            new Color(0, 0, 255, 128), new Color(255, 0, 255, 128),
             new Color(128, 0, 0, 128), new Color(0, 0, 128, 128),
-            new Color(255, 255, 0, 128), new Color(0, 255, 255, 128)};
+            new Color(0, 0, 255, 128), new Color(255, 0, 255, 128),
+            new Color(200, 200, 0, 128), new Color(0, 255, 255, 128)};
     private KarnaughMap kv;
     private BoolTable boolTable;
     private ArrayList<Variable> vars;
@@ -83,15 +83,16 @@ public class KarnaughMapComponent extends JComponent {
 
             int kvWidth = kv.getHeaderTop().size();
             int kvHeight = kv.getHeaderLeft().size();
-            cellSize = Math.min(height / (kvHeight + 3), width / (kvWidth + 3));
+            cellSize = (int) Math.min(height / (kvHeight + 2.5f), width / (kvWidth + 2.5f));
             gr.setFont(gr.getFont().deriveFont(cellSize * 0.5f));
             fontMetrics = gr.getFontMetrics();
 
             gr.translate((width - (kvWidth + 2) * cellSize) / 2,
                     (height - (kvHeight + 2) * cellSize) / 2);
-            gr.setStroke(new BasicStroke(STROKE_WIDTH));
 
+            gr.setStroke(new BasicStroke(STROKE_WIDTH / 2));
             // draw table
+            gr.setColor(Color.GRAY);
             for (int i = 0; i <= kvWidth; i++) {
                 int dy1 = isNoHeaderLine(kv.getHeaderTop(), i - 1) ? cellSize : 0;
                 int dy2 = isNoHeaderLine(kv.getHeaderBottom(), i - 1) ? cellSize : 0;
@@ -103,10 +104,12 @@ public class KarnaughMapComponent extends JComponent {
                 int dx2 = isNoHeaderLine(kv.getHeaderRight(), i - 1) ? cellSize : 0;
                 gr.drawLine(dx1, (i + 1) * cellSize, (kvWidth + 2) * cellSize - dx2, (i + 1) * cellSize);
             }
+            gr.setColor(Color.BLACK);
+            gr.setStroke(new BasicStroke(STROKE_WIDTH));
 
             // fill in content
             for (KarnaughMap.Cell cell : kv.getCells())
-                drawString(boolTable.get(cell.getIndex()).toString(), cell.getCol() + 1, cell.getRow() + 1);
+                drawString(boolTable.get(cell.getBoolTableRow()).toString(), cell.getCol() + 1, cell.getRow() + 1);
 
             // headers
             drawVerticalHeader(kv.getHeaderLeft(), 0);
@@ -122,17 +125,14 @@ public class KarnaughMapComponent extends JComponent {
                 int frame = (c.getInset() + 1) * STROKE_WIDTH;
                 if (c.isDisconnected()) {
                     Rectangle clip = gr.getClipBounds();
+                    gr.setClip(cellSize - STROKE_WIDTH / 2, cellSize - STROKE_WIDTH / 2,
+                            4 * cellSize + STROKE_WIDTH, 4 * cellSize + STROKE_WIDTH);
                     if (c.onlyEdges()) {
-                        gr.setClip(cellSize - STROKE_WIDTH / 2, cellSize - STROKE_WIDTH / 2,
-                                4 * cellSize + STROKE_WIDTH, 4 * cellSize + STROKE_WIDTH);
                         gr.drawRoundRect(frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
                         gr.drawRoundRect(4 * cellSize + frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
                         gr.drawRoundRect(frame, 4 * cellSize + frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
                         gr.drawRoundRect(4 * cellSize + frame, 4 * cellSize + frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
-                    } else {
-                        gr.setClip((p.getCol() + 1) * cellSize - STROKE_WIDTH / 2, (p.getRow() + 1) * cellSize - STROKE_WIDTH / 2,
-                                p.getWidth() * cellSize + STROKE_WIDTH, p.getHeight() * cellSize + STROKE_WIDTH);
-
+                    } else { // draw the two parts of the cover
                         int xofs = 0;
                         int yOfs = 0;
                         if (p.getWidth() > p.getHeight())

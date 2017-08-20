@@ -13,6 +13,7 @@ import java.awt.*;
  */
 public class AllSolutionsDialog extends JDialog {
     private final JTextPane textPane;
+    private final JScrollPane scroll;
 
     /**
      * Creates a new Frame
@@ -31,7 +32,8 @@ public class AllSolutionsDialog extends JDialog {
         textPane.setEditable(false);
         textPane.setPreferredSize(Screen.getInstance().scale(new Dimension(600, 300)));
 
-        getContentPane().add(new JScrollPane(textPane));
+        scroll = new JScrollPane(textPane);
+        getContentPane().add(scroll);
         pack();
         setLocation(0, 0);
     }
@@ -44,6 +46,7 @@ public class AllSolutionsDialog extends JDialog {
      */
     public AllSolutionsDialog setText(String text) {
         textPane.setText(text);
+        SwingUtilities.invokeLater(() -> scroll.getViewport().setViewPosition(new Point(0, 0)));
         return this;
     }
 }

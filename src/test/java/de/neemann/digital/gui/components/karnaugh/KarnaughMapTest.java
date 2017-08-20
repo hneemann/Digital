@@ -101,7 +101,7 @@ public class KarnaughMapTest extends TestCase {
                 assertEquals(1, cover.getSize());          // the size of the cover is one cell
                 KarnaughMap.Pos pos = cover.getPos();
                 // the row in the truth table is the row containing the one.
-                assertEquals(row, c.getCell(pos.getRow(), pos.getCol()).getIndex());
+                assertEquals(row, c.getCell(pos.getRow(), pos.getCol()).getBoolTableRow());
             }
         }
     }
@@ -116,25 +116,25 @@ public class KarnaughMapTest extends TestCase {
         assertEquals(4, head.size());
         for (int r = 0; r < 4; r++)
             for (int c = 0; c < 4; c++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(r)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(r)));
 
         head = cov.getHeaderRight();
         assertEquals(4, head.size());
         for (int r = 0; r < 4; r++)
             for (int c = 0; c < 4; c++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(r)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(r)));
 
         head = cov.getHeaderTop();
         assertEquals(4, head.size());
         for (int c = 0; c < 4; c++)
             for (int r = 0; r < 4; r++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(c)));
 
         head = cov.getHeaderBottom();
         assertEquals(4, head.size());
         for (int c = 0; c < 4; c++)
             for (int r = 0; r < 4; r++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(c)));
 
     }
 
@@ -147,7 +147,7 @@ public class KarnaughMapTest extends TestCase {
         assertEquals(2, head.size());
         for (int r = 0; r < 2; r++)
             for (int c = 0; c < 4; c++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(r)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(r)));
 
         assertNull(cov.getHeaderRight());
 
@@ -155,13 +155,13 @@ public class KarnaughMapTest extends TestCase {
         assertEquals(4, head.size());
         for (int c = 0; c < 4; c++)
             for (int r = 0; r < 2; r++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(c)));
 
         head = cov.getHeaderBottom();
         assertEquals(4, head.size());
         for (int c = 0; c < 4; c++)
             for (int r = 0; r < 2; r++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(c)));
     }
 
     /**
@@ -173,7 +173,7 @@ public class KarnaughMapTest extends TestCase {
         assertEquals(2, head.size());
         for (int r = 0; r < 2; r++)
             for (int c = 0; c < 2; c++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(r)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(r)));
 
         assertNull(cov.getHeaderRight());
 
@@ -181,7 +181,7 @@ public class KarnaughMapTest extends TestCase {
         assertEquals(2, head.size());
         for (int c = 0; c < 2; c++)
             for (int r = 0; r < 2; r++)
-                assertTrue(cov.getCell(r, c).hasImpl(head.getVar(), head.getInvert(c)));
+                assertTrue(cov.getCell(r, c).isVarInMinTerm(head.getVar(), head.getInvert(c)));
 
         assertNull(cov.getHeaderBottom());
     }

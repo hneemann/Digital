@@ -33,15 +33,15 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         cells = new ArrayList<>();
         covers = new ArrayList<>();
         switch (vars.size()) {
-            case 2:
+            case 2:  // create the needed KV cells
                 for (int row = 0; row < 2; row++)
                     for (int col = 0; col < 2; col++)
                         cells.add(new Cell(row, col));
-                addToRow(0, 2, 0, true);
+                addToRow(0, 2, 0, true);  // add the variables to the cells
                 addToRow(1, 2, 0, false);
                 addToCol(0, 2, 1, true);
                 addToCol(1, 2, 1, false);
-                headerLeft = new Header(0, true, false);
+                headerLeft = new Header(0, true, false); // define the headers needed
                 headerTop = new Header(1, true, false);
                 headerRight = null;
                 headerBottom = null;
@@ -94,10 +94,10 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
             default:
                 throw new KarnaughException(Lang.get("err_toManyVars"));
         }
-        for (Cell c : cells)
-            c.createTableIndex();
+        for (Cell c : cells)   // set the row index of the bool table to the cells
+            c.createBoolTableRow();
 
-        addExpression(expr);
+        addExpression(expr);   // create the covers
     }
 
     private void addToRow(int row, int cols, int var, boolean invert) {
@@ -111,7 +111,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
     }
 
     /**
-     * The given cell
+     * Returns the cell at the given position
      *
      * @param row the row
      * @param col the column
@@ -148,17 +148,17 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
     }
 
     private void addCover(Expression expr) throws KarnaughException {
-        addCover(new Cover().add(getVarOf(expr)));
+        addCoverToCells(new Cover().add(getVarOf(expr)));
     }
 
     private void addCover(ArrayList<Expression> expressions) throws KarnaughException {
         Cover cover = new Cover();
         for (Expression expr : expressions)
             cover.add(getVarOf(expr));
-        addCover(cover);
+        addCoverToCells(cover);
     }
 
-    private void addCover(Cover cover) {
+    private void addCoverToCells(Cover cover) {
         covers.add(cover);
 
         HashSet<Integer> insetsUsed = new HashSet<>();
@@ -233,24 +233,24 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
     }
 
     /**
-     * a sigle cell in kv map
+     * a single cell in the kv map
      */
     public static final class Cell {
         private final int row;
         private final int col;
-        private ArrayList<VarState> impl;
+        private ArrayList<VarState> minTerm; // min term  of the cell
         private ArrayList<Cover> covers;
-        private int index;
+        private int boolTableRow;
 
         private Cell(int row, int col) {
             this.row = row;
             this.col = col;
-            impl = new ArrayList<>();
+            minTerm = new ArrayList<>();
             covers = new ArrayList<>();
         }
 
         private void add(VarState varState) {
-            impl.add(varState);
+            minTerm.add(varState);
         }
 
         private boolean is(int row, int col) {
@@ -258,7 +258,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         }
 
         private void addCoverToCell(Cover cover, HashSet<Integer> insetsUsed) {
-            for (VarState s : impl)
+            for (VarState s : minTerm)
                 if (cover.contains(s.not()))
                     return;
 
@@ -273,12 +273,12 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
             return covers.contains(cover);
         }
 
-        private void createTableIndex() {
-            int tableCols = impl.size();
-            index = 0;
-            for (VarState i : impl) {
+        private void createBoolTableRow() {
+            int tableCols = minTerm.size();
+            boolTableRow = 0;
+            for (VarState i : minTerm) {
                 if (!i.invert)
-                    index += (1 << (tableCols - i.num - 1));
+                    boolTableRow += (1 << (tableCols - i.num - 1));
             }
         }
 
@@ -299,18 +299,18 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         /**
          * @return the row in the truth table this cell belongs to
          */
-        public int getIndex() {
-            return index;
+        public int getBoolTableRow() {
+            return boolTableRow;
         }
 
-        boolean hasImpl(int var, boolean invert) {
-            return impl.contains(new VarState(var, invert));
+        boolean isVarInMinTerm(int var, boolean invert) {
+            return minTerm.contains(new VarState(var, invert));
         }
     }
 
     private static final class VarState {
-        private int num;
-        private boolean invert;
+        private int num;        // number of the variable in the vars list
+        private boolean invert; // true if variable is inverted
 
         private VarState(int num, boolean invert) {
             this.num = num;
@@ -341,7 +341,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
     }
 
     /**
-     * a cover
+     * a cover in the kv table
      */
     public final class Cover {
         private final ArrayList<VarState> varStates;
@@ -363,7 +363,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         }
 
         /**
-         * @return the position of the cover
+         * @return the position of the cover. Caution: Returns a bounding box!
          */
         public Pos getPos() {
             if (pos == null) {
@@ -469,7 +469,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
     }
 
     /**
-     * Defines the variables in the borders
+     * Defines the variables in the borders of the KV map
      */
     public static final class Header {
         private final int var;
@@ -495,7 +495,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         }
 
         /**
-         * Returns the variables state
+         * Returns the variable state
          *
          * @param i the index of the row column
          * @return true if inverted variable
