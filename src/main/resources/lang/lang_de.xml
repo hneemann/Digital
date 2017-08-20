@@ -850,14 +850,13 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
     <string name="menu_table_exportHex">Erzeuge HEX</string>
     <string name="menu_table_exportHex_tt">Die HEX-Datei kann in ein ROM oder eine LUT geladen werden.</string>
-    <string name="menu_table_inputs">Eingänge</string>
+    <string name="menu_table_reorder_inputs">Eingänge bearbeiten</string>
     <string name="menu_table_new">Neu</string>
-    <string name="menu_table_newColumns">Spalten hinzufügen</string>
+    <string name="menu_table_columns">Spalten</string>
     <string name="menu_table_new_combinatorial">Kombintorisch</string>
     <string name="menu_table_new_sequential">Automat</string>
     <string name="menu_table_new_sequential_bidir">Automat bidirektional</string>
-    <string name="menu_table_outputs">Ausgänge</string>
-    <string name="menu_table_reorder">Umsortieren</string>
+    <string name="menu_table_reorder_outputs">Ausgänge bearbeiten</string>
     <string name="menu_table_set">Setzen</string>
     <string name="menu_table_setXTo0">Setze X auf 0</string>
     <string name="menu_table_setXTo0_tt">Setzt die Don't Cares auf 0.</string>

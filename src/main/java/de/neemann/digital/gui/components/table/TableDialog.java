@@ -150,13 +150,13 @@ public class TableDialog extends JDialog {
         }
         bar.add(sizeMenu);
 
-        JMenu reorderMenu = new JMenu(Lang.get("menu_table_reorder"));
-        bar.add(reorderMenu);
-        reorderMenu.add(new ToolTipAction(Lang.get("menu_table_inputs")) {
+        JMenu columnsMenu = new JMenu(Lang.get("menu_table_columns"));
+        bar.add(columnsMenu);
+        columnsMenu.add(new ToolTipAction(Lang.get("menu_table_reorder_inputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ReorderInputs ri = new ReorderInputs(model.getTable());
-                if (new ElementOrderer<>(parent, Lang.get("menu_table_inputs"), ri.getItems())
+                if (new ElementOrderer<>(parent, Lang.get("menu_table_reorder_inputs"), ri.getItems())
                         .addDeleteButton()
                         .addOkButton()
                         .showDialog()) {
@@ -169,11 +169,11 @@ public class TableDialog extends JDialog {
             }
         }.createJMenuItem());
 
-        reorderMenu.add(new ToolTipAction(Lang.get("menu_table_outputs")) {
+        columnsMenu.add(new ToolTipAction(Lang.get("menu_table_reorder_outputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ReorderOutputs ro = new ReorderOutputs(model.getTable());
-                if (new ElementOrderer<>(parent, Lang.get("menu_table_outputs"), ro.getItems())
+                if (new ElementOrderer<>(parent, Lang.get("menu_table_reorder_outputs"), ro.getItems())
                         .addDeleteButton()
                         .addOkButton()
                         .showDialog()) {
@@ -186,8 +186,7 @@ public class TableDialog extends JDialog {
             }
         }.createJMenuItem());
 
-        JMenu colsMenu = new JMenu(Lang.get("menu_table_newColumns"));
-        colsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAdd")) {
+        columnsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAdd")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 TruthTable t = model.getTable();
@@ -195,7 +194,7 @@ public class TableDialog extends JDialog {
                 setModel(new TruthTableTableModel(t));
             }
         }.setToolTip(Lang.get("menu_table_columnsAdd_tt")).createJMenuItem());
-        colsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAddVariable")) {
+        columnsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAddVariable")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 TruthTable t = model.getTable();
@@ -204,7 +203,7 @@ public class TableDialog extends JDialog {
             }
         }.setToolTip(Lang.get("menu_table_columnsAddVariable_tt")).createJMenuItem());
 
-        bar.add(colsMenu);
+        bar.add(columnsMenu);
 
         bar.add(createSetMenu());
 
