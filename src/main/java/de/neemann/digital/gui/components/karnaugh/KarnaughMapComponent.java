@@ -72,6 +72,10 @@ public class KarnaughMapComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics graphics) {
         gr = (Graphics2D) graphics;
+        gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        gr.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         int width = getWidth();
         int height = getHeight();
         gr.setColor(Color.WHITE);
