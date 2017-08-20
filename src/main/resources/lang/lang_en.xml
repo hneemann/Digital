@@ -345,15 +345,11 @@
     <string name="elem_Text">Text</string>
     <string name="elem_Text_tt">Shows a text in the circuit. The text can be changed in the attributes dialog.</string>
     <string name="elem_XNOr">XNOr</string>
-    <string name="elem_XNOr_tt">A combination of XOR and NOT. The output is 1 if both input bits are equal.</string>
-    <string name="elem_XNOr_pin_a">Input a for Exclusive Not Or.</string>
-    <string name="elem_XNOr_pin_b">Input b for Exclusive Not Or.</string>
-    <string name="elem_XNOr_pin_out">Returns the result of the XNOr operation.</string>
+    <string name="elem_XNOr_tt">A combination of XOR and NOT. The output is 1 if both input bits are equal. If more than two inputs are used, it behaves
+        like cascaded xor gates ( A XOR B XOR C = (A XOR B) XOR C ).</string>
     <string name="elem_XOr">XOr</string>
-    <string name="elem_XOr_tt">The output is 0 if both input bits are equal.</string>
-    <string name="elem_XOr_pin_a">Input a for Exclusive Or.</string>
-    <string name="elem_XOr_pin_b">Input b for Exclusive Or.</string>
-    <string name="elem_XOr_pin_out">Returns result of Exclusive Or.</string>
+    <string name="elem_XOr_tt">The output is 0 if both input bits are equal. If more than two inputs are used, it behaves
+        like cascaded xor gates ( A XOR B XOR C = (A XOR B) XOR C ).</string>
     <string name="elem_Testcase">Test case</string>
     <string name="elem_Testcase_tt">Describes a test case.
         In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
@@ -780,19 +776,19 @@ The names of the variables may not be unique.</string>
     <string name="menu_micro">Single gate stepping</string>
     <string name="menu_micro_tt">Runs the circuit in single gate step mode</string>
     <string name="menu_new">New</string>
-    <string name="menu_new_tt">Clear actual circuit.</string>
-    <string name="menu_newSub">New nested Circuit</string>
-    <string name="menu_newSub_tt">Opens a new window to create a new nested circuit.</string>
+    <string name="menu_new_tt">Creates a new, empty circuit.</string>
+    <string name="menu_newSub">New embedded Circuit</string>
+    <string name="menu_newSub_tt">Opens a new window to create a new embedded circuit, which than can be used in this circuit.</string>
     <string name="menu_open">Open</string>
     <string name="menu_openRecent">Open Recent</string>
     <string name="menu_openWin">Open in New Window</string>
     <string name="menu_openWin_tt">Opens a circuit in a new window</string>
     <string name="menu_orderInputs">Order Inputs</string>
-    <string name="menu_orderInputs_tt">Order the inputs for the usage as nested circuit</string>
+    <string name="menu_orderInputs_tt">Order the inputs for the usage as a embedded circuit</string>
     <string name="menu_orderMeasurements">Order measurement values</string>
     <string name="menu_orderMeasurements_tt">Orders the measurement values in the graphical and table view</string>
     <string name="menu_orderOutputs">Order Outputs</string>
-    <string name="menu_orderOutputs_tt">Order the outputs for the usage as nested circuit</string>
+    <string name="menu_orderOutputs_tt">Order the outputs for the usage as a embedded circuit.</string>
     <string name="menu_paste">Paste</string>
     <string name="menu_insertAsNew">Paste in new window</string>
     <string name="menu_insertAsNew_tt">The content of the clip board is pasted in a new window.</string>
@@ -911,6 +907,9 @@ The names of the variables may not be unique.</string>
     <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
     <string name="menu_exportVHDL">Export to VHDL</string>
     <string name="menu_exportVHDL_tt">Exports the circuit to VHDL</string>
+    <string name="menu_pdfDocumentation">Documentation</string>
+    <string name="menu_openPdfDocumentation">Open {0}</string>
+    <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
 
     <string name="message">Digital
 

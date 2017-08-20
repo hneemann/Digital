@@ -1,15 +1,18 @@
 Release Notes
 
 HEAD, planned as v0.14
-- Added VHDL export (Not yet complete!)
-- Pin numbers are strings to allow FPGA pin names like "U16".
+- Added VHDL export (Not yet complete, but the example processor is running on a FPGA.)
+- Pin numbers are strings now to allow FPGA pin names like "U16".
 - Added support for BASYS3-Board (*.xdc constrains file is written)
-- CAUTION: To generalize the VHDL export I had to rename a XML entity.
-           As a consequence of that the address bits settings in RAMs and ROMs
-           are lost. To fix that reset the number of address bits.
-- Added enable input to counter component. If you have used the counter in the past
-  you have to set the en input to 1. The function of the overflow output now allows
-  cascading of counters.
+- Breaking changes
+  - To generalize the VHDL export, an XML entity had to be renamed.
+    As a consequence of that the address bits settings in RAMs and ROMs
+    are lost. To fix that, reset the number of address bits.
+  - Added an enable input to the counter component. If you had used the counter in the past
+    you have to set the en input to 1. The function of the overflow output also has
+    changed (see tooltip) and now allows the cascading of counters.
+  - XOR now can have more than two inputs. If you had used the XOR gate with inverted
+    inputs, you have to reselect the inputs to invert.
 
 v0.13, released on 25. Jul 2017
 - Introduced a library of sub circuits which are available in every circuit.
@@ -22,19 +25,20 @@ v0.13, released on 25. Jul 2017
   - A warning message shows up if a circuit with unnamed inputs is analysed.
   - A warning message shows up if a circuit with missing pin numbers is exported to a
     hardware-related file.
-- An input can have "high z" value as its default value.
-  CAUTION: All inputs have lost their default values! If you have build a circuit that
-           contains test cases that depend on a non-null default value, this tests
-           will fail. To resolve this issue, reset the default value.
-- Added an enable input to the T flip-flop
-  CAUTION: By default this input is activated now. In circuits which used the T flip-flop
-           in the past, the new input needs to be disabled.
 - Unidirectional FETs are added to overcome certain CMOS issues.
 - Added zooming to measurement graphs.
 - Test results can be displayed as measurement graphs.
 - The Text component is able to show multiple lines.
 - Comments are allowed in hex files.
 - Some minor bug fixes
+- Breaking changes
+  - An input can have "high z" value as its default value.
+    All inputs have lost their default values! If you have build a circuit that
+    contains test cases that depend on a non-null default value, this tests
+    will fail. To resolve this issue, reset the default value.
+  - Added an enable input to the T flip-flop
+    By default this input is activated now. In circuits which used the T flip-flop
+    in the past, the new input needs to be disabled.
 
 v0.12.1, released on 05. Jun 2017
 - added a fuse to simulate a PROM or PAL.

@@ -31,8 +31,8 @@ public class TestTrans extends TestCase {
         ArrayList<ObservableValue> ins = new ArrayList<>();
         for (Signal s : model.getInputs())
             ins.add(s.getValue());
-        assertTrue(ins.contains(xor.getInputA()));
-        assertTrue(ins.contains(xor.getInputB()));
+        assertTrue(ins.contains(xor.getInputs().get(0)));
+        assertTrue(ins.contains(xor.getInputs().get(1)));
     }
 
 }

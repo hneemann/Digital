@@ -209,7 +209,7 @@ public class DocuTest extends TestCase {
         for (Language l : Lang.getBundle().getSupportedLanguages()) {
             // set language
             Lang.setActualRuntimeLanguage(l);
-            final String basename = "docu_" + l.getName();
+            final String basename = "Documentation_" + l.getName();
             // write xml
             File xml = new File(target, basename + ".xml");
             try (Writer w = new OutputStreamWriter(new FileOutputStream(xml), "UTF-8")) {

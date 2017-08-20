@@ -350,15 +350,12 @@ Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string
     <string name="elem_Text">Text</string>
     <string name="elem_Text_tt">Zeigt einen einfachen Text in der Schaltung an. Der Text kann im Attribute-Dialog geändert werden.</string>
     <string name="elem_XNOr">Nicht Exclusiv Oder</string>
-    <string name="elem_XNOr_tt">Eine Kombination aus XOR und NOT. Beide Eingänge werden per XOR verknüpft und das Ergebnis wird vor der Ausgabe invertiert.</string>
-    <string name="elem_XNOr_pin_a">Eingang a für Exklusiv Nicht Oder.</string>
-    <string name="elem_XNOr_pin_b">Eingang b für Exklusiv Nicht Oder.</string>
-    <string name="elem_XNOr_pin_out">Gibt das Ergebnis der XNOr Operation aus.</string>
+    <string name="elem_XNOr_tt">Eine Kombination aus XOR und NOT. Beide Eingänge werden per XOR verknüpft und das Ergebnis wird vor
+        der Ausgabe invertiert. Werden mehr als zwei Eingänge verwendet, werden
+        die XOR-Gater kaskadiert ( A XOR B XOR C = (A XOR B) XOR C ).</string>
     <string name="elem_XOr">Exclusiv Oder</string>
-    <string name="elem_XOr_tt">Gibt 1 aus wenn genau ein Eingang eine 1 ist.</string>
-    <string name="elem_XOr_pin_a">Eingang a für Exklusiv Oder.</string>
-    <string name="elem_XOr_pin_b">Eingang b für Exklusiv Oder.</string>
-    <string name="elem_XOr_pin_out">Gibt das Ergebnis des Exklusiv Oders aus.</string>
+    <string name="elem_XOr_tt">Gibt 1 aus wenn genau ein Eingang eine 1 ist. Werden mehr als zwei Eingänge verwendet, werden
+        die XOR-Gater kaskadiert ( A XOR B XOR C = (A XOR B) XOR C ).</string>
     <string name="elem_Testcase">Testfall</string>
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
@@ -926,6 +923,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_exportVHDL_tt">Exportiert die Schaltung zu VHDL</string>
     <string name="menu_karnaughMap">KV-Tafel</string>
     <string name="menu_karnaughMap_tt">Zeigt eine KV-Tafel der Tabelle an.</string>
+    <string name="menu_pdfDocumentation">Dokumentation</string>
+    <string name="menu_openPdfDocumentation">Öffne {0}</string>
+    <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
     <string name="message">Digital
 

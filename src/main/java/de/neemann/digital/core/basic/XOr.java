@@ -1,32 +1,23 @@
 package de.neemann.digital.core.basic;
 
-import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
-import static de.neemann.digital.core.element.PinInfo.input;
+import java.util.ArrayList;
 
 /**
+ * The Or
  * @author hneemann
  */
-public class XOr extends Node implements Element {
+public class XOr extends Function {
 
     /**
-     * The XOr description
+     * The And description
      */
-    public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(XOr.class, input("a"), input("b"))
-            .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.BITS)
-            .addAttribute(Keys.INVERTER_CONFIG);
-
-    private final int bits;
-    private final ObservableValue out;
-    private ObservableValue a;
-    private ObservableValue b;
-    private long value;
+    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(XOr.class);
 
     /**
      * Creates a new instance
@@ -34,53 +25,15 @@ public class XOr extends Node implements Element {
      * @param attributes the attributes
      */
     public XOr(ElementAttributes attributes) {
-        bits = attributes.get(Keys.BITS);
-        this.out = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
+        super(attributes.get(Keys.BITS));
     }
 
     @Override
-    public void readInputs() throws NodeException {
-        value = calc(a.getValue(), b.getValue());
-    }
-
-    /**
-     * Performs the operation
-     *
-     * @param a a
-     * @param b b
-     * @return result
-     */
-    protected long calc(long a, long b) {
-        return a ^ b;
-    }
-
-    @Override
-    public void writeOutputs() throws NodeException {
-        out.setValue(value);
-    }
-
-    @Override
-    public void setInputs(ObservableValues inputs) throws BitsException {
-        a = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
-        b = inputs.get(1).addObserverToValue(this).checkBits(bits, this);
-    }
-
-    @Override
-    public ObservableValues getOutputs() {
-        return out.asList();
-    }
-
-    /**
-     * @return input A
-     */
-    public ObservableValue getInputA() {
-        return a;
-    }
-
-    /**
-     * @return input B
-     */
-    public ObservableValue getInputB() {
-        return b;
+    protected int calculate(ArrayList<ObservableValue> inputs) throws NodeException {
+        int f = 0;
+        for (ObservableValue i : inputs) {
+            f ^= i.getValue();
+        }
+        return f;
     }
 }

@@ -1,10 +1,11 @@
 package de.neemann.digital.core.basic;
 
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
 
-import static de.neemann.digital.core.element.PinInfo.input;
+import java.util.ArrayList;
 
 /**
  * The XNOr
@@ -16,11 +17,7 @@ public class XNOr extends XOr {
     /**
      * The XNOr description
      */
-    public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(XNOr.class, input("a"), input("b"))
-            .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.BITS)
-            .addAttribute(Keys.INVERTER_CONFIG);
+    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(XNOr.class);
 
     /**
      * Creates a new instance
@@ -32,7 +29,7 @@ public class XNOr extends XOr {
     }
 
     @Override
-    protected long calc(long a, long b) {
-        return ~(a ^ b);
+    protected int calculate(ArrayList<ObservableValue> inputs) throws NodeException {
+        return ~super.calculate(inputs);
     }
 }

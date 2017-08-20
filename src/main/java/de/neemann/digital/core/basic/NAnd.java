@@ -4,15 +4,15 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
 
 import java.util.ArrayList;
 
 /**
  * The NAnd
+ *
  * @author hneemann
  */
-public class NAnd extends Function {
+public class NAnd extends And {
 
     /**
      * The NAnd description
@@ -25,15 +25,11 @@ public class NAnd extends Function {
      * @param attributes the attributes
      */
     public NAnd(ElementAttributes attributes) {
-        super(attributes.get(Keys.BITS));
+        super(attributes);
     }
 
     @Override
     protected int calculate(ArrayList<ObservableValue> inputs) throws NodeException {
-        int f = -1;
-        for (ObservableValue i : inputs) {
-            f &= i.getValue();
-        }
-        return ~f;
+        return ~super.calculate(inputs);
     }
 }
