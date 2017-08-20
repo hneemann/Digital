@@ -18,6 +18,7 @@ public class KarnaughMapDialog extends JDialog {
 
     private final KarnaughMapComponent kvComponent;
     private final JComboBox<ExpressionListenerStore.Result> combo;
+    private final JDialog parent;
     private TruthTable table;
     private List<ExpressionListenerStore.Result> results;
 
@@ -28,6 +29,7 @@ public class KarnaughMapDialog extends JDialog {
      */
     public KarnaughMapDialog(JDialog parent) {
         super(parent, Lang.get("win_karnaughMap"), false);
+        this.parent = parent;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         kvComponent = new KarnaughMapComponent();
         getContentPane().add(kvComponent);
@@ -83,6 +85,13 @@ public class KarnaughMapDialog extends JDialog {
 
             }
         combo.setSelectedIndex(i);
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        if (!isVisible())
+            setLocation(parent.getX() + parent.getWidth(), parent.getY());
+        super.setVisible(visible);
     }
 
     private static final class MyComboBoxModel implements ComboBoxModel<ExpressionListenerStore.Result> {
