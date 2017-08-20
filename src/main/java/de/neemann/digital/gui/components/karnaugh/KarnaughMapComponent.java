@@ -85,8 +85,8 @@ public class KarnaughMapComponent extends JComponent {
         if (kv != null) {
             AffineTransform trans = gr.getTransform(); // store the old transform
 
-            int kvWidth = kv.getHeaderTop().size();
-            int kvHeight = kv.getHeaderLeft().size();
+            int kvWidth = kv.getColumns();
+            int kvHeight = kv.getRows();
             cellSize = (int) Math.min(height / (kvHeight + 2.5f), width / (kvWidth + 2.5f));
             Font origFont = gr.getFont();
             Font bigFont = origFont.deriveFont(cellSize * 0.5f);
@@ -139,8 +139,7 @@ public class KarnaughMapComponent extends JComponent {
                 int frame = (c.getInset() + 1) * STROKE_WIDTH;
                 if (c.isDisconnected()) {
                     Rectangle clip = gr.getClipBounds();
-                    gr.setClip(cellSize - STROKE_WIDTH / 2, cellSize - STROKE_WIDTH / 2,
-                            4 * cellSize + STROKE_WIDTH, 4 * cellSize + STROKE_WIDTH);
+                    gr.setClip(cellSize, cellSize, kvWidth * cellSize, kvHeight * cellSize);
                     if (c.onlyEdges()) {
                         gr.drawRoundRect(frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
                         gr.drawRoundRect(4 * cellSize + frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);

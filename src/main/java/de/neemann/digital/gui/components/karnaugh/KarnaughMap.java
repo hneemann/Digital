@@ -205,6 +205,20 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
     }
 
     /**
+     * @return the rows of the table
+     */
+    public int getRows() {
+        return headerLeft.size();
+    }
+
+    /**
+     * @return the cols of the table
+     */
+    public int getColumns() {
+        return headerTop.size();
+    }
+
+    /**
      * @return the left header
      */
     public Header getHeaderLeft() {

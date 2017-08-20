@@ -2,8 +2,9 @@ Release Notes
 
 HEAD, planned as v0.14
 - Added VHDL export (Not yet complete, but the example processor is running on a FPGA.)
-- Pin numbers are strings now to allow FPGA pin names like "U16".
+- Type of Pin numbers changed from int to string to allow FPGA pin names like "U16".
 - Added support for BASYS3-Board (*.xdc constrains file is written)
+- Added visualization of KV maps (thanks to roy77)
 - Breaking changes
   - To generalize the VHDL export, an XML entity had to be renamed.
     As a consequence of that the address bits settings in RAMs and ROMs

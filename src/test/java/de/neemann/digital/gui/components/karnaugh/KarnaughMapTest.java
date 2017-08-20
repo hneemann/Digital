@@ -186,4 +186,38 @@ public class KarnaughMapTest extends TestCase {
         assertNull(cov.getHeaderBottom());
     }
 
+    /**
+     * Test if kv map is really a kv map
+     * Only the state of one var differs between neighbour cells.
+     */
+    public void testKVLayout() throws KarnaughException {
+        int checks = 0;
+        for (int vars = 2; vars <= 4; vars++) {
+            KarnaughMap map = new KarnaughMap(Variable.vars(vars), Constant.ONE);
+            for (int r = 0; r < map.getRows(); r++)
+                for (int c = 0; c < map.getColumns(); c++) {
+                    KarnaughMap.Cell cell = map.getCell(r, c);
+                    compareCells(cell, map.getCell(r, inc(c, map.getColumns())), vars);
+                    compareCells(cell, map.getCell(inc(r, map.getRows()), c), vars);
+                    checks += 2;
+                }
+        }
+        assertEquals((16 + 8 + 4) * 2, checks);
+    }
+
+    private void compareCells(KarnaughMap.Cell a, KarnaughMap.Cell b, int vars) {
+        int count = 0;
+        for (int v = 0; v < vars; v++) {
+            if (a.isVarInMinTerm(v, false) != b.isVarInMinTerm(v, false))
+                count++;
+        }
+        assertEquals(1, count);
+    }
+
+    private int inc(int v, int size) {
+        v++;
+        if (v == size) v = 0;
+        return v;
+    }
+
 }
