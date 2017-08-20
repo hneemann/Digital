@@ -31,7 +31,6 @@ public class KarnaughMapComponent extends JComponent {
     private ArrayList<Variable> vars;
     private Graphics2D gr;
     private int cellSize;
-    private FontMetrics fontMetrics;
     private String message = Lang.get("msg_noKVMapAvailable");
 
     /**
@@ -89,9 +88,22 @@ public class KarnaughMapComponent extends JComponent {
             int kvHeight = kv.getRows();
             cellSize = (int) Math.min(height / (kvHeight + 2.5f), width / (kvWidth + 2.5f));
             Font origFont = gr.getFont();
-            Font bigFont = origFont.deriveFont(cellSize * 0.5f);
-            gr.setFont(bigFont);
-            fontMetrics = gr.getFontMetrics();
+            Font valuesFont = origFont.deriveFont(cellSize * 0.5f);
+            gr.setFont(valuesFont);
+
+            Font headerFont = valuesFont;
+            try {
+                int maxHeaderStrWidth = 0;
+                FontMetrics fontMetrics = gr.getFontMetrics();
+                for (Variable v : vars) {
+                    int w = fontMetrics.stringWidth(FormatToExpression.defaultFormat(not(v)));
+                    if (w > maxHeaderStrWidth) maxHeaderStrWidth = w;
+                }
+                if (maxHeaderStrWidth > cellSize)
+                    headerFont = origFont.deriveFont(cellSize * 0.5f * cellSize / maxHeaderStrWidth);
+            } catch (FormatterException e) {
+                // can not happen
+            }
 
             gr.translate((width - (kvWidth + 2) * cellSize) / 2,   // center the kv map
                     (height - (kvHeight + 2) * cellSize) / 2);
@@ -110,22 +122,23 @@ public class KarnaughMapComponent extends JComponent {
                 int dx2 = isNoHeaderLine(kv.getHeaderRight(), i - 1) ? cellSize : 0;
                 gr.drawLine(dx1, (i + 1) * cellSize, (kvWidth + 2) * cellSize - dx2, (i + 1) * cellSize);
             }
-            gr.setColor(Color.BLACK);
             gr.setStroke(new BasicStroke(STROKE_WIDTH));
 
             // fill in bool table content
             for (KarnaughMap.Cell cell : kv.getCells()) {
+                gr.setColor(Color.BLACK);
+                gr.setFont(valuesFont);
                 drawString(boolTable.get(cell.getBoolTableRow()).toString(), cell.getCol() + 1, cell.getRow() + 1);
                 gr.setColor(Color.GRAY);
                 gr.setFont(origFont);
                 gr.drawString(Integer.toString(cell.getBoolTableRow()),
                         (cell.getCol() + 1) * cellSize + 1,
                         (cell.getRow() + 2) * cellSize - 1);
-                gr.setColor(Color.BLACK);
-                gr.setFont(bigFont);
             }
 
             // draw the text in the borders
+            gr.setColor(Color.BLACK);
+            gr.setFont(headerFont);
             drawVerticalHeader(kv.getHeaderLeft(), 0);
             drawVerticalHeader(kv.getHeaderRight(), kvWidth + 1);
             drawHorizontalHeader(kv.getHeaderTop(), 0);
@@ -209,6 +222,7 @@ public class KarnaughMapComponent extends JComponent {
     }
 
     private void drawString(String s, int row, int col, int xOffs, int yOffs) {
+        FontMetrics fontMetrics = gr.getFontMetrics();
         Rectangle2D bounds = fontMetrics.getStringBounds(s, gr);
         int xPos = (int) ((cellSize - bounds.getWidth()) / 2);
         int yPos = cellSize - (int) ((cellSize - bounds.getHeight()) / 2) - fontMetrics.getDescent();
