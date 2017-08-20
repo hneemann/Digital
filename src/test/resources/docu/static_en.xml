@@ -156,6 +156,30 @@
             On Linux systems, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
         </par>
     </chapter>
+    <chapter name="VHDL">
+        <par>
+            A circuit can be exported to VHDL. A file is generated which contains the complete description of the circuit.
+            The generated VHDL code was tested with <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
+            and the open source VHDL simulator <a href="http://ghdl.free.fr/">ghdl</a>.
+        </par>
+        <par>
+            If a circuit contains test cases, the test data is used to generate a VHDL test bench. This can be used to
+            check the correct function of the circuit in a VHDL simulation.
+        </par>
+        <par>
+            Additional files can be created for special boards. At present only the
+            <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
+            board is supported.
+            A constrains file is created, which contains the assignment of the pins. The description of the pins can be
+            found in the BASYS3 data sheet, and must be entered as a pin number for the inputs and outputs.
+            If a circuit is to run on a BASYS3 board, a new project can be created in Vivado.
+            The generated VHDL file and the constraints file must be added to the project.
+            Once the project has been created, the bitstream can be generated and loaded into a BASYS3 board.
+        </par>
+        <par>
+            To create the required constrains file, the circuit must contain a text field with the text "Board: BASYS3".
+        </par>
+    </chapter>
     <chapter name="Frequently asked Questions">
         <faq>
             <question>How to move a wire?</question>
