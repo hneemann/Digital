@@ -390,7 +390,7 @@ end loop
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="540" y="480"/>
+      <pos x="500" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>

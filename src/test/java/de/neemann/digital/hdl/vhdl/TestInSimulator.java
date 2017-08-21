@@ -7,7 +7,6 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
@@ -36,41 +35,42 @@ public class TestInSimulator extends TestCase {
 
     public void testInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
-        int tested = new FileScanner(this::check).scan(examples);
-        // if tested is negative, ghdl was not found and tests are skipped!
-        if (tested >= 0) {
+        try {
+            int tested = new FileScanner(this::check).scan(examples);
             assertEquals(15, tested);
             assertEquals(tested, testBenches);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
         }
     }
 
     public void testInSimulator2() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
-        int tested = new FileScanner(this::check).scan(examples);
-        // if tested is negative, ghdl was not found and tests are skipped!
-        if (tested >= 0)
+        try {
+            int tested = new FileScanner(this::check).scan(examples);
             assertEquals(24, tested);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        }
     }
 
     public void testDistributedInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
-        int tested = new FileScanner(this::check).scan(examples);
-        // if tested is negative, ghdl was not found and tests are skipped!
-        if (tested >= 0) {
+        try {
+            int tested = new FileScanner(this::check).scan(examples);
             assertEquals(1, tested);
             assertEquals(1, testBenches);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
         }
     }
 
     public void testProcessorInSimulator() throws Exception {
         File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
         try {
-//            ToBreakRunner br = new ToBreakRunner(file);
-//            System.out.println(new VHDLExporter(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
-
             check(file);
         } catch (FileScanner.SkipAllException e) {
-            // ok if ghdl is not installed!
+            // if ghdl is not installed its also ok
         } catch (Exception e) {
             System.out.println(ExceptionWithOrigin.getOriginOf(e));
             throw e;

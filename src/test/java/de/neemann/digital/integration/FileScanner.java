@@ -22,8 +22,8 @@ public class FileScanner {
         try {
             count = scanIntern(path);
         } catch (SkipAllException e) {
-            System.out.println("all tests are skipped: " + e.getMessage());
-            return -1;
+            System.err.println("all tests are skipped: " + e.getMessage());
+            throw e;
         }
         System.out.println("tested " + count + " examples");
         if (errors.isEmpty())
