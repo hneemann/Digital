@@ -62,8 +62,8 @@ public class TestInSimulator extends TestCase {
         }
     }
 
-    public void testInSimulatorProcessor() throws Exception {
-        File file = new File(Resources.getRoot(), "../../main/dig/processor/ProcessorVHDL.dig");
+    public void testProcessorInSimulator() throws Exception {
+        File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
         try {
 //            ToBreakRunner br = new ToBreakRunner(file);
 //            System.out.println(new VHDLExporter(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
