@@ -150,14 +150,15 @@ public class KarnaughMapComponent extends JComponent {
                 gr.setColor(COVER_COLORS[color++]);
                 KarnaughMap.Pos p = c.getPos();
                 int frame = (c.getInset() + 1) * STROKE_WIDTH;
+                int edgesRadius=cellSize-frame*2;
                 if (c.isDisconnected()) {
                     Rectangle clip = gr.getClipBounds();
                     gr.setClip(cellSize, cellSize, kvWidth * cellSize, kvHeight * cellSize);
                     if (c.onlyEdges()) {
-                        gr.drawRoundRect(frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
-                        gr.drawRoundRect(4 * cellSize + frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
-                        gr.drawRoundRect(frame, 4 * cellSize + frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
-                        gr.drawRoundRect(4 * cellSize + frame, 4 * cellSize + frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, cellSize, cellSize);
+                        gr.drawRoundRect(frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, edgesRadius, edgesRadius);
+                        gr.drawRoundRect(4 * cellSize + frame, frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, edgesRadius, edgesRadius);
+                        gr.drawRoundRect(frame, 4 * cellSize + frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, edgesRadius, edgesRadius);
+                        gr.drawRoundRect(4 * cellSize + frame, 4 * cellSize + frame, 2 * cellSize - frame * 2, 2 * cellSize - frame * 2, edgesRadius, edgesRadius);
                     } else { // draw the two parts of the cover
                         int xofs = 0;
                         int yOfs = 0;
@@ -168,17 +169,17 @@ public class KarnaughMapComponent extends JComponent {
 
                         gr.drawRoundRect((p.getCol() + 1) * cellSize + frame + xofs, (p.getRow() + 1) * cellSize + frame + yOfs,
                                 p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
-                                cellSize, cellSize);
+                                edgesRadius, edgesRadius);
                         gr.drawRoundRect((p.getCol() + 1) * cellSize + frame - xofs, (p.getRow() + 1) * cellSize + frame - yOfs,
                                 p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
-                                cellSize, cellSize);
+                                edgesRadius, edgesRadius);
 
                     }
                     gr.setClip(clip.x, clip.y, clip.width, clip.height);
                 } else
                     gr.drawRoundRect((p.getCol() + 1) * cellSize + frame, (p.getRow() + 1) * cellSize + frame,
                             p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
-                            cellSize, cellSize);
+                            edgesRadius, edgesRadius);
             }
             gr.setTransform(trans);
         } else
