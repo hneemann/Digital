@@ -257,7 +257,7 @@
           <string>W5</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="640"/>
+      <pos x="300" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -271,7 +271,7 @@
           <string>U18</string>
         </entry>
       </elementAttributes>
-      <pos x="180" y="100"/>
+      <pos x="200" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -285,7 +285,7 @@
           <string>T18</string>
         </entry>
       </elementAttributes>
-      <pos x="180" y="-60"/>
+      <pos x="200" y="-40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -299,7 +299,7 @@
           <string>U17</string>
         </entry>
       </elementAttributes>
-      <pos x="180" y="60"/>
+      <pos x="200" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -313,7 +313,7 @@
           <string>T17</string>
         </entry>
       </elementAttributes>
-      <pos x="180" y="-20"/>
+      <pos x="200" y="0"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -327,7 +327,7 @@
           <string>W19</string>
         </entry>
       </elementAttributes>
-      <pos x="180" y="20"/>
+      <pos x="200" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -735,7 +735,7 @@
           <string>Digital Cross</string>
         </entry>
       </elementAttributes>
-      <pos x="0" y="-120"/>
+      <pos x="20" y="-100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
