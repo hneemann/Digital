@@ -345,15 +345,15 @@
     <string name="elem_Text">Text</string>
     <string name="elem_Text_tt">Shows a text in the circuit. The text can be changed in the attributes dialog.</string>
     <string name="elem_XNOr">XNOr</string>
-    <string name="elem_XNOr_tt">A combination of XOR and NOT. The output is 1 if both input bits are equal. If more than two inputs are used, it behaves
-        like cascaded xor gates ( A XOR B XOR C = (A XOR B) XOR C ).</string>
+    <string name="elem_XNOr_tt">A combination of XOR and NOT. The inputs are combined with the XOR operation.
+       The result of this operation than is inverted.</string>
     <string name="elem_XOr">XOr</string>
-    <string name="elem_XOr_tt">The output is 0 if both input bits are equal. If more than two inputs are used, it behaves
-        like cascaded xor gates ( A XOR B XOR C = (A XOR B) XOR C ).</string>
+    <string name="elem_XOr_tt">If two inputs are used, the output is 0 if both input bits are equal. Otherwise the output in set to 1.
+        If more than two inputs are used, it behaves like cascaded XOR gates ( A XOR B XOR C = (A XOR B) XOR C ).</string>
     <string name="elem_Testcase">Test case</string>
     <string name="elem_Testcase_tt">Describes a test case.
         In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
-        behavior of the circuit actually corresponds to this description. If this is not the case, a corresponding
+        behavior of the circuit actually corresponds to this description. If this is not the case, an
         error message is shown. </string>
     <string name="elem_Keyboard">Keyboard</string>
     <string name="elem_Keyboard_tt">A simple keyboard which can be used to input symbols.</string>
