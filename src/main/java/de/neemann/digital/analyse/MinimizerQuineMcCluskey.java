@@ -33,7 +33,6 @@ public class MinimizerQuineMcCluskey implements MinimizerInterface {
         } else {
             listener.resultFound(resultName, e);
         }
-
     }
 
     /**

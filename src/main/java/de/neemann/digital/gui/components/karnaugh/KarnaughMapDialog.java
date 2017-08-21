@@ -77,14 +77,16 @@ public class KarnaughMapDialog extends JDialog {
         this.results = newResults;
         combo.setModel(new MyComboBoxModel(results));
 
-        i = 0;
-        for (int j = 0; j < results.size(); j++)
-            if (results.get(j).getName().equals(name)) {
-                i = j;
-                break;
+        if (results.size() > 0) {
+            i = 0;
+            for (int j = 0; j < results.size(); j++)
+                if (results.get(j).getName().equals(name)) {
+                    i = j;
+                    break;
 
-            }
-        combo.setSelectedIndex(i);
+                }
+            combo.setSelectedIndex(i);
+        }
     }
 
     @Override

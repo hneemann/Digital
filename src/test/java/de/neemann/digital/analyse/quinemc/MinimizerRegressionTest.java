@@ -91,7 +91,6 @@ public class MinimizerRegressionTest extends TestCase {
         final ExpressionListenerStore listener = new ExpressionListenerStore(null);
         minimizer.minimize(v, new BoolTableByteArray(tab), "Y", listener);
         Expression e = listener.getFirst();
-        ;
 
         assertNotNull(e);
 
