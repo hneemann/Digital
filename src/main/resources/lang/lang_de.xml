@@ -928,7 +928,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="message">Digital
 
 Ein einfacher Simulator für digitale Schaltkreise.
-Geschrieben von Helmut Neemann 2016
+Geschrieben von Helmut Neemann 2016, 2017
 
 Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_N_nodes">{0} aktive Elemente</string>
@@ -997,6 +997,7 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
     <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
     <string name="msg_noKVMapAvailable">Keine KV-Tafel verfügbar!</string>
+    <string name="btn_fileIssue">Fehler melden</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

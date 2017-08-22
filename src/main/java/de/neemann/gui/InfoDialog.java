@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -22,6 +24,7 @@ import java.util.jar.JarFile;
 public final class InfoDialog {
     private static InfoDialog instance;
     private final ArrayList<Manifest> infos;
+    private String revision;
 
     /**
      * @return the singleton instance
@@ -41,8 +44,10 @@ public final class InfoDialog {
         Enumeration<URL> resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
         while (resEnum.hasMoreElements()) {
             Manifest m = new Manifest(resEnum.nextElement());
-            if (m.get(Manifest.REVISION) != null)
+            if (m.get(Manifest.REVISION) != null) {
                 infos.add(m);
+                revision = m.get(Manifest.REVISION);
+            }
         }
     }
 
@@ -68,7 +73,63 @@ public final class InfoDialog {
      * @param message the message
      */
     private void showInfo(Component parent, String message) {
-        JOptionPane.showMessageDialog(parent, createMessage(message), "Info", JOptionPane.INFORMATION_MESSAGE);
+        final JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(parent), Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JTextArea ta = new JTextArea(createMessage(message));
+        ta.setEditable(false);
+        ta.setBackground(new JLabel().getBackground());
+        Font font = ta.getFont().deriveFont(Font.BOLD);
+        ta.setFont(font);
+        int border = font.getSize();
+        ta.setBorder(BorderFactory.createEmptyBorder(border, border, border, border));
+        dialog.getContentPane().add(ta);
+
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            URI uri;
+            try {
+                if (revision == null)
+                    uri = new URI("https://github.com/hneemann/Digital/issues/new");
+                else
+                    uri = new URI("https://github.com/hneemann/Digital/issues/new?body=revision:%20" + revision);
+
+                JButton issue = new JButton(new AbstractAction(Lang.get("btn_fileIssue")) {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        try {
+                            desktop.browse(uri);
+                            dialog.dispose();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                buttons.add(issue);
+
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+        JButton button = new JButton(new AbstractAction(Lang.get("ok")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dialog.dispose();
+            }
+        });
+        buttons.add(button);
+        dialog.getContentPane().add(buttons, BorderLayout.SOUTH);
+
+        JLabel l = new JLabel(IconCreator.create("icon64.png"));
+        l.setVerticalAlignment(JLabel.TOP);
+        l.setBorder(BorderFactory.createEmptyBorder(border, border, border, 0));
+        dialog.getContentPane().add(l, BorderLayout.WEST);
+
+        dialog.pack();
+        dialog.setLocationRelativeTo(parent);
+        dialog.setVisible(true);
     }
 
     /**
