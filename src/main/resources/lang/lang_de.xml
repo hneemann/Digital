@@ -926,7 +926,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Ein einfacher Simulator für digitale Schaltkreise.
-Geschrieben von Helmut Neemann 2016, 2017
+Geschrieben von H. Neemann 2016, 2017
 
 Die Icons stammen aus dem Tango Desktop Project.
 
@@ -999,6 +999,7 @@ Dort kann auch ein &lt;a href=&quot;https://github.com/hneemann/Digital/issues/n
     <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
     <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
     <string name="msg_noKVMapAvailable">Keine KV-Tafel verfügbar!</string>
+    <string name="msg_dataNotUpdatedAnymore">Daten werden nicht mehr aktualisiert!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

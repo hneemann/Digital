@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class DataEditor extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
     private final DataField localDataField;
+    private final JTable table;
     private boolean ok = false;
 
     /**
@@ -56,7 +57,7 @@ public class DataEditor extends JDialog {
 
         int tableWidth = 0;
         MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
-        JTable table = new JTable(dm);
+        table = new JTable(dm);
         int widthOfZero = table.getFontMetrics(table.getFont()).stringWidth("00000000") / 8;
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(dataBits));
         for (int c = 1; c < table.getColumnModel().getColumnCount(); c++) {
@@ -124,6 +125,15 @@ public class DataEditor extends JDialog {
     public boolean showDialog() {
         setVisible(true);
         return ok;
+    }
+
+    /**
+     * Called if dialog shows data from running model and model had stopped.
+     */
+    public void detachFromRunningModel() {
+        table.setForeground(Color.BLUE);
+        table.setToolTipText(Lang.get("msg_dataNotUpdatedAnymore"));
+        table.setEnabled(false);
     }
 
     private final static class MyTableModel implements TableModel, DataField.DataListener {
