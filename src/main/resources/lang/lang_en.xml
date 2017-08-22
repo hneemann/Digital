@@ -910,12 +910,14 @@ The names of the variables may not be unique.</string>
     <string name="menu_openPdfDocumentation">Open {0}</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
 
-    <string name="message">Digital
-
-A simple simulator for digital circuits.
+    <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
 Written bei H.Neemann in 2016, 2017.
 
-The icons are taken from the Tango Desktop Project.</string>
+The icons are taken from the Tango Desktop Project.
+
+Visit the project at &lt;a href=&quot;https://github.com/hneemann/Digital&quot;&gt;GitHub&lt;/a&gt;.
+There you also can file an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?body=version:%20{{version}}&quot;&gt;issue&lt;/a&gt;.
+    </string>
     <string name="msg_N_nodes">{0} nodes</string>
     <string name="msg_analyseErr">Error analysing the circuit</string>
     <string name="msg_clockError">Error during a clock state change</string>
@@ -980,7 +982,6 @@ The icons are taken from the Tango Desktop Project.</string>
     <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!</string>
     <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>
     <string name="msg_noKVMapAvailable">No KV map available!</string>
-    <string name="btn_fileIssue">File Issue</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

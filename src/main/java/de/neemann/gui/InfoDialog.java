@@ -3,12 +3,12 @@ package de.neemann.gui;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.jar.JarFile;
 public final class InfoDialog {
     private static InfoDialog instance;
     private final ArrayList<Manifest> infos;
-    private String revision;
+    private String revision = "unknown";
 
     /**
      * @return the singleton instance
@@ -58,12 +58,13 @@ public final class InfoDialog {
      * @return message and added manifest infos
      */
     private String createMessage(String message) {
-        StringBuilder sb = new StringBuilder(message);
+        StringBuilder sb = new StringBuilder("<html>");
+        sb.append(message.replace("\n", "<br/>"));
         sb.append("\n\n");
         for (Manifest m : infos) {
             m.createInfoString(sb);
         }
-        return sb.toString();
+        return sb.append("</html>").toString();
     }
 
     /**
@@ -76,7 +77,9 @@ public final class InfoDialog {
         final JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(parent), Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
         dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        JTextArea ta = new JTextArea(createMessage(message));
+        JEditorPane ta = new JEditorPane("text/html", createMessage(message));
+        ta.setCaretPosition(0);
+        ta.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
         ta.setEditable(false);
         ta.setBackground(new JLabel().getBackground());
         Font font = ta.getFont().deriveFont(Font.BOLD);
@@ -84,35 +87,22 @@ public final class InfoDialog {
         int border = font.getSize();
         ta.setBorder(BorderFactory.createEmptyBorder(border, border, border, border));
         dialog.getContentPane().add(ta);
+        ta.addHyperlinkListener(hyperlinkEvent -> {
+            if (hyperlinkEvent.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED)) {
+                Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+                if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        URL url = hyperlinkEvent.getURL();
+                        url = new URL(url.toString().replace("{{version}}", revision));
+                        desktop.browse(url.toURI());
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-
-        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-            URI uri;
-            try {
-                if (revision == null)
-                    uri = new URI("https://github.com/hneemann/Digital/issues/new");
-                else
-                    uri = new URI("https://github.com/hneemann/Digital/issues/new?body=revision:%20" + revision);
-
-                JButton issue = new JButton(new AbstractAction(Lang.get("btn_fileIssue")) {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        try {
-                            desktop.browse(uri);
-                            dialog.dispose();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                buttons.add(issue);
-
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-        }
         JButton button = new JButton(new AbstractAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -184,11 +174,12 @@ public final class InfoDialog {
             int p = path.lastIndexOf("!/");
             path = path.substring(0, p);
             p = path.lastIndexOf('/');
-            sb.append(path.substring(p + 1)).append('\n');
+            sb.append("<p>");
+            sb.append(path.substring(p + 1)).append("<br/>");
             sb.append("Build git-Revision").append(": ");
-            sb.append(get(REVISION)).append("\n");
+            sb.append(get(REVISION)).append("<br/>");
             sb.append("Build Time").append(": ");
-            sb.append(get(TIME)).append("\n\n");
+            sb.append(get(TIME)).append("<br/></p>");
         }
 
         @Override

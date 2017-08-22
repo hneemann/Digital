@@ -925,12 +925,14 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_openPdfDocumentation">Öffne {0}</string>
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
-    <string name="message">Digital
-
-Ein einfacher Simulator für digitale Schaltkreise.
+    <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Ein einfacher Simulator für digitale Schaltkreise.
 Geschrieben von Helmut Neemann 2016, 2017
 
-Die Icons stammen aus dem Tango Desktop Project.</string>
+Die Icons stammen aus dem Tango Desktop Project.
+
+Besuche das Projekt auf &lt;a href=&quot;https://github.com/hneemann/Digital&quot;&gt;GitHub&lt;/a&gt;.
+Dort kann auch ein &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?body=version:%20{{version}}&quot;&gt;Fehler&lt;/a&gt; gemeldet werden.
+    </string>
     <string name="msg_N_nodes">{0} aktive Elemente</string>
     <string name="msg_analyseErr">Fehler bei der Analyse der Schaltung.</string>
     <string name="msg_clockError">Fehler bei der Berechnung einer Taktänderung.</string>
@@ -997,7 +999,6 @@ Die Icons stammen aus dem Tango Desktop Project.</string>
     <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
     <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
     <string name="msg_noKVMapAvailable">Keine KV-Tafel verfügbar!</string>
-    <string name="btn_fileIssue">Fehler melden</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
