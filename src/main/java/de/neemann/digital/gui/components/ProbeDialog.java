@@ -86,7 +86,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
                                     ram.getDataBits(),
                                     ram.getAddrBits(),
                                     true,
-                                    modelSync).showDialog();
+                                    modelSync).showDialog(ram.getLabel(), model);
                         }
                     }));
                 }

@@ -1,7 +1,6 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -53,17 +52,7 @@ public class RAMShape extends GenericShape {
                 if (element instanceof RAMInterface) {
                     DataField dataField = ((RAMInterface) element).getMemory();
                     DataEditor dataEditor = new DataEditor(cc, dataField, size, dataBits, addrBits, true, modelSync);
-                    if (label.length() > 0)
-                        dataEditor.setTitle(label);
-                    dataEditor.showDialog();
-
-                    if (model != null) {
-                        model.getWindowPosManager().register("RAM_DATA_" + label, dataEditor);
-                        model.addObserver(event -> {
-                            if (event.equals(ModelEvent.STOPPED))
-                                dataEditor.detachFromRunningModel();
-                        });
-                    }
+                    dataEditor.showDialog(label, model);
                 }
                 return false;
             }

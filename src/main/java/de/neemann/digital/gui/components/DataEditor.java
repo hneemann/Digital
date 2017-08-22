@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
@@ -125,6 +127,26 @@ public class DataEditor extends JDialog {
     public boolean showDialog() {
         setVisible(true);
         return ok;
+    }
+
+    /**
+     * Shows this dialog and attaches it to the given running model
+     *
+     * @param label the label of the RAM component
+     * @param model the model to use
+     */
+    public void showDialog(String label, Model model) {
+        if (label.length() > 0)
+            setTitle(label);
+        showDialog();
+
+        if (model != null) {
+            model.getWindowPosManager().register("RAM_DATA_" + label, this);
+            model.addObserver(event -> {
+                if (event.equals(ModelEvent.STOPPED))
+                    detachFromRunningModel();
+            });
+        }
     }
 
     /**
