@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
  * @author hneemann
  */
 public class DataEditor extends JDialog {
+    private static final Color MYGRAY = new Color(230, 230, 230);
     private final DataField localDataField;
     private boolean ok = false;
 
@@ -50,14 +52,34 @@ public class DataEditor extends JDialog {
         if (size <= 16) cols = 1;
         else if (size <= 128) cols = 8;
 
+        if (dataBits > 20 && cols == 16) cols = 8;
+
+        int tableWidth=0;
         MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
         JTable table = new JTable(dm);
+        int widthOfZero = table.getFontMetrics(table.getFont()).stringWidth("00000000") / 8;
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(dataBits));
-        table.getColumnModel().getColumn(0).setCellRenderer(new MyLongRenderer(addrBits));
-        table.setRowHeight(table.getFont().getSize() * 6 / 5);
-        getContentPane().add(new JScrollPane(table));
+        for (int c = 1; c < table.getColumnModel().getColumnCount(); c++) {
+            int width = widthOfZero * ((dataBits - 1) / 4 + 2);
+            tableWidth+=width;
+            TableColumn col = table.getColumnModel().getColumn(c);
+            col.setPreferredWidth(width);
+        }
 
-        int minWidth = 0;
+        MyLongRenderer addrRenderer = new MyLongRenderer(addrBits);
+        addrRenderer.setBackground(MYGRAY);
+        TableColumn addrColumn = table.getColumnModel().getColumn(0);
+        addrColumn.setCellRenderer(addrRenderer);
+        int width = widthOfZero * ((addrBits - 1) / 4 + 2);
+        addrColumn.setPreferredWidth(width);
+        tableWidth+=width;
+
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        getContentPane().add(scrollPane);
+        Dimension dim = table.getPreferredScrollableViewportSize();
+        scrollPane.setPreferredSize(new Dimension(tableWidth, dim.height));
+
         if (modelIsRunning) {
             dataField.addListener(dm);
             addWindowListener(new WindowAdapter() {
@@ -83,13 +105,9 @@ public class DataEditor extends JDialog {
                 }
             }));
             getContentPane().add(buttons, BorderLayout.SOUTH);
-            minWidth = buttons.getPreferredSize().width;
         }
 
-        setPreferredSize(new Dimension(Math.max((cols + 1) * 50, minWidth + 10), getPreferredSize().height));
-
         pack();
-
         setLocationRelativeTo(parent);
     }
 
