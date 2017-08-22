@@ -117,7 +117,12 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     }
 
     @Override
-    public int getBits() {
+    public int getDataBits() {
         return bits;
+    }
+
+    @Override
+    public int getAddrBits() {
+        return addrBits;
     }
 }

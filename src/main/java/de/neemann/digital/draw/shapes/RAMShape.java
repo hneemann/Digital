@@ -20,8 +20,9 @@ import java.awt.*;
  * @author hneemann
  */
 public class RAMShape extends GenericShape {
-    private final int bits;
+    private final int dataBits;
     private final int size;
+    private final int addrBits;
 
     /**
      * Creates a new instance
@@ -32,8 +33,9 @@ public class RAMShape extends GenericShape {
      */
     public RAMShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         super("RAM", inputs, outputs, attr.getLabel(), true);
-        bits = attr.get(Keys.BITS);
-        size = 1 << attr.get(Keys.ADDR_BITS);
+        dataBits = attr.get(Keys.BITS);
+        addrBits = attr.get(Keys.ADDR_BITS);
+        size = 1 << addrBits;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class RAMShape extends GenericShape {
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
                 if (element instanceof RAMInterface) {
                     DataField dataField = ((RAMInterface) element).getMemory();
-                    new DataEditor(cc, dataField, size, bits, true, modelSync).showDialog();
+                    new DataEditor(cc, dataField, size, dataBits, addrBits, true, modelSync).showDialog();
                 }
                 return false;
             }

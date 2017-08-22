@@ -144,8 +144,13 @@ public class Key<VALUE> {
         KeyBits(String key, Integer def) {
             super(key, def);
             setMin(1);
-            setMax(64);
+            super.setMax(64);
             setComboBoxValues(VALUES);
+        }
+
+        KeyBits setMax(int bits) {
+            super.setMax(bits);
+            return this;
         }
     }
 

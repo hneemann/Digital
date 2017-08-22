@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  * Used to edit ROM data fields.
- * Looks loke a HEX editor.
+ * Looks like a HEX editor.
  *
  * @author hneemann
  */
@@ -32,11 +32,12 @@ public class DataEditor extends JDialog {
      * @param parent         the parent
      * @param dataField      the data to edit
      * @param size           the size of the data field to edit
-     * @param bits           the bit count of the values to edit
+     * @param dataBits       the bit count of the values to edit
+     * @param addrBits       the bit count of the adresses
      * @param modelIsRunning true if model is running
      * @param modelSync      used to access the running model
      */
-    public DataEditor(Component parent, DataField dataField, int size, int bits, boolean modelIsRunning, Sync modelSync) {
+    public DataEditor(Component parent, DataField dataField, int size, int dataBits, int addrBits, boolean modelIsRunning, Sync modelSync) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -51,7 +52,8 @@ public class DataEditor extends JDialog {
 
         MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
         JTable table = new JTable(dm);
-        table.setDefaultRenderer(MyLong.class, new MyLongRenderer(bits));
+        table.setDefaultRenderer(MyLong.class, new MyLongRenderer(dataBits));
+        table.getColumnModel().getColumn(0).setCellRenderer(new MyLongRenderer(addrBits));
         table.setRowHeight(table.getFont().getSize() * 6 / 5);
         getContentPane().add(new JScrollPane(table));
 

@@ -349,20 +349,21 @@ public final class EditorFactory {
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    int bits = attr.get(Keys.BITS);
-                    int size;
+                    int dataBits = attr.get(Keys.BITS);
+                    int addrBits;
 
-                    // INPUT_COUNT and ADDR_BITS must have the same input value!!!
+                    // INPUT_COUNT and ADDR_BITS must have the same default value!!!
                     // If INPUT_COUNT is not present (default value is used) the default value of
                     // ADDR_BITS is used. This works only if both have the same default value!!!
                     if (attr.contains(Keys.INPUT_COUNT)) {
                         // used to handle the LUT
-                        size = 1 << attr.get(Keys.INPUT_COUNT);
+                        addrBits = attr.get(Keys.INPUT_COUNT);
                     } else {
                         // memory, RAM/ROM
-                        size = 1 << attr.get(Keys.ADDR_BITS);
+                        addrBits = attr.get(Keys.ADDR_BITS);
                     }
-                    DataEditor de = new DataEditor(panel, data, size, bits, false, NoSync.INST);
+                    int size = 1 << addrBits;
+                    DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
                     if (de.showDialog()) {
                         data = de.getModifiedDataField();
                     }

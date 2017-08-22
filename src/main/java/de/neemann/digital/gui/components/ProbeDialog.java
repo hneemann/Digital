@@ -83,7 +83,8 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
                             new DataEditor(ProbeDialog.this,
                                     ram.getMemory(),
                                     ram.getSize(),
-                                    ram.getBits(),
+                                    ram.getDataBits(),
+                                    ram.getAddrBits(),
                                     true,
                                     modelSync).showDialog();
                         }

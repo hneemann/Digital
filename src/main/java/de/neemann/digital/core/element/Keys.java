@@ -107,13 +107,13 @@ public final class Keys {
      * the bit count of a muxer or decoder
      */
     public static final Key.KeyBits SELECTOR_BITS
-            = new Key.KeyBits("Selector Bits", 1);
+            = new Key.KeyBits("Selector Bits", 1).setMax(8);
 
     /**
      * number of address bits of memory
      */
     public static final Key.KeyBits ADDR_BITS
-            = new Key.KeyBits("AddrBits", 2); // needs to have the same default value as INPUT_COUNT!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
+            = new Key.KeyBits("AddrBits", 2).setMax(24); // needs to have the same default value as INPUT_COUNT!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
 
     /**
      * indicates a diode as blown fuse or as programmed

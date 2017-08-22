@@ -24,5 +24,10 @@ public interface RAMInterface {
     /**
      * @return the data bits
      */
-    int getBits();
+    int getDataBits();
+
+    /**
+     * @return the addr bits
+     */
+    int getAddrBits();
 }
