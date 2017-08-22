@@ -54,14 +54,14 @@ public class DataEditor extends JDialog {
 
         if (dataBits > 20 && cols == 16) cols = 8;
 
-        int tableWidth=0;
+        int tableWidth = 0;
         MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
         JTable table = new JTable(dm);
         int widthOfZero = table.getFontMetrics(table.getFont()).stringWidth("00000000") / 8;
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(dataBits));
         for (int c = 1; c < table.getColumnModel().getColumnCount(); c++) {
             int width = widthOfZero * ((dataBits - 1) / 4 + 2);
-            tableWidth+=width;
+            tableWidth += width;
             TableColumn col = table.getColumnModel().getColumn(c);
             col.setPreferredWidth(width);
         }
@@ -72,7 +72,7 @@ public class DataEditor extends JDialog {
         addrColumn.setCellRenderer(addrRenderer);
         int width = widthOfZero * ((addrBits - 1) / 4 + 2);
         addrColumn.setPreferredWidth(width);
-        tableWidth+=width;
+        tableWidth += width;
 
 
         JScrollPane scrollPane = new JScrollPane(table);
