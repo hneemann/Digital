@@ -169,6 +169,15 @@ public class TableDialog extends JDialog {
             }
         }.createJMenuItem());
 
+        columnsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAddVariable")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                TruthTable t = model.getTable();
+                t.addVariable();
+                setModel(new TruthTableTableModel(t));
+            }
+        }.setToolTip(Lang.get("menu_table_columnsAddVariable_tt")).createJMenuItem());
+
         columnsMenu.add(new ToolTipAction(Lang.get("menu_table_reorder_outputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -194,14 +203,6 @@ public class TableDialog extends JDialog {
                 setModel(new TruthTableTableModel(t));
             }
         }.setToolTip(Lang.get("menu_table_columnsAdd_tt")).createJMenuItem());
-        columnsMenu.add(new ToolTipAction(Lang.get("menu_table_columnsAddVariable")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                TruthTable t = model.getTable();
-                t.addVariable();
-                setModel(new TruthTableTableModel(t));
-            }
-        }.setToolTip(Lang.get("menu_table_columnsAddVariable_tt")).createJMenuItem());
 
         bar.add(columnsMenu);
 
