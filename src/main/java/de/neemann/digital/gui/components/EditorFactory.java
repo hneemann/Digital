@@ -349,6 +349,7 @@ public final class EditorFactory {
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    getAttributeDialog().storeEditedValues();
                     int dataBits = attr.get(Keys.BITS);
                     int addrBits;
 
