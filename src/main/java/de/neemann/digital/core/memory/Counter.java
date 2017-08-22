@@ -23,6 +23,7 @@ public class Counter extends Node implements Element {
             = new ElementTypeDescription(Counter.class, input("en"), input("C"), input("clr"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
+            .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.LABEL);
 
     private final ObservableValue out;
