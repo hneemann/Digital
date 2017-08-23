@@ -27,9 +27,7 @@ public class DocumentationLocator {
         try {
             String path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replace('\\', '/');
             if (path.endsWith("/target/classes/"))
-                folder = new File(path.substring(0, path.length() - 9) + "/xslt");
-            else if (path.endsWith("/target/Digital.jar"))
-                folder = new File(path.substring(0, path.length() - 11) + "/xslt");
+                folder = new File(path.substring(0, path.length() - 9) + "/docu");
             else if (path.endsWith("Digital.jar"))
                 folder = new File(path.substring(0, path.length() - 12) + "/docu");
         } catch (URISyntaxException e) {
