@@ -77,11 +77,11 @@
 						<xsl:value-of select="@toc"/>
 					</fo:block>
                     <!-- table of contents -->
-					<fo:block>
+					<fo:block margin-bottom="2mm">
 						A <fo:inline padding-left="1mm"><xsl:value-of select="@general"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="document(@static)/*" mode="toc"/>
-					<fo:block margin-top="2mm">
+					<fo:block margin-top="2mm" margin-bottom="2mm">
 						B <fo:inline padding-left="1mm"><xsl:value-of select="@components"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="toc"/>
@@ -111,9 +111,24 @@
 			<fo:leader leader-pattern="dots" />
             <fo:page-number-citation ref-id="chap_{position()}"/>
 		</fo:block>
+        <xsl:apply-templates select="subchapter" mode="toc">
+            <xsl:with-param name="chapter" select="position() div 2"/>
+        </xsl:apply-templates>
 	</xsl:template>
 
-	<xsl:template match="lib" mode="toc">
+    <xsl:template match="subchapter" mode="toc">
+        <xsl:param name="chapter"/>
+        <fo:block margin-left="2mm" text-align-last="justify">
+            <fo:basic-link show-destination="replace" internal-destination="chap_{position()}_{$chapter}">
+                <xsl:value-of select="$chapter" />.<xsl:value-of select="position()"/>. <xsl:value-of select="@name" />
+            </fo:basic-link>
+            <xsl:text> </xsl:text>
+            <fo:leader leader-pattern="dots" />
+            <fo:page-number-citation ref-id="chap_{position()}_{$chapter}"/>
+        </fo:block>
+    </xsl:template>
+
+    <xsl:template match="lib" mode="toc">
 		<fo:block>
 		    <xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
 		</fo:block>
@@ -139,10 +154,21 @@
         <fo:block page-break-after="avoid" margin-top="4mm" margin-bottom="4mm" font-size="14pt" font-weight="bold" id="chap_{position()}">
             <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
         </fo:block>
-        <xsl:apply-templates/>
+        <xsl:apply-templates mode="full">
+			<xsl:with-param name="chapter" select="position() div 2"/>
+		</xsl:apply-templates>
 	</xsl:template>
 
-    <xsl:template match="par">
+	<xsl:template match="subchapter" mode="full">
+		<xsl:param name="chapter"/>
+		<fo:block page-break-after="avoid" margin-top="4mm" margin-bottom="4mm" font-size="12pt" font-weight="bold" id="chap_{position() div 2}_{$chapter}">
+			<xsl:value-of select="$chapter" />.<xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
+		</fo:block>
+		<xsl:apply-templates mode="full"/>
+	</xsl:template>
+
+
+	<xsl:template match="par" mode="full">
         <fo:block text-align="justify" hyphenate="true" >
 			<xsl:apply-templates/>
         </fo:block>
@@ -164,9 +190,7 @@
 		<fo:inline padding-left="2pt" font-family="ZapfDingbats">&#x2192;</fo:inline>
 	</xsl:template>
 
-
-
-    <xsl:template match="faq">
+    <xsl:template match="faq" mode="full">
 		<fo:block keep-together.within-page="always">
 			<fo:block font-weight="bold" margin-top="3mm" margin-bottom="1mm">
 				<xsl:apply-templates select="question"/>
@@ -177,7 +201,7 @@
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template match="shortcuts">
+	<xsl:template match="shortcuts" mode="full">
 		<fo:table table-layout="fixed" width="100%">
 			<fo:table-column column-number="1" column-width="2.5cm"/>
 			<fo:table-column column-number="2" column-width="13cm"/>

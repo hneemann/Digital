@@ -1,106 +1,115 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
     <chapter name="Digital">
-        <par>
-            Digital is a simple simulator used to simulate digital circuits. The single logic gates are connected
-            to each other by wires and the behaviour of the whole circuit is simulated.
-            The user is able to interact with the circuit while it is running by pressing buttons or setting values
-            to the inputs of the circuit.
-        </par>
-        <par>
-            In this way you can build and simulate most of the fundamental circuits used in digital electronics.
-            In the folder <e>examples</e> you can find many examples including a working 16 bit single cycle harvard
-            processor.
-        </par>
-        <par>
-            The simulator has two modes of operation: In the editing mode it is possible to modify the circuit.
-            You can add components or connect components by wires. The simulation is not active in this mode.
-            The editing mode can be activated by pressing <e>Edit components</e>.
-            The simulation mode is activated by pressing <e>Start</e>. While starting the simulation the circuit
-            is checked for consistency. If the are errors in the circuit an error message is shown. If possible
-            the affected components or wires are highlighted. If there are no errors, the simulation is activated.
-            Now you can interact with the running simulation.
-            In the simulation mode it is not possible to modify the circuit. To do so you have to activate the
-            editing mode again.
-        </par>
+        <subchapter name="General">
+            <par>
+                Digital is a simple simulator used to simulate digital circuits. The single logic gates are connected
+                to each other by wires and the behaviour of the whole circuit is simulated.
+                The user is able to interact with the circuit while it is running by pressing buttons or setting values
+                to the inputs of the circuit.
+            </par>
+            <par>
+                In this way you can build and simulate most of the fundamental circuits used in digital electronics.
+                In the folder <e>examples</e> you can find many examples including a working 16 bit single cycle harvard
+                processor.
+            </par>
+            <par>
+                The simulator has two modes of operation: In the editing mode it is possible to modify the circuit.
+                You can add components or connect components by wires. The simulation is not active in this mode.
+                The simulation mode is activated by pressing <e>Start</e>. While starting the simulation the circuit
+                is checked for consistency. If the are errors in the circuit an error message is shown. If possible
+                the affected components or wires are highlighted. If there are no errors, the simulation is activated.
+                Now you can interact with the running simulation.
+                In the simulation mode it is not possible to modify the circuit. To do so you have to activate the
+                editing mode again by stopping the simulation.
+            </par>
+        </subchapter>
+        <subchapter name="Wires">
+            <par>
+                All components must be connected via wires. It is not possible to connect two components to each other
+                by
+                placing them directly next to each other.
+            </par>
+            <par>
+                In addition, there are only connections between a endpoint of a wire and a component.
+                If a pin of a component is placed in the middle of a wire, no connection is made between the component
+                and the wire.
+                Therefore, a wire must actually terminate at each pin which is to be connected to another.
+                Even if the tunnel component is used, there must be a wire between the pin and the tunnel element.
+            </par>
+            <par>
+                If a component is to be moved including the connected wires, the component needs to be selected
+                with the rectangular selection. The rectangular selection must contain the whole component.
+                Then it can be moved with the mouse. If an element is selected by a mouse click, only the component
+                itself can be moved - without the connected wires.
+            </par>
+        </subchapter>
+        <subchapter name="Hierarchical Design">
+            <par>
+                If a very complex circuit is built up, this can very quickly become very confusing. To keep track here,
+                the
+                different parts of a circuit can be stored in different files. This mechanism also makes it possible to
+                use
+                a subcircuit, which has been created once, several times in a further circuit.
+                This approach also offers the advantage that the files can be stored independently of each other in a
+                version control system and changes can be tracked.
+            </par>
+            <par>
+                In this case, only the file names of the subcircuits are stored in a circuit. The corresponding files of
+                the
+                integrated subcircuits must therefore be found at the runtime of the simulation in the file system.
+                In order to support the various work methods of the users as best as possible and still to avoid a
+                complex
+                administration of import paths, etc., a somewhat unusual import strategy is implemented.
+            </par>
+            <par>
+                Only the file names of the embedded circuits are stored in a circuits file.
+                If a file needs to be opened, all subfolders are searched for a file of the corresponding name.
+                If a suitable file is found, it is imported. This process only depends on the file name of the file to
+                be
+                read, not on its path. Correspondingly, an error message is generated if there are several files of the
+                same name in different subfolders, since ambiguities then arise.
+            </par>
+            <par>
+                A suitable project structure therefore looks as follows: The root circuit is located in a separate
+                folder.
+                All imported circuits must be in the same folder or subfolders. All circuits must have different names,
+                so it must not happen that there are circuits of the same name in different folders.
+            </par>
+        </subchapter>
     </chapter>
-    <chapter name="Hierarchical Design">
-        <par>
-            If a very complex circuit is built up, this can very quickly become very confusing. To keep track here, the
-            different parts of a circuit can be stored in different files. This mechanism also makes it possible to use
-            a subcircuit, which has been created once, several times in a further circuit.
-            This approach also offers the advantage that the files can be stored independently of each other in a
-            version control system and changes can be tracked.
-        </par>
-        <par>
-            In this case, only the file names of the subcircuits are stored in a circuit. The corresponding files of the
-            integrated subcircuits must therefore be found at the runtime of the simulation in the file system.
-            In order to support the various work methods of the users as best as possible and still to avoid a complex
-            administration of import paths, etc., a somewhat unusual import strategy is implemented.
-        </par>
-        <par>
-            Only the file names of the embedded circuits are stored in a circuits file.
-            If a file needs to be opened, all subfolders are searched for a file of the corresponding name.
-            If a suitable file is found, it is imported. This process only depends on the file name of the file to be
-            read, not on its path. Correspondingly, an error message is generated if there are several files of the
-            same name in different subfolders, since ambiguities then arise.
-        </par>
-        <par>
-            A suitable project structure therefore looks as follows: The root circuit is located in a separate folder.
-            All imported circuits must be in the same folder or subfolders. All circuits must have different names,
-            so it must not happen that there are circuits of the same name in different folders.
-        </par>
-    </chapter>
-    <chapter name="Propagation Delay">
-        <par>
-            During the simulation every logic gate has a propagation delay. Every component from the library
-            has the same propagation delay regardless of its complexity.
-            So a NOT gate has the same propagation delay as a RAM component or a flipflop.
-            The only exceptions are diodes, switches and splitters which are used to create data buses.
-            These components have no propagation delay at all.
-        </par>
-        <par>
-            If a circuit is included in an other parent circuit, the included circuit keep its timing behaviour.
-            So if you include a complex circuit which has a large propagation delay because on of the input signals has
-            to pass three gates until it reaches the output, this behaviour is conserved while including this circuit.
-            There are no additional delays coming up by including a circuit. If not all outputs of a circuit have
-            the same propagation delay this is also the case if it is included in a parent circuit.
-            In general, including a circuit into an other circuit does not modify its timing behaviour at all. A included
-            circuit behave in exact the same way as if all components had been inserted at the same circuit level.
-        </par>
-    </chapter>
-    <chapter name="Wires">
-        <par>
-            All components must be connected via wires. It is not possible to connect two components to each other by
-            placing them directly next to each other.
-        </par>
-        <par>
-            In addition, there are only connections between a endpoint of a wire and a component.
-            If a pin of a component is placed in the middle of a wire, no connection is made between the component
-            and the wire.
-            Therefore, a wire must actually terminate at each pin which is to be connected to another.
-            Even if the tunnel component is used, there must be a wire between the pin and the tunnel element.
-        </par>
-        <par>
-            If a component is to be moved including the connected wires, the component needs to be selected
-            with the rectangular selection. The rectangular selection must contain the whole component.
-            Then it can be moved with the mouse.  If an element is selected by a mouse click, only the component
-            itself can be moved - without the connected wires.
-        </par>
+    <chapter name="Simulation">
+        <subchapter name="Propagation Delay">
+            <par>
+                During the simulation every logic gate has a propagation delay. Every component from the library
+                has the same propagation delay regardless of its complexity.
+                So a NOT gate has the same propagation delay as a RAM component or a flipflop.
+                The only exceptions are diodes, switches and splitters which are used to create data buses.
+                These components have no propagation delay at all.
+            </par>
+            <par>
+                If a circuit is included in an other parent circuit, the included circuit keep its timing behaviour.
+                So if you include a complex circuit which has a large propagation delay because on of the input signals
+                has
+                to pass three gates until it reaches the output, this behaviour is conserved while including this
+                circuit.
+                There are no additional delays coming up by including a circuit. If not all outputs of a circuit have
+                the same propagation delay this is also the case if it is included in a parent circuit.
+                In general, including a circuit into an other circuit does not modify its timing behaviour at all. A
+                included
+                circuit behave in exact the same way as if all components had been inserted at the same circuit level.
+            </par>
+        </subchapter>
     </chapter>
     <chapter name="Circuit analysis and synthesis">
         <par>
             A circuit can be analyzed via the menu entry <e>Analysis</e>. A truth table is generated for purely
             combinatorial circuits. This truth table can be edited as desired.
             A new circuit can be generated from this truth table after editing.
-            In the menu of the circuit generation there are also functions to generate so-called JEDEC files.
-            This is a special file format that describes the fuse map of a PLD.
-            This JEDEC file can be written into a corresponding PLD using a special programmer.
-            At the moment, circuits of the type <e>GAL16v8</e> and <e>GAL22v10</e> or fuse map compatible
-            devices are supported.
         </par>
         <par>
-            In addition to purely combinatorial circuits, it is also possible to analyze or generate sequential circuits.
+            In addition to purely combinatorial circuits, it is also possible to analyze or generate sequential
+            circuits.
             Instead of a simple truth table a so-called state transition table is created.
             Each flip-flop thereby appears on the input side and the output side of the state transition table.
             In this table, on the right-hand side, you can find the next state, which will
@@ -123,78 +132,124 @@
             circuit is not analyzed correctly, which means that an incorrect state transition table is generated.
         </par>
     </chapter>
-    <chapter name="The ATF1502AS">
-        <par>
-            The chip <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS"><e>ATF1502AS</e></a> is a simple
-            CPLD with 32 macrocells. It is identical to the XCR5032C from Xilinx. It is available in a PLCC
-            package, which makes it suitable for laboratory exercises: If an IC is destroyed during exercises, it
-            can simply be replaced. In addition, with the
-            <a href="http://www.atmel.com/tools/atdh1150usb.aspx"><e>ATDH1150USB</e></a>
-            a easy to use low-cost programmer is available. This programmer is able to
-            program the <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS"><e>ATF1502AS</e></a> in system
-            using its JTAG interface.
-            The software <a href="http://www.atmel.com/tools/ATMISP.aspx"><e>ATMISP</e></a> is required for
-            programming, which is also available on the ATMEL / Microchip website.
-        </par>
-        <par>
-            Unfortunately, the fuse map details are not public available so that no suitable fitter for this chip
-            can be integrated in Digital, as it is possible with the <e>GAL16v8</e> and <e>GAL22v10</e> chips.
-        </par>
-        <par>
-            Therefore, the fitter <e>fit1502.exe</e> provided by ATMEL must be used. This program creates a <e>JEDEC</e>
-            file from a suitable <e>TT2</e> file which can then be programmed. Digital starts the fitter automatically
-            every time a <e>TT2</e> file is created. For this purpose, the path to <e>fit1502.exe</e> must be specified
-            in the digital settings. The created <e>JEDEC</e> file can then be opened and burned directly with
-            <a href="http://www.atmel.com/tools/ATMISP.aspx"><e>ATMISP</e></a>.
-        </par>
-        <par>
-            For legal reasons the fitter <e>fit1502.exe</e> can not be distributed with Digital. However, it can be
-            found in the folder <e>WinCupl\Fitters</e> after installing
-            <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a>.
-            <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a> is available on the ATMEL/Microchip
-            website.
-            On Linux systems, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
-        </par>
-    </chapter>
-    <chapter name="VHDL">
-        <par>
-            A circuit can be exported to VHDL. A file is generated which contains the complete description of the circuit.
-            The generated VHDL code was tested with <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
-            and the open source VHDL simulator <a href="http://ghdl.free.fr/">ghdl</a>.
-        </par>
-        <par>
-            If a circuit contains test cases, the test data is used to generate a VHDL test bench. This can be used to
-            check the correct function of the circuit in a VHDL simulation.
-        </par>
-        <par>
-            Additional files can be created for special boards. At present only the
-            <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
-            board is supported.
-            A constrains file is created, which contains the assignment of the pins. The description of the pins can be
-            found in the BASYS3 data sheet, and must be entered as a pin number for the inputs and outputs.
-            If a circuit is to run on a BASYS3 board, a new project can be created in Vivado.
-            The generated VHDL file and the constraints file must be added to the project.
-            Once the project has been created, the bitstream can be generated and loaded into a BASYS3 board.
-        </par>
-        <par>
-            To create the required constrains file, the circuit must contain a text field with the text "Board: BASYS3".
-        </par>
+    <chapter name="Hardware">
+        <subchapter name="GAL16v8 and GAL22v10">
+            <par>
+                In the menu of the circuit generation in the truth table there are also functions to generate so-called
+                JEDEC files. This is a special file format that describes the fuse map of a PLD.
+                This JEDEC file can be written into a corresponding PLD using a special programmer.
+                At the moment, circuits of the type <e>GAL16v8</e> and <e>GAL22v10</e> or fuse map compatible
+                devices are supported.
+            </par>
+        </subchapter>
+        <subchapter name="The ATF1502AS">
+            <par>
+                The chip
+                <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
+                    <e>ATF1502AS</e>
+                </a>
+                is a simple
+                CPLD with 32 macrocells. It is identical to the XCR5032C from Xilinx. It is available in a PLCC
+                package, which makes it suitable for laboratory exercises: If an IC is destroyed during exercises, it
+                can simply be replaced. In addition, with the
+                <a href="http://www.atmel.com/tools/atdh1150usb.aspx">
+                    <e>ATDH1150USB</e>
+                </a>
+                a easy to use low-cost programmer is available. This programmer is able to
+                program the
+                <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
+                    <e>ATF1502AS</e>
+                </a>
+                in system
+                using its JTAG interface.
+                The software
+                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                    <e>ATMISP</e>
+                </a>
+                is required for
+                programming, which is also available on the ATMEL / Microchip website.
+            </par>
+            <par>
+                Unfortunately, the fuse map details are not public available so that no suitable fitter for this chip
+                can be integrated in Digital, as it is possible with the <e>GAL16v8</e> and <e>GAL22v10</e> chips.
+            </par>
+            <par>
+                Therefore, the fitter <e>fit1502.exe</e> provided by ATMEL must be used. This program creates a
+                <e>JEDEC</e>
+                file from a suitable <e>TT2</e> file which can then be programmed. Digital starts the fitter
+                automatically
+                every time a <e>TT2</e> file is created. For this purpose, the path to <e>fit1502.exe</e> must be
+                specified
+                in the digital settings. The created <e>JEDEC</e> file can then be opened and burned directly with
+                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                    <e>ATMISP</e>
+                </a>
+                .
+            </par>
+            <par>
+                For legal reasons the fitter <e>fit1502.exe</e> can not be distributed with Digital. However, it can be
+                found in the folder <e>WinCupl\Fitters</e> after installing
+                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                    <e>WinCupl</e>
+                </a>
+                .
+                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                    <e>WinCupl</e>
+                </a>
+                is available on the ATMEL/Microchip
+                website.
+                On Linux systems, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
+            </par>
+        </subchapter>
+        <subchapter name="VHDL">
+            <par>
+                A circuit can be exported to VHDL. A file is generated which contains the complete description of the
+                circuit.
+                The generated VHDL code was tested with
+                <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
+                and the open source VHDL simulator <a href="http://ghdl.free.fr/">ghdl</a>.
+            </par>
+            <par>
+                If a circuit contains test cases, the test data is used to generate a VHDL test bench. This can be used
+                to
+                check the correct function of the circuit in a VHDL simulation.
+            </par>
+            <par>
+                Additional files can be created for special boards. At present only the
+                <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
+                board is supported.
+                A constrains file is created, which contains the assignment of the pins. The description of the pins can
+                be
+                found in the BASYS3 data sheet, and must be entered as a pin number for the inputs and outputs.
+                If a circuit is to run on a BASYS3 board, a new project can be created in Vivado.
+                The generated VHDL file and the constraints file must be added to the project.
+                Once the project has been created, the bitstream can be generated and loaded into a BASYS3 board.
+            </par>
+            <par>
+                To create the required constrains file, the circuit must contain a text field with the text "Board:
+                BASYS3".
+            </par>
+        </subchapter>
     </chapter>
     <chapter name="Frequently asked Questions">
         <faq>
             <question>How to move a wire?</question>
             <answer>Select on of the end points with the rectangular selection. The move this point using the mouse.
-                You can also select a wire with CTRL + mouse button.</answer>
+                You can also select a wire with CTRL + mouse button.
+            </answer>
         </faq>
         <faq>
             <question>How to delete a wire?</question>
             <answer>Select on of the end points and press <e>DEL</e> or click on the trashcan.
-                You can also select a wire with CTRL + mouse button.</answer>
+                You can also select a wire with CTRL + mouse button.
+            </answer>
         </faq>
         <faq>
             <question>How to move a component including all the connected wires?</question>
-            <answer>Select the component with the rectangular selection. The selection must include the entire component.
-                Then move the component including the wires using the mouse.</answer>
+            <answer>Select the component with the rectangular selection. The selection must include the entire
+                component.
+                Then move the component including the wires using the mouse.
+            </answer>
         </faq>
         <faq>
             <question>There is a component not connected to a wire, even though the pins are on the wire.</question>
@@ -203,26 +258,31 @@
         <faq>
             <question>When the simulation is started, a wire becomes gray. What does that mean?</question>
             <answer>The colors light green and dark green are used to represent high and low state.
-                Gray means the wire is in high Z state.</answer>
+                Gray means the wire is in high Z state.
+            </answer>
         </faq>
         <faq>
             <question>I have a truth table. How to calculate the minimized boolean equations?</question>
             <answer>In the menu <e>Analysis</e> select the entry <e>Synthesise</e>. Then enter the truth table.
                 At the bottom of the window you can find the matching boolean equation. If you enter more than one
-                dependent variable, a new window opens in which all boolean equations are shown.</answer>
+                dependent variable, a new window opens in which all boolean equations are shown.
+            </answer>
         </faq>
         <faq>
             <question>I have entered a truth table, but there are more then one boolean equation shown.
-                Which of them is the correct one?</question>
+                Which of them is the correct one?
+            </question>
             <answer>Minimizing a boolean equation can result in many equations, describing the same function.
                 Digital shows all of them and they all create the same truth table.
-                There may be differences according the don't cares in the truth table.</answer>
+                There may be differences according the don't cares in the truth table.
+            </answer>
         </faq>
         <faq>
             <question>I have a truth table. How to create a circuit representing the truth table?</question>
             <answer>In the menu <e>Analysis</e> select the entry <e>Synthesise</e>. Then enter the truth table.
                 You can edit the table using the <e>New</e> or <e>Add Columns</e> menus.
-                In the menu <e>Create</e> you can create a circuit using the <e>Circuit</e> item.</answer>
+                In the menu <e>Create</e> you can create a circuit using the <e>Circuit</e> item.
+            </answer>
         </faq>
         <faq>
             <question>How to edit a signals name in the truth table?</question>
@@ -230,24 +290,31 @@
         </faq>
         <faq>
             <question>I have a boolean equation. How to create a circuit?</question>
-            <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the expression.</answer>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the expression.
+            </answer>
         </faq>
         <faq>
             <question>How to create a truth table from an boolean equation?</question>
             <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the expression.
-                Then create a circuit and in the menu <e>Analysis</e> use the entry <e>Analysis</e> to create the truth table.</answer>
+                Then create a circuit and in the menu <e>Analysis</e> use the entry <e>Analysis</e> to create the truth
+                table.
+            </answer>
         </faq>
         <faq>
             <question>How to create a JEDEC file from a given circuit?</question>
-            <answer>In the menu <e>Analysis</e> select the entry <e>Analysis</e>. Then in the menu <e>Create</e> of the new
-                window choose the correct device in the sub menu <e>Device</e>.</answer>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Analysis</e>. Then in the menu <e>Create</e> of the
+                new
+                window choose the correct device in the sub menu <e>Device</e>.
+            </answer>
         </faq>
         <faq>
             <question>When creating a JEDEC file: How to assign a pin number to a certain signal?</question>
-            <answer>At the according inputs and outputs you can enter a pin number in the settings dialog of the pin.</answer>
+            <answer>At the according inputs and outputs you can enter a pin number in the settings dialog of the pin.
+            </answer>
         </faq>
         <faq>
-            <question>I have created a JEDEC file. How to program it to a <e>GAL16v8</e> or <e>GAL22v10</e>?</question>
+            <question>I have created a JEDEC file. How to program it to a <e>GAL16v8</e> or <e>GAL22v10</e>?
+            </question>
             <answer>To program such a chip a special programmer hardware is necessary.</answer>
         </faq>
     </chapter>

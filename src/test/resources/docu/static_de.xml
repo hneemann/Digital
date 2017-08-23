@@ -1,95 +1,117 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <root>
     <chapter name="Digital">
-        <par>
-            Digital ist ein Simulator für digitale Schaltkreise. Die einzelnen Gatter eines Schaltkreise können
-            miteinander durch Leitungen verbunden werden und das Verhalten der Gesamtschaltung wird simuliert.
-            Der Anwender kann mit der laufenden Simulation über bestimmte Elemente interagieren, indem z.B Knöpfe
-            betätigt oder Eingänge gesetzt werden.
-        </par>
-        <par>
-            Auf diese Weise können die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
-            <e>examples</e> finden sich viele Beispiele bis hin zum funktionsfähigen 16-Bit Single Cycle Harvard Prozessor.
-        </par>
-        <par>
-            Der Simulator kennt dabei zwei Modi: Im Bearbeitungsmodus kann die Schaltung bearbeitet werden. Es können
-            Elemente hinzugefügt oder durch Leitungen verbunden werden. In diesem Modus ist die eigentliche Simulation
-            nicht aktiv. Der Bearbeitungsmodus wird durch die Funktion <e>Elemente Bearbeiten</e> aktiviert.
-            Der Simulationsmodus wird durch <e>Start</e> aktiviert. Beim Wechsel in diesen Modus wird die Schaltung
-            auf Konsistenz überprüft. Gibt es in der Schaltung noch Fehler, wird eine entsprechende Meldung angezeigt.
-            Wenn möglich werden die betroffenen Elemente bzw. Leitungen hervorgehoben. Enthält die Schaltung keine
-            Fehler mehr, wird die Simulation aktiviert. Jetzt kann mit der laufenden Simulation interagiert werden.
-            Die Bearbeitung der Elemente ist dann jedoch nicht mehr möglich. Dazu muss erneut in den
-            Bearbeitungsmodus gewechselt werden.
-        </par>
+        <subchapter name="Allgemein">
+            <par>
+                Digital ist ein Simulator für digitale Schaltkreise. Die einzelnen Gatter eines Schaltkreise können
+                miteinander durch Leitungen verbunden werden und das Verhalten der Gesamtschaltung wird simuliert.
+                Der Anwender kann mit der laufenden Simulation über bestimmte Elemente interagieren, indem z.B. Knöpfe
+                betätigt oder Eingänge gesetzt werden.
+            </par>
+            <par>
+                Auf diese Weise können die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
+                <e>examples</e>
+                finden sich viele Beispiele bis hin zum funktionsfähigen 16-Bit Single Cycle Harvard Prozessor.
+            </par>
+            <par>
+                Der Simulator kennt dabei zwei Modi: Im Bearbeitungsmodus kann die Schaltung bearbeitet werden. Es
+                können Elemente hinzugefügt oder durch Leitungen verbunden werden. In diesem Modus ist die eigentliche
+                Simulation nicht aktiv.
+                Der Simulationsmodus wird durch <e>Start</e> aktiviert. Beim Wechsel in diesen Modus wird die Schaltung
+                auf Konsistenz überprüft. Gibt es in der Schaltung noch Fehler, wird eine entsprechende Meldung
+                angezeigt.
+                Wenn möglich werden die betroffenen Elemente bzw. Leitungen hervorgehoben. Enthält die Schaltung keine
+                Fehler mehr, wird die Simulation aktiviert. Jetzt kann mit der laufenden Simulation interagiert werden.
+                Die Bearbeitung der Elemente ist dann jedoch nicht mehr möglich. Dazu muss erneut in den
+                Bearbeitungsmodus gewechselt werden, indem die Simulation gestoppt wird.
+            </par>
+        </subchapter>
+        <subchapter name="Verbindungsleitungen">
+            <par>
+                Alle Elemente müssen über Leitungen verbunden werden. Es ist nicht möglich, zwei Elemente direkt
+                miteinander zu verbinden, indem man sie direkt nebeneinander platziert.
+            </par>
+            <par>
+                Zudem gibt es nur Verbindungen zwischen einem Leitungsende und einem Bauteil. Wird ein Bauteil mitten
+                auf eine Leitung gesetzt, wird keine Verbindung zwischen dem Bauteil und der Leitung hergestellt.
+                Daher muss an jedem Bauteileanschluss, welcher mit einem anderen Verbunden werden soll, eine Leitung
+                tatsächlich enden bzw. beginnen.
+                Selbst wenn das Tunnel-Element verwendet wird, muss es eine Leitung zwischen dem Pin und dem
+                Tunnel-Element geben.
+            </par>
+            <par>
+                Soll ein Element incl. der angeschlossenen Verbindungsleitungen verschoben werden, kann das Element mit
+                der Rechteckauswahl ausgewählt werden. Danach kann es mit der Maus verschoben werden. Wenn ein Element
+                per Mausklick selektiert wird, wird nur das Bauteil allein - also ohne die angeschlossenen Leitungen
+                mitzunehmen - verschoben.
+            </par>
+        </subchapter>
+        <subchapter name="Hierarchisches Design">
+            <par>
+                Wenn eine sehr komplexe Schaltung aufgebaut wird, kann diese sehr schnell sehr unübersichtlich werden.
+                Um hier die Übersicht zu behalten, können die verschiedenen Teile einer Schaltung in unterschiedlichen
+                Dateien gespeichert werden. Dieser Mechanismuss erlaubt es auch, eine einmal erstellte Teilschaltung
+                mehrfach in einer weiteren Schaltung zu verwenden. Dieses Vorgehen bietet zudem den Vorteil, dass die
+                Dateien unabhängig von einander in einem Versionskontrollsystem abgelegt und Änderungen verfolgt werden
+                können.
+            </par>
+            <par>
+                Dabei werden in einer Schaltung nur die Dateinamen der Teilschaltungen gespeichert. Die entsprechenden
+                Dateien der eingebundenen Teilschaltungen müssen daher zur Laufzeit der Simulation im Dateisystem
+                gefunden
+                werden. Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
+                auf eine komplexe Verwaltung von Importpfaden usw. zu verzichten, ist eine etwas ungewöhnliche
+                Import-Strategie implementiert.
+            </par>
+            <par>
+                In einer Schaltung sind nur die Dateinamen der eingebetteten Schaltungen gespeichert. Soll die Datei
+                geöffnet werden,
+                werden alle Unterordner nach einer Datei des entsprechenden Namens durchsucht. Wird
+                eine passende Datei gefunden, wird diese importiert. Dabei kommt es nur auf den Dateinamen der
+                einzulesenden
+                Datei an, nicht auf dessen Pfad. Entsprechend wird eine Fehlermeldung erzeugt, wenn sich in
+                verschiedenen
+                Unterordnern mehrere Dateien gleichen Namens befinden, da dann Mehrdeutigkeiten entstehen.
+            </par>
+            <par>
+                Eine geeignete Projektstruktur sieht daher wie folgt aus: In einem eigenen Ordner befindet sich die
+                Wurzelschaltung. Alle importierten Schaltungen müssen sich im selben Ordner oder in Unterordnern
+                befinden.
+                Alle Schaltungen müssen unterschiedliche Namen haben, es darf also nicht vorkommen, dass sich in
+                verschiedenen Ordnern Schaltungen gleichen Namens befinden.
+            </par>
+        </subchapter>
     </chapter>
-    <chapter name="Hierarchisches Design">
-        <par>
-            Wenn eine sehr komplexe Schaltung aufgebaut wird, kann diese sehr schnell sehr unübersichtlich werden.
-            Um hier die Übersicht zu behalten, können die verschiedenen Teile einer Schaltung in unterschiedlichen
-            Dateien gespeichert werden. Dieser Mechanismuss erlaubt es auch, eine einmal erstellte Teilschaltung mehrfach
-            in einer weiteren Schaltung zu verwenden. Dieses Vorgehen bietet zudem den Vorteil, dass die Dateien unabhängig
-            von einander in einem Versionskontrollsystem abgelegt und Änderungen verfolgt werden können.
-        </par>
-        <par>
-            Dabei werden in einer Schaltung nur die Dateinamen der Teilschaltungen gespeichert. Die entsprechenden
-            Dateien der eingebundenen Teilschaltungen müssen daher zur Laufzeit der Simulation im Dateisystem gefunden werden.
-            Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
-            auf eine komplexe Verwaltung von Importpfaden usw. zu verzichten, ist eine etwas ungewöhnliche Import-Strategie
-            implementiert.
-        </par>
-        <par>
-            In einer Schaltung sind nur die Dateinamen der eingebetteten Schaltungen gespeichert. Soll die Datei geöffnet werden,
-            werden alle Unterordner nach einer Datei des entsprechenden Namens durchsucht. Wird
-            eine passende Datei gefunden, wird diese importiert. Dabei kommt es nur auf den Dateinamen der einzulesenden
-            Datei an, nicht auf dessen Pfad. Entsprechend wird eine Fehlermeldung erzeugt, wenn sich in verschiedenen
-            Unterordnern mehrere Dateien gleichen Namens befinden, da dann Mehrdeutigkeiten entstehen.
-        </par>
-        <par>
-            Eine geeignete Projektstruktur sieht daher wie folgt aus: In einem eigenen Ordner befindet sich die Wurzelschaltung.
-            Alle importierten Schaltungen müssen sich im selben Ordner oder in Unterordnern befinden. Alle Schaltungen müssen
-            unterschiedliche Namen haben, es darf also nicht vorkommen, dass sich in verschiedenen Ordnern Schaltungen
-            gleichen Namens befinden.
-        </par>
-    </chapter>
-    <chapter name="Gatterlaufzeiten">
-        <par>
-            Bei der Simulation wird davon ausgegangen, dass jedes Gatter eine endliche Laufzeit hat, und dass diese Laufzeit
-            für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat genau diese Laufzeit,
-            unabhängig von dessen Komplexität. Ein Und-Gatter hat also die selbe Signalverzögerung wie ein RAM-Baustein.
-            Ausgenommen davon sind die Dioden, der Leitungssplitter für die Erzeugung von Datenbussen und der Schalter.
-            Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
-        </par>
-        <par>
-            Wird eine Schaltung in eine andere Schaltung eingebettet, um ein hierarchisches Design zu erstellen, behalten die
-            eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet bei welchem ein Signal
-            von einem Eingang bis zu einem Ausgang drei Gatter passiern muss, beträgt dessen Laufzeit auch als eingebettete
-            Schaltung drei Gatterlaufzeiten. Es gibt keine zusätzlichen Verzögerungen durch
-            das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich schnell,
-            werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
-            Generell verändert das Einbetten einer Schaltung in eine andere dessen Laufzeitverhalten nicht. Die Schaltung
-            verhält sich exakt so, als befänden sich alle Elemente auf der selben Ebene.
-        </par>
-    </chapter>
-    <chapter name="Verbindungsleitungen">
-        <par>
-            Alle Elemente müssen über Leitungen verbunden werden. Es ist nicht möglich, zwei Elemente direkt miteinander
-            zu verbinden, indem man sie direkt nebeneinander platziert.
-        </par>
-        <par>
-            Zudem gibt es nur Verbindungen zwischen einem Leitungsende und einem Bauteil. Wird ein Bauteil mitten auf
-            eine Leitung gesetzt, wird keine Verbindung zwischen dem Bauteil und der Leitung hergestellt.
-            Daher muss an jedem Bauteileanschluss, welcher mit einem anderen Verbunden werden soll, eine Leitung
-            tatsächlich enden bzw. beginnen.
-            Selbst wenn das Tunnel-Element verwendet wird, muss es eine Leitung zwischen dem Pin und dem Tunnel-Element
-            geben.
-        </par>
-        <par>
-            Soll ein Element incl. der angeschlossenen Verbindungsleitungen verschoben werden, kann das Element mit der
-            Rechteckauswahl ausgewählt werden. Danach kann es mit der Maus verschoben werden. Wenn ein Element per
-            Mausklick selektiert wird, wird nur das Bauteil allein - also ohne die angeschlossenen Leitungen
-            mitzunehmen - verschoben.
-        </par>
+    <chapter name="Simulation">
+        <subchapter name="Gatterlaufzeiten">
+            <par>
+                Bei der Simulation wird davon ausgegangen, dass jedes Gatter eine endliche Laufzeit hat, und dass diese
+                Laufzeit
+                für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat genau diese
+                Laufzeit,
+                unabhängig von dessen Komplexität. Ein Und-Gatter hat also die selbe Signalverzögerung wie ein
+                RAM-Baustein.
+                Ausgenommen davon sind die Dioden, der Leitungssplitter für die Erzeugung von Datenbussen und der
+                Schalter.
+                Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
+            </par>
+            <par>
+                Wird eine Schaltung in eine andere Schaltung eingebettet, um ein hierarchisches Design zu erstellen,
+                behalten die
+                eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet bei welchem
+                ein
+                Signal
+                von einem Eingang bis zu einem Ausgang drei Gatter passiern muss, beträgt dessen Laufzeit auch als
+                eingebettete
+                Schaltung drei Gatterlaufzeiten. Es gibt keine zusätzlichen Verzögerungen durch
+                das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich
+                schnell,
+                werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
+                Generell verändert das Einbetten einer Schaltung in eine andere dessen Laufzeitverhalten nicht. Die
+                Schaltung
+                verhält sich exakt so, als befänden sich alle Elemente auf der selben Ebene.
+            </par>
+        </subchapter>
     </chapter>
     <chapter name="Schaltungsanalyse und Synthese">
         <par>
@@ -97,15 +119,10 @@
             kombinatorischen Schaltungen wird eine Wahrheitstabelle erzeugt. Diese Wahrheitstabelle kann beliebig
             bearbeitet werden.
             Aus dieser Wahrheitstabelle lässt sich nach einer Bearbeitung eine neue Schaltung erzeugen.
-            Im Menü der Schaltungserzeugung finden sich auch Funktionen um so gen. JEDEC Dateien zu erzeugen.
-            Dabei handelt es sich
-            um ein spezielles Dateiformat, welches die Fuse-Map eines PLD beschreibt. Diese JEDEC Datei kann
-            mit Hilfe eines speziellen Programmers in ein entsprechendes PLD geschrieben werden, um dieses zu konfigurieren.
-            Zur Zeit werden Bausteine des Typs <e>GAL16v8</e> und <e>GAL22v10</e> bzw. Fuse-Map-Kompatible
-            Bausteine unterstützt.
         </par>
         <par>
-            Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen. Anstelle einer
+            Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen. Anstelle
+            einer
             einfachen Wahrheitstabelle entsteht eine so gen. Zustandsfolgetabelle. Jedes Flipflop taucht dabei auf der
             Eingangsseite und der Ausgangsseite der Zustandsfolgetabelle auf. In dieser Tabelle findet sich auf der
             rechten Seite der abhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird,
@@ -116,7 +133,8 @@
             Dabei gilt folgende Namenskonvention: Der Folgezustand eines Bits auf der rechten Seite der Tabelle wird
             durch ein angehängtes kleines 'n+1' gekennzeichnet. Der dazu gehörige aktuelle Zustand wird durch ein
             angehängtes 'n' ausgezeichnet. Gibt es also eine Zustandsvariable 'A', dann kennzeichnet 'An' den aktuellen
-            Zustand und 'An+1' den Folgezustand. Finden sich in der Wahrheitstabelle auf der linken und rechten Seite Signale,
+            Zustand und 'An+1' den Folgezustand. Finden sich in der Wahrheitstabelle auf der linken und rechten Seite
+            Signale,
             die diesem Muster entsprechen, wird davon ausgegangen, dass es sich um eine Zustandsfolgetabelle handelt und
             bei der Synthese wird entsprechend ein Schaltwerk anstelle eines Schaltnetzes erzeugt.
         </par>
@@ -128,111 +146,175 @@
             erzeugt wird.
         </par>
     </chapter>
-    <chapter name="Der ATF1502AS">
-        <par>
-            Der Baustein <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS"><e>ATF1502AS</e></a>
-            ist ein einfaches CPLD mit 32 Makrozellen. Er ist baugleich mit dem XCR5032C von
-            Xilinx. Er ist in einem PLCC Gehäuse verfügbar, was ihn für Laborversuche gut geeignet erscheinen lässt:
-            Sollte ein IC bei Versuchen zerstört werden, kann es einfach ersetzt werden.
-            Zudem ist mit dem <a href="http://www.atmel.com/tools/atdh1150usb.aspx"><e>ATDH1150USB</e></a>
-            ein einfach zu benutzender, günstiger Programmer erhältlich, mit dem der Baustein in seiner Schaltung
-            (In System) programmiert werden kann.
-            Für die Programmierung ist die Software <a href="http://www.atmel.com/tools/ATMISP.aspx"><e>ATMISP</e></a>
-            erforderlich, welche auf der ATMEL/Microchip Webseite erhältlich ist.
-        </par>
-        <par>
-            Leider sind die Details der Fuse-Map nicht öffentlich zugänglich, so dass kein geeigneter Fitter für
-            diesen Baustein in Digital integriert werden kann, wie das bei den <e>GAL16v8</e> und <e>GAL22v10</e>
-            Bausteinen möglich ist.
-        </par>
-        <par>
-            Daher muss auf den von ATMEL bereitgestellten Fitter <e>fit1502.exe</e> zurückgegriffen werden.
-            Dieses Programm erzeugt aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei die dann programmiert
-            werden kann.
-            Digital startet den Fitter automatisch wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
-            Digital-Einstellungen der Pfad zu <e>fit1502.exe</e> angegeben werden. Die erzeugte Datei kann dann direkt
-            mit <a href="http://www.atmel.com/tools/ATMISP.aspx"><e>ATMISP</e></a> geöffnet und gebrannt werden.
-        </par>
-        <par>
-            Aus rechtlichen Gründen kann der Fitter <e>fit1502.exe</e> nicht mit Digital ausgeliefert werden.
-            Er findet sich jedoch nach der Installation von
-            <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a>
-            im Ordner <e>WinCupl\Fitters</e>.
-            <a href="http://www.atmel.com/tools/wincupl.aspx"><e>WinCupl</e></a> wiederum ist auf der ATMEL/Microchip
-            Webseite verfügbar.
-            Unter Linux lässt sich <e>fit1502.exe</e> ebenfalls von Digital starten, wenn <e>wine</e> installiert ist.
-        </par>
-    </chapter>
-    <chapter name="VHDL">
-        <par>
-            Eine Schaltung kann zu VHDL exportiert werden. Dabei wird eine Datei erzeugt, welche die komplette
-            Beschreibung der Schaltung enthält. Der erzeugte VHDL code wurde mit
-            <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
-            und dem Open Source VHDL Simulator <a href="http://ghdl.free.fr/">ghdl</a> getestet.
-        </par>
-        <par>
-            Wenn eine Schaltung Testfälle enthält, wird anhand der Testdaten eine VHDL-Test-Bench erzeugt.
-            Diese kann verwendet werden, um die korrekte Funktion der Schaltung in einer VHDL Simulation zu
-            überprüfen.
-        </par>
-        <par>
-            Für spezielle Boards können zusätzliche Dateien erzeugt werden. Zur Zeit wird nur das
-            <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>  Board unterstützt.
-            Dabei wird eine Constrains-Datei erzeugt, welche die Zuordnung der Pins beinhaltet. Die Bezeichnung der Pins
-            kann dem BASYS3 Datenblatt entnommen werden, und muss als Pinnummer bei den Ein- und Ausgängen eingetragen werden.
-            Soll eine Schaltung auf einem BASYS3 Board laufen, kann in Vivado ein neues Projekt angelegt werden.
-            Dabei ist die erzeugte VHDL Datei und die Constrains-Datei
-            dem Projekt hinzuzufügen. Wurde das Projekt erstellt, kann der Bitstream erzeugt und in ein BASYS3 Board geladen werden.
-        </par>
-        <par>
-            Um neben der VHDL Datei auch die erforderliche Constrains-Datei erzeugen zu lassen, muss die Schaltung
-            ein Textfeld mit dem Text "Board: BASYS3" enthalten.
-        </par>
+    <chapter name="Hardware">
+        <subchapter name="GAL16v8 bzw. GAL22v10">
+            <par>
+                Im Menü der Schaltungserzeugung der Warheitstabelle finden sich auch Funktionen um so gen. JEDEC Dateien
+                zu erzeugen. Dabei handelt es sich
+                um ein spezielles Dateiformat, welches die Fuse-Map eines PLD beschreibt. Diese JEDEC Datei kann
+                mit Hilfe eines speziellen Programmers in ein entsprechendes PLD geschrieben werden, um dieses zu
+                konfigurieren.
+                Zur Zeit werden Bausteine des Typs <e>GAL16v8</e> und <e>GAL22v10</e> bzw. Fuse-Map-Kompatible
+                Bausteine unterstützt.
+            </par>
+        </subchapter>
+        <subchapter name="Der ATF1502AS">
+            <par>
+                Der Baustein
+                <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
+                    <e>ATF1502AS</e>
+                </a>
+                ist ein einfaches CPLD mit 32 Makrozellen. Er ist baugleich mit dem XCR5032C von
+                Xilinx. Er ist in einem PLCC Gehäuse verfügbar, was ihn für Laborversuche gut geeignet erscheinen lässt:
+                Sollte ein IC bei Versuchen zerstört werden, kann es einfach ersetzt werden.
+                Zudem ist mit dem
+                <a href="http://www.atmel.com/tools/atdh1150usb.aspx">
+                    <e>ATDH1150USB</e>
+                </a>
+                ein einfach zu benutzender, günstiger Programmer erhältlich, mit dem der Baustein in seiner Schaltung
+                (In System) programmiert werden kann.
+                Für die Programmierung ist die Software
+                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                    <e>ATMISP</e>
+                </a>
+                erforderlich, welche auf der ATMEL/Microchip Webseite erhältlich ist.
+            </par>
+            <par>
+                Leider sind die Details der Fuse-Map nicht öffentlich zugänglich, so dass kein geeigneter Fitter für
+                diesen Baustein in Digital integriert werden kann, wie das bei den <e>GAL16v8</e> und
+                <e>GAL22v10</e>
+                Bausteinen möglich ist.
+            </par>
+            <par>
+                Daher muss auf den von ATMEL bereitgestellten Fitter <e>fit1502.exe</e> zurückgegriffen werden.
+                Dieses Programm erzeugt aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei die dann
+                programmiert
+                werden kann.
+                Digital startet den Fitter automatisch wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
+                Digital-Einstellungen der Pfad zu <e>fit1502.exe</e> angegeben werden. Die erzeugte Datei kann dann
+                direkt
+                mit
+                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                    <e>ATMISP</e>
+                </a>
+                geöffnet und gebrannt werden.
+            </par>
+            <par>
+                Aus rechtlichen Gründen kann der Fitter <e>fit1502.exe</e> nicht mit Digital ausgeliefert werden.
+                Er findet sich jedoch nach der Installation von
+                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                    <e>WinCupl</e>
+                </a>
+                im Ordner <e>WinCupl\Fitters</e>.
+                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                    <e>WinCupl</e>
+                </a>
+                wiederum ist auf der ATMEL/Microchip
+                Webseite verfügbar.
+                Unter Linux lässt sich <e>fit1502.exe</e> ebenfalls von Digital starten, wenn <e>wine</e> installiert
+                ist.
+            </par>
+        </subchapter>
+        <subchapter name="VHDL">
+            <par>
+                Eine Schaltung kann zu VHDL exportiert werden. Dabei wird eine Datei erzeugt, welche die komplette
+                Beschreibung der Schaltung enthält. Der erzeugte VHDL code wurde mit
+                <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
+                und dem Open Source VHDL Simulator <a href="http://ghdl.free.fr/">ghdl</a> getestet.
+            </par>
+            <par>
+                Wenn eine Schaltung Testfälle enthält, wird anhand der Testdaten eine VHDL-Test-Bench erzeugt.
+                Diese kann verwendet werden, um die korrekte Funktion der Schaltung in einer VHDL Simulation zu
+                überprüfen.
+            </par>
+            <par>
+                Für spezielle Boards können zusätzliche Dateien erzeugt werden. Zur Zeit wird nur das
+                <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
+                Board unterstützt.
+                Dabei wird eine Constrains-Datei erzeugt, welche die Zuordnung der Pins beinhaltet. Die Bezeichnung der
+                Pins
+                kann dem BASYS3 Datenblatt entnommen werden, und muss als Pinnummer bei den Ein- und Ausgängen
+                eingetragen werden.
+                Soll eine Schaltung auf einem BASYS3 Board laufen, kann in Vivado ein neues Projekt angelegt werden.
+                Dabei ist die erzeugte VHDL Datei und die Constrains-Datei
+                dem Projekt hinzuzufügen. Wurde das Projekt erstellt, kann der Bitstream erzeugt und in ein BASYS3 Board
+                geladen werden.
+            </par>
+            <par>
+                Um neben der VHDL Datei auch die erforderliche Constrains-Datei erzeugen zu lassen, muss die Schaltung
+                ein Textfeld mit dem Text "Board: BASYS3" enthalten.
+            </par>
+        </subchapter>
     </chapter>
     <chapter name="Häufig gestellte Fragen">
         <faq>
             <question>Wie kann ich eine Leitung verschieben?</question>
             <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann mit der Maus verschieben.
-                Alternativ kann eine einzelne Leitung mit STRG+Mausklick selektiert werden.</answer>
+                Alternativ kann eine einzelne Leitung mit STRG+Mausklick selektiert werden.
+            </answer>
         </faq>
         <faq>
             <question>Wie kann ich eine Leitung löschen?</question>
-            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann <e>Entfernen</e> drücken bzw. auf den Papierkorb klicken.
-                Alternativ kann eine einzelne Leitung mit STRG+Mausklick selektiert werden.</answer>
+            <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann <e>Entfernen</e> drücken bzw. auf den
+                Papierkorb klicken.
+                Alternativ kann eine einzelne Leitung mit STRG+Mausklick selektiert werden.
+            </answer>
         </faq>
         <faq>
-            <question>Wie kann ich ein Element verschieben und dabei alle angeschlossenen Leitungen mitnehmen?</question>
+            <question>Wie kann ich ein Element verschieben und dabei alle angeschlossenen Leitungen mitnehmen?
+            </question>
             <answer>Das Bauteil mit der Rechteckauswahl auswählen. Die Auswahl muss das Bauteil komplett enthalten.
-            Dann kann das Bauteil zusammen mit den Leitungen verschoben werden.</answer>
+                Dann kann das Bauteil zusammen mit den Leitungen verschoben werden.
+            </answer>
         </faq>
         <faq>
-            <question>Ich habe ein Element, das nicht mit einer Leitung verbunden ist, obwohl die Pins auf der Leitung liegen.</question>
-            <answer>Pins werden nur mit einer Leitung verbunden, wenn ein Endpunkt der Leitung auf dem Pin liegt.</answer>
+            <question>Ich habe ein Element, das nicht mit einer Leitung verbunden ist, obwohl die Pins auf der Leitung
+                liegen.
+            </question>
+            <answer>Pins werden nur mit einer Leitung verbunden, wenn ein Endpunkt der Leitung auf dem Pin liegt.
+            </answer>
         </faq>
         <faq>
             <question>Wenn die Simulation gestartet wird, ist die Leitung grau. Was bedeutet das?</question>
-            <answer>Mit Hellgrün und Dunkelgrün wird eine logische 1 bzw. 0 dargestellt. Grau bedeutet, dass die Leitung hochohmig ist.</answer>
+            <answer>Mit Hellgrün und Dunkelgrün wird eine logische 1 bzw. 0 dargestellt. Grau bedeutet, dass die Leitung
+                hochohmig ist.
+            </answer>
         </faq>
         <faq>
-            <question>Ich habe eine Wahrheitstabelle. Wie kann ich daraus die minimalen Schaltfunktionen erzeugen?</question>
-            <answer>Im Menü <e>Analyse<arrow/>Synthese</e> auswählen und dann die Wahrheitstabelle eingeben.
-                In der Statusleiste des Fensters findet sich die Schaltfunktion. Geben mehr als eine abhängige Größe ein,
-                öffnet sich ein neues Fenster, in welchem alle Schaltfunktionen angegeben sind.</answer>
+            <question>Ich habe eine Wahrheitstabelle. Wie kann ich daraus die minimalen Schaltfunktionen erzeugen?
+            </question>
+            <answer>Im Menü
+                <e>Analyse<arrow/>Synthese
+                </e>
+                auswählen und dann die Wahrheitstabelle eingeben.
+                In der Statusleiste des Fensters findet sich die Schaltfunktion. Geben mehr als eine abhängige Größe
+                ein,
+                öffnet sich ein neues Fenster, in welchem alle Schaltfunktionen angegeben sind.
+            </answer>
         </faq>
         <faq>
             <question>Ich habe eine Wahrheitstabelle eingegeben, es wird jedoch mehr als eine Schaltfunktion für
-                das gesuchte Signal angezeigt. Welche ist die Richtige?</question>
+                das gesuchte Signal angezeigt. Welche ist die Richtige?
+            </question>
             <answer>Wenn eine Schaltfunktion minimiert wird, kann es mehrere minimierte Schaltfunktionen gleicher
                 Komplexität geben (gleiche Anzahl von Termen).
                 Digital zeigt alle möglichen Lösungen an und alle liefern die selbe Wahrheitstabelle.
                 In den Don't Care-Zeilen der Wahrheitstabelle kann es natürlich Unterschiede zwischen den verschiedenen
-                Funktionen geben.</answer>
+                Funktionen geben.
+            </answer>
         </faq>
         <faq>
             <question>Ich habe eine Wahrheitstabelle. Wie kann ich daraus eine Schaltung erzeugen?</question>
-            <answer>Im Menü <e>Analyse<arrow/>Synthese</e> auswählen und dann die Wahrheitstabelle eingeben.
+            <answer>Im Menü
+                <e>Analyse<arrow/>Synthese
+                </e>
+                auswählen und dann die Wahrheitstabelle eingeben.
                 Unter <e>Neu</e> bzw. mit <e>Spalten hinzufügen</e> können Variablen hinzugefügt werden.
-                Im Menü mit <e>Erzeugen<arrow/>Schaltung</e> dann eine Schaltung erzeugen.</answer>
+                Im Menü mit
+                <e>Erzeugen<arrow/>Schaltung
+                </e>
+                dann eine Schaltung erzeugen.
+            </answer>
         </faq>
         <faq>
             <question>Wie kann ich die Signalnamen in der Wahrheitstabelle verändern?</question>
@@ -240,27 +322,48 @@
         </faq>
         <faq>
             <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Schaltung erzeugen?</question>
-            <answer>Im Menü <e>Analyse<arrow/>Ausdruck</e> auswählen und dann die Funktion eingeben.</answer>
+            <answer>Im Menü
+                <e>Analyse<arrow/>Ausdruck
+                </e>
+                auswählen und dann die Funktion eingeben.
+            </answer>
         </faq>
         <faq>
             <question>Ich habe eine Schaltfunktion. Wie kann ich daraus eine Wahrheitstabelle erzeugen?</question>
-            <answer>Im Menü <e>Analyse<arrow/>Ausdruck</e> auswählen und dann die Funktion eingeben.
-                Dann die Schaltung erzeugen und im Menü <e>Analyse<arrow/>Analyse</e> die Wahrheitstabelle erzeugen.</answer>
+            <answer>Im Menü
+                <e>Analyse<arrow/>Ausdruck
+                </e>
+                auswählen und dann die Funktion eingeben.
+                Dann die Schaltung erzeugen und im Menü
+                <e>Analyse<arrow/>Analyse
+                </e>
+                die Wahrheitstabelle erzeugen.
+            </answer>
         </faq>
         <faq>
             <question>Wie kann ich aus einer Schaltung eine JEDEC-Datei erzeugen?</question>
-            <answer>Im Menü <e>Analyse<arrow/>Analyse</e> auswählen und dann im neuen Fenster im Menü
-                <e>Erzeugen<arrow/>Bausteine</e> den entsprechenden Baustein auswählen.</answer>
+            <answer>Im Menü
+                <e>Analyse<arrow/>Analyse
+                </e>
+                auswählen und dann im neuen Fenster im Menü
+                <e>Erzeugen<arrow/>Bausteine
+                </e>
+                den entsprechenden Baustein auswählen.
+            </answer>
         </faq>
         <faq>
             <question>Wie kann ich bei der Erzeugung einer JEDEC-Datei die Pinnummern der Signale festlegen?</question>
             <answer>Bei den entsprechenden Eingängen und Ausgängen in der Schaltung kann im Attribute-Dialog
-                eine Pinnummer zugewiesen werden.</answer>
+                eine Pinnummer zugewiesen werden.
+            </answer>
         </faq>
         <faq>
-            <question>Ich habe eine JEDEC Datei erzeugt. Wie bekomme ich diese in ein <e>GAL16v8</e> bzw. <e>GAL22v10</e>?</question>
+            <question>Ich habe eine JEDEC Datei erzeugt. Wie bekomme ich diese in ein <e>GAL16v8</e> bzw. <e>
+                GAL22v10</e>?
+            </question>
             <answer>Für die Programmierung von GAL's ist eine entsprechende Zusatz-Hardware, ein so gen. GAL-Programmer
-                erforderlich.</answer>
+                erforderlich.
+            </answer>
         </faq>
     </chapter>
     <chapter name="Tastenbelegung">
