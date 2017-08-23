@@ -77,11 +77,11 @@
 						<xsl:value-of select="@toc"/>
 					</fo:block>
                     <!-- table of contents -->
-					<fo:block margin-bottom="2mm">
+					<fo:block margin-bottom="2mm" font-weight="bold">
 						A <fo:inline padding-left="1mm"><xsl:value-of select="@general"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="document(@static)/*" mode="toc"/>
-					<fo:block margin-top="2mm" margin-bottom="2mm">
+					<fo:block margin-top="2mm" margin-bottom="2mm" font-weight="bold">
 						B <fo:inline padding-left="1mm"><xsl:value-of select="@components"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="toc"/>

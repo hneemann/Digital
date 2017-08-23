@@ -118,7 +118,7 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${basedir}/target/xslt</directory>
+            <directory>${basedir}/target/docu</directory>
             <outputDirectory>/docu/</outputDirectory>
             <includes>
                 <include>*.pdf</include>

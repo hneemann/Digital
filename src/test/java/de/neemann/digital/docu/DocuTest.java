@@ -203,7 +203,7 @@ public class DocuTest extends TestCase {
         FopFactory fopFactory = FopFactory.newInstance(new File(Resources.getRoot(), "docu/fop.xconf"));
 
         File maven = Resources.getRoot().getParentFile().getParentFile().getParentFile();
-        File target = new File(maven, "target/xslt");
+        File target = new File(maven, "target/docu");
         File images = new File(target, "img");
         images.mkdirs();
         for (Language l : Lang.getBundle().getSupportedLanguages()) {
