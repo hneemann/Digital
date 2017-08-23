@@ -158,7 +158,7 @@
                 Bausteine unterstützt.
             </par>
         </subchapter>
-        <subchapter name="Der ATF1502AS">
+        <subchapter name="ATF1502AS">
             <par>
                 Der Baustein
                 <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
@@ -188,12 +188,10 @@
             <par>
                 Daher muss auf den von ATMEL bereitgestellten Fitter <e>fit1502.exe</e> zurückgegriffen werden.
                 Dieses Programm erzeugt aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei die dann
-                programmiert
-                werden kann.
+                programmiert werden kann.
                 Digital startet den Fitter automatisch wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
                 Digital-Einstellungen der Pfad zu <e>fit1502.exe</e> angegeben werden. Die erzeugte Datei kann dann
-                direkt
-                mit
+                direkt mit
                 <a href="http://www.atmel.com/tools/ATMISP.aspx">
                     <e>ATMISP</e>
                 </a>
@@ -209,8 +207,7 @@
                 <a href="http://www.atmel.com/tools/wincupl.aspx">
                     <e>WinCupl</e>
                 </a>
-                wiederum ist auf der ATMEL/Microchip
-                Webseite verfügbar.
+                wiederum ist auf der ATMEL/Microchip Webseite verfügbar.
                 Unter Linux lässt sich <e>fit1502.exe</e> ebenfalls von Digital starten, wenn <e>wine</e> installiert
                 ist.
             </par>
@@ -232,13 +229,11 @@
                 <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
                 Board unterstützt.
                 Dabei wird eine Constrains-Datei erzeugt, welche die Zuordnung der Pins beinhaltet. Die Bezeichnung der
-                Pins
-                kann dem BASYS3 Datenblatt entnommen werden, und muss als Pinnummer bei den Ein- und Ausgängen
+                Pins kann dem BASYS3 Datenblatt entnommen werden, und muss als Pinnummer bei den Ein- und Ausgängen
                 eingetragen werden.
                 Soll eine Schaltung auf einem BASYS3 Board laufen, kann in Vivado ein neues Projekt angelegt werden.
-                Dabei ist die erzeugte VHDL Datei und die Constrains-Datei
-                dem Projekt hinzuzufügen. Wurde das Projekt erstellt, kann der Bitstream erzeugt und in ein BASYS3 Board
-                geladen werden.
+                Dabei ist die erzeugte VHDL Datei und die Constrains-Datei dem Projekt hinzuzufügen. Wurde das
+                Projekt erstellt, kann der Bitstream erzeugt und in ein BASYS3 Board geladen werden.
             </par>
             <par>
                 Um neben der VHDL Datei auch die erforderliche Constrains-Datei erzeugen zu lassen, muss die Schaltung
