@@ -69,7 +69,7 @@ public class TableDialog extends JDialog {
         LIST.add(Keys.PIN);
     }
 
-    private final JLabel label;
+    private final JTextPane statusBar;
     private final JTable table;
     private final Font font;
     private final ElementLibrary library;
@@ -99,9 +99,14 @@ public class TableDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         kvMap = new KarnaughMapDialog(this);
 
-        label = new JLabel();
+        statusBar = new JTextPane();
+        statusBar.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE); // without this setFont not work
+        statusBar.setContentType("text/html");
+        statusBar.setEditable(false);
+        statusBar.setBackground(null);
+        statusBar.setBorder(null);
         font = Screen.getInstance().getFont(1.66f);
-        label.setFont(font);
+        statusBar.setFont(font);
         table = new JTable(model);
         JComboBox<String> comboBox = new JComboBox<>(TruthTableTableModel.STATENAMES);
         table.setDefaultEditor(Integer.class, new DefaultCellEditor(comboBox));
@@ -224,7 +229,7 @@ public class TableDialog extends JDialog {
         setModel(new TruthTableTableModel(truthTable));
 
         getContentPane().add(new JScrollPane(table));
-        getContentPane().add(label, BorderLayout.SOUTH);
+        getContentPane().add(statusBar, BorderLayout.SOUTH);
         pack();
         setLocationRelativeTo(parent);
     }
@@ -747,15 +752,16 @@ public class TableDialog extends JDialog {
 
             switch (count) {
                 case 0:
-                    label.setText("");
+                    statusBar.setVisible(false);
                     allSolutionsDialog.setVisible(false);
                     break;
                 case 1:
-                    label.setText(firstExp);
+                    statusBar.setVisible(true);
+                    statusBar.setText(firstExp);
                     allSolutionsDialog.setVisible(false);
                     break;
                 default:
-                    label.setText("");
+                    statusBar.setVisible(false);
                     allSolutionsDialog.setText(html.toString());
                     if (!allSolutionsDialog.isVisible())
                         SwingUtilities.invokeLater(() -> allSolutionsDialog.setVisible(true));
