@@ -28,7 +28,7 @@ public class TestLib extends TestCase {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/lib");
         descrMap = new HashMap<>();
         new FileScanner(this::check).scan(examples);
-        assertTrue(count74xx >= 58);
+        assertTrue(count74xx >= 59);
     }
 
     private void check(File dig) throws PinException, NodeException, ElementNotFoundException, IOException {
