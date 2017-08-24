@@ -79,6 +79,29 @@ public class KarnaughMapTest extends TestCase {
             assertEquals(2, co.getSize());
     }
 
+    // in 4x4 map a 8 cell block is drawn in wrong orientation
+    public void testBUG_1() throws IOException, ParseException, KarnaughException {
+        Expression exp = new Variable("D");
+        KarnaughMap c = new KarnaughMap(Variable.vars(4), exp);
+
+        assertEquals(1, c.size());
+
+        KarnaughMap.Cover co = c.iterator().next();
+        assertTrue(co.isDisconnected());
+        assertFalse(co.onlyEdges());
+        assertTrue(co.isVerticalDivided());
+
+        exp = new Variable("B");
+        c = new KarnaughMap(Variable.vars(4), exp);
+
+        assertEquals(1, c.size());
+
+        co = c.iterator().next();
+        assertTrue(co.isDisconnected());
+        assertFalse(co.onlyEdges());
+        assertFalse(co.isVerticalDivided());
+    }
+
     /**
      * Creates bool tables with one "one".
      * Calculates the KV map.

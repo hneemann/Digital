@@ -432,6 +432,16 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
             return getPos().width * getPos().height == 16 && cellCount == 4;
         }
 
+        /**
+         * @return true if disconnected cover is vertical divided
+         */
+        public boolean isVerticalDivided() {
+            Pos p = getPos();
+            if (p.width * p.height == 16 && cellCount == 8)
+                return getCell(1, 0).contains(this);
+            else
+                return p.getWidth() > p.getHeight();
+        }
     }
 
     /**
