@@ -365,25 +365,18 @@ Single-Cycle CPU.</string>
      1         1 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
      0         0 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
 
-repeat(5) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+repeat(11) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
           0    C 0 0 0 0  0   0    0  0   0   0   0  0  0  0  0  0  0  0  0  1
 
-loop(i,15)
-repeat(3) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+loop(i,14)
+repeat(12) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
           0    C 0 0 0 0  bits(16,1&lt;&lt;(i+1))
 end loop
 
-repeat(9) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
-
-loop(i,16)
-repeat(3) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
-          0    C 0 0 0 0  bits(16,1&lt;&lt;i)
-end loop
-
-repeat(10) 0   C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+repeat(14) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
 
 loop(i,15)
-repeat(3) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+repeat(11) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
           0    C 0 0 0 0  bits(16,1&lt;&lt;(15-i))
 end loop
 </dataString>
