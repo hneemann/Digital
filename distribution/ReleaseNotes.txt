@@ -1,17 +1,18 @@
 Release Notes
 
 HEAD, planned as v0.14
-- Added VHDL export (Not yet complete, but the example processor is running on a FPGA.)
-- Type of Pin numbers changed from int to string to allow FPGA pin names like "U16".
+- Added VHDL export
+  (Not yet complete, but the example processor is running on a FPGA.)
+- Type of pin numbers changed from int to string to allow FPGA pin names like "U16".
 - Added support for BASYS3-Board (*.xdc constrains file is written)
 - Added visualization of KV maps (thanks to roy77)
-- Breaking changes
-  - To generalize the VHDL export, an XML entity had to be renamed.
+- Breaking changes:
+  - To generalize the VHDL export, an XML entity in the *.dig files had to be renamed.
     As a consequence of that the address bits settings in RAMs and ROMs
     are lost. To fix that, reset the number of address bits.
-  - Added an enable input to the counter component. If you had used the counter in the past
-    you have to set the en input to 1. The function of the overflow output also has
-    changed (see tooltip) and now allows the cascading of counters.
+  - Added an enable input to the counter component. If you had used the counter in the
+    past you have to set the en input to 1. The function of the overflow output also
+    has changed (see tooltip) and now allows the cascading of counters.
   - XOR now can have more than two inputs. If you had used the XOR gate with inverted
     inputs, you have to reselect the inputs to invert.
 
@@ -32,7 +33,7 @@ v0.13, released on 25. Jul 2017
 - The Text component is able to show multiple lines.
 - Comments are allowed in hex files.
 - Some minor bug fixes
-- Breaking changes
+- Breaking changes:
   - An input can have "high z" value as its default value.
     All inputs have lost their default values! If you have build a circuit that
     contains test cases that depend on a non-null default value, this tests
