@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>OV</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>U18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>W5</string>
+        </entry>
+        <entry>
+          <string>Frequency</string>
+          <int>100000000</int>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="300" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Board: BASYS3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="100"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="280" y="180"/>
+      <p2 x="300" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="180"/>
+      <p2 x="360" y="180"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

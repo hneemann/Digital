@@ -258,18 +258,20 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
     public void integrateClocks(int period) throws HDLException {
         for (HDLClock c : clocks) {
             int freq = c.getFrequency();
-            int counter = 1000000000 / (period * freq * 2);
+            int counter = (int) (1000000000L / (2L * period * freq));
 
-            Port cOut = new Port("out", Port.Direction.out).setBits(1);
-            Port cIn = new Port("in", Port.Direction.in).setBits(1);
+            if (counter >= 2) {
+                Port cOut = new Port("out", Port.Direction.out).setBits(1);
+                Port cIn = new Port("in", Port.Direction.in).setBits(1);
 
-            Signal oldSig = c.getClockPort().getSignal();
-            Signal newSig = createSignal();
-            oldSig.replaceWith(newSig);
-            newSig.addPort(cOut);
-            oldSig.addPort(cIn);
+                Signal oldSig = c.getClockPort().getSignal();
+                Signal newSig = createSignal();
+                oldSig.replaceWith(newSig);
+                newSig.addPort(cOut);
+                oldSig.addPort(cIn);
 
-            nodeList.add(new HDLClockNode(counter, new Ports().add(cIn).add(cOut)));
+                nodeList.add(new HDLClockNode(counter, new Ports().add(cIn).add(cOut)));
+            }
         }
     }
 }
