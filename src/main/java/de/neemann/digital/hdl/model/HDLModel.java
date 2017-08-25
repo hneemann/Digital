@@ -155,6 +155,15 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
             nodeList.add(new HDLNode(v, library, modelList));
     }
 
+    /**
+     * Adds a node to the model
+     *
+     * @param node the node to add
+     */
+    public void addNode(HDLNode node) {
+        nodeList.add(node);
+    }
+
     private Port addPort(VisualElement out, NetList nets, Port.Direction direction, int bits, HashMap<Net, Signal> signalMap) throws HDLException {
         String name = out.getElementAttributes().getCleanLabel();
         Port port = new Port(name, direction);
@@ -248,30 +257,4 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
         return s;
     }
 
-    /**
-     * Integrate clocks.
-     * Inserts a clock divider to match the frequency given in the model
-     *
-     * @param period clock period in ns
-     * @throws HDLException HDLException
-     */
-    public void integrateClocks(int period) throws HDLException {
-        for (HDLClock c : clocks) {
-            int freq = c.getFrequency();
-            int counter = (int) (1000000000L / (2L * period * freq));
-
-            if (counter >= 2) {
-                Port cOut = new Port("out", Port.Direction.out).setBits(1);
-                Port cIn = new Port("in", Port.Direction.in).setBits(1);
-
-                Signal oldSig = c.getClockPort().getSignal();
-                Signal newSig = createSignal();
-                oldSig.replaceWith(newSig);
-                newSig.addPort(cOut);
-                oldSig.addPort(cIn);
-
-                nodeList.add(new HDLClockNode(counter, new Ports().add(cIn).add(cOut)));
-            }
-        }
-    }
 }

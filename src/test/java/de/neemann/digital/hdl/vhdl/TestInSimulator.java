@@ -93,13 +93,8 @@ public class TestInSimulator extends TestCase {
         File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
         File vhdlFile = new File(dir, file.getName().replace('.', '_') + ".vhdl");
         CodePrinter out = new CodePrinter(vhdlFile);
-        try (VHDLExporter vhdl = new VHDLExporter(br.getLibrary(), out) {
-            @Override
-            protected void fixClocks(HDLModel model) throws HDLException {
-                // disable clock divider!
-            }
-        }) {
-            vhdl.export(br.getCircuit());
+        try (VHDLExporter vhdl = new VHDLExporter(br.getLibrary(), out)) {
+            vhdl.setUseBoardClocking(false).export(br.getCircuit());
             VHDLTestBenchCreator tb = vhdl.getTestBenches();
             out.close();
             runGHDL(vhdlFile, tb.getTestFileWritten());

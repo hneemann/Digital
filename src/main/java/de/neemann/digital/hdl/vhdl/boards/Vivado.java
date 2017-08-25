@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl.boards;
 
+import de.neemann.digital.hdl.model.ClockIntegrator;
 import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -18,18 +19,21 @@ public class Vivado implements BoardInterface {
     private final String pinIoType;
     private final String clockPin;
     private final int periodns;
+    private final ClockIntegrator clockIntegrator;
 
     /**
      * Creates a new instance
      *
-     * @param pinIoType the pin output type
-     * @param clockPin  the pin the clock is connected to
-     * @param periodns  the clock period in nano seconds
+     * @param pinIoType       the pin output type
+     * @param clockPin        the pin the clock is connected to
+     * @param periodns        the clock period in nano seconds
+     * @param clockIntegrator the clock integrator to use
      */
-    public Vivado(String pinIoType, String clockPin, int periodns) {
+    public Vivado(String pinIoType, String clockPin, int periodns, ClockIntegrator clockIntegrator) {
         this.pinIoType = pinIoType;
         this.clockPin = clockPin;
         this.periodns = periodns;
+        this.clockIntegrator = clockIntegrator;
     }
 
     @Override
@@ -61,7 +65,8 @@ public class Vivado implements BoardInterface {
     }
 
     @Override
-    public int getClockPeriod() {
-        return periodns;
+    public ClockIntegrator getClockIntegrator() {
+        return clockIntegrator;
     }
+
 }

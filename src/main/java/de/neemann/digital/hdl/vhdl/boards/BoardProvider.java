@@ -4,6 +4,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.hdl.model.ClockIntegratorGeneric;
 
 /**
  * Provides additional information for a specific board
@@ -44,8 +45,8 @@ public final class BoardProvider {
         if (board == null)
             return null;
 
-        if (board.equals("basys3"))
-            return new Vivado("LVCMOS33", "W5", 10);
+        if (board.equals("basys3")) // ToDo: replace ClockIntegratorGeneric with Artix-7 clocking code which utilizes the MMCM
+            return new Vivado("LVCMOS33", "W5", 10, new ClockIntegratorGeneric(10));
 
         return null;
     }

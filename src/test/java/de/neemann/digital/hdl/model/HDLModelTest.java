@@ -59,7 +59,7 @@ public class HDLModelTest extends TestCase {
     public void testClock() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/Clock.dig");
         HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary(), new ModelList(br.getLibrary()));
-        model.integrateClocks(10);
+        new ClockIntegratorGeneric(10).integrateClocks(model);
 
         assertEquals(2, model.size());
         assertEquals(3, model.getSignals().size());
@@ -69,7 +69,7 @@ public class HDLModelTest extends TestCase {
     public void testClock2() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/Clock2.dig");
         HDLModel model = new HDLModel(br.getCircuit(), br.getLibrary(), new ModelList(br.getLibrary()));
-        model.integrateClocks(10);
+        new ClockIntegratorGeneric(10).integrateClocks(model);
 
         assertEquals(2, model.size());
         assertEquals(4, model.getSignals().size());
