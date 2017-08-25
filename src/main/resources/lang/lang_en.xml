@@ -916,7 +916,8 @@ Written by H. Neemann in 2016, 2017.
 The icons are taken from the Tango Desktop Project.
 
 Visit the project at &lt;a href=&quot;https://github.com/hneemann/Digital&quot;&gt;GitHub&lt;/a&gt;.
-There you also can file an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?body=version:%20{{version}}&quot;&gt;issue&lt;/a&gt;.
+There you also can file an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?body=version:%20{{version}}&amp;labels=bug&quot;&gt;issue&lt;/a&gt; or suggest
+an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhancement&quot;&gt;enhancement&lt;/a&gt;.
     </string>
     <string name="msg_N_nodes">{0} nodes</string>
     <string name="msg_analyseErr">Error analysing the circuit</string>
