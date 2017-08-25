@@ -177,4 +177,12 @@ public class ParserTest extends TestCase {
         assertEquals(1<<16, td.getLines().size());
     }
 
+    public void test_GitHub_49() throws IOException, ParserException {
+        Parser parser = new Parser("A B Y\n" +
+                "1 1 1\n#test").parse();
+        LineCollector td = new LineCollector(parser);
+        assertEquals(3, td.getNames().size());
+        assertEquals(1, td.getLines().size());
+    }
+
 }

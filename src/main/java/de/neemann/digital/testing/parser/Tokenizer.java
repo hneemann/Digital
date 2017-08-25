@@ -210,7 +210,7 @@ public class Tokenizer {
         if (c == '#') {
             do {
                 c = readIntChar();
-            } while (c != '\n');
+            } while (!((c == '\n') || (c == -1)));
         }
         return c;
     }
