@@ -44,7 +44,7 @@ public final class BoardProvider {
         if (board == null)
             return null;
 
-        if (board.equals("basys3")) // ToDo: replace ClockIntegratorGeneric with Artix-7 clocking code which utilizes the MMCM
+        if (board.equals("basys3"))
             return new Vivado("LVCMOS33", "W5", 10, new ClockIntegratorARTIX7(10));
 
         return null;
