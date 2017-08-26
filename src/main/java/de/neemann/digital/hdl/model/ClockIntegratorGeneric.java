@@ -8,14 +8,14 @@ package de.neemann.digital.hdl.model;
  * You should use the FPGA-dependant clock resources to generate a clock signal.
  */
 public class ClockIntegratorGeneric implements ClockIntegrator {
-    private int periodns;
+    private double periodns;
 
     /**
      * Creates a new instance
      *
      * @param periodns the clock period in ns
      */
-    public ClockIntegratorGeneric(int periodns) {
+    public ClockIntegratorGeneric(double periodns) {
         this.periodns = periodns;
     }
 
@@ -23,7 +23,7 @@ public class ClockIntegratorGeneric implements ClockIntegrator {
     public void integrateClocks(HDLModel model) throws HDLException {
         for (HDLClock c : model.getClocks()) {
             int freq = c.getFrequency();
-            int counter = (int) (1000000000L / (2L * periodns * freq));
+            int counter = (int) (1000000000.0 / (periodns * 2 * freq));
 
             if (counter >= 2) {
                 Port cOut = new Port("out", Port.Direction.out).setBits(1);

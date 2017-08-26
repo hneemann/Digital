@@ -244,12 +244,14 @@ public class VHDLFile implements VHDLEntity {
             this.type = type;
         }
 
-        private String toValueString(int value) throws IOException {
+        private String toValueString(Object value) throws IOException {
             switch (type) {
                 case "integer":
-                    return Integer.toString(value);
+                    return Long.toString(((Number) value).longValue());
+                case "real":
+                    return Double.toString(((Number) value).doubleValue());
                 case "std_logic":
-                    return "'" + (value & 1) + "'";
+                    return "'" + (((Number) value).intValue() & 1) + "'";
                 default:
                     throw new IOException("generic " + type + " is not supported!");
             }
