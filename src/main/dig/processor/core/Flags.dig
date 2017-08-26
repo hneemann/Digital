@@ -24,7 +24,7 @@ alle Flags für eine bedingte Verzweigung.</string>
           <string>Zi</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="200"/>
+      <pos x="180" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -38,21 +38,7 @@ alle Flags für eine bedingte Verzweigung.</string>
           <string>Zo</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>D_FF</elementName>
-      <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="360" y="100"/>
+      <pos x="500" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -66,7 +52,7 @@ alle Flags für eine bedingte Verzweigung.</string>
           <string>Ni</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="300"/>
+      <pos x="180" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -80,21 +66,7 @@ alle Flags für eine bedingte Verzweigung.</string>
           <string>No</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="300"/>
-    </visualElement>
-    <visualElement>
-      <elementName>D_FF</elementName>
-      <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Z</string>
-        </entry>
-      </elementAttributes>
-      <pos x="360" y="200"/>
+      <pos x="500" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -108,7 +80,7 @@ alle Flags für eine bedingte Verzweigung.</string>
           <string>Ci</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="100"/>
+      <pos x="180" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -122,21 +94,7 @@ alle Flags für eine bedingte Verzweigung.</string>
           <string>Co</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="100"/>
-    </visualElement>
-    <visualElement>
-      <elementName>D_FF</elementName>
-      <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>N</string>
-        </entry>
-      </elementAttributes>
-      <pos x="360" y="300"/>
+      <pos x="500" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -150,7 +108,7 @@ alle Flags für eine bedingte Verzweigung.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="360"/>
+      <pos x="180" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -164,74 +122,135 @@ alle Flags für eine bedingte Verzweigung.</string>
           <string>store</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="400"/>
+      <pos x="180" y="260"/>
     </visualElement>
     <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes/>
-      <pos x="260" y="360"/>
+      <elementName>Register</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1,1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>3</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>1,1,1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="120"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="340" y="320"/>
-      <p2 x="360" y="320"/>
+      <p1 x="480" y="160"/>
+      <p2 x="500" y="160"/>
     </wire>
     <wire>
-      <p1 x="240" y="400"/>
-      <p2 x="260" y="400"/>
+      <p1 x="440" y="160"/>
+      <p2 x="460" y="160"/>
     </wire>
     <wire>
-      <p1 x="420" y="100"/>
-      <p2 x="460" y="100"/>
+      <p1 x="180" y="100"/>
+      <p2 x="240" y="100"/>
     </wire>
     <wire>
-      <p1 x="240" y="100"/>
-      <p2 x="360" y="100"/>
+      <p1 x="260" y="100"/>
+      <p2 x="320" y="100"/>
     </wire>
     <wire>
-      <p1 x="240" y="360"/>
-      <p2 x="260" y="360"/>
+      <p1 x="180" y="260"/>
+      <p2 x="300" y="260"/>
     </wire>
     <wire>
-      <p1 x="340" y="120"/>
-      <p2 x="360" y="120"/>
+      <p1 x="180" y="180"/>
+      <p2 x="220" y="180"/>
     </wire>
     <wire>
-      <p1 x="420" y="200"/>
+      <p1 x="280" y="120"/>
+      <p2 x="320" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="120"/>
+      <p2 x="240" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="120"/>
+      <p2 x="420" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="120"/>
+      <p2 x="500" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="200"/>
+      <p2 x="500" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="140"/>
+      <p2 x="320" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="140"/>
+      <p2 x="200" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="140"/>
+      <p2 x="240" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="140"/>
+      <p2 x="480" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="220"/>
+      <p2 x="280" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="140"/>
+      <p2 x="480" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="120"/>
+      <p2 x="280" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="120"/>
+      <p2 x="200" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="140"/>
+      <p2 x="300" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="140"/>
+      <p2 x="220" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="160"/>
       <p2 x="460" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="240" y="200"/>
-      <p2 x="360" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="220"/>
-      <p2 x="360" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="320" y="380"/>
-      <p2 x="340" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="420" y="300"/>
-      <p2 x="460" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="240" y="300"/>
-      <p2 x="360" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="120"/>
-      <p2 x="340" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="220"/>
-      <p2 x="340" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="320"/>
-      <p2 x="340" y="380"/>
     </wire>
   </wires>
 </circuit>

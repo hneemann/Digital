@@ -4,7 +4,8 @@ HEAD, planned as v0.14
 - Added VHDL export
   (Not yet complete, but the example processor is running on a FPGA.)
 - Type of pin numbers changed from int to string to allow FPGA pin names like "U16".
-- Added support for BASYS3-Board (*.xdc constrains file is written)
+- Added support for BASYS3-Board (*.xdc constrains file is written and the mixed mode
+  clock manager (MMCM) is used if clock exceeds 5MHz)
 - Added visualization of KV maps (thanks to roy77)
 - Breaking changes:
   - To generalize the VHDL export, an XML entity in the *.dig files had to be renamed.

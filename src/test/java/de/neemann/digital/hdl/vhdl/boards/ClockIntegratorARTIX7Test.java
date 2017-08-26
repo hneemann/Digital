@@ -9,8 +9,6 @@ import junit.framework.TestCase;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
-
 public class ClockIntegratorARTIX7Test extends TestCase {
 
     public void testArtix7() throws PinException, NodeException, ElementNotFoundException, IOException {
@@ -110,6 +108,8 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "begin\n" +
                 "\n" +
                 "DEV_NULL <= '0';\n" +
+                "\n" +
+                "-- code taken from the \"Vivado Design Suite 7 Series FPGA Libraries Guide\" (UG953)\n" +
                 "\n" +
                 "MMCME2_BASE_inst : MMCME2_BASE\n" +
                 "generic map (\n" +

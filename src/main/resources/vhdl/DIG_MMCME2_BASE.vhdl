@@ -24,6 +24,8 @@ begin
 
 DEV_NULL <= '0';
 
+-- code taken from the "Vivado Design Suite 7 Series FPGA Libraries Guide" (UG953)
+
 MMCME2_BASE_inst : MMCME2_BASE
 generic map (
 BANDWIDTH => "OPTIMIZED", -- Jitter programming (OPTIMIZED, HIGH, LOW)
