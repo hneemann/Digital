@@ -100,7 +100,7 @@ public class VHDLTestBenchCreator {
         out.println();
         out.print("architecture behav of ").print(testName).println(" is").inc();
         out.println("component main").inc();
-        VHDLExporter.writePort(out, model.getPorts());
+        VHDLGenerator.writePort(out, model.getPorts());
         out.dec().println("end component;");
         out.println();
         for (Port p : model.getPorts())

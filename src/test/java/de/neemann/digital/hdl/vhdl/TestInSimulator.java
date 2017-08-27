@@ -5,7 +5,6 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.HDLException;
-import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
@@ -82,7 +81,7 @@ public class TestInSimulator extends TestCase {
         File file = new File(Resources.getRoot(), "dig/test/vhdl/counter.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
-        System.out.println(new VHDLExporter(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
+        System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
 
         check(file);
     } /* */
@@ -93,8 +92,8 @@ public class TestInSimulator extends TestCase {
         File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
         File vhdlFile = new File(dir, file.getName().replace('.', '_') + ".vhdl");
         CodePrinter out = new CodePrinter(vhdlFile);
-        try (VHDLExporter vhdl = new VHDLExporter(br.getLibrary(), out)) {
-            vhdl.setUseBoardClocking(false).export(br.getCircuit());
+        try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
+            vhdl.omitClockDividers().export(br.getCircuit());
             VHDLTestBenchCreator tb = vhdl.getTestBenches();
             out.close();
             runGHDL(vhdlFile, tb.getTestFileWritten());

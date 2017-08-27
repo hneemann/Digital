@@ -20,7 +20,7 @@ public interface BoardInterface {
     void writeFiles(File path, HDLModel model) throws IOException;
 
     /**
-     * @return returns the board specific clock factory
+     * @return returns the board specific clock integrator
      */
     ClockIntegrator getClockIntegrator();
 
