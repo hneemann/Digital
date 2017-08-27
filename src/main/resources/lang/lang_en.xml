@@ -913,7 +913,7 @@ The names of the variables may not be unique.</string>
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
 Written by H. Neemann in 2016, 2017.
 
-The icons are taken from the Tango Desktop Project.
+The icons are taken from the &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
 
 Visit the project at &lt;a href=&quot;https://github.com/hneemann/Digital&quot;&gt;GitHub&lt;/a&gt;.
 There you also can file an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?body=version:%20{{version}}&amp;labels=bug&quot;&gt;issue&lt;/a&gt; or suggest

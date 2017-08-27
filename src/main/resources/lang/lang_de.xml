@@ -928,7 +928,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Ein einfacher Simulator für digitale Schaltkreise.
 Geschrieben von H. Neemann 2016, 2017
 
-Die Icons stammen aus dem Tango Desktop Project.
+Die Icons stammen aus dem &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
 
 Besuche das Projekt auf &lt;a href=&quot;https://github.com/hneemann/Digital&quot;&gt;GitHub&lt;/a&gt;.
 Dort kann auch ein &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?body=version:%20{{version}}&amp;labels=bug&quot;&gt;Fehler&lt;/a&gt; gemeldet oder
