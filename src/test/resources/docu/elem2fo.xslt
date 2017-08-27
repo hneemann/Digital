@@ -169,7 +169,7 @@
 
 
 	<xsl:template match="par" mode="full">
-        <fo:block text-align="justify" hyphenate="true" >
+        <fo:block text-align="justify" hyphenate="true" margin-top="1mm" margin-bottom="1mm">
 			<xsl:apply-templates/>
         </fo:block>
     </xsl:template>

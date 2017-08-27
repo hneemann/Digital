@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
     <chapter name="Digital">
-        <subchapter name="General">
+        <subchapter name="Introduction">
             <par>
                 Digital is a simple simulator used to simulate digital circuits. The single logic gates are connected
                 to each other by wires and the behaviour of the whole circuit is simulated.
@@ -26,9 +26,8 @@
         </subchapter>
         <subchapter name="Wires">
             <par>
-                All components must be connected via wires. It is not possible to connect two components to each other
-                by
-                placing them directly next to each other.
+                All components must be connected via wires. It is not possible to connect two components
+                by placing them directly next to each other.
             </par>
             <par>
                 In addition, there are only connections between a endpoint of a wire and a component.
@@ -47,28 +46,23 @@
         <subchapter name="Hierarchical Design">
             <par>
                 If a very complex circuit is built up, this can very quickly become very confusing. To keep track here,
-                the
-                different parts of a circuit can be stored in different files. This mechanism also makes it possible to
-                use
-                a subcircuit, which has been created once, several times in a further circuit.
+                the different parts of a circuit can be stored in different files. This mechanism also makes it
+                possible to use a subcircuit, which has been created once, several times in a further circuit.
                 This approach also offers the advantage that the files can be stored independently of each other in a
                 version control system and changes can be tracked.
             </par>
             <par>
                 In this case, only the file names of the subcircuits are stored in a circuit. The corresponding files of
-                the
-                integrated subcircuits must therefore be found at the runtime of the simulation in the file system.
+                the integrated subcircuits must therefore be found at the runtime of the simulation in the file system.
                 In order to support the various work methods of the users as best as possible and still to avoid a
-                complex
-                administration of import paths, etc., a somewhat unusual import strategy is implemented.
+                complex administration of import paths, etc., a somewhat unusual import strategy is implemented.
             </par>
             <par>
                 Only the file names of the embedded circuits are stored in a circuits file.
                 If a file needs to be opened, all subfolders are searched for a file of the corresponding name.
                 If a suitable file is found, it is imported. This process only depends on the file name of the file to
-                be
-                read, not on its path. Correspondingly, an error message is generated if there are several files of the
-                same name in different subfolders, since ambiguities then arise.
+                be read, not on its path. Correspondingly, an error message is generated if there are several files of
+                the same name in different subfolders, since ambiguities then arise.
             </par>
             <par>
                 A suitable project structure therefore looks as follows: The root circuit is located in a separate
@@ -90,14 +84,13 @@
             <par>
                 If a circuit is included in an other parent circuit, the included circuit keep its timing behaviour.
                 So if you include a complex circuit which has a large propagation delay because on of the input signals
-                has
-                to pass three gates until it reaches the output, this behaviour is conserved while including this
+                has to pass three gates until it reaches the output, this behaviour is conserved while including this
                 circuit.
                 There are no additional delays coming up by including a circuit. If not all outputs of a circuit have
                 the same propagation delay this is also the case if it is included in a parent circuit.
                 In general, including a circuit into an other circuit does not modify its timing behaviour at all. A
-                included
-                circuit behave in exact the same way as if all components had been inserted at the same circuit level.
+                included circuit behave in exact the same way as if all components had been inserted at the same circuit
+                level.
             </par>
         </subchapter>
     </chapter>
@@ -148,25 +141,20 @@
                 <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
                     <e>ATF1502AS</e>
                 </a>
-                is a simple
-                CPLD with 32 macrocells. It is identical to the XCR5032C from Xilinx. It is available in a PLCC
-                package, which makes it suitable for laboratory exercises: If an IC is destroyed during exercises, it
-                can simply be replaced. In addition, with the
+                is a simple CPLD with 32 macrocells. It is identical to the XCR5032C from Xilinx. It is available in a
+                PLCC package, which makes it suitable for laboratory exercises: If an IC is destroyed during exercises,
+                it can simply be replaced. In addition, with the
                 <a href="http://www.atmel.com/tools/atdh1150usb.aspx">
                     <e>ATDH1150USB</e>
                 </a>
-                a easy to use low-cost programmer is available. This programmer is able to
-                program the
+                a easy to use low-cost programmer is available. This programmer is able to program the
                 <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
                     <e>ATF1502AS</e>
                 </a>
-                in system
-                using its JTAG interface.
-                The software
+                in system using its JTAG interface. The software
                 <a href="http://www.atmel.com/tools/ATMISP.aspx">
                     <e>ATMISP</e>
-                </a>
-                is required for
+                </a> is required for
                 programming, which is also available on the ATMEL / Microchip website.
             </par>
             <par>
@@ -175,55 +163,60 @@
             </par>
             <par>
                 Therefore, the fitter <e>fit1502.exe</e> provided by ATMEL must be used. This program creates a
-                <e>JEDEC</e>
-                file from a suitable <e>TT2</e> file which can then be programmed. Digital starts the fitter
-                automatically
-                every time a <e>TT2</e> file is created. For this purpose, the path to <e>fit1502.exe</e> must be
-                specified
-                in the digital settings. The created <e>JEDEC</e> file can then be opened and burned directly with
+                <e>JEDEC</e> file from a suitable <e>TT2</e> file which can then be programmed. Digital starts the
+                fitter automatically every time a <e>TT2</e> file is created. For this purpose, the path to
+                <e>fit1502.exe</e> must be specified in the settings.
+                The created <e>JEDEC</e> file can then be opened and burned directly with
                 <a href="http://www.atmel.com/tools/ATMISP.aspx">
                     <e>ATMISP</e>
-                </a>
-                .
+                </a>.
             </par>
             <par>
                 For legal reasons the fitter <e>fit1502.exe</e> can not be distributed with Digital. However, it can be
                 found in the folder <e>WinCupl\Fitters</e> after installing
                 <a href="http://www.atmel.com/tools/wincupl.aspx">
                     <e>WinCupl</e>
-                </a>
-                .
+                </a>.
                 <a href="http://www.atmel.com/tools/wincupl.aspx">
                     <e>WinCupl</e>
                 </a>
-                is available on the ATMEL/Microchip
-                website.
+                is available on the ATMEL/Microchip website.
                 On Linux systems, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
             </par>
         </subchapter>
         <subchapter name="VHDL">
             <par>
                 A circuit can be exported to VHDL. A file is generated which contains the complete description of the
-                circuit.
-                The generated VHDL code was tested with
+                circuit. The generated VHDL code was tested with
                 <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
                 and the open source VHDL simulator <a href="http://ghdl.free.fr/">ghdl</a>.
             </par>
             <par>
                 If a circuit contains test cases, the test data is used to generate a VHDL test bench. This can be used
-                to
-                check the correct function of the circuit in a VHDL simulation.
+                to check the correct function of the circuit in a VHDL simulation.
             </par>
             <par>
-                Additional files can be created for special boards. At present only the
+                Additional files which are needed by special boards can be created. At present only the
                 <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
                 board is supported.
                 A constrains file is created, which contains the assignment of the pins. The description of the pins can
-                be
-                found in the BASYS3 data sheet, and must be entered as a pin number for the inputs and outputs.
+                be found in the BASYS3 data sheet, and must be entered as a pin number for the inputs and outputs.
+            </par>
+            <par>
+                If the circuit clock frequency is low, a frequency divider is integrated into the VHDL code to divide
+                the board clock accordingly.
+                If the clock frequency selected in the circuit exceeds 4.7MHz, the MMCM unit of the
+                Artix-7 is used for clock generation. Therefore, if a circuit which depends on a synchronous clock
+                distribution like a processor is exported to VHDL, the circuit clock frequency should be set to a value
+                above 4.7MHz.
+                This ensures that the FPGA resources provided for the clock distribution are used.
+                The example processor included is running e.g. with up to 30MHz.
+            </par>
+            <par>
                 If a circuit is to run on a BASYS3 board, a new project can be created in Vivado.
                 The generated VHDL file and the constraints file must be added to the project.
-                Once the project has been created, the bitstream can be generated and loaded into a BASYS3 board.
+                Once the project has been created, the bitstream can be generated and the Hardware-Manager can be used
+                to program a BASYS3 board.
             </par>
             <par>
                 To create the required constrains file, the circuit must contain a text field with the text "Board:

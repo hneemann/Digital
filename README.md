@@ -43,10 +43,8 @@ These are the main features of Digital:
   [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
   [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) are supported which offer 32/64 macro-cells. 
 - Export to VHDL: A circuit can be exported to VHDL. There is also support for the 
-  [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start), which means
-  that the constrains file containing the pin-mapping is created. 
-  [Xilinx-Vivado](https://www.xilinx.com/products/design-tools/vivado.html) is needed to create the bitstream 
-  and to programm the board. The examples folder contains a variant of the simple CPU, which can run on a BASYS3 board.
+  [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
+  for details. The examples folder contains a variant of the simple CPU, which can run on a BASYS3 board.
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code
