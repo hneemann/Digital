@@ -8,7 +8,7 @@
     <string name="date">Date</string>
     <string name="number">No.</string>
     <string name="attr_dialogTitle">Attributes</string>
-    <string name="attr_openCircuit">Show</string>
+    <string name="attr_openCircuit">Open Circuit</string>
     <string name="attr_openCircuitLabel">Included circuit:</string>
     <string name="attr_openCircuit_tt">Opens the circuit in a new window.</string>
     <string name="attr_help">Help</string>
