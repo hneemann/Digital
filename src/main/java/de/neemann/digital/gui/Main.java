@@ -781,17 +781,23 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     list.add(new VisualElement(PowerSupply.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
                             .setPos(new Vector(SIZE * 2, 0)));
-                    list.add(new VisualElement(In.DESCRIPTION.getName())
+                    VisualElement vcc = new VisualElement(In.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
                             .setAttribute(Keys.LABEL, "VCC")
-                            .setAttribute(Keys.PINNUMBER, Integer.toString(guessedVCC))
                             .setAttribute(Keys.INPUT_DEFAULT, new InValue(1))
-                            .setPos(new Vector(0, 0)));
-                    list.add(new VisualElement(In.DESCRIPTION.getName())
+                            .setPos(new Vector(0, 0));
+                    if (guessedVCC > 0)
+                        vcc.setAttribute(Keys.PINNUMBER, Integer.toString(guessedVCC));
+
+                    list.add(vcc);
+                    VisualElement gnd = new VisualElement(In.DESCRIPTION.getName())
                             .setShapeFactory(shapeFactory)
                             .setAttribute(Keys.LABEL, "GND")
-                            .setAttribute(Keys.PINNUMBER, Integer.toString(guessedGND))
-                            .setPos(new Vector(0, SIZE * 2)));
+                            .setPos(new Vector(0, SIZE * 2));
+                    if (guessedGND > 0)
+                        gnd.setAttribute(Keys.PINNUMBER, Integer.toString(guessedGND));
+
+                    list.add(gnd);
                     list.add(new Wire(new Vector(0, 0), new Vector(SIZE * 2, 0)));
                     list.add(new Wire(new Vector(0, SIZE * 2), new Vector(SIZE, SIZE * 2)));
                     list.add(new Wire(new Vector(SIZE, SIZE * 2), new Vector(SIZE, SIZE)));

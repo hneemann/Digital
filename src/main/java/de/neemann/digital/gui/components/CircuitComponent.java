@@ -661,7 +661,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      */
     public void setPartsToInsert(ArrayList<Movable> elements) {
         parent.ensureModelIsStopped();
-        mouseInsertList.activate(elements, getPosVector(lastMousePos.x, lastMousePos.y));
+        if (lastMousePos == null)
+            mouseInsertList.activate(elements, getPosVector(0, 0));
+        else
+            mouseInsertList.activate(elements, getPosVector(lastMousePos.x, lastMousePos.y));
         repaintNeeded();
     }
 
