@@ -234,11 +234,11 @@
             </par>
             <par>
                 Wenn die Taktfrequenz niedrig ist, wird ein Frequenzteiler in den VHDL Code integriert,
-                um den Boardtakt entsprechend zu teilen. Wenn die in der Schaltung gewählte Taktfrequenz über 4.7MHz
+                um den Boardtakt entsprechend zu teilen. Wenn die in der Schaltung gewählte Taktfrequenz über 37kHz
                 liegt, wird die MMCM Einheit des Artix-7 zur Takterzeugung verwendet.
                 Wenn eine Schaltung zu VHDL exportiert wird, welche auf eine synchrone Taktverteilung angewiesen ist,
-                wie das z.B. bei Prozessoren der Fall ist, sollte die eingestellte Taktfrequenz also entsprechend hoch
-                sein.
+                wie das z.B. bei Prozessoren der Fall ist, sollte die Taktfrequenz also auf einen Wert
+                größer als 37kHz eingestellt werden.
                 Dies stellt sicher, dass die für die Taktverteilung vogesehenen FPGA-Resourcen auch verwendet werden.
                 Der enthaltene Beispiel-Prozessor läuft z.B. mit bis zu 30MHz.
             </par>

@@ -58,6 +58,7 @@ public class VHDLLibrary {
                 map.put(elementName, e);
             } catch (IOException e1) {
                 try {
+                    e1.printStackTrace();
                     LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName) + "'");
                     LOGGER.info("VHDL template:\n\n" + VHDLFile.getVHDLTemplate(node));
                 } catch (IOException e2) {

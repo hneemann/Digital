@@ -56,9 +56,13 @@ public class ClockIntegratorARTIX7 implements ClockIntegrator {
                 .set(new Key<>("D_PARAM", 0), p.d)
                 .set(new Key<>("M_PARAM", 0), p.m)
                 .set(new Key<>("DIV_PARAM", 0), p.divider)
+                .set(new Key<>("DIV4_PARAM", 0), p.divider4)
                 .set(new Key<>("PERIOD_PARAM", 0.0), clkInPeriod);
 
-        model.addNode(new HDLNode(new Ports().add(cIn).add(cOut), "MMCME2_BASE", attr));
+        if (p.isCascading())
+            model.addNode(new HDLNode(new Ports().add(cIn).add(cOut), "MMCME2_BASE_CC", attr));
+        else
+            model.addNode(new HDLNode(new Ports().add(cIn).add(cOut), "MMCME2_BASE", attr));
     }
 
     static final class Parameters {
@@ -80,25 +84,49 @@ public class ClockIntegratorARTIX7 implements ClockIntegrator {
 
             for (int m = mMin; m <= mMax; m++)
                 for (int d = dMin; d <= dMax; d++) {
-                    int fVco = (int) (fInMHz * m / d);
-                    int fpdf1 = (int) (fInMHz / d);
-                    int fpdf2 = fVco / m;
+                    double fVco = fInMHz * m / d;
+                    double fpdf = fVco / m;
 
                     boolean valid = (F_VCO_MIN_MHZ <= fVco) && (fVco <= F_VCO_MAX_MHZ)
-                            && (F_PFD_MIN_MHZ <= fpdf1) && (fpdf1 <= F_PFD_MAX_MHZ)
-                            && (F_PFD_MIN_MHZ <= fpdf2) && (fpdf2 <= F_PFD_MAX_MHZ);
+                            && (F_PFD_MIN_MHZ <= fpdf) && (fpdf <= F_PFD_MAX_MHZ);
 
                     if (valid) {
                         int divider = (int) (fVco / targetFreqInMHz);
                         if (divider >= 1 && divider <= MAX_CLOCK_DIVIDE) {
-
-                            double f = fInMHz * m / (d * divider);
+                            double f = fVco / divider;
 
                             double error = (F_VCO_MAX_MHZ - fVco) + Math.abs(f - targetFreqInMHz) * 10 + (Math.abs(m - mIdeal) * 10);
 
                             if (best == null || best.error > error)
                                 best = new Params(m, d, divider, f, error);
 
+                        } else {
+                            if (divider > MAX_CLOCK_DIVIDE && divider <= MAX_CLOCK_DIVIDE * MAX_CLOCK_DIVIDE) {
+                                int divider4 = 0;
+                                int divider6 = 0;
+
+                                int bestErr = Integer.MAX_VALUE;
+                                for (int d6 = 1; d6 <= MAX_CLOCK_DIVIDE; d6++)
+                                    for (int d4 = 1; d4 <= MAX_CLOCK_DIVIDE; d4++) {
+                                        int dd = d4 * d6;
+                                        int err = Math.abs(divider - dd);
+                                        if (err < bestErr) {
+                                            bestErr = err;
+                                            divider4 = d4;
+                                            divider6 = d6;
+                                        }
+                                    }
+
+
+                                if (divider4 > 0 && divider6 > 0) {
+                                    double f = fVco / divider6 / divider4;
+
+                                    double error = (F_VCO_MAX_MHZ - fVco) + Math.abs(f - targetFreqInMHz) * 10 + (Math.abs(m - mIdeal) * 10);
+
+                                    if (best == null || best.error > error)
+                                        best = new Params(m, d, divider6, divider4, f, error);
+                                }
+                            }
                         }
                     }
                 }
@@ -116,14 +144,26 @@ public class ClockIntegratorARTIX7 implements ClockIntegrator {
         private final int divider;
         private final double error;
         private final double f;
+        private final int divider4;
 
         private Params(int m, int d, int divider, double f, double error) {
             this.m = m;
             this.d = d;
             this.divider = divider;
+            this.divider4 = 0;
             this.f = f;
             this.error = error;
         }
+
+        private Params(int m, int d, int divider, int divider4, double f, double error) {
+            this.m = m;
+            this.d = d;
+            this.divider = divider;
+            this.divider4 = divider4;
+            this.f = f;
+            this.error = error;
+        }
+
 
         @Override
         public String toString() {
@@ -131,6 +171,7 @@ public class ClockIntegratorARTIX7 implements ClockIntegrator {
                     + "m=" + m
                     + ", d=" + d
                     + ", divider=" + divider
+                    + ", div4=" + divider4
                     + ", error=" + error
                     + ", f=" + f
                     + '}';
@@ -146,6 +187,14 @@ public class ClockIntegratorARTIX7 implements ClockIntegrator {
 
         public int getDivider() {
             return divider;
+        }
+
+        public boolean isCascading() {
+            return divider4 != 0;
+        }
+
+        public int getDivider4() {
+            return divider4;
         }
     }
 
