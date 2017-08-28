@@ -205,10 +205,10 @@
             <par>
                 If the circuit clock frequency is low, a frequency divider is integrated into the VHDL code to divide
                 the board clock accordingly.
-                If the clock frequency selected in the circuit exceeds 4.7MHz, the MMCM unit of the
+                If the clock frequency selected in the circuit exceeds 37kHz, the MMCM unit of the
                 Artix-7 is used for clock generation. Therefore, if a circuit which depends on a synchronous clock
                 distribution like a processor is exported to VHDL, the circuit clock frequency should be set to a value
-                above 4.7MHz.
+                above 37kHz.
                 This ensures that the FPGA resources provided for the clock distribution are used.
                 The example processor included is running e.g. with up to 30MHz.
             </par>
