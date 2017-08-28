@@ -1180,10 +1180,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void loadFile(File filename, boolean setLibraryRoot, boolean toPref) {
         try {
-            setFilename(filename, toPref);
             if (setLibraryRoot) library.setRootFilePath(filename.getParentFile());
             Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circuit);
+
+            // requests the circuit modified state, so place it behind circuitComponent.setCircuit(circuit);
+            setFilename(filename, toPref);
+
             ensureModelIsStopped();
             windowPosManager.closeAll();
             statusLabel.setText(" ");

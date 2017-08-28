@@ -766,7 +766,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param pos the vector
      * @return pos round to raster
      */
-    static Vector raster(Vector pos) {
+    private static Vector raster(Vector pos) {
         return new Vector((int) Math.round((double) pos.x / SIZE) * SIZE,
                 (int) Math.round((double) pos.y / SIZE) * SIZE);
     }
@@ -1401,10 +1401,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super(cursor);
         }
 
-        private void activate(Vector startPos) {
-            activate(startPos, startPos);
-        }
-
         private void activate(Vector startPos, Vector endPos) {
             super.activate();
             wire = new Wire(raster(startPos), raster(endPos));
@@ -1544,7 +1540,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             mouseNormal.activate();
         }
 
-        public void diagonalWire() {
+        void diagonalWire() {
             mouseWireDiag.activate(initialPos, wire2.p2);
             repaint();
         }
