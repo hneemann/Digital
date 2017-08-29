@@ -54,6 +54,32 @@ public class ModifySetBits implements Modification {
         circuit.modified();
     }
 
+    /**
+     * Checks if there are relevant elements in the rectangle
+     *
+     * @param circuit the circuit
+     * @param library the library
+     * @return true if there are components with a bits attribute
+     */
+    public boolean isSomethingToDo(Circuit circuit, ElementLibrary library) {
+        ArrayList<Movable> list = circuit.getElementsToMove(min, max);
+        for (Movable m : list)
+            if (m instanceof VisualElement) {
+                VisualElement ve = (VisualElement) m;
+                try {
+                    ElementTypeDescription td = library.getElementType(ve.getElementName());
+                    if (td != null) {
+                        if (td.getAttributeList().contains(Keys.BITS))
+                            if (ve.getElementAttributes().get(Keys.BITS) != bits)
+                                return true;
+                    }
+                } catch (ElementNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        return false;
+    }
+
     @Override
     public String toString() {
         return Lang.get("mod_set_N_BitsToSelection", bits);

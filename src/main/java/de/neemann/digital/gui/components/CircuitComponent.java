@@ -1022,7 +1022,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                             int bits = Integer.decode(num);
                             Vector c1 = mouseControllerSelect.corner1;
                             Vector c2 = mouseControllerSelect.corner2;
-                            modify(new ModifySetBits(c1, c2, bits));
+                            ModifySetBits modifySetBits = new ModifySetBits(c1, c2, bits);
+                            if (modifySetBits.isSomethingToDo(circuit, library))
+                                modify(modifySetBits);
                             removeHighLighted();
                             mouseNormal.activate();
                         } catch (NumberFormatException ex) {
