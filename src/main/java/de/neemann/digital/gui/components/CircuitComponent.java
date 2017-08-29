@@ -1023,6 +1023,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                             Vector c1 = mouseControllerSelect.corner1;
                             Vector c2 = mouseControllerSelect.corner2;
                             modify(new ModifySetBits(c1, c2, bits));
+                            removeHighLighted();
+                            mouseNormal.activate();
                         } catch (NumberFormatException ex) {
                             new ErrorMessage(Lang.get("msg_stringIsNotANumber_N", num)).show(CircuitComponent.this);
                         }
