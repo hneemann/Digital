@@ -462,7 +462,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         }
                 );
             }
-        }.setActive(allowAll);
+        };
 
         ToolTipAction save = new ToolTipAction(Lang.get("menu_save"), ICON_SAVE) {
             @Override
@@ -472,7 +472,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     saveFile(filename, false);
             }
-        }.setAcceleratorCTRLplus('S').setActive(!experimental);
+        }.setAcceleratorCTRLplus('S').setActive(false);
 
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
