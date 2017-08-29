@@ -373,7 +373,7 @@
             </answer>
         </faq>
     </chapter>
-    <chapter name="Tastenbelegung">
+    <chapter name="Tastenbelegung" newpage="true">
         <shortcuts>
             <shortcut key="Leertaste">Starten und stoppen der Simulation.</shortcut>
             <shortcut key="C">Einen Taktschritt ausführen (nur bei gestarteter Simulation und nur, wenn es genau ein
@@ -387,6 +387,7 @@
             <shortcut key="STRG-S">Speichern der Schaltung.</shortcut>
             <shortcut key="STRG-Z">Letzte Änderung zurücknehmen.</shortcut>
             <shortcut key="STRG-Y">Zurückgenommene Änderung erneut anwenden.</shortcut>
+            <shortcut key="B">Anzahl der Datenbits in allen selektierten Elementen setzen.</shortcut>
             <shortcut key="P">Programmieren einer Diode oder eines FG-FET.</shortcut>
             <shortcut key="D">Beim Ziehen einer rechteckigen Leitung in den Diagonalmodus wechseln.</shortcut>
             <shortcut key="F">Beim Ziehen einer rechteckigen Leitung die Orientierung wechseln.</shortcut>

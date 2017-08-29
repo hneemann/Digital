@@ -187,6 +187,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
 
+        new BitSetAction().setAccelerator("B").enableAcceleratorIn(this);
+
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
             public void actionPerformed(ActionEvent e) { // is allowed also if locked!
@@ -350,7 +352,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      */
     public void modify(Modification modification) {
         if (modification != null) {
-            modification.modify(circuit);
+            modification.modify(circuit, library);
             addModificationAlreadyMade(modification);
         }
     }
@@ -391,7 +393,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             circuit = c;
             undoPosition--;
             for (int i = 0; i < undoPosition; i++)
-                modifications.get(i).modify(circuit);
+                modifications.get(i).modify(circuit, library);
             redoAction.setEnabled(true);
             if (undoPosition == 0)
                 undoAction.setEnabled(false);
@@ -413,7 +415,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      */
     private void redo() {
         if (!isLocked() && undoPosition < modifications.size()) {
-            modifications.get(undoPosition).modify(circuit);
+            modifications.get(undoPosition).modify(circuit, library);
             undoPosition++;
             if (undoPosition == modifications.size())
                 redoAction.setEnabled(false);
@@ -1002,6 +1004,34 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }
     }
+
+    private final class BitSetAction extends ToolTipAction {
+
+        private BitSetAction() {
+            super("setBits");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!isLocked()) {
+                if (activeMouseController instanceof MouseControllerSelect) {
+                    MouseControllerSelect mouseControllerSelect = (MouseControllerSelect) activeMouseController;
+                    String num = JOptionPane.showInputDialog(CircuitComponent.this, Lang.get("key_Bits"), "1");
+                    if (num != null) {
+                        try {
+                            int bits = Integer.decode(num);
+                            Vector c1 = mouseControllerSelect.corner1;
+                            Vector c2 = mouseControllerSelect.corner2;
+                            modify(new ModifySetBits(c1, c2, bits));
+                        } catch (NumberFormatException ex) {
+                            new ErrorMessage(Lang.get("msg_stringIsNotANumber_N", num)).show(CircuitComponent.this);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
         private Vector pos;

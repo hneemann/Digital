@@ -7,6 +7,7 @@ import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Transform;
 import de.neemann.digital.draw.graphics.TransformRotate;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class ModifyMoveSelected implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit) {
+    public void modify(Circuit circuit, ElementLibrary library) {
         ArrayList<Movable> list = circuit.getElementsToMove(min, max);
         for (Movable m : list)
             m.move(accumulatedDelta);

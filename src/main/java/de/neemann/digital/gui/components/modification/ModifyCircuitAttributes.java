@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -21,7 +22,7 @@ public class ModifyCircuitAttributes implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit) {
+    public void modify(Circuit circuit, ElementLibrary library) {
         circuit.getAttributes().getValuesFrom(attributes);
     }
 

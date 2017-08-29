@@ -152,7 +152,10 @@
     <!-- Creation of the text -->
 	<xsl:template match="chapter" mode="full">
         <fo:block page-break-after="avoid" margin-top="4mm" margin-bottom="4mm" font-size="14pt" font-weight="bold" id="chap_{position()}">
-            <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
+			<xsl:if test="@newpage = 'true'">
+				<xsl:attribute name="page-break-before">always</xsl:attribute>
+			</xsl:if>
+			<xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
         </fo:block>
         <xsl:apply-templates mode="full">
 			<xsl:with-param name="chapter" select="position() div 2"/>

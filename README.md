@@ -44,7 +44,7 @@ These are the main features of Digital:
   [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) are supported which offer 32/64 macro-cells. 
 - Export to VHDL: A circuit can be exported to VHDL. There is also support for the 
   [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
-  for details. The examples folder contains a variant of the simple CPU, which can run on a BASYS3 board.
+  for details. The examples folder contains a variant of the simple CPU, which runs on a BASYS3 board.
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code

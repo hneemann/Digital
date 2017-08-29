@@ -60,7 +60,7 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
         entries.set(i, entries.get(j));
         entries.set(j, x);
 
-        modifications.add(circuit -> {
+        modifications.add((circuit, library) -> {
             ArrayList<VisualElement> elements = circuit.getElements();
             VisualElement y = elements.get(index1);
             elements.set(index1, elements.get(index2));

@@ -729,6 +729,7 @@ The names of the variables may not be unique.</string>
     <string name="mod_redo_N">Redo: {0}</string>
     <string name="mod_circuitAttrModified">Modified circuit attributes.</string>
     <string name="mod_modifiedMeasurementOrdering">Ordered measurements.</string>
+    <string name="mod_set_N_BitsToSelection">Sets the number of data bits to {0} in selected components.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
@@ -909,6 +910,7 @@ The names of the variables may not be unique.</string>
     <string name="menu_pdfDocumentation">Documentation</string>
     <string name="menu_openPdfDocumentation">Open {0}</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
+    <string name="msg_stringIsNotANumber_N">The string {0} is not a number!</string>
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
 Written by H. Neemann in 2016, 2017.

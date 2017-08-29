@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.library.ElementLibrary;
 
 import java.util.ArrayList;
 
@@ -18,9 +19,9 @@ public final class Modifications implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit) {
+    public void modify(Circuit circuit, ElementLibrary library) {
         for (Modification m : modifications)
-            m.modify(circuit);
+            m.modify(circuit, library);
     }
 
     @Override

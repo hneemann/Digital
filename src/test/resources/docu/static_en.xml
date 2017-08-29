@@ -311,7 +311,7 @@
             <answer>To program such a chip a special programmer hardware is necessary.</answer>
         </faq>
     </chapter>
-    <chapter name="Keyboard Shortcuts">
+    <chapter name="Keyboard Shortcuts" newpage="true">
         <shortcuts>
             <shortcut key="Space">Starts or stops the simulation.</shortcut>
             <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single
@@ -325,6 +325,7 @@
             <shortcut key="CTRL-S">Save the circuit.</shortcut>
             <shortcut key="CTRL-Z">Undo last modification.</shortcut>
             <shortcut key="CTRL-Y">Redo the last undone modification.</shortcut>
+            <shortcut key="B">Set the number of data bits in all selected components.</shortcut>
             <shortcut key="P">Programs a diode or a FG-FET.</shortcut>
             <shortcut key="D">While drawing a wire switches to the diagonal mode.</shortcut>
             <shortcut key="F">While drawing a line flips the orientation.</shortcut>

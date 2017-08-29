@@ -7,6 +7,7 @@ HEAD, planned as v0.14
 - Added support for BASYS3-Board (*.xdc constrains file is written and the mixed mode
   clock manager (MMCM) is used if clock frequency exceeds 37kHz)
 - Added visualization of KV maps (thanks to roy77)
+- Added shortcut 'B' which sets the number of data bits in all selected components.
 - Breaking changes:
   - To generalize the VHDL export, an XML entity in the *.dig files had to be renamed.
     As a consequence of that the address bits settings in RAMs and ROMs

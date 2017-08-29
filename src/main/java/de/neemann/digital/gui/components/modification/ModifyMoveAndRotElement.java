@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components.modification;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -26,7 +27,7 @@ public class ModifyMoveAndRotElement extends ModificationOfVisualElement {
     }
 
     @Override
-    public void modify(Circuit circuit) {
+    public void modify(Circuit circuit, ElementLibrary library) {
         VisualElement ve = getVisualElement(circuit);
         ve.setPos(pos);
         ve.setRotation(rotation);

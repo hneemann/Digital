@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class ModifyMeasurementOrdering implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit) {
+    public void modify(Circuit circuit, ElementLibrary library) {
         circuit.setMeasurementOrdering(names);
     }
 
