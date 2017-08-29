@@ -74,6 +74,7 @@ public class TableDialog extends JDialog {
     private final Font font;
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
+    private final ToolTipAction karnaughMenuAction;
     private JCheckBoxMenuItem createJK;
     private File filename;
     private TruthTableTableModel model;
@@ -215,12 +216,13 @@ public class TableDialog extends JDialog {
 
         bar.add(createCreateMenu());
 
-        JMenuItem karnaughMenuItem = new ToolTipAction(Lang.get("menu_karnaughMap")) {
+        karnaughMenuAction = new ToolTipAction(Lang.get("menu_karnaughMap")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 kvMap.setVisible(true);
             }
-        }.setToolTip(Lang.get("menu_karnaughMap_tt")).createJMenuItem();
+        }.setToolTip(Lang.get("menu_karnaughMap_tt"));
+        JMenuItem karnaughMenuItem = karnaughMenuAction.createJMenuItem();
         bar.add(karnaughMenuItem);
         karnaughMenuItem.setOpaque(false);
 
@@ -598,6 +600,7 @@ public class TableDialog extends JDialog {
         this.model = model;
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
+        karnaughMenuAction.setEnabled(model.getTable().getVars().size() <= 4);
         calculateExpressions();
     }
 
