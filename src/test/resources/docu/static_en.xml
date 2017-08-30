@@ -210,7 +210,8 @@
                 distribution like a processor is exported to VHDL, the circuit clock frequency should be set to a value
                 above 37kHz.
                 This ensures that the FPGA resources provided for the clock distribution are used.
-                The example processor included is running e.g. with up to 30MHz.
+                This allows the included example processor to run at 20MHz and if you can do without the
+                multiplier also 30HMz is possible.
             </par>
             <par>
                 If a circuit is to run on a BASYS3 board, a new project can be created in Vivado.
