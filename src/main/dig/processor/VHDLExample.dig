@@ -341,10 +341,6 @@ Single-Cycle CPU.</string>
           <string>pinNumber</string>
           <string>U18</string>
         </entry>
-        <entry>
-          <string>InDefault</string>
-          <value v="1" z="false"/>
-        </entry>
       </elementAttributes>
       <pos x="980" y="260"/>
     </visualElement>
