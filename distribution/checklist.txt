@@ -3,10 +3,11 @@ Distribution Checklist
 Checklist to be filled out before software is distributed.
 This is to ensure that at least the most important GUI functions
 work properly.
-During test: Don't use the 'experimental mode'!
+Don't use the 'experimental mode'!
 
 General
-[ ] build a MS-JK-FF with diagonal wires, use Copy&Paste, 'L' and 'CTRL-S' shortcuts
+[ ] build a MS-JK-FF with diagonal wires, use Copy&Paste and 'L' shortcuts
+[ ] save circuit
 [ ] copy test case from the example (JK-MS.dig) to the created circuit
 [ ] run tests
 [ ] show test result in the timing diagram
@@ -27,9 +28,11 @@ Truth Tables
 [ ] create truth table of "4 input parity" function, show KV map
 [ ] create 4 bit counter, build circuit with JK-FFs, check if it's running
 [ ] build same circuit with D-FFs, check if it's running
-[ ] create 8 bit up/down counter and start "ATF1502->TT2/JED" export. (Needs WinCupl to be installed!)
+[ ] create 8 bit counter and start "ATF1502->TT2/JED" export.
+    Info "Design fits successfully" should pop up. (Needs WinCupl to be installed!)
 
 Remote Interface
-[ ] start "Conways Game of Live" (Conway.asm) via the assembler GUI in the processor (Processor.dig).
+[ ] start and stop "Conways Game of Live" (Conway.asm) via the assembler GUI in the
+    processor (Processor.dig).
 [ ] use "run to break" a few times
 [ ] start debugger, step at least through a call instruction
