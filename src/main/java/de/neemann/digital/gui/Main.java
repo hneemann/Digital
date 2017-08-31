@@ -1214,7 +1214,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void setFilename(File filename, boolean toPrefs) {
         modifiedPrefixVisible = circuitComponent.getCircuit().isModified();
-        if (experimental && save != null)
+        if (save != null)
             save.setActive(modifiedPrefixVisible);
         String prefix = "";
         if (modifiedPrefixVisible)
