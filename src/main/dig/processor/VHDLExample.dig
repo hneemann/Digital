@@ -341,6 +341,10 @@ Single-Cycle CPU.</string>
           <string>pinNumber</string>
           <string>U18</string>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="980" y="260"/>
     </visualElement>
@@ -360,24 +364,22 @@ Single-Cycle CPU.</string>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>     reset Clock U D L R Y15 Y14 Y13 Y12 Y11 Y10 Y9 Y8 Y7 Y6 Y5 Y4 Y3 Y2 Y1 Y0
-     1         0 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
-     1         1 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
-     0         0 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+            <dataString>     reset  Clock U D L R Y15 Y14 Y13 Y12 Y11 Y10 Y9 Y8 Y7 Y6 Y5 Y4 Y3 Y2 Y1 Y0
+           1    0 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+           1    1 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+           1    0 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+           0    0 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
 
-repeat(11) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
-          0    C 0 0 0 0  0   0    0  0   0   0   0  0  0  0  0  0  0  0  0  1
-
-loop(i,14)
-repeat(12) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
-          0    C 0 0 0 0  bits(16,1&lt;&lt;(i+1))
-end loop
-
-repeat(14) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
+repeat(12) 0    C 0 0 0 0  0   0    0  0   0   0   0  0  0  0  0  0  0  0  0  0
 
 loop(i,15)
-repeat(11) 0    C 0 0 0 0  x   x    x  x   x   x   x  x  x  x  x  x  x  x  x  x
-          0    C 0 0 0 0  bits(16,1&lt;&lt;(15-i))
+repeat(13) 0    C 0 0 0 0  bits(16,1&lt;&lt;i)
+end loop
+
+repeat(2)  0    C 0 0 0 0  bits(16,1&lt;&lt;14)
+
+loop(i,15)
+repeat(12) 0    C 0 0 0 0  bits(16,1&lt;&lt;(15-i))
 end loop
 </dataString>
           </testData>
@@ -614,12 +616,12 @@ end loop
       <p2 x="1160" y="460"/>
     </wire>
     <wire>
-      <p1 x="1000" y="200"/>
-      <p2 x="1000" y="220"/>
-    </wire>
-    <wire>
       <p1 x="1000" y="440"/>
       <p2 x="1000" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="200"/>
+      <p2 x="1000" y="220"/>
     </wire>
     <wire>
       <p1 x="1000" y="280"/>

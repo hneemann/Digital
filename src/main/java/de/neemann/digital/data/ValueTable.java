@@ -217,4 +217,27 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
         this.maxSize = maxSize;
         return this;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (String n : names)
+            sb.append(n).append(" ");
+        sb.append("\n");
+
+        if (tableRowIndex == null)
+            for (Value[] row : values) {
+                for (Value v : row)
+                    sb.append(v.toString()).append(" ");
+                sb.append("\n");
+            }
+        else
+            for (int i : tableRowIndex) {
+                for (Value v : values.get(i))
+                    sb.append(v.toString()).append(" ");
+                sb.append("\n");
+            }
+
+        return sb.toString();
+    }
 }
