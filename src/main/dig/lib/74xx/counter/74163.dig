@@ -355,13 +355,34 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>~SR ~PE CP CET CEP   P0 P1 P2 P3 Q0 Q1 Q2 Q3
+            <dataString>CP ~SR ~PE CET CEP   P3 P2 P1 P0 Q3 Q2 Q1 Q0
 
 # load
 loop(i,4)
 loop(n,16)
-1   0   C  bits(2,i) bits(4,n)   bits(4,n)
+C  1   0   bits(2,i) bits(4,n)   bits(4,n)
 end loop
+end loop
+
+# reset
+loop(i,8)
+loop(n,16)
+C  1   0   0   0     bits(4,n)   bits(4,n)
+C  0   bits(3,i)     bits(4,n)   bits(4,0)
+end loop
+end loop
+
+# count
+loop(n,16)
+C  1   1   1   1     bits(4,0)   bits(4,n+1)
+end loop
+
+# hold
+loop(n,16)
+C  1   0   0   0     bits(4,n)   bits(4,n)
+C  1   1   0   0     bits(4,n)   bits(4,n)
+C  1   1   1   0     bits(4,n)   bits(4,n)
+C  1   1   0   1     bits(4,n)   bits(4,n)
 end loop
 </dataString>
           </testData>
