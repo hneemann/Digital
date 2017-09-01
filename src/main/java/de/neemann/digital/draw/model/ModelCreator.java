@@ -94,7 +94,9 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 Pins pins = ve.getPins();
                 ElementTypeDescription elementType = library.getElementType(ve.getElementName());
                 ElementAttributes attr = ve.getElementAttributes();
-                if (attr.getCleanLabel().contains("*")) {
+                if (attr.getCleanLabel().contains("*")
+                        && !ve.equalsDescription(In.DESCRIPTION)
+                        && !ve.equalsDescription(Out.DESCRIPTION)) {
                     attr = new ElementAttributes(attr);
                     attr.set(Keys.LABEL, attr.getCleanLabel().replace("*", subName));
                 }
