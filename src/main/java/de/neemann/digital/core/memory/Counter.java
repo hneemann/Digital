@@ -59,11 +59,12 @@ public class Counter extends Node implements Element {
             else
                 counter++;
         }
-        ovfOut = (counter == maxValue) && enable;
 
         lastClock = clock;
         if (clrIn.getBool())
             counter = 0;
+
+        ovfOut = (counter == maxValue) && enable;
     }
 
     @Override

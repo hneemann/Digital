@@ -118,7 +118,7 @@
     <string name="elem_Counter_tt">A simple counter component. The clock input increases the counter. Can be reset back to 0 with the clr pin.
         The number of bits can be set in the attribute dialog.</string>
     <string name="elem_Counter_pin_C">The clock input. A rising edge increases the counter.</string>
-    <string name="elem_Counter_pin_clr">Resets the counter value if set to 1.</string>
+    <string name="elem_Counter_pin_clr">Asynchronous reset of the counter if set to 1.</string>
     <string name="elem_Counter_pin_out">Returns the counted value.</string>
     <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter is on its maximal value and the en input is set to 1.</string>
     <string name="elem_Counter_pin_en">If set to 1 the counter is enabled!</string>
