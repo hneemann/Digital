@@ -1,8 +1,11 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -23,30 +26,38 @@ public class VHDLLibrary {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VHDLLibrary.class);
     private final HashMap<String, VHDLEntity> map;
+    private final ElementLibrary elementLibrary;
     private ArrayList<HDLNode> nodeList = new ArrayList<>();
 
     /**
      * Creates a new instance
      *
+     * @param elementLibrary the elements library
      * @throws IOException IOException
      */
-    public VHDLLibrary() throws IOException {
+    public VHDLLibrary(ElementLibrary elementLibrary) throws IOException {
+        this.elementLibrary = elementLibrary;
         map = new HashMap<>();
-        map.put(And.DESCRIPTION.getName(), new OperateVHDL("AND", false));
-        map.put(NAnd.DESCRIPTION.getName(), new OperateVHDL("AND", true));
-        map.put(Or.DESCRIPTION.getName(), new OperateVHDL("OR", false));
-        map.put(NOr.DESCRIPTION.getName(), new OperateVHDL("OR", true));
-        map.put(XOr.DESCRIPTION.getName(), new OperateVHDL("XOR", false));
-        map.put(XNOr.DESCRIPTION.getName(), new OperateVHDL("XOR", true));
-        map.put(Not.DESCRIPTION.getName(), new NotVHDL());
+        put(And.DESCRIPTION, new OperateVHDL("AND", false));
+        put(NAnd.DESCRIPTION, new OperateVHDL("AND", true));
+        put(Or.DESCRIPTION, new OperateVHDL("OR", false));
+        put(NOr.DESCRIPTION, new OperateVHDL("OR", true));
+        put(XOr.DESCRIPTION, new OperateVHDL("XOR", false));
+        put(XNOr.DESCRIPTION, new OperateVHDL("XOR", true));
+        put(Not.DESCRIPTION, new NotVHDL());
 
-        map.put(Multiplexer.DESCRIPTION.getName(), new MultiplexerVHDL());
-        map.put(Decoder.DESCRIPTION.getName(), new DecoderVHDL());
-        map.put(Demultiplexer.DESCRIPTION.getName(), new DemultiplexerVHDL());
-        map.put(Driver.DESCRIPTION.getName(), new DriverVHDL(false));
-        map.put(DriverInvSel.DESCRIPTION.getName(), new DriverVHDL(true));
+        put(Multiplexer.DESCRIPTION, new MultiplexerVHDL());
+        put(Decoder.DESCRIPTION, new DecoderVHDL());
+        put(Demultiplexer.DESCRIPTION, new DemultiplexerVHDL());
+        put(Driver.DESCRIPTION, new DriverVHDL(false));
+        put(DriverInvSel.DESCRIPTION, new DriverVHDL(true));
 
-        map.put(ROM.DESCRIPTION.getName(), new ROMVHDL());
+        put(ROM.DESCRIPTION, new ROMVHDL());
+    }
+
+    private void put(ElementTypeDescription description, VHDLEntitySimple entity) {
+        map.put(description.getName(), entity);
+        entity.setDescription(description);
     }
 
     private VHDLEntity getEntity(HDLNode node) throws HDLException {
@@ -54,7 +65,13 @@ public class VHDLLibrary {
         VHDLEntity e = map.get(elementName);
         if (e == null) {
             try {
-                e = new VHDLFile(elementName);
+                ElementTypeDescription description = null;
+                try {
+                    description = elementLibrary.getElementType(elementName);
+                } catch (ElementNotFoundException e1) {
+                    // does not matter, affects only comments in the vhdl file
+                }
+                e = new VHDLFile(elementName, description);
                 map.put(elementName, e);
             } catch (IOException e1) {
                 try {
@@ -92,6 +109,9 @@ public class VHDLLibrary {
         VHDLEntity e = getEntity(node);
         if (e.needsOutput(node)) {
             out.println("\n-- " + node.getHDLName() + "\n");
+
+            VHDLGenerator.writeComment(out, e.getDescription(node.getAttributes()), node);
+
             e.writeHeader(out, node);
             out.println();
             out.println("entity " + node.getHDLName() + " is").inc();

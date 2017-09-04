@@ -3,14 +3,6 @@
   <version>1</version>
   <attributes>
     <entry>
-      <string>Description</string>
-      <string>Extrahiert kleine Konstanten aus dem Befehlswort.
-Es können zwei 5-Bit Konstanten (Die 4 Bits eines 
-Registers zusammen mit Bit 8 des Befehlswortes)
-und eine 9-Bit Konstante (Die 8 Bits beider Register
-zusammen mit Bit 8 des Befehlswortes)</string>
-    </entry>
-    <entry>
       <string>Width</string>
       <int>4</int>
     </entry>
@@ -19,10 +11,6 @@ zusammen mit Bit 8 des Befehlswortes)</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das Befehlswort</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>A</string>
@@ -58,10 +46,6 @@ zusammen mit Bit 8 des Befehlswortes)</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das Befehlswort</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>B</string>

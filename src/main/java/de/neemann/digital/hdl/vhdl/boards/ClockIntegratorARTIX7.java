@@ -43,8 +43,8 @@ public class ClockIntegratorARTIX7 implements ClockIntegrator {
     }
 
     private void insertMMCMClock(HDLModel model, Params p) throws HDLException {
-        Port cOut = new Port("out", Port.Direction.out).setBits(1);
-        Port cIn = new Port("in", Port.Direction.in).setBits(1);
+        Port cOut = new Port("out", Port.Direction.out, "Clock").setBits(1);
+        Port cIn = new Port("in", Port.Direction.in, "Source").setBits(1);
 
         Signal oldSig = model.getClocks().get(0).getClockPort().getSignal();
         Signal newSig = model.createSignal();

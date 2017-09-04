@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -75,4 +76,12 @@ public interface VHDLEntity {
     default boolean createsSignals() {
         return false;
     }
+
+    /**
+     * The descriptiob of this entity
+     *
+     * @param attr the elements attributes
+     * @return the description
+     */
+    String getDescription(ElementAttributes attr);
 }

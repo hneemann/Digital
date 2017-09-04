@@ -560,6 +560,10 @@ Single-Cycle CPU.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>reset input</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>reset</string>
         </entry>
@@ -709,6 +713,10 @@ Single-Cycle CPU.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>the data input for io reads</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D_in</string>
         </entry>
@@ -723,6 +731,10 @@ Single-Cycle CPU.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>the data output for io writes</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D_out</string>
         </entry>
@@ -736,6 +748,10 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>the address output used for io read and write</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>Addr</string>
@@ -765,6 +781,10 @@ Single-Cycle CPU.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>if high, a io read is performed</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>ioR</string>
         </entry>
@@ -788,6 +808,10 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>if high, a io write is perfromed</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>ioW</string>

@@ -6,6 +6,8 @@ import java.io.*;
  * Pretty printer for code witch handles indentation
  */
 public class CodePrinter implements Closeable {
+    // VHDL is defined to be ISO 8859-1
+    private static final String CHARSET = "ISO8859-1";
     protected final OutputStream out;
     private final int indentWidth;
     private File file;
@@ -137,7 +139,10 @@ public class CodePrinter implements Closeable {
                 out.write(' ');
             newLine = false;
         }
-        out.write(c);
+        if (c < 128)
+            out.write(c);
+        else
+            out.write(("" + c).getBytes(CHARSET));
         if (c == '\n') {
             newLine = true;
             eolIsWritten();

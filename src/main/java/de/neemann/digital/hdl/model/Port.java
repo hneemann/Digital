@@ -28,6 +28,7 @@ public class Port {
 
     private final String name;
     private final String origName;
+    private final String description;
     private final Direction direction;
     private int bits = 0;
     private Signal signal;
@@ -43,7 +44,20 @@ public class Port {
      * @throws HDLException if name is invalid
      */
     public Port(String name, Direction direction) throws HDLException {
+        this(name, direction, "");
+    }
+
+    /**
+     * Creates a new port
+     *
+     * @param name        the name
+     * @param direction   the direction
+     * @param description the description of this port
+     * @throws HDLException if name is invalid
+     */
+    public Port(String name, Direction direction, String description) throws HDLException {
         this.origName = name;
+        this.description = description;
 
         name = getHDLName(name);
 
@@ -100,7 +114,7 @@ public class Port {
      * @throws HDLException if name is invalid
      */
     public Port(Port p) throws HDLException {
-        this(p.origName, p.direction);
+        this(p.origName, p.direction, p.description);
         bits = p.bits;
         signal = p.signal;
     }
@@ -205,4 +219,10 @@ public class Port {
         return pinNumber;
     }
 
+    /**
+     * @return the description of this port
+     */
+    public String getDescription() {
+        return description;
+    }
 }

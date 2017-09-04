@@ -35,6 +35,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
     private final Ports ports;
     private final ArrayList<Signal> signals;
     private final File origin;
+    private final String description;
     private int signalNumber;
     private String name;
     private ArrayList<HDLClock> clocks;
@@ -68,6 +69,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
      */
     public HDLModel(Circuit circuit, ElementLibrary library, ModelList modelList, boolean isRoot) throws PinException, HDLException, ElementNotFoundException, NodeException {
         origin = circuit.getOrigin();
+        description = circuit.getAttributes().get(Keys.DESCRIPTION);
         try {
             ports = new Ports();
             nodeList = new ArrayList<>();
@@ -166,7 +168,7 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
 
     private Port addPort(VisualElement out, NetList nets, Port.Direction direction, int bits, HashMap<Net, Signal> signalMap) throws HDLException {
         String name = out.getElementAttributes().getCleanLabel();
-        Port port = new Port(name, direction);
+        Port port = new Port(name, direction, out.getElementAttributes().get(Keys.DESCRIPTION));
         port.setPinNumber(out.getElementAttributes().get(Keys.PINNUMBER));
         port.setBits(bits);
         Net n = nets.getNetOfPos(out.getPins().get(0).getPos());
@@ -177,6 +179,13 @@ public class HDLModel implements HDLInterface, Iterable<HDLNode> {
         }).addPort(port);
         ports.add(port);
         return port;
+    }
+
+    /**
+     * @return the description of this model
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**

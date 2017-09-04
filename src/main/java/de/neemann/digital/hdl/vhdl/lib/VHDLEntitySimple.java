@@ -1,5 +1,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -14,6 +16,7 @@ import java.io.IOException;
  */
 public abstract class VHDLEntitySimple implements VHDLEntity {
     private boolean first = true;
+    private ElementTypeDescription description;
 
     @Override
     public boolean needsOutput(HDLNode node) {
@@ -123,4 +126,17 @@ public abstract class VHDLEntitySimple implements VHDLEntity {
             return "std_logic_vector (" + (bits - 1) + " downto 0)";
     }
 
+    /**
+     * Sets the description of this element
+     *
+     * @param description the description
+     */
+    public void setDescription(ElementTypeDescription description) {
+        this.description = description;
+    }
+
+    @Override
+    public String getDescription(ElementAttributes attr) {
+        return description.getDescription(attr);
+    }
 }

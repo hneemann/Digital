@@ -26,8 +26,8 @@ public class ClockIntegratorGeneric implements ClockIntegrator {
             int counter = (int) (1000000000.0 / (periodns * 2 * freq));
 
             if (counter >= 2) {
-                Port cOut = new Port("out", Port.Direction.out).setBits(1);
-                Port cIn = new Port("in", Port.Direction.in).setBits(1);
+                Port cOut = new Port("out", Port.Direction.out, "Clock").setBits(1);
+                Port cIn = new Port("in", Port.Direction.in, "Source").setBits(1);
 
                 Signal oldSig = c.getClockPort().getSignal();
                 Signal newSig = model.createSignal();

@@ -11,6 +11,7 @@ public class LineBreaker {
     private final int indent;
     private final int cols;
     private final StringBuilder outText;
+    private String lineBreak = "\n";
     private boolean isFirst;
     private int pos;
     private boolean preserveLineBreaks = false;
@@ -46,6 +47,17 @@ public class LineBreaker {
         this.cols = cols;
         outText = new StringBuilder(label);
         isFirst = true;
+    }
+
+    /**
+     * Sets the string inserted as a line break.
+     *
+     * @param lineBreak the line break, defaults to "\n".
+     * @return this for chained calls
+     */
+    public LineBreaker setLineBreak(String lineBreak) {
+        this.lineBreak = lineBreak;
+        return this;
     }
 
     /**
@@ -111,7 +123,7 @@ public class LineBreaker {
 
     private void lineBreak() {
         if (!isFirst) {
-            outText.append('\n');
+            outText.append(lineBreak);
             for (int j = 0; j < indent; j++)
                 outText.append(" ");
             pos = indent;

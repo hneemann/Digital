@@ -1,5 +1,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.model.HDLException;
@@ -18,6 +20,7 @@ public class VHDLFile implements VHDLEntity {
     private final static String ENTITY_PREFIX = "DIG_";
 
     private final String entityName;
+    private final ElementTypeDescription description;
     private final ArrayList<String> vhdl;
     private final boolean hasData;
     private final Interval port;
@@ -30,10 +33,12 @@ public class VHDLFile implements VHDLEntity {
      * Creates a new instance
      *
      * @param elementName the filename
+     * @param description the description of the corresponding element, maybe null
      * @throws IOException IOException
      */
-    public VHDLFile(String elementName) throws IOException {
+    public VHDLFile(String elementName, ElementTypeDescription description) throws IOException {
         this.entityName = ENTITY_PREFIX + elementName;
+        this.description = description;
         vhdl = readFile(entityName);
         hasData = hasdata();
         port = extract("entity " + entityName + " is", "end " + entityName + ";");
@@ -280,5 +285,13 @@ public class VHDLFile implements VHDLEntity {
             if (open)
                 out.println(" )").dec();
         }
+    }
+
+    @Override
+    public String getDescription(ElementAttributes attr) {
+        if (description == null)
+            return null;
+        else
+            return description.getDescription(attr);
     }
 }

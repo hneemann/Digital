@@ -75,7 +75,7 @@ public class HDLNode implements HDLInterface {
 
         ports = new Ports();
         for (int i = 0; i < outputs.size(); i++) {
-            Port port = new Port(outputs.get(i).getName(), Port.Direction.out);
+            Port port = new Port(outputs.get(i).getName(), Port.Direction.out, outputs.get(i).getDescription());
             Value value = bitProvider.getValue(i);
             port.setBits(value.getBits());
             if (value.isConstant())
@@ -85,7 +85,7 @@ public class HDLNode implements HDLInterface {
 
         }
         for (PinDescription in : inputs)
-            ports.add(new Port(in.getName(), Port.Direction.in));
+            ports.add(new Port(in.getName(), Port.Direction.in, in.getDescription()));
     }
 
     @Override
@@ -98,6 +98,13 @@ public class HDLNode implements HDLInterface {
      */
     public VisualElement getVisualElement() {
         return visualElement;
+    }
+
+    /**
+     * @return the attributes of this element
+     */
+    public ElementAttributes getAttributes() {
+        return attr;
     }
 
     /**
