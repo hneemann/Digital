@@ -16,7 +16,7 @@ eingesetzt. Zu erkennen noch daran, dass die Farbschemata der Leitungen sich äh
 
 Logisim ist ein ganz hervorragendes Werkzeug welches sich beim Einsatz in der Lehre vielfach 
 bewährt hat. Leider hat Carl Burch die Entwicklung von Logisim 2014 eingestellt.
-Es gibt eine Reihe von Forks, über welche eine Weiterentwicklung betrieben wird:
+Es gibt eine Reihe von Projekten, über welche eine Weiterentwicklung betrieben wird:
 
 - [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) von Mitarbeitern dreier schweizer Institute (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) von Joseph Lawrance vom Wentworth Institute of Technology, Boston, MA
@@ -44,10 +44,23 @@ Folgende Features zeichnen Digital aus:
   einfach zu verstehen und sehr gut dokumentiert.
   Zudem werden die [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) und
   [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) Bausteine unterstützt welche 32 bzw. 64 Makrozellen bieten. 
+- Export zu VHDL: Eine Schaltung kann zu VHDL exportiert werden. Zudem wird das  
+  [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start) unterstützt. 
+  Details können der Dokumentation entnommen werden. 
+  Die Beispiele enthalten eine Variante der einfachen CPU, welche auf dem BASYS3 Board läuft.
 - SVG-Export von Schaltungen, incl. einer LaTeX-tauglichen SVG-Variante (siehe [ctan](ftp://ftp.fau.de/ctan/info/svg-inkscape/InkscapePDFLaTeX.pdf))
 - Keine Altlasten im Code
 - hohe Testabdeckung (exclusiv der GUI-Klassen etwa 80%). Fast alle Beispiele enthalten Testfälle, 
   welche sicherstellen, dass diese korrekt arbeiten. 
+
+## Kommentare ##
+
+Wenn Sie einen Fehler melden oder einen Verbesserungsvorschlag machen möchten, können Sie die GitHub 
+[Fehlerverfolgung](https://github.com/hneemann/Digital/issues/new) verwenden. 
+Dies hilft mir, Digital zu verbessern, also zögern Sie nicht.
+
+Alternativ kann auch eine private Nachricht an [digital-simulator@web.de](mailto:digital-simulator@web.de) 
+gesendet werden.
 
 ## Motivation ##
 
@@ -149,7 +162,6 @@ Wie erwähnt sind diese Bausteine zwar schon sehr alt, jedoch mit 8 bzw. 10 Makr
 Werden mehr Makro-Zellen benötigt, kann in der PDF Dokumentation nachgelesen werden, wie Digital konfiguriert werden muss, 
 um die Bausteine [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) und
 [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) zu unterstützen, welche 32 bzw. 64 Makrozellen bieten.  
-
 
 ## Wie fange ich an? ##
 
