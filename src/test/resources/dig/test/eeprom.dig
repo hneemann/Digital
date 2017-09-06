@@ -15,10 +15,6 @@
           <int>8</int>
         </entry>
         <entry>
-          <string>Data</string>
-          <data size="256">0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d</data>
-        </entry>
-        <entry>
           <string>lastDataFile</string>
           <string>/home/hneemann/temp/z/z.hex</string>
         </entry>
