@@ -275,6 +275,7 @@
     <string name="elem_EEPROM_pin_CS">If this input is high, this EEPROM is enabled. Otherwise the output is always in high Z state.</string>
     <string name="elem_EEPROM_pin_OE">If this input is high, the stored value is output.</string>
     <string name="elem_EEPROM_tt">A EEPROM module with a bidirectional connection for reading and writing the data.
+        The data content is stored as in a ROM. It is thus retained when the simulation is terminated and restarted.
         The CS input allows to build a larger EEPROM from some smaller EEPROMs and a address decoder.</string>
 
     <string name="elem_GraphicCard">Graphic RAM</string>

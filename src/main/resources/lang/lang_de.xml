@@ -279,7 +279,10 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_EEPROM_pin_CS">Ist dieser Eingang 1 ist der Baustein aktiv.</string>
     <string name="elem_EEPROM_pin_OE">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
     <string name="elem_EEPROM_tt">Ein EEPROM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
-        Es gibt einen CS-Eingang. Mit diesem können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren EEPROM zusammengeschaltet werden.</string>
+        Der Dateninhalt wird gespeichert wie bei einem ROM. Er bleibt also erhalten, wenn die Simulation beendet
+        und neu gestartet wird.
+        Mit dem CS-Eingang können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren EEPROM zusammengeschaltet werden.
+    </string>
 
     <string name="elem_GraphicCard">Grafik-RAM</string>
     <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
