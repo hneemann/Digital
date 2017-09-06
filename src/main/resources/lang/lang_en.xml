@@ -268,6 +268,15 @@
     <string name="elem_RAMSinglePortSel_tt">A RAM module with a bidirectional connection for reading and writing the data.
         The CS input allows to build a larger RAM from some smaller RAMs and a address decoder.</string>
 
+    <string name="elem_EEPROM">EEPROM</string>
+    <string name="elem_EEPROM_pin_A">The address to read and write.</string>
+    <string name="elem_EEPROM_pin_WE">If set to high the data is written to the EEPROM.</string>
+    <string name="elem_EEPROM_pin_D">The bidirectional data connection.</string>
+    <string name="elem_EEPROM_pin_CS">If this input is high, this EEPROM is enabled. Otherwise the output is always in high Z state.</string>
+    <string name="elem_EEPROM_pin_OE">If this input is high, the stored value is output.</string>
+    <string name="elem_EEPROM_tt">A EEPROM module with a bidirectional connection for reading and writing the data.
+        The CS input allows to build a larger EEPROM from some smaller EEPROMs and a address decoder.</string>
+
     <string name="elem_GraphicCard">Graphic RAM</string>
     <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element works similar to a RAM. In addition it
     shows its content on a graphic screen. Every pixel is represented by a memory address. There are to screens supported

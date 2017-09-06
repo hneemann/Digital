@@ -272,6 +272,15 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_RAMSinglePortSel_tt">Ein RAM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
         Es gibt einen CS-Eingang. Mit diesem können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren RAM zusammengeschaltet werden.</string>
 
+    <string name="elem_EEPROM">EEPROM</string>
+    <string name="elem_EEPROM_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
+    <string name="elem_EEPROM_pin_WE">Bei einer 1 werden die Daten in das EEPROM geschrieben.</string>
+    <string name="elem_EEPROM_pin_D">Der bidirektionale Datenanschluß.</string>
+    <string name="elem_EEPROM_pin_CS">Ist dieser Eingang 1 ist der Baustein aktiv.</string>
+    <string name="elem_EEPROM_pin_OE">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
+    <string name="elem_EEPROM_tt">Ein EEPROM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
+        Es gibt einen CS-Eingang. Mit diesem können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren EEPROM zusammengeschaltet werden.</string>
+
     <string name="elem_GraphicCard">Grafik-RAM</string>
     <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
 RAM-Baustein mit dem Unterschied, dass der RAM-Inhalt als Grafik angezeigt wird. Jede Speicherstelle definiert die Farbe
