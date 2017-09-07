@@ -60,9 +60,20 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
         bits = attr.get(Keys.BITS);
         addrBits = attr.get(Keys.ADDR_BITS);
         size = 1 << addrBits;
-        memory = new DataField(size);
+        memory = createDataField(attr, size);
         label = attr.getCleanLabel();
         dataOut = new ObservableValue("D", bits, true).setPinDescription(DESCRIPTION).setBidirectional();
+    }
+
+    /**
+     * creates the data field to use
+     *
+     * @param attr the elements attributes
+     * @param size the size of the memory
+     * @return the memory to use
+     */
+    protected DataField createDataField(ElementAttributes attr, int size) {
+        return new DataField(size);
     }
 
     @Override
