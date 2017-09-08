@@ -1,14 +1,13 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.RAMInterface;
 import de.neemann.digital.draw.elements.IOState;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.gui.components.CircuitComponent;
@@ -26,19 +25,26 @@ public class RAMShape extends GenericShape {
     private final int dataBits;
     private final int size;
     private final int addrBits;
-    private final String label;
+    private final String dialogTitle;
     private Model model;
 
     /**
      * Creates a new instance
      *
-     * @param attr    the label to use
-     * @param inputs  the inputs
-     * @param outputs the outputs
+     * @param attr        the attributes of the element
+     * @param description element type description
+     * @throws NodeException NodeException
+     * @throws PinException  PinException
      */
-    public RAMShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
-        super("RAM", inputs, outputs, attr.getLabel(), true);
-        label = attr.getLabel();
+    public RAMShape(ElementAttributes attr, ElementTypeDescription description) throws NodeException, PinException {
+        super(description.getShortName(),
+                description.getInputDescription(attr),
+                description.getOutputDescriptions(attr),
+                attr.getLabel(), true);
+        if (attr.getLabel().length() > 0)
+            dialogTitle = attr.getLabel();
+        else
+            dialogTitle = description.getShortName();
         dataBits = attr.get(Keys.BITS);
         addrBits = attr.get(Keys.ADDR_BITS);
         size = 1 << addrBits;
@@ -52,7 +58,7 @@ public class RAMShape extends GenericShape {
                 if (element instanceof RAMInterface) {
                     DataField dataField = ((RAMInterface) element).getMemory();
                     DataEditor dataEditor = new DataEditor(cc, dataField, size, dataBits, addrBits, true, modelSync);
-                    dataEditor.showDialog(label, model);
+                    dataEditor.showDialog(dialogTitle, model);
                 }
                 return false;
             }

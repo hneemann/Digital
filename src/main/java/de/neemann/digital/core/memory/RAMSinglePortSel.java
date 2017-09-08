@@ -23,7 +23,6 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     /**
      * The RAMs {@link ElementTypeDescription}
      */
-
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePortSel.class,
             input("A"),
             input("CS"),

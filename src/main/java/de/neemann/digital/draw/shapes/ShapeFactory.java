@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.*;
+import de.neemann.digital.core.memory.EEPROM;
 import de.neemann.digital.core.memory.RAMDualPort;
 import de.neemann.digital.core.memory.RAMSinglePort;
 import de.neemann.digital.core.memory.RAMSinglePortSel;
@@ -73,9 +74,10 @@ public final class ShapeFactory {
         }
 
 
-        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMDualPort.DESCRIPTION.getInputDescription(attr), RAMDualPort.DESCRIPTION.getOutputDescriptions(attr)));
-        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePort.DESCRIPTION.getInputDescription(attr), RAMSinglePort.DESCRIPTION.getOutputDescriptions(attr)));
-        map.put(RAMSinglePortSel.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePortSel.DESCRIPTION.getInputDescription(attr), RAMSinglePortSel.DESCRIPTION.getOutputDescriptions(attr)));
+        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMDualPort.DESCRIPTION));
+        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePort.DESCRIPTION));
+        map.put(RAMSinglePortSel.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePortSel.DESCRIPTION));
+        map.put(EEPROM.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, EEPROM.DESCRIPTION));
 
         map.put(In.DESCRIPTION.getName(), InputShape::new);
         map.put(Reset.DESCRIPTION.getName(), ResetShape::new);
