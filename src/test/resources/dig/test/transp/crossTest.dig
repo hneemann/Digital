@@ -3,7 +3,7 @@
   <version>1</version>
   <visualElements>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/test/resources/dig/test/transp/cross.dig</elementName>
+      <elementName>cross.dig</elementName>
       <elementAttributes/>
       <pos x="480" y="200"/>
     </visualElement>

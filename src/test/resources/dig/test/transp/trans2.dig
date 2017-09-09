@@ -3,7 +3,7 @@
   <version>1</version>
   <visualElements>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/test/resources/dig/test/transp/trans.dig</elementName>
+      <elementName>trans.dig</elementName>
       <elementAttributes/>
       <pos x="460" y="240"/>
     </visualElement>

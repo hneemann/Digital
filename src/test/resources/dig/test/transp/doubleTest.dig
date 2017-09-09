@@ -3,7 +3,7 @@
   <version>1</version>
   <visualElements>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/test/resources/dig/test/transp/double.dig</elementName>
+      <elementName>double.dig</elementName>
       <elementAttributes/>
       <pos x="420" y="200"/>
     </visualElement>

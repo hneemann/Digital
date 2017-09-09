@@ -175,7 +175,7 @@ definiert.</string>
       <pos x="240" y="-120"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/combinatorial/mux.dig</elementName>
+      <elementName>mux.dig</elementName>
       <elementAttributes/>
       <pos x="200" y="0"/>
     </visualElement>

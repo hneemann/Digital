@@ -17,7 +17,7 @@
       <pos x="320" y="140"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/test/resources/dig/test/weak/w1.dig</elementName>
+      <elementName>w1.dig</elementName>
       <elementAttributes/>
       <pos x="280" y="180"/>
     </visualElement>

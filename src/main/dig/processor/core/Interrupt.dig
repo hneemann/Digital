@@ -221,7 +221,7 @@ die Interrupts wieder freigegeben.
       <pos x="580" y="120"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Rising.dig</elementName>
+      <elementName>Rising.dig</elementName>
       <elementAttributes/>
       <pos x="260" y="0"/>
     </visualElement>

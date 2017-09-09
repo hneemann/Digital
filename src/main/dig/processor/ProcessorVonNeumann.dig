@@ -198,7 +198,7 @@ Von Neumann Two-Cycle CPU.</string>
       <pos x="800" y="40"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Flags.dig</elementName>
+      <elementName>Flags.dig</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
@@ -660,7 +660,7 @@ Von Neumann Two-Cycle CPU.</string>
       <pos x="1400" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Memory.dig</elementName>
+      <elementName>Memory.dig</elementName>
       <elementAttributes/>
       <pos x="1420" y="160"/>
     </visualElement>
@@ -754,7 +754,7 @@ Von Neumann Two-Cycle CPU.</string>
       <pos x="1340" y="200"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/ControlTwoCycle.dig</elementName>
+      <elementName>ControlTwoCycle.dig</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>

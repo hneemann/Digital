@@ -3,7 +3,7 @@
   <version>1</version>
   <visualElements>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/test/resources/dig/probe/pr1.dig</elementName>
+      <elementName>pr1.dig</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -58,7 +58,7 @@
       <pos x="600" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/test/resources/dig/probe/probe.dig</elementName>
+      <elementName>probe.dig</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>

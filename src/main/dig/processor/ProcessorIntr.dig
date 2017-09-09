@@ -154,6 +154,10 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Label</string>
+          <string>ROM</string>
+        </entry>
+        <entry>
           <string>Bits</string>
           <int>16</int>
         </entry>
@@ -801,7 +805,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <pos x="1320" y="200"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/Interrupt.dig</elementName>
+      <elementName>Interrupt.dig</elementName>
       <elementAttributes/>
       <pos x="1080" y="500"/>
     </visualElement>
@@ -900,7 +904,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <pos x="1060" y="580"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/FlagsRW.dig</elementName>
+      <elementName>FlagsRW.dig</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
@@ -930,7 +934,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <pos x="1160" y="320"/>
     </visualElement>
     <visualElement>
-      <elementName>/home/hneemann/Dokumente/Java/digital/src/main/dig/processor/PCintr.dig</elementName>
+      <elementName>PCintr.dig</elementName>
       <elementAttributes/>
       <pos x="360" y="120"/>
     </visualElement>
@@ -1027,7 +1031,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <pos x="380" y="40"/>
     </visualElement>
     <visualElement>
-      <elementName>C:/_daten/sourcen/digital/src/main/dig/processor/ControlIntr.dig</elementName>
+      <elementName>ControlIntr.dig</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>

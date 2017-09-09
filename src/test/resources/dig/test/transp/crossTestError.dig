@@ -61,7 +61,7 @@
       <pos x="460" y="320"/>
     </visualElement>
     <visualElement>
-      <elementName>C:/_daten/sourcen/digital/src/test/resources/dig/test/transp/crossE.dig</elementName>
+      <elementName>crossE.dig</elementName>
       <elementAttributes/>
       <pos x="480" y="200"/>
     </visualElement>
