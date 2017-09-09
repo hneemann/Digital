@@ -280,7 +280,7 @@
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="840" y="500"/>
+      <pos x="840" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
@@ -290,7 +290,7 @@
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
-      <pos x="840" y="520"/>
+      <pos x="840" y="500"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -363,6 +363,10 @@
       <p2 x="1240" y="560"/>
     </wire>
     <wire>
+      <p1 x="840" y="500"/>
+      <p2 x="860" y="500"/>
+    </wire>
+    <wire>
       <p1 x="980" y="500"/>
       <p2 x="1000" y="500"/>
     </wire>
@@ -371,12 +375,12 @@
       <p2 x="1180" y="500"/>
     </wire>
     <wire>
-      <p1 x="840" y="500"/>
-      <p2 x="860" y="500"/>
-    </wire>
-    <wire>
       <p1 x="1180" y="500"/>
       <p2 x="1240" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="840" y="520"/>
+      <p2 x="860" y="520"/>
     </wire>
     <wire>
       <p1 x="920" y="520"/>
@@ -385,10 +389,6 @@
     <wire>
       <p1 x="1060" y="520"/>
       <p2 x="1160" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="840" y="520"/>
-      <p2 x="860" y="520"/>
     </wire>
     <wire>
       <p1 x="1160" y="520"/>
