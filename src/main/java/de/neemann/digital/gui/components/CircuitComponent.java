@@ -188,8 +188,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
 
-        new BitSetAction().setAccelerator("B").enableAcceleratorIn(this);
-
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
             public void actionPerformed(ActionEvent e) { // is allowed also if locked!
@@ -1044,38 +1042,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }
     }
-
-    private final class BitSetAction extends ToolTipAction {
-
-        private BitSetAction() {
-            super("setBits");
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (!isLocked()) {
-                if (activeMouseController instanceof MouseControllerSelect) {
-                    MouseControllerSelect mouseControllerSelect = (MouseControllerSelect) activeMouseController;
-                    String num = JOptionPane.showInputDialog(CircuitComponent.this, Lang.get("key_Bits"), "1");
-                    if (num != null) {
-                        try {
-                            int bits = Integer.decode(num);
-                            Vector c1 = mouseControllerSelect.corner1;
-                            Vector c2 = mouseControllerSelect.corner2;
-                            ModifySetBits modifySetBits = new ModifySetBits(c1, c2, bits);
-                            if (modifySetBits.isSomethingToDo(circuit, library))
-                                modify(modifySetBits);
-                            removeHighLighted();
-                            mouseNormal.activate();
-                        } catch (NumberFormatException ex) {
-                            new ErrorMessage(Lang.get("msg_stringIsNotANumber_N", num)).show(CircuitComponent.this);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
         private Vector pos;
