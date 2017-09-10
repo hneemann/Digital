@@ -17,7 +17,7 @@ public interface Editor<T> {
     T getValue();
 
     /**
-     * Addes the components of the editor to the panel
+     * Adds the components of the editor to the panel
      *
      * @param panel             the panel to add the components to
      * @param key               the key which is to edit
