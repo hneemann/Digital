@@ -14,6 +14,7 @@ public class Key<VALUE> {
     private final String key;
     private final VALUE def;
     private final String langKey;
+    private boolean groupEditAllowed = false;
 
     /**
      * Creates a new Key
@@ -85,6 +86,18 @@ public class Key<VALUE> {
     }
 
     /**
+     * @return true if group edit is allowed
+     */
+    public boolean isGroupEditAllowed() {
+        return groupEditAllowed;
+    }
+
+    Key<VALUE> setGroupEditAllowed(boolean groupEditAllowed) {
+        this.groupEditAllowed = groupEditAllowed;
+        return this;
+    }
+
+    /**
      * A integer attribute.
      * Stores additional combo box values
      */
@@ -146,6 +159,7 @@ public class Key<VALUE> {
             setMin(1);
             super.setMax(64);
             setComboBoxValues(VALUES);
+            setGroupEditAllowed(true);
         }
 
         KeyBits setMax(int bits) {
@@ -202,6 +216,7 @@ public class Key<VALUE> {
             names = new String[values.length];
             for (int i = 0; i < values.length; i++)
                 names[i] = Lang.get(getLangKey(values[i]));
+            setGroupEditAllowed(true);
         }
 
         /**

@@ -181,6 +181,14 @@ public class AttributeDialog extends JDialog {
         return parent;
     }
 
+
+    /**
+     * @return true if ok is pressed
+     */
+    public boolean isOkPressed() {
+        return okPressed;
+    }
+
     /**
      * @return the containing Main instance or null
      */

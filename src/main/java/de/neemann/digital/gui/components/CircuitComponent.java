@@ -45,6 +45,7 @@ import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 /**
  * Component which shows the circuit.
  * ToDo: refactoring of repaint logic. Its to complex now.
+ * ToDo: class is to large, move the MouseController classes to their own package
  *
  * @author hneemann
  */
@@ -978,6 +979,45 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         return library;
     }
 
+    private void editGroup(Vector min, Vector max) {
+        if (!isLocked())
+            try {
+                ArrayList<Key> keyList = new ArrayList<>();
+                ElementAttributes attr = new ElementAttributes();
+                ArrayList<VisualElement> elementList = new ArrayList<>();
+                for (VisualElement ve : circuit.getElements())
+                    if (ve.matches(min, max)) {
+                        elementList.add(ve);
+                        for (Key k : library.getElementType(ve.getElementName()).getAttributeList()) {
+                            if (k.isGroupEditAllowed() && !keyList.contains(k)) {
+                                keyList.add(k);
+                                attr.set(k, ve.getElementAttributes().get(k));
+                            }
+                        }
+                    }
+
+                AttributeDialog attributeDialog = new AttributeDialog(this, keyList, attr);
+                ElementAttributes mod = attributeDialog.showDialog();
+                if (attributeDialog.isOkPressed()) {
+                    if (mod == null) mod = attr;
+
+                    Modifications.Builder modBuilder = new Modifications.Builder(Lang.get("mod_groupEdit"));
+                    for (Key k : keyList) {
+                        Object newVal = mod.get(k);
+                        for (VisualElement ve : elementList) {
+                            if (library.getElementType(ve.getElementName()).getAttributeList().contains(k)) {
+                                if (!ve.getElementAttributes().get(k).equals(newVal))
+                                    modBuilder.add(new ModifyAttribute<>(ve, k, newVal));
+                            }
+                        }
+                    }
+                    modify(modBuilder.build());
+                }
+            } catch (ElementNotFoundException e) {
+                // Do nothing if an element is not in library
+            }
+    }
+
     private final class PlusMinusAction extends ToolTipAction {
         private final int delta;
 
@@ -1610,8 +1650,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            mouseNormal.activate();
-            removeHighLighted();
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                mouseNormal.activate();
+                removeHighLighted();
+            } else if (e.getButton() == MouseEvent.BUTTON3) {
+                editGroup(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                mouseNormal.activate();
+                removeHighLighted();
+            }
         }
 
         @Override

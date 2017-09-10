@@ -75,7 +75,7 @@ public final class Keys {
      * Color of LEDs
      */
     public static final Key<java.awt.Color> COLOR
-            = new Key<>("Color", java.awt.Color.RED);
+            = new Key<>("Color", java.awt.Color.RED).setGroupEditAllowed(true);
 
     /**
      * Background Color of nested circuits
@@ -119,19 +119,19 @@ public final class Keys {
      * indicates a diode as blown fuse or as programmed
      */
     public static final Key<Boolean> BLOWN
-            = new Key<>("Blown", false);
+            = new Key<>("Blown", false).setGroupEditAllowed(true);
 
     /**
      * indicates a switch as closed or not
      */
     public static final Key<Boolean> CLOSED
-            = new Key<>("Closed", false);
+            = new Key<>("Closed", false).setGroupEditAllowed(true);
 
     /**
      * signed flag for comparator element
      */
     public static final Key<Boolean> SIGNED
-            = new Key<>("Signed", false);
+            = new Key<>("Signed", false).setGroupEditAllowed(true);
 
     /**
      * the data key for memory
@@ -183,7 +183,7 @@ public final class Keys {
      * flag to make a value a probe
      */
     public static final Key<Boolean> VALUE_IS_PROBE
-            = new Key<>("valueIsProbe", false);
+            = new Key<>("valueIsProbe", false).setGroupEditAllowed(true);
 
     /**
      * flag to set a ROM as program memory
@@ -331,19 +331,13 @@ public final class Keys {
      * Used to enable the storage of the last state in the Seven Seg display.
      */
     public static final Key<Boolean> LED_PERSISTENCE
-            = new Key<>("ledPersistence", false);
+            = new Key<>("ledPersistence", false).setGroupEditAllowed(true);
 
     /**
      * Fitter for the atf1502
      */
     public static final Key<File> SETTINGS_ATF1502_FITTER
             = new Key.KeyFile("atf1502Fitter", new File("c:/Wincupl/WinCupl/Fitters")).setDirectoryOnly(true);
-
-    /**
-     * A pin number, empty means no pin assigned
-     */
-    public static final Key<String> PIN
-            = new Key<>("pin", "");
 
     /**
      * row bits in led matrix
@@ -414,7 +408,7 @@ public final class Keys {
      * true if component is active low
      */
     public static final Key<Boolean> ACTIVE_LOW
-            = new Key<>("activeLow", false);
+            = new Key<>("activeLow", false).setGroupEditAllowed(true);
 
     /**
      * Fitter for the atf1502
