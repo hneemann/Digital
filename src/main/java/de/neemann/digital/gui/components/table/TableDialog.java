@@ -66,7 +66,7 @@ public class TableDialog extends JDialog {
 
     static {
         LIST.add(Keys.LABEL);
-        LIST.add(Keys.PIN);
+        LIST.add(Keys.PINNUMBER);
     }
 
     private final JTextPane statusBar;
@@ -242,12 +242,12 @@ public class TableDialog extends JDialog {
         attr.set(Keys.LABEL, name);
         final TreeMap<String, String> pins = model.getTable().getPins();
         if (pins.containsKey(name))
-            attr.set(Keys.PIN, pins.get(name));
+            attr.set(Keys.PINNUMBER, pins.get(name));
         ElementAttributes modified = new AttributeDialog(this, pos, LIST, attr).showDialog();
         if (modified != null) {
             pins.remove(name);
             final String newName = modified.get(Keys.LABEL).trim().replace(' ', '_');
-            final String pinStr = modified.get(Keys.PIN).trim();
+            final String pinStr = modified.get(Keys.PINNUMBER).trim();
             if (pinStr.length() > 0)
                 pins.put(newName, pinStr);
 
