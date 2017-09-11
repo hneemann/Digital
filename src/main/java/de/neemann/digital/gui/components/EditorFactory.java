@@ -100,14 +100,17 @@ public final class EditorFactory {
         public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
             this.attributeDialog = attributeDialog;
             JLabel label = new JLabel(key.getName() + ":  ");
-            if (labelAtTop)
-                label.setVerticalAlignment(JLabel.TOP);
             final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
             label.setToolTipText(description);
-            panel.add(label, DialogLayout.LABEL);
             JComponent component = getComponent(elementAttributes);
             component.setToolTipText(description);
-            panel.add(component, DialogLayout.INPUT);
+            if (labelAtTop) {
+                panel.add(label, DialogLayout.BOTH);
+                panel.add(component, DialogLayout.BOTHDYNAMIC);
+            } else {
+                panel.add(label, DialogLayout.LABEL);
+                panel.add(component, DialogLayout.INPUT);
+            }
         }
 
         /**
