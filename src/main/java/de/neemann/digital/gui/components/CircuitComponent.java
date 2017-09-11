@@ -981,35 +981,45 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (!isLocked())
             try {
                 ArrayList<Key> keyList = new ArrayList<>();
-                ElementAttributes attr = new ElementAttributes();
                 ArrayList<VisualElement> elementList = new ArrayList<>();
                 for (VisualElement ve : circuit.getElements())
                     if (ve.matches(min, max)) {
                         elementList.add(ve);
                         for (Key k : library.getElementType(ve.getElementName()).getAttributeList()) {
-                            if (k.isGroupEditAllowed() && !keyList.contains(k)) {
+                            if (k.isGroupEditAllowed() && !keyList.contains(k))
                                 keyList.add(k);
-                                attr.set(k, ve.getElementAttributes().get(k));
-                            }
                         }
                     }
 
-                AttributeDialog attributeDialog = new AttributeDialog(this, keyList, attr);
-                ElementAttributes mod = attributeDialog.showDialog();
-                if (attributeDialog.isOkPressed()) {
-                    if (mod == null) mod = attr;
+                if (keyList.size() > 0) {
+                    Key key = null;
+                    if (keyList.size() == 1)
+                        key = keyList.get(0);
+                    else {
+                        ItemPicker<Key> ip = new ItemPicker<Key>(this, keyList);
+                        if (ip.showDialog())
+                            key = ip.getSelected();
+                    }
+                    if (key != null) {
+                        keyList.clear();
+                        keyList.add(key);
+                        ElementAttributes attr = new ElementAttributes();
+                        AttributeDialog attributeDialog = new AttributeDialog(this, keyList, attr);
+                        ElementAttributes mod = attributeDialog.showDialog();
+                        if (attributeDialog.isOkPressed()) {
+                            if (mod == null) mod = attr;
 
-                    Modifications.Builder modBuilder = new Modifications.Builder(Lang.get("mod_groupEdit"));
-                    for (Key k : keyList) {
-                        Object newVal = mod.get(k);
-                        for (VisualElement ve : elementList) {
-                            if (library.getElementType(ve.getElementName()).getAttributeList().contains(k)) {
-                                if (!ve.getElementAttributes().get(k).equals(newVal))
-                                    modBuilder.add(new ModifyAttribute<>(ve, k, newVal));
+                            Modifications.Builder modBuilder = new Modifications.Builder(Lang.get("mod_groupEdit"));
+                            Object newVal = mod.get(key);
+                            for (VisualElement ve : elementList) {
+                                if (library.getElementType(ve.getElementName()).getAttributeList().contains(key)) {
+                                    if (!ve.getElementAttributes().get(key).equals(newVal))
+                                        modBuilder.add(new ModifyAttribute<>(ve, key, newVal));
+                                }
                             }
+                            modify(modBuilder.build());
                         }
                     }
-                    modify(modBuilder.build());
                 }
             } catch (ElementNotFoundException e) {
                 // Do nothing if an element is not in library
