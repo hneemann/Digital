@@ -1042,6 +1042,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
         });
+        stateManager.setActualState(stoppedState);
     }
 
     private void clearModelDescription() {

@@ -48,4 +48,13 @@ public class StateManager {
     public boolean isActive(State state) {
         return actualState == state;
     }
+
+    /**
+     * Sets the actual state. Ony used to init the state manager
+     *
+     * @param active the state which is active.
+     */
+    public void setActualState(State active) {
+        this.actualState = active;
+    }
 }

@@ -43,13 +43,15 @@ public class ModifyMoveSelected implements Modification {
     @Override
     public void modify(Circuit circuit, ElementLibrary library) {
         ArrayList<Movable> list = circuit.getElementsToMove(min, max);
-        for (Movable m : list)
-            m.move(accumulatedDelta);
+        if (list != null) {
+            for (Movable m : list)
+                m.move(accumulatedDelta);
 
-        for (int i = 0; i < accumulatedRotate; i++)
-            rotateElements(list, center);
+            for (int i = 0; i < accumulatedRotate; i++)
+                rotateElements(list, center);
 
-        circuit.elementsMoved();
+            circuit.elementsMoved();
+        }
     }
 
     /**
