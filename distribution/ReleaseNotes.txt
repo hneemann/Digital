@@ -3,6 +3,8 @@ Release Notes
 HEAD, planned as v0.15
 - Added an EEPROM which behaves like a memory that can be written and whose content
   is non-volatile.
+- Replaced shortcut 'B' with a more general attribute editing dialog (select
+  and left click).
 
 v0.14, released on 31. Aug 2017
 - Added visualization of KV maps (thanks to roy77)

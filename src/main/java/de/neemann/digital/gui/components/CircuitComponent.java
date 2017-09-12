@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.draw.graphics.*;
@@ -33,9 +34,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
@@ -45,6 +44,7 @@ import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 /**
  * Component which shows the circuit.
  * ToDo: refactoring of repaint logic. Its to complex now.
+ * ToDo: class is to large, move the MouseController classes to their own package
  *
  * @author hneemann
  */
@@ -186,8 +186,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
-
-        new BitSetAction().setAccelerator("B").enableAcceleratorIn(this);
 
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
@@ -978,6 +976,59 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         return library;
     }
 
+    private void editGroup(Vector min, Vector max) {
+        if (!isLocked())
+            try {
+                ArrayList<Key> keyList = new ArrayList<>();
+                ArrayList<VisualElement> elementList = new ArrayList<>();
+                HashMap<Key, Boolean> useKeyMap = new HashMap<>();
+                ElementAttributes attr = new ElementAttributes();
+                for (VisualElement ve : circuit.getElements())
+                    if (ve.matches(min, max)) {
+                        elementList.add(ve);
+                        for (Key k : library.getElementType(ve.getElementName()).getAttributeList()) {
+                            if (k.isGroupEditAllowed()) {
+                                if (keyList.contains(k)) {
+                                    if (!ve.getElementAttributes().get(k).equals(attr.get(k))) {
+                                        useKeyMap.put(k, false);
+                                    }
+                                } else {
+                                    keyList.add(k);
+                                    attr.set(k, ve.getElementAttributes().get(k));
+                                    useKeyMap.put(k, true);
+                                }
+                            }
+                        }
+                    }
+
+                if (keyList.size() > 0) {
+                    AttributeDialog ad = new AttributeDialog(this, null, keyList, attr, true);
+                    for (Map.Entry<Key, Boolean> u : useKeyMap.entrySet())
+                        ad.getCheckBoxes().get(u.getKey()).setSelected(u.getValue());
+                    ElementAttributes mod = ad.showDialog();
+                    if (ad.isOkPressed()) {
+                        if (mod == null) mod = attr;
+
+                        Modifications.Builder modBuilder = new Modifications.Builder(Lang.get("mod_groupEdit"));
+                        for (Key key : keyList)
+                            if (ad.getCheckBoxes().get(key).isSelected()) {
+                                Object newVal = mod.get(key);
+                                for (VisualElement ve : elementList) {
+                                    if (library.getElementType(ve.getElementName()).getAttributeList().contains(key)) {
+                                        if (!ve.getElementAttributes().get(key).equals(newVal))
+                                            modBuilder.add(new ModifyAttribute<>(ve, key, newVal));
+                                    }
+                                }
+                            }
+                        modify(modBuilder.build());
+                    }
+                }
+
+            } catch (ElementNotFoundException e) {
+                // Do nothing if an element is not in library
+            }
+    }
+
     private final class PlusMinusAction extends ToolTipAction {
         private final int delta;
 
@@ -1004,38 +1055,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }
     }
-
-    private final class BitSetAction extends ToolTipAction {
-
-        private BitSetAction() {
-            super("setBits");
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (!isLocked()) {
-                if (activeMouseController instanceof MouseControllerSelect) {
-                    MouseControllerSelect mouseControllerSelect = (MouseControllerSelect) activeMouseController;
-                    String num = JOptionPane.showInputDialog(CircuitComponent.this, Lang.get("key_Bits"), "1");
-                    if (num != null) {
-                        try {
-                            int bits = Integer.decode(num);
-                            Vector c1 = mouseControllerSelect.corner1;
-                            Vector c2 = mouseControllerSelect.corner2;
-                            ModifySetBits modifySetBits = new ModifySetBits(c1, c2, bits);
-                            if (modifySetBits.isSomethingToDo(circuit, library))
-                                modify(modifySetBits);
-                            removeHighLighted();
-                            mouseNormal.activate();
-                        } catch (NumberFormatException ex) {
-                            new ErrorMessage(Lang.get("msg_stringIsNotANumber_N", num)).show(CircuitComponent.this);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
         private Vector pos;
@@ -1610,8 +1629,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            mouseNormal.activate();
-            removeHighLighted();
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                mouseNormal.activate();
+                removeHighLighted();
+            } else if (e.getButton() == MouseEvent.BUTTON3) {
+                editGroup(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+                mouseNormal.activate();
+                removeHighLighted();
+            }
         }
 
         @Override

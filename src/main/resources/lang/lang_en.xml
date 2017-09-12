@@ -740,6 +740,7 @@ The names of the variables may not be unique.</string>
     <string name="mod_circuitAttrModified">Modified circuit attributes.</string>
     <string name="mod_modifiedMeasurementOrdering">Ordered measurements.</string>
     <string name="mod_set_N_BitsToSelection">Sets the number of data bits to {0} in selected components.</string>
+    <string name="mod_groupEdit">Modified attributes of selected components.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
@@ -920,7 +921,6 @@ The names of the variables may not be unique.</string>
     <string name="menu_pdfDocumentation">Documentation</string>
     <string name="menu_openPdfDocumentation">Open {0}</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
-    <string name="msg_stringIsNotANumber_N">The string {0} is not a number!</string>
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
 Written by H. Neemann in 2016, 2017.
@@ -996,6 +996,7 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>
     <string name="msg_noKVMapAvailable">No KV map available!</string>
     <string name="msg_dataNotUpdatedAnymore">Data will not be updated anymore!</string>
+    <string name="msg_modifyThisAttribute">Modify this Value</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

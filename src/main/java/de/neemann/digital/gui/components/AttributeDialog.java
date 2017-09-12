@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Dialog used to edit Attributes.
@@ -32,6 +33,8 @@ public class AttributeDialog extends JDialog {
     private final ElementAttributes originalAttributes;
     private final ElementAttributes modifiedAttributes;
     private final JPanel buttonPanel;
+    private final ConstrainsBuilder constrains;
+    private HashMap<Key, JCheckBox> checkBoxes;
     private JComponent topMostTextComponent;
     private VisualElement visualElement;
     private boolean okPressed = false;
@@ -44,7 +47,7 @@ public class AttributeDialog extends JDialog {
      * @param elementAttributes the data stored
      */
     public AttributeDialog(Component parent, java.util.List<Key> list, ElementAttributes elementAttributes) {
-        this(parent, null, list, elementAttributes);
+        this(parent, null, list, elementAttributes, false);
     }
 
     /**
@@ -56,6 +59,19 @@ public class AttributeDialog extends JDialog {
      * @param elementAttributes the data stored
      */
     public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
+        this(parent, pos, list, elementAttributes, false);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param parent            the parent
+     * @param pos               the position to pop up the dialog
+     * @param list              the list of keys which are to edit
+     * @param elementAttributes the data stored
+     * @param addCheckBoxes     add checkboxes behind the attributes
+     */
+    public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes, boolean addCheckBoxes) {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         this.parent = parent;
         this.pos = pos;
@@ -63,17 +79,27 @@ public class AttributeDialog extends JDialog {
         this.modifiedAttributes = new ElementAttributes(elementAttributes);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        panel = new JPanel(new DialogLayout());
+        panel = new JPanel(new GridBagLayout());
 
         getContentPane().add(new JScrollPane(panel));
 
         editors = new ArrayList<>();
 
         topMostTextComponent = null;
+        constrains = new ConstrainsBuilder().inset(3).fill();
         for (Key key : list) {
             Editor e = EditorFactory.INSTANCE.create(key, modifiedAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            e.addToPanel(panel, key, modifiedAttributes, this);
+            e.addToPanel(panel, key, modifiedAttributes, this, constrains);
+            if (addCheckBoxes) {
+                if (checkBoxes == null)
+                    checkBoxes = new HashMap<>();
+                JCheckBox checkBox = new JCheckBox();
+                checkBox.setToolTipText(Lang.get("msg_modifyThisAttribute"));
+                checkBoxes.put(key, checkBox);
+                panel.add(checkBox, constrains.x(2));
+            }
+            constrains.nextRow();
 
             if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
                 topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
@@ -120,6 +146,13 @@ public class AttributeDialog extends JDialog {
     }
 
     /**
+     * @return the keys check boxes
+     */
+    public HashMap<Key, JCheckBox> getCheckBoxes() {
+        return checkBoxes;
+    }
+
+    /**
      * Adds a button to this dialog
      *
      * @param label  a label
@@ -127,13 +160,14 @@ public class AttributeDialog extends JDialog {
      * @return this for chained calls
      */
     public AttributeDialog addButton(String label, ToolTipAction action) {
-        panel.add(new JLabel(label), DialogLayout.LABEL);
-        panel.add(action.createJButton(), DialogLayout.INPUT);
+        panel.add(new JLabel(label), constrains);
+        panel.add(action.createJButton(), constrains.x(1));
+        constrains.nextRow();
         return this;
     }
 
     /**
-     * Adds a button to the bottom of this dialog
+     * Adds a button to the botton of this dialog
      *
      * @param action the action
      * @return this for chained calls
@@ -179,6 +213,14 @@ public class AttributeDialog extends JDialog {
      */
     public Component getDialogParent() {
         return parent;
+    }
+
+
+    /**
+     * @return true if ok is pressed
+     */
+    public boolean isOkPressed() {
+        return okPressed;
     }
 
     /**

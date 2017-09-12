@@ -326,7 +326,6 @@
             <shortcut key="CTRL-S">Save the circuit.</shortcut>
             <shortcut key="CTRL-Z">Undo last modification.</shortcut>
             <shortcut key="CTRL-Y">Redo the last undone modification.</shortcut>
-            <shortcut key="B">Set the number of data bits in all selected components.</shortcut>
             <shortcut key="P">Programs a diode or a FG-FET.</shortcut>
             <shortcut key="D">While drawing a wire switches to the diagonal mode.</shortcut>
             <shortcut key="F">While drawing a line flips the orientation.</shortcut>
