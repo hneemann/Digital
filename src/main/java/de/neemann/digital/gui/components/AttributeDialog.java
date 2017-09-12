@@ -33,7 +33,7 @@ public class AttributeDialog extends JDialog {
     private final ElementAttributes originalAttributes;
     private final ElementAttributes modifiedAttributes;
     private final JPanel buttonPanel;
-    private final GBC constrains;
+    private final ConstrainsBuilder constrains;
     private HashMap<Key, JCheckBox> checkBoxes;
     private JComponent topMostTextComponent;
     private VisualElement visualElement;
@@ -86,7 +86,7 @@ public class AttributeDialog extends JDialog {
         editors = new ArrayList<>();
 
         topMostTextComponent = null;
-        constrains = new GBC().inset(3).fill();
+        constrains = new ConstrainsBuilder().inset(3).fill();
         for (Key key : list) {
             Editor e = EditorFactory.INSTANCE.create(key, modifiedAttributes.get(key));
             editors.add(new EditorHolder(e, key));

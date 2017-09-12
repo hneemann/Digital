@@ -48,10 +48,11 @@ public final class Keys {
     /**
      * The size of a LED
      */
-    public static final Key.KeyInteger SIZE
+    public static final Key<Integer> SIZE
             = new Key.KeyInteger("Size", 1)
             .setComboBoxValues(new Integer[]{1, 2, 3, 4, 5})
-            .setMin(1);
+            .setMin(1)
+            .setGroupEditAllowed(true);
 
     /**
      * The value of constants

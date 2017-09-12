@@ -1001,7 +1001,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         }
                     }
 
-                if (keyList.size()>0) {
+                if (keyList.size() > 0) {
                     AttributeDialog ad = new AttributeDialog(this, null, keyList, attr, true);
                     for (Map.Entry<Key, Boolean> u : useKeyMap.entrySet())
                         ad.getCheckBoxes().get(u.getKey()).setSelected(u.getValue());

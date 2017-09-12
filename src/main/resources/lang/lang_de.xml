@@ -1015,7 +1015,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
     <string name="msg_noKVMapAvailable">Keine KV-Tafel verfügbar!</string>
     <string name="msg_dataNotUpdatedAnymore">Daten werden nicht mehr aktualisiert!</string>
-    <string name="msg_modifyThisAttribute">Diesen Wert setzen</string>
+    <string name="msg_modifyThisAttribute">Diesen Wert verändern.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

@@ -90,7 +90,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         });
 
         JPanel panel = new JPanel(new GridBagLayout());
-        GBC constr = new GBC().inset(3).fill();
+        ConstrainsBuilder constr = new ConstrainsBuilder().inset(3).fill();
         panel.add(formatComboBox, constr);
         panel.add(textField, constr.dynamicWidth().x(1));
         constr.nextRow();
