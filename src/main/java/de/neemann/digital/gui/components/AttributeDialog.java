@@ -68,8 +68,8 @@ public class AttributeDialog extends JDialog {
      * @param parent            the parent
      * @param pos               the position to pop up the dialog
      * @param list              the list of keys which are to edit
-     * @param elementAttributes the data stored
-     * @param addCheckBoxes     add checkboxes behind the attributes
+     * @param elementAttributes the initial data to modify
+     * @param addCheckBoxes     th true check boxes behind the attributes are added
      */
     public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes, boolean addCheckBoxes) {
         super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
@@ -95,9 +95,11 @@ public class AttributeDialog extends JDialog {
                 if (checkBoxes == null)
                     checkBoxes = new HashMap<>();
                 JCheckBox checkBox = new JCheckBox();
+                checkBox.setSelected(true);
                 checkBox.setToolTipText(Lang.get("msg_modifyThisAttribute"));
                 checkBoxes.put(key, checkBox);
                 panel.add(checkBox, constrains.x(2));
+                checkBox.addChangeListener(event -> e.setEnabled(checkBox.isSelected()));
             }
             constrains.nextRow();
 

@@ -95,14 +95,16 @@ public final class EditorFactory {
     public static abstract class LabelEditor<T> implements Editor<T> {
         private AttributeDialog attributeDialog;
         private boolean labelAtTop = false;
+        private JComponent component;
+        private JLabel label;
 
         @Override
         public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstrainsBuilder constrains) {
             this.attributeDialog = attributeDialog;
-            JLabel label = new JLabel(key.getName() + ":  ");
+            label = new JLabel(key.getName() + ":  ");
             final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
             label.setToolTipText(description);
-            JComponent component = getComponent(elementAttributes);
+            component = getComponent(elementAttributes);
             component.setToolTipText(description);
             if (labelAtTop) {
                 panel.add(label, constrains.width(2));
@@ -128,6 +130,12 @@ public final class EditorFactory {
          * @return the component
          */
         protected abstract JComponent getComponent(ElementAttributes elementAttributes);
+
+        @Override
+        public void setEnabled(boolean enabled) {
+            label.setEnabled(enabled);
+            component.setEnabled(enabled);
+        }
 
         /**
          * Sets the position of the label
@@ -258,6 +266,11 @@ public final class EditorFactory {
         @Override
         public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstrainsBuilder constrains) {
             panel.add(bool, constrains.width(2));
+        }
+
+        @Override
+        public void setEnabled(boolean enabled) {
+            bool.setEnabled(enabled);
         }
     }
 
