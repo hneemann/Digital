@@ -996,6 +996,7 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>
     <string name="msg_noKVMapAvailable">No KV map available!</string>
     <string name="msg_dataNotUpdatedAnymore">Data will not be updated anymore!</string>
+    <string name="msg_modifyThisAttribute">Modify this Value</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

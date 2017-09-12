@@ -97,17 +97,21 @@ public final class EditorFactory {
         private boolean labelAtTop = false;
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, GBC constrains) {
             this.attributeDialog = attributeDialog;
             JLabel label = new JLabel(key.getName() + ":  ");
-            if (labelAtTop)
-                label.setVerticalAlignment(JLabel.TOP);
             final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
             label.setToolTipText(description);
-            panel.add(label, DialogLayout.LABEL);
             JComponent component = getComponent(elementAttributes);
             component.setToolTipText(description);
-            panel.add(component, DialogLayout.INPUT);
+            if (labelAtTop) {
+                panel.add(label, constrains.width(2));
+                constrains.nextRow();
+                panel.add(component, constrains.width(2).dynamicHeight());
+            } else {
+                panel.add(label, constrains);
+                panel.add(component, constrains.x(1).dynamicWidth());
+            }
         }
 
         /**
@@ -252,8 +256,8 @@ public final class EditorFactory {
         }
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
-            panel.add(bool, DialogLayout.BOTH);
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, GBC constrains) {
+            panel.add(bool, constrains.width(2));
         }
     }
 

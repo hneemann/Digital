@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.draw.graphics.*;
@@ -33,9 +34,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
@@ -982,45 +981,49 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             try {
                 ArrayList<Key> keyList = new ArrayList<>();
                 ArrayList<VisualElement> elementList = new ArrayList<>();
+                HashMap<Key, Boolean> useKeyMap = new HashMap<>();
+                ElementAttributes attr = new ElementAttributes();
                 for (VisualElement ve : circuit.getElements())
                     if (ve.matches(min, max)) {
                         elementList.add(ve);
                         for (Key k : library.getElementType(ve.getElementName()).getAttributeList()) {
-                            if (k.isGroupEditAllowed() && !keyList.contains(k))
-                                keyList.add(k);
-                        }
-                    }
-
-                if (keyList.size() > 0) {
-                    Key key = null;
-                    if (keyList.size() == 1)
-                        key = keyList.get(0);
-                    else {
-                        ItemPicker<Key> ip = new ItemPicker<Key>(this, keyList);
-                        if (ip.showDialog())
-                            key = ip.getSelected();
-                    }
-                    if (key != null) {
-                        keyList.clear();
-                        keyList.add(key);
-                        ElementAttributes attr = new ElementAttributes();
-                        AttributeDialog attributeDialog = new AttributeDialog(this, keyList, attr);
-                        ElementAttributes mod = attributeDialog.showDialog();
-                        if (attributeDialog.isOkPressed()) {
-                            if (mod == null) mod = attr;
-
-                            Modifications.Builder modBuilder = new Modifications.Builder(Lang.get("mod_groupEdit"));
-                            Object newVal = mod.get(key);
-                            for (VisualElement ve : elementList) {
-                                if (library.getElementType(ve.getElementName()).getAttributeList().contains(key)) {
-                                    if (!ve.getElementAttributes().get(key).equals(newVal))
-                                        modBuilder.add(new ModifyAttribute<>(ve, key, newVal));
+                            if (k.isGroupEditAllowed()) {
+                                if (keyList.contains(k)) {
+                                    if (!ve.getElementAttributes().get(k).equals(attr.get(k))) {
+                                        useKeyMap.put(k, false);
+                                    }
+                                } else {
+                                    keyList.add(k);
+                                    attr.set(k, ve.getElementAttributes().get(k));
+                                    useKeyMap.put(k, true);
                                 }
                             }
-                            modify(modBuilder.build());
                         }
                     }
+
+                if (keyList.size()>0) {
+                    AttributeDialog ad = new AttributeDialog(this, null, keyList, attr, true);
+                    for (Map.Entry<Key, Boolean> u : useKeyMap.entrySet())
+                        ad.getCheckBoxes().get(u.getKey()).setSelected(u.getValue());
+                    ElementAttributes mod = ad.showDialog();
+                    if (ad.isOkPressed()) {
+                        if (mod == null) mod = attr;
+
+                        Modifications.Builder modBuilder = new Modifications.Builder(Lang.get("mod_groupEdit"));
+                        for (Key key : keyList)
+                            if (ad.getCheckBoxes().get(key).isSelected()) {
+                                Object newVal = mod.get(key);
+                                for (VisualElement ve : elementList) {
+                                    if (library.getElementType(ve.getElementName()).getAttributeList().contains(key)) {
+                                        if (!ve.getElementAttributes().get(key).equals(newVal))
+                                            modBuilder.add(new ModifyAttribute<>(ve, key, newVal));
+                                    }
+                                }
+                            }
+                        modify(modBuilder.build());
+                    }
                 }
+
             } catch (ElementNotFoundException e) {
                 // Do nothing if an element is not in library
             }

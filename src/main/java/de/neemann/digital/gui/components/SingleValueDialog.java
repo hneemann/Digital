@@ -89,11 +89,13 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 setLongToDialog(editValue);
         });
 
-        JPanel panel = new JPanel(new DialogLayout());
-        panel.add(formatComboBox, DialogLayout.LABEL);
-        panel.add(textField, DialogLayout.INPUT);
-        panel.add(new JLabel(Lang.get("attr_dialogBinary")), DialogLayout.LABEL);
-        panel.add(createCheckBoxPanel(value.getBits(), editValue), DialogLayout.INPUT);
+        JPanel panel = new JPanel(new GridBagLayout());
+        GBC constr = new GBC().inset(3).fill();
+        panel.add(formatComboBox, constr);
+        panel.add(textField, constr.dynamicWidth().x(1));
+        constr.nextRow();
+        panel.add(new JLabel(Lang.get("attr_dialogBinary")), constr);
+        panel.add(createCheckBoxPanel(value.getBits(), editValue), constr.dynamicWidth().x(1));
         getContentPane().add(panel);
 
         textField.getDocument().addDocumentListener(new MyDocumentListener(() -> setStringToDialog(textField.getText())));
