@@ -92,8 +92,13 @@ public class Key<VALUE> {
         return groupEditAllowed;
     }
 
-    Key<VALUE> setGroupEditAllowed(boolean groupEditAllowed) {
-        this.groupEditAllowed = groupEditAllowed;
+    /**
+     * Allows this attribute in group edit.
+     *
+     * @return this for chained calls
+     */
+    Key<VALUE> allowGroupEdit() {
+        this.groupEditAllowed = true;
         return this;
     }
 
@@ -159,7 +164,7 @@ public class Key<VALUE> {
             setMin(1);
             super.setMax(64);
             setComboBoxValues(VALUES);
-            setGroupEditAllowed(true);
+            allowGroupEdit();
         }
 
         KeyBits setMax(int bits) {
@@ -216,7 +221,7 @@ public class Key<VALUE> {
             names = new String[values.length];
             for (int i = 0; i < values.length; i++)
                 names[i] = Lang.get(getLangKey(values[i]));
-            setGroupEditAllowed(true);
+            allowGroupEdit();
         }
 
         /**

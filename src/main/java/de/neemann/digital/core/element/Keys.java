@@ -52,31 +52,31 @@ public final class Keys {
             = new Key.KeyInteger("Size", 1)
             .setComboBoxValues(new Integer[]{1, 2, 3, 4, 5})
             .setMin(1)
-            .setGroupEditAllowed(true);
+            .allowGroupEdit();
 
     /**
      * The value of constants
      */
     public static final Key<Integer> VALUE
-            = new Key<>("Value", 1);
+            = new Key<>("Value", 1).allowGroupEdit();
 
     /**
      * The default value of elements
      */
     public static final Key<Integer> DEFAULT
-            = new Key<>("Default", 0);
+            = new Key<>("Default", 0).allowGroupEdit();
 
     /**
      * The default value of inputs
      */
     public static final Key<InValue> INPUT_DEFAULT
-            = new Key<>("InDefault", new InValue(0));
+            = new Key<>("InDefault", new InValue(0)).allowGroupEdit();
 
     /**
      * Color of LEDs
      */
     public static final Key<java.awt.Color> COLOR
-            = new Key<>("Color", java.awt.Color.RED).setGroupEditAllowed(true);
+            = new Key<>("Color", java.awt.Color.RED).allowGroupEdit();
 
     /**
      * Background Color of nested circuits
@@ -120,19 +120,19 @@ public final class Keys {
      * indicates a diode as blown fuse or as programmed
      */
     public static final Key<Boolean> BLOWN
-            = new Key<>("Blown", false).setGroupEditAllowed(true);
+            = new Key<>("Blown", false).allowGroupEdit();
 
     /**
      * indicates a switch as closed or not
      */
     public static final Key<Boolean> CLOSED
-            = new Key<>("Closed", false).setGroupEditAllowed(true);
+            = new Key<>("Closed", false).allowGroupEdit();
 
     /**
      * signed flag for comparator element
      */
     public static final Key<Boolean> SIGNED
-            = new Key<>("Signed", false).setGroupEditAllowed(true);
+            = new Key<>("Signed", false).allowGroupEdit();
 
     /**
      * the data key for memory
@@ -144,7 +144,7 @@ public final class Keys {
      * flag for flipping selector pos in muxers, decoders and drivers
      */
     public static final Key<Boolean> FLIP_SEL_POSITON
-            = new Key<>("flipSelPos", false);
+            = new Key<>("flipSelPos", false).allowGroupEdit();
 
     /**
      * the rotation of the elements
@@ -184,7 +184,7 @@ public final class Keys {
      * flag to make a value a probe
      */
     public static final Key<Boolean> VALUE_IS_PROBE
-            = new Key<>("valueIsProbe", false).setGroupEditAllowed(true);
+            = new Key<>("valueIsProbe", false).allowGroupEdit();
 
     /**
      * flag to set a ROM as program memory
@@ -233,7 +233,7 @@ public final class Keys {
      * flag to enable high z mode at an input
      */
     public static final Key<Boolean> IS_HIGH_Z
-            = new Key<>("isHighZ", false);
+            = new Key<>("isHighZ", false).allowGroupEdit();
 
     /**
      * flag to enable realtime mode at a clock
@@ -302,7 +302,7 @@ public final class Keys {
      * flag used by a relay to indicate if it is normally open or normally closed.
      */
     public static final Key<Boolean> RELAY_NORMALLY_CLOSED
-            = new Key<>("relayNormallyClosed", false);
+            = new Key<>("relayNormallyClosed", false).allowGroupEdit();
 
     /**
      * flag used by a barrelshifter to indicate if data are rotated
@@ -326,13 +326,13 @@ public final class Keys {
      * Used to indicate if the 7-seg display has a common cathode output
      */
     public static final Key<Boolean> COMMON_CATHODE
-            = new Key<>("commonCathode", false);
+            = new Key<>("commonCathode", false).allowGroupEdit();
 
     /**
      * Used to enable the storage of the last state in the Seven Seg display.
      */
     public static final Key<Boolean> LED_PERSISTENCE
-            = new Key<>("ledPersistence", false).setGroupEditAllowed(true);
+            = new Key<>("ledPersistence", false).allowGroupEdit();
 
     /**
      * Fitter for the atf1502
@@ -409,7 +409,7 @@ public final class Keys {
      * true if component is active low
      */
     public static final Key<Boolean> ACTIVE_LOW
-            = new Key<>("activeLow", false).setGroupEditAllowed(true);
+            = new Key<>("activeLow", false).allowGroupEdit();
 
     /**
      * Fitter for the atf1502
