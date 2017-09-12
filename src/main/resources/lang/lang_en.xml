@@ -1080,6 +1080,19 @@ The 4 input bits are generated with the 'bits' instruction. The result (C_i, S_3
 by a 'bits' instruction.
 This happens once with C_i-1 = 0 and in the next line with C_i-1 = 1.
 In this way, 512 test rows are generated which cover all possible input configurations.</p>
+<p>If multiple rows are to be repeated, or if nested loops are required, the loop
+statement can be used. The above example could also be implemented as follows:</p>
+<p>
+<code>
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
+loop(a,16)<br/>
+  loop(b,16)<br/>
+             0    bits(4,a)        bits(4,b)        bits(5,a+b)<br/>
+             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)<br/>
+  end loop<br/>
+end loop
+</code>
+</p>
 </body></html>]]></string>
 
 </resources>

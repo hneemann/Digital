@@ -1101,6 +1101,20 @@ Das Ergebnis (C_i,S_3-S_0) wird ebenfalls durch eine 'bits'-Anweisung erzeugt.
 Das ganze geschieht einmal mit C_i-1=0 und in der nächsten Zeile mit C_i-1=1.
 Auf diese Weise werden 512 Testzeilen erzeugt, welche alle möglichen
 Eingangskonfigurationen abdecken.</p>
+<p>Sollen mehrere Zeilen wiederholt werden, oder werden geschachtelte Schleifen benötigt,
+kann die loop-Anweisung verwendet werden. Das obige Beispiel könnte man also
+auch wie folgt umsetzen:</p>
+<p>
+<code>
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
+loop(a,16)<br/>
+  loop(b,16)<br/>
+             0    bits(4,a)        bits(4,b)        bits(5,a+b)<br/>
+             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)<br/>
+  end loop<br/>
+end loop
+</code>
+</p>
 </body></html>]]></string>
 
 </resources>
