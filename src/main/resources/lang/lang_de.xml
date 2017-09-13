@@ -1056,7 +1056,9 @@ Mehrere Ausdrücke können durch "," oder ";" getrennt werden.
 Sollen die Ausdrücke benannt werden, kann die let-Anweisung verwendet
 werden: "let U=A+B, let V=A*B"</string>
     <string name="msg_testVectorHelpTitle">Testvektoren</string>
-    <string name="msg_testVectorHelp"><![CDATA[<html><body>
+    <string name="msg_testVectorHelp"><![CDATA[<html>
+    <head><style>pre { background-color: #E0E0E0;}</style></head>
+    <body>
 <p>Die erste Zeile muss, durch ein Leerzeichen getrennt, die
 Ein- und Ausgänge auflisten. In den folgenden Zeilen stehen dann die Sollwerte.
 Dabei steht ein 'X' für Don't Care, und ein 'Z' für hochohmig.
@@ -1065,19 +1067,17 @@ Taktzyklus durchgeführt, und erst daran anschließend werden die Werte verglich
 Auf diese Weise können Schaltwerke einfacher getestet werden.
 Eine Zeile, die mit einem Doppelkreuz ('#') beginnt ist ein Kommentar.</p>
 <p>Ein Test für einen 2-Bit Zähler könnte damit wie folgt aussehen:</p>
-<p>
-<code>
-C Q1 Q0<br/>
-0 0  0<br/>
-C 0  1<br/>
-C 1  0<br/>
-C 1  1<br/>
+
+<pre>
+C Q1 Q0
+0 0  0
+C 0  1
+C 1  0
+C 1  1
 C 0  0
-</code>
-</p>
-<p>
-Gestartet werden die Tests über Start->Tests ausführen.
-</p>
+</pre>
+
+<p>Gestartet werden die Tests über Start->Tests ausführen.</p>
 <p>
 Um vereinfacht sehr viele Tests durchzuführen existiert die 'repeat([n])' Anweisung:
 Beginnt eine Zeile mit 'repeat([n])' werden [n] Testzeilen erzeugt. Dabei kann die
@@ -1088,13 +1088,12 @@ bits([bits],[value]) Anweisung. Mit dieser werden [bits] Bits des Wertes [value]
 
 <p>Im folgenden ein Beispiel, welches einen 4-Bit Addierer testet:</p>
 
-<p>
-<code>
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
-repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))<br/>
+<pre>
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))
 repeat(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
-</code>
-</p>
+</pre>
+
 <p>Die Eingangssignale sind das Carry-In (C_i-1) und die acht Eingangsbits A_3-A_0
 und B_3-B_0. Erzeugt werden die jeweils 4 Eingangsbits mit der 'bits'Anweisung.
 Das Ergebnis (C_i,S_3-S_0) wird ebenfalls durch eine 'bits'-Anweisung erzeugt.
@@ -1104,17 +1103,16 @@ Eingangskonfigurationen abdecken.</p>
 <p>Sollen mehrere Zeilen wiederholt werden, oder werden geschachtelte Schleifen benötigt,
 kann die loop-Anweisung verwendet werden. Das obige Beispiel könnte man also
 auch wie folgt umsetzen:</p>
-<p>
-<code>
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
-loop(a,16)<br/>
-  loop(b,16)<br/>
-             0    bits(4,a)        bits(4,b)        bits(5,a+b)<br/>
-             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)<br/>
-  end loop<br/>
+
+<pre>           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+loop(a,16)
+  loop(b,16)
+             0    bits(4,a)        bits(4,b)        bits(5,a+b)
+             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
+  end loop
 end loop
-</code>
-</p>
+</pre>
+
 </body></html>]]></string>
 
 </resources>

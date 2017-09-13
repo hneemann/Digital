@@ -1038,7 +1038,9 @@ Multiple expressions can be separated by "," or ";".
 If you want to name the expressions you can use the
 let-command: "let U=A+B, let V=A*B"</string>
     <string name="msg_testVectorHelpTitle">Test vectors</string>
-    <string name="msg_testVectorHelp"><![CDATA[<html><body>
+    <string name="msg_testVectorHelp"><![CDATA[<html>
+    <head><style>pre { background-color: #E0E0E0;}</style></head>
+    <body>
 <p>The first line has to contain the names of inputs and outputs.
 The following lines contain the expected values.
 A 'X' represents a don't care, and a 'Z' represents a high Z value.
@@ -1048,14 +1050,14 @@ A line which starts with a number sign ('#') is a comment.</p>
 
 <p>So a test for a 2-bit counter could look like this:</p>
 
-<p><code>
-C Q1 Q0<br/>
-0 0  0<br/>
-C 0  1<br/>
-C 1  0<br/>
-C 1  1<br/>
+<pre>
+C Q1 Q0
+0 0  0
+C 0  1
+C 1  0
+C 1  1
 C 0  0
-</code></p>
+</pre>
 
 <p>The tests are executed by Run->Run Tests.</p>
 <p>
@@ -1068,13 +1070,12 @@ and these are to be set together to a binary value, this can be done with the
 
 <p>The following is an example that tests a 4-bit adder:</p>
 
-<p>
-<code>
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
-repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))<br/>
+<pre>
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))
 repeat(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
-</code>
-</p>
+</pre>
+
 <p>The input signals are the carry-in (C_i-1) and the eight input bits A_3-A_0 and B_3-B_0.
 The 4 input bits are generated with the 'bits' instruction. The result (C_i, S_3-S_0) is also generated
 by a 'bits' instruction.
@@ -1082,17 +1083,17 @@ This happens once with C_i-1 = 0 and in the next line with C_i-1 = 1.
 In this way, 512 test rows are generated which cover all possible input configurations.</p>
 <p>If multiple rows are to be repeated, or if nested loops are required, the loop
 statement can be used. The above example could also be implemented as follows:</p>
-<p>
-<code>
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0<br/>
-loop(a,16)<br/>
-  loop(b,16)<br/>
-             0    bits(4,a)        bits(4,b)        bits(5,a+b)<br/>
-             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)<br/>
-  end loop<br/>
+
+<pre>
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+loop(a,16)
+  loop(b,16)
+             0    bits(4,a)        bits(4,b)        bits(5,a+b)
+             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
+  end loop
 end loop
-</code>
-</p>
+</pre>
+
 </body></html>]]></string>
 
 </resources>
