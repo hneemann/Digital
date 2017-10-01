@@ -65,11 +65,11 @@ Below I would like to explain briefly the reasons which led me to start a new de
 
 ### Switch On ###
 
-In Logisim there is no real switching on" of a circuit. The circuit is working also while you are modifying it. 
+In Logisim there is no real "switching on" of a circuit. The circuit is working also while you are modifying it. 
 This causes sometimes an unexpected behaviour. A simple master-slave flip-flop
 can not be realized with Logisim, since the circuit is not switched on, there is no
 settling time to bring the circuit to a stable condition after its completion.
-A master-slave flip-flop can only be implemented with a reset input. This
+A master-slave JK-flip-flop can only be implemented with a reset input. This
 reset input needs to be activated to make the circuit operational.
 
 To understand how Digital deals with this issue, you have to look at how the simulation works in Digital:
