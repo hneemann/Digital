@@ -4,6 +4,8 @@ import de.neemann.digital.core.*;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
+
 /**
  * @author hneemann
  */
@@ -22,10 +24,7 @@ public class DependencyAnalyserTest extends TestCase {
             assertEquals("" + i, VAL[i], da.getInputs(m.getOutputs().get(i)).size());
     }
 
-}
-
 /*
-
 ExpressionCreator - p0n+1 reduced from 17 to 1 variables ([Count])
 ExpressionCreator - p1n+1 reduced from 17 to 1 variables ([p0n])
 ExpressionCreator - Q_1n+1 reduced from 17 to 1 variables ([Q_0n])
@@ -52,5 +51,28 @@ ExpressionCreator - f0 reduced from 17 to 14 variables ([Q_1n, Q_0n, C0Q_3n, C0Q
 ExpressionCreator - g0 reduced from 17 to 14 variables ([Q_1n, Q_0n, C0Q_3n, C0Q_2n, C0Q_1n, C0Q_0n, C1Q_3n, C1Q_2n, C1Q_1n, C1Q_0n, C2Q_3n, C2Q_2n, C2Q_1n, C2Q_0n])
 ExpressionCreator - s1 reduced from 17 to 2 variables ([Q_1n, Q_0n])
 ExpressionCreator - s0 reduced from 17 to 2 variables ([Q_1n, Q_0n])
-
  */
+
+
+    public void testInputInvert() throws Exception {
+        Model model = new ToBreakRunner("dig/backtrack/InputInvert.dig").getModel();
+        ModelAnalyser m = new ModelAnalyser(model);
+        DependencyAnalyser da = new DependencyAnalyser(m);
+
+        assertEquals(1, m.getOutputs().size());
+        Signal out = m.getOutputs().get(0);
+
+        ArrayList<Signal> inputs = da.getInputs(out);
+        assertEquals(2, inputs.size());
+    }
+
+    public void testSplitter() throws Exception {
+        Model model = new ToBreakRunner("dig/backtrack/Splitter.dig").getModel();
+        ModelAnalyser m = new ModelAnalyser(model);
+        DependencyAnalyser da = new DependencyAnalyser(m);
+        assertEquals(2, m.getOutputs().size());
+        assertEquals(1, da.getInputs(m.getOutputs().get(0)).size());
+        assertEquals(1, da.getInputs(m.getOutputs().get(1)).size());
+    }
+
+}
