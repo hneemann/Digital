@@ -250,6 +250,18 @@
             <answer>A pin is only connected to a wire if the wire has an endpoint at the pin.</answer>
         </faq>
         <faq>
+            <question>If the names of the pins in a circuit are long, the names are no longer readable when
+                the circuit is embedded. What can I do?</question>
+            <answer>The width of the block can be increased using the menu item
+                <e>Edit<arrow/>Edit circuit attributes</e>.</answer>
+        </faq>
+        <faq>
+            <question>The pins in an embedded circuit have an unfavorable order. How can this be changed?</question>
+            <answer>The sequence can be changed using the menu entry <e>Edit<arrow/>Order inputs</e> or
+                <e>Edit<arrow/>Order outputs</e>.</answer>
+        </faq>
+
+        <faq>
             <question>When the simulation is started, a wire becomes gray. What does that mean?</question>
             <answer>The colors light green and dark green are used to represent high and low state.
                 Gray means the wire is in high Z state.

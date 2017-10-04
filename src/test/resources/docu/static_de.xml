@@ -283,6 +283,19 @@
             </answer>
         </faq>
         <faq>
+            <question>Wenn die Pinnamen einer Schaltung etwas länger sind, sind die Namen nicht mehr zu lesen, wenn
+                die Schaltung eingebettet wird. Was kann ich tun?</question>
+            <answer>Unter <e>Bearbeiten<arrow/>Schaltungsattribute bearbeiten</e> kann die Breite des Blockes
+                vergrößert werden.</answer>
+        </faq>
+        <faq>
+            <question>Die Pins in einer eingebetteten Schaltung haben eine ungünstige Reihenfolge. Wie kann diese
+                verändert werden?</question>
+            <answer>Unter <e>Bearbeiten<arrow/>Sortieren der Eingänge</e> bzw. <e>Bearbeiten<arrow/>Sortieren der
+                Ausgänge</e> kann die Reihenfolge verändert werden.</answer>
+        </faq>
+
+        <faq>
             <question>Wenn die Simulation gestartet wird, ist die Leitung grau. Was bedeutet das?</question>
             <answer>Mit Hellgrün und Dunkelgrün wird eine logische 1 bzw. 0 dargestellt. Grau bedeutet, dass die Leitung
                 hochohmig ist.
