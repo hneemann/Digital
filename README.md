@@ -170,7 +170,7 @@ on how to set up Digital to support the [ATF1502](http://www.microchip.com/wwwpr
 The easiest way is to download the [latest release](https://github.com/hneemann/Digital/releases/latest). 
 In the ZIP file you will find the binary (Digital.jar) and all examples. A Java JRE 1.8 is needed to run Digital.
 
-If you would like to build Digital from the source code:
+If you want to build Digital from the source code:
  
 * At first clone the repository.
 * JDK 1.8 is needed (either the Oracle JDK 1.8 or OpenJDK 1.8)  
