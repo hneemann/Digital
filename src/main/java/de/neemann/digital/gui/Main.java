@@ -1454,9 +1454,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         try {
             AddressPicker addressPicker = new AddressPicker();
             SwingUtilities.invokeAndWait(() -> {
-                if (model != null && model.isFastRunModel() && !realTimeClockRunning)
+                if (model != null && model.isFastRunModel() && !realTimeClockRunning) {
                     runToBreakAction.actionPerformed(null);
-                addressPicker.getProgramROMAddress(model);
+                    addressPicker.getProgramROMAddress(model);
+                }
             });
             return addressPicker.getAddressString();
         } catch (InterruptedException | InvocationTargetException e) {
