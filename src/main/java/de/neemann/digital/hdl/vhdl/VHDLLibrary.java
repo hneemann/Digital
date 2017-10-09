@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl;
 
+import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.memory.ROM;
@@ -51,6 +52,8 @@ public class VHDLLibrary {
         put(Demultiplexer.DESCRIPTION, new DemultiplexerVHDL());
         put(Driver.DESCRIPTION, new DriverVHDL(false));
         put(DriverInvSel.DESCRIPTION, new DriverVHDL(true));
+
+        put(Comparator.DESCRIPTION, new ComparatorVHDL());
 
         put(ROM.DESCRIPTION, new ROMVHDL());
     }
