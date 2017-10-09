@@ -581,7 +581,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_vhdlMultipleInputsConnectedToAnOutput">Es sind mehrere Eingänge direkt mit einem Ausgang verbunden!</string>
     <string name="err_toManyVars">Zu viele Variablen!</string>
     <string name="err_invalidExpression">Ungültiger Ausdruck!</string>
-
+    <string name="err_function_N0_notFoundInLine_N1">Funktion {0} nicht gefunden in Zeile {1}!</string>
+    <string name="err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3">Zahl der Argumente in Funktion {0} in Zeile {1} stimmt nicht (gefunden {2}, erwartet {3})!</string>
+    <string name="err_invalidValue_N0_inFunction_N1">Ungültiger Wert {0} in Funktion {1}!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>

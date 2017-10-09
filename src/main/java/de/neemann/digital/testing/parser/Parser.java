@@ -2,11 +2,14 @@ package de.neemann.digital.testing.parser;
 
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.data.Value;
+import de.neemann.digital.testing.parser.functions.Function;
+import de.neemann.digital.testing.parser.functions.SignExtend;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Parser to parse test data.
@@ -23,6 +26,7 @@ public class Parser {
     private final ArrayList<String> names;
     private final Tokenizer tok;
     private LineEmitter emitter;
+    private HashMap<String, Function> functions = new HashMap<>();
 
     /**
      * Creates a new instance
@@ -30,6 +34,7 @@ public class Parser {
      * @param data the test data string
      */
     public Parser(String data) {
+        functions.put("signExt", new SignExtend());
         names = new ArrayList<>();
         tok = new Tokenizer(new BufferedReader(new StringReader(data)));
     }
@@ -359,7 +364,16 @@ public class Parser {
         switch (t) {
             case IDENT:
                 String name = tok.getIdent();
-                return (c) -> c.getVar(name);
+                if (tok.peek() == Tokenizer.Token.OPEN) {
+                    ArrayList<Expression> args = new ArrayList<>();
+                    do {
+                        tok.consume();
+                        args.add(parseExpression());
+                    } while (tok.peek() == Tokenizer.Token.COMMA);
+                    expect(Tokenizer.Token.CLOSE);
+                    return findFunction(name, args);
+                } else
+                    return (c) -> c.getVar(name);
             case NUMBER:
                 long num = convToLong(tok.getIdent());
                 return (c) -> num;
@@ -376,5 +390,15 @@ public class Parser {
             default:
                 throw newUnexpectedToken(t);
         }
+    }
+
+    private Expression findFunction(String name, ArrayList<Expression> args) throws ParserException {
+        Function f = functions.get(name);
+        if (f == null)
+            throw new ParserException(Lang.get("err_function_N0_notFoundInLine_N1", name, tok.getLine()));
+        if (f.getArgCount() != args.size())
+            throw new ParserException(Lang.get("err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3", name, tok.getLine(), args.size(), f.getArgCount()));
+
+        return (c) -> f.calcValue(c, args);
     }
 }

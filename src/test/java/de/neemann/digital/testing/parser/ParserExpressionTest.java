@@ -46,7 +46,13 @@ public class ParserExpressionTest extends TestCase {
         assertEquals(0x11, new Parser("0x10+1").getValue());
         assertEquals(0b11, new Parser("0b10+1").getValue());
 
-        assertEquals(6, new Parser("a*b").getValue(new ContextWithVar(new ContextWithVar("a").setValue(2),"b").setValue(3)));
+        assertEquals(6, new Parser("a*b").getValue(new ContextWithVar(new ContextWithVar("a").setValue(2), "b").setValue(3)));
+
+        assertEquals(-1, new Parser("signExt(4,15)").getValue());
+        assertEquals(-2, new Parser("signExt(4,14)").getValue());
+        assertEquals(1, new Parser("signExt(4,1)").getValue());
+        assertEquals(2, new Parser("signExt(4,2)").getValue());
+
     }
 
     public void testVarNotFound() throws IOException {

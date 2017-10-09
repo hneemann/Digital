@@ -567,6 +567,9 @@ The names of the variables may not be unique.</string>
     <string name="err_vhdlMultipleInputsConnectedToAnOutput">Multiple inputs are connected to an output!</string>
     <string name="err_toManyVars">To many variables!</string>
     <string name="err_invalidExpression">Invalid expression!</string>
+    <string name="err_function_N0_notFoundInLine_N1">Function {0} not found in line {1}!</string>
+    <string name="err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3">Number of arguments in function {0} in line {1} not correct (found {2}, expected {3})!</string>
+    <string name="err_invalidValue_N0_inFunction_N1">Invalid value {0} in function {1}!</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
