@@ -866,11 +866,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-
+                    model.setWindowPosManager(windowPosManager);
                     SpeedTest speedTest = new SpeedTest(model);
                     String frequency = Integer.toString(speedTest.calculate() / 1000);
                     circuitComponent.getCircuit().clearState();
-                    JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
+                    SwingUtilities.invokeLater(() -> {
+                        windowPosManager.closeAll();
+                        JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
+                    });
                 } catch (Exception e1) {
                     new ErrorMessage(Lang.get("msg_speedTestError")).addCause(e1).show();
                 }
