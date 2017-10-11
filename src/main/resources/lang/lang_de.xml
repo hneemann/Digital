@@ -964,7 +964,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_remoteUnknownCommand">Das Kommando {0} ist unbekannt!</string>
     <string name="msg_errorWritingFile">Fehler beim Schreiben einer Datei.</string>
     <string name="msg_fastRunError">Ein Fehler beim schnellen Lauf.</string>
-    <string name="msg_frequency_N">Die maximale Frequenz berägt {0} kHz.</string>
+    <string name="msg_frequency_N">Die maximale Frequenz beträgt {0} kHz.</string>
     <string name="msg_missingShape_N">Es fehlt ein Diagramm für {0}.</string>
     <string name="msg_pins">Pinbelegung</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
