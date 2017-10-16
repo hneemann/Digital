@@ -740,6 +740,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_activeLow_tt">Wenn gesetzt, ist der Ausgang im aktiven Zustand Low.</string>
     <string name="key_libraryPath">Bibliothek</string>
     <string name="key_libraryPath_tt">Bibliothek mit vordefinierten Schaltungen. Enthält z.B. die ICs der 74xx Reihe.</string>
+    <string name="key_grid">Raster anzeigen</string>
+    <string name="key_grid_tt">Zeigt im Hauptfenster ein Raster an, um das platzieren der Elemente zu erleichtern.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

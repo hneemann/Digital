@@ -725,6 +725,8 @@ The names of the variables may not be unique.</string>
     <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
     <string name="key_libraryPath">Library</string>
     <string name="key_libraryPath_tt">Library with predefined subcircuits. Contains, for example, the components of the 74xx series.</string>
+    <string name="key_grid">Show Grid</string>
+    <string name="key_grid_tt">Shows a grid in the main window.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

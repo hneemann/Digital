@@ -9,6 +9,7 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.InputShape;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -683,6 +684,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (needsNewBuffer && !isManualScale)
             fitCircuit();
 
+        final double scaleX = transform.getScaleX();
         if (graphicsHasChanged
                 || needsNewBuffer
                 || highLighted.size() != highlightedPaintedSize) {
@@ -696,7 +698,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             gr2.fillRect(0, 0, getWidth(), getHeight());
             gr2.transform(transform);
 
-            GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
+            if (scaleX > 0.5 && Settings.getInstance().get(Keys.SETTINGS_GRID))
+                drawGrid(gr2);
+
+            GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / scaleX));
 
             long time = System.currentTimeMillis();
             circuit.drawTo(gr, highLighted, highLightStyle, modelSync);
@@ -717,9 +722,24 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         AffineTransform oldTrans = gr2.getTransform();
         gr2.transform(transform);
         enableAntiAlias(gr2);
-        GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / transform.getScaleX()));
+        GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / scaleX));
         activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);
+    }
+
+    private void drawGrid(Graphics2D gr2) {
+        Vector g1 = raster(getPosVector(0, 0));
+        Vector g2 = raster(getPosVector(getWidth(), getHeight()));
+        gr2.setColor(Color.LIGHT_GRAY);
+        int x = g1.x;
+        while (x <= g2.x) {
+            int y = g1.y;
+            while (y <= g2.y) {
+                gr2.drawRect(x, y, 1, 1);
+                y += SIZE;
+            }
+            x += SIZE;
+        }
     }
 
     private void enableAntiAlias(Graphics2D gr2) {

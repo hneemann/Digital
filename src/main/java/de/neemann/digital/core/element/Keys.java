@@ -279,6 +279,12 @@ public final class Keys {
             = new Key<>("ExpressionFormat", FormatToExpression.FORMATTER_UNICODE);
 
     /**
+     * enables the grid
+     */
+    public static final Key<Boolean> SETTINGS_GRID
+            = new Key<>("grid", false);
+
+    /**
      * output format for numbers
      */
     public static final Key.KeyEnum<IntFormat> INT_FORMAT

@@ -603,6 +603,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }
+                    if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_GRID, modified))
+                        circuitComponent.repaintNeeded();
                     Settings.getInstance().getAttributes().getValuesFrom(modified);
                 }
             }
