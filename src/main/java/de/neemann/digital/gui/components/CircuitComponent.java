@@ -32,6 +32,7 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -730,11 +731,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private void drawGrid(Graphics2D gr2) {
         Vector g1 = raster(getPosVector(0, 0));
-        Point p1 = new Point();
+        Point2D p1 = new Point2D.Double();
         transform.transform(new Point(g1.x, g1.y), p1);
 
         Vector g2 = raster(getPosVector(getWidth(), getHeight()));
-        Point p2 = new Point();
+        Point2D p2 = new Point2D.Double();
         transform.transform(new Point(g2.x, g2.y), p2);
 
         int cx = (g2.x - g1.x) / SIZE;
@@ -743,19 +744,19 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (cx == 0 || cy == 0) return;
 
         float screenScaling = Screen.getInstance().getScaling();
-        int delta = (int) (transform.getScaleX() * 2 * screenScaling);
-        int min = (int) (2 * screenScaling);
+        double delta = transform.getScaleX() * 2 * screenScaling;
+        double min = 2 * screenScaling;
         if (delta < min) delta = min;
-        int max = (int) (8 * screenScaling);
+        double max = 8 * screenScaling;
         if (delta > max) delta = max;
-        int sub = (delta + 1) / 2;
+        double sub = delta / 2.0;
 
         gr2.setColor(Color.LIGHT_GRAY);
         for (int x = 0; x <= cx; x++) {
-            int xx = p1.x + (p2.x - p1.x) * x / cx - sub;
+            double xx = p1.getX() + (p2.getX() - p1.getX()) * x / cx - sub;
             for (int y = 0; y <= cy; y++) {
-                int yy = p1.y + (p2.y - p1.y) * y / cy - sub;
-                gr2.fillRect(xx, yy, delta, delta);
+                double yy = p1.getY() + (p2.getY() - p1.getY()) * y / cy - sub;
+                gr2.fill(new Rectangle2D.Double(xx, yy, delta, delta));
             }
         }
     }
