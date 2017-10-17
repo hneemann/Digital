@@ -5,13 +5,14 @@ HEAD, planned as v0.15
   is non-volatile.
 - Replaced shortcut 'B' with a more general attribute editing dialog (select multiple
   components and click right).
+- Added a grid to the main panel.
 - fixed bugs in some 74xx circuits (74160, 74161, 74162 and 74238)
 - fixed a bug in the remote interface "run to break" method.
 - fixed an error in VHDL export if comparator is used in "signed mode"
 - fixed a Windows specific bug in the speed test GUI
 
 v0.14, released on 31. Aug 2017
-- Added visualization of KV maps (thanks to roy77)
+- Added visualization of K-maps (thanks to roy77)
 - Added VHDL export
   (Not yet complete, but the example processor is running on a FPGA.)
 - Type of pin numbers changed from int to string to allow FPGA pin names like "U16".

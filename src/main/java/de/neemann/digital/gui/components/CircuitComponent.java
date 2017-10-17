@@ -696,10 +696,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             enableAntiAlias(gr2);
             gr2.setColor(Color.WHITE);
             gr2.fillRect(0, 0, getWidth(), getHeight());
-            gr2.transform(transform);
 
-            if (scaleX > 0.5 && Settings.getInstance().get(Keys.SETTINGS_GRID))
+            if (scaleX > 0.3 && Settings.getInstance().get(Keys.SETTINGS_GRID))
                 drawGrid(gr2);
+
+            gr2.transform(transform);
 
             GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / scaleX));
 
@@ -729,16 +730,24 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private void drawGrid(Graphics2D gr2) {
         Vector g1 = raster(getPosVector(0, 0));
+        Point p1 = new Point();
+        transform.transform(new Point(g1.x, g1.y), p1);
+
         Vector g2 = raster(getPosVector(getWidth(), getHeight()));
+        Point p2 = new Point();
+        transform.transform(new Point(g2.x, g2.y), p2);
+
+        int cx = (g2.x - g1.x) / SIZE;
+        int cy = (g2.y - g1.y) / SIZE;
+
         gr2.setColor(Color.LIGHT_GRAY);
-        int x = g1.x;
-        while (x <= g2.x) {
-            int y = g1.y;
-            while (y <= g2.y) {
-                gr2.drawRect(x, y, 1, 1);
-                y += SIZE;
+
+        for (int x = 0; x < cx; x++) {
+            int xx = p1.x + (p2.x - p1.x) * x / cx - 1;
+            for (int y = 0; y < cy; y++) {
+                int yy = p1.y + (p2.y - p1.y) * y / cy - 1;
+                gr2.drawRect(xx, yy, 1, 1);
             }
-            x += SIZE;
         }
     }
 
