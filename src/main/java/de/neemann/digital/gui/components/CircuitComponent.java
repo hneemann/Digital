@@ -740,13 +740,22 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         int cx = (g2.x - g1.x) / SIZE;
         int cy = (g2.y - g1.y) / SIZE;
 
-        gr2.setColor(Color.LIGHT_GRAY);
+        if (cx == 0 || cy == 0) return;
 
-        for (int x = 0; x < cx; x++) {
-            int xx = p1.x + (p2.x - p1.x) * x / cx - 1;
-            for (int y = 0; y < cy; y++) {
-                int yy = p1.y + (p2.y - p1.y) * y / cy - 1;
-                gr2.drawRect(xx, yy, 1, 1);
+        float screenScaling = Screen.getInstance().getScaling();
+        int delta = (int) (transform.getScaleX() * 2 * screenScaling);
+        int min = (int) (2 * screenScaling);
+        if (delta < min) delta = min;
+        int max = (int) (8 * screenScaling);
+        if (delta > max) delta = max;
+        int sub = (delta + 1) / 2;
+
+        gr2.setColor(Color.LIGHT_GRAY);
+        for (int x = 0; x <= cx; x++) {
+            int xx = p1.x + (p2.x - p1.x) * x / cx - sub;
+            for (int y = 0; y <= cy; y++) {
+                int yy = p1.y + (p2.y - p1.y) * y / cy - sub;
+                gr2.fillRect(xx, yy, delta, delta);
             }
         }
     }
