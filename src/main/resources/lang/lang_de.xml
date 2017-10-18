@@ -742,6 +742,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_libraryPath_tt">Bibliothek mit vordefinierten Schaltungen. Enthält z.B. die ICs der 74xx Reihe.</string>
     <string name="key_grid">Raster anzeigen</string>
     <string name="key_grid_tt">Zeigt im Hauptfenster ein Raster an, um das platzieren der Elemente zu erleichtern.</string>
+    <string name="key_mapToKey">Auf Tastatur legen</string>
+    <string name="key_mapToKey_tt">Taste wird durch die Tastatur bedienbar. Um die Cursor-Tasten zu nutzen, kann als
+        Bezeichnung UP, DOWN, LEFT oder RIGHT verwendet werden.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

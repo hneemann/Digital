@@ -6,6 +6,7 @@ HEAD, planned as v0.15
 - Replaced shortcut 'B' with a more general attribute editing dialog (select multiple
   components and click right).
 - Added a grid to the main panel.
+- Added the possibility to map keyboard keys to model buttons.
 - fixed bugs in some 74xx circuits (74160, 74161, 74162 and 74238)
 - fixed a bug in the remote interface "run to break" method.
 - fixed an error in VHDL export if comparator is used in "signed mode"

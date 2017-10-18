@@ -418,6 +418,12 @@ public final class Keys {
             = new Key<>("activeLow", false).allowGroupEdit();
 
     /**
+     * true if button is mapped to the keyboard
+     */
+    public static final Key<Boolean> MAP_TO_KEY
+            = new Key<>("mapToKey", false).allowGroupEdit();
+
+    /**
      * Fitter for the atf1502
      */
     public static final Key<File> SETTINGS_LIBRARY_PATH

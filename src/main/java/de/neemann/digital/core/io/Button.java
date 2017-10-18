@@ -7,6 +7,9 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.lang.Lang;
 
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+
 /**
  * The Button
  *
@@ -20,11 +23,13 @@ public class Button implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Button.class)
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.ACTIVE_LOW);
+            .addAttribute(Keys.ACTIVE_LOW)
+            .addAttribute(Keys.MAP_TO_KEY);
 
     private final ObservableValue output;
     private final String label;
-    private final Boolean invert;
+    private final boolean invert;
+    private final boolean mapToKey;
     private boolean pressed;
 
     /**
@@ -36,6 +41,7 @@ public class Button implements Element {
         output = new ObservableValue("out", 1).setPinDescription(DESCRIPTION);
         label = attributes.get(Keys.LABEL);
         invert = attributes.get(Keys.ACTIVE_LOW);
+        mapToKey = attributes.get(Keys.MAP_TO_KEY);
         output.setValue(invert ? 1 : 0);
     }
 
@@ -52,6 +58,11 @@ public class Button implements Element {
     @Override
     public void registerNodes(Model model) {
         model.addSignal(new Signal(label, output));
+        if (mapToKey) {
+            final KeyStroke keyStroke = KeyStroke.getKeyStroke(label.trim());
+            if (keyStroke != null && keyStroke.getKeyCode() != KeyEvent.VK_UNDEFINED)
+                model.addButtonToMap(this, keyStroke.getKeyCode());
+        }
     }
 
     /**

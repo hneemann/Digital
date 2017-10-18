@@ -1,11 +1,13 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Reset;
 import de.neemann.digital.gui.components.WindowPosManager;
 import de.neemann.digital.lang.Lang;
 
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -47,6 +49,7 @@ public class Model implements Iterable<Node> {
     private final ArrayList<Clock> clocks;
     private final ArrayList<Break> breaks;
     private final ArrayList<Reset> resets;
+    private final HashMap<Integer, Button> buttonsToMap;
 
     private final ArrayList<Signal> signals;
     private final ArrayList<Signal> inputs;
@@ -69,6 +72,7 @@ public class Model implements Iterable<Node> {
         this.clocks = new ArrayList<>();
         this.breaks = new ArrayList<>();
         this.resets = new ArrayList<>();
+        this.buttonsToMap = new HashMap<>();
         this.signals = new ArrayList<>();
         this.outputs = new ArrayList<>();
         this.inputs = new ArrayList<>();
@@ -545,6 +549,25 @@ public class Model implements Iterable<Node> {
         return sigWithoutPinNumber;
     }
 
+    /**
+     * Adds a button which is to map to a keyboard key
+     *
+     * @param button    the button
+     * @param keyCode the key code
+     */
+    public void addButtonToMap(Button button, int keyCode) {
+        buttonsToMap.put(keyCode, button);
+    }
+
+    /**
+     * Gets the button which matches a givrn key
+     *
+     * @param keyCode the key
+     * @return the button or null if not present
+     */
+    public Button getButtonToMap(int keyCode) {
+        return buttonsToMap.get(keyCode);
+    }
 
     /**
      * A filter for nodes.

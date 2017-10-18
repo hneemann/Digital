@@ -8,6 +8,7 @@ import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
@@ -54,9 +55,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -185,6 +184,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         getContentPane().add(circuitComponent);
         componentOnPane = circuitComponent;
+
+        circuitComponent.addKeyListener(new ModelKeyListener());
 
         statusLabel = new JLabel(" ");
         getContentPane().add(statusLabel, BorderLayout.SOUTH);
@@ -1606,5 +1607,28 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             SwingUtilities.invokeLater(() -> build().setVisible(true));
         }
 
+    }
+
+    private class ModelKeyListener extends KeyAdapter {
+
+        @Override
+        public void keyPressed(KeyEvent keyEvent) {
+            checkKey(keyEvent.getKeyCode(), true);
+        }
+
+        @Override
+        public void keyReleased(KeyEvent keyEvent) {
+            checkKey(keyEvent.getKeyCode(), false);
+        }
+
+        private void checkKey(int keyCode, boolean pressed) {
+            if (model != null && keyCode != KeyEvent.VK_UNDEFINED) {
+                Button b = model.getButtonToMap(keyCode);
+                if (b != null) {
+                    modelSync.access(() -> b.setPressed(pressed));
+                    circuitComponent.repaintNeeded();
+                }
+            }
+        }
     }
 }
