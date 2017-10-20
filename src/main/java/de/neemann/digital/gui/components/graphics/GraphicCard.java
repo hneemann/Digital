@@ -36,7 +36,6 @@ public class GraphicCard extends Node implements Element, RAMInterface {
             input("B"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.GRAPHIC_WIDTH)
             .addAttribute(Keys.GRAPHIC_HEIGHT);
@@ -74,8 +73,12 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         height = attr.get(Keys.GRAPHIC_HEIGHT);
         bankSize = width * height;
         bits = attr.get(Keys.BITS);
-        addrBits = attr.get(Keys.ADDR_BITS);
         size = bankSize * 2;
+
+        int aBits = 1;
+        while (((1 << aBits) < size)) aBits++;
+
+        addrBits = aBits;
         memory = new DataField(size);
 
         dataOut = new ObservableValue("D", bits, true)
