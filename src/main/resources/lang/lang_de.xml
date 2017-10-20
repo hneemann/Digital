@@ -287,8 +287,8 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_GraphicCard">Grafik-RAM</string>
     <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
 RAM-Baustein mit dem Unterschied, dass der RAM-Inhalt als Grafik angezeigt wird. Jede Speicherstelle definiert die Farbe
-eines Pixels. Es werden zwei Grafikseiten abgelegt, so das ein Screen-Switching möglich ist (Siehe Eingang B).
-Die gesammte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
+eines Pixels, wobei eine feste Farbpalette verwendet wird. Es werden zwei Grafikseiten abgelegt, so das ein Screen-Switching möglich ist (Siehe Eingang B).
+Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_GraphicCard_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
     <string name="elem_GraphicCard_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
     <string name="elem_GraphicCard_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
