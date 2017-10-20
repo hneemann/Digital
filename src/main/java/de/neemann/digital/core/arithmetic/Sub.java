@@ -27,6 +27,8 @@ public class Sub extends Add {
      */
     public Sub(ElementAttributes attributes) {
         super(attributes);
+        getOutputs().get(0).setPinDescription(DESCRIPTION);
+        getOutputs().get(1).setPinDescription(DESCRIPTION);
     }
 
     @Override
