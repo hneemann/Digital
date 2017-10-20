@@ -281,15 +281,14 @@
     <string name="elem_GraphicCard">Graphic RAM</string>
     <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element behaves like a RAM. In addition it
         shows its content on a graphic screen. Every pixel is represented by a memory address. The value stored defines
-        the color of the pixel, using a fixed color palette. There are two screens pages implemented to support page
-        flipping (See input B).
-        The total memory size is thus dx * dy * 2 words.
+        the color of the pixel, using a fixed color palette. There are two screen buffers implemented to support page
+        flipping. The input B selects which buffer is shown. Thus, the total memory size is dx * dy * 2 words.
     </string>
     <string name="elem_GraphicCard_pin_A">The address to read and write.</string>
     <string name="elem_GraphicCard_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
     <string name="elem_GraphicCard_pin_C">Clock</string>
     <string name="elem_GraphicCard_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
-    <string name="elem_GraphicCard_pin_B">Selects the buffer to show.</string>
+    <string name="elem_GraphicCard_pin_B">Selects the screen buffer to show.</string>
     <string name="elem_GraphicCard_pin_D">The bidirectional data connection.</string>
     <string name="elem_ROM">ROM</string>
     <string name="elem_ROM_tt">A non-volatile memory component.</string>
