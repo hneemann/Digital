@@ -157,7 +157,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         if (builder.library != null) library = builder.library;
         else {
-            library = new ElementLibrary();
+            library = new ElementLibrary(Settings.getInstance().get(Keys.SETTINGS_JAR_PATH));
             Exception e = library.checkForException();
             if (e != null)
                 SwingUtilities.invokeLater(new ErrorMessage(Lang.get("err_loadingLibrary")).addCause(e).setComponent(this));

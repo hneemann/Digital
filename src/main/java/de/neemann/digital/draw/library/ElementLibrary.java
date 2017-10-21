@@ -81,6 +81,15 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * Creates a new instance.
      */
     public ElementLibrary() {
+        this(null);
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param jarFile the jar file to load
+     */
+    public ElementLibrary(File jarFile) {
         root = new LibraryNode(Lang.get("menu_elements"))
                 .setLibrary(this)
                 .add(new LibraryNode(Lang.get("lib_Logic"))
@@ -166,7 +175,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION));
 
-        addExternalJarComponents(Settings.getInstance().get(Keys.SETTINGS_JAR_PATH));
+        addExternalJarComponents(jarFile);
 
         populateNodeMap();
 
@@ -634,7 +643,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                     map.put(name, libraryNode);
                     libraryNode.setUnique(true);
                 } else {
-                    if (presentNode.getFile().equals(libraryNode.getFile()))
+                    if (presentNode.equalsFile(libraryNode))
                         libraryNode.setUnique(true);
                     else {
                         presentNode.setUnique(false); // ToDo does not work if there are more than two duplicates and
