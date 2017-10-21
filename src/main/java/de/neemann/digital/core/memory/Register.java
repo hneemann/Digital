@@ -64,9 +64,9 @@ public class Register extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        dVal = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
+        dVal = inputs.get(0).checkBits(bits, this);
         clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this);
-        enableVal = inputs.get(2).addObserverToValue(this).checkBits(1, this);
+        enableVal = inputs.get(2).checkBits(1, this);
     }
 
     @Override

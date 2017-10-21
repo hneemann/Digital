@@ -97,7 +97,7 @@ public class FlipflopDAsync extends Node implements Element {
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
         setVal = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
-        dVal = inputs.get(1).addObserverToValue(this).checkBits(bits, this, 1);
+        dVal = inputs.get(1).checkBits(bits, this, 1);
         clockVal = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
         clrVal = inputs.get(3).addObserverToValue(this).checkBits(1, this, 3);
     }

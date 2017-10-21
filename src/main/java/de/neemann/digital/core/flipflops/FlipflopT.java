@@ -86,7 +86,7 @@ public class FlipflopT extends Node implements Element {
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
         if (isEnable) {
-            enable = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
+            enable = inputs.get(0).checkBits(1, this, 0);
             clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
         } else
             clockVal = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);

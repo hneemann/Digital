@@ -77,9 +77,9 @@ public class FlipflopRS extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        sVal = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
+        sVal = inputs.get(0).checkBits(1, this, 0);
         clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
-        rVal = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
+        rVal = inputs.get(2).checkBits(1, this, 2);
     }
 
     @Override

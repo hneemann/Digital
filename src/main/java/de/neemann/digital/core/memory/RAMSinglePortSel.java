@@ -81,7 +81,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
         csIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
         weIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
         oeIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
-        dataIn = inputs.get(4).checkBits(bits, this).addObserverToValue(this);
+        dataIn = inputs.get(4).checkBits(bits, this);
     }
 
     @Override

@@ -88,9 +88,9 @@ public class FlipflopJKAsync extends Node implements Element {
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
         setVal = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
-        jVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
+        jVal = inputs.get(1).checkBits(1, this, 1);
         clockVal = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
-        kVal = inputs.get(3).addObserverToValue(this).checkBits(1, this, 3);
+        kVal = inputs.get(3).checkBits(1, this, 3);
         clrVal = inputs.get(4).addObserverToValue(this).checkBits(1, this, 4);
     }
 
