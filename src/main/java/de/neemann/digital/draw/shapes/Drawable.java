@@ -11,8 +11,10 @@ import de.neemann.digital.draw.graphics.Style;
 public interface Drawable {
     /**
      * Draws an element depending on its state.
-     *  @param graphic   interface to draw to
-     * @param highLight true if a highlighted drawing is required
+     *
+     * @param graphic   interface to draw to
+     * @param highLight null means no highlighting at all. If highlight is not null, highlight is active.
+     *                  The given style should be used to highlight the drawing.
      */
     void drawTo(Graphic graphic, Style highLight);
 }

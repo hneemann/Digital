@@ -30,13 +30,14 @@ public interface Shape extends Drawable {
      * to all of the inputs ObservableValues it depends on.
      * To access the actual state while drawing, the Shape needs to store the IOState or the needed inputs
      * in a member variable.
-     * <p>
      * If the shape returns an interactor, this interactors clicked method is called if the
-     * shape is clicked in running mode. If the shape is not interactive siply return null.
+     * shape is clicked in running mode. If the shape is not interactive simply return null.
      *
      * @param ioState     the state of the element, never null
-     * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
-     * @return the interactor is called if the shape is clicked during running mode, maybe null
+     * @param guiObserver can be used to update the GUI by calling hasChanged, Is maybe null.
+     *                    If the shape depends on a signal value, you can add this observer to
+     *                    the signal. In this case a repaint is initiated, if the signal changes.
+     * @return The interactor which is used to interact with the shape while the simulation runs.
      */
     InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver);
 
