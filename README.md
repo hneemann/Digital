@@ -47,7 +47,8 @@ These are the main features of Digital:
   for details. The examples folder contains a variant of the simple CPU, which runs on a BASYS3 board.
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
-- Its possible to add custom implemented components as a jar file.   
+- Its possible to add custom implemented components as a jar file. 
+  See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
 - No legacy code
 - Good test coverage (exclusive of GUI classes about 80%).
   Almost all examples contain test cases which ensure that they work correctly.
