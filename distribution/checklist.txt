@@ -3,7 +3,7 @@ Distribution Checklist
 Checklist to be filled out before software is distributed.
 This is to ensure that at least the most important GUI functions
 work properly.
-Don't use the 'experimental mode'!
+Don't use the 'experimental mode'! Remove jar library from settings.
 
 General
 [ ] build a MS-JK-FF with diagonal wires, use Copy&Paste and 'L' shortcuts
