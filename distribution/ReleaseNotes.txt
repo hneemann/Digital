@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.15
+- Added the possibility to use custom, java implemented components in Digital.
 - Added an EEPROM which behaves like a memory that can be written and whose content
   is non-volatile.
 - Replaced shortcut 'B' with a more general attribute editing dialog (select multiple

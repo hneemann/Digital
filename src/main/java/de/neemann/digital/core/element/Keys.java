@@ -428,4 +428,11 @@ public final class Keys {
      */
     public static final Key<File> SETTINGS_LIBRARY_PATH
             = new Key.KeyFile("libraryPath", ElementLibrary.getLibPath()).setDirectoryOnly(true);
+
+    /**
+     * A jar containing custom java components
+     */
+    public static final Key<File> SETTINGS_JAR_PATH
+            = new Key.KeyFile("jarPath", new File(""));
+
 }

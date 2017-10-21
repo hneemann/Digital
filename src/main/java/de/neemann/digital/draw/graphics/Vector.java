@@ -39,6 +39,20 @@ public class Vector {
         this(pos.x, pos.y);
     }
 
+
+    /**
+     * Returns a new vector
+     * shorthand for new Vector(x,y)
+     *
+     * @param x x
+     * @param y y
+     * @return the vector
+     */
+    public static Vector vec(int x, int y) {
+        return new Vector(x, y);
+    }
+
+
     /**
      * returns the minimum vector from the given vectors.
      *

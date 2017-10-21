@@ -584,6 +584,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_function_N0_notFoundInLine_N1">Funktion {0} nicht gefunden in Zeile {1}!</string>
     <string name="err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3">Zahl der Argumente in Funktion {0} in Zeile {1} stimmt nicht (gefunden {2}, erwartet {3})!</string>
     <string name="err_invalidValue_N0_inFunction_N1">Ungültiger Wert {0} in Funktion {1}!</string>
+    <string name="err_Node_N_isAComponent">Das Element {0} ist kein Pfadelement.</string>
+    <string name="err_loadingLibrary">Fehler beim Laden einer Bibliothek.</string>
+    <string name="err_noManifestFound">Die JAR Datei enthält kein Manifest!</string>
+    <string name="err_noMainFoundInManifest">Das Manifest enthält keinen Main-Class-Eintrag!</string>
+    <string name="err_mainClass_N_NotFound">Die Klasse {0} wurde nicht gefunden!</string>
+    <string name="err_couldNotInitializeMainClass_N">Es konnte keine Instanz der Klasse {0} erzeugt werden!</string>
 
     <string name="key_AddrBits">Adress-Bits</string>
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -745,6 +751,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_mapToKey">Auf Tastatur legen</string>
     <string name="key_mapToKey_tt">Taste wird durch die Tastatur bedienbar. Um die Cursor-Tasten zu nutzen, kann als
         Bezeichnung UP, DOWN, LEFT oder RIGHT verwendet werden.</string>
+    <string name="key_jarPath">Java Bibliothek</string>
+    <string name="key_jarPath_tt">Eine jar Datei, welche neue Beuteile als Java Klassen enthält.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

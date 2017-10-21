@@ -17,6 +17,7 @@ import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.JarComponentManager;
 import de.neemann.digital.draw.shapes.ieee.IEEEAndShape;
 import de.neemann.digital.draw.shapes.ieee.IEEENotShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
@@ -124,6 +125,11 @@ public final class ShapeFactory {
         map.put(DiodeBackward.DESCRIPTION.getName(), DiodeBackwardShape::new);
         map.put(PullUp.DESCRIPTION.getName(), PullUpShape::new);
         map.put(PullDown.DESCRIPTION.getName(), PullDownShape::new);
+
+        final JarComponentManager jcm = library.getJarComponentManager();
+        if (jcm != null)
+            for (JarComponentManager.AdditionalShape c : jcm)
+                map.put(c.getDescription().getName(), c.getShape());
     }
 
     /**
@@ -183,7 +189,20 @@ public final class ShapeFactory {
         }
     }
 
-    private interface Creator {
+    /**
+     * creates a new shape
+     */
+    public interface Creator {
+        /**
+         * Called to create a new shape
+         *
+         * @param attributes the elements attributes
+         * @param inputs     the inputs
+         * @param outputs    the outputs
+         * @return the shape
+         * @throws NodeException NodeException
+         * @throws PinException  PinException
+         */
         Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException, PinException;
     }
 

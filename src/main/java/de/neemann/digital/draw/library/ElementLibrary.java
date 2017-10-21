@@ -71,9 +71,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private final HashSet<String> isProgrammable = new HashSet<>();
     private final ArrayList<LibraryListener> listeners = new ArrayList<>();
     private final LibraryNode root;
+    private JarComponentManager jarComponentManager;
     private ShapeFactory shapeFactory;
     private ElementLibraryFolder custom;
     private File rootLibraryPath;
+    private Exception exception;
 
     /**
      * Creates a new instance.
@@ -164,6 +166,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION));
 
+        addExternalJarComponents(Settings.getInstance().get(Keys.SETTINGS_JAR_PATH));
+
         populateNodeMap();
 
         custom = new ElementLibraryFolder(root, Lang.get("menu_custom"));
@@ -178,6 +182,73 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             if (d != null && d.hasAttribute(Keys.BLOWN))
                 isProgrammable.add(d.getName());
         });
+    }
+
+    private void addExternalJarComponents(File file) {
+        if (file != null && file.getPath().length() > 0 && file.exists()) {
+            if (jarComponentManager == null)
+                jarComponentManager = new JarComponentManager(this);
+            try {
+                jarComponentManager.loadJar(file);
+            } catch (IOException | InvalidNodeException e) {
+                exception = e;
+            }
+        }
+    }
+
+    /**
+     * registers a component source to Digital
+     *
+     * @param source the source
+     * @return this for chained calls
+     */
+    public ElementLibrary registerComponentSource(ComponentSource source) {
+        try {
+            if (jarComponentManager == null)
+                jarComponentManager = new JarComponentManager(this);
+            source.registerComponents(jarComponentManager);
+        } catch (InvalidNodeException e) {
+            exception = e;
+        }
+        return this;
+    }
+
+    /**
+     * @return returns a exception during initialization or null if there was none
+     */
+    public Exception checkForException() {
+        Exception e = exception;
+        exception = null;
+        return e;
+    }
+
+    LibraryNode findNode(String path) throws InvalidNodeException {
+        StringTokenizer st = new StringTokenizer(path, "\\/;");
+        LibraryNode node = root;
+        while (st.hasMoreTokens()) {
+            String name = st.nextToken();
+            LibraryNode found = null;
+            for (LibraryNode n : node) {
+                if (n.getName().equals(name)) {
+                    if (n.isLeaf())
+                        throw new InvalidNodeException(Lang.get("err_Node_N_isAComponent", n));
+                    found = n;
+                }
+            }
+            if (found == null) {
+                found = new LibraryNode(name);
+                node.add(found);
+            }
+            node = found;
+        }
+        return node;
+    }
+
+    /**
+     * @return the component manager
+     */
+    public JarComponentManager getJarComponentManager() {
+        return jarComponentManager;
     }
 
     /**

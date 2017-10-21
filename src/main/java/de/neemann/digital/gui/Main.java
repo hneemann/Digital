@@ -156,7 +156,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         keepPrefMainFile = builder.keepPrefMainFile;
 
         if (builder.library != null) library = builder.library;
-        else library = new ElementLibrary();
+        else {
+            library = new ElementLibrary();
+            Exception e = library.checkForException();
+            if (e != null)
+                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("err_loadingLibrary")).addCause(e).setComponent(this));
+        }
 
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
 
@@ -600,7 +605,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)
-                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_FONT_SCALING, modified)) {
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_FONT_SCALING, modified)
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_JAR_PATH, modified)) {
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }

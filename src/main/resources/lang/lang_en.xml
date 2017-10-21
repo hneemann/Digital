@@ -572,6 +572,12 @@ The names of the variables may not be unique.</string>
     <string name="err_function_N0_notFoundInLine_N1">Function {0} not found in line {1}!</string>
     <string name="err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3">Number of arguments in function {0} in line {1} not correct (found {2}, expected {3})!</string>
     <string name="err_invalidValue_N0_inFunction_N1">Invalid value {0} in function {1}!</string>
+    <string name="err_Node_N_isAComponent">The name {0} is not a path element.</string>
+    <string name="err_loadingLibrary">Error during loading of a library.</string>
+    <string name="err_noManifestFound">The JAR file contains no manifest!</string>
+    <string name="err_noMainFoundInManifest">The manifest does not contain a Main-Class entry!</string>
+    <string name="err_mainClass_N_NotFound">Could not find the class {0}!</string>
+    <string name="err_couldNotInitializeMainClass_N">Could not create an instance of the class {0}!</string>
 
     <string name="key_AddrBits">Address Bits</string>
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -731,6 +737,8 @@ The names of the variables may not be unique.</string>
     <string name="key_grid_tt">Shows a grid in the main window.</string>
     <string name="key_mapToKey">Map to keyboard</string>
     <string name="key_mapToKey_tt">Button is mapped to the keyboard. To use the cursor keys use UP, DOWN, LEFT or RIGHT as label.</string>
+    <string name="key_jarPath">Java library</string>
+    <string name="key_jarPath_tt">A jar file containing additional components implemented in java.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
