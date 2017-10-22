@@ -158,9 +158,11 @@ public class TruthTable {
      *
      * @param name   name of the result column
      * @param values the values
+     * @return this for call chaining
      */
-    public void addResult(String name, BoolTable values) {
+    public TruthTable addResult(String name, BoolTable values) {
         results.add(new Result(name, values));
+        return this;
     }
 
     /**

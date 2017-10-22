@@ -79,12 +79,14 @@ public class ExpressionCreator {
     }
 
     private void simplify(ExpressionListener listener, List<Variable> vars, String resultName, BoolTable boolTable) throws AnalyseException, ExpressionException, FormatterException {
-        TableReducer tr = new TableReducer(vars, boolTable);
         List<Variable> localVars = vars;
-        if (tr.canReduce()) {
-            LOGGER.debug(resultName + " reduced from " + vars.size() + " to " + tr.getVars().size() + " variables ("+tr.getVars()+")");
-            boolTable = tr.getTable();
-            localVars = tr.getVars();
+        if (vars.size()>4) {
+            TableReducer tr = new TableReducer(vars, boolTable);
+            if (tr.canReduce()) {
+                LOGGER.debug(resultName + " reduced from " + vars.size() + " to " + tr.getVars().size() + " variables (" + tr.getVars() + ")");
+                boolTable = tr.getTable();
+                localVars = tr.getVars();
+            }
         }
         if (!Main.enableExperimental() && localVars.size() > MAX_INPUTS_ALLOWED)
             throw new AnalyseException(Lang.get("err_toManyInputsIn_N0_max_N1_is_N2", resultName, MAX_INPUTS_ALLOWED, localVars.size()));

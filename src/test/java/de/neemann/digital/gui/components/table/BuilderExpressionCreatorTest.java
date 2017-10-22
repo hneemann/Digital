@@ -10,6 +10,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.core.BacktrackException;
@@ -27,6 +28,7 @@ import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
 import static de.neemann.digital.analyse.expression.Operation.or;
 import static de.neemann.digital.analyse.expression.Variable.v;
+import static de.neemann.digital.analyse.expression.Variable.vars;
 
 /**
  * Created by hneemann on 02.04.17.
@@ -79,6 +81,16 @@ public class BuilderExpressionCreatorTest extends TestCase {
         CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, false);
         new BuilderExpressionCreator(circuitBuilder, modifier).create(els);
         return new ModelCreator(circuitBuilder.createCircuit(), libary).createModel(false);
+    }
+
+
+    public void testMultipleResults() throws AnalyseException, FormatterException, ExpressionException {
+        BoolTable table=new BoolTableByteArray(new byte[]{2, 0, 0, 0, 1, 2, 0, 0, 1, 1, 2, 0, 1, 1, 1, 2});
+        TruthTable tt = new TruthTable(vars(4)).addResult("Y", table);
+        ExpressionListenerStore els = new ExpressionListenerStore(null);
+        new ExpressionCreator(tt).create(els);
+
+        assertEquals(4, els.getResults().size());
     }
 
 }
