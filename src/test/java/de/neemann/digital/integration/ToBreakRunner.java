@@ -70,6 +70,7 @@ public class ToBreakRunner {
 
     private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException, ElementNotFoundException {
         library = new ElementLibrary();
+        initLibraray(library);
         library.setRootFilePath(filename.getParentFile());
         ShapeFactory shapeFactory = new ShapeFactory(library);
         circuit = Circuit.loadCircuit(filename, shapeFactory);
@@ -78,6 +79,15 @@ public class ToBreakRunner {
         model = md.createModel(false);
         if (doInit)
             model.init(true);
+    }
+
+    /**
+     * Override this method to prepare the library.
+     * This implementation does nothing.
+     *
+     * @param library the library
+     */
+    public void initLibraray(ElementLibrary library) {
     }
 
     /**

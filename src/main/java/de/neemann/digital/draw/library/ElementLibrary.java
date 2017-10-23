@@ -193,7 +193,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         });
     }
 
-    private void addExternalJarComponents(File file) {
+    void addExternalJarComponents(File file) {
         if (file != null && file.getPath().length() > 0 && file.exists()) {
             if (jarComponentManager == null)
                 jarComponentManager = new JarComponentManager(this);

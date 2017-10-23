@@ -184,7 +184,6 @@ public final class ShapeFactory {
                         pt.getOutputDescriptions(elementAttributes));
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return new MissingShape(elementName, e);
         }
     }
