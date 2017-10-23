@@ -1632,7 +1632,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 Button b = model.getButtonToMap(keyCode);
                 if (b != null) {
                     modelSync.access(() -> b.setPressed(pressed));
-                    circuitComponent.repaintNeeded();
+                    circuitComponent.modelHasChanged();
                 }
             }
         }
