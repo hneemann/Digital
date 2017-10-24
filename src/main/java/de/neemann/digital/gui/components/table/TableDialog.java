@@ -462,20 +462,20 @@ public class TableDialog extends JDialog {
 
         hardware.add(createATF150XExporterMenu("ATF1502",
                 new ATF1502CuplExporter(),
-                new ExpressionToFileExporter(new ATF1502TT2Exporter(filename.getName()))
+                new ExpressionToFileExporter(new ATF1502TT2Exporter(getProjectName()))
                         .addProcessingStep(new StartATF1502Fitter(TableDialog.this))
                         .addProcessingStep(new CreateCHN("ATF1502AS"))
         ));
         hardware.add(createATF150XExporterMenu("ATF1504",
                 new ATF1504CuplExporter(),
-                new ExpressionToFileExporter(new ATF1504TT2Exporter(filename.getName()))
+                new ExpressionToFileExporter(new ATF1504TT2Exporter(getProjectName()))
                         .addProcessingStep(new StartATF1504Fitter(TableDialog.this))
                         .addProcessingStep(new CreateCHN("ATF1504AS"))
         ));
         /*
         hardware.add(createATF150XExporterMenu("ATF1508",
                 new ATF1508CuplExporter(),
-                new ExpressionToFileExporter(new ATF1508TT2Exporter(filename.getName()))
+                new ExpressionToFileExporter(new ATF1508TT2Exporter(getProjectName()))
                         .addProcessingStep(new StartATF1508Fitter(TableDialog.this))
                         .addProcessingStep(new CreateCHN("ATF1508AS"))
         ));*/
@@ -602,6 +602,12 @@ public class TableDialog extends JDialog {
         table.setModel(model);
         karnaughMenuAction.setEnabled(model.getTable().getVars().size() <= 4);
         calculateExpressions();
+    }
+
+    private String getProjectName() {
+        if (filename==null)
+            return "unknown";
+        else return filename.getName();
     }
 
     private class CalculationTableModelListener implements TableModelListener {
