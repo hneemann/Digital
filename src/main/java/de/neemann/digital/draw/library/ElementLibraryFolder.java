@@ -13,6 +13,7 @@ import java.util.Arrays;
  */
 public class ElementLibraryFolder {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibraryFolder.class);
+    private static final int MAX_FILES_TO_SCAN = 5000;
 
     private final LibraryNode root;
     private final String menuTitle;
@@ -54,8 +55,9 @@ public class ElementLibraryFolder {
                 node.removeAll();
                 changedNode = node;
             }
-            int num = scanFolder(path, node);
-            LOGGER.debug("found " + num + " files in " + path);
+            final ScanCounter scanCounter = new ScanCounter();
+            scanFolder(path, node, scanCounter);
+            LOGGER.debug("found " + scanCounter.getCircuitCounter() + " files in " + path);
         } else if (node != null) {
             root.remove(node);
             node = null;
@@ -64,29 +66,48 @@ public class ElementLibraryFolder {
         return changedNode;
     }
 
-    private static int scanFolder(File path, LibraryNode node) {
-        int num = 0;
+    private static void scanFolder(File path, LibraryNode node, ScanCounter scanCounter) {
         File[] list = path.listFiles();
-        if (list != null) {
+        if (list != null && scanCounter.getFileCounter() < MAX_FILES_TO_SCAN) {
             ArrayList<File> orderedList = new ArrayList<>(Arrays.asList(list));
             orderedList.sort((f1, f2) -> NumStringComparator.compareStr(f1.getName(), f2.getName()));
             for (File f : orderedList) {
                 if (f.isDirectory()) {
                     LibraryNode n = new LibraryNode(f.getName());
-                    num += scanFolder(f, n);
+                    scanFolder(f, n, scanCounter);
                     if (!n.isEmpty())
                         node.add(n);
                 }
             }
             for (File f : orderedList) {
+                scanCounter.incFile();
                 final String name = f.getName();
                 if (f.isFile() && name.endsWith(".dig")) {
                     node.add(new LibraryNode(f));
-                    num++;
+                    scanCounter.incCircuit();
                 }
             }
         }
-        return num;
     }
 
+    private static final class ScanCounter {
+        private int fileCounter;
+        private int circuitCounter;
+
+        private void incFile() {
+            fileCounter++;
+        }
+
+        private int getFileCounter() {
+            return fileCounter;
+        }
+
+        private void incCircuit() {
+            circuitCounter++;
+        }
+
+        private int getCircuitCounter() {
+            return circuitCounter;
+        }
+    }
 }
