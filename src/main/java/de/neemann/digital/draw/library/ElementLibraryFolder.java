@@ -72,7 +72,7 @@ public class ElementLibraryFolder {
             ArrayList<File> orderedList = new ArrayList<>(Arrays.asList(list));
             orderedList.sort((f1, f2) -> NumStringComparator.compareStr(f1.getName(), f2.getName()));
             for (File f : orderedList) {
-                if (f.isDirectory()) {
+                if (f.isDirectory() && !f.isHidden()) {
                     LibraryNode n = new LibraryNode(f.getName());
                     scanFolder(f, n, scanCounter);
                     if (!n.isEmpty())
