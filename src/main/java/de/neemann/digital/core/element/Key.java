@@ -111,21 +111,45 @@ public class Key<VALUE> {
         private int min = Integer.MIN_VALUE;
         private int max = Integer.MAX_VALUE;
 
-        KeyInteger(String key, Integer def) {
+        /**
+         * Creates a new instance
+         *
+         * @param key the key to use
+         * @param def the default value
+         */
+        public KeyInteger(String key, Integer def) {
             super(key, def);
         }
 
-        KeyInteger setComboBoxValues(Integer[] values) {
+        /**
+         * Sets the values to use in the combo box.
+         *
+         * @param values the values
+         * @return this for chained calls
+         */
+        public KeyInteger setComboBoxValues(Integer[] values) {
             this.values = values;
             return this;
         }
 
-        KeyInteger setMin(int min) {
+        /**
+         * Sets the minimal value which is allowed.
+         *
+         * @param min the minimal value allowed
+         * @return this for chained calls
+         */
+        public KeyInteger setMin(int min) {
             this.min = min;
             return this;
         }
 
-        KeyInteger setMax(int max) {
+        /**
+         * Sets the maximal value which is allowed.
+         *
+         * @param max the  maximal value allowed
+         * @return this for chained calls
+         */
+        public KeyInteger setMax(int max) {
             this.max = max;
             return this;
         }
@@ -156,20 +180,21 @@ public class Key<VALUE> {
      * A bits attribute.
      * Stores additional combo box values
      */
-    static final class KeyBits extends KeyInteger {
+    public static final class KeyBits extends KeyInteger {
         private static final Integer[] VALUES = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32};
 
-        KeyBits(String key, Integer def) {
+        /**
+         * Creates a new bits key
+         *
+         * @param key the key
+         * @param def the default value
+         */
+        public KeyBits(String key, Integer def) {
             super(key, def);
             setMin(1);
             super.setMax(64);
             setComboBoxValues(VALUES);
             allowGroupEdit();
-        }
-
-        KeyBits setMax(int bits) {
-            super.setMax(bits);
-            return this;
         }
     }
 
@@ -178,10 +203,15 @@ public class Key<VALUE> {
      */
     public static final class KeyFile extends Key<File> {
 
-
         private boolean directoryOnly;
 
-        KeyFile(String key, File def) {
+        /**
+         * Creates a new file key
+         *
+         * @param key the key
+         * @param def the default file
+         */
+        public KeyFile(String key, File def) {
             super(key, def);
             setDirectoryOnly(false);
         }
@@ -214,7 +244,14 @@ public class Key<VALUE> {
         private final E[] values;
         private final String[] names;
 
-        KeyEnum(String key, E def, E[] values) {
+        /**
+         * Creates a new emum key
+         *
+         * @param key    the key
+         * @param def    the default value
+         * @param values the possible values
+         */
+        public KeyEnum(String key, E def, E[] values) {
             super(key, def);
             this.values = values;
 
