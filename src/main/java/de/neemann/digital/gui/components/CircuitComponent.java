@@ -682,6 +682,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
         mouseInsertElement.updateMousePos(getPosVector(point.x, point.y));
         repaintNeeded();
+        requestFocus();
     }
 
     /**
