@@ -395,7 +395,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     }
                 }
             }
-        }.setToolTip(Lang.get("menu_new_tt")).setActive(allowAll);
+        }.setAcceleratorCTRLplus('N').setToolTip(Lang.get("menu_new_tt")).setActive(allowAll);
 
         ToolTipAction newSubFile = new ToolTipAction(Lang.get("menu_newSub"), ICON_NEW_SUB) {
             @Override
@@ -421,7 +421,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     }
                 }
             }
-        }.setActive(allowAll);
+        }.setAcceleratorCTRLplus('O').setActive(allowAll);
 
         ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), ICON_OPEN_WIN) {
             @Override

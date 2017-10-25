@@ -176,29 +176,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setAccelerator("F").enableAcceleratorIn(this);
 
-        new ToolTipAction("diagWire") {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (activeMouseController instanceof MouseControllerWireDiag)
-                    ((MouseControllerWireDiag) activeMouseController).rectangularWire();
-                else if (activeMouseController instanceof MouseControllerWireRect)
-                    ((MouseControllerWireRect) activeMouseController).diagonalWire();
-            }
-        }.setAccelerator("D").enableAcceleratorIn(this);
-
-        new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
-        new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
-
-        new ToolTipAction(Lang.get("menu_programDiode")) {
-            @Override
-            public void actionPerformed(ActionEvent e) { // is allowed also if locked!
-                VisualElement ve = getActualVisualElement();
-                if (ve != null && CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
-                    boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
-                    modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
-                }
-            }
-        }.setAccelerator("P").enableAcceleratorIn(this);
+        createAdditionalShortcuts(shapeFactory);
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DEL_ACTION);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), DEL_ACTION);
@@ -254,6 +232,59 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         setToolTipText("");
     }
 
+    private void createAdditionalShortcuts(ShapeFactory shapeFactory) {
+        new ToolTipAction("diagWire") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerWireDiag)
+                    ((MouseControllerWireDiag) activeMouseController).rectangularWire();
+                else if (activeMouseController instanceof MouseControllerWireRect)
+                    ((MouseControllerWireRect) activeMouseController).diagonalWire();
+            }
+        }.setAccelerator("D").enableAcceleratorIn(this);
+
+        new ToolTipAction("selectAll") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (activeMouseController == mouseNormal) {
+                    GraphicMinMax gr = new GraphicMinMax();
+                    circuit.drawTo(gr);
+                    if (gr.getMin() != null && gr.getMax() != null) {
+                        mouseSelect.activate(gr.getMin(), gr.getMax());
+                        mouseSelect.release();
+                    }
+                }
+            }
+        }.setAcceleratorCTRLplus('A').enableAcceleratorIn(this);
+
+        new ToolTipAction("duplicate") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ArrayList<Movable> elements = getSelectedElements(shapeFactory);
+                if (elements != null) {
+                    Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
+                    removeHighLighted();
+                    mouseInsertList.activate(elements, posVector);
+                }
+            }
+        }.setAcceleratorCTRLplus('D').enableAcceleratorIn(this);
+
+
+        new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
+        new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
+
+        new ToolTipAction(Lang.get("menu_programDiode")) {
+            @Override
+            public void actionPerformed(ActionEvent e) { // is allowed also if locked!
+                VisualElement ve = getActualVisualElement();
+                if (ve != null && CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
+                    boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
+                    modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
+                }
+            }
+        }.setAccelerator("P").enableAcceleratorIn(this);
+    }
+
     private ToolTipAction createPasteAction(ShapeFactory shapeFactory) {
         return new ToolTipAction(Lang.get("menu_paste")) {
             @Override
@@ -305,15 +336,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         return new ToolTipAction(Lang.get("menu_copy")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Movable> elements = null;
-                if (activeMouseController instanceof MouseControllerSelect) {
-                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-                    elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
-                } else if (activeMouseController instanceof MouseControllerMoveElement) {
-                    MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
-                    elements = new ArrayList<>();
-                    elements.add(mcme.visualElement);
-                }
+                ArrayList<Movable> elements = getSelectedElements(shapeFactory);
                 if (elements != null) {
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(new CircuitTransferable(elements), null);
@@ -321,6 +344,19 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 }
             }
         }.setActive(false).setAcceleratorCTRLplus('C').enableAcceleratorIn(this);
+    }
+
+    private ArrayList<Movable> getSelectedElements(ShapeFactory shapeFactory) {
+        ArrayList<Movable> elements = null;
+        if (activeMouseController instanceof MouseControllerSelect) {
+            MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
+            elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
+        } else if (activeMouseController instanceof MouseControllerMoveElement) {
+            MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
+            elements = new ArrayList<>();
+            elements.add(mcme.visualElement);
+        }
+        return elements;
     }
 
 
@@ -1133,6 +1169,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void mouseDragged(MouseEvent e) {
+            lastMousePos = new Vector(e.getX(), e.getY());
             if (wasMoved(e) || isMoved) {
                 isMoved = true;
                 if (!activeMouseController.dragged(e)) {
@@ -1664,6 +1701,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             cutAction.setEnabled(true);
             rotateAction.setEnabled(true);
             wasReleased = false;
+            updateHighlighting();
         }
 
         @Override
@@ -1715,14 +1753,22 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     corner2 = corner1.add(dx, dy);
                 }
 
-                ArrayList<Drawable> elements = circuit.getElementsToHighlight(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-                removeHighLighted();
-                if (elements != null)
-                    addHighLighted(elements);
-
-                repaint();
+                updateHighlighting();
             }
             return true;
+        }
+
+        private void updateHighlighting() {
+            ArrayList<Drawable> elements = circuit.getElementsToHighlight(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+            removeHighLighted();
+            if (elements != null)
+                addHighLighted(elements);
+
+            repaint();
+        }
+
+        public void release() {
+            this.wasReleased = true;
         }
 
         @Override

@@ -393,11 +393,15 @@
             <shortcut key="C">Einen Taktschritt ausführen (nur bei gestarteter Simulation und nur, wenn es genau ein
                 Taktelement in der Schaltung gibt).
             </shortcut>
+            <shortcut key="STRG-A">Alles auswählen.</shortcut>
             <shortcut key="STRG-X">Ausschneiden der selektierten Elemente und kopieren in die Zwischenablage.</shortcut>
             <shortcut key="STRG-C">Kopieren der selektierten Elemente in die Zwischenablage.</shortcut>
             <shortcut key="STRG-V">Einfügen der Elemente aus der Zwischenablage.</shortcut>
+            <shortcut key="STRG-D">Aktuelle Auswahl duplizieren ohne die Zwischenablage zu verändern.</shortcut>
             <shortcut key="R">Beim Einfügen rotieren der Elemente.</shortcut>
-            <shortcut key="L">Letztes eingefügtes Element noch einmal einfügen.</shortcut>
+            <shortcut key="L">Zuletzt eingefügtes Element noch einmal einfügen.</shortcut>
+            <shortcut key="STRG-N">Neue Schaltung.</shortcut>
+            <shortcut key="STRG-O">Schaltung öffnen.</shortcut>
             <shortcut key="STRG-S">Speichern der Schaltung.</shortcut>
             <shortcut key="STRG-Z">Letzte Änderung zurücknehmen.</shortcut>
             <shortcut key="STRG-Y">Zurückgenommene Änderung erneut anwenden.</shortcut>
