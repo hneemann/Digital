@@ -132,7 +132,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
         out
                 .append("Name     ").append(projectName).append(" ;\r\n")
                 .append("PartNo   00 ;\r\n")
-                .append("Date     ").append(dateFormat.format(date)).append(" ;\r\n")
+                .append("Date     ").append(formatDate(date)).append(" ;\r\n")
                 .append("Revision 01 ;\r\n")
                 .append("Designer ").append(username).append(" ;\r\n")
                 .append("Company  unknown ;\r\n")
@@ -188,6 +188,17 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
         }
 
         out.flush();
+    }
+
+    /**
+     * Formats the date to a string.
+     * Used to make tests independent from the local time zone.
+     *
+     * @param date the date to format
+     * @return the string representation
+     */
+    protected String formatDate(Date date) {
+        return dateFormat.format(date);
     }
 
     private void breakLines(Writer out, String expression) throws IOException {
