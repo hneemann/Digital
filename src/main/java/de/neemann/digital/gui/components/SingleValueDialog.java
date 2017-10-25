@@ -83,6 +83,11 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         textField = new JTextField(10);
         textField.setHorizontalAlignment(JTextField.RIGHT);
+        textField.getActionMap().put("MY_UP", new UpDownAction(1));
+        textField.getActionMap().put("MY_DOWN", new UpDownAction(-1));
+        textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "MY_UP");
+        textField.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "MY_DOWN");
+
         formatComboBox = new JComboBox<>(InMode.values(supportsHighZ));
         formatComboBox.addActionListener(actionEvent -> {
             if (!programmaticModifyingFormat)
@@ -228,7 +233,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             } else {
                 if (text.startsWith("0x"))
                     setSelectedFormat(InMode.HEX);
-                else if (text.startsWith("0"))
+                else if (text.startsWith("0") && text.length() > 1)
                     setSelectedFormat(InMode.OCTAL);
                 else
                     setSelectedFormat(InMode.DECIMAL);
@@ -263,6 +268,21 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         @Override
         public void changedUpdate(DocumentEvent documentEvent) {
             runnable.run();
+        }
+    }
+
+    private final class UpDownAction extends AbstractAction {
+        private final int offs;
+
+        private UpDownAction(int offs) {
+            this.offs = offs;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            editValue += offs;
+            setLongToDialog(editValue);
+            apply();
         }
     }
 }
