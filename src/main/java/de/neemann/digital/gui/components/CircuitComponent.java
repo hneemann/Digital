@@ -679,17 +679,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             else if (point.y > getHeight() - MOUSE_BORDER_SMALL)
                 point.y = getHeight() - MOUSE_BORDER_SMALL;
 
-            SwingUtilities.convertPointToScreen(point, this);
-
-            try {
-                new Robot().mouseMove(point.x, point.y);
-            } catch (AWTException e) {
-                e.printStackTrace();
-            }
-        } else {
-            mouseInsertElement.updateMousePos(getPosVector(point.x, point.y));
-            repaintNeeded();
         }
+        mouseInsertElement.updateMousePos(getPosVector(point.x, point.y));
+        repaintNeeded();
     }
 
     /**
