@@ -24,12 +24,7 @@ public class ATF1502CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
-        ATF1502CuplExporter ce = new ATF1502CuplExporter("user",null, "f1502ispplcc44") {
-            @Override
-            protected String formatDate(Date date) {
-                return "unknownDate";
-            }
-        };
+        ATF1502CuplExporter ce = new ATF1502CuplExporter("user",null, "f1502ispplcc44");
         ce.getPinMapping().parseString("Y_0=4;Y_1=5;A=6");
         ce.setProjectName("test");
         ce.getBuilder()

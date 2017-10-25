@@ -190,15 +190,11 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
         out.flush();
     }
 
-    /**
-     * Formats the date to a string.
-     * Used to make tests independent from the local time zone.
-     *
-     * @param date the date to format
-     * @return the string representation
-     */
-    protected String formatDate(Date date) {
-        return dateFormat.format(date);
+    private String formatDate(Date date) {
+        if (date == null)
+            return "unknownDate";
+        else
+            return dateFormat.format(date);
     }
 
     private void breakLines(Writer out, String expression) throws IOException {

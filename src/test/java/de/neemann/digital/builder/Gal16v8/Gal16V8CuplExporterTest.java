@@ -24,12 +24,7 @@ public class Gal16V8CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
-        CuplExporter ce = new CuplExporter("user", null){
-            @Override
-            protected String formatDate(Date date) {
-                return "unknownDate";
-            }
-        }
+        CuplExporter ce = new CuplExporter("user", null)
                 .setProjectName("test");
         ce.getPinMapping().parseString("Y_0=12;Y_1=13;A=14");
         ce.getBuilder()
