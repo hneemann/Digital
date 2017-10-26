@@ -7,6 +7,7 @@ import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
@@ -83,10 +84,6 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         textField = new JTextField(10);
         textField.setHorizontalAlignment(JTextField.RIGHT);
-        textField.getActionMap().put("MY_UP", new UpDownAction(1));
-        textField.getActionMap().put("MY_DOWN", new UpDownAction(-1));
-        textField.getInputMap().put(KeyStroke.getKeyStroke("UP"), "MY_UP");
-        textField.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "MY_DOWN");
 
         formatComboBox = new JComboBox<>(InMode.values(supportsHighZ));
         formatComboBox.addActionListener(actionEvent -> {
@@ -97,7 +94,13 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         JPanel panel = new JPanel(new GridBagLayout());
         ConstrainsBuilder constr = new ConstrainsBuilder().inset(3).fill();
         panel.add(formatComboBox, constr);
-        panel.add(textField, constr.dynamicWidth().x(1));
+        JSpinner spinner = new JSpinner(new MySpinnerModel()) {
+            @Override
+            protected JComponent createEditor(SpinnerModel spinnerModel) {
+                return textField;
+            }
+        };
+        panel.add(spinner, constr.dynamicWidth().x(1));
         constr.nextRow();
         panel.add(new JLabel(Lang.get("attr_dialogBinary")), constr);
         panel.add(createCheckBoxPanel(value.getBits(), editValue), constr.dynamicWidth().x(1));
@@ -271,18 +274,37 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         }
     }
 
-    private final class UpDownAction extends AbstractAction {
-        private final int offs;
-
-        private UpDownAction(int offs) {
-            this.offs = offs;
+    private class MySpinnerModel implements SpinnerModel {
+        @Override
+        public Object getValue() {
+            return editValue;
         }
 
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            editValue += offs;
-            setLongToDialog(editValue);
-            apply();
+        public void setValue(Object o) {
+            if (o != null && o instanceof Number) {
+                editValue = ((Number) o).longValue();
+                setLongToDialog(editValue);
+                apply();
+            }
+        }
+
+        @Override
+        public Object getNextValue() {
+            return editValue + 1;
+        }
+
+        @Override
+        public Object getPreviousValue() {
+            return editValue - 1;
+        }
+
+        @Override
+        public void addChangeListener(ChangeListener changeListener) {
+        }
+
+        @Override
+        public void removeChangeListener(ChangeListener changeListener) {
         }
     }
 }
