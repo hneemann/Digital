@@ -262,10 +262,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void actionPerformed(ActionEvent actionEvent) {
                 ArrayList<Movable> elements = getSelectedElements(shapeFactory);
                 if (elements != null) {
-                    elements= Circuit.createCopy(elements, shapeFactory);
+                    activeMouseController.escapePressed();
+                    ArrayList<Movable> copiedElements = new ArrayList<>();
+                    for (Movable m : elements) {
+                        if (m instanceof Wire)
+                            copiedElements.add(new Wire((Wire) m));
+                        else if (m instanceof VisualElement)
+                            copiedElements.add(new VisualElement((VisualElement) m));
+                    }
                     Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
                     removeHighLighted();
-                    mouseInsertList.activate(elements, posVector);
+                    mouseInsertList.activate(copiedElements, posVector);
                 }
             }
         }.setAcceleratorCTRLplus('D').enableAcceleratorIn(this);
