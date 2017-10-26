@@ -262,6 +262,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void actionPerformed(ActionEvent actionEvent) {
                 ArrayList<Movable> elements = getSelectedElements(shapeFactory);
                 if (elements != null) {
+                    elements= Circuit.createCopy(elements, shapeFactory);
                     Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
                     removeHighLighted();
                     mouseInsertList.activate(elements, posVector);

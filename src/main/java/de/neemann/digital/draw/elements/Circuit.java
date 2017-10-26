@@ -1,6 +1,7 @@
 package de.neemann.digital.draw.elements;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.core.ObservableValue;
@@ -137,6 +138,31 @@ public class Circuit {
             modified = false;
             origin = filename;
         }
+    }
+
+    /**
+     * Creates a deep copy of the given list of Movables.
+     *
+     * @param movables     the object to copy
+     * @param shapeFactory the shape factory
+     * @return the deep copy
+     */
+    public static ArrayList<Movable> createCopy(ArrayList<Movable> movables, ShapeFactory shapeFactory) {
+        XStream xStream = Circuit.getxStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (Writer out = new OutputStreamWriter(baos, "utf-8")) {
+            out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            xStream.marshal(movables, new CompactWriter(out));
+        } catch (IOException e) {
+            // should not happen because no real IO involved
+            e.printStackTrace();
+        }
+        ArrayList<Movable> copy = (ArrayList<Movable>) xStream.fromXML(new ByteArrayInputStream(baos.toByteArray()));
+        for (Movable m : copy)
+            if (m instanceof VisualElement)
+                ((VisualElement) m).setShapeFactory(shapeFactory);
+
+        return copy;
     }
 
     /**
