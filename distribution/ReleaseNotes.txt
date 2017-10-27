@@ -4,14 +4,19 @@ HEAD, planned as v0.15
 - Added the possibility to use custom, java implemented components in Digital.
 - Added an EEPROM which behaves like a memory that can be written and whose content
   is non-volatile.
-- Replaced shortcut 'B' with a more general attribute editing dialog (select multiple
-  components and click right).
-- Added a grid to the main panel.
 - Added the possibility to map keyboard keys to model buttons.
+- Some small usability improvements:
+  - Added a grid to the main panel.
+  - Replaced shortcut 'B' with a more general attribute editing dialog (select multiple
+    components and click right).
+  - Added some new shortcuts (CTRL-N, CTRL-O, CTRL-A, CTRL-D).
+  - Added a spinner to the input value edit dialog.
 - fixed bugs in some 74xx circuits (74160, 74161, 74162 and 74238)
 - fixed a bug in the remote interface "run to break" method.
 - fixed an error in VHDL export if comparator is used in "signed mode"
 - fixed a Windows specific bug in the speed test GUI
+- fixed a bug which causes a freezing when a file is stored in folder which contains
+  a large number of sub folders and files.
 - Breaking changes:
   - Removed the address bits settings from the graphic RAM. The width is now
     determined by the width and the height of the screen.
