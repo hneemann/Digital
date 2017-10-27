@@ -285,6 +285,12 @@ public final class Keys {
             = new Key<>("grid", false);
 
     /**
+     * enables the wire bits view
+     */
+    public static final Key<Boolean> SETTINGS_SHOW_WIRE_BITS
+            = new Key<>("showWireBits", false);
+
+    /**
      * output format for numbers
      */
     public static final Key.KeyEnum<IntFormat> INT_FORMAT

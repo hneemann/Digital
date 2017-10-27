@@ -753,6 +753,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Bezeichnung UP, DOWN, LEFT oder RIGHT verwendet werden.</string>
     <string name="key_jarPath">Java Bibliothek</string>
     <string name="key_jarPath_tt">Eine jar Datei, welche neue Beuteile als Java Klassen enthält.</string>
+    <string name="key_showWireBits">Zeigt die Anzahl der Leitungen auf einem Bus</string>
+    <string name="key_showWireBits_tt">Zeigt die Anzahl der Leitungen eines Bus an. ACHTUNG: Dieser Wert wird nur beim
+        Start der Simulation aktualisiert.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

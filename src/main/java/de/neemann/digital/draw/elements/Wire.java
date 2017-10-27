@@ -1,12 +1,17 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.gui.Settings;
 
 import java.util.Collection;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * A simple wire described by two points.
@@ -14,9 +19,12 @@ import java.util.Collection;
  * @author hneemann
  */
 public class Wire implements Drawable, Movable {
-    private static final int MIN_LABEL_LEN = 80;
+    private static final int MIN_LABEL_WIRE_LEN = 80;
+    private static final int MIN_CROSS_WIRE_LEN = SIZE * 2;
+    private static final int CROSS_LEN = 4;
+    private static final int DISPLACE = SIZE2;
     //Every value of p1 or p2 is valid. There are no hidden state constrains or dependencies.
-    //So both fields are allowed to by public to allow more readable code.
+    //So both fields are allowed to be public to allow more readable code.
     //CHECKSTYLE.OFF: VisibilityModifier
     /**
      * The first endpoint of the line
@@ -30,6 +38,7 @@ public class Wire implements Drawable, Movable {
     private transient ObservableValue value;
     private transient boolean p1Dot;
     private transient boolean p2Dot;
+    private transient int bits;
 
     /**
      * Creates anew wire
@@ -62,9 +71,28 @@ public class Wire implements Drawable, Movable {
 
         graphic.drawLine(p1, p2, style);
 
-        if (value != null && p1.y == p2.y && Math.abs(p1.x - p2.x) > MIN_LABEL_LEN && value.getBits() > 1) {
-            Vector pos = p1.add(p2).div(2).add(0, -3);
-            graphic.drawText(pos, pos.add(1, 0), value.getValueString(), de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM, Style.WIRE_VALUE);
+        if (value != null)
+            bits = value.getBits();
+
+        final boolean showBits = Settings.getInstance().get(Keys.SETTINGS_SHOW_WIRE_BITS);
+        if (value != null && p1.y == p2.y && Math.abs(p1.x - p2.x) > MIN_LABEL_WIRE_LEN && value.getBits() > 1) {
+            Vector pos = p1.add(p2).div(2);
+            de.neemann.digital.draw.graphics.Orientation ori;
+            if (showBits) {
+                pos = pos.add(-DISPLACE, 3);
+                ori = de.neemann.digital.draw.graphics.Orientation.RIGHTTOP;
+            } else {
+                pos = pos.add(0, -3);
+                ori = de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM;
+            }
+            graphic.drawText(pos, pos.add(1, 0), value.getValueString(), ori, Style.WIRE_VALUE);
+        }
+
+        if (bits > 1 && p1.y == p2.y && Math.abs(p1.x - p2.x) >= MIN_CROSS_WIRE_LEN && showBits) {
+            Vector pos = p1.add(p2).div(2).add(-DISPLACE, 0);
+            graphic.drawLine(pos.add(CROSS_LEN, CROSS_LEN), pos.add(-CROSS_LEN, -CROSS_LEN), Style.WIRE_BITS);
+            Vector numPos = pos.add(0, -3);
+            graphic.drawText(numPos, numPos.add(1, 0), Integer.toString(bits), de.neemann.digital.draw.graphics.Orientation.LEFTBOTTOM, Style.WIRE_BITS);
         }
 
         if (p1Dot || p2Dot) {
@@ -224,6 +252,7 @@ public class Wire implements Drawable, Movable {
     public void noDot() {
         p1Dot = false;
         p2Dot = false;
+        bits = 0;
     }
 
     /**

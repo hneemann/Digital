@@ -739,6 +739,8 @@ The names of the variables may not be unique.</string>
     <string name="key_mapToKey_tt">Button is mapped to the keyboard. To use the cursor keys use UP, DOWN, LEFT or RIGHT as label.</string>
     <string name="key_jarPath">Java library</string>
     <string name="key_jarPath_tt">A jar file containing additional components implemented in java.</string>
+    <string name="key_showWireBits">Shows the number of wires on a bus.</string>
+    <string name="key_showWireBits_tt">CAUTION: The value is only updated when the simulation starts.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

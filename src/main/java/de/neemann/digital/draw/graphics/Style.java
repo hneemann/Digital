@@ -94,6 +94,10 @@ public class Style {
      */
     public static final Style WIRE_VALUE = new Style(LINETHICK, false, new Color(50, 162, 50), 12, null);
     /**
+     * Used to draw the wire bit number
+     */
+    public static final Style WIRE_BITS = new Style(LINETHIN, false, WIRE.color, 12, null);
+    /**
      * highlight color used for the circles to mark an element
      */
     public static final Style HIGHLIGHT = new Style(WIRETHICK, false, Color.CYAN);
