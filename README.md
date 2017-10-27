@@ -21,7 +21,8 @@ He has released it as open source so there are a number of forks to continue his
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
-Nevertheless, I believe that there were good reasons for a completely new development from scratch.
+Nevertheless, I believe that there were good reasons for a completely new development from scratch. 
+Thus I started the implementation of Digital in march 2016.  
 
 ## Features ##
 
