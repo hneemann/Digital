@@ -76,10 +76,10 @@ public class Wire implements Drawable, Movable {
 
         final boolean showBits = Settings.getInstance().get(Keys.SETTINGS_SHOW_WIRE_BITS);
         if (value != null && p1.y == p2.y && Math.abs(p1.x - p2.x) > MIN_LABEL_WIRE_LEN && value.getBits() > 1) {
-            Vector pos = p1.add(p2).div(2);
             de.neemann.digital.draw.graphics.Orientation ori;
+            Vector pos = getRoundPos();
             if (showBits) {
-                pos = pos.add(-DISPLACE, 3);
+                pos = pos.add(0, 3);
                 ori = de.neemann.digital.draw.graphics.Orientation.RIGHTTOP;
             } else {
                 pos = pos.add(0, -3);
@@ -89,7 +89,7 @@ public class Wire implements Drawable, Movable {
         }
 
         if (bits > 1 && p1.y == p2.y && Math.abs(p1.x - p2.x) >= MIN_CROSS_WIRE_LEN && showBits) {
-            Vector pos = p1.add(p2).div(2).add(-DISPLACE, 0);
+            Vector pos = getRoundPos();
             graphic.drawLine(pos.add(CROSS_LEN, CROSS_LEN), pos.add(-CROSS_LEN, -CROSS_LEN), Style.WIRE_BITS);
             Vector numPos = pos.add(0, -3);
             graphic.drawText(numPos, numPos.add(1, 0), Integer.toString(bits), de.neemann.digital.draw.graphics.Orientation.LEFTBOTTOM, Style.WIRE_BITS);
@@ -102,6 +102,11 @@ public class Wire implements Drawable, Movable {
             if (p2Dot)
                 graphic.drawCircle(p2.sub(r), p2.add(r), style);
         }
+    }
+
+    private Vector getRoundPos() {
+        Vector pos = p1.add(p2).div(2);
+        return new Vector(((pos.x+SIZE2) / SIZE) * SIZE - DISPLACE, pos.y);
     }
 
     @Override
