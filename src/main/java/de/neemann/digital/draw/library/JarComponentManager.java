@@ -51,7 +51,10 @@ public class JarComponentManager implements ComponentManager, Iterable<JarCompon
      * @throws InvalidNodeException InvalidNodeException
      */
     public void loadJar(File file) throws IOException, InvalidNodeException {
-        Manifest manifest = new JarFile(file).getManifest();
+        Manifest manifest;
+        try (JarFile jarFile = new JarFile(file)) {
+            manifest = jarFile.getManifest();
+        }
         if (manifest == null)
             throw new IOException(Lang.get("err_noManifestFound"));
         Attributes attr = manifest.getMainAttributes();
