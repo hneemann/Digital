@@ -36,6 +36,8 @@ These are the main features of Digital:
 - Contains a library with the most commonly used 74xx series integrated circuits. 
 - Fast-run mode to perform a simulation without updating the GUI.
   A simple processor can be clocked at 100kHz.
+- Its possible to use custom components which are implemented in Java and packed in a jar file. 
+  See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
 - Simple remote TCP interface which  e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
   the simulator.
 - Direct export of JEDEC files which you can flash to a [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
@@ -48,8 +50,6 @@ These are the main features of Digital:
   for details. The examples folder contains a variant of the simple CPU, which runs on a BASYS3 board.
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
-- Its possible to add custom implemented components as a jar file. 
-  See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
 - No legacy code
 - Good test coverage (exclusive of GUI classes about 80%).
   Almost all examples contain test cases which ensure that they work correctly.
