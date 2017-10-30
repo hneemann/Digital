@@ -39,6 +39,7 @@ Remote Interface
 
 Custom Jar Components
 [ ] Copy actual Digital.jar to the plugin example, and start digital from the example
-[ ] Remove jar from settings and load the test circuit containing the custom elements. Error message should be shown.
-[ ] Set the jar and load the example circuit. If should work.
+[ ] Remove jar from settings and load the test circuit containing the custom elements.
+    An error message should be shown.
+[ ] Set the jar and load the example circuit. It should work.
 [ ] Update the plugin example after distribution

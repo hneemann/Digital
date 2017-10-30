@@ -936,7 +936,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Dies vereinfacht die Erzeugung von 74xx Schaltungen.</string>
     <string name="menu_numbering">Pinnummerierung</string>
     <string name="menu_numbering_tt">Wizard zur einfachen Nummerierung der Pins.</string>
-    <string name="menu_removePinNumbers">Pin Nummern entfernen</string>
+    <string name="menu_removePinNumbers">Pinnummern entfernen</string>
     <string name="menu_removePinNumbers_tt">Alle Pinnummern in der Schaltung werden entfernt.</string>
 
     <string name="menu_undo">Rückgängig</string>
