@@ -619,14 +619,14 @@ The names of the variables may not be unique.</string>
         this can be configured with "4,2,2". The number indicates the number of bits. For convenience, the asterisk
         can be used: 16 bits can be configured with "[Bits]*[Number]" as "1*16".
         It is also possible to specify the bits to be used directly and in any order.
-        For example, "4-7.0-3" configures bits 4-7 and 0-3. This notation allows any bit arrangement.
+        For example, "4-7,0-3" configures bits 4-7 and 0-3. This notation allows any bit arrangement.
         The input bits must be specified completely and unambiguously.</string>
     <string name="key_OutputSplitting">Output splitting</string>
     <string name="key_OutputSplitting_tt">If e.g. four bits, two bits and two further bits are to be used as outputs,
         this can be configured with "4,2,2". The number indicates the number of bits. For convenience, the asterisk
         can be used: 16 bits can be configured with "[Bits]*[Number]" as "1*16".
         It is also possible to specify the bits to be used directly and in any order.
-        For example, "4-7.0-3" configures bits 4-7 and 0-3. This notation allows any bit arrangement.
+        For example, "4-7,0-3" configures bits 4-7 and 0-3. This notation allows any bit arrangement.
         Output bits can also be output several times: "0-7,1-6,4-7"</string>
     <string name="key_SelectorBits">Number of Selector Bits</string>
     <string name="key_SelectorBits_tt">Number of bits used for the selector input.</string>
