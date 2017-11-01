@@ -16,6 +16,11 @@ public class Key<VALUE> {
     private final String langKey;
     private boolean groupEditAllowed = false;
 
+    // Both values are always null in digital.
+    // Both are only used within a custom implemented component.
+    private String name;
+    private String description;
+
     /**
      * Creates a new Key
      *
@@ -42,10 +47,13 @@ public class Key<VALUE> {
     /**
      * Returns the attributes display name
      *
-     * @return thr name
+     * @return the name of the key
      */
     public String getName() {
-        return Lang.get(langKey);
+        if (name != null)
+            return name;
+        else
+            return Lang.get(langKey);
     }
 
     /**
@@ -71,11 +79,15 @@ public class Key<VALUE> {
      * @return the keys description
      */
     public String getDescription() {
-        String d = Lang.getNull(langKey + "_tt");
-        if (d != null)
-            return d;
-        else
-            return getName();
+        if (description != null)
+            return description;
+        else {
+            String d = Lang.getNull(langKey + "_tt");
+            if (d != null)
+                return d;
+            else
+                return getName();
+        }
     }
 
     /**
@@ -97,10 +109,37 @@ public class Key<VALUE> {
      *
      * @return this for chained calls
      */
-    Key<VALUE> allowGroupEdit() {
+    public Key<VALUE> allowGroupEdit() {
         this.groupEditAllowed = true;
         return this;
     }
+
+    /**
+     * Sets the name of this key.
+     * Is not used in Digital at all.
+     * This method can be used to define custom keys in custom java components.
+     *
+     * @param name the name of the key
+     * @return this for chained calls
+     */
+    public Key<VALUE> setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets the description of this key.
+     * Is not used in Digital at all.
+     * This method can be used to define custom keys in custom java components.
+     *
+     * @param description the name of the key
+     * @return this for chained calls
+     */
+    public Key<VALUE> setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
 
     /**
      * A integer attribute.

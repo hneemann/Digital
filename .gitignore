@@ -72,3 +72,4 @@ buildNumber.properties
 /copybin.sh
 /Digital.sh
 /upload.sh
+/copyToPluginExample.sh
