@@ -4,12 +4,12 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.linemerger.GraphicLineCollector;
 import de.neemann.digital.draw.graphics.linemerger.GraphicSkipLines;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Helper to export graphics files
+ * Helper to export graphics files.
+ * Sets the bounding box of the graphic and collects single lines to a long stroke
  *
  * @author hneemann
  */
@@ -19,7 +19,7 @@ public class Export {
     private final ExportFactory factory;
 
     /**
-     * Creates a nw instance
+     * Creates a new instance
      *
      * @param circuit the circuit to export
      * @param factory the factory to create the graphics instance
@@ -36,24 +36,17 @@ public class Export {
      * @throws IOException IOException
      */
     public void export(OutputStream out) throws IOException {
-        Graphic gr = factory.create(out);
+        try (Graphic gr = factory.create(out)) {
+            GraphicMinMax minMax = new GraphicMinMax(gr);
+            circuit.drawTo(minMax);
 
-        GraphicMinMax minMax = new GraphicMinMax(gr);
-        circuit.drawTo(minMax);
-
-        gr.setBoundingBox(minMax.getMin(), minMax.getMax());
-
-        try {
+            gr.setBoundingBox(minMax.getMin(), minMax.getMax());
 
             GraphicLineCollector glc = new GraphicLineCollector();
             circuit.drawTo(glc);
             glc.drawTo(gr);
 
             circuit.drawTo(new GraphicSkipLines(gr));
-
-        } finally {
-            if (gr instanceof Closeable)
-                ((Closeable) gr).close();
         }
     }
 }
