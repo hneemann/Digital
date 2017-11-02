@@ -59,6 +59,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private final JTextField textField;
     private final boolean supportsHighZ;
     private final JComboBox<InMode> formatComboBox;
+    private final long mask;
     private JCheckBox[] checkBoxes;
     private boolean programmaticModifyingFormat = false;
     private long editValue;
@@ -81,6 +82,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         editValue = value.getValue();
         supportsHighZ = value.supportsHighZ();
+        mask = (1 << value.getBits()) - 1;
 
         textField = new JTextField(10);
         textField.setHorizontalAlignment(JTextField.RIGHT);
@@ -291,12 +293,12 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         @Override
         public Object getNextValue() {
-            return editValue + 1;
+            return (editValue + 1) & mask;
         }
 
         @Override
         public Object getPreviousValue() {
-            return editValue - 1;
+            return (editValue - 1) & mask;
         }
 
         @Override
