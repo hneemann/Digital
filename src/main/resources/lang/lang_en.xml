@@ -66,7 +66,8 @@
     <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
     <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
         You can use the component to implement a BRK assembly instruction.
-        Then you can run a simulated processor until a BRK instruction is reached.</string>
+        Then you can run a simulated processor until a BRK instruction is reached.
+        Fast forward clocking can only be used if the real-time clock is disabled.</string>
     <string name="elem_Button">Button</string>
     <string name="elem_Button_tt">A simple button which resets back to its original state when not held down.</string>
     <string name="elem_Button_pin_out">The output signal of the button.</string>
@@ -736,7 +737,9 @@ The names of the variables may not be unique.</string>
     <string name="key_activeLow">Active Low</string>
     <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
     <string name="key_libraryPath">Library</string>
-    <string name="key_libraryPath_tt">Library with predefined subcircuits. Contains, for example, the components of the 74xx series.</string>
+    <string name="key_libraryPath_tt">Folder which contains the library with predefined sub circuits.
+        Contains, for example, the components of the 74xx series. You also can add your own circuits by storing
+        them at this location.</string>
     <string name="key_grid">Show Grid</string>
     <string name="key_grid_tt">Shows a grid in the main window.</string>
     <string name="key_mapToKey">Map to keyboard</string>
