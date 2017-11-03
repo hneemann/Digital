@@ -79,12 +79,6 @@ public final class Keys {
             = new Key<>("Color", java.awt.Color.RED).allowGroupEdit();
 
     /**
-     * Background Color of nested circuits
-     */
-    public static final Key<java.awt.Color> BACKGROUND_COLOR
-            = new Key<>("backgroundColor", new Color(255, 255, 0, 64));
-
-    /**
      * The input splitting of a splitter
      */
     public static final Key<String> INPUT_SPLIT
@@ -377,17 +371,18 @@ public final class Keys {
             new Key<>("pinNumber", "");
 
     /**
-     * the pin count
-     */
-    public static final Key.KeyInteger PINCOUNT =
-            new Key.KeyInteger("pinCount", 0)
-                    .setMin(0);
-
-    /**
      * true if shape is a dil shape
      */
     public static final Key<Boolean> IS_DIL
             = new Key<>("isDIL", false);
+    /**
+     * the pin count
+     */
+    public static final Key<Integer> PINCOUNT =
+            new Key.KeyInteger("pinCount", 0)
+                    .setMin(0)
+                    .setDependsOn(IS_DIL);
+
 
     /**
      * contains the input inverter config
@@ -395,6 +390,12 @@ public final class Keys {
     public static final Key<InverterConfig> INVERTER_CONFIG
             = new Key<>("inverterConfig", new InverterConfig());
 
+    /**
+     * Background Color of nested circuits
+     */
+    public static final Key<java.awt.Color> BACKGROUND_COLOR
+            = new Key<>("backgroundColor", new Color(255, 255, 0, 64))
+            .setDependsOn(IS_DIL, true);
 
     /**
      * the screen resolution

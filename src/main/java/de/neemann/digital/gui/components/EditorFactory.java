@@ -249,7 +249,7 @@ public final class EditorFactory {
         }
     }
 
-    private final static class BooleanEditor implements Editor<Boolean> {
+    final static class BooleanEditor implements Editor<Boolean> {
 
         private final JCheckBox bool;
 
@@ -271,6 +271,10 @@ public final class EditorFactory {
         @Override
         public void setEnabled(boolean enabled) {
             bool.setEnabled(enabled);
+        }
+
+        JCheckBox getCheckBox() {
+            return bool;
         }
     }
 

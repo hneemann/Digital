@@ -105,6 +105,16 @@ public class AttributeDialog extends JDialog {
 
             if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
                 topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
+
+            final Key dependsOn = key.getDependsOn();
+            if (dependsOn != null) {
+                for (EditorHolder ed : editors) {
+                    if (ed.key.getKey().equals(dependsOn.getKey())) {
+                        ed.setDependantEditor(e, key.isDependsOnInverted());
+                    }
+                }
+            }
+
         }
 
         JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
@@ -266,6 +276,16 @@ public class AttributeDialog extends JDialog {
         public void setTo(ElementAttributes attr) {
             T value = e.getValue();
             attr.set(key, value);
+        }
+
+        void setDependantEditor(Editor editor, boolean inverted) {
+            if (key.getValueClass() != Boolean.class)
+                throw new RuntimeException("key " + key.getName() + " is not a bool key");
+
+            EditorFactory.BooleanEditor bool = (EditorFactory.BooleanEditor) e;
+            editor.setEnabled(bool.getValue() ^ inverted);
+
+            bool.getCheckBox().addActionListener(actionEvent -> editor.setEnabled(bool.getValue() ^ inverted));
         }
     }
 

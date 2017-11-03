@@ -15,6 +15,8 @@ public class Key<VALUE> {
     private final VALUE def;
     private final String langKey;
     private boolean groupEditAllowed = false;
+    private Key dependsOn;
+    private boolean dependsOnInvert;
 
     // Both values are always null in digital.
     // Both are only used within a custom implemented component.
@@ -140,6 +142,42 @@ public class Key<VALUE> {
         return this;
     }
 
+    /**
+     * @return returns the key this key depends on
+     */
+    public Key getDependsOn() {
+        return dependsOn;
+    }
+
+    /**
+     * @return true if dependency is inverted
+     */
+    public boolean isDependsOnInverted() {
+        return dependsOnInvert;
+    }
+
+    /**
+     * Sets the key this key depends on.
+     *
+     * @param key the key where this key depends on
+     * @return this for chained calls
+     */
+    public Key<VALUE> setDependsOn(Key key) {
+        return setDependsOn(key, false);
+    }
+
+    /**
+     * Sets the key this key depends on.
+     *
+     * @param key    the key where this key depends on
+     * @param invert if true dependency is inverted
+     * @return this for chained calls
+     */
+    public Key<VALUE> setDependsOn(Key key, boolean invert) {
+        this.dependsOn = key;
+        this.dependsOnInvert = invert;
+        return this;
+    }
 
     /**
      * A integer attribute.
