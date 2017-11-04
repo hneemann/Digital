@@ -262,6 +262,92 @@
     <string name="elem_DriverInvSel_pin_out">Gibt den am Eingang anliegenden Wert aus, wenn der Selection Eingang auf 0 gesetzt ist.</string>
 
 
+    <!-- Plexers  -->
+
+    <string name="elem_Multiplexer">Multiplexer</string>
+    <string name="elem_Multiplexer_tt">Ein Baustein, welcher den Wert eines der Eingänge am Ausgang ausgibt.
+        Über den sel-Eingang wird ausgewählt welcher der Eingänge ausgegeben werden soll.</string>
+    <string name="elem_Multiplexer_input">Der {0}. Dateneingang des Multiplexers.</string>
+    <string name="elem_Multiplexer_output">Ausgeben wird der Wert, der am gewählten Dateneingang anliegt.</string>
+    <string name="elem_Multiplexer_pin_sel">Mit dieser Leitung wird der Dateneingang ausgewählt, welcher am Ausgang ausgegeben werden soll.</string>
+    <string name="elem_Demultiplexer">Demultiplexer</string>
+    <string name="elem_Demultiplexer_tt">Ein Baustein, welcher einen Eingangswert auf verschiedenen Ausgängen ausgeben kann.
+        Gibt das Eingangssignal auf einem wählbaren Ausgang aus. Die anderen Ausgänge werden auf den Vorgabewert gesetzt.</string>
+    <string name="elem_Demultiplexer_pin_sel">Mit dieser Leitung wird der Datenausgang ausgewählt, auf welchem der Eingangswert ausgegeben werden soll.</string>
+    <string name="elem_Demultiplexer_pin_in">Der Wert dieses Eingangs wird auf einen der Datenausgänge geschaltet.</string>
+    <string name="elem_Demultiplexer_output">Datenausgang {0}.</string>
+    <string name="elem_Decoder">Dekoder</string>
+    <string name="elem_Decoder_tt">Eine wählbare Ausgangsleitung geht auf Eins, alle anderen sind Null.</string>
+    <string name="elem_Decoder_output">Ausgang {0}. Wenn über sel ausgewählt ist dieser Ausgang 1, sonst 0.</string>
+    <string name="elem_Decoder_pin_sel">Mit dieser Leitung wird der zu aktivierende Ausgang ausgewählt.
+        Sein Wert gibt den auf 1 zu schaltenden Ausgang an.</string>
+
+
+    <!-- flip flops-->
+
+    <string name="elem_RS_FF">RS-FlipFlop</string>
+    <string name="elem_RS_FF_short">RS</string>
+    <string name="elem_RS_FF_tt">Ein Baustein welcher ein einzelnes Bit speichern kann.
+        Bietet die Funktionen "Setzen" und "Rücksetzen".</string>
+    <string name="elem_RS_FF_pin_S">Der Setzen-Eingang.  Mit diesem Eingang wird das gespeicherte Bit gesetzt.</string>
+    <string name="elem_RS_FF_pin_C">Der Takteingang. Eine steigende Flanke veranlasst die Zustandsänderung.</string>
+    <string name="elem_RS_FF_pin_R">Der Rücksetzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit zurückgesetzt.</string>
+    <string name="elem_RS_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
+    <string name="elem_RS_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_JK_FF">JK-FlipFlop</string>
+    <string name="elem_JK_FF_short">JK</string>
+    <string name="elem_JK_FF_tt">Bietet die Funktionen zum
+        Speichern (J=K=0), Setzen (J=1, K=0), Rücksetzen (J=0, K=1) und Wechseln (J=K=1).
+        Ein Zustandswechsel findet nur bei einer steigenden Flanke am Eingang C statt.</string>
+    <string name="elem_JK_FF_pin_J">Der Setzen-Eingang des Flipflops.</string>
+    <string name="elem_JK_FF_pin_C">Takteingang Eine steigende Flanke initiiert den Zustandswechsel.</string>
+    <string name="elem_JK_FF_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
+    <string name="elem_JK_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
+    <string name="elem_JK_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_D_FF">D-FlipFlop</string>
+    <string name="elem_D_FF_short">D</string>
+    <string name="elem_D_FF_tt">Ein Baustein zum Speichern eines Bits.
+        Der an Eingang D anliegende Wert wird abgespeichert wenn Eingang C auf 1 wechselt.</string>
+    <string name="elem_D_FF_pin_D">Das zu speichernde Bit.</string>
+    <string name="elem_D_FF_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
+    <string name="elem_D_FF_pin_Q">Gibt den gespeicherten Wert zurück.</string>
+    <string name="elem_D_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_T_FF">T-FlipFlop</string>
+    <string name="elem_T_FF_short">T</string>
+    <string name="elem_T_FF_tt">Speichert ein Bit welches sich mit einem Eingang umschalten lässt.</string>
+    <string name="elem_T_FF_pin_T">Aktiviert die Umschaltfunktion.</string>
+    <string name="elem_T_FF_pin_C">Dieser Eingang schaltet das Flipflop um.
+        Wenn ein T-Eingang vorhanden ist passiert das nur, wenn T auf 1 gesetzt ist.</string>
+    <string name="elem_T_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
+    <string name="elem_T_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_JK_FF_AS">JK-FlipFlop, asynchron</string>
+    <string name="elem_JK_FF_AS_short">JK-AS</string>
+    <string name="elem_JK_FF_AS_tt">Bietet die Funktionen zum
+        Speichern (J=K=0), Setzen (J=1, K=0), Rücksetzen (J=0, K=1) und Wechseln (J=K=1).
+        Ein Zustandswechsel findet nur bei einer steigenden Flanke am Eingang C statt.
+        Es gibt zwei Eingänge welche ein sofortiges setzen bzw. rücksetzen ohne Taktsignal erlauben.
+    </string>
+    <string name="elem_JK_FF_AS_pin_J">Der Setzen-Eingang des Flipflops.</string>
+    <string name="elem_JK_FF_AS_pin_C">Takteingang. Eine steigende Flanke initiiert den Zustandswechsel.</string>
+    <string name="elem_JK_FF_AS_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
+    <string name="elem_JK_FF_AS_pin_Q">Gibt den gespeicherten Wert aus.</string>
+    <string name="elem_JK_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_JK_FF_AS_pin_Set">asynchrones setzen</string>
+    <string name="elem_JK_FF_AS_pin_Clr">asynchrones löschen</string>
+    <string name="elem_D_FF_AS">D-FlipFlop, asynchron</string>
+    <string name="elem_D_FF_AS_short">D-AS</string>
+    <string name="elem_D_FF_AS_tt">Ein Baustein zum Speichern eines Bits.
+        Der am Eingang D anliegende Wert wird abgespeichert wenn der Takteingang C auf 1 wechselt.
+        Es gibt zwei Eingänge welche ein sofortiges setzen bzw. rücksetzen ohne Taktsignal erlauben.
+    </string>
+    <string name="elem_D_FF_AS_pin_D">Das zu speichernde Bit.</string>
+    <string name="elem_D_FF_AS_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
+    <string name="elem_D_FF_AS_pin_Q">Gibt den gespeicherten Wert zurück.</string>
+    <string name="elem_D_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_D_FF_AS_pin_Set">asynchrones setzen</string>
+    <string name="elem_D_FF_AS_pin_Clr">asynchrones löschen</string>
+
+
 
     <string name="elem_Add">Addierer</string>
     <string name="elem_Add_tt">Ein Bauteil für einfache Additionen. Führt eine Addition der Ganzzahlen an Eingang a und Eingang b durch (a+b). Ist der Carry Eingang gesetzt, wird das Ergebnis um 1 erhöht.</string>
@@ -318,55 +404,8 @@
     <string name="elem_Counter_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, wenn der Zähler seinen Maximalwert hat und der en Eingang auf 1 gesetzt ist.</string>
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
     <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
-    <string name="elem_D_FF">D-FlipFlop</string>
-    <string name="elem_D_FF_short">D</string>
-    <string name="elem_D_FF_tt">Ein Baustein zum Speichern eines Bits. Der an Eingang D anliegende Wert wird abgespeichert wenn Eingang C auf 1 wechselt.</string>
-    <string name="elem_D_FF_pin_D">Das zu speichernde Bit.</string>
-    <string name="elem_D_FF_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
-    <string name="elem_D_FF_pin_Q">Gibt den gespeicherten Wert zurück.</string>
-    <string name="elem_D_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
-    <string name="elem_Decoder_pin_sel">Mit dieser Leitung wird der zu aktivierende Ausgang ausgewählt. Sein Wert gibt den auf 1 zu schaltenden Ausgang an.</string>
-    <string name="elem_Decoder">Dekoder</string>
-    <string name="elem_Decoder_output">Ausgang {0}. Wenn über sel ausgewählt ist dieser Ausgang 1, sonst 0.</string>
-    <string name="elem_Decoder_tt">Eine wählbare Ausgangsleitung geht auf Eins, alle anderen sind Null.</string>
-    <string name="elem_Demultiplexer">Demultiplexer</string>
-    <string name="elem_Demultiplexer_tt">Ein Baustein, welcher einen Eingangswert auf verschiedenen Ausgängen ausgeben kann.
-        Gibt das Eingangssignal auf einem wählbaren Ausgang aus. Die anderen Ausgänge werden auf den Vorgabewert gesetzt.</string>
-    <string name="elem_Demultiplexer_pin_sel">Mit dieser Leitung wird der Ausgang ausgewählt, auf welchem der Eingangswert ausgegeben werden soll.</string>
-    <string name="elem_Demultiplexer_pin_in">Der Wert dieses Eingangs wird auf einen der Ausgänge geschaltet.</string>
-    <string name="elem_Demultiplexer_output">Ausgang {0}.</string>
-    <string name="elem_JK_FF">JK-FlipFlop</string>
-    <string name="elem_JK_FF_short">JK</string>
-    <string name="elem_JK_FF_tt">Bietet die Funktionen zum
-        Speichern (J=K=0), Setzen (J=1, K=0), Rücksetzen (J=0, K=1) und Wechseln (J=K=1). Übernommen werden die Eingänge bei einer steigenden Flanke am Eingang C.</string>
-    <string name="elem_JK_FF_pin_J">Der Setzen-Eingang des Flipflops.</string>
-    <string name="elem_JK_FF_pin_C">Takteingang Eine steigende Flanke initiiert den Zustandswechsel.</string>
-    <string name="elem_JK_FF_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
-    <string name="elem_JK_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_JK_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
 
-    <string name="elem_JK_FF_AS">JK-FlipFlop, asynchron</string>
-    <string name="elem_JK_FF_AS_short">JK-AS</string>
-    <string name="elem_JK_FF_AS_tt">Bietet die Funktionen zum
-        Speichern (J=K=0), Setzen (J=1, K=0), Rücksetzen (J=0, K=1) und Wechseln (J=K=1).
-        Übernommen werden die Eingänge bei einer steigenden Flanke am Eingang C.</string>
-    <string name="elem_JK_FF_AS_pin_J">Der Setzen-Eingang des Flipflops.</string>
-    <string name="elem_JK_FF_AS_pin_C">Takteingang Eine steigende Flanke initiiert den Zustandswechsel.</string>
-    <string name="elem_JK_FF_AS_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
-    <string name="elem_JK_FF_AS_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_JK_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
-    <string name="elem_JK_FF_AS_pin_Set">asynchrones setzen</string>
-    <string name="elem_JK_FF_AS_pin_Clr">asynchrones löschen</string>
 
-    <string name="elem_D_FF_AS">D-FlipFlop, asynchron</string>
-    <string name="elem_D_FF_AS_short">D-AS</string>
-    <string name="elem_D_FF_AS_tt">Ein Baustein zum Speichern eines Bits. Der an Eingang D anliegende Wert wird abgespeichert wenn Eingang C auf 1 wechselt.</string>
-    <string name="elem_D_FF_AS_pin_D">Das zu speichernde Bit.</string>
-    <string name="elem_D_FF_AS_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
-    <string name="elem_D_FF_AS_pin_Q">Gibt den gespeicherten Wert zurück.</string>
-    <string name="elem_D_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
-    <string name="elem_D_FF_AS_pin_Set">asynchrones setzen</string>
-    <string name="elem_D_FF_AS_pin_Clr">asynchrones löschen</string>
 
 
     <string name="elem_Mul">Multiplizierer</string>
@@ -379,11 +418,6 @@
     <string name="elem_BarrelShifter_pin_in">Eingang mit zu verschiebenden Bits.</string>    
     <string name="elem_BarrelShifter_pin_shift">Eingang mit Weite der Verschiebung.</string>    
     <string name="elem_BarrelShifter_pin_out">Ausgang mit dem Ergebnis der Verschiebeoperation.</string>    
-    <string name="elem_Multiplexer">Multiplexer</string>
-    <string name="elem_Multiplexer_input">Der {0}. Eingang des Multiplexers.</string>
-    <string name="elem_Multiplexer_output">Ausgeben wird der Wert, der am gewählten Eingang anliegt.</string>
-    <string name="elem_Multiplexer_pin_sel">Mit dieser Leitung wird der Eingang ausgewählt, welcher am Ausgang ausgegeben werden soll.</string>
-    <string name="elem_Multiplexer_tt">Ein Baustein, welcher den Wert eines der Eingänge am Ausgang ausgibt. Über den sel-Eingang wird ausgewählt welcher der Eingänge ausgegeben werden soll.</string>
     <string name="elem_Neg">Negation</string>
     <string name="elem_Neg_pin_in">Eingang des Datenworts, welches im 2-er Komplement negiert werden soll.</string>
     <string name="elem_Neg_pin_out">Gibt das Ergebnis der Negation im 2-er Komplement zurück.</string>
@@ -446,15 +480,6 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_ROM_pin_A">Dieser Eingang bestimmt die Speicheradresse des Datenwortes welches ausgelesen werden soll.</string>
     <string name="elem_ROM_pin_D">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang eine 1 anliegt.</string>
     <string name="elem_ROM_pin_sel">Ist dieser Pin high (1) ist der Ausgang aktiviert. Ist er low (0) ist der Ausgang hochohmig.</string>
-    <string name="elem_RS_FF">RS-FlipFlop</string>
-    <string name="elem_RS_FF_short">RS</string>
-    <string name="elem_RS_FF_tt">Ein Baustein welcher ein einzelnes Bit über einen unbestimmten Zeitraum abspeichern kann.
-        Bietet die Funktionen "Setzen" und "Rücksetzen".</string>
-    <string name="elem_RS_FF_pin_S">Der Setzen-Eingang.  Mit diesem Eingang wird das gespeicherte Bit gesetzt.</string>
-    <string name="elem_RS_FF_pin_C">Der Takteingang. Eine steigende Flanke veranlasst die Zustandsänderung.</string>
-    <string name="elem_RS_FF_pin_R">Der Rücksetzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit zurückgesetzt.</string>
-    <string name="elem_RS_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_RS_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
     <string name="elem_Register">Register</string>
     <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten.</string>
     <string name="elem_Register_pin_D">Das zu speichernde Datenwort liegt hier an.</string>
@@ -472,13 +497,6 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_Sub_pin_b">Eingang b für die Substraktion.</string>
     <string name="elem_Sub_pin_s">Ausgang gibt das Ergebnis der Substraktion aus.</string>
     <string name="elem_Sub_pin_c_o">Ausgang gibt 1 aus wenn bei der Substraktion ein Überlauf aufgetreten ist.</string>
-    <string name="elem_T_FF">T-FlipFlop</string>
-    <string name="elem_T_FF_short">T</string>
-    <string name="elem_T_FF_tt">Speichert ein Bit welches sich mit einem Eingang umschalten lässt.</string>
-    <string name="elem_T_FF_pin_T">Aktiviert die Umschaltfunktion.</string>
-    <string name="elem_T_FF_pin_C">Dieser Eingang schaltet das Flipflop um. Wenn ein T-Eingang vorhanden ist passiert das nur, wenn T auf 1 gesetzt ist.</string>
-    <string name="elem_T_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_T_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
     <string name="elem_Testcase">Testfall</string>
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
