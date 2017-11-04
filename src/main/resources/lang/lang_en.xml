@@ -48,7 +48,12 @@
     <string name="elem_Help_outputs">Outputs</string>
     <string name="elem_Help_attributes">Attributes</string>
 
+
     <!-- logic -->
+
+    <string name="elem_Basic_In">The {0}. input value for the logic operation.</string>
+    <string name="elem_Basic_Out">Returns the result of the logic operation.</string>
+
     <string name="elem_And">And</string>
     <string name="elem_And_tt">Binary AND gate. Returns high only if all inputs are also set high.
         It is also possible to use buses with several bits as inputs and output. In this case, a bitwise AND is executed.
@@ -481,55 +486,18 @@
     <string name="elem_BitCount_pin_out">Outputs the number of 1-bits.</string>
 
 
+    <!-- Switches -->
 
-
-    <string name="elem_Basic_In">The {0}. input value for the logic operation.</string>
-    <string name="elem_Basic_Out">Returns the result of the logic operation.</string>
-    <string name="elem_Break">Break</string>
-    <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
-    <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
-        You can use the component to implement a BRK assembly instruction.
-        Then you can run a simulated processor until a BRK instruction is reached.
-        Fast forward clocking can only be used if the real-time clock is disabled.</string>
-
-    <string name="elem_Relay">Relay</string>
-    <string name="elem_Relay_tt">A relay is a switch which can be controlled by a coil.
-        If a current flows through the coil, the switch is closed or opened.
-        There is no flyback diode so the current direction does not matter.</string>
-    <string name="elem_Relay_pin_in1">On of the inputs to control the relay.</string>
-    <string name="elem_Relay_pin_in2">On of the inputs to control the relay.</string>
-    <string name="elem_Relay_pin_out1">One of the switch outputs.</string>
-    <string name="elem_Relay_pin_out2">One of the switch outputs.</string>
-
-    <string name="elem_Switch">Switch</string>
-    <string name="elem_Switch_tt">Simple switch.
-        There is no gate delay: A signal change is propagated immediately.</string>
-    <string name="elem_Switch_pin_out1">One of the switch outputs.</string>
-    <string name="elem_Switch_pin_out2">One of the switch outputs.</string>
-
-    <string name="elem_Fuse">Fuse</string>
-    <string name="elem_Fuse_tt">A fuse used to build a one time programmable memory.</string>
-    <string name="elem_Fuse_pin_out1">One of the fuse outputs.</string>
-    <string name="elem_Fuse_pin_out2">One of the fuse outputs.</string>
-
-
-
-
-
-
-    <string name="elem_Reset">Reset</string>
-    <string name="elem_Reset_pin_Reset">Reset Output. Is zero while the circuit is stabilizing.</string>
-    <string name="elem_Reset_tt">The output of this component is held low during the initialisation of the circuit.
-        After the circuit has stabilized the output goes to high.</string>
-    <string name="elem_Testcase">Test case</string>
-    <string name="elem_Testcase_tt">Describes a test case.
-        In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
-        behavior of the circuit actually corresponds to this description. If this is not the case, an
-        error message is shown. </string>
-
-    <string name="elem_Diode">Diode</string>
-    <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR..
-        This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
+    <string name="elem_DiodeForward">Diode to VDD</string>
+    <string name="elem_DiodeForward_tt">A simplified unidirectional diode, used to pull a wire to VDD.
+        It is used to implement a wired OR.
+        So it is necessary to connect a pull down resistor to the diodes output.
+        In the simulation the diode behaves like an active gate with a trivalent truth table:
+        Is the input high, also the output is high. In all other cases (input is low or high z) the output is in high z state.
+        So two anti parallel connected diodes can keep each other in high state, which is not possible with real diodes.
+        This is an ideal diode: There is no voltage drop across a forward-biased diode.</string>
+    <string name="elem_DiodeForward_pin_in">If the input is high also the output is high. In all other cases the output is in high z state.</string>
+    <string name="elem_DiodeForward_pin_out">If the input is high also the output is high. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeBackward">Diode to Ground</string>
     <string name="elem_DiodeBackward_tt">A simplified unidirectional diode, used to pull a wire to ground. It is used to implement a wired AND.
         So it is necessary to connect a pull up resistor to the diodes output.
@@ -538,42 +506,52 @@
         So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeBackward_pin_in">If the input is low also the output is low. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeBackward_pin_out">If the input is low also the output is low. In all other cases the output is in high z state.</string>
-    <string name="elem_DiodeForward">Diode to VDD</string>
-    <string name="elem_DiodeForward_tt">A simplified unidirectional diode, used to pull a wire to VDD. It is used to implement a wired OR.
-        So it is necessary to connect a pull down resistor to the diodes output.
-        In the simulation the diode behaves like an active gate with a trivalent truth table:
-        Is the input high, also the output is high. In all other cases (input is low or high z) the output is in high z state.
-        So two anti parallel connected diodes can keep each other in high state, which is not possible with real diodes.
-        This is an ideal diode: There is no voltage drop across a forward-biased diode.</string>
-    <string name="elem_DiodeForward_pin_in">If the input is high also the output is high. In all other cases the output is in high z state.</string>
-    <string name="elem_DiodeForward_pin_out">If the input is high also the output is high. In all other cases the output is in high z state.</string>
-
+    <string name="elem_Switch">Switch</string>
+    <string name="elem_Switch_tt">Simple switch.
+        There is no gate delay: A signal change is propagated immediately.</string>
+    <string name="elem_Switch_pin_out1">One of the connections of the switch.</string>
+    <string name="elem_Switch_pin_out2">One of the connections of the switch.</string>
+    <string name="elem_Fuse">Fuse</string>
+    <string name="elem_Fuse_tt">A fuse used to build a one time programmable memory.</string>
+    <string name="elem_Fuse_pin_out1">One of the connections of the fuse.</string>
+    <string name="elem_Fuse_pin_out2">One of the connections of the fuse.</string>
+    <string name="elem_Relay">Relay</string>
+    <string name="elem_Relay_tt">A relay is a switch which can be controlled by a coil.
+        If a current flows through the coil, the switch is closed or opened.
+        There is no flyback diode so the current direction does not matter.
+        The switch is actuated if the inputs have different values.
+        The relay behaves similar to an XOr gate.</string>
+    <string name="elem_Relay_pin_in1">On of the inputs to control the relay.</string>
+    <string name="elem_Relay_pin_in2">On of the inputs to control the relay.</string>
+    <string name="elem_Relay_pin_out1">One of the switch outputs.</string>
+    <string name="elem_Relay_pin_out2">One of the switch outputs.</string>
+    <string name="elem_PFET">P-Channel FET</string>
+    <string name="elem_PFET_tt">P-Channel Field Effect Transistor.
+        The bulk is connected to the pos. voltage rail and the transistor is simulated without a body diode.</string>
+    <string name="elem_PFET_pin_G">Gate</string>
+    <string name="elem_PFET_pin_S">Source</string>
+    <string name="elem_PFET_pin_D">Drain</string>
     <string name="elem_NFET">N-Channel FET</string>
-    <string name="elem_NFET_tt">N-Channel Field Effect Transistor. The bulk is connected to ground and the transistor is simulated without a body diode.</string>
+    <string name="elem_NFET_tt">N-Channel Field Effect Transistor.
+        The bulk is connected to ground and the transistor is simulated without a body diode.</string>
     <string name="elem_NFET_pin_G">Gate</string>
     <string name="elem_NFET_pin_S">Source</string>
     <string name="elem_NFET_pin_D">Drain</string>
-
+    <string name="elem_FGPFET">P-Channel floating gate FET</string>
+    <string name="elem_FGPFET_tt">P-Channel Floating Gate Field Effect Transistor.
+        The bulk is connected to ground and the transistor is simulated without a body diode.
+        If there is a charge stored in the floating gate, the fet isn't conducting even if the gate is low.
+    </string>
+    <string name="elem_FGPFET_pin_G">Gate</string>
+    <string name="elem_FGPFET_pin_S">Source</string>
+    <string name="elem_FGPFET_pin_D">Drain</string>
     <string name="elem_FGNFET">N-Channel floating gate FET</string>
-    <string name="elem_FGNFET_tt">N-Channel Floating Gate Field Effect Transistor. The bulk is connected to ground and the transistor is simulated without a body diode.
+    <string name="elem_FGNFET_tt">N-Channel Floating Gate Field Effect Transistor.
+        The bulk is connected to ground and the transistor is simulated without a body diode.
         If there is a charge stored in the floating gate, the fet isn't conducting even if the gate is high.</string>
     <string name="elem_FGNFET_pin_G">Gate</string>
     <string name="elem_FGNFET_pin_S">Source</string>
     <string name="elem_FGNFET_pin_D">Drain</string>
-
-    <string name="elem_FGPFET">P-Channel floating gate FET</string>
-    <string name="elem_FGPFET_tt">P-Channel Floating Gate Field Effect Transistor. The bulk is connected to ground and the transistor is simulated without a body diode.
-        If there is a charge stored in the floating gate, the fet isn't conducting even if the gate is low.</string>
-    <string name="elem_FGPFET_pin_G">Gate</string>
-    <string name="elem_FGPFET_pin_S">Source</string>
-    <string name="elem_FGPFET_pin_D">Drain</string>
-
-    <string name="elem_PFET">P-Channel FET</string>
-    <string name="elem_PFET_tt">P-Channel Field Effect Transistor. The bulk is connected to the pos. voltage rail and the transistor is simulated without a body diode.</string>
-    <string name="elem_PFET_pin_G">Gate</string>
-    <string name="elem_PFET_pin_S">Source</string>
-    <string name="elem_PFET_pin_D">Drain</string>
-
     <string name="elem_TransGate">Transmission-Gate</string>
     <string name="elem_TransGate_tt">A real transmission-gate is build from only two transistors.
         Therefore, it is often used to save transistors during implementation on silicon.</string>
@@ -582,11 +560,36 @@
     <string name="elem_TransGate_pin_S">control input.</string>
     <string name="elem_TransGate_pin_~S">inverted control input</string>
 
+
+    <!-- Misc -->
+
+    <string name="elem_Testcase">Test case</string>
+    <string name="elem_Testcase_tt">Describes a test case.
+        In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
+        behavior of the circuit actually corresponds to this description. If this is not the case, an
+        error message is shown.
+    </string>
     <string name="elem_PowerSupply">Power</string>
     <string name="elem_PowerSupply_tt">Has no function. Makes sure that VDD and GND are connected.
         Can be used in 74xx circuits to generate the pins for the voltage supply, which are tested for correct wiring.</string>
     <string name="elem_PowerSupply_pin_VDD">Must be connected to VDD!</string>
     <string name="elem_PowerSupply_pin_GND">Must be connected to GND!</string>
+    <string name="elem_Reset">Reset</string>
+    <string name="elem_Reset_pin_Reset">Reset Output. Is zero until the circuit has stabilized after power up.</string>
+    <string name="elem_Reset_tt">The output of this component is held low during the initialisation of the circuit.
+        After the circuit has stabilized the output goes to high.</string>
+    <string name="elem_Break">Break</string>
+    <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
+    <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
+        You can use the component to implement a BRK assembly instruction.
+        Then you can run a simulated processor until a BRK instruction is reached.
+        Fast forward clocking can only be used if the real-time clock is disabled.</string>
+
+
+    <string name="elem_Diode">Diode</string>
+    <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR..
+        This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
+
 
     <string name="error">Error</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>

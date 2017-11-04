@@ -50,6 +50,10 @@
 
 
     <!-- logik -->
+
+    <string name="elem_Basic_In">Der {0}. Eingangswert für die Verknüpfung.</string>
+    <string name="elem_Basic_Out">Gibt das Ergebnis der Verknüpfung zurück.</string>
+
     <string name="elem_And">Und</string>
     <string name="elem_And_tt">Binäres Und-Gatter. Gibt eine 1 aus wenn alle Eingänge 1 sind.
         Es können auch Busse mit mehreren Bits pro Eingang verknüpft werden. In diesem Fall wird ein bitweises Und
@@ -413,6 +417,15 @@
     <string name="elem_GraphicCard_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
     <string name="elem_GraphicCard_pin_B">Auswahl der anzuzeigenden Seite. Mit diesem Eingang kann zwischen zwei Speicherseiten umgeschaltet werden.</string>
     <string name="elem_GraphicCard_pin_D">Der bidirektionale Datenanschluß.</string>
+    <string name="elem_Counter">Zähler</string>
+    <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein.
+        Zählt jede steigende Flanke am C Eingang und kann über den clr Eingang zurückgesetzt werden.
+        Die Bitbreite des Zählers kann im Attributedialog festgelegt werden.</string>
+    <string name="elem_Counter_pin_C">Eingang des Taktsignals.</string>
+    <string name="elem_Counter_pin_clr">Setzt den Zähler asynchron auf 0 zurück wenn dieser Eingang auf 1 gesetzt wird.</string>
+    <string name="elem_Counter_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, wenn der Zähler seinen Maximalwert hat und der en Eingang auf 1 gesetzt ist.</string>
+    <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
+    <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
 
 
 
@@ -469,77 +482,11 @@
     <string name="elem_BitCount_pin_out">Ausgang mit der Anzahl der gezählten 1-Bits.</string>
 
 
+    <!-- Schalter -->
 
-
-
-    <string name="elem_Basic_In">Der {0}. Eingangswert für die Verknüpfung.</string>
-    <string name="elem_Basic_Out">Gibt das Ergebnis der Verknüpfung zurück.</string>
-    <string name="elem_Break">Break</string>
-    <string name="elem_Break_pin_brk">Stoppt schnellen Simulationslauf wenn 1.</string>
-    <string name="elem_Break_tt">Wenn der Eingang dieses Elementes zu Eins wird, wird der schnelle Simulationslauf beendet.
-        Dieses Element kann verwendet werden, um einen Assemblerbefehl BRK zu implementieren.
-        Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.
-        Der schnelle Simulationslauf kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!</string>
-
-    <string name="elem_Relay">Relais</string>
-    <string name="elem_Relay_tt">Ein Relais ist ein Schalter, welcher über eine Spule umgeschaltet werden kann.
-        Wenn ein Strom durch das Relais fließt, wird der Schalter geöffnet bzw. geschlossen.
-        Es gibt keine Freilaufdiode, so dass die Stromrichtung keine Rolle spielt.</string>
-    <string name="elem_Relay_pin_in1">Ein Steuereingang des Relais.</string>
-    <string name="elem_Relay_pin_in2">Ein Steuereingang des Relais.</string>
-    <string name="elem_Relay_pin_out1">Einer der Ausgänge des gesteuerten Schalters.</string>
-    <string name="elem_Relay_pin_out2">Einer der Ausgänge des gesteuerten Schalters.</string>
-
-    <string name="elem_Switch">Schalter</string>
-    <string name="elem_Switch_pin_out1">Einer der Ausgänge des Schalters.</string>
-    <string name="elem_Switch_pin_out2">Einer der Ausgänge des Schalters.</string>
-    <string name="elem_Switch_tt">Einfacher Schalter. Der Schalter hat keine Gatterlaufzeit.
-        Eine Signaländerung wird instantan von einem Ende des Schalters zum anderen propagiert.</string>
-
-    <string name="elem_Fuse">Fuse</string>
-    <string name="elem_Fuse_pin_out1">Einer der Ausgänge der Sicherung.</string>
-    <string name="elem_Fuse_pin_out2">Einer der Ausgänge der Sicherung.</string>
-    <string name="elem_Fuse_tt">Eine Sicherung die verwendet werden kann, um einen einmal programmierbaren Speicher aufzubauen.</string>
-
-    <string name="elem_Counter">Zähler</string>
-    <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein. Zählt jede steigende Flanke am C Eingang und kann über den clr Eingang zurückgesetzt werden.
-    Die Bitbreite des Zählers kann im Attributedialog festgelegt werden.</string>
-    <string name="elem_Counter_pin_C">Eingang des Taktsignals.</string>
-    <string name="elem_Counter_pin_clr">Setzt den Zähler asynchron auf 0 zurück wenn dieser Eingang auf 1 gesetzt wird.</string>
-    <string name="elem_Counter_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, wenn der Zähler seinen Maximalwert hat und der en Eingang auf 1 gesetzt ist.</string>
-    <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
-    <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
-
-
-
-
-
-
-    <string name="elem_Reset">Reset</string>
-    <string name="elem_Reset_pin_Reset">Reset Ausgang. Ist so lange Null, bis sich die Schaltung nach dem Einschalten stabilisiert hat.</string>
-    <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
-        in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.</string>
-    <string name="elem_Testcase">Testfall</string>
-    <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
-        Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
-        dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.</string>
-
-    <string name="elem_Diode">Diode</string>
-    <string name="elem_Diode_tt">Echt bidirektionelle Diode.
-        Kann verwendet werden, um ein "Wired AND" oder ein "Wired OR" zu implementieren.
-        Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
-    <string name="elem_DiodeBackward">Diode zu Masse</string>
-    <string name="elem_DiodeBackward_tt">Vereinfachte unidirektionale Diode, die nur genutzt werden kann, um eine Leitung auf Masse zu ziehen.
-        Wird verwendet um ein "Wired And" zu implementieren. Daher ist am Ausgang ein Pull Up Widerstand erforderlich!
-        Innerhalb der Simulation verhält sich eine Diode wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
-        Ist der Eingang 0 ist auch der Ausgang 0. In den anderen Fällen (1 und hochohmig) ist der Ausgang hochohmig (High Z).
-        Damit können sich antiparallel zusammen geschaltete Dioden gegenseitig im low-Zustand halten, was mit realen
-        Dioden nicht möglich ist.
-        Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
-    <string name="elem_DiodeBackward_pin_in">Ist der Eingang 0 ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
-    <string name="elem_DiodeBackward_pin_out">Ist der Eingang 0 ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_DiodeForward">Diode zu Plus</string>
-    <string name="elem_DiodeForward_tt">Vereinfachte unidirektionale Diode, die nur genutzt werden kann, um eine Leitung auf Plus zu ziehen.
+    <string name="elem_DiodeForward_tt">Vereinfachte unidirektionale Diode, die genutzt werden kann, um eine Leitung auf
+        Plus zu ziehen.
         Wird verwendet um ein "Wired Or" zu implementieren. Daher ist am Ausgang ein Pull Down Widerstand erforderlich!
         Innerhalb der Simulation verhält sich eine Diode wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
         Ist der Eingang 1 ist auch der Ausgang 1. In den anderen Fällen (0 und hochohmig) ist der Ausgang hochohmig (High Z).
@@ -548,34 +495,64 @@
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeForward_pin_in">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_DiodeForward_pin_out">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
-
-    <string name="elem_NFET">N-Kanal FET</string>
-    <string name="elem_NFET_tt">N-Kanal Feldeffekttransistor. Der Bulk ist mit Masse verbunden. Der Transistor ohne eine Body-Diode simuliert.</string>
-    <string name="elem_NFET_pin_G">Gate</string>
-    <string name="elem_NFET_pin_S">Source</string>
-    <string name="elem_NFET_pin_D">Drain</string>
-
+    <string name="elem_DiodeBackward">Diode zu Masse</string>
+    <string name="elem_DiodeBackward_tt">Vereinfachte unidirektionale Diode, die genutzt werden kann, um eine Leitung
+        auf Masse zu ziehen.
+        Wird verwendet um ein "Wired And" zu implementieren. Daher ist am Ausgang ein Pull Up Widerstand erforderlich!
+        Innerhalb der Simulation verhält sich eine Diode wie ein aktives Gatter mit dreiwerteiger Wertetabelle:
+        Ist der Eingang 0 ist auch der Ausgang 0. In den anderen Fällen (1 und hochohmig) ist der Ausgang hochohmig (High Z).
+        Damit können sich antiparallel zusammen geschaltete Dioden gegenseitig im low-Zustand halten, was mit realen
+        Dioden nicht möglich ist.
+        Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
+    <string name="elem_DiodeBackward_pin_in">Ist der Eingang 0 ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
+    <string name="elem_DiodeBackward_pin_out">Ist der Eingang 0 ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
+    <string name="elem_Switch">Schalter</string>
+    <string name="elem_Switch_pin_out1">Einer der Anschlüsse des Schalters.</string>
+    <string name="elem_Switch_pin_out2">Einer der Anschlüsse des Schalters.</string>
+    <string name="elem_Switch_tt">Einfacher Schalter. Der Schalter hat keine Gatterlaufzeit.
+        Eine Signaländerung wird instantan von einem Ende des Schalters zum anderen propagiert.</string>
+    <string name="elem_Fuse">Fuse</string>
+    <string name="elem_Fuse_tt">Eine Sicherung die verwendet werden kann, um einen einmal programmierbaren Speicher aufzubauen.</string>
+    <string name="elem_Fuse_pin_out1">Einer der Ausgänge der Sicherung.</string>
+    <string name="elem_Fuse_pin_out2">Einer der Ausgänge der Sicherung.</string>
+    <string name="elem_Relay">Relais</string>
+    <string name="elem_Relay_tt">Ein Relais ist ein Schalter, welcher über eine Spule umgeschaltet werden kann.
+        Wenn ein Strom durch das Relais fließt, wird der Schalter geöffnet bzw. geschlossen.
+        Es gibt keine Freilaufdiode, so dass die Stromrichtung keine Rolle spielt.
+        Der Schalter wird betätigt, wenn die Engänge unterschiedliche Werte haben.
+        Das Relais verhält sich damit ähnlich wie ein XOr Gatter.</string>
+    <string name="elem_Relay_pin_in1">Ein Steuereingang des Relais.</string>
+    <string name="elem_Relay_pin_in2">Ein Steuereingang des Relais.</string>
+    <string name="elem_Relay_pin_out1">Einer der Ausgänge des gesteuerten Schalters.</string>
+    <string name="elem_Relay_pin_out2">Einer der Ausgänge des gesteuerten Schalters.</string>
     <string name="elem_PFET">P-Kanal FET</string>
-    <string name="elem_PFET_tt">P-Kanal Feldeffekttransistor. Der Bulk ist mit der pos. Versorgung verbunden. Der Transistor ohne eine Body-Diode simuliert.</string>
+    <string name="elem_PFET_tt">P-Kanal Feldeffekttransistor.
+        Der Bulk ist mit der pos. Versorgung verbunden. Der Transistor wird ohne eine Body-Diode simuliert.</string>
     <string name="elem_PFET_pin_G">Gate</string>
     <string name="elem_PFET_pin_S">Source</string>
     <string name="elem_PFET_pin_D">Drain</string>
-
-    <string name="elem_FGNFET">N-Kanal Floating Gate FET</string>
-    <string name="elem_FGNFET_tt">N-Kanal Feldeffekttransistor mit Floating Gate. Der Bulk ist mit Masse verbunden jedoch wird der Transistor ohne eine Body-Diode simuliert.
-        Ist das Floating Gate geladen, ist der Transistor immer sperrend. Die Programmierung kann direkt mit der Taste [P] verändert werden.</string>
-    <string name="elem_FGNFET_pin_G">Gate</string>
-    <string name="elem_FGNFET_pin_S">Source</string>
-    <string name="elem_FGNFET_pin_D">Drain</string>
-
+    <string name="elem_NFET">N-Kanal FET</string>
+    <string name="elem_NFET_tt">N-Kanal Feldeffekttransistor.
+        Der Bulk ist mit Masse verbunden. Der Transistor wird ohne eine Body-Diode simuliert.</string>
+    <string name="elem_NFET_pin_G">Gate</string>
+    <string name="elem_NFET_pin_S">Source</string>
+    <string name="elem_NFET_pin_D">Drain</string>
     <string name="elem_FGPFET">P-Kanal Floating Gate FET</string>
-    <string name="elem_FGPFET_tt">P-Kanal Feldeffekttransistor mit Floating Gate. Der Bulk ist mit Masse verbunden jedoch wird der Transistor ohne eine Body-Diode simuliert.
-        Ist das Floating Gate geladen, ist der Transistor immer sperrend. Die Programmierung kann direkt mit der Taste [P] verändert werden.</string>
+    <string name="elem_FGPFET_tt">P-Kanal Feldeffekttransistor mit Floating Gate.
+        Der Bulk ist mit Masse verbunden. Der Transistor wird ohne eine Body-Diode simuliert.
+        Ist das Floating Gate geladen, ist der Transistor immer sperrend.
+        Die Programmierung kann direkt mit der Taste [P] verändert werden.</string>
     <string name="elem_FGPFET_pin_G">Gate</string>
     <string name="elem_FGPFET_pin_S">Source</string>
     <string name="elem_FGPFET_pin_D">Drain</string>
-
-
+    <string name="elem_FGNFET">N-Kanal Floating Gate FET</string>
+    <string name="elem_FGNFET_tt">N-Kanal Feldeffekttransistor mit Floating Gate.
+        Der Bulk ist mit Masse verbunden. Der Transistor wird ohne eine Body-Diode simuliert.
+        Ist das Floating Gate geladen, ist der Transistor immer sperrend.
+        Die Programmierung kann direkt mit der Taste [P] verändert werden.</string>
+    <string name="elem_FGNFET_pin_G">Gate</string>
+    <string name="elem_FGNFET_pin_S">Source</string>
+    <string name="elem_FGNFET_pin_D">Drain</string>
     <string name="elem_TransGate">Transmissionsgatter</string>
     <string name="elem_TransGate_tt">Ein reales Transmissionsgatter ist aus nur zwei Transistoren aufgebaut.
         Daher wird es oft eingesetzt um Transistoren einzusparen.</string>
@@ -585,12 +562,35 @@
     <string name="elem_TransGate_pin_~S">Steuereingang, invertiert</string>
 
 
+
+    <!-- Sonstige -->
+
+    <string name="elem_Testcase">Testfall</string>
+    <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
+        Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
+        dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.</string>
     <string name="elem_PowerSupply">Versorgung</string>
     <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen sind.
         Kann im Zusammenhang mit den 74xx Bausteinen verwendet werden, um Anschlüsse für die Spannungsversorgung
         zu erzeugen, welche dann auch auf korrekte Beschaltung geprüft werden.</string>
     <string name="elem_PowerSupply_pin_VDD">Muss mit VDD verbunden werden!</string>
     <string name="elem_PowerSupply_pin_GND">Muss mit GND verbunden werden!</string>
+    <string name="elem_Reset">Reset</string>
+    <string name="elem_Reset_pin_Reset">Reset Ausgang. Ist so lange Null, bis sich die Schaltung nach dem Einschalten stabilisiert hat.</string>
+    <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
+        in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.</string>
+    <string name="elem_Break">Break</string>
+    <string name="elem_Break_pin_brk">Stoppt schnellen Simulationslauf wenn 1.</string>
+    <string name="elem_Break_tt">Wenn der Eingang dieses Elementes zu Eins wird, wird der schnelle Simulationslauf beendet.
+        Dieses Element kann verwendet werden, um einen Assemblerbefehl BRK zu implementieren.
+        Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.
+        Der schnelle Simulationslauf kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!</string>
+
+
+    <string name="elem_Diode">Diode</string>
+    <string name="elem_Diode_tt">Echt bidirektionelle Diode.
+        Kann verwendet werden, um ein "Wired AND" oder ein "Wired OR" zu implementieren.
+        Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
 
 
     <string name="error">Fehler</string>
