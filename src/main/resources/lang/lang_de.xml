@@ -207,6 +207,61 @@
     <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
 
 
+    <!-- Leitungen -->
+
+    <string name="elem_Ground">Masse</string>
+    <string name="elem_Ground_tt">Eine Masseverbindung. Gibt immer Null aus.</string>
+    <string name="elem_Ground_pin_out">Dieser Ausgang gibt immer 0 aus.</string>
+    <string name="elem_VDD">Betriebsspannung</string>
+    <string name="elem_VDD_tt">Anschluss zur Betriebsspannung. Gibt immer Eins aus.</string>
+    <string name="elem_VDD_pin_out">Dieser Ausgang gibt immer 1 aus.</string>
+    <string name="elem_Const">Konstante</string>
+    <string name="elem_Const_tt">Ein Element, welches einen konstanten Wert ausgibt. Die Konstante kann über den Attribute-Dialog festgelegt werden.</string>
+    <string name="elem_Const_pin_out">Gibt den gesetzten Wert als Konstante aus.</string>
+    <string name="elem_Tunnel">Tunnel</string>
+    <string name="elem_Tunnel_tt">Verbindet Elemente ohne eine Leitung zu ziehen. Alle Tunnelelemente, welche den selben
+        Netznamen tragen, sind miteinander verbunden. Der Tunnel ist immer lokal, es können keine Verbindungen über
+        Schaltungsgrenzen hinaus erzeugt werden.</string>
+    <string name="elem_Tunnel_pin_in">Anschluss des Tunnels.</string>
+    <string name="elem_Splitter">Splitter</string>
+    <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.
+        Mit Bussen wird es möglich z.B. 16 Bit Verbindungen zu erzeugen, ohne 16 einzelne Leitungen verlegen zu müssen.
+        Alle 16 Verbindungen können zu einer Leitung zusammengefast werden.
+    </string>
+    <string name="elem_Splitter_pin_in">Die Eingangsbits {0} des Splitters.</string>
+    <string name="elem_Splitter_pin_in_one">Das Eingangsbit {0} des Splitters.</string>
+    <string name="elem_Splitter_pin_out">Die Ausgangsbits {0} des Splitters.</string>
+    <string name="elem_Splitter_pin_out_one">Das Ausgangsbit {0} des Splitters.</string>
+    <string name="elem_PullUp">Pull-Up Widerstand</string>
+    <string name="elem_PullUp_pin_out">Ein "Weak High".</string>
+    <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.
+        Ist eine Leitung nicht hochohmig, hat das Element keine Wirkung.</string>
+    <string name="elem_PullDown">Pull-Down Widerstand</string>
+    <string name="elem_PullDown_pin_out">Ein "Weak Low".</string>
+    <string name="elem_PullDown_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Down Widerstand zu Low.
+        Ist eine Leitung nicht hochohmig, hat das Element keine Wirkung.</string>
+    <string name="elem_Driver">Treiber</string>
+    <string name="elem_Driver_tt">Ein Treiber kann dazu verwendet werden, ein Datenwort nur unter speziellen Voraussetzungen auf eine andere Leitung weiterzureichen.
+        Gesteuert wird der Treiber durch den sel Eingang.
+        Ist der sel Eingang auf 1 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht.
+        Ist der Eingang 0, ist der Ausgang hochohmig.
+    </string>
+    <string name="elem_Driver_pin_in">Das Eingangssignal des Treibers.</string>
+    <string name="elem_Driver_pin_out">Gibt den am Eingang anliegenden Wert aus, wenn sel auf 1 gesetzt ist. Ist sel auf Null gesetzt, ist der Ausgang hochohmig.</string>
+    <string name="elem_Driver_pin_sel">Eingang zum Steuern des Treibers.
+        Ist dieser Eingang auf 1 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht. Ist der Eingang 0, ist der Ausgang hochohmig.</string>
+    <string name="elem_DriverInvSel">Treiber, invertierte Auswahl</string>
+    <string name="elem_DriverInvSel_tt">Ein Treiber kann dazu verwendet werden, ein Datenwort nur unter speziellen Voraussetzungen auf eine andere Leitung weiterzureichen.
+        Gesteuert wird der Treiber durch den sel Eingang.
+        Ist der sel Eingang auf 0 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht.
+        Ist der Eingang 1, ist der Ausgang hochohmig.
+    </string>
+    <string name="elem_DriverInvSel_pin_in">Das Eingangssignal des Treibers.</string>
+    <string name="elem_DriverInvSel_pin_sel">Eingang zum Steuern des Treibers.
+        Ist dieser Eingang auf 0 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht. Ist der Eingang 1, ist der Ausgang hochohmig.</string>
+    <string name="elem_DriverInvSel_pin_out">Gibt den am Eingang anliegenden Wert aus, wenn der Selection Eingang auf 0 gesetzt ist.</string>
+
+
 
     <string name="elem_Add">Addierer</string>
     <string name="elem_Add_tt">Ein Bauteil für einfache Additionen. Führt eine Addition der Ganzzahlen an Eingang a und Eingang b durch (a+b). Ist der Carry Eingang gesetzt, wird das Ergebnis um 1 erhöht.</string>
@@ -234,20 +289,6 @@
     <string name="elem_Comparator_pin_=">Ausgang ist 1 wenn die Werte an beiden Eingängen gleich sind.</string>
     <string name="elem_Comparator_pin_&gt;">Ausgang ist 1 wenn Eingang a größer ist als Eingang b.</string>
     <string name="elem_Comparator_pin_&lt;">Ausgang ist 1 wenn Eingang a kleiner ist als Eingang b</string>
-    <string name="elem_Const">Konstante</string>
-    <string name="elem_Const_pin_out">Gibt den gesetzten Wert als Konstante aus.</string>
-    <string name="elem_Const_tt">Ein Element, welches einen eingestellten konstanten Wert ausgibt. Die Konstante kann über den Attribute-Dialog festgelegt werden.</string>
-    <string name="elem_Ground">Masse</string>
-    <string name="elem_Ground_tt">Eine Masseverbindung. Gibt immer Null aus.</string>
-    <string name="elem_Ground_pin_out">Dieser Ausgang gibt immer 0 aus.</string>
-    <string name="elem_VDD">Betriebsspannung</string>
-    <string name="elem_VDD_tt">Anschluss zur Betriebsspannung. Gibt immer Eins aus.</string>
-    <string name="elem_VDD_pin_out">Dieser Ausgang gibt immer 1 aus.</string>
-    <string name="elem_Tunnel">Tunnel</string>
-    <string name="elem_Tunnel_tt">Verbindet Elemente ohne eine Leitung zu ziehen. Alle Tunnelelemente, welche den selben
-        Netznamen tragen, sind miteinander verbunden. Der Tunnel ist immer lokal, es können keine Verbindungen über
-        Schaltungsgrenzen hinaus erzeugt werden.</string>
-    <string name="elem_Tunnel_pin_in">Anschluss des Tunnels.</string>
 
     <string name="elem_Relay">Relais</string>
     <string name="elem_Relay_tt">Ein Relais ist ein Schalter, welcher über eine Spule umgeschaltet werden kann.
@@ -294,20 +335,6 @@
     <string name="elem_Demultiplexer_pin_sel">Mit dieser Leitung wird der Ausgang ausgewählt, auf welchem der Eingangswert ausgegeben werden soll.</string>
     <string name="elem_Demultiplexer_pin_in">Der Wert dieses Eingangs wird auf einen der Ausgänge geschaltet.</string>
     <string name="elem_Demultiplexer_output">Ausgang {0}.</string>
-    <string name="elem_Driver">Treiber</string>
-    <string name="elem_Driver_tt">Ein Treiber kann dazu verwendet werden, ein Datenwort nur unter speziellen Voraussetzungen auf eine andere Leitung weiterzureichen.
-        Gesteuert wird der Treiber durch den sel Eingang.</string>
-    <string name="elem_Driver_pin_in">Das Eingangssignal des Treibers.</string>
-    <string name="elem_Driver_pin_out">Gibt den am Eingang anliegenden Wert aus, wenn sel auf 1 gesetzt ist. Ist sel auf Null gesetzt, ist der Ausgang hochohmig.</string>
-    <string name="elem_Driver_pin_sel">Eingang zum Steuern des Treibers.
-        Ist dieser Eingang auf 1 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht. Ist der Eingang 0, ist der Ausgang hochohmig.</string>
-    <string name="elem_DriverInvSel">Treiber, invertierte Auswahl</string>
-    <string name="elem_DriverInvSel_tt">Ein Treiber kann dazu verwendet werden, ein Datenwort nur unter speziellen Voraussetzungen auf eine andere Leitung weiterzureichen.
-        Gesteuert wird der Treiber durch den sel Eingang.</string>
-    <string name="elem_DriverInvSel_pin_in">Das Eingangssignal des Treibers.</string>
-    <string name="elem_DriverInvSel_pin_sel">Eingang zum Steuern des Treibers.
-        Ist dieser Eingang auf 0 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht. Ist der Eingang 1, ist der Ausgang hochohmig.</string>
-    <string name="elem_DriverInvSel_pin_out">Gibt den am Eingang anliegenden Wert aus, wenn der Selection Eingang auf 0 gesetzt ist.</string>
     <string name="elem_JK_FF">JK-FlipFlop</string>
     <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Bietet die Funktionen zum
@@ -438,12 +465,6 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_Reset_pin_Reset">Reset Ausgang. Ist so lange Null, bis sich die Schaltung nach dem Einschalten stabilisiert hat.</string>
     <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
         in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.</string>
-    <string name="elem_Splitter">Splitter</string>
-    <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.</string>
-    <string name="elem_Splitter_pin_in">Die Eingangsbits {0} des Splitters.</string>
-    <string name="elem_Splitter_pin_in_one">Das Eingangsbit {0} des Splitters.</string>
-    <string name="elem_Splitter_pin_out">Die Ausgangsbits {0} des Splitters.</string>
-    <string name="elem_Splitter_pin_out_one">Das Ausgangsbit {0} des Splitters.</string>
     <string name="elem_Sub">Subtrahierer</string>
     <string name="elem_Sub_tt">Ein Bauteil für einfache Substraktionen. Führt eine Substraktion der Ganzzahlen an Eingang a und Eingang b durch (a-b). Ist der Carry Eingang gesetzt, wird das Ergebnis nochmals um 1 verringert.</string>
     <string name="elem_Sub_pin_c_i">Carry-Eingang. Wenn gesetzt wird das Ergebnis um eins verringert.</string>
@@ -487,14 +508,6 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
     <string name="elem_DiodeForward_pin_in">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_DiodeForward_pin_out">Ist der Eingang 1 ist auch der Ausgang 1. In allen anderen Fällen ist der Ausgang hochohmig.</string>
-    <string name="elem_PullUp">Pull-Up Widerstand</string>
-    <string name="elem_PullUp_pin_out">Ein "Weak High".</string>
-    <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.
-        Ist eine Leitung nicht hochohmig, hat das Element keine Wirkung.</string>
-    <string name="elem_PullDown">Pull-Down Widerstand</string>
-    <string name="elem_PullDown_pin_out">Ein "Weak Low".</string>
-    <string name="elem_PullDown_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Down Widerstand zu Low.
-        Ist eine Leitung nicht hochohmig, hat das Element keine Wirkung.</string>
 
     <string name="elem_NFET">N-Kanal FET</string>
     <string name="elem_NFET_tt">N-Kanal Feldeffekttransistor. Der Bulk ist mit Masse verbunden. Der Transistor ohne eine Body-Diode simuliert.</string>

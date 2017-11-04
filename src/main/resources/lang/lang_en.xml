@@ -207,6 +207,71 @@
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
 
 
+    <!-- Wires -->
+
+    <string name="elem_Ground">Ground</string>
+    <string name="elem_Ground_tt">A connection to ground. Output is always zero.</string>
+    <string name="elem_Ground_pin_out">Output always returns 0.</string>
+    <string name="elem_VDD">Supply voltage</string>
+    <string name="elem_VDD_tt">A connection to the supply voltage. Output is always one.</string>
+    <string name="elem_VDD_pin_out">This output always returns 1.</string>
+    <string name="elem_Const">Constant value</string>
+    <string name="elem_Const_tt">A component which returns a given value as a simple constant value. The value can be set in the attribute dialog.</string>
+    <string name="elem_Const_pin_out">Returns the given value as a constant.</string>
+    <string name="elem_Tunnel">Tunnel</string>
+    <string name="elem_Tunnel_tt">Connects components without a wire. All tunnel elements, which have the same net name,
+        are connected together. Works only locally, so it is not possible to connect different circuits.</string>
+    <string name="elem_Tunnel_pin_in">The connection to the tunnel.</string>
+    <string name="elem_Splitter">Splitter</string>
+    <string name="elem_Splitter_tt">Splits or creates a wire bundle or a data bus with more than one bit.
+        With a bus it is e.g. possible to generate 16-bit connections without having to route 16 individual wires.
+        All 16 connections can be merged into one wire.
+    </string>
+    <string name="elem_Splitter_pin_in">The input bits {0}.</string>
+    <string name="elem_Splitter_pin_in_one">The input bit {0}.</string>
+    <string name="elem_Splitter_pin_out">The output bits {0}.</string>
+    <string name="elem_Splitter_pin_out_one">The output bit {0}.</string>
+    <string name="elem_PullUp">Pull-Up Resistor</string>
+    <string name="elem_PullUp_tt">If a net is in a HighZ state, this resistor pulls the net to high.
+        In any other case this component has no effect.
+    </string>
+    <string name="elem_PullUp_pin_out">A "weak high".</string>
+    <string name="elem_PullDown">Pull-Down Resistor</string>
+    <string name="elem_PullDown_tt">If the net is in a HighZ state, this resistor pulls the net to ground.
+        In any other case this component has no effect.
+    </string>
+    <string name="elem_PullDown_pin_out">A "weak low".</string>
+    <string name="elem_Driver">Driver</string>
+    <string name="elem_Driver_tt">A driver can be used to connect a signal value to another wire.
+        The driver is controlled by the sel input.
+        If the sel input is low, the output is in high z state.
+        If the sel input is high, the output is set to the input value.
+    </string>
+    <string name="elem_Driver_pin_in">The input value of the driver.</string>
+    <string name="elem_Driver_pin_sel">Pin to control the driver.
+        If its value is 1 the input is set to the output.
+        If the value is 0, the output is in high z state.
+    </string>
+    <string name="elem_Driver_pin_out">If the sel input is 1 the input is given to this output.
+        If the sel input is 0, this output is in high z state.
+    </string>
+    <string name="elem_DriverInvSel">Driver, inverted select</string>
+    <string name="elem_DriverInvSel_tt">A driver can be used to connect a data word to another line.
+        The driver is controlled by the sel input.
+        If the sel input is high, the output is in high z state.
+        If the sel input is low, the output is set to the input value.
+    </string>
+    <string name="elem_DriverInvSel_pin_in">The input value of the driver.</string>
+    <string name="elem_DriverInvSel_pin_sel">Pin to control the driver.
+        If its value is 0 the input is given to the output.
+        If the value is 1, the output is in high z state.
+    </string>
+    <string name="elem_DriverInvSel_pin_out">If the sel input is 0 the input is given to this output.
+        If the sel input is 1, this output is in high z state.
+    </string>
+
+
+
     <string name="elem_Add">Add</string>
     <string name="elem_Add_tt">A component for simple add calculations. Adds the two integer values from input a and input b (a+b). The result will be incremented by one if the carry input is set. </string>
     <string name="elem_Add_pin_a">First input to add.</string>
@@ -233,19 +298,6 @@
     <string name="elem_Comparator_pin_=">Output is 1 if input a equals input b</string>
     <string name="elem_Comparator_pin_&gt;">Output is 1 if input a is greater then input b</string>
     <string name="elem_Comparator_pin_&lt;">Output is 1 if input a is less then input b</string>
-    <string name="elem_Const">Constant value</string>
-    <string name="elem_Const_pin_out">Returns the given value as a constant.</string>
-    <string name="elem_Const_tt">A component which returns a given value as a simple constant value. The value can be set in the attributes dialog.</string>
-    <string name="elem_Ground">Ground</string>
-    <string name="elem_Ground_tt">A connection to ground. Output is always zero.</string>
-    <string name="elem_Ground_pin_out">Output always returns 0.</string>
-    <string name="elem_VDD">Supply voltage</string>
-    <string name="elem_VDD_tt">A connection to the supply voltage. Output is always one.</string>
-    <string name="elem_VDD_pin_out">This output always returns 1.</string>
-    <string name="elem_Tunnel">Tunnel</string>
-    <string name="elem_Tunnel_tt">Connects parts without a wire. All tunnel elements, which have the same net name,
-        are connected together. Works only local, so it is not possible to connect different circuits.</string>
-    <string name="elem_Tunnel_pin_in">The connection to the tunnel.</string>
 
     <string name="elem_Relay">Relay</string>
     <string name="elem_Relay_tt">A relay is a switch which can be controlled by a coil.
@@ -304,18 +356,6 @@
     <string name="elem_Demultiplexer_pin_sel">This pin selects the output to use.</string>
     <string name="elem_Demultiplexer_pin_in">The value of this input is given to the selected output.</string>
     <string name="elem_Demultiplexer_output">Output {0}.</string>
-    <string name="elem_Driver">Driver</string>
-    <string name="elem_Driver_tt">A driver can be used to connect a signal value to another line.
-        The driver is controlled by the sel input. If the sel input is low, the output is in high z state.</string>
-    <string name="elem_Driver_pin_in">The input value of the driver.</string>
-    <string name="elem_Driver_pin_sel">Pin to control the driver. If its value is 1 the input is given to the output. If the value is 0, the output is in high z state.</string>
-    <string name="elem_Driver_pin_out">If the sel input is 1 the input is given to this output. If the sel input is 0, this output is in high z state.</string>
-    <string name="elem_DriverInvSel">Driver, inverted select</string>
-    <string name="elem_DriverInvSel_tt">A driver can be used to connect a data word to another line.
-        The driver is controlled by the sel input.</string>
-    <string name="elem_DriverInvSel_pin_in">The input value of the driver.</string>
-    <string name="elem_DriverInvSel_pin_sel">Pin to control the driver. If its value is 0 the input is given to the output. If the value is 1, the output is in high z state.</string>
-    <string name="elem_DriverInvSel_pin_out">If the sel input is 0 the input is given to this output. If the sel input is 1, this output is in high z state.</string>
 
     <string name="elem_JK_FF">JK-Flipflop</string>
     <string name="elem_JK_FF_short">JK</string>
@@ -431,12 +471,6 @@
     <string name="elem_Reset_pin_Reset">Reset Output. Is zero while the circuit is stabilizing.</string>
     <string name="elem_Reset_tt">The output of this component is held low during the initialisation of the circuit.
         After the circuit has stabilized the output goes to high.</string>
-    <string name="elem_Splitter">Splitter</string>
-    <string name="elem_Splitter_tt">Splits or creates a wire bundle or a data bus with more than one bit.</string>
-    <string name="elem_Splitter_pin_in">The input bits {0}.</string>
-    <string name="elem_Splitter_pin_in_one">The input bit {0}.</string>
-    <string name="elem_Splitter_pin_out">The output bits {0}.</string>
-    <string name="elem_Splitter_pin_out_one">The output bit {0}.</string>
     <string name="elem_Sub">Sub</string>
     <string name="elem_Sub_tt">A component for simple subtractions. Subtracts binary numbers on input a and input b (a-b). If the carry input is set to 1 the result is decremented by 1.</string>
     <string name="elem_Sub_pin_c_i">Carry input, if set the result is decremented by one.</string>
@@ -477,12 +511,6 @@
         This is an ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeForward_pin_in">If the input is high also the output is high. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeForward_pin_out">If the input is high also the output is high. In all other cases the output is in high z state.</string>
-    <string name="elem_PullUp">Pull-Up Resistor</string>
-    <string name="elem_PullUp_tt">If a net is in a HighZ state, this resistor pulls the net to high. In any other case this component has no effect.</string>
-    <string name="elem_PullUp_pin_out">A "weak high".</string>
-    <string name="elem_PullDown">Pull-Down Resistor</string>
-    <string name="elem_PullDown_tt">If the net is in a HighZ state, this resistor pulls the net to ground. In any other case this component has no effect.</string>
-    <string name="elem_PullDown_pin_out">A "weak low".</string>
 
     <string name="elem_NFET">N-Channel FET</string>
     <string name="elem_NFET_tt">N-Channel Field Effect Transistor. The bulk is connected to ground and the transistor is simulated without a body diode.</string>
