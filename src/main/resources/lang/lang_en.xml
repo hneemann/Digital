@@ -354,19 +354,135 @@
     <string name="elem_D_FF_AS_pin_Clr">asynchronous clear</string>
 
 
+    <!-- Memory -->
 
+    <string name="elem_Register">Register</string>
+    <string name="elem_Register_tt">A component to store values. The length of the data word can be selected in the attributes dialog.</string>
+    <string name="elem_Register_pin_D">Input pin of the data word to be stored.</string>
+    <string name="elem_Register_pin_C">Clock input. A rising edge stores the value at the D pin.</string>
+    <string name="elem_Register_pin_en">Enable pin. Storing a value works only if this pin is set high.</string>
+    <string name="elem_Register_pin_Q">Returns the stored value.</string>
+    <string name="elem_ROM">ROM</string>
+    <string name="elem_ROM_tt">A non-volatile memory component.
+        The stored data can be edited in the attributes dialog.
+    </string>
+    <string name="elem_ROM_pin_A">This pin defines the address of data word to be output.</string>
+    <string name="elem_ROM_pin_D">The selected data word if the sel input is high.</string>
+    <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
+    <string name="elem_RAMDualPort">RAMDualPort</string>
+    <string name="elem_RAMDualPort_short">RAM</string>
+    <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
+    <string name="elem_RAMDualPort_pin_A">The address to read from or write to.</string>
+    <string name="elem_RAMDualPort_pin_C">Clock input</string>
+    <string name="elem_RAMDualPort_pin_D_in">The data to be stored in the RAM</string>
+    <string name="elem_RAMDualPort_pin_D">The data output pin</string>
+    <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
+    <string name="elem_RAMDualPort_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
+    <string name="elem_RAMSinglePort">RAMSinglePort</string>
+    <string name="elem_RAMSinglePort_short">RAM</string>
+    <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional pin for reading and writing the data.</string>
+    <string name="elem_RAMSinglePort_pin_A">The address to read and write.</string>
+    <string name="elem_RAMSinglePort_pin_C">Clock</string>
+    <string name="elem_RAMSinglePort_pin_D">The bidirectional data connection.</string>
+    <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
+    <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
+    <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
+    <string name="elem_RAMSinglePortSel_short">RAM</string>
+    <string name="elem_RAMSinglePortSel_tt">A RAM module with a bidirectional connection for reading and writing the data.
+        If the CS input is low, the component is disabled.
+        This allows to build a larger RAM from some smaller RAMs and a address decoder.</string>
+    <string name="elem_RAMSinglePortSel_pin_A">The address to read and write.</string>
+    <string name="elem_RAMSinglePortSel_pin_WE">If set to high the data is written to the RAM.</string>
+    <string name="elem_RAMSinglePortSel_pin_D">The bidirectional data connection.</string>
+    <string name="elem_RAMSinglePortSel_pin_CS">If this input is high, this RAM is enabled. Otherwise the output is always in high Z state.</string>
+    <string name="elem_RAMSinglePortSel_pin_OE">If this input is high, the stored value is output.</string>
+    <string name="elem_EEPROM">EEPROM</string>
+    <string name="elem_EEPROM_tt">A EEPROM module with a bidirectional connection for reading and writing the data.
+        If the CS input is low, the component is disabled.
+        The data content is stored like in a ROM. It is thus preserved when the simulation is terminated and restarted.</string>
+    <string name="elem_EEPROM_pin_A">The address to read and write.</string>
+    <string name="elem_EEPROM_pin_WE">If set to high the data is written to the EEPROM.</string>
+    <string name="elem_EEPROM_pin_D">The bidirectional data connection.</string>
+    <string name="elem_EEPROM_pin_CS">If this input is high, this EEPROM is enabled. Otherwise the output is always in high Z state.</string>
+    <string name="elem_EEPROM_pin_OE">If this input is high, the stored value is output.</string>
+    <string name="elem_GraphicCard">Graphic RAM</string>
+    <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element behaves like a RAM. In addition it
+        shows its content on a graphic screen. Every pixel is represented by a memory address. The value stored defines
+        the color of the pixel, using a fixed color palette. There are two screen buffers implemented to support page
+        flipping. The input B selects which buffer is shown. Thus, the total memory size is dx * dy * 2 words.
+    </string>
+    <string name="elem_GraphicCard_pin_A">The address to read and write.</string>
+    <string name="elem_GraphicCard_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
+    <string name="elem_GraphicCard_pin_C">Clock</string>
+    <string name="elem_GraphicCard_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
+    <string name="elem_GraphicCard_pin_B">Selects the screen buffer to show.</string>
+    <string name="elem_GraphicCard_pin_D">The bidirectional data connection.</string>
+    <string name="elem_Counter">Counter</string>
+    <string name="elem_Counter_tt">A simple counter component. The clock input increases the counter.
+        Can be reset back to 0 with the clr input.
+        The number of bits can be set in the attribute dialog.</string>
+    <string name="elem_Counter_pin_C">The clock input. A rising edge increases the counter.</string>
+    <string name="elem_Counter_pin_clr">Asynchronous reset of the counter if set to 1.</string>
+    <string name="elem_Counter_pin_out">Returns the counted value.</string>
+    <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter is on its maximal value and the en input is set to 1.</string>
+    <string name="elem_Counter_pin_en">If set to 1 the counter is enabled!</string>
+
+
+
+    <!--Arithmetic -->
 
     <string name="elem_Add">Add</string>
-    <string name="elem_Add_tt">A component for simple add calculations. Adds the two integer values from input a and input b (a+b). The result will be incremented by one if the carry input is set. </string>
+    <string name="elem_Add_tt">A component for simple add calculations.
+        Adds the two integer values from input a and input b (a+b).
+        The result will be incremented by one if the carry input is set.</string>
     <string name="elem_Add_pin_a">First input to add.</string>
     <string name="elem_Add_pin_b">Second input to add.</string>
     <string name="elem_Add_pin_c_i">Carry input, if set the result is incremented by one.</string>
     <string name="elem_Add_pin_s">The result of the addition</string>
-    <string name="elem_Add_pin_c_o">If set there was an overflow.</string>
+    <string name="elem_Add_pin_c_o">Carry output. If set there was an overflow.</string>
+    <string name="elem_Sub">Sub</string>
+    <string name="elem_Sub_tt">A component for simple subtractions.
+        Subtracts binary numbers on input a and input b (a-b).
+        If the carry input is set to 1 the result is decremented by 1.</string>
+    <string name="elem_Sub_pin_c_i">Carry input, if set the result is decremented by one.</string>
+    <string name="elem_Sub_pin_a">Input a for subtraction.</string>
+    <string name="elem_Sub_pin_b">Input b for subtraction.</string>
+    <string name="elem_Sub_pin_s">Output returns the result of the subtraction.</string>
+    <string name="elem_Sub_pin_c_o">Output returns 1 if an overflow occurred.</string>
+    <string name="elem_Mul">Mul</string>
+    <string name="elem_Mul_tt">A component for multiplication.
+        Multiplies the integer numbers on input pin a and input pin b.
+        An unsigned multiplication is performed.
+    </string>
+    <string name="elem_Mul_pin_a">Input a for multiplication.</string>
+    <string name="elem_Mul_pin_b">Input b for multiplication.</string>
+    <string name="elem_Mul_pin_mul">Output for the result of the multiplication.</string>
+    <string name="elem_BarrelShifter">Shift</string>
+    <string name="elem_BarrelShifter_tt">A component for bit shifting.
+        Shifts the input value by the number of bits given by the shift input.</string>
+    <string name="elem_BarrelShifter_pin_in">Input with bits to be shifted.</string>
+    <string name="elem_BarrelShifter_pin_shift">Input with shift width.</string>
+    <string name="elem_BarrelShifter_pin_out">Output with shifted value.</string>
+    <string name="elem_Comparator">Comparator</string>
+    <string name="elem_Comparator_tt">A component for comparing bit values.
+        Compares the binary numbers on input pin a and input pin b and sets the corresponding outputs.</string>
+    <string name="elem_Comparator_pin_a">Input a to compare.</string>
+    <string name="elem_Comparator_pin_b">Input b to compare.</string>
+    <string name="elem_Comparator_pin_=">Output is 1 if input a equals input b</string>
+    <string name="elem_Comparator_pin_&gt;">Output is 1 if input a is greater then input b</string>
+    <string name="elem_Comparator_pin_&lt;">Output is 1 if input a is less then input b</string>
+    <string name="elem_Neg">Negation</string>
+    <string name="elem_Neg_tt">Negation in the 2th complement</string>
+    <string name="elem_Neg_pin_in">Input of the data word to be negated in 2th complement</string>
+    <string name="elem_Neg_pin_out">Returns the result of the negation in 2th complement.</string>
     <string name="elem_BitCount">Bit counter</string>
     <string name="elem_BitCount_tt">Returns the number of 1-bits in the input value.</string>
     <string name="elem_BitCount_pin_in">The input which 1-bits are counted.</string>
     <string name="elem_BitCount_pin_out">Outputs the number of 1-bits.</string>
+
+
+
+
     <string name="elem_Basic_In">The {0}. input value for the logic operation.</string>
     <string name="elem_Basic_Out">Returns the result of the logic operation.</string>
     <string name="elem_Break">Break</string>
@@ -375,13 +491,6 @@
         You can use the component to implement a BRK assembly instruction.
         Then you can run a simulated processor until a BRK instruction is reached.
         Fast forward clocking can only be used if the real-time clock is disabled.</string>
-    <string name="elem_Comparator">Comparator</string>
-    <string name="elem_Comparator_tt">A component for comparing bit values. Compares the binary numbers on input pin a and input pin b and sets the corresponding outputs.</string>
-    <string name="elem_Comparator_pin_a">Input a to compare.</string>
-    <string name="elem_Comparator_pin_b">Input b to compare.</string>
-    <string name="elem_Comparator_pin_=">Output is 1 if input a equals input b</string>
-    <string name="elem_Comparator_pin_&gt;">Output is 1 if input a is greater then input b</string>
-    <string name="elem_Comparator_pin_&lt;">Output is 1 if input a is less then input b</string>
 
     <string name="elem_Relay">Relay</string>
     <string name="elem_Relay_tt">A relay is a switch which can be controlled by a coil.
@@ -403,102 +512,15 @@
     <string name="elem_Fuse_pin_out1">One of the fuse outputs.</string>
     <string name="elem_Fuse_pin_out2">One of the fuse outputs.</string>
 
-    <string name="elem_Counter">Counter</string>
-    <string name="elem_Counter_tt">A simple counter component. The clock input increases the counter. Can be reset back to 0 with the clr pin.
-        The number of bits can be set in the attribute dialog.</string>
-    <string name="elem_Counter_pin_C">The clock input. A rising edge increases the counter.</string>
-    <string name="elem_Counter_pin_clr">Asynchronous reset of the counter if set to 1.</string>
-    <string name="elem_Counter_pin_out">Returns the counted value.</string>
-    <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter is on its maximal value and the en input is set to 1.</string>
-    <string name="elem_Counter_pin_en">If set to 1 the counter is enabled!</string>
 
-    <string name="elem_Mul">Mul</string>
-    <string name="elem_Mul_tt">A component for multiplication. Multiplies the integer numbers on input pin a and input pin b.</string>
-    <string name="elem_Mul_pin_a">Input a for multiplication.</string>
-    <string name="elem_Mul_pin_b">Input b for multiplication.</string>
-    <string name="elem_Mul_pin_mul">Output for the result of the multiplication.</string>
-    <string name="elem_BarrelShifter">Shift</string>
-    <string name="elem_BarrelShifter_tt">A component for bit shifting. Shift input in by the value defined from input shift.</string>
-    <string name="elem_BarrelShifter_pin_in">Input with bits to be shifted.</string>
-    <string name="elem_BarrelShifter_pin_shift">Input with shift width.</string>
-    <string name="elem_BarrelShifter_pin_out">Output with shifted value.</string>
-    <string name="elem_Neg">Negation</string>
-    <string name="elem_Neg_pin_in">Input of the data word to be negated in 2th complement</string>
-    <string name="elem_Neg_pin_out">Returns the result of the negation in 2th complement.</string>
-    <string name="elem_Neg_tt">Negation in the 2th complement</string>
-    <string name="elem_RAMDualPort">RAMDualPort</string>
-    <string name="elem_RAMDualPort_short">RAM</string>
-    <string name="elem_RAMDualPort_pin_A">The address to read and write</string>
-    <string name="elem_RAMDualPort_pin_C">Clock</string>
-    <string name="elem_RAMDualPort_pin_D_in">The data to be stored in the RAM</string>
-    <string name="elem_RAMDualPort_pin_D">The data output pin</string>
-    <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
-    <string name="elem_RAMDualPort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
-    <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
 
-    <string name="elem_RAMSinglePort">RAMSinglePort</string>
-    <string name="elem_RAMSinglePort_short">RAM</string>
-    <string name="elem_RAMSinglePort_pin_A">The address to read and write.</string>
-    <string name="elem_RAMSinglePort_pin_C">Clock</string>
-    <string name="elem_RAMSinglePort_pin_D">The bidirectional data connection.</string>
-    <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
-    <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
-    <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional connection for reading and writing the data.</string>
 
-    <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
-    <string name="elem_RAMSinglePortSel_short">RAM</string>
-    <string name="elem_RAMSinglePortSel_pin_A">The address to read and write.</string>
-    <string name="elem_RAMSinglePortSel_pin_WE">If set to high the data is written to the RAM.</string>
-    <string name="elem_RAMSinglePortSel_pin_D">The bidirectional data connection.</string>
-    <string name="elem_RAMSinglePortSel_pin_CS">If this input is high, this RAM is enabled. Otherwise the output is always in high Z state.</string>
-    <string name="elem_RAMSinglePortSel_pin_OE">If this input is high, the stored value is output.</string>
-    <string name="elem_RAMSinglePortSel_tt">A RAM module with a bidirectional connection for reading and writing the data.
-        The CS input allows to build a larger RAM from some smaller RAMs and a address decoder.</string>
 
-    <string name="elem_EEPROM">EEPROM</string>
-    <string name="elem_EEPROM_pin_A">The address to read and write.</string>
-    <string name="elem_EEPROM_pin_WE">If set to high the data is written to the EEPROM.</string>
-    <string name="elem_EEPROM_pin_D">The bidirectional data connection.</string>
-    <string name="elem_EEPROM_pin_CS">If this input is high, this EEPROM is enabled. Otherwise the output is always in high Z state.</string>
-    <string name="elem_EEPROM_pin_OE">If this input is high, the stored value is output.</string>
-    <string name="elem_EEPROM_tt">A EEPROM module with a bidirectional connection for reading and writing the data.
-        The data content is stored as in a ROM. It is thus retained when the simulation is terminated and restarted.
-        The CS input allows to build a larger EEPROM from some smaller EEPROMs and a address decoder.</string>
 
-    <string name="elem_GraphicCard">Graphic RAM</string>
-    <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element behaves like a RAM. In addition it
-        shows its content on a graphic screen. Every pixel is represented by a memory address. The value stored defines
-        the color of the pixel, using a fixed color palette. There are two screen buffers implemented to support page
-        flipping. The input B selects which buffer is shown. Thus, the total memory size is dx * dy * 2 words.
-    </string>
-    <string name="elem_GraphicCard_pin_A">The address to read and write.</string>
-    <string name="elem_GraphicCard_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
-    <string name="elem_GraphicCard_pin_C">Clock</string>
-    <string name="elem_GraphicCard_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
-    <string name="elem_GraphicCard_pin_B">Selects the screen buffer to show.</string>
-    <string name="elem_GraphicCard_pin_D">The bidirectional data connection.</string>
-    <string name="elem_ROM">ROM</string>
-    <string name="elem_ROM_tt">A non-volatile memory component.</string>
-    <string name="elem_ROM_pin_A">This pin defines the address of data word to be output.</string>
-    <string name="elem_ROM_pin_D">The selected data word. Only readable if "select" input is high.</string>
-    <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
-    <string name="elem_Register">Register</string>
-    <string name="elem_Register_tt">A component to store integers. The length of the data word can be set in the attributes dialog.</string>
-    <string name="elem_Register_pin_D">Input pin of the data word to be stored.</string>
-    <string name="elem_Register_pin_C">Clock. A rising edge stores the value at the D pin.</string>
-    <string name="elem_Register_pin_en">Enable pin. Storing a value works only if this pin is set high.</string>
-    <string name="elem_Register_pin_Q">Returns the stored value.</string>
     <string name="elem_Reset">Reset</string>
     <string name="elem_Reset_pin_Reset">Reset Output. Is zero while the circuit is stabilizing.</string>
     <string name="elem_Reset_tt">The output of this component is held low during the initialisation of the circuit.
         After the circuit has stabilized the output goes to high.</string>
-    <string name="elem_Sub">Sub</string>
-    <string name="elem_Sub_tt">A component for simple subtractions. Subtracts binary numbers on input a and input b (a-b). If the carry input is set to 1 the result is decremented by 1.</string>
-    <string name="elem_Sub_pin_c_i">Carry input, if set the result is decremented by one.</string>
-    <string name="elem_Sub_pin_a">Input a for subtraction.</string>
-    <string name="elem_Sub_pin_b">Input b for subtraction.</string>
-    <string name="elem_Sub_pin_s">Output returns the result of the subtraction.</string>
-    <string name="elem_Sub_pin_c_o">Output returns 1 if an overflow occurred.</string>
     <string name="elem_Testcase">Test case</string>
     <string name="elem_Testcase_tt">Describes a test case.
         In a test case you can describe how a circuit should behave. It can then be automatically checked whether the

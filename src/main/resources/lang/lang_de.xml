@@ -348,18 +348,130 @@
     <string name="elem_D_FF_AS_pin_Clr">asynchrones löschen</string>
 
 
+    <!-- Speicher -->
+
+    <string name="elem_Register">Register</string>
+    <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten.</string>
+    <string name="elem_Register_pin_D">Das zu speichernde Datenwort liegt hier an.</string>
+    <string name="elem_Register_pin_C">Der Takteingang. Eine steigende Flanke speichert den an D anliegenden Wert ab.</string>
+    <string name="elem_Register_pin_en">Nur wenn dieser Eingang 1 ist, kann gespeichert werden.</string>
+    <string name="elem_Register_pin_Q">Gibt den abgespeicherten Wert aus.</string>
+    <string name="elem_ROM">ROM</string>
+    <string name="elem_ROM_tt">Ein nichtflüchtiger Speicherbaustein welcher einmalig beschreibbar ist.
+        Die gespeicherten Daten können im Atribute-Dialog bearbeitet werden.
+    </string>
+    <string name="elem_ROM_pin_A">Dieser Eingang bestimmt die Speicheradresse des Datenwortes welches ausgegeben werden soll.</string>
+    <string name="elem_ROM_pin_D">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang eine 1 anliegt.</string>
+    <string name="elem_ROM_pin_sel">Ist dieser Pin high (1) ist der Ausgang aktiviert. Ist er low (0) ist der Ausgang hochohmig.</string>
+    <string name="elem_RAMDualPort">RAMDualPort</string>
+    <string name="elem_RAMDualPort_short">RAM</string>
+    <string name="elem_RAMDualPort_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
+        Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
+    <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen bzw. geschrieben wird.</string>
+    <string name="elem_RAMDualPort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_RAMDualPort_pin_D_in">Die Daten die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
+    <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
+    <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
+    <string name="elem_RAMSinglePort">RAMSinglePort</string>
+    <string name="elem_RAMSinglePort_short">RAM</string>
+    <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.</string>
+    <string name="elem_RAMSinglePort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
+    <string name="elem_RAMSinglePort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_RAMSinglePort_pin_D">Der bidirektionale Datenanschluß.</string>
+    <string name="elem_RAMSinglePort_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
+    <string name="elem_RAMSinglePort_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
+    <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
+    <string name="elem_RAMSinglePortSel_short">RAM</string>
+    <string name="elem_RAMSinglePortSel_tt">Ein RAM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
+        Es gibt einen CS-Eingang. Ist dieser Eingang low, ist der Baustein deaktiviert.
+        Mit diesem können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren RAM zusammengeschaltet werden.</string>
+    <string name="elem_RAMSinglePortSel_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
+    <string name="elem_RAMSinglePortSel_pin_WE">Bei einer 1 werden die Daten in das RAM geschrieben.</string>
+    <string name="elem_RAMSinglePortSel_pin_D">Der bidirektionale Datenanschluß.</string>
+    <string name="elem_RAMSinglePortSel_pin_CS">Ist dieser Eingang 1 ist der Baustein aktiv.</string>
+    <string name="elem_RAMSinglePortSel_pin_OE">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
+    <string name="elem_EEPROM">EEPROM</string>
+    <string name="elem_EEPROM_tt">Ein EEPROM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
+        Es gibt einen CS-Eingang. Ist dieser Eingang low, ist der Baustein deaktiviert.
+        Der Dateninhalt wird gespeichert wie bei einem ROM. Er bleibt also erhalten, wenn die Simulation beendet
+        und neu gestartet wird.
+    </string>
+    <string name="elem_EEPROM_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
+    <string name="elem_EEPROM_pin_WE">Bei einer 1 werden die Daten in das EEPROM geschrieben.</string>
+    <string name="elem_EEPROM_pin_D">Der bidirektionale Datenanschluß.</string>
+    <string name="elem_EEPROM_pin_CS">Ist dieser Eingang 1 ist der Baustein aktiv.</string>
+    <string name="elem_EEPROM_pin_OE">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
+    <string name="elem_GraphicCard">Grafik-RAM</string>
+    <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
+        RAM-Baustein mit dem Unterschied, dass der RAM-Inhalt als Grafik angezeigt wird. Jede Speicherstelle definiert die Farbe
+        eines Pixels, wobei eine feste Farbpalette verwendet wird. Es werden zwei Grafikseiten abgelegt, so das ein Screen-Switching möglich ist (Siehe Eingang B).
+        Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
+    <string name="elem_GraphicCard_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
+    <string name="elem_GraphicCard_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
+    <string name="elem_GraphicCard_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_GraphicCard_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
+    <string name="elem_GraphicCard_pin_B">Auswahl der anzuzeigenden Seite. Mit diesem Eingang kann zwischen zwei Speicherseiten umgeschaltet werden.</string>
+    <string name="elem_GraphicCard_pin_D">Der bidirektionale Datenanschluß.</string>
+
+
+
+    <!--Arithmetik -->
 
     <string name="elem_Add">Addierer</string>
-    <string name="elem_Add_tt">Ein Bauteil für einfache Additionen. Führt eine Addition der Ganzzahlen an Eingang a und Eingang b durch (a+b). Ist der Carry Eingang gesetzt, wird das Ergebnis um 1 erhöht.</string>
+    <string name="elem_Add_tt">Ein Bauteil für einfache Additionen.
+        Führt eine Addition der Ganzzahlen an Eingang a und Eingang b durch (a+b).
+        Ist der Carry-Eingang gesetzt, wird das Ergebnis um Eins erhöht.</string>
     <string name="elem_Add_pin_a">Erster Eingang für die Addition.</string>
     <string name="elem_Add_pin_b">Zweiter Eingang für die Addition.</string>
     <string name="elem_Add_pin_s">Das Ergebnis der Addition</string>
-    <string name="elem_Add_pin_c_i">Carry-Eingang. Wenn gesetzt wird das Ergebnis um eins erhöht. Kann von vorhergehenden Bausteinen über den Carry-Out Ausgang gesetzt werden.</string>
+    <string name="elem_Add_pin_c_i">Carry-Eingang. Wenn gesetzt wird das Ergebnis um Eins erhöht.
+        Kann von vorhergehenden Bausteinen über den Carry-Out Ausgang gesetzt werden.</string>
     <string name="elem_Add_pin_c_o">Ist gesetzt, wenn bei der Addition ein Übertrag aufgetreten ist.</string>
+    <string name="elem_Sub">Subtrahierer</string>
+    <string name="elem_Sub_tt">Ein Bauteil für einfache Substraktionen.
+        Führt eine Substraktion der Ganzzahlen an Eingang a und Eingang b durch (a-b).
+        Ist der Carry-Eingang gesetzt, wird das Ergebnis nochmals um 1 verringert.</string>
+    <string name="elem_Sub_pin_c_i">Carry-Eingang. Wenn gesetzt wird das Ergebnis um Eins verringert.</string>
+    <string name="elem_Sub_pin_a">Eingang a für die Substraktion.</string>
+    <string name="elem_Sub_pin_b">Eingang b für die Substraktion.</string>
+    <string name="elem_Sub_pin_s">Ausgang gibt das Ergebnis der Substraktion aus.</string>
+    <string name="elem_Sub_pin_c_o">Carry-Ausgang. Gibt 1 aus wenn bei der Substraktion ein Überlauf aufgetreten ist.</string>
+    <string name="elem_Mul">Multiplizierer</string>
+    <string name="elem_Mul_tt">Ein Baustein für Multiplikation.
+        Multipliziert die an Eingang a und Eingang b anliegenden Ganzzahlen.
+        Es wird eine vorzeichenlose Multiplikation durchgeführt.
+    </string>
+    <string name="elem_Mul_pin_a">Eingang a für Multiplikation.</string>
+    <string name="elem_Mul_pin_b">Eingang b für Multiplikation.</string>
+    <string name="elem_Mul_pin_mul">Ausgang mit dem Ergebnis der Multiplikation.</string>
+    <string name="elem_BarrelShifter">Bit-Schieber</string>
+    <string name="elem_BarrelShifter_tt">Ein Baustein zum Schieben von Bits.
+        Verschiebt einen Wert um die am Eingang shift angegebene Anzahl von Bits.</string>
+    <string name="elem_BarrelShifter_pin_in">Eingang mit zu verschiebenden Bits.</string>
+    <string name="elem_BarrelShifter_pin_shift">Eingang mit Weite der Verschiebung.</string>
+    <string name="elem_BarrelShifter_pin_out">Ausgang mit dem Ergebnis der Verschiebeoperation.</string>
+    <string name="elem_Comparator">Komparator</string>
+    <string name="elem_Comparator_tt">Ein Baustein zum Vergleichen von Datenworten.
+        Vergleicht die Datenworte an Eingang a und Eingang b und setzt die Ausgänge entsprechend.</string>
+    <string name="elem_Comparator_pin_a">Eingang a für den Vergleich.</string>
+    <string name="elem_Comparator_pin_b">Eingang b für den Vergleich.</string>
+    <string name="elem_Comparator_pin_=">Ausgang ist 1 wenn die Werte an beiden Eingängen gleich sind.</string>
+    <string name="elem_Comparator_pin_&gt;">Ausgang ist 1 wenn Eingang a größer ist als Eingang b.</string>
+    <string name="elem_Comparator_pin_&lt;">Ausgang ist 1 wenn Eingang a kleiner ist als Eingang b</string>
+    <string name="elem_Neg">Negation</string>
+    <string name="elem_Neg_pin_in">Eingang des Datenworts, welches im 2-er Komplement negiert werden soll.</string>
+    <string name="elem_Neg_pin_out">Gibt das Ergebnis der Negation im 2-er Komplement zurück.</string>
+    <string name="elem_Neg_tt">Ein Baustein für die Negation von Datenworten im 2-er Komplement.</string>
     <string name="elem_BitCount">Bitzähler</string>
     <string name="elem_BitCount_tt">Gibt die Anzahl der 1-Bits im Eingangswert aus.</string>
     <string name="elem_BitCount_pin_in">Die 1-Bits in diesem Datenwort werden gezählt.</string>
     <string name="elem_BitCount_pin_out">Ausgang mit der Anzahl der gezählten 1-Bits.</string>
+
+
+
+
+
     <string name="elem_Basic_In">Der {0}. Eingangswert für die Verknüpfung.</string>
     <string name="elem_Basic_Out">Gibt das Ergebnis der Verknüpfung zurück.</string>
     <string name="elem_Break">Break</string>
@@ -368,13 +480,6 @@
         Dieses Element kann verwendet werden, um einen Assemblerbefehl BRK zu implementieren.
         Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.
         Der schnelle Simulationslauf kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!</string>
-    <string name="elem_Comparator">Komparator</string>
-    <string name="elem_Comparator_tt">Ein Baustein zum Vergleichen von Datenworten. Vergleicht die Datenworte an Eingang a und Eingang b und setzt die Ausgänge entsprechend.</string>
-    <string name="elem_Comparator_pin_a">Eingang a für den Vergleich.</string>
-    <string name="elem_Comparator_pin_b">Eingang b für den Vergleich.</string>
-    <string name="elem_Comparator_pin_=">Ausgang ist 1 wenn die Werte an beiden Eingängen gleich sind.</string>
-    <string name="elem_Comparator_pin_&gt;">Ausgang ist 1 wenn Eingang a größer ist als Eingang b.</string>
-    <string name="elem_Comparator_pin_&lt;">Ausgang ist 1 wenn Eingang a kleiner ist als Eingang b</string>
 
     <string name="elem_Relay">Relais</string>
     <string name="elem_Relay_tt">Ein Relais ist ein Schalter, welcher über eine Spule umgeschaltet werden kann.
@@ -408,95 +513,12 @@
 
 
 
-    <string name="elem_Mul">Multiplizierer</string>
-    <string name="elem_Mul_tt">Ein Baustein für Multiplikation. Multipliziert die an Eingang a und Eingang b anliegenden Ganzzahlen.</string>
-    <string name="elem_Mul_pin_a">Eingang a für Multiplikation.</string>
-    <string name="elem_Mul_pin_b">Eingang b für Multiplikation.</string>
-    <string name="elem_Mul_pin_mul">Ausgang mit dem Ergebnis der Multiplikation.</string>
-    <string name="elem_BarrelShifter">Bit-Schieber</string>
-    <string name="elem_BarrelShifter_tt">Ein Baustein zum Schieben von Bits. Verschiebt einen Wert um die am Eingang shift angegebene Anzahl von Bits.</string>
-    <string name="elem_BarrelShifter_pin_in">Eingang mit zu verschiebenden Bits.</string>    
-    <string name="elem_BarrelShifter_pin_shift">Eingang mit Weite der Verschiebung.</string>    
-    <string name="elem_BarrelShifter_pin_out">Ausgang mit dem Ergebnis der Verschiebeoperation.</string>    
-    <string name="elem_Neg">Negation</string>
-    <string name="elem_Neg_pin_in">Eingang des Datenworts, welches im 2-er Komplement negiert werden soll.</string>
-    <string name="elem_Neg_pin_out">Gibt das Ergebnis der Negation im 2-er Komplement zurück.</string>
-    <string name="elem_Neg_tt">Ein Baustein für die Negation von Datenworten im 2-er Komplement.</string>
-    <string name="elem_RAMDualPort">RAMDualPort</string>
-    <string name="elem_RAMDualPort_short">RAM</string>
-    <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
-    <string name="elem_RAMDualPort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_RAMDualPort_pin_D_in">Die Daten die gespeichert werden sollen</string>
-    <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
-    <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
-    <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
-    <string name="elem_RAMDualPort_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
-            Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
-    <string name="elem_RAMSinglePort">RAMSinglePort</string>
-    <string name="elem_RAMSinglePort_short">RAM</string>
-    <string name="elem_RAMSinglePort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
-    <string name="elem_RAMSinglePort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_RAMSinglePort_pin_D">Der bidirektionale Datenanschluß.</string>
-    <string name="elem_RAMSinglePort_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
-    <string name="elem_RAMSinglePort_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
-    <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.</string>
 
-    <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
-    <string name="elem_RAMSinglePortSel_short">RAM</string>
-    <string name="elem_RAMSinglePortSel_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
-    <string name="elem_RAMSinglePortSel_pin_WE">Bei einer 1 werden die Daten in das RAM geschrieben.</string>
-    <string name="elem_RAMSinglePortSel_pin_D">Der bidirektionale Datenanschluß.</string>
-    <string name="elem_RAMSinglePortSel_pin_CS">Ist dieser Eingang 1 ist der Baustein aktiv.</string>
-    <string name="elem_RAMSinglePortSel_pin_OE">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
-    <string name="elem_RAMSinglePortSel_tt">Ein RAM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
-        Es gibt einen CS-Eingang. Mit diesem können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren RAM zusammengeschaltet werden.</string>
 
-    <string name="elem_EEPROM">EEPROM</string>
-    <string name="elem_EEPROM_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
-    <string name="elem_EEPROM_pin_WE">Bei einer 1 werden die Daten in das EEPROM geschrieben.</string>
-    <string name="elem_EEPROM_pin_D">Der bidirektionale Datenanschluß.</string>
-    <string name="elem_EEPROM_pin_CS">Ist dieser Eingang 1 ist der Baustein aktiv.</string>
-    <string name="elem_EEPROM_pin_OE">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
-    <string name="elem_EEPROM_tt">Ein EEPROM-Baustein mit einem bidirektionellem Anschluss für das Lesen und Schreiben von Daten.
-        Der Dateninhalt wird gespeichert wie bei einem ROM. Er bleibt also erhalten, wenn die Simulation beendet
-        und neu gestartet wird.
-        Mit dem CS-Eingang können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren EEPROM zusammengeschaltet werden.
-    </string>
-
-    <string name="elem_GraphicCard">Grafik-RAM</string>
-    <string name="elem_GraphicCard_tt">Wird verwendet um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
-RAM-Baustein mit dem Unterschied, dass der RAM-Inhalt als Grafik angezeigt wird. Jede Speicherstelle definiert die Farbe
-eines Pixels, wobei eine feste Farbpalette verwendet wird. Es werden zwei Grafikseiten abgelegt, so das ein Screen-Switching möglich ist (Siehe Eingang B).
-Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
-    <string name="elem_GraphicCard_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
-    <string name="elem_GraphicCard_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
-    <string name="elem_GraphicCard_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_GraphicCard_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
-    <string name="elem_GraphicCard_pin_B">Auswahl der anzuzeigenden Seite. Mit diesem Eingang kann zwischen zwei Speicherseiten umgeschaltet werden.</string>
-    <string name="elem_GraphicCard_pin_D">Der bidirektionale Datenanschluß.</string>
-
-    <string name="elem_ROM">ROM</string>
-    <string name="elem_ROM_tt">Ein nichtflüchtiger Speicherbaustein welcher einmalig beschreibbar ist.</string>
-    <string name="elem_ROM_pin_A">Dieser Eingang bestimmt die Speicheradresse des Datenwortes welches ausgelesen werden soll.</string>
-    <string name="elem_ROM_pin_D">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang eine 1 anliegt.</string>
-    <string name="elem_ROM_pin_sel">Ist dieser Pin high (1) ist der Ausgang aktiviert. Ist er low (0) ist der Ausgang hochohmig.</string>
-    <string name="elem_Register">Register</string>
-    <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten.</string>
-    <string name="elem_Register_pin_D">Das zu speichernde Datenwort liegt hier an.</string>
-    <string name="elem_Register_pin_C">Der Takteingang. Eine steigende Flanke speichert den an D anliegenden Wert ab.</string>
-    <string name="elem_Register_pin_en">Nur wenn dieser Eingang 1 ist, kann gespeichert werden.</string>
-    <string name="elem_Register_pin_Q">Gibt den abgespeicherten Wert aus.</string>
     <string name="elem_Reset">Reset</string>
     <string name="elem_Reset_pin_Reset">Reset Ausgang. Ist so lange Null, bis sich die Schaltung nach dem Einschalten stabilisiert hat.</string>
     <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
         in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.</string>
-    <string name="elem_Sub">Subtrahierer</string>
-    <string name="elem_Sub_tt">Ein Bauteil für einfache Substraktionen. Führt eine Substraktion der Ganzzahlen an Eingang a und Eingang b durch (a-b). Ist der Carry Eingang gesetzt, wird das Ergebnis nochmals um 1 verringert.</string>
-    <string name="elem_Sub_pin_c_i">Carry-Eingang. Wenn gesetzt wird das Ergebnis um eins verringert.</string>
-    <string name="elem_Sub_pin_a">Eingang a für die Substraktion.</string>
-    <string name="elem_Sub_pin_b">Eingang b für die Substraktion.</string>
-    <string name="elem_Sub_pin_s">Ausgang gibt das Ergebnis der Substraktion aus.</string>
-    <string name="elem_Sub_pin_c_o">Ausgang gibt 1 aus wenn bei der Substraktion ein Überlauf aufgetreten ist.</string>
     <string name="elem_Testcase">Testfall</string>
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
