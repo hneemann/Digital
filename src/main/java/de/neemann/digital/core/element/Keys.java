@@ -91,12 +91,19 @@ public final class Keys {
             = new Key<>("Output Splitting", "8");
 
     /**
+     * flag to enable realtime mode at a clock
+     */
+    public static final Key<Boolean> RUN_AT_REAL_TIME
+            = new Key<>("runRealTime", false);
+
+    /**
      * The real time frequency of the clock
      */
     public static final Key<Integer> FREQUENCY
             = new Key.KeyInteger("Frequency", 1)
             .setComboBoxValues(new Integer[]{1, 2, 5, 10, 20, 50, 100, 200, 500, 5000, 50000, 500000})
-            .setMin(1);
+            .setMin(1)
+            .setDependsOn(RUN_AT_REAL_TIME);
 
     /**
      * the bit count of a muxer or decoder
@@ -228,12 +235,6 @@ public final class Keys {
      */
     public static final Key<Boolean> IS_HIGH_Z
             = new Key<>("isHighZ", false).allowGroupEdit();
-
-    /**
-     * flag to enable realtime mode at a clock
-     */
-    public static final Key<Boolean> RUN_AT_REAL_TIME
-            = new Key<>("runRealTime", false);
 
     /**
      * the description of an element

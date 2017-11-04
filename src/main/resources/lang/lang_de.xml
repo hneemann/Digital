@@ -106,10 +106,47 @@
     <string name="elem_Delay_tt">Verzögert ein Signal für eine Gatterlaufzeit. In Digital haben alle Gatter die
         selbe Gatterlaufzeit.
     </string>
-    <string name="elem_Delay_pin_in">Eingang des zu verzögerten Signals.</string>
+    <string name="elem_Delay_pin_in">Eingang für das zu verzögernde Signal.</string>
     <string name="elem_Delay_pin_out">Das um eine Gatterlaufzeit verzögerte Eingangssignal.</string>
 
 
+    <!-- IO -->
+    <string name="elem_Out">Ausgang</string>
+    <string name="elem_Out_tt">Ein Ausgang der genutzt werden kann, um eine Verbindung zu einer einbettenden Schaltung
+        herzustellen.
+        Wird auch verwendet um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
+    <string name="elem_Out_pin_in">Der hier angelegt Wert wird als Ausgangswert bereit gestellt.</string>
+    <string name="elem_LED">LED</string>
+    <string name="elem_LED_tt">Eine Leuchtdiode welche beispielsweise zur Visualisierung eines Ausgangswertes verwendet
+        werden kann. Nimmt ein Bit entgegen. Leuchtet wenn der Eingang auf 1 gesetzt ist.</string>
+    <string name="elem_LED_pin_in">LED Eingang. LED leuchtet wenn Eingang auf 1 gesetzt ist.</string>
+    <string name="elem_In">Eingang</string>
+    <string name="elem_In_tt">Ein Eingang der genutzt werden kann, um eine Verbindung zu einer einbettenden Schaltung
+        herzustellen.
+        Wird auch verwendet um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
+    <string name="elem_In_pin_out">An diesem Ausgang wird der anliegende Wert ausgegeben.</string>
+    <string name="elem_Clock">Takteingang</string>
+    <string name="elem_Clock_tt">Ein Takstignal. Dieses Taksignal kann über die Echtzeituhr gesteuert werden.
+        Abhängig von der Komplexität der Schaltung kann die erreichte Taktfrequenz geringer sein als der vorgegebene
+        Wert. Ist die Frequenz größer als 50Hz wird nicht mehr bei jedem Taktsignal die grafische Darstellung der
+        Schaltung aktualisiert, so dass die Leitungsfarben nicht mehr aktualisiert werden.
+        Ist die Echtzeituhr nicht aktiviert, kann der Takt durch Mausklicks weitergeschaltet werden.
+        Wird auch verwendet um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.
+    </string>
+    <string name="elem_Clock_pin_C">Wechselt im vorgegebenen Takt zwischen 0 und 1.</string>
+    <string name="elem_Button">Taster</string>
+    <string name="elem_Button_tt">Ein einfacher Taster, welcher in seinen Ausgangszustand zurückkehrt wenn er nicht gehalten wird.</string>
+    <string name="elem_Button_pin_out">Das Ausgangssignal des Tasters.</string>
+    <string name="elem_Text">Text</string>
+    <string name="elem_Text_tt">Zeigt einen einfachen Text in der Schaltung an.
+        Hat keine weitere Funktion für die Simulation.
+        Der Text kann im Attribute-Dialog geändert werden.
+    </string>
+    <string name="elem_Probe">Messwert</string>
+    <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertgraphen bzw. in der Messwertetabelle dargestellt wird.
+        Dieses Element kann verwendet werden, um auf einfache Weise Werte aus eingebetteten Schaltungen zu beobachten.
+    </string>
+    <string name="elem_Probe_pin_in">Hier wird der Messwert angeschlossen.</string>
 
 
 
@@ -132,12 +169,6 @@
         Dieses Element kann verwendet werden, um einen Assemblerbefehl BRK zu implementieren.
         Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.
         Der schnelle Simulationslauf kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!</string>
-    <string name="elem_Button">Taster</string>
-    <string name="elem_Button_tt">Ein einfacher Taster, welcher in seinen Ausgangszustand zurückkehrt wenn er nicht gehalten wird.</string>
-    <string name="elem_Button_pin_out">Das Ausgangssignal des Tasters.</string>
-    <string name="elem_Clock">Takteingang</string>
-    <string name="elem_Clock_pin_C">Wechselt im vorgegebenen Takt zwischen 0 und 1.</string>
-    <string name="elem_Clock_tt">Ein Takstignal. Dieses Taksignal kann über die Echtzeituhr gesteuert werden. Die Taktfrequenz kann im Attribute-Dialog eingestellt werden.</string>
     <string name="elem_Comparator">Komparator</string>
     <string name="elem_Comparator_tt">Ein Baustein zum Vergleichen von Datenworten. Vergleicht die Datenworte an Eingang a und Eingang b und setzt die Ausgänge entsprechend.</string>
     <string name="elem_Comparator_pin_a">Eingang a für den Vergleich.</string>
@@ -222,9 +253,6 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_DriverInvSel_pin_sel">Eingang zum Steuern des Treibers.
         Ist dieser Eingang auf 0 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht. Ist der Eingang 1, ist der Ausgang hochohmig.</string>
     <string name="elem_DriverInvSel_pin_out">Gibt den am Eingang anliegenden Wert aus, wenn der Selection Eingang auf 0 gesetzt ist.</string>
-    <string name="elem_In">Eingang</string>
-    <string name="elem_In_pin_out">An diesem Ausgang wird der anliegende Wert ausgegeben.</string>
-    <string name="elem_In_tt">Ein Eingang der genutzt werden kann, um eine Verbindung zu einem eingebettetem Element herzustellen.</string>
     <string name="elem_JK_FF">JK-FlipFlop</string>
     <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Bietet die Funktionen zum
@@ -259,9 +287,6 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_D_FF_AS_pin_Clr">asynchrones löschen</string>
 
 
-    <string name="elem_LED">LED</string>
-    <string name="elem_LED_tt">Eine Leuchtdiode welche beispielsweise zur Visualisierung eines Ausgangswertes verwendet werden kann. Nimmt ein Bit entgegen. Leuchtet wenn der Eingang auf 1 gesetzt ist.</string>
-    <string name="elem_LED_pin_in">LED Eingang. LED leuchtet wenn Eingang auf 1 gesetzt ist.</string>
     <string name="elem_Mul">Multiplizierer</string>
     <string name="elem_Mul_tt">Ein Baustein für Multiplikation. Multipliziert die an Eingang a und Eingang b anliegenden Ganzzahlen.</string>
     <string name="elem_Mul_pin_a">Eingang a für Multiplikation.</string>
@@ -281,12 +306,6 @@ Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angeze
     <string name="elem_Neg_pin_in">Eingang des Datenworts, welches im 2-er Komplement negiert werden soll.</string>
     <string name="elem_Neg_pin_out">Gibt das Ergebnis der Negation im 2-er Komplement zurück.</string>
     <string name="elem_Neg_tt">Ein Baustein für die Negation von Datenworten im 2-er Komplement.</string>
-    <string name="elem_Out">Ausgang</string>
-    <string name="elem_Out_tt">Ein Ausgang der genutzt werden kann, um eine Verbindung zu einem eingebettetem Element herzustellen.</string>
-    <string name="elem_Out_pin_in">Der hier angelegt Wert wird als Ausgangswert bereit gestellt.</string>
-    <string name="elem_Probe">Messwert</string>
-    <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertgraphen bzw. in der Messwertetabelle dargestellt wird.</string>
-    <string name="elem_Probe_pin_in">Hier wird der Messwert angeschlossen.</string>
     <string name="elem_RAMDualPort">RAMDualPort</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
@@ -403,8 +422,6 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_Terminal_pin_C">Takteingang. Eine steigende Flanke gibt das anliegende Datenwort auf dem Terminal aus.</string>
     <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
     <string name="elem_Terminal_tt">Ein Terminal auf dem ASCII-Zeichen ausgegeben werden können. Öffnet ein eigenes Fenster um die Ausgabe anzuzeigen.</string>
-    <string name="elem_Text">Text</string>
-    <string name="elem_Text_tt">Zeigt einen einfachen Text in der Schaltung an. Der Text kann im Attribute-Dialog geändert werden.</string>
     <string name="elem_Testcase">Testfall</string>
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich

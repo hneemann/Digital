@@ -110,6 +110,45 @@
     <string name="elem_Delay_pin_out">The input signal delayed by one gate delay time.</string>
 
 
+    <!-- IO -->
+
+    <string name="elem_Out">Out</string>
+    <string name="elem_Out_tt">A output which can be used to connect the circuit if it is included in an other circuit.
+        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
+    </string>
+    <string name="elem_Out_pin_in">This value is used for the output connection.</string>
+    <string name="elem_LED">LED</string>
+    <string name="elem_LED_tt">A LED can be used to visualize an output value. Accepts a single bit.
+        Lights up if the input is set to 1.</string>
+    <string name="elem_LED_pin_in">LED Input. LED lights up if the input is set to 1.</string>
+    <string name="elem_In">Input</string>
+    <string name="elem_In_tt">A input which can be used to connect the circuit if it is included in an other circuit.
+        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
+    </string>
+    <string name="elem_In_pin_out">Gives the value which is connected to this input.</string>
+    <string name="elem_Clock">Clock Input</string>
+    <string name="elem_Clock_tt">A clock signal. Its possible to control it by a real-time clock.
+        Depending on the complexity of the circuit, the clock frequency achieved may be less than the selected value.
+        If the frequency is greater than 50Hz, the graphic representation of the circuit will no longer be updated at
+        every clock cycle so that the wire colors will no longer be updated.
+        If the real-time clock is not activated, the clock can be controlled by mouse clicks.
+        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
+    </string>
+    <string name="elem_Clock_pin_C">Switches between 0 and 1 with the selected clock frequency.</string>
+    <string name="elem_Button">Button</string>
+    <string name="elem_Button_tt">A simple push button which goes back to its original state when it is released.</string>
+    <string name="elem_Button_pin_out">The output signal of the button.</string>
+    <string name="elem_Text">Text</string>
+    <string name="elem_Text_tt">Shows a text in the circuit.
+        Has no further function for the simulation.
+        The text can be changed in the attribute dialog.
+    </string>
+    <string name="elem_Probe">Probe</string>
+    <string name="elem_Probe_tt">A measurement value which can be shown in the data graph or measurement table.
+        This component can be used to easily observe values from embedded circuits.
+    </string>
+    <string name="elem_Probe_pin_in">The measurement value.</string>
+
 
 
 
@@ -132,12 +171,6 @@
         You can use the component to implement a BRK assembly instruction.
         Then you can run a simulated processor until a BRK instruction is reached.
         Fast forward clocking can only be used if the real-time clock is disabled.</string>
-    <string name="elem_Button">Button</string>
-    <string name="elem_Button_tt">A simple button which resets back to its original state when not held down.</string>
-    <string name="elem_Button_pin_out">The output signal of the button.</string>
-    <string name="elem_Clock">Clock Input</string>
-    <string name="elem_Clock_pin_C">Alternates 0 and 1 with the set clock speed.</string>
-    <string name="elem_Clock_tt">A clock signal. Its possible to control it by the real time clock. Clock speed (in Hz) can be set in attributes dialog.</string>
     <string name="elem_Comparator">Comparator</string>
     <string name="elem_Comparator_tt">A component for comparing bit values. Compares the binary numbers on input pin a and input pin b and sets the corresponding outputs.</string>
     <string name="elem_Comparator_pin_a">Input a to compare.</string>
@@ -231,9 +264,6 @@
     <string name="elem_DriverInvSel_pin_in">The input value of the driver.</string>
     <string name="elem_DriverInvSel_pin_sel">Pin to control the driver. If its value is 0 the input is given to the output. If the value is 1, the output is in high z state.</string>
     <string name="elem_DriverInvSel_pin_out">If the sel input is 0 the input is given to this output. If the sel input is 1, this output is in high z state.</string>
-    <string name="elem_In">Input</string>
-    <string name="elem_In_pin_out">This connection outputs the given value.</string>
-    <string name="elem_In_tt">A input which can be used to connect the circuit if it is included in an other circuit.</string>
 
     <string name="elem_JK_FF">JK-Flipflop</string>
     <string name="elem_JK_FF_short">JK</string>
@@ -255,9 +285,6 @@
     <string name="elem_JK_FF_AS_pin_Set">asynchronous set</string>
     <string name="elem_JK_FF_AS_pin_Clr">asynchronous clear</string>
 
-    <string name="elem_LED">LED</string>
-    <string name="elem_LED_tt">A simple LED can be used to visualize an output value. Accepts a single bit. Lights up when the input is set to 1.</string>
-    <string name="elem_LED_pin_in">LED Input. LED shines when input is set to 1.</string>
     <string name="elem_Mul">Mul</string>
     <string name="elem_Mul_tt">A component for multiplication. Multiplies the integer numbers on input pin a and input pin b.</string>
     <string name="elem_Mul_pin_a">Input a for multiplication.</string>
@@ -277,12 +304,6 @@
     <string name="elem_Neg_pin_in">Input of the data word to be negated in 2th complement</string>
     <string name="elem_Neg_pin_out">Returns the result of the negation in 2th complement.</string>
     <string name="elem_Neg_tt">Negation in the 2th complement</string>
-    <string name="elem_Out">Out</string>
-    <string name="elem_Out_tt">A output which can be used to connect the circuit if it is included in an other circuit.</string>
-    <string name="elem_Out_pin_in">This value is used for te output connection.</string>
-    <string name="elem_Probe">Probe</string>
-    <string name="elem_Probe_tt">A measurement value which can be shown in the data graph.</string>
-    <string name="elem_Probe_pin_in">The measurement value.</string>
     <string name="elem_RAMDualPort">RAMDualPort</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_pin_A">The address to read and write</string>
@@ -398,8 +419,6 @@
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
     <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
         The terminal opens its own window to visualize the output.</string>
-    <string name="elem_Text">Text</string>
-    <string name="elem_Text_tt">Shows a text in the circuit. The text can be changed in the attributes dialog.</string>
     <string name="elem_Testcase">Test case</string>
     <string name="elem_Testcase_tt">Describes a test case.
         In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
