@@ -145,8 +145,66 @@
     <string name="elem_Probe">Messwert</string>
     <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertgraphen bzw. in der Messwertetabelle dargestellt wird.
         Dieses Element kann verwendet werden, um auf einfache Weise Werte aus eingebetteten Schaltungen zu beobachten.
+        Hat keine weitere Funktion für die Simulation.
     </string>
     <string name="elem_Probe_pin_in">Hier wird der Messwert angeschlossen.</string>
+
+
+    <!-- IO more -->
+    <string name="elem_LightBulb">Glühlämpchen</string>
+    <string name="elem_LightBulb_tt">Glühlämpchen mit zwei Anschlüssen: Wenn ein Strom fließt, leuchtet das Lämpchen.
+        Die Stromrichtung spielt keine Rolle. Das Lämpchen leuchtet also, wenn die Engänge unterschiedliche Werte haben.
+        Das Lämpchen verhält sich damit ähnlich wie ein XOr Gatter.
+    </string>
+    <string name="elem_LightBulb_pin_A">Anschluss</string>
+    <string name="elem_LightBulb_pin_B">Anschluss</string>
+    <string name="elem_Seven-Seg">Siebensegmentanzeige</string>
+    <string name="elem_Seven-Seg_tt">Siebensegmentanzeige bei der jedes Segment über einen eigenen Eingang gesteuert
+        werden kann.</string>
+    <string name="elem_Seven-Seg_pin_a">Dieser Eingang steuert die obere horizontale Linie.</string>
+    <string name="elem_Seven-Seg_pin_b">Dieser Eingang steuert die obere rechte vertikale Linie.</string>
+    <string name="elem_Seven-Seg_pin_c">Dieser Eingang steuert die untere rechte vertikale Linie.</string>
+    <string name="elem_Seven-Seg_pin_d">Dieser Eingang steuert die untere horizontale Linie.</string>
+    <string name="elem_Seven-Seg_pin_e">Dieser Eingang steuert die untere linke vertikale Linie.</string>
+    <string name="elem_Seven-Seg_pin_f">Dieser Eingang steuert die obere linke vertikale Linie.</string>
+    <string name="elem_Seven-Seg_pin_g">Dieser Eingang steuert die mittlere horizontale Linie.</string>
+    <string name="elem_Seven-Seg_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+    <string name="elem_Seven-Seg_pin_cc">Gemeinsame Kathode. Nur wenn hier eine Null anliegt, können die LEDs leuchten.</string>
+    <string name="elem_Seven-Seg-Hex">Siebensegmentanzeige Hex</string>
+    <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
+    <string name="elem_Seven-Seg-Hex_pin_d">Der 4-Bit-Wert dieses Eingangs wird als Hex-Ziffer dargestellt.</string>
+    <string name="elem_Seven-Seg-Hex_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+    <string name="elem_LedMatrix">LED-Matrix</string>
+    <string name="elem_LedMatrix_tt">Eine Matrix aus LEDs. Die LEDs werden in einem eigenen Fenster dargestellt.
+        Die LED's einer Spalte der Anzeige werden durch ein Datenwort gesteuert.
+        An einem weiteren Eingang wird die aktuelle Spalte ausgewählt. Es Wird damit eine gemultiplexte Anzeige realisiert.
+        Die LEDs können in der Simulation unendlich lange nachleuchten, um ein Flimmern der Anzeige zu verhindern.
+    </string>
+    <string name="elem_LedMatrix_pin_r-data">Der Zeilen-Zustand der LEDs einer Spalte.
+        Jedes Bit in diesem Datenwort repräsentiert den Zustand einer Zeile der aktuellen Spalte.
+    </string>
+    <string name="elem_LedMatrix_pin_c-addr">Die Nummer der aktuellen Spalte, dessen Zustand gerade am anderen Eingang anliegt.</string>
+    <string name="elem_Data">Messwertgraph</string>
+    <string name="elem_Data_tt">Zeigt einen Messwertgraphen innerhalb des Schaltkreisbereichs.
+        Es können sowohl komplette Taktschritte als auch einzelne Gatter-Veränderungen angezeigt werden.
+        Hat keine weitere Funktion für die Simulation.
+    </string>
+    <string name="elem_RotEncoder">Drehencoder</string>
+    <string name="elem_RotEncoder_tt">Drehknopf mit Drehencoder zur Erfassung einer Drehbewegung.</string>
+    <string name="elem_RotEncoder_pin_A">Encodersignal A</string>
+    <string name="elem_RotEncoder_pin_B">Encodersignal B</string>
+    <string name="elem_Keyboard">Tastatur</string>
+    <string name="elem_Keyboard_tt">Eine Tastatur welche zur Eingabe von Text verwendet werden kann.
+        Dieses Element puffert die Eingaben, welche dann ausgelesen werden können.
+        Es wird ein eigenes Fenster für die Eingabe geöffnet.
+    </string>
+    <string name="elem_Keyboard_pin_sel">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
+    <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
+    <string name="elem_Terminal">Terminal</string>
+    <string name="elem_Terminal_tt">Ein Terminal auf dem ASCII-Zeichen ausgegeben werden können.
+        Öffnet ein eigenes Fenster um die Ausgabe anzuzeigen.</string>
+    <string name="elem_Terminal_pin_C">Takteingang. Eine steigende Flanke gibt das anliegende Datenwort auf dem Terminal aus.</string>
+    <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
 
 
 
@@ -226,9 +284,6 @@
     <string name="elem_D_FF_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
     <string name="elem_D_FF_pin_Q">Gibt den gespeicherten Wert zurück.</string>
     <string name="elem_D_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
-    <string name="elem_Data">Messwertgraph</string>
-    <string name="elem_Data_tt">Zeigt einen Messwertgraphen innerhalb des Schaltkreisbereichs.
-Es können sowohl komplette Takte als auch einzelne Gatter-Veränderungen angezeigt werden.</string>
     <string name="elem_Decoder_pin_sel">Mit dieser Leitung wird der zu aktivierende Ausgang ausgewählt. Sein Wert gibt den auf 1 zu schaltenden Ausgang an.</string>
     <string name="elem_Decoder">Dekoder</string>
     <string name="elem_Decoder_output">Ausgang {0}. Wenn über sel ausgewählt ist dieser Ausgang 1, sonst 0.</string>
@@ -383,21 +438,6 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_Reset_pin_Reset">Reset Ausgang. Ist so lange Null, bis sich die Schaltung nach dem Einschalten stabilisiert hat.</string>
     <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
         in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.</string>
-    <string name="elem_Seven-Seg">Siebensegmentanzeige</string>
-    <string name="elem_Seven-Seg_pin_a">Dieser Eingang steuert die obere horizontale Linie.</string>
-    <string name="elem_Seven-Seg_pin_b">Dieser Eingang steuert die obere rechte vertikale Linie.</string>
-    <string name="elem_Seven-Seg_pin_c">Dieser Eingang steuert die untere rechte vertikale Linie.</string>
-    <string name="elem_Seven-Seg_pin_d">Dieser Eingang steuert die untere horizontale Linie.</string>
-    <string name="elem_Seven-Seg_pin_e">Dieser Eingang steuert die untere linke vertikale Linie.</string>
-    <string name="elem_Seven-Seg_pin_f">Dieser Eingang steuert die obere linke vertikale Linie.</string>
-    <string name="elem_Seven-Seg_pin_g">Dieser Eingang steuert die mittlere horizontale Linie.</string>
-    <string name="elem_Seven-Seg_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
-    <string name="elem_Seven-Seg_pin_cc">Gemeinsame Kathode. Nur wenn hier eine Null anliegt, können die LEDs leuchten.</string>
-    <string name="elem_Seven-Seg-Hex">Siebensegmentanzeige Hex</string>
-    <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
-    <string name="elem_Seven-Seg-Hex_pin_d">Der 4-Bit-Wert dieses Eingangs wird als Hex-Ziffer dargestellt.</string>
-    <string name="elem_Seven-Seg-Hex_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
-    <string name="elem_Seven-Seg_tt">Siebensegmentanzeige bei der jedes Segment über einen eigenen Eingang gesteuert werden kann.</string>
     <string name="elem_Splitter">Splitter</string>
     <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.</string>
     <string name="elem_Splitter_pin_in">Die Eingangsbits {0} des Splitters.</string>
@@ -418,18 +458,10 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_T_FF_pin_C">Dieser Eingang schaltet das Flipflop um. Wenn ein T-Eingang vorhanden ist passiert das nur, wenn T auf 1 gesetzt ist.</string>
     <string name="elem_T_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
     <string name="elem_T_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
-    <string name="elem_Terminal">Terminal</string>
-    <string name="elem_Terminal_pin_C">Takteingang. Eine steigende Flanke gibt das anliegende Datenwort auf dem Terminal aus.</string>
-    <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
-    <string name="elem_Terminal_tt">Ein Terminal auf dem ASCII-Zeichen ausgegeben werden können. Öffnet ein eigenes Fenster um die Ausgabe anzuzeigen.</string>
     <string name="elem_Testcase">Testfall</string>
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
         dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.</string>
-    <string name="elem_Keyboard">Tastatur</string>
-    <string name="elem_Keyboard_tt">Eine normale Tastatur welche zur Eingabe von verschiedenen Zeichen verwendet werden kann.</string>
-    <string name="elem_Keyboard_pin_sel">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
-    <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Echt bidirektionelle Diode.
@@ -490,15 +522,6 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_FGPFET_pin_S">Source</string>
     <string name="elem_FGPFET_pin_D">Drain</string>
 
-    <string name="elem_RotEncoder">Drehencoder</string>
-    <string name="elem_RotEncoder_tt">Drehknopf mit Drehencoder zur zustandsfreien Erfassung der Drehbewegung.</string>
-    <string name="elem_RotEncoder_pin_A">Encodersignal A</string>
-    <string name="elem_RotEncoder_pin_B">Encodersignal B</string>
-    <string name="elem_LedMatrix">LED-Matrix</string>
-    <string name="elem_LedMatrix_tt">Eine Matrix aus LEDs. Die LEDs werden in einem eigenen Fenster dargestellt.
-        Die LEDs können in der Simulation unendlich lange nachleuchten, um ein Flimmern der Anzeige zu verhindern.</string>
-    <string name="elem_LedMatrix_pin_r-data">Der Zeilen-Zustand der LEDs einer Spalte. Jedes Bit in diesem Datenwort repräsentiert den Zustand einer Zeile der aktuellen Spalte.</string>
-    <string name="elem_LedMatrix_pin_c-addr">Die Nummer der aktuellen Spalte, dessen Zustand gerade am anderen Eingang anliegt.</string>
 
     <string name="elem_TransGate">Transmissionsgatter</string>
     <string name="elem_TransGate_tt">Ein reales Transmissionsgatter ist aus nur zwei Transistoren aufgebaut.
@@ -508,10 +531,6 @@ Die gesamte Speichergröße beträgt damit damit dx*dy*2 Speicherworte.</string>
     <string name="elem_TransGate_pin_S">Steuereingang</string>
     <string name="elem_TransGate_pin_~S">Steuereingang, invertiert</string>
 
-    <string name="elem_LightBulb">Glühlämpchen</string>
-    <string name="elem_LightBulb_tt">Glühlämpchen mit zwei Anschlüssen: Wenn ein Strom fließt, leuchtet das Lämpchen.</string>
-    <string name="elem_LightBulb_pin_A">Anschluss</string>
-    <string name="elem_LightBulb_pin_B">Anschluss</string>
 
     <string name="elem_PowerSupply">Versorgung</string>
     <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen sind.

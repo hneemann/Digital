@@ -102,9 +102,9 @@ public class DocuTest extends TestCase {
             if (etd.getAttributeList().size() > 0) {
                 w.append("      <attributes name=\"").append(Lang.get("elem_Help_attributes")).append("\">\n");
                 for (Key k : etd.getAttributeList()) {
-                    w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">\n");
+                    w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">");
                     w.append(escapeHTML(k.getDescription()));
-                    w.append("        </attr>\n");
+                    w.append("</attr>\n");
                 }
                 w.append("      </attributes>\n");
             }
@@ -128,31 +128,42 @@ public class DocuTest extends TestCase {
 
     private void writePins(Writer w, PinDescriptions pinDescriptions) throws IOException {
         for (PinDescription p : pinDescriptions) {
-            w.append("        <pin name=\"").append(escapeHTML(p.getName())).append("\">\n");
+            w.append("        <pin name=\"").append(escapeHTML(p.getName())).append("\">");
             w.append(escapeHTML(p.getDescription()));
-            w.append("        </pin>\n");
+            w.append("</pin>\n");
         }
     }
 
     private static String escapeHTML(String text) {
         StringBuilder sb = new StringBuilder(text.length() * 2);
+        boolean first = true;
+        boolean blank = false;
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
-            switch (c) {
-                case '<':
-                    sb.append("&lt;");
-                    break;
-                case '>':
-                    sb.append("&gt;");
-                    break;
-                case '&':
-                    sb.append("&amp;");
-                    break;
-                case '"':
-                    sb.append("&quot;");
-                    break;
-                default:
-                    sb.append(c);
+            if (c == ' ' || c == '\n') {
+                blank = true;
+            } else {
+                if (blank) {
+                    if (!first) sb.append(' ');
+                    blank = false;
+                }
+                first = false;
+                switch (c) {
+                    case '<':
+                        sb.append("&lt;");
+                        break;
+                    case '>':
+                        sb.append("&gt;");
+                        break;
+                    case '&':
+                        sb.append("&amp;");
+                        break;
+                    case '"':
+                        sb.append("&quot;");
+                        break;
+                    default:
+                        sb.append(c);
+                }
             }
         }
         return sb.toString();

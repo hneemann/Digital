@@ -140,16 +140,71 @@
     <string name="elem_Button_pin_out">The output signal of the button.</string>
     <string name="elem_Text">Text</string>
     <string name="elem_Text_tt">Shows a text in the circuit.
-        Has no further function for the simulation.
+        Does not affect the simulation.
         The text can be changed in the attribute dialog.
     </string>
     <string name="elem_Probe">Probe</string>
     <string name="elem_Probe_tt">A measurement value which can be shown in the data graph or measurement table.
         This component can be used to easily observe values from embedded circuits.
+        Does not affect the simulation.
     </string>
     <string name="elem_Probe_pin_in">The measurement value.</string>
 
 
+    <!-- IO - more -->
+
+    <string name="elem_LightBulb">Light Bulb</string>
+    <string name="elem_LightBulb_tt">Light bulb with two connections. If a current flows, the bulb lights up!
+        The direction of the current does not matter. The lamp lights when the inputs have different values.
+        The bulb behaves similar to an XOr gate.
+    </string>
+    <string name="elem_LightBulb_pin_A">Connection</string>
+    <string name="elem_LightBulb_pin_B">Connection</string>
+    <string name="elem_Seven-Seg">Seven-Segment Display</string>
+    <string name="elem_Seven-Seg_tt">Seven Segment Display, every segment has its own control input.</string>
+    <string name="elem_Seven-Seg_pin_a">This input controls the upper, horizontal line.</string>
+    <string name="elem_Seven-Seg_pin_b">This input controls the upper, right, vertical line.</string>
+    <string name="elem_Seven-Seg_pin_c">This input controls the lower, right, vertical line.</string>
+    <string name="elem_Seven-Seg_pin_d">This input controls the lower horizontal line.</string>
+    <string name="elem_Seven-Seg_pin_e">This input controls the lower, left, vertical line.</string>
+    <string name="elem_Seven-Seg_pin_f">This input controls the upper, left, vertical line.</string>
+    <string name="elem_Seven-Seg_pin_g">This input controls the middle, horizontal line.</string>
+    <string name="elem_Seven-Seg_pin_dp">This input controls the decimal point.</string>
+    <string name="elem_Seven-Seg_pin_cc">Common Cathode. To turn on the LEDs, this input needs to be low.</string>
+    <string name="elem_Seven-Seg-Hex">Seven-Segment-Hex Display</string>
+    <string name="elem_Seven-Seg-Hex_tt">Seven Segment Display with a 4 bit hex input</string>
+    <string name="elem_Seven-Seg-Hex_pin_d">The value at this input is visualized at the display.</string>
+    <string name="elem_Seven-Seg-Hex_pin_dp">This input controls the decimal point.</string>
+    <string name="elem_LedMatrix">LED-Matrix</string>
+    <string name="elem_LedMatrix_tt">A matrix of LEDs. The LEDs are shown in a separate window.
+        The LEDs of a column of the display are controlled by a data word. At another input, the current column is
+        selected. So a multiplexed display is realized.
+        The LEDs are able to light up indefinitely in the simulation to prevent the display from flickering.
+    </string>
+    <string name="elem_LedMatrix_pin_r-data">The row state of the LEDs of a column.
+        Each bit in this data word represents the state of a row of the current column.</string>
+    <string name="elem_LedMatrix_pin_c-addr">The number of the current column whose state is currently visible at the other input.</string>
+    <string name="elem_Data">Data Graph</string>
+    <string name="elem_Data_tt">Shows a data plot inside of the circuit panel.
+        You can plot complete clock cycles or single gate changes.
+        Does not affect the simulation.
+    </string>
+    <string name="elem_RotEncoder">Rotary Encoder</string>
+    <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder. Used to detect rotational movements.</string>
+    <string name="elem_RotEncoder_pin_A">encoder signal A</string>
+    <string name="elem_RotEncoder_pin_B">encoder signal B</string>
+    <string name="elem_Keyboard">Keyboard</string>
+    <string name="elem_Keyboard_tt">A keyboard that can be used to enter text.
+        This component buffers the inputs, which can then be read out.
+        A separate window is opened for the text input.
+    </string>
+    <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is output.</string>
+    <string name="elem_Keyboard_pin_D">The last pressed key, or zero if no key is typed.</string>
+    <string name="elem_Terminal">Terminal</string>
+    <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
+        The terminal opens its own window to visualize the output.</string>
+    <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.</string>
+    <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
 
 
     <string name="elem_Add">Add</string>
@@ -239,9 +294,6 @@
     <string name="elem_D_FF_AS_pin_Set">asynchronous set</string>
     <string name="elem_D_FF_AS_pin_Clr">asynchronous clear</string>
 
-    <string name="elem_Data">Data graph</string>
-    <string name="elem_Data_tt">Shows a data plot inside of the circuit panel.
-        You can plot complete clock steps or single gate changes.</string>
     <string name="elem_Decoder_pin_sel">This input selects the enabled output. The selected output is set to 1. All other outputs are set to 0.</string>
     <string name="elem_Decoder">Decoder</string>
     <string name="elem_Decoder_output">Output {0}. This output is 1 if selected by the sel input.</string>
@@ -379,21 +431,6 @@
     <string name="elem_Reset_pin_Reset">Reset Output. Is zero while the circuit is stabilizing.</string>
     <string name="elem_Reset_tt">The output of this component is held low during the initialisation of the circuit.
         After the circuit has stabilized the output goes to high.</string>
-    <string name="elem_Seven-Seg">Seven-Segment Display</string>
-    <string name="elem_Seven-Seg_pin_a">This input controls the upper, horizontal line.</string>
-    <string name="elem_Seven-Seg_pin_b">This input controls the upper, right, vertical line.</string>
-    <string name="elem_Seven-Seg_pin_c">This input controls the lower, right, vertical line.</string>
-    <string name="elem_Seven-Seg_pin_d">This input controls the lower horizontal line.</string>
-    <string name="elem_Seven-Seg_pin_e">This input controls the lower, left, vertical line.</string>
-    <string name="elem_Seven-Seg_pin_f">This input controls the upper, left, vertical line.</string>
-    <string name="elem_Seven-Seg_pin_g">This input controls the middle, horizontal line.</string>
-    <string name="elem_Seven-Seg_pin_dp">This input controls the decimal point.</string>
-    <string name="elem_Seven-Seg_pin_cc">Common Cathode. To turn on the LEDs, this input needs to be low.</string>
-    <string name="elem_Seven-Seg-Hex">Seven-Segment-Hex Display</string>
-    <string name="elem_Seven-Seg-Hex_tt">Seven Segment Display with a 4 bit input</string>
-    <string name="elem_Seven-Seg-Hex_pin_d">The value at this input is visualized at the display.</string>
-    <string name="elem_Seven-Seg-Hex_pin_dp">This input controls the decimal point.</string>
-    <string name="elem_Seven-Seg_tt">Seven Segment Display, every segment has its own input.</string>
     <string name="elem_Splitter">Splitter</string>
     <string name="elem_Splitter_tt">Splits or creates a wire bundle or a data bus with more than one bit.</string>
     <string name="elem_Splitter_pin_in">The input bits {0}.</string>
@@ -414,20 +451,11 @@
     <string name="elem_T_FF_pin_C">Clock. A rising edge toggles the output, if input T is set to 1.</string>
     <string name="elem_T_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_T_FF_pin_¬Q">Returns the negated stored value.</string>
-    <string name="elem_Terminal">Terminal</string>
-    <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.</string>
-    <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
-    <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
-        The terminal opens its own window to visualize the output.</string>
     <string name="elem_Testcase">Test case</string>
     <string name="elem_Testcase_tt">Describes a test case.
         In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
         behavior of the circuit actually corresponds to this description. If this is not the case, an
         error message is shown. </string>
-    <string name="elem_Keyboard">Keyboard</string>
-    <string name="elem_Keyboard_tt">A simple keyboard which can be used to input symbols.</string>
-    <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is output.</string>
-    <string name="elem_Keyboard_pin_D">The last pressed key, or zero if no key is typed.</string>
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR..
@@ -482,16 +510,6 @@
     <string name="elem_PFET_pin_S">Source</string>
     <string name="elem_PFET_pin_D">Drain</string>
 
-    <string name="elem_RotEncoder">Rotary Encoder</string>
-    <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder for stateless detecting rotational movements.</string>
-    <string name="elem_RotEncoder_pin_A">encoder signal A</string>
-    <string name="elem_RotEncoder_pin_B">encoder signal B</string>
-    <string name="elem_LedMatrix">LED-Matrix</string>
-    <string name="elem_LedMatrix_tt">A matrix of LEDs. The LEDs are shown in a separate window.
-        The LEDs are able to light up indefinitely in the simulation to prevent the display from flickering.</string>
-    <string name="elem_LedMatrix_pin_r-data">The row state of the LEDs of a column. Each bit in this data word represents the state of a row of the current column.</string>
-    <string name="elem_LedMatrix_pin_c-addr">The number of the current column whose state is currently visible at the other input.</string>
-
     <string name="elem_TransGate">Transmission-Gate</string>
     <string name="elem_TransGate_tt">A real transmission-gate is build from only two transistors.
         Therefore, it is often used to save transistors during implementation on silicon.</string>
@@ -499,11 +517,6 @@
     <string name="elem_TransGate_pin_B">input B</string>
     <string name="elem_TransGate_pin_S">control input.</string>
     <string name="elem_TransGate_pin_~S">inverted control input</string>
-
-    <string name="elem_LightBulb">Light Bulb</string>
-    <string name="elem_LightBulb_tt">Light bulb with two connections. If a current flows, the bulb lights up!</string>
-    <string name="elem_LightBulb_pin_A">Connection</string>
-    <string name="elem_LightBulb_pin_B">Connection</string>
 
     <string name="elem_PowerSupply">Power</string>
     <string name="elem_PowerSupply_tt">Has no function. Makes sure that VDD and GND are connected.
