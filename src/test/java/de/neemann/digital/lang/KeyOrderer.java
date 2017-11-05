@@ -36,19 +36,28 @@ public class KeyOrderer {
                 String key = item.getAttributes().getNamedItem("name").getNodeValue();
                 String value = item.getTextContent();
 
-                if (key.startsWith("key_"))
+//                if (key.startsWith("key_"))
                     keys.add(new Entry(key, value));
             }
 
 //            Collections.sort(keys);
-            writeKeys(keys, System.out);
+            writeKeysPlain(keys, System.out);
 
         } finally {
             in.close();
         }
     }
 
-    private static void writeKeys(ArrayList<Entry> keys, PrintStream out) {
+    private static void writeKeysPlain(ArrayList<Entry> keys, PrintStream out) {
+        for (Entry e : keys) {
+//            out.print(e.key);
+//            out.println(":");
+            out.println(e.value.trim());
+            out.println();
+        }
+    }
+
+    private static void writeKeysXML(ArrayList<Entry> keys, PrintStream out) {
         for (Entry e : keys) {
             out.print("    <string name=\"");
             out.print(escapeXML(e.key, true));
@@ -147,7 +156,7 @@ public class KeyOrderer {
 
 
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
-        orderKeys("en");
+        orderKeys("de");
     }
 
 }

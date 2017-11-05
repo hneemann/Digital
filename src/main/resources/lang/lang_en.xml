@@ -814,7 +814,6 @@ The names of the variables may not be unique.</string>
         gate step mode is shown. All gate changes are included in the graph.</string>
     <string name="key_showDataTable">Show measurement values</string>
     <string name="key_showDataTable_tt">When the simulation is started, a table with the measured values is shown.</string>
-    <string name="key_showList">Show list file if available</string>
     <string name="key_termHeight">Lines</string><!-- Terminal -->
     <string name="key_termHeight_tt">The number of lines to show.</string>
     <string name="key_termWidth">Characters per line</string><!-- Terminal -->
