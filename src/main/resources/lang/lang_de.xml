@@ -718,96 +718,97 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_mainClass_N_NotFound">Die Klasse {0} wurde nicht gefunden!</string>
     <string name="err_couldNotInitializeMainClass_N">Es konnte keine Instanz der Klasse {0} erzeugt werden!</string>
 
-    <string name="key_AddrBits">Adress-Bits</string>
+    <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
-    <string name="key_Bits">Daten-Bits</string>
+    <string name="key_Bits">Daten-Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
     <string name="key_Bits_tt">Anzahl der Daten-Bits die verwendet werden.</string>
-    <string name="key_Color">Farbe</string>
+    <string name="key_Color">Farbe</string><!-- LED, LightBulb, Seven-Seg, Seven-Seg-Hex, LedMatrix -->
     <string name="key_Color_tt">Die Farbe des Elementes.</string>
     <string name="key_backgroundColor">Hintergrundfarbe</string>
     <string name="key_backgroundColor_tt">Hintergrundfarbe der Schaltung, wenn sie eingebettet wird. Wird für DILs nicht verwendet.</string>
-    <string name="key_Cycles">Timeout Zyklen</string>
+    <string name="key_Cycles">Timeout Zyklen</string><!-- Break -->
     <string name="key_Cycles_tt">Wenn nach dieser Anzahl von Takten kein Break eingegangen ist, wird ein Fehler erzeugt</string>
-    <string name="key_Data">Daten</string>
+    <string name="key_Data">Daten</string><!-- LookUpTable, ROM, EEPROM -->
     <string name="key_Data_tt">Die Daten, welche in diesem Element gespeichert sind.</string>
-    <string name="key_Default">Vorgabe</string>
-    <string name="key_Default_tt">Dieser Wert wird beim Schaltungsstart gesetzt</string>
-    <string name="key_InDefault">Vorgabe</string>
+    <string name="key_Default">Vorgabe</string><!-- Demultiplexer, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS -->
+    <string name="key_Default_tt">Dieser Wert wird beim Schaltungsstart gesetzt.
+        Beim Demultiplexer wird dieser Wert für die nicht gewählten Ausgänge gesetzt.</string>
+    <string name="key_InDefault">Vorgabe</string><!-- In -->
     <string name="key_InDefault_tt">Dieser Wert wird beim Schaltungsstart gesetzt. Ein "Z" steht für "hochohmig".</string>
-    <string name="key_isHighZ">Eingang kann hochohmig sein</string>
-    <string name="key_isHighZ_tt">Wenn gesetzt ist ein hochohmiger Eingang erlaubt. Ein hochohmiger Eingang ist auch
-        erlaubt, wenn der Vorgabewert auf hochohmig ("Z") gesetzt wird.</string>
-    <string name="key_Description">Beschreibung</string>
+    <string name="key_isHighZ">Eingang kann hochohmig sein</string><!-- In, Splitter -->
+    <string name="key_isHighZ_tt">Wenn gesetzt ist ein hochohmiger Eingang erlaubt. Bei einem Eingangselement ist ein
+        hochohmiger Eingang ist auch erlaubt, wenn der Vorgabewert auf hochohmig ("Z") gesetzt wird.</string>
+    <string name="key_Description">Beschreibung</string><!-- Out, In, Text -->
     <string name="key_Description_tt">Eine kurze Beschreibung des Elementes.</string>
-    <string name="key_Frequency">Frequenz/Hz</string>
+    <string name="key_Frequency">Frequenz/Hz</string><!-- Clock -->
     <string name="key_Frequency_tt">Gibt die Frequenz an, wenn der Echtzeittakt aktiviert ist</string>
     <string name="key_IEEEShapes">Verwende US Symbole (IEEE 91-1984)</string>
     <string name="key_IEEEShapes_tt">Verwende IEEE 91-1984 Symbole anstelle der rechteckigen Symbole</string>
-    <string name="key_Inputs">Anzahl der Eingänge</string>
+    <string name="key_Inputs">Anzahl der Eingänge</string><!-- And, NAnd, Or, NOr, XOr, XNOr, LookUpTable -->
     <string name="key_Inputs_tt">Legt die Anzahl der Eingänge fest. Alle Eingänge müssen beschaltet werden.</string>
-    <string name="key_Label">Bezeichnung</string>
+    <string name="key_Label">Bezeichnung</string><!-- Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Switch, Relay, PFET, NFET, FGPFET, FGNFET, Testcase, PowerSupply, Reset, Break -->
     <string name="key_Label_tt">Die Bezeichnung dieses Elementes.</string>
-    <string name="key_Size">Größe</string>
-    <string name="key_Size_tt">Die Größe des Elements in der Schaltung.</string>
+    <string name="key_Size">Größe</string><!-- LED -->
+    <string name="key_Size_tt">Die Größe der LED in der Schaltung.</string>
     <string name="key_Language">Sprache</string>
     <string name="key_Language_tt">Sprache der Oberfläche. Wird erst nach einem Neustart wirksam.</string>
-    <string name="key_NetName">Netzname</string>
+    <string name="key_NetName">Netzname</string><!-- Tunnel -->
     <string name="key_NetName_tt">Alle Netze mit identischem Namen werden miteinander verbunden.</string>
-    <string name="key_InputSplitting">Eingangsaufteilung</string>
+    <string name="key_InputSplitting">Eingangsaufteilung</string><!-- Splitter -->
     <string name="key_InputSplitting_tt">Sollen z.B. je vier Bits, zwei Bits und noch einmal zwei Bits als Eingänge
-        verwendet werden, kann das mit der Eingabe &quot;4,2,2&quot; konfiguriert werden. Die Zahl gibt dabei jeweils die Bitanzahl an.
-        Als Vereinfachung kann das *-Zeichen verwendet werden: Mit &quot;[Bits]*[Anzahl] wie &quot;1*16&quot; können 16 einzelne Bits
+        verwendet werden, kann das mit der Eingabe "4,2,2" konfiguriert werden. Die Zahl gibt dabei jeweils die Bitanzahl an.
+        Als Vereinfachung kann das *-Zeichen verwendet werden: Mit "[Bits]*[Anzahl]" wie "1*16" können 16 einzelne Bits
         konfiguriert werden.
         Es können auch die zu verwendenden Bits direkt und in beliebiger Reihenfolge angegeben werden. So werden mit der
         Eingabe"4-7,0-3" die Bits 4-7 und 0-3 konfiguriert. Diese Notation erlaubt eine beliebige Bit-Anordnung.
         Die Eingangsbits müssen vollständig und eindeutig angegeben werden.</string>
-    <string name="key_OutputSplitting">Ausgangsaufteilung</string>
+    <string name="key_OutputSplitting">Ausgangsaufteilung</string><!-- Splitter -->
     <string name="key_OutputSplitting_tt">Sollen z.B. je vier Bits, zwei Bits und noch einmal zwei Bits als Ausgänge
-        verwendet werden, kann das mit der Eingabe &quot;4,2,2&quot; konfiguriert werden. Die Zahl gibt dabei jeweils die Bitanzahl an.
-        Als Vereinfachung kann das *-Zeichen verwendet werden: Mit &quot;[Bits]*[Anzahl] wie &quot;1*16&quot; können 16 einzelne Bits
+        verwendet werden, kann das mit der Eingabe "4,2,2" konfiguriert werden. Die Zahl gibt dabei jeweils die Bitanzahl an.
+        Als Vereinfachung kann das *-Zeichen verwendet werden: Mit "[Bits]*[Anzahl]" wie "1*16" können 16 einzelne Bits
         konfiguriert werden.
         Es können auch die zu verwendenden Bits direkt und in beliebiger Reihenfolge angegeben werden. So werden mit der
         Eingabe"4-7,0-3" die Bits 4-7 und 0-3 konfiguriert. Diese Notation erlaubt eine beliebige Bit-Anordnung.
         Ausgangsbits können auch mehrfach ausgegeben werden: "0-7,1-6,4-7"</string>
-    <string name="key_SelectorBits">Anzahl der Auswahlbits</string>
+    <string name="key_SelectorBits">Anzahl der Auswahlbits</string><!-- Multiplexer, Demultiplexer, Decoder -->
     <string name="key_SelectorBits_tt">Anzahl der Bits, die in der Auswahlleitung vorhanden sind.</string>
-    <string name="key_Signed">Vorzeichen</string>
+    <string name="key_Signed">Vorzeichen</string><!-- Comparator -->
     <string name="key_Signed_tt">Wenn gesetzt, findet der Vergleich vorzeichenrichtig (2-er Komplement) statt.</string>
-    <string name="key_Closed">Geschlossen</string>
+    <string name="key_Closed">Geschlossen</string><!-- Switch -->
     <string name="key_Closed_tt">Gibt an, ob der Schalter bei Modelstart offen oder geschlossen ist.</string>
-    <string name="key_Value">Wert</string>
+    <string name="key_Value">Wert</string><!-- Const -->
     <string name="key_Value_tt">Der Wert der Konstanten.</string>
     <string name="key_Width">Breite</string>
     <string name="key_Width_tt">Breite des Symbols wenn diese Schaltung in eine andere eingefügt wird.</string>
-    <string name="key_autoReload">Bei jedem Start automatisch neu laden.</string>
+    <string name="key_autoReload">Bei jedem Start automatisch neu laden.</string><!-- ROM -->
     <string name="key_autoReload_tt">Lädt das HEX-File bei jedem Modelstart neu.</string>
-    <string name="key_flipSelPos">Tausche Selektorposition</string>
+    <string name="key_flipSelPos">Tausche Selektorposition</string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->
     <string name="key_flipSelPos_tt">Mit dieser Option kann der Anschluss des Selektors auf die andere Seite des Multiplexers verschoben werden.</string>
-    <string name="key_intFormat">Zahlenformat</string>
+    <string name="key_intFormat">Zahlenformat</string><!-- Probe -->
     <string name="key_intFormat_tt">Das Zahlenformat für die Ausgabe.</string>
     <string name="key_intFormat_ascii">ASCII</string>
     <string name="key_intFormat_bin">Binär</string>
     <string name="key_intFormat_dec">Dezimal</string>
     <string name="key_intFormat_def">Vorgabe</string>
     <string name="key_intFormat_hex">Hexadezimal</string>
-    <string name="key_barrelSigned">Verschiebeweite hat Vorzeichen</string>    
+    <string name="key_barrelSigned">Verschiebeweite hat Vorzeichen</string><!-- BarrelShifter -->
     <string name="key_barrelSigned_tt">Verschiebeweite  verwendet Zweierkomplement</string>
-    <string name="key_barrelShifterMode">Modus</string>
+    <string name="key_barrelShifterMode">Modus</string><!-- BarrelShifter -->
     <string name="key_barrelShifterMode_tt">Modus der Verschiebung.</string>
     <string name="key_barrelShifterMode_normal">Normal</string>
     <string name="key_barrelShifterMode_rotate">Rotation</string>
     <string name="key_barrelShifterMode_arithmetic">Arithmetisch</string>
-    <string name="key_direction">Richtung</string>
+    <string name="key_direction">Richtung</string><!-- BarrelShifter -->
     <string name="key_direction_tt">Richtungsangabe.</string>
     <string name="key_direction_left">Links</string>
     <string name="key_direction_right">Rechts</string>
-    <string name="key_maxStepCount">Maximale Messpunktezahl</string>
+    <string name="key_maxStepCount">Maximale Messpunktezahl</string><!-- Data -->
     <string name="key_maxStepCount_tt">Die maximale Anzahl an Messpunkten die gespeichert werden, bevor die ältesten Messungen verworfen werden.</string>
-    <string name="key_microStep">Zeige Einzelgatterschritte</string>
+    <string name="key_microStep">Zeige Einzelgatterschritte</string><!-- Data -->
     <string name="key_microStep_tt">Zeigt in der Grafik alle Einzelgatterschritte an.</string>
-    <string name="key_rotation">Rotation</string>
+    <string name="key_rotation">Rotation</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, Ground, VDD, Const, Tunnel, Splitter, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, DiodeForward, DiodeBackward, Switch, Fuse, Relay, PFET, NFET, FGPFET, FGNFET, TransGate, PowerSupply, Reset, Break -->
     <string name="key_rotation_tt">Legt die Ausrichtung des Elementes in der Schaltung fest.</string>
-    <string name="key_runRealTime">Echtzeittakt starten</string>
+    <string name="key_runRealTime">Echtzeittakt starten</string><!-- Clock -->
     <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet.</string>
     <string name="key_showDataGraph">Zeige Messwertegraph</string>
     <string name="key_showDataGraph_tt">Beim Start der Simulation wird ein Graph mit den Messwerten angezeigt.</string>
@@ -817,65 +818,70 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showDataTable">Zeige Messwertetabelle</string>
     <string name="key_showDataTable_tt">Beim Start der Simulation wird eine Tabelle mit den Messwerten angezeigt.</string>
     <string name="key_showList">Zeige Listing an, wenn verfügbar</string>
-    <string name="key_termHeight">Zeilen</string>
+    <string name="key_termHeight">Zeilen</string><!-- Terminal -->
     <string name="key_termHeight_tt">Die Anzahl der anzuzeigenden Zeilen.</string>
-    <string name="key_termWidth">Zeichen pro Zeile</string>
+    <string name="key_termWidth">Zeichen pro Zeile</string><!-- Terminal -->
     <string name="key_termWidth_tt">Die Anzahl der Zeichen, die in einer Zeile angezeigt werden können.</string>
-    <string name="key_valueIsProbe">Als Messwert verwenden</string>
+    <string name="key_valueIsProbe">Als Messwert verwenden</string><!-- RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register -->
     <string name="key_valueIsProbe_tt">Wenn gesetzt, taucht der Wert als Messwert in Graph und Tabelle auf</string>
-    <string name="key_Testdata">Testdaten</string>
-    <string name="key_Testdata_tt">Hier wird der eigentliche Testfall angelegt. Details dazu finden sich in der Hilfe des Testdateneditors.</string>
-    <string name="key_graphicWidth">Breite in Pixel</string>
+    <string name="key_Testdata">Testdaten</string><!-- Testcase -->
+    <string name="key_Testdata_tt">Hier wird der eigentliche Testfall angelegt.
+        Details dazu finden sich in der Hilfe des Testdateneditors.</string>
+    <string name="key_graphicWidth">Breite in Pixel</string><!-- GraphicCard -->
     <string name="key_graphicWidth_tt">Breite des Grafik-Bildschirmes in Pixel</string>
-    <string name="key_graphicHeight">Höhe in Pixel</string>
+    <string name="key_graphicHeight">Höhe in Pixel</string><!-- GraphicCard -->
     <string name="key_graphicHeight_tt">Höhe des Grafik-Bildschirmes in Pixel</string>
-    <string name="key_isProgramMemory">Programmspeicher</string>
-    <string name="key_isProgramMemory_tt">Zeichnet dieses ROM als Programmspeicher aus. Es kann damit von einer externen IDE beschrieben werden.</string>
-    <string name="key_Blown">Programmiert</string>
-    <string name="key_Blown_tt">Wenn gesetzt ist die Diode als "Durchgebrannt" bzw "Programmiert". Bei Floating Gate FETs wird das Gate geladen. Diese Einstellung kann direkt über die Taste 'P' verändert werden.</string>
+    <string name="key_isProgramMemory">Programmspeicher</string><!-- ROM -->
+    <string name="key_isProgramMemory_tt">Zeichnet dieses ROM als Programmspeicher aus.
+        Es kann damit von einer externen IDE beschrieben werden.</string>
+    <string name="key_Blown">Programmiert</string><!-- DiodeForward, DiodeBackward, Fuse, FGPFET, FGNFET -->
+    <string name="key_Blown_tt">Wenn gesetzt ist die Diode als "Durchgebrannt" bzw "Programmiert".
+        Bei Floating Gate FETs wird das Gate geladen. Diese Einstellung kann direkt über die Taste 'P' verändert werden.</string>
     <string name="key_ExpressionFormat">Format</string>
     <string name="key_ExpressionFormat_tt">Anzeigeformat der Ausdrücke.</string>
-    <string name="key_relayNormallyClosed">Relais ist ein Öffner</string>
+    <string name="key_relayNormallyClosed">Relais ist ein Öffner</string><!-- Relay -->
     <string name="key_relayNormallyClosed_tt">Wenn gesetzt ist das Relais unbestromt geschlossen.</string>
-    <string name="key_commonCathode">Gemeinsame Kathode</string>
+    <string name="key_commonCathode">Gemeinsame Kathode</string><!-- Seven-Seg -->
     <string name="key_commonCathode_tt">Wenn gesetzt hat die Anzeige einen Anschluss mit einer gemeinsamen Kathode.</string>
-    <string name="key_ledPersistence">Flimmern vermeiden</string>
+    <string name="key_ledPersistence">Flimmern vermeiden</string><!-- Seven-Seg, LedMatrix -->
     <string name="key_ledPersistence_tt">Die Schaltfrequenz in der Simulation kann nicht so hoch werden,
         dass das menschliche Auge kein Flimmern mehr wahrnimmt. Um dennoch das Flackern zu unterdrücken, kann
         bei den LEDs mit dieser Option ein "nachleuchten" eingeschaltet werden.</string>
     <string name="key_atf1502Fitter">ATF15xx Fitter</string>
-    <string name="key_atf1502Fitter_tt">Pfad zum Fitter für den ATF15xx. Geben Sie hier das Verzeichnis an, welches die Dateien fit15xx.exe enthält. Diese Datei wird von ATMEL zu Verfügung gestellt.</string>
+    <string name="key_atf1502Fitter_tt">Pfad zum Fitter für den ATF15xx.
+        Geben Sie hier das Verzeichnis an, welches die Dateien fit15xx.exe enthält.
+        Diese Datei wird von ATMEL zu Verfügung gestellt.</string>
     <string name="key_pin">Pinnummer</string>
     <string name="key_pin_tt">Ist das Feld leer bedeutet das, dass dieses Signal keinem Pin zugewiesen ist.</string>
-    <string name="key_rowDataBits">Zeilen</string>
+    <string name="key_rowDataBits">Zeilen</string><!-- LedMatrix -->
     <string name="key_rowDataBits_tt">Gibt direkt die Zahl der Zeilen an, indem die Anzahl der Bits des Zeilenwortes festgegelgt wird.</string>
-    <string name="key_colAddrBits">Adressbits der Spalten</string>
+    <string name="key_colAddrBits">Adressbits der Spalten</string><!-- LedMatrix -->
     <string name="key_colAddrBits_tt">Adressiert die einzelnen Spalten. Drei Bits bedeuten also acht Spalten.</string>
     <string name="key_lockedMode">Bearbeitung gesperrt</string>
     <string name="key_lockedMode_tt">Die Schaltung ist für die Bearbeitung gesperrt. Dioden und FG-FETs können jedoch konfiguriert werden.</string>
     <string name="key_isDIL">DIL-Gehäuse verwenden</string>
     <string name="key_isDIL_tt">Wird diese Schaltung eingebettet, wird sie in einem DIL-Gehäuse angezeigt.
         Um die Pins korrekt zuordnen zu können, ist an den Eingängen und Ausgängen die Pinnummer anzugeben.</string>
-    <string name="key_pinNumber">Pinnummer</string>
+    <string name="key_pinNumber">Pinnummer</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Nummer dieses Pins. Wird für die Darstellung einer Schaltung als DIL-Gehäuse und die
         Pinzuordnung bei der Programmierung eines CPLD verwendet.</string>
     <string name="key_pinCount">Pinanzahl DIL</string>
     <string name="key_pinCount_tt">Anzahl der Pins des DILs. Wird hier eine 0 eingetragen, wird die Anzahl automatisch bestimmt.</string>
     <string name="key_defTreeSelect">Baumansicht beim Start anzeigen</string>
     <string name="key_defTreeSelect_tt">Wenn gesetzt, wird die Baumansicht beim Start automatisch angezeigt.</string>
-    <string name="key_inverterConfig">inverse Eingänge</string>
+    <string name="key_inverterConfig">inverse Eingänge</string><!-- And, NAnd, Or, NOr, XOr, XNOr, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Counter -->
     <string name="key_inverterConfig_tt">Es können die Eingänge ausgewählt werden, welche invertiert werden sollen.</string>
     <string name="key_fontSize">Schriftgröße im Menü [%]</string>
     <string name="key_fontSize_tt">Für die Menüs kann eine abweichende Schriftgröße gewählt werden.
         Angabe in Prozent der Standardgröße.</string>
-    <string name="key_withEnable">Enable Eingang</string>
+    <string name="key_withEnable">Enable Eingang</string><!-- T_FF -->
     <string name="key_withEnable_tt">Wenn gesetzt, ist ein Enable-Eingang (T) vorhanden.</string>
-    <string name="key_unidirectional">Unidirektional</string>
+    <string name="key_unidirectional">Unidirektional</string><!-- PFET, NFET -->
     <string name="key_unidirectional_tt">Unidirektionale Transitoren wirken nur von Source zu Drain. Sie können deutlich
         schneller simuliert werden, als bidirektionale Transistoren. Da es keine Rückwirkung von Drain zu Source gibt, können
         Transistoren in diesem Modus auch keine Kurzschlüsse über die Drain-Source Strecke verursachen. Daher kann dieser
         Modus in manchen CMOS-Schaltungen erforderlich sein.</string>
-    <string name="key_activeLow">Active Low</string>
+    <string name="key_activeLow">Active Low</string><!-- Button -->
     <string name="key_activeLow_tt">Wenn gesetzt, ist der Ausgang im aktiven Zustand Low.</string>
     <string name="key_libraryPath">Bibliothek</string>
     <string name="key_libraryPath_tt">Ordner in welchem sich die Bibliothek mit vordefinierten Schaltungen befindet.
@@ -883,7 +889,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         hier gespeichert werden.</string>
     <string name="key_grid">Raster anzeigen</string>
     <string name="key_grid_tt">Zeigt im Hauptfenster ein Raster an, um das platzieren der Elemente zu erleichtern.</string>
-    <string name="key_mapToKey">Auf Tastatur legen</string>
+    <string name="key_mapToKey">Auf Tastatur legen</string><!-- Button -->
     <string name="key_mapToKey_tt">Taste wird durch die Tastatur bedienbar. Um die Cursor-Tasten zu nutzen, kann als
         Bezeichnung UP, DOWN, LEFT oder RIGHT verwendet werden.</string>
     <string name="key_jarPath">Java Bibliothek</string>

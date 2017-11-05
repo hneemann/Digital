@@ -716,94 +716,96 @@ The names of the variables may not be unique.</string>
     <string name="err_mainClass_N_NotFound">Could not find the class {0}!</string>
     <string name="err_couldNotInitializeMainClass_N">Could not create an instance of the class {0}!</string>
 
-    <string name="key_AddrBits">Address Bits</string>
+    <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
-    <string name="key_Bits">Data Bits</string>
+    <string name="key_Bits">Data Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
     <string name="key_Bits_tt">Number of data bits used.</string>
-    <string name="key_Color">Color</string>
+    <string name="key_Color">Color</string><!-- LED, LightBulb, Seven-Seg, Seven-Seg-Hex, LedMatrix -->
     <string name="key_Color_tt">The Color of the element.</string>
     <string name="key_backgroundColor">Background color</string>
     <string name="key_backgroundColor_tt">Background color of the circuit when it is embedded in another circuit. Is not used for DIL packages.</string>
-    <string name="key_Cycles">Timeout cycles</string>
+    <string name="key_Cycles">Timeout cycles</string><!-- Break -->
     <string name="key_Cycles_tt">If this amount of cycles is reached without a break signal, an error is created.</string>
-    <string name="key_Data">Data</string>
+    <string name="key_Data">Data</string><!-- LookUpTable, ROM, EEPROM -->
     <string name="key_Data_tt">The values stored in this element.</string>
-    <string name="key_Default">Default</string>
-    <string name="key_Default_tt">This value is set if the circuit is started</string>
-    <string name="key_InDefault">Default</string>
+    <string name="key_Default">Default</string><!-- Demultiplexer, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS -->
+    <string name="key_Default_tt">This value is set if the circuit is started.
+        At the demultiplexer, this value is set for the non-selected outputs.</string>
+    <string name="key_InDefault">Default</string><!-- In -->
     <string name="key_InDefault_tt">This value is set if the circuit is started. A "Z" means high-z state.</string>
-    <string name="key_isHighZ">Is three-state input</string>
-    <string name="key_isHighZ_tt">If set the input is allowed to be in high-z state. This is also allowed
-        if high-z ("Z") is set as the default value.</string>
-    <string name="key_Description">Description</string>
+    <string name="key_isHighZ">Is three-state input</string><!-- In, Splitter -->
+    <string name="key_isHighZ_tt">If set the input is allowed to be in high-z state. At the input component this is
+        also allowed if high-z ("Z") is set as the default value.</string>
+    <string name="key_Description">Description</string><!-- Out, In, Text -->
     <string name="key_Description_tt">A short description of this element and its usage.</string>
-    <string name="key_Frequency">Frequency/Hz</string>
+    <string name="key_Frequency">Frequency/Hz</string><!-- Clock -->
     <string name="key_Frequency_tt">The real time frequency used for the real time clock</string>
     <string name="key_IEEEShapes">Use IEEE 91-1984 shapes</string>
     <string name="key_IEEEShapes_tt">Use IEEE 91-1984 shapes instead of rectangular shapes</string>
-    <string name="key_Inputs">Number of Inputs</string>
+    <string name="key_Inputs">Number of Inputs</string><!-- And, NAnd, Or, NOr, XOr, XNOr, LookUpTable -->
     <string name="key_Inputs_tt">The Number of Inputs used. Every input needs to be connected.</string>
-    <string name="key_Label">Label</string>
+    <string name="key_Label">Label</string><!-- Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Switch, Relay, PFET, NFET, FGPFET, FGNFET, Testcase, PowerSupply, Reset, Break -->
     <string name="key_Label_tt">The name of this element.</string>
-    <string name="key_Size">Size</string>
-    <string name="key_Size_tt">The size of the component in the circuit.</string>
+    <string name="key_Size">Size</string><!-- LED -->
+    <string name="key_Size_tt">The size of the LED in the circuit.</string>
     <string name="key_Language">Language</string>
     <string name="key_Language_tt">Language of the GUI. Will only take effect after a restart.</string>
-    <string name="key_NetName">Net name</string>
+    <string name="key_NetName">Net name</string><!-- Tunnel -->
     <string name="key_NetName_tt">All nets with identical name are connected together.</string>
-    <string name="key_InputSplitting">Input Splitting</string>
+    <string name="key_InputSplitting">Input Splitting</string><!-- Splitter -->
     <string name="key_InputSplitting_tt">If e.g. four bits, two bits and two further bits are to be used as inputs,
         this can be configured with "4,2,2". The number indicates the number of bits. For convenience, the asterisk
         can be used: 16 bits can be configured with "[Bits]*[Number]" as "1*16".
         It is also possible to specify the bits to be used directly and in any order.
         For example, "4-7,0-3" configures bits 4-7 and 0-3. This notation allows any bit arrangement.
         The input bits must be specified completely and unambiguously.</string>
-    <string name="key_OutputSplitting">Output splitting</string>
+    <string name="key_OutputSplitting">Output splitting</string><!-- Splitter -->
     <string name="key_OutputSplitting_tt">If e.g. four bits, two bits and two further bits are to be used as outputs,
         this can be configured with "4,2,2". The number indicates the number of bits. For convenience, the asterisk
         can be used: 16 bits can be configured with "[Bits]*[Number]" as "1*16".
         It is also possible to specify the bits to be used directly and in any order.
         For example, "4-7,0-3" configures bits 4-7 and 0-3. This notation allows any bit arrangement.
         Output bits can also be output several times: "0-7,1-6,4-7"</string>
-    <string name="key_SelectorBits">Number of Selector Bits</string>
+    <string name="key_SelectorBits">Number of Selector Bits</string><!-- Multiplexer, Demultiplexer, Decoder -->
     <string name="key_SelectorBits_tt">Number of bits used for the selector input.</string>
-    <string name="key_Signed">Signed</string>
+    <string name="key_Signed">Signed</string><!-- Comparator -->
     <string name="key_Signed_tt">If selected the comparison is performed with signed (2th complement) values.</string>
-    <string name="key_Closed">Closed</string>
+    <string name="key_Closed">Closed</string><!-- Switch -->
     <string name="key_Closed_tt">Sets the initial state of the switch.</string>
-    <string name="key_Value">Value</string>
+    <string name="key_Value">Value</string><!-- Const -->
     <string name="key_Value_tt">The value of the constant.</string>
     <string name="key_Width">Width</string>
     <string name="key_Width_tt">With of symbol if this circuit is used as an component in an other circuit.</string>
-    <string name="key_autoReload">Reload at model start</string>
+    <string name="key_autoReload">Reload at model start</string><!-- ROM -->
     <string name="key_autoReload_tt">Reloads the hex file every time the model is started.</string>
-    <string name="key_flipSelPos">Flip selector position</string>
+    <string name="key_flipSelPos">Flip selector position</string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->
     <string name="key_flipSelPos_tt">This option allows you to move te selector pin to the opposite side of the plexer.</string>
-    <string name="key_intFormat">Number Format</string>
+    <string name="key_intFormat">Number Format</string><!-- Probe -->
     <string name="key_intFormat_tt">The format used to show the numbers.</string>
     <string name="key_intFormat_ascii">ascii</string>
     <string name="key_intFormat_bin">bin</string>
     <string name="key_intFormat_dec">decimal</string>
     <string name="key_intFormat_def">default</string>
     <string name="key_intFormat_hex">hex</string>
-    <string name="key_barrelSigned">shift input has sign</string>
+    <string name="key_barrelSigned">shift input has sign</string><!-- BarrelShifter -->
     <string name="key_barrelSigned_tt">shift input data has two complement format</string>
-    <string name="key_barrelShifterMode">Mode</string>
+    <string name="key_barrelShifterMode">Mode</string><!-- BarrelShifter -->
     <string name="key_barrelShifterMode_tt">Mode of barrel shifter</string>
     <string name="key_barrelShifterMode_normal">Normal</string>
     <string name="key_barrelShifterMode_rotate">Rotate</string>
     <string name="key_barrelShifterMode_arithmetic">Arithmetic</string>
-    <string name="key_direction">Direction</string>
+    <string name="key_direction">Direction</string><!-- BarrelShifter -->
     <string name="key_direction_tt">Set direction.</string>
     <string name="key_direction_left">left</string>
     <string name="key_direction_right">right</string>
-    <string name="key_maxStepCount">Max number of steps to show</string>
-    <string name="key_maxStepCount_tt">The maximal number of values stored. If the maximum number is reached, the oldest values are discarded.</string>
-    <string name="key_microStep">Show single gate steps</string>
+    <string name="key_maxStepCount">Max number of steps to show</string><!-- Data -->
+    <string name="key_maxStepCount_tt">The maximal number of values stored.
+        If the maximum number is reached, the oldest values are discarded.</string>
+    <string name="key_microStep">Show single gate steps</string><!-- Data -->
     <string name="key_microStep_tt">Shows all single step steps in the graphic.</string>
-    <string name="key_rotation">Rotation</string>
+    <string name="key_rotation">Rotation</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, Ground, VDD, Const, Tunnel, Splitter, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, DiodeForward, DiodeBackward, Switch, Fuse, Relay, PFET, NFET, FGPFET, FGNFET, TransGate, PowerSupply, Reset, Break -->
     <string name="key_rotation_tt">The orientation of the Element in the circuit.</string>
-    <string name="key_runRealTime">Start real time clock</string>
+    <string name="key_runRealTime">Start real time clock</string><!-- Clock -->
     <string name="key_runRealTime_tt">If enabled the runtime clock is started when the circuit is started</string>
     <string name="key_showDataGraph">Show measurement graph</string>
     <string name="key_showDataGraph_tt">When the simulation is started, a graph with the measured values is shown.</string>
@@ -813,64 +815,68 @@ The names of the variables may not be unique.</string>
     <string name="key_showDataTable">Show measurement values</string>
     <string name="key_showDataTable_tt">When the simulation is started, a table with the measured values is shown.</string>
     <string name="key_showList">Show list file if available</string>
-    <string name="key_termHeight">Lines</string>
+    <string name="key_termHeight">Lines</string><!-- Terminal -->
     <string name="key_termHeight_tt">The number of lines to show.</string>
-    <string name="key_termWidth">Characters per line</string>
+    <string name="key_termWidth">Characters per line</string><!-- Terminal -->
     <string name="key_termWidth_tt">The number of characters shown in a single line.</string>
-    <string name="key_valueIsProbe">Use as measurement value</string>
+    <string name="key_valueIsProbe">Use as measurement value</string><!-- RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register -->
     <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.</string>
-    <string name="key_Testdata">Test data</string>
-    <string name="key_Testdata_tt">The description of the test case. Details of the syntax can be found in the help dialog of the test data editor.</string>
-    <string name="key_graphicWidth">Width in pixels</string>
+    <string name="key_Testdata">Test data</string><!-- Testcase -->
+    <string name="key_Testdata_tt">The description of the test case.
+        Details of the syntax can be found in the help dialog of the test data editor.</string>
+    <string name="key_graphicWidth">Width in pixels</string><!-- GraphicCard -->
     <string name="key_graphicWidth_tt">The screen width in pixels.</string>
-    <string name="key_graphicHeight">Height in pixels</string>
+    <string name="key_graphicHeight">Height in pixels</string><!-- GraphicCard -->
     <string name="key_graphicHeight_tt">The screen height in pixels.</string>
-    <string name="key_isProgramMemory">Program Memory</string>
+    <string name="key_isProgramMemory">Program Memory</string><!-- ROM -->
     <string name="key_isProgramMemory_tt">Makes this ROM to program memory. So it can be accessed by an external IDE.</string>
-    <string name="key_Blown">Programmed</string>
-    <string name="key_Blown_tt">If set a diode is "blown" or "programmed". At a floating gate FET the floating gate is charged. You can change this setting with the key 'p'.</string>
+    <string name="key_Blown">Programmed</string><!-- DiodeForward, DiodeBackward, Fuse, FGPFET, FGNFET -->
+    <string name="key_Blown_tt">If set a diode is "blown" or "programmed".
+        At a floating gate FET the floating gate is charged.
+        You can change this setting with the key 'p'.</string>
     <string name="key_ExpressionFormat">Format</string>
     <string name="key_ExpressionFormat_tt">Screen format of expressions.</string>
-    <string name="key_relayNormallyClosed">Relay is normally closed.</string>
+    <string name="key_relayNormallyClosed">Relay is normally closed.</string><!-- Relay -->
     <string name="key_relayNormallyClosed_tt">If set the relay is closed if the input is low.</string>
-    <string name="key_commonCathode">Common Cathode</string>
+    <string name="key_commonCathode">Common Cathode</string><!-- Seven-Seg -->
     <string name="key_commonCathode_tt">If selected the common cathode input is also simulated.</string>
-    <string name="key_ledPersistence">Avoid Flicker</string>
+    <string name="key_ledPersistence">Avoid Flicker</string><!-- Seven-Seg, LedMatrix -->
     <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering disappears.
         With this option you can stabilize the display by keeping the LEDs on until the common cathode goes down again.
         This simulates a frequency above the critical flicker fusion frequency.</string>
     <string name="key_atf1502Fitter">ATF15xx Fitter</string>
-    <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF15xx. Enter the directory which countains the fit15xx.exe files provided by ATMEL.</string>
+    <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF15xx.
+        Enter the directory which countains the fit15xx.exe files provided by ATMEL.</string>
     <string name="key_pin">Pin number</string>
     <string name="key_pin_tt">An empty field means this signal is not assigned to a pin.</string>
-    <string name="key_rowDataBits">Rows</string>
+    <string name="key_rowDataBits">Rows</string><!-- LedMatrix -->
     <string name="key_rowDataBits_tt">Specifies the number of rows by specifying the number of bits of the row word.</string>
-    <string name="key_colAddrBits">Address bits of columns</string>
+    <string name="key_colAddrBits">Address bits of columns</string><!-- LedMatrix -->
     <string name="key_colAddrBits_tt">Addresses the individual columns. Three bits means eight columns.</string>
     <string name="key_lockedMode">Modification locked</string>
     <string name="key_lockedMode_tt">The circuit is locked. It is possible to configure diodes and FGF-FETs.</string>
     <string name="key_isDIL">DIL package</string>
     <string name="key_isDIL_tt">If set, this circuit is shown in a DIL package.
         To assign the pins correctly, the pin numbers must be set on all inputs and outputs.</string>
-    <string name="key_pinNumber">Pin number</string>
+    <string name="key_pinNumber">Pin number</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Number of this pin. Used for the representation of a circuit as a DIL package and
         the pin assignment when programming a CPLD.</string>
     <string name="key_pinCount">Number of DIL pins</string>
     <string name="key_pinCount_tt">Number of pins. A zero means that the number od pins is determined automatically.</string>
     <string name="key_defTreeSelect">Component tree view is visible at startup.</string>
     <string name="key_defTreeSelect_tt">If set, the component tree view is enabled at startup.</string>
-    <string name="key_inverterConfig">inverted Inputs</string>
+    <string name="key_inverterConfig">inverted Inputs</string><!-- And, NAnd, Or, NOr, XOr, XNOr, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Counter -->
     <string name="key_inverterConfig_tt">You can select the inputs that are to be inverted.</string>
     <string name="key_fontSize">Menus Font Size [%]</string>
     <string name="key_fontSize_tt">Size of the fonts used in the menu in percent of the default size.</string>
-    <string name="key_withEnable">Enable Input</string>
+    <string name="key_withEnable">Enable Input</string><!-- T_FF -->
     <string name="key_withEnable_tt">If set an enable input (T) is available.</string>
-    <string name="key_unidirectional">Unidirectional</string>
+    <string name="key_unidirectional">Unidirectional</string><!-- PFET, NFET -->
     <string name="key_unidirectional_tt">Unidirectional transistors propagate a signal only from source to drain. They are
         much faster to simulate than bidirectional transistors. Since there is no feedback from drain to source, in this
         mode, the transistor can not short the connected wires when it is conducting. Thus, this mode is necessary to
         simulate certain CMOS circuits.</string>
-    <string name="key_activeLow">Active Low</string>
+    <string name="key_activeLow">Active Low</string><!-- Button -->
     <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
     <string name="key_libraryPath">Library</string>
     <string name="key_libraryPath_tt">Folder which contains the library with predefined sub circuits.
@@ -878,8 +884,9 @@ The names of the variables may not be unique.</string>
         them at this location.</string>
     <string name="key_grid">Show Grid</string>
     <string name="key_grid_tt">Shows a grid in the main window.</string>
-    <string name="key_mapToKey">Map to keyboard</string>
-    <string name="key_mapToKey_tt">Button is mapped to the keyboard. To use the cursor keys use UP, DOWN, LEFT or RIGHT as label.</string>
+    <string name="key_mapToKey">Map to keyboard</string><!-- Button -->
+    <string name="key_mapToKey_tt">Button is mapped to the keyboard.
+        To use the cursor keys use UP, DOWN, LEFT or RIGHT as label.</string>
     <string name="key_jarPath">Java library</string>
     <string name="key_jarPath_tt">A jar file containing additional components implemented in java.</string>
     <string name="key_showWireBits">Shows the number of wires on a bus.</string>
