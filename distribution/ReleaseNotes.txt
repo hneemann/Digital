@@ -1,7 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.16
-- RAM components now allow an input invert configuration
+- RAM components and EEPROM now allow an input invert configuration
 - Bug fixes
   - fixed a Bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.
 

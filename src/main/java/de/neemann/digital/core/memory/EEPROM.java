@@ -25,6 +25,7 @@ public class EEPROM extends RAMSinglePortSel {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.DATA);
 
     /**
