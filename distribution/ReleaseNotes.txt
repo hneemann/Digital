@@ -1,5 +1,10 @@
 Release Notes
 
+HEAD, planned as v0.16
+- RAM components now allow an input invert configuration
+- Bug fixes
+  - fixed a Bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.
+
 v0.15, released on 30. Oct 2017
 - Added the possibility to use custom, java implemented components in Digital.
 - Added an EEPROM which behaves like a memory that can be written and whose content

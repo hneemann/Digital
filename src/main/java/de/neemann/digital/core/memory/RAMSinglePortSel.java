@@ -31,7 +31,8 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INVERTER_CONFIG);
 
     private final int bits;
     private final int addrBits;
@@ -48,6 +49,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     private boolean cs;
     private int addr;
     private boolean oe;
+    private boolean lastweIn;
 
     /**
      * Creates a new instance
@@ -86,15 +88,17 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
 
     @Override
     public void readInputs() throws NodeException {
+        final boolean weIn = this.weIn.getBool();
         cs = csIn.getBool();
         if (cs) {
             addr = (int) addrIn.getValue();
             oe = oeIn.getBool();
-            if (weIn.getBool()) {
+            if (weIn && !lastweIn) {
                 long data = dataIn.getValue();
                 memory.setData(addr, data);
             }
         }
+        lastweIn=weIn;
     }
 
     @Override

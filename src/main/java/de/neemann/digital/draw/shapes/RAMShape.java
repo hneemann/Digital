@@ -48,6 +48,7 @@ public class RAMShape extends GenericShape {
         dataBits = attr.get(Keys.BITS);
         addrBits = attr.get(Keys.ADDR_BITS);
         size = 1 << addrBits;
+        setInverterConfig(attr.get(Keys.INVERTER_CONFIG));
     }
 
     @Override
