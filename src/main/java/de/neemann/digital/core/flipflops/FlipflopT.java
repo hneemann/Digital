@@ -101,7 +101,11 @@ public class FlipflopT extends Node implements Element {
     public void registerNodes(Model model) {
         super.registerNodes(model);
         if (isProbe)
-            model.addSignal(new Signal(label, q));
+            model.addSignal(new Signal(label, q, v -> {
+                out = v != 0;
+                q.setBool(out);
+                qn.setBool(!out);
+            }));
     }
 
     /**
