@@ -103,8 +103,12 @@ public class DataEditor extends JDialog {
             buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    ok = true;
-                    dispose();
+                    if (table.isEditing()) {
+                        table.getCellEditor().stopCellEditing();
+                    } else {
+                        ok = true;
+                        dispose();
+                    }
                 }
             }));
             getContentPane().add(buttons, BorderLayout.SOUTH);
