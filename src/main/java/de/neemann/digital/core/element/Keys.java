@@ -151,7 +151,7 @@ public final class Keys {
      * the rotation of the elements
      */
     public static final Key<Rotation> ROTATE
-            = new Key<>("rotation", new Rotation(0));
+            = new Key<>("rotation", new Rotation(0)).allowGroupEdit();
 
     /**
      * the width of an element if it is included as nested element
