@@ -6,6 +6,7 @@ package de.neemann.digital.core;
 public final class Signal implements Comparable<Signal> {
     private final String name;
     private final ObservableValue value;
+    private final Setter setter;
     private String pinNumber;
     private boolean isPin = false;
 
@@ -16,6 +17,18 @@ public final class Signal implements Comparable<Signal> {
      * @param value the signals value
      */
     public Signal(String name, ObservableValue value) {
+        this(name, value, null);
+    }
+
+    /**
+     * Creates a new Instance
+     *
+     * @param name   the name of the Signal
+     * @param value  the signals value
+     * @param setter used to set this signal value, maybe null
+     */
+    public Signal(String name, ObservableValue value, Setter setter) {
+        this.setter = setter;
         if (name == null) this.name = null;
         else this.name = name.trim().replace(' ', '_');
         this.value = value;
@@ -99,5 +112,25 @@ public final class Signal implements Comparable<Signal> {
      */
     public boolean missingPinNumber() {
         return isPin && pinNumber.length() == 0;
+    }
+
+    /**
+     * @return the setter for this value
+     */
+    public Setter getSetter() {
+        return setter;
+    }
+
+    /**
+     * Setter interface to set a value
+     */
+    public interface Setter {
+        /**
+         * Used to set a value.
+         * Has to modify the inner state and also has to update the outputs.
+         *
+         * @param value the value to set
+         */
+        void set(long value);
     }
 }

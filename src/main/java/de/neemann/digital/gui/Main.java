@@ -1111,7 +1111,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
             List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_TABLE))
-                windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync)).setVisible(true);
+                windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync, circuitComponent)).setVisible(true);
 
             if (settings.get(Keys.SHOW_DATA_GRAPH))
                 windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);

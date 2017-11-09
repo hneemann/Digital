@@ -66,7 +66,7 @@ public class In implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addInput(new Signal(label, output).setPinNumber(pinNumber));
+        model.addInput(new Signal(label, output, output::setValue).setPinNumber(pinNumber));
         this.model = model;
     }
 
