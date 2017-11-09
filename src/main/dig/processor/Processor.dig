@@ -1259,6 +1259,7 @@ Single-Cycle CPU.</string>
     <string>Carry</string>
     <string>Zero</string>
     <string>Neg</string>
+    <string>imm</string>
     <string>PC</string>
     <string>R0</string>
     <string>R1</string>
@@ -1276,5 +1277,6 @@ Single-Cycle CPU.</string>
     <string>BP</string>
     <string>SP</string>
     <string>RA</string>
+    <string>Bank-FF</string>
   </measurementOrdering>
 </circuit>

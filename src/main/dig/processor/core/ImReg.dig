@@ -40,6 +40,14 @@ spezielles Bit in jedem Befehlswort zur Verfügung.</string>
       <elementName>Register</elementName>
       <elementAttributes>
         <entry>
+          <string>valueIsProbe</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>imm</string>
+        </entry>
+        <entry>
           <string>Bits</string>
           <int>15</int>
         </entry>
