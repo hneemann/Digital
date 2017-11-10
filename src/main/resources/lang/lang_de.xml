@@ -810,12 +810,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_rotation_tt">Legt die Ausrichtung des Elementes in der Schaltung fest.</string>
     <string name="key_runRealTime">Echtzeittakt starten</string><!-- Clock -->
     <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet.</string>
-    <string name="key_showDataGraph">Zeige Messwertegraph</string>
+    <string name="key_showDataGraph">Zeige Messwertegraph bei Simulationsstart</string>
     <string name="key_showDataGraph_tt">Beim Start der Simulation wird ein Graph mit den Messwerten angezeigt.</string>
-    <string name="key_showDataGraphMicro">Zeige Messwertgraph im Gatterschrittmodus</string>
+    <string name="key_showDataGraphMicro">Zeige Messwertgraph im Gatterschrittmodus bei Simulationsstart</string>
     <string name="key_showDataGraphMicro_tt">Beim Start der Simulation wird ein Graph mit den Messwerten im Gatterschrittmodus
         angezeigt. Dabei werden alle Gatterwechsel angezeigt.</string>
-    <string name="key_showDataTable">Zeige Messwertetabelle</string>
+    <string name="key_showDataTable">Zeige Messwertetabelle bei Simulationsstart</string>
     <string name="key_showDataTable_tt">Beim Start der Simulation wird eine Tabelle mit den Messwerten angezeigt.</string>
     <string name="key_termHeight">Zeilen</string><!-- Terminal -->
     <string name="key_termHeight_tt">Die Anzahl der anzuzeigenden Zeilen.</string>
@@ -939,8 +939,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_edit">Bearbeiten</string>
     <string name="menu_editAttributes">Schaltungsattribute bearbeiten</string>
     <string name="menu_editAttributes_tt">Diese Attribute beeinflussen die Schaltung, wenn sie in andere Schaltungen eingebettet wird.</string>
-    <string name="menu_editRunAttributes">Simulationseinstellungen</string>
-    <string name="menu_editRunAttributes_tt">Einstellungen für den Start der Simulation</string>
     <string name="menu_editSettings">Einstellungen</string>
     <string name="menu_editSettings_tt">Bearbeitet die globalen Einstellungen</string>
     <string name="menu_element">Stoppen der Simulation</string>
@@ -1095,6 +1093,13 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_karnaughMap_tt">Zeigt eine KV-Tafel der Tabelle an.</string>
     <string name="menu_pdfDocumentation">Dokumentation</string>
     <string name="menu_openPdfDocumentation">Öffne {0}</string>
+    <string name="menu_showDataTable">Zeige Messwertetabelle</string>
+    <string name="menu_showDataTable_tt">Zeigt eine Tabelle mit allen Messwerten in einem eigenen Fenster an.</string>
+    <string name="menu_showDataGraph">Zeige Messwertegraph</string>
+    <string name="menu_showDataGraph_tt">Ein Graph mit den Messwerten wird in einem eigenen Fenster angezeigt.</string>
+
+
+
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Ein einfacher Simulator für digitale Schaltkreise.

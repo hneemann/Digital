@@ -123,7 +123,7 @@ public abstract class ToolTipAction extends AbstractAction {
      * @param newValue the new state
      * @return this for call chaining
      */
-    public ToolTipAction setActive(boolean newValue) {
+    public ToolTipAction setEnabledChain(boolean newValue) {
         super.setEnabled(newValue);
         return this;
     }

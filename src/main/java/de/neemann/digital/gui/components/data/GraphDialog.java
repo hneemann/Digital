@@ -201,7 +201,7 @@ public class GraphDialog extends JDialog implements Observer {
      * @return this for chained calls
      */
     public GraphDialog disableTable() {
-        showTable.setActive(false);
+        showTable.setEnabled(false);
         return this;
     }
 

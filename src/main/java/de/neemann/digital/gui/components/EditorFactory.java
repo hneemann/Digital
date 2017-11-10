@@ -417,7 +417,7 @@ public final class EditorFactory {
                             }
                         }
                     }
-                            .setActive(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
+                            .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
                             .setToolTip(Lang.get("btn_reload_tt"))
                             .createJButton()
             );

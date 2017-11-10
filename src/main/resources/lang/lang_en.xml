@@ -807,12 +807,12 @@ The names of the variables may not be unique.</string>
     <string name="key_rotation_tt">The orientation of the Element in the circuit.</string>
     <string name="key_runRealTime">Start real time clock</string><!-- Clock -->
     <string name="key_runRealTime_tt">If enabled the runtime clock is started when the circuit is started</string>
-    <string name="key_showDataGraph">Show measurement graph</string>
+    <string name="key_showDataGraph">Show measurement graph at simulation start</string>
     <string name="key_showDataGraph_tt">When the simulation is started, a graph with the measured values is shown.</string>
-    <string name="key_showDataGraphMicro">Show measurement graph in single gate step mode</string>
+    <string name="key_showDataGraphMicro">Show measurement graph in single gate step mode at simulation start</string>
     <string name="key_showDataGraphMicro_tt">When the simulation is started, a graph with the measured values in the
         gate step mode is shown. All gate changes are included in the graph.</string>
-    <string name="key_showDataTable">Show measurement values</string>
+    <string name="key_showDataTable">Show measurement values at simulation start</string>
     <string name="key_showDataTable_tt">When the simulation is started, a table with the measured values is shown.</string>
     <string name="key_termHeight">Lines</string><!-- Terminal -->
     <string name="key_termHeight_tt">The number of lines to show.</string>
@@ -933,8 +933,6 @@ The names of the variables may not be unique.</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_editAttributes">Edit circuit attributes</string>
     <string name="menu_editAttributes_tt">These attributes effect the behavior if the circuit is included in other circuits.</string>
-    <string name="menu_editRunAttributes">Simulation Settings</string>
-    <string name="menu_editRunAttributes_tt">Settings used to start the simulation</string>
     <string name="menu_editSettings">Settings</string>
     <string name="menu_editSettings_tt">Edits Digitals preferences</string>
     <string name="menu_element">Stop Simulation</string>
@@ -1089,6 +1087,12 @@ The names of the variables may not be unique.</string>
     <string name="menu_pdfDocumentation">Documentation</string>
     <string name="menu_openPdfDocumentation">Open {0}</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
+
+    <string name="menu_showDataGraph">Show measurement graph</string>
+    <string name="menu_showDataGraph_tt">Shows a graph with the measured values in a separate window.</string>
+    <string name="menu_showDataTable">Show measurement value table</string>
+    <string name="menu_showDataTable_tt">Show table with the measured values in a separate window.</string>
+
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
 Written by H. Neemann in 2016, 2017.

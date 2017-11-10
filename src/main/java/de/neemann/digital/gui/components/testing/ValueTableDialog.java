@@ -176,7 +176,7 @@ public class ValueTableDialog extends JDialog {
      * @return this for chained calls
      */
     public ValueTableDialog disableGraph() {
-        asGraph.setActive(false);
+        asGraph.setEnabled(false);
         return this;
     }
 

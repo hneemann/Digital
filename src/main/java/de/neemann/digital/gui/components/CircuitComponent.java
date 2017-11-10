@@ -66,6 +66,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         ATTR_LIST.add(Keys.BACKGROUND_COLOR);
         ATTR_LIST.add(Keys.DESCRIPTION);
         ATTR_LIST.add(Keys.LOCKED_MODE);
+        ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
+        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH);
+        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
     }
 
     private static final String DEL_ACTION = "myDelAction";
@@ -133,7 +136,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void actionPerformed(ActionEvent e) {
                 activeMouseController.rotate();
             }
-        }.setActive(false).setAccelerator("R").enableAcceleratorIn(this);
+        }.setEnabledChain(false).setAccelerator("R").enableAcceleratorIn(this);
 
 
         cutAction = createCutAction(shapeFactory);
@@ -337,7 +340,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     }
                 }
             }
-        }.setActive(false).setAcceleratorCTRLplus('X').enableAcceleratorIn(this);
+        }.setEnabledChain(false).setAcceleratorCTRLplus('X').enableAcceleratorIn(this);
     }
 
     private ToolTipAction createCopyAction(ShapeFactory shapeFactory) {
@@ -351,7 +354,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     activeMouseController.escapePressed();
                 }
             }
-        }.setActive(false).setAcceleratorCTRLplus('C').enableAcceleratorIn(this);
+        }.setEnabledChain(false).setAcceleratorCTRLplus('C').enableAcceleratorIn(this);
     }
 
     private ArrayList<Movable> getSelectedElements(ShapeFactory shapeFactory) {
@@ -1200,7 +1203,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (activeMouseController != null && activeMouseController != this)
                 activeMouseController.deactivate();
             activeMouseController = this;
-            deleteAction.setActive(false);
+            deleteAction.setEnabled(false);
             copyAction.setEnabled(false);
             cutAction.setEnabled(false);
             rotateAction.setEnabled(false);
@@ -1326,7 +1329,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             this.element = element;
             delta = null;
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
         }
 
@@ -1392,7 +1395,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             initialPos = visualElement.getPos();
             initialRot = visualElement.getRotate();
             delta = initialPos.sub(pos);
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
             copyAction.setEnabled(true);
             repaintNeeded();
@@ -1473,7 +1476,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             this.pos = raster(pos);
             this.initialWirePos = wire.getPos();
             this.initialPos = this.pos;
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             removeHighLighted();
             repaintNeeded();
         }
@@ -1697,7 +1700,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             this.corner1 = corner1;
             this.corner2 = corner2;
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             copyAction.setEnabled(true);
             cutAction.setEnabled(true);
             rotateAction.setEnabled(true);
@@ -1905,7 +1908,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     m.move(delta);
             }
 
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
         }
 

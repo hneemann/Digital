@@ -6,13 +6,9 @@ import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Button;
-import de.neemann.digital.core.io.In;
-import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.io.PowerSupply;
+import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
@@ -77,7 +73,6 @@ import static javax.swing.JOptionPane.showInputDialog;
  * @author hneemann
  */
 public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, Circuit.ChangedListener {
-    private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
     private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
 
@@ -86,12 +81,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      */
     public static boolean enableExperimental() {
         return experimental;
-    }
-
-    static {
-        ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
-        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH);
-        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
     }
 
     private static final String MESSAGE = Lang.get("message");
@@ -125,6 +114,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private ToolTipAction doStep;
     private ToolTipAction runToBreakAction;
+    private ToolTipAction showMeasurementDialog;
+    private ToolTipAction showMeasurementGraph;
 
     private File baseFilename;
     private File filename;
@@ -395,7 +386,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     }
                 }
             }
-        }.setAcceleratorCTRLplus('N').setToolTip(Lang.get("menu_new_tt")).setActive(allowAll);
+        }.setAcceleratorCTRLplus('N').setToolTip(Lang.get("menu_new_tt")).setEnabledChain(allowAll);
 
         ToolTipAction newSubFile = new ToolTipAction(Lang.get("menu_newSub"), ICON_NEW_SUB) {
             @Override
@@ -421,7 +412,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     }
                 }
             }
-        }.setAcceleratorCTRLplus('O').setActive(allowAll);
+        }.setAcceleratorCTRLplus('O').setEnabledChain(allowAll);
 
         ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), ICON_OPEN_WIN) {
             @Override
@@ -435,7 +426,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             .setVisible(true);
                 }
             }
-        }.setToolTip(Lang.get("menu_openWin_tt")).setActive(allowAll);
+        }.setToolTip(Lang.get("menu_openWin_tt")).setEnabledChain(allowAll);
 
         JMenu openRecent = new JMenu(Lang.get("menu_openRecent"));
         fileHistory.setMenu(openRecent);
@@ -478,7 +469,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     saveFile(filename, false);
             }
-        }.setAcceleratorCTRLplus('S').setActive(false);
+        }.setAcceleratorCTRLplus('S').setEnabledChain(false);
 
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
@@ -859,7 +850,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
                 }
             }
-        }.setToolTip(Lang.get("menu_fast_tt")).setActive(false);
+        }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false);
 
         ToolTipAction stoppedStateAction = stoppedState.createToolTipAction(Lang.get("menu_element"), ICON_STOP).setToolTip(Lang.get("menu_element_tt"));
 
@@ -889,12 +880,29 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
 
-        ToolTipAction editRunAttributes = new ToolTipAction(Lang.get("menu_editRunAttributes")) {
+        showMeasurementDialog = new ToolTipAction(Lang.get("menu_showDataTable")) {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                circuitComponent.editCircuitAttributes(Main.this, ATTR_LIST);
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model != null) {
+                    ModelEvent event = ModelEvent.STEP;
+                    if (stateManager.isActive(runModelMicroState))
+                        event = ModelEvent.MICROSTEP;
+                    showMeasurementDialog(event);
+                }
             }
-        }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
+        }.setToolTip(Lang.get("menu_showDataTable_tt")).setEnabledChain(false);
+
+        showMeasurementGraph = new ToolTipAction(Lang.get("menu_showDataGraph")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model != null) {
+                    ModelEvent event = ModelEvent.STEP;
+                    if (stateManager.isActive(runModelMicroState))
+                        event = ModelEvent.MICROSTEP;
+                    showMeasurementGraph(event);
+                }
+            }
+        }.setToolTip(Lang.get("menu_showDataGraph_tt")).setEnabledChain(false);
 
         circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(' '), KEY_START_STOP_ACTION);
         circuitComponent.getActionMap().put(KEY_START_STOP_ACTION, new AbstractAction() {
@@ -909,7 +917,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         JMenu run = new JMenu(Lang.get("menu_sim"));
         menuBar.add(run);
-        run.add(editRunAttributes.createJMenuItem());
+        run.add(showMeasurementDialog.createJMenuItem());
+        run.add(showMeasurementGraph.createJMenuItem());
         run.addSeparator();
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
@@ -1037,6 +1046,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.setModeAndReset(false, NoSync.INST);
                 doStep.setEnabled(false);
                 stoppedState.getAction().setEnabled(false);
+                showMeasurementDialog.setEnabled(false);
+                showMeasurementGraph.setEnabled(false);
                 runToBreakAction.setEnabled(false);
                 // keep errors
                 if (circuitComponent.getHighLightStyle() != Style.ERROR)
@@ -1049,6 +1060,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void enter() {
                 super.enter();
+                showMeasurementDialog.setEnabled(true);
+                showMeasurementGraph.setEnabled(true);
                 stoppedState.getAction().setEnabled(true);
                 if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
@@ -1109,14 +1122,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
-            List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_TABLE))
-                windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync, circuitComponent)).setVisible(true);
+                showMeasurementDialog(updateEvent);
 
+            List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_GRAPH))
-                windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
+                showMeasurementGraph(updateEvent);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
-                windowPosManager.register("dataSetMicro", GraphDialog.createLiveDialog(this, model, true, ordering, modelSync)).setVisible(true);
+                showMeasurementGraph(ModelEvent.MICROSTEP);
 
             if (modelModifier != null)
                 modelModifier.preInit(model);
@@ -1128,6 +1141,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
+    }
+
+    private void showMeasurementGraph(ModelEvent updateEvent) {
+        List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
+        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
+    }
+
+    private void showMeasurementDialog(ModelEvent updateEvent) {
+        List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
+        windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync, circuitComponent)).setVisible(true);
     }
 
     @Override
@@ -1228,7 +1251,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private void setFilename(File filename, boolean toPrefs) {
         modifiedPrefixVisible = circuitComponent.getCircuit().isModified();
         if (save != null)
-            save.setActive(modifiedPrefixVisible);
+            save.setEnabled(modifiedPrefixVisible);
         String prefix = "";
         if (modifiedPrefixVisible)
             prefix = "*";
@@ -1378,6 +1401,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         void enter(boolean runRealTime, ModelModifier modelModifier) {
             super.enter();
             stoppedState.getAction().setEnabled(true);
+            showMeasurementDialog.setEnabled(true);
+            showMeasurementGraph.setEnabled(true);
             if (createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier))
                 circuitComponent.setManualChangeObserver(new FullStepObserver(model));
         }
