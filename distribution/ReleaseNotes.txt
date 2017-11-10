@@ -4,6 +4,7 @@ HEAD, planned as v0.16
 - RAM components and EEPROM now allow an input invert configuration.
 - Measurement values dialog is also able to modify the values.
 - Now you can open the measurement value table and graph in a running simulation.
+- Added a bit extender to extend signed values.
 - Bug fixes
   - fixed a Bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.
 
