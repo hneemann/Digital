@@ -156,6 +156,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(BarrelShifter.DESCRIPTION)
                         .add(Comparator.DESCRIPTION)
                         .add(Neg.DESCRIPTION)
+                        .add(BitExtender.DESCRIPTION)
                         .add(BitCount.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_switching"))
                         //.add(Diode.DESCRIPTION) // see class DiodeTest for further information

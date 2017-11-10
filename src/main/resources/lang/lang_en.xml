@@ -480,6 +480,12 @@
     <string name="elem_Neg_tt">Negation in the 2th complement</string>
     <string name="elem_Neg_pin_in">Input of the data word to be negated in 2th complement</string>
     <string name="elem_Neg_pin_out">Returns the result of the negation in 2th complement.</string>
+    <string name="elem_BitExtender">SignExtend</string>
+    <string name="elem_BitExtender_tt">Increases the bit width of a signed value keeping the values sign.</string>
+    <string name="elem_BitExtender_pin_in">Input value.
+        The input bit width must be smaller than the output bit width!</string>
+    <string name="elem_BitExtender_pin_out">Extended input value.
+        The input bit width must be smaller than the output bit width!</string>
     <string name="elem_BitCount">Bit counter</string>
     <string name="elem_BitCount_tt">Returns the number of 1-bits in the input value.</string>
     <string name="elem_BitCount_pin_in">The input which 1-bits are counted.</string>
@@ -715,6 +721,7 @@ The names of the variables may not be unique.</string>
     <string name="err_noMainFoundInManifest">The manifest does not contain a Main-Class entry!</string>
     <string name="err_mainClass_N_NotFound">Could not find the class {0}!</string>
     <string name="err_couldNotInitializeMainClass_N">Could not create an instance of the class {0}!</string>
+    <string name="err_notMoreOutBitsThanInBits">There must be more input bits than output bits!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -890,6 +897,8 @@ The names of the variables may not be unique.</string>
     <string name="key_jarPath_tt">A jar file containing additional components implemented in java.</string>
     <string name="key_showWireBits">Shows the number of wires on a bus.</string>
     <string name="key_showWireBits_tt">CAUTION: The value is only updated when the simulation starts.</string>
+    <string name="key_outputBits">Output Bit Width</string><!-- BitExtender -->
+    <string name="key_outputBits_tt">The number of output bits must be greater than the number of input bits.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

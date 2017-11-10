@@ -22,10 +22,12 @@ public class Observable {
      * Adds an observer to this observable.
      *
      * @param observer the observer to add
+     * @return observer the observer to add
      */
-    public void addObserver(Observer observer) {
+    public Observer addObserver(Observer observer) {
         if (observer != null)
             observers.add(observer);
+        return observer;
     }
 
     /**

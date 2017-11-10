@@ -32,6 +32,12 @@ public final class Keys {
             = new Key.KeyBits("Bits", 1);
 
     /**
+     * output bits of sign extender
+     */
+    public static final Key.KeyBits OUTPUT_BITS
+            = new Key.KeyBits("outputBits", 16);
+
+    /**
      * number of inputs in simple gates like And and Or
      */
     public static final Key.KeyInteger INPUT_COUNT  // needs to have the same default value as ADDR_BITS!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor

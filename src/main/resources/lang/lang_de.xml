@@ -476,6 +476,13 @@
     <string name="elem_Neg_pin_in">Eingang des Datenworts, welches im 2-er Komplement negiert werden soll.</string>
     <string name="elem_Neg_pin_out">Gibt das Ergebnis der Negation im 2-er Komplement zurück.</string>
     <string name="elem_Neg_tt">Ein Baustein für die Negation von Datenworten im 2-er Komplement.</string>
+    <string name="elem_BitExtender">Biterweiterung</string>
+    <string name="elem_BitExtender_tt">Erweitert die Bitanzahl eines vorzeichenbehafteten Eingangswertes unter
+        Erhalt des Vorzeichens.</string>
+    <string name="elem_BitExtender_pin_in">Einganswert.
+        Die Eingangsbitzahl muss kleiner sein als die Ausgangsbitzahl!</string>
+    <string name="elem_BitExtender_pin_out">Vorzeichenrichtig erweiterter Eingangswert.
+        Die Eingangsbitzahl muss kleiner sein als die Ausgangsbitzahl!</string>
     <string name="elem_BitCount">Bitzähler</string>
     <string name="elem_BitCount_tt">Gibt die Anzahl der 1-Bits im Eingangswert aus.</string>
     <string name="elem_BitCount_pin_in">Die 1-Bits in diesem Datenwort werden gezählt.</string>
@@ -717,6 +724,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_noMainFoundInManifest">Das Manifest enthält keinen Main-Class-Eintrag!</string>
     <string name="err_mainClass_N_NotFound">Die Klasse {0} wurde nicht gefunden!</string>
     <string name="err_couldNotInitializeMainClass_N">Es konnte keine Instanz der Klasse {0} erzeugt werden!</string>
+    <string name="err_notMoreOutBitsThanInBits">Es muss mehr Eingangsbits als Ausgangsbits geben!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits die verwendet werden.</string>
@@ -896,6 +904,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showWireBits">Zeigt die Anzahl der Leitungen auf einem Bus</string>
     <string name="key_showWireBits_tt">Zeigt die Anzahl der Leitungen eines Bus an. ACHTUNG: Dieser Wert wird nur beim
         Start der Simulation aktualisiert.</string>
+    <string name="key_outputBits">Anzahl Ausgangsbits</string><!-- BitExtender -->
+    <string name="key_outputBits_tt">Die Anzahl der Ausgangsbits muss größer sein als die Anzahl der Eingangsbits.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
