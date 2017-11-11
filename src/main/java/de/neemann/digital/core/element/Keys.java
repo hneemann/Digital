@@ -32,6 +32,12 @@ public final class Keys {
             = new Key.KeyBits("Bits", 1);
 
     /**
+     * input bits of sign extender
+     */
+    public static final Key.KeyBits INPUT_BITS
+            = new Key.KeyBits("inputBits", 8);
+
+    /**
      * output bits of sign extender
      */
     public static final Key.KeyBits OUTPUT_BITS

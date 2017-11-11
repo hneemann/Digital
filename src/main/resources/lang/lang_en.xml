@@ -911,6 +911,8 @@ The names of the variables may not be unique.</string>
     <string name="key_jarPath_tt">A jar file containing additional components implemented in java.</string>
     <string name="key_showWireBits">Shows the number of wires on a bus.</string>
     <string name="key_showWireBits_tt">CAUTION: The value is only updated when the simulation starts.</string>
+    <string name="key_inputBits">Input Bit Width</string><!-- BitExtender -->
+    <string name="key_inputBits_tt">The number of output bits must be greater than the number of input bits.</string>
     <string name="key_outputBits">Output Bit Width</string><!-- BitExtender -->
     <string name="key_outputBits_tt">The number of output bits must be greater than the number of input bits.</string>
 

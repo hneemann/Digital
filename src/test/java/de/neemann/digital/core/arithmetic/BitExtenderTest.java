@@ -11,7 +11,9 @@ public class BitExtenderTest extends TestCase {
     public void testSignExtend() throws Exception {
         ObservableValue in = new ObservableValue("in", 4);
 
-        BitExtender bitExtender = new BitExtender(new ElementAttributes().set(Keys.OUTPUT_BITS, 8));
+        BitExtender bitExtender = new BitExtender(new ElementAttributes()
+                .set(Keys.INPUT_BITS, 4)
+                .set(Keys.OUTPUT_BITS, 8));
         bitExtender.setInputs(in.asList());
         assertEquals(1, bitExtender.getOutputs().size());
         ObservableValue out = bitExtender.getOutputs().get(0);
@@ -28,7 +30,9 @@ public class BitExtenderTest extends TestCase {
     public void testSignExtendInit() throws Exception {
         ObservableValue in = new ObservableValue("in", 4).setValue(1);
 
-        BitExtender bitExtender = new BitExtender(new ElementAttributes().set(Keys.OUTPUT_BITS, 8));
+        BitExtender bitExtender = new BitExtender(new ElementAttributes()
+                .set(Keys.INPUT_BITS, 4)
+                .set(Keys.OUTPUT_BITS, 8));
         bitExtender.setInputs(in.asList());
 
         assertEquals(1, bitExtender.getOutputs().get(0).getValue());

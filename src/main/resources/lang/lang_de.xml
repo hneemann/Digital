@@ -919,6 +919,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showWireBits">Zeigt die Anzahl der Leitungen auf einem Bus</string>
     <string name="key_showWireBits_tt">Zeigt die Anzahl der Leitungen eines Bus an. ACHTUNG: Dieser Wert wird nur beim
         Start der Simulation aktualisiert.</string>
+    <string name="key_inputBits">Anzahl Eingangsbits</string><!-- BitExtender -->
+    <string name="key_inputBits_tt">Die Anzahl der Ausgangsbits muss größer sein als die Anzahl der Eingangsbits.</string>
     <string name="key_outputBits">Anzahl Ausgangsbits</string><!-- BitExtender -->
     <string name="key_outputBits_tt">Die Anzahl der Ausgangsbits muss größer sein als die Anzahl der Eingangsbits.</string>
 
