@@ -46,7 +46,7 @@ public class ObservableValue extends Observable implements PinDescription {
             mask = -1;
         else
             mask = (1L << bits) - 1;
-        signedFlag = 1 << (bits - 1);
+        signedFlag = 1L << (bits - 1);
         this.name = name;
         supportsHighZ = highZ;
     }

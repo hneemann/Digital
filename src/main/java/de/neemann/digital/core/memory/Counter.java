@@ -28,12 +28,12 @@ public class Counter extends Node implements Element {
 
     private final ObservableValue out;
     private final ObservableValue ovf;
-    private final int maxValue;
+    private final long maxValue;
     private ObservableValue clockIn;
     private ObservableValue clrIn;
     private ObservableValue enable;
     private boolean lastClock;
-    private int counter;
+    private long counter;
     private boolean ovfOut = false;
 
     /**
@@ -46,7 +46,7 @@ public class Counter extends Node implements Element {
         int bits = attributes.getBits();
         this.out = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
         this.ovf = new ObservableValue("ovf", 1).setPinDescription(DESCRIPTION);
-        maxValue = (1 << bits) - 1;
+        maxValue = (1L << bits) - 1;
     }
 
     @Override

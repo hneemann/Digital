@@ -42,7 +42,7 @@ public class Add extends Node implements Element {
      */
     public Add(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        this.mask = 1 << bits;
+        this.mask = 1L << bits;
 
         this.sum = new ObservableValue("s", bits).setPinDescription(DESCRIPTION);
         this.cOut = new ObservableValue("c_o", 1).setPinDescription(DESCRIPTION);

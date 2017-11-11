@@ -86,8 +86,8 @@ public class BarrelShifter extends Node implements Element {
                 value |= inVal << (bits - shiftVal);
             }
             value |= inVal >> shiftVal;
-            if ((mode == BarrelShifterMode.arithmetic) && ((inVal & (1 << (bits - 1))) != 0)) {
-                int mask = (1 << (bits)) - 1;
+            if ((mode == BarrelShifterMode.arithmetic) && ((inVal & (1L << (bits - 1))) != 0)) {
+                long mask = (1L << (bits)) - 1;
                 mask = mask >> shiftVal;
                 value |= ~mask;
             }

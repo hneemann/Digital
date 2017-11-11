@@ -44,8 +44,8 @@ public class BitExtender implements Element {
         if (inBits >= outBits)
             throw new NodeException(Lang.get("err_notMoreOutBitsThanInBits"));
 
-        final int signMask = 1 << (inBits - 1);
-        final int extendMask = ~((1 << inBits) - 1);
+        final long signMask = 1L << (inBits - 1);
+        final long extendMask = ~((1L << inBits) - 1);
 
         in.addObserver(() -> {
             long inValue = in.getValue();
