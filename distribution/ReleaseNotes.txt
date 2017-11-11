@@ -7,7 +7,9 @@ HEAD, planned as v0.16
 - Added a bit extender to extend signed values.
 - Added a simple unclocked RS flip-flop
 - Bug fixes
-  - fixed a Bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.
+  - Fixed a Bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.
+  - Fixed a bug in the barrel shifter and adder if 32 bits or more where used.
+  - It was not possible to use constants with 32 bits or more. Now it is.
 
 v0.15, released on 30. Oct 2017
 - Added the possibility to use custom, java implemented components in Digital.
