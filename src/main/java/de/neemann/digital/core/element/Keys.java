@@ -63,8 +63,8 @@ public final class Keys {
     /**
      * The value of constants
      */
-    public static final Key<Integer> VALUE
-            = new Key<>("Value", 1).allowGroupEdit();
+    public static final Key<Long> VALUE
+            = new Key<>("Value", 1L).allowGroupEdit();
 
     /**
      * The default value of elements

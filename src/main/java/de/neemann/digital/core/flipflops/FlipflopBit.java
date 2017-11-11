@@ -32,7 +32,7 @@ abstract class FlipflopBit extends Node implements Element {
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getCleanLabel();
 
-        int def = attributes.get(Keys.DEFAULT);
+        long def = attributes.get(Keys.DEFAULT);
         out = def > 0;
         q.setBool(out);
         qn.setBool(!out);

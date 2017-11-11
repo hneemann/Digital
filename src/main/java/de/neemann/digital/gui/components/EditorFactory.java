@@ -47,6 +47,7 @@ public final class EditorFactory {
     private EditorFactory() {
         add(String.class, StringEditor.class);
         add(Integer.class, IntegerEditor.class);
+        add(Long.class, LongEditor.class);
         add(InValue.class, InValueEditor.class);
         add(File.class, FileEditor.class);
         add(Color.class, ColorEditor.class);
@@ -223,6 +224,34 @@ public final class EditorFactory {
                     value = max;
             }
 
+            return value;
+        }
+    }
+
+    private final static class LongEditor extends LabelEditor<Long> {
+        private static final Long[] DEFAULTS = {0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L, 16L};
+        private final JComboBox<Long> comboBox;
+
+        public LongEditor(Long value, Key<Long> key) {
+            comboBox = new JComboBox<>(DEFAULTS);
+            comboBox.setEditable(true);
+            comboBox.setSelectedItem(value.toString());
+        }
+
+        @Override
+        public JComponent getComponent(ElementAttributes attr) {
+            return comboBox;
+        }
+
+        @Override
+        public Long getValue() {
+            Object item = comboBox.getSelectedItem();
+            long value = 0;
+            if (item instanceof Number)
+                value = ((Number) item).longValue();
+            else {
+                value = Long.decode(item.toString());
+            }
             return value;
         }
     }

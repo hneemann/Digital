@@ -195,7 +195,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             fragmentVariables.add(fragmentVariable);
             return fragmentVariable;
         } else if (expression instanceof Constant) {
-            int val = 0;
+            long val = 0;
             if (((Constant) expression).getValue())
                 val = 1;
             return new FragmentVisualElement(Const.DESCRIPTION, shapeFactory).setAttr(Keys.VALUE, val);

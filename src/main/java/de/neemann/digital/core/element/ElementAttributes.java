@@ -52,6 +52,12 @@ public class ElementAttributes {
             if (value == null)
                 return key.getDefault();
 
+            // needed to fix files with int constants!
+            if ((key == Keys.VALUE) && value instanceof Integer) {
+                value = (VALUE) new Long(((Integer) value).longValue());
+                attributes.put(key.getKey(), value);
+            }
+
             // needed to fix files with int pin numbers!
             if (key == Keys.PINNUMBER && value instanceof Integer) {
                 value = (VALUE) value.toString();
