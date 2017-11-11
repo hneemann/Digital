@@ -494,7 +494,7 @@
     <string name="elem_BitExtender">Biterweiterung</string>
     <string name="elem_BitExtender_tt">Erweitert die Bitanzahl eines vorzeichenbehafteten Eingangswertes unter
         Erhalt des Vorzeichens.</string>
-    <string name="elem_BitExtender_pin_in">Einganswert.
+    <string name="elem_BitExtender_pin_in">Eingangswert.
         Die Eingangsbitzahl muss kleiner sein als die Ausgangsbitzahl!</string>
     <string name="elem_BitExtender_pin_out">Vorzeichenrichtig erweiterter Eingangswert.
         Die Eingangsbitzahl muss kleiner sein als die Ausgangsbitzahl!</string>
