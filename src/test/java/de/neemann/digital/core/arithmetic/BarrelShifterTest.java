@@ -120,6 +120,24 @@ public class BarrelShifterTest extends TestCase {
         bsTest.check(0b101000, -5, 0b111101);
     }
 
+    public void testArithmeticUnsignedRight32() throws Exception {
+        TestExecuter bsTest = getTestExecuter(BarrelShifterMode.arithmetic, false, LeftRightFormat.right, 32, 6);
+        bsTest.check(0x80000000L, 0, 0x80000000L);
+        bsTest.check(0x80000000L, 1, 0xc0000000L);
+        bsTest.check(0x80000000L, 2, 0xe0000000L);
+        bsTest.check(0x80000000L, 3, 0xf0000000L);
+        bsTest.check(0x80000000L, 4, 0xf8000000L);
+    }
+
+    public void testArithmeticUnsignedRight33() throws Exception {
+        TestExecuter bsTest = getTestExecuter(BarrelShifterMode.arithmetic, false, LeftRightFormat.right, 33, 6);
+        bsTest.check(0x100000000L, 0, 0x100000000L);
+        bsTest.check(0x100000000L, 1, 0x180000000L);
+        bsTest.check(0x100000000L, 2, 0x1c0000000L);
+        bsTest.check(0x100000000L, 3, 0x1e0000000L);
+        bsTest.check(0x100000000L, 4, 0x1f0000000L);
+    }
+
     public void testShiftSizeCalculationTest() throws Exception {
         getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 1, 1);
         getTestExecuter(BarrelShifterMode.rotate, false, LeftRightFormat.left, 2, 2);
