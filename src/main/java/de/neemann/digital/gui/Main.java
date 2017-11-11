@@ -1125,7 +1125,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (settings.get(Keys.SHOW_DATA_TABLE))
                 showMeasurementDialog(updateEvent);
 
-            List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
             if (settings.get(Keys.SHOW_DATA_GRAPH))
                 showMeasurementGraph(updateEvent);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
