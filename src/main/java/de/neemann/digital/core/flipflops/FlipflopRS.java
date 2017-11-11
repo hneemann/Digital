@@ -1,20 +1,21 @@
 package de.neemann.digital.core.flipflops;
 
-import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.BitsException;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
-import static de.neemann.digital.core.ObservableValues.ovs;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * The RS Flipflop
+ * The RS flip-flop
  *
  * @author hneemann
  */
-public class FlipflopRS extends Node implements Element {
+public class FlipflopRS extends FlipflopBit {
 
     /**
      * The RS-FF description
@@ -27,16 +28,11 @@ public class FlipflopRS extends Node implements Element {
             .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
-    private final boolean isProbe;
-    private final String label;
 
     private ObservableValue sVal;
     private ObservableValue rVal;
     private ObservableValue clockVal;
-    private ObservableValue q;
-    private ObservableValue qn;
     private boolean lastClock;
-    private boolean out;
 
     /**
      * Creates a new instance
@@ -44,16 +40,7 @@ public class FlipflopRS extends Node implements Element {
      * @param attributes the attributes
      */
     public FlipflopRS(ElementAttributes attributes) {
-        super(true);
-        this.q = new ObservableValue("Q", 1).setPinDescription(DESCRIPTION);
-        this.qn = new ObservableValue("\u00ACQ", 1).setPinDescription(DESCRIPTION);
-        isProbe = attributes.get(Keys.VALUE_IS_PROBE);
-        label = attributes.getCleanLabel();
-
-        int def = attributes.get(Keys.DEFAULT);
-        out = def > 0;
-        q.setBool(out);
-        qn.setBool(!out);
+        super(attributes, DESCRIPTION);
     }
 
     @Override
@@ -63,16 +50,10 @@ public class FlipflopRS extends Node implements Element {
             boolean s = sVal.getBool();
             boolean r = rVal.getBool();
 
-            if (s && !r) out = true;
-            else if (!s && r) out = false;
+            if (s && !r) setOut(true);
+            else if (!s && r) setOut(false);
         }
         lastClock = clock;
-    }
-
-    @Override
-    public void writeOutputs() throws NodeException {
-        q.setBool(out);
-        qn.setBool(!out);
     }
 
     @Override
@@ -80,22 +61,6 @@ public class FlipflopRS extends Node implements Element {
         sVal = inputs.get(0).checkBits(1, this, 0);
         clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
         rVal = inputs.get(2).checkBits(1, this, 2);
-    }
-
-    @Override
-    public ObservableValues getOutputs() {
-        return ovs(q, qn);
-    }
-
-    @Override
-    public void registerNodes(Model model) {
-        super.registerNodes(model);
-        if (isProbe)
-            model.addSignal(new Signal(label, q, v -> {
-                out = v != 0;
-                q.setBool(out);
-                qn.setBool(!out);
-            }));
     }
 
 }
