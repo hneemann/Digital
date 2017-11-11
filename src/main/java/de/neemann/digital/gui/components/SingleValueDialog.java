@@ -82,7 +82,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         editValue = value.getValue();
         supportsHighZ = value.supportsHighZ();
-        mask = (1 << value.getBits()) - 1;
+        mask = (1L << value.getBits()) - 1;
 
         textField = new JTextField(10);
         textField.setHorizontalAlignment(JTextField.RIGHT);
