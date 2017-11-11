@@ -33,4 +33,36 @@ public class AddTest extends TestCase {
         sc.check(8, 8, 0, 0, 1);
         sc.check(8, 8, 1, 1, 1);
     }
+
+    public void testAdd31() throws Exception {
+        ObservableValue a = new ObservableValue("a", 31);
+        ObservableValue b = new ObservableValue("b", 31);
+        ObservableValue c = new ObservableValue("c", 1);
+
+
+        Model model = new Model();
+        Add node = new Add(new ElementAttributes().setBits(31));
+        node.setInputs(ovs(a, b, c));
+        model.add(node);
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(node.getOutputs());
+        sc.check(-1, 0, 1, 0, 1);
+        sc.check(-1, 1, 0, 0, 1);
+    }
+
+    public void testAdd32() throws Exception {
+        ObservableValue a = new ObservableValue("a", 32);
+        ObservableValue b = new ObservableValue("b", 32);
+        ObservableValue c = new ObservableValue("c", 1);
+
+
+        Model model = new Model();
+        Add node = new Add(new ElementAttributes().setBits(32));
+        node.setInputs(ovs(a, b, c));
+        model.add(node);
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(node.getOutputs());
+        sc.check(-1, 0, 1, 0, 1);
+        sc.check(-1, 1, 0, 0, 1);
+    }
 }

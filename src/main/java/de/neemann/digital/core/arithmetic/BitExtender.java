@@ -22,10 +22,12 @@ public class BitExtender implements Element {
             = new ElementTypeDescription(BitExtender.class, input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INPUT_BITS)
             .addAttribute(Keys.OUTPUT_BITS);
 
     private final ObservableValue out;
     private final int outBits;
+    private final int inBits;
 
     /**
      * creates a new instance
@@ -35,12 +37,12 @@ public class BitExtender implements Element {
     public BitExtender(ElementAttributes attr) {
         outBits = attr.get(Keys.OUTPUT_BITS);
         out = new ObservableValue("out", outBits).setPinDescription(DESCRIPTION);
+        inBits = attr.get(Keys.INPUT_BITS);
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        final ObservableValue in = inputs.get(0);
-        final int inBits = in.getBits();
+        final ObservableValue in = inputs.get(0).checkBits(inBits, null);
         if (inBits >= outBits)
             throw new NodeException(Lang.get("err_notMoreOutBitsThanInBits"));
 

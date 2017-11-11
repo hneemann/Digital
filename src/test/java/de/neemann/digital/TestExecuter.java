@@ -123,14 +123,14 @@ public class TestExecuter {
         return this;
     }
 
-    public void checkC(int... val) throws NodeException {
+    public void checkC(long... val) throws NodeException {
         ObservableValue clock = model.getClocks().get(0).getClockOutput();
         clock.setBool(true);
         model.doStep();
         clock.setBool(false);
         check(val);
     }
-    public void check(int... val) throws NodeException {
+    public void check(long... val) throws NodeException {
         for (int i = 0; i < inputs.size(); i++) {
             if (val[i]==HIGHZ)
                 inputs.get(i).set(0, true);
@@ -141,7 +141,7 @@ public class TestExecuter {
             model.doStep();
 
         for (int i = 0; i < outputs.size(); i++) {
-            int should = val[i + inputs.size()];
+            long should = val[i + inputs.size()];
             if (should != IGNORE) {
                 if (should == HIGHZ) {
                     assertTrue("highz output " + i, outputs.get(i).isHighZ());
