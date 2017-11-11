@@ -143,4 +143,7 @@ public class FlipflopJK extends Node implements Element {
             }));
     }
 
+    void setOut(boolean out) {
+        this.out = out;
+    }
 }

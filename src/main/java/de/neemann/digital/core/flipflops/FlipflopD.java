@@ -62,7 +62,7 @@ public class FlipflopD extends Node implements Element {
             throw new RuntimeException("wrong bit count given!");
     }
 
-    private FlipflopD(ElementAttributes attributes, ObservableValue q, ObservableValue qn) {
+    FlipflopD(ElementAttributes attributes, ObservableValue q, ObservableValue qn) {
         super(true);
         bits = attributes.getBits();
         this.q = q;
@@ -137,5 +137,9 @@ public class FlipflopD extends Node implements Element {
      */
     public int getBits() {
         return bits;
+    }
+
+    void setValue(long value) {
+        this.value = value;
     }
 }
