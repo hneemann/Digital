@@ -50,8 +50,17 @@ public class FlipflopRS extends FlipflopBit {
             boolean s = sVal.getBool();
             boolean r = rVal.getBool();
 
-            if (s && !r) setOut(true);
-            else if (!s && r) setOut(false);
+            if (s) {
+                if (r) {
+                    setOut(Math.random()<0.5);
+                } else {
+                    setOut(true);
+                }
+            } else {
+                if (r) {
+                    setOut(false);
+                }
+            }
         }
         lastClock = clock;
     }
