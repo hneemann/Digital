@@ -301,9 +301,9 @@
     <string name="elem_RS_FF_AS">RS-FlipFlop</string>
     <string name="elem_RS_FF_AS_short">RS</string>
     <string name="elem_RS_FF_AS_tt">A component to store a single bit.
-        Provides the functions "set" and "reset" the set or reset the stored bit.
+        Provides the functions "set" and "reset" to set or reset the stored bit.
         If both inputs are switched to one, both outputs also output a one.
-        If both inputs switch back to zero at the same time, the final state is undefined.
+        If both inputs switch back to zero at the same time, the final state is random.
     </string>
     <string name="elem_RS_FF_AS_pin_S">The set input.</string>
     <string name="elem_RS_FF_AS_pin_R">The reset input.</string>
@@ -313,7 +313,9 @@
     <string name="elem_RS_FF">RS-FlipFlop, clocked</string>
     <string name="elem_RS_FF_short">RS</string>
     <string name="elem_RS_FF_tt">A component to store a single bit.
-        Provides the functions "set" and "reset" the set or reset the stored bit.</string>
+        Provides the functions "set" and "reset" to set or reset the stored bit.
+        If both inputs (S, R) are set at the rising edge of the clock, the final state is random.
+    </string>
     <string name="elem_RS_FF_pin_S">The set input.</string>
     <string name="elem_RS_FF_pin_C">The clock input. A rising edge initiates a state transition.</string>
     <string name="elem_RS_FF_pin_R">The reset input.</string>

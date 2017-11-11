@@ -304,8 +304,11 @@
     <string name="elem_RS_FF">RS-FlipFlop, getaktet</string>
     <string name="elem_RS_FF_short">RS</string>
     <string name="elem_RS_FF_tt">Ein Baustein welcher ein einzelnes Bit speichern kann.
-        Bietet die Funktionen "Setzen" und "Rücksetzen".</string>
-    <string name="elem_RS_FF_pin_S">Der Setzen-Eingang.  Mit diesem Eingang wird das gespeicherte Bit gesetzt.</string>
+        Bietet die Funktionen "Setzen" und "Rücksetzen".
+        Sind bei der steigenden Flanke des Taktes beide Eingänge (S,R) gesetzt, nimmt das Flipflop einen
+        zufälligen Zustand ein.
+    </string>
+    <string name="elem_RS_FF_pin_S">Der Setzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit gesetzt.</string>
     <string name="elem_RS_FF_pin_C">Der Takteingang. Eine steigende Flanke veranlasst die Zustandsänderung.</string>
     <string name="elem_RS_FF_pin_R">Der Rücksetzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit zurückgesetzt.</string>
     <string name="elem_RS_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
