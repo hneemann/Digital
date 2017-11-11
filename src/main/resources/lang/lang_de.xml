@@ -289,7 +289,19 @@
 
     <!-- flip flops-->
 
-    <string name="elem_RS_FF">RS-FlipFlop</string>
+    <string name="elem_RS_FF_AS">RS-FlipFlop</string>
+    <string name="elem_RS_FF_AS_short">RS</string>
+    <string name="elem_RS_FF_AS_tt">Ein Baustein welcher ein einzelnes Bit speichern kann.
+        Bietet die Funktionen "Setzen" und "Rücksetzen".
+        Werden beide Eingänge auf Eins geschaltet, geben auch beide Ausgänge eine Eins aus.
+        Wenn beide Eingänge gleichzeitig zurück auf Null wechseln, ist der Endzustand unbestimmt.
+    </string>
+    <string name="elem_RS_FF_AS_pin_S">Der Setzen-Eingang.  Mit diesem Eingang wird das gespeicherte Bit gesetzt.</string>
+    <string name="elem_RS_FF_AS_pin_R">Der Rücksetzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit zurückgesetzt.</string>
+    <string name="elem_RS_FF_AS_pin_Q">Gibt den gespeicherten Wert aus.</string>
+    <string name="elem_RS_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+
+    <string name="elem_RS_FF">RS-FlipFlop, getaktet</string>
     <string name="elem_RS_FF_short">RS</string>
     <string name="elem_RS_FF_tt">Ein Baustein welcher ein einzelnes Bit speichern kann.
         Bietet die Funktionen "Setzen" und "Rücksetzen".</string>

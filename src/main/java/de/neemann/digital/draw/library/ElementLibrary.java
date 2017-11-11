@@ -134,6 +134,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Demultiplexer.DESCRIPTION)
                         .add(Decoder.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_flipFlops"))
+                        .add(FlipflopRSAsync.DESCRIPTION)
                         .add(FlipflopRS.DESCRIPTION)
                         .add(FlipflopJK.DESCRIPTION)
                         .add(FlipflopD.DESCRIPTION)
