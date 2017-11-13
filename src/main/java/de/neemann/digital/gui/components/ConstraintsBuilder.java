@@ -3,20 +3,20 @@ package de.neemann.digital.gui.components;
 import java.awt.*;
 
 /**
- * More simple to use GridBagConstrains
+ * More simple to use GridBagConstraints
  */
-public class ConstrainsBuilder extends GridBagConstraints {
+public class ConstraintsBuilder extends GridBagConstraints {
 
     /**
      * Creates a new instance.
      * Position is set to (0,0)
      */
-    public ConstrainsBuilder() {
+    public ConstraintsBuilder() {
         gridx = 0;
         gridy = 0;
     }
 
-    private ConstrainsBuilder(ConstrainsBuilder original) {
+    private ConstraintsBuilder(ConstraintsBuilder original) {
         gridx = original.gridx;
         gridy = original.gridy;
         gridwidth = original.gridwidth;
@@ -34,10 +34,10 @@ public class ConstrainsBuilder extends GridBagConstraints {
      *
      * @param x x position
      * @param y y position
-     * @return the new created ConstrainsBuilder instance
+     * @return the new created ConstraintsBuilder instance
      */
-    public ConstrainsBuilder pos(int x, int y) {
-        ConstrainsBuilder c = new ConstrainsBuilder(this);
+    public ConstraintsBuilder pos(int x, int y) {
+        ConstraintsBuilder c = new ConstraintsBuilder(this);
         c.gridx = x;
         c.gridy = y;
         return c;
@@ -47,10 +47,10 @@ public class ConstrainsBuilder extends GridBagConstraints {
      * Sets the position
      *
      * @param x x position
-     * @return the new created ConstrainsBuilder instance
+     * @return the new created ConstraintsBuilder instance
      */
-    public ConstrainsBuilder x(int x) {
-        ConstrainsBuilder c = new ConstrainsBuilder(this);
+    public ConstraintsBuilder x(int x) {
+        ConstraintsBuilder c = new ConstraintsBuilder(this);
         c.gridx = x;
         return c;
     }
@@ -59,10 +59,10 @@ public class ConstrainsBuilder extends GridBagConstraints {
      * Sets the width
      *
      * @param x width
-     * @return the new created ConstrainsBuilder instance
+     * @return the new created ConstraintsBuilder instance
      */
-    public ConstrainsBuilder width(int x) {
-        ConstrainsBuilder c = new ConstrainsBuilder(this);
+    public ConstraintsBuilder width(int x) {
+        ConstraintsBuilder c = new ConstraintsBuilder(this);
         c.gridwidth = x;
         return c;
     }
@@ -70,10 +70,10 @@ public class ConstrainsBuilder extends GridBagConstraints {
     /**
      * Sets a dynamic height
      *
-     * @return the new created ConstrainsBuilder instance
+     * @return the new created ConstraintsBuilder instance
      */
-    public ConstrainsBuilder dynamicHeight() {
-        ConstrainsBuilder c = new ConstrainsBuilder(this);
+    public ConstraintsBuilder dynamicHeight() {
+        ConstraintsBuilder c = new ConstraintsBuilder(this);
         c.weighty = 1;
         return c;
     }
@@ -81,10 +81,10 @@ public class ConstrainsBuilder extends GridBagConstraints {
     /**
      * Sets a dynamic width
      *
-     * @return the new created ConstrainsBuilder instance
+     * @return the new created ConstraintsBuilder instance
      */
-    public ConstrainsBuilder dynamicWidth() {
-        ConstrainsBuilder c = new ConstrainsBuilder(this);
+    public ConstraintsBuilder dynamicWidth() {
+        ConstraintsBuilder c = new ConstraintsBuilder(this);
         c.weightx = 1;
         return c;
     }
@@ -95,10 +95,10 @@ public class ConstrainsBuilder extends GridBagConstraints {
      *
      * @param x x padding
      * @param y y padding
-     * @return the new created ConstrainsBuilder instance
+     * @return the new created ConstraintsBuilder instance
      */
-    public ConstrainsBuilder pad(int x, int y) {
-        ConstrainsBuilder c = new ConstrainsBuilder(this);
+    public ConstraintsBuilder pad(int x, int y) {
+        ConstraintsBuilder c = new ConstraintsBuilder(this);
         c.ipadx = x;
         c.ipady = y;
         return c;
@@ -107,10 +107,10 @@ public class ConstrainsBuilder extends GridBagConstraints {
     /**
      * Sets the fill attribute to BOTH
      *
-     * @return the new created ConstrainsBuilder instance
+     * @return the new created ConstraintsBuilder instance
      */
-    public ConstrainsBuilder fill() {
-        ConstrainsBuilder c = new ConstrainsBuilder(this);
+    public ConstraintsBuilder fill() {
+        ConstraintsBuilder c = new ConstraintsBuilder(this);
         c.fill = GridBagConstraints.BOTH;
         return c;
     }
@@ -119,10 +119,10 @@ public class ConstrainsBuilder extends GridBagConstraints {
      * Sets insets to a border of width b
      *
      * @param b border width
-     * @return the new created ConstrainsBuilder instance
+     * @return the new created ConstraintsBuilder instance
      */
-    public ConstrainsBuilder inset(int b) {
-        ConstrainsBuilder c = new ConstrainsBuilder(this);
+    public ConstraintsBuilder inset(int b) {
+        ConstraintsBuilder c = new ConstraintsBuilder(this);
         c.insets = new Insets(b, b, b, b);
         return c;
     }
@@ -133,7 +133,7 @@ public class ConstrainsBuilder extends GridBagConstraints {
      *
      * @return this for chained calls
      */
-    public ConstrainsBuilder nextRow() {
+    public ConstraintsBuilder nextRow() {
         gridx = 0;
         gridy++;
         return this;

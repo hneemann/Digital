@@ -199,7 +199,7 @@
                 Additional files which are needed by special boards can be created. At present only the
                 <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
                 board is supported.
-                A constrains file is created, which contains the assignment of the pins. The description of the pins can
+                A constraints file is created, which contains the assignment of the pins. The description of the pins can
                 be found in the BASYS3 data sheet, and must be entered as a pin number for the inputs and outputs.
             </par>
             <par>
@@ -220,7 +220,7 @@
                 to program a BASYS3 board.
             </par>
             <par>
-                To create the required constrains file, the circuit must contain a text field with the text "Board:
+                To create the required constraints file, the circuit must contain a text field with the text "Board:
                 BASYS3".
             </par>
         </subchapter>

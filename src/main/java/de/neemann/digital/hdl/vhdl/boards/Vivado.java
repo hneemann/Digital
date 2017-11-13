@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * Creates the needed vivado files.
- * Up to now only the constrains file containing the pin assignments is created
+ * Up to now only the constraints file containing the pin assignments is created
  */
 public class Vivado implements BoardInterface {
 
@@ -38,7 +38,7 @@ public class Vivado implements BoardInterface {
 
     @Override
     public void writeFiles(File path, HDLModel model) throws IOException {
-        File f = new File(path.getParentFile(), path.getName().replace('.', '_') + "_constrains.xdc");
+        File f = new File(path.getParentFile(), path.getName().replace('.', '_') + "_constraints.xdc");
         try (CodePrinter out = new CodePrinter(new FileOutputStream(f))) {
             for (Port p : model.getPorts()) {
                 String pinNumber = p.getPinNumber();

@@ -119,7 +119,7 @@ repeat(16) C bits(16,1&lt;&lt;n)
           <string>Description</string>
           <string>Export this file to VHDL and use Xilinx Vivado to create the bitstream.
 
-Also add the created constrains file to the vivado project to assign 
+Also add the created constraints file to the vivado project to assign
 the pins correctly.</string>
         </entry>
       </elementAttributes>

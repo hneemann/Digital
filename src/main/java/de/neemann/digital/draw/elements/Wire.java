@@ -23,7 +23,7 @@ public class Wire implements Drawable, Movable {
     private static final int MIN_CROSS_WIRE_LEN = SIZE * 2;
     private static final int CROSS_LEN = 4;
     private static final int DISPLACE = SIZE2;
-    //Every value of p1 or p2 is valid. There are no hidden state constrains or dependencies.
+    //Every value of p1 or p2 is valid. There are no hidden state constraints or dependencies.
     //So both fields are allowed to be public to allow more readable code.
     //CHECKSTYLE.OFF: VisibilityModifier
     /**

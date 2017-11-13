@@ -33,7 +33,7 @@ public class AttributeDialog extends JDialog {
     private final ElementAttributes originalAttributes;
     private final ElementAttributes modifiedAttributes;
     private final JPanel buttonPanel;
-    private final ConstrainsBuilder constrains;
+    private final ConstraintsBuilder constraints;
     private HashMap<Key, JCheckBox> checkBoxes;
     private JComponent topMostTextComponent;
     private VisualElement visualElement;
@@ -86,11 +86,11 @@ public class AttributeDialog extends JDialog {
         editors = new ArrayList<>();
 
         topMostTextComponent = null;
-        constrains = new ConstrainsBuilder().inset(3).fill();
+        constraints = new ConstraintsBuilder().inset(3).fill();
         for (Key key : list) {
             Editor e = EditorFactory.INSTANCE.create(key, modifiedAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            e.addToPanel(panel, key, modifiedAttributes, this, constrains);
+            e.addToPanel(panel, key, modifiedAttributes, this, constraints);
             if (addCheckBoxes) {
                 if (checkBoxes == null)
                     checkBoxes = new HashMap<>();
@@ -98,10 +98,10 @@ public class AttributeDialog extends JDialog {
                 checkBox.setSelected(true);
                 checkBox.setToolTipText(Lang.get("msg_modifyThisAttribute"));
                 checkBoxes.put(key, checkBox);
-                panel.add(checkBox, constrains.x(2));
+                panel.add(checkBox, constraints.x(2));
                 checkBox.addChangeListener(event -> e.setEnabled(checkBox.isSelected()));
             }
-            constrains.nextRow();
+            constraints.nextRow();
 
             if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
                 topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
@@ -172,9 +172,9 @@ public class AttributeDialog extends JDialog {
      * @return this for chained calls
      */
     public AttributeDialog addButton(String label, ToolTipAction action) {
-        panel.add(new JLabel(label), constrains);
-        panel.add(action.createJButton(), constrains.x(1));
-        constrains.nextRow();
+        panel.add(new JLabel(label), constraints);
+        panel.add(action.createJButton(), constraints.x(1));
+        constraints.nextRow();
         return this;
     }
 

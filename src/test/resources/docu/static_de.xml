@@ -228,7 +228,7 @@
                 Für spezielle Boards können zusätzliche Dateien erzeugt werden. Zur Zeit wird nur das
                 <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
                 Board unterstützt.
-                Dabei wird eine Constrains-Datei erzeugt, welche die Zuordnung der Pins beinhaltet. Die Bezeichnung der
+                Dabei wird eine Constraints-Datei erzeugt, welche die Zuordnung der Pins beinhaltet. Die Bezeichnung der
                 Pins kann dem BASYS3 Datenblatt entnommen werden, und muss als Pinnummer bei den Ein- und Ausgängen
                 eingetragen werden.
             </par>
@@ -245,11 +245,11 @@
             </par>
             <par>
                 Soll eine Schaltung auf einem BASYS3 Board betrieben werden, kann in Vivado ein neues Projekt angelegt werden.
-                Dabei ist die erzeugte VHDL Datei und die Constrains-Datei dem Projekt hinzuzufügen. Wurde das
+                Dabei ist die erzeugte VHDL Datei und die Constraints-Datei dem Projekt hinzuzufügen. Wurde das
                 Projekt erstellt, kann der Bitstream erzeugt und mit dem Hardware-Manager in ein BASYS3 Board übertragen werden.
             </par>
             <par>
-                Um neben der VHDL Datei auch die erforderliche Constrains-Datei erzeugen zu lassen, muss die Schaltung
+                Um neben der VHDL Datei auch die erforderliche Constraints-Datei erzeugen zu lassen, muss die Schaltung
                 ein Textfeld mit dem Text "Board: BASYS3" enthalten.
             </par>
         </subchapter>

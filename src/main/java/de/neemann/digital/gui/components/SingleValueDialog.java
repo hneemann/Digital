@@ -94,7 +94,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         });
 
         JPanel panel = new JPanel(new GridBagLayout());
-        ConstrainsBuilder constr = new ConstrainsBuilder().inset(3).fill();
+        ConstraintsBuilder constr = new ConstraintsBuilder().inset(3).fill();
         panel.add(formatComboBox, constr);
         JSpinner spinner = new JSpinner(new MySpinnerModel()) {
             @Override

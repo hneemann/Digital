@@ -23,9 +23,9 @@ public interface Editor<T> {
      * @param key               the key which is to edit
      * @param elementAttributes the attributes
      * @param dialog            the containing dialog
-     * @param constrains        the constrains used to place the components in the panel
+     * @param constraints       the constraints used to place the components in the panel
      */
-    void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog dialog, ConstrainsBuilder constrains);
+    void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog dialog, ConstraintsBuilder constraints);
 
     /**
      * Used to enable/disable the component.
