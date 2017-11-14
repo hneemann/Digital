@@ -1,6 +1,5 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
@@ -9,7 +8,10 @@ import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -188,7 +190,7 @@ public class VHDLFile implements VHDLEntity {
     }
 
     @Override
-    public boolean createsSignals() {
+    public boolean createsSignals(HDLNode node) {
         return true;
     }
 
@@ -203,6 +205,13 @@ public class VHDLFile implements VHDLEntity {
     }
 
     private static final class Dummy extends VHDLEntitySimple {
+
+        /**
+         * Creates a new instance
+         */
+        Dummy() {
+            super(null);
+        }
 
         @Override
         public String getName(HDLNode node) {
@@ -288,10 +297,10 @@ public class VHDLFile implements VHDLEntity {
     }
 
     @Override
-    public String getDescription(ElementAttributes attr) {
+    public String getDescription(HDLNode node) {
         if (description == null)
             return null;
         else
-            return description.getDescription(attr);
+            return description.getDescription(node.getAttributes());
     }
 }

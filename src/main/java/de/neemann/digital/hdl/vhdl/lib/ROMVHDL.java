@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.hdl.model.HDLConstant;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
@@ -17,6 +18,13 @@ import java.util.HashSet;
  */
 public class ROMVHDL extends VHDLEntitySimple {
     private HashSet<String> nameSet = new HashSet<>();
+
+    /**
+     * Creates a new instance
+     */
+    public ROMVHDL() {
+        super(ROM.DESCRIPTION);
+    }
 
     @Override
     public String getName(HDLNode node) throws HDLException {
@@ -85,7 +93,7 @@ public class ROMVHDL extends VHDLEntitySimple {
     }
 
     @Override
-    public boolean createsSignals() {
+    public boolean createsSignals(HDLNode node) {
         return true;
     }
 }

@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.wiring.Decoder;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -15,6 +16,13 @@ import java.util.HashSet;
  */
 public class DecoderVHDL extends VHDLEntitySimple {
     private HashSet<Integer> written = new HashSet<>();
+
+    /**
+     * Creates a new instance
+     */
+    public DecoderVHDL() {
+        super(Decoder.DESCRIPTION);
+    }
 
     @Override
     public boolean needsOutput(HDLNode node) {

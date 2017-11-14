@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.basic.Not;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -12,6 +13,13 @@ import java.io.IOException;
 public class NotVHDL extends VHDLEntityBus {
     private boolean first = true;
     private boolean firstBus = true;
+
+    /**
+     * Creates a new instance
+     */
+    public NotVHDL() {
+        super(Not.DESCRIPTION);
+    }
 
     @Override
     public String getName(HDLNode node) {

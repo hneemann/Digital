@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.wiring.Demultiplexer;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -18,6 +19,13 @@ import static de.neemann.digital.hdl.vhdl.lib.MultiplexerVHDL.getBin;
 public class DemultiplexerVHDL extends VHDLEntitySimple {
     private HashSet<Integer> first = new HashSet<>();
     private HashSet<Integer> firstBus = new HashSet<>();
+
+    /**
+     * Creates a new instance
+     */
+    public DemultiplexerVHDL() {
+        super(Demultiplexer.DESCRIPTION);
+    }
 
     @Override
     public String getName(HDLNode node) {

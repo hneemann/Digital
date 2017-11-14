@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.wiring.Driver;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
@@ -20,6 +21,7 @@ public class DriverVHDL extends VHDLEntityBus {
      * @param invert true if inverted input
      */
     public DriverVHDL(boolean invert) {
+        super(Driver.DESCRIPTION);
         this.invert = invert;
     }
 

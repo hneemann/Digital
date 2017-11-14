@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -21,10 +22,12 @@ public class OperateVHDL extends VHDLEntityBus {
     /**
      * Creates a new instance
      *
-     * @param op     the operator
-     * @param invert true if inverted output
+     * @param op          the operator
+     * @param invert      true if inverted output
+     * @param description the elements description
      */
-    public OperateVHDL(String op, boolean invert) {
+    public OperateVHDL(String op, boolean invert, ElementTypeDescription description) {
+        super(description);
         this.op = op;
         this.invert = invert;
     }

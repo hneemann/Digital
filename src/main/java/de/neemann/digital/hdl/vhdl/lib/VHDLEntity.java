@@ -1,6 +1,5 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -71,17 +70,20 @@ public interface VHDLEntity {
     void writeGenericMap(CodePrinter out, HDLNode node) throws IOException, HDLException;
 
     /**
+     * Returns true if this entity creates signals in the architecture
+     *
+     * @param node the node
      * @return true if this entity creates signals in the architecture
      */
-    default boolean createsSignals() {
+    default boolean createsSignals(HDLNode node) {
         return false;
     }
 
     /**
      * The descriptiob of this entity
      *
-     * @param attr the elements attributes
+     * @param node the node
      * @return the description
      */
-    String getDescription(ElementAttributes attr);
+    String getDescription(HDLNode node);
 }
