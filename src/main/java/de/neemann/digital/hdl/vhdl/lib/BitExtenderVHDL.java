@@ -7,7 +7,7 @@ import de.neemann.digital.hdl.model.HDLNode;
 import java.io.IOException;
 
 /**
- * VHDLEntety to create the BitExtenders VHDL code
+ * VHDLEntity to create the BitExtenders VHDL code
  */
 public class BitExtenderVHDL extends VHDLEntityDelegate {
     private final VHDLFile delegate;
