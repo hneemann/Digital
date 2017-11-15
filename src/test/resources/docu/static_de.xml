@@ -239,9 +239,9 @@
                 Wenn eine Schaltung zu VHDL exportiert wird, welche auf eine synchrone Taktverteilung angewiesen ist,
                 wie das z.B. bei Prozessoren der Fall ist, sollte die Taktfrequenz also auf einen Wert
                 größer als 37kHz eingestellt werden.
-                Dies stellt sicher, dass die für die Taktverteilung vogesehenen FPGA-Resourcen auch verwendet werden.
+                Dies stellt sicher, dass die für die Taktverteilung vorgesehenen FPGA-Resourcen auch verwendet werden.
                 Der enthaltene Beispiel-Prozessor läuft z.B. mit 20MHz, und wenn auf den Multiplizierer in der ALU
-                verzichtet werden kann, sind auch 30MHz möglich..
+                verzichtet werden kann, sind auch 30MHz möglich.
             </par>
             <par>
                 Soll eine Schaltung auf einem BASYS3 Board betrieben werden, kann in Vivado ein neues Projekt angelegt werden.
