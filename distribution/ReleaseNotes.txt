@@ -6,6 +6,7 @@ HEAD, planned as v0.16
 - Now you can open the measurement value table and graph in a running simulation.
 - Added a bit extender to extend signed values.
 - Added a simple unclocked RS flip-flop
+- Added tooltips showing the actual value to wires.
 - Bug fixes
   - Fixed a bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.
   - Fixed a bug in the barrel shifter and adder if 32 bits or more where used.
