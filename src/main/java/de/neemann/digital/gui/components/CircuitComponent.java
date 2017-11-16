@@ -502,22 +502,31 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     public String getToolTipText(MouseEvent event) {
         Vector pos = getPosVector(event);
         VisualElement ve = circuit.getElementAt(pos);
-        if (ve == null) return null;
+        if (ve != null) {
+            Pin p = circuit.getPinAt(raster(pos), ve);
+            if (p != null)
+                return createPinToolTip(p);
 
-        Pin p = circuit.getPinAt(raster(pos), ve);
-        if (p != null)
-            return createPinToolTip(p);
-
-        try {
-            ElementTypeDescription etd = library.getElementType(ve.getElementName());
-            String tt = etd.getDescription(ve.getElementAttributes());
-            final String pin = ve.getElementAttributes().get(Keys.PINNUMBER);
-            if (pin.length() > 0)
-                tt += " (" + Lang.get("msg_pin_N", pin) + ")";
-            return checkToolTip(tt);
-        } catch (ElementNotFoundException e) {
-            return null;
+            try {
+                ElementTypeDescription etd = library.getElementType(ve.getElementName());
+                String tt = etd.getDescription(ve.getElementAttributes());
+                final String pin = ve.getElementAttributes().get(Keys.PINNUMBER);
+                if (pin.length() > 0)
+                    tt += " (" + Lang.get("msg_pin_N", pin) + ")";
+                return checkToolTip(tt);
+            } catch (ElementNotFoundException e) {
+                return null;
+            }
         }
+
+        Wire w = circuit.getWireAt(pos, SIZE2);
+        if (w != null) {
+            ObservableValue v = w.getValue();
+            if (v != null)
+                return v.getValueString();
+        }
+
+        return null;
     }
 
     private String createPinToolTip(Pin p) {
