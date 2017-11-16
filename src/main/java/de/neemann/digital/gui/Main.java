@@ -1122,10 +1122,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
-            if (settings.get(Keys.SHOW_DATA_TABLE))
+            if (settings.get(Keys.SHOW_DATA_TABLE) || windowPosManager.isVisible("probe"))
                 showMeasurementDialog(updateEvent);
 
-            if (settings.get(Keys.SHOW_DATA_GRAPH))
+            if (settings.get(Keys.SHOW_DATA_GRAPH) || windowPosManager.isVisible("dataSet"))
                 showMeasurementGraph(updateEvent);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
                 showMeasurementGraph(ModelEvent.MICROSTEP);
@@ -1381,7 +1381,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     file -> {
                         settings.setFile("exportDirectory", file.getParentFile());
                         GifExporter gifExporter = new GifExporter(Main.this, circuitComponent.getCircuit(), 500, file);
-                        setDebug(false);
                         windowPosManager.closeAll();
                         runModelState.enter(false, gifExporter);
                         circuitComponent.repaintNeeded();
@@ -1430,16 +1429,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
     }
 
-    private void setDebug(boolean debug) {
-        ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
-        settings.set(Keys.SHOW_DATA_TABLE, debug);
-    }
-
     @Override
     public void start(File romHex) throws RemoteException {
         SwingUtilities.invokeLater(() -> {
-            setDebug(false);
-            windowPosManager.closeAll();
             runModelState.enter(true, new RomLoader(romHex));
             circuitComponent.repaintNeeded();
         });
@@ -1448,9 +1440,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     @Override
     public void debug(File romHex) throws RemoteException {
         SwingUtilities.invokeLater(() -> {
-            setDebug(true);
             runModelState.enter(false, new RomLoader(romHex));
             circuitComponent.repaintNeeded();
+            showMeasurementDialog(ModelEvent.STEP);
         });
     }
 

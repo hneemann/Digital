@@ -48,4 +48,16 @@ public class WindowPosManager {
         for (Window w : windows.values())
             w.dispose();
     }
+
+    /**
+     * Returns true if the window with the given id is visible
+     *
+     * @param id the id of the window
+     * @return true if window is visible
+     */
+    public boolean isVisible(String id) {
+        Window w = windows.get(id);
+        if (w == null) return false;
+        return w.isVisible();
+    }
 }
