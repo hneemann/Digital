@@ -51,6 +51,7 @@ public class VHDLLibrary {
         put(Multiplexer.DESCRIPTION, new MultiplexerVHDL());
         put(Decoder.DESCRIPTION, new DecoderVHDL());
         put(Demultiplexer.DESCRIPTION, new DemultiplexerVHDL());
+        put(BitSelector.DESCRIPTION, new BitSelectorVHDL());
         put(Driver.DESCRIPTION, new DriverVHDL(false));
         put(DriverInvSel.DESCRIPTION, new DriverVHDL(true));
 
