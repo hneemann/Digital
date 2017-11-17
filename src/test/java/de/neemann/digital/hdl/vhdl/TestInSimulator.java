@@ -77,7 +77,7 @@ public class TestInSimulator extends TestCase {
         }
     }
 
-    //*
+    /*
     public void testInSimulatorDebug() throws Exception {
         File file = new File(Resources.getRoot(),"dig/hdl/readOutput.dig");
 
