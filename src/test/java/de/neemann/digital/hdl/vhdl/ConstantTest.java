@@ -29,13 +29,15 @@ public class ConstantTest extends TestCase {
                 "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
+                "  signal S1: std_logic;\n" +
                 "begin\n" +
-                "  S0 <= '0';\n" +
+                "  S1 <= '0';\n" +
                 "  gate0 : XOR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
+                "      PORT_out => S0,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
-                "      PORT_In_2 => S0 );\n" +
+                "      PORT_In_2 => S1 );\n" +
+                "  PORT_Y <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -71,14 +73,16 @@ public class ConstantTest extends TestCase {
                 "      PORT_In_2: in std_logic_vector ((bitCount-1) downto 0) );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic_vector (2 downto 0);\n" +
+                "  signal S1: std_logic_vector (2 downto 0);\n" +
                 "begin\n" +
-                "  S0 <= \"000\";\n" +
+                "  S1 <= \"000\";\n" +
                 "  gate0 : XOR_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 3)\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
+                "      PORT_out => S0,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
-                "      PORT_In_2 => S0 );\n" +
+                "      PORT_In_2 => S1 );\n" +
+                "  PORT_Y <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -106,8 +110,10 @@ public class ConstantTest extends TestCase {
                 "    PORT_Y: out std_logic_vector (2 downto 0) );\n" +
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
+                "  signal S0: std_logic_vector (2 downto 0);\n" +
                 "begin\n" +
-                "  PORT_Y <= \"000\";\n" +
+                "  S0 <= \"000\";\n" +
+                "  PORT_Y <= S0;\n" +
                 "end main_arch;", TestHelper.removeCommentLines(vhdl));
     }
 

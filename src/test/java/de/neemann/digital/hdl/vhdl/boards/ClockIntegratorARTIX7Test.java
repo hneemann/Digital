@@ -41,11 +41,12 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "        PORT_out: out std_logic );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
+                "  signal S1: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : NOT_GATE\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y0,\n" +
-                "      PORT_in => S0 );\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_in => S1 );\n" +
                 "  gate1 : DIG_MMCME2_BASE\n" +
                 "    generic map (\n" +
                 "      D_PARAM => 1,\n" +
@@ -54,7 +55,8 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "      PERIOD_PARAM => 10.0 )\n" +
                 "    port map (\n" +
                 "      PORT_in => PORT_Clk,\n" +
-                "      PORT_out => S0 );\n" +
+                "      PORT_out => S1 );\n" +
+                "  PORT_Y0 <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -160,11 +162,12 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "        PORT_out: out std_logic );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
+                "  signal S1: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : NOT_GATE\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y0,\n" +
-                "      PORT_in => S0 );\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_in => S1 );\n" +
                 "  gate1 : DIG_MMCME2_BASE_CC\n" +
                 "    generic map (\n" +
                 "      D_PARAM => 2,\n" +
@@ -174,7 +177,8 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "      PERIOD_PARAM => 10.0 )\n" +
                 "    port map (\n" +
                 "      PORT_in => PORT_Clk,\n" +
-                "      PORT_out => S0 );\n" +
+                "      PORT_out => S1 );\n" +
+                "  PORT_Y0 <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +

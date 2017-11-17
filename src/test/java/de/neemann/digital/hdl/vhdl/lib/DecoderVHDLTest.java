@@ -31,12 +31,16 @@ public class DecoderVHDLTest extends TestCase {
                 "      PORT_out_1: out std_logic;\n" +
                 "      PORT_sel: in std_logic );\n" +
                 "  end component;\n" +
+                "  signal S0: std_logic;\n" +
+                "  signal S1: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : MUX_GATE_1\n" +
                 "    port map (\n" +
-                "      PORT_out_0 => PORT_A,\n" +
-                "      PORT_out_1 => PORT_B,\n" +
+                "      PORT_out_0 => S0,\n" +
+                "      PORT_out_1 => S1,\n" +
                 "      PORT_sel => PORT_Sel );\n" +
+                "  PORT_A <= S0;\n" +
+                "  PORT_B <= S1;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -76,14 +80,22 @@ public class DecoderVHDLTest extends TestCase {
                 "      PORT_out_3: out std_logic;\n" +
                 "      PORT_sel: in std_logic_vector (1 downto 0) );\n" +
                 "  end component;\n" +
+                "  signal S0: std_logic;\n" +
+                "  signal S1: std_logic;\n" +
+                "  signal S2: std_logic;\n" +
+                "  signal S3: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : MUX_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out_0 => PORT_A,\n" +
-                "      PORT_out_1 => PORT_B,\n" +
-                "      PORT_out_2 => PORT_C,\n" +
-                "      PORT_out_3 => PORT_D,\n" +
+                "      PORT_out_0 => S0,\n" +
+                "      PORT_out_1 => S1,\n" +
+                "      PORT_out_2 => S2,\n" +
+                "      PORT_out_3 => S3,\n" +
                 "      PORT_sel => PORT_Sel );\n" +
+                "  PORT_A <= S0;\n" +
+                "  PORT_B <= S1;\n" +
+                "  PORT_C <= S2;\n" +
+                "  PORT_D <= S3;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +

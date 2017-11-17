@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -147,9 +146,6 @@ public class VHDLGenerator implements Closeable {
 
             out.println("\narchitecture " + model.getName() + "_arch of " + model.getName() + " is");
 
-            // ensure outputs are only written!
-            ArrayList<PortToSignal> portsToSignal = createPortsToSignalList(model);
-
             HashSet<String> componentsWritten = new HashSet<>();
             for (HDLNode node : model)
                 if (node.is(Splitter.DESCRIPTION))
@@ -196,28 +192,9 @@ public class VHDLGenerator implements Closeable {
                     out.dec();
                 }
 
-            // direct connection from input to output
-            for (Port o : model.getPorts().getOutputs()) {
-                if (!o.getSignal().isWritten()) {
-                    ArrayList<Port> ports = o.getSignal().getPorts();
-                    Port inPort = null;
-                    for (Port p : ports) {
-                        if (p.getDirection() == Port.Direction.in) {
-                            if (inPort != null)
-                                throw new HDLException(Lang.get("err_vhdlMultipleInputsConnectedToAnOutput"));
-                            inPort = p;
-                        }
-                    }
-                    if (inPort == null)
-                        throw new HDLException("no input found for not written output!");
-
-                    out.print(o.getName()).print(" <= ").print(inPort.getName()).println(";");
-                }
-            }
-
             // map signals to output ports
-            for (PortToSignal sig : portsToSignal)
-                out.print(sig.getOldSig().getName()).print(" <= ").print(sig.getNewSig().getName()).println(";");
+            for (Port p : model.getPorts().getOutputs())
+                out.print(p.getName()).print(" <= ").print(p.getSignal().getName()).println(";");
 
             out.dec().print("end ").print(model.getName()).println("_arch;");
         } catch (HDLException | PinException | NodeException e) {
@@ -345,40 +322,4 @@ public class VHDLGenerator implements Closeable {
         return testBenches;
     }
 
-    private ArrayList<PortToSignal> createPortsToSignalList(HDLModel model) {
-        HashSet<Signal> signalsRead = new HashSet<>();
-        for (HDLNode n : model) {
-            for (Port read : n.getPorts().getInputs())
-                signalsRead.add(read.getSignal());
-        }
-
-        ArrayList<PortToSignal> mapList = new ArrayList<>();
-        for (Port out : model.getPorts().getOutputs()) {
-            if (signalsRead.contains(out.getSignal())) {
-                Signal newSig = model.createSignal();
-                Signal oldSig = out.getSignal();
-                oldSig.replaceWith(newSig);
-                mapList.add(new PortToSignal(oldSig, newSig));
-            }
-        }
-        return mapList;
-    }
-
-    private static final class PortToSignal {
-        private final Signal oldSig;
-        private final Signal newSig;
-
-        private PortToSignal(Signal oldSig, Signal newSig) {
-            this.oldSig = oldSig;
-            this.newSig = newSig;
-        }
-
-        private Signal getOldSig() {
-            return oldSig;
-        }
-
-        private Signal getNewSig() {
-            return newSig;
-        }
-    }
 }

@@ -27,11 +27,13 @@ public class VHDLGeneratorTest extends TestCase {
                 "      PORT_out: out std_logic;\n" +
                 "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
+                "  signal S0: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : NOT_GATE\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
+                "      PORT_out => S0,\n" +
                 "      PORT_in => PORT_A );\n" +
+                "  PORT_Y <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -81,30 +83,32 @@ public class VHDLGeneratorTest extends TestCase {
                 "  signal S1: std_logic;\n" +
                 "  signal S2: std_logic;\n" +
                 "  signal S3: std_logic;\n" +
+                "  signal S4: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => S1,\n" +
-                "      PORT_In_1 => S0,\n" +
+                "      PORT_out => S2,\n" +
+                "      PORT_In_1 => S1,\n" +
                 "      PORT_In_2 => PORT_B );\n" +
                 "  gate1 : AND_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => S3,\n" +
+                "      PORT_out => S4,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
-                "      PORT_In_2 => S2 );\n" +
+                "      PORT_In_2 => S3 );\n" +
                 "  gate2 : OR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
-                "      PORT_In_1 => S1,\n" +
-                "      PORT_In_2 => S3 );\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_In_1 => S2,\n" +
+                "      PORT_In_2 => S4 );\n" +
                 "  gate3 : NOT_GATE\n" +
                 "    port map (\n" +
-                "      PORT_out => S2,\n" +
+                "      PORT_out => S3,\n" +
                 "      PORT_in => PORT_B );\n" +
                 "  gate4 : NOT_GATE\n" +
                 "    port map (\n" +
-                "      PORT_out => S0,\n" +
+                "      PORT_out => S1,\n" +
                 "      PORT_in => PORT_A );\n" +
+                "  PORT_Y <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -175,24 +179,25 @@ public class VHDLGeneratorTest extends TestCase {
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
                 "  signal S1: std_logic;\n" +
+                "  signal S2: std_logic;\n" +
                 "  signal PORT_A_Neg: std_logic;\n" +
                 "  signal PORT_B_Neg: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => S0,\n" +
+                "      PORT_out => S1,\n" +
                 "      PORT_In_1 => PORT_A_Neg,\n" +
                 "      PORT_In_2 => PORT_B );\n" +
                 "  gate1 : AND_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => S1,\n" +
+                "      PORT_out => S2,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
                 "      PORT_In_2 => PORT_B_Neg );\n" +
                 "  gate2 : OR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
-                "      PORT_In_1 => S0,\n" +
-                "      PORT_In_2 => S1 );\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_In_1 => S1,\n" +
+                "      PORT_In_2 => S2 );\n" +
                 "  gate3 : NOT_GATE\n" +
                 "    port map (\n" +
                 "      PORT_out => PORT_A_Neg,\n" +
@@ -201,6 +206,7 @@ public class VHDLGeneratorTest extends TestCase {
                 "    port map (\n" +
                 "      PORT_out => PORT_B_Neg,\n" +
                 "      PORT_in => PORT_B );\n" +
+                "  PORT_Y <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -262,17 +268,19 @@ public class VHDLGeneratorTest extends TestCase {
                 "      PORT_out: out std_logic;\n" +
                 "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
+                "  signal S0: std_logic;\n" +
                 "  signal PORT_A_Neg: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : OR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
+                "      PORT_out => S0,\n" +
                 "      PORT_In_1 => PORT_A_Neg,\n" +
                 "      PORT_In_2 => PORT_A_Neg );\n" +
                 "  gate1 : NOT_GATE\n" +
                 "    port map (\n" +
                 "      PORT_out => PORT_A_Neg,\n" +
                 "      PORT_in => PORT_A );\n" +
+                "  PORT_Y <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -334,27 +342,28 @@ public class VHDLGeneratorTest extends TestCase {
                 "  end component;\n" +
                 "  signal S0: std_logic_vector (1 downto 0);\n" +
                 "  signal S1: std_logic_vector (1 downto 0);\n" +
+                "  signal S2: std_logic_vector (1 downto 0);\n" +
                 "  signal PORT_A_Neg: std_logic_vector (1 downto 0);\n" +
                 "  signal PORT_B_Neg: std_logic_vector (1 downto 0);\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +
                 "    port map (\n" +
-                "      PORT_out => S0,\n" +
+                "      PORT_out => S1,\n" +
                 "      PORT_In_1 => PORT_A_Neg,\n" +
                 "      PORT_In_2 => PORT_B );\n" +
                 "  gate1 : AND_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +
                 "    port map (\n" +
-                "      PORT_out => S1,\n" +
+                "      PORT_out => S2,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
                 "      PORT_In_2 => PORT_B_Neg );\n" +
                 "  gate2 : OR_GATE_BUS_2\n" +
                 "    generic map ( bitCount => 2)\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y,\n" +
-                "      PORT_In_1 => S0,\n" +
-                "      PORT_In_2 => S1 );\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_In_1 => S1,\n" +
+                "      PORT_In_2 => S2 );\n" +
                 "  gate3 : NOT_GATE_BUS\n" +
                 "    generic map ( bitCount => 2)\n" +
                 "    port map (\n" +
@@ -365,6 +374,7 @@ public class VHDLGeneratorTest extends TestCase {
                 "    port map (\n" +
                 "      PORT_out => PORT_B_Neg,\n" +
                 "      PORT_in => PORT_B );\n" +
+                "  PORT_Y <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -444,12 +454,14 @@ public class VHDLGeneratorTest extends TestCase {
                 "      PORT_A: in std_logic;\n" +
                 "      PORT_B: in std_logic );\n" +
                 "  end component;\n" +
+                "  signal S0: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : and_dig\n" +
                 "    port map (\n" +
-                "      PORT_Out => PORT_C,\n" +
+                "      PORT_Out => S0,\n" +
                 "      PORT_A => PORT_A,\n" +
                 "      PORT_B => PORT_B );\n" +
+                "  PORT_C <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -467,12 +479,14 @@ public class VHDLGeneratorTest extends TestCase {
                 "      PORT_In_1: in std_logic;\n" +
                 "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
+                "  signal S0: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Out,\n" +
+                "      PORT_out => S0,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
                 "      PORT_In_2 => PORT_B );\n" +
+                "  PORT_Out <= S0;\n" +
                 "end and_dig_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -514,10 +528,11 @@ public class VHDLGeneratorTest extends TestCase {
                 "      PORT_In_2: in std_logic );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
+                "  signal S1: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : NOT_GATE\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Z,\n" +
+                "      PORT_out => S1,\n" +
                 "      PORT_in => S0 );\n" +
                 "  gate1 : AND_GATE_2\n" +
                 "    port map (\n" +
@@ -525,6 +540,7 @@ public class VHDLGeneratorTest extends TestCase {
                 "      PORT_In_1 => PORT_A,\n" +
                 "      PORT_In_2 => PORT_B );\n" +
                 "  PORT_Y <= S0;\n" +
+                "  PORT_Z <= S1;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +

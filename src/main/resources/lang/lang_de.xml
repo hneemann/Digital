@@ -727,7 +727,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_vhdlRomHasNoValidLabel">Ein Rom hat einen ungültigen oder fehlenden Namen!</string>
     <string name="err_vhdlRomLabel_N_notUnique">Rom Name {0} ist nicht eindeutig!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
-    <string name="err_vhdlMultipleInputsConnectedToAnOutput">Es sind mehrere Eingänge direkt mit einem Ausgang verbunden!</string>
     <string name="err_toManyVars">Zu viele Variablen!</string>
     <string name="err_invalidExpression">Ungültiger Ausdruck!</string>
     <string name="err_function_N0_notFoundInLine_N1">Funktion {0} nicht gefunden in Zeile {1}!</string>
