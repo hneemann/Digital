@@ -388,7 +388,7 @@
     <string name="elem_ROM_pin_A">This pin defines the address of data word to be output.</string>
     <string name="elem_ROM_pin_D">The selected data word if the sel input is high.</string>
     <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
-    <string name="elem_RAMDualPort">RAMDualPort</string>
+    <string name="elem_RAMDualPort">RAM, separated Ports</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
     <string name="elem_RAMDualPort_pin_A">The address to read from or write to.</string>
@@ -397,7 +397,7 @@
     <string name="elem_RAMDualPort_pin_D">The data output pin</string>
     <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMDualPort_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
-    <string name="elem_RAMSinglePort">RAMSinglePort</string>
+    <string name="elem_RAMSinglePort">RAM, bidirectional Port</string>
     <string name="elem_RAMSinglePort_short">RAM</string>
     <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional pin for reading and writing the data.</string>
     <string name="elem_RAMSinglePort_pin_A">The address to read and write.</string>
@@ -405,7 +405,7 @@
     <string name="elem_RAMSinglePort_pin_D">The bidirectional data connection.</string>
     <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
-    <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
+    <string name="elem_RAMSinglePortSel">RAM, Chip Select</string>
     <string name="elem_RAMSinglePortSel_short">RAM</string>
     <string name="elem_RAMSinglePortSel_tt">A RAM module with a bidirectional connection for reading and writing the data.
         If the CS input is low, the component is disabled.

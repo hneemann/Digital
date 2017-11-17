@@ -382,7 +382,7 @@
     <string name="elem_ROM_pin_A">Dieser Eingang bestimmt die Speicheradresse des Datenwortes welches ausgegeben werden soll.</string>
     <string name="elem_ROM_pin_D">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang eine 1 anliegt.</string>
     <string name="elem_ROM_pin_sel">Ist dieser Pin high (1) ist der Ausgang aktiviert. Ist er low (0) ist der Ausgang hochohmig.</string>
-    <string name="elem_RAMDualPort">RAMDualPort</string>
+    <string name="elem_RAMDualPort">RAM, getrennte Ports</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
         Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
@@ -392,7 +392,7 @@
     <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
-    <string name="elem_RAMSinglePort">RAMSinglePort</string>
+    <string name="elem_RAMSinglePort">RAM, bidirektionaler Port</string>
     <string name="elem_RAMSinglePort_short">RAM</string>
     <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionalem Anschluss für das Lesen und Schreiben von Daten.</string>
     <string name="elem_RAMSinglePort_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
@@ -400,7 +400,7 @@
     <string name="elem_RAMSinglePort_pin_D">Der bidirektionale Datenanschluss.</string>
     <string name="elem_RAMSinglePort_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
     <string name="elem_RAMSinglePort_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
-    <string name="elem_RAMSinglePortSel">RAMSinglePortSel</string>
+    <string name="elem_RAMSinglePortSel">RAM, Chip Select</string>
     <string name="elem_RAMSinglePortSel_short">RAM</string>
     <string name="elem_RAMSinglePortSel_tt">Ein RAM-Baustein mit einem bidirektionalem Anschluss für das Lesen und Schreiben von Daten.
         Es gibt einen CS-Eingang. Ist dieser Eingang low, ist der Baustein deaktiviert.
