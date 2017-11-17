@@ -111,6 +111,7 @@ public final class ShapeFactory {
         map.put(Multiplexer.DESCRIPTION.getName(), MuxerShape::new);
         map.put(Demultiplexer.DESCRIPTION.getName(), DemuxerShape::new);
         map.put(Decoder.DESCRIPTION.getName(), DemuxerShape::new);
+        map.put(BitSelector.DESCRIPTION.getName(), BitSelShape::new);
 
         map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);

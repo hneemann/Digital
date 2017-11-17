@@ -285,7 +285,11 @@
     <string name="elem_Decoder_output">Ausgang {0}. Wenn über sel ausgewählt ist dieser Ausgang 1, sonst 0.</string>
     <string name="elem_Decoder_pin_sel">Mit dieser Leitung wird der zu aktivierende Ausgang ausgewählt.
         Sein Wert gibt den auf 1 zu schaltenden Ausgang an.</string>
-
+    <string name="elem_BitSelector">Bitwähler</string>
+    <string name="elem_BitSelector_tt">Wählt aus einem Datenbus ein einzelnes Bit aus.</string>
+    <string name="elem_BitSelector_pin_in">Der Eingangsbus</string>
+    <string name="elem_BitSelector_pin_sel">Dieser Eingang wählt das Bit aus.</string>
+    <string name="elem_BitSelector_pin_out">Das ausgewählte Bit.</string>
 
     <!-- flip flops-->
 

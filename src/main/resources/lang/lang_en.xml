@@ -294,6 +294,11 @@
     <string name="elem_Decoder_output">Output {0}. This output is 1 if selected by the sel input.</string>
     <string name="elem_Decoder_pin_sel">This input selects the enabled output.
         The selected output is set to 1. All other outputs are set to 0.</string>
+    <string name="elem_BitSelector">Bit Selector</string>
+    <string name="elem_BitSelector_tt">Selects a single bit from a data bus.</string>
+    <string name="elem_BitSelector_pin_in">The input bus</string>
+    <string name="elem_BitSelector_pin_sel">This input selects the bit</string>
+    <string name="elem_BitSelector_pin_out">The selected bit.</string>
 
 
     <!-- flip flops-->
