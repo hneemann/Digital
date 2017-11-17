@@ -1,7 +1,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.wiring.Multiplexer;
+import de.neemann.digital.core.wiring.BitSelector;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -22,7 +22,7 @@ public class BitSelectorVHDL extends VHDLEntitySimple {
      * Creates a new instance
      */
     public BitSelectorVHDL() {
-        super(Multiplexer.DESCRIPTION);
+        super(BitSelector.DESCRIPTION);
     }
 
     @Override
