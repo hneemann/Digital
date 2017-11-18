@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserver;
 import de.neemann.digital.core.ObservableValue;
@@ -13,6 +14,8 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Arrays;
 
 /**
@@ -71,9 +74,10 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
      * @param label            the name of the value
      * @param value            the value to edit
      * @param circuitComponent the component which contains the circuit
+     * @param model            the model
      * @param modelSync        used to access the running model
      */
-    public SingleValueDialog(Point pos, String label, ObservableValue value, CircuitComponent circuitComponent, Sync modelSync) {
+    public SingleValueDialog(Point pos, String label, ObservableValue value, CircuitComponent circuitComponent, Model model, Sync modelSync) {
         super((Frame) null, Lang.get("win_valueInputTitle_N", label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.value = value;
@@ -91,6 +95,14 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         formatComboBox.addActionListener(actionEvent -> {
             if (!programmaticModifyingFormat)
                 setLongToDialog(editValue);
+        });
+
+        modelSync.access(() -> model.addObserver(this));
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent windowEvent) {
+                modelSync.access(() -> model.removeObserver(SingleValueDialog.this));
+            }
         });
 
         JPanel panel = new JPanel(new GridBagLayout());

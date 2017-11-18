@@ -15,6 +15,7 @@ HEAD, planned as v0.16
   - It was not possible to use constants with 32 bits or more. Now it is.
   - Fixed a bug that caused the exported VHDL code not to work if a signal was connected
     to multiple outputs.
+  - Fixed "concurrent modification exception" if input value dialog is opened.
 
 v0.15, released on 30. Oct 2017
 - Added the possibility to use custom, java implemented components in Digital.

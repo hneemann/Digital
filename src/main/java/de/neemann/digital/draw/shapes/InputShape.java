@@ -1,5 +1,6 @@
 package de.neemann.digital.draw.shapes;
 
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
@@ -74,8 +75,8 @@ public class InputShape implements Shape {
                     return true;
                 } else {
                     if (dialog == null) {
-                        dialog = new SingleValueDialog(pos, label, value, cc, modelSync);
-                        ((In) element).getModel().addObserver(dialog);
+                        Model model = ((In) element).getModel();
+                        dialog = new SingleValueDialog(pos, label, value, cc, model, modelSync);
                     }
                     dialog.setVisible(true);
                     return false;
