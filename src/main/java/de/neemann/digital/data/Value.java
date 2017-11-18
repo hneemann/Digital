@@ -120,6 +120,18 @@ public class Value {
      * @return true if equal
      */
     public boolean isEqualTo(Value v) {
+        return isEqualTo(v, 0);
+    }
+
+    /**
+     * Return true if value is equal to the given value.
+     * Only the bits which are set in the mask are compared.
+     *
+     * @param v    the value to compare with
+     * @param mask the mask with bits to take into account
+     * @return true if equal
+     */
+    protected boolean isEqualTo(Value v, long mask) {
         if (this == v) return true;
         if (v == null) return false;
 
@@ -130,7 +142,10 @@ public class Value {
         // both types are equal!
         if (type == Type.HIGHZ) return true;
 
-        return value == v.value;
+        if (mask == 0)
+            return value == v.value;
+        else
+            return (value & mask) == (v.value & mask);
     }
 
     @Override
