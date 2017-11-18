@@ -57,6 +57,7 @@ public class VHDLLibrary {
 
         put(Comparator.DESCRIPTION, new ComparatorVHDL());
         put(BitExtender.DESCRIPTION, new BitExtenderVHDL());
+        put(PriorityEncoder.DESCRIPTION, new PriorityEncoderVHDL());
 
         put(ROM.DESCRIPTION, new ROMVHDL());
     }
