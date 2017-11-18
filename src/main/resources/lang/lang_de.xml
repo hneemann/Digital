@@ -434,8 +434,25 @@
     <string name="elem_GraphicCard_pin_str">Ist dieser Eingang 1 wird mit steigendem Takt das Datenwort gespeichert.</string>
     <string name="elem_GraphicCard_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
     <string name="elem_GraphicCard_pin_ld">Ist dieser Eingang 1 wird das Datenwort ausgegeben.</string>
-    <string name="elem_GraphicCard_pin_B">Auswahl der anzuzeigenden Seite. Mit diesem Eingang kann zwischen zwei Speicherseiten umgeschaltet werden.</string>
+    <string name="elem_GraphicCard_pin_B">Auswahl der anzuzeigenden Seite.
+        Mit diesem Eingang kann zwischen zwei Speicherseiten umgeschaltet werden.</string>
     <string name="elem_GraphicCard_pin_D">Der bidirektionale Datenanschluss.</string>
+
+    <string name="elem_RAMDualAccess">RAM, Dual Port</string>
+    <string name="elem_RAMDualAccess_short">RAM</string>
+    <string name="elem_RAMDualAccess_tt">RAM mit einem Port der das Beschreiben und Lesen des RAMs ermöglicht, und einem
+        zweiten Leseport. Dieser zweite Port kann verwendet werden, um einer Grafik-Logik Zugriff auf den Speicherinhalt
+        zu geben. Auf diese Weise kann ein Prozessor in das RAM schreiben, und eine Grafik-Logik kann das RAM
+        gleichzeitig auslesen.</string>
+    <string name="elem_RAMDualAccess_pin_1D">Ausgabeport 1</string>
+    <string name="elem_RAMDualAccess_pin_2D">Ausgabeport 2</string>
+    <string name="elem_RAMDualAccess_pin_1A">Die Adresse, an der über Port 1 gelesen bzw. geschrieben wird.</string>
+    <string name="elem_RAMDualAccess_pin_2A">Die Adresse, an der über Port 2 gelesen wird.</string>
+    <string name="elem_RAMDualAccess_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_RAMDualAccess_pin_1D_in">Die Daten die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualAccess_pin_ld">Ist diese Leitung high, wird der Ausgang D1 aktiviert, und die Daten liegen dort an.</string>
+    <string name="elem_RAMDualAccess_pin_str">Ist diese Leitung high wird das Datenwort an D1 gespeichert, wenn der Takt ansteigt.</string>
+
     <string name="elem_Counter">Zähler</string>
     <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein.
         Zählt jede steigende Flanke am C Eingang und kann über den clr Eingang zurückgesetzt werden.

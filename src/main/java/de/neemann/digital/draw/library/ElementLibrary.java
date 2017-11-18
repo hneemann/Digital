@@ -150,6 +150,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(RAMSinglePortSel.DESCRIPTION)
                         .add(EEPROM.DESCRIPTION)
                         .add(GraphicCard.DESCRIPTION)
+                        .add(RAMDualAccess.DESCRIPTION)
                         .add(Counter.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_arithmetic"))
                         .add(Add.DESCRIPTION)
