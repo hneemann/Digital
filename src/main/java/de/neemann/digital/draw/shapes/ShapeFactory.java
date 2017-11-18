@@ -110,6 +110,14 @@ public final class ShapeFactory {
         map.put(Demultiplexer.DESCRIPTION.getName(), DemuxerShape::new);
         map.put(Decoder.DESCRIPTION.getName(), DemuxerShape::new);
         map.put(BitSelector.DESCRIPTION.getName(), BitSelShape::new);
+        map.put(PriorityEncoder.DESCRIPTION.getName(),
+                (attributes, inputs, outputs) -> new GenericShape(
+                        PriorityEncoder.DESCRIPTION.getShortName(),
+                        inputs,
+                        outputs,
+                        attributes.getCleanLabel(),
+                        true,
+                        4));
 
         map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);

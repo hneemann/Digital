@@ -291,6 +291,16 @@
     <string name="elem_BitSelector_pin_sel">Dieser Eingang wählt das Bit aus.</string>
     <string name="elem_BitSelector_pin_out">Das ausgewählte Bit.</string>
 
+    <string name="elem_PriorityEncoder">Prioritätsencoder</string>
+    <string name="elem_PriorityEncoder_short">Priority</string>
+    <string name="elem_PriorityEncoder_tt">Ist einer der Eingänge gesetzt, wird dessen Nummer ausgegeben.
+        Sind mehrere Eingänge gleichzeitig gesetzt, wird die höchsten Nummer ausgegeben.
+    </string>
+    <string name="elem_PriorityEncoder_pin_num">Nummer des gesetzten Eingangs.</string>
+    <string name="elem_PriorityEncoder_pin_any">Wenn dieser Ausgang gesetzt ist, ist mindestens einer der Eingänge
+        gesetzt. Dieser Ausgang ist die Oderverknüpfung aller Eingänge.</string>
+    <string name="elem_PriorityEncoder_input">Der {0}. Eingang des PriorityEncoder</string>
+
     <!-- flip flops-->
 
     <string name="elem_RS_FF_AS">RS-FlipFlop</string>

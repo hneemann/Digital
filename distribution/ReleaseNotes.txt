@@ -8,6 +8,7 @@ HEAD, planned as v0.16
 - Added a simple unclocked RS flip-flop
 - Added a bit selector component
 - Added a dual ported RAM component
+- Added a priority encoder
 - Added tooltips showing the actual value to wires.
 - Bug fixes
   - Fixed a bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.

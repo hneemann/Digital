@@ -300,6 +300,13 @@
     <string name="elem_BitSelector_pin_sel">This input selects the bit</string>
     <string name="elem_BitSelector_pin_out">The selected bit.</string>
 
+    <string name="elem_PriorityEncoder">Priority Encoder</string>
+    <string name="elem_PriorityEncoder_short">Priority</string>
+    <string name="elem_PriorityEncoder_tt">If one of the inputs is set, its number is output.
+        If several inputs are set at the same time, the highest number is output.</string>
+    <string name="elem_PriorityEncoder_pin_num">Number of the set input.</string>
+    <string name="elem_PriorityEncoder_pin_any">If this output is set, at least one of the inputs is set.</string>
+    <string name="elem_PriorityEncoder_input">The {0}. input of the priority encoder.</string>
 
     <!-- flip flops-->
 
