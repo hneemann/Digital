@@ -5,7 +5,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -24,7 +24,7 @@ public class Gal22V10CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
-        Gal22v10CuplExporter ce = new Gal22v10CuplExporter("user", new Date(0));
+        Gal22v10CuplExporter ce = new Gal22v10CuplExporter("user", new GregorianCalendar(1970, 0, 1).getTime());
         ce.getPinMapping().parseString("Y_0=14;Y_1=15;A=16");
         ce.setProjectName("test");
         ce.getBuilder()
