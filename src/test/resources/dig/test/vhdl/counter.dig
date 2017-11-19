@@ -90,10 +90,11 @@ repeat(14) C   0   1  (n+1)  0
  C   0   1  0  0
  C   0   0  0  0
 
-#async clr
+#sync clr
  C   0   1  1  0
  0   0   0  1  0
- 0   1   0  0  0
+ 0   1   0  1  0
+ C   1   0  0  0
 </dataString>
           </testData>
         </entry>

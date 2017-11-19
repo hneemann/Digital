@@ -55,16 +55,18 @@ public class Counter extends Node implements Element {
     public void readInputs() throws NodeException {
         boolean clock = clockIn.getBool();
         boolean enable = this.enable.getBool();
-        if (clock && !lastClock && enable) {
-            if (counter == maxValue)
+        if (clock && !lastClock) {
+            if (enable) {
+                if (counter == maxValue)
+                    counter = 0;
+                else
+                    counter++;
+            }
+            if (clrIn.getBool())
                 counter = 0;
-            else
-                counter++;
         }
 
         lastClock = clock;
-        if (clrIn.getBool())
-            counter = 0;
 
         ovfOut = (counter == maxValue) && enable;
     }

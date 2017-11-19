@@ -468,7 +468,7 @@
         Zählt jede steigende Flanke am C Eingang und kann über den clr Eingang zurückgesetzt werden.
         Die Bitbreite des Zählers kann im Attribute-Dialog festgelegt werden.</string>
     <string name="elem_Counter_pin_C">Eingang des Taktsignals.</string>
-    <string name="elem_Counter_pin_clr">Setzt den Zähler asynchron auf 0 zurück wenn dieser Eingang auf 1 gesetzt wird.</string>
+    <string name="elem_Counter_pin_clr">Setzt den Zähler synchron auf 0 zurück wenn dieser Eingang auf 1 gesetzt wird.</string>
     <string name="elem_Counter_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, wenn der Zähler seinen Maximalwert hat und der en Eingang auf 1 gesetzt ist.</string>
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
     <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>

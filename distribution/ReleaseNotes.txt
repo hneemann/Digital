@@ -17,6 +17,8 @@ HEAD, planned as v0.16
   - Fixed a bug that caused the exported VHDL code not to work if a signal was connected
     to multiple outputs.
   - Fixed "concurrent modification exception" if input value dialog is opened.
+- Breaking changes:
+  - Counter modified from a asynchronous clear to a synchronous clear.
 
 v0.15, released on 30. Oct 2017
 - Added the possibility to use custom, java implemented components in Digital.
