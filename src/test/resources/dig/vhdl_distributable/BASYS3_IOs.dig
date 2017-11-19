@@ -235,7 +235,7 @@
           <string>Copy the required IO&apos;s to your BASYS3 design.</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="-180"/>
+      <pos x="320" y="-200"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -257,7 +257,7 @@
           <string>W5</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="560"/>
+      <pos x="-60" y="-40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -271,7 +271,7 @@
           <string>U18</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="120"/>
+      <pos x="180" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -285,7 +285,7 @@
           <string>T18</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="-40"/>
+      <pos x="180" y="-40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -299,7 +299,7 @@
           <string>U17</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="80"/>
+      <pos x="180" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -313,7 +313,7 @@
           <string>T17</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="0"/>
+      <pos x="180" y="0"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -327,7 +327,7 @@
           <string>W19</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="40"/>
+      <pos x="180" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -715,7 +715,7 @@
           <string>LED&apos;s</string>
         </entry>
       </elementAttributes>
-      <pos x="720" y="-100"/>
+      <pos x="760" y="-100"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -735,7 +735,7 @@
           <string>Digital Cross</string>
         </entry>
       </elementAttributes>
-      <pos x="20" y="-100"/>
+      <pos x="0" y="-100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -760,6 +760,914 @@
         </entry>
       </elementAttributes>
       <pos x="-40" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R0</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>G19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G0</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>J17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B0</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>N18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>H19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>H17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>L18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>J19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>G17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>K18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>N19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>D17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>J18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>H-sync</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>P19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>V-sync</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>R19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>VGA</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>J1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>L2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>J2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA4</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>G2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA7</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>H1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA8</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>K2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA9</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>H2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA10</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>G3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Pmod JA</string>
+        </entry>
+      </elementAttributes>
+      <pos x="40" y="660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>J1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>L2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>J2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA4</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>G2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA7</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>H1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA8</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>K2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA9</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>H2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JA10</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>G3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Pmod JB</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>A14</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>A16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>B15</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB4</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>B16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB7</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>A15</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB8</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>A17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB9</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>C15</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB10</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>C16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>A14</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>A16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>B15</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB4</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>B16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB7</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>A15</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB8</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>A17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB9</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>C15</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB10</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>C16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>K17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>M18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>N17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC4</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>P18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB7</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>L17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC8</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>M19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC9</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>P17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC10</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>R18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Pmod JC</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1020" y="660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC1</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>K17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC2</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>M18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC3</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>N17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC4</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>P18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JB7</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>L17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC8</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>M19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC9</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>P17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JC10</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>R18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="1000"/>
     </visualElement>
   </visualElements>
   <wires/>
