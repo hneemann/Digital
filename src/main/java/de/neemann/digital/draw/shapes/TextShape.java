@@ -58,6 +58,7 @@ public class TextShape implements Shape {
     public void drawTo(Graphic graphic, Style highLight) {
         StringBuilder sb = new StringBuilder();
         Vector pos = new Vector(0, 0);
+        final int dy = (Style.NORMAL_TEXT.getFontSize() * 20) / 16;
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             if (c == '\n') {
@@ -65,7 +66,7 @@ public class TextShape implements Shape {
                     graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, Style.NORMAL_TEXT);
                     sb.setLength(0);
                 }
-                pos = pos.add(0, Style.NORMAL_TEXT.getFontSize());
+                pos = pos.add(0, dy);
             } else
                 sb.append(c);
         }
