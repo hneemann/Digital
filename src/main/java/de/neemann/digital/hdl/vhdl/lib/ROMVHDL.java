@@ -65,10 +65,19 @@ public class ROMVHDL extends VHDLEntitySimple {
                 .println(" downto 0);");
 
         out.println("constant my_Rom : mem := (").inc();
-        Separator sep = new Separator(",\n");
+        Separator sep = new Separator(", ");
+        int pos = 0;
         for (int i = 0; i < data.length; i++) {
             sep.check(out);
+            pos += 2;
+
+            if (pos > 70) {
+                out.println();
+                pos = 0;
+            }
+
             out.print(new HDLConstant(data[i], dataBits).vhdlValue());
+            pos += 2 + dataBits;
         }
         out.dec().println(");");
 
