@@ -104,12 +104,21 @@ public class ROM extends Node implements Element {
                 throw new NodeException(e.getMessage(), this, -1, null);
             }
         }
+    }
+
+    /**
+     * Called if the the last ROM address is needed by the remote interface
+     *
+     * @param model the model
+     */
+    public void provideRomAdress(Model model) {
         if (isProgramMemory)
             model.addObserver(event -> {
                 if (event == ModelEvent.STEP && sel)
                     romAddr = addr;
-            });
+            }, ModelEvent.STEP);
     }
+
 
     /**
      * @return true if this is program memory

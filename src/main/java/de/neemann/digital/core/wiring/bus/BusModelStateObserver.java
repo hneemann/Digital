@@ -1,7 +1,7 @@
 package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserver;
+import de.neemann.digital.core.ModelStateObserverTyped;
 import de.neemann.digital.core.switching.Switch;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.HashSet;
  * If so an exception is thrown.
  * Handles also the reconfiguration of the nets if a switches has changed.
  */
-public final class BusModelStateObserver implements ModelStateObserver {
+public final class BusModelStateObserver implements ModelStateObserverTyped {
     private final ArrayList<AbstractBusHandler> busList;
     private final HashSet<Switch.RealSwitch> closedSwitches;
     private int version;
@@ -32,6 +32,11 @@ public final class BusModelStateObserver implements ModelStateObserver {
             busList.clear();
             version++;
         }
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{ModelEvent.STEP};
     }
 
     /**

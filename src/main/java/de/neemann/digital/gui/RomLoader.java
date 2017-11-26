@@ -36,6 +36,7 @@ public class RomLoader implements ModelModifier {
 
         try {
             roms.get(0).setData(new DataField(romHex));
+            roms.get(0).provideRomAdress(model);
         } catch (IOException e) {
             throw new NodeException(e.getMessage());
         }

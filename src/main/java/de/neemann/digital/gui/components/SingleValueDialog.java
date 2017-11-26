@@ -1,9 +1,6 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserver;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 
@@ -25,7 +22,7 @@ import java.util.Arrays;
  * @author hneemann
  * @author Rüdiger Heintz
  */
-public final class SingleValueDialog extends JDialog implements ModelStateObserver {
+public final class SingleValueDialog extends JDialog implements ModelStateObserverTyped {
 
     private final ObservableValue value;
     private final CircuitComponent circuitComponent;
@@ -170,6 +167,11 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     public void handleEvent(ModelEvent event) {
         if (event.equals(ModelEvent.STOPPED))
             dispose();
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{ModelEvent.STOPPED};
     }
 
     private JPanel createCheckBoxPanel(int bits, long value) {

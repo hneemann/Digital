@@ -13,6 +13,8 @@ import de.neemann.digital.core.memory.RAMInterface;
 
 import javax.swing.*;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
@@ -147,14 +149,19 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         return memory;
     }
 
+    private final AtomicBoolean paintPending = new AtomicBoolean();
+
     private void updateGraphic(boolean bank) {
-        SwingUtilities.invokeLater(() -> {
-            if (graphicDialog == null || !graphicDialog.isVisible()) {
-                graphicDialog = new GraphicDialog(width, height);
-                getModel().getWindowPosManager().register("GraphicCard_" + label, graphicDialog);
-            }
-            graphicDialog.updateGraphic(memory, bank);
-        });
+        if (paintPending.compareAndSet(false, true)) {
+            SwingUtilities.invokeLater(() -> {
+                if (graphicDialog == null || !graphicDialog.isVisible()) {
+                    graphicDialog = new GraphicDialog(width, height);
+                    getModel().getWindowPosManager().register("GraphicCard_" + label, graphicDialog);
+                }
+                paintPending.set(false);
+                graphicDialog.updateGraphic(memory, bank);
+            });
+        }
     }
 
     @Override

@@ -6,6 +6,8 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Reset;
 import de.neemann.digital.gui.components.WindowPosManager;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.util.*;
@@ -40,6 +42,7 @@ import java.util.*;
  * @see de.neemann.digital.core.element.Element#registerNodes(Model)
  */
 public class Model implements Iterable<Node> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Model.class);
     /**
      * Maximal number of calculation loops before oscillating behaviour is detected
      */
@@ -56,7 +59,6 @@ public class Model implements Iterable<Node> {
     private final ArrayList<Signal> outputs;
 
     private final ArrayList<Node> nodes;
-    private final ArrayList<ModelStateObserver> observers;
     private ArrayList<Node> nodesToUpdateAct;
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
@@ -64,6 +66,10 @@ public class Model implements Iterable<Node> {
     private WindowPosManager windowPosManager;
     private HashSet<Node> oscillatingNodes;
     private boolean isInvalidSignal = false;
+
+    private final ArrayList<ModelStateObserver> observers;
+    private ArrayList<ModelStateObserver> observersStep;
+    private ArrayList<ModelStateObserver> observersMicroStep;
 
     /**
      * Creates a new model
@@ -164,6 +170,19 @@ public class Model implements Iterable<Node> {
      * A STOPPED event is fired.
      */
     public void close() {
+        int obs = observers.size();
+        if (observersStep != null) obs += observersStep.size();
+        if (observersMicroStep != null) obs += observersMicroStep.size();
+        LOGGER.info("Observers " + obs);
+        for (ModelStateObserver ob : observers)
+            LOGGER.info("Observer Slow : " + ob.getClass().getSimpleName());
+        if (observersStep != null)
+            for (ModelStateObserver ob : observersStep)
+                LOGGER.info("Observer Step : " + ob.getClass().getSimpleName());
+        if (observersMicroStep != null)
+            for (ModelStateObserver ob : observersMicroStep)
+                LOGGER.info("Observer Micro: " + ob.getClass().getSimpleName());
+
         fireEvent(ModelEvent.STOPPED);
     }
 
@@ -254,7 +273,8 @@ public class Model implements Iterable<Node> {
                 n.writeOutputs();
             }
         }
-        fireEvent(ModelEvent.MICROSTEP);
+        if (observersMicroStep != null)
+            fireEvent(ModelEvent.MICROSTEP);
 
         if (nodesToUpdateNext.isEmpty())
             fireEvent(ModelEvent.STEP);
@@ -325,11 +345,45 @@ public class Model implements Iterable<Node> {
 
     /**
      * Adds an observer to this model.
+     * The events this observer needs to be called are needed to be given.
+     * You have to check for the correct event in the event handler also, because the event handler is
+     * maybe called on more events than given.
+     *
+     * @param observer the observer to add
+     * @param event    the mandatory event
+     * @param events   more optional events
+     */
+    public void addObserver(ModelStateObserver observer, ModelEvent event, ModelEvent... events) {
+        addObserverForEvent(observer, event);
+        for (ModelEvent ev : events)
+            addObserverForEvent(observer, ev);
+    }
+
+    /**
+     * Adds an observer to this model.
      *
      * @param observer the observer to add
      */
-    public void addObserver(ModelStateObserver observer) {
-        observers.add(observer);
+    public void addObserver(ModelStateObserverTyped observer) {
+        for (ModelEvent ev : observer.getEvents())
+            addObserverForEvent(observer, ev);
+    }
+
+
+    private void addObserverForEvent(ModelStateObserver observer, ModelEvent event) {
+        ArrayList<ModelStateObserver> obs = observers;
+        if (event == ModelEvent.STEP) {
+            if (observersStep == null)
+                observersStep = new ArrayList<>();
+            obs = observersStep;
+        } else if (event == ModelEvent.MICROSTEP) {
+            if (observersMicroStep == null)
+                observersMicroStep = new ArrayList<>();
+            obs = observersMicroStep;
+        }
+
+        if (!obs.contains(observer))
+            obs.add(observer);
     }
 
     /**
@@ -339,6 +393,10 @@ public class Model implements Iterable<Node> {
      */
     public void removeObserver(ModelStateObserver observer) {
         observers.remove(observer);
+        if (observersStep != null)
+            observersStep.remove(observer);
+        if (observersMicroStep != null)
+            observersMicroStep.remove(observer);
     }
 
     /**
@@ -352,12 +410,33 @@ public class Model implements Iterable<Node> {
         for (ModelStateObserver mso : observers)
             if (mso.getClass() == observerClass)
                 return (T) mso;
+        if (observersStep != null)
+            for (ModelStateObserver mso : observersStep)
+                if (mso.getClass() == observerClass)
+                    return (T) mso;
+        if (observersMicroStep != null)
+            for (ModelStateObserver mso : observersMicroStep)
+                if (mso.getClass() == observerClass)
+                    return (T) mso;
         return null;
     }
 
     private void fireEvent(ModelEvent event) {
-        for (ModelStateObserver observer : observers)
-            observer.handleEvent(event);
+        switch (event) {
+            case MICROSTEP:
+                if (observersMicroStep != null)
+                    for (ModelStateObserver observer : observersMicroStep)
+                        observer.handleEvent(event);
+                break;
+            case STEP:
+                if (observersStep != null)
+                    for (ModelStateObserver observer : observersStep)
+                        observer.handleEvent(event);
+                break;
+            default:
+                for (ModelStateObserver observer : observers)
+                    observer.handleEvent(event);
+        }
     }
 
     /**
@@ -552,7 +631,7 @@ public class Model implements Iterable<Node> {
     /**
      * Adds a button which is to map to a keyboard key
      *
-     * @param button    the button
+     * @param button  the button
      * @param keyCode the key code
      */
     public void addButtonToMap(Button button, int keyCode) {

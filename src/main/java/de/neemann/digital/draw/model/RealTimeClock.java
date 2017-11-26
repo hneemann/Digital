@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author hneemann
  */
-public class RealTimeClock implements ModelStateObserver {
+public class RealTimeClock implements ModelStateObserverTyped {
     private static final Logger LOGGER = LoggerFactory.getLogger(RealTimeClock.class);
 
     private final Model model;
@@ -73,6 +73,11 @@ public class RealTimeClock implements ModelStateObserver {
                     runner.stop();
                 break;
         }
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{ModelEvent.STARTED, ModelEvent.STOPPED};
     }
 
     interface Runner {

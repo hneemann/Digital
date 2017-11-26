@@ -1,9 +1,6 @@
 package de.neemann.digital.draw.gif;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserver;
-import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.GraphicMinMax;
 import de.neemann.digital.draw.graphics.GraphicsImage;
@@ -35,7 +32,7 @@ import java.io.IOException;
  * GIF file.
  * Created by hneemann on 17.05.17.
  */
-public class GifExporter extends JDialog implements ModelStateObserver, ModelModifier {
+public class GifExporter extends JDialog implements ModelStateObserverTyped, ModelModifier {
     private static final Logger LOGGER = LoggerFactory.getLogger(GifExporter.class);
     private final Circuit circuit;
     private final GraphicMinMax minMax;
@@ -112,6 +109,11 @@ public class GifExporter extends JDialog implements ModelStateObserver, ModelMod
     public void handleEvent(ModelEvent event) {
         if (event.equals(ModelEvent.STEP))
             writeImage();
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{ModelEvent.STEP};
     }
 
     private void writeImage() {

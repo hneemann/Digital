@@ -149,7 +149,7 @@ public class DataEditor extends JDialog {
             model.addObserver(event -> {
                 if (event.equals(ModelEvent.STOPPED))
                     detachFromRunningModel();
-            });
+            }, ModelEvent.STOPPED);
         }
     }
 

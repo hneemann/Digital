@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author hneemann
  */
-public class ProbeDialog extends JDialog implements ModelStateObserver {
+public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     private final ModelEvent type;
     private final SignalTableModel tableModel;
@@ -118,6 +118,11 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
                 SwingUtilities.invokeLater(tableModel::fireChanged);
                 break;
         }
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{type, ModelEvent.MANUALCHANGE, ModelEvent.FASTRUN, ModelEvent.BREAK, ModelEvent.STOPPED};
     }
 
     private static class SignalTableModel implements TableModel {
