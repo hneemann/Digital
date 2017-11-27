@@ -330,15 +330,15 @@
             <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single
                 clock component).
             </shortcut>
-            <shortcut key="STRG-A">Select all.</shortcut>
+            <shortcut key="CTRL-A">Select all.</shortcut>
             <shortcut key="CTRL-X">Cuts the selected components to the clipboard.</shortcut>
             <shortcut key="CTRL-C">Copys the selected components to the clipboard.</shortcut>
             <shortcut key="CTRL-V">Inserts the comonents from the clipboard.</shortcut>
-            <shortcut key="STRG-D">Duplicate the actual selection without modifing the clipboard.</shortcut>
+            <shortcut key="CTRL-D">Duplicate the actual selection without modifing the clipboard.</shortcut>
             <shortcut key="R">While inserting this rotates the components.</shortcut>
             <shortcut key="L">Inserts the last inserted component again.</shortcut>
-            <shortcut key="STRG-N">New circuit.</shortcut>
-            <shortcut key="STRG-O">Open circuit.</shortcut>
+            <shortcut key="CTRL-N">New circuit.</shortcut>
+            <shortcut key="CTRL-O">Open circuit.</shortcut>
             <shortcut key="CTRL-S">Save the circuit.</shortcut>
             <shortcut key="CTRL-Z">Undo last modification.</shortcut>
             <shortcut key="CTRL-Y">Redo the last undone modification.</shortcut>
