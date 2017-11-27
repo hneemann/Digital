@@ -1,7 +1,7 @@
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -39,6 +39,7 @@ public class OutputShape implements Shape {
     private final String label;
     private final PinDescriptions inputs;
     private IOState ioState;
+    private Value value;
 
     /**
      * Creates a new instance
@@ -69,6 +70,12 @@ public class OutputShape implements Shape {
     }
 
     @Override
+    public void fetch() {
+        if (ioState != null)
+            value = ioState.getInput(0).getCopy();
+    }
+
+    @Override
     public void drawTo(Graphic graphic, Style highLight) {
         if (graphic.isFlagSet("LaTeX")) {
             Vector center = new Vector(LATEX_RAD.x, 0);
@@ -77,8 +84,7 @@ public class OutputShape implements Shape {
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
         } else {
             Style style = Style.NORMAL;
-            if (ioState != null) {
-                ObservableValue value = ioState.getInput(0);
+            if (value != null) {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
                     Vector textPos = new Vector(1 + SIZE, -4 - SIZE);
