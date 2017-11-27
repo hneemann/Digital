@@ -351,4 +351,11 @@ public class ObservableValue extends Observable implements PinDescription {
         this.pinNumber = pinNumber;
         return this;
     }
+
+    /**
+     * @return a copy of this value
+     */
+    public Value getCopy() {
+        return new Value(this);
+    }
 }

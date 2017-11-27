@@ -201,16 +201,21 @@ public class Circuit {
         }
 
         modelSync.access(() -> {
-            graphic.openGroup();
             for (Wire w : wires)
-                w.drawTo(graphic, highLighted.contains(w) ? highlight : null);
-            graphic.closeGroup();
-            for (VisualElement p : visualElements) {
-                graphic.openGroup();
-                p.drawTo(graphic, highLighted.contains(p) ? highlight : null);
-                graphic.closeGroup();
-            }
+                w.fetch();
+            for (VisualElement p : visualElements)
+                p.getShape().fetch();
         });
+
+        graphic.openGroup();
+        for (Wire w : wires)
+            w.drawTo(graphic, highLighted.contains(w) ? highlight : null);
+        graphic.closeGroup();
+        for (VisualElement p : visualElements) {
+            graphic.openGroup();
+            p.drawTo(graphic, highLighted.contains(p) ? highlight : null);
+            graphic.closeGroup();
+        }
 
         // plot debugging rectangles
         if (recs != null)
