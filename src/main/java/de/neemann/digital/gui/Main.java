@@ -294,7 +294,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setAccelerator("control PLUS");
         // enable [+] which is SHIFT+[=] on english keyboard layout
-        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.SHIFT_MASK | KeyEvent.CTRL_MASK, false), zoomIn);
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_MASK, false), zoomIn);
         circuitComponent.getActionMap().put(zoomIn, zoomIn);
 
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {

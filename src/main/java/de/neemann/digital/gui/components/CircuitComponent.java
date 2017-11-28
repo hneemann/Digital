@@ -283,7 +283,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         ToolTipAction plus = new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         // enable [+] which is SHIFT+[=] on english keyboard layout
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.SHIFT_MASK, false), plus);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, 0, false), plus);
 
         new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
 
