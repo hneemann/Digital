@@ -293,12 +293,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.scaleCircuit(1 / 0.9);
             }
         }.setAccelerator("control PLUS");
+        // enable [+] which is SHIFT+[=] on english keyboard layout
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
+        circuitComponent.getActionMap().put(zoomIn, zoomIn);
+
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(0.9);
             }
         }.setAccelerator("control MINUS");
+        // enable [+] which is SHIFT+[=] on english keyboard layout
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK, false), zoomOut);
+        circuitComponent.getActionMap().put(zoomOut, zoomOut);
 
         ToolTipAction viewHelp = new ToolTipAction(Lang.get("menu_viewHelp"), ICON_HELP) {
             @Override

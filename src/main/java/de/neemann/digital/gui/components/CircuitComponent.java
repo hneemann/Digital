@@ -281,8 +281,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }.setAcceleratorCTRLplus('D').enableAcceleratorIn(this);
 
 
-        new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
-        new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
+        ToolTipAction plus = new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
+        // enable [+] which is SHIFT+[=] on english keyboard layout
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, 0, false), plus);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0, false), plus);
+
+        ToolTipAction minus = new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0, false), minus);
 
         new ToolTipAction(Lang.get("menu_programDiode")) {
             @Override
