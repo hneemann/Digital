@@ -1,7 +1,7 @@
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
@@ -20,8 +20,9 @@ public class SevenSegHexShape extends SevenShape {
     private static final int[] TABLE = new int[]{0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71};
     private final PinDescriptions inputs;
     private Pins pins;
-    private ObservableValue input;
-    private ObservableValue dp;
+    private Value input;
+    private Value dp;
+    private IOState ioState;
 
     /**
      * Creates a new instance
@@ -36,6 +37,14 @@ public class SevenSegHexShape extends SevenShape {
     }
 
     @Override
+    public void readObservableValues() {
+        if (ioState != null) {
+            input = ioState.getInput(0).getCopy();
+            dp = ioState.getInput(1).getCopy();
+        }
+    }
+
+    @Override
     protected boolean getStyle(int i) {
         if (input == null)
             return true;
@@ -43,7 +52,7 @@ public class SevenSegHexShape extends SevenShape {
         if (i == 7) {
             return dp.getBool();
         } else {
-            int v = (int) input.getValueIgnoreHighZ() & 0xf;
+            int v = (int) input.getValue() & 0xf;
             v = TABLE[v];
             return (v & (1 << i)) != 0;
         }
@@ -61,8 +70,9 @@ public class SevenSegHexShape extends SevenShape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        input = ioState.getInput(0).addObserverToValue(guiObserver);
-        dp = ioState.getInput(1).addObserverToValue(guiObserver);
+        this.ioState = ioState;
+        ioState.getInput(0).addObserverToValue(guiObserver);
+        ioState.getInput(1).addObserverToValue(guiObserver);
         return null;
     }
 }

@@ -3,6 +3,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -26,9 +27,10 @@ public class SevenSegShape extends SevenShape {
     private final boolean commonCatode;
     private final boolean persistence;
     private final boolean[] data;
-    private ObservableValues inputs;
+    private ObservableValues inputValues;
+    private Value[] inputs = new Value[8];
+    private Value ccin;
     private Pins pins;
-    private ObservableValue ccin;
 
     /**
      * Creates a new instance
@@ -65,11 +67,9 @@ public class SevenSegShape extends SevenShape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        inputs = ioState.getInputs();
-        for (ObservableValue o : inputs)
+        inputValues = ioState.getInputs();
+        for (ObservableValue o : inputValues)
             o.addObserverToValue(guiObserver);
-        if (commonCatode)
-            ccin = inputs.get(8);
         return null;
     }
 
@@ -83,19 +83,29 @@ public class SevenSegShape extends SevenShape {
     }
 
     @Override
+    public void readObservableValues() {
+        if (inputValues != null) {
+            for (int i = 0; i < 8; i++)
+                inputs[i] = inputValues.get(i).getCopy();
+            if (commonCatode)
+                ccin = inputValues.get(8).getCopy();
+        }
+    }
+
+    @Override
     protected boolean getStyle(int i) {
-        if (inputs == null)
+        if (inputValues == null)
             return true;
 
         if (persistence && commonCatode) {
             if (!ccin.isHighZ() && !ccin.getBool())
-                data[i] = inputs.get(i).getValueIgnoreHighZ() > 0;
+                data[i] = inputs[i].getBool();
             return data[i];
         } else {
             if (commonCatode && (ccin.isHighZ() || ccin.getBool()))
                 return false;
 
-            return inputs.get(i).getValueIgnoreHighZ() > 0;
+            return inputs[i].getBool();
         }
     }
 

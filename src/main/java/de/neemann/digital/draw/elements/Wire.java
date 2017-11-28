@@ -1,11 +1,13 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.draw.shapes.ObservableValueReader;
 import de.neemann.digital.gui.Settings;
 
 import java.util.Collection;
@@ -18,7 +20,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  *
  * @author hneemann
  */
-public class Wire implements Drawable, Movable {
+public class Wire implements Drawable, Movable, ObservableValueReader {
     private static final int MIN_LABEL_WIRE_LEN = 80;
     private static final int MIN_CROSS_WIRE_LEN = SIZE * 2;
     private static final int CROSS_LEN = 4;
@@ -35,7 +37,8 @@ public class Wire implements Drawable, Movable {
      */
     public Vector p2;
     //CHECKSTYLE.ON: VisibilityModifier
-    private transient ObservableValue value;
+    private transient ObservableValue observableValue;
+    private transient Value value;
     private transient boolean p1Dot;
     private transient boolean p2Dot;
     private transient int bits;
@@ -61,6 +64,14 @@ public class Wire implements Drawable, Movable {
         this.p2 = new Vector(proto.p2);
         this.p1Dot = proto.p1Dot;
         this.p2Dot = proto.p2Dot;
+    }
+
+    @Override
+    public void readObservableValues() {
+        if (observableValue != null)
+            value = observableValue.getCopy();
+        else
+            value = null;
     }
 
     @Override
@@ -106,7 +117,7 @@ public class Wire implements Drawable, Movable {
 
     private Vector getRoundPos() {
         Vector pos = p1.add(p2).div(2);
-        return new Vector(((pos.x+SIZE2) / SIZE) * SIZE - DISPLACE, pos.y);
+        return new Vector(((pos.x + SIZE2) / SIZE) * SIZE - DISPLACE, pos.y);
     }
 
     @Override
@@ -241,14 +252,14 @@ public class Wire implements Drawable, Movable {
      * @param value the {@link ObservableValue}
      */
     public void setValue(ObservableValue value) {
-        this.value = value;
+        this.observableValue = value;
     }
 
     /**
      * @return returns the value which is represented by this wire
      */
     public ObservableValue getValue() {
-        return value;
+        return observableValue;
     }
 
     /**

@@ -24,6 +24,7 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The Dialog which shows the data to plot.
@@ -183,16 +184,21 @@ public class GraphDialog extends JDialog implements Observer {
         setLocationRelativeTo(owner);
     }
 
+    private final AtomicBoolean paintPending = new AtomicBoolean();
+
     @Override
     public void hasChanged() {
-        SwingUtilities.invokeLater(() -> {
-            dsc.revalidate();
-            dsc.repaint();
+        if (paintPending.compareAndSet(false, true)) {
             SwingUtilities.invokeLater(() -> {
-                JScrollBar bar = scrollPane.getHorizontalScrollBar();
-                bar.setValue(bar.getMaximum());
+                dsc.revalidate();
+                dsc.repaint();
+                SwingUtilities.invokeLater(() -> {
+                    JScrollBar bar = scrollPane.getHorizontalScrollBar();
+                    bar.setValue(bar.getMaximum());
+                    paintPending.set(false);
+                });
             });
-        });
+        }
     }
 
     /**

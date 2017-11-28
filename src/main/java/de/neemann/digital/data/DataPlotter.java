@@ -15,7 +15,7 @@ import de.neemann.digital.gui.sync.Sync;
  * @author hneemann
  */
 public class DataPlotter implements Drawable {
-    private final ValueTable data;
+    private final ValueTable dataOriginal;
     private final int maxTextLength;
     private double size = SIZE;
     private Sync modelSync = NoSync.INST;
@@ -26,7 +26,7 @@ public class DataPlotter implements Drawable {
      * @param data the signals used to collect DataSamples
      */
     public DataPlotter(ValueTable data) {
-        this.data = data;
+        this.dataOriginal = data;
         int tl = 0;
         for (int i = 0; i < data.getColumns(); i++) {
             String text = data.getColumnName(i);
@@ -47,7 +47,7 @@ public class DataPlotter implements Drawable {
      * @param width width of the frame
      */
     public void fitInside(int width) {
-        modelSync.access(() -> size = ((double) (width - getTextBorder())) / data.getRows());
+        modelSync.access(() -> size = ((double) (width - getTextBorder())) / dataOriginal.getRows());
     }
 
     /**
@@ -66,57 +66,69 @@ public class DataPlotter implements Drawable {
 
     @Override
     public void drawTo(Graphic g, Style highLight) {
-        modelSync.access(() -> {
-            int x = getTextBorder();
+        ValueTable data;
+        if (modelSync == NoSync.INST) {
+            data = dataOriginal;
+        } else {
+            data = modelSync.access(new Runnable() {
+                private ValueTable data;
 
-            int yOffs = SIZE / 2;
-            int y = BORDER;
-            int signals = data.getColumns();
+                @Override
+                public void run() {
+                    data = new ValueTable(dataOriginal);
+                }
+            }).data;
+        }
+
+        int x = getTextBorder();
+
+        int yOffs = SIZE / 2;
+        int y = BORDER;
+        int signals = data.getColumns();
+        for (int i = 0; i < signals; i++) {
+            String text = data.getColumnName(i);
+            g.drawText(new Vector(x - 2, y + yOffs), new Vector(x + 1, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
+            g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * data.getRows()), y - SEP2), Style.DASH);
+            y += SIZE + SEP;
+        }
+        g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * data.getRows()), y - SEP2), Style.DASH);
+
+
+        int[] lastRy = new int[signals];
+        boolean first = true;
+        double pos = 0;
+        for (Value[] s : data) {
+            int xx = (int) (pos + x);
+            g.drawLine(new Vector(xx, BORDER - SEP2), new Vector(xx, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
+            y = BORDER;
             for (int i = 0; i < signals; i++) {
-                String text = data.getColumnName(i);
-                g.drawText(new Vector(x - 2, y + yOffs), new Vector(x + 1, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
-                g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * data.getRows()), y - SEP2), Style.DASH);
+                Style style;
+                switch (s[i].getState()) {
+                    case FAIL:
+                        style = Style.FAILED;
+                        break;
+                    case PASS:
+                        style = Style.PASS;
+                        break;
+                    default:
+                        style = Style.NORMAL;
+                }
+
+                long width = data.getMax(i);
+                if (width == 0) width = 1;
+                int ry;
+                ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
+                g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
+                if (!first && ry != lastRy[i])
+                    g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
+
+                lastRy[i] = ry;
                 y += SIZE + SEP;
             }
-            g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * data.getRows()), y - SEP2), Style.DASH);
-
-
-            int[] lastRy = new int[signals];
-            boolean first = true;
-            double pos = 0;
-            for (Value[] s : data) {
-                int xx = (int) (pos + x);
-                g.drawLine(new Vector(xx, BORDER - SEP2), new Vector(xx, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
-                y = BORDER;
-                for (int i = 0; i < signals; i++) {
-                    Style style;
-                    switch (s[i].getState()) {
-                        case FAIL:
-                            style = Style.FAILED;
-                            break;
-                        case PASS:
-                            style = Style.PASS;
-                            break;
-                        default:
-                            style = Style.NORMAL;
-                    }
-
-                    long width = data.getMax(i);
-                    if (width == 0) width = 1;
-                    int ry;
-                    ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
-                    g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
-                    if (!first && ry != lastRy[i])
-                        g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
-
-                    lastRy[i] = ry;
-                    y += SIZE + SEP;
-                }
-                first = false;
-                pos += size;
-            }
-            g.drawLine(new Vector((int) (pos + x), BORDER - SEP2), new Vector((int) (pos + x), (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
-        });
+            first = false;
+            pos += size;
+        }
+        g.drawLine(new Vector((int) (pos + x), BORDER - SEP2), new Vector((int) (pos + x), (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
     }
 
     private int getTextBorder() {
@@ -127,7 +139,7 @@ public class DataPlotter implements Drawable {
      * @return the preferred height of the graphical representation
      */
     public int getGraphicHeight() {
-        return data.getColumns() * (SIZE + SEP) + 2 * BORDER;
+        return dataOriginal.getColumns() * (SIZE + SEP) + 2 * BORDER;
     }
 
     /**
@@ -139,7 +151,7 @@ public class DataPlotter implements Drawable {
 
             @Override
             public void run() {
-                r = DataPlotter.this.getTextBorder() + (int) (data.getRows() * size);
+                r = DataPlotter.this.getTextBorder() + (int) (dataOriginal.getRows() * size);
             }
         }).r;
     }

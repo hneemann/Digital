@@ -6,11 +6,12 @@ HEAD, planned as v0.16
   the content of registers and flip-flops in a running simulation.
 - Now you can open the measurement value table and graph in a running simulation.
 - Added a bit extender component to extend signed values.
-- Added a simple unclocked RS flip-flop
-- Added a bit selector component
-- Added a dual ported RAM component
-- Added a priority encoder component
+- Added a simple unclocked RS flip-flop.
+- Added a bit selector component.
+- Added a dual ported RAM component.
+- Added a priority encoder component.
 - Added tooltips showing the actual value of wires.
+- Improved performance through more efficient decoupling of the GUI thread and the simulation thread.
 - Bug fixes
   - Fixed a bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.
   - Fixed a bug in the barrel shifter and adder if 32 bits or more where used.

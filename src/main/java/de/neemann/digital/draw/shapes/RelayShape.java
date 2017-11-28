@@ -23,6 +23,7 @@ public class RelayShape implements Shape {
     private final String label;
     private boolean invers;
     private Relay relay;
+    private boolean relayIsClosed;
 
     /**
      * Creates a new instance
@@ -35,6 +36,7 @@ public class RelayShape implements Shape {
         this.inputs = inputs;
         this.outputs = outputs;
         invers = attributes.get(Keys.RELAY_NORMALLY_CLOSED);
+        relayIsClosed = invers;
         label = attributes.getCleanLabel();
     }
 
@@ -56,14 +58,16 @@ public class RelayShape implements Shape {
     }
 
     @Override
+    public void readObservableValues() {
+        if (relay != null)
+            relayIsClosed = relay.isClosed();
+    }
+
+    @Override
     public void drawTo(Graphic graphic, Style highLight) {
         int yOffs = 0;
 
-        boolean closed = invers;
-        if (relay != null)
-            closed = relay.isClosed();
-
-        if (closed) {
+        if (relayIsClosed) {
             graphic.drawLine(new Vector(0, 0), new Vector(SIZE * 2, 0), Style.NORMAL);
         } else {
             yOffs = SIZE2 / 2;

@@ -1,6 +1,6 @@
 package de.neemann.digital.draw.graphics;
 
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Value;
 
 import java.awt.*;
 
@@ -196,12 +196,12 @@ public class Style {
      * @param value the value to represent
      * @return the style
      */
-    public static Style getWireStyle(ObservableValue value) {
+    public static Style getWireStyle(Value value) {
         if (value == null) return WIRE;
         if (value.isHighZ()) return WIRE_HIGHZ;
         if (value.getBits() > 1) return WIRE_BUS;
 
-        if (value.getValueIgnoreHighZ() == 1) return WIRE_HIGH;
+        if (value.getValue() == 1) return WIRE_HIGH;
         else return WIRE_LOW;
     }
 
