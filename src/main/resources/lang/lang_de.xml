@@ -1006,7 +1006,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_exportPNGLarge">Export PNG groß</string>
     <string name="menu_exportPNGSmall">Export PNG klein</string>
     <string name="menu_exportSVG">Export SVG</string>
-    <string name="menu_exportSVGLaTex">Export SVG+LaTeX</string>
+    <string name="menu_exportSVGLaTex">Export SVG + LaTeX</string>
+    <string name="menu_exportSVGLaTexInOut">Export SVG + LaTeX + kleine Ein- und Ausgänge</string>
     <string name="menu_exportAnimatedGIF">Export Animated GIF</string>
     <string name="menu_fast">Schneller Lauf</string>
     <string name="menu_fast_tt">Führt die Schaltung aus, bis ein Stopsignal über ein BRK-Element detektiert wird.</string>

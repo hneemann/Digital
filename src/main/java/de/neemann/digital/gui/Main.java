@@ -482,6 +482,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
         export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
+        export.add(new ExportAction(Lang.get("menu_exportSVGLaTexInOut"), "svg", GraphicSVGLaTeXInOut::new));
         export.add(new ExportAction(Lang.get("menu_exportPNGSmall"), "png", (out) -> new GraphicsImage(out, "PNG", 1)));
         export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out) -> new GraphicsImage(out, "PNG", 2)));
 

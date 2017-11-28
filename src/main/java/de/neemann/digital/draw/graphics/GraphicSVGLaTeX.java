@@ -111,9 +111,4 @@ public class GraphicSVGLaTeX extends GraphicSVG {
         if (style == Style.SHAPE_PIN) return super.getColor(Style.NORMAL);
         return super.getColor(style);
     }
-
-    @Override
-    public boolean isFlagSet(String name) {
-        return name.equals("LaTeX");
-    }
 }

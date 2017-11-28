@@ -995,7 +995,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_exportPNGLarge">Export PNG large</string>
     <string name="menu_exportPNGSmall">Export PNG small</string>
     <string name="menu_exportSVG">Export SVG</string>
-    <string name="menu_exportSVGLaTex">Export SVG+LaTeX</string>
+    <string name="menu_exportSVGLaTex">Export SVG + LaTeX</string>
+    <string name="menu_exportSVGLaTexInOut">Export SVG + LaTeX + small in/out</string>
     <string name="menu_exportAnimatedGIF">Export Animated GIF</string>
     <string name="menu_fast">Run Fast</string>
     <string name="menu_fast_tt">Runs the circuit until a break is detected by the BRK component.</string>
