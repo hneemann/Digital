@@ -12,7 +12,7 @@ import de.neemann.digital.draw.model.ModelEntry;
  *
  * @author hneemann
  */
-public interface Shape extends Drawable, StateFetcher {
+public interface Shape extends Drawable, DrawableInputReader {
 
     /**
      * Puts the pins name and the pins x-y-position together!

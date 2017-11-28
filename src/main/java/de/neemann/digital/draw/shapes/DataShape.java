@@ -29,6 +29,7 @@ public class DataShape implements Shape {
 
     private final boolean microStep;
     private final int maxSize;
+    private ValueTable logDataModel;
     private ValueTable logData;
 
     /**
@@ -53,6 +54,13 @@ public class DataShape implements Shape {
         return null;
     }
 
+
+    @Override
+    public void readInputs() {
+        if (logDataModel != null)
+            logData = new ValueTable(logDataModel);
+    }
+
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
         if (logData == null) {
@@ -74,7 +82,7 @@ public class DataShape implements Shape {
         }.order(signals);
 
         ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, maxSize);
-        logData = valueTableObserver.getLogData();
+        logDataModel = valueTableObserver.getLogData();
         model.addObserver(valueTableObserver);
     }
 }

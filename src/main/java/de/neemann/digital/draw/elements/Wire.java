@@ -7,7 +7,7 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
-import de.neemann.digital.draw.shapes.StateFetcher;
+import de.neemann.digital.draw.shapes.DrawableInputReader;
 import de.neemann.digital.gui.Settings;
 
 import java.util.Collection;
@@ -20,7 +20,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  *
  * @author hneemann
  */
-public class Wire implements Drawable, Movable, StateFetcher {
+public class Wire implements Drawable, Movable, DrawableInputReader {
     private static final int MIN_LABEL_WIRE_LEN = 80;
     private static final int MIN_CROSS_WIRE_LEN = SIZE * 2;
     private static final int CROSS_LEN = 4;
@@ -67,7 +67,7 @@ public class Wire implements Drawable, Movable, StateFetcher {
     }
 
     @Override
-    public void fetch() {
+    public void readInputs() {
         if (observableValue != null)
             value = observableValue.getCopy();
         else

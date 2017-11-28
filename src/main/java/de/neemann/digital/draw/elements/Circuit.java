@@ -202,9 +202,9 @@ public class Circuit {
 
         modelSync.access(() -> {
             for (Wire w : wires)
-                w.fetch();
+                w.readInputs();
             for (VisualElement p : visualElements)
-                p.getShape().fetch();
+                p.getShape().readInputs();
         });
 
         graphic.openGroup();

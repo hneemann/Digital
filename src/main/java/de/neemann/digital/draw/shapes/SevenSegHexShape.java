@@ -37,7 +37,7 @@ public class SevenSegHexShape extends SevenShape {
     }
 
     @Override
-    public void fetch() {
+    public void readInputs() {
         if (ioState != null) {
             input = ioState.getInput(0).getCopy();
             dp = ioState.getInput(1).getCopy();

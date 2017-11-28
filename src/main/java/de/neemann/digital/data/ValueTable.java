@@ -40,6 +40,17 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
     }
 
     /**
+     * Creates a copy of the given ValueTable
+     *
+     * @param toCopy the ValueTable to copy
+     */
+    public ValueTable(ValueTable toCopy) {
+        this.names = toCopy.names;
+        values = (ArrayList<Value[]>) toCopy.values.clone();
+        max = toCopy.max.clone();
+    }
+
+    /**
      * @return number of rows
      */
     public int getRows() {
