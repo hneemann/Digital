@@ -2,6 +2,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -24,8 +25,10 @@ public class LightBulbShape implements Shape {
     private static final int RAD = (SIZE - BORDER * 2) * 707 / 1000;
     private final PinDescriptions inputs;
     private final Style style;
-    private ObservableValue a;
-    private ObservableValue b;
+    private ObservableValue aValue;
+    private ObservableValue bValue;
+    private Value a;
+    private Value b;
 
     /**
      * Creates a new instance
@@ -48,9 +51,17 @@ public class LightBulbShape implements Shape {
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        a = ioState.getInput(0);
-        b = ioState.getInput(1);
+        aValue = ioState.getInput(0).addObserverToValue(guiObserver);
+        bValue = ioState.getInput(1).addObserverToValue(guiObserver);
         return null;
+    }
+
+    @Override
+    public void readInputs() {
+        if (aValue != null && bValue != null) {
+            a = aValue.getCopy();
+            b = bValue.getCopy();
+        }
     }
 
     @Override

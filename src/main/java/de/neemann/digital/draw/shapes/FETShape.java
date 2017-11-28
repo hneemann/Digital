@@ -20,6 +20,7 @@ public abstract class FETShape implements Shape {
     private final String label;
     private int xOffs = SIZE2 - 2;
     private NFET fet;
+    private boolean isClosed;
 
     /**
      * Creates a new instance
@@ -74,13 +75,19 @@ public abstract class FETShape implements Shape {
             drawSwitch(graphic);
     }
 
+    @Override
+    public void readInputs() {
+        if (fet!=null)
+            isClosed=fet.isClosed();
+    }
+
     /**
      * Draws the small switch beside the fet
      *
      * @param graphic the instance to draw to
      */
     private void drawSwitch(Graphic graphic) {
-        drawSwitch(graphic, fet.isClosed());
+        drawSwitch(graphic, isClosed);
     }
 
     /**

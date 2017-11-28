@@ -57,7 +57,7 @@ public class LEDShape implements Shape {
     @Override
     public void readInputs() {
         if (ioState != null)
-            value=ioState.getInput(0).getCopy();
+            value = ioState.getInput(0).getCopy();
     }
 
     @Override

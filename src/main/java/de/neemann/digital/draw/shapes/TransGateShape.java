@@ -37,6 +37,7 @@ public class TransGateShape implements Shape {
     private final PinDescriptions input;
     private final PinDescriptions output;
     private TransGate transGate;
+    private boolean isClosed;
 
     /**
      * Creates a trantmission gate
@@ -66,6 +67,12 @@ public class TransGateShape implements Shape {
     }
 
     @Override
+    public void readInputs() {
+        if (transGate != null)
+            isClosed = transGate.isClosed();
+    }
+
+    @Override
     public void drawTo(Graphic graphic, Style highLight) {
         graphic.drawPolygon(TOP, Style.NORMAL);
         graphic.drawPolygon(BOTTOM, Style.NORMAL);
@@ -73,7 +80,7 @@ public class TransGateShape implements Shape {
         graphic.drawCircle(new Vector(SIZE - RAD, P - RAD), new Vector(SIZE + RAD, P + RAD), Style.NORMAL);
 
         if (transGate != null)
-            FETShape.drawSwitch(new GraphicTransform(graphic, TRANS_SWITCH), transGate.isClosed());
+            FETShape.drawSwitch(new GraphicTransform(graphic, TRANS_SWITCH), isClosed);
     }
 
 }

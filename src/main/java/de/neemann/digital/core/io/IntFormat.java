@@ -2,6 +2,7 @@ package de.neemann.digital.core.io;
 
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Value;
 
 /**
  * @author hneemann
@@ -34,7 +35,7 @@ public enum IntFormat {
      * @param inValue the value to format
      * @return the formatted value as a string
      */
-    public String format(ObservableValue inValue) {
+    public String format(Value inValue) {
         if (inValue.isHighZ())
             return "HZ";
 
