@@ -56,7 +56,7 @@ public class DataShape implements Shape {
 
 
     @Override
-    public void readInputs() {
+    public void readObservableValues() {
         if (logDataModel != null)
             logData = new ValueTable(logDataModel);
     }

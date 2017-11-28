@@ -67,7 +67,7 @@ public class TransGateShape implements Shape {
     }
 
     @Override
-    public void readInputs() {
+    public void readObservableValues() {
         if (transGate != null)
             isClosed = transGate.isClosed();
     }

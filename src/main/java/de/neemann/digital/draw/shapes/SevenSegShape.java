@@ -83,7 +83,7 @@ public class SevenSegShape extends SevenShape {
     }
 
     @Override
-    public void readInputs() {
+    public void readObservableValues() {
         if (inputValues != null) {
             for (int i = 0; i < 8; i++)
                 inputs[i] = inputValues.get(i).getCopy();

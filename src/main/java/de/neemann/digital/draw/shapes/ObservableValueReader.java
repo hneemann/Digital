@@ -3,7 +3,7 @@ package de.neemann.digital.draw.shapes;
 /**
  * Allows fetching the state of a shape or wire.
  */
-public interface DrawableInputReader {
+public interface ObservableValueReader {
 
     /**
      * Fetches the state of a shape by requesting data from the model.
@@ -13,7 +13,7 @@ public interface DrawableInputReader {
      * The draw methods must not access the model data. This can lead to
      * unreasonable drawings.
      */
-    default void readInputs() {
+    default void readObservableValues() {
     }
 
 }

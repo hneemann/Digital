@@ -98,7 +98,7 @@ public class InputShape implements Shape {
     }
 
     @Override
-    public void readInputs() {
+    public void readObservableValues() {
         if (ioState != null)
             value = ioState.getOutput(0).getCopy();
     }

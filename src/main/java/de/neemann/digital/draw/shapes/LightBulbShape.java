@@ -57,7 +57,7 @@ public class LightBulbShape implements Shape {
     }
 
     @Override
-    public void readInputs() {
+    public void readObservableValues() {
         if (aValue != null && bValue != null) {
             a = aValue.getCopy();
             b = bValue.getCopy();

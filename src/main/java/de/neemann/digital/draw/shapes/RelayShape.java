@@ -58,7 +58,7 @@ public class RelayShape implements Shape {
     }
 
     @Override
-    public void readInputs() {
+    public void readObservableValues() {
         if (relay != null)
             relayIsClosed = relay.isClosed();
     }

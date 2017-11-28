@@ -60,7 +60,7 @@ public class ProbeShape implements Shape {
     }
 
     @Override
-    public void readInputs() {
+    public void readObservableValues() {
         if (bits > 1)
             inValueCopy = inValue.getCopy();
     }

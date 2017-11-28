@@ -76,7 +76,7 @@ public abstract class FETShape implements Shape {
     }
 
     @Override
-    public void readInputs() {
+    public void readObservableValues() {
         if (fet!=null)
             isClosed=fet.isClosed();
     }
