@@ -81,9 +81,6 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
 
             while (values.size() >= maxSize)
                 values.remove(0);
-            Arrays.fill(max, 0);
-            for (Value[] v : values)
-                checkMax(v);
         }
         if (tableRowIndex != null)
             tableRowIndex.add(values.size());
