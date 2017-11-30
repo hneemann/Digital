@@ -26,6 +26,7 @@ import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.builder.tt2.StartATF1502Fitter;
 import de.neemann.digital.builder.tt2.StartATF1504Fitter;
+import de.neemann.digital.builder.tt2.StartATF1508Fitter;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
@@ -472,13 +473,15 @@ public class TableDialog extends JDialog {
                         .addProcessingStep(new StartATF1504Fitter(TableDialog.this))
                         .addProcessingStep(new CreateCHN("ATF1504AS"))
         ));
-        /*
-        hardware.add(createATF150XExporterMenu("ATF1508",
-                new ATF1508CuplExporter(),
-                new ExpressionToFileExporter(new ATF1508TT2Exporter(getProjectName()))
-                        .addProcessingStep(new StartATF1508Fitter(TableDialog.this))
-                        .addProcessingStep(new CreateCHN("ATF1508AS"))
-        ));*/
+
+        if (Main.enableExperimental()) {
+            hardware.add(createATF150XExporterMenu("ATF1508",
+                    new ATF1508CuplExporter(),
+                    new ExpressionToFileExporter(new ATF1508TT2Exporter(getProjectName()))
+                            .addProcessingStep(new StartATF1508Fitter(TableDialog.this))
+                            .addProcessingStep(new CreateCHN("ATF1508AS"))
+            ));
+        }
 
         createMenu.add(hardware);
 
