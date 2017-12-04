@@ -16,6 +16,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author hneemann
@@ -102,11 +103,19 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
         setLocationRelativeTo(owner);
     }
 
+    private final AtomicBoolean paintPending = new AtomicBoolean();
+
     @Override
     public void handleEvent(ModelEvent event) {
         if (event == type || event == ModelEvent.MANUALCHANGE) {
-            if (tableUpdateEnable)
-                SwingUtilities.invokeLater(tableModel::fireChanged);
+            if (tableUpdateEnable) {
+                if (paintPending.compareAndSet(false, true)) {
+                    SwingUtilities.invokeLater(() -> {
+                        tableModel.fireChanged();
+                        paintPending.set(false);
+                    });
+                }
+            }
         }
         switch (event) {
             case FASTRUN:
