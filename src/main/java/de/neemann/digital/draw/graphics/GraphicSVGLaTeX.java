@@ -107,8 +107,10 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     @Override
     public String getColor(Style style) {
         if (style == Style.WIRE) return super.getColor(Style.NORMAL);
-        if (style == Style.WIRE_OUT) return super.getColor(Style.NORMAL);
-        if (style == Style.SHAPE_PIN) return super.getColor(Style.NORMAL);
-        return super.getColor(style);
+        else if (style == Style.WIRE_OUT) return super.getColor(Style.NORMAL);
+        else if (style == Style.WIRE_BITS) return super.getColor(Style.NORMAL);
+        else if (style == Style.WIRE_BUS) return super.getColor(Style.NORMAL);
+        else if (style == Style.SHAPE_PIN) return super.getColor(Style.NORMAL);
+        else return super.getColor(style);
     }
 }
