@@ -257,7 +257,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         }
 
         for (String o : builder.getOutputs()) {
-            int p = pinMap.isAssigned(o);
+            int p = pinMap.isOutputAssigned(o);
             if (p >= 0) {
                 pin.append(" ").append(o).append("+:").append(p);
                 pinNum++;

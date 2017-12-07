@@ -476,7 +476,7 @@ public class TableDialog extends JDialog {
 
         if (Main.enableExperimental()) {
             hardware.add(createATF150XExporterMenu("ATF1508",
-                    new ATF1508CuplExporter(),
+                    null,
                     new ExpressionToFileExporter(new ATF1508TT2Exporter(getProjectName()))
                             .addProcessingStep(new StartATF1508Fitter(TableDialog.this))
                             .addProcessingStep(new CreateCHN("ATF1508AS"))
@@ -490,12 +490,13 @@ public class TableDialog extends JDialog {
 
     private JMenuItem createATF150XExporterMenu(String menuName, CuplExporter cuplExporter, ExpressionToFileExporter expressionToFileExporter) {
         JMenu menu = new JMenu(menuName);
-        menu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCUPL(cuplExporter);
-            }
-        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+        if (cuplExporter != null)
+            menu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCUPL(cuplExporter);
+                }
+            }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
         menu.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -608,7 +609,7 @@ public class TableDialog extends JDialog {
     }
 
     private String getProjectName() {
-        if (filename==null)
+        if (filename == null)
             return "unknown";
         else return filename.getName();
     }

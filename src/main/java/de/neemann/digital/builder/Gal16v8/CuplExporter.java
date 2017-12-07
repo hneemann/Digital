@@ -154,7 +154,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
 
         for (String var : builder.getOutputs()) {
             if (createNodes) {
-                int p = pinMap.isAssigned(var);
+                int p = pinMap.isOutputAssigned(var);
                 if (p >= 0)
                     out.append("PIN ").append(Integer.toString(p)).append(" = ").append(var).append(";\r\n");
                 else
