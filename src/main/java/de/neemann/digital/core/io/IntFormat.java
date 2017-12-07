@@ -43,9 +43,9 @@ public enum IntFormat {
             case dec:
                 return Long.toString(inValue.getValue());
             case hex:
-                return Long.toHexString(inValue.getValue()).toUpperCase();
+                return Long.toHexString(inValue.getMaskedValue()).toUpperCase();
             case bin:
-                return Long.toBinaryString(inValue.getValue());
+                return Long.toBinaryString(inValue.getMaskedValue());
             case ascii:
                 return "" + (char) inValue.getValue();
             default:

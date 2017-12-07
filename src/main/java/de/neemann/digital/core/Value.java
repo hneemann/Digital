@@ -11,6 +11,18 @@ public class Value {
     private final boolean highZ;
     private final int bits;
 
+    /**
+     * Creates a new Value
+     *
+     * @param value the value
+     * @param bits  the number of bits
+     */
+    public Value(long value, int bits) {
+        this.value = value;
+        this.bits = bits;
+        this.highZ = false;
+    }
+
     Value(ObservableValue observableValue) {
         value = observableValue.getValue();
         highZ = observableValue.isHighZ();
@@ -29,6 +41,13 @@ public class Value {
      */
     public long getValue() {
         return value;
+    }
+
+    /**
+     * @return the signals value masked with the bit size
+     */
+    public long getMaskedValue() {
+        return value & ((1L << bits) - 1);
     }
 
     /**

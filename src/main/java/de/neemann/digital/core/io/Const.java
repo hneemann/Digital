@@ -23,7 +23,8 @@ public class Const implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Const.class)
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.VALUE);
+            .addAttribute(Keys.VALUE)
+            .addAttribute(Keys.INT_FORMAT);
 
     private final ObservableValue output;
 
