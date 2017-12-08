@@ -523,7 +523,7 @@ public class TableDialog extends JDialog {
                 expressionExporter.export(SaveAsHelper.checkSuffix(fileChooser.getSelectedFile(), suffix));
                 result = true;
             } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
-                new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
+                new ErrorMessage(Lang.get("msg_errorDuringHardwareExport")).addCause(e).show(this);
             }
         }
 
