@@ -1729,6 +1729,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             wire1 = w;
             wire1.setP2(startPos);
             wire2 = new Wire(startPos, origPos);
+            circuit.getWires().add(wire2);
         }
 
         @Override
@@ -1745,9 +1746,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                addModificationAlreadyMade(
+                        new ModifySplitWire(new Wire(wire1.p1, wire2.p2), newPosition, Lang.get("mod_splitWire")));
+                circuit.elementsMoved();
+                mouseNormal.activate();
+            } else
+                escapePressed();
+        }
+
+        @Override
+        public void escapePressed() {
             wire1.setP2(origPos);
-            if (e.getButton() == MouseEvent.BUTTON1)
-                modify(new ModifySplitWire(wire1, newPosition, Lang.get("mod_splitWire")));
+            circuit.getWires().remove(wire2);
+            circuitHasChanged();
             mouseNormal.activate();
         }
 
@@ -1755,12 +1767,6 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         public void drawTo(Graphic gr) {
             wire1.drawTo(gr, Style.HIGHLIGHT);
             wire2.drawTo(gr, Style.HIGHLIGHT);
-        }
-
-        @Override
-        public void escapePressed() {
-            wire1.setP2(origPos);
-            mouseNormal.activate();
         }
     }
 
