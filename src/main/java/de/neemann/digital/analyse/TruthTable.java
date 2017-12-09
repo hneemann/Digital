@@ -29,6 +29,7 @@ public class TruthTable {
     private final TreeMap<String, String> pins;
     private transient BitSetter bitSetter;
     private ArrayList<String> pinsWithoutNumber = null;
+    private String clockPin;
 
     /**
      * Load the given file and returns a truth table instance
@@ -456,7 +457,7 @@ public class TruthTable {
      */
     public void addPinNumber(Signal s) throws NodeException {
         String p = s.getPinNumber();
-        if (p!=null && p.length() > 0) pins.put(s.getName(), p);
+        if (p != null && p.length() > 0) pins.put(s.getName(), p);
     }
 
     /**
@@ -485,6 +486,35 @@ public class TruthTable {
         return pinsWithoutNumber;
     }
 
+    /**
+     * Sets the clock pin
+     *
+     * @param clockPin the clock pin
+     */
+    public void setClockPin(String clockPin) {
+        this.clockPin = clockPin;
+    }
+
+    /**
+     * @return the clock pin
+     */
+    public String getClockPin() {
+        return clockPin;
+    }
+
+    /**
+     * @return the clock pin
+     */
+    public int getClockPinInt() {
+        if (clockPin == null || clockPin.length() == 0)
+            return 0;
+
+        try {
+            return Integer.parseInt(clockPin);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 
     /**
      * A single result column

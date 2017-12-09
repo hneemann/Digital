@@ -19,7 +19,6 @@ import java.util.*;
 public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     private final BuilderCollector builder;
     private final PinMap pinMap;
-    private int clockPin;
     private String projectName;
     private String device;
     private OutputStreamWriter writer;
@@ -44,26 +43,14 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
                     return super.addCombinatorial(name, expression);
             }
         };
-        pinMap = new PinMap();
+        pinMap = new PinMap().setClockPin(43);
         device = "f1502ispplcc44";
         this.projectName = projectName;
-        clockPin = 43;
     }
 
     @Override
     public BuilderInterface getBuilder() {
         return builder;
-    }
-
-    /**
-     * Sets the pin connected to the clock of the ff
-     *
-     * @param clockPin the pin number
-     * @return this for chained calls
-     */
-    public TT2Exporter setClockPin(int clockPin) {
-        this.clockPin = clockPin;
-        return this;
     }
 
     /**
@@ -252,7 +239,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         }
 
         if (!builder.getRegistered().isEmpty()) {
-            pin.append(" CLK+:").append(clockPin);
+            pin.append(" CLK+:").append(pinMap.getClockPin());
             pinNum++;
         }
 

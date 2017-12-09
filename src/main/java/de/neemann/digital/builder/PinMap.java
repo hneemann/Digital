@@ -17,6 +17,7 @@ public class PinMap {
     private final HashMap<String, Integer> pinMap;
     private final ArrayList<Pin> availPins;
     private ArrayList<HashSet<String>> alias;
+    private int clockPin;
 
     /**
      * Creates a new instance
@@ -262,6 +263,25 @@ public class PinMap {
             sb.append(Lang.get("msg_pinMap_pin_N_is_N", p.getValue(), p.getKey())).append("\n");
 
         return sb.toString();
+    }
+
+    /**
+     * @return the clock pin
+     */
+    public int getClockPin() {
+        return clockPin;
+    }
+
+    /**
+     * Sets the clock pin
+     *
+     * @param clockPin the clock pin
+     * @return this for chained calls
+     */
+    public PinMap setClockPin(int clockPin) {
+        if (clockPin > 0)
+            this.clockPin = clockPin;
+        return this;
     }
 
     private static final class Pin {

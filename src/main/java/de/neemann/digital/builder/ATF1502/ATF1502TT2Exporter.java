@@ -16,10 +16,12 @@ public class ATF1502TT2Exporter extends TT2Exporter {
      */
     public ATF1502TT2Exporter(String projectName) {
         super(projectName);
-        getPinMapping().setAvailBidirectional(4, 5, 6, 8, 9, 11, 12, 14, 16, 17,
-                18, 19, 20, 21, 24, 25, 26, 27, 28,
-                29, 31, 33, 34, 36, 37, 38, 39, 40);
-        setClockPin(43);
+        getPinMapping()
+                .setAvailBidirectional(4, 5, 6, 8, 9, 11, 12, 14, 16, 17,
+                        18, 19, 20, 21, 24, 25, 26, 27, 28,
+                        29, 31, 33, 34, 36, 37, 38, 39, 40)
+                .setClockPin(43);
+
     }
 
 }

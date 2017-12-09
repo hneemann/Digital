@@ -25,6 +25,7 @@ public class Clock implements Element {
     private final ObservableValue output;
     private final int frequency;
     private final String label;
+    private final String clockPin;
 
     /**
      * Creates a new instance
@@ -40,6 +41,7 @@ public class Clock implements Element {
         } else
             frequency = 0;
         label = attributes.getCleanLabel();
+        clockPin = attributes.get(Keys.PINNUMBER);
     }
 
     @Override
@@ -77,5 +79,12 @@ public class Clock implements Element {
      */
     public String getLabel() {
         return label;
+    }
+
+    /**
+     * @return the clock pin
+     */
+    public String getClockPin() {
+        return clockPin;
     }
 }

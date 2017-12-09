@@ -500,6 +500,7 @@ public class TableDialog extends JDialog {
         menu.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                expressionToFileExporter.getPinMapping().setClockPin(model.getTable().getClockPinInt());
                 createHardware(expressionToFileExporter, filename, "tt2");
             }
         }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());

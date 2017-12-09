@@ -278,6 +278,9 @@ public class ModelAnalyser {
         for (Signal s : outputs)
             tt.addPinNumber(s);
 
+        if (model.getClocks().size() == 1)
+            tt.setClockPin(model.getClocks().get(0).getClockPin());
+
         ArrayList<BoolTableByteArray> data = new ArrayList<>();
         for (Signal s : outputs) {
             BoolTableByteArray e = new BoolTableByteArray(rows);
