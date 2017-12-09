@@ -88,6 +88,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private final MouseControllerMoveWire mouseMoveWire;
     private final MouseControllerWireDiag mouseWireDiag;
     private final MouseControllerWireRect mouseWireRect;
+    private final MouseControllerWireSplit mouseWireSplit;
     private final MouseControllerSelect mouseSelect;
     private final MouseControllerMoveSelected mouseMoveSelected;
     private final MouseController mouseRun;
@@ -179,6 +180,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setAccelerator("F").enableAcceleratorIn(this);
 
+        new ToolTipAction("splitWire") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
+                Wire w = circuit.getWireAt(pos, SIZE2);
+                if (w != null)
+                    mouseWireSplit.activate(w, pos);
+            }
+        }.setAccelerator("S").enableAcceleratorIn(this);
+
+
         createAdditionalShortcuts(shapeFactory);
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DEL_ACTION);
@@ -221,6 +233,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         mouseMoveWire = new MouseControllerMoveWire(normalCursor);
         mouseWireRect = new MouseControllerWireRect(normalCursor);
         mouseWireDiag = new MouseControllerWireDiag(normalCursor);
+        mouseWireSplit = new MouseControllerWireSplit(normalCursor);
         mouseSelect = new MouseControllerSelect(new Cursor(Cursor.CROSSHAIR_CURSOR));
         mouseMoveSelected = new MouseControllerMoveSelected(moveCursor);
         mouseRun = new MouseControllerRun(normalCursor);
@@ -1699,6 +1712,57 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
+    private final class MouseControllerWireSplit extends MouseController {
+        private Wire wire1;
+        private Wire wire2;
+        private Vector newPosition;
+        private Vector origPos;
+
+        private MouseControllerWireSplit(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(Wire w, Vector startPos) {
+            super.activate();
+            startPos = raster(startPos);
+            origPos = w.p2;
+            wire1 = w;
+            wire1.setP2(startPos);
+            wire2 = new Wire(startPos, origPos);
+        }
+
+        @Override
+        void moved(MouseEvent e) {
+            Vector p = raster(getPosVector(e));
+            if (!p.equals(newPosition)) {
+                newPosition = p;
+                wire1.setP2(newPosition);
+                wire2.setP1(newPosition);
+                circuitHasChanged();
+                repaint();
+            }
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            wire1.setP2(origPos);
+            if (e.getButton() == MouseEvent.BUTTON1)
+                modify(new ModifySplitWire(wire1, newPosition, Lang.get("mod_splitWire")));
+            mouseNormal.activate();
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            wire1.drawTo(gr, Style.HIGHLIGHT);
+            wire2.drawTo(gr, Style.HIGHLIGHT);
+        }
+
+        @Override
+        public void escapePressed() {
+            wire1.setP2(origPos);
+            mouseNormal.activate();
+        }
+    }
 
     private final class MouseControllerSelect extends MouseController {
         private static final int MIN_SIZE = 8;

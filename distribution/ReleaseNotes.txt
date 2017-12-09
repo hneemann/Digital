@@ -11,6 +11,7 @@ HEAD, planned as v0.16
 - Added a dual ported RAM component.
 - Added a priority encoder component.
 - Added tooltips showing the actual value of wires.
+- Added a shortcut S to split a single wire into two wires.
 - Improved performance through more efficient decoupling of the GUI thread and the simulation thread.
 - Bug fixes
   - Fixed a bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.

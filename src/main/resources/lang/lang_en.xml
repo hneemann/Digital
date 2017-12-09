@@ -962,6 +962,7 @@ The names of the variables may not be unique.</string>
     <string name="mod_modifiedMeasurementOrdering">Ordered measurements.</string>
     <string name="mod_set_N_BitsToSelection">Sets the number of data bits to {0} in selected components.</string>
     <string name="mod_groupEdit">Modified attributes of selected components.</string>
+    <string name="mod_splitWire">Splits a single wire into two wires.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>

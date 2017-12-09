@@ -345,6 +345,7 @@
             <shortcut key="P">Programs a diode or a FG-FET.</shortcut>
             <shortcut key="D">While drawing a wire switches to the diagonal mode.</shortcut>
             <shortcut key="F">While drawing a line flips the orientation.</shortcut>
+            <shortcut key="S">Splits a single wire into two wires.</shortcut>
             <shortcut key="ESC">Abort the actual action.</shortcut>
             <shortcut key="Del">Removes the selected components.</shortcut>
             <shortcut key="Backspace">Removes the selected components.</shortcut>
