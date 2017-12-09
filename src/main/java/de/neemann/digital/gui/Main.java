@@ -1531,7 +1531,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         MainBuilder builder = new MainBuilder();
         for (String s : args) {
             if (s.equals("experimental")) experimental = true;
-            if (s.toLowerCase().endsWith(".dig")) builder.setFileToOpen(new File(s));
+            else builder.setFileToOpen(new File(s));
         }
         SwingUtilities.invokeLater(() -> {
             Main main = builder.build();
