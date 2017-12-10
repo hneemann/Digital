@@ -764,6 +764,7 @@ The names of the variables may not be unique.</string>
     <string name="err_mainClass_N_NotFound">Could not find the class {0}!</string>
     <string name="err_couldNotInitializeMainClass_N">Could not create an instance of the class {0}!</string>
     <string name="err_notMoreOutBitsThanInBits">There must be more input bits than output bits!</string>
+    <string name="err_constantsNotAllowed">Constant values are not allowed!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

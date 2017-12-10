@@ -771,6 +771,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_mainClass_N_NotFound">Die Klasse {0} wurde nicht gefunden!</string>
     <string name="err_couldNotInitializeMainClass_N">Es konnte keine Instanz der Klasse {0} erzeugt werden!</string>
     <string name="err_notMoreOutBitsThanInBits">Es muss mehr Eingangsbits als Ausgangsbits geben!</string>
+    <string name="err_constantsNotAllowed">Konstante Werte sind hier nicht erlaubt!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
