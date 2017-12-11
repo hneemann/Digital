@@ -30,26 +30,27 @@ public final class ConnectedBusHandler extends AbstractBusHandler {
     }
 
     /**
-     * Adds a net to the common unified net
+     * Adds a commonBusValue to the common unified commonBusValue
      *
-     * @param net the net to add
+     * @param commonBusValue the commonBusValue to add
      */
-    public void addNet(CommonBusValue net) {
-        values.add(net);
-        inputs.addAll(Arrays.asList(net.getInputs()));
+    public void addNet(CommonBusValue commonBusValue) {
+        values.add(commonBusValue);
+        inputs.addAll(Arrays.asList(commonBusValue.getInputs()));
 
-        if (!net.getResistor().equals(PinDescription.PullResistor.none)) {
+        if (!commonBusValue.getResistor().equals(PinDescription.PullResistor.none)) {
             if (resistor.equals(PinDescription.PullResistor.none)) {
-                resistor = net.getResistor();
+                resistor = commonBusValue.getResistor();
             } else {
-                if (!resistor.equals(net.getResistor())) {
+                if (!resistor.equals(commonBusValue.getResistor())) {
                     // set error condition
                     resistor = PinDescription.PullResistor.both;
                 }
             }
         }
 
-        net.setHandler(this);
+        commonBusValue.setHandler(this);
+        addOrigin(commonBusValue.getOrigin());
     }
 
     /**

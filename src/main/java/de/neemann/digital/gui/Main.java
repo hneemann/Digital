@@ -1161,33 +1161,40 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync, circuitComponent)).setVisible(true);
     }
 
+    private final Object modelLock = new Object();
+
     @Override
     public void showErrorAndStopModel(String message, Exception cause) {
-        if (model != null) {
-            modelSync.access(() -> model.close());
-            model = null;
+        // If an error is detected by the gui thread by clicking a button o.e. the real time
+        // thread could also detect that error later and maybe also calls this function.
+        // To avoid such problems a lock is used.
+        synchronized (modelLock) {
+            if (model != null) {
+                modelSync.access(() -> model.close());
+                model = null;
 
-            SwingUtilities.invokeLater(() -> {
-                if (cause instanceof NodeException) {
-                    NodeException e = (NodeException) cause;
-                    circuitComponent.addHighLightedWires(e.getValues());
-                    circuitComponent.addHighLighted(e.getVisualElement());
-                    if (modelCreator != null)
-                        modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
-                } else if (cause instanceof PinException) {
-                    PinException e = (PinException) cause;
-                    circuitComponent.addHighLighted(e.getVisualElement());
-                    if (e.getNet() != null)
-                        circuitComponent.addHighLighted(e.getNet().getWires());
-                } else if (cause instanceof BurnException) {
-                    BurnException e = (BurnException) cause;
-                    circuitComponent.addHighLightedWires(e.getValues());
-                }
-                circuitComponent.setHighLightStyle(Style.ERROR);
-                circuitComponent.repaintNeeded();
-                new ErrorMessage(message).addCause(cause).show(Main.this);
-                stoppedState.enter();
-            });
+                SwingUtilities.invokeLater(() -> {
+                    if (cause instanceof NodeException) {
+                        NodeException e = (NodeException) cause;
+                        circuitComponent.addHighLightedWires(e.getValues());
+                        circuitComponent.addHighLighted(e.getVisualElement());
+                        if (modelCreator != null)
+                            modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
+                    } else if (cause instanceof PinException) {
+                        PinException e = (PinException) cause;
+                        circuitComponent.addHighLighted(e.getVisualElement());
+                        if (e.getNet() != null)
+                            circuitComponent.addHighLighted(e.getNet().getWires());
+                    } else if (cause instanceof BurnException) {
+                        BurnException e = (BurnException) cause;
+                        circuitComponent.addHighLightedWires(e.getValues());
+                    }
+                    circuitComponent.setHighLightStyle(Style.ERROR);
+                    circuitComponent.repaintNeeded();
+                    new ErrorMessage(message).addCause(cause).show(Main.this);
+                    stoppedState.enter();
+                });
+            }
         }
     }
 

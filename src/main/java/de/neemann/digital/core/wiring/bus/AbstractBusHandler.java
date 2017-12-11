@@ -6,6 +6,8 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ import java.util.List;
 public abstract class AbstractBusHandler {
 
     private final BusModelStateObserver obs;
+    private HashSet<File> origin;
 
     private enum State {ok, burn, both}
 
@@ -28,7 +31,7 @@ public abstract class AbstractBusHandler {
      *
      * @param obs the {@link BusModelStateObserver} is neede to check a burn condition.
      */
-    public AbstractBusHandler(BusModelStateObserver obs) {
+    AbstractBusHandler(BusModelStateObserver obs) {
         this.obs = obs;
     }
 
@@ -64,7 +67,7 @@ public abstract class AbstractBusHandler {
      * recalculates the state of the net
      * Also calls {@link AbstractBusHandler#set(long, boolean)} with the new value.
      */
-    public void recalculate() {
+    void recalculate() {
         long value = 0;
         burn = State.ok;
         if (getResistor().equals(PinDescription.PullResistor.both)) {
@@ -111,13 +114,25 @@ public abstract class AbstractBusHandler {
      * unavoidable. So this method is called if the step is completed. If a step ends with a burn condition
      * an exception is thrown.
      */
-    public void checkBurn() {
+    void checkBurn() {
         switch (burn) {
             case burn:
-                throw new BurnException(Lang.get("err_burnError"), getAllValues());
+                throw new BurnException(Lang.get("err_burnError"), getAllValues()).addOrigin(origin);
             case both:
-                throw new BurnException(Lang.get("err_pullUpAndDown"), getAllValues());
+                throw new BurnException(Lang.get("err_pullUpAndDown"), getAllValues()).addOrigin(origin);
         }
     }
 
+    /**
+     * Sets the origin of this AbstractBusHandler
+     *
+     * @param file the origin
+     * @return this for chained calls
+     */
+    AbstractBusHandler addOrigin(File file) {
+        if (origin == null)
+            origin = new HashSet<>();
+        origin.add(file);
+        return this;
+    }
 }

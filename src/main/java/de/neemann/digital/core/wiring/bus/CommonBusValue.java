@@ -5,6 +5,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.draw.elements.PinException;
 
+import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -14,13 +15,19 @@ public final class CommonBusValue extends ObservableValue implements NodeInterfa
     private final BusModelStateObserver obs;
     private final PullResistor resistor;
     private final ObservableValue[] inputs;
+    private final File origin;
     private AbstractBusHandler handler;
 
     CommonBusValue(int bits, BusModelStateObserver obs, PullResistor resistor, ObservableValue[] inputs) {
+        this(bits, obs, resistor, inputs, null);
+    }
+
+    CommonBusValue(int bits, BusModelStateObserver obs, PullResistor resistor, ObservableValue[] inputs, File origin) {
         super("commonBusOut", bits, resistor.equals(PullResistor.none));
         this.obs = obs;
         this.resistor = resistor;
         this.inputs = inputs;
+        this.origin = origin;
         resetHandler();
     }
 
@@ -42,7 +49,7 @@ public final class CommonBusValue extends ObservableValue implements NodeInterfa
      * Resets the handler. So this net is isolated to a single simple net.
      */
     void resetHandler() {
-        setHandler(new SingleBusHandler(obs, this, resistor, inputs));
+        setHandler(new SingleBusHandler(obs, this, resistor, inputs).addOrigin(origin));
         hasChanged();
     }
 
@@ -95,5 +102,12 @@ public final class CommonBusValue extends ObservableValue implements NodeInterfa
     @Override
     public ObservableValues getOutputs() throws PinException {
         return new ObservableValues(this);
+    }
+
+    /**
+     * @return the origin of this {@link CommonBusValue}
+     */
+    public File getOrigin() {
+        return origin;
     }
 }
