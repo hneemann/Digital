@@ -1219,8 +1219,10 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="msg_errInFile_N">Occurred in file {0}.</string>
     <string name="msg_affectedComponentsAre_N">Affected are: {0}.</string>
     <string name="msg_signal_N">Signal {0}</string>
-    <string name="msg_invalidSignalsAnalysed">If inputs have no name set, they are not included
-        as variables in the analysis, but treated as constants!</string>
+    <string name="msg_invalidSignalsAnalysed">If inputs have no label set, they are not included
+        as variables in the analysis, but treated as constants!
+        Outputs without a label are ignored.
+    </string>
     <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!</string>
     <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>
     <string name="msg_noKVMapAvailable">No KV map available!</string>

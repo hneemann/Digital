@@ -1234,8 +1234,9 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_errInFile_N">Aufgetreten in Datei {0}.</string>
     <string name="msg_affectedComponentsAre_N">Betroffen sind: {0}.</string>
     <string name="msg_signal_N">Leitung {0}</string>
-    <string name="msg_invalidSignalsAnalysed">Wenn Eingänge keinen Namen haben, werden diese nicht
-        als Variablen in die Analyse einbezogen, sondern wie Konstanten behandelt!</string>
+    <string name="msg_invalidSignalsAnalysed">Wenn Eingänge keine Bezeichnung haben, werden diese nicht
+        als Variablen in die Analyse einbezogen, sondern wie Konstanten behandelt!
+        Ausgänge, die keine Bezeichnung haben, werden ignoriert.</string>
     <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
     <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
     <string name="msg_noKVMapAvailable">Keine KV-Tafel verfügbar!</string>

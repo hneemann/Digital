@@ -998,7 +998,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             .setVisible(true);
                     ensureModelIsStopped();
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | BacktrackException | RuntimeException e1) {
-                    showErrorAndStopModel(Lang.get("msg_analyseErr"), e1);
+                    new ErrorMessage(Lang.get("msg_analyseErr")).addCause(e1).show(Main.this);
                 }
             }
         }
@@ -1042,7 +1042,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.modify(new ModifyMeasurementOrdering(names));
             }
         } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
-            showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
+            new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).show(Main.this);
         }
     }
 
