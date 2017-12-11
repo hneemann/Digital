@@ -15,6 +15,17 @@ public abstract class ModificationOfWire implements Modification {
     private final String description;
     private final Vector p2;
 
+
+    /**
+     * Creates a new instance
+     *
+     * @param wire        the wire to modify
+     * @param description description of modification
+     */
+    public ModificationOfWire(Wire wire, String description) {
+        this(wire, wire.p1, description);
+    }
+
     /**
      * Creates a new instance
      *
@@ -44,6 +55,6 @@ public abstract class ModificationOfWire implements Modification {
             if (w.p1.equals(p1) && w.p2.equals(p2))
                 return w;
         }
-        throw new RuntimeException("internal error: Element not found!");
+        throw new RuntimeException("internal error: Wire not found!");
     }
 }

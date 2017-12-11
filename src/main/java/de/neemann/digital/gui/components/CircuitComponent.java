@@ -183,10 +183,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         new ToolTipAction("splitWire") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
-                Wire w = circuit.getWireAt(pos, SIZE2);
-                if (w != null)
-                    mouseWireSplit.activate(w, pos);
+                if (activeMouseController == mouseNormal) {
+                    Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
+                    Wire w = circuit.getWireAt(pos, SIZE2);
+                    if (w != null)
+                        mouseWireSplit.activate(w, pos);
+                }
             }
         }.setAccelerator("S").enableAcceleratorIn(this);
 
@@ -1716,7 +1718,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Wire wire1;
         private Wire wire2;
         private Vector newPosition;
-        private Vector origPos;
+        private Wire origWire;
 
         private MouseControllerWireSplit(Cursor cursor) {
             super(cursor);
@@ -1725,10 +1727,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private void activate(Wire w, Vector startPos) {
             super.activate();
             startPos = raster(startPos);
-            origPos = w.p2;
+            origWire = new Wire(w);
             wire1 = w;
             wire1.setP2(startPos);
-            wire2 = new Wire(startPos, origPos);
+            wire2 = new Wire(startPos, origWire.p2);
             circuit.getWires().add(wire2);
         }
 
@@ -1748,7 +1750,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         void clicked(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 addModificationAlreadyMade(
-                        new ModifySplitWire(new Wire(wire1.p1, wire2.p2), newPosition, Lang.get("mod_splitWire")));
+                        new ModifySplitWire(origWire, newPosition));
                 circuit.elementsMoved();
                 mouseNormal.activate();
             } else
@@ -1757,7 +1759,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void escapePressed() {
-            wire1.setP2(origPos);
+            wire1.setP2(origWire.p2);
             circuit.getWires().remove(wire2);
             circuitHasChanged();
             mouseNormal.activate();
