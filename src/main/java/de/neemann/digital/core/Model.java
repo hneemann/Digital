@@ -70,6 +70,8 @@ public class Model implements Iterable<Node> {
     private ArrayList<ModelStateObserver> observersStep;
     private ArrayList<ModelStateObserver> observersMicroStep;
 
+    private boolean isClosed = false;
+
     /**
      * Creates a new model
      */
@@ -169,20 +171,23 @@ public class Model implements Iterable<Node> {
      * A STOPPED event is fired.
      */
     public void close() {
-        int obs = observers.size();
-        if (observersStep != null) obs += observersStep.size();
-        if (observersMicroStep != null) obs += observersMicroStep.size();
-        LOGGER.info("Observers " + obs);
-        for (ModelStateObserver ob : observers)
-            LOGGER.info("Observer Slow : " + ob.getClass().getSimpleName());
-        if (observersStep != null)
-            for (ModelStateObserver ob : observersStep)
-                LOGGER.info("Observer Step : " + ob.getClass().getSimpleName());
-        if (observersMicroStep != null)
-            for (ModelStateObserver ob : observersMicroStep)
-                LOGGER.info("Observer Micro: " + ob.getClass().getSimpleName());
+        if (!isClosed) {
+            isClosed = true;
+            int obs = observers.size();
+            if (observersStep != null) obs += observersStep.size();
+            if (observersMicroStep != null) obs += observersMicroStep.size();
+            LOGGER.info("Observers " + obs);
+            for (ModelStateObserver ob : observers)
+                LOGGER.info("Observer Slow : " + ob.getClass().getSimpleName());
+            if (observersStep != null)
+                for (ModelStateObserver ob : observersStep)
+                    LOGGER.info("Observer Step : " + ob.getClass().getSimpleName());
+            if (observersMicroStep != null)
+                for (ModelStateObserver ob : observersMicroStep)
+                    LOGGER.info("Observer Micro: " + ob.getClass().getSimpleName());
 
-        fireEvent(ModelEvent.STOPPED);
+            fireEvent(ModelEvent.STOPPED);
+        }
     }
 
     /**

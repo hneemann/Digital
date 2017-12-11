@@ -1081,7 +1081,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void clearModelDescription() {
         if (model != null)
-            model.close();
+            modelSync.access(() -> model.close());
 
         modelCreator = null;
         model = null;
@@ -1094,7 +1094,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
             if (model != null) {
-                model.close();
+                modelSync.access(() -> model.close());
                 circuitComponent.getCircuit().clearState();
             }
 
@@ -1163,27 +1163,32 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     @Override
     public void showErrorAndStopModel(String message, Exception cause) {
-        SwingUtilities.invokeLater(() -> {
-            if (cause instanceof NodeException) {
-                NodeException e = (NodeException) cause;
-                circuitComponent.addHighLightedWires(e.getValues());
-                circuitComponent.addHighLighted(e.getVisualElement());
-                if (modelCreator != null)
-                    modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
-            } else if (cause instanceof PinException) {
-                PinException e = (PinException) cause;
-                circuitComponent.addHighLighted(e.getVisualElement());
-                if (e.getNet() != null)
-                    circuitComponent.addHighLighted(e.getNet().getWires());
-            } else if (cause instanceof BurnException) {
-                BurnException e = (BurnException) cause;
-                circuitComponent.addHighLightedWires(e.getValues());
-            }
-            circuitComponent.setHighLightStyle(Style.ERROR);
-            circuitComponent.repaintNeeded();
-            new ErrorMessage(message).addCause(cause).show(Main.this);
-            stoppedState.enter();
-        });
+        if (model != null) {
+            modelSync.access(() -> model.close());
+            model = null;
+
+            SwingUtilities.invokeLater(() -> {
+                if (cause instanceof NodeException) {
+                    NodeException e = (NodeException) cause;
+                    circuitComponent.addHighLightedWires(e.getValues());
+                    circuitComponent.addHighLighted(e.getVisualElement());
+                    if (modelCreator != null)
+                        modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
+                } else if (cause instanceof PinException) {
+                    PinException e = (PinException) cause;
+                    circuitComponent.addHighLighted(e.getVisualElement());
+                    if (e.getNet() != null)
+                        circuitComponent.addHighLighted(e.getNet().getWires());
+                } else if (cause instanceof BurnException) {
+                    BurnException e = (BurnException) cause;
+                    circuitComponent.addHighLightedWires(e.getValues());
+                }
+                circuitComponent.setHighLightStyle(Style.ERROR);
+                circuitComponent.repaintNeeded();
+                new ErrorMessage(message).addCause(cause).show(Main.this);
+                stoppedState.enter();
+            });
+        }
     }
 
     /**
