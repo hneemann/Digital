@@ -518,7 +518,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 try {
                     new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                 } catch (PinException | NodeException | ElementNotFoundException e) {
-                    new ErrorMessage(Lang.get("msg_modelHasErrors")).addCause(e).show(Main.this);
+                    showErrorWithoutARunningModel(Lang.get("msg_modelHasErrors"), e);
                     return;
                 }
 
@@ -836,9 +836,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     circuitComponent.repaintNeeded();
                     doStep.setEnabled(model.needsUpdate());
                 } catch (Exception e1) {
-                    SwingUtilities.invokeLater(
-                            new ErrorMessage(Lang.get("msg_errorCalculatingStep")).addCause(e1).setComponent(Main.this)
-                    );
+                    showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
             }
         }.setToolTip(Lang.get("menu_step_tt"));
@@ -854,9 +852,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     int i = model.runToBreak();
                     circuitComponent.repaintNeeded();
                     statusLabel.setText(Lang.get("stat_clocks", i));
-                } catch (NodeException e1) {
-                    ensureModelIsStopped();
-                    new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
+                } catch (NodeException | RuntimeException e1) {
+                    showErrorAndStopModel(Lang.get("msg_fastRunError"), e1);
                 }
             }
         }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false);
@@ -884,7 +881,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
                     });
                 } catch (Exception e1) {
-                    new ErrorMessage(Lang.get("msg_speedTestError")).addCause(e1).show();
+                    showErrorWithoutARunningModel(Lang.get("msg_speedTestError"), e1);
                 }
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
@@ -970,7 +967,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             ensureModelIsStopped();
         } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {
-            showErrorAndStopModel(Lang.get("msg_runningTestError"), e1);
+            showErrorWithoutARunningModel(Lang.get("msg_runningTestError"), e1);
         }
     }
 
@@ -998,7 +995,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             .setVisible(true);
                     ensureModelIsStopped();
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | BacktrackException | RuntimeException e1) {
-                    new ErrorMessage(Lang.get("msg_analyseErr")).addCause(e1).show(Main.this);
+                    showErrorWithoutARunningModel(Lang.get("msg_analyseErr"), e1);
                 }
             }
         }
@@ -1042,7 +1039,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.modify(new ModifyMeasurementOrdering(names));
             }
         } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
-            new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).show(Main.this);
+            showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
         }
     }
 
@@ -1146,7 +1143,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             return true;
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
-            showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
+            if (model != null)
+                showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
+            else
+                showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
     }
@@ -1172,30 +1172,31 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (model != null) {
                 modelSync.access(() -> model.close());
                 model = null;
-
-                SwingUtilities.invokeLater(() -> {
-                    if (cause instanceof NodeException) {
-                        NodeException e = (NodeException) cause;
-                        circuitComponent.addHighLightedWires(e.getValues());
-                        circuitComponent.addHighLighted(e.getVisualElement());
-                        if (modelCreator != null)
-                            modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
-                    } else if (cause instanceof PinException) {
-                        PinException e = (PinException) cause;
-                        circuitComponent.addHighLighted(e.getVisualElement());
-                        if (e.getNet() != null)
-                            circuitComponent.addHighLighted(e.getNet().getWires());
-                    } else if (cause instanceof BurnException) {
-                        BurnException e = (BurnException) cause;
-                        circuitComponent.addHighLightedWires(e.getValues());
-                    }
-                    circuitComponent.setHighLightStyle(Style.ERROR);
-                    circuitComponent.repaintNeeded();
-                    new ErrorMessage(message).addCause(cause).show(Main.this);
-                    stoppedState.enter();
-                });
+                SwingUtilities.invokeLater(() -> showErrorWithoutARunningModel(message, cause));
             }
         }
+    }
+
+    private void showErrorWithoutARunningModel(String message, Exception cause) {
+        if (cause instanceof NodeException) {
+            NodeException e = (NodeException) cause;
+            circuitComponent.addHighLightedWires(e.getValues());
+            circuitComponent.addHighLighted(e.getVisualElement());
+            if (modelCreator != null)
+                modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
+        } else if (cause instanceof PinException) {
+            PinException e = (PinException) cause;
+            circuitComponent.addHighLighted(e.getVisualElement());
+            if (e.getNet() != null)
+                circuitComponent.addHighLighted(e.getNet().getWires());
+        } else if (cause instanceof BurnException) {
+            BurnException e = (BurnException) cause;
+            circuitComponent.addHighLightedWires(e.getValues());
+        }
+        circuitComponent.setHighLightStyle(Style.ERROR);
+        circuitComponent.repaintNeeded();
+        new ErrorMessage(message).addCause(cause).show(Main.this);
+        ensureModelIsStopped();
     }
 
     /**
