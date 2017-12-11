@@ -1730,6 +1730,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             origWire = new Wire(w);
             wire1 = w;
             wire1.setP2(startPos);
+            wire1.noDot();
             wire2 = new Wire(startPos, origWire.p2);
             circuit.getWires().add(wire2);
         }
