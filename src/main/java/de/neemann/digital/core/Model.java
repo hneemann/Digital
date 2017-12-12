@@ -172,7 +172,7 @@ public class Model implements Iterable<Node> {
      * A STOPPED event is fired.
      */
     public void close() {
-        if (state != State.RUNNING) {
+        if (state == State.RUNNING) {
             state = State.CLOSED;
             int obs = observers.size();
             if (observersStep != null) obs += observersStep.size();
