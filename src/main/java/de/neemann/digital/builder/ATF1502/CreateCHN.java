@@ -27,7 +27,7 @@ public class CreateCHN implements ExpressionToFileExporter.PostProcess {
     public File execute(File file) throws IOException {
         File chnFile = SaveAsHelper.checkSuffix(file, "chn");
 
-        try (Writer chn = new OutputStreamWriter(new FileOutputStream(chnFile), "UTF-8")) {
+        try (Writer chn = new OutputStreamWriter(new FileOutputStream(chnFile), "ISO-8859-1")) {
             chn.write("1 4 1 0 \r\n"
                     + "\r\n"
                     + device + "\r\n"
