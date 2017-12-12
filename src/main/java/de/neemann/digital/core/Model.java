@@ -45,8 +45,11 @@ public class Model implements Iterable<Node> {
     /**
      * Maximal number of calculation loops before oscillating behaviour is detected
      */
-    public static final int MAX_LOOP_COUNTER = 1000;
+    private static final int MAX_LOOP_COUNTER = 1000;
     private static final int COLLECTING_LOOP_COUNTER = MAX_LOOP_COUNTER + 100;
+
+    private enum State {BUILDING, INITIALIZING, RUNNING, CLOSED}
+    private State state = State.BUILDING;
 
     private final ArrayList<Clock> clocks;
     private final ArrayList<Break> breaks;
@@ -61,7 +64,6 @@ public class Model implements Iterable<Node> {
     private ArrayList<Node> nodesToUpdateAct;
     private ArrayList<Node> nodesToUpdateNext;
     private int version;
-    private boolean isInitialized = false;
     private WindowPosManager windowPosManager;
     private HashSet<Node> oscillatingNodes;
     private boolean isInvalidSignal = false;
@@ -69,8 +71,6 @@ public class Model implements Iterable<Node> {
     private final ArrayList<ModelStateObserver> observers;
     private ArrayList<ModelStateObserver> observersStep;
     private ArrayList<ModelStateObserver> observersMicroStep;
-
-    private boolean isClosed = false;
 
     /**
      * Creates a new model
@@ -128,7 +128,7 @@ public class Model implements Iterable<Node> {
      * @return the node itself for chained calls
      */
     public <T extends Node> T add(T node) {
-        if (isInitialized)
+        if (state != State.BUILDING)
             throw new RuntimeException(Lang.get("err_isAlreadyInitialized"));
 
         nodes.add(node);
@@ -156,13 +156,14 @@ public class Model implements Iterable<Node> {
      */
     public void init(boolean noise) throws NodeException {
         nodesToUpdateNext.addAll(nodes);
-        isInitialized = true;
+        state = State.INITIALIZING;
         doStep(noise);
         if (!resets.isEmpty()) {
             for (Reset reset : resets)
                 reset.getResetOutput().setValue(1);
             doStep(false);
         }
+        state = State.RUNNING;
         fireEvent(ModelEvent.STARTED);
     }
 
@@ -171,8 +172,8 @@ public class Model implements Iterable<Node> {
      * A STOPPED event is fired.
      */
     public void close() {
-        if (!isClosed) {
-            isClosed = true;
+        if (state != State.RUNNING) {
+            state = State.CLOSED;
             int obs = observers.size();
             if (observersStep != null) obs += observersStep.size();
             if (observersMicroStep != null) obs += observersMicroStep.size();
@@ -195,7 +196,7 @@ public class Model implements Iterable<Node> {
      *
      * @param node the node
      */
-    public void addToUpdateList(Node node) {
+    void addToUpdateList(Node node) {
         nodesToUpdateNext.add(node);
     }
 
@@ -252,9 +253,6 @@ public class Model implements Iterable<Node> {
      * @throws NodeException NodeException
      */
     public void doMicroStep(boolean noise) throws NodeException {
-        if (!isInitialized)
-            throw new RuntimeException(Lang.get("err_notInitialized"));
-
         version++;
         // swap lists
         ArrayList<Node> nl = nodesToUpdateNext;

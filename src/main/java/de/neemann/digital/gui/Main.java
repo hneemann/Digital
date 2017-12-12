@@ -1093,6 +1093,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (model != null) {
                 modelSync.access(() -> model.close());
                 circuitComponent.getCircuit().clearState();
+                model = null;
             }
 
             model = modelCreator.createModel(true);
