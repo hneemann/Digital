@@ -16,7 +16,7 @@ public class LockSync implements Sync {
      * Creates a new instance
      */
     public LockSync() {
-        lock = new ReentrantLock();
+        lock = new ReentrantLock(true);
     }
 
     @Override
