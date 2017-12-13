@@ -10,6 +10,7 @@ import de.neemann.digital.draw.elements.PinException;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -84,14 +85,18 @@ public class LedMatrix extends Node implements Element {
     public void writeOutputs() throws NodeException {
     }
 
+    private final AtomicBoolean paintPending = new AtomicBoolean();
 
     private void dataChanged(int colAddr, long rowData) {
-        SwingUtilities.invokeLater(() -> {
-            if (ledMatrixDialog == null || !ledMatrixDialog.isVisible()) {
-                ledMatrixDialog = new LedMatrixDialog(dy, data, color, ledPersist);
-                getModel().getWindowPosManager().register("ledMatrix_" + label, ledMatrixDialog);
-            }
-            ledMatrixDialog.updateGraphic(colAddr, rowData);
-        });
+        if (paintPending.compareAndSet(false, true)) {
+            SwingUtilities.invokeLater(() -> {
+                if (ledMatrixDialog == null || !ledMatrixDialog.isVisible()) {
+                    ledMatrixDialog = new LedMatrixDialog(dy, data, color, ledPersist);
+                    getModel().getWindowPosManager().register("ledMatrix_" + label, ledMatrixDialog);
+                }
+                paintPending.set(false);
+                ledMatrixDialog.updateGraphic(colAddr, rowData);
+            });
+        }
     }
 }
