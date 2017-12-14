@@ -219,8 +219,8 @@ public class Model implements Iterable<Node> {
      * @throws NodeException NodeException
      */
     public void doStep(boolean noise) throws NodeException {
-        int counter = 0;
         if (needsUpdate()) {
+            int counter = 0;
             while (needsUpdate()) {
                 if (counter++ > MAX_LOOP_COUNTER) {
                     if (oscillatingNodes == null)
@@ -237,7 +237,6 @@ public class Model implements Iterable<Node> {
             }
         } else
             fireEvent(ModelEvent.STEP);
-
     }
 
     /**
