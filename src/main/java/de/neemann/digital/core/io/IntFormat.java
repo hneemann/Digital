@@ -43,13 +43,41 @@ public enum IntFormat {
             case dec:
                 return Long.toString(inValue.getValue());
             case hex:
-                return Long.toHexString(inValue.getMaskedValue()).toUpperCase();
+                return toHex(inValue);
             case bin:
-                return Long.toBinaryString(inValue.getMaskedValue());
+                return toBin(inValue);
             case ascii:
                 return "" + (char) inValue.getValue();
             default:
                 return inValue.getValueString();
         }
+    }
+
+    private static String toHex(Value inValue) {
+        final int bits = inValue.getBits();
+        final int numChars = (bits - 1) / 4 + 1;
+
+        StringBuilder sb = new StringBuilder(numChars);
+        final long value = inValue.getValue();
+        for (int i = numChars - 1; i >= 0; i--) {
+            int c = (int) ((value >> (i * 4)) & 0xf);
+            sb.append("0123456789ABCDEF".charAt(c));
+        }
+        return sb.toString();
+    }
+
+    private static String toBin(Value inValue) {
+        final int bits = inValue.getBits();
+        StringBuilder sb = new StringBuilder(bits);
+        final long value = inValue.getValue();
+        long mask = 1L << (bits - 1);
+        for (int i = 0; i < bits; i++) {
+            if ((value & mask) != 0)
+                sb.append('1');
+            else
+                sb.append('0');
+            mask >>= 1;
+        }
+        return sb.toString();
     }
 }
