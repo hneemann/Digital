@@ -33,6 +33,7 @@ public class In implements Element {
             .addAttribute(Keys.INPUT_DEFAULT)
             .addAttribute(Keys.IS_HIGH_Z)
             .addAttribute(Keys.DESCRIPTION)
+            .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.PINNUMBER);
 
     private final ObservableValue output;

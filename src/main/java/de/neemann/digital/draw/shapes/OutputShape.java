@@ -5,6 +5,7 @@ import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -38,6 +39,7 @@ public class OutputShape implements Shape {
     public static final Vector RADL = new Vector(SIZE, SIZE);
     private final String label;
     private final PinDescriptions inputs;
+    private final IntFormat format;
     private IOState ioState;
     private Value value;
 
@@ -55,6 +57,8 @@ public class OutputShape implements Shape {
             this.label = attr.getLabel();
         else
             this.label = attr.getLabel() + " (" + pinNumber + ")";
+
+        format = attr.get(Keys.INT_FORMAT);
     }
 
     @Override
@@ -88,7 +92,7 @@ public class OutputShape implements Shape {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
                     Vector textPos = new Vector(1 + SIZE, -4 - SIZE);
-                    graphic.drawText(textPos, textPos.add(1, 0), value.getValueString(), Orientation.CENTERBOTTOM, Style.NORMAL);
+                    graphic.drawText(textPos, textPos.add(1, 0), format.format(value), Orientation.CENTERBOTTOM, Style.NORMAL);
                 }
             }
 

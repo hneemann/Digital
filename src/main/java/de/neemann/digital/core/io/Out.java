@@ -30,6 +30,7 @@ public class Out implements Element {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DESCRIPTION)
+            .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.PINNUMBER);
 
     /**

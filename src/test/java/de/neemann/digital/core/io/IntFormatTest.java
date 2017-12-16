@@ -18,6 +18,7 @@ public class IntFormatTest extends TestCase {
         assertEquals("FFFF", IntFormat.hex.format(new Value(-1, 14)));
         assertEquals("FFFF", IntFormat.hex.format(new Value(-1, 15)));
         assertEquals("FFFF", IntFormat.hex.format(new Value(-1, 16)));
+        assertEquals("FEDCBA9876543210", IntFormat.hex.format(new Value(0xFEDCBA9876543210L, 64)));
     }
 
     public void testBin() throws Exception {
