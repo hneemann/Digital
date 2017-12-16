@@ -196,7 +196,7 @@ public class Model implements Iterable<Node> {
      *
      * @param node the node
      */
-    void addToUpdateList(Node node) {
+    final void addToUpdateList(Node node) {
         nodesToUpdateNext.add(node);
     }
 

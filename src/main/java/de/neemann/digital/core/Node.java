@@ -51,7 +51,7 @@ public abstract class Node implements NodeInterface {
     }
 
     @Override
-    public void hasChanged() {
+    final public void hasChanged() {
         if (model == null)
             throw new RuntimeException("noModelSet");
 

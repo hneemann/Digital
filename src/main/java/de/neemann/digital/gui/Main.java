@@ -58,6 +58,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -868,13 +870,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }.setToolTip(Lang.get("menu_runTests_tt"));
 
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
+            private NumberFormat format = new DecimalFormat("0.0");
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                     model.setWindowPosManager(windowPosManager);
                     SpeedTest speedTest = new SpeedTest(model);
-                    String frequency = Integer.toString(speedTest.calculate() / 1000);
+                    String frequency = format.format(speedTest.calculate() / 1000);
                     circuitComponent.getCircuit().clearState();
                     SwingUtilities.invokeLater(() -> {
                         windowPosManager.closeAll();
