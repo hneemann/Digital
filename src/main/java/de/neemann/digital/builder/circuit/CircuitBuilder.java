@@ -369,6 +369,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         clock.getElementAttributes()
                 .set(Keys.LABEL, "C")
                 .set(Keys.ROTATE, new Rotation(3))
+                .set(Keys.FREQUENCY, 2)
                 .set(Keys.RUN_AT_REAL_TIME, true);
         circuit.add(clock);
     }
