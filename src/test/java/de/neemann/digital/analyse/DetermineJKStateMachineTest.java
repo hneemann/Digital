@@ -84,4 +84,13 @@ public class DetermineJKStateMachineTest extends TestCase {
         assertTrue(jk.isDFF());
     }
 
+    public void testSimpleBUG() throws Exception {
+        Expression e = or(b, nota);
+
+        DetermineJKStateMachine jk = new DetermineJKStateMachine("a", e);
+        assertEquals("1", toStr(jk.getSimplifiedJ()));
+        assertEquals("¬b", toStr(jk.getSimplifiedK()));
+        assertFalse(jk.isDFF());
+    }
+
 }

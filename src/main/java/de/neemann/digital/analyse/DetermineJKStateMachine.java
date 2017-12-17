@@ -61,8 +61,10 @@ public class DetermineJKStateMachine {
                 throw new ExpressionException(Lang.get("err_containsVarAndNotVar"));
             } else {
                 if (belongsToJ) {
+                    if (term == null) term = Constant.ONE;
                     j = or(term, j);
                 } else if (belongsToK) {
+                    if (term == null) term = Constant.ONE;
                     nk = or(term, nk);
                 } else {
                     j = or(term, j);
