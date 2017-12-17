@@ -522,7 +522,7 @@
     <string name="elem_Neg_pin_in">Eingang des Datenworts, welches im 2-er Komplement negiert werden soll.</string>
     <string name="elem_Neg_pin_out">Gibt das Ergebnis der Negation im 2-er Komplement zurück.</string>
     <string name="elem_Neg_tt">Ein Baustein für die Negation von Datenworten im 2-er Komplement.</string>
-    <string name="elem_BitExtender">Biterweiterung</string>
+    <string name="elem_BitExtender">Biterweit.</string>
     <string name="elem_BitExtender_tt">Erweitert die Bitanzahl eines vorzeichenbehafteten Eingangswertes unter
         Erhalt des Vorzeichens.</string>
     <string name="elem_BitExtender_pin_in">Eingangswert.
