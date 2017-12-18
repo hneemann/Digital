@@ -71,7 +71,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @param netList                 the NetList of the model. If known it is not necessary to create it.
      * @param subName                 name of the circuit, used to name unique elements
      * @param depth                   recursion depth, used to detect a circuit which contains itself
-     * @param containingVisualElement th topmost containig visual element
+     * @param containingVisualElement the topmost containing visual element
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
