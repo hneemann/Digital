@@ -388,6 +388,7 @@
     <!-- Memory -->
 
     <string name="elem_Register">Register</string>
+    <string name="elem_Register_short">Reg</string>
     <string name="elem_Register_tt">A component to store values. The length of the data word can be selected in the attributes dialog.</string>
     <string name="elem_Register_pin_D">Input pin of the data word to be stored.</string>
     <string name="elem_Register_pin_C">Clock input. A rising edge stores the value at the D pin.</string>
@@ -437,6 +438,7 @@
     <string name="elem_EEPROM_pin_CS">If this input is high, this EEPROM is enabled. Otherwise the output is always in high Z state.</string>
     <string name="elem_EEPROM_pin_OE">If this input is high, the stored value is output.</string>
     <string name="elem_GraphicCard">Graphic RAM</string>
+    <string name="elem_GraphicCard_short">Gr-RAM</string>
     <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element behaves like a RAM. In addition it
         shows its content on a graphic screen. Every pixel is represented by a memory address. The value stored defines
         the color of the pixel, using a fixed color palette. There are two screen buffers implemented to support page
@@ -465,6 +467,7 @@
     <string name="elem_RAMDualAccess_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
 
     <string name="elem_Counter">Counter</string>
+    <string name="elem_Counter_short">count</string>
     <string name="elem_Counter_tt">A simple counter component. The clock input increases the counter.
         Can be reset back to 0 with the clr input.
         The number of bits can be set in the attribute dialog.</string>

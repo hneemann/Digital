@@ -384,6 +384,7 @@
     <!-- Speicher -->
 
     <string name="elem_Register">Register</string>
+    <string name="elem_Register_short">Reg</string>
     <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten.</string>
     <string name="elem_Register_pin_D">Das zu speichernde Datenwort liegt hier an.</string>
     <string name="elem_Register_pin_C">Der Takteingang. Eine steigende Flanke speichert den an D anliegenden Wert ab.</string>
@@ -436,6 +437,7 @@
     <string name="elem_EEPROM_pin_CS">Ist dieser Eingang 1, ist der Baustein aktiv.</string>
     <string name="elem_EEPROM_pin_OE">Ist dieser Eingang 1, wird das Datenwort ausgegeben.</string>
     <string name="elem_GraphicCard">Grafik-RAM</string>
+    <string name="elem_GraphicCard_short">Gr-RAM</string>
     <string name="elem_GraphicCard_tt">Wird verwendet, um Bitmap Grafiken anzuzeigen. Der Baustein verhält sich wie ein
         RAM-Baustein mit dem Unterschied, dass der RAM-Inhalt als Grafik angezeigt wird. Jede Speicherstelle definiert die Farbe
         eines Pixels, wobei eine feste Farbpalette verwendet wird. Es werden zwei Grafikseiten abgelegt, sodass ein Screen-Switching möglich ist (Siehe Eingang B).
