@@ -529,7 +529,9 @@
     <string name="elem_Neg_pin_out">Returns the result of the negation in 2th complement.</string>
     <string name="elem_BitExtender">Sign extender</string>
     <string name="elem_BitExtender_short">SignEx</string>
-    <string name="elem_BitExtender_tt">Increases the bit width of a signed value keeping the values sign.</string>
+    <string name="elem_BitExtender_tt">Increases the bit width of a signed value keeping the values sign.
+        If the input is a single bit, this bit will be output on all output bits.
+    </string>
     <string name="elem_BitExtender_pin_in">Input value.
         The input bit width must be smaller than the output bit width!</string>
     <string name="elem_BitExtender_pin_out">Extended input value.
