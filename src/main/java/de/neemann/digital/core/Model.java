@@ -177,15 +177,15 @@ public class Model implements Iterable<Node> {
             int obs = observers.size();
             if (observersStep != null) obs += observersStep.size();
             if (observersMicroStep != null) obs += observersMicroStep.size();
-            LOGGER.info("Observers " + obs);
+            LOGGER.debug("Observers " + obs);
             for (ModelStateObserver ob : observers)
-                LOGGER.info("Observer Slow : " + ob.getClass().getSimpleName());
+                LOGGER.debug("Observer Slow : " + ob.getClass().getSimpleName());
             if (observersStep != null)
                 for (ModelStateObserver ob : observersStep)
-                    LOGGER.info("Observer Step : " + ob.getClass().getSimpleName());
+                    LOGGER.debug("Observer Step : " + ob.getClass().getSimpleName());
             if (observersMicroStep != null)
                 for (ModelStateObserver ob : observersMicroStep)
-                    LOGGER.info("Observer Micro: " + ob.getClass().getSimpleName());
+                    LOGGER.debug("Observer Micro: " + ob.getClass().getSimpleName());
 
             fireEvent(ModelEvent.STOPPED);
         }

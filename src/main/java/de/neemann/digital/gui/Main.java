@@ -45,6 +45,8 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.gui.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -75,6 +77,7 @@ import static javax.swing.JOptionPane.showInputDialog;
  * @author hneemann
  */
 public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, Circuit.ChangedListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
 
@@ -1092,6 +1095,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         try {
             circuitComponent.removeHighLighted();
 
+            long time = System.currentTimeMillis();
+
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
             if (model != null) {
@@ -1101,6 +1106,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
 
             model = modelCreator.createModel(true);
+
+            time = System.currentTimeMillis() - time;
+            LOGGER.debug("model creation: " + time + " ms");
+
             model.setWindowPosManager(windowPosManager);
 
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));

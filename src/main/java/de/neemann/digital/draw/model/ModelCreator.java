@@ -8,7 +8,9 @@ import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
@@ -16,6 +18,7 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
+
 
 /**
  * Creates a {@link Model} from the given {@link Circuit} instance.
@@ -81,6 +84,9 @@ public class ModelCreator implements Iterable<ModelEntry> {
             ioMap = new HashMap<>();
         else
             ioMap = null;
+
+        if (!isNestedCircuit)
+            checkWiresForSplitterConnection(circuit);
 
         try {
             for (VisualElement ve : circuit.getElements()) {
@@ -200,6 +206,16 @@ public class ModelCreator implements Iterable<ModelEntry> {
             e.setVisualElement(containingVisualElement);
             throw e;
         }
+    }
+
+    private void checkWiresForSplitterConnection(Circuit circuit) {
+        HashSet<Vector> posSet = new HashSet<>();
+        for (VisualElement e : circuit.getElements())
+            if (e.equalsDescription(Splitter.DESCRIPTION))
+                for (Pin p : e.getPins())
+                    posSet.add(p.getPos());
+        for (Wire w : circuit.getWires())
+            w.setIsConnectedToSplitter(posSet.contains(w.p1) || posSet.contains(w.p2));
     }
 
     private String combineNames(String s1, String s2) {

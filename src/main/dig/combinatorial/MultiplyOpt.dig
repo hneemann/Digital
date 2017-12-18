@@ -39,8 +39,12 @@ repeat(1&lt;&lt;16) (n&amp;0xff) (n&gt;&gt;8) ((n&amp;0xff)*(n&gt;&gt;8))</dataS
           <int>8</int>
         </entry>
         <entry>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
+        </entry>
+        <entry>
           <string>InDefault</string>
-          <value v="1" z="false"/>
+          <value v="3" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="280" y="320"/>
@@ -57,8 +61,12 @@ repeat(1&lt;&lt;16) (n&amp;0xff) (n&gt;&gt;8) ((n&amp;0xff)*(n&gt;&gt;8))</dataS
           <int>8</int>
         </entry>
         <entry>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
+        </entry>
+        <entry>
           <string>InDefault</string>
-          <value v="16" z="false"/>
+          <value v="8" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="280" y="540"/>
@@ -656,8 +664,12 @@ repeat(1&lt;&lt;16) (n&amp;0xff) (n&gt;&gt;8) ((n&amp;0xff)*(n&gt;&gt;8))</dataS
           <string>Bits</string>
           <int>16</int>
         </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
+        </entry>
       </elementAttributes>
-      <pos x="1280" y="600"/>
+      <pos x="1300" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -908,7 +920,7 @@ repeat(1&lt;&lt;16) (n&amp;0xff) (n&gt;&gt;8) ((n&amp;0xff)*(n&gt;&gt;8))</dataS
     </wire>
     <wire>
       <p1 x="1260" y="600"/>
-      <p2 x="1280" y="600"/>
+      <p2 x="1300" y="600"/>
     </wire>
     <wire>
       <p1 x="500" y="600"/>
