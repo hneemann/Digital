@@ -466,6 +466,7 @@
     <string name="elem_RAMDualAccess_pin_str">Ist diese Leitung high, wird das Datenwort an D1 gespeichert, wenn der Takt ansteigt.</string>
 
     <string name="elem_Counter">Zähler</string>
+    <string name="elem_Counter_short">Zähler</string>
     <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein.
         Zählt jede steigende Flanke am C Eingang und kann über den clr Eingang zurückgesetzt werden.
         Die Bitbreite des Zählers kann im Attribute-Dialog festgelegt werden.</string>
