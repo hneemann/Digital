@@ -90,6 +90,10 @@ public class Style {
      */
     public static final Style SHAPE_PIN = new Style(LINETHIN, false, Color.GRAY, 18, null);
     /**
+     * Used to draw the pin description text for splitters
+     */
+    public static final Style SHAPE_SPLITTER = new Style(LINETHIN, false, Color.GRAY, 12, null);
+    /**
      * Used to draw the pin description text
      */
     public static final Style WIRE_VALUE = new Style(LINETHICK, false, new Color(50, 162, 50), 12, null);
