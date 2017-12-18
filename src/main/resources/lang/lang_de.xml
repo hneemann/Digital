@@ -478,6 +478,7 @@
     <!--Arithmetik -->
 
     <string name="elem_Add">Addierer</string>
+    <string name="elem_Add_short">Add</string>
     <string name="elem_Add_tt">Ein Bauteil für einfache Additionen.
         Führt eine Addition der Ganzzahlen an Eingang a und Eingang b durch (a+b).
         Ist der Carry-Eingang gesetzt, wird das Ergebnis um Eins erhöht.</string>
@@ -488,6 +489,7 @@
         Kann von vorhergehenden Bausteinen über den Carry-Out Ausgang gesetzt werden.</string>
     <string name="elem_Add_pin_c_o">Ist gesetzt, wenn bei der Addition ein Übertrag aufgetreten ist.</string>
     <string name="elem_Sub">Subtrahierer</string>
+    <string name="elem_Sub_short">Sub</string>
     <string name="elem_Sub_tt">Ein Bauteil für einfache Subtraktionen.
         Führt eine Subtraktion der Ganzzahlen an Eingang a und Eingang b durch (a-b).
         Ist der Carry-Eingang gesetzt, wird das Ergebnis nochmals um 1 verringert.</string>
@@ -497,6 +499,7 @@
     <string name="elem_Sub_pin_s">Ausgang gibt das Ergebnis der Subtraktion aus.</string>
     <string name="elem_Sub_pin_c_o">Carry-Ausgang. Gibt 1 aus, wenn bei der Subtraktion ein Überlauf aufgetreten ist.</string>
     <string name="elem_Mul">Multiplizierer</string>
+    <string name="elem_Mul_short">Mult</string>
     <string name="elem_Mul_tt">Ein Baustein für Multiplikation.
         Multipliziert die an Eingang a und Eingang b anliegenden Ganzzahlen.
         Es wird eine vorzeichenlose Multiplikation durchgeführt.
@@ -505,6 +508,7 @@
     <string name="elem_Mul_pin_b">Eingang b für Multiplikation.</string>
     <string name="elem_Mul_pin_mul">Ausgang mit dem Ergebnis der Multiplikation.</string>
     <string name="elem_BarrelShifter">Bit-Schieber</string>
+    <string name="elem_BarrelShifter_short">shift</string>
     <string name="elem_BarrelShifter_tt">Ein Baustein zum Schieben von Bits.
         Verschiebt einen Wert um die am Eingang shift angegebene Anzahl von Bits.</string>
     <string name="elem_BarrelShifter_pin_in">Eingang mit zu verschiebenden Bits.</string>
@@ -519,10 +523,12 @@
     <string name="elem_Comparator_pin_&gt;">Ausgang ist 1, wenn Eingang a größer ist als Eingang b.</string>
     <string name="elem_Comparator_pin_&lt;">Ausgang ist 1, wenn Eingang a kleiner ist als Eingang b</string>
     <string name="elem_Neg">Negation</string>
+    <string name="elem_Neg_short">Neg</string>
     <string name="elem_Neg_pin_in">Eingang des Datenworts, welches im 2-er Komplement negiert werden soll.</string>
     <string name="elem_Neg_pin_out">Gibt das Ergebnis der Negation im 2-er Komplement zurück.</string>
     <string name="elem_Neg_tt">Ein Baustein für die Negation von Datenworten im 2-er Komplement.</string>
-    <string name="elem_BitExtender">Biterweit.</string>
+    <string name="elem_BitExtender">Biterweiterung</string>
+    <string name="elem_BitExtender_short">Biterw.</string>
     <string name="elem_BitExtender_tt">Erweitert die Bitanzahl eines vorzeichenbehafteten Eingangswertes unter
         Erhalt des Vorzeichens.</string>
     <string name="elem_BitExtender_pin_in">Eingangswert.
@@ -530,6 +536,7 @@
     <string name="elem_BitExtender_pin_out">Vorzeichenrichtig erweiterter Eingangswert.
         Die Eingangsbitzahl muss kleiner sein als die Ausgangsbitzahl!</string>
     <string name="elem_BitCount">Bitzähler</string>
+    <string name="elem_BitCount_short">Bitzähl.</string>
     <string name="elem_BitCount_tt">Gibt die Anzahl der 1-Bits im Eingangswert aus.</string>
     <string name="elem_BitCount_pin_in">Die 1-Bits in diesem Datenwort werden gezählt.</string>
     <string name="elem_BitCount_pin_out">Ausgang mit der Anzahl der gezählten 1-Bits.</string>
