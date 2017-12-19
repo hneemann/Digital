@@ -18,8 +18,11 @@ public class Value {
      * @param bits  the number of bits
      */
     public Value(long value, int bits) {
-        this.value = value;
         this.bits = bits;
+        if (bits >= 64)
+            this.value = value;
+        else
+            this.value = value & ((1L << bits) - 1);
         this.highZ = false;
     }
 
@@ -44,10 +47,17 @@ public class Value {
     }
 
     /**
-     * @return the signals value masked with the bit size
+     * @return the signals value
      */
-    public long getMaskedValue() {
-        return value & ((1L << bits) - 1);
+    public long getValueSigned() {
+        if (bits >= 64)
+            return value;
+        else {
+            if ((value & (1L << (bits - 1))) == 0)
+                return value;
+            else
+                return value | ~((1L << bits) - 1);
+        }
     }
 
     /**

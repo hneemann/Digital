@@ -17,6 +17,10 @@ public enum IntFormat {
      */
     dec,
     /**
+     * decimal signed
+     */
+    decSigned,
+    /**
      * hexadecimal
      */
     hex,
@@ -42,6 +46,8 @@ public enum IntFormat {
         switch (this) {
             case dec:
                 return Long.toString(inValue.getValue());
+            case decSigned:
+                return Long.toString(inValue.getValueSigned());
             case hex:
                 return toHex(inValue);
             case bin:

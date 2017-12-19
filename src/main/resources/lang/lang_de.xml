@@ -854,6 +854,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_intFormat_ascii">ASCII</string>
     <string name="key_intFormat_bin">Binär</string>
     <string name="key_intFormat_dec">Dezimal</string>
+    <string name="key_intFormat_decSigned">Dezimal mit Vorzeichen</string>
     <string name="key_intFormat_def">Vorgabe</string>
     <string name="key_intFormat_hex">Hexadezimal</string>
     <string name="key_barrelSigned">Verschiebeweite hat Vorzeichen</string><!-- BarrelShifter -->

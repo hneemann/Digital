@@ -846,6 +846,7 @@ The names of the variables may not be unique.</string>
     <string name="key_intFormat_ascii">ascii</string>
     <string name="key_intFormat_bin">bin</string>
     <string name="key_intFormat_dec">decimal</string>
+    <string name="key_intFormat_decSigned">signed decimal</string>
     <string name="key_intFormat_def">default</string>
     <string name="key_intFormat_hex">hex</string>
     <string name="key_barrelSigned">shift input has sign</string><!-- BarrelShifter -->
