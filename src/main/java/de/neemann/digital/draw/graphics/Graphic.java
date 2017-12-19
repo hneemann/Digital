@@ -11,6 +11,10 @@ import java.io.IOException;
  * @author hneemann
  */
 public interface Graphic extends Closeable {
+    /**
+     * Flag to enable LaTeX output mode.
+     */
+    String LATEX = "LaTeX";
 
     /**
      * Sets the bounding box of the future usage of this instance

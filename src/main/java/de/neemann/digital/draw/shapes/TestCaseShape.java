@@ -46,7 +46,7 @@ public class TestCaseShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        if (!graphic.isFlagSet("LaTeX")) {
+        if (!graphic.isFlagSet(Graphic.LATEX)) {
             Polygon pol = new Polygon(true)
                     .add(SIZE2, SIZE2)
                     .add(SIZE2 + SIZE * 4, SIZE2)

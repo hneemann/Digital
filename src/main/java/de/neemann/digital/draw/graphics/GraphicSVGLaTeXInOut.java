@@ -20,7 +20,7 @@ public class GraphicSVGLaTeXInOut extends GraphicSVGLaTeX {
 
     @Override
     public boolean isFlagSet(String name) {
-        return name.equals("LaTeX");
+        return name.equals(LATEX);
     }
 
 }
