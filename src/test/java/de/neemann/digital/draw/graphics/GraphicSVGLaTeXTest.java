@@ -20,8 +20,10 @@ public class GraphicSVGLaTeXTest extends TestCase {
         assertEquals("Grün", gs.formatText("Grün", Style.NORMAL.getFontSize()));
 
 
-        assertEquals("{\\scriptsize Grün}", gs.formatText("Grün", Style.SHAPE_PIN.getFontSize()));
-        assertEquals("{\\scriptsize $Z_{0}$}", gs.formatText("Z_0", Style.SHAPE_PIN.getFontSize()));
+        assertEquals("{\\footnotesize Grün}", gs.formatText("Grün", Style.SHAPE_PIN.getFontSize()));
+        assertEquals("{\\footnotesize $Z_{0}$}", gs.formatText("Z_0", Style.SHAPE_PIN.getFontSize()));
+        assertEquals("{\\scriptsize $Z_{0}$}", gs.formatText("Z_0", 14));
+        assertEquals("{\\tiny $Z_{0}$}", gs.formatText("Z_0", Style.WIRE_BITS.getFontSize()));
     }
 
 }
