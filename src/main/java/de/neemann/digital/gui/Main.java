@@ -993,13 +993,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
 
                     if (model.isInvalidSignal())
-                        JOptionPane.showMessageDialog(Main.this,
-                                new LineBreaker().toHTML().breakLines(Lang.get("msg_invalidSignalsAnalysed")),
-                                Lang.get("msg_warning"),
-                                JOptionPane.WARNING_MESSAGE);
-
-                    new TableDialog(Main.this, new ModelAnalyser(model).analyse(), library, shapeFactory, getBaseFileName())
-                            .setVisible(true);
+                        new ErrorMessage(Lang.get("msg_invalidSignalsAnalysed")).show(Main.this);
+                    else
+                        new TableDialog(Main.this,
+                                new ModelAnalyser(model).analyse(),
+                                library,
+                                shapeFactory,
+                                getBaseFileName())
+                                .setVisible(true);
                     ensureModelIsStopped();
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | BacktrackException | RuntimeException e1) {
                     showErrorWithoutARunningModel(Lang.get("msg_analyseErr"), e1);

@@ -505,6 +505,8 @@ public class Model implements Iterable<Node> {
      */
     public void addInput(Signal signal) {
         if (signal.isValid()) {
+            if (signals.contains(signal))
+                isInvalidSignal = true;
             signals.add(signal);
             inputs.add(signal);
         } else
@@ -525,6 +527,8 @@ public class Model implements Iterable<Node> {
      */
     public void addOutput(Signal signal) {
         if (signal.isValid()) {
+            if (signals.contains(signal))
+                isInvalidSignal = true;
             signals.add(signal);
             outputs.add(signal);
         } else
