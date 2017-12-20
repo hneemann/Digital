@@ -39,7 +39,7 @@ public class LEDShape implements Shape {
         this.inputs = inputs;
         this.label = attr.getLabel();
         this.size = attr.get(Keys.SIZE) * SIZE;
-        onStyle = new Style(1, true, attr.get(Keys.COLOR));
+        onStyle = Style.NORMAL.deriveStyle(1, true, attr.get(Keys.COLOR));
     }
 
     @Override

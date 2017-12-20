@@ -956,6 +956,8 @@ The names of the variables may not be unique.</string>
     <string name="key_inputBits_tt">The number of output bits must be greater than the number of input bits.</string>
     <string name="key_outputBits">Output Bit Width</string><!-- BitExtender -->
     <string name="key_outputBits_tt">The number of output bits must be greater than the number of input bits.</string>
+    <string name="key_textFontSize">Font Size</string>
+    <string name="key_textFontSize_tt">Sets the font size to use for this text.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

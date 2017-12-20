@@ -39,7 +39,7 @@ public class LightBulbShape implements Shape {
      */
     public LightBulbShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
-        style = new Style(1, true, attr.get(Keys.COLOR));
+        style = Style.NORMAL.deriveStyle(1, true, attr.get(Keys.COLOR));
     }
 
     @Override

@@ -24,8 +24,8 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * @author hneemann
  */
 public class RotEncoderShape implements Shape {
-    private static final Style KNOB = new Style(Style.MAXLINETHICK, true, Color.DARK_GRAY);
-    private static final Style MARKER = new Style(Style.MAXLINETHICK, false, Color.LIGHT_GRAY);
+    private static final Style KNOB = Style.NORMAL.deriveStyle(Style.MAXLINETHICK, true, Color.DARK_GRAY);
+    private static final Style MARKER = Style.NORMAL.deriveStyle(Style.MAXLINETHICK, false, Color.LIGHT_GRAY);
     private static final Vector CENTER = new Vector(SIZE2 - SIZE * 2, SIZE2);
     private final String label;
     private final PinDescriptions outputs;

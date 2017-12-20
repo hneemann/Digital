@@ -20,7 +20,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class TestCaseShape implements Shape {
 
-    private static final Style TESTSTYLE = new Style(0, true, new Color(0, 255, 0, 40));
+    private static final Style TESTSTYLE = Style.NORMAL.deriveStyle(0, true, new Color(0, 255, 0, 40));
     private final String label;
 
     /**

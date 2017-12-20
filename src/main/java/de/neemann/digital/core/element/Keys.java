@@ -6,6 +6,7 @@ import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.IntFormat;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.gui.Screen;
@@ -56,6 +57,16 @@ public final class Keys {
      */
     public static final Key<String> LABEL
             = new Key<>("Label", "");
+
+
+    /**
+     * The font size
+     */
+    public static final Key<Integer> FONT_SIZE =
+            new Key.KeyInteger("textFontSize", Style.NORMAL.getFontSize())
+                    .setComboBoxValues(new Integer[]{14, 17, 20, 24, 36, 48, 60})
+                    .setMin(10)
+                    .setMax(70);
 
     /**
      * The size of a LED

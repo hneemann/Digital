@@ -27,7 +27,8 @@ public class DummyElement implements Element {
      * The TextElement description
      */
     public static final ElementTypeDescription TEXTDESCRIPTION = new ElementTypeDescription("Text", DummyElement.class)
-            .addAttribute(Keys.DESCRIPTION);
+            .addAttribute(Keys.DESCRIPTION)
+            .addAttribute(Keys.FONT_SIZE);
 
     /**
      * Creates a new dummy element

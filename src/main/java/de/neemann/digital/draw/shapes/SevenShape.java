@@ -62,8 +62,8 @@ public abstract class SevenShape implements Shape {
      * @param attr the attributes
      */
     public SevenShape(ElementAttributes attr) {
-        onStyle = new Style(1, true, attr.get(Keys.COLOR));
-        offStyle = new Style(1, true, new Color(230, 230, 230));
+        onStyle = Style.NORMAL.deriveStyle(1, true, attr.get(Keys.COLOR));
+        offStyle = Style.NORMAL.deriveStyle(1, true, new Color(230, 230, 230));
     }
 
     @Override

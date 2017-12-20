@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * @author hneemann
  */
-public class Style {
+public final class Style {
     /**
      * maximal line thickness
      */
@@ -38,7 +38,7 @@ public class Style {
      * Text which uses this style is always included in sizing!
      * Used for text only elements.
      */
-    public static final Style NORMAL_TEXT = new Style(LINETHICK, false, Color.BLACK);
+    public static final Style NORMAL_TEXT = new Style(LINETHICK, false, Color.BLACK, 24, null, true);
     /**
      * thin line used for the graphic in the clock or delay shape
      */
@@ -88,19 +88,19 @@ public class Style {
     /**
      * Used to draw the pin description text
      */
-    public static final Style SHAPE_PIN = new Style(LINETHIN, false, Color.GRAY, 18, null);
+    public static final Style SHAPE_PIN = new Style(LINETHIN, false, Color.GRAY, 18, null, false);
     /**
      * Used to draw the pin description text for splitters
      */
-    public static final Style SHAPE_SPLITTER = new Style(LINETHIN, false, Color.GRAY, 12, null);
+    public static final Style SHAPE_SPLITTER = new Style(LINETHIN, false, Color.GRAY, 12, null, false);
     /**
      * Used to draw the pin description text
      */
-    public static final Style WIRE_VALUE = new Style(LINETHICK, false, new Color(50, 162, 50), 12, null);
+    public static final Style WIRE_VALUE = new Style(LINETHICK, false, new Color(50, 162, 50), 12, null, false);
     /**
      * Used to draw the wire bit number
      */
-    public static final Style WIRE_BITS = new Style(LINETHIN, false, WIRE.color, 12, null);
+    public static final Style WIRE_BITS = new Style(LINETHIN, false, WIRE.color, 12, null, false);
     /**
      * highlight color used for the circles to mark an element
      */
@@ -118,9 +118,10 @@ public class Style {
     private final float[] dash;
     private final Stroke stroke;
     private final Font font;
+    private final boolean mattersForSize;
 
     private Style(int thickness, boolean filled, Color color, float[] dash) {
-        this(thickness, filled, color, 24, dash);
+        this(thickness, filled, color, 24, dash, false);
     }
 
     /**
@@ -130,16 +131,27 @@ public class Style {
      * @param filled    true if polygons needs to be filled
      * @param color     the color to use
      */
-    public Style(int thickness, boolean filled, Color color) {
-        this(thickness, filled, color, 24, null);
+    private Style(int thickness, boolean filled, Color color) {
+        this(thickness, filled, color, 24, null, false);
     }
 
-    private Style(int thickness, boolean filled, Color color, int fontsize, float[] dash) {
+    /**
+     * Creates a new style
+     *
+     * @param thickness      the line thickness
+     * @param filled         true if polygons needs to be filled
+     * @param color          the color to use
+     * @param fontsize       font size
+     * @param dash           dash intervals, null is allowed for a solid line
+     * @param mattersForSize always include in shape size measurement
+     */
+    private Style(int thickness, boolean filled, Color color, int fontsize, float[] dash, boolean mattersForSize) {
         this.thickness = thickness;
         this.filled = filled;
         this.color = color;
         this.fontsize = fontsize;
         this.dash = dash;
+        this.mattersForSize = mattersForSize;
         stroke = new BasicStroke(thickness, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 10f, dash, 0f);
 
         font = new Font("Arial", Font.PLAIN, fontsize);
@@ -155,7 +167,7 @@ public class Style {
     /**
      * @return true if polygons and circles are filled
      */
-    public boolean isFilled() {
+    boolean isFilled() {
         return filled;
     }
 
@@ -190,7 +202,7 @@ public class Style {
     /**
      * @return the dash style
      */
-    public float[] getDash() {
+    float[] getDash() {
         return dash;
     }
 
@@ -207,6 +219,38 @@ public class Style {
 
         if (value.getValue() == 1) return WIRE_HIGH;
         else return WIRE_LOW;
+    }
+
+    /**
+     * If this flag is set, the text is always to include in size estimation.
+     *
+     * @return the mattersForSize flag
+     */
+    boolean mattersAlwaysForSize() {
+        return mattersForSize;
+    }
+
+    /**
+     * Creates a new style, based on the current style
+     *
+     * @param fontsize       the new font size
+     * @param mattersForSize the mattersForSize flag
+     * @return Style the derived style with the given font size and mattersForSize flag.
+     */
+    public Style deriveStyle(int fontsize, boolean mattersForSize) {
+        return new Style(thickness, filled, color, fontsize, dash, mattersForSize);
+    }
+
+    /**
+     * Creates a new style, based on the current style
+     *
+     * @param thickness the line thickness
+     * @param filled    filled flag for polygons
+     * @param color     the color
+     * @return the new style
+     */
+    public Style deriveStyle(int thickness, boolean filled, Color color) {
+        return new Style(thickness, filled, color, fontsize, dash, mattersForSize);
     }
 
 }

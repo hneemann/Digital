@@ -966,6 +966,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_inputBits_tt">Die Anzahl der Ausgangsbits muss größer sein als die Anzahl der Eingangsbits.</string>
     <string name="key_outputBits">Anzahl Ausgangsbits</string><!-- BitExtender -->
     <string name="key_outputBits_tt">Die Anzahl der Ausgangsbits muss größer sein als die Anzahl der Eingangsbits.</string>
+    <string name="key_textFontSize">Schriftgröße</string>
+    <string name="key_textFontSize_tt">Legt die für diesen Text zu verwendende Schriftgröße fest.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

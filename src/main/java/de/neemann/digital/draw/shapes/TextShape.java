@@ -12,6 +12,8 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 
+import java.awt.*;
+
 /**
  * Simple text
  *
@@ -19,6 +21,7 @@ import de.neemann.digital.lang.Lang;
  */
 public class TextShape implements Shape {
     private final String text;
+    private final int fontSize;
 
     /**
      * Create a new instance
@@ -42,6 +45,7 @@ public class TextShape implements Shape {
             text = Lang.get("elem_Text");
         this.text = text;
 
+        fontSize = attr.get(Keys.FONT_SIZE);
     }
 
     @Override
@@ -57,13 +61,14 @@ public class TextShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         StringBuilder sb = new StringBuilder();
+        Style style = Style.NORMAL.deriveStyle(fontSize, true);
         Vector pos = new Vector(0, 0);
-        final int dy = (Style.NORMAL_TEXT.getFontSize() * 20) / 16;
+        final int dy = (style.getFontSize() * 20) / 16;
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             if (c == '\n') {
                 if (sb.length() > 0) {
-                    graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, Style.NORMAL_TEXT);
+                    graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, style);
                     sb.setLength(0);
                 }
                 pos = pos.add(0, dy);
@@ -71,6 +76,6 @@ public class TextShape implements Shape {
                 sb.append(c);
         }
         if (sb.length() > 0)
-            graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, Style.NORMAL_TEXT);
+            graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, style);
     }
 }
