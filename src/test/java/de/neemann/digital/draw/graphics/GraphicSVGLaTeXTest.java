@@ -10,7 +10,7 @@ public class GraphicSVGLaTeXTest extends TestCase {
         GraphicSVGLaTeX gs = new GraphicSVGLaTeX(System.out, null, 30);
         gs.setBoundingBox(new Vector(0, 0), new Vector(30, 30));
 
-        assertEquals("$Z_{0}$", gs.formatText("Z_0", Style.NORMAL.getFontSize()));
+        assertEquals("Z$_{0}$", gs.formatText("Z_0", Style.NORMAL.getFontSize()));
         assertEquals("\\&amp;", gs.formatText("&", Style.NORMAL.getFontSize()));
         assertEquals("$\\geq\\!\\!{}$1", gs.formatText("\u22651", Style.NORMAL.getFontSize()));
         assertEquals("$\\geq\\!\\!{}1$", gs.formatText("$\u22651$", Style.NORMAL.getFontSize()));
@@ -21,9 +21,9 @@ public class GraphicSVGLaTeXTest extends TestCase {
 
 
         assertEquals("{\\footnotesize Grün}", gs.formatText("Grün", Style.SHAPE_PIN.getFontSize()));
-        assertEquals("{\\footnotesize $Z_{0}$}", gs.formatText("Z_0", Style.SHAPE_PIN.getFontSize()));
-        assertEquals("{\\scriptsize $Z_{0}$}", gs.formatText("Z_0", 14));
-        assertEquals("{\\tiny $Z_{0}$}", gs.formatText("Z_0", Style.WIRE_BITS.getFontSize()));
+        assertEquals("{\\footnotesize Z$_{0}$}", gs.formatText("Z_0", Style.SHAPE_PIN.getFontSize()));
+        assertEquals("{\\scriptsize Z$_{0}$}", gs.formatText("Z_0", 14));
+        assertEquals("{\\tiny Z$_{0}$}", gs.formatText("Z_0", Style.WIRE_BITS.getFontSize()));
     }
 
 }
