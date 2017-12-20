@@ -77,6 +77,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private static final int DRAG_DISTANCE = (int) (SIZE2 * Screen.getInstance().getScaling());
 
+    private static final Color GRID_COLOR = new Color(210, 210, 210);
+
     private final Main parent;
     private final ElementLibrary library;
     private final HashSet<Drawable> highLighted;
@@ -820,7 +822,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (delta > max) delta = max;
         double sub = delta / 2.0;
 
-        gr2.setColor(Color.LIGHT_GRAY);
+        gr2.setColor(GRID_COLOR);
         for (int x = 0; x <= cx; x++) {
             double xx = p1.getX() + (p2.getX() - p1.getX()) * x / cx - sub;
             for (int y = 0; y <= cy; y++) {
