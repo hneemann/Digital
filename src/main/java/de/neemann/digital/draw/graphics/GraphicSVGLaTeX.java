@@ -3,6 +3,7 @@ package de.neemann.digital.draw.graphics;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
  * Subclass of {@link GraphicSVG} which creates the correct SVG representation
@@ -18,6 +19,49 @@ import java.io.OutputStream;
  * @see <a href="http://mirrors.ctan.org/info/svg-inkscape/InkscapePDFLaTeX.pdf">InkscapePDFLaTeX.pdf</a>
  */
 public class GraphicSVGLaTeX extends GraphicSVG {
+    private static final ArrayList<FontSize> FONT_SIZES = new ArrayList<>();
+
+    private static final class FontSize {
+
+        private final String name;
+        private final int size;
+
+        private FontSize(String name, int size) {
+            this.name = name;
+            this.size = size;
+        }
+    }
+
+    static {
+        add("tiny", 12);
+        add("scriptsize", 14);
+        add("footnotesize", 17);
+        add("small", 20);
+        add("normalsize", 25);
+        add("large", 30);
+        add("Large", 36);
+        add("LARGE", 48);
+        add("huge", 60);
+        add("Huge", 72);
+    }
+
+    private static void add(String name, int size) {
+        FONT_SIZES.add(new FontSize(name, size));
+    }
+
+    private static String getFontSizeName(int fontSize) {
+        String best = "normalsize";
+        int diff = Integer.MAX_VALUE;
+        for (FontSize fs : FONT_SIZES) {
+            int d = Math.abs(fontSize - fs.size);
+            if (d < diff) {
+                diff = d;
+                best = fs.name;
+            }
+        }
+        return best;
+    }
+
     /**
      * Creates new instance
      *
@@ -77,8 +121,11 @@ public class GraphicSVGLaTeX extends GraphicSVG {
             }
         }
         text = sb.toString();
-        if (fontSize < Style.NORMAL.getFontSize())
-            text = "{\\scriptsize " + text + "}";
+        if (fontSize != Style.NORMAL.getFontSize()) {
+            final String fontSizeName = getFontSizeName(fontSize);
+            if (!fontSizeName.equals("normalsize"))
+                text = "{\\" + fontSizeName + " " + text + "}";
+        }
         return escapeXML(text);
     }
 
@@ -111,6 +158,7 @@ public class GraphicSVGLaTeX extends GraphicSVG {
         else if (style == Style.WIRE_BITS) return super.getColor(Style.NORMAL);
         else if (style == Style.WIRE_BUS) return super.getColor(Style.NORMAL);
         else if (style == Style.SHAPE_PIN) return super.getColor(Style.NORMAL);
+        else if (style == Style.SHAPE_SPLITTER) return super.getColor(Style.NORMAL);
         else return super.getColor(style);
     }
 }
