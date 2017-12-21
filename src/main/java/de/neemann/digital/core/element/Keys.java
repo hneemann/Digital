@@ -418,7 +418,7 @@ public final class Keys {
      * Background Color of nested circuits
      */
     public static final Key<java.awt.Color> BACKGROUND_COLOR
-            = new Key<>("backgroundColor", new Color(255, 255, 0, 64))
+            = new Key<>("backgroundColor", new Color(255, 255, 180, 200))
             .setDependsOn(IS_DIL, true);
 
     /**
