@@ -33,20 +33,20 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     }
 
     static {
-        add("tiny", 12);
-        add("scriptsize", 14);
-        add("footnotesize", 17);
-        add("small", 20);
-        add("normalsize", 25);
-        add("large", 30);
-        add("Large", 36);
-        add("LARGE", 48);
-        add("huge", 60);
-        add("Huge", 72);
+        add("tiny", 35);     // measured pixel sizes in a BEAMER created PDF
+        add("scriptsize", 46);
+        add("footnotesize", 52);
+        add("small", 58);
+        add("normalsize", 63);
+        add("large", 69);
+        add("Large", 83);
+        add("LARGE", 100);
+        add("huge", 120);
+        add("Huge", 143);
     }
 
     private static void add(String name, int size) {
-        FONT_SIZES.add(new FontSize(name, size));
+        FONT_SIZES.add(new FontSize(name, (size * Style.NORMAL.getFontSize()) / 63));
     }
 
     private static String getFontSizeName(int fontSize) {
@@ -139,7 +139,7 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     private String formatIndex(String text) {
         int p = text.lastIndexOf("_");
         if (p > 0) {
-            text =text.substring(0, p) + "$_{" + text.substring(p + 1) + "}$";
+            text = text.substring(0, p) + "$_{" + text.substring(p + 1) + "}$";
         }
         return text;
     }
