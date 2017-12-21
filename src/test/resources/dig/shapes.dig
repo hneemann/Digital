@@ -206,7 +206,7 @@
     <visualElement>
       <elementName>T_FF</elementName>
       <elementAttributes/>
-      <pos x="980" y="320"/>
+      <pos x="980" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -452,6 +452,11 @@
       <elementName>BitSelector</elementName>
       <elementAttributes/>
       <pos x="1200" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RS_FF_AS</elementName>
+      <elementAttributes/>
+      <pos x="980" y="280"/>
     </visualElement>
   </visualElements>
   <wires/>
