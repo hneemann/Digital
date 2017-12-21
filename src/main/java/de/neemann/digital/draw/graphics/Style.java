@@ -114,7 +114,7 @@ public final class Style {
     private final int thickness;
     private final boolean filled;
     private final Color color;
-    private final int fontsize;
+    private final int fontSize;
     private final float[] dash;
     private final Stroke stroke;
     private final Font font;
@@ -141,20 +141,20 @@ public final class Style {
      * @param thickness      the line thickness
      * @param filled         true if polygons needs to be filled
      * @param color          the color to use
-     * @param fontsize       font size
+     * @param fontSize       font size
      * @param dash           dash intervals, null is allowed for a solid line
      * @param mattersForSize always include in shape size measurement
      */
-    private Style(int thickness, boolean filled, Color color, int fontsize, float[] dash, boolean mattersForSize) {
+    private Style(int thickness, boolean filled, Color color, int fontSize, float[] dash, boolean mattersForSize) {
         this.thickness = thickness;
         this.filled = filled;
         this.color = color;
-        this.fontsize = fontsize;
+        this.fontSize = fontSize;
         this.dash = dash;
         this.mattersForSize = mattersForSize;
         stroke = new BasicStroke(thickness, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 10f, dash, 0f);
 
-        font = new Font("Arial", Font.PLAIN, fontsize);
+        font = new Font("Arial", Font.PLAIN, fontSize);
     }
 
     /**
@@ -189,7 +189,7 @@ public final class Style {
      * @return the font size
      */
     public int getFontSize() {
-        return fontsize;
+        return fontSize;
     }
 
     /**
@@ -207,7 +207,7 @@ public final class Style {
     }
 
     /**
-     * Returns the wire style depending of the actual value represented by this value
+     * Returns the wire style depending on the given value
      *
      * @param value the value to represent
      * @return the style
@@ -231,18 +231,18 @@ public final class Style {
     }
 
     /**
-     * Creates a new style, based on the current style
+     * Creates a new style, based on this style.
      *
-     * @param fontsize       the new font size
+     * @param fontSize       the new font size
      * @param mattersForSize the mattersForSize flag
      * @return Style the derived style with the given font size and mattersForSize flag.
      */
-    public Style deriveStyle(int fontsize, boolean mattersForSize) {
-        return new Style(thickness, filled, color, fontsize, dash, mattersForSize);
+    public Style deriveFontStyle(int fontSize, boolean mattersForSize) {
+        return new Style(thickness, filled, color, fontSize, dash, mattersForSize);
     }
 
     /**
-     * Creates a new style, based on the current style
+     * Creates a new style, based on this style.
      *
      * @param thickness the line thickness
      * @param filled    filled flag for polygons
@@ -250,7 +250,17 @@ public final class Style {
      * @return the new style
      */
     public Style deriveStyle(int thickness, boolean filled, Color color) {
-        return new Style(thickness, filled, color, fontsize, dash, mattersForSize);
+        return new Style(thickness, filled, color, fontSize, dash, mattersForSize);
+    }
+
+    /**
+     * Creates a new style suited for filling polygons, based on this style.
+     *
+     * @param color the fill color
+     * @return the nes style
+     */
+    public Style deriveFillStyle(Color color) {
+        return new Style(1, true, color, fontSize, dash, mattersForSize);
     }
 
 }

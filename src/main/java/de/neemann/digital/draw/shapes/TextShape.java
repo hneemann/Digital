@@ -12,8 +12,6 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 
-import java.awt.*;
-
 /**
  * Simple text
  *
@@ -61,7 +59,7 @@ public class TextShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         StringBuilder sb = new StringBuilder();
-        Style style = Style.NORMAL.deriveStyle(fontSize, true);
+        Style style = Style.NORMAL.deriveFontStyle(fontSize, true);
         Vector pos = new Vector(0, 0);
         final int dy = (style.getFontSize() * 20) / 16;
         for (int i = 0; i < text.length(); i++) {

@@ -196,8 +196,8 @@ public class GenericShape implements Shape {
                 .add(SIZE * width - 1, height)
                 .add(1, height);
 
-        if (color != Color.WHITE)
-            graphic.drawPolygon(polygon, Style.NORMAL.deriveStyle(1, !graphic.isFlagSet(Graphic.LATEX), color));
+        if (color != Color.WHITE && !graphic.isFlagSet(Graphic.LATEX))
+            graphic.drawPolygon(polygon, Style.NORMAL.deriveFillStyle(color));
         graphic.drawPolygon(polygon, Style.NORMAL);
 
         if (invert) {
