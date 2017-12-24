@@ -99,7 +99,7 @@ public class TableDialog extends JDialog {
         this.shapeFactory = shapeFactory;
         this.filename = filename;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        kvMap = new KarnaughMapDialog(this);
+        kvMap = new KarnaughMapDialog(this, (boolTable, row) -> model.incValue(boolTable, row));
 
         statusBar = new JTextPane();
         statusBar.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE); // without this setFont not work

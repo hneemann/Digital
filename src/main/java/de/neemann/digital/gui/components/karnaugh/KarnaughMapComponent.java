@@ -10,6 +10,8 @@ import de.neemann.gui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -30,14 +32,33 @@ public class KarnaughMapComponent extends JComponent {
     private BoolTable boolTable;
     private ArrayList<Variable> vars;
     private Graphics2D gr;
-    private int cellSize;
     private String message = Lang.get("msg_noKVMapAvailable");
 
+    private int xOffs;
+    private int yOffs;
+    private int cellSize;
+
     /**
-     * creates a new instance
+     * Creates a new instance
+     *
+     * @param modifier the modifier which is used to modify the truth table.
      */
-    public KarnaughMapComponent() {
+    public KarnaughMapComponent(Modifier modifier) {
         setPreferredSize(Screen.getInstance().scale(new Dimension(400, 400)));
+        if (modifier != null)
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent mouseEvent) {
+                    if (kv != null) {
+                        int x = (mouseEvent.getX() - xOffs) / cellSize - 1;
+                        int y = (mouseEvent.getY() - yOffs) / cellSize - 1;
+                        if (x >= 0 && x < kv.getColumns() && y >= 0 && y < kv.getRows()) {
+                            int row = kv.getCell(y, x).getBoolTableRow();
+                            modifier.modify(boolTable, row);
+                        }
+                    }
+                }
+            });
     }
 
     /**
@@ -105,8 +126,9 @@ public class KarnaughMapComponent extends JComponent {
                 // can not happen
             }
 
-            gr.translate((width - (kvWidth + 2) * cellSize) / 2,   // center the kv map
-                    (height - (kvHeight + 2) * cellSize) / 2);
+            xOffs = (width - (kvWidth + 2) * cellSize) / 2;
+            yOffs = (height - (kvHeight + 2) * cellSize) / 2;
+            gr.translate(xOffs, yOffs);   // center the kv map
 
             // draw table
             gr.setColor(Color.GRAY);
@@ -240,5 +262,19 @@ public class KarnaughMapComponent extends JComponent {
             // can not happen
             return "";
         }
+    }
+
+    /**
+     * The modifier which is used to modify the bool table
+     */
+    public interface Modifier {
+
+        /**
+         * Is called if the k-map is clicked and the truth table needs to be changed.
+         *
+         * @param boolTable the table to modify
+         * @param row       the row to modify
+         */
+        void modify(BoolTable boolTable, int row);
     }
 }

@@ -25,13 +25,14 @@ public class KarnaughMapDialog extends JDialog {
     /**
      * Creates a new instance
      *
-     * @param parent the parent dialog
+     * @param parent   the parent dialog
+     * @param modifier the modifier which is used by the k-map to modify the table.
      */
-    public KarnaughMapDialog(JDialog parent) {
+    public KarnaughMapDialog(JDialog parent, KarnaughMapComponent.Modifier modifier) {
         super(parent, Lang.get("win_karnaughMap"), false);
         this.parent = parent;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        kvComponent = new KarnaughMapComponent();
+        kvComponent = new KarnaughMapComponent(modifier);
         getContentPane().add(kvComponent);
 
         combo = new JComboBox<>();
