@@ -116,18 +116,20 @@
 
     <!-- IO -->
     <string name="elem_Out">Ausgang</string>
-    <string name="elem_Out_tt">Ein Ausgang der genutzt werden kann, um eine Verbindung zu einer einbettenden Schaltung
-        herzustellen.
-        Wird auch verwendet, um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
-    <string name="elem_Out_pin_in">Der hier angelegt Wert wird als Ausgangswert bereit gestellt.</string>
+    <string name="elem_Out_tt">Kann genutzt werden, um ein Ausgangssignal in einer Schaltung anzuzeigen.
+        Dieses Element wird auch genutzt, um eine Verbindung zu einer einbettenden Schaltung
+        herzustellen. In diesem Fall ist der Anschluss bidirektional.
+        Wird zudem verwendet, um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
+    <string name="elem_Out_pin_in">Der hier angelegte Wert wird als Ausgangswert bereit gestellt.</string>
     <string name="elem_LED">LED</string>
     <string name="elem_LED_tt">Eine Leuchtdiode, welche beispielsweise zur Visualisierung eines Ausgangswertes verwendet
         werden kann. Nimmt ein Bit entgegen. Leuchtet, wenn der Eingang auf 1 gesetzt ist.</string>
     <string name="elem_LED_pin_in">LED Eingang. LED leuchtet, wenn Eingang auf 1 gesetzt ist.</string>
     <string name="elem_In">Eingang</string>
-    <string name="elem_In_tt">Ein Eingang, der genutzt werden kann, um eine Verbindung zu einer einbettenden Schaltung
-        herzustellen.
-        Wird auch verwendet, um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
+    <string name="elem_In_tt">Kann genutzt werden, um ein Eingangssignal in einer Schaltung interaktiv per Maus zu
+        verändern. Dieses Element wird auch genutzt, um eine Verbindung zu einer einbettenden Schaltung
+        herzustellen. In diesem Fall ist der Anschluss bidirektional.
+        Wird zudem verwendet, um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
     <string name="elem_In_pin_out">An diesem Ausgang wird der anliegende Wert ausgegeben.</string>
     <string name="elem_Clock">Takteingang</string>
     <string name="elem_Clock_tt">Ein Taktsignal. Dieses Taktsignal kann über die Echtzeituhr gesteuert werden.
