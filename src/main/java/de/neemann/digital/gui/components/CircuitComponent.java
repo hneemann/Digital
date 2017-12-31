@@ -290,9 +290,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         else if (m instanceof VisualElement)
                             copiedElements.add(new VisualElement((VisualElement) m));
                     }
-                    Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
-                    removeHighLighted();
-                    mouseInsertList.activate(copiedElements, posVector);
+                    setPartsToInsert(copiedElements, null);
                 }
             }
         }.setAcceleratorCTRLplus('D').enableAcceleratorIn(this);
@@ -329,10 +327,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         if (data instanceof String) {
                             Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
                             ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
-                            if (elements != null) {
-                                removeHighLighted();
-                                mouseInsertList.activate(elements, posVector);
-                            }
+                            if (elements != null)
+                                setPartsToInsert(elements, posVector);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -731,13 +727,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * Adds the given list of elements to insert to the circuit
      *
      * @param elements the list of elements to insert
+     * @param pos      inserting position, maybe null
      */
-    public void setPartsToInsert(ArrayList<Movable> elements) {
+    public void setPartsToInsert(ArrayList<Movable> elements, Vector pos) {
+        removeHighLighted();
         parent.ensureModelIsStopped();
-        if (lastMousePos == null)
-            mouseInsertList.activate(elements, getPosVector(0, 0));
-        else
-            mouseInsertList.activate(elements, getPosVector(lastMousePos.x, lastMousePos.y));
+        if (pos == null) {
+            if (lastMousePos != null)
+                pos = getPosVector(lastMousePos.x, lastMousePos.y);
+            else
+                pos = getPosVector(0, 0);
+        }
+        mouseInsertList.activate(elements, pos);
         repaintNeeded();
     }
 

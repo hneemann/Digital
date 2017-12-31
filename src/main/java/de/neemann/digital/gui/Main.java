@@ -257,7 +257,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 InsertAction lastInsertAction = insertHistory.getLastInsertAction();
-                if (lastInsertAction != null)
+                if (lastInsertAction != null && model == null)
                     lastInsertAction.actionPerformed(actionEvent);
             }
         }.setAccelerator("L").enableAcceleratorIn(circuitComponent);
@@ -816,7 +816,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     list.add(new Wire(new Vector(0, SIZE * 2), new Vector(SIZE, SIZE * 2)));
                     list.add(new Wire(new Vector(SIZE, SIZE * 2), new Vector(SIZE, SIZE)));
                     list.add(new Wire(new Vector(SIZE, SIZE), new Vector(SIZE * 2, SIZE)));
-                    circuitComponent.setPartsToInsert(list);
+                    circuitComponent.setPartsToInsert(list, null);
                 }
             }
         }.setToolTip(Lang.get("menu_addPowerSupply_tt")).createJMenuItem());
