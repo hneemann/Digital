@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.jar.JarFile;
 
 /**
@@ -21,7 +22,7 @@ import java.util.jar.JarFile;
  * Reads Build-Version and Build-Date from the Manifest.
  * Created by hneemann on 23.03.15.
  */
-public final class InfoDialog {
+public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
     private static InfoDialog instance;
     private final ArrayList<Manifest> infos;
     private String revision = "unknown";
@@ -52,7 +53,7 @@ public final class InfoDialog {
     }
 
     /**
-     * Creates amessage by taking the given message and adding the manifestinfos to it
+     * Creates a message by taking the given message and adding the manifest infos to it
      *
      * @param message the given message
      * @return message and added manifest infos
@@ -142,14 +143,22 @@ public final class InfoDialog {
         return help;
     }
 
-    private static class Manifest {
+    @Override
+    public Iterator<Manifest> iterator() {
+        return infos.iterator();
+    }
+
+    /**
+     * A simple Manifest parser
+     */
+    public static final class Manifest {
         private static final String REVISION = "Build-SCM-Revision";
         private static final String TIME = "Build-Time";
 
         private final HashMap<String, String> manifest;
         private final URL url;
 
-        Manifest(URL url) throws IOException {
+        private Manifest(URL url) throws IOException {
             this.url = url;
             manifest = new HashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
@@ -165,8 +174,22 @@ public final class InfoDialog {
             }
         }
 
-        public String get(String key) {
+        private String get(String key) {
             return manifest.get(key);
+        }
+
+        /**
+         * @return returns all entries
+         */
+        public HashMap<String, String> getEntries() {
+            return manifest;
+        }
+
+        /**
+         * @return the manifest url
+         */
+        public URL getUrl() {
+            return url;
         }
 
         private void createInfoString(StringBuilder sb) {

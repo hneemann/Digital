@@ -1547,6 +1547,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      * @param args the arguments
      */
     public static void main(String[] args) {
+        Thread.setDefaultUncaughtExceptionHandler(new DigitalUncaughtExceptionHandler());
+
         try { // enforce MetalLookAndFeel
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
