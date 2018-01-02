@@ -9,19 +9,20 @@ Preparation
 [ ] Remove jar library from settings.
 
 General
+[ ] execute gui error handling tests in "src/test/resources/dig/manualError"
 [ ] build a MS-JK-FF with diagonal wires, use Copy&Paste and 'L' shortcuts
 [ ] save circuit
 [ ] copy test case from the example (JK-MS.dig) to the created circuit
 [ ] run tests
 [ ] show test result in the timing diagram
 [ ] undo and redo complete build
-[ ] execute gui error handling tests in "src/test/resources/dig/manualError"
 
 74xx
 [ ] number the pins
 [ ] remove all pin numbers
 [ ] adding and removing prefixes
 [ ] build a xor with two 7400
+[ ] analyse the circuit
 
 Analysis
 [ ] create circuit from the default expression
@@ -45,5 +46,6 @@ Custom Jar Components
 [ ] Copy actual Digital.jar to the plugin example, and start digital from the example
 [ ] Remove jar from settings and load the test circuit containing the custom elements.
     An error message should be shown.
-[ ] Set the jar and load the example circuit. It should work.
+[ ] Create the jar and select it in the settings.
+    Now load the example circuit. It should work.
 [ ] Update the plugin example after distribution
