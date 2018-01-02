@@ -1288,7 +1288,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
 
     <string name="msg_newRelease_N"><![CDATA[
         <html>
-        <h1>Neue Version {0} Verfügbar</h1>
+        <h1>Neue Version {0} verfügbar</h1>
         <p>Es ist eine neue Version des Simulators verfügbar.</p>
         <p>In den <a href="https://github.com/hneemann/Digital/releases/latest">Release Notes</a>
         können Sie nachlesen, was sich in der Version {0} verändert hat.</p>

@@ -1573,7 +1573,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
             main.setVisible(true);
 
-            CheckForNewRelease.getInstance().showReleaseDialog(main);
+            CheckForNewRelease.showReleaseDialog(main);
         });
     }
 

@@ -13,33 +13,21 @@ import java.util.prefs.Preferences;
  */
 public final class CheckForNewRelease {
 
-    private static class InstanceHolder {
-        private static final CheckForNewRelease INSTANCE = new CheckForNewRelease();
-    }
-
-    /**
-     * @return the instance
-     */
-    public static CheckForNewRelease getInstance() {
-        return InstanceHolder.INSTANCE;
-    }
-
     private static final long ADAY = 24L * 60 * 60 * 1000;
     private static final String PREF_LAST = "last";
     private static final String PREF_ASKED = "asked";
     private static final Preferences PREFS = Preferences.userRoot().node("dig").node("rev");
-    private String latestRev;
 
     private CheckForNewRelease() {
     }
 
     /**
-     * Returns true if there is a new release.
-     * Connects the server only once a day and returns true only once for every new release.
+     * Connects the server only once a day and calls the interface method only
+     * once for every new release.
      *
-     * @param runnable started if there is a new release!
+     * @param anInterface started if there is a new release!
      */
-    private void startIfNewRelease(Runnable runnable) {
+    static private void startIfNewRelease(Interface anInterface) {
         long lastAsked = PREFS.getLong(PREF_LAST, -1);
         long time = System.currentTimeMillis();
         if (time - lastAsked < ADAY) return;
@@ -51,7 +39,7 @@ public final class CheckForNewRelease {
 
             try {
                 ReleaseInfo info = new ReleaseInfo();
-                latestRev = info.getVersion();
+                String latestRev = info.getVersion();
                 if (latestRev != null) {
 
                     String asked = PREFS.get(PREF_ASKED, "none");
@@ -64,7 +52,7 @@ public final class CheckForNewRelease {
                     if (runningRev.equals(latestRev))
                         return;
 
-                    SwingUtilities.invokeLater(runnable);
+                    SwingUtilities.invokeLater(() -> anInterface.showMessage(latestRev));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -75,15 +63,19 @@ public final class CheckForNewRelease {
     }
 
     /**
-     * Shows a new release pop up
+     * Shows a new release pop up in necessary
      *
      * @param parent the parent window
      */
-    public void showReleaseDialog(Component parent) {
-        startIfNewRelease(() -> {
+    static public void showReleaseDialog(Component parent) {
+        startIfNewRelease((latestRev) -> {
             String msg = Lang.get("msg_newRelease_N", latestRev);
             InfoDialog.showInfo(parent, msg, "");
         });
+    }
+
+    private interface Interface {
+        void showMessage(String latest);
     }
 
 }
