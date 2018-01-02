@@ -28,7 +28,7 @@ public final class CheckForNewRelease {
     private static final String PREF_LAST = "last";
     private static final String PREF_ASKED = "asked";
     private static final Preferences PREFS = Preferences.userRoot().node("dig").node("rev");
-    private String actual;
+    private String latestRev;
 
     private CheckForNewRelease() {
     }
@@ -46,20 +46,24 @@ public final class CheckForNewRelease {
         PREFS.putLong(PREF_LAST, time);
 
         Thread thread = new Thread(() -> {
-            String rev = InfoDialog.getInstance().getRevision();
-            if (rev.equals(InfoDialog.UNKNOWN)) return;
+            String runningRev = InfoDialog.getInstance().getRevision();
+            if (runningRev.equals(InfoDialog.UNKNOWN)) return;
 
             try {
                 ReleaseInfo info = new ReleaseInfo();
-                actual = info.getVersion();
-                if (actual != null) {
+                latestRev = info.getVersion();
+                if (latestRev != null) {
 
                     String asked = PREFS.get(PREF_ASKED, "none");
 
-                    if (asked.equals(actual))
+                    if (asked.equals(latestRev))
                         return;
 
-                    PREFS.put(PREF_ASKED, actual);
+                    PREFS.put(PREF_ASKED, latestRev);
+
+                    if (runningRev.equals(latestRev))
+                        return;
+
                     SwingUtilities.invokeLater(runnable);
                 }
             } catch (IOException e) {
@@ -77,7 +81,7 @@ public final class CheckForNewRelease {
      */
     public void showReleaseDialog(Component parent) {
         startIfNewRelease(() -> {
-            String msg = Lang.get("msg_newRelease_N", actual);
+            String msg = Lang.get("msg_newRelease_N", latestRev);
             InfoDialog.showInfo(parent, msg, "");
         });
     }
