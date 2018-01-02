@@ -1174,6 +1174,8 @@ Written by H. Neemann in 2016-2018.
 The icons are taken from the &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
 
 Visit the project at &lt;a href=&quot;https://github.com/hneemann/Digital&quot;&gt;GitHub&lt;/a&gt;.
+At Github you can also &lt;a href=&quot;https://github.com/hneemann/Digital/releases/latest&quot;&gt;download&lt;/a&gt; the latest release.
+
 There you also can file an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?body=version:%20{{version}}&amp;labels=bug&quot;&gt;issue&lt;/a&gt; or suggest
 an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhancement&quot;&gt;enhancement&lt;/a&gt;.
     </string>
@@ -1270,6 +1272,16 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="win_karnaughMap">Karnaugh-Veitch Map</string>
 
     <string name="btn_help">Help</string>
+
+    <string name="msg_newRelease_N"><![CDATA[
+        <html>
+        <h1>New Version {0} Available</h1>
+        <p>There is a new release of the simulator available.</p>
+        <p>In the <a href="https://github.com/hneemann/Digital/releases/latest">release notes</a>
+        you can find the changes and improvements.</p>
+        <p>Here you can <a href="https://github.com/hneemann/Digital/releases/latest">download</a> the new release.</p>
+        </html>
+    ]]></string>
 
     <string name="msg_expressionHelpTitle">Expressions</string>
     <string name="msg_expressionHelp">To define an expression you can use all most common notations:

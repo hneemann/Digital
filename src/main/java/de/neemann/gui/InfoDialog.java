@@ -23,9 +23,13 @@ import java.util.jar.JarFile;
  * Created by hneemann on 23.03.15.
  */
 public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
+    /**
+     * Unknown release
+     */
+    public static final String UNKNOWN = "unknown";
     private static InfoDialog instance;
     private final ArrayList<Manifest> infos;
-    private String revision = "unknown";
+    private String revision = UNKNOWN;
 
     /**
      * @return the singleton instance
@@ -69,16 +73,17 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
     }
 
     /**
-     * Shows the message in a JOptioPane dialog
+     * Shows the message in a dialog
      *
-     * @param parent  the parent component
-     * @param message the message
+     * @param parent   the parent component
+     * @param message  the message
+     * @param revision the "{{version}}" url version replacement
      */
-    private void showInfo(Component parent, String message) {
+    public static void showInfo(Component parent, String message, String revision) {
         final JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(parent), Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
         dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        JEditorPane ta = new JEditorPane("text/html", createMessage(message));
+        JEditorPane ta = new JEditorPane("text/html", message);
         ta.setCaretPosition(0);
         ta.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
         ta.setEditable(false);
@@ -137,7 +142,7 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
         help.add(new AbstractAction(Lang.get("menu_about")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                showInfo(frame, message);
+                showInfo(frame, createMessage(message), revision);
             }
         });
         return help;
@@ -146,6 +151,13 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
     @Override
     public Iterator<Manifest> iterator() {
         return infos.iterator();
+    }
+
+    /**
+     * @return the revision
+     */
+    public String getRevision() {
+        return revision;
     }
 
     /**
