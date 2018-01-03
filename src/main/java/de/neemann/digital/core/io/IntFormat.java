@@ -1,6 +1,7 @@
 package de.neemann.digital.core.io;
 
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Value;
 
@@ -76,7 +77,7 @@ public enum IntFormat {
         final int bits = inValue.getBits();
         StringBuilder sb = new StringBuilder(bits);
         final long value = inValue.getValue();
-        long mask = 1L << (bits - 1);
+        long mask = Bits.signedFlagMask(bits);
         for (int i = 0; i < bits; i++) {
             if ((value & mask) != 0)
                 sb.append('1');
