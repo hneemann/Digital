@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.17
+- Added 64 bit support for ADD and SUB components.
 - Bug fixes
   - Splitter now allows 64-bit inputs and outputs.
 

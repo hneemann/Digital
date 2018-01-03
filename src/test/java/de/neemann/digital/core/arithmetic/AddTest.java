@@ -65,4 +65,20 @@ public class AddTest extends TestCase {
         sc.check(-1, 0, 1, 0, 1);
         sc.check(-1, 1, 0, 0, 1);
     }
+
+    public void testAdd64() throws Exception {
+        ObservableValue a = new ObservableValue("a", 64);
+        ObservableValue b = new ObservableValue("b", 64);
+        ObservableValue c = new ObservableValue("c", 1);
+
+
+        Model model = new Model();
+        Add node = new Add(new ElementAttributes().setBits(64));
+        node.setInputs(ovs(a, b, c));
+        model.add(node);
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b, c).setOutputs(node.getOutputs());
+        sc.check(-1, 0, 1, 0, 1);
+        sc.check(-1, 1, 0, 0, 1);
+    }
 }
