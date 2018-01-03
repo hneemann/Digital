@@ -5,7 +5,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -46,8 +45,8 @@ public class BitExtender implements Element {
         if (inBits >= outBits)
             throw new NodeException(Lang.get("err_notMoreOutBitsThanInBits"));
 
-        final long signMask = 1L << (inBits - 1);
-        final long extendMask = ~((1L << inBits) - 1);
+        final long signMask = Bits.signedFlagMask(inBits);
+        final long extendMask = ~Bits.mask(inBits);
 
         in.addObserver(() -> {
             long inValue = in.getValue();
@@ -59,7 +58,7 @@ public class BitExtender implements Element {
     }
 
     @Override
-    public ObservableValues getOutputs() throws PinException {
+    public ObservableValues getOutputs() {
         return out.asList();
     }
 

@@ -1,9 +1,6 @@
 package de.neemann.digital.core.arithmetic;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -51,9 +48,7 @@ public class BarrelShifter extends Node implements Element {
         bits = attributes.get(Keys.BITS);
         signed = attributes.get(Keys.BARREL_SIGNED);
 
-        int sBits = 1;
-        while ((1 << sBits) <= bits)
-            sBits++;
+        int sBits = Bits.binLn2(bits);
 
         if (signed)
             sBits++;

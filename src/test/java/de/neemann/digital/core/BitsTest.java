@@ -29,4 +29,20 @@ public class BitsTest extends TestCase {
         assertEquals(1, Bits.signedFlagMask(1));
         assertEquals(0x8000000000000000L, Bits.signedFlagMask(64));
     }
+
+    public void testBitsLn2() {
+        assertEquals(1, Bits.binLn2(0));
+        assertEquals(1, Bits.binLn2(1));
+        assertEquals(2, Bits.binLn2(2));
+        assertEquals(2, Bits.binLn2(3));
+        assertEquals(3, Bits.binLn2(4));
+        assertEquals(3, Bits.binLn2(5));
+        assertEquals(3, Bits.binLn2(6));
+        assertEquals(3, Bits.binLn2(7));
+        assertEquals(4, Bits.binLn2(8));
+        assertEquals(4, Bits.binLn2(15));
+        assertEquals(5, Bits.binLn2(16));
+        assertEquals(5, Bits.binLn2(31));
+        assertEquals(6, Bits.binLn2(32));
+    }
 }

@@ -58,4 +58,17 @@ public final class Bits {
     public static long signedFlagMask(int bits) {
         return up(1, bits - 1);
     }
+
+    /**
+     * Calculates the number of bits needed to store the given value b.
+     *
+     * @param b number
+     * @return number of bits needed to store b
+     */
+    public static int binLn2(int b) {
+        int outBits = 1;
+        while ((1 << outBits) <= b)
+            outBits++;
+        return outBits;
+    }
 }
