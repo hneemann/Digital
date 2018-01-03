@@ -42,11 +42,8 @@ public class ObservableValue extends Observable implements PinDescription {
         super();
         this.bits = bits;
         this.highZ = highZ;
-        if (bits > 63)
-            mask = -1;
-        else
-            mask = (1L << bits) - 1;
-        signedFlag = 1L << (bits - 1);
+        mask = Bits.mask(bits);
+        signedFlag = Bits.signedFlagMask(bits);
         this.name = name;
         supportsHighZ = highZ;
     }

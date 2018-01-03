@@ -19,10 +19,7 @@ public class Value {
      */
     public Value(long value, int bits) {
         this.bits = bits;
-        if (bits >= 64)
-            this.value = value;
-        else
-            this.value = value & ((1L << bits) - 1);
+        this.value = value & Bits.mask(bits);
         this.highZ = false;
     }
 
@@ -53,10 +50,10 @@ public class Value {
         if (bits >= 64)
             return value;
         else {
-            if ((value & (1L << (bits - 1))) == 0)
+            if ((value & Bits.signedFlagMask(bits)) == 0)
                 return value;
             else
-                return value | ~((1L << bits) - 1);
+                return value | ~Bits.mask(bits);
         }
     }
 
