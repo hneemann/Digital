@@ -288,9 +288,12 @@ public class Splitter implements Element {
         }
 
         void checkInputConsistency() throws BitsException {
-            long fullMask = (1L << bits) - 1;
+            long fullMask = -1;
+            if (bits < 64) fullMask = (1L << bits) - 1;
             for (Port p : ports) {
-                long mask = ((1L << p.bits) - 1) << p.pos;
+                long m = -1;
+                if (p.bits < 64) m = (1L << p.bits) - 1;
+                long mask = m << p.pos;
 
                 if ((fullMask & mask) != mask)
                     throw new BitsException(Lang.get("err_splitterNotUnambiguously"), null);
