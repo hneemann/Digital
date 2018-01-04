@@ -11,20 +11,23 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A comparator
+ *
  * @author hneemann
  */
 public class Comparator extends Node implements Element {
+    private static final long MSB = Bits.signedFlagMask(64);
+    private static final long LSB = Bits.mask(63);
 
     /**
      * The comparators description
      */
     public static final ElementTypeDescription DESCRIPTION =
             new ElementTypeDescription(Comparator.class, input("a"), input("b"))
-            .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.BITS)
-            .addAttribute(Keys.SIGNED)
-            .setShortName("");
+                    .addAttribute(Keys.ROTATE)
+                    .addAttribute(Keys.LABEL)
+                    .addAttribute(Keys.BITS)
+                    .addAttribute(Keys.SIGNED)
+                    .setShortName("");
 
     private final int bits;
     private final Boolean signed;
@@ -69,7 +72,19 @@ public class Comparator extends Node implements Element {
             agrb.setValue(0);
         } else {
             equals.setValue(0);
-            boolean kl = valueA < valueB;
+
+            boolean kl;
+            if (bits < 64 || signed)
+                kl = valueA < valueB;
+            else {
+                int a = (valueA & MSB) == 0 ? 0 : 1;
+                int b = (valueB & MSB) == 0 ? 0 : 1;
+                if (a == b) {
+                    kl = (valueA & LSB) < (valueB & LSB);
+                } else {
+                    kl = a < b;
+                }
+            }
             aklb.setBool(kl);
             agrb.setBool(!kl);
         }

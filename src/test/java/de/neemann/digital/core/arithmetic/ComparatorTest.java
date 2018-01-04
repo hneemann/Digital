@@ -58,5 +58,47 @@ public class ComparatorTest extends TestCase {
         sc.check(-7, -8, 1, 0, 0);
     }
 
+    public void testCompSigned64Bit() throws Exception {
+        ObservableValue a = new ObservableValue("a", 64);
+        ObservableValue b = new ObservableValue("b", 64);
+
+
+        Model model = new Model();
+        Comparator node = new Comparator(new ElementAttributes()
+                .setBits(64)
+                .set(Keys.SIGNED, true));
+        node.setInputs(ovs(a, b));
+        model.add(node);
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(node.getOutputs());
+        //                    gr eq kl
+        sc.check(0, 0, 0, 1, 0);
+        sc.check(0, -2, 1, 0, 0);
+        sc.check(-2, 0, 0, 0, 1);
+        sc.check(-1, -2, 1, 0, 0);
+        sc.check(-2, -1, 0, 0, 1);
+    }
+
+    public void testCompUnsigned64Bit() throws Exception {
+        ObservableValue a = new ObservableValue("a", 64);
+        ObservableValue b = new ObservableValue("b", 64);
+
+
+        Model model = new Model();
+        Comparator node = new Comparator(new ElementAttributes()
+                .setBits(64)
+                .set(Keys.SIGNED, false));
+        node.setInputs(ovs(a, b));
+        model.add(node);
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(node.getOutputs());
+        //                    gr eq kl
+        sc.check(0, 0, 0, 1, 0);
+        sc.check(0, -2, 0, 0, 1);
+        sc.check(-2, 0, 1, 0, 0);
+        sc.check(-1, -2, 1, 0, 0);
+        sc.check(-2, -1, 0, 0, 1);
+    }
+
 
 }
