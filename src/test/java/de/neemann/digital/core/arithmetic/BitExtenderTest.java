@@ -21,10 +21,24 @@ public class BitExtenderTest extends TestCase {
         check(in, out, 0, 0);
         check(in, out, 1, 1);
         check(in, out, 7, 7);
-        check(in, out, 8, -8);
-        check(in, out, 9, -7);
-        check(in, out, -1, -1);
-        check(in, out, -2, -2);
+        check(in, out, 8, -8 & 0xff);
+        check(in, out, 9, -7 & 0xff);
+        check(in, out, -1, -1 & 0xff);
+        check(in, out, -2, -2 & 0xff);
+    }
+
+    public void testSignExtend64() throws Exception {
+        ObservableValue in = new ObservableValue("in", 63);
+
+        BitExtender bitExtender = new BitExtender(new ElementAttributes()
+                .set(Keys.INPUT_BITS, 63)
+                .set(Keys.OUTPUT_BITS, 64));
+        bitExtender.setInputs(in.asList());
+        assertEquals(1, bitExtender.getOutputs().size());
+        ObservableValue out = bitExtender.getOutputs().get(0);
+
+        check(in, out, 0, 0);
+        check(in, out, 0x4000000000000000L, 0xC000000000000000L);
     }
 
     public void testSignExtendInit() throws Exception {
@@ -39,9 +53,9 @@ public class BitExtenderTest extends TestCase {
     }
 
 
-    private void check(ObservableValue in, ObservableValue out, int inVal, int outVal) {
+    private void check(ObservableValue in, ObservableValue out, long inVal, long outVal) {
         in.setValue(inVal);
-        assertEquals(outVal, (byte) out.getValue());
+        assertEquals(outVal, out.getValue());
     }
 
     public void testSignExtendError() throws Exception {
