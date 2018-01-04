@@ -18,10 +18,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author hneemann
  */
 public class GuiModelObserver implements Observer, ModelStateObserverTyped {
+    private static final long TIMEOUT = 100;
     private final CircuitComponent component;
     private final ModelEvent type;
-    private boolean changed = false;
     private final AtomicBoolean paintPending = new AtomicBoolean();
+    private long lastUpdateTime;
+    private boolean changed = false;
 
     /**
      * Creates a new instance.
@@ -32,6 +34,7 @@ public class GuiModelObserver implements Observer, ModelStateObserverTyped {
     public GuiModelObserver(CircuitComponent component, ModelEvent type) {
         this.component = component;
         this.type = type;
+        this.lastUpdateTime = System.currentTimeMillis();
     }
 
     @Override
@@ -41,8 +44,11 @@ public class GuiModelObserver implements Observer, ModelStateObserverTyped {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (changed && event == type) {
+        long time = System.currentTimeMillis();
+        boolean timeOut = time - lastUpdateTime > TIMEOUT;
+        if ((changed || timeOut) && event == type) {
             if (paintPending.compareAndSet(false, true)) {
+                lastUpdateTime = time;
                 SwingUtilities.invokeLater(() -> {
                     paintPending.set(false);
                     component.paintImmediately();
