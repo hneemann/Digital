@@ -25,7 +25,7 @@ public class DriverTest extends TestCase {
         TestExecuter sc = new TestExecuter(model).setInputs(a, sel).setOutputs(out.getOutputs());
         sc.check(0, 1, 0);
         sc.check(2, 1, 2);
-        sc.check(2, 0, HIGHZ);
+        sc.checkZ(2, 0, HIGHZ);
         sc.check(2, 1, 2);
     }
 

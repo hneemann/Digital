@@ -31,10 +31,10 @@ public class RAMDualPortTest extends TestCase {
 
         TestExecuter sc = new TestExecuter(model).setInputs(a, d, str, clk, ld).setOutputs(out.getOutputs());
         //       A  D  ST C  LD
-        sc.check(0, 0, 0, 0, 0, HIGHZ);  // def
-        sc.check(0, 5, 1, 1, 0, HIGHZ);  // st  0->5
-        sc.check(0, 0, 0, 0, 0, HIGHZ);  // def
-        sc.check(1, 9, 1, 1, 0, HIGHZ);  // st  1->9
+        sc.checkZ(0, 0, 0, 0, 0, HIGHZ);  // def
+        sc.checkZ(0, 5, 1, 1, 0, HIGHZ);  // st  0->5
+        sc.checkZ(0, 0, 0, 0, 0, HIGHZ);  // def
+        sc.checkZ(1, 9, 1, 1, 0, HIGHZ);  // st  1->9
         sc.check(0, 0, 0, 0, 1, 5);      // rd  5
         sc.check(1, 0, 0, 0, 1, 9);      // rd  5
     }
