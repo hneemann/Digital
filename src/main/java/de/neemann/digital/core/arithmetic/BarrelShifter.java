@@ -60,12 +60,12 @@ public class BarrelShifter extends Node implements Element {
     @Override
     public void readInputs() throws NodeException {
         long inVal = in.getValue();
-        long shiftVal;
+        int shiftVal;
 
         if (signed) {
-            shiftVal = shift.getValueSigned();
+            shiftVal = (int) shift.getValueSigned();
         } else {
-            shiftVal = shift.getValue();
+            shiftVal = (int) shift.getValue();
         }
 
         if (direction == LeftRightFormat.right) {
@@ -78,21 +78,21 @@ public class BarrelShifter extends Node implements Element {
             shiftVal = -shiftVal;
             if (mode == BarrelShifterMode.rotate) {
                 shiftVal = shiftVal % bits;
-                value |= inVal << (bits - shiftVal);
+                value |= Bits.up(inVal, bits - shiftVal);
             }
-            value |= inVal >> shiftVal;
-            if ((mode == BarrelShifterMode.arithmetic) && ((inVal & (1L << (bits - 1))) != 0)) {
-                long mask = (1L << (bits)) - 1;
-                mask = mask >> shiftVal;
+            value |= Bits.down(inVal, shiftVal);
+            if ((mode == BarrelShifterMode.arithmetic) && Bits.isNegative(inVal, bits)) {
+                long mask = Bits.mask(bits);
+                mask = Bits.down(mask, shiftVal);
                 value |= ~mask;
             }
 
         } else { // shift or rotate left
             if (mode == BarrelShifterMode.rotate) {
                 shiftVal = shiftVal % bits;
-                value |= inVal >> (bits - shiftVal);
+                value |= Bits.down(inVal, bits - shiftVal);
             }
-            value |= inVal << shiftVal;
+            value |= Bits.up(inVal, shiftVal);
         }
     }
 

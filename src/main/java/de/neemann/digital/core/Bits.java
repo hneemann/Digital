@@ -60,6 +60,18 @@ public final class Bits {
     }
 
     /**
+     * Returns true if value is negative
+     *
+     * @param value the value
+     * @param bits  the bit count
+     * @return true if the last relevant bit is set
+     */
+    public static boolean isNegative(long value, int bits) {
+        return (value & signedFlagMask(bits)) != 0;
+    }
+
+
+    /**
      * Calculates the number of bits needed to store the given value b.
      *
      * @param b number

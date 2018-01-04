@@ -30,6 +30,13 @@ public class BitsTest extends TestCase {
         assertEquals(0x8000000000000000L, Bits.signedFlagMask(64));
     }
 
+    public void testIsNegative() {
+        assertTrue(Bits.isNegative(7, 3));
+        assertFalse(Bits.isNegative(3, 3));
+        assertTrue(Bits.isNegative(0x8000000000000000L, 64));
+        assertFalse(Bits.isNegative(0x4000000000000000L, 64));
+    }
+
     public void testBitsLn2() {
         assertEquals(1, Bits.binLn2(0));
         assertEquals(1, Bits.binLn2(1));
