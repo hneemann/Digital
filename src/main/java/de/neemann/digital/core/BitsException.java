@@ -10,6 +10,27 @@ import de.neemann.digital.core.element.ImmutableList;
 public class BitsException extends NodeException {
 
     /**
+     * Creates a new instance.
+     * Avoid to use this constructor because it provides no further information to fix the circuit.
+     * Use only if it's to expensive to provide more information. Try to provide at least a node.
+     *
+     * @param message the message
+     */
+    public BitsException(String message) {
+        super(message, null, -1, null);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param message the message
+     * @param node    the affected node
+     */
+    public BitsException(String message, Node node) {
+        super(message, node, -1, null);
+    }
+
+    /**
      * Creates a new instance
      *
      * @param message the message

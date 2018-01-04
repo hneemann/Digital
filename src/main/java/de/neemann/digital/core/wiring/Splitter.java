@@ -271,20 +271,20 @@ public class Splitter implements Element {
                             int from = Integer.decode(strVal.substring(0, pos).trim());
                             int to = Integer.decode(strVal.substring(pos + 1).trim());
                             if (to < from)
-                                throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition), null);
+                                throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition));
                             add(new Port(from, to - from + 1));
                         } else
                             add(new Port(bits, Integer.decode(strVal)));
                     }
                 } catch (RuntimeException e) {
-                    throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition), null);
+                    throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition));
                 }
             }
             if (ports.isEmpty())
                 add(new Port(bits, 1));
 
             if (bits > 64)
-                throw new BitsException(Lang.get("err_spitterToManyBits", definition), null);
+                throw new BitsException(Lang.get("err_spitterToManyBits", definition));
         }
 
         void checkInputConsistency() throws BitsException {
@@ -293,12 +293,12 @@ public class Splitter implements Element {
                 long mask = Bits.up(Bits.mask(p.bits), p.pos);
 
                 if ((fullMask & mask) != mask)
-                    throw new BitsException(Lang.get("err_splitterNotUnambiguously"), null);
+                    throw new BitsException(Lang.get("err_splitterNotUnambiguously"));
 
                 fullMask = fullMask & (~mask);
             }
             if (fullMask != 0)
-                throw new BitsException(Lang.get("err_splitterNotAllBitsDefined"), null);
+                throw new BitsException(Lang.get("err_splitterNotAllBitsDefined"));
         }
 
         private void add(Port port) {

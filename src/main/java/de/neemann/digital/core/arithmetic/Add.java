@@ -5,7 +5,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.ObservableValues.ovs;
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -95,9 +94,6 @@ public class Add extends Node implements Element {
         a = inputs.get(0).addObserverToValue(this).checkBits(bits, this, 0);
         b = inputs.get(1).addObserverToValue(this).checkBits(bits, this, 1);
         cIn = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
-
-        if (bits > 64)
-            throw new BitsException(Lang.get("err_toManyBits_Found_N0_maxIs_N1", bits, 63), this, 0, new ObservableValues(a, b));
     }
 
     @Override

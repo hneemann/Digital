@@ -1,13 +1,11 @@
 package de.neemann.digital.core.arithmetic;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -40,7 +38,10 @@ public class Mul extends Node implements Element {
      */
     public Mul(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        this.mul = new ObservableValue("mul", bits * 2).setPinDescription(DESCRIPTION);
+        int outBits = this.bits * 2;
+        if (outBits > 64)  // used to avoid strange error conditions. The init method throws the exception
+            outBits = 64;
+        this.mul = new ObservableValue("mul", outBits).setPinDescription(DESCRIPTION);
     }
 
     @Override
@@ -51,6 +52,12 @@ public class Mul extends Node implements Element {
     @Override
     public void writeOutputs() throws NodeException {
         mul.setValue(value);
+    }
+
+    @Override
+    public void init(Model model) throws NodeException {
+        if (bits > 32)
+            throw new BitsException(Lang.get("err_toManyBits_Found_N0_maxIs_N1", bits, 32), this);
     }
 
     @Override

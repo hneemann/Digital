@@ -269,7 +269,7 @@ public class Key<VALUE> {
         public KeyBits(String key, Integer def) {
             super(key, def);
             setMin(1);
-            super.setMax(64);
+            setMax(64);
             setComboBoxValues(VALUES);
             allowGroupEdit();
         }
