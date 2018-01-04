@@ -1,22 +1,19 @@
 package de.neemann.digital.core.arithmetic;
 
-
-import de.neemann.digital.core.ObservableValue;
-
 /**
  * @author heintz
  */
 public enum BarrelShifterMode {
     /**
-     * the default format as defined in {@link ObservableValue#getValueString()}
+     * logical shift
      */
-    normal,
+    logical,
     /**
      * rotate
      */
     rotate,
     /**
-     * arithmetic
+     * arithmetic shift
      */
     arithmetic;
 }

@@ -857,7 +857,7 @@ The names of the variables may not be unique.</string>
     <string name="key_barrelSigned_tt">shift input data has two complement format</string>
     <string name="key_barrelShifterMode">Mode</string><!-- BarrelShifter -->
     <string name="key_barrelShifterMode_tt">Mode of barrel shifter</string>
-    <string name="key_barrelShifterMode_normal">Normal</string>
+    <string name="key_barrelShifterMode_logical">Logical</string>
     <string name="key_barrelShifterMode_rotate">Rotate</string>
     <string name="key_barrelShifterMode_arithmetic">Arithmetic</string>
     <string name="key_direction">Direction</string><!-- BarrelShifter -->

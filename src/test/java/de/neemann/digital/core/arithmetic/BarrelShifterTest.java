@@ -16,7 +16,7 @@ import junit.framework.TestCase;
 public class BarrelShifterTest extends TestCase {
 
     public void testNormalUnsignedLeft() throws Exception {
-        TestExecuter bsTest = getTestExecuter(BarrelShifterMode.normal, false, LeftRightFormat.left, 6, 3);
+        TestExecuter bsTest = getTestExecuter(BarrelShifterMode.logical, false, LeftRightFormat.left, 6, 3);
         bsTest.check(0b001100, 0, 0b001100);
         bsTest.check(0b001100, 1, 0b011000);
         bsTest.check(0b001100, 2, 0b110000);
@@ -48,7 +48,7 @@ public class BarrelShifterTest extends TestCase {
     }
 
     public void testNormalSignedLeft() throws Exception {
-        TestExecuter bsTest = getTestExecuter(BarrelShifterMode.normal, true, LeftRightFormat.left, 6, 4);
+        TestExecuter bsTest = getTestExecuter(BarrelShifterMode.logical, true, LeftRightFormat.left, 6, 4);
         bsTest.check(0b001100, 0, 0b001100);
         bsTest.check(0b001100, 1, 0b011000);
         bsTest.check(0b001100, 2, 0b110000);
@@ -74,7 +74,7 @@ public class BarrelShifterTest extends TestCase {
     }
 
     public void testNormalUnsignedRight() throws Exception {
-        TestExecuter bsTest = getTestExecuter(BarrelShifterMode.normal, false, LeftRightFormat.right, 6, 3);
+        TestExecuter bsTest = getTestExecuter(BarrelShifterMode.logical, false, LeftRightFormat.right, 6, 3);
         bsTest.check(0b001100, 0, 0b001100);
         bsTest.check(0b001100, 1, 0b000110);
         bsTest.check(0b001100, 2, 0b000011);
@@ -150,7 +150,7 @@ public class BarrelShifterTest extends TestCase {
         bsTest.check(0x4000000000000000L, 1, 0x8000000000000000L);
         bsTest.check(0x2000000000000000L, 1, 0x4000000000000000L);
 
-        bsTest = getTestExecuter(BarrelShifterMode.normal, false, LeftRightFormat.left, 64, 7);
+        bsTest = getTestExecuter(BarrelShifterMode.logical, false, LeftRightFormat.left, 64, 7);
         bsTest.check(0xC000000000000000L, 0, 0xC000000000000000L);
         bsTest.check(0x4000000000000000L, 1, 0x8000000000000000L);
         bsTest.check(0x2000000000000000L, 1, 0x4000000000000000L);
@@ -165,7 +165,7 @@ public class BarrelShifterTest extends TestCase {
         bsTest.check(0x8000000000000000L, 1, 0xC000000000000000L);
         bsTest.check(0x4000000000000000L, 1, 0x2000000000000000L);
 
-        bsTest = getTestExecuter(BarrelShifterMode.normal, false, LeftRightFormat.right, 64, 7);
+        bsTest = getTestExecuter(BarrelShifterMode.logical, false, LeftRightFormat.right, 64, 7);
         bsTest.check(0xC000000000000000L, 0, 0xC000000000000000L);
         bsTest.check(0x8000000000000000L, 1, 0x4000000000000000L);
         bsTest.check(0x4000000000000000L, 1, 0x2000000000000000L);

@@ -863,7 +863,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_barrelSigned_tt">Verschiebeweite verwendet Zweierkomplement</string>
     <string name="key_barrelShifterMode">Modus</string><!-- BarrelShifter -->
     <string name="key_barrelShifterMode_tt">Modus der Verschiebung.</string>
-    <string name="key_barrelShifterMode_normal">Normal</string>
+    <string name="key_barrelShifterMode_logical">Logisch</string>
     <string name="key_barrelShifterMode_rotate">Rotation</string>
     <string name="key_barrelShifterMode_arithmetic">Arithmetisch</string>
     <string name="key_direction">Richtung</string><!-- BarrelShifter -->

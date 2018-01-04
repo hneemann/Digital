@@ -335,19 +335,19 @@ public final class Keys {
             = new Key<>("relayNormallyClosed", false).allowGroupEdit();
 
     /**
-     * flag used by a barrelshifter to indicate if data are rotated
+     * flag used by a barrel shifter to select the shift mode
      */
     public static final Key<BarrelShifterMode> BARREL_SHIFTER_MODE
-            = new Key.KeyEnum<>("barrelShifterMode", BarrelShifterMode.normal, BarrelShifterMode.values());
+            = new Key.KeyEnum<>("barrelShifterMode", BarrelShifterMode.logical, BarrelShifterMode.values());
 
     /**
-     * flag used by a barrelshifter to indicate shift direction
+     * flag used by a barrel shifter to indicate shift direction
      */
     public static final Key<LeftRightFormat> DIRECTION
             = new Key.KeyEnum<>("direction", LeftRightFormat.left, LeftRightFormat.values());
 
     /**
-     * flag used by a barrelshifter to indicate if shift value is signed
+     * flag used by a barrel shifter to indicate if shift value is signed
      */
     public static final Key<Boolean> BARREL_SIGNED
             = new Key<>("barrelSigned", false);
