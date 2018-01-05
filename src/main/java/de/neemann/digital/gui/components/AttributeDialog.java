@@ -207,8 +207,12 @@ public class AttributeDialog extends JDialog {
 
         if (pos == null)
             setLocationRelativeTo(parent);
-        else
+        else {
+            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+            if (pos.x + getWidth() > screen.width) pos.x = screen.width - getWidth();
+            if (pos.y + getHeight() > screen.height) pos.y = screen.height - getHeight();
             setLocation(pos.x, pos.y);
+        }
 
         if (topMostTextComponent != null)
             SwingUtilities.invokeLater(() -> topMostTextComponent.requestFocusInWindow());
