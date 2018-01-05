@@ -278,7 +278,10 @@ public class DataEditor extends JDialog {
          * @param value the edited value
          */
         public MyLong(String value) {
-            data = Long.decode(value);
+            if (value.toLowerCase().startsWith("0b"))
+                data = Long.parseLong(value.substring(2), 2);
+            else
+                data = Long.decode(value);
         }
 
         /**
