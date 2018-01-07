@@ -42,7 +42,7 @@ public enum IntFormat {
      */
     public String format(Value inValue) {
         if (inValue.isHighZ())
-            return "HZ";
+            return "?";
 
         switch (this) {
             case dec:
