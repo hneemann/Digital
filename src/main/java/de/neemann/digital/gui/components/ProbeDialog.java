@@ -184,10 +184,10 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                 Signal.Setter s = signals.get(rowIndex).getSetter();
                 if (s != null)
                     try {
-                        long value = Long.decode(aValue.toString());
+                        long value = Bits.decode(aValue.toString());
                         modelSync.access(() -> s.set(value));
                         circuitComponent.modelHasChanged();
-                    } catch (NumberFormatException e) {
+                    } catch (Bits.NumberFormatException e) {
                         // do nothing in this case!
                     }
             }

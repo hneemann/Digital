@@ -1,5 +1,6 @@
 package de.neemann.digital.testing.parser;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.testing.parser.functions.Function;
@@ -144,7 +145,7 @@ public class Parser {
                     try {
                         final Value value = new Value(tok.getIdent().toUpperCase());
                         line.add((vals, context) -> vals.add(value));
-                    } catch (NumberFormatException e) {
+                    } catch (Bits.NumberFormatException e) {
                         throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
                     }
                     break;
@@ -164,12 +165,8 @@ public class Parser {
 
     private long convToLong(String num) throws ParserException {
         try {
-            num = num.trim().toLowerCase();
-            if (num.startsWith("0b"))
-                return Long.parseLong(num.substring(2), 2);
-            else
-                return Long.decode(num);
-        } catch (NumberFormatException e) {
+            return Bits.decode(num);
+        } catch (Bits.NumberFormatException e) {
             throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
         }
     }

@@ -1,5 +1,6 @@
 package de.neemann.digital.data;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.ObservableValue;
 
 /**
@@ -50,6 +51,13 @@ public class Value {
 
     }
 
+    /**
+     * @return returns a high z value
+     */
+    public static Value getHighZ() {
+        return new Value(0, Type.HIGHZ);
+    }
+
     private final long value;
     private final Type type;
 
@@ -73,6 +81,11 @@ public class Value {
         this.type = Type.NORMAL;
     }
 
+    private Value(long val, Type type) {
+        this.value = val;
+        this.type = type;
+    }
+
     /**
      * Creates a new value based on the given {@link ObservableValue}
      *
@@ -90,8 +103,9 @@ public class Value {
      * Creates a new value based on a string
      *
      * @param val the string
+     * @throws Bits.NumberFormatException Bits.NumberFormatException
      */
-    public Value(String val) {
+    public Value(String val) throws Bits.NumberFormatException {
         val = val.trim().toUpperCase();
         switch (val) {
             case "X":
@@ -107,7 +121,7 @@ public class Value {
                 type = Type.CLOCK;
                 break;
             default:
-                value = Long.decode(val);
+                value = Bits.decode(val);
                 type = Type.NORMAL;
                 break;
         }

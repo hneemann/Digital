@@ -20,11 +20,11 @@ public class DiodeTest extends TestCase {
      * is not suited to handle bidirectional passive diodes.
      * The solution implemented for switches - form a common net if switch is closed - is also
      * not able to handle diodes.
-     *
+     * <p>
      * To make this possible the simulation core needs a significant improvement.
      */
 
-    private static final Value[] values = new Value[]{new Value("0"),new Value("1"), new Value("Z")};
+    private static final Value[] values = new Value[]{new Value(0), new Value(1), Value.getHighZ()};
 
     public void testAntiParallelDiodes() throws IOException, ElementNotFoundException, PinException, NodeException {
         /*

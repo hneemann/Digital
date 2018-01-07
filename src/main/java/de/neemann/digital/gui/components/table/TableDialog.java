@@ -557,7 +557,7 @@ public class TableDialog extends JDialog {
                     .setBaseFileName(filename)
                     .openLater();
         } catch (ExpressionException | FormatterException | RuntimeException e) {
-            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
         }
     }
 
@@ -597,7 +597,7 @@ public class TableDialog extends JDialog {
                 cupl.writeTo(out);
             }
         } catch (ExpressionException | FormatterException | RuntimeException | IOException | FuseMapFillerException | PinMapException e) {
-            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
         }
     }
 
@@ -636,7 +636,7 @@ public class TableDialog extends JDialog {
 
         } catch (ExpressionException | FormatterException | AnalyseException e1) {
             lastGeneratedExpressions = null;
-            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(this);
         }
     }
 

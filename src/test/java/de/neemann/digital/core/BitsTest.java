@@ -52,4 +52,54 @@ public class BitsTest extends TestCase {
         assertEquals(5, Bits.binLn2(31));
         assertEquals(6, Bits.binLn2(32));
     }
+
+    public void testDecode() throws Bits.NumberFormatException {
+        assertEquals(0, Bits.decode(null));
+        assertEquals(0, Bits.decode(""));
+        assertEquals(0, Bits.decode("  "));
+        assertEquals(0, Bits.decode("0"));
+        assertEquals(0, Bits.decode("-0"));
+        assertEquals(0, Bits.decode("000"));
+        assertEquals(2, Bits.decode("2"));
+        assertEquals(2, Bits.decode(" 2"));
+        assertEquals(2, Bits.decode("2 "));
+        assertEquals(2, Bits.decode(" 2 "));
+        assertEquals(-2, Bits.decode("-2"));
+        assertEquals(0, Bits.decode("-000"));
+        assertEquals(12, Bits.decode("12"));
+        assertEquals(-12, Bits.decode("-12"));
+        assertEquals(10, Bits.decode("012"));
+        assertEquals(7, Bits.decode("0b111"));
+        assertEquals(7, Bits.decode("0B111"));
+        assertEquals(255, Bits.decode("0xff"));
+        assertEquals(255, Bits.decode("0Xff"));
+        assertEquals(0x8000000000000000L, Bits.decode("0x8000000000000000"));
+        assertEquals(0xFFFFFFFFFFFFFFFFL, Bits.decode("0xFFFFFFFFFFFFFFFF"));
+
+        assertEquals(0xFFFFFFFFFFFFFFFFL, Bits.decode("FFFFFFFFFFFFFFFF", 0, 16));
+    }
+
+    public void testDecodeInvalid() {
+        checkInvalid("-");
+        checkInvalid("1h");
+        checkInvalid("--1");
+        checkInvalid("-01");
+        checkInvalid("-0x1");
+        checkInvalid("-0b1");
+        checkInvalid("-0-1");
+        checkInvalid("0x");
+        checkInvalid("0b");
+        checkInvalid("0ba");
+        checkInvalid("0xg");
+    }
+
+    private void checkInvalid(String s) {
+        try {
+            Bits.decode(s);
+            fail(s);
+        } catch (Bits.NumberFormatException e) {
+            assertTrue(true);
+        }
+    }
+
 }

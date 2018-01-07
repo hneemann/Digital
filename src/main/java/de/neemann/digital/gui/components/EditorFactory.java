@@ -1,6 +1,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
@@ -206,13 +207,17 @@ public final class EditorFactory {
         }
 
         @Override
-        public Integer getValue() {
+        public Integer getValue() throws EditorParseException {
             Object item = comboBox.getSelectedItem();
             int value = 0;
             if (item instanceof Number)
                 value = ((Number) item).intValue();
             else {
-                value = Integer.decode(item.toString());
+                try {
+                    value = (int) Bits.decode(item.toString());
+                } catch (Bits.NumberFormatException e) {
+                    throw new EditorParseException(e);
+                }
             }
 
             if (key instanceof Key.KeyInteger) {
@@ -250,7 +255,11 @@ public final class EditorFactory {
             if (item instanceof Number)
                 value = ((Number) item).longValue();
             else {
-                value = Long.decode(item.toString());
+                try {
+                    value = Bits.decode(item.toString());
+                } catch (Bits.NumberFormatException e) {
+                    throw new RuntimeException(e);
+                }
             }
             return value;
         }
@@ -272,9 +281,13 @@ public final class EditorFactory {
         }
 
         @Override
-        public InValue getValue() {
+        public InValue getValue() throws EditorParseException {
             Object item = comboBox.getSelectedItem();
-            return new InValue(item.toString());
+            try {
+                return new InValue(item.toString());
+            } catch (Bits.NumberFormatException e) {
+                throw new EditorParseException(e);
+            }
         }
     }
 
@@ -399,24 +412,28 @@ public final class EditorFactory {
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    getAttributeDialog().storeEditedValues();
-                    int dataBits = attr.get(Keys.BITS);
-                    int addrBits;
+                    try {
+                        getAttributeDialog().storeEditedValues();
+                        int dataBits = attr.get(Keys.BITS);
+                        int addrBits;
 
-                    // INPUT_COUNT and ADDR_BITS must have the same default value!!!
-                    // If INPUT_COUNT is not present (default value is used) the default value of
-                    // ADDR_BITS is used. This works only if both have the same default value!!!
-                    if (attr.contains(Keys.INPUT_COUNT)) {
-                        // used to handle the LUT
-                        addrBits = attr.get(Keys.INPUT_COUNT);
-                    } else {
-                        // memory, RAM/ROM
-                        addrBits = attr.get(Keys.ADDR_BITS);
-                    }
-                    int size = 1 << addrBits;
-                    DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
-                    if (de.showDialog()) {
-                        data = de.getModifiedDataField();
+                        // INPUT_COUNT and ADDR_BITS must have the same default value!!!
+                        // If INPUT_COUNT is not present (default value is used) the default value of
+                        // ADDR_BITS is used. This works only if both have the same default value!!!
+                        if (attr.contains(Keys.INPUT_COUNT)) {
+                            // used to handle the LUT
+                            addrBits = attr.get(Keys.INPUT_COUNT);
+                        } else {
+                            // memory, RAM/ROM
+                            addrBits = attr.get(Keys.ADDR_BITS);
+                        }
+                        int size = 1 << addrBits;
+                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
+                        if (de.showDialog()) {
+                            data = de.getModifiedDataField();
+                        }
+                    } catch (EditorParseException e1) {
+                        new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
                     }
                 }
             }.createJButton());
@@ -606,6 +623,8 @@ public final class EditorFactory {
                             }
                         } catch (ElementNotFoundException | NodeException e) {
                             new ErrorMessage(Lang.get("msg_errGettingPinNames")).addCause(e).show(getAttributeDialog());
+                        } catch (EditorParseException e) {
+                            new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e).show(getAttributeDialog());
                         }
                     }
                 }

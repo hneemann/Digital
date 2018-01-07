@@ -1,5 +1,7 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.lang.Lang;
+
 /**
  * Helper for bit manipulating
  */
@@ -82,5 +84,104 @@ public final class Bits {
         while ((1 << outBits) <= b)
             outBits++;
         return outBits;
+    }
+
+    /**
+     * Decodes a string to a long.
+     * Supports decimal, octal, hex and binary
+     *
+     * @param str the string
+     * @return the long value
+     * @throws NumberFormatException invalid string
+     */
+    public static long decode(String str) throws NumberFormatException {
+        if (str == null)
+            return 0;
+
+        str = str.trim();
+
+        if (str.length() == 0)
+            return 0;
+
+        int p = 0;
+
+        boolean neg = false;
+        if (str.charAt(p) == '-') {
+            neg = true;
+            p++;
+        }
+
+        if (p >= str.length())
+            throw new NumberFormatException(str, p);
+
+        boolean wasZero = false;
+        while (str.length() > p && str.charAt(p) == '0') {
+            wasZero = true;
+            p++;
+        }
+
+        if (p >= str.length())
+            return 0;
+
+        int radix;
+        switch (str.charAt(p)) {
+            case 'x':
+            case 'X':
+                if (neg) throw new NumberFormatException(str, p);
+                radix = 16;
+                p++;
+                if (p == str.length()) throw new NumberFormatException(str, p);
+                break;
+            case 'b':
+            case 'B':
+                if (neg) throw new NumberFormatException(str, p);
+                radix = 2;
+                p++;
+                if (p == str.length()) throw new NumberFormatException(str, p);
+                break;
+            default:
+                if (wasZero) {
+                    if (neg) throw new NumberFormatException(str, p);
+                    radix = 8;
+                } else
+                    radix = 10;
+        }
+
+        long val = decode(str, p, radix);
+
+        if (neg)
+            val = -val;
+        return val;
+    }
+
+    /**
+     * Decodes the given string starting at position p
+     *
+     * @param str   the string to decode
+     * @param p     the starting position
+     * @param radix the radix
+     * @return the value
+     * @throws NumberFormatException NumberFormatException
+     */
+    public static long decode(String str, int p, int radix) throws NumberFormatException {
+        long val = 0;
+        while (p < str.length()) {
+            int d = Character.digit(str.charAt(p), radix);
+            if (d < 0)
+                throw new NumberFormatException(str, p);
+            val = val * radix + d;
+            p++;
+        }
+        return val;
+    }
+
+    /**
+     * Indicates a invalid string.
+     * Its not a runtime exception!
+     */
+    public final static class NumberFormatException extends Exception {
+        private NumberFormatException(String str, int p) {
+            super(Lang.get("err_invalidNumberFormat_N_N", str, p + 1));
+        }
     }
 }

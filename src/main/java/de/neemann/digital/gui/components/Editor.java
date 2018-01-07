@@ -13,8 +13,9 @@ public interface Editor<T> {
 
     /**
      * @return the value of the editor
+     * @throws EditorParseException Value in editor field is not valid
      */
-    T getValue();
+    T getValue() throws EditorParseException;
 
     /**
      * Adds the components of the editor to the panel
@@ -33,4 +34,19 @@ public interface Editor<T> {
      * @param enabled true enables the component
      */
     void setEnabled(boolean enabled);
+
+    /**
+     * Indicates a invalid value in a input field
+     */
+    class EditorParseException extends Exception {
+        protected EditorParseException(Exception cause) {
+            super(cause);
+        }
+
+        @Override
+        public String getMessage() {
+            return getCause().getMessage();
+        }
+    }
+
 }

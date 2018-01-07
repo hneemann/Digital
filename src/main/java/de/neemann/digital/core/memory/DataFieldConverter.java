@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import de.neemann.digital.core.Bits;
 
 import java.util.StringTokenizer;
 
@@ -62,16 +63,20 @@ public class DataFieldConverter implements Converter {
             }
             return df;
         } else {
-            // new type
-            int size = Integer.parseInt(reader.getAttribute("size"));
-            DataField df = new DataField(size);
-            StringTokenizer st = new StringTokenizer(reader.getValue(), ",");
-            int i = 0;
-            while (st.hasMoreTokens()) {
-                df.setData(i, Long.parseLong(st.nextToken().trim(), 16));
-                i++;
+            try {
+                // new type
+                int size = Integer.parseInt(reader.getAttribute("size"));
+                DataField df = new DataField(size);
+                StringTokenizer st = new StringTokenizer(reader.getValue(), ",");
+                int i = 0;
+                while (st.hasMoreTokens()) {
+                    df.setData(i, Bits.decode(st.nextToken().trim(), 0, 16));
+                    i++;
+                }
+                return df;
+            } catch (Bits.NumberFormatException e) {
+                throw new RuntimeException(e);
             }
-            return df;
         }
     }
 

@@ -122,8 +122,8 @@ public class AttributeDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     fireOk();
-                } catch (RuntimeException err) {
-                    new ErrorMessage(Lang.get("msg_errorEditingValue")).addCause(err).setComponent(AttributeDialog.this).show();
+                } catch (Editor.EditorParseException err) {
+                    new ErrorMessage(Lang.get("msg_errorEditingValue")).addCause(err).show(AttributeDialog.this);
                 }
             }
         });
@@ -150,8 +150,10 @@ public class AttributeDialog extends JDialog {
 
     /**
      * Closes the dialog and stores modified values
+     *
+     * @throws Editor.EditorParseException Editor.EditorParseException
      */
-    public void fireOk() {
+    public void fireOk() throws Editor.EditorParseException {
         storeEditedValues();
         okPressed = true;
         dispose();
@@ -191,8 +193,10 @@ public class AttributeDialog extends JDialog {
 
     /**
      * store gui fields to attributes
+     *
+     * @throws Editor.EditorParseException Editor.EditorParseException
      */
-    public void storeEditedValues() {
+    public void storeEditedValues() throws Editor.EditorParseException {
         for (EditorHolder e : editors)
             e.setTo(modifiedAttributes);
     }
@@ -277,7 +281,7 @@ public class AttributeDialog extends JDialog {
             this.key = key;
         }
 
-        public void setTo(ElementAttributes attr) {
+        public void setTo(ElementAttributes attr) throws Editor.EditorParseException {
             T value = e.getValue();
             attr.set(key, value);
         }

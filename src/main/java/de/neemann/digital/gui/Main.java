@@ -1281,7 +1281,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (library.getRootFilePath() == null)
                 library.setRootFilePath(filename.getParentFile());
         } catch (IOException e) {
-            new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
+            new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show(this);
         }
     }
 

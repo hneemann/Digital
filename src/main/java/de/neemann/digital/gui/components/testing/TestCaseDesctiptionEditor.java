@@ -51,13 +51,17 @@ public class TestCaseDesctiptionEditor extends EditorFactory.LabelEditor<TestCas
         panel.add(new ToolTipAction(Lang.get("btn_editDetached")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getAttributeDialog().fireOk();
+                try {
+                    getAttributeDialog().fireOk();
                 VisualElement visualElement = TestCaseDesctiptionEditor.this.getAttributeDialog().getVisualElement();
                 TestCaseDescriptionDialog dialog = new TestCaseDescriptionDialog(getAttributeDialog().getDialogParent(), data, visualElement);
                 Main main = getAttributeDialog().getMain();
                 if (main != null)
                     main.getWindowPosManager().register("testdata", dialog);
                 dialog.setVisible(true);
+                } catch (EditorParseException e1) {
+                    e1.printStackTrace();
+                }
             }
         }.setToolTip(Lang.get("btn_editDetached_tt"))
                 .createJButton());

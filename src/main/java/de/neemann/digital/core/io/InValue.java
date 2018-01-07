@@ -1,5 +1,6 @@
 package de.neemann.digital.core.io;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.ObservableValue;
 
 /**
@@ -51,15 +52,15 @@ public class InValue {
      * Creates a new instance
      *
      * @param value the value a "Z" means "high z"
-     * @throws NumberFormatException NumberFormatException
+     * @throws Bits.NumberFormatException NumberFormatException
      */
-    public InValue(String value) {
+    public InValue(String value) throws Bits.NumberFormatException {
         if (value.toLowerCase().trim().equalsIgnoreCase("z")) {
             this.highZ = true;
             this.value = 0;
         } else {
             this.highZ = false;
-            this.value = Long.decode(value.trim());
+            this.value = Bits.decode(value.trim());
         }
 
     }

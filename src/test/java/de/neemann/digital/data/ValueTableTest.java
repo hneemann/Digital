@@ -12,7 +12,7 @@ import java.io.StringWriter;
 public class ValueTableTest extends TestCase {
     private ValueTable t = new ValueTable("A", "B", "C")
             .add(new Value[]{new Value(0), new Value(0), new Value(0)})
-            .add(new Value[]{new Value(0), new Value(1), new Value("z")});
+            .add(new Value[]{new Value(0), new Value(1), Value.getHighZ()});
 
 
     public void testGeneral() throws Exception {

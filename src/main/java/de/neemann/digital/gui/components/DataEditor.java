@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.memory.DataField;
@@ -276,12 +277,10 @@ public class DataEditor extends JDialog {
          * Is called by the JTable to create a new instance if field was edited
          *
          * @param value the edited value
+         * @throws Bits.NumberFormatException Bits.NumberFormatException
          */
-        public MyLong(String value) {
-            if (value.toLowerCase().startsWith("0b"))
-                data = Long.parseLong(value.substring(2), 2);
-            else
-                data = Long.decode(value);
+        public MyLong(String value) throws Bits.NumberFormatException {
+            data = Bits.decode(value);
         }
 
         /**

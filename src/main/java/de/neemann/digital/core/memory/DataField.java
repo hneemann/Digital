@@ -1,5 +1,6 @@
 package de.neemann.digital.core.memory;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
@@ -78,13 +79,13 @@ public class DataField {
                     else
                         line = line.trim();
                     if (line.length() > 0) {
-                        long v = Long.parseLong(line, 16);
+                        long v = Bits.decode(line, 0, 16);
                         if (pos == data.length)
                             data = Arrays.copyOf(data, data.length * 2);
                         data[pos] = v;
                         pos++;
                     }
-                } catch (NumberFormatException e) {
+                } catch (Bits.NumberFormatException e) {
                     throw new IOException(e);
                 }
             }
