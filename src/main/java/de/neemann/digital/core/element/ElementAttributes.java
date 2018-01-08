@@ -54,7 +54,7 @@ public class ElementAttributes {
 
             // needed to fix files with int constants!
             if ((key == Keys.VALUE) && value instanceof Integer) {
-                value = (VALUE) new Long(((Integer) value).longValue());
+                value = (VALUE) Long.valueOf(((Integer) value).longValue());
                 attributes.put(key.getKey(), value);
             }
 
