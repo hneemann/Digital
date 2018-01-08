@@ -5,7 +5,6 @@ import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -24,7 +23,7 @@ public class ATF1502CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
-        ATF1502CuplExporter ce = new ATF1502CuplExporter("user",null, "f1502ispplcc44");
+        ATF150xCuplExporter ce = ATFDevice.ATF1502PLCC44.getCuplExporter("user", null);
         ce.getPinMapping().parseString("Y_0=4;Y_1=5;A=6");
         ce.setProjectName("test");
         ce.getBuilder()

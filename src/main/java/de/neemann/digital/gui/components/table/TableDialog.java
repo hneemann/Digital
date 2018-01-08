@@ -15,7 +15,6 @@ import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
-import de.neemann.digital.builder.ATF1502.*;
 import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.builder.Gal16v8.CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
@@ -24,9 +23,6 @@ import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
 import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
-import de.neemann.digital.builder.tt2.StartATF1502Fitter;
-import de.neemann.digital.builder.tt2.StartATF1504Fitter;
-import de.neemann.digital.builder.tt2.StartATF1508Fitter;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
@@ -38,6 +34,7 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
+import de.neemann.digital.builder.ATF1502.ATFDevice;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
 
@@ -460,46 +457,27 @@ public class TableDialog extends JDialog {
         }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
         hardware.add(gal22v10);
 
-
-        hardware.add(createATF150XExporterMenu("ATF1502",
-                new ATF1502CuplExporter(),
-                new ExpressionToFileExporter(new ATF1502TT2Exporter(getProjectName()))
-                        .addProcessingStep(new StartATF1502Fitter(TableDialog.this))
-                        .addProcessingStep(new CreateCHN("ATF1502AS"))
-        ));
-        hardware.add(createATF150XExporterMenu("ATF1504",
-                new ATF1504CuplExporter(),
-                new ExpressionToFileExporter(new ATF1504TT2Exporter(getProjectName()))
-                        .addProcessingStep(new StartATF1504Fitter(TableDialog.this))
-                        .addProcessingStep(new CreateCHN("ATF1504AS"))
-        ));
-
-        if (Main.enableExperimental()) {
-            hardware.add(createATF150XExporterMenu("ATF1508",
-                    null,
-                    new ExpressionToFileExporter(new ATF1508TT2Exporter(getProjectName()))
-                            .addProcessingStep(new StartATF1508Fitter(TableDialog.this))
-                            .addProcessingStep(new CreateCHN("ATF1508AS"))
-            ));
-        }
-
+        JMenu atf = new JMenu("ATF150x");
+        for (ATFDevice atfDev : ATFDevice.values())
+            atf.add(createATF150XExporterMenu(atfDev));
+        hardware.add(atf);
         createMenu.add(hardware);
 
         return createMenu;
     }
 
-    private JMenuItem createATF150XExporterMenu(String menuName, CuplExporter cuplExporter, ExpressionToFileExporter expressionToFileExporter) {
-        JMenu menu = new JMenu(menuName);
-        if (cuplExporter != null)
-            menu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    createCUPL(cuplExporter);
-                }
-            }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
+    private JMenuItem createATF150XExporterMenu(ATFDevice builder) {
+        JMenu menu = new JMenu(builder.getMenuName());
+        menu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCUPL(builder.getCuplExporter());
+            }
+        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
         menu.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                ExpressionToFileExporter expressionToFileExporter = builder.createExpressionToFileExporter(TableDialog.this, getProjectName());
                 expressionToFileExporter.getPinMapping().setClockPin(model.getTable().getClockPinInt());
                 createHardware(expressionToFileExporter, filename, "tt2");
             }

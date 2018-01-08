@@ -12,28 +12,32 @@ import java.util.Date;
  *
  * @author hneemann
  */
-public class ATF1502CuplExporter extends CuplExporter {
+public class ATF150xCuplExporter extends CuplExporter {
 
     /**
-     * Creates a new project name
+     * Creates a new CUPL exporter
+     *
+     * @param devName  the device name
+     * @param clockPin the clock pin
+     * @param pins     the bidirectional pins
      */
-    public ATF1502CuplExporter() {
-        this(System.getProperty("user.name"), new Date(), "f1502ispplcc44");
+    public ATF150xCuplExporter(String devName, int clockPin, int[] pins) {
+        this(System.getProperty("user.name"), new Date(), devName, clockPin, pins);
     }
 
     /**
      * Creates a new project name
      *
      * @param username user name
-     * @param devName  the type of the device
      * @param date     date
+     * @param devName  the type of the device
+     * @param clockPin the clock pin
+     * @param pins     the bidirectional pins
      */
-    public ATF1502CuplExporter(String username, Date date, String devName) {
+    public ATF150xCuplExporter(String username, Date date, String devName, int clockPin, int[] pins) {
         super(username, date, devName, new PinMap()
-                .setAvailBidirectional(4, 5, 6, 8, 9, 11, 12, 14, 16, 17,
-                        18, 19, 20, 21, 24, 25, 26, 27, 28,
-                        29, 31, 33, 34, 36, 37, 38, 39, 40));
-        setClockPin(43);
+                .setAvailBidirectional(pins));
+        setClockPin(clockPin);
         setCreateNodes(true);
     }
 

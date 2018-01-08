@@ -17,7 +17,7 @@ import static de.neemann.gui.Screen.isLinux;
  * Starts a fitter to create a JEDEC file.
  * Created by hneemann on 10.03.17.
  */
-public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess {
+public class StartATF150xFitter implements ExpressionToFileExporter.PostProcess {
     private final JDialog parent;
     private final File fitterExe;
 
@@ -29,20 +29,11 @@ public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess 
     /**
      * Creates a new instance
      *
-     * @param parent the parent dialog
+     * @param parent       the parent dialog
+     * @param deviceNumber number of the device
      */
-    public StartATF1502Fitter(JDialog parent) {
-        this(parent, getFitterExe("fit1502.exe"));
-    }
-
-    /**
-     * Creates a new instance
-     *
-     * @param parent     the parent dialog
-     * @param fitterName name of the needed fitter
-     */
-    StartATF1502Fitter(JDialog parent, String fitterName) {
-        this(parent, getFitterExe(fitterName));
+    public StartATF150xFitter(JDialog parent, int deviceNumber) {
+        this(parent, getFitterExe("fit" + deviceNumber + ".exe"));
     }
 
     /**
@@ -51,7 +42,7 @@ public class StartATF1502Fitter implements ExpressionToFileExporter.PostProcess 
      * @param parent    the parent dialog
      * @param fitterExe fitter executable
      */
-    private StartATF1502Fitter(JDialog parent, File fitterExe) {
+    private StartATF150xFitter(JDialog parent, File fitterExe) {
         this.parent = parent;
         this.fitterExe = fitterExe;
     }
