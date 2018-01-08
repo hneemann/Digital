@@ -102,8 +102,22 @@ public class Circuit {
      * @throws IOException IOException
      */
     public static Circuit loadCircuit(File filename, ShapeFactory shapeFactory) throws IOException {
-        XStream xStream = getxStream();
-        try (InputStream in = new FileInputStream(filename)) {
+        final Circuit circuit = loadCircuit(new FileInputStream(filename), shapeFactory);
+        circuit.origin = filename;
+        return circuit;
+    }
+
+    /**
+     * Creates a new circuit instance from a stored file
+     *
+     * @param in           the input stream
+     * @param shapeFactory shapeFactory used to create the shapes
+     * @return the circuit
+     * @throws IOException IOException
+     */
+    public static Circuit loadCircuit(InputStream in, ShapeFactory shapeFactory) throws IOException {
+        try {
+            XStream xStream = getxStream();
             Circuit circuit = (Circuit) xStream.fromXML(in);
             for (VisualElement ve : circuit.getElements())
                 ve.setShapeFactory(shapeFactory);
@@ -118,8 +132,11 @@ public class Circuit {
                     e.setPos(e.getPos().mul(2));
                 circuit.version = 1;
             }
-            circuit.origin = filename;
             return circuit;
+        } catch (RuntimeException e) {
+            throw new IOException(Lang.get("err_invalidFileFormat"), e);
+        } finally {
+            in.close();
         }
     }
 
@@ -130,12 +147,22 @@ public class Circuit {
      * @throws IOException IOException
      */
     public void save(File filename) throws IOException {
-        XStream xStream = Circuit.getxStream();
-        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
-            out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            xStream.marshal(this, new PrettyPrintWriter(out));
+        save(new FileOutputStream(filename));
+        origin = filename;
+    }
+
+    /**
+     * Stores the circuit in the given file
+     *
+     * @param out the writer
+     * @throws IOException IOException
+     */
+    public void save(OutputStream out) throws IOException {
+        try (Writer w = new OutputStreamWriter(out, "utf-8")) {
+            XStream xStream = Circuit.getxStream();
+            w.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            xStream.marshal(this, new PrettyPrintWriter(w));
             modified = false;
-            origin = filename;
         }
     }
 
