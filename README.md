@@ -6,6 +6,8 @@ The most recent changes are listed in the [release notes](distribution/ReleaseNo
 
 # Digital #
 
+## PLEASE USE THE ORIGINAL VERSION FROM "hneemann" ##
+
 ![screnshot](screenshot.png)
 
 Digital is a simulator for digital circuits. It is designed for educational purposes and I use it in my lectures.
