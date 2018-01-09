@@ -34,7 +34,7 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
-import de.neemann.digital.builder.ATF1502.ATFDevice;
+import de.neemann.digital.builder.ATF150x.ATFDevice;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
 

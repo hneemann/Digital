@@ -1,4 +1,4 @@
-package de.neemann.digital.builder.ATF1502;
+package de.neemann.digital.builder.ATF150x;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
