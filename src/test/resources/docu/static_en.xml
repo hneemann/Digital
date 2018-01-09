@@ -135,53 +135,58 @@
                 devices are supported.
             </par>
         </subchapter>
-        <subchapter name="ATF1502AS">
+        <subchapter name="ATF150xAS">
             <par>
-                The chip
-                <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
-                    <e>ATF1502AS</e>
+                The chips in the
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
                 </a>
-                is a simple CPLD with 32 macrocells. It is identical to the XCR5032C from Xilinx. It is available in a
-                PLCC package, which makes it suitable for laboratory exercises: If an IC is destroyed during exercises,
+                family are simple CPLDs with up to 128 macrocells. They are available in a
+                PLCC package, which makes them suitable for laboratory exercises: If an IC is destroyed during exercises,
                 it can simply be replaced. In addition, with the
-                <a href="http://www.atmel.com/tools/atdh1150usb.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/hardware/atdh1150usb">
                     <e>ATDH1150USB</e>
                 </a>
                 a easy to use low-cost programmer is available. This programmer is able to program the
-                <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
-                    <e>ATF1502AS</e>
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
                 </a>
-                in system using its JTAG interface. The software
-                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                chips in system using a JTAG interface.
+                A suitable evaluation board is also available with the
+                <a href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATF15XX-DK3-U">
+                    <e>ATF15XX-DK3-U</e>
+                </a>.
+                The software
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
                     <e>ATMISP</e>
-                </a> is required for
-                programming, which is also available on the ATMEL / Microchip website.
+                </a>
+                is required for programming, which is available on the ATMEL / Microchip website.
             </par>
             <par>
                 Unfortunately, the fuse map details are not public available so that no suitable fitter for this chip
                 can be integrated in Digital, as it is possible with the <e>GAL16v8</e> and <e>GAL22v10</e> chips.
             </par>
             <par>
-                Therefore, the fitter <e>fit1502.exe</e> provided by ATMEL must be used. This program creates a
+                Therefore, the fitters <e>fit150[x].exe</e> provided by ATMEL must be used. These programs create a
                 <e>JEDEC</e> file from a suitable <e>TT2</e> file which can then be programmed. Digital starts the
                 fitter automatically every time a <e>TT2</e> file is created. For this purpose, the path to
-                <e>fit1502.exe</e> must be specified in the settings.
+                <e>fit150[n].exe</e> fitters must be specified in the settings.
                 The created <e>JEDEC</e> file can then be opened and burned directly with
-                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
                     <e>ATMISP</e>
                 </a>.
             </par>
             <par>
                 For legal reasons the fitter <e>fit1502.exe</e> can not be distributed with Digital. However, it can be
                 found in the folder <e>WinCupl\Fitters</e> after installing
-                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
                     <e>WinCupl</e>
                 </a>.
-                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
                     <e>WinCupl</e>
                 </a>
                 is available on the ATMEL/Microchip website.
-                On Linux systems, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
+                On Linux systems, the fitters can also be executed by Digital if <e>wine</e> is installed.
             </par>
         </subchapter>
         <subchapter name="VHDL">

@@ -42,11 +42,11 @@ These are the main features of Digital:
   See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
 - Simple remote TCP interface which  e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
   the simulator.
-- Direct export of JEDEC files which you can flash to a [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
-  or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx). These chips are somewhat outdated (introduced in 1985!) 
-  but sufficient for beginners exercises, easy to understand and well documented. Also the 
-  [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
-  [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) are supported which offer 32/64 macro-cells. 
+- Direct export of JEDEC files which you can flash to a [GAL16v8](https://www.microchip.com/wwwproducts/en/ATF16V8C) 
+  or a [GAL22v10](https://www.microchip.com/wwwproducts/en/ATF22V10C). These chips are somewhat outdated (introduced in 1985!) 
+  but sufficient for beginners exercises, easy to understand and well documented. Also the
+  [ATF150x](https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family) chips are 
+  supported which offer up to 128 macro-cells.
 - Export to VHDL: A circuit can be exported to VHDL. There is also support for the 
   [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
   for details. The examples folder contains a variant of the simple CPU, which runs on a BASYS3 board.

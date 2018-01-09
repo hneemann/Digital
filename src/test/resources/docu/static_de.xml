@@ -158,23 +158,27 @@
                 Bausteine unterstützt.
             </par>
         </subchapter>
-        <subchapter name="ATF1502AS">
+        <subchapter name="ATF150xAS">
             <par>
-                Der Baustein
-                <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
-                    <e>ATF1502AS</e>
+                Die Bausteine der
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
                 </a>
-                ist ein einfaches CPLD mit 32 Makrozellen. Er ist baugleich mit dem XCR5032C von
-                Xilinx. Er ist in einem PLCC Gehäuse verfügbar, was ihn für Laborversuche gut geeignet erscheinen lässt:
+                Familie sind einfache CPLDs mit bis zu 128 Makrozellen. Diese sind im PLCC Gehäuse verfügbar, was sie
+                für Laborversuche gut geeignet erscheinen lässt:
                 Sollte ein IC bei Versuchen zerstört werden, kann es einfach ersetzt werden.
                 Zudem ist mit dem
-                <a href="http://www.atmel.com/tools/atdh1150usb.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/hardware/atdh1150usb">
                     <e>ATDH1150USB</e>
                 </a>
-                ein einfach zu benutzender, günstiger Programmer erhältlich, mit dem der Baustein in seiner Schaltung
-                (In System) programmiert werden kann.
+                ein einfach zu benutzender, günstiger Programmer erhältlich, mit welchem der Baustein in seiner Schaltung
+                (In System) programmiert werden kann. Mit dem
+                <a href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATF15XX-DK3-U">
+                    <e>ATF15XX-DK3-U</e>
+                </a>
+                ist zudem ein geeignetes Evaluations-Board verfügbar.
                 Für die Programmierung ist die Software
-                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
                     <e>ATMISP</e>
                 </a>
                 erforderlich, welche auf der ATMEL/Microchip Webseite erhältlich ist.
@@ -186,29 +190,29 @@
                 Bausteinen möglich ist.
             </par>
             <par>
-                Daher muss auf den von ATMEL bereitgestellten Fitter <e>fit1502.exe</e> zurückgegriffen werden.
+                Daher muss auf einen der von ATMEL bereitgestellten Fitter <e>fit150[x].exe</e> zurückgegriffen werden.
                 Dieses Programm erzeugt aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei die dann
                 programmiert werden kann.
                 Digital startet den Fitter automatisch wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
-                Digital-Einstellungen der Pfad zu <e>fit1502.exe</e> angegeben werden. Die erzeugte Datei kann dann
-                direkt mit
-                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                Digital-Einstellungen der Pfad zu den <e>fit150[x].exe</e> Dateien angegeben werden.
+                Es wird zudem eine Projektdatei <e>*.chn</e> erzeugt, welche dann direkt mit
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
                     <e>ATMISP</e>
                 </a>
-                geöffnet und gebrannt werden.
+                geöffnet werden kann, um die <e>JEDEC</e>-Datei zu brennen.
             </par>
             <par>
-                Aus rechtlichen Gründen kann der Fitter <e>fit1502.exe</e> nicht mit Digital ausgeliefert werden.
-                Er findet sich jedoch nach der Installation von
-                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                Aus rechtlichen Gründen können die Fitter <e>fit150[n].exe</e> nicht mit Digital ausgeliefert werden.
+                Diese finden sich jedoch nach der Installation von
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
                     <e>WinCupl</e>
                 </a>
                 im Ordner <e>WinCupl\Fitters</e>.
-                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
                     <e>WinCupl</e>
                 </a>
                 wiederum ist auf der ATMEL/Microchip Webseite verfügbar.
-                Unter Linux lässt sich <e>fit1502.exe</e> ebenfalls von Digital starten, wenn <e>wine</e> installiert
+                Unter Linux lassen sich die Fitter ebenfalls von Digital starten, wenn <e>wine</e> installiert
                 ist.
             </par>
         </subchapter>
