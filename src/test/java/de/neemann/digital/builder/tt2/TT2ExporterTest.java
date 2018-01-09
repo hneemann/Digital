@@ -1,5 +1,6 @@
 package de.neemann.digital.builder.tt2;
 
+import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
@@ -16,7 +17,7 @@ public class TT2ExporterTest extends TestCase {
 
     public void testCombinatorial() throws Exception {
         TT2Exporter tt2 = new TT2Exporter("unknown");
-        tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
+        tt2.getPinMapping().setAvailBidirectional(4, 5, 6, 8, 20, 21);
         tt2.getBuilder().addCombinatorial("Y", and(v("A"), v("B")));
         tt2.getBuilder().addCombinatorial("X", or(v("A1"), v("B1")));
         tt2.getPinMapping().parseString("X=21;Y=20");
@@ -38,12 +39,12 @@ public class TT2ExporterTest extends TestCase {
                 "1-1- 10\r\n" +
                 "-1-- 01\r\n" +
                 "---1 01\r\n" +
-                ".e\r\n",baos.toString());
+                ".e\r\n", baos.toString());
     }
 
     public void testSequential() throws Exception {
         TT2Exporter tt2 = new TT2Exporter("unknown");
-        tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
+        tt2.getPinMapping().setAvailBidirectional(4, 5, 6, 8, 20, 21);
         tt2.getBuilder().addSequential("Yn", and(v("A"), not(v("Yn"))));
         tt2.getPinMapping().parseString("Yn=5");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -64,12 +65,12 @@ public class TT2ExporterTest extends TestCase {
                 "1-0 100\r\n" +
                 "-1- 001\r\n" +
                 "--- 000\r\n" +
-                ".e\r\n",baos.toString());
+                ".e\r\n", baos.toString());
     }
 
     public void testSequential2() throws Exception {
         TT2Exporter tt2 = new TT2Exporter("unknown");
-        tt2.getPinMapping().setAvailBidirectional(4,5,6,8,20,21);
+        tt2.getPinMapping().setAvailBidirectional(4, 5, 6, 8, 20, 21);
         tt2.getBuilder().addSequential("Yn", and(v("A"), not(v("Yn"))));
         tt2.getBuilder().addSequential("Xn", or(v("B"), not(v("Xn"))));
         tt2.getPinMapping().parseString("Xn=8;Yn=6");
@@ -93,7 +94,28 @@ public class TT2ExporterTest extends TestCase {
                 "--1-- 001001\r\n" +
                 "---0- 000100\r\n" +
                 "----- 000000\r\n" +
-                ".e\r\n",baos.toString());
+                ".e\r\n", baos.toString());
+    }
+
+    public void testNames() throws FuseMapFillerException {
+        TT2Exporter.checkName("a0");
+        TT2Exporter.checkName("b_0");
+        TT2Exporter.checkName("c");
+        TT2Exporter.checkName("Cc");
+        checkNameFail(" a");
+        checkNameFail("a ");
+        checkNameFail("0a");
+        checkNameFail("a+2");
+        checkNameFail("a,2");
+    }
+
+    private void checkNameFail(String name) {
+        try {
+            TT2Exporter.checkName(name);
+            fail();
+        } catch (FuseMapFillerException e) {
+            assertTrue(true);
+        }
     }
 
 }
