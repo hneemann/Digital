@@ -786,7 +786,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_constantsNotAllowed">Konstante Werte sind hier nicht erlaubt!</string>
     <string name="err_invalidNumberFormat_N_N">Der String {0} ist keine Zahl (Pos {1})!</string>
     <string name="err_invalidPinName_N">Der Name &quot;{0}&quot; ist nicht erlaubt!</string>
-    <string name="err_whiteSpaceNotAllowedInTT2Path">Im Pfad der TT2-Datei ist kein Leerzeichen erlaubt!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

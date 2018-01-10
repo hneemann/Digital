@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 public class OSExecute {
 
     private final ProcessBuilder procesBuilder;
-    private File workingDir;
 
     /**
      * Creates a new instance
@@ -44,7 +43,17 @@ public class OSExecute {
      * @param workingDir the working directory
      */
     public void setWorkingDir(File workingDir) {
-        this.workingDir = workingDir;
+        procesBuilder.directory(workingDir);
+    }
+
+    /**
+     * Sets an environment variable
+     *
+     * @param key   the key
+     * @param value the value
+     */
+    public void setEnvVar(String key, String value) {
+        procesBuilder.environment().put(key, value);
     }
 
     /**
@@ -54,10 +63,6 @@ public class OSExecute {
      * @throws IOException IOException
      */
     public String start() throws IOException {
-        if (workingDir != null)
-            procesBuilder.directory(workingDir);
-
-
         procesBuilder.redirectErrorStream(true);
 
         Process p = procesBuilder.start();
@@ -79,7 +84,7 @@ public class OSExecute {
         }
 
         if (p.exitValue() != 0)
-            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", p.exitValue(), "\n"+sr.toString()));
+            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", p.exitValue(), "\n" + sr.toString()));
 
         try {
             sr.join();
