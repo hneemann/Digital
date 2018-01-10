@@ -782,6 +782,7 @@ The names of the variables may not be unique.</string>
     <string name="err_constantsNotAllowed">Constant values are not allowed!</string>
     <string name="err_invalidNumberFormat_N_N">The string {0} is not a valid number (pos {1})!</string>
     <string name="err_invalidPinName_N">The name &quot;{0}&quot; is not allowed!</string>
+    <string name="err_whiteSpaceNotAllowedInTT2Name">No white space is allowed in the name of the TT2 file!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

@@ -49,12 +49,15 @@ public class StartATF150xFitter implements ExpressionToFileExporter.PostProcess 
 
     @Override
     public File execute(File file) throws IOException {
+        final String tt2Name = file.getName();
+        if (tt2Name.indexOf(' ') >= 0)
+            throw new IOException(Lang.get("err_whiteSpaceNotAllowedInTT2Name"));
 
         ArrayList<String> args = new ArrayList<>();
         if (isLinux())
             args.add("wine");
         args.add(fitterExe.getPath());
-        args.add(file.getName());
+        args.add(tt2Name);
 
         try {
             OSExecute execute = new OSExecute(args);
