@@ -2,6 +2,7 @@ package de.neemann.digital.builder.ATF150x;
 
 import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.gui.SaveAsHelper;
+import de.neemann.digital.lang.Lang;
 
 import java.io.*;
 
@@ -38,5 +39,10 @@ public class CreateCHN implements ExpressionToFileExporter.PostProcess {
         }
 
         return chnFile;
+    }
+
+    @Override
+    public String toString() {
+        return Lang.get("msg_create CHNFile");
     }
 }

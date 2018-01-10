@@ -786,6 +786,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_constantsNotAllowed">Konstante Werte sind hier nicht erlaubt!</string>
     <string name="err_invalidNumberFormat_N_N">Der String {0} ist keine Zahl (Pos {1})!</string>
     <string name="err_invalidPinName_N">Der Name &quot;{0}&quot; ist nicht erlaubt!</string>
+    <string name="err_whiteSpaceNotAllowedInTT2Path">Im Pfad der TT2-Datei ist kein Leerzeichen erlaubt!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1262,6 +1263,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_dataNotUpdatedAnymore">Daten werden nicht mehr aktualisiert!</string>
     <string name="msg_modifyThisAttribute">Diesen Wert verändern.</string>
     <string name="msg_invalidEditorValue">Ein Feld enthält einen ungültigen Wert!</string>
+    <string name="msg_create CHNFile">Erzeugen der CHN-Datei</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
