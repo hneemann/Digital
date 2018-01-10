@@ -75,7 +75,7 @@ public class StartATF150xFitter implements ExpressionToFileExporter.PostProcess 
     }
 
     @Override
-    public String toString() {
+    public String getName() {
         return Lang.get("msg_startExternalFitter");
     }
 }
