@@ -191,8 +191,8 @@
             </par>
             <par>
                 Daher muss auf einen der von ATMEL bereitgestellten Fitter <e>fit150[x].exe</e> zurückgegriffen werden.
-                Dieses Programm erzeugt aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei die dann
-                programmiert werden kann.
+                Diese Programme erzeugen aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei welche dann
+                in den entsprechenden Chip programmiert werden kann.
                 Digital startet den Fitter automatisch wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
                 Digital-Einstellungen der Pfad zu den <e>fit150[x].exe</e> Dateien angegeben werden.
                 Es wird zudem eine Projektdatei <e>*.chn</e> erzeugt, welche dann direkt mit

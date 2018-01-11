@@ -152,15 +152,16 @@
                     <e>ATF150x</e>
                 </a>
                 chips in system using a JTAG interface.
-                A suitable evaluation board is also available with the
+                A suitable evaluation board
                 <a href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATF15XX-DK3-U">
-                    <e>ATF15XX-DK3-U</e>
-                </a>.
+                    (<e>ATF15XX-DK3-U</e>)
+                </a>
+                is also available.
                 The software
                 <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
                     <e>ATMISP</e>
                 </a>
-                is required for programming, which is available on the ATMEL / Microchip website.
+                which is available on the ATMEL/Microchip website, is required for programming the chips.
             </par>
             <par>
                 Unfortunately, the fuse map details are not public available so that no suitable fitter for this chip
@@ -168,10 +169,10 @@
             </par>
             <par>
                 Therefore, the fitters <e>fit150[x].exe</e> provided by ATMEL must be used. These programs create a
-                <e>JEDEC</e> file from a suitable <e>TT2</e> file which can then be programmed. Digital starts the
-                fitter automatically every time a <e>TT2</e> file is created. For this purpose, the path to
+                <e>JEDEC</e> file from a suitable <e>TT2</e> file which can then be programmed to the chip. Digital
+                starts the fitter automatically every time a <e>TT2</e> file is created. For this purpose, the path to the
                 <e>fit150[n].exe</e> fitters must be specified in the settings.
-                The created <e>JEDEC</e> file can then be opened and burned directly with
+                The created <e>JEDEC</e> file can then be opened and programmed directly with
                 <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
                     <e>ATMISP</e>
                 </a>.
