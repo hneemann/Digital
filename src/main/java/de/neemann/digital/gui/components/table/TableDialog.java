@@ -22,9 +22,9 @@ import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10CuplExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
-import de.neemann.digital.builder.hardware.GenerateCUPL;
-import de.neemann.digital.builder.hardware.GenerateFile;
-import de.neemann.digital.builder.hardware.HardwareDescriptionGenerator;
+import de.neemann.digital.gui.components.table.hardware.GenerateCUPL;
+import de.neemann.digital.gui.components.table.hardware.GenerateFile;
+import de.neemann.digital.gui.components.table.hardware.HardwareDescriptionGenerator;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
@@ -780,7 +780,7 @@ public class TableDialog extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                generator.create(TableDialog.this, filename, model.getTable(), lastGeneratedExpressions);
+                generator.generate(TableDialog.this, filename, model.getTable(), lastGeneratedExpressions);
                 setLastUsedGenerator(generator);
             } catch (Exception e1) {
                 new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);

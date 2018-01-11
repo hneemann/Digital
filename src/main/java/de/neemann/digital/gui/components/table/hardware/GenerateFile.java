@@ -1,4 +1,4 @@
-package de.neemann.digital.builder.hardware;
+package de.neemann.digital.gui.components.table.hardware;
 
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ExpressionException;
@@ -57,7 +57,7 @@ public class GenerateFile implements HardwareDescriptionGenerator {
     }
 
     @Override
-    public void create(JDialog parent, File circuitFile, TruthTable table, ExpressionListenerStore expressions) throws Exception {
+    public void generate(JDialog parent, File circuitFile, TruthTable table, ExpressionListenerStore expressions) throws Exception {
         if (circuitFile == null)
             circuitFile = new File("circuit." + suffix);
         else

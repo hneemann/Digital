@@ -2,6 +2,7 @@ Release Notes
 
 HEAD, planned as v0.17
 - Added 64 bit support for Add and Sub components.
+- Added support of some more ATF150x chips.
 - Bug fixes
   - Splitter, BarrelShifter and Comparator now are working with 64 bit.
 

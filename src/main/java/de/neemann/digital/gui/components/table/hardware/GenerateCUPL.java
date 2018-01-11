@@ -1,4 +1,4 @@
-package de.neemann.digital.builder.hardware;
+package de.neemann.digital.gui.components.table.hardware;
 
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
@@ -44,7 +44,7 @@ public class GenerateCUPL implements HardwareDescriptionGenerator {
     }
 
     @Override
-    public void create(JDialog parent, File circuitFile, TruthTable table, ExpressionListenerStore expressions) throws Exception {
+    public void generate(JDialog parent, File circuitFile, TruthTable table, ExpressionListenerStore expressions) throws Exception {
         File cuplPath;
         if (circuitFile == null) {
             JFileChooser fc = new MyFileChooser();
