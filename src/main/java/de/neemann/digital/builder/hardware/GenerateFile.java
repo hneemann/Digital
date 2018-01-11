@@ -22,32 +22,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Generates a file. Used for JEDEC and TT" generation
+ * Generates a file. Used for JEDEC and TT2 generation
  */
 public class GenerateFile implements HardwareDescriptionGenerator {
 
     private final String suffix;
-    private final ExpressionToFileExporter expressionExporter;
     private final String path;
     private final String description;
+    private final ExpressionToFileExporterFactory factory;
 
     /**
      * Creates a new instance.
      *
-     * @param suffix             the file suffix
-     * @param expressionExporter the exporter
-     * @param path               then menu path
-     * @param description        the description, used as a tool tip
+     * @param suffix      the file suffix
+     * @param factory     creates the ExpressionToFileExporter
+     * @param path        then menu path
+     * @param description the description, used as a tool tip
      */
-    public GenerateFile(String suffix, ExpressionToFileExporter expressionExporter, String path, String description) {
+    public GenerateFile(String suffix, ExpressionToFileExporterFactory factory, String path, String description) {
         this.suffix = suffix;
-        this.expressionExporter = expressionExporter;
         this.path = path;
         this.description = description;
+        this.factory = factory;
     }
 
     @Override
-    public String getPath() {
+    public String getMenuPath() {
         return path;
     }
 
@@ -68,6 +68,7 @@ public class GenerateFile implements HardwareDescriptionGenerator {
         fileChooser.setSelectedFile(circuitFile);
         if (fileChooser.showSaveDialog(parent) == JFileChooser.APPROVE_OPTION) {
             try {
+                ExpressionToFileExporter expressionExporter = factory.create();
                 expressionExporter.getPinMapping().addAll(table.getPins());
                 expressionExporter.getPinMapping().setClockPin(table.getClockPinInt());
                 new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(expressions);
@@ -83,5 +84,15 @@ public class GenerateFile implements HardwareDescriptionGenerator {
                     new LineBreaker().toHTML().breakLines(Lang.get("msg_thereAreMissingPinNumbers", pinsWithoutNumber)),
                     Lang.get("msg_warning"),
                     JOptionPane.WARNING_MESSAGE);
+    }
+
+    /**
+     * Factory to create a ExpressionToFileExporter
+     */
+    public interface ExpressionToFileExporterFactory {
+        /**
+         * @return creates a new instance
+         */
+        ExpressionToFileExporter create();
     }
 }

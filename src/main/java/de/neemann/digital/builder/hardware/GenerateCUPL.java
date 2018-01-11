@@ -32,7 +32,7 @@ public class GenerateCUPL implements HardwareDescriptionGenerator {
     }
 
     @Override
-    public String getPath() {
+    public String getMenuPath() {
         return path;
     }
 

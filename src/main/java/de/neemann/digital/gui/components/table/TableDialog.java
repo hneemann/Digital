@@ -53,15 +53,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.util.TreeMap;
+import java.util.prefs.Preferences;
 
 /**
  * @author hneemann
  */
 public class TableDialog extends JDialog {
+    private static final Preferences PREFS = Preferences.userRoot().node("dig").node("generator");
     private static final Color MYGRAY = new Color(230, 230, 230);
     private static final List<Key> LIST = new ArrayList<>();
 
@@ -76,6 +76,8 @@ public class TableDialog extends JDialog {
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
     private final ToolTipAction karnaughMenuAction;
+    private final HashMap<String, HardwareDescriptionGenerator> availGenerators = new HashMap<>();
+    private final JMenu hardwareMenu;
     private JCheckBoxMenuItem createJK;
     private File filename;
     private TruthTableTableModel model;
@@ -83,6 +85,7 @@ public class TableDialog extends JDialog {
     private AllSolutionsDialog allSolutionsDialog;
     private ExpressionListenerStore lastGeneratedExpressions;
     private KarnaughMapDialog kvMap;
+    private JMenuItem lastUsedGenratorMenuItem;
 
     /**
      * Creates a new instance
@@ -215,7 +218,9 @@ public class TableDialog extends JDialog {
 
         bar.add(createSetMenu());
 
-        bar.add(createCreateMenu());
+        hardwareMenu = createCreateMenu();
+        bar.add(hardwareMenu);
+        checkLastUsedGenerator();
 
         karnaughMenuAction = new ToolTipAction(Lang.get("menu_karnaughMap")) {
             @Override
@@ -428,26 +433,28 @@ public class TableDialog extends JDialog {
         }
 
         JMenu hardware = new JMenu(Lang.get("menu_table_create_hardware"));
-        addTo(hardware, new GenerateCUPL(new CuplExporter(), "GAL16v8/CUPL"));
-        addTo(hardware, new GenerateFile("jed", new ExpressionToFileExporter(new Gal16v8JEDECExporter()),
+        register(hardware, new GenerateCUPL(new CuplExporter(), "GAL16v8/CUPL"));
+        register(hardware, new GenerateFile("jed", () -> new ExpressionToFileExporter(new Gal16v8JEDECExporter()),
                 "GAL16v8/JEDEC", Lang.get("menu_table_create_jedec_tt")));
-        addTo(hardware, new GenerateCUPL(new Gal22v10CuplExporter(), "GAL22v10/CUPL"));
-        addTo(hardware, new GenerateFile("jed", new ExpressionToFileExporter(new Gal22v10JEDECExporter()),
+        register(hardware, new GenerateCUPL(new Gal22v10CuplExporter(), "GAL22v10/CUPL"));
+        register(hardware, new GenerateFile("jed", () -> new ExpressionToFileExporter(new Gal22v10JEDECExporter()),
                 "GAL22v10/JEDEC", Lang.get("menu_table_create_jedec_tt")));
         for (ATFDevice atfDev : ATFDevice.values()) {
-            addTo(hardware, new GenerateCUPL(atfDev.getCuplExporter(), "ATF150x/" + atfDev.getMenuName() + "/CUPL"));
-            addTo(hardware, new GenerateFile("tt2",
-                    atfDev.createExpressionToFileExporter(TableDialog.this, getProjectName()),
+            register(hardware, new GenerateCUPL(atfDev.getCuplExporter(), "ATF150x/" + atfDev.getMenuName() + "/CUPL"));
+            register(hardware, new GenerateFile("tt2",
+                    () -> atfDev.createExpressionToFileExporter(TableDialog.this, getProjectName()),
                     "ATF150x/" + atfDev.getMenuName() + "/TT2",
                     Lang.get("menu_table_createTT2_tt")));
         }
         createMenu.add(hardware);
+
         return createMenu;
     }
 
-    private void addTo(JMenu hardware, HardwareDescriptionGenerator generator) {
+    private void register(JMenu hardware, final HardwareDescriptionGenerator generator) {
+        availGenerators.put(generator.getMenuPath(), generator);
         JMenu m = hardware;
-        String path = generator.getPath();
+        String path = generator.getMenuPath();
         StringTokenizer tok = new StringTokenizer(path, "/");
         while (tok.hasMoreTokens()) {
             String menuName = tok.nextToken();
@@ -467,16 +474,7 @@ public class TableDialog extends JDialog {
                 }
                 m = toUse;
             } else {
-                m.add(new ToolTipAction(menuName) {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
-                            generator.create(TableDialog.this, filename, model.getTable(), lastGeneratedExpressions);
-                        } catch (Exception e1) {
-                            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
-                        }
-                    }
-                }.setToolTip(generator.getDescription()).createJMenuItem());
+                m.add(new HardwareToolTipAction(menuName, generator).createJMenuItem());
             }
         }
     }
@@ -516,6 +514,23 @@ public class TableDialog extends JDialog {
         if (filename == null)
             return "unknown";
         else return filename.getName();
+    }
+
+    private void setLastUsedGenerator(HardwareDescriptionGenerator generator) {
+        if (lastUsedGenratorMenuItem != null)
+            hardwareMenu.remove(lastUsedGenratorMenuItem);
+        lastUsedGenratorMenuItem = new HardwareToolTipAction(generator.getMenuPath().replace("/", " → "), generator).createJMenuItem();
+        hardwareMenu.add(lastUsedGenratorMenuItem);
+        PREFS.put("gen", generator.getMenuPath());
+    }
+
+    private void checkLastUsedGenerator() {
+        String lu = PREFS.get("gen", "");
+        if (lu.length() > 0) {
+            HardwareDescriptionGenerator gen = availGenerators.get(lu);
+            if (gen != null)
+                setLastUsedGenerator(gen);
+        }
     }
 
     private class CalculationTableModelListener implements TableModelListener {
@@ -750,6 +765,26 @@ public class TableDialog extends JDialog {
         public void close() {
             sb.append("\\end{eqnarray*}\n");
             new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"), sb.toString()).setVisible(true);
+        }
+    }
+
+    private final class HardwareToolTipAction extends ToolTipAction {
+        private final HardwareDescriptionGenerator generator;
+
+        private HardwareToolTipAction(String menuName, HardwareDescriptionGenerator generator) {
+            super(menuName);
+            this.generator = generator;
+            setToolTip(generator.getDescription());
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                generator.create(TableDialog.this, filename, model.getTable(), lastGeneratedExpressions);
+                setLastUsedGenerator(generator);
+            } catch (Exception e1) {
+                new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
+            }
         }
     }
 }

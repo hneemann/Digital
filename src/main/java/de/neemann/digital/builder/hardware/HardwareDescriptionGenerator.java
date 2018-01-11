@@ -14,7 +14,7 @@ public interface HardwareDescriptionGenerator {
     /**
      * @return the gui menu path
      */
-    String getPath();
+    String getMenuPath();
 
     /**
      * @return the description of the generator, used as a tool tip

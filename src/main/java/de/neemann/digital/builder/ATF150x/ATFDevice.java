@@ -68,7 +68,7 @@ public enum ATFDevice {
      * @return the menu name of this device
      */
     public String getMenuName() {
-        return "ATF" + deviceNumber + ", " + packageName.toUpperCase();
+        return "ATF" + deviceNumber + "/" + packageName.toUpperCase();
     }
 
     private TT2Exporter getTT2Exporter(String projectName) {
