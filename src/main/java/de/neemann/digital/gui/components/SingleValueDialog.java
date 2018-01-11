@@ -3,6 +3,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.*;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.Screen;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -148,7 +149,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         pack();
-        setLocation(pos.x - getWidth(), pos.y - getHeight() / 2);
+        Screen.setLocation(this, pos);
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
         setAlwaysOnTop(true);

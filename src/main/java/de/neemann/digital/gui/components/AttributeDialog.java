@@ -6,6 +6,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -211,29 +212,8 @@ public class AttributeDialog extends JDialog {
 
         if (pos == null)
             setLocationRelativeTo(parent);
-        else {
-            Rectangle screen = null;
-            GraphicsDevice[] dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
-            for (GraphicsDevice d : dev) {
-                for (GraphicsConfiguration c : d.getConfigurations()) {
-                    Rectangle b = c.getBounds();
-                    if (b.contains(pos))
-                        screen = b;
-                }
-            }
-
-            pos.x -= getWidth() / 2;
-            pos.y -= getHeight() / 2;
-
-            if (screen != null) {
-                if (pos.x + getWidth() > screen.x + screen.width) pos.x = screen.x + screen.width - getWidth();
-                if (pos.y + getHeight() > screen.y + screen.height) pos.y = screen.y + screen.height - getHeight();
-                if (pos.x < screen.x) pos.x = screen.x;
-                if (pos.y < screen.y) pos.y = screen.y;
-            }
-
-            setLocation(pos.x, pos.y);
-        }
+        else
+            Screen.setLocation(this, pos);
 
         if (topMostTextComponent != null)
             SwingUtilities.invokeLater(() -> topMostTextComponent.requestFocusInWindow());

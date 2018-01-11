@@ -186,4 +186,39 @@ public final class Screen {
         return IS_LINUX;
     }
 
+    /**
+     * Sets the location of a window.
+     * Ensures that the window is completely visible on the screen the given position belongs to.
+     * The window is centered relative to the given position.
+     *
+     * @param w   the window
+     * @param pos the position
+     */
+    public static void setLocation(Window w, Point pos) {
+        if (pos == null)
+            return;
+
+        Rectangle screen = null;
+        GraphicsDevice[] dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+        for (GraphicsDevice d : dev) {
+            for (GraphicsConfiguration c : d.getConfigurations()) {
+                Rectangle b = c.getBounds();
+                if (b.contains(pos))
+                    screen = b;
+            }
+        }
+
+        pos.x -= w.getWidth() / 2;
+        pos.y -= w.getHeight() / 2;
+
+        if (screen != null) {
+            if (pos.x + w.getWidth() > screen.x + screen.width) pos.x = screen.x + screen.width - w.getWidth();
+            if (pos.y + w.getHeight() > screen.y + screen.height) pos.y = screen.y + screen.height - w.getHeight();
+            if (pos.x < screen.x) pos.x = screen.x;
+            if (pos.y < screen.y) pos.y = screen.y;
+        }
+
+        w.setLocation(pos.x, pos.y);
+    }
+
 }
