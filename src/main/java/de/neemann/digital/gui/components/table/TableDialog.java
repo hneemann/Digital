@@ -433,14 +433,14 @@ public class TableDialog extends JDialog {
         }
 
         JMenu hardware = new JMenu(Lang.get("menu_table_create_hardware"));
-        register(hardware, new GenerateCUPL(new CuplExporter(), "GAL16v8/CUPL"));
+        register(hardware, new GenerateCUPL(CuplExporter::new, "GAL16v8/CUPL"));
         register(hardware, new GenerateFile("jed", () -> new ExpressionToFileExporter(new Gal16v8JEDECExporter()),
                 "GAL16v8/JEDEC", Lang.get("menu_table_create_jedec_tt")));
-        register(hardware, new GenerateCUPL(new Gal22v10CuplExporter(), "GAL22v10/CUPL"));
+        register(hardware, new GenerateCUPL(Gal22v10CuplExporter::new, "GAL22v10/CUPL"));
         register(hardware, new GenerateFile("jed", () -> new ExpressionToFileExporter(new Gal22v10JEDECExporter()),
                 "GAL22v10/JEDEC", Lang.get("menu_table_create_jedec_tt")));
         for (ATFDevice atfDev : ATFDevice.values()) {
-            register(hardware, new GenerateCUPL(atfDev.getCuplExporter(), "ATF150x/" + atfDev.getMenuName() + "/CUPL"));
+            register(hardware, new GenerateCUPL(atfDev::getCuplExporter, "ATF150x/" + atfDev.getMenuName() + "/CUPL"));
             register(hardware, new GenerateFile("tt2",
                     () -> atfDev.createExpressionToFileExporter(TableDialog.this, getProjectName()),
                     "ATF150x/" + atfDev.getMenuName() + "/TT2",

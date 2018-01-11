@@ -14,26 +14,28 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Creates CUPL code
+ * Creates CUPL code.
+ * The {@link GenerateFile} class is not usable for CUPL creation because CUPL files needed to be stored
+ * in a separate folder. Here you will find the creation of this new folder.
  */
 public class GenerateCUPL implements HardwareDescriptionGenerator {
-    private CuplExporter cupl;
-    private String path;
+    private CuplExporterFactory cuplExporterFactory;
+    private String menuPath;
 
     /**
      * Creates e new instance
      *
-     * @param cupl the CUPL exporter
-     * @param path the gui menu path
+     * @param cuplExporterFactory the CUPL exporter
+     * @param menuPath            the gui menu path
      */
-    public GenerateCUPL(CuplExporter cupl, String path) {
-        this.cupl = cupl;
-        this.path = path;
+    public GenerateCUPL(CuplExporterFactory cuplExporterFactory, String menuPath) {
+        this.cuplExporterFactory = cuplExporterFactory;
+        this.menuPath = menuPath;
     }
 
     @Override
     public String getMenuPath() {
-        return path;
+        return menuPath;
     }
 
     @Override
@@ -70,11 +72,22 @@ public class GenerateCUPL implements HardwareDescriptionGenerator {
                 throw new IOException(Lang.get("err_couldNotCreateFolder_N0", cuplPath.getPath()));
 
         File f = new File(cuplPath, "CUPL.PLD");
-        cupl.setProjectName(circuitFile.getName());
-        cupl.getPinMapping().addAll(table.getPins());
-        new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create(expressions);
+        CuplExporter cuplExporter = cuplExporterFactory.create();
+        cuplExporter.setProjectName(circuitFile.getName());
+        cuplExporter.getPinMapping().addAll(table.getPins());
+        new BuilderExpressionCreator(cuplExporter.getBuilder(), ExpressionModifier.IDENTITY).create(expressions);
         try (FileOutputStream out = new FileOutputStream(f)) {
-            cupl.writeTo(out);
+            cuplExporter.writeTo(out);
         }
+    }
+
+    /**
+     * Interface used to create a {@link CuplExporter}
+     */
+    public interface CuplExporterFactory {
+        /**
+         * @return the created cupl exporter
+         */
+        CuplExporter create();
     }
 }
