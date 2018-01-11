@@ -760,6 +760,46 @@ repeat(1&lt;&lt;16) (n&amp;0xff) (n&gt;&gt;8) ((n&amp;0xff)*(n&gt;&gt;8))</dataS
       </elementAttributes>
       <pos x="860" y="720"/>
     </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>9 bit,</string>
+        </entry>
+      </elementAttributes>
+      <pos x="760" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>12 bit,</string>
+        </entry>
+      </elementAttributes>
+      <pos x="980" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>16 bit adders</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1200" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>8 bit inputs</string>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="260"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
