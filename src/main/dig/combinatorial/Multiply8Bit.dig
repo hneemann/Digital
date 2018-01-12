@@ -15,19 +15,6 @@ werden durch die Und-Gatter implementiert. </string>
   </attributes>
   <visualElements>
     <visualElement>
-      <elementName>Testcase</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Testdata</string>
-          <testData>
-            <dataString>              A        B      Y
-repeat(1&lt;&lt;16) (n&amp;0xff) (n&gt;&gt;8) ((n&amp;0xff)*(n&gt;&gt;8))</dataString>
-          </testData>
-        </entry>
-      </elementAttributes>
-      <pos x="1220" y="900"/>
-    </visualElement>
-    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -799,6 +786,23 @@ repeat(1&lt;&lt;16) (n&amp;0xff) (n&gt;&gt;8) ((n&amp;0xff)*(n&gt;&gt;8))</dataS
         </entry>
       </elementAttributes>
       <pos x="240" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>     A   B   Y
+loop(a,1&lt;&lt;8)
+  loop(b,1&lt;&lt;8)
+     (a) (b) (a*b)
+  end loop
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1220" y="880"/>
     </visualElement>
   </visualElements>
   <wires>

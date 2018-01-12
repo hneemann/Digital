@@ -102,7 +102,7 @@ public class Parser {
                 case REPEAT:
                     tok.consume();
                     expect(Tokenizer.Token.OPEN);
-                    int count = (int) parseInt();
+                    long count = parseInt();
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat("n", count, parseSingleRow()));
                     break;
@@ -112,7 +112,7 @@ public class Parser {
                     expect(Tokenizer.Token.IDENT);
                     String var = tok.getIdent();
                     expect(Tokenizer.Token.COMMA);
-                    count = (int) parseInt();
+                    count = parseInt();
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat(var, count, parseRows(Tokenizer.Token.LOOP)));
                     break;
