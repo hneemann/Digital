@@ -25,6 +25,9 @@ hs_err_pid*
 # .idea/tasks.xml
 # .idea/dictionaries
 
+# MAC OS directory 
+.DS_Store
+
 # Sensitive or high-churn files:
 # .idea/dataSources.ids
 # .idea/dataSources.xml
