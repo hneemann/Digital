@@ -18,7 +18,6 @@ import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.SingleValueDialog;
 import de.neemann.digital.gui.sync.Sync;
-import de.neemann.gui.Screen;
 
 import java.awt.*;
 
@@ -81,11 +80,10 @@ public class InputShape implements Shape {
                     });
                     return true;
                 } else {
-                    if (dialog == null) {
+                    if (dialog == null || !dialog.isVisible()) {
                         Model model = ((In) element).getModel();
                         dialog = new SingleValueDialog(pos, label, value, cc, model, modelSync);
-                    } else
-                        Screen.setLocation(dialog, pos);
+                    }
                     dialog.setVisible(true);
                     return false;
                 }
