@@ -713,7 +713,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_splitterNotUnambiguously">Es sind Eingangsbits mehrfach definiert!</string>
     <string name="err_spitterToManyBits">Es sind nur 64 Bits im Splitter erlaubt!</string>
     <string name="err_tableBecomesToSmall">Es sind mindestens zwei Eingänge erforderlich!</string>
-    <string name="err_toManyInputs_max_N0_is_N1">Zu viele Eingänge. Es sind nur {0} Eingänge erlaubt, es wurden jedoch {1} gefunden.</string>
+    <string name="err_toManyInputs_max_N0_is_N1">Zu viele Variablen (Eingänge+Flipflops). Es sind nur {0} Variablen erlaubt, es wurden jedoch {1} gefunden.</string>
     <string name="err_toManyInputsIn_N0_max_N1_is_N2">Zu viele Variablen bei der Vereinfachung von {0}.
 Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_varNotAllowedInCUPL_N">In CUPL ist die Variable {0} nicht erlaubt!</string>
@@ -783,7 +783,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_mainClass_N_NotFound">Die Klasse {0} wurde nicht gefunden!</string>
     <string name="err_couldNotInitializeMainClass_N">Es konnte keine Instanz der Klasse {0} erzeugt werden!</string>
     <string name="err_notMoreOutBitsThanInBits">Es muss mehr Eingangsbits als Ausgangsbits geben!</string>
-    <string name="err_constantsNotAllowed">Konstante Werte sind hier nicht erlaubt!</string>
+    <string name="err_constantsNotAllowed">Physikalische Pins können nicht auf konstante Werte gesetzt werden!</string>
     <string name="err_invalidNumberFormat_N_N">Der String {0} ist keine Zahl (Pos {1})!</string>
     <string name="err_invalidPinName_N">Der Name &quot;{0}&quot; ist nicht erlaubt!</string>
     <string name="err_whiteSpaceNotAllowedInTT2Name">Im Namen der TT2-Datei ist kein Leerzeichen erlaubt!</string>

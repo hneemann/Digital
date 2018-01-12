@@ -709,7 +709,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_splitterNotUnambiguously">Input bits are defined several times!</string>
     <string name="err_spitterToManyBits">Only 64 bits allowed in splitter!</string>
     <string name="err_tableBecomesToSmall">Two inputs are required!</string>
-    <string name="err_toManyInputs_max_N0_is_N1">To many inputs, allowed are {0} but {1} are found.</string>
+    <string name="err_toManyInputs_max_N0_is_N1">To many variables (inputs+flip-flops), allowed are {0} but {1} are found.</string>
     <string name="err_toManyInputsIn_N0_max_N1_is_N2">To many variables used in {0},
 allowed are {1} variables but {2} are found.</string>
     <string name="err_varNotAllowedInCUPL_N">Variable {0} is not allowed in CUPL source!</string>
@@ -779,7 +779,7 @@ The names of the variables may not be unique.</string>
     <string name="err_mainClass_N_NotFound">Could not find the class {0}!</string>
     <string name="err_couldNotInitializeMainClass_N">Could not create an instance of the class {0}!</string>
     <string name="err_notMoreOutBitsThanInBits">There must be more input bits than output bits!</string>
-    <string name="err_constantsNotAllowed">Constant values are not allowed!</string>
+    <string name="err_constantsNotAllowed">It is not possible to set physical pins to constant values!</string>
     <string name="err_invalidNumberFormat_N_N">The string {0} is not a valid number (pos {1})!</string>
     <string name="err_invalidPinName_N">The name &quot;{0}&quot; is not allowed!</string>
     <string name="err_whiteSpaceNotAllowedInTT2Name">No white space is allowed in the name of the TT2 file!</string>
