@@ -467,6 +467,18 @@
     <string name="elem_RAMDualAccess_pin_ld">Ist diese Leitung high, wird der Ausgang D1 aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualAccess_pin_str">Ist diese Leitung high, wird das Datenwort an D1 gespeichert, wenn der Takt ansteigt.</string>
 
+    <string name="elem_RAMTripleAccess">RAM, Triple Port</string>
+    <string name="elem_RAMTripleAccess_short">RAM</string>
+    <string name="elem_RAMTripleAccess_tt">RAM with one port that allows to write and two ports that allow to read from the RAM simultaneously.</string>
+    <string name="elem_RAMTripleAccess_pin_1D">Output Port 1</string>
+    <string name="elem_RAMTripleAccess_pin_2D">Output Port 2</string>
+    <string name="elem_RAMTripleAccess_pin_1A">The address at which port 1 is read.</string>
+    <string name="elem_RAMTripleAccess_pin_2A">The address at which port 2 is read.</string>
+    <string name="elem_RAMTripleAccess_pin_C">Clock</string>
+    <string name="elem_RAMTripleAccess_pin_A">The address used to write data.</string>
+    <string name="elem_RAMTripleAccess_pin_D_in">The data to be stored in the RAM.</string>
+    <string name="elem_RAMTripleAccess_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
+
     <string name="elem_Counter">Zähler</string>
     <string name="elem_Counter_short">Zähler</string>
     <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein.
