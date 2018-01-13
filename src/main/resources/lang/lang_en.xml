@@ -470,6 +470,20 @@
     <string name="elem_RAMDualAccess_pin_ld">If this input is high the output is activated and the data is visible at the output 1D.</string>
     <string name="elem_RAMDualAccess_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
 
+    <string name="elem_RegisterFile">Register File</string>
+    <string name="elem_RegisterFile_short">Register</string>
+    <string name="elem_RegisterFile_tt">Memory with one port that allows to write and two ports that allow to read from
+        the memory simultaneously. Can be used to implement processor registers.
+        Two registers can be read simultaneously and a third can be written.</string>
+    <string name="elem_RegisterFile_pin_Da">Output Port a</string>
+    <string name="elem_RegisterFile_pin_Db">Output Port b</string>
+    <string name="elem_RegisterFile_pin_Ra">The register which is visible at port a.</string>
+    <string name="elem_RegisterFile_pin_Rb">The register which is visible at port b.</string>
+    <string name="elem_RegisterFile_pin_Rw">The register into which the data is written.</string>
+    <string name="elem_RegisterFile_pin_we">If this input is high and when the clock becomes high, the the data is stored.</string>
+    <string name="elem_RegisterFile_pin_C">Clock</string>
+    <string name="elem_RegisterFile_pin_Din">The data to be stored in the register Rw.</string>
+
     <string name="elem_Counter">Counter</string>
     <string name="elem_Counter_short">count</string>
     <string name="elem_Counter_tt">A simple counter component. The clock input increases the counter.

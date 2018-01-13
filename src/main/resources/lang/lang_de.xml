@@ -467,6 +467,20 @@
     <string name="elem_RAMDualAccess_pin_ld">Ist diese Leitung high, wird der Ausgang D1 aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualAccess_pin_str">Ist diese Leitung high, wird das Datenwort an D1 gespeichert, wenn der Takt ansteigt.</string>
 
+    <string name="elem_RegisterFile">Registerspeicher</string>
+    <string name="elem_RegisterFile_short">Register</string>
+    <string name="elem_RegisterFile_tt">Speicher mit einem Schreib- und zwei Leseports. Kann verwendet werden um
+        Prozessorregister zu implementieren.
+        Es können so gleichzeitig zwei Register gelesen und ein Drittes beschrieben werden.</string>
+    <string name="elem_RegisterFile_pin_Da">Inhalt des Registers a.</string>
+    <string name="elem_RegisterFile_pin_Db">Inhalt des Registers b.</string>
+    <string name="elem_RegisterFile_pin_Ra">Nummer des Registers a.</string>
+    <string name="elem_RegisterFile_pin_Rb">Nummer des Registers b.</string>
+    <string name="elem_RegisterFile_pin_Rw">Nummer des zu beschreibenden Registers.</string>
+    <string name="elem_RegisterFile_pin_we">Bei einer 1 werden die Daten in das Register Rw übernommen.</string>
+    <string name="elem_RegisterFile_pin_C">Takteingang</string>
+    <string name="elem_RegisterFile_pin_Din">Die zu schreibenden Daten.</string>
+
     <string name="elem_Counter">Zähler</string>
     <string name="elem_Counter_short">Zähler</string>
     <string name="elem_Counter_tt">Ein einfacher Zähler-Baustein.

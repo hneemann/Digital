@@ -37,10 +37,23 @@ public class RAMShape extends GenericShape {
      * @throws PinException  PinException
      */
     public RAMShape(ElementAttributes attr, ElementTypeDescription description) throws NodeException, PinException {
+        this(attr, description, 3);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param attr        the attributes of the element
+     * @param description element type description
+     * @param width       the used width
+     * @throws NodeException NodeException
+     * @throws PinException  PinException
+     */
+    public RAMShape(ElementAttributes attr, ElementTypeDescription description, int width) throws NodeException, PinException {
         super(description.getShortName(),
                 description.getInputDescription(attr),
                 description.getOutputDescriptions(attr),
-                attr.getLabel(), true);
+                attr.getLabel(), true, width);
         if (attr.getLabel().length() > 0)
             dialogTitle = attr.getLabel();
         else

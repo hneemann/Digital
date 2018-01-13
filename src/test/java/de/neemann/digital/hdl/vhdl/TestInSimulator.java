@@ -37,7 +37,7 @@ public class TestInSimulator extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::check).scan(examples);
-            assertEquals(25, tested);
+            assertEquals(26, tested);
             assertEquals(tested, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
@@ -79,7 +79,7 @@ public class TestInSimulator extends TestCase {
 
     /*
     public void testInSimulatorDebug() throws Exception {
-        File file = new File(Resources.getRoot(),"dig/test/vhdl/priorityEncoder.dig");
+        File file = new File(Resources.getRoot(),"dig/test/vhdl/registerFile.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
