@@ -73,3 +73,5 @@ buildNumber.properties
 /Digital.sh
 /upload.sh
 /copyToPluginExample.sh
+/.classpath
+/.project
