@@ -748,8 +748,11 @@ public class TableDialog extends JDialog {
         private final StringBuilder sb;
 
         private LaTeXExpressionListener(TruthTableTableModel model) throws ExpressionException {
-            String text = new TruthTableFormatterLaTeX().format(model.getTable());
-            sb = new StringBuilder(text);
+            sb = new StringBuilder();
+            if (model.getTable().getRows() <= 256) {
+                String text = new TruthTableFormatterLaTeX().format(model.getTable());
+                sb.append(text);
+            }
             sb.append("\\begin{eqnarray*}\n");
         }
 
