@@ -1416,6 +1416,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Vector delta;
         private Vector initialPos;
         private int initialRot;
+        private boolean normalEnd;
 
         private MouseControllerMoveElement(Cursor cursor) {
             super(cursor);
@@ -1430,6 +1431,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
             copyAction.setEnabled(true);
+            normalEnd = false;
             repaintNeeded();
         }
 
@@ -1440,6 +1442,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (!visualElement.getPos().equals(initialPos)
                         || visualElement.getRotate() != initialRot)
                     addModificationAlreadyMade(new ModifyMoveAndRotElement(visualElement, initialPos));
+                normalEnd = true;
             }
             mouseNormal.activate();
         }
@@ -1485,6 +1488,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 visualElement.setRotation(initialRot);
             }
             mouseNormal.activate();
+        }
+
+        @Override
+        void deactivate() {
+            if (!normalEnd && !isLocked()) {
+                visualElement.setPos(raster(initialPos));
+                visualElement.setRotation(initialRot);
+            }
         }
 
         public VisualElement getVisualElement() {

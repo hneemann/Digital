@@ -864,7 +864,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false);
 
-        ToolTipAction stoppedStateAction = stoppedState.createToolTipAction(Lang.get("menu_element"), ICON_STOP).setToolTip(Lang.get("menu_element_tt"));
+        ToolTipAction stoppedStateAction = stoppedState
+                .createToolTipAction(Lang.get("menu_element"), ICON_STOP)
+                .setToolTip(Lang.get("menu_element_tt"))
+                .setEnabledChain(false);
 
         ToolTipAction runTests = new ToolTipAction(Lang.get("menu_runTests"), ICON_TEST) {
             @Override
