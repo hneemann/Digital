@@ -1144,8 +1144,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_probe_memory_tt">Shows the content of memory components.</string>
     <string name="menu_treeSelect">Component Tree View</string>
     <string name="menu_treeSelect_tt">Shows a tree view of available components at the left side.</string>
-    <string name="menu_karnaughMap">KV-Map</string>
-    <string name="menu_karnaughMap_tt">Shows a KV map representation of the Table!</string>
+    <string name="menu_karnaughMap">K-Map</string>
+    <string name="menu_karnaughMap_tt">Shows a K-map representation of the Table!</string>
 
     <string name="menu_special">Special 74xx Funtions</string>
     <string name="menu_addPrefix">Add IO-Prefix</string>
@@ -1285,7 +1285,7 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="win_testdata_N">Testdata {0}</string>
     <string name="win_data">Data</string>
     <string name="win_valueInputTitle_N">Input {0}</string>
-    <string name="win_karnaughMap">Karnaugh-Veitch Map</string>
+    <string name="win_karnaughMap">Karnaugh Map</string>
 
     <string name="btn_help">Help</string>
 

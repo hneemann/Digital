@@ -8,6 +8,8 @@ The most recent changes are listed in the [release notes](distribution/ReleaseNo
 
 ![screnshot](screenshot.png)
 
+![screnshot2](screenshot2.png)
+
 Digital is a simulator for digital circuits. It is designed for educational purposes and I use it in my lectures.
 Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logisim/), developed by Carl Burch.
 If you are familiar with Logisim you will recognize the wire color scheme.
