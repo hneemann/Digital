@@ -77,6 +77,8 @@ public class BitsTest extends TestCase {
         assertEquals(0xFFFFFFFFFFFFFFFFL, Bits.decode("0xFFFFFFFFFFFFFFFF"));
 
         assertEquals(0xFFFFFFFFFFFFFFFFL, Bits.decode("FFFFFFFFFFFFFFFF", 0, 16));
+
+        assertEquals(42, Bits.decode("'*'"));
     }
 
     public void testDecodeInvalid() {

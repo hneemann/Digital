@@ -1,5 +1,7 @@
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.io.IntFormat;
+
 /**
  * A simple storage bean for signals
  */
@@ -7,6 +9,7 @@ public final class Signal implements Comparable<Signal> {
     private final String name;
     private final ObservableValue value;
     private final Setter setter;
+    private IntFormat format = IntFormat.def;
     private String pinNumber;
     private boolean isPin = false;
 
@@ -54,6 +57,23 @@ public final class Signal implements Comparable<Signal> {
     }
 
     /**
+     * Sets the integer format to create a string
+     *
+     * @param format the format
+     * @return this for chained calls
+     */
+    public Signal setFormat(IntFormat format) {
+        if (format != null) {
+            if (format == IntFormat.def && value.getBits() > 1)
+                this.format = IntFormat.hex;
+            else
+                this.format = format;
+        }
+        return this;
+    }
+
+
+    /**
      * Gets the number of this pin.
      *
      * @return the pin number of -1 if no pin is given
@@ -97,6 +117,13 @@ public final class Signal implements Comparable<Signal> {
     }
 
     /**
+     * @return the value in the spscified format
+     */
+    public String getValueString() {
+        return format.editableFormat(value.getCopy());
+    }
+
+    /**
      * Returns true if this signal is a valid signal.
      * Valid means there is a name and the value is non null
      *
@@ -130,7 +157,8 @@ public final class Signal implements Comparable<Signal> {
          * Has to modify the inner state and also has to update the outputs.
          *
          * @param value the value to set
+         * @param highZ true is value is in high z state
          */
-        void set(long value);
+        void set(long value, boolean highZ);
     }
 }

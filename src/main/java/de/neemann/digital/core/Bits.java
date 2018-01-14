@@ -88,7 +88,7 @@ public final class Bits {
 
     /**
      * Decodes a string to a long.
-     * Supports decimal, octal, hex and binary
+     * Supports decimal, octal, hex, binary and ascii
      *
      * @param str the string
      * @return the long value
@@ -139,6 +139,10 @@ public final class Bits {
                 p++;
                 if (p == str.length()) throw new NumberFormatException(str, p);
                 break;
+            case '\'':
+                p++;
+                if (p == str.length()) throw new NumberFormatException(str, p);
+                return str.charAt(p);
             default:
                 if (wasZero) {
                     if (neg) throw new NumberFormatException(str, p);

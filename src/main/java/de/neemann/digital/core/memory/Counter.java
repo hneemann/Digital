@@ -94,7 +94,7 @@ public class Counter extends Node implements Element {
     public void registerNodes(Model model) {
         super.registerNodes(model);
         if (probe)
-            model.addSignal(new Signal(label, out, v -> {
+            model.addSignal(new Signal(label, out, (v, z) -> {
                 counter = v;
                 boolean o = (counter == maxValue) && enable.getBool();
                 out.setValue(counter);

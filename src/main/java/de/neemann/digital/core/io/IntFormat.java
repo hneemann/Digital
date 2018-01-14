@@ -60,6 +60,35 @@ public enum IntFormat {
         }
     }
 
+    /**
+     * Formats the value.
+     * Creates a string which can be parsed by {@link Bits#decode(String)}
+     *
+     * @param inValue the value to format
+     * @return the formatted value as a string
+     * @see Bits#decode(String)
+     */
+    public String editableFormat(Value inValue) {
+        if (inValue.isHighZ())
+            return "?";
+
+        switch (this) {
+            case dec:
+                return Long.toString(inValue.getValue());
+            case decSigned:
+                return Long.toString(inValue.getValueSigned());
+            case hex:
+                return "0x" + toHex(inValue);
+            case bin:
+                return "0b" + toBin(inValue);
+            case ascii:
+                return "'" + (char) inValue.getValue() + "'";
+            default:
+                return inValue.getValueString();
+        }
+    }
+
+
     private static String toHex(Value inValue) {
         final int bits = inValue.getBits();
         final int numChars = (bits - 1) / 4 + 1;

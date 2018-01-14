@@ -39,6 +39,7 @@ public class In implements Element {
     private final ObservableValue output;
     private final String label;
     private final String pinNumber;
+    private final IntFormat format;
     private Model model;
 
     /**
@@ -53,6 +54,7 @@ public class In implements Element {
         output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION).setPinNumber(pinNumber);
         output.set(value.getValue(), value.isHighZ());
         label = attributes.getCleanLabel();
+        format = attributes.get(Keys.INT_FORMAT);
     }
 
     @Override
@@ -67,7 +69,9 @@ public class In implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addInput(new Signal(label, output, output::setValue).setPinNumber(pinNumber));
+        model.addInput(new Signal(label, output, output::set)
+                .setPinNumber(pinNumber)
+                .setFormat(format));
         this.model = model;
     }
 
