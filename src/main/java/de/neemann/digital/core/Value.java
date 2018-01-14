@@ -1,7 +1,5 @@
 package de.neemann.digital.core;
 
-import static de.neemann.digital.core.ObservableValue.getHexString;
-
 /**
  * Represents a copy of a value.
  * Call {@link ObservableValue#getCopy()} to obtain a value.
@@ -47,14 +45,7 @@ public class Value {
      * @return the signals value
      */
     public long getValueSigned() {
-        if (bits >= 64)
-            return value;
-        else {
-            if ((value & Bits.signedFlagMask(bits)) == 0)
-                return value;
-            else
-                return value | ~Bits.mask(bits);
-        }
+        return Bits.signExtend(value, bits);
     }
 
     /**
@@ -81,7 +72,7 @@ public class Value {
         if (highZ)
             return "?";
         else {
-            return getHexString(value);
+            return IntFormat.toShortHex(value);
         }
     }
 

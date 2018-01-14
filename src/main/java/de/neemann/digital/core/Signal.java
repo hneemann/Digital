@@ -1,7 +1,5 @@
 package de.neemann.digital.core;
 
-import de.neemann.digital.core.io.IntFormat;
-
 /**
  * A simple storage bean for signals
  */
@@ -103,7 +101,6 @@ public final class Signal implements Comparable<Signal> {
         Signal signal = (Signal) o;
 
         return name.equals(signal.name);
-
     }
 
     @Override

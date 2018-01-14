@@ -14,7 +14,7 @@ import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.IntFormat;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;

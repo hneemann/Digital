@@ -4,7 +4,7 @@ import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.IntFormat;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;

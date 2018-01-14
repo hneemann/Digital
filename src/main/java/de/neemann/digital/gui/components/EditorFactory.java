@@ -7,7 +7,7 @@ import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.IntFormat;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;

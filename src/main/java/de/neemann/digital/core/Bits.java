@@ -72,6 +72,24 @@ public final class Bits {
         return (value & signedFlagMask(bits)) != 0;
     }
 
+    /**
+     * Sign extension of the value.
+     * signExtend(3,2) returns -1.
+     *
+     * @param value the value
+     * @param bits  number of bits
+     * @return the sign extended value
+     */
+    public static long signExtend(long value, int bits) {
+        if (bits >= 64)
+            return value;
+        else {
+            if ((value & signedFlagMask(bits)) == 0)
+                return value;
+            else
+                return value | ~mask(bits);
+        }
+    }
 
     /**
      * Calculates the number of bits needed to store the given value b.

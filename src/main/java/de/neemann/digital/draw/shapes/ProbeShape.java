@@ -6,7 +6,7 @@ import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.core.io.IntFormat;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;

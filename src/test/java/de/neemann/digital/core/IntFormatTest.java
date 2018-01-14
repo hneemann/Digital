@@ -1,7 +1,5 @@
-package de.neemann.digital.core.io;
+package de.neemann.digital.core;
 
-import de.neemann.digital.core.Bits;
-import de.neemann.digital.core.Value;
 import junit.framework.TestCase;
 
 public class IntFormatTest extends TestCase {
@@ -34,6 +32,13 @@ public class IntFormatTest extends TestCase {
     public void testDec() throws Exception {
         assertEquals("3", IntFormat.dec.formatToView(new Value(-1, 2)));
         assertEquals("-1", IntFormat.decSigned.formatToView(new Value(-1, 2)));
+    }
+
+    public void testDef() throws Exception {
+        assertEquals("3", IntFormat.def.formatToView(new Value(3, 64)));
+        assertEquals("0x113", IntFormat.def.formatToView(new Value(0x113, 64)));
+        assertEquals("1A3", IntFormat.def.formatToView(new Value(0x1A3, 64)));
+        assertEquals("FFFFFFFFFFFFFFFF", IntFormat.def.formatToView(new Value(-1, 64)));
     }
 
     /**

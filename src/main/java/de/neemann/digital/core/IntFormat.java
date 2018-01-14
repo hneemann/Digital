@@ -1,16 +1,11 @@
-package de.neemann.digital.core.io;
-
-
-import de.neemann.digital.core.Bits;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Value;
+package de.neemann.digital.core;
 
 /**
  * @author hneemann
  */
 public enum IntFormat {
     /**
-     * the default format as defined in {@link ObservableValue#getValueString()}
+     * the default format
      */
     def,
     /**
@@ -58,7 +53,7 @@ public enum IntFormat {
             case ascii:
                 return "" + (char) inValue.getValue();
             default:
-                return inValue.toString();
+                return toShortHex(inValue.getValue(), false);
         }
     }
 
@@ -79,15 +74,19 @@ public enum IntFormat {
                 return Long.toString(inValue.getValue());
             case decSigned:
                 return Long.toString(inValue.getValueSigned());
+            case hex:
+                return "0x" + toHex(inValue);
             case bin:
                 return "0b" + toBin(inValue);
             case ascii:
                 return "'" + (char) inValue.getValue() + "'";
             default:
-                return "0x" + toHex(inValue);
+                return "0x" + toShortHex(inValue.getValue(), true);
         }
     }
 
+
+    private static final char[] DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     private static String toHex(Value inValue) {
         final int bits = inValue.getBits();
@@ -97,23 +96,61 @@ public enum IntFormat {
         final long value = inValue.getValue();
         for (int i = numChars - 1; i >= 0; i--) {
             int c = (int) ((value >> (i * 4)) & 0xf);
-            sb.append("0123456789ABCDEF".charAt(c));
+            sb.append(DIGITS[c]);
         }
         return sb.toString();
     }
 
+
+
+    /**
+     * Creates a short hex representation of the given value.
+     * Use only to represent a value.
+     * If confusion is excluded, the prefix '0x' is omitted.
+     * Thus 0x1A3 is converted to "1A3" which can not be parsed back to a long because "0x" is missing.
+     *
+     * @param value the value
+     * @return the hex string
+     */
+    public static String toShortHex(long value) {
+        return toShortHex(value, false);
+    }
+
+    private static final int BUF = 16;
+
+    private static String toShortHex(long value, boolean omitPrefixAlways) {
+        if (value == 0)
+            return "0";
+
+        boolean wasChar = false;
+        int p = BUF;
+        char[] data = new char[BUF];
+        while (value != 0) {
+            final int d = (int) (value & 0xf);
+            if (d >= 10) wasChar = true;
+            p--;
+            data[p] = DIGITS[d];
+            value >>>= 4;
+        }
+
+        if (omitPrefixAlways || wasChar || p == BUF - 1)
+            return new String(data, p, BUF - p);
+        else
+            return "0x" + new String(data, p, BUF - p);
+    }
+
     private static String toBin(Value inValue) {
         final int bits = inValue.getBits();
-        StringBuilder sb = new StringBuilder(bits);
+        char[] data = new char[bits];
         final long value = inValue.getValue();
-        long mask = Bits.signedFlagMask(bits);
-        for (int i = 0; i < bits; i++) {
+        long mask = 1;
+        for (int i = bits - 1; i >= 0; i--) {
             if ((value & mask) != 0)
-                sb.append('1');
+                data[i] = '1';
             else
-                sb.append('0');
-            mask >>>= 1;
+                data[i] = '0';
+            mask <<= 1;
         }
-        return sb.toString();
+        return new String(data);
     }
 }
