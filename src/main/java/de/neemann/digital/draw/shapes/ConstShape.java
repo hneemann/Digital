@@ -35,7 +35,7 @@ public class ConstShape implements Shape {
         this.outputs = outputs;
         int bits = attr.getBits();
         IntFormat format = attr.get(Keys.INT_FORMAT);
-        this.value = format.format(new Value(attr.get(Keys.VALUE), bits));
+        this.value = format.formatToView(new Value(attr.get(Keys.VALUE), bits));
     }
 
     @Override

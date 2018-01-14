@@ -35,12 +35,14 @@ public enum IntFormat {
     ascii;
 
     /**
-     * Formats the value
+     * Formats the value.
+     * Uses this method to create a string which is only shown to the user.
+     * If the user is able to edit the string use {@link IntFormat#formatToEdit(Value)} instead.
      *
      * @param inValue the value to format
      * @return the formatted value as a string
      */
-    public String format(Value inValue) {
+    public String formatToView(Value inValue) {
         if (inValue.isHighZ())
             return "?";
 
@@ -56,7 +58,7 @@ public enum IntFormat {
             case ascii:
                 return "" + (char) inValue.getValue();
             default:
-                return inValue.getValueString();
+                return inValue.toString();
         }
     }
 
@@ -68,7 +70,7 @@ public enum IntFormat {
      * @return the formatted value as a string
      * @see Bits#decode(String)
      */
-    public String editableFormat(Value inValue) {
+    public String formatToEdit(Value inValue) {
         if (inValue.isHighZ())
             return "?";
 
@@ -77,14 +79,12 @@ public enum IntFormat {
                 return Long.toString(inValue.getValue());
             case decSigned:
                 return Long.toString(inValue.getValueSigned());
-            case hex:
-                return "0x" + toHex(inValue);
             case bin:
                 return "0b" + toBin(inValue);
             case ascii:
                 return "'" + (char) inValue.getValue() + "'";
             default:
-                return inValue.getValueString();
+                return "0x" + toHex(inValue);
         }
     }
 
@@ -112,7 +112,7 @@ public enum IntFormat {
                 sb.append('1');
             else
                 sb.append('0');
-            mask >>= 1;
+            mask >>>= 1;
         }
         return sb.toString();
     }

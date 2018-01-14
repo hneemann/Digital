@@ -76,7 +76,8 @@ public class Value {
      *
      * @return the value as string
      */
-    public String getValueString() {
+    @Override
+    public String toString() {
         if (highZ)
             return "?";
         else {
@@ -84,4 +85,16 @@ public class Value {
         }
     }
 
+    /**
+     * Compares two values
+     *
+     * @param other the other value
+     * @return true if equal
+     */
+    public boolean isEqual(Value other) {
+        if (highZ != other.highZ)
+            return false;
+
+        return highZ || value == other.value;
+    }
 }

@@ -120,7 +120,7 @@ public class InputShape implements Shape {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
                     Vector textPos = new Vector(-1 - SIZE, -4 - SIZE);
-                    graphic.drawText(textPos, textPos.add(1, 0), format.format(value), Orientation.CENTERBOTTOM, Style.NORMAL);
+                    graphic.drawText(textPos, textPos.add(1, 0), format.formatToView(value), Orientation.CENTERBOTTOM, Style.NORMAL);
                 }
             }
 

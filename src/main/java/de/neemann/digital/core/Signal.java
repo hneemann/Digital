@@ -117,10 +117,10 @@ public final class Signal implements Comparable<Signal> {
     }
 
     /**
-     * @return the value in the spscified format
+     * @return the value in the specified format
      */
     public String getValueString() {
-        return format.editableFormat(value.getCopy());
+        return format.formatToEdit(value.getCopy());
     }
 
     /**
