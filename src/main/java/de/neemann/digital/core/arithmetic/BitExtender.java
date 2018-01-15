@@ -48,12 +48,15 @@ public class BitExtender implements Element {
         final long signMask = Bits.signedFlagMask(inBits);
         final long extendMask = ~Bits.mask(inBits);
 
-        in.addObserver(() -> {
-            long inValue = in.getValue();
-            if ((inValue & signMask) == 0)
-                out.setValue(inValue);
-            else
-                out.setValue(inValue | extendMask);
+        in.addObserver(new NodeWithoutDelay(out) {
+            @Override
+            public void hasChanged() {
+                long inValue = in.getValue();
+                if ((inValue & signMask) == 0)
+                    out.setValue(inValue);
+                else
+                    out.setValue(inValue | extendMask);
+            }
         }).hasChanged();
     }
 
