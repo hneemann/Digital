@@ -12,6 +12,7 @@ import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.lang.Lang;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -66,7 +67,10 @@ public class TruthTable {
      * @throws IOException IOException
      */
     public void saveHex(File filename) throws IOException {
-        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
+        if (results.size() > 63)
+            throw new IOException(Lang.get("err_tableHasToManyResultColumns"));
+
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"))) {
             saveHex(out);
         }
     }
@@ -81,15 +85,15 @@ public class TruthTable {
         writer.write("v2.0 raw\n");
         int count = results.get(0).getValues().size();
         for (int i = 0; i < count; i++) {
-            int val = 0;
-            int mask = 1;
+            long val = 0;
+            long mask = 1;
             for (Result r : results) {
                 ThreeStateValue v = r.getValues().get(i);
                 if (v == ThreeStateValue.one)
                     val |= mask;
                 mask *= 2;
             }
-            writer.write(Integer.toHexString(val));
+            writer.write(Long.toHexString(val));
             writer.write('\n');
         }
     }
@@ -102,6 +106,7 @@ public class TruthTable {
         xStream.aliasAttribute(Variable.class, "identifier", "name");
         xStream.alias("result", Result.class);
         xStream.alias("BoolTable", BoolTableByteArray.class);
+        xStream.alias("BoolTableEx", BoolTableExpanded.class);
         return xStream;
     }
 

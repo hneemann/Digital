@@ -797,6 +797,7 @@ The names of the variables may not be unique.</string>
     <string name="err_invalidNumberFormat_N_N">The string {0} is not a valid number (pos {1})!</string>
     <string name="err_invalidPinName_N">The name &quot;{0}&quot; is not allowed!</string>
     <string name="err_whiteSpaceNotAllowedInTT2Name">No white space is allowed in the name of the TT2 file!</string>
+    <string name="err_tableHasToManyResultColumns">The table has too many columns!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1262,6 +1263,8 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="msg_modifyThisAttribute">Modify this Value</string>
     <string name="msg_invalidEditorValue">On of the fields contains a invalid value!</string>
     <string name="msg_create CHNFile">Creation of CHN file.</string>
+    <string name="msg_tableHasManyRowsConfirm">The table is very large, the export may take a while.
+Start export anyway?</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
