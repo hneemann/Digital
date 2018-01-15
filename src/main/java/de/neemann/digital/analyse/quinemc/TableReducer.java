@@ -1,5 +1,6 @@
 package de.neemann.digital.analyse.quinemc;
 
+import de.neemann.digital.analyse.BoolTableExpanded;
 import de.neemann.digital.analyse.expression.Variable;
 
 import java.util.ArrayList;
@@ -29,12 +30,30 @@ public class TableReducer {
     }
 
     /**
-     * Returns true if there are reduce variables
+     * Returns true if it is possible to reduce variables
      *
      * @return true is reduction was possible
      */
     public boolean canReduce() {
+        if (table instanceof BoolTableExpanded) {
+            BoolTableExpanded t = (BoolTableExpanded) table;
+            vars = t.getVars();
+            table = t.getBoolTable();
+            canReduceOnlyCheckTable();
+            return true;
+        } else
+            return canReduceOnlyCheckTable();
+    }
+
+    /**
+     * Returns true if it is possible to reduce variables
+     * Only used for tests!!!
+     *
+     * @return true is reduction was possible
+     */
+    public boolean canReduceOnlyCheckTable() {
         boolean isReduced = false;
+
         Iterator<Variable> it = vars.iterator();
         int var = 0;
         while (it.hasNext()) {

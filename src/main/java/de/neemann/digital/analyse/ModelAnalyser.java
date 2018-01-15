@@ -33,7 +33,6 @@ public class ModelAnalyser {
     private final Model model;
     private final ArrayList<Signal> inputs;
     private final ArrayList<Signal> outputs;
-    private final int rows;
     private int uniqueIndex = 0;
 
     /**
@@ -95,12 +94,8 @@ public class ModelAnalyser {
 
         if (inputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoInputs"));
-        if (inputs.size() > MAX_INPUTS_ALLOWED)
-            throw new AnalyseException(Lang.get("err_toManyInputs_max_N0_is_N1", MAX_INPUTS_ALLOWED, inputs.size()));
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
-        rows = 1 << inputs.size();
-        LOGGER.debug("table has " + rows + " rows");
     }
 
     private String createUniqueName(FlipflopD ff) {
@@ -123,6 +118,63 @@ public class ModelAnalyser {
             for (int j = i + 1; j < signals.size(); j++)
                 if (signals.get(i).equals(signals.get(j)))
                     throw new AnalyseException(Lang.get("err_varName_N_UsedTwice", signals.get(i).getName()));
+    }
+
+    private ArrayList<Signal> checkBinaryOutputs(ArrayList<Signal> list) throws AnalyseException {
+        ArrayList<Signal> outputs = new ArrayList<>();
+        for (Signal s : list) {
+            final int bits = s.getValue().getBits();
+            if (bits == 1)
+                outputs.add(s);
+            else {
+                try {
+                    Splitter sp = Splitter.createOneToN(bits);
+                    sp.setInputs(s.getValue().asList());
+                    int i = 0;
+                    for (ObservableValue out : sp.getOutputs()) {
+                        outputs.add(new Signal(s.getName() + i, out));
+                        i++;
+                    }
+                    s.getValue().fireHasChanged();
+                } catch (NodeException e) {
+                    throw new AnalyseException(e);
+                }
+            }
+        }
+        return outputs;
+    }
+
+    private ArrayList<Signal> checkBinaryInputs(ArrayList<Signal> list) throws AnalyseException {
+        ArrayList<Signal> inputs = new ArrayList<>();
+        for (Signal s : list) {
+            final int bits = s.getValue().getBits();
+            if (bits == 1)
+                inputs.add(s);
+            else {
+                try {
+                    Splitter sp = Splitter.createNToOne(bits);
+                    final ObservableValue out = sp.getOutputs().get(0);
+                    out.addObserver(new NodeWithoutDelay(s.getValue()) {
+                        @Override
+                        public void hasChanged() {
+                            s.getValue().setValue(out.getValue());
+                        }
+                    });
+                    out.fireHasChanged();
+
+                    ObservableValues.Builder builder = new ObservableValues.Builder();
+                    for (int i = 0; i < bits; i++) {
+                        ObservableValue o = new ObservableValue(s.getName() + i, 1);
+                        builder.add(o);
+                        inputs.add(new Signal(s.getName() + i, o));
+                    }
+                    sp.setInputs(builder.build());
+                } catch (NodeException e) {
+                    throw new AnalyseException(e);
+                }
+            }
+        }
+        return inputs;
     }
 
     private void checkClock(Node node) throws AnalyseException {
@@ -190,115 +242,6 @@ public class ModelAnalyser {
             }
         }
         return out;
-    }
-
-
-    private ArrayList<Signal> checkBinaryOutputs(ArrayList<Signal> list) throws AnalyseException {
-        ArrayList<Signal> outputs = new ArrayList<>();
-        for (Signal s : list) {
-            final int bits = s.getValue().getBits();
-            if (bits == 1)
-                outputs.add(s);
-            else {
-                try {
-                    Splitter sp = Splitter.createOneToN(bits);
-                    sp.setInputs(s.getValue().asList());
-                    int i = 0;
-                    for (ObservableValue out : sp.getOutputs()) {
-                        outputs.add(new Signal(s.getName() + i, out));
-                        i++;
-                    }
-                    s.getValue().fireHasChanged();
-                } catch (NodeException e) {
-                    throw new AnalyseException(e);
-                }
-            }
-        }
-        return outputs;
-    }
-
-    private ArrayList<Signal> checkBinaryInputs(ArrayList<Signal> list) throws AnalyseException {
-        ArrayList<Signal> inputs = new ArrayList<>();
-        for (Signal s : list) {
-            final int bits = s.getValue().getBits();
-            if (bits == 1)
-                inputs.add(s);
-            else {
-                try {
-                    Splitter sp = Splitter.createNToOne(bits);
-                    final ObservableValue out = sp.getOutputs().get(0);
-                    out.addObserver(new NodeWithoutDelay(s.getValue()) {
-                        @Override
-                        public void hasChanged() {
-                            s.getValue().setValue(out.getValue());
-                        }
-                    });
-                    out.fireHasChanged();
-
-                    ObservableValues.Builder builder = new ObservableValues.Builder();
-                    for (int i = 0; i < bits; i++) {
-                        ObservableValue o = new ObservableValue(s.getName() + i, 1);
-                        builder.add(o);
-                        inputs.add(new Signal(s.getName() + i, o));
-                    }
-                    sp.setInputs(builder.build());
-                } catch (NodeException e) {
-                    throw new AnalyseException(e);
-                }
-            }
-        }
-        return inputs;
-    }
-
-
-    /**
-     * Analyses the circuit
-     *
-     * @return the generated truth table
-     * @throws NodeException      NodeException
-     * @throws PinException       PinException
-     * @throws BacktrackException BacktrackException
-     */
-    public TruthTable analyse() throws NodeException, PinException, BacktrackException {
-        LOGGER.debug("start to analyse the model...");
-        long time = System.currentTimeMillis();
-        BitSetter bitsetter = new BitSetter(inputs.size()) {
-            @Override
-            public void setBit(int row, int bit, boolean value) {
-                inputs.get(bit).getValue().setBool(value);
-            }
-        };
-
-        TruthTable tt = new TruthTable().setPinsWithoutNumber(model.getPinsWithoutNumber());
-        for (Signal s : inputs)
-            tt.addVariable(s.getName());
-
-        for (Signal s : inputs)
-            tt.addPinNumber(s);
-        for (Signal s : outputs)
-            tt.addPinNumber(s);
-
-        if (model.getClocks().size() == 1)
-            tt.setClockPin(model.getClocks().get(0).getClockPin());
-
-        ArrayList<BoolTableByteArray> data = new ArrayList<>();
-        for (Signal s : outputs) {
-            BoolTableByteArray e = new BoolTableByteArray(rows);
-            data.add(e);
-            tt.addResult(s.getName(), e);
-        }
-
-        model.init();
-        for (int row = 0; row < rows; row++) {
-            bitsetter.fill(row);
-            model.doStep();
-            for (int i = 0; i < outputs.size(); i++) {
-                data.get(i).set(row, outputs.get(i).getValue().getBool());
-            }
-        }
-        time = System.currentTimeMillis() - time;
-        LOGGER.debug("model analysis: " + time / 1000.0 + " sec");
-        return tt;
     }
 
     private void replaceJKFF() throws NodeException, AnalyseException {
@@ -374,4 +317,114 @@ public class ModelAnalyser {
     public ArrayList<Signal> getOutputs() {
         return outputs;
     }
+
+    /**
+     * Analyses the circuit
+     *
+     * @return the generated truth table
+     * @throws NodeException      NodeException
+     * @throws PinException       PinException
+     * @throws BacktrackException BacktrackException
+     * @throws AnalyseException   AnalyseException
+     */
+    public TruthTable analyse() throws NodeException, PinException, BacktrackException, AnalyseException {
+        LOGGER.debug("start to analyse the model...");
+
+        TruthTable tt = new TruthTable().setPinsWithoutNumber(model.getPinsWithoutNumber());
+        for (Signal s : inputs)
+            tt.addVariable(s.getName());
+
+        for (Signal s : inputs)
+            tt.addPinNumber(s);
+        for (Signal s : outputs)
+            tt.addPinNumber(s);
+
+        if (model.getClocks().size() == 1)
+            tt.setClockPin(model.getClocks().get(0).getClockPin());
+
+        DependencyAnalyser da = new DependencyAnalyser(this);
+        long steps = da.getRequiredSteps(this);
+
+        long tableRows = 1L << inputs.size();
+        LOGGER.debug("analyse speedup: " + tableRows + " rows vs " + steps + " steps, speedup " + ((double) tableRows) / steps);
+
+        long time = System.currentTimeMillis();
+
+
+        if (tableRows <= steps || tableRows <= 128)
+            simpleFiller(tt);
+        else
+            dependantFiller(tt, da);
+
+        time = System.currentTimeMillis() - time;
+        LOGGER.debug("model analysis: " + time / 1000.0 + " sec");
+
+        return tt;
+    }
+
+    private void simpleFiller(TruthTable tt) throws NodeException, AnalyseException {
+        if (inputs.size() > MAX_INPUTS_ALLOWED)
+            throw new AnalyseException(Lang.get("err_toManyInputs_max_N0_is_N1", MAX_INPUTS_ALLOWED, inputs.size()));
+
+
+        BitSetter bitsetter = new BitSetter(inputs.size()) {
+            @Override
+            public void setBit(int row, int bit, boolean value) {
+                inputs.get(bit).getValue().setBool(value);
+            }
+        };
+
+        int rows = 1 << inputs.size();
+        ArrayList<BoolTableByteArray> data = new ArrayList<>();
+        for (Signal s : outputs) {
+            BoolTableByteArray e = new BoolTableByteArray(rows);
+            data.add(e);
+            tt.addResult(s.getName(), e);
+        }
+
+        model.init();
+        for (int row = 0; row < rows; row++) {
+            bitsetter.fill(row);
+            model.doStep();
+            for (int i = 0; i < outputs.size(); i++) {
+                data.get(i).set(row, outputs.get(i).getValue().getBool());
+            }
+        }
+    }
+
+    private void dependantFiller(TruthTable tt, DependencyAnalyser da) throws NodeException, AnalyseException {
+        model.init();
+        for (Signal out : outputs) {
+
+            ArrayList<Signal> ins = reorder(da.getInputs(out), inputs);
+            if (ins.size() > MAX_INPUTS_ALLOWED)
+                throw new AnalyseException(Lang.get("err_toManyInputs_max_N0_is_N1", MAX_INPUTS_ALLOWED, ins.size()));
+
+            int rows = 1 << ins.size();
+            BoolTableByteArray e = new BoolTableByteArray(rows);
+            BitSetter bitsetter = new BitSetter(ins.size()) {
+                @Override
+                public void setBit(int row, int bit, boolean value) {
+                    ins.get(bit).getValue().setBool(value);
+                }
+            };
+
+            for (int row = 0; row < rows; row++) {
+                bitsetter.fill(row);
+                model.doStep();
+                e.set(row, out.getValue().getBool());
+            }
+
+            tt.addResult(out.getName(), new BoolTableExpanded(e, ins, inputs));
+        }
+    }
+
+    private ArrayList<Signal> reorder(ArrayList<Signal> ins, ArrayList<Signal> originalOrder) {
+        ArrayList<Signal> newList = new ArrayList<>();
+        for (Signal i : originalOrder)
+            if (ins.contains(i))
+                newList.add(i);
+        return newList;
+    }
+
 }

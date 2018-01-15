@@ -105,6 +105,22 @@ public final class Bits {
     }
 
     /**
+     * Removes a bit from a value.
+     * This means it shifts the higher bits down. Behaves like removing an item from a list.
+     *
+     * @param value the value
+     * @param bit   the bit to remove
+     * @return the new value
+     */
+    public static int removeBitFromValue(int value, int bit) {
+        if (bit > 0) {
+            return ((value & (~((1 << (bit + 1)) - 1))) >>> 1) | (value & ((1 << bit) - 1));
+        } else {
+            return value >>> 1;
+        }
+    }
+
+    /**
      * Decodes a string to a long.
      * Supports decimal, octal, hex, binary and ascii
      *

@@ -109,4 +109,21 @@ public class BitsTest extends TestCase {
         }
     }
 
+    public void testRemoveBitFromValue() {
+        assertEquals(0b111, Bits.removeBitFromValue(0b1110, 0));
+        assertEquals(0b111, Bits.removeBitFromValue(0b1111, 0));
+        assertEquals(0b101, Bits.removeBitFromValue(0b1010, 0));
+        assertEquals(0b101, Bits.removeBitFromValue(0b1011, 0));
+        assertEquals(0b111, Bits.removeBitFromValue(0b1101, 1));
+        assertEquals(0b111, Bits.removeBitFromValue(0b1111, 1));
+        assertEquals(0b101, Bits.removeBitFromValue(0b1001, 1));
+        assertEquals(0b101, Bits.removeBitFromValue(0b1011, 1));
+        assertEquals(0b110, Bits.removeBitFromValue(0b1100, 1));
+        assertEquals(0b110, Bits.removeBitFromValue(0b1110, 1));
+        assertEquals(0b111, Bits.removeBitFromValue(0b1111, 2));
+        assertEquals(0b000, Bits.removeBitFromValue(0b0100, 2));
+        assertEquals(0b010, Bits.removeBitFromValue(0b0110, 2));
+        assertEquals(0b100, Bits.removeBitFromValue(0b1100, 2));
+    }
+
 }

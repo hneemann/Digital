@@ -404,6 +404,19 @@ public class TruthTable {
     }
 
     /**
+     * Returns the result with the given name
+     *
+     * @param resultName the result name
+     * @return the table representing the result or null if not found
+     */
+    public BoolTable getResult(String resultName) {
+        for (Result r : results)
+            if (r.getName().equals(resultName))
+                return r.getValues();
+        return null;
+    }
+
+    /**
      * Returns the results name
      *
      * @param result index of result
