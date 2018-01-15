@@ -81,7 +81,11 @@ public enum IntFormat {
             case ascii:
                 return "'" + (char) inValue.getValue() + "'";
             default:
-                return "0x" + toShortHex(inValue.getValue(), true);
+                final long value = inValue.getValue();
+                if (value >= 0 && value < 10)
+                    return toShortHex(value, true);
+                else
+                    return "0x" + toShortHex(value, true);
         }
     }
 
@@ -102,7 +106,6 @@ public enum IntFormat {
     }
 
 
-
     /**
      * Creates a short hex representation of the given value.
      * Use only to represent a value.
@@ -118,7 +121,7 @@ public enum IntFormat {
 
     private static final int BUF = 16;
 
-    private static String toShortHex(long value, boolean omitPrefixAlways) {
+    private static String toShortHex(long value, boolean omitPrefix) {
         if (value == 0)
             return "0";
 
@@ -133,7 +136,7 @@ public enum IntFormat {
             value >>>= 4;
         }
 
-        if (omitPrefixAlways || wasChar || p == BUF - 1)
+        if (omitPrefix || wasChar || p == BUF - 1)
             return new String(data, p, BUF - p);
         else
             return "0x" + new String(data, p, BUF - p);

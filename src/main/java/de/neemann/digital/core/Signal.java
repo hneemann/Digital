@@ -61,12 +61,8 @@ public final class Signal implements Comparable<Signal> {
      * @return this for chained calls
      */
     public Signal setFormat(IntFormat format) {
-        if (format != null) {
-            if (format == IntFormat.def && value.getBits() > 1)
-                this.format = IntFormat.hex;
-            else
-                this.format = format;
-        }
+        if (format != null)
+            this.format = format;
         return this;
     }
 
