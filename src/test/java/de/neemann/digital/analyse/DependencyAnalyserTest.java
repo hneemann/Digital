@@ -1,10 +1,20 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author hneemann
@@ -73,6 +83,28 @@ ExpressionCreator - s0 reduced from 17 to 2 variables ([Q_1n, Q_0n])
         assertEquals(2, m.getOutputs().size());
         assertEquals(1, da.getInputs(m.getOutputs().get(0)).size());
         assertEquals(1, da.getInputs(m.getOutputs().get(1)).size());
+    }
+
+    public void testBacktrackCompleteness() throws Exception {
+        ToBreakRunner toBreakRunner = new ToBreakRunner("dig/backtrack/AllComponents.dig", false);
+        Circuit circuit = toBreakRunner.getCircuit();
+        Set<String> set = new HashSet<>();
+        for (VisualElement e : circuit.getElements())
+            set.add(e.getElementName());
+
+        // ensure all components are included in test circuit
+        for (ElementLibrary.ElementContainer c : toBreakRunner.getLibrary()) {
+            if (!set.contains(c.getDescription().getName())) {
+                // nodes with state are allowed to be missing
+                Element n = c.getDescription().createElement(new ElementAttributes());
+                boolean ok = (n instanceof Node) && ((Node) n).hasState();
+                assertTrue("component " + c.getDescription().getName() + " is missing in test/resources/dig/backtrack/AllComponents.dig!", ok);
+            }
+        }
+
+        // check if backtracking is ok at all components!
+        ModelAnalyser m = new ModelAnalyser(toBreakRunner.getModel());
+        new DependencyAnalyser(m);
     }
 
 }
