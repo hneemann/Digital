@@ -326,7 +326,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     ElementLibrary.ElementTypeDescriptionCustom description =
                             new ElementLibrary.ElementTypeDescriptionCustom(file,
                                     attributes -> new CustomElement(circuit, library),
-                                    circuit.getAttributes(), circuit.getInputNames());
+                                    circuit);
                     description.setShortName(name);
                     description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));
                     new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);
@@ -495,6 +495,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         if (enableExperimental())
             export.add(new ExportGifAction(Lang.get("menu_exportAnimatedGIF")));
 
+        export.add(new ExportZipAction(this).createJMenuItem());
+
         export.add(createVHDLExportAction().createJMenuItem());
 
         JMenu file = new JMenu(Lang.get("menu_file"));
@@ -550,9 +552,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }.setToolTip(Lang.get("menu_exportVHDL_tt"));
     }
 
-    private File getBaseFileName() {
+    /**
+     * @return the file name base
+     */
+    public File getBaseFileName() {
         if (filename != null) return filename;
         return baseFilename;
+    }
+
+    /**
+     * @return the circuit component
+     */
+    public CircuitComponent getCircuitComponent() {
+        return circuitComponent;
     }
 
     /**

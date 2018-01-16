@@ -87,12 +87,14 @@ ExpressionCreator - s0 reduced from 17 to 2 variables ([Q_1n, Q_0n])
 
     public void testBacktrackCompleteness() throws Exception {
         ToBreakRunner toBreakRunner = new ToBreakRunner("dig/backtrack/AllComponents.dig", false);
+
+        // create a set of all components used in the circuit
         Circuit circuit = toBreakRunner.getCircuit();
         Set<String> set = new HashSet<>();
         for (VisualElement e : circuit.getElements())
             set.add(e.getElementName());
 
-        // ensure all components are included in test circuit
+        // ensure all available components are included in test circuit
         for (ElementLibrary.ElementContainer c : toBreakRunner.getLibrary()) {
             if (!set.contains(c.getDescription().getName())) {
                 // nodes with state are allowed to be missing
