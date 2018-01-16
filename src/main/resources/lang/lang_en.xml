@@ -797,6 +797,7 @@ The names of the variables may not be unique.</string>
     <string name="err_invalidNumberFormat_N_N">The string {0} is not a valid number (pos {1})!</string>
     <string name="err_invalidPinName_N">The name &quot;{0}&quot; is not allowed!</string>
     <string name="err_whiteSpaceNotAllowedInTT2Name">No white space is allowed in the name of the TT2 file!</string>
+    <string name="err_errorExportingZip">Error writing the zip file.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1180,6 +1181,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_showDataGraph_tt">Shows a graph with the measured values in a separate window.</string>
     <string name="menu_showDataTable">Show measurement value table</string>
     <string name="menu_showDataTable_tt">Show table with the measured values in a separate window.</string>
+    <string name="menu_exportZIP">Export tos ZIP file</string>
+    <string name="menu_exportZIP_tt">Exports the complete circuit as a ZIP file.</string>
 
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.

@@ -39,8 +39,8 @@ import java.util.*;
  * This import works in two steps: At first all the files in the same directory as the root circuit are loaded.
  * The file names are shown in the components menu. From there you can pick a file to insert it to the circuit.
  * When a file is selected it is loaded to the library. After that also an icon is available.
- * This is done because the loading of a circuit creation of an icon is very time consuming and should be avoided if
- * not necessary. Its a kind of lazy loading.
+ * This is done because the loading of a circuit and the creation of an icon is very time consuming and should
+ * be avoided if not necessary. It's a kind of lazy loading.
  *
  * @author hneemann
  */
@@ -510,7 +510,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             ElementTypeDescriptionCustom description =
                     new ElementTypeDescriptionCustom(file,
                             attributes -> new CustomElement(circuit, ElementLibrary.this),
-                            circuit.getAttributes(), circuit.getInputNames());
+                            circuit);
             description.setShortName(createShortName(file));
 
             String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
@@ -543,7 +543,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
         private final File file;
-        private final ElementAttributes attributes;
+        private final Circuit circuit;
         private String description;
 
         /**
@@ -551,13 +551,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
          *
          * @param file           the file which is loaded
          * @param elementFactory a element factory which is used to create concrete elements if needed
-         * @param attributes     the attributes of the element
-         * @param inputNames     the names of the input signals
+         * @param circuit        the circuit
+         * @throws PinException PinException
          */
-        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, PinDescription... inputNames) {
-            super(file.getName(), elementFactory, inputNames);
+        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, Circuit circuit) throws PinException {
+            super(file.getName(), elementFactory, circuit.getInputNames());
             this.file = file;
-            this.attributes = attributes;
+            this.circuit = circuit;
             setShortName(file.getName());
             addAttribute(Keys.ROTATE);
             addAttribute(Keys.LABEL);
@@ -577,7 +577,14 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
          * @return the elements attributes
          */
         public ElementAttributes getAttributes() {
-            return attributes;
+            return circuit.getAttributes();
+        }
+
+        /**
+         * @return the circuit
+         */
+        public Circuit getCircuit() {
+            return circuit;
         }
 
         /**

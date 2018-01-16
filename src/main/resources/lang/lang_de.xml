@@ -801,6 +801,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_invalidNumberFormat_N_N">Der String {0} ist keine Zahl (Pos {1})!</string>
     <string name="err_invalidPinName_N">Der Name &quot;{0}&quot; ist nicht erlaubt!</string>
     <string name="err_whiteSpaceNotAllowedInTT2Name">Im Namen der TT2-Datei ist kein Leerzeichen erlaubt!</string>
+    <string name="err_errorExportingZip">Fehler beim Schreiben der ZIP-Datei.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1187,7 +1188,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_showDataTable_tt">Zeigt eine Tabelle mit allen Messwerten in einem eigenen Fenster an.</string>
     <string name="menu_showDataGraph">Zeige Messwertegraph</string>
     <string name="menu_showDataGraph_tt">Ein Graph mit den Messwerten wird in einem eigenen Fenster angezeigt.</string>
-
+    <string name="menu_exportZIP">Export als ZIP-Datei</string>
+    <string name="menu_exportZIP_tt">Exportiert die komplette Schaltung als eine ZIP-Datei.</string>
 
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
