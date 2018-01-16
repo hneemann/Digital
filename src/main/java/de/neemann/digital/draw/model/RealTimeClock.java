@@ -120,6 +120,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
      */
     private class ThreadRunner implements Runner {
 
+        private static final long MIN_COUNTER = 50000;
         private final Thread thread;
 
         ThreadRunner() {
@@ -127,6 +128,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 LOGGER.debug("thread start");
                 long time = System.currentTimeMillis();
                 long counter = 0;
+                long checkCounter = MIN_COUNTER;
                 try {
                     while (!Thread.interrupted()) {
                         modelSync.accessNEx(() -> {
@@ -134,15 +136,22 @@ public class RealTimeClock implements ModelStateObserverTyped {
                             model.doStep();
                         });
                         counter++;
+                        if (counter == checkCounter) {
+                            long t = System.currentTimeMillis();
+                            if (t - time > 2000) {
+                                final long l = counter / (t - time) / 2;
+                                status.setStatus(l + " kHz");
+                                time = t;
+                                counter = 0;
+                                checkCounter = MIN_COUNTER;
+                            } else {
+                                checkCounter += MIN_COUNTER;
+                            }
+                        }
                     }
                 } catch (NodeException | RuntimeException e) {
                     stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
                 }
-                time = System.currentTimeMillis() - time;
-
-                final long l = counter / time / 2;
-                status.setStatus(l + "kHz");
-                LOGGER.debug("thread end, f=" + l + "kHz");
             });
             thread.setDaemon(true);
             thread.start();
