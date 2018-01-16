@@ -240,29 +240,31 @@ public class TruthTable {
             sb.append(s.getIdentifier()).append("\t");
         for (Result s : results)
             sb.append(s.getName()).append("\t");
-        sb.append('\n');
 
-        for (int row = 0; row < getRows(); row++) {
-            for (int col = 0; col < variables.size(); col++) {
-                if (getBitSetter().getBit(row, col))
-                    sb.append("1\t");
-                else
-                    sb.append("0\t");
-            }
-            for (int col = 0; col < results.size(); col++) {
-                switch (results.get(col).getValues().get(row)) {
-                    case one:
+        if (getRows() <= 256) {
+            sb.append('\n');
+            for (int row = 0; row < getRows(); row++) {
+                for (int col = 0; col < variables.size(); col++) {
+                    if (getBitSetter().getBit(row, col))
                         sb.append("1\t");
-                        break;
-                    case zero:
+                    else
                         sb.append("0\t");
-                        break;
-                    default:
-                        sb.append("x\t");
-                        break;
                 }
+                for (int col = 0; col < results.size(); col++) {
+                    switch (results.get(col).getValues().get(row)) {
+                        case one:
+                            sb.append("1\t");
+                            break;
+                        case zero:
+                            sb.append("0\t");
+                            break;
+                        default:
+                            sb.append("x\t");
+                            break;
+                    }
+                }
+                sb.append("\n");
             }
-            sb.append("\n");
         }
         return sb.toString();
     }

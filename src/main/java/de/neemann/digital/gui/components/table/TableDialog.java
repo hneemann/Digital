@@ -672,7 +672,7 @@ public class TableDialog extends JDialog {
         }
 
         @Override
-        public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+        public void resultFound(String name, Expression expression) throws FormatterException {
             if (count == 0)
                 firstExp = "<html>" + htmlFormatter.identifier(name) + "=" + htmlFormatter.format(expression) + "</html>";
             html.append("<tr>");
@@ -762,7 +762,7 @@ public class TableDialog extends JDialog {
         }
 
         @Override
-        public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+        public void resultFound(String name, Expression expression) throws FormatterException {
             sb.append(FormatToTableLatex.formatIdentifier(name))
                     .append("&=&")
                     .append(FormatToExpression.FORMATTER_LATEX.format(expression))

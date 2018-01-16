@@ -24,8 +24,7 @@ public class TableReducer {
      * @param table the bool table
      */
     public TableReducer(List<Variable> vars, BoolTable table) {
-        this.vars = new ArrayList<>();
-        this.vars.addAll(vars);
+        this.vars = new ArrayList<>(vars);
         this.table = table;
     }
 
@@ -37,7 +36,7 @@ public class TableReducer {
     public boolean canReduce() {
         if (table instanceof BoolTableExpanded) {
             BoolTableExpanded t = (BoolTableExpanded) table;
-            vars = t.getVars();
+            vars = new ArrayList<>(t.getVars());
             table = t.getBoolTable();
             canReduceOnlyCheckTable();
             return true;
