@@ -46,9 +46,7 @@ public class ExportZipAction extends ToolTipAction {
                 File origin = circuit.getOrigin();
                 elementSet = new HashSet<>();
                 addFile(zip, origin, circuit);
-
-                addToZip(zip, "_readme.txt", "the main file is " + origin.getName());
-
+                addToZip(zip, "MANIFEST.TXT", "Main-Circuit: " + origin.getName() + "\n");
             } catch (ElementNotFoundException e1) {
                 throw new IOException(Lang.get("err_errorExportingZip"), e1);
             }
