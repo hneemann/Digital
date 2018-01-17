@@ -172,8 +172,13 @@ public class ElementAttributes {
      * @return the clean name
      */
     public static String cleanLabel(String name) {
-        if (name.length() > 2 && name.charAt(0) == '$' && name.charAt(name.length() - 1) == '$')
+        if (name.length() > 2 && name.charAt(0) == '$' && name.charAt(name.length() - 1) == '$') {
             name = name.substring(1, name.length() - 1);
+            name = name
+                    .replace("{", "")
+                    .replace("}", "")
+                    .replace("^", "");
+        }
         return name;
     }
 

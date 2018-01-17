@@ -137,9 +137,11 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     }
 
     private String formatIndex(String text) {
-        int p = text.lastIndexOf("_");
-        if (p > 0) {
-            text = text.substring(0, p) + "$_{" + text.substring(p + 1) + "}$";
+        if (text.length() > 0 && text.charAt(0) != '$') {
+            int p = text.lastIndexOf("_");
+            if (p > 0) {
+                text = text.substring(0, p) + "$_{" + text.substring(p + 1) + "}$";
+            }
         }
         return text;
     }
