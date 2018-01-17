@@ -50,8 +50,8 @@ public class GuiModelObserver implements Observer, ModelStateObserverTyped {
             if (paintPending.compareAndSet(false, true)) {
                 lastUpdateTime = time;
                 SwingUtilities.invokeLater(() -> {
-                    paintPending.set(false);
                     component.paintImmediately();
+                    paintPending.set(false);
                 });
             }
             changed = false;
