@@ -120,34 +120,19 @@ public class RealTimeClock implements ModelStateObserverTyped {
      */
     private class ThreadRunner implements Runner {
 
-        private static final long MIN_COUNTER = 50000;
         private final Thread thread;
 
         ThreadRunner() {
             thread = new Thread(() -> {
                 LOGGER.debug("thread start");
-                long time = System.currentTimeMillis();
-                long counter = 0;
-                long checkCounter = MIN_COUNTER;
+                FrequencyCalculator frequency = new FrequencyCalculator(status);
                 try {
                     while (!Thread.interrupted()) {
                         modelSync.accessNEx(() -> {
                             output.setValue(1 - output.getValue());
                             model.doStep();
                         });
-                        counter++;
-                        if (counter == checkCounter) {
-                            long t = System.currentTimeMillis();
-                            if (t - time > 2000) {
-                                final long l = counter / (t - time) / 2;
-                                status.setStatus(l + " kHz");
-                                time = t;
-                                counter = 0;
-                                checkCounter = MIN_COUNTER;
-                            } else {
-                                checkCounter += MIN_COUNTER;
-                            }
-                        }
+                        frequency.calc();
                     }
                 } catch (NodeException | RuntimeException e) {
                     stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
@@ -160,6 +145,37 @@ public class RealTimeClock implements ModelStateObserverTyped {
         @Override
         public void stop() {
             thread.interrupt();
+        }
+    }
+
+    private static final class FrequencyCalculator {
+        private static final long MIN_COUNTER = 50000;
+        private final StatusInterface status;
+        private long checkCounter;
+        private int counter;
+        private long time;
+
+        private FrequencyCalculator(StatusInterface status) {
+            this.status = status;
+            time = System.currentTimeMillis();
+            counter = 0;
+            checkCounter = MIN_COUNTER;
+        }
+
+        private void calc() {
+            counter++;
+            if (counter == checkCounter) {
+                long t = System.currentTimeMillis();
+                if (t - time > 2000) {
+                    final long l = counter / (t - time) / 2;
+                    status.setStatus(l + " kHz");
+                    time = t;
+                    counter = 0;
+                    checkCounter = MIN_COUNTER;
+                } else {
+                    checkCounter += MIN_COUNTER;
+                }
+            }
         }
     }
 }
