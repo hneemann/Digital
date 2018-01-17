@@ -448,7 +448,7 @@ public class TableDialog extends JDialog {
             register(hardware, new GenerateCUPL(atfDev::getCuplExporter, "ATF150x/" + atfDev.getMenuName() + "/CUPL"));
             register(hardware, new GenerateFile("tt2",
                     () -> atfDev.createExpressionToFileExporter(TableDialog.this, getProjectName()),
-                    "ATF150x/" + atfDev.getMenuName() + "/TT2",
+                    "ATF150x/" + atfDev.getMenuName() + "/TT2, JEDEC",
                     Lang.get("menu_table_createTT2_tt")));
         }
         createMenu.add(hardware);
