@@ -16,7 +16,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
  */
 public class Comparator extends Node implements Element {
     private static final long MSB = Bits.signedFlagMask(64);
-    private static final long LSB = Bits.mask(63);
+    private static final long LSB = ~MSB;
 
     /**
      * The comparators description
