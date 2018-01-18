@@ -30,7 +30,7 @@ The output is circled in red.</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Y</string>
+          <string>ErrorY</string>
         </entry>
       </elementAttributes>
       <pos x="360" y="120"/>

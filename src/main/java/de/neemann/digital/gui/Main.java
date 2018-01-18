@@ -874,7 +874,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     showErrorAndStopModel(Lang.get("msg_fastRunError"), e1);
                 }
             }
-        }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false);
+        }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false).setAccelerator("F7");
 
         ToolTipAction stoppedStateAction = stoppedState
                 .createToolTipAction(Lang.get("menu_element"), ICON_STOP)
@@ -886,7 +886,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 startTests();
             }
-        }.setToolTip(Lang.get("menu_runTests_tt"));
+        }.setToolTip(Lang.get("menu_runTests_tt")).setAccelerator("F8");
 
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
             private NumberFormat format = new DecimalFormat("0.0");
@@ -1491,10 +1491,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     @Override
     public void start(File romHex) {
         SwingUtilities.invokeLater(() -> {
-            if (romHex != null)
-                runModelState.enter(true, new RomLoader(romHex));
-            else
-                runModelState.enter(true, null);
+            runModelState.enter(true, new RomLoader(romHex));
             circuitComponent.repaintNeeded();
         });
     }

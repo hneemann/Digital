@@ -394,6 +394,8 @@
     <chapter name="Tastenbelegung" newpage="true">
         <shortcuts>
             <shortcut key="Leertaste">Starten und stoppen der Simulation.</shortcut>
+            <shortcut key="F7">Run to Break</shortcut>
+            <shortcut key="F8">Starten der Testfälle.</shortcut>
             <shortcut key="C">Einen Taktschritt ausführen (nur bei gestarteter Simulation und nur, wenn es genau ein
                 Taktelement in der Schaltung gibt).
             </shortcut>

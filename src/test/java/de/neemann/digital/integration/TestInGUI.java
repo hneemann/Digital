@@ -1,146 +1,169 @@
 package de.neemann.digital.integration;
 
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import junit.framework.TestCase;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class TestInGUI extends TestCase {
 
     private Main main;
 
-    private boolean isDisplay() {
-        final boolean isDisplay = !GraphicsEnvironment.isHeadless();
-        if (!isDisplay)
-            System.err.println("is running headless, skip tests!");
-        return isDisplay;
+    public void testErrorAtStart1() {
+        check("dig/manualError/01_fastRuntime.dig",
+                new KeySeries().add(' '),
+                new CheckErrorMessage("01_fastRuntime.dig", Lang.get("err_burnError"))
+        );
     }
 
-    public void testErrorAtStart() {
-        if (isDisplay()) {
-            expectErrorAtStart("dig/manualError/01_fastRuntime.dig", "01_fastRuntime.dig");
-            expectErrorAtStart("dig/manualError/02_fastRuntimeEmbed.dig", "short.dig");
-            expectErrorAtStart("dig/manualError/06_initPhase.dig", "06_initPhase.dig");
-            expectErrorAtStart("dig/manualError/07_creationPhase.dig", "07_creationPhase.dig");
-            expectErrorAtStart("dig/manualError/08_twoFastClocks.dig");
-        }
+    public void testErrorAtStart2() {
+        check("dig/manualError/02_fastRuntimeEmbed.dig",
+                new KeySeries().add(' '),
+                new CheckErrorMessage("short.dig", Lang.get("err_burnError"))
+        );
     }
 
-    private void expectErrorAtStart(String name, String... content) {
-        execute(name, new TestSet()
-                .add(() -> main.start(null)));
-        final String message = ErrorMessage.getLastErrorMessage();
-        assertNotNull(name, message);
-        for (String c : content)
-            assertTrue(name, message.contains(c));
+    public void testErrorAtStart3() {
+        check("dig/manualError/06_initPhase.dig",
+                new KeySeries().add(' '),
+                new CheckErrorMessage("06_initPhase.dig", Lang.get("err_burnError"))
+        );
+    }
+
+    public void testErrorAtStart4() {
+        check("dig/manualError/07_creationPhase.dig",
+                new KeySeries().add(' '),
+                new CheckErrorMessage("07_creationPhase.dig", "ErrorY")
+        );
+    }
+
+    public void testErrorAtStart5() {
+        check("dig/manualError/08_twoFastClocks.dig",
+                new KeySeries().add(' '),
+                new CheckErrorMessage(Lang.get("err_moreThanOneFastClock")));
     }
 
     public void testErrorAtTestExecution() {
-        if (isDisplay()) {
-            execute("dig/manualError/04_testExecution.dig", new TestSet()
-                    .add(() -> main.startTests()));
-            assertNotNull(ErrorMessage.getLastErrorMessage());
-        }
+        check("dig/manualError/04_testExecution.dig",
+                new KeySeries().add("F8"),
+                new CheckErrorMessage("04_testExecution.dig", Lang.get("err_burnError")));
     }
 
     public void testErrorAtRunToBreak() {
+        check("dig/manualError/05_runToBreak.dig",
+                new KeySeries().add(' ').delay(500).add("F7"),
+                new CheckErrorMessage("05_runToBreak.dig", Lang.get("err_burnError")));
+    }
+
+    public void testErrorAtButtonPress() {
+        check("dig/manualError/03_fastRuntimeButton.dig",
+                new KeySeries().add(' ').delay(500).add("A"),
+                new CheckErrorMessage("03_fastRuntimeButton.dig", Lang.get("err_burnError")));
+    }
+
+    private boolean isDisplay() {
+        final boolean isDisplay = !GraphicsEnvironment.isHeadless();
+        if (!isDisplay)
+            System.err.println("runs headless, skip test!");
+        return isDisplay;
+    }
+
+    private void check(String filename, KeySeries keySeries, Check... checks) {
         if (isDisplay()) {
-            assertFalse(execute("dig/manualError/05_runToBreak.dig", new TestSet()
-                    .add(() -> main.start(null))
-                    .delay(100)
-                    .add(() -> main.runToBreak())
-            ).wasOk());
-        }
-    }
+            File file = new File(Resources.getRoot(), filename);
+            try {
+                SwingUtilities.invokeAndWait(() -> {
+                    main = new Main.MainBuilder().setFileToOpen(file).build();
+                    main.setVisible(true);
+                });
+                Thread.sleep(500);
+                try {
+                    keySeries.execute();
 
-    private TestSet execute(String name, TestSet builder) {
-        File file = new File(Resources.getRoot(), name);
-        return new TestSet()
-                .add(() -> main = new Main.MainBuilder().setFileToOpen(file).build())
-                .add(() -> main.setVisible(true))
-                .delay(500)
-                .add(builder)
-                .delay(500)
-                .add(() -> main.dispose())
-                .delay(500)
-                .execute();
-    }
+                    Thread.sleep(500);
 
-    interface TestStep {
-        void step() throws Exception;
-    }
-
-    class TestSet {
-        private ArrayList<TestStepContainer> steps;
-        private ArrayList<Exception> exceptions;
-
-        private TestSet() {
-            this.steps = new ArrayList<>();
-            this.exceptions = new ArrayList<>();
-        }
-
-        public TestSet add(TestStep step) {
-            steps.add(new TestStepContainer(step, true));
-            return this;
-        }
-
-        public TestSet add(TestSet builder) {
-            if (builder != null)
-                steps.addAll(builder.steps);
-            return this;
-        }
-
-        private TestSet execute() {
-            for (TestStepContainer ts : steps)
-                if (ts.gui) {
-                    try {
-                        SwingUtilities.invokeAndWait(() -> {
-                            try {
-                                ts.step.step();
-                            } catch (Exception e) {
-                                addException(e);
-                            }
-                        });
-                    } catch (InterruptedException | InvocationTargetException e) {
-                        addException(e);
-                    }
-                } else {
-                    try {
-                        ts.step.step();
-                    } catch (Exception e) {
-                        addException(e);
-                    }
+                    for (Check c : checks)
+                        c.check();
+                } finally {
+                    SwingUtilities.invokeAndWait(() -> main.dispose());
                 }
-            return this;
-        }
-
-        private void addException(Exception e) {
-            exceptions.add(e);
-        }
-
-        private boolean wasOk() {
-            return exceptions.isEmpty();
-        }
-
-        private TestSet delay(int delay) {
-            steps.add(new TestStepContainer(() -> Thread.sleep(delay), false));
-            return this;
-        }
-
-        private class TestStepContainer {
-            private final TestStep step;
-            private final boolean gui;
-
-            private TestStepContainer(TestStep step, boolean gui) {
-                this.step = step;
-                this.gui = gui;
+            } catch (Exception e) {
+                System.err.println("error in file " + filename);
+                e.printStackTrace();
+                fail();
             }
         }
     }
 
+    public static class KeySeries {
+        private final ArrayList<Runnable> runnables;
+        private Robot robot;
+
+        public KeySeries() {
+            runnables = new ArrayList<>();
+        }
+
+        public void execute() throws Exception {
+            robot = new Robot();
+            for (Runnable r : runnables)
+                r.run();
+        }
+
+        public void add(Runnable runnable) {
+            runnables.add(runnable);
+        }
+
+        public KeySeries delay(int ms) {
+            add(() -> Thread.sleep(ms));
+            return this;
+        }
+
+        public KeySeries add(String key) {
+            return addCode(KeyStroke.getKeyStroke(key).getKeyCode());
+        }
+
+        public KeySeries add(char c) {
+            return addCode(KeyEvent.getExtendedKeyCodeForChar(c));
+        }
+
+        private KeySeries addCode(int code) {
+            add(() -> {
+                robot.keyPress(code);
+                robot.keyRelease(code);
+                Thread.sleep(200);
+            });
+            return this;
+        }
+
+        interface Runnable {
+            void run() throws Exception;
+        }
+    }
+
+    public interface Check {
+        void check() throws Exception;
+    }
+
+    public class CheckErrorMessage implements Check {
+        private final String[] expected;
+
+        public CheckErrorMessage(String... expected) {
+            this.expected = expected;
+        }
+
+        @Override
+        public void check() {
+            String errorMessage = ErrorMessage.getLastErrorMessage();
+            assertNotNull("no error detected!", errorMessage);
+            for (String e : expected)
+                assertTrue(errorMessage + " does not contain " + e, errorMessage.contains(e));
+
+        }
+    }
 }
