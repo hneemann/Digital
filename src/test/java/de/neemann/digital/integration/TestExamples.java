@@ -52,7 +52,7 @@ public class TestExamples extends TestCase {
      */
     private void check(File dig) throws Exception {
         boolean shouldFail = dig.getName().endsWith("Error.dig");
-        ToBreakRunner br = null;
+        ToBreakRunner br;
         try {
             br = new ToBreakRunner(dig);
         } catch (Exception e) {

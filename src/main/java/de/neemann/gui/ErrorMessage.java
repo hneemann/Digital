@@ -14,6 +14,8 @@ import java.awt.*;
  */
 public class ErrorMessage implements Runnable {
 
+    private static String lastErrorMessage;
+
     private final StringBuilder message;
     private Component component;
 
@@ -86,6 +88,7 @@ public class ErrorMessage implements Runnable {
      * @param parent the parent
      */
     public void show(Component parent) {
+        lastErrorMessage = message.toString();
         JOptionPane optionPane = new JOptionPane(
                 new LineBreaker(120)
                         .toHTML()
@@ -113,5 +116,17 @@ public class ErrorMessage implements Runnable {
     @Override
     public void run() {
         show(component);
+    }
+
+    /**
+     * Returns the last error message.
+     * The message is set to null in this call, thus a second call will return null.
+     *
+     * @return the last error mesage
+     */
+    public static String getLastErrorMessage() {
+        String s = lastErrorMessage;
+        lastErrorMessage = null;
+        return s;
     }
 }
