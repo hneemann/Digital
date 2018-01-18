@@ -391,7 +391,7 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 createCircuit(ExpressionModifier.IDENTITY);
             }
-        }.setToolTip(Lang.get("menu_table_createCircuit_tt")).createJMenuItem());
+        }.setToolTip(Lang.get("menu_table_createCircuit_tt")).setAccelerator("F2").enableAcceleratorIn(table).createJMenuItem());
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitJK")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
