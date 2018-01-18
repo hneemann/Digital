@@ -19,6 +19,7 @@
 ./expicon.sh edit-redo
 ./expicon.sh edit-undo
 ./expicon.sh measurement-graph
+./expicon.sh dialog-error
 
 ./exptest.sh testFailed
 ./exptest.sh testPassed

@@ -5,6 +5,7 @@ import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Used to show error messages.
@@ -13,8 +14,6 @@ import java.awt.*;
  * @author hneemann on 09.02.14.
  */
 public class ErrorMessage implements Runnable {
-
-    private static String lastErrorMessage;
 
     private final StringBuilder message;
     private Component component;
@@ -88,15 +87,7 @@ public class ErrorMessage implements Runnable {
      * @param parent the parent
      */
     public void show(Component parent) {
-        setLastErrorMessage(message.toString());
-        JOptionPane optionPane = new JOptionPane(
-                new LineBreaker(120)
-                        .toHTML()
-                        .preserveContainedLineBreaks()
-                        .breakLines(message.toString()),
-                JOptionPane.ERROR_MESSAGE);
-        JDialog dialog = optionPane.createDialog(parent, Lang.get("error"));
-        dialog.setAlwaysOnTop(true);
+        ErrorDialog dialog = new ErrorDialog(parent, Lang.get("error"), message.toString());
         dialog.setVisible(true);
         dialog.dispose();
     }
@@ -118,19 +109,55 @@ public class ErrorMessage implements Runnable {
         show(component);
     }
 
-    private static void setLastErrorMessage(String errorMessage) {
-        lastErrorMessage = errorMessage;
-    }
-
     /**
-     * Returns the last error message.
-     * The message is set to null in this call, thus a second call will return null.
-     *
-     * @return the last error mesage
+     * the error dialog
      */
-    public static String getLastErrorMessage() {
-        String s = lastErrorMessage;
-        lastErrorMessage = null;
-        return s;
+    public static final class ErrorDialog extends JDialog {
+        private static final Icon ICON = IconCreator.create("dialog-error.png");
+        private String errorMessage;
+
+        private ErrorDialog(Component parent, String title, String message) {
+            super(parent == null ? null : SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL);
+            setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+            errorMessage = message;
+            message = new LineBreaker(80)
+                    .toHTML()
+                    .preserveContainedLineBreaks()
+                    .breakLines(message);
+
+
+            JLabel ta = new JLabel(message);
+            int border = ta.getFont().getSize();
+            ta.setBorder(BorderFactory.createEmptyBorder(border, border, border, border));
+            getContentPane().add(ta);
+
+            JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            JButton button = new JButton(new AbstractAction(Lang.get("ok")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    dispose();
+                }
+            });
+            buttons.add(button);
+            getContentPane().add(buttons, BorderLayout.SOUTH);
+
+            JLabel l = new JLabel(ICON);
+            l.setVerticalAlignment(JLabel.TOP);
+            l.setBorder(BorderFactory.createEmptyBorder(border, border, border, 0));
+            getContentPane().add(l, BorderLayout.WEST);
+
+            pack();
+            setLocationRelativeTo(parent);
+            setAlwaysOnTop(true);
+        }
+
+        /**
+         * @return the error message
+         */
+        public String getErrorMessage() {
+            return errorMessage;
+        }
+
     }
 }

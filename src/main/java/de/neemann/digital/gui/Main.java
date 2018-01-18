@@ -1024,6 +1024,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }
                 .setToolTip(Lang.get("menu_analyse_tt"))
+                .setAccelerator("F9")
                 .createJMenuItem());
 
         analyse.add(new ToolTipAction(Lang.get("menu_synthesise")) {

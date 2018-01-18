@@ -395,10 +395,11 @@
         <shortcuts>
             <shortcut key="Leertaste">Starten und stoppen der Simulation.</shortcut>
             <shortcut key="F7">Run to Break</shortcut>
-            <shortcut key="F8">Starten der Testfälle.</shortcut>
+            <shortcut key="F8">Starten der Testfälle</shortcut>
             <shortcut key="C">Einen Taktschritt ausführen (nur bei gestarteter Simulation und nur, wenn es genau ein
                 Taktelement in der Schaltung gibt).
             </shortcut>
+            <shortcut key="F9">Analyse der Schaltung</shortcut>
             <shortcut key="STRG-A">Alles auswählen.</shortcut>
             <shortcut key="STRG-X">Ausschneiden der selektierten Elemente und kopieren in die Zwischenablage.</shortcut>
             <shortcut key="STRG-C">Kopieren der selektierten Elemente in die Zwischenablage.</shortcut>

@@ -338,6 +338,7 @@
             <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single
                 clock component).
             </shortcut>
+            <shortcut key="F9">Analysis of the circuit</shortcut>
             <shortcut key="CTRL-A">Select all.</shortcut>
             <shortcut key="CTRL-X">Cuts the selected components to the clipboard.</shortcut>
             <shortcut key="CTRL-C">Copys the selected components to the clipboard.</shortcut>

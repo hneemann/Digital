@@ -227,7 +227,7 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 kvMap.setVisible(true);
             }
-        }.setToolTip(Lang.get("menu_karnaughMap_tt"));
+        }.setToolTip(Lang.get("menu_karnaughMap_tt")).setAccelerator("F1");
         JMenuItem karnaughMenuItem = karnaughMenuAction.createJMenuItem();
         bar.add(karnaughMenuItem);
         karnaughMenuItem.setOpaque(false);
@@ -561,6 +561,13 @@ public class TableDialog extends JDialog {
             lastGeneratedExpressions = null;
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(this);
         }
+    }
+
+    /**
+     * @return the last generated expressions
+     */
+    public ExpressionListenerStore getLastGeneratedExpressions() {
+        return lastGeneratedExpressions;
     }
 
     private final class SizeAction extends AbstractAction {
