@@ -803,6 +803,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_whiteSpaceNotAllowedInTT2Name">Im Namen der TT2-Datei ist kein Leerzeichen erlaubt!</string>
     <string name="err_tableHasToManyResultColumns">Die Tabelle hat zu viele Spalten!</string>
     <string name="err_errorExportingZip">Fehler beim Schreiben der ZIP-Datei.</string>
+    <string name="err_moreThanOneFastClock">Es ist nur ein Taktelement mit hoher Frequenz erlaubt.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

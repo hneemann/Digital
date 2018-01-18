@@ -1133,14 +1133,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             realTimeClockRunning = false;
             modelSync = null;
-            if (globalRunClock)
+            if (globalRunClock) {
+                int threadRunnerCount = 0;
                 for (Clock c : model.getClocks())
                     if (c.getFrequency() > 0) {
                         if (modelSync == null)
                             modelSync = new LockSync();
-                        model.addObserver(new RealTimeClock(model, c, timerExecutor, this, modelSync, this));
+                        final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this, modelSync, this);
+                        model.addObserver(realTimeClock);
+                        if (realTimeClock.isThreadRunner()) threadRunnerCount++;
                         realTimeClockRunning = true;
                     }
+                if (threadRunnerCount > 1)
+                    throw new RuntimeException(Lang.get("err_moreThanOneFastClock"));
+            }
             if (modelSync == null)
                 modelSync = NoSync.INST;
 
@@ -1483,15 +1489,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     @Override
-    public void start(File romHex) throws RemoteException {
+    public void start(File romHex) {
         SwingUtilities.invokeLater(() -> {
-            runModelState.enter(true, new RomLoader(romHex));
+            if (romHex != null)
+                runModelState.enter(true, new RomLoader(romHex));
+            else
+                runModelState.enter(true, null);
             circuitComponent.repaintNeeded();
         });
     }
 
     @Override
-    public void debug(File romHex) throws RemoteException {
+    public void debug(File romHex) {
         SwingUtilities.invokeLater(() -> {
             runModelState.enter(false, new RomLoader(romHex));
             circuitComponent.repaintNeeded();
@@ -1675,7 +1684,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
          *
          * @return a new Main instance
          */
-        private Main build() {
+        public Main build() {
             return new Main(this);
         }
 

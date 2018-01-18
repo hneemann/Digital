@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class RealTimeClock implements ModelStateObserverTyped {
     private static final Logger LOGGER = LoggerFactory.getLogger(RealTimeClock.class);
+    private static final int THREAD_RUNNER_DELAY = 100;
 
     private final Model model;
     private final ScheduledThreadPoolExecutor executor;
@@ -62,11 +63,11 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 if (frequency > 50)  // if frequency is high it is not necessary to update the GUI at every clock change
                     modelSync.access(() -> output.removeObserver(GuiModelObserver.class));
 
-                int delay = 500000 / frequency;
-                if (delay < 10)
+                int delayMuS = 500000 / frequency;
+                if (delayMuS < THREAD_RUNNER_DELAY)
                     runner = new ThreadRunner();
                 else
-                    runner = new RealTimeRunner(delay);
+                    runner = new RealTimeRunner(delayMuS);
                 break;
             case STOPPED:
                 if (runner != null)
@@ -78,6 +79,14 @@ public class RealTimeClock implements ModelStateObserverTyped {
     @Override
     public ModelEvent[] getEvents() {
         return new ModelEvent[]{ModelEvent.STARTED, ModelEvent.STOPPED};
+    }
+
+    /**
+     * @return true if a thread runner is used
+     */
+    public boolean isThreadRunner() {
+        int delayMuS = 500000 / frequency;
+        return delayMuS < THREAD_RUNNER_DELAY;
     }
 
     interface Runner {
