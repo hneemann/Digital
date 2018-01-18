@@ -88,7 +88,7 @@ public class ErrorMessage implements Runnable {
      * @param parent the parent
      */
     public void show(Component parent) {
-        lastErrorMessage = message.toString();
+        setLastErrorMessage(message.toString());
         JOptionPane optionPane = new JOptionPane(
                 new LineBreaker(120)
                         .toHTML()
@@ -116,6 +116,10 @@ public class ErrorMessage implements Runnable {
     @Override
     public void run() {
         show(component);
+    }
+
+    private static void setLastErrorMessage(String errorMessage) {
+        lastErrorMessage = errorMessage;
     }
 
     /**
