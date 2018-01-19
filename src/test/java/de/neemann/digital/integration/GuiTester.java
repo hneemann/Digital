@@ -91,8 +91,14 @@ public class GuiTester {
 
     public GuiTester ask(String question) {
         add((gt) -> {
-            int res = JOptionPane.showConfirmDialog(null, question);
-            Assert.assertTrue("user recognized fail!", res == JOptionPane.OK_OPTION);
+            JOptionPane pane = new JOptionPane(question, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+            pane.setBackground(Color.RED.brighter());
+            JDialog dialog = pane.createDialog("Testing-Question");
+            dialog.setVisible(true);
+            Object val = pane.getValue();
+            dialog.dispose();
+
+            Assert.assertTrue("user recognized fail!", (Integer) val == JOptionPane.YES_OPTION);
             Thread.sleep(500);
         });
         return this;
