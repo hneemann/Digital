@@ -222,15 +222,15 @@ public class TableDialog extends JDialog {
         bar.add(hardwareMenu);
         checkLastUsedGenerator();
 
+        JMenu karnaughMenu = new JMenu(Lang.get("menu_karnaughMap"));
         karnaughMenuAction = new ToolTipAction(Lang.get("menu_karnaughMap")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 kvMap.setVisible(true);
             }
         }.setToolTip(Lang.get("menu_karnaughMap_tt")).setAccelerator("F1");
-        JMenuItem karnaughMenuItem = karnaughMenuAction.createJMenuItem();
-        bar.add(karnaughMenuItem);
-        karnaughMenuItem.setOpaque(false);
+        karnaughMenu.add(karnaughMenuAction.createJMenuItem());
+        bar.add(karnaughMenu);
 
         setJMenuBar(bar);
 
