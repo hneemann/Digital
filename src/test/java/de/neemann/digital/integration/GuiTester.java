@@ -89,6 +89,15 @@ public class GuiTester {
         return this;
     }
 
+    public GuiTester ask(String question) {
+        add((gt) -> {
+            int res = JOptionPane.showConfirmDialog(null, question);
+            Assert.assertTrue("user recognized fail!", res == JOptionPane.OK_OPTION);
+            Thread.sleep(500);
+        });
+        return this;
+    }
+
     private boolean isDisplay() {
         final boolean isDisplay = !GraphicsEnvironment.isHeadless();
         if (!isDisplay)
@@ -127,7 +136,6 @@ public class GuiTester {
         }
     }
 
-
     private KeyStroke strokeFromString(String key) {
         final KeyStroke keyStroke = KeyStroke.getKeyStroke(key);
         Assert.assertNotNull("invalid key code <" + key + ">", keyStroke);
@@ -150,15 +158,6 @@ public class GuiTester {
         if ((mod & SHIFT_DOWN_MASK) != 0) robot.keyRelease(KeyEvent.VK_SHIFT);
         if ((mod & CTRL_DOWN_MASK) != 0) robot.keyRelease(KeyEvent.VK_CONTROL);
         if ((mod & ALT_DOWN_MASK) != 0) robot.keyRelease(KeyEvent.VK_ALT);
-    }
-
-    public GuiTester ask(String question) {
-        add((gt) -> {
-            int res = JOptionPane.showConfirmDialog(null, question);
-            Assert.assertTrue("user recognized fail!", res == JOptionPane.OK_OPTION);
-            Thread.sleep(500);
-        });
-        return this;
     }
 
     interface Runnable {

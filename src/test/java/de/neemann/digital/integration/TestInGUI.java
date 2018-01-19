@@ -179,6 +179,29 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void testEdges() throws Exception {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(500)
+                .press("F10")
+                .press("RIGHT", 1)
+                .press("DOWN", 1)
+                .press("RIGHT", 1)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .press("DOWN")
+                .press("RIGHT", 4)
+                .add(new EnterTruthTable(0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1))
+                .press("F1")
+                .delay(500)
+                .ask("Are the edges covered in the k-map?")
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
     public void testTwoOutOfThree() throws Exception {
         new GuiTester()
                 .press("F10")
