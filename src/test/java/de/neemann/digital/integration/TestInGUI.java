@@ -10,6 +10,7 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import junit.framework.TestCase;
 
+import javax.swing.FocusManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -131,6 +132,7 @@ public class TestInGUI extends TestCase {
     }
 
     public static class GuiTest {
+        private static final long SLEEP_TIME = 200;
         private final ArrayList<Runnable> runnableList;
         private Main main;
         private Robot robot;
@@ -163,7 +165,6 @@ public class TestInGUI extends TestCase {
             add(() -> {
                 robot.keyPress(code);
                 robot.keyRelease(code);
-                Thread.sleep(200);
             });
             return this;
         }
@@ -185,11 +186,20 @@ public class TestInGUI extends TestCase {
                 Thread.sleep(500);
                 try {
                     robot = new Robot();
-                    for (Runnable r : runnableList)
+                    int step = 0;
+                    for (Runnable r : runnableList) {
+                        if (step > 0) {
+                            System.err.print("-");
+                            Thread.sleep(SLEEP_TIME);
+                        }
+                        step++;
+                        System.err.print(step);
                         r.run();
+                    }
                 } finally {
                     SwingUtilities.invokeAndWait(() -> main.dispose());
                 }
+                System.err.println();
             }
         }
 
@@ -208,12 +218,18 @@ public class TestInGUI extends TestCase {
 
         @Override
         public void run() throws Exception {
-            Thread.sleep(500);
             Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
-            assertTrue("wrong dialog on top! expected: "
+            if (activeWindow == null || !clazz.isAssignableFrom(activeWindow.getClass())) {
+                Thread.sleep(500);
+                activeWindow = FocusManager.getCurrentManager().getActiveWindow();
+            }
+
+            assertTrue(getClass().getSimpleName()
+                            + ": wrong dialog on top! expected: <"
                             + clazz.getSimpleName()
-                            + ", but found: "
-                            + activeWindow.getClass().getSimpleName(),
+                            + "> but was: <"
+                            + activeWindow.getClass().getSimpleName()
+                            + ">",
                     clazz.isAssignableFrom(activeWindow.getClass()));
             checkWindow((W) activeWindow);
         }
@@ -240,10 +256,9 @@ public class TestInGUI extends TestCase {
 
     public static class CloseTopMost implements Runnable {
         @Override
-        public void run() throws InterruptedException {
+        public void run() {
             Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
             activeWindow.dispose();
-            Thread.sleep(200);
         }
     }
 }
