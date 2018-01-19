@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.awt.event.InputEvent.*;
+
 public class GuiTester {
     private static final long SLEEP_TIME = 200;
     private final ArrayList<Runnable> runnableList;
@@ -34,43 +36,25 @@ public class GuiTester {
     }
 
     public GuiTester delay(int ms) {
-        add(() -> Thread.sleep(ms));
+        add((GuiTester guiTester) -> Thread.sleep(ms));
         return this;
     }
 
     public GuiTester press(String key, int n) {
-        final KeyStroke keyStroke = KeyStroke.getKeyStroke(key);
-        Assert.assertNotNull("invalid key code <" + key + ">", keyStroke);
-        int code = keyStroke.getKeyCode();
-        add((() -> {
-            for (int i = 0; i < n; i++) {
-                robot.keyPress(code);
-                robot.keyRelease(code);
-            }
+        KeyStroke stroke = strokeFromString(key);
+        add(((GuiTester guiTester) -> {
+            for (int i = 0; i < n; i++)
+                pressNow(stroke);
         }));
         return this;
     }
 
     public GuiTester press(String key) {
-        final KeyStroke keyStroke = KeyStroke.getKeyStroke(key);
-        Assert.assertNotNull("invalid key code <" + key + ">", keyStroke);
-        return addCode(keyStroke.getKeyCode());
+        return addStroke(strokeFromString(key));
     }
 
     public GuiTester press(char c) {
-        return addCode(KeyEvent.getExtendedKeyCodeForChar(c));
-    }
-
-    public GuiTester pressCTRL(char c) {
-        int code = KeyEvent.getExtendedKeyCodeForChar(c);
-        Assert.assertTrue("keycode 0 is not allowed", code != 0);
-        add(() -> {
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(code);
-            robot.keyRelease(code);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-        });
-        return this;
+        return addStroke(KeyStroke.getKeyStroke(c));
     }
 
     public GuiTester typeTempFile(String name) throws IOException {
@@ -79,7 +63,7 @@ public class GuiTester {
     }
 
     public GuiTester type(String s) {
-        add((() -> {
+        add(((GuiTester guiTester) -> {
             for (int i = 0; i < s.length(); i++) {
                 final char ch = s.charAt(i);
                 int code = KeyEvent.getExtendedKeyCodeForChar(ch);
@@ -97,11 +81,10 @@ public class GuiTester {
         return this;
     }
 
-    private GuiTester addCode(int code) {
-        Assert.assertTrue("keycode 0 is not allowed", code != 0);
-        add(() -> {
-            robot.keyPress(code);
-            robot.keyRelease(code);
+    private GuiTester addStroke(KeyStroke stroke) {
+        Assert.assertNotNull("key stroke null is not allowed", stroke);
+        add((GuiTester guiTester) -> {
+            pressNow(stroke);
         });
         return this;
     }
@@ -135,7 +118,7 @@ public class GuiTester {
                     }
                     step++;
                     System.err.print(step);
-                    r.run();
+                    r.run(this);
                 }
             } finally {
                 SwingUtilities.invokeAndWait(() -> main.dispose());
@@ -144,8 +127,42 @@ public class GuiTester {
         }
     }
 
+
+    private KeyStroke strokeFromString(String key) {
+        final KeyStroke keyStroke = KeyStroke.getKeyStroke(key);
+        Assert.assertNotNull("invalid key code <" + key + ">", keyStroke);
+        return keyStroke;
+    }
+
+    public void pressNow(String key) {
+        pressNow(strokeFromString(key));
+    }
+
+    public void pressNow(KeyStroke stroke) {
+        int mod = stroke.getModifiers();
+        if ((mod & SHIFT_DOWN_MASK) != 0) robot.keyPress(KeyEvent.VK_SHIFT);
+        if ((mod & CTRL_DOWN_MASK) != 0) robot.keyPress(KeyEvent.VK_CONTROL);
+        if ((mod & ALT_DOWN_MASK) != 0) robot.keyPress(KeyEvent.VK_ALT);
+        int keyCode = stroke.getKeyCode();
+        if (keyCode == 0) keyCode = KeyEvent.getExtendedKeyCodeForChar(stroke.getKeyChar());
+        robot.keyPress(keyCode);
+        robot.keyRelease(keyCode);
+        if ((mod & SHIFT_DOWN_MASK) != 0) robot.keyRelease(KeyEvent.VK_SHIFT);
+        if ((mod & CTRL_DOWN_MASK) != 0) robot.keyRelease(KeyEvent.VK_CONTROL);
+        if ((mod & ALT_DOWN_MASK) != 0) robot.keyRelease(KeyEvent.VK_ALT);
+    }
+
+    public GuiTester ask(String question) {
+        add((gt) -> {
+            int res = JOptionPane.showConfirmDialog(null, question);
+            Assert.assertTrue("user recognized fail!", res == JOptionPane.OK_OPTION);
+            Thread.sleep(500);
+        });
+        return this;
+    }
+
     interface Runnable {
-        void run() throws Exception;
+        void run(GuiTester guiTester) throws Exception;
     }
 
     static class WindowCheck<W extends Window> implements Runnable {
@@ -156,7 +173,7 @@ public class GuiTester {
         }
 
         @Override
-        public void run() throws Exception {
+        public void run(GuiTester guiTester) throws Exception {
             Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
             if (activeWindow == null || !clazz.isAssignableFrom(activeWindow.getClass())) {
                 Thread.sleep(500);
@@ -211,7 +228,7 @@ public class GuiTester {
 
     public static class CloseTopMost implements Runnable {
         @Override
-        public void run() {
+        public void run(GuiTester guiTester) {
             Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
             Assert.assertNotNull("no java window on top!", activeWindow);
             activeWindow.dispose();

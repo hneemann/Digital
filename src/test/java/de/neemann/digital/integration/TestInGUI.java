@@ -4,6 +4,7 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
+import de.neemann.digital.gui.components.table.AllSolutionsDialog;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.lang.Lang;
@@ -14,23 +15,24 @@ import java.util.List;
 
 /**
  * These tests are excluded from the maven build because gui tests are sometimes fragile.
- * They may not run on all systems as expected.
+ * They may not behave as expected on all systems.
  * Run this tests directly from your IDE.
  */
 public class TestInGUI extends TestCase {
 
     public void testErrorAtStart1() throws Exception {
         new GuiTester("dig/manualError/01_fastRuntime.dig")
-                .press(' ')
+                .press("SPACE")
                 .add(new CheckErrorDialog("01_fastRuntime.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
+                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtStart2() throws Exception {
         new GuiTester("dig/manualError/02_fastRuntimeEmbed.dig")
-                .press(' ')
+                .press("SPACE")
                 .add(new CheckErrorDialog("short.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.WindowCheck<>(Main.class))
@@ -39,25 +41,27 @@ public class TestInGUI extends TestCase {
 
     public void testErrorAtStart3() throws Exception {
         new GuiTester("dig/manualError/06_initPhase.dig")
-                .press(' ')
+                .press("SPACE")
                 .add(new CheckErrorDialog("06_initPhase.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
+                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtStart4() throws Exception {
         new GuiTester("dig/manualError/07_creationPhase.dig")
-                .press(' ')
+                .press("SPACE")
                 .add(new CheckErrorDialog("07_creationPhase.dig", "ErrorY"))
                 .add(new GuiTester.CloseTopMost())
+                .ask("Is the output circled red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtStart5() throws Exception {
         new GuiTester("dig/manualError/08_twoFastClocks.dig")
-                .press(' ')
+                .press("SPACE")
                 .add(new CheckErrorDialog(Lang.get("err_moreThanOneFastClock")))
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.WindowCheck<>(Main.class))
@@ -74,22 +78,24 @@ public class TestInGUI extends TestCase {
 
     public void testErrorAtRunToBreak() throws Exception {
         new GuiTester("dig/manualError/05_runToBreak.dig")
-                .press(' ')
+                .press("SPACE")
                 .delay(500)
                 .press("F7")
                 .add(new CheckErrorDialog("05_runToBreak.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
+                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtButtonPress() throws Exception {
         new GuiTester("dig/manualError/03_fastRuntimeButton.dig")
-                .press(' ')
+                .press("SPACE")
                 .delay(500)
-                .press('A')
+                .press('a')
                 .add(new CheckErrorDialog("03_fastRuntimeButton.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
+                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
@@ -130,7 +136,7 @@ public class TestInGUI extends TestCase {
                 .press("RIGHT", 4)
                 .press("DOWN", 3)
                 .press("ENTER")
-                .pressCTRL('a')
+                .press("control typed a")
                 .type("a b + b c")
                 .press("TAB", 2)
                 .press("SPACE")
@@ -150,6 +156,110 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void testParity() throws Exception {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(500)
+                .press("F10")
+                .press("RIGHT", 1)
+                .press("DOWN", 1)
+                .press("RIGHT", 1)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .press("DOWN")
+                .press("RIGHT", 4)
+                .add(new EnterTruthTable(0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1))
+                .press("F1")
+                .delay(500)
+                .ask("Shows the k-map a checkerboard pattern?")
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+    public void testTwoOutOfThree() throws Exception {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(500)
+                .press("DOWN")
+                .press("RIGHT", 3)
+                .add(new EnterTruthTable(0, 0, 0, 1, 0, 1, 1, 1))
+                .press("F1")
+                .delay(500)
+                .ask("Shows the k-map a 'two out of three' pattern?")
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+    public void testCounterJK() throws Exception {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(500)
+                .press("F10")
+                .press("RIGHT", 1)
+                .press("DOWN", 2)
+                .press("RIGHT", 1)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(500)
+                .add(new GuiTester.WindowCheck<AllSolutionsDialog>(AllSolutionsDialog.class){
+                    @Override
+                    public void checkWindow(AllSolutionsDialog asd) {
+                        asd.getParent().requestFocus();
+                    }
+                })
+                .delay(500)
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(500)
+                .press("SPACE")
+                .delay(500)
+                .ask("Does the 4 bit counter run correctly?")
+                .add(new GuiTester.WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+    public void testCounterD() throws Exception {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(500)
+                .press("F10")
+                .press("RIGHT", 1)
+                .press("DOWN", 2)
+                .press("RIGHT", 1)
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(500)
+                .add(new GuiTester.WindowCheck<AllSolutionsDialog>(AllSolutionsDialog.class){
+                    @Override
+                    public void checkWindow(AllSolutionsDialog asd) {
+                        asd.getParent().requestFocus();
+                    }
+                })
+                .delay(500)
+                .press("F2")
+                .press("SPACE")
+                .delay(500)
+                .ask("Does the 4 bit counter run correctly?")
+                .add(new GuiTester.WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
     public void testHardware() throws Exception {
         new GuiTester("dig/manualError/10_hardware.dig")
                 .press("F9")
@@ -164,10 +274,10 @@ public class TestInGUI extends TestCase {
                 .press("RIGHT", 2)
                 .press("DOWN")
                 .press("ENTER")
-                .pressCTRL('a')
+                .press("control typed a")
                 .typeTempFile("test")
                 .press("ENTER")
-                .delay(2000)
+                .delay(5000)
                 .press("TAB", 2)
                 .add(new GuiTester.CheckDialogText("Design fits successfully"))
                 .add(new GuiTester.CloseTopMost())
@@ -205,6 +315,25 @@ public class TestInGUI extends TestCase {
             assertEquals(1, exp.getResults().size());
             Expression res = exp.getResults().get(0).getExpression();
             assertEquals(expected, res.toString());
+        }
+    }
+
+    private class EnterTruthTable implements GuiTester.Runnable {
+        private final int[] values;
+
+        public EnterTruthTable(int... values) {
+            this.values = values;
+        }
+
+        @Override
+        public void run(GuiTester guiTester) throws Exception {
+            for (int v : values) {
+                if (v == 1) {
+                    guiTester.pressNow("typed 1");
+                    Thread.sleep(400);
+                } else
+                    guiTester.pressNow("DOWN");
+            }
         }
     }
 }

@@ -24,12 +24,6 @@ General
 [ ] build a xor with two 7400
 [ ] analyse the circuit
 
-Truth Tables
-[ ] create truth table of "two out of three" function, show KV map
-[ ] create truth table of "4 input parity" function, show KV map
-[ ] create 4 bit counter, build circuit with JK-FFs, check if it's running
-[ ] build same circuit with D-FFs, check if it's running
-
 Remote Interface
 [ ] start and stop "Conways Game of Live" (Conway.asm) via the assembler GUI in the
     processor (Processor.dig).
