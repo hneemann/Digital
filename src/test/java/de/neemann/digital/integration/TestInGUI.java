@@ -210,12 +210,16 @@ public class TestInGUI extends TestCase {
         public void run() throws Exception {
             Thread.sleep(500);
             Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
-            assertTrue("wrong dialog on top!", clazz.isAssignableFrom(activeWindow.getClass()));
+            assertTrue("wrong dialog on top! expected: "
+                            + clazz.getSimpleName()
+                            + ", but found: "
+                            + activeWindow.getClass().getSimpleName(),
+                    clazz.isAssignableFrom(activeWindow.getClass()));
             checkWindow((W) activeWindow);
         }
 
         public void checkWindow(W window) {
-        };
+        }
     }
 
     public static class CheckErrorDialog extends WindowCheck<ErrorMessage.ErrorDialog> {
