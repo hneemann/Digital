@@ -96,6 +96,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
+                    <excludes>
+                        <exclude>**/TestInGUI.java</exclude>
+                    </excludes>
                     <systemProperties>
                         <property>
                             <name>testdata</name>

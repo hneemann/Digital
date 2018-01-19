@@ -10,105 +10,98 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import junit.framework.TestCase;
 
-import javax.swing.FocusManager;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * These tests are excluded from the maven build because gui tests are sometimes fragile.
+ * They may not run on all systems as expected.
+ * Run this tests directly from your IDE.
+ */
 public class TestInGUI extends TestCase {
 
     public void testErrorAtStart1() throws Exception {
-        new GuiTest("dig/manualError/01_fastRuntime.dig")
+        new GuiTester("dig/manualError/01_fastRuntime.dig")
                 .press(' ')
                 .add(new CheckErrorDialog("01_fastRuntime.dig", Lang.get("err_burnError")))
-                .add(new CloseTopMost())
-                .add(new WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtStart2() throws Exception {
-        new GuiTest("dig/manualError/02_fastRuntimeEmbed.dig")
+        new GuiTester("dig/manualError/02_fastRuntimeEmbed.dig")
                 .press(' ')
                 .add(new CheckErrorDialog("short.dig", Lang.get("err_burnError")))
-                .add(new CloseTopMost())
-                .add(new WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtStart3() throws Exception {
-        new GuiTest("dig/manualError/06_initPhase.dig")
+        new GuiTester("dig/manualError/06_initPhase.dig")
                 .press(' ')
                 .add(new CheckErrorDialog("06_initPhase.dig", Lang.get("err_burnError")))
-                .add(new CloseTopMost())
-                .add(new WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtStart4() throws Exception {
-        new GuiTest("dig/manualError/07_creationPhase.dig")
+        new GuiTester("dig/manualError/07_creationPhase.dig")
                 .press(' ')
                 .add(new CheckErrorDialog("07_creationPhase.dig", "ErrorY"))
-                .add(new CloseTopMost())
-                .add(new WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtStart5() throws Exception {
-        new GuiTest("dig/manualError/08_twoFastClocks.dig")
+        new GuiTester("dig/manualError/08_twoFastClocks.dig")
                 .press(' ')
                 .add(new CheckErrorDialog(Lang.get("err_moreThanOneFastClock")))
-                .add(new CloseTopMost())
-                .add(new WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtTestExecution() throws Exception {
-        new GuiTest("dig/manualError/04_testExecution.dig")
+        new GuiTester("dig/manualError/04_testExecution.dig")
                 .press("F8")
                 .add(new CheckErrorDialog("04_testExecution.dig", Lang.get("err_burnError")))
-                .add(new CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
                 .execute();
     }
 
     public void testErrorAtRunToBreak() throws Exception {
-        new GuiTest("dig/manualError/05_runToBreak.dig")
+        new GuiTester("dig/manualError/05_runToBreak.dig")
                 .press(' ')
                 .delay(500)
                 .press("F7")
                 .add(new CheckErrorDialog("05_runToBreak.dig", Lang.get("err_burnError")))
-                .add(new CloseTopMost())
-                .add(new WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testErrorAtButtonPress() throws Exception {
-        new GuiTest("dig/manualError/03_fastRuntimeButton.dig")
+        new GuiTester("dig/manualError/03_fastRuntimeButton.dig")
                 .press(' ')
                 .delay(500)
                 .press('A')
                 .add(new CheckErrorDialog("03_fastRuntimeButton.dig", Lang.get("err_burnError")))
-                .add(new CloseTopMost())
-                .add(new WindowCheck<>(Main.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
     }
 
     public void testAnalysis() throws Exception {
-        new GuiTest("dig/manualError/09_analysis.dig")
+        new GuiTester("dig/manualError/09_analysis.dig")
                 .press("F9")
-                .add(new WindowCheck<TableDialog>(TableDialog.class) {
-                    @Override
-                    public void checkWindow(TableDialog td) {
-                        ExpressionListenerStore exp = td.getLastGeneratedExpressions();
-                        assertEquals(1, exp.getResults().size());
-                        Expression res = exp.getResults().get(0).getExpression();
-                        assertEquals("and(B,C)", res.toString());
-                    }
-                })
+                .delay(500)
+                .add(new TableDialogCheck("and(B,C)"))
                 .press("F1")
-                .add(new WindowCheck<KarnaughMapDialog>(KarnaughMapDialog.class) {
+                .delay(500)
+                .add(new GuiTester.WindowCheck<KarnaughMapDialog>(KarnaughMapDialog.class) {
                     @Override
                     public void checkWindow(KarnaughMapDialog kMapDialog) {
                         List<ExpressionListenerStore.Result> res = kMapDialog.getResults();
@@ -117,129 +110,72 @@ public class TestInGUI extends TestCase {
                         assertEquals("and(B,C)", r.toString());
                     }
                 })
-                .add(new CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
                 .press("F2")
-                .add(new WindowCheck<Main>(Main.class) {
+                .add(new GuiTester.WindowCheck<Main>(Main.class) {
                     @Override
                     public void checkWindow(Main main) {
                         Circuit c = main.getCircuitComponent().getCircuit();
                         assertEquals(4, c.getElements().size());
                     }
                 })
-                .add(new CloseTopMost())
-                .add(new WindowCheck<>(TableDialog.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.WindowCheck<>(TableDialog.class))
                 .execute();
     }
 
-    public static class GuiTest {
-        private static final long SLEEP_TIME = 200;
-        private final ArrayList<Runnable> runnableList;
-        private Main main;
-        private Robot robot;
-        private String filename;
-
-        public GuiTest(String filename) {
-            this.filename = filename;
-            runnableList = new ArrayList<>();
-        }
-
-        public GuiTest add(Runnable runnable) {
-            runnableList.add(runnable);
-            return this;
-        }
-
-        public GuiTest delay(int ms) {
-            add(() -> Thread.sleep(ms));
-            return this;
-        }
-
-        public GuiTest press(String key) {
-            return addCode(KeyStroke.getKeyStroke(key).getKeyCode());
-        }
-
-        public GuiTest press(char c) {
-            return addCode(KeyEvent.getExtendedKeyCodeForChar(c));
-        }
-
-        private GuiTest addCode(int code) {
-            add(() -> {
-                robot.keyPress(code);
-                robot.keyRelease(code);
-            });
-            return this;
-        }
-
-        private boolean isDisplay() {
-            final boolean isDisplay = !GraphicsEnvironment.isHeadless();
-            if (!isDisplay)
-                System.err.println("running headless, skip test!");
-            return isDisplay;
-        }
-
-        public void execute() throws Exception {
-            if (isDisplay()) {
-                File file = new File(Resources.getRoot(), filename);
-                SwingUtilities.invokeAndWait(() -> {
-                    main = new Main.MainBuilder().setFileToOpen(file).build();
-                    main.setVisible(true);
-                });
-                Thread.sleep(500);
-                try {
-                    robot = new Robot();
-                    int step = 0;
-                    for (Runnable r : runnableList) {
-                        if (step > 0) {
-                            System.err.print("-");
-                            Thread.sleep(SLEEP_TIME);
-                        }
-                        step++;
-                        System.err.print(step);
-                        r.run();
+    public void testExpression() throws Exception {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 3)
+                .press("ENTER")
+                .pressCTRL('a')
+                .type("a b + b c")
+                .press("TAB", 2)
+                .press("SPACE")
+                .delay(500)
+                .add(new GuiTester.WindowCheck<Main>(Main.class) {
+                    @Override
+                    public void checkWindow(Main main) {
+                        Circuit c = main.getCircuitComponent().getCircuit();
+                        assertEquals(7, c.getElements().size());
                     }
-                } finally {
-                    SwingUtilities.invokeAndWait(() -> main.dispose());
-                }
-                System.err.println();
-            }
-        }
-
+                })
+                .press("F9")
+                .delay(500)
+                .add(new TableDialogCheck("or(and(a,b),and(b,c))"))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .execute();
     }
 
-    interface Runnable {
-        void run() throws Exception;
+    public void testHardware() throws Exception {
+        new GuiTester("dig/manualError/10_hardware.dig")
+                .press("F9")
+                .delay(500)
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 5)
+                .press("RIGHT")
+                .press("DOWN", 2)
+                .press("RIGHT")
+                .press("DOWN")
+                .press("RIGHT", 2)
+                .press("DOWN")
+                .press("ENTER")
+                .pressCTRL('a')
+                .typeTempFile("test")
+                .press("ENTER")
+                .delay(2000)
+                .press("TAB", 2)
+                .add(new GuiTester.CheckDialogText("Design fits successfully"))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .execute();
     }
 
-    private static class WindowCheck<W extends Window> implements Runnable {
-        private final Class<W> clazz;
-
-        public WindowCheck(Class<W> clazz) {
-            this.clazz = clazz;
-        }
-
-        @Override
-        public void run() throws Exception {
-            Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
-            if (activeWindow == null || !clazz.isAssignableFrom(activeWindow.getClass())) {
-                Thread.sleep(500);
-                activeWindow = FocusManager.getCurrentManager().getActiveWindow();
-            }
-            assertNotNull("no java window on top!", activeWindow);
-
-            assertTrue(getClass().getSimpleName()
-                            + ": wrong dialog on top! expected: <"
-                            + clazz.getSimpleName()
-                            + "> but was: <"
-                            + activeWindow.getClass().getSimpleName()
-                            + ">",
-                    clazz.isAssignableFrom(activeWindow.getClass()));
-            checkWindow((W) activeWindow);
-        }
-
-        public void checkWindow(W window) {
-        }
-    }
-
-    public static class CheckErrorDialog extends WindowCheck<ErrorMessage.ErrorDialog> {
+    public static class CheckErrorDialog extends GuiTester.WindowCheck<ErrorMessage.ErrorDialog> {
         private final String[] expected;
 
         public CheckErrorDialog(String... expected) {
@@ -255,12 +191,20 @@ public class TestInGUI extends TestCase {
         }
     }
 
-    public static class CloseTopMost implements Runnable {
+    private static class TableDialogCheck extends GuiTester.WindowCheck<TableDialog> {
+        private final String expected;
+
+        public TableDialogCheck(String expected) {
+            super(TableDialog.class);
+            this.expected = expected;
+        }
+
         @Override
-        public void run() {
-            Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
-            assertNotNull("no java window on top!", activeWindow);
-            activeWindow.dispose();
+        public void checkWindow(TableDialog td) {
+            ExpressionListenerStore exp = td.getLastGeneratedExpressions();
+            assertEquals(1, exp.getResults().size());
+            Expression res = exp.getResults().get(0).getExpression();
+            assertEquals(expected, res.toString());
         }
     }
 }
