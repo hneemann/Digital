@@ -223,6 +223,7 @@ public class TestInGUI extends TestCase {
                 Thread.sleep(500);
                 activeWindow = FocusManager.getCurrentManager().getActiveWindow();
             }
+            assertNotNull("no java window on top!", activeWindow);
 
             assertTrue(getClass().getSimpleName()
                             + ": wrong dialog on top! expected: <"
@@ -258,6 +259,7 @@ public class TestInGUI extends TestCase {
         @Override
         public void run() {
             Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
+            assertNotNull("no java window on top!", activeWindow);
             activeWindow.dispose();
         }
     }
