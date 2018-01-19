@@ -69,7 +69,6 @@ public class TestInGUI extends TestCase {
                 .press("F8")
                 .add(new CheckErrorDialog("04_testExecution.dig", Lang.get("err_burnError")))
                 .add(new CloseTopMost())
-                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
