@@ -23,6 +23,8 @@ public class TestInGUI extends TestCase {
         new GuiTest("dig/manualError/01_fastRuntime.dig")
                 .press(' ')
                 .add(new CheckErrorDialog("01_fastRuntime.dig", Lang.get("err_burnError")))
+                .add(new CloseTopMost())
+                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
@@ -30,6 +32,8 @@ public class TestInGUI extends TestCase {
         new GuiTest("dig/manualError/02_fastRuntimeEmbed.dig")
                 .press(' ')
                 .add(new CheckErrorDialog("short.dig", Lang.get("err_burnError")))
+                .add(new CloseTopMost())
+                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
@@ -37,6 +41,8 @@ public class TestInGUI extends TestCase {
         new GuiTest("dig/manualError/06_initPhase.dig")
                 .press(' ')
                 .add(new CheckErrorDialog("06_initPhase.dig", Lang.get("err_burnError")))
+                .add(new CloseTopMost())
+                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
@@ -44,6 +50,8 @@ public class TestInGUI extends TestCase {
         new GuiTest("dig/manualError/07_creationPhase.dig")
                 .press(' ')
                 .add(new CheckErrorDialog("07_creationPhase.dig", "ErrorY"))
+                .add(new CloseTopMost())
+                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
@@ -51,6 +59,8 @@ public class TestInGUI extends TestCase {
         new GuiTest("dig/manualError/08_twoFastClocks.dig")
                 .press(' ')
                 .add(new CheckErrorDialog(Lang.get("err_moreThanOneFastClock")))
+                .add(new CloseTopMost())
+                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
@@ -58,6 +68,8 @@ public class TestInGUI extends TestCase {
         new GuiTest("dig/manualError/04_testExecution.dig")
                 .press("F8")
                 .add(new CheckErrorDialog("04_testExecution.dig", Lang.get("err_burnError")))
+                .add(new CloseTopMost())
+                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
@@ -67,6 +79,8 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .press("F7")
                 .add(new CheckErrorDialog("05_runToBreak.dig", Lang.get("err_burnError")))
+                .add(new CloseTopMost())
+                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
@@ -76,6 +90,8 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .press('A')
                 .add(new CheckErrorDialog("03_fastRuntimeButton.dig", Lang.get("err_burnError")))
+                .add(new CloseTopMost())
+                .add(new WindowCheck<>(Main.class))
                 .execute();
     }
 
@@ -111,6 +127,7 @@ public class TestInGUI extends TestCase {
                     }
                 })
                 .add(new CloseTopMost())
+                .add(new WindowCheck<>(TableDialog.class))
                 .execute();
     }
 
@@ -155,7 +172,7 @@ public class TestInGUI extends TestCase {
         private boolean isDisplay() {
             final boolean isDisplay = !GraphicsEnvironment.isHeadless();
             if (!isDisplay)
-                System.err.println("runs headless, skip test!");
+                System.err.println("running headless, skip test!");
             return isDisplay;
         }
 
@@ -183,7 +200,7 @@ public class TestInGUI extends TestCase {
         void run() throws Exception;
     }
 
-    private static abstract class WindowCheck<W extends Window> implements Runnable {
+    private static class WindowCheck<W extends Window> implements Runnable {
         private final Class<W> clazz;
 
         public WindowCheck(Class<W> clazz) {
@@ -198,7 +215,8 @@ public class TestInGUI extends TestCase {
             checkWindow((W) activeWindow);
         }
 
-        public abstract void checkWindow(W window) throws Exception;
+        public void checkWindow(W window) {
+        };
     }
 
     public static class CheckErrorDialog extends WindowCheck<ErrorMessage.ErrorDialog> {
@@ -212,7 +230,6 @@ public class TestInGUI extends TestCase {
         @Override
         public void checkWindow(ErrorMessage.ErrorDialog errorDialog) {
             String errorMessage = errorDialog.getErrorMessage();
-            errorDialog.dispose();
             for (String e : expected)
                 assertTrue(errorMessage + " does not contain " + e, errorMessage.contains(e));
         }
