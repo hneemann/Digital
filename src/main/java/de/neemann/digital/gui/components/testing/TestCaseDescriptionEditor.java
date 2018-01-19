@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 /**
  * @author hneemann
  */
-public class TestCaseDesctiptionEditor extends EditorFactory.LabelEditor<TestCaseDescription> {
+public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCaseDescription> {
 
     private final TestCaseDescription data;
     private final Key<TestCaseDescription> key;
@@ -27,7 +27,7 @@ public class TestCaseDesctiptionEditor extends EditorFactory.LabelEditor<TestCas
      * @param data the data to edit
      * @param key  the data key
      */
-    public TestCaseDesctiptionEditor(TestCaseDescription data, Key<TestCaseDescription> key) {
+    public TestCaseDescriptionEditor(TestCaseDescription data, Key<TestCaseDescription> key) {
         this.data = new TestCaseDescription(data);
         this.key = key;
     }
@@ -53,7 +53,7 @@ public class TestCaseDesctiptionEditor extends EditorFactory.LabelEditor<TestCas
             public void actionPerformed(ActionEvent e) {
                 try {
                     getAttributeDialog().fireOk();
-                VisualElement visualElement = TestCaseDesctiptionEditor.this.getAttributeDialog().getVisualElement();
+                VisualElement visualElement = TestCaseDescriptionEditor.this.getAttributeDialog().getVisualElement();
                 TestCaseDescriptionDialog dialog = new TestCaseDescriptionDialog(getAttributeDialog().getDialogParent(), data, visualElement);
                 Main main = getAttributeDialog().getMain();
                 if (main != null)

@@ -14,7 +14,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.gui.SaveAsHelper;
-import de.neemann.digital.gui.components.testing.TestCaseDesctiptionEditor;
+import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
@@ -59,7 +59,7 @@ public final class EditorFactory {
         add(LeftRightFormat.class, LeftRightFormatsEditor.class);
         add(IntFormat.class, IntFormatsEditor.class);
         add(Language.class, LanguageEditor.class);
-        add(TestCaseDescription.class, TestCaseDesctiptionEditor.class);
+        add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
     }
