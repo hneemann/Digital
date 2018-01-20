@@ -2,14 +2,14 @@ package de.neemann.digital.integration;
 
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.gui.Main;
-import jdk.nashorn.internal.scripts.JD;
+import de.neemann.digital.gui.components.karnaugh.KarnaughMap;
 import junit.framework.Assert;
 
-import javax.sql.rowset.JdbcRowSet;
 import javax.swing.FocusManager;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -117,8 +117,13 @@ public class GuiTester {
         return this;
     }
 
-    public GuiTester mouseClick(int x, int y, int buttons) {
-        add((gs) -> gs.mouseClickNow(x, y, buttons));
+    public GuiTester mouseMove(int x, int y) {
+        add((gs) -> gs.mouseMoveNow(x, y));
+        return this;
+    }
+
+    public GuiTester mouseClick(int buttons) {
+        add((gs) -> gs.mouseClickNow(buttons));
         return this;
     }
 
@@ -202,26 +207,50 @@ public class GuiTester {
         if ((mod & ALT_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_ALT);
     }
 
+    public void mouseClickNow(int x, int y, int buttons) {
+        mouseMoveNow(x, y);
+        mouseClickNow(buttons);
+    }
+
     /**
      * Clicks the mouse
      *
-     * @param x       the x coordinate relative to the topmost window
-     * @param y       the x coordinate relative to the topmost window
      * @param buttons the button mask
      */
-    public void mouseClickNow(int x, int y, int buttons) {
-        Container activeWindow = FocusManager.getCurrentManager().getActiveWindow();
-        Point p = new Point(x, y);
+    public void mouseClickNow(int buttons) {
+        mouseDownNow(buttons);
+        mouseReleaseNow(buttons);
+    }
 
-        if (activeWindow instanceof JDialog)
-            activeWindow = ((JDialog) activeWindow).getContentPane();
-        else if (activeWindow instanceof JFrame)
-            activeWindow = ((JFrame) activeWindow).getContentPane();
-
-        SwingUtilities.convertPointToScreen(p, activeWindow);
-        robot.mouseMove(p.x, p.y);
-        robot.mousePress(buttons);
+    public void mouseReleaseNow(int buttons) {
         robot.mouseRelease(buttons);
+    }
+
+    public void mouseDownNow(int buttons) {
+        robot.mousePress(buttons);
+    }
+
+    /**
+     * Moves the mouse
+     *
+     * @param x the x coordinate relative to the topmost window
+     * @param y the x coordinate relative to the topmost window
+     */
+    public void mouseMoveNow(int x, int y) {
+        Container baseContainer = getBaseContainer();
+
+        Point p = new Point(x, y);
+        SwingUtilities.convertPointToScreen(p, baseContainer);
+        robot.mouseMove(p.x, p.y);
+    }
+
+    public static Container getBaseContainer() {
+        Container baseContainer = FocusManager.getCurrentManager().getActiveWindow();
+        if (baseContainer instanceof JDialog)
+            baseContainer = ((JDialog) baseContainer).getContentPane();
+        else if (baseContainer instanceof JFrame)
+            baseContainer = ((JFrame) baseContainer).getContentPane();
+        return baseContainer;
     }
 
     private void keyPress(int keyCode) {
@@ -230,6 +259,10 @@ public class GuiTester {
 
     private void keyRelease(int keyCode) {
         robot.keyRelease(keyCode);
+    }
+
+    public Robot getRobot() {
+        return robot;
     }
 
     /**
@@ -252,6 +285,7 @@ public class GuiTester {
      */
     public static class WindowCheck<W extends Window> implements Runnable {
         private final Class<W> expectedClass;
+        private final WindowCheckInterface<W> windowCheckInterface;
 
         /**
          * Creates a new instance
@@ -259,7 +293,17 @@ public class GuiTester {
          * @param expectedClass the expected window class
          */
         public WindowCheck(Class<W> expectedClass) {
+            this(expectedClass, null);
+        }
+
+        /**
+         * Creates a new instance
+         *
+         * @param expectedClass the expected window class
+         */
+        public WindowCheck(Class<W> expectedClass, WindowCheckInterface<W> windowCheckInterface) {
             this.expectedClass = expectedClass;
+            this.windowCheckInterface = windowCheckInterface;
         }
 
         @Override
@@ -288,8 +332,14 @@ public class GuiTester {
          * @param guiTester the GuiTester
          * @param window    the found window of expected type
          */
-        public void checkWindow(GuiTester guiTester, W window) {
+        public void checkWindow(GuiTester guiTester, W window) throws Exception {
+            if (windowCheckInterface != null)
+                windowCheckInterface.checkWindow(guiTester, window);
         }
+    }
+
+    interface WindowCheckInterface<W extends Window> {
+        void checkWindow(GuiTester guiTester, W window) throws Exception;
     }
 
     /**
@@ -398,6 +448,76 @@ public class GuiTester {
             Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
             Assert.assertNotNull("no java window on top!", activeWindow);
             activeWindow.dispose();
+        }
+    }
+
+    public static class ColorPicker implements Runnable {
+        private final int x;
+        private final int y;
+        private final ColorPickerInterface cpi;
+
+        public ColorPicker(int x, int y, ColorPickerInterface cpi) {
+            this.x = x;
+            this.y = y;
+            this.cpi = cpi;
+        }
+
+        @Override
+        public void run(GuiTester guiTester) throws Exception {
+            if (x < 0 || y < 0) pickPosition(guiTester, Math.abs(x), Math.abs(y));
+            else {
+                Point p = new Point(x, y);
+                SwingUtilities.convertPointToScreen(p, getBaseContainer());
+                cpi.checkColor(guiTester.getRobot().getPixelColor(p.x, p.y));
+            }
+        }
+
+        private void pickPosition(GuiTester guiTester, int x, int y) {
+            new PositionPicker(guiTester, x, y).setVisible(true);
+        }
+    }
+
+    public interface ColorPickerInterface {
+        void checkColor(Color pixelColor);
+    }
+
+    private static class PositionPicker extends JDialog {
+        private final JLabel label;
+        private int x;
+        private int y;
+
+        private PositionPicker(GuiTester gt, int xo, int yo) {
+            super(null, "Position picker", ModalityType.APPLICATION_MODAL);
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            label = new JLabel("Pick position");
+            label.setFocusable(true);
+            getContentPane().add(label);
+            pack();
+            setLocationRelativeTo(null);
+            Point l = new Point(xo,yo);
+            Container baseContainer = getBaseContainer();
+
+            SwingUtilities.convertPointToScreen(l, baseContainer);
+            x = l.x;
+            y = l.y;
+
+            label.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent keyEvent) {
+                    if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
+                        Point p = new Point(x, y);
+                        SwingUtilities.convertPointFromScreen(p, baseContainer);
+                        System.out.println(p.x + ", " + p.y);
+                        System.exit(0);
+                    }
+                    if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) x++;
+                    if (keyEvent.getKeyCode() == KeyEvent.VK_LEFT) x--;
+                    if (keyEvent.getKeyCode() == KeyEvent.VK_UP) y--;
+                    if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) y++;
+                    new Thread(() -> gt.getRobot().mouseMove(x, y)).start();
+                }
+            });
+            SwingUtilities.invokeLater(label::requestFocusInWindow);
         }
     }
 
