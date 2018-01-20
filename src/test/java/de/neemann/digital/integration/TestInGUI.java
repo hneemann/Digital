@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class TestInGUI extends TestCase {
 
-    public void testErrorAtStart1() throws Exception {
+    public void testErrorAtStart1() {
         new GuiTester("dig/manualError/01_fastRuntime.dig")
                 .press("SPACE")
                 .add(new CheckErrorDialog("01_fastRuntime.dig", Lang.get("err_burnError")))
@@ -30,7 +30,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testErrorAtStart2() throws Exception {
+    public void testErrorAtStart2() {
         new GuiTester("dig/manualError/02_fastRuntimeEmbed.dig")
                 .press("SPACE")
                 .add(new CheckErrorDialog("short.dig", Lang.get("err_burnError")))
@@ -39,7 +39,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testErrorAtStart3() throws Exception {
+    public void testErrorAtStart3() {
         new GuiTester("dig/manualError/06_initPhase.dig")
                 .press("SPACE")
                 .add(new CheckErrorDialog("06_initPhase.dig", Lang.get("err_burnError")))
@@ -49,7 +49,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testErrorAtStart4() throws Exception {
+    public void testErrorAtStart4() {
         new GuiTester("dig/manualError/07_creationPhase.dig")
                 .press("SPACE")
                 .add(new CheckErrorDialog("07_creationPhase.dig", "ErrorY"))
@@ -59,7 +59,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testErrorAtStart5() throws Exception {
+    public void testErrorAtStart5() {
         new GuiTester("dig/manualError/08_twoFastClocks.dig")
                 .press("SPACE")
                 .add(new CheckErrorDialog(Lang.get("err_moreThanOneFastClock")))
@@ -68,7 +68,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testErrorAtTestExecution() throws Exception {
+    public void testErrorAtTestExecution() {
         new GuiTester("dig/manualError/04_testExecution.dig")
                 .press("F8")
                 .add(new CheckErrorDialog("04_testExecution.dig", Lang.get("err_burnError")))
@@ -76,7 +76,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testErrorAtRunToBreak() throws Exception {
+    public void testErrorAtRunToBreak() {
         new GuiTester("dig/manualError/05_runToBreak.dig")
                 .press("SPACE")
                 .delay(500)
@@ -88,7 +88,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testErrorAtButtonPress() throws Exception {
+    public void testErrorAtButtonPress() {
         new GuiTester("dig/manualError/03_fastRuntimeButton.dig")
                 .press("SPACE")
                 .delay(500)
@@ -100,7 +100,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testAnalysis() throws Exception {
+    public void testAnalysis() {
         new GuiTester("dig/manualError/09_analysis.dig")
                 .press("F9")
                 .delay(500)
@@ -130,7 +130,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testExpression() throws Exception {
+    public void testExpression() {
         new GuiTester()
                 .press("F10")
                 .press("RIGHT", 4)
@@ -156,21 +156,25 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testParity() throws Exception {
+    private GuiTester createNew4VarTruthTable = new GuiTester()
+            .press("F10")
+            .press("RIGHT", 4)
+            .press("DOWN", 2)
+            .press("ENTER")
+            .delay(500)
+            .press("F10")
+            .press("RIGHT", 1)
+            .press("DOWN", 1)
+            .press("RIGHT", 1)
+            .press("DOWN", 2)
+            .press("ENTER")
+            .press("DOWN")
+            .press("RIGHT", 4);
+
+
+    public void testParity() {
         new GuiTester()
-                .press("F10")
-                .press("RIGHT", 4)
-                .press("DOWN", 2)
-                .press("ENTER")
-                .delay(500)
-                .press("F10")
-                .press("RIGHT", 1)
-                .press("DOWN", 1)
-                .press("RIGHT", 1)
-                .press("DOWN", 2)
-                .press("ENTER")
-                .press("DOWN")
-                .press("RIGHT", 4)
+                .use(createNew4VarTruthTable)
                 .add(new EnterTruthTable(0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1))
                 .press("F1")
                 .delay(500)
@@ -179,21 +183,9 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testEdges() throws Exception {
+    public void testEdges() {
         new GuiTester()
-                .press("F10")
-                .press("RIGHT", 4)
-                .press("DOWN", 2)
-                .press("ENTER")
-                .delay(500)
-                .press("F10")
-                .press("RIGHT", 1)
-                .press("DOWN", 1)
-                .press("RIGHT", 1)
-                .press("DOWN", 2)
-                .press("ENTER")
-                .press("DOWN")
-                .press("RIGHT", 4)
+                .use(createNew4VarTruthTable)
                 .add(new EnterTruthTable(0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1))
                 .press("F1")
                 .delay(500)
@@ -202,7 +194,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testTwoOutOfThree() throws Exception {
+    public void testTwoOutOfThree() {
         new GuiTester()
                 .press("F10")
                 .press("RIGHT", 4)
@@ -219,27 +211,30 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testCounterJK() throws Exception {
+    private GuiTester create4BitCounterTruthTable = new GuiTester()
+            .press("F10")
+            .press("RIGHT", 4)
+            .press("DOWN", 2)
+            .press("ENTER")
+            .delay(500)
+            .press("F10")
+            .press("RIGHT", 1)
+            .press("DOWN", 2)
+            .press("RIGHT", 1)
+            .press("DOWN", 2)
+            .press("ENTER")
+            .delay(500)
+            .add(new GuiTester.WindowCheck<AllSolutionsDialog>(AllSolutionsDialog.class){
+                @Override
+                public void checkWindow(AllSolutionsDialog asd) {
+                    asd.getParent().requestFocus();
+                }
+            })
+            .delay(500);
+
+    public void testCounterJK() {
         new GuiTester()
-                .press("F10")
-                .press("RIGHT", 4)
-                .press("DOWN", 2)
-                .press("ENTER")
-                .delay(500)
-                .press("F10")
-                .press("RIGHT", 1)
-                .press("DOWN", 2)
-                .press("RIGHT", 1)
-                .press("DOWN", 2)
-                .press("ENTER")
-                .delay(500)
-                .add(new GuiTester.WindowCheck<AllSolutionsDialog>(AllSolutionsDialog.class){
-                    @Override
-                    public void checkWindow(AllSolutionsDialog asd) {
-                        asd.getParent().requestFocus();
-                    }
-                })
-                .delay(500)
+                .use(create4BitCounterTruthTable)
                 .press("F10")
                 .press("RIGHT", 4)
                 .press("DOWN", 2)
@@ -247,43 +242,25 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .press("SPACE")
                 .delay(500)
-                .ask("Does the 4 bit counter run correctly?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
+                .ask("Does the 4 bit counter run correctly?")
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
 
-    public void testCounterD() throws Exception {
+    public void testCounterD() {
         new GuiTester()
-                .press("F10")
-                .press("RIGHT", 4)
-                .press("DOWN", 2)
-                .press("ENTER")
-                .delay(500)
-                .press("F10")
-                .press("RIGHT", 1)
-                .press("DOWN", 2)
-                .press("RIGHT", 1)
-                .press("DOWN", 2)
-                .press("ENTER")
-                .delay(500)
-                .add(new GuiTester.WindowCheck<AllSolutionsDialog>(AllSolutionsDialog.class){
-                    @Override
-                    public void checkWindow(AllSolutionsDialog asd) {
-                        asd.getParent().requestFocus();
-                    }
-                })
-                .delay(500)
+                .use(create4BitCounterTruthTable)
                 .press("F2")
                 .press("SPACE")
                 .delay(500)
-                .ask("Does the 4 bit counter run correctly?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
+                .ask("Does the 4 bit counter run correctly?")
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
 
-    public void testHardware() throws Exception {
+    public void testHardware() {
         new GuiTester("dig/manualError/10_hardware.dig")
                 .press("F9")
                 .delay(500)
@@ -300,8 +277,7 @@ public class TestInGUI extends TestCase {
                 .press("control typed a")
                 .typeTempFile("test")
                 .press("ENTER")
-                .delay(5000)
-                .press("TAB", 2)
+                .delay(3000)
                 .add(new GuiTester.CheckDialogText("Design fits successfully"))
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
@@ -352,10 +328,10 @@ public class TestInGUI extends TestCase {
         public void run(GuiTester guiTester) throws Exception {
             for (int v : values) {
                 if (v == 1) {
-                    guiTester.pressNow("typed 1");
+                    guiTester.typeNow("typed 1");
                     Thread.sleep(400);
                 } else
-                    guiTester.pressNow("DOWN");
+                    guiTester.typeNow("DOWN");
             }
         }
     }

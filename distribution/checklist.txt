@@ -1,16 +1,17 @@
 Distribution Checklist
 
-Checklist to be filled out before software is distributed.
+Checklist to be filled out before software is released.
 This is to ensure that at least the most important GUI functions
 work properly.
 
 Preparation
 [ ] Don't use the 'experimental mode'!
 [ ] Remove jar library from settings.
+[ ] Make sure ghdl is installed.
 [ ] Run the GUI tests! (digital/src/test/java/de/neemann/digital/integration/TestInGUI.java)
 
 General
-[ ] build a MS-JK-FF with diagonal wires, use Copy&Paste and 'L' shortcuts
+[ ] build a NOR based MS-JK-FF with diagonal wires, use Copy&Paste and 'L' shortcuts
 [ ] save circuit
 [ ] copy test case from the example (JK-MS.dig) to the created circuit
 [ ] run tests
@@ -36,4 +37,4 @@ Custom Jar Components
     An error message should be shown.
 [ ] Create the jar and select it in the settings.
     Now load the example circuit. It should work.
-[ ] Update the plugin example after distribution
+[ ] Update the plugin example after release.
