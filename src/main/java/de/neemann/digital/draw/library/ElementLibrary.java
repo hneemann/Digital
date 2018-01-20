@@ -286,6 +286,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     /**
+     * @return the shape factory
+     */
+    public ShapeFactory getShapeFactory() {
+        return shapeFactory;
+    }
+
+    /**
      * @return the node with the custom elements
      */
     public LibraryNode getCustomNode() {

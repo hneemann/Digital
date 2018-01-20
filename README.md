@@ -193,5 +193,5 @@ If you want to build Digital from the source code:
   * Before you send a pull request, make sure that at least `mvn install` runs without errors.
 * Don't introduce new findbugs issues.
 * Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
-* So far, there are only a few GUI tests, so that the overall test coverage is only slightly below 70%.
+* So far, there are only a few GUI tests, so that the overall test coverage is only slightly above 70%.
   Try to keep the amount of untested GUI code low.

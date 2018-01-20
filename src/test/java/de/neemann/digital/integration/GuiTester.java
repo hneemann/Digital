@@ -2,8 +2,10 @@ package de.neemann.digital.integration;
 
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.gui.Main;
+import jdk.nashorn.internal.scripts.JD;
 import junit.framework.Assert;
 
+import javax.sql.rowset.JdbcRowSet;
 import javax.swing.FocusManager;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.awt.event.InputEvent.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class GuiTester {
@@ -79,7 +82,7 @@ public class GuiTester {
             for (int i = 0; i < s.length(); i++) {
                 final char ch = s.charAt(i);
                 int code = KeyEvent.getExtendedKeyCodeForChar(ch);
-                if (ch == '/') {
+                if (ch == '/' || Character.isUpperCase(ch)) {
                     gt.keyPress(KeyEvent.VK_SHIFT);
                     gt.keyPress(code);
                     gt.keyRelease(code);
@@ -111,6 +114,11 @@ public class GuiTester {
             Assert.assertTrue("user recognized fail!", (Integer) val == JOptionPane.YES_OPTION);
             Thread.sleep(500);
         });
+        return this;
+    }
+
+    public GuiTester mouseClick(int x, int y, int buttons) {
+        add((gs) -> gs.mouseClickNow(x, y, buttons));
         return this;
     }
 
@@ -194,6 +202,28 @@ public class GuiTester {
         if ((mod & ALT_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_ALT);
     }
 
+    /**
+     * Clicks the mouse
+     *
+     * @param x       the x coordinate relative to the topmost window
+     * @param y       the x coordinate relative to the topmost window
+     * @param buttons the button mask
+     */
+    public void mouseClickNow(int x, int y, int buttons) {
+        Container activeWindow = FocusManager.getCurrentManager().getActiveWindow();
+        Point p = new Point(x, y);
+
+        if (activeWindow instanceof JDialog)
+            activeWindow = ((JDialog) activeWindow).getContentPane();
+        else if (activeWindow instanceof JFrame)
+            activeWindow = ((JFrame) activeWindow).getContentPane();
+
+        SwingUtilities.convertPointToScreen(p, activeWindow);
+        robot.mouseMove(p.x, p.y);
+        robot.mousePress(buttons);
+        robot.mouseRelease(buttons);
+    }
+
     private void keyPress(int keyCode) {
         robot.keyPress(keyCode);
     }
@@ -248,54 +278,113 @@ public class GuiTester {
                             + activeWindow.getClass().getSimpleName()
                             + ">",
                     expectedClass.isAssignableFrom(activeWindow.getClass()));
-            checkWindow((W) activeWindow);
+            checkWindow(guiTester, (W) activeWindow);
         }
 
         /**
          * Is called if the expected window was found.
          * Override this method to implement own tests of the window found.
          *
-         * @param window the found window of expected type
+         * @param guiTester the GuiTester
+         * @param window    the found window of expected type
          */
-        public void checkWindow(W window) {
+        public void checkWindow(GuiTester guiTester, W window) {
         }
     }
 
     /**
+     * Traverses all the components in the topmost window.
+     */
+    public static abstract class ComponentTraverse<W extends Window> extends WindowCheck<W> {
+
+        /**
+         * creates a new instance
+         */
+        public ComponentTraverse(Class<W> expected) {
+            super(expected);
+        }
+
+        @Override
+        public void checkWindow(GuiTester guiTester, W dialog) {
+            traverseComponents(dialog);
+        }
+
+        void traverseComponents(Container cp) {
+            for (int i = 0; i < cp.getComponentCount(); i++) {
+                Component component = cp.getComponent(i);
+                visit(component);
+                if (component instanceof Container) {
+                    traverseComponents((Container) component);
+                }
+            }
+        }
+
+        public abstract void visit(Component component);
+    }
+
+
+    /**
      * Checks if the topmost dialog contains the given strings.
      */
-    public static class CheckDialogText extends WindowCheck<JDialog> {
+    public static class CheckTextInWindow<W extends Window> extends ComponentTraverse<W> {
         private final String[] expected;
+        private StringBuilder text;
 
         /**
          * Checks if the topmost dialog contains the given strings.
          *
          * @param expected test fails if one of the strings is missing
          */
-        public CheckDialogText(String... expected) {
-            super(JDialog.class);
+        public CheckTextInWindow(Class<W> expectedClass, String... expected) {
+            super(expectedClass);
             this.expected = expected;
+            text = new StringBuilder();
         }
 
         @Override
-        public void checkWindow(JDialog dialog) {
-            StringBuilder text = new StringBuilder();
-            collectText(dialog.getContentPane(), text);
+        public void checkWindow(GuiTester guiTester, W window) {
+            super.checkWindow(guiTester, window);
             String t = text.toString();
             for (String e : expected)
-                Assert.assertTrue(t + " does not contain " + e, t.contains(e));
+                Assert.assertTrue("<" + t + "> does not contain <" + e + ">", t.contains(e));
         }
 
-        void collectText(Container cp, StringBuilder text) {
-            for (int i = 0; i < cp.getComponentCount(); i++) {
-                Component component = cp.getComponent(i);
-                if (component instanceof JLabel) {
-                    text.append(((JLabel) component).getText());
-                } else if (component instanceof JTextComponent) {
-                    text.append((((JTextComponent) component).getText()));
-                } else if (component instanceof Container) {
-                    collectText((Container) component, text);
-                }
+        @Override
+        public void visit(Component component) {
+            if (component instanceof JTabbedPane) {
+                JTabbedPane t = ((JTabbedPane) component);
+                for (int j = 0; j < t.getTabCount(); j++)
+                    text.append(t.getTitleAt(j));
+            } else if (component instanceof JLabel) {
+                text.append(((JLabel) component).getText());
+            } else if (component instanceof JTextComponent) {
+                text.append((((JTextComponent) component).getText()));
+            }
+        }
+    }
+
+    public static class CheckTableRows<W extends Window> extends ComponentTraverse<W> {
+        private final int expectedRows;
+        private int rows;
+        private int tableCount;
+
+        public CheckTableRows(Class<W> expectedClass, int expectedRows) {
+            super(expectedClass);
+            this.expectedRows = expectedRows;
+        }
+
+        @Override
+        public void checkWindow(GuiTester guiTester, W window) {
+            super.checkWindow(guiTester, window);
+            assertEquals("row count does not match", expectedRows, rows);
+            assertEquals("only one table allowed", 1, tableCount);
+        }
+
+        @Override
+        public void visit(Component component) {
+            if (component instanceof JTable) {
+                rows = ((JTable) component).getModel().getRowCount();
+                tableCount++;
             }
         }
     }
@@ -311,4 +400,5 @@ public class GuiTester {
             activeWindow.dispose();
         }
     }
+
 }
