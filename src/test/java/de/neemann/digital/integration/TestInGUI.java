@@ -190,8 +190,16 @@ public class TestInGUI extends TestCase {
                 .use(createNew4VarTruthTable)
                 .add(new EnterTruthTable(0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1))
                 .press("F1")
-                .delay(500)
-                .ask("Shows the k-map a checkerboard pattern?")
+                .add(new GuiTester.ColorPicker(145, 135, (c) -> assertEquals(new Color(208,161,161), c)))
+                .add(new GuiTester.ColorPicker(267, 132, (c) -> assertEquals(new Color(191,191,223), c)))
+                .add(new GuiTester.ColorPicker(136, 194, (c) -> assertEquals(new Color(255,127,127), c)))
+                .add(new GuiTester.ColorPicker(205, 194, (c) -> assertEquals(new Color(127,255,127), c)))
+                .add(new GuiTester.ColorPicker(197, 257, (c) -> assertEquals(new Color(127,127,255), c)))
+                .add(new GuiTester.ColorPicker(267, 256, (c) -> assertEquals(new Color(255,175,255), c)))
+                .add(new GuiTester.ColorPicker(83, 315, (c) -> assertEquals(new Color(228,228,127), c)))
+                .add(new GuiTester.ColorPicker(205, 317, (c) -> assertEquals(new Color(127,255,255), c)))
+//                .add(new GuiTester.ColorPickerCreator())
+//                .ask("Shows the k-map a checkerboard pattern?")
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
@@ -201,8 +209,12 @@ public class TestInGUI extends TestCase {
                 .use(createNew4VarTruthTable)
                 .add(new EnterTruthTable(0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1))
                 .press("F1")
-                .delay(500)
-                .ask("Are the edges covered in the k-map?")
+                .add(new GuiTester.ColorPicker(136, 121, (c) -> assertEquals(new Color(255,127,127), c)))
+                .add(new GuiTester.ColorPicker(266, 124, (c) -> assertEquals(new Color(255,127,127), c)))
+                .add(new GuiTester.ColorPicker(266, 323, (c) -> assertEquals(new Color(255,127,127), c)))
+                .add(new GuiTester.ColorPicker(136, 324, (c) -> assertEquals(new Color(255,127,127), c)))
+//                .add(new GuiTester.ColorPickerCreator())
+//                .ask("Are the edges covered in the k-map?")
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
@@ -218,8 +230,12 @@ public class TestInGUI extends TestCase {
                 .press("RIGHT", 3)
                 .add(new EnterTruthTable(0, 0, 0, 1, 0, 1, 1, 1))
                 .press("F1")
-                .delay(500)
-                .ask("Shows the k-map a 'two out of three' pattern?")
+                .add(new GuiTester.ColorPicker(136, 255, (c) -> assertEquals(new Color(255,127,127), c)))
+                .add(new GuiTester.ColorPicker(209, 254, (c) -> assertEquals(new Color(127,255,127), c)))
+                .add(new GuiTester.ColorPicker(311, 210, (c) -> assertEquals(new Color(191,127,127), c)))
+                .add(new GuiTester.ColorPicker(266, 256, (c) -> assertEquals(new Color(255,127,127), c)))
+//                .add(new GuiTester.ColorPickerCreator())
+//                .ask("Shows the k-map a 'two out of three' pattern?")
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
@@ -579,8 +595,7 @@ public class TestInGUI extends TestCase {
             SwingUtilities.convertPointToScreen(p, main.getCircuitComponent());
 
             guiTester.getRobot().mouseMove(p.x, p.y);
-            Thread.sleep(1000);
-
+            Thread.sleep(500);
             cpi.checkColor(guiTester.getRobot().getPixelColor(p.x, p.y));
         }
     }

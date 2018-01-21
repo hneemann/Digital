@@ -451,11 +451,21 @@ public class GuiTester {
         }
     }
 
+    /**
+     * Checks a color in a window
+     */
     public static class ColorPicker implements Runnable {
         private final int x;
         private final int y;
         private final ColorPickerInterface cpi;
 
+        /**
+         * Create a new color picker
+         *
+         * @param x   x coordinate.
+         * @param y   y coordinate.
+         * @param cpi the color test
+         */
         public ColorPicker(int x, int y, ColorPickerInterface cpi) {
             this.x = x;
             this.y = y;
@@ -464,16 +474,11 @@ public class GuiTester {
 
         @Override
         public void run(GuiTester guiTester) throws Exception {
-            if (x < 0 || y < 0) pickPosition(guiTester, Math.abs(x), Math.abs(y));
-            else {
-                Point p = new Point(x, y);
-                SwingUtilities.convertPointToScreen(p, getBaseContainer());
-                cpi.checkColor(guiTester.getRobot().getPixelColor(p.x, p.y));
-            }
-        }
-
-        private void pickPosition(GuiTester guiTester, int x, int y) {
-            new PositionPicker(guiTester, x, y).setVisible(true);
+            Point p = new Point(x, y);
+            SwingUtilities.convertPointToScreen(p, getBaseContainer());
+            Thread.sleep(500);
+            guiTester.getRobot().mouseMove(p.x, p.y);
+            cpi.checkColor(guiTester.getRobot().getPixelColor(p.x, p.y));
         }
     }
 
@@ -481,43 +486,46 @@ public class GuiTester {
         void checkColor(Color pixelColor);
     }
 
-    private static class PositionPicker extends JDialog {
+    /**
+     * Helper to create a ColorPicker
+     */
+    public static class ColorPickerCreator extends JDialog implements Runnable {
         private final JLabel label;
-        private int x;
-        private int y;
 
-        private PositionPicker(GuiTester gt, int xo, int yo) {
+        /**
+         * Creates a new instance
+         */
+        public ColorPickerCreator() {
             super(null, "Position picker", ModalityType.APPLICATION_MODAL);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            label = new JLabel("Pick position");
+            label = new JLabel("<html>Move mouse to pos<br>and press ENTER</html>");
             label.setFocusable(true);
             getContentPane().add(label);
             pack();
             setLocationRelativeTo(null);
-            Point l = new Point(xo,yo);
+        }
+
+        @Override
+        public void run(GuiTester gt) throws Exception {
             Container baseContainer = getBaseContainer();
-
-            SwingUtilities.convertPointToScreen(l, baseContainer);
-            x = l.x;
-            y = l.y;
-
             label.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent keyEvent) {
                     if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
-                        Point p = new Point(x, y);
+                        PointerInfo inf = MouseInfo.getPointerInfo();
+                        Point p = inf.getLocation();
+                        Color col = gt.getRobot().getPixelColor(p.x, p.y);
                         SwingUtilities.convertPointFromScreen(p, baseContainer);
-                        System.out.println(p.x + ", " + p.y);
-                        System.exit(0);
-                    }
-                    if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) x++;
-                    if (keyEvent.getKeyCode() == KeyEvent.VK_LEFT) x--;
-                    if (keyEvent.getKeyCode() == KeyEvent.VK_UP) y--;
-                    if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) y++;
-                    new Thread(() -> gt.getRobot().mouseMove(x, y)).start();
+                        System.out.print(".add(new GuiTester.ColorPicker(");
+                        System.out.print(p.x + ", " + p.y);
+                        System.out.print(", (c) -> assertEquals(new Color(");
+                        System.out.print(col.getRed() + "," + col.getGreen() + "," + col.getBlue());
+                        System.out.println("), c)))");
+                    } else if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE)
+                        System.exit(1);
                 }
             });
-            SwingUtilities.invokeLater(label::requestFocusInWindow);
+            setVisible(true);
         }
     }
 
