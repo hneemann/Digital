@@ -2,7 +2,6 @@ package de.neemann.digital.integration;
 
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.gui.Main;
-import de.neemann.digital.gui.components.karnaugh.KarnaughMap;
 import junit.framework.Assert;
 
 import javax.swing.FocusManager;
@@ -207,7 +206,7 @@ public class GuiTester {
         if ((mod & ALT_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_ALT);
     }
 
-    public void mouseClickNow(int x, int y, int buttons) {
+    public void mouseClickNow(int x, int y, int buttons) throws InterruptedException {
         mouseMoveNow(x, y);
         mouseClickNow(buttons);
     }
@@ -217,8 +216,9 @@ public class GuiTester {
      *
      * @param buttons the button mask
      */
-    public void mouseClickNow(int buttons) {
-        mouseDownNow(buttons);
+    public void mouseClickNow(int buttons) throws InterruptedException {
+        mousePressNow(buttons);
+        Thread.sleep(100);
         mouseReleaseNow(buttons);
     }
 
@@ -226,7 +226,7 @@ public class GuiTester {
         robot.mouseRelease(buttons);
     }
 
-    public void mouseDownNow(int buttons) {
+    public void mousePressNow(int buttons) {
         robot.mousePress(buttons);
     }
 

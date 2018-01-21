@@ -33,7 +33,6 @@ import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-import static de.neemann.digital.integration.GuiTester.getBaseContainer;
 
 /**
  * These tests are excluded from the maven build because gui tests are sometimes fragile.
@@ -78,7 +77,7 @@ public class TestInGUI extends TestCase {
                 .press("SPACE")
                 .add(new CheckErrorDialog("07_creationPhase.dig", "ErrorY"))
                 .add(new GuiTester.CloseTopMost())
-                .add(new CheckColorInCircuit(Out.DESCRIPTION, SIZE*2, 0, (c) -> assertEquals(Style.ERROR.getColor(), c)))
+                .add(new CheckColorInCircuit(Out.DESCRIPTION, SIZE * 2, 0, (c) -> assertEquals(Style.ERROR.getColor(), c)))
 //                .ask("Is the output circled red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
@@ -342,6 +341,7 @@ public class TestInGUI extends TestCase {
 
     public void testTestEditor() {
         new GuiTester("dig/manualError/11_editTest.dig")
+                .delay(300)
                 .mouseMove(200, 200)
                 .mouseClick(InputEvent.BUTTON3_MASK)
                 .type("testIdentzz")
@@ -384,7 +384,7 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
-    public void testMoveSelected() {
+    public void testMoveSelectedComponent() {
         new GuiTester()
                 .mouseMove(110, 110)
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
@@ -540,7 +540,7 @@ public class TestInGUI extends TestCase {
             final CircuitComponent c = main.getCircuitComponent();
             Point loc = c.getLocation();
             guiTester.mouseMoveNow(loc.x + 2, loc.y + 2);
-            guiTester.mouseDownNow(InputEvent.BUTTON1_MASK);
+            guiTester.mousePressNow(InputEvent.BUTTON1_MASK);
             guiTester.mouseMoveNow(loc.x + c.getWidth() - 2, loc.y + c.getHeight() - 2);
             guiTester.mouseReleaseNow(InputEvent.BUTTON1_MASK);
         }
