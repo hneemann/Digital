@@ -459,6 +459,18 @@ public class GuiTester {
         private final int y;
         private final ColorPickerInterface cpi;
 
+
+        /**
+         * Create a new color picker
+         *
+         * @param x             x coordinate.
+         * @param y             y coordinate.
+         * @param expectedColor the expected color
+         */
+        public ColorPicker(int x, int y, Color expectedColor) {
+            this(x, y, (c) -> assertEquals(expectedColor, c));
+        }
+
         /**
          * Create a new color picker
          *
@@ -518,9 +530,9 @@ public class GuiTester {
                         SwingUtilities.convertPointFromScreen(p, baseContainer);
                         System.out.print(".add(new GuiTester.ColorPicker(");
                         System.out.print(p.x + ", " + p.y);
-                        System.out.print(", (c) -> assertEquals(new Color(");
+                        System.out.print(", new Color(");
                         System.out.print(col.getRed() + "," + col.getGreen() + "," + col.getBlue());
-                        System.out.println("), c)))");
+                        System.out.println(")))");
                     } else if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE)
                         System.exit(1);
                 }
