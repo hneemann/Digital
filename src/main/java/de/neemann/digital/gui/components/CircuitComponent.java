@@ -833,6 +833,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
+    /**
+     * Transforms a circuit coordinate to a screen coordinate relative to this component.
+     *
+     * @param pos the circuit position
+     * @return the screen coordinate relative to this component
+     */
+    public Point transform(Vector pos) {
+        Point p = new Point();
+        transform.transform(new Point(pos.x, pos.y), p);
+        return p;
+    }
+
     private void enableAntiAlias(Graphics2D gr2) {
         if (antiAlias) {
             gr2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

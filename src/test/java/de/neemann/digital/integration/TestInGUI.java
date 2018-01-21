@@ -2,7 +2,10 @@ package de.neemann.digital.integration;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.core.basic.And;
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.wiring.Driver;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
@@ -29,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.integration.GuiTester.getBaseContainer;
 
 /**
  * These tests are excluded from the maven build because gui tests are sometimes fragile.
@@ -42,7 +47,7 @@ public class TestInGUI extends TestCase {
                 .press("SPACE")
                 .add(new CheckErrorDialog("01_fastRuntime.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
-                .add(new GuiTester.ColorPicker(695, 626, (c) -> assertEquals(Style.ERROR.getColor(), c)))
+                .add(new CheckColorInCircuit(Driver.DESCRIPTION, 0, SIZE + SIZE2, (c) -> assertEquals(Style.ERROR.getColor(), c)))
 //                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
@@ -62,7 +67,7 @@ public class TestInGUI extends TestCase {
                 .press("SPACE")
                 .add(new CheckErrorDialog("06_initPhase.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
-                .add(new GuiTester.ColorPicker(871,450, (c) -> assertEquals(Style.ERROR.getColor(), c)))
+                .add(new CheckColorInCircuit(Driver.DESCRIPTION, 0, SIZE + SIZE2, (c) -> assertEquals(Style.ERROR.getColor(), c)))
 //                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
@@ -73,7 +78,7 @@ public class TestInGUI extends TestCase {
                 .press("SPACE")
                 .add(new CheckErrorDialog("07_creationPhase.dig", "ErrorY"))
                 .add(new GuiTester.CloseTopMost())
-                .add(new GuiTester.ColorPicker(597, 459, (c) -> assertEquals(Style.ERROR.getColor(), c)))
+                .add(new CheckColorInCircuit(Out.DESCRIPTION, SIZE*2, 0, (c) -> assertEquals(Style.ERROR.getColor(), c)))
 //                .ask("Is the output circled red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
@@ -103,7 +108,7 @@ public class TestInGUI extends TestCase {
                 .press("F7")
                 .add(new CheckErrorDialog("05_runToBreak.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
-                .add(new GuiTester.ColorPicker(873, 546, (c) -> assertEquals(Style.ERROR.getColor(), c)))
+                .add(new CheckColorInCircuit(Driver.DESCRIPTION, 0, SIZE + SIZE2, (c) -> assertEquals(Style.ERROR.getColor(), c)))
 //                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
@@ -116,7 +121,7 @@ public class TestInGUI extends TestCase {
                 .press('a')
                 .add(new CheckErrorDialog("03_fastRuntimeButton.dig", Lang.get("err_burnError")))
                 .add(new GuiTester.CloseTopMost())
-                .add(new GuiTester.ColorPicker(821, 585, (c) -> assertEquals(Style.ERROR.getColor(), c)))
+                .add(new CheckColorInCircuit(Driver.DESCRIPTION, 0, SIZE + SIZE2, (c) -> assertEquals(Style.ERROR.getColor(), c)))
 //                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .execute();
@@ -342,12 +347,15 @@ public class TestInGUI extends TestCase {
                 .type("testIdentzz")
                 .press("TAB")
                 .press("SPACE")
+                .delay(300)
                 .type("A B C\n0 0 0\n0 1 0\n1 0 0\n1 1 1")
                 .press("F1")
                 .press("TAB")
                 .press("SPACE")
+                .delay(300)
                 .press("TAB", 4)
                 .press("SPACE")
+                .delay(300)
                 .press("F8")
                 .delay(500)
                 .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "testIdentzz")))
@@ -535,6 +543,45 @@ public class TestInGUI extends TestCase {
             guiTester.mouseDownNow(InputEvent.BUTTON1_MASK);
             guiTester.mouseMoveNow(loc.x + c.getWidth() - 2, loc.y + c.getHeight() - 2);
             guiTester.mouseReleaseNow(InputEvent.BUTTON1_MASK);
+        }
+    }
+
+    private class CheckColorInCircuit extends GuiTester.WindowCheck<Main> {
+        private final ElementTypeDescription description;
+        private final int dx;
+        private final int dy;
+        private final GuiTester.ColorPickerInterface cpi;
+
+        public CheckColorInCircuit(ElementTypeDescription description, int dx, int dy, GuiTester.ColorPickerInterface cpi) {
+            super(Main.class);
+            this.description = description;
+            this.dx = dx;
+            this.dy = dy;
+            this.cpi = cpi;
+        }
+
+        @Override
+        public void checkWindow(GuiTester guiTester, Main main) throws Exception {
+            Thread.sleep(200);
+            Circuit c = main.getCircuitComponent().getCircuit();
+            VisualElement found = null;
+            int foundCounter = 0;
+            for (VisualElement v : c.getElements())
+                if (v.equalsDescription(description)) {
+                    found = v;
+                    foundCounter++;
+                }
+
+            assertEquals("not exact one " + description.getName() + " found in circuit", 1, foundCounter);
+
+            final Vector posInCirc = found.getPos().add(dx, dy);
+            Point p = main.getCircuitComponent().transform(posInCirc);
+            SwingUtilities.convertPointToScreen(p, main.getCircuitComponent());
+
+            guiTester.getRobot().mouseMove(p.x, p.y);
+            Thread.sleep(1000);
+
+            cpi.checkColor(guiTester.getRobot().getPixelColor(p.x, p.y));
         }
     }
 }
