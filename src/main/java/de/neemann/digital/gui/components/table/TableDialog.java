@@ -124,6 +124,7 @@ public class TableDialog extends JDialog {
         table.getActionMap().put("1_ACTION", new SetAction(1));
         table.getInputMap().put(KeyStroke.getKeyStroke("X"), "X_ACTION");
         table.getActionMap().put("X_ACTION", new SetAction(2));
+        table.getTableHeader().setReorderingAllowed(false);
 
         allSolutionsDialog = new AllSolutionsDialog(this, font);
 
