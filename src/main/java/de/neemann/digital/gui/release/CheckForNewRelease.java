@@ -67,7 +67,7 @@ public final class CheckForNewRelease {
      *
      * @param parent the parent window
      */
-    static public void showReleaseDialog(Component parent) {
+    static public void showReleaseDialog(Window parent) {
         startIfNewRelease((latestRev) -> {
             String msg = Lang.get("msg_newRelease_N", latestRev);
             InfoDialog.showInfo(parent, msg, "");
