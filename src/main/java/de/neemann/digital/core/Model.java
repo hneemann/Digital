@@ -106,7 +106,7 @@ public class Model implements Iterable<Node> {
      */
     public WindowPosManager getWindowPosManager() {
         if (windowPosManager == null)
-            windowPosManager = new WindowPosManager();
+            windowPosManager = new WindowPosManager(null);
         return windowPosManager;
     }
 

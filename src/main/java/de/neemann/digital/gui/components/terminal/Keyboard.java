@@ -77,7 +77,7 @@ public class Keyboard extends Node implements Element {
         if (keyboardDialog == null || !keyboardDialog.isVisible()) {
             SwingUtilities.invokeLater(() -> {
                 if (keyboardDialog == null || !keyboardDialog.isVisible()) {
-                    keyboardDialog = new KeyboardDialog(null);
+                    keyboardDialog = new KeyboardDialog(getModel().getWindowPosManager().getMain());
                     getModel().getWindowPosManager().register("keyboard_" + label, keyboardDialog);
                 }
             });

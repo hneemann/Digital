@@ -54,7 +54,6 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
         JTable list = new JTable(tableModel);
         list.setRowHeight(list.getFont().getSize() * 6 / 5);
         getContentPane().add(new JScrollPane(list), BorderLayout.CENTER);
-        setAlwaysOnTop(true);
 
         addWindowListener(new WindowAdapter() {
             @Override

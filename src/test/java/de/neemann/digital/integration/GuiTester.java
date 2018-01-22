@@ -52,15 +52,21 @@ public class GuiTester {
     public GuiTester press(String key, int n) {
         KeyStroke stroke = strokeFromString(key);
         add(((gt) -> {
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++) {
+                Thread.sleep(100);
                 gt.typeNow(stroke);
+            }
         }));
         return this;
     }
 
     public GuiTester press(String... keys) {
-        for (String key : keys)
-            addStroke(strokeFromString(key));
+        add((gt) -> {
+            for (String key : keys) {
+                Thread.sleep(100);
+                gt.typeNow(strokeFromString(key));
+            }
+        });
         return this;
     }
 

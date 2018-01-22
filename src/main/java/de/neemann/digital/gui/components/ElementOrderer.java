@@ -34,11 +34,10 @@ public class ElementOrderer<T> extends JDialog {
      * @param title the dialogs title
      * @param data  the data to order
      */
-    public ElementOrderer(Frame owner, String title, OrderInterface<T> data) {
-        super(owner, title, true);
+    public ElementOrderer(Window owner, String title, OrderInterface<T> data) {
+        super(owner, title, ModalityType.APPLICATION_MODAL);
         this.data = data;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
 
         listModel = new MyListModel<T>(data);
         list = new JList<T>(listModel);

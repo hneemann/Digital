@@ -166,7 +166,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ReorderInputs ri = new ReorderInputs(model.getTable());
-                if (new ElementOrderer<>(parent, Lang.get("menu_table_reorder_inputs"), ri.getItems())
+                if (new ElementOrderer<>(TableDialog.this, Lang.get("menu_table_reorder_inputs"), ri.getItems())
                         .addDeleteButton()
                         .addOkButton()
                         .showDialog()) {
@@ -192,7 +192,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ReorderOutputs ro = new ReorderOutputs(model.getTable());
-                if (new ElementOrderer<>(parent, Lang.get("menu_table_reorder_outputs"), ro.getItems())
+                if (new ElementOrderer<>(TableDialog.this, Lang.get("menu_table_reorder_outputs"), ro.getItems())
                         .addDeleteButton()
                         .addOkButton()
                         .showDialog()) {

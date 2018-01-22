@@ -1,5 +1,7 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.gui.Main;
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,12 +14,23 @@ import java.util.Map;
  */
 public class WindowPosManager {
     private final Map<String, Window> windows;
+    private final Main main;
 
     /**
      * Creates a new instance
+     *
+     * @param main the main window
      */
-    public WindowPosManager() {
+    public WindowPosManager(Main main) {
+        this.main = main;
         this.windows = new HashMap<>();
+    }
+
+    /**
+     * @return the main window, maybe null
+     */
+    public Main getMain() {
+        return main;
     }
 
     /**

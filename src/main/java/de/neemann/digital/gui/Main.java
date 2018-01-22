@@ -114,7 +114,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private final JLabel statusLabel;
     private final StateManager stateManager = new StateManager();
     private final ScheduledThreadPoolExecutor timerExecutor = new ScheduledThreadPoolExecutor(1);
-    private final WindowPosManager windowPosManager = new WindowPosManager();
+    private final WindowPosManager windowPosManager;
     private final InsertHistory insertHistory;
     private final boolean keepPrefMainFile;
 
@@ -149,6 +149,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         super(Lang.get("digital"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
+
+        windowPosManager=new WindowPosManager(this);
 
         keepPrefMainFile = builder.keepPrefMainFile;
 

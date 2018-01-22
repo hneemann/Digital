@@ -68,6 +68,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     /**
      * Edits a single value
      *
+     * @param parent           the parent frame
      * @param pos              the position to pop up the dialog
      * @param label            the name of the value
      * @param value            the value to edit
@@ -75,8 +76,8 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
      * @param model            the model
      * @param modelSync        used to access the running model
      */
-    public SingleValueDialog(Point pos, String label, ObservableValue value, CircuitComponent circuitComponent, Model model, Sync modelSync) {
-        super((Frame) null, Lang.get("win_valueInputTitle_N", label), false);
+    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, CircuitComponent circuitComponent, Model model, Sync modelSync) {
+        super(parent, Lang.get("win_valueInputTitle_N", label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.value = value;
         this.circuitComponent = circuitComponent;
@@ -152,7 +153,6 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         Screen.setLocation(this, pos);
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
-        setAlwaysOnTop(true);
     }
 
     private void apply() {

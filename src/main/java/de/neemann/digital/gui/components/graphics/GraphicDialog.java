@@ -4,6 +4,7 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The dialog used to show the graphics
@@ -16,18 +17,18 @@ public class GraphicDialog extends JDialog {
     /**
      * Creates a new instance of the given size
      *
+     * @param parent the parent window
      * @param width  width in pixel
      * @param height height in pixel
      */
-    public GraphicDialog(int width, int height) {
-        super((JFrame) null, Lang.get("elem_GraphicCard"), false);
+    public GraphicDialog(Window parent, int width, int height) {
+        super(parent, Lang.get("elem_GraphicCard"), ModalityType.MODELESS);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         graphicComponent = new GraphicComponent(width, height);
         getContentPane().add(graphicComponent);
         pack();
 
-        setAlwaysOnTop(true);
         setLocationRelativeTo(null);
         setVisible(true);
     }
