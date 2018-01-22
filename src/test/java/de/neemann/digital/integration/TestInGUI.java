@@ -371,7 +371,9 @@ public class TestInGUI extends TestCase {
                 .delay(300)
                 .mouseMove(200, 200)
                 .mouseClick(InputEvent.BUTTON3_MASK)
+                .delay(300)
                 .type("testIdentzz")
+                .delay(300)
                 .press("TAB")
                 .press("SPACE")
                 .delay(300)
@@ -436,6 +438,61 @@ public class TestInGUI extends TestCase {
                 }))
                 .execute();
     }
+
+    public void testShortcutsPlusMinus() {
+        new GuiTester()
+                .mouseMove(100 + SIZE * 2, 100 + SIZE * 2)
+                .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
+                    final CircuitComponent cc = main.getCircuitComponent();
+                    final VisualElement ve = new VisualElement(And.DESCRIPTION.getName())
+                            .setShapeFactory(cc.getLibrary().getShapeFactory());
+                    cc.setPartToInsert(ve);
+                }))
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .mouseMove(100, 100)
+                .press("PLUS")
+                .press("PLUS")
+                .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
+                    final Circuit c = main.getCircuitComponent().getCircuit();
+                    assertEquals(1, c.getElements().size());
+                    assertEquals(4, (int) c.getElements().get(0).getElementAttributes().get(Keys.INPUT_COUNT));
+
+                }))
+                .press("MINUS")
+                .press("MINUS")
+                .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
+                    final Circuit c = main.getCircuitComponent().getCircuit();
+                    assertEquals(1, c.getElements().size());
+                    assertEquals(2, (int) c.getElements().get(0).getElementAttributes().get(Keys.INPUT_COUNT));
+
+                }))
+                .execute();
+    }
+
+    public void testShortcutsLD() {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 5)
+                .press("DOWN", "RIGHT", "ENTER")
+                .mouseMove(100, 150)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(1, main.getCircuitComponent().getCircuit().getElements().size())))
+                .mouseMove(200, 150)
+                .press('l')
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(2, main.getCircuitComponent().getCircuit().getElements().size())))
+                .mouseMove(80, 130)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .press("control typed d")
+                .mouseMove(100, 250)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(3, main.getCircuitComponent().getCircuit().getElements().size())))
+                .execute();
+    }
+
 
     public void test74xxFunctions() {
         new GuiTester("dig/manualError/10_hardware.dig")
@@ -515,6 +572,7 @@ public class TestInGUI extends TestCase {
         new GuiTester("dig/manualError/12_groupEdit.dig")
                 .add(new SelectAll())
                 .mouseClick(InputEvent.BUTTON3_MASK)
+                .delay(500)
                 .press("TAB", 2)
                 .type("6")
                 .press("ENTER")
