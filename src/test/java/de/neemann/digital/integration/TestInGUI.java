@@ -19,6 +19,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.NumberingWizard;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.components.ProbeDialog;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.AllSolutionsDialog;
@@ -384,10 +385,10 @@ public class TestInGUI extends TestCase {
                 .press("F1")
                 .press("TAB")
                 .press("SPACE")
-                .delay(300)
+                .delay(500)
                 .press("TAB", 4)
                 .press("SPACE")
-                .delay(300)
+                .delay(500)
                 .press("F8")
                 .delay(500)
                 .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "testIdentzz")))
@@ -620,6 +621,27 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .add(new CheckOutputValue(8))
 
+                .execute();
+    }
+
+    public void testMeasurementTable() {
+        new GuiTester("dig/manualError/13_singleValueDialog.dig")
+                .press("SPACE")
+                .delay(500)
+                .press("F10")
+                .press("RIGHT", 3)
+                .press("DOWN")
+                .press("ENTER")
+                .delay(500)
+                .add(new GuiTester.CheckTableRows<>(ProbeDialog.class, 2))
+                .press("DOWN")
+                .press("RIGHT")
+                .press('\b')
+                .press('8')
+                .press("ENTER")
+                .delay(500)
+                .add(new GuiTester.CloseTopMost())
+                .add(new CheckOutputValue(8))
                 .execute();
     }
 
