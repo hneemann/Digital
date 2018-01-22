@@ -1199,6 +1199,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync, circuitComponent)).setVisible(true);
     }
 
+    /**
+     * @return the model or null if no model is running
+     */
+    public Model getModel() {
+        return model;
+    }
+
     private final Object modelLock = new Object();
 
     @Override

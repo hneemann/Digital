@@ -1,6 +1,8 @@
 package de.neemann.digital.integration;
 
 import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.basic.And;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
@@ -213,10 +215,10 @@ public class TestInGUI extends TestCase {
                 .use(createNew4VarTruthTable)
                 .add(new EnterTruthTable(0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1))
                 .press("F1")
-                .add(new GuiTester.ColorPicker(136, 121, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(266, 124, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(266, 323, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(136, 324, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(136, 110, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(266, 109, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(266, 329, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(136, 337, new Color(255, 127, 127)))
 //                .add(new GuiTester.ColorPickerCreator())
 //                .ask("Are the edges covered in the k-map?")
                 .add(new GuiTester.CloseTopMost())
@@ -568,6 +570,59 @@ public class TestInGUI extends TestCase {
     }
 
 
+    public void testSingleValueDialog() {
+        new GuiTester("dig/manualError/13_singleValueDialog.dig")
+                .press("SPACE")
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(Main.class, (guiTester, main) -> {
+                    final CircuitComponent cc = main.getCircuitComponent();
+                    Vector p = cc.getCircuit().getElements().get(0).getPos();
+                    Point sp = cc.transform(p.add(-SIZE, 0));
+                    SwingUtilities.convertPointToScreen(sp, cc);
+                    guiTester.getRobot().mouseMove(sp.x, sp.y);
+                }))
+
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(500)
+                .type("0x44")
+                .press("ENTER")
+                .delay(500)
+                .add(new CheckOutputValue(0x44))
+
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(500)
+                .type("44")
+                .press("ENTER")
+                .delay(500)
+
+                .add(new CheckOutputValue(44))
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(500)
+                .type("0b111")
+                .press("ENTER")
+                .delay(500)
+                .add(new CheckOutputValue(7))
+
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(500)
+                .press("shift typed #")   // works only on german keyboard layout
+                .press("shift typed A")
+                .press("shift typed #")
+                .press("ENTER")
+                .delay(500)
+                .add(new CheckOutputValue('A'))
+
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(500)
+                .type("0")
+                .press("TAB", 5)
+                .press("SPACE", "ENTER")
+                .delay(500)
+                .add(new CheckOutputValue(8))
+
+                .execute();
+    }
+
     public void testGroupEdit() {
         new GuiTester("dig/manualError/12_groupEdit.dig")
                 .add(new SelectAll())
@@ -785,6 +840,22 @@ public class TestInGUI extends TestCase {
             for (VisualElement ve : el)
                 if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Out.DESCRIPTION))
                     assertTrue(ve.getElementAttributes().get(Keys.LABEL).startsWith(prefix));
+        }
+    }
+
+    private class CheckOutputValue extends GuiTester.WindowCheck<Main> {
+        private final int val;
+
+        public CheckOutputValue(int val) {
+            super(Main.class);
+            this.val = val;
+        }
+
+        @Override
+        public void checkWindow(GuiTester guiTester, Main main) {
+            final ArrayList<Signal> outputs = main.getModel().getOutputs();
+            assertEquals(1, outputs.size());
+            assertEquals(val, outputs.get(0).getValue().getValue());
         }
     }
 }
