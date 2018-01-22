@@ -1294,7 +1294,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (list.size() == 1)
             vp = list.get(0);
         else if (list.size() > 1) {
-            ItemPicker<VisualElement> picker = new ItemPicker<>(CircuitComponent.this, list);
+            ItemPicker<VisualElement> picker = new ItemPicker<>(parent, list);
             vp = picker.select();
         }
         return vp;
