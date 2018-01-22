@@ -79,8 +79,8 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
      * @param message  the message
      * @param revision the "{{version}}" url version replacement
      */
-    public static void showInfo(Component parent, String message, String revision) {
-        final JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(parent), Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
+    public static void showInfo(Window parent, String message, String revision) {
+        final JDialog dialog = new JDialog(parent, Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
         dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JEditorPane ta = new JEditorPane("text/html", message);
