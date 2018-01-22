@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCaseDescription> {
 
     private final TestCaseDescription data;
-    private final Key<TestCaseDescription> key;
 
     /**
      * Creates a new editor
@@ -29,7 +28,6 @@ public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCas
      */
     public TestCaseDescriptionEditor(TestCaseDescription data, Key<TestCaseDescription> key) {
         this.data = new TestCaseDescription(data);
-        this.key = key;
     }
 
     @Override
@@ -44,7 +42,7 @@ public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCas
         panel.add(new ToolTipAction(Lang.get("btn_edit")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TestCaseDescriptionDialog(panel, data, null).setVisible(true);
+                new TestCaseDescriptionDialog(SwingUtilities.getWindowAncestor(panel), data, null).setVisible(true);
             }
         }.createJButton());
 
@@ -53,12 +51,13 @@ public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCas
             public void actionPerformed(ActionEvent e) {
                 try {
                     getAttributeDialog().fireOk();
-                VisualElement visualElement = TestCaseDescriptionEditor.this.getAttributeDialog().getVisualElement();
-                TestCaseDescriptionDialog dialog = new TestCaseDescriptionDialog(getAttributeDialog().getDialogParent(), data, visualElement);
-                Main main = getAttributeDialog().getMain();
-                if (main != null)
-                    main.getWindowPosManager().register("testdata", dialog);
-                dialog.setVisible(true);
+                    VisualElement visualElement = TestCaseDescriptionEditor.this.getAttributeDialog().getVisualElement();
+                    Main main = getAttributeDialog().getMain();
+                    if (main != null) {
+                        TestCaseDescriptionDialog dialog = new TestCaseDescriptionDialog(main, data, visualElement);
+                        main.getWindowPosManager().register("testdata", dialog);
+                        dialog.setVisible(true);
+                    }
                 } catch (EditorParseException e1) {
                     e1.printStackTrace();
                 }

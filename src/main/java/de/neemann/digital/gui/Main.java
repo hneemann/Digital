@@ -611,7 +611,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.editCircuitAttributes(Main.this);
+                circuitComponent.editCircuitAttributes();
             }
         }.setToolTip(Lang.get("menu_editAttributes_tt"));
 
@@ -1611,7 +1611,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      */
     public static class MainBuilder {
         private File fileToOpen;
-        private Component parent;
+        private Window parent;
         private ElementLibrary library;
         private Circuit circuit;
         private boolean allowAllFileActions = true;
@@ -1641,7 +1641,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
          * @param parent the parent component
          * @return this for chained calls
          */
-        public MainBuilder setParent(Component parent) {
+        public MainBuilder setParent(Window parent) {
             this.parent = parent;
             return this;
         }
