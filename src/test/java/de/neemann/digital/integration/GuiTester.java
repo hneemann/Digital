@@ -58,8 +58,10 @@ public class GuiTester {
         return this;
     }
 
-    public GuiTester press(String key) {
-        return addStroke(strokeFromString(key));
+    public GuiTester press(String... keys) {
+        for (String key : keys)
+            addStroke(strokeFromString(key));
+        return this;
     }
 
     public GuiTester press(char c) {
@@ -70,6 +72,7 @@ public class GuiTester {
         File f = null;
         try {
             f = File.createTempFile(name, ".dig");
+            f.delete();
         } catch (IOException e) {
             fail(e.getMessage());
         }

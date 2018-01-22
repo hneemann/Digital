@@ -4,6 +4,7 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.core.basic.And;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.Driver;
 import de.neemann.digital.draw.elements.Circuit;
@@ -12,8 +13,11 @@ import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.GraphicMinMax;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.NumberingWizard;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.AllSolutionsDialog;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
@@ -292,6 +296,10 @@ public class TestInGUI extends TestCase {
                 .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
                 .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 8))
                 .add(new GuiTester.CloseTopMost())
+                .press("control typed s")
+                .add(new GuiTester.WindowCheck<>(JDialog.class))
+                .typeTempFile("jk-ms")
+                .press("ENTER")
                 .press("control typed z", 65)
                 .delay(1000)
                 .press("control typed y", 65)
@@ -299,6 +307,9 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
                 .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 8))
+                .press("F10", "RIGHT", "DOWN", "ENTER")
+                .add(new GuiTester.WindowCheck<>(GraphDialog.class))
+                .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
@@ -365,6 +376,7 @@ public class TestInGUI extends TestCase {
                 .press("SPACE")
                 .delay(300)
                 .type("A B C\n0 0 0\n0 1 0\n1 0 0\n1 1 1")
+                .delay(300)
                 .press("F1")
                 .press("TAB")
                 .press("SPACE")
@@ -425,6 +437,80 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void test74xxFunctions() {
+        new GuiTester("dig/manualError/10_hardware.dig")
+                .press("F10")
+                .press("RIGHT", 2)
+                .press("DOWN", 4)
+                .press("RIGHT")
+                .press("DOWN", 2)
+                .press("ENTER")
+                .add(new ClickInputsAndOutputs())
+                .press("ESCAPE")
+                .add(new GuiTester.WindowCheck<>(Main.class, (guiTester, main) -> {
+                    final CircuitComponent cc = main.getCircuitComponent();
+                    ArrayList<VisualElement> el = cc.getCircuit().getElements();
+                    int n = 0;
+                    for (VisualElement ve : el)
+                        if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Out.DESCRIPTION)) {
+                            n++;
+                            assertEquals("" + n, ve.getElementAttributes().get(Keys.PINNUMBER));
+                        }
+                }))
+                .add(new SelectAll())
+                .press("F10")
+                .press("RIGHT", 2)
+                .press("DOWN", 5)
+                .press("RIGHT")
+                .press("ENTER")
+                .type("U")
+                .press("ENTER")
+                .add(new PinNameChecker("UC"))
+                .press("F10")
+                .press("RIGHT", 2)
+                .press("DOWN", 5)
+                .press("RIGHT")
+                .press("DOWN")
+                .press("ENTER")
+                .add(new PinNameChecker("C"))
+                .press("F10")
+                .press("RIGHT", 2)
+                .press("DOWN", 5)
+                .press("RIGHT")
+                .press("DOWN", 3)
+                .press("ENTER")
+                .add(new GuiTester.WindowCheck<>(Main.class, (guiTester, main) -> {
+                    final CircuitComponent cc = main.getCircuitComponent();
+                    ArrayList<VisualElement> el = cc.getCircuit().getElements();
+                    for (VisualElement ve : el)
+                        if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Out.DESCRIPTION))
+                            assertEquals("", ve.getElementAttributes().get(Keys.PINNUMBER));
+                }))
+                .press("F10")
+                .press("RIGHT", 2)
+                .press("DOWN", 5)
+                .press("RIGHT")
+                .press("DOWN", 4)
+                .press("ENTER")
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(7, main.getCircuitComponent().getCircuit().getElements().size())))
+                .execute();
+
+    }
+
+    public void test74xxUsage() {
+        new GuiTester()
+                .add(new DrawCircuit("../../main/dig/74xx/xor.dig"))
+                .press("F8")
+                .delay(500)
+                .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
+                .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 4))
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+
     public void testGroupEdit() {
         new GuiTester("dig/manualError/12_groupEdit.dig")
                 .add(new SelectAll())
@@ -432,6 +518,7 @@ public class TestInGUI extends TestCase {
                 .press("TAB", 2)
                 .type("6")
                 .press("ENTER")
+                .delay(500)
                 .add(new GuiTester.WindowCheck<>(Main.class, (guiTester, main) -> {
                     ArrayList<VisualElement> l = main.getCircuitComponent().getCircuit().getElements();
                     assertEquals(8, l.size());
@@ -505,7 +592,8 @@ public class TestInGUI extends TestCase {
         @Override
         public void checkWindow(GuiTester guiTester, Main main) throws InterruptedException, IOException {
             File file = new File(Resources.getRoot(), filename);
-            Circuit circuit = Circuit.loadCircuit(file, main.getCircuitComponent().getLibrary().getShapeFactory());
+            final ElementLibrary library = main.getCircuitComponent().getLibrary();
+            Circuit circuit = Circuit.loadCircuit(file, library.getShapeFactory());
 
             int xMin = Integer.MAX_VALUE;
             int yMin = Integer.MAX_VALUE;
@@ -522,13 +610,12 @@ public class TestInGUI extends TestCase {
 
             for (Wire w : circuit.getWires()) {
                 guiTester.mouseClickNow(w.p1.x - xMin, w.p1.y - yMin, InputEvent.BUTTON1_MASK);
-                Thread.sleep(100);
                 if (w.p1.x != w.p2.x && w.p1.y != w.p2.y)
                     guiTester.typeNow("typed d");
 
                 guiTester.mouseClickNow(w.p2.x - xMin, w.p2.y - yMin, InputEvent.BUTTON1_MASK);
+                Thread.sleep(50);
                 guiTester.mouseClickNow(w.p2.x - xMin, w.p2.y - yMin, InputEvent.BUTTON3_MASK);
-                Thread.sleep(100);
             }
 
             for (VisualElement v : circuit.getElements()) {
@@ -597,6 +684,49 @@ public class TestInGUI extends TestCase {
             guiTester.getRobot().mouseMove(p.x, p.y);
             Thread.sleep(500);
             cpi.checkColor(guiTester.getRobot().getPixelColor(p.x, p.y));
+        }
+    }
+
+    private class ClickInputsAndOutputs extends GuiTester.WindowCheck<NumberingWizard> {
+        public ClickInputsAndOutputs() {
+            super(NumberingWizard.class);
+        }
+
+        @Override
+        public void checkWindow(GuiTester guiTester, NumberingWizard window) throws Exception {
+            assertTrue(window.getParent() instanceof Main);
+            Main main = (Main) window.getParent();
+
+            final CircuitComponent cc = main.getCircuitComponent();
+            ArrayList<VisualElement> el = cc.getCircuit().getElements();
+            for (VisualElement ve : el)
+                if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Out.DESCRIPTION)) {
+                    GraphicMinMax mm = ve.getMinMax(false);
+                    Point p = cc.transform(mm.getMin().add(mm.getMax()).div(2));
+                    SwingUtilities.convertPointToScreen(p, cc);
+                    guiTester.getRobot().mouseMove(p.x, p.y);
+                    Thread.sleep(100);
+                    guiTester.mouseClickNow(InputEvent.BUTTON1_MASK);
+                    Thread.sleep(500);
+                }
+        }
+    }
+
+    private class PinNameChecker extends GuiTester.WindowCheck<Main> {
+        private final String prefix;
+
+        public PinNameChecker(String prefix) {
+            super(Main.class);
+            this.prefix = prefix;
+        }
+
+        @Override
+        public void checkWindow(GuiTester guiTester, Main main) {
+            final CircuitComponent cc = main.getCircuitComponent();
+            ArrayList<VisualElement> el = cc.getCircuit().getElements();
+            for (VisualElement ve : el)
+                if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Out.DESCRIPTION))
+                    assertTrue(ve.getElementAttributes().get(Keys.LABEL).startsWith(prefix));
         }
     }
 }
