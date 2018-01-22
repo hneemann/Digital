@@ -117,7 +117,7 @@ public class ErrorMessage implements Runnable {
         private String errorMessage;
 
         private ErrorDialog(Component parent, String title, String message) {
-            super(parent == null ? null : SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL);
+            super(getParentWindow(parent), title, ModalityType.APPLICATION_MODAL);
             setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
             errorMessage = message;
@@ -159,5 +159,21 @@ public class ErrorMessage implements Runnable {
             return errorMessage;
         }
 
+    }
+
+    /**
+     * Get the parent window of the given component.
+     * If the component is a window this window is returned
+     *
+     * @param parent the parent component
+     * @return the window instance
+     */
+    public static Window getParentWindow(Component parent) {
+        if (parent == null)
+            return null;
+        else if (parent instanceof Window)
+            return (Window) parent;
+        else
+            return SwingUtilities.getWindowAncestor(parent);
     }
 }
