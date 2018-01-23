@@ -111,10 +111,10 @@ public class ModelAnalyserTest extends TestCase {
         checkTable(tt.getResult("Q0n+1"), one, zero, one, zero);
         checkTable(tt.getResult("Q1n+1"), zero, one, one, zero);
 
-        assertEquals("Y0", tt.getResultName(2));
-        assertEquals("Y1", tt.getResultName(3));
-        final BoolTable y0 = tt.getResult(2);
-        final BoolTable y1 = tt.getResult(3);
+        assertEquals("Y1", tt.getResultName(2));
+        assertEquals("Y0", tt.getResultName(3));
+        final BoolTable y1 = tt.getResult(2);
+        final BoolTable y0 = tt.getResult(3);
         for (int i = 0; i < 4; i++) {
             assertEquals((i & 1) > 0, y0.get(i).invert().bool());
             assertEquals((i & 2) > 0, y1.get(i).invert().bool());
@@ -136,8 +136,8 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     private void checkIdent(TruthTable tt) {
-        checkTable(tt.getResult("B0"), zero, zero, one, one);
-        checkTable(tt.getResult("B1"), zero, one, zero, one);
+        checkTable(tt.getResult("B1"), zero, zero, one, one);
+        checkTable(tt.getResult("B0"), zero, one, zero, one);
     }
 
     private void checkTable(BoolTable table, ThreeStateValue... expected) {

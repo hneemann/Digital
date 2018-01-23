@@ -2,10 +2,7 @@ package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ImmutableList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author hneemann
@@ -55,6 +52,16 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
          */
         public Builder addAtTop(ObservableValue val) {
             values.add(0, val);
+            return this;
+        }
+
+        /**
+         * Reverses the order of the values
+         *
+         * @return the builder
+         */
+        public Builder reverse() {
+            Collections.reverse(values);
             return this;
         }
 

@@ -130,11 +130,11 @@ public class ModelAnalyser {
                 try {
                     Splitter sp = Splitter.createOneToN(bits);
                     sp.setInputs(s.getValue().asList());
-                    int i = 0;
-                    for (ObservableValue out : sp.getOutputs()) {
-                        outputs.add(new Signal(s.getName() + i, out));
-                        i++;
-                    }
+
+                    final ObservableValues spOutputs = sp.getOutputs();
+                    for (int i = spOutputs.size() - 1; i >= 0; i--)
+                        outputs.add(new Signal(s.getName() + i, spOutputs.get(i)));
+
                     s.getValue().fireHasChanged();
                 } catch (NodeException e) {
                     throw new AnalyseException(e);
@@ -163,12 +163,12 @@ public class ModelAnalyser {
                     out.fireHasChanged();
 
                     ObservableValues.Builder builder = new ObservableValues.Builder();
-                    for (int i = 0; i < bits; i++) {
+                    for (int i = bits - 1; i >= 0; i--) {
                         ObservableValue o = new ObservableValue(s.getName() + i, 1);
                         builder.add(o);
                         inputs.add(new Signal(s.getName() + i, o));
                     }
-                    sp.setInputs(builder.build());
+                    sp.setInputs(builder.reverse().build());
                 } catch (NodeException e) {
                     throw new AnalyseException(e);
                 }
