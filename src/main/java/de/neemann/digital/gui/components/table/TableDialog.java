@@ -124,7 +124,8 @@ public class TableDialog extends JDialog {
         table.getActionMap().put("1_ACTION", new SetAction(1));
         table.getInputMap().put(KeyStroke.getKeyStroke("X"), "X_ACTION");
         table.getActionMap().put("X_ACTION", new SetAction(2));
-        table.getTableHeader().setReorderingAllowed(false);
+
+        new TableReorderManager(this, table);
 
         allSolutionsDialog = new AllSolutionsDialog(this, font);
 
@@ -508,7 +509,7 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private void setModel(TruthTableTableModel model) {
+    void setModel(TruthTableTableModel model) {
         this.model = model;
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
