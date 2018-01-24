@@ -91,7 +91,7 @@ public class LedMatrix extends Node implements Element {
         if (paintPending.compareAndSet(false, true)) {
             SwingUtilities.invokeLater(() -> {
                 if (ledMatrixDialog == null || !ledMatrixDialog.isVisible()) {
-                    ledMatrixDialog = new LedMatrixDialog(getModel().getWindowPosManager().getMain(), dy, data, color, ledPersist);
+                    ledMatrixDialog = new LedMatrixDialog(getModel().getWindowPosManager().getMainFrame(), dy, data, color, ledPersist);
                     getModel().getWindowPosManager().register("ledMatrix_" + label, ledMatrixDialog);
                 }
                 paintPending.set(false);

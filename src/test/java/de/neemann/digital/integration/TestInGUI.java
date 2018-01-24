@@ -1,7 +1,6 @@
 package de.neemann.digital.integration;
 
 import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.basic.And;
 import de.neemann.digital.core.element.ElementTypeDescription;

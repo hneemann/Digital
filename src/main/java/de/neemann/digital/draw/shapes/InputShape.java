@@ -82,9 +82,11 @@ public class InputShape implements Shape {
                 } else {
                     if (dialog == null || !dialog.isVisible()) {
                         Model model = ((In) element).getModel();
-                        dialog = new SingleValueDialog(model.getWindowPosManager().getMain(), pos, label, value, cc, model, modelSync);
-                    }
-                    dialog.setVisible(true);
+                        dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, cc, model, modelSync);
+                        dialog.setVisible(true);
+                    } else
+                        dialog.requestFocus();
+
                     return false;
                 }
             }
