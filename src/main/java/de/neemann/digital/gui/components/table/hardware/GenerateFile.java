@@ -1,24 +1,18 @@
 package de.neemann.digital.gui.components.table.hardware;
 
 import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.expression.ExpressionException;
-import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 import de.neemann.digital.builder.ExpressionToFileExporter;
-import de.neemann.digital.builder.PinMapException;
-import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.table.BuilderExpressionCreator;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.LineBreaker;
 import de.neemann.gui.MyFileChooser;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -79,15 +73,11 @@ public class GenerateFile implements HardwareDescriptionGenerator {
         fileChooser.setFileFilter(new FileNameExtensionFilter("JEDEC", suffix));
         fileChooser.setSelectedFile(circuitFile);
         if (fileChooser.showSaveDialog(parent) == JFileChooser.APPROVE_OPTION) {
-            try {
-                ExpressionToFileExporter expressionExporter = factory.create();
-                expressionExporter.getPinMapping().addAll(table.getPins());
-                expressionExporter.getPinMapping().setClockPin(table.getClockPinInt());
-                new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(expressions);
-                expressionExporter.export(SaveAsHelper.checkSuffix(fileChooser.getSelectedFile(), suffix));
-            } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
-                new ErrorMessage(Lang.get("msg_errorDuringHardwareExport")).addCause(e).show(parent);
-            }
+            ExpressionToFileExporter expressionExporter = factory.create();
+            expressionExporter.getPinMapping().addAll(table.getPins());
+            expressionExporter.getPinMapping().setClockPin(table.getClockPinInt());
+            new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(expressions);
+            expressionExporter.export(SaveAsHelper.checkSuffix(fileChooser.getSelectedFile(), suffix));
         }
     }
 

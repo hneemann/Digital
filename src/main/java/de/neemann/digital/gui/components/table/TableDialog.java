@@ -800,7 +800,7 @@ public class TableDialog extends JDialog {
                 generator.generate(TableDialog.this, filename, model.getTable(), lastGeneratedExpressions);
                 setLastUsedGenerator(generator);
             } catch (Exception e1) {
-                new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
+                new ErrorMessage(Lang.get("msg_errorDuringHardwareExport")).addCause(e1).show(TableDialog.this);
             }
         }
     }
