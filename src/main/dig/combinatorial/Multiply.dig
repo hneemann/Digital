@@ -161,7 +161,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="980" y="280"/>
@@ -216,7 +216,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="1180" y="280"/>
@@ -306,7 +306,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="780" y="280"/>
@@ -316,7 +316,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="780" y="360"/>
@@ -327,8 +327,12 @@ werden durch die Und-Gatter implementiert. </string>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>P_3 P_2 P_1 P_0   Q_3 Q_2 Q_1 Q_0   S_7 S_6 S_5 S_4 S_3 S_2 S_1 S_0
-repeat(256) bits(4,n&gt;&gt;4) bits(4,n) bits(8, (n&gt;&gt;4)*(n&amp;15))</dataString>
+            <dataString>  P_3 P_2 P_1 P_0   Q_3 Q_2 Q_1 Q_0   S_7 S_6 S_5 S_4 S_3 S_2 S_1 S_0
+loop(P,16)
+ loop(Q,16)
+  bits(4,P)         bits(4,Q)         bits(8,P*Q)
+ end loop
+end loop</dataString>
           </testData>
         </entry>
       </elementAttributes>

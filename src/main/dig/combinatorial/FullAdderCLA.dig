@@ -432,17 +432,17 @@ nächst höherwertigen Bits weitergegeben wird.</string>
           <testData>
             <dataString># A complete test of all 512 possible additions
 #
-# A line that begins with &quot;repeat([i])&quot; is repeated [i] times.
-# In this case 256 times. Then the variable n goes from 0 to 255.
-# So the values for the inputs are calculated depending on n.
-# The function &quot;bits([m],[v])&quot; takes the lowest m bits from the value v.
-# The expression &quot;bits(4,n&gt;&gt;4)&quot; takes the lowest 4 bits of the value
-# n&gt;&gt;4. Then the resulting bits are used for the inputs A_3 to A_0.
 # All created test vectors are shown in the result table.
 
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-repeat(256)  0    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15))
-repeat(256)  1    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+
+loop(a,16)
+ loop(b,16)
+  0    bits(4,a)        bits(4,b)        bits(5,a+b)
+  1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
+ end loop
+end loop
+
 </dataString>
           </testData>
         </entry>
