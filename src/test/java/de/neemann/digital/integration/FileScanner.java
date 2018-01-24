@@ -11,6 +11,7 @@ public class FileScanner {
 
     private Interface test;
     private ArrayList<Error> errors;
+    private int pos;
 
     public FileScanner(Interface test) {
         this.test = test;
@@ -25,7 +26,9 @@ public class FileScanner {
             System.err.println("all tests are skipped: " + e.getMessage());
             throw e;
         }
-        System.out.println("tested " + count + " examples");
+        if (pos > 0)
+            System.out.println();
+        System.out.println("-- tested " + count + " examples");
         if (errors.isEmpty())
             return count;
 
@@ -47,8 +50,15 @@ public class FileScanner {
                         count += scanIntern(f);
                     }
                 } else {
-                    if (f.getName().endsWith(".dig")) {
+                    String name = f.getName();
+                    if (name.endsWith(".dig")) {
                         try {
+                            if (pos + name.length() >= 78) {
+                                System.out.println();
+                                pos = 0;
+                            }
+                            System.out.print(name + ", ");
+                            pos += 2 + name.length();
                             test.check(f);
                         } catch (SkipAllException e) {
                             throw e;

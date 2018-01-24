@@ -7,6 +7,7 @@ HEAD, planned as v0.17
 - Added an "export to zip" function.
 - Bug fixes
   - Splitter, BarrelShifter and Comparator now are working with 64 bit.
+  - fixed a bug in library IC 74198
 
 v0.16, released on 02. Jan 2018
 - RAM components and EEPROM now allow an input invert configuration.

@@ -4,7 +4,6 @@ import de.neemann.digital.analyse.expression.ContextFiller;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.primeselector.PrimeSelectorDefault;
 import junit.framework.TestCase;
 
@@ -18,14 +17,14 @@ import static de.neemann.digital.analyse.expression.Operation.or;
  */
 public class QuineMcCluskeyRegressionTest extends TestCase {
 
-    public void testRegression() throws Exception, FormatterException {
+    public void testRegression() throws Exception {
         testRegression(8, 128);
         testRegression(8, 16);
         testRegression(4, 8);
         testRegression(4, 4);
     }
 
-    public void testRegression2() throws Exception, FormatterException {
+    public void testRegression2() throws Exception {
         for (int i = 0; i < 100; i++) {
             testRegression(5, 16);
             testRegression(5, 8);
@@ -33,7 +32,7 @@ public class QuineMcCluskeyRegressionTest extends TestCase {
         }
     }
 
-    public void testRegression3() throws Exception, FormatterException {
+    public void testRegression3() throws Exception {
         Variable a = new Variable("A");
         Variable b = new Variable("B");
         Variable c = new Variable("C");
@@ -48,18 +47,18 @@ public class QuineMcCluskeyRegressionTest extends TestCase {
         Expression ex = or(a, c);
         t.fillTableWith(new BoolTableExpression(ex, new ContextFiller(vars)));
 
-        System.out.println("--");
+//        System.out.println("--");
         while (!t.isFinished()) {
-            System.out.println(FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
+//            System.out.println(FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
             t.simplifyStep();
         }
         t.simplifyPrimes(new PrimeSelectorDefault());
         assertEquals("A || C", FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
-        System.out.println("--");
+//        System.out.println("--");
     }
 
 
-    public static void testRegression(int n, int j) throws Exception {
+    private static void testRegression(int n, int j) throws Exception {
         int size = 1 << n;
         boolean[] table = new boolean[size];
 
@@ -82,6 +81,5 @@ public class QuineMcCluskeyRegressionTest extends TestCase {
 
         for (int i = 0; i < table.length; i++)
             assertEquals(table[i], expression.calculate(cf.setContextTo(i)));
-
     }
 }
