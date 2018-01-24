@@ -35,18 +35,18 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Bit des ersten zu addierenden Wertes.</string>
+          <string>Das 0. Bit des ersten zu addierenden Wertes.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>A_3</string>
+          <string>A_0</string>
         </entry>
         <entry>
           <string>Default</string>
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="440" y="-580"/>
+      <pos x="440" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -73,35 +73,6 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Bit des ersten zu addierenden Wertes.</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>A_2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="440" y="-180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das Übertragsbit, welches an den Adiierer für die
-nächst höherwertigen Bits weitergegeben wird.</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>C_i</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1060" y="-640"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
           <string>Das 1. Bit des ersten zu addierenden Wertes.</string>
         </entry>
         <entry>
@@ -112,22 +83,50 @@ nächst höherwertigen Bits weitergegeben wird.</string>
       <pos x="440" y="100"/>
     </visualElement>
     <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 0. Bit der Summe.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>S_0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="400"/>
+    </visualElement>
+    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Bit des ersten zu addierenden Wertes.</string>
+          <string>Das 2. Bit des ersten zu addierenden Wertes.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>A_0</string>
+          <string>A_2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das 3. Bit des ersten zu addierenden Wertes.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A_3</string>
         </entry>
         <entry>
           <string>Default</string>
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="440" y="300"/>
+      <pos x="440" y="-580"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -164,14 +163,14 @@ nächst höherwertigen Bits weitergegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Bit der Summe.</string>
+          <string>Das 1. Bit der Summe.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>S_3</string>
+          <string>S_1</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="-480"/>
+      <pos x="1060" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -222,32 +221,32 @@ nächst höherwertigen Bits weitergegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Bit des zweiten zu addierenden Wertes.</string>
+          <string>Das 0. Bit des zweiten zu addierenden Wertes.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>B_3</string>
+          <string>B_0</string>
         </entry>
       </elementAttributes>
-      <pos x="440" y="-460"/>
+      <pos x="440" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Bit des zweiten zu addierenden Wertes.</string>
+          <string>Das 1. Bit des zweiten zu addierenden Wertes.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>B_2</string>
+          <string>B_1</string>
         </entry>
         <entry>
           <string>Default</string>
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="440" y="-60"/>
+      <pos x="440" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -304,32 +303,32 @@ nächst höherwertigen Bits weitergegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Bit des zweiten zu addierenden Wertes.</string>
+          <string>Das 2. Bit des zweiten zu addierenden Wertes.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>B_1</string>
+          <string>B_2</string>
         </entry>
         <entry>
           <string>Default</string>
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="440" y="220"/>
+      <pos x="440" y="-60"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Bit des zweiten zu addierenden Wertes.</string>
+          <string>Das 3. Bit des zweiten zu addierenden Wertes.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>B_0</string>
+          <string>B_3</string>
         </entry>
       </elementAttributes>
-      <pos x="440" y="420"/>
+      <pos x="440" y="-460"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -356,14 +355,14 @@ nächst höherwertigen Bits weitergegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Bit der Summe.</string>
+          <string>Das 3. Bit der Summe.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>S_1</string>
+          <string>S_3</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="200"/>
+      <pos x="1060" y="-480"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -385,14 +384,15 @@ nächst höherwertigen Bits weitergegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Bit der Summe.</string>
+          <string>Das Übertragsbit, welches an den Adiierer für die
+nächst höherwertigen Bits weitergegeben wird.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>S_0</string>
+          <string>C_i</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="400"/>
+      <pos x="1060" y="-640"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
