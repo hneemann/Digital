@@ -58,6 +58,18 @@ public class GenerateFile implements HardwareDescriptionGenerator {
 
     @Override
     public void generate(JDialog parent, File circuitFile, TruthTable table, ExpressionListenerStore expressions) throws Exception {
+
+        ArrayList<String> pinsWithoutNumber = table.getPinsWithoutNumber();
+        if (pinsWithoutNumber != null) {
+            int res = JOptionPane.showConfirmDialog(parent,
+                    new LineBreaker().toHTML().breakLines(Lang.get("msg_thereAreMissingPinNumbers", pinsWithoutNumber)),
+                    Lang.get("msg_warning"),
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+            if (res != JOptionPane.OK_OPTION)
+                return;
+        }
+
         if (circuitFile == null)
             circuitFile = new File("circuit." + suffix);
         else
@@ -77,13 +89,6 @@ public class GenerateFile implements HardwareDescriptionGenerator {
                 new ErrorMessage(Lang.get("msg_errorDuringHardwareExport")).addCause(e).show(parent);
             }
         }
-
-        ArrayList<String> pinsWithoutNumber = table.getPinsWithoutNumber();
-        if (pinsWithoutNumber != null)
-            JOptionPane.showMessageDialog(parent,
-                    new LineBreaker().toHTML().breakLines(Lang.get("msg_thereAreMissingPinNumbers", pinsWithoutNumber)),
-                    Lang.get("msg_warning"),
-                    JOptionPane.WARNING_MESSAGE);
     }
 
     /**
