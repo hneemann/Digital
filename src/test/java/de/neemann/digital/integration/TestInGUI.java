@@ -379,7 +379,7 @@ public class TestInGUI extends TestCase {
                 .delay(300)
                 .press("TAB")
                 .press("SPACE")
-                .delay(300)
+                .delay(600)
                 .type("A B C\n0 0 0\n0 1 0\n1 0 0\n1 1 1")
                 .delay(300)
                 .press("F1")
