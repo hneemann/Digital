@@ -5,6 +5,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Signal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
@@ -13,26 +14,32 @@ import java.util.TreeMap;
 public class ModelAnalyserInfo {
     private final String clockPin;
     private final TreeMap<String, String> pins;
-    private final ArrayList<Signal> inputs;
-    private final ArrayList<Signal> outputs;
+    private final HashMap<String, ArrayList<String>> inputBusMap;
+    private final HashMap<String, ArrayList<String>> outputBusMap;
+    private ArrayList<Signal> inputs;
+    private ArrayList<Signal> outputs;
     private ArrayList<String> pinsWithoutNumber;
 
     /**
      * creates a new instance
      *
-     * @param model   the model used
-     * @param inputs  input singnales
-     * @param outputs output signals
+     * @param model the model used
      */
-    ModelAnalyserInfo(Model model, ArrayList<Signal> inputs, ArrayList<Signal> outputs) {
-        this.inputs = inputs;
-        this.outputs = outputs;
+    ModelAnalyserInfo(Model model) {
         pins = new TreeMap<>();
 
         if (model.getClocks().size() == 1)
             clockPin = model.getClocks().get(0).getClockPin();
         else
             clockPin = null;
+
+        inputBusMap = new HashMap<>();
+        outputBusMap = new HashMap<>();
+    }
+
+    void setInOut(ArrayList<Signal> inputs, ArrayList<Signal> outputs) {
+        this.inputs = inputs;
+        this.outputs = outputs;
     }
 
     /**
@@ -72,13 +79,6 @@ public class ModelAnalyserInfo {
     /**
      * @return the clock pin
      */
-    public String getClockPin() {
-        return clockPin;
-    }
-
-    /**
-     * @return the clock pin
-     */
     public int getClockPinInt() {
         if (clockPin == null || clockPin.length() == 0)
             return 0;
@@ -90,4 +90,25 @@ public class ModelAnalyserInfo {
         }
     }
 
+    void addInputBus(String name, ArrayList<String> names) {
+        inputBusMap.put(name, names);
+    }
+
+    void addOutputBus(String name, ArrayList<String> names) {
+        outputBusMap.put(name, names);
+    }
+
+    /**
+     * @return input bus map
+     */
+    public HashMap<String, ArrayList<String>> getInputBusMap() {
+        return inputBusMap;
+    }
+
+    /**
+     * @return output bus map
+     */
+    public HashMap<String, ArrayList<String>> getOutputBusMap() {
+        return outputBusMap;
+    }
 }

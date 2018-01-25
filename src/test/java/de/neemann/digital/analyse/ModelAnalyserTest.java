@@ -9,6 +9,7 @@ import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 import static de.neemann.digital.analyse.quinemc.ThreeStateValue.one;
@@ -129,10 +130,10 @@ public class ModelAnalyserTest extends TestCase {
         checkIdent(tt);
 
         TreeMap<String, String> p = tt.getModelAnalyzerInfo().getPins();
-        assertEquals("i1",p.get("A0"));
-        assertEquals("i2",p.get("A1"));
-        assertEquals("o1",p.get("B0"));
-        assertEquals("o2",p.get("B1"));
+        assertEquals("i1", p.get("A0"));
+        assertEquals("i2", p.get("A1"));
+        assertEquals("o1", p.get("B0"));
+        assertEquals("o2", p.get("B1"));
     }
 
     // test with non zero default values set
@@ -187,6 +188,26 @@ public class ModelAnalyserTest extends TestCase {
         assertEquals(vars.length, v.size());
         for (int i = 0; i < vars.length; i++)
             assertEquals(vars[i], v.get(i).getIdentifier());
+    }
+
+    public void testAnalyzerMultiBitPins() throws Exception {
+        Model model = new ToBreakRunner("dig/analyze/multiBitInOutXOr.dig", false).getModel();
+        ModelAnalyserInfo mai = new ModelAnalyser(model).analyse().getModelAnalyzerInfo();
+
+        assertEquals(2, mai.getInputBusMap().size());
+        checkBus(mai.getInputBusMap(), "A", "A0", "A1", "A2", "A3");
+        checkBus(mai.getInputBusMap(), "B", "B0", "B1", "B2", "B3");
+
+        assertEquals(1, mai.getOutputBusMap().size());
+        checkBus(mai.getOutputBusMap(), "S", "S0", "S1", "S2", "S3");
+    }
+
+    private void checkBus(HashMap<String, ArrayList<String>> busMap, String name, String... names) {
+        ArrayList<String> n = busMap.get(name);
+        assertNotNull(n);
+        assertEquals(names.length, n.size());
+        for (int i = 0; i < names.length; i++)
+            assertEquals(names[i], n.get(i));
     }
 
 }

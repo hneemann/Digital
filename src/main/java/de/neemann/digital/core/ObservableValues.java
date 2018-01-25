@@ -76,6 +76,7 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
         public Iterator<ObservableValue> iterator() {
             return values.iterator();
         }
+
     }
 
 
@@ -122,6 +123,16 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
      */
     public ObservableValues(ObservableValues items, int from, int to) {
         super(items, from, to);
+    }
+
+    /**
+     * @return the names of the values
+     */
+    public ArrayList<String> getNames() {
+        ArrayList<String> names = new ArrayList<>(size());
+        for (ObservableValue o : this)
+            names.add(o.getName());
+        return names;
     }
 
 }

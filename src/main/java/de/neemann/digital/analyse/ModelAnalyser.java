@@ -52,9 +52,13 @@ public class ModelAnalyser {
             throw new AnalyseException(e);
         }
 
+        modelAnalyzerInfo = new ModelAnalyserInfo(model);
+
         inputs = checkBinaryInputs(model.getInputs());
         checkUnique(inputs);
         outputs = checkBinaryOutputs(model.getOutputs());
+
+        modelAnalyzerInfo.setInOut(inputs, outputs);
 
         for (Node n : model)
             if (n.hasState() && !(n instanceof FlipflopD))
@@ -97,8 +101,6 @@ public class ModelAnalyser {
             throw new AnalyseException(Lang.get("err_analyseNoInputs"));
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
-
-        modelAnalyzerInfo = new ModelAnalyserInfo(model, inputs, outputs);
     }
 
     private ModelAnalyserInfo getModelAnalyzerInfo() {
@@ -144,6 +146,13 @@ public class ModelAnalyser {
                         outputs.add(new Signal(s.getName() + i, spOutputs.get(i)).setPinNumber(pins.getPin(i)));
 
                     s.getValue().fireHasChanged();
+
+                    ArrayList<String> names = new ArrayList<>(bits);
+                    for (int i = 0; i < bits; i++)
+                        names.add(s.getName() + i);
+
+                    modelAnalyzerInfo.addOutputBus(s.getName(), names);
+
                 } catch (NodeException e) {
                     throw new AnalyseException(e);
                 }
@@ -177,7 +186,11 @@ public class ModelAnalyser {
                         builder.add(o);
                         inputs.add(new Signal(s.getName() + i, o).setPinNumber(pins.getPin(i)));
                     }
-                    sp.setInputs(builder.reverse().build());
+                    final ObservableValues inputsList = builder.reverse().build();
+                    sp.setInputs(inputsList);
+
+                    modelAnalyzerInfo.addInputBus(s.getName(), inputsList.getNames());
+
                 } catch (NodeException e) {
                     throw new AnalyseException(e);
                 }
