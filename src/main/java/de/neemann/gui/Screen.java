@@ -191,10 +191,11 @@ public final class Screen {
      * Ensures that the window is completely visible on the screen the given position belongs to.
      * The window is centered relative to the given position.
      *
-     * @param w   the window
-     * @param pos the position
+     * @param w      the window
+     * @param pos    the position
+     * @param center if true the window is centered
      */
-    public static void setLocation(Window w, Point pos) {
+    public static void setLocation(Window w, Point pos, boolean center) {
         if (pos == null)
             return;
 
@@ -208,8 +209,10 @@ public final class Screen {
             }
         }
 
-        pos.x -= w.getWidth() / 2;
-        pos.y -= w.getHeight() / 2;
+        if (center) {
+            pos.x -= w.getWidth() / 2;
+            pos.y -= w.getHeight() / 2;
+        }
 
         if (screen != null) {
             if (pos.x + w.getWidth() > screen.x + screen.width) pos.x = screen.x + screen.width - w.getWidth();

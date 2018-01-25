@@ -274,7 +274,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             final float d = 20 * Screen.getInstance().getScaling();
             p.x += d;
             p.y += d;
-            setLocation(p);
+            Screen.setLocation(this, p, false);
         } else
             setLocationRelativeTo(null);
     }

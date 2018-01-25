@@ -212,7 +212,7 @@ public class AttributeDialog extends JDialog {
         if (pos == null)
             setLocationRelativeTo(parent);
         else
-            Screen.setLocation(this, pos);
+            Screen.setLocation(this, pos, true);
 
         if (topMostTextComponent != null)
             SwingUtilities.invokeLater(() -> topMostTextComponent.requestFocusInWindow());

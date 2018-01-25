@@ -150,7 +150,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         pack();
-        Screen.setLocation(this, pos);
+        Screen.setLocation(this, pos, true);
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
     }
