@@ -1062,6 +1062,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_newSub_tt">Öffnet ein neues Fenster, um darin eine neue eingebettete Teilschaltung zu erstellen.</string>
     <string name="menu_open">Öffnen</string>
     <string name="menu_openRecent">Zuletzt verwendet</string>
+    <string name="menu_openRecentNewWindow">Zuletzt verwendet in neuem Fenster</string>
     <string name="menu_openWin">Öffnen in neuem Fenster</string>
     <string name="menu_openWin_tt">Öffnet eine Schaltung in einem neuen Fenster</string>
     <string name="menu_orderInputs">Sortieren der Eingänge</string>

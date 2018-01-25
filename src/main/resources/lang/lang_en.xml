@@ -1054,6 +1054,7 @@ The names of the variables may not be unique.</string>
     <string name="menu_newSub_tt">Opens a new window to create a new embedded circuit, which than can be used in this circuit.</string>
     <string name="menu_open">Open</string>
     <string name="menu_openRecent">Open Recent</string>
+    <string name="menu_openRecentNewWindow">Open Recent in New Window</string>
     <string name="menu_openWin">Open in New Window</string>
     <string name="menu_openWin_tt">Opens a circuit in a new window</string>
     <string name="menu_orderInputs">Order Inputs</string>

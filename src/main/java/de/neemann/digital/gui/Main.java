@@ -150,7 +150,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
 
-        windowPosManager=new WindowPosManager(this);
+        windowPosManager = new WindowPosManager(this);
 
         keepPrefMainFile = builder.keepPrefMainFile;
 
@@ -269,7 +269,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         setPreferredSize(Screen.getInstance().scale(new Dimension(1024, 768)));
         pack();
-        setLocationRelativeTo(builder.parent);
+        if (builder.parent != null) {
+            Point p = builder.parent.getLocation();
+            final float d = 20 * Screen.getInstance().getScaling();
+            p.x += d;
+            p.y += d;
+            setLocation(p);
+        } else
+            setLocationRelativeTo(null);
     }
 
     private void enableClockShortcut() {
@@ -445,8 +452,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }.setToolTip(Lang.get("menu_openWin_tt")).setEnabledChain(allowAll);
 
         JMenu openRecent = new JMenu(Lang.get("menu_openRecent"));
-        fileHistory.setMenu(openRecent);
+        JMenu openRecentNewWindow = new JMenu(Lang.get("menu_openRecentNewWindow"));
+        fileHistory.setMenu(openRecent, openRecentNewWindow);
         openRecent.setEnabled(allowAll);
+        openRecentNewWindow.setEnabled(allowAll);
 
         ToolTipAction saveAs = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
@@ -506,6 +515,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         file.add(newFile.createJMenuItem());
         file.add(newSubFile.createJMenuItem());
         file.add(openRecent);
+        file.add(openRecentNewWindow);
         file.add(open.createJMenuItem());
         file.add(openWin.createJMenuItem());
         file.add(save.createJMenuItem());
@@ -1276,9 +1286,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     @Override
-    public void open(File file) {
-        if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-            loadFile(file, true, true);
+    public void open(File file, boolean newWindow) {
+        if (newWindow) {
+            new MainBuilder()
+                    .setParent(Main.this)
+                    .setFileToOpen(file)
+                    .build()
+                    .setVisible(true);
+        } else {
+            if (ClosingWindowListener.checkForSave(Main.this, Main.this))
+                loadFile(file, true, true);
         }
     }
 
