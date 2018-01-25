@@ -951,7 +951,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Um die Pins korrekt zuordnen zu können, ist an den Eingängen und Ausgängen die Pinnummer anzugeben.</string>
     <string name="key_pinNumber">Pinnummer</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Nummer dieses Pins. Wird für die Darstellung einer Schaltung als DIL-Gehäuse und die
-        Pinzuordnung bei der Programmierung eines CPLD verwendet.</string>
+        Pinzuordnung bei der Programmierung eines CPLD verwendet.
+        Bei mehreren Bits, können alle Pinnummern als kommagetrennte Liste angegeben werden.</string>
     <string name="key_pinCount">Pinanzahl DIL</string>
     <string name="key_pinCount_tt">Anzahl der Pins des DILs. Wird hier eine 0 eingetragen, wird die Anzahl automatisch bestimmt.</string>
     <string name="key_defTreeSelect">Baumansicht beim Start anzeigen</string>

@@ -9,7 +9,6 @@ public final class Signal implements Comparable<Signal> {
     private final Setter setter;
     private IntFormat format = IntFormat.def;
     private String pinNumber;
-    private boolean isPin = false;
 
     /**
      * Creates a new Instance
@@ -50,7 +49,6 @@ public final class Signal implements Comparable<Signal> {
      */
     public Signal setPinNumber(String pinNumber) {
         this.pinNumber = pinNumber;
-        isPin = true;
         return this;
     }
 
@@ -70,10 +68,9 @@ public final class Signal implements Comparable<Signal> {
     /**
      * Gets the number of this pin.
      *
-     * @return the pin number of -1 if no pin is given
-     * @throws NodeException invalid pin number
+     * @return the pin number, or null if no pin is given
      */
-    public String getPinNumber() throws NodeException {
+    public String getPinNumber() {
         return pinNumber;
     }
 
@@ -131,7 +128,7 @@ public final class Signal implements Comparable<Signal> {
      * @return true if a pin number is missing
      */
     public boolean missingPinNumber() {
-        return isPin && pinNumber.length() == 0;
+        return pinNumber == null || pinNumber.trim().length() == 0;
     }
 
     /**

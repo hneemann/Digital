@@ -9,6 +9,7 @@ import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import static de.neemann.digital.analyse.quinemc.ThreeStateValue.one;
 import static de.neemann.digital.analyse.quinemc.ThreeStateValue.zero;
@@ -126,6 +127,12 @@ public class ModelAnalyserTest extends TestCase {
         Model model = new ToBreakRunner("dig/analyze/multiBitInOut.dig", false).getModel();
         TruthTable tt = new ModelAnalyser(model).analyse();
         checkIdent(tt);
+
+        TreeMap<String, String> p = tt.getPins();
+        assertEquals("i1",p.get("A0"));
+        assertEquals("i2",p.get("A1"));
+        assertEquals("o1",p.get("B0"));
+        assertEquals("o2",p.get("B1"));
     }
 
     // test with non zero default values set

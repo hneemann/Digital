@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl.boards;
 
+import de.neemann.digital.analyse.SplitPinString;
 import de.neemann.digital.hdl.model.ClockIntegrator;
 import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.model.Port;
@@ -40,28 +41,41 @@ public class Vivado implements BoardInterface {
     public void writeFiles(File path, HDLModel model) throws IOException {
         File f = new File(path.getParentFile(), path.getName().replace('.', '_') + "_constraints.xdc");
         try (CodePrinter out = new CodePrinter(new FileOutputStream(f))) {
-            for (Port p : model.getPorts()) {
-                String pinNumber = p.getPinNumber();
-                if (pinNumber == null || pinNumber.length() == 0)
-                    throw new IOException(Lang.get("err_vhdlPin_N_hasNoNumber", p.getName()));
-                out.print("set_property PACKAGE_PIN ").print(pinNumber).print(" [get_ports ").print(p.getName()).println("]");
-                out.print("set_property IOSTANDARD ").print(pinIoType).print(" [get_ports ").print(p.getName()).println("]");
+            writeConstraints(out, model);
+        }
+    }
 
-                if (pinNumber.equals(clockPin))
+    void writeConstraints(CodePrinter out, HDLModel model) throws IOException {
+        for (Port p : model.getPorts()) {
+            if (p.getBits() == 1) {
+                writePin(out, p.getName(), p.getPinNumber());
+                if (p.getPinNumber().equals(clockPin))
                     out
                             .print("create_clock -add -name sys_clk_pin -period ")
                             .print(periodns)
                             .print(" -waveform {0 5} [get_ports ")
                             .print(p.getName())
                             .println("]");
-
-
-                out.println();
+            } else {
+                SplitPinString pins = SplitPinString.create(p.getPinNumber());
+                for (int i = 0; i < p.getBits(); i++)
+                    writePin(out, p.getName() + "[" + i + "]", pins.getPin(i));
             }
 
-            out.println("set_property CFGBVS VCCO  [current_design]");
-            out.println("set_property CONFIG_VOLTAGE 3.3 [current_design]");
+
+            out.println();
         }
+
+        out.println("set_property CFGBVS VCCO  [current_design]");
+        out.println("set_property CONFIG_VOLTAGE 3.3 [current_design]");
+    }
+
+    private void writePin(CodePrinter out, String name, String pinNumber) throws IOException {
+        if (pinNumber == null || pinNumber.length() == 0)
+            throw new IOException(Lang.get("err_vhdlPin_N_hasNoNumber", name));
+
+        out.print("set_property PACKAGE_PIN ").print(pinNumber).print(" [get_ports ").print(name).println("]");
+        out.print("set_property IOSTANDARD ").print(pinIoType).print(" [get_ports ").print(name).println("]");
     }
 
     @Override

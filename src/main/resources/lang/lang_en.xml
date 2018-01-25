@@ -945,7 +945,8 @@ The names of the variables may not be unique.</string>
         To assign the pins correctly, the pin numbers must be set on all inputs and outputs.</string>
     <string name="key_pinNumber">Pin number</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Number of this pin. Used for the representation of a circuit as a DIL package and
-        the pin assignment when programming a CPLD.</string>
+        the pin assignment when programming a CPLD.
+        If there are several bits, all pin numbers can be specified as a comma-separated list.</string>
     <string name="key_pinCount">Number of DIL pins</string>
     <string name="key_pinCount_tt">Number of pins. A zero means that the number od pins is determined automatically.</string>
     <string name="key_defTreeSelect">Component tree view is visible at startup.</string>
