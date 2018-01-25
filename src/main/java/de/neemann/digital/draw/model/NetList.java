@@ -52,13 +52,18 @@ public class NetList implements Iterable<Net> {
     //modification of loop variable j is intended!
     //CHECKSTYLE.OFF: ModifiedControlVariable
     private void mergeLabels() {
-        for (int i = 0; i < netList.size() - 1; i++)
-            for (int j = i + 1; j < netList.size(); j++)
-                if (netList.get(i).matchesLabel(netList.get(j))) {
-                    netList.get(i).addAllPointsFrom(netList.get(j));
-                    netList.remove(j);
-                    j--;
-                }
+        boolean wasMerge;
+        do {
+            wasMerge = false;
+            for (int i = 0; i < netList.size() - 1; i++)
+                for (int j = i + 1; j < netList.size(); j++)
+                    if (netList.get(i).matchesLabel(netList.get(j))) {
+                        netList.get(i).addAllPointsFrom(netList.get(j));
+                        netList.remove(j);
+                        wasMerge = true;
+                        j--;
+                    }
+        } while (wasMerge);
     }
     //CHECKSTYLE.ON: ModifiedControlVariable
 
