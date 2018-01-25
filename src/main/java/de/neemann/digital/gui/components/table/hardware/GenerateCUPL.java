@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components.table.hardware;
 
+import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 import de.neemann.digital.builder.Gal16v8.CuplExporter;
@@ -74,7 +75,9 @@ public class GenerateCUPL implements HardwareDescriptionGenerator {
         File f = new File(cuplPath, "CUPL.PLD");
         CuplExporter cuplExporter = cuplExporterFactory.create();
         cuplExporter.setProjectName(circuitFile.getName());
-        cuplExporter.getPinMapping().addAll(table.getPins());
+        final ModelAnalyserInfo modelAnalyzerInfo = table.getModelAnalyzerInfo();
+        if (modelAnalyzerInfo != null)
+            cuplExporter.getPinMapping().addAll(modelAnalyzerInfo.getPins());
         new BuilderExpressionCreator(cuplExporter.getBuilder(), ExpressionModifier.IDENTITY).create(expressions);
         try (FileOutputStream out = new FileOutputStream(f)) {
             cuplExporter.writeTo(out);

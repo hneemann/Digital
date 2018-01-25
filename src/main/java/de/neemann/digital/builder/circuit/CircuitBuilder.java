@@ -1,6 +1,7 @@
 package de.neemann.digital.builder.circuit;
 
 import de.neemann.digital.analyse.DetermineJKStateMachine;
+import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.Not;
 import de.neemann.digital.analyse.expression.format.FormatterException;
@@ -410,13 +411,14 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     }
 
     /**
-     * Sets the pin mapping
+     * Sets the infos obtained from the model
      *
-     * @param pins the pin mapping
+     * @param modelAnalyserInfo the model analyzer infos
      * @return this for chained calls
      */
-    public CircuitBuilder setPins(TreeMap<String, String> pins) {
-        this.pins = pins;
+    public CircuitBuilder setModelAnalyzerInfo(ModelAnalyserInfo modelAnalyserInfo) {
+        if (modelAnalyserInfo != null)
+            this.pins = modelAnalyserInfo.getPins();
         return this;
 
     }

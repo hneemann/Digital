@@ -22,9 +22,6 @@ import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10CuplExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
-import de.neemann.digital.gui.components.table.hardware.GenerateCUPL;
-import de.neemann.digital.gui.components.table.hardware.GenerateFile;
-import de.neemann.digital.gui.components.table.hardware.HardwareDescriptionGenerator;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
@@ -36,6 +33,9 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
+import de.neemann.digital.gui.components.table.hardware.GenerateCUPL;
+import de.neemann.digital.gui.components.table.hardware.GenerateFile;
+import de.neemann.digital.gui.components.table.hardware.HardwareDescriptionGenerator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.MyFileChooser;
@@ -53,8 +53,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
 /**
@@ -67,7 +69,6 @@ public class TableDialog extends JDialog {
 
     static {
         LIST.add(Keys.LABEL);
-        LIST.add(Keys.PINNUMBER);
     }
 
     private final JTextPane statusBar;
@@ -248,17 +249,9 @@ public class TableDialog extends JDialog {
         ElementAttributes attr = new ElementAttributes();
         final String name = model.getColumnName(columnIndex);
         attr.set(Keys.LABEL, name);
-        final TreeMap<String, String> pins = model.getTable().getPins();
-        if (pins.containsKey(name))
-            attr.set(Keys.PINNUMBER, pins.get(name));
         ElementAttributes modified = new AttributeDialog(this, pos, LIST, attr).showDialog();
         if (modified != null) {
-            pins.remove(name);
             final String newName = modified.get(Keys.LABEL).trim().replace(' ', '_');
-            final String pinStr = modified.get(Keys.PINNUMBER).trim();
-            if (pinStr.length() > 0)
-                pins.put(newName, pinStr);
-
             if (!newName.equals(name))
                 model.setColumnName(columnIndex, newName);
         }
@@ -493,7 +486,7 @@ public class TableDialog extends JDialog {
     private void createCircuit(boolean useJKff, ExpressionModifier... modifier) {
         try {
             CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff, model.getTable().getVars())
-                    .setPins(model.getTable().getPins());
+                    .setModelAnalyzerInfo(model.getTable().getModelAnalyzerInfo());
             new BuilderExpressionCreator(circuitBuilder, modifier)
                     .setUseJKOptimizer(useJKff)
                     .create(lastGeneratedExpressions);

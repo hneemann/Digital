@@ -10,13 +10,10 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.Signal;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 /**
  * The description of a truth table.
@@ -27,10 +24,8 @@ public class TruthTable {
 
     private final ArrayList<Variable> variables;
     private final ArrayList<Result> results;
-    private final TreeMap<String, String> pins;
     private transient BitSetter bitSetter;
-    private ArrayList<String> pinsWithoutNumber = null;
-    private String clockPin;
+    private transient ModelAnalyserInfo modelAnalyzerInfo;
 
     /**
      * Load the given file and returns a truth table instance
@@ -134,7 +129,6 @@ public class TruthTable {
     public TruthTable(ArrayList<Variable> vars) {
         this.variables = vars;
         results = new ArrayList<>();
-        pins = new TreeMap<>();
     }
 
     /**
@@ -470,70 +464,21 @@ public class TruthTable {
     }
 
     /**
-     * Adds the signals pin number to the table
+     * Sets additional data obtained from the model
      *
-     * @param s the signal
-     * @throws NodeException NodeException
+     * @param modelAnalyzerInfo the data obtained from the model
      */
-    public void addPinNumber(Signal s) throws NodeException {
-        String p = s.getPinNumber();
-        if (p != null && p.length() > 0) pins.put(s.getName(), p);
+    public void setModelAnalyzerInfo(ModelAnalyserInfo modelAnalyzerInfo) {
+        this.modelAnalyzerInfo = modelAnalyzerInfo;
     }
 
     /**
-     * @return the assigned pins
-     */
-    public TreeMap<String, String> getPins() {
-        return pins;
-    }
-
-
-    /**
-     * Sets the missing pin number flag
+     * returns additional model infos
      *
-     * @param pinsWithoutNumber list of pins without a number or null
-     * @return this for chained calls
+     * @return infos obtained from the analysed model, maybe null
      */
-    public TruthTable setPinsWithoutNumber(ArrayList<String> pinsWithoutNumber) {
-        this.pinsWithoutNumber = pinsWithoutNumber;
-        return this;
-    }
-
-    /**
-     * @return list of pins without a number or null
-     */
-    public ArrayList<String> getPinsWithoutNumber() {
-        return pinsWithoutNumber;
-    }
-
-    /**
-     * Sets the clock pin
-     *
-     * @param clockPin the clock pin
-     */
-    public void setClockPin(String clockPin) {
-        this.clockPin = clockPin;
-    }
-
-    /**
-     * @return the clock pin
-     */
-    public String getClockPin() {
-        return clockPin;
-    }
-
-    /**
-     * @return the clock pin
-     */
-    public int getClockPinInt() {
-        if (clockPin == null || clockPin.length() == 0)
-            return 0;
-
-        try {
-            return Integer.parseInt(clockPin);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
+    public ModelAnalyserInfo getModelAnalyzerInfo() {
+        return modelAnalyzerInfo;
     }
 
     /**

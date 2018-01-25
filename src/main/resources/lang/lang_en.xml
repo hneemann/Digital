@@ -1272,6 +1272,8 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="msg_create CHNFile">Creation of CHN file.</string>
     <string name="msg_tableHasManyRowsConfirm">The table is very large, the export may take a while.
 Start export anyway?</string>
+    <string name="msg_circuitIsRequired">To create a hardware description, a circuit must first be created and analyzed.
+        A standalone truth table can not be used to generate a hardware description.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

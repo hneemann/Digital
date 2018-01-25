@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components.table.hardware;
 
+import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 import de.neemann.digital.builder.ExpressionToFileExporter;
@@ -52,16 +53,24 @@ public class GenerateFile implements HardwareDescriptionGenerator {
 
     @Override
     public void generate(JDialog parent, File circuitFile, TruthTable table, ExpressionListenerStore expressions) throws Exception {
-
-        ArrayList<String> pinsWithoutNumber = table.getPinsWithoutNumber();
-        if (pinsWithoutNumber != null) {
-            int res = JOptionPane.showConfirmDialog(parent,
-                    new LineBreaker().toHTML().breakLines(Lang.get("msg_thereAreMissingPinNumbers", pinsWithoutNumber)),
+        ModelAnalyserInfo mai = table.getModelAnalyzerInfo();
+        if (mai == null) {
+            JOptionPane.showMessageDialog(parent,
+                    new LineBreaker().toHTML().breakLines(Lang.get("msg_circuitIsRequired")),
                     Lang.get("msg_warning"),
-                    JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.WARNING_MESSAGE);
-            if (res != JOptionPane.OK_OPTION)
-                return;
+            return;
+        } else {
+            ArrayList<String> pinsWithoutNumber = mai.getPinsWithoutNumber();
+            if (!pinsWithoutNumber.isEmpty()) {
+                int res = JOptionPane.showConfirmDialog(parent,
+                        new LineBreaker().toHTML().breakLines(Lang.get("msg_thereAreMissingPinNumbers", pinsWithoutNumber)),
+                        Lang.get("msg_warning"),
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+                if (res != JOptionPane.OK_OPTION)
+                    return;
+            }
         }
 
         if (circuitFile == null)
@@ -74,8 +83,8 @@ public class GenerateFile implements HardwareDescriptionGenerator {
         fileChooser.setSelectedFile(circuitFile);
         if (fileChooser.showSaveDialog(parent) == JFileChooser.APPROVE_OPTION) {
             ExpressionToFileExporter expressionExporter = factory.create();
-            expressionExporter.getPinMapping().addAll(table.getPins());
-            expressionExporter.getPinMapping().setClockPin(table.getClockPinInt());
+            expressionExporter.getPinMapping().addAll(mai.getPins());
+            expressionExporter.getPinMapping().setClockPin(mai.getClockPinInt());
             new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(expressions);
             expressionExporter.export(SaveAsHelper.checkSuffix(fileChooser.getSelectedFile(), suffix));
         }

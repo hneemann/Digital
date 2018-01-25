@@ -128,7 +128,7 @@ public class ModelAnalyserTest extends TestCase {
         TruthTable tt = new ModelAnalyser(model).analyse();
         checkIdent(tt);
 
-        TreeMap<String, String> p = tt.getPins();
+        TreeMap<String, String> p = tt.getModelAnalyzerInfo().getPins();
         assertEquals("i1",p.get("A0"));
         assertEquals("i2",p.get("A1"));
         assertEquals("o1",p.get("B0"));

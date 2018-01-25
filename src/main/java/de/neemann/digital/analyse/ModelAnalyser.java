@@ -34,6 +34,7 @@ public class ModelAnalyser {
     private final ArrayList<Signal> inputs;
     private final ArrayList<Signal> outputs;
     private int uniqueIndex = 0;
+    private ModelAnalyserInfo modelAnalyzerInfo;
 
     /**
      * Creates a new instance
@@ -96,6 +97,12 @@ public class ModelAnalyser {
             throw new AnalyseException(Lang.get("err_analyseNoInputs"));
         if (outputs.size() == 0)
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
+
+        modelAnalyzerInfo = new ModelAnalyserInfo(model, inputs, outputs);
+    }
+
+    private ModelAnalyserInfo getModelAnalyzerInfo() {
+        return modelAnalyzerInfo;
     }
 
     private String createUniqueName(FlipflopD ff) {
@@ -332,17 +339,15 @@ public class ModelAnalyser {
     public TruthTable analyse() throws NodeException, PinException, BacktrackException, AnalyseException {
         LOGGER.debug("start to analyse the model...");
 
-        TruthTable tt = new TruthTable().setPinsWithoutNumber(model.getPinsWithoutNumber());
+        TruthTable tt = new TruthTable();
+        tt.setModelAnalyzerInfo(getModelAnalyzerInfo());
         for (Signal s : inputs)
             tt.addVariable(s.getName());
 
         for (Signal s : inputs)
-            tt.addPinNumber(s);
+            getModelAnalyzerInfo().addPinNumber(s);
         for (Signal s : outputs)
-            tt.addPinNumber(s);
-
-        if (model.getClocks().size() == 1)
-            tt.setClockPin(model.getClocks().get(0).getClockPin());
+            getModelAnalyzerInfo().addPinNumber(s);
 
         DependencyAnalyser da = new DependencyAnalyser(this);
         long steps = da.getRequiredSteps(this);
