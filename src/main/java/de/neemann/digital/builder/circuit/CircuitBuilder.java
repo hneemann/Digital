@@ -16,6 +16,7 @@ import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -40,13 +41,14 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final ShapeFactory shapeFactory;
     private final ArrayList<FragmentVariable> fragmentVariables;
     private final ArrayList<Fragment> fragments;
-    private final HashSet<String> combinatorialOutputs;
+    private final HashMap<String, FragmentVisualElement> combinatorialOutputs;
     private final ArrayList<Variable> sequentialVars;
     private final ArrayList<FragmentVisualElement> flipflops;
     private final boolean useJKff;
     private final ArrayList<Variable> desiredVarOrdering;
     private int pos;
-    private TreeMap<String, String> pins;
+    private HashSet<String> varsToNet;
+    private ModelAnalyserInfo mis;
 
     /**
      * Creates a new builder.
@@ -83,8 +85,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         fragmentVariables = new ArrayList<>();
         fragments = new ArrayList<>();
         flipflops = new ArrayList<>();
-        combinatorialOutputs = new HashSet<>();
+        combinatorialOutputs = new HashMap<>();
         sequentialVars = new ArrayList<>();
+        varsToNet = new HashSet<>();
     }
 
     /**
@@ -102,12 +105,13 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             expression = ((NamedExpression) expression).getExpression();
         }
 
-        combinatorialOutputs.add(name);
-
         Fragment fr = createFragment(expression);
 
         final FragmentVisualElement frag = new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
         checkPinNumber(frag.getVisualElement());
+
+        combinatorialOutputs.put(name, frag);
+
         fragments.add(new FragmentExpression(fr, frag));
         expression.traverse(variableVisitor);
         return this;
@@ -217,7 +221,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         pos -= SIZE;
         for (Variable v : inputs) {
             VisualElement visualElement;
-            if (sequentialVars.contains(v)) {
+            if (sequentialVars.contains(v) || varsToNet.contains(v.getIdentifier())) {
                 visualElement = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
                 visualElement.getElementAttributes()
                         .set(Keys.ROTATE, new Rotation(1))
@@ -298,6 +302,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         Circuit circuit = new Circuit();
 
+        int outSplitterY = 0;
+        if (mis != null)
+            outSplitterY = checkForOutputBus(maxWidth + SIZE * 15, circuit);
+
         // add fragments to circuit
         for (Fragment f : fragments)
             addFragmentToCircuit(f, circuit);
@@ -309,6 +317,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (!sequentialVars.isEmpty())
             variables = order(variables, sequentialVars);
 
+        if (mis != null)
+            checkForInputBus(variables, -(variables.size() + 5) * SIZE * 2, circuit);
 
         createInputBus(variables, circuit);
 
@@ -316,12 +326,125 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (!flipflops.isEmpty())
             addClockToFlipFlops(circuit);
 
-        if (!sequentialVars.isEmpty())
-            addNetConnections(circuit, maxWidth + SIZE * 7);
+        if (combinatorialOutputs.isEmpty())
+            addNetConnections(circuit, maxWidth + SIZE * 17, outSplitterY);
 
         circuit.setModified(false);
         return circuit;
     }
+
+    private void checkForInputBus(Collection<Variable> variables, int splitterXPos, Circuit circuit) {
+        StringBuilder pinString = new StringBuilder();
+        int y = 0;
+        for (Map.Entry<String, ArrayList<String>> e : mis.getInputBusMap().entrySet()) {
+            pinString.setLength(0);
+            int found = 0;
+            final ArrayList<String> inputs = e.getValue();
+            for (String n : inputs) {
+                if (variables.contains(new Variable(n))) {
+                    found++;
+                    String p = mis.getPins().get(n);
+                    if (p != null) {
+                        if (pinString.length() != 0)
+                            pinString.append(",");
+                        pinString.append(p);
+                    }
+                }
+            }
+            if (found == inputs.size()) {
+                varsToNet.addAll(inputs);
+
+                circuit.add(new VisualElement(Splitter.DESCRIPTION.getName())
+                        .setAttribute(Keys.INPUT_SPLIT, "" + inputs.size())
+                        .setAttribute(Keys.OUTPUT_SPLIT, "1*" + inputs.size())
+                        .setPos(new Vector(splitterXPos, y))
+                        .setShapeFactory(shapeFactory));
+                circuit.add(new VisualElement(In.DESCRIPTION.getName())
+                        .setAttribute(Keys.LABEL, e.getKey())
+                        .setAttribute(Keys.BITS, inputs.size())
+                        .setAttribute(Keys.PINNUMBER, pinString.toString())
+                        .setPos(new Vector(splitterXPos - 2 * SIZE, y))
+                        .setShapeFactory(shapeFactory));
+                circuit.add(new Wire(
+                        new Vector(splitterXPos - 2 * SIZE, y),
+                        new Vector(splitterXPos, y)
+                ));
+
+                for (int i = 0; i < inputs.size(); i++) {
+                    circuit.add(new VisualElement(Tunnel.DESCRIPTION.getName())
+                            .setAttribute(Keys.NETNAME, inputs.get(i))
+                            .setPos(new Vector(splitterXPos + 2 * SIZE, y + i * SIZE))
+                            .setShapeFactory(shapeFactory));
+                    circuit.add(new Wire(
+                            new Vector(splitterXPos + SIZE, y + i * SIZE),
+                            new Vector(splitterXPos + 2 * SIZE, y + i * SIZE)
+                    ));
+                }
+
+                y += (inputs.size() + 2) * SIZE;
+            }
+        }
+    }
+
+    private int checkForOutputBus(int splitterXPos, Circuit circuit) {
+        StringBuilder pinString = new StringBuilder();
+        int y = 0;
+        for (Map.Entry<String, ArrayList<String>> e : mis.getOutputBusMap().entrySet()) {
+            pinString.setLength(0);
+            int found = 0;
+            final ArrayList<String> outputs = e.getValue();
+            for (String n : outputs) {
+                if (combinatorialOutputs.containsKey(n)) {
+                    found++;
+                    String p = mis.getPins().get(n);
+                    if (p != null) {
+                        if (pinString.length() != 0)
+                            pinString.append(",");
+                        pinString.append(p);
+                    }
+                }
+            }
+            if (found == outputs.size()) {
+
+                circuit.add(new VisualElement(Splitter.DESCRIPTION.getName())
+                        .setAttribute(Keys.OUTPUT_SPLIT, "" + outputs.size())
+                        .setAttribute(Keys.INPUT_SPLIT, "1*" + outputs.size())
+                        .setPos(new Vector(splitterXPos, y))
+                        .setShapeFactory(shapeFactory));
+                circuit.add(new VisualElement(Out.DESCRIPTION.getName())
+                        .setAttribute(Keys.LABEL, e.getKey())
+                        .setAttribute(Keys.BITS, outputs.size())
+                        .setAttribute(Keys.PINNUMBER, pinString.toString())
+                        .setPos(new Vector(splitterXPos + 3 * SIZE, y))
+                        .setShapeFactory(shapeFactory));
+                circuit.add(new Wire(
+                        new Vector(splitterXPos + 3 * SIZE, y),
+                        new Vector(splitterXPos + SIZE, y)
+                ));
+
+                for (int i = 0; i < outputs.size(); i++) {
+                    circuit.add(new VisualElement(Tunnel.DESCRIPTION.getName())
+                            .setAttribute(Keys.NETNAME, outputs.get(i))
+                            .setRotation(2)
+                            .setPos(new Vector(splitterXPos - SIZE, y + i * SIZE))
+                            .setShapeFactory(shapeFactory));
+                    circuit.add(new Wire(
+                            new Vector(splitterXPos - SIZE, y + i * SIZE),
+                            new Vector(splitterXPos, y + i * SIZE)
+                    ));
+
+                    FragmentVisualElement frag = combinatorialOutputs.get(outputs.get(i));
+                    frag.setVisualElement(new VisualElement(Tunnel.DESCRIPTION.getName())
+                            .setShapeFactory(shapeFactory)
+                            .setAttribute(Keys.NETNAME, outputs.get(i)));
+                }
+
+                y += (outputs.size() + 2) * SIZE;
+            }
+        }
+        return y;
+    }
+
 
     /**
      * Move the lastItems to the end of the variables list.
@@ -375,15 +498,14 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         circuit.add(clock);
     }
 
-    private void addNetConnections(Circuit circuit, int xPos) {
-        int y = -SIZE * 5;
+    private void addNetConnections(Circuit circuit, int xPos, int y) {
         for (Variable name : sequentialVars) {
             String oName = name.getIdentifier();
             if (oName.endsWith("n")) {
                 oName = oName.substring(0, oName.length() - 1);
                 if (oName.endsWith("_") || oName.endsWith("^")) oName = oName.substring(0, oName.length() - 1);
             }
-            if (!combinatorialOutputs.contains(oName)) {
+            if (!combinatorialOutputs.containsKey(oName)) {
                 VisualElement t = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
                 t.getElementAttributes().set(Keys.NETNAME, name.getIdentifier());
                 t.setPos(new Vector(xPos, y));
@@ -401,9 +523,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     }
 
     private void checkPinNumber(VisualElement pin) {
-        if (pins != null) {
+        if (mis != null) {
             String name = pin.getElementAttributes().getLabel();
-            String num = pins.get(name);
+            String num = mis.getPins().get(name);
             if (num != null && num.length() > 0) {
                 pin.getElementAttributes().set(Keys.PINNUMBER, num);
             }
@@ -417,9 +539,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
      * @return this for chained calls
      */
     public CircuitBuilder setModelAnalyzerInfo(ModelAnalyserInfo modelAnalyserInfo) {
-        if (modelAnalyserInfo != null)
-            this.pins = modelAnalyserInfo.getPins();
+        mis = modelAnalyserInfo;
         return this;
-
     }
 }

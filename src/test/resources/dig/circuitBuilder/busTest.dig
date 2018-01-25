@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>S</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>9,10,11,12</string>
+        </entry>
+      </elementAttributes>
+      <pos x="20" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>1,2,3,4</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>5,6,7,8</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XNOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>U</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>13,14,15,16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="20" y="100"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="-140" y="0"/>
+      <p2 x="-120" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="-120" y="0"/>
+      <p2 x="-80" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="80"/>
+      <p2 x="-80" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="20"/>
+      <p2 x="20" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="0" y="100"/>
+      <p2 x="20" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="-140" y="40"/>
+      <p2 x="-100" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="40"/>
+      <p2 x="-80" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="-120" y="120"/>
+      <p2 x="-80" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="40"/>
+      <p2 x="-100" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-120" y="0"/>
+      <p2 x="-120" y="120"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

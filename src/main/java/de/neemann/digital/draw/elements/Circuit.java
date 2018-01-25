@@ -3,18 +3,13 @@ package de.neemann.digital.draw.elements;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
-import de.neemann.digital.core.element.Rotation;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
@@ -545,6 +540,19 @@ public class Circuit {
         return null;
     }
 
+    /**
+     * Find specific visual elements
+     *
+     * @param filter the filter
+     * @return the elements
+     */
+    public List<VisualElement> findElements(Circuit.ElementFilter filter) {
+        ArrayList<VisualElement> found = new ArrayList<>();
+        for (VisualElement v : visualElements)
+            if (filter.accept(v))
+                found.add(v);
+        return found;
+    }
 
     /**
      * Deletes the references to the ObservableValues representing the elements or wire state.
@@ -735,5 +743,18 @@ public class Circuit {
          * called if circuit has changed
          */
         void circuitHasChanged();
+    }
+
+    /**
+     * Visual element filter
+     */
+    public interface ElementFilter {
+        /**
+         * Accepts a specific visible element
+         *
+         * @param v the element
+         * @return true if accepted
+         */
+        boolean accept(VisualElement v);
     }
 }

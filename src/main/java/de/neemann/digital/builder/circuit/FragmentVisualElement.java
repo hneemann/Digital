@@ -28,7 +28,7 @@ public class FragmentVisualElement implements Fragment {
 
     private final ArrayList<Vector> inputs;
     private final ArrayList<Vector> outputs;
-    private final VisualElement visualElement;
+    private VisualElement visualElement;
     private Vector pos;
 
     /**
@@ -128,5 +128,14 @@ public class FragmentVisualElement implements Fragment {
      */
     public VisualElement getVisualElement() {
         return visualElement;
+    }
+
+    /**
+     * Sets the visual element
+     *
+     * @param visualElement the visual element to set
+     */
+    public void setVisualElement(VisualElement visualElement) {
+        this.visualElement = visualElement;
     }
 }
