@@ -1272,7 +1272,9 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_signal_N">Leitung {0}</string>
     <string name="msg_invalidSignalsAnalysed">Um eine Analyse der Schaltung durchzuführen, müssen alle
         Eingänge und Ausgänge eindeutig benannt sein!</string>
-    <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
+    <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!
+        Es werden automatisch freie Pins zugeordnet. Die Schaltung kann damit auf realer Hardware in der Regel nicht
+        verwendet werden!</string>
     <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
     <string name="msg_noKVMapAvailable">Keine KV-Tafel verfügbar!</string>
     <string name="msg_dataNotUpdatedAnymore">Daten werden nicht mehr aktualisiert!</string>
