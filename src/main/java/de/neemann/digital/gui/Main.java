@@ -514,10 +514,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         menuBar.add(file);
         file.add(newFile.createJMenuItem());
         file.add(newSubFile.createJMenuItem());
-        file.add(openRecent);
-        file.add(openRecentNewWindow);
         file.add(open.createJMenuItem());
+        file.add(openRecent);
         file.add(openWin.createJMenuItem());
+        file.add(openRecentNewWindow);
         file.add(save.createJMenuItem());
         file.add(saveAs.createJMenuItem());
         file.add(export);
