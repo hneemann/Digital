@@ -15,17 +15,26 @@ Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logi
 If you are familiar with Logisim you will recognize the wire color scheme.
 
 Logisim is an excellent and proven tool for teaching purposes. Unfortunately, Carl Burch discontinued the development of 
-Logisim in 2014.
-He has released it as open source so there are a number of forks to continue his work:
+Logisim in 2014. Instead he has started the development of a new simulator called [Toves](http://www.toves.org/). 
+In his [blog](http://www.toves.org/blog/) he has explained why he has decided to develop a new simulator instead of 
+improving Logisim. In short: There are weaknesses in Logisims architecture which are hard to overcome.
+Unfortunately, the development of Toves was stopped very soon.
+
+Carl Burch has released Logisim as open source so there are a number of forks to continue the work on Logisim:
 
 - [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance at Wentworth Institute of Technology, Boston, MA 
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
-Nevertheless, I believe that there were good reasons for a completely new development from scratch. 
-Thus I started the implementation of Digital in march 2016.  
+But as far as I know, however, these projects do not try to solve the architectural difficulties. 
+It's more about adding some features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
+for example, a VHDL/Verilog export was added.
 
+So I decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
+In the meantime a development level has been reached which is at least comparable to Logisim.
+In some areas (performance, testing of circuits, analysis, hardware support) Logisim is clearly exceeded.
+  
 ## Features ##
 
 These are the main features of Digital:
