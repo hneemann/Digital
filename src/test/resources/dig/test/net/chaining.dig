@@ -167,6 +167,20 @@
       </elementAttributes>
       <pos x="540" y="280"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>in out
+0  0
+1  1</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="280"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
