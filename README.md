@@ -28,7 +28,7 @@ Carl Burch has released Logisim as open source so there are a number of forks to
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
 But as far as I know, these projects do not work on solving the architectural difficulties. 
-It's more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
+They are more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
 for example, a VHDL/Verilog export was added.
 
 So I decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
