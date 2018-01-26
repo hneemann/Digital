@@ -26,6 +26,70 @@
                 Bearbeitungsmodus gewechselt werden, indem die Simulation gestoppt wird.
             </par>
         </subchapter>
+        <subchapter name="Erste Schritte">
+            <par>
+                <image src="scr00.png">
+                    Im Hauptfenster können aus dem Menü <e>Bauteile</e> die verschiedenen Bauteile ausgewahlt werden.
+                    Danach werden diese auf dem Zeichenfeld positioniert. Dieser Vorgang kann mit der ESC-Taste
+                    jederzeit abgebrochen werden.
+                </image>
+                <image src="scr01.png">
+                    Als erstes Beispiel kann eine Schaltung mit einem Exclusiv-Oder Gatter aufgebaut werden.
+                    Dazu wählt man zunächst einen Eingang aus. Dieser kann später interaktiv mit der Maus
+                    gesteuert werden.
+                </image>
+                <image src="scr02.png">
+                    Nach der Auswahl kann der erste Eingang auf die Zeichenfläche gesetzt werden.
+                    Der rote Punkt markiert den Leitungsanschluss. Hier wird später eine Verbindungsleitung
+                    angeschlossen. Rot zeigt an, dass dieser Anschluss aktiv ist. Er definiert also einen
+                    Signalwert.
+                </image>
+                <image src="scr03.png">
+                    Auf die gleiche Art und Weise wird ein zweiter Eingang hinzugefügt. Am besten setzt man
+                    ihn direkt unter den ersten Eingang.
+                </image>
+                <image src="scr04.png">
+                    Danach wird das Exclusiv-Oder Gatter ausgewählt. Dieses Gatter stellt die eigentliche
+                    logische Funktion dar.
+                </image>
+                <image src="scr05.png">
+                    Dieses kann nun ebenfalls in die Schaltung eingefügt werden. Am besten setzt man es so,
+                    dass die spätere Verdrahtung möglichst einfach wird. Die blauen Punkte bezeichnen die
+                    Eingänge des Gatters.
+                </image>
+                <image src="scr06.png">
+                    Jetzt wählt man noch einen Ausgang aus. Dieser kann verwendet werden, um einen Zustand
+                    anzuzeigen, oder um später Signale an eine einbettende Schaltung weiterzugeben.
+                </image>
+                <image src="scr07.png">
+                    Auch dieser wird so positioniert, dass die Verdrahtung möglichst einfach wird.
+                    Er hat einen blauen Punkt, verfügt also über einen Eingang.
+                </image>
+                <image src="scr08.png">
+                    Damit sind alle Komponenten vorhanden. Jetzt muss noch die Verdrahtung ergänzt werden.
+                    Mit der Maus kann direkt eine Verbindungsleitung gezogen werden. Es werden die blauen und roten
+                    Punkte miteinander verbunden. Es darf dabei immer nur genau ein roter Punkt mit einer beliebigen
+                    Anzahl blauer Punkte verbunden werden. Nur der Einsatz von Treestate-Ausgängen erlaubt es,
+                    von dieser Regel abzuweichen und mehrere rote Punkte miteinander zu verbinden.
+                </image>
+                <image src="scr09.png">
+                    So können auch die beiden noch fehlenden Leitungen ergänzt werden. Damit ist eine erste
+                    Schaltung komplett.
+                </image>
+                <image src="scr10.png">
+                    Um mit der Schaltung interagieren zu können, muss diese gestartet werden. Dazu kann der
+                    Start-Knopf in der Toolbar verwendet werden.
+                    Nach dem Starten der Simulation ändert sich die Farbe der Leitungen und die Ein- und Ausgänge
+                    sind jetzt ausgefüllt. Ein helles Grün markiert eine logische '1' und ein dunkles Grün eine
+                    logische '0'. Im Moment findet sich auf allen Leitungen eine logische '0'.
+                </image>
+                <image src="scr11.png">
+                    Durch klicken mit der Maus können die Eingänge umgeschaltet werden. Da die Simulation jetzt
+                    aktiv ist, verändert sich der Augang entsprechend der aktuellen Eingangszustände.
+                    Die Schaltung verhällt sich wie erwartet wie ein XOR-Gatter.
+                </image>
+            </par>
+        </subchapter>
         <subchapter name="Verbindungsleitungen">
             <par>
                 Alle Elemente müssen über Leitungen verbunden werden. Es ist nicht möglich, zwei Elemente direkt
