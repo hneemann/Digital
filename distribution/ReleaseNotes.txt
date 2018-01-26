@@ -6,6 +6,7 @@ HEAD, planned as v0.17
 - Added a register file component.
 - Added an "export to zip" function.
 - If an input or output is several bits wide, all pin numbers can be specified by a comma-separated list.
+- Added a chapter "First Steps" to the documentation.
 - Bug fixes
   - Splitter, BarrelShifter and Comparator now are working with 64 bit.
   - fixed a bug in library IC 74198
