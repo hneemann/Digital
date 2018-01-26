@@ -16,9 +16,9 @@ If you are familiar with Logisim you will recognize the wire color scheme.
 
 Logisim is an excellent and proven tool for teaching purposes. Unfortunately, Carl Burch discontinued the development of 
 Logisim in 2014. Instead he has started the development of a new simulator called [Toves](http://www.toves.org/). 
-In his [blog](http://www.toves.org/blog/) he has explained why he has decided to develop a new simulator instead of 
-improving Logisim. In short: There are weaknesses in Logisims architecture which are hard to overcome.
-Unfortunately, the development of Toves was stopped very soon.
+In his [blog](http://www.toves.org/blog/) he explained why he decided to develop a new simulator instead of improving Logisim. 
+In short: There are weaknesses in Logisims architecture which are hard to overcome.
+Unfortunately, the development of Toves was discontinued at a very early stage.
 
 Carl Burch has released Logisim as open source so there are a number of forks to continue the work on Logisim:
 
@@ -27,13 +27,13 @@ Carl Burch has released Logisim as open source so there are a number of forks to
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
-But as far as I know, however, these projects do not try to solve the architectural difficulties. 
-It's more about adding some features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
+But as far as I know, these projects do not work on solving the architectural difficulties. 
+It's more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
 for example, a VHDL/Verilog export was added.
 
 So I decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
 In the meantime a development level has been reached which is at least comparable to Logisim.
-In some areas (performance, testing of circuits, analysis, hardware support) Logisim is clearly exceeded.
+In some areas (performance, testing of circuits, analysis, hardware support) Logisim was exceeded.
   
 ## Features ##
 
@@ -81,11 +81,12 @@ Below I would like to explain briefly the reasons which led me to start a new de
 
 ### Switch On ###
 
-In Logisim there is no real "switching on" of a circuit. The circuit is working also while you are modifying it. 
-This causes sometimes an unexpected behaviour. A simple master-slave flip-flop
-can not be realized with Logisim, since the circuit is not switched on, there is no
+In Logisim there is no real "switching on" of a circuit. The simulation is running also while you are modifying it. 
+This causes sometimes an unexpected behaviour. So its possible to build a simple master-slave flip-flop
+which works fine. But after a circuit reset the flip-flop does not work anymore.  
+Since the circuit is not switched on, there is no
 settling time to bring the circuit to a stable condition after its completion.
-A master-slave JK-flip-flop can only be implemented with a reset input. This
+A master-slave JK-flip-flop can only be implemented with a reset input, and this
 reset input needs to be activated to make the circuit operational.
 
 To understand how Digital deals with this issue, you have to look at how the simulation works in Digital:
@@ -109,7 +110,7 @@ This gate has a single output which is low during settling time and goes
 high when settling time is over.
 
 A disadvantage of this approach is the fact that a running simulation cannot be changed.
-In  order to do so, the circuit needs be switched off, modified and switched on again.
+In order to do so, the circuit needs be switched off, modified and switched on again.
 However, this procedure is also advisable for real circuits.
 
 ### Oscillations ###
@@ -146,7 +147,7 @@ which makes it difficult to use bidirectional pins.
 
 If a complete processor is simulated, it is possible to calculate the simulation without an update of the 
 graphical representation.
-A simple processor (see example) can be simulated with a 100kHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz),
+A simple processor (see example) can be simulated with a 120kHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz),
 which is suitable also for more complex assembly exercises like Conway's Game of Live.
 There is a break gate having a single input. If this input changes from low to high this quick run is stopped.
 This way, an assembler instruction BRK can be implemented, which then can be used to insert break points
@@ -179,7 +180,7 @@ After that you can simply flash this file to the appropriate GAL and test the ci
 As mentioned above these GALs are quite old but with 8/10 macro-cells sufficient for beginners exercises.
 If more macro-cells are required, see the PDF documentation that is included in the distribution for details 
 on how to set up Digital to support the [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
-[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells.  
+[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells and ISP (In System Programming).  
 
 ## How do I get set up? ##
 
