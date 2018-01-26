@@ -36,7 +36,7 @@ public class TestInSimulator extends TestCase {
     public void testInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
             assertEquals(26, tested);
             assertEquals(tested, testBenches);
         } catch (FileScanner.SkipAllException e) {
@@ -47,7 +47,7 @@ public class TestInSimulator extends TestCase {
     public void testInSimulator2() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
             assertEquals(28, tested);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
@@ -57,7 +57,7 @@ public class TestInSimulator extends TestCase {
     public void testDistributedInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
             assertEquals(1, tested);
             assertEquals(1, testBenches);
         } catch (FileScanner.SkipAllException e) {
