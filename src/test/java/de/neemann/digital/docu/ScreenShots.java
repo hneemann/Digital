@@ -1,6 +1,8 @@
-package de.neemann.digital.integration;
+package de.neemann.digital.docu;
 
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.integration.GuiTester;
+import de.neemann.digital.integration.Resources;
 import de.neemann.digital.lang.Lang;
 
 import javax.imageio.ImageIO;
@@ -79,7 +81,7 @@ public class ScreenShots {
     private static class ScreenShot<W extends Window> extends GuiTester.WindowCheck<W> {
         private static int n;
 
-        public ScreenShot(Class<W> expectedClass) {
+        ScreenShot(Class<W> expectedClass) {
             super(expectedClass);
         }
 

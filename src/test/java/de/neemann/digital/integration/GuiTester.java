@@ -347,7 +347,7 @@ public class GuiTester {
         }
     }
 
-    interface WindowCheckInterface<W extends Window> {
+    public interface WindowCheckInterface<W extends Window> {
         void checkWindow(GuiTester guiTester, W window) throws Exception;
     }
 
