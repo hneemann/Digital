@@ -37,16 +37,24 @@ public class NetList implements Iterable<Net> {
                         found = n;
 
                 String label = ve.getElementAttributes().get(Keys.NETNAME).trim();
-                if (found == null)
-                    throw new PinException(Lang.get("err_labelNotConnectedToNet_N", label), ve);
+                if (found == null) {
+                    final PinException e = new PinException(Lang.get("err_labelNotConnectedToNet_N", label), ve);
+                    e.setOrigin(circuit.getOrigin());
+                    throw e;
+                }
 
                 found.addLabel(label);
             }
 
-        for (Net n : netList)
+        boolean hasLabel = false;
+        for (Net n : netList) {
             n.setOrigin(circuit.getOrigin());
+            if (n.hasLabel())
+                hasLabel = true;
+        }
 
-        mergeLabels();
+        if (hasLabel)
+            mergeLabels();
     }
 
     //modification of loop variable j is intended!
@@ -60,8 +68,8 @@ public class NetList implements Iterable<Net> {
                     if (netList.get(i).matchesLabel(netList.get(j))) {
                         netList.get(i).addAllPointsFrom(netList.get(j));
                         netList.remove(j);
-                        wasMerge = true;
                         j--;
+                        wasMerge = true;
                     }
         } while (wasMerge);
     }

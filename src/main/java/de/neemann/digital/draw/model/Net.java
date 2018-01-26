@@ -236,6 +236,13 @@ public class Net {
         return false;
     }
 
+    /**
+     * @return true if this net has at least one label
+     */
+    public boolean hasLabel() {
+        return !labelSet.isEmpty();
+    }
+
     @Override
     public String toString() {
         if (labelSet.isEmpty())
