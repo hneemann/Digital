@@ -78,6 +78,31 @@
                     By clicking with the mouse, the inputs can be switched. Since the simulation is now active, the
                     output changes according to the current input states. The circuit behaves as expected like an XOR gate.
                 </image>
+                <image src="scr12.png">
+                    To further process the circuit, the simulation must first be stopped. The easiest way to do this is
+                    with the Stop button in the ToolBar. Clicking on a component with the right mouse button opens a
+                    dialog which displays the properties of this component. The name 'A' can be defined for the first
+                    input via this dialog.
+                </image>
+                <image src="scr13.png">
+                    In this way, the names for the remaining inputs and outputs can be defined. The menu item
+                    <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
+                    the current circuit. However, this is only possible if all inputs and outputs are labeled.
+                </image>
+                <image src="scr14.png">
+                    It opens a window showing the truth table of the current circuit. Below the table is the algebraic
+                    expression associated with the circuit. If there are several possible algebraic expressions, a
+                    separate window will open showing all expressions.
+                </image>
+                <image src="scr15.png">
+                    The table dialog has the menu entry <e>K-Map</e> in its main menu. This allows to display the truth
+                    table in the form of a K-map.
+                </image>
+                <image src="scr16.png">
+                    At the top of this dialog there is a drop-down list which allows the selection of the desired
+                    expression in the K-map. In this way you can, for example, illustrate how several equivalent
+                    algebraic expressions can result. By clicking in the K-map the table can be modified.
+                </image>
             </par>
         </subchapter>
         <subchapter name="Wires">

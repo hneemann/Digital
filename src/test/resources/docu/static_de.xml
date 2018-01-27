@@ -30,7 +30,7 @@
             <par>
                 <image src="scr00.png">
                     Im Hauptfenster können aus dem Menü <e>Bauteile</e> die verschiedenen Bauteile ausgewahlt werden.
-                    Danach werden diese auf dem Zeichenfeld positioniert. Dieser Vorgang kann mit der ESC-Taste
+                    Danach werden diese auf dem Zeichenfeld positioniert. Das Positionieren kann mit der ESC-Taste
                     jederzeit abgebrochen werden.
                 </image>
                 <image src="scr01.png">
@@ -87,6 +87,35 @@
                     Durch klicken mit der Maus können die Eingänge umgeschaltet werden. Da die Simulation jetzt
                     aktiv ist, verändert sich der Augang entsprechend der aktuellen Eingangszustände.
                     Die Schaltung verhällt sich wie erwartet wie ein XOR-Gatter.
+                </image>
+                <image src="scr12.png">
+                    Um die Schaltung weiter bearbeiten zu können, muss die Simulation zunächst gestoppt werden.
+                    Dies geschieht am einfachsten mit dem Stop-Knopf in der ToolBar.
+                    Durch Klicken mit der rechten Maustaste auf eine Komponente öffnet sich ein Dialog, welcher die
+                    Eigenschaften dieser Komponente anzeigt. Für den ersten Eingang kann über diesen Dialog die
+                    Bezeichnung 'A' festgelegt werden.
+                </image>
+                <image src="scr13.png">
+                    Auf diese Weise, können die Bezeichnungen für die übrigen Ein- und Ausgänge
+                    definiert werden.
+                    Im Hauptmenü im Menüpunkt <e>Analyse</e> findet sich auch ein Menüpunkt <e>Analyse</e>. Damit läst sich
+                    eine Analyse der aktuellen Schaltung durchführen. Dies ist jedoch nur möglich, wenn alle Ein- und
+                    Ausgänge mit einer Bezeichnung versehen sind.
+                </image>
+                <image src="scr14.png">
+                    Es öffnet sich ein Fenster, welches die Wahrheitstabelle der aktuellen Schaltung zeigt. Unter der
+                    Tabelle findet sich der algebraische Ausdruck, welcher zu der Schaltung gehört. Gibt es mehrere
+                    mögliche algebraische Ausdrücke, öffnet sich ein separates Fenster, welches alle Ausdrücke
+                    anzeigt.
+                </image>
+                <image src="scr15.png">
+                    Der Tabellendialog hat in seinem Hauptmenü den Menüeintrag <e>KV-Tafel</e>. Über diesen läst sich die
+                    Wahrheitstabelle in Form einer KV-Tafel anzeigen.
+                </image>
+                <image src="scr16.png">
+                    Oben in diesem Dialog gibt es eine Auswahlbox über welche der gewünschte Ausdruck in der KV-Tafel
+                    ausgewählt werden kann. Auf diese Weise läst sich z.B. verdeutlichen, wie sich mehrere equivalente
+                    algebraische Ausdrücke ergeben können. Durch Klicken in der KV-Tafel läst sich die Tabelle bearbeiten.
                 </image>
             </par>
         </subchapter>
