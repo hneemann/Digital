@@ -277,7 +277,7 @@ public class GuiTester {
     /**
      * Every test step implements this Runnable
      */
-    interface Runnable {
+    public interface Runnable {
         /**
          * Executed the test setp
          *
