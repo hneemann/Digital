@@ -17,7 +17,7 @@
                 Der Simulator kennt dabei zwei Modi: Im Bearbeitungsmodus kann die Schaltung bearbeitet werden. Es
                 können Elemente hinzugefügt oder durch Leitungen verbunden werden. In diesem Modus ist die eigentliche
                 Simulation nicht aktiv.
-                Der Simulationsmodus wird durch <e>Start</e> aktiviert. Beim Wechsel in diesen Modus wird die Schaltung
+                Der Simulationsmodus wird durch den <e>Start</e>-Knopf aktiviert. Beim Wechsel in diesen Modus wird die Schaltung
                 auf Konsistenz überprüft. Gibt es in der Schaltung noch Fehler, wird eine entsprechende Meldung
                 angezeigt.
                 Wenn möglich werden die betroffenen Elemente bzw. Leitungen hervorgehoben. Enthält die Schaltung keine
@@ -29,12 +29,12 @@
         <subchapter name="Erste Schritte">
             <par>
                 <image src="scr00.png">
-                    Im Hauptfenster können aus dem Menü <e>Bauteile</e> die verschiedenen Bauteile ausgewahlt werden.
+                    Im Hauptfenster können aus dem Menü <e>Bauteile</e> die verschiedenen Bauteile ausgewählt werden.
                     Danach werden diese auf dem Zeichenfeld positioniert. Das Positionieren kann mit der ESC-Taste
                     jederzeit abgebrochen werden.
                 </image>
                 <image src="scr01.png">
-                    Als erstes Beispiel kann eine Schaltung mit einem Exclusiv-Oder Gatter aufgebaut werden.
+                    Als erstes Beispiel kann eine Schaltung mit einem Exklusiv-Oder Gatter aufgebaut werden.
                     Dazu wählt man zunächst einen Eingang aus. Dieser kann später interaktiv mit der Maus
                     gesteuert werden.
                 </image>
@@ -49,7 +49,7 @@
                     ihn direkt unter den ersten Eingang.
                 </image>
                 <image src="scr04.png">
-                    Danach wird das Exclusiv-Oder Gatter ausgewählt. Dieses Gatter stellt die eigentliche
+                    Danach wird das Exklusiv-Oder Gatter ausgewählt. Dieses Gatter stellt die eigentliche
                     logische Funktion dar.
                 </image>
                 <image src="scr05.png">
@@ -69,7 +69,7 @@
                     Damit sind alle Komponenten vorhanden. Jetzt muss noch die Verdrahtung ergänzt werden.
                     Mit der Maus kann direkt eine Verbindungsleitung gezogen werden. Es werden die blauen und roten
                     Punkte miteinander verbunden. Es darf dabei immer nur genau ein roter Punkt mit einer beliebigen
-                    Anzahl blauer Punkte verbunden werden. Nur der Einsatz von Treestate-Ausgängen erlaubt es,
+                    Anzahl blauer Punkte verbunden werden. Nur der Einsatz von Threestate-Ausgängen erlaubt es,
                     von dieser Regel abzuweichen und mehrere rote Punkte miteinander zu verbinden.
                 </image>
                 <image src="scr09.png">
@@ -84,9 +84,9 @@
                     logische '0'. Im Moment findet sich auf allen Leitungen eine logische '0'.
                 </image>
                 <image src="scr11.png">
-                    Durch klicken mit der Maus können die Eingänge umgeschaltet werden. Da die Simulation jetzt
-                    aktiv ist, verändert sich der Augang entsprechend der aktuellen Eingangszustände.
-                    Die Schaltung verhällt sich wie erwartet wie ein XOR-Gatter.
+                    Durch Klicken mit der Maus können die Eingänge umgeschaltet werden. Da die Simulation jetzt
+                    aktiv ist, verändert sich der Ausgang entsprechend der aktuellen Eingangszustände.
+                    Die Schaltung verhält sich wie erwartet wie ein XOR-Gatter.
                 </image>
                 <image src="scr12.png">
                     Um die Schaltung weiter bearbeiten zu können, muss die Simulation zunächst gestoppt werden.
@@ -98,7 +98,7 @@
                 <image src="scr13.png">
                     Auf diese Weise, können die Bezeichnungen für die übrigen Ein- und Ausgänge
                     definiert werden.
-                    Im Hauptmenü im Menüpunkt <e>Analyse</e> findet sich auch ein Menüpunkt <e>Analyse</e>. Damit läst sich
+                    Im Hauptmenü im Menüpunkt <e>Analyse</e> findet sich auch ein Menüpunkt <e>Analyse</e>. Damit lässt sich
                     eine Analyse der aktuellen Schaltung durchführen. Dies ist jedoch nur möglich, wenn alle Ein- und
                     Ausgänge mit einer Bezeichnung versehen sind.
                 </image>
@@ -109,13 +109,13 @@
                     anzeigt.
                 </image>
                 <image src="scr15.png">
-                    Der Tabellendialog hat in seinem Hauptmenü den Menüeintrag <e>KV-Tafel</e>. Über diesen läst sich die
+                    Der Tabellendialog hat in seinem Hauptmenü den Menüeintrag <e>KV-Tafel</e>. Über diesen lässt sich die
                     Wahrheitstabelle in Form einer KV-Tafel anzeigen.
                 </image>
                 <image src="scr16.png">
                     Oben in diesem Dialog gibt es eine Auswahlbox über welche der gewünschte Ausdruck in der KV-Tafel
-                    ausgewählt werden kann. Auf diese Weise läst sich z.B. verdeutlichen, wie sich mehrere equivalente
-                    algebraische Ausdrücke ergeben können. Durch Klicken in der KV-Tafel läst sich die Tabelle bearbeiten.
+                    ausgewählt werden kann. Auf diese Weise lässt sich z.B. verdeutlichen, wie sich mehrere äquivalente
+                    algebraische Ausdrücke ergeben können. Durch Klicken in der KV-Tafel lässt sich die Tabelle bearbeiten.
                 </image>
             </par>
         </subchapter>
