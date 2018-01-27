@@ -10,22 +10,25 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 /**
- * Helper to check a circuit for circles
+ * Helper to check a circuit for cycles.
+ * A cycle is a situation where a gate input depends somehow on one of its outputs.
+ * If a cycle is detected an exception is thrown.
  */
-public final class CircleDetector {
+public final class CycleDetector {
 
-    private CircleDetector() {
+    private CycleDetector() {
     }
 
     /**
-     * Returns true if the circuit has circles.
+     * Checks a circuit for circles.
+     * If a circle is detected, en exception is thrown.
      *
      * @param values the input signals of the circuit
-     * @return if the circuit has circles
      * @throws BacktrackException BacktrackException
      * @throws PinException       PinException
+     * @throws CycleException    is thrown if a circle is detected
      */
-    public static boolean hasCircles(ArrayList<Signal> values) throws BacktrackException, PinException {
+    public static void checkForCycles(ArrayList<Signal> values) throws BacktrackException, PinException, CycleException {
         HashMap<NodeInterface, Node> nodes = new HashMap<>();
         HashSet<ObservableValue> visited = new HashSet<>();
 
@@ -35,12 +38,7 @@ public final class CircleDetector {
             traverse(root, s.getValue(), nodes, visited);
         }
 
-        try {
-            checkForCircles(nodes.values());
-            return false;
-        } catch (CircleException e) {
-            return true;
-        }
+        checkGraphForCycles(nodes.values());
     }
 
     private static void traverse(Node parent, ObservableValue val, HashMap<NodeInterface, Node> nodes, HashSet<ObservableValue> visited) throws PinException, BacktrackException {
@@ -83,7 +81,7 @@ public final class CircleDetector {
         }
     }
 
-    private static void checkForCircles(Collection<Node> nodes) throws CircleException {
+    private static void checkGraphForCycles(Collection<Node> nodes) throws CycleException {
         ArrayList<Node> remaining = new ArrayList<>(nodes);
 
         int layer = 1;
@@ -104,12 +102,15 @@ public final class CircleDetector {
             }
 
             if (ableToPlace.isEmpty())
-                throw new CircleException();
+                throw new CycleException();
 
             remaining.removeAll(ableToPlace);
         }
     }
 
-    private static class CircleException extends Exception {
+    final static class CycleException extends AnalyseException {
+        private CycleException() {
+            super(Lang.get("err_circuitHasCycles"));
+        }
     }
 }

@@ -2,10 +2,9 @@ package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.integration.ToBreakRunner;
-import de.neemann.digital.lang.Lang;
 import junit.framework.TestCase;
 
-public class CircleDetectorTest extends TestCase {
+public class CycleDetectorTest extends TestCase {
 
     private static final String[] nameTableSequential = {
             "D.dig",
@@ -61,10 +60,10 @@ public class CircleDetectorTest extends TestCase {
         for (String name : nameTableSequential) {
             Model model = new ToBreakRunner("../../main/dig/sequential/" + name, false).getModel();
             try {
-                TruthTable tt = new ModelAnalyser(model).analyse();
+                new ModelAnalyser(model).analyse();
                 fail();
-            } catch (AnalyseException e) {
-                assertTrue(e.getMessage().contains(Lang.get("err_circuitHasCircles")));
+            } catch (CycleDetector.CycleException e) {
+                assertTrue(true);
             }
         }
     }
@@ -72,7 +71,7 @@ public class CircleDetectorTest extends TestCase {
     public void testCirclesOk() throws Exception {
         for (String name : nameTableCombinatorial) {
             Model model = new ToBreakRunner("../../main/dig/combinatorial/" + name, false).getModel();
-            TruthTable tt = new ModelAnalyser(model).analyse();
+            new ModelAnalyser(model).analyse();
         }
     }
 

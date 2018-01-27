@@ -362,8 +362,7 @@ public class ModelAnalyser {
         for (Signal s : outputs)
             getModelAnalyzerInfo().addPinNumber(s);
 
-        if (CircleDetector.hasCircles(inputs))
-            throw new AnalyseException(Lang.get("err_circuitHasCircles"));
+        CycleDetector.checkForCycles(inputs);
 
         DependencyAnalyser da = new DependencyAnalyser(this);
         long steps = da.getRequiredSteps(this);
