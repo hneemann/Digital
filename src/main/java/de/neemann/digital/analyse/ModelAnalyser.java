@@ -137,7 +137,7 @@ public class ModelAnalyser {
                 outputs.add(s);
             else {
                 try {
-                    Splitter sp = Splitter.createOneToN(bits);
+                    Splitter sp = Splitter.createOneToN(bits, true);
                     sp.setInputs(s.getValue().asList());
                     SplitPinString pins = SplitPinString.create(s);
 
@@ -222,7 +222,7 @@ public class ModelAnalyser {
                     ff.getDInput().removeObserver(ff);
                     ff.getClock().removeObserver(ff);
 
-                    Splitter insp = Splitter.createOneToN(ff.getBits());
+                    Splitter insp = Splitter.createOneToN(ff.getBits(), false);
                     insp.setInputs(new ObservableValues(ff.getDInput()));
                     ff.getDInput().fireHasChanged();
 
