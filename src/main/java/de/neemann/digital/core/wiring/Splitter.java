@@ -31,7 +31,7 @@ public class Splitter implements Element {
         Ports out = new Ports();
         for (int i = 0; i < bits; i++)
             out.add(new Port(i, 1));
-        return new Splitter(in, out, false);
+        return new Splitter(in, out, true);
     }
 
     /**

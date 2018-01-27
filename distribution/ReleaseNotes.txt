@@ -7,6 +7,7 @@ HEAD, planned as v0.17
 - Added an "export to zip" function.
 - If an input or output is several bits wide, all pin numbers can be specified by a comma-separated list.
 - Added a chapter "First Steps" to the documentation.
+- The model analyzer now detects circles and creates an error message if a circle is detected.
 - Bug fixes
   - Splitter, BarrelShifter and Comparator now are working with 64 bit.
   - fixed a bug in library IC 74198

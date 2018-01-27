@@ -800,6 +800,7 @@ The names of the variables may not be unique.</string>
     <string name="err_tableHasToManyResultColumns">The table has too many columns!</string>
     <string name="err_errorExportingZip">Error writing the zip file.</string>
     <string name="err_moreThanOneFastClock">Only one clock component with high frequency is allowed.</string>
+    <string name="err_circuitHasCircles">The circuit contains circles. It's not possible to analyze such a circuit.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
