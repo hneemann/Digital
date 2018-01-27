@@ -90,14 +90,13 @@
                 </image>
                 <image src="scr12.png">
                     Um die Schaltung weiter bearbeiten zu können, muss die Simulation zunächst gestoppt werden.
-                    Dies geschieht am einfachsten mit dem Stop-Knopf in der ToolBar.
+                    Dies geschieht am einfachsten mit dem Stopp-Knopf in der ToolBar.
                     Durch Klicken mit der rechten Maustaste auf eine Komponente öffnet sich ein Dialog, welcher die
                     Eigenschaften dieser Komponente anzeigt. Für den ersten Eingang kann über diesen Dialog die
                     Bezeichnung 'A' festgelegt werden.
                 </image>
                 <image src="scr13.png">
-                    Auf diese Weise, können die Bezeichnungen für die übrigen Ein- und Ausgänge
-                    definiert werden.
+                    Auf diese Weise können die Bezeichnungen für die übrigen Ein- und Ausgänge definiert werden.
                     Im Hauptmenü im Menüpunkt <e>Analyse</e> findet sich auch ein Menüpunkt <e>Analyse</e>. Damit lässt sich
                     eine Analyse der aktuellen Schaltung durchführen. Dies ist jedoch nur möglich, wenn alle Ein- und
                     Ausgänge mit einer Bezeichnung versehen sind.
@@ -233,7 +232,7 @@
         </par>
         <par>
             Zu beachten ist dabei, dass die zu analysierende Schaltung neben den eingebauten D- und JK-Flipflops nur
-            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus Nor-Gattern aufgebaut, wird diese
+            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus NOr-Gattern aufgebaut, wird diese
             Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend behandelt. In diesem Falle wird
             die Schaltung nicht korrekt analysiert, was bedeutet, das eine nicht korrekte Zustandsfolgetabelle
             erzeugt wird.
