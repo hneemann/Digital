@@ -125,7 +125,7 @@
         </subchapter>
         <subchapter name="Hierarchical Design">
             <par>
-                If a complex circuit is built up, this can very quickly become very confusing. To keep track here,
+                If a complex circuit is built up, this can quickly become very confusing. To keep track here,
                 the different parts of a circuit can be stored in different files. This mechanism also makes it
                 possible to use a subcircuit, which has been created once, several times in a further circuit.
                 This approach also offers the advantage that the files can be stored independently of each other in a
@@ -140,15 +140,15 @@
             <par><image src="scr21.png"/></par>
             <par>
                 From two half adders a full adder can now be built. To do this, create a new empty file and save the
-                empty file under the name <e>fullAdder.dig</e> in the same folder as before the half adder. Then the
+                empty file as <e>fullAdder.dig</e> in the same folder as before the half adder. Then the
                 half adder can be added to the new circuit via the <e>Components</e><arrow/><e>Custom</e> menu.
-                The full adder adds the three bits 'A', 'B' and 'Ci' and gives the sum to th outputs 'S' and 'Co'.
+                The full adder adds the three bits 'A', 'B' and 'Ci' and gives the sum to the outputs 'S' and 'Co'.
             </par>
             <par><image src="scr22.png"/></par>
             <par>
                 Now the full adders can be put together to form a so-called ripple-carry adder.
                 In this case, the carry output of an addition is forwarded as a carry input to the addition of the
-                next higher-order bit. Just as it is usual in written addition.
+                next higher-order bit. Just as it is usual in pencil-and-paper addition.
                 This 4-bit adder should be checked for correct function. For this purpose a test case was inserted.
             </par>
             <par><image src="scr23.png"/></par>
@@ -156,7 +156,7 @@
                 This test case performs a 100% test, which is possible only with relatively simple circuits: all
                 possible 512 input combinations are applied to the circuit, and it is checked whether the output
                 of the circuit is correct. For this purpose, the variables <e>A</e> and <e>B</e> are each traversed
-                from 0 to 15. The respective values of <e>A</e> and <e>B </e> are then assigned to inputs 'A' and 'B'.
+                from 0 to 15. The respective values of <e>A</e> and <e>B </e> are then assigned to inputs 'A[n]' and 'B[n]'.
                 Then it is checked whether the circuit outputs the value <e>A+B</e>. Then it is checked again with
                 the carry bit set, in which case <e>A+B+1</e> must result.
                 The details of the test syntax are provided by the help dialog.

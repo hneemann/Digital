@@ -33,7 +33,7 @@ public class ScreenShots {
     public static void main(String[] args) {
 //        mainScreenShot();
 //        firstSteps();
-        hierarchicalDesign();
+//        hierarchicalDesign();
     }
 
     private static void mainScreenShot() {
@@ -156,6 +156,7 @@ public class ScreenShots {
         ScreenShot.n = 20;
         new GuiTester("dig/test/docu/halfAdder.dig", "halfAdder.dig")
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, w) -> w.setSize(WIN_DX, WIN_DY)))
+                .press("control typed -", 4)
                 .delay(500)
                 .add(new ScreenShot<>(Main.class))
                 .execute();

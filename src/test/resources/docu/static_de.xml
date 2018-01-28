@@ -136,7 +136,7 @@
         </subchapter>
         <subchapter name="Hierarchisches Design">
             <par>
-                Wenn eine sehr komplexe Schaltung aufgebaut wird, kann diese sehr schnell sehr unübersichtlich werden.
+                Wenn eine komplexe Schaltung aufgebaut wird, kann diese schnell sehr unübersichtlich werden.
                 Um hier die Übersicht zu behalten, können die verschiedenen Teile einer Schaltung in unterschiedlichen
                 Dateien gespeichert werden. Dieser Mechanismuss erlaubt es auch, eine einmal erstellte Teilschaltung
                 mehrfach in einer weiteren Schaltung zu verwenden. Dieses Vorgehen bietet zudem den Vorteil, dass die
@@ -162,7 +162,7 @@
             <par>
                 Nun lassen sich die Volladdierer zu einem so gen. Ripple-Carry Addierer zusammensetzen. Dabei wird
                 der Carry-Ausgang einer Addition als Carry-Eingang an die Addition des nächst höherwertigen Bits
-                weitergegeben. Genau so, wie es bei der schriftlichen Addition üblich ist. Dieser 4-Bitt Addierer soll
+                weitergegeben. Genau so, wie es bei der schriftlichen Addition üblich ist. Dieser 4-Bit Addierer soll
                 auf korrekte Funktion überprüft werden. Dazu wurde ein Testfall eingefügt.
             </par>
             <par><image src="scr23.png"/></par>
@@ -171,12 +171,12 @@
                 Alle möglichen 512 Eingangskombinationen werden an die
                 Schaltung angelegt, und es wird überprüft, ob die Ausgabe der Schaltung korrekt ist. Dazu werden die
                 Variablen <e>A</e> und <e>B</e> jeweils von 0 bis 15 durchlaufen. Die jeweiligen Werte von <e>A</e> und
-                <e>B</e> werden dann den Eingängen 'A' und 'B' zugewiesen. Dann wird überprüft, ob die Schaltung den
-                Wert <e>A+B</e> ausgibt. Das Ganze wird dann noch einmal mit gesetztem Carry-Bit geprüft, wobei sich
-                dann <e>A+B+1</e> ergeben muss. Die Detals der Test-Syntax liefert der Hilfe-Dialog.
+                <e>B</e> werden dann den Eingängen 'A[n]' und 'B[n]' zugewiesen. Dann wird überprüft, ob die Schaltung den
+                Wert <e>A+B</e> ausgibt. Das wird dann noch einmal mit gesetztem Carry-Bit geprüft, wobei sich
+                in diesem Fall <e>A+B+1</e> ergeben muss. Die Detals der Test-Syntax liefert der Hilfe-Dialog.
             </par>
             <par>
-                Wenn eine Schaltung in eine andere Schaltungen eingebunden wird, wird in der einbindenden Schaltung nur
+                Wenn eine Schaltung in eine andere Schaltung eingebunden wird, wird in der einbindenden Schaltung nur
                 der Dateiname der Schaltung gespeichert, nicht die Schaltung selbst. Die entsprechenden
                 Dateien der eingebundenen Schaltungen müssen daher zur Laufzeit der Simulation im Dateisystem
                 gefunden werden. Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
