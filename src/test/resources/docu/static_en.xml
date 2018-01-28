@@ -142,6 +142,8 @@
                 From two half adders a full adder can now be built. To do this, create a new empty file and save the
                 empty file as <e>fullAdder.dig</e> in the same folder as before the half adder. Then the
                 half adder can be added to the new circuit via the <e>Components</e><arrow/><e>Custom</e> menu.
+                The order of the pins at the housing of the half-adder can be rearranged in the half adder in the
+                menu <e>Edit</e><arrow/><e>Order inputs</e> or <e>Edit</e><arrow/><e>Order outputs</e>.
                 The full adder adds the three bits 'A', 'B' and 'Ci' and gives the sum to the outputs 'S' and 'Co'.
             </par>
             <par><image src="scr22.png"/></par>
@@ -155,7 +157,12 @@
             <par>
                 This test case performs a 100% test, which is possible only with relatively simple circuits: all
                 possible 512 input combinations are applied to the circuit, and it is checked whether the output
-                of the circuit is correct. For this purpose, the variables <e>A</e> and <e>B</e> are each traversed
+                of the circuit is correct.
+                The first line lists the input and output signals. Below this, the input values to be applied and
+                the output values to be checked are specified in a row, as in a truth table.
+                In this example, however, 512 lines are required. Entering this would be a tedious and error-prone task.
+                It is easier and more reliable to automatically generate the required lines.
+                For this purpose, the variables <e>A</e> and <e>B</e> are each traversed
                 from 0 to 15. The respective values of <e>A</e> and <e>B </e> are then assigned to inputs 'A[n]' and 'B[n]'.
                 Then it is checked whether the circuit outputs the value <e>A+B</e>. Then it is checked again with
                 the carry bit set, in which case <e>A+B+1</e> must result.
@@ -187,9 +194,9 @@
     <chapter name="Simulation">
         <subchapter name="Propagation Delay">
             <par>
-                During the simulation every logic gate has a propagation delay. Every component from the library
+                During the simulation every logic gate has a propagation delay. Every component found in the library
                 has the same propagation delay regardless of its complexity.
-                So a NOT gate has the same propagation delay as a RAM component or a flipflop.
+                The AND gate thus has the same propagation delay as the multiplier.
                 The only exceptions are diodes, switches and splitters which are used to create data buses.
                 These components have no propagation delay at all.
             </par>
@@ -233,8 +240,7 @@
         <par>
             It should be noted that the circuit to be analyzed may contain only purely combinatorial elements in
             addition to the built-in D and JK flipflops. If a flip-flop is e.g. made from Nor gates, this
-            circuit is not recognized as a flip-flop and therefore not treated accordingly. In this case, the
-            circuit is not analyzed correctly, which means that an incorrect state transition table is generated.
+            circuit is not recognized as a flip-flop and therefore it is not possible to analyse such a circuit.
         </par>
     </chapter>
     <chapter name="Hardware">

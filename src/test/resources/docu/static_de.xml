@@ -155,8 +155,11 @@
                 Aus zwei Halbaddierern kann nun ein Volladdierer aufgebaut werden. Dazu erzeugt man eine neue leere
                 Datei und speichert die leere Datei unter dem Name <e>fullAdder.dig</e> im selben Ordner wie zuvor den
                 Halbaddierer. Danach kann der Halbaddier über das Menu <e>Bauteile</e><arrow/><e>Benutzerdefiniert</e>
-                der neuen Schaltung hinzugefügt werden. Der Volladdierer addiert die drei Bits 'A', 'B' und 'Ci' und gibt
-                die Summe an 'S' und 'Co' aus.
+                der neuen Schaltung hinzugefügt werden.
+                Die Reihenfolge der Pins am Gehäuse des Halbaddierers kann im Halbaddierer im Menu
+                <e>Bearbeiten</e><arrow/><e>Sortieren der Eingänge</e> bzw. <e>Bearbeiten</e><arrow/><e>Sortieren der Ausgänge</e>
+                verändert werden.
+                Der Volladdierer addiert die drei Bits 'A', 'B' und 'Ci' und gibt die Summe an 'S' und 'Co' aus.
             </par>
             <par><image src="scr22.png"/></par>
             <par>
@@ -169,7 +172,13 @@
             <par>
                 Dieser Testfall führt einen 100% Test durch, was nur bei relativ einfachen Schaltungen möglich ist:
                 Alle möglichen 512 Eingangskombinationen werden an die
-                Schaltung angelegt, und es wird überprüft, ob die Ausgabe der Schaltung korrekt ist. Dazu werden die
+                Schaltung angelegt, und es wird überprüft, ob die Ausgabe der Schaltung korrekt ist.
+                In der ersten Zeile sind die Eingangs- und Ausgangssignale aufgelistet. Darunter würden in je einer Zeile
+                die anzulegenden Eingangswerte und die zu überprüfenden Ausgangswerte angegeben, wie in einer Wahrheitstabelle.
+                In diesem Beispiel sind jedoch 512 Zeilen erforlderlich.
+                Diese einzugeben, wäre eine mühsame und fehleranfällige Aufgabe.
+                Einfacher und zuverlässiger ist es, die erforderlichen Zeilen automatisch erzeugen zu lassen.
+                Dazu werden die
                 Variablen <e>A</e> und <e>B</e> jeweils von 0 bis 15 durchlaufen. Die jeweiligen Werte von <e>A</e> und
                 <e>B</e> werden dann den Eingängen 'A[n]' und 'B[n]' zugewiesen. Dann wird überprüft, ob die Schaltung den
                 Wert <e>A+B</e> ausgibt. Das wird dann noch einmal mit gesetztem Carry-Bit geprüft, wobei sich
@@ -205,31 +214,23 @@
     <chapter name="Simulation">
         <subchapter name="Gatterlaufzeiten">
             <par>
-                Bei der Simulation wird davon ausgegangen, dass jedes Gatter eine endliche Laufzeit hat, und dass diese
-                Laufzeit
-                für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat genau diese
-                Laufzeit,
-                unabhängig von dessen Komplexität. Ein Und-Gatter hat also die selbe Signalverzögerung wie ein
-                RAM-Baustein.
+                Bei der Simulation wird davon ausgegangen, dass jedes Gatter eine bestimmte Laufzeit hat, und dass diese
+                Laufzeit für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat
+                genau diese Laufzeit, unabhängig von dessen Komplexität.
+                Das Und-Gatter hat also die selbe Signalverzögerung wie der Multiplikator.
                 Ausgenommen davon sind die Dioden, der Leitungssplitter für die Erzeugung von Datenbussen und der
-                Schalter.
-                Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
+                Schalter. Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
             </par>
             <par>
                 Wird eine Schaltung in eine andere Schaltung eingebettet, um ein hierarchisches Design zu erstellen,
-                behalten die
-                eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz eingebettet bei welchem
-                ein
-                Signal
+                behalten die eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz
+                eingebettet bei welchem ein Signal
                 von einem Eingang bis zu einem Ausgang drei Gatter passiern muss, beträgt dessen Laufzeit auch als
-                eingebettete
-                Schaltung drei Gatterlaufzeiten. Es gibt keine zusätzlichen Verzögerungen durch
+                eingebettete Schaltung drei Gatterlaufzeiten. Es gibt keine zusätzlichen Verzögerungen durch
                 das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich
-                schnell,
-                werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
+                schnell, werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
                 Generell verändert das Einbetten einer Schaltung in eine andere dessen Laufzeitverhalten nicht. Die
-                Schaltung
-                verhält sich exakt so, als befänden sich alle Elemente auf der selben Ebene.
+                Schaltung verhält sich exakt so, als befänden sich alle Elemente auf der selben Ebene.
             </par>
         </subchapter>
     </chapter>
@@ -260,10 +261,8 @@
         </par>
         <par>
             Zu beachten ist dabei, dass die zu analysierende Schaltung neben den eingebauten D- und JK-Flipflops nur
-            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus NOr-Gattern aufgebaut, wird diese
-            Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend behandelt. In diesem Falle wird
-            die Schaltung nicht korrekt analysiert, was bedeutet, das eine nicht korrekte Zustandsfolgetabelle
-            erzeugt wird.
+            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus NOr-Gattern aufgebaut, kann diese
+            Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend analysiert werden.
         </par>
     </chapter>
     <chapter name="Hardware">
