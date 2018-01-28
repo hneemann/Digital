@@ -23,14 +23,20 @@ public class GuiTester {
     private final ArrayList<Runnable> runnableList;
     private Main main;
     private String filename;
+    private final String displayName;
     private Robot robot;
 
     public GuiTester() {
-        this(null);
+        this(null, null);
     }
 
     public GuiTester(String filename) {
+        this(filename, null);
+    }
+
+    public GuiTester(String filename, String displayName) {
         this.filename = filename;
+        this.displayName = displayName;
         runnableList = new ArrayList<>();
     }
 
@@ -152,6 +158,8 @@ public class GuiTester {
                     if (filename != null) {
                         File file = new File(Resources.getRoot(), filename);
                         main = new Main.MainBuilder().setFileToOpen(file).build();
+                        if (displayName!=null)
+                        SwingUtilities.invokeLater(() -> main.setTitle(displayName + " - Digital"));
                     } else
                         main = new Main.MainBuilder().setCircuit(new Circuit()).build();
                     main.setVisible(true);

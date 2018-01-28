@@ -3,8 +3,9 @@
     <chapter name="Digital">
         <subchapter name="Einführung">
             <par>
-                Digital ist ein Simulator für digitale Schaltkreise. Die einzelnen Gatter eines Schaltkreise können
-                miteinander durch Leitungen verbunden werden und das Verhalten der Gesamtschaltung wird simuliert.
+                Digital ist ein Simulator für digitale Schaltkreise. Ein Schaltung besteht dabei aus einer
+                Anzahl logischer Gatter welche miteinander durch Leitungen verbunden sind.
+                Das Verhalten der Gesamtschaltung wird dann simuliert.
                 Der Anwender kann mit der laufenden Simulation über bestimmte Elemente interagieren, indem z.B. Knöpfe
                 betätigt oder Eingänge gesetzt werden.
             </par>
@@ -14,104 +15,99 @@
                 finden sich viele Beispiele bis hin zum funktionsfähigen 16-Bit Single Cycle Harvard Prozessor.
             </par>
             <par>
-                Der Simulator kennt dabei zwei Modi: Im Bearbeitungsmodus kann die Schaltung bearbeitet werden. Es
-                können Elemente hinzugefügt oder durch Leitungen verbunden werden. In diesem Modus ist die eigentliche
-                Simulation nicht aktiv.
+                Der Simulator kennt dabei zwei Modi: Im Bearbeitungsmodus kann die Schaltung bearbeitet werden.
+                In diesem Modus ist die eigentliche Simulation nicht aktiv.
                 Der Simulationsmodus wird durch den <e>Start</e>-Knopf aktiviert. Beim Wechsel in diesen Modus wird die Schaltung
-                auf Konsistenz überprüft. Gibt es in der Schaltung noch Fehler, wird eine entsprechende Meldung
-                angezeigt.
-                Wenn möglich werden die betroffenen Elemente bzw. Leitungen hervorgehoben. Enthält die Schaltung keine
-                Fehler mehr, wird die Simulation aktiviert. Jetzt kann mit der laufenden Simulation interagiert werden.
-                Die Bearbeitung der Elemente ist dann jedoch nicht mehr möglich. Dazu muss erneut in den
-                Bearbeitungsmodus gewechselt werden, indem die Simulation gestoppt wird.
+                auf Konsistenz überprüft.
+                Enthält die Schaltung keine Fehler, wird die Simulation aktiviert.
+                Jetzt kann mit der laufenden Simulation interagiert werden.
+                Soll die Schaltung weiter bearbeitet werden, muss die Simulation wieder gestoppt werden.
             </par>
         </subchapter>
         <subchapter name="Erste Schritte">
             <par>
                 <image src="scr00.png">
+                    Als erstes Beispiel soll eine Schaltung mit einem Exklusiv-Oder Gatter aufgebaut werden.
                     Im Hauptfenster können aus dem Menü <e>Bauteile</e> die verschiedenen Bauteile ausgewählt werden.
                     Danach werden diese auf dem Zeichenfeld positioniert. Das Positionieren kann mit der ESC-Taste
                     jederzeit abgebrochen werden.
+                    Als erstes soll ein Eingang der Schaltung hinzugefügt werden. Dieser lässt sich später interaktiv
+                    mit der Maus steuern.
                 </image>
                 <image src="scr01.png">
-                    Als erstes Beispiel kann eine Schaltung mit einem Exklusiv-Oder Gatter aufgebaut werden.
-                    Dazu wählt man zunächst einen Eingang aus. Dieser kann später interaktiv mit der Maus
-                    gesteuert werden.
-                </image>
-                <image src="scr02.png">
                     Nach der Auswahl kann der erste Eingang auf die Zeichenfläche gesetzt werden.
                     Der rote Punkt markiert den Leitungsanschluss. Hier wird später eine Verbindungsleitung
                     angeschlossen. Rot zeigt an, dass dieser Anschluss aktiv ist. Er definiert also einen
                     Signalwert.
                 </image>
-                <image src="scr03.png">
+                <image src="scr02.png">
                     Auf die gleiche Art und Weise wird ein zweiter Eingang hinzugefügt. Am besten setzt man
                     ihn direkt unter den ersten Eingang.
                 </image>
-                <image src="scr04.png">
+                <image src="scr03.png">
                     Danach wird das Exklusiv-Oder Gatter ausgewählt. Dieses Gatter stellt die eigentliche
                     logische Funktion dar.
                 </image>
-                <image src="scr05.png">
+                <image src="scr04.png">
                     Dieses kann nun ebenfalls in die Schaltung eingefügt werden. Am besten setzt man es so,
                     dass die spätere Verdrahtung möglichst einfach wird. Die blauen Punkte bezeichnen die
                     Eingänge des Gatters.
                 </image>
-                <image src="scr06.png">
+                <image src="scr05.png">
                     Jetzt wählt man noch einen Ausgang aus. Dieser kann verwendet werden, um einen Zustand
                     anzuzeigen, oder um später Signale an eine einbettende Schaltung weiterzugeben.
                 </image>
-                <image src="scr07.png">
+                <image src="scr06.png">
                     Auch dieser wird so positioniert, dass die Verdrahtung möglichst einfach wird.
                     Er hat einen blauen Punkt, verfügt also über einen Eingang.
                 </image>
-                <image src="scr08.png">
+                <image src="scr07.png">
                     Damit sind alle Komponenten vorhanden. Jetzt muss noch die Verdrahtung ergänzt werden.
                     Mit der Maus kann direkt eine Verbindungsleitung gezogen werden. Es werden die blauen und roten
                     Punkte miteinander verbunden. Es darf dabei immer nur genau ein roter Punkt mit einer beliebigen
                     Anzahl blauer Punkte verbunden werden. Nur der Einsatz von Threestate-Ausgängen erlaubt es,
                     von dieser Regel abzuweichen und mehrere rote Punkte miteinander zu verbinden.
                 </image>
-                <image src="scr09.png">
+                <image src="scr08.png">
                     So können auch die beiden noch fehlenden Leitungen ergänzt werden. Damit ist eine erste
                     Schaltung komplett.
                 </image>
-                <image src="scr10.png">
+                <image src="scr09.png">
                     Um mit der Schaltung interagieren zu können, muss diese gestartet werden. Dazu kann der
                     Start-Knopf in der Toolbar verwendet werden.
                     Nach dem Starten der Simulation ändert sich die Farbe der Leitungen und die Ein- und Ausgänge
                     sind jetzt ausgefüllt. Ein helles Grün markiert eine logische '1' und ein dunkles Grün eine
                     logische '0'. Im Moment findet sich auf allen Leitungen eine logische '0'.
                 </image>
-                <image src="scr11.png">
+                <image src="scr10.png">
                     Durch Klicken mit der Maus können die Eingänge umgeschaltet werden. Da die Simulation jetzt
                     aktiv ist, verändert sich der Ausgang entsprechend der aktuellen Eingangszustände.
                     Die Schaltung verhält sich wie erwartet wie ein XOR-Gatter.
                 </image>
-                <image src="scr12.png">
+                <image src="scr11.png">
                     Um die Schaltung weiter bearbeiten zu können, muss die Simulation zunächst gestoppt werden.
                     Dies geschieht am einfachsten mit dem Stopp-Knopf in der ToolBar.
                     Durch Klicken mit der rechten Maustaste auf eine Komponente öffnet sich ein Dialog, welcher die
                     Eigenschaften dieser Komponente anzeigt. Für den ersten Eingang kann über diesen Dialog die
                     Bezeichnung 'A' festgelegt werden.
                 </image>
-                <image src="scr13.png">
+                <image src="scr12.png">
                     Auf diese Weise können die Bezeichnungen für die übrigen Ein- und Ausgänge definiert werden.
                     Im Hauptmenü im Menüpunkt <e>Analyse</e> findet sich auch ein Menüpunkt <e>Analyse</e>. Damit lässt sich
                     eine Analyse der aktuellen Schaltung durchführen. Dies ist jedoch nur möglich, wenn alle Ein- und
                     Ausgänge mit einer Bezeichnung versehen sind.
                 </image>
-                <image src="scr14.png">
+                <image src="scr13.png">
                     Es öffnet sich ein Fenster, welches die Wahrheitstabelle der aktuellen Schaltung zeigt. Unter der
                     Tabelle findet sich der algebraische Ausdruck, welcher zu der Schaltung gehört. Gibt es mehrere
                     mögliche algebraische Ausdrücke, öffnet sich ein separates Fenster, welches alle Ausdrücke
                     anzeigt.
                 </image>
-                <image src="scr15.png">
+                <image src="scr14.png">
                     Der Tabellendialog hat in seinem Hauptmenü den Menüeintrag <e>KV-Tafel</e>. Über diesen lässt sich die
                     Wahrheitstabelle in Form einer KV-Tafel anzeigen.
                 </image>
-                <image src="scr16.png">
+                <image src="scr15.png">
                     Oben in diesem Dialog gibt es eine Auswahlbox über welche der gewünschte Ausdruck in der KV-Tafel
                     ausgewählt werden kann. Auf diese Weise lässt sich z.B. verdeutlichen, wie sich mehrere äquivalente
                     algebraische Ausdrücke ergeben können. Durch Klicken in der KV-Tafel lässt sich die Tabelle bearbeiten.
@@ -147,17 +143,49 @@
                 Dateien unabhängig von einander in einem Versionskontrollsystem abgelegt und Änderungen verfolgt werden
                 können.
             </par>
+            <par><image src="scr20.png"/></par>
             <par>
-                Dabei werden in einer Schaltung nur die Dateinamen der Teilschaltungen gespeichert. Die entsprechenden
-                Dateien der eingebundenen Teilschaltungen müssen daher zur Laufzeit der Simulation im Dateisystem
-                gefunden
-                werden. Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
+                Als Beispiel sei ein 4 Bit Addierer betrachtet: Zunächst wir ein einfacher Halbaddierer aufgebaut.
+                Dieser besteht aus einem XOr-Gatter und einem UND-Gatter. Die Summe der beiden Bits 'A' und 'B' wird
+                an den Ausgängen 'S' und 'C' ausgegeben. Diese Schaltung wird in der Datei <e>halfAdder.dig</e>
+                gespeichert.
+            </par>
+            <par><image src="scr21.png"/></par>
+            <par>
+                Aus zwei Halbaddierern kann nun ein Volladdierer aufgebaut werden. Dazu erzeugt man eine neue leere
+                Datei und speichert die leere Datei unter dem Name <e>fullAdder.dig</e> im selben Ordner wie zuvor den
+                Halbaddierer. Danach kann der Halbaddier über das Menu <e>Bauteile</e><arrow/><e>Benutzerdefiniert</e>
+                der neuen Schaltung hinzugefügt werden. Der Volladdierer addiert die drei Bits 'A', 'B' und 'Ci' und gibt
+                die Summe an 'S' und 'Co' aus.
+            </par>
+            <par><image src="scr22.png"/></par>
+            <par>
+                Nun lassen sich die Volladdierer zu einem so gen. Ripple-Carry Addierer zusammensetzen. Dabei wird
+                der Carry-Ausgang einer Addition als Carry-Eingang an die Addition des nächst höherwertigen Bits
+                weitergegeben. Genau so, wie es bei der schriftlichen Addition üblich ist. Dieser 4-Bitt Addierer soll
+                auf korrekte Funktion überprüft werden. Dazu wurde ein Testfall eingefügt.
+            </par>
+            <par><image src="scr23.png"/></par>
+            <par>
+                Dieser Testfall führt einen 100% Test durch, was nur bei relativ einfachen Schaltungen möglich ist:
+                Alle möglichen 512 Eingangskombinationen werden an die
+                Schaltung angelegt, und es wird überprüft, ob die Ausgabe der Schaltung korrekt ist. Dazu werden die
+                Variablen <e>A</e> und <e>B</e> jeweils von 0 bis 15 durchlaufen. Die jeweiligen Werte von <e>A</e> und
+                <e>B</e> werden dann den Eingängen 'A' und 'B' zugewiesen. Dann wird überprüft, ob die Schaltung den
+                Wert <e>A+B</e> ausgibt. Das Ganze wird dann noch einmal mit gesetztem Carry-Bit geprüft, wobei sich
+                dann <e>A+B+1</e> ergeben muss. Die Detals der Test-Syntax liefert der Hilfe-Dialog.
+            </par>
+            <par>
+                Wenn eine Schaltung in eine andere Schaltungen eingebunden wird, wird in der einbindenden Schaltung nur
+                der Dateiname der Schaltung gespeichert, nicht die Schaltung selbst. Die entsprechenden
+                Dateien der eingebundenen Schaltungen müssen daher zur Laufzeit der Simulation im Dateisystem
+                gefunden werden. Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
                 auf eine komplexe Verwaltung von Importpfaden usw. zu verzichten, ist eine etwas ungewöhnliche
                 Import-Strategie implementiert.
             </par>
             <par>
-                In einer Schaltung sind nur die Dateinamen der eingebetteten Schaltungen gespeichert. Soll die Datei
-                geöffnet werden,
+                In einer Schaltung sind nur die Dateinamen der eingebetteten Schaltungen gespeichert, kein kompletter
+                Pfad. Soll die Datei geöffnet werden,
                 werden alle Unterordner nach einer Datei des entsprechenden Namens durchsucht. Wird
                 eine passende Datei gefunden, wird diese importiert. Dabei kommt es nur auf den Dateinamen der
                 einzulesenden
