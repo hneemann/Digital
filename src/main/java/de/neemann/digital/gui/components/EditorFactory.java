@@ -13,6 +13,7 @@ import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.gui.sync.NoSync;
@@ -610,11 +611,11 @@ public final class EditorFactory {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     VisualElement ve = getAttributeDialog().getVisualElement();
-                    Component p = getAttributeDialog().getDialogParent();
-                    if (ve != null && p instanceof CircuitComponent) {
+                    Window p = getAttributeDialog().getDialogParent();
+                    if (ve != null && p instanceof Main) {
                         try {
                             getAttributeDialog().storeEditedValues();
-                            ElementTypeDescription d = ((CircuitComponent) p).getLibrary().getElementType(ve.getElementName());
+                            ElementTypeDescription d = ((Main) p).getCircuitComponent().getLibrary().getElementType(ve.getElementName());
                             PinDescriptions in = d.getInputDescription(elementAttributes);
                             InputSelectDialog dialog = new InputSelectDialog(getAttributeDialog(), in, inverterConfig);
                             if (dialog.showDialog()) {
