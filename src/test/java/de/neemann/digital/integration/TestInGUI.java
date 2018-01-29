@@ -662,6 +662,26 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void testInputInvertEdit() {
+        new GuiTester("dig/manualError/14_inputInvert.dig")
+                .add(new SetMouseToElement((v) -> v.equalsDescription(And.DESCRIPTION)))
+                .mouseClick(InputEvent.BUTTON3_MASK)
+                .delay(500)
+                .press("TAB", 3)
+                .press("SPACE")
+                .delay(200)
+                .press("TAB", "SPACE", "TAB", "SPACE")
+                .delay(200)
+                .press("TAB", "TAB", "TAB", "SPACE")
+                .delay(200)
+                .press("F8")
+                .delay(200)
+                .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
+                .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 4))
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
 
     public static class CheckErrorDialog extends GuiTester.WindowCheck<ErrorMessage.ErrorDialog> {
         private final String[] expected;
@@ -800,18 +820,14 @@ public class TestInGUI extends TestCase {
         @Override
         public void checkWindow(GuiTester guiTester, Main main) throws Exception {
             Thread.sleep(200);
-            Circuit c = main.getCircuitComponent().getCircuit();
-            VisualElement found = null;
-            int foundCounter = 0;
-            for (VisualElement v : c.getElements())
-                if (v.equalsDescription(description)) {
-                    found = v;
-                    foundCounter++;
-                }
+            List<VisualElement> el = main
+                    .getCircuitComponent()
+                    .getCircuit()
+                    .findElements(v -> v.equalsDescription(description));
 
-            assertEquals("not exact one " + description.getName() + " found in circuit", 1, foundCounter);
+            assertEquals("not exact one " + description.getName() + " found in circuit", 1, el.size());
 
-            final Vector posInCirc = found.getPos().add(dx, dy);
+            final Vector posInCirc = el.get(0).getPos().add(dx, dy);
             Point p = main.getCircuitComponent().transform(posInCirc);
             SwingUtilities.convertPointToScreen(p, main.getCircuitComponent());
 
@@ -821,7 +837,36 @@ public class TestInGUI extends TestCase {
         }
     }
 
-    private class ClickInputsAndOutputs extends GuiTester.WindowCheck<NumberingWizard> {
+    private static class SetMouseToElement extends GuiTester.WindowCheck<Main> {
+        private final Circuit.ElementFilter filter;
+
+        public SetMouseToElement(Circuit.ElementFilter filter) {
+            super(Main.class);
+            this.filter = filter;
+        }
+
+        @Override
+        public void checkWindow(GuiTester guiTester, Main main) throws Exception {
+            Thread.sleep(200);
+
+            List<VisualElement> el = main
+                    .getCircuitComponent()
+                    .getCircuit()
+                    .findElements(filter);
+
+            assertEquals("not exact one element found in circuit", 1, el.size());
+
+            final VisualElement ve = el.get(0);
+            GraphicMinMax mm = ve.getMinMax(false);
+            Vector pos = mm.getMin().add(mm.getMax()).div(2);
+            Point p = main.getCircuitComponent().transform(pos);
+            SwingUtilities.convertPointToScreen(p, main.getCircuitComponent());
+
+            guiTester.getRobot().mouseMove(p.x, p.y);
+        }
+    }
+
+    private static class ClickInputsAndOutputs extends GuiTester.WindowCheck<NumberingWizard> {
         public ClickInputsAndOutputs() {
             super(NumberingWizard.class);
         }
@@ -846,7 +891,7 @@ public class TestInGUI extends TestCase {
         }
     }
 
-    private class PinNameChecker extends GuiTester.WindowCheck<Main> {
+    private static class PinNameChecker extends GuiTester.WindowCheck<Main> {
         private final String prefix;
 
         public PinNameChecker(String prefix) {
@@ -864,7 +909,7 @@ public class TestInGUI extends TestCase {
         }
     }
 
-    private class CheckOutputValue extends GuiTester.WindowCheck<Main> {
+    private static class CheckOutputValue extends GuiTester.WindowCheck<Main> {
         private final int val;
 
         public CheckOutputValue(int val) {
