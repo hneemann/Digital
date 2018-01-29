@@ -135,17 +135,13 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
      * @param message the message
      * @return the help menu
      */
-    public JMenu addToFrame(final JFrame frame, final String message) {
-        JMenuBar bar = frame.getJMenuBar();
-        JMenu help = new JMenu(Lang.get("menu_help"));
-        bar.add(help);
-        help.add(new AbstractAction(Lang.get("menu_about")) {
+    public JMenuItem createMenuItem(final JFrame frame, final String message) {
+        return new JMenuItem(new AbstractAction(Lang.get("menu_about")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 showInfo(frame, createMessage(message), revision);
             }
         });
-        return help;
     }
 
     @Override

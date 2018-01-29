@@ -225,6 +225,24 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         library.addListener(librarySelector);
         menuBar.add(librarySelector.buildMenu(insertHistory, circuitComponent));
 
+        JMenu helpMenu = new JMenu(Lang.get("menu_help"));
+        helpMenu.add(new ToolTipAction(Lang.get("menu_help_elements")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    new ElementHelpDialog(Main.this, library, shapeFactory).setVisible(true);
+                } catch (NodeException | PinException e) {
+                    new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e).show(Main.this);
+                }
+            }
+        }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
+        new DocumentationLocator().addMenuTo(helpMenu);
+        helpMenu.addSeparator();
+        helpMenu.add(InfoDialog.getInstance().createMenuItem(this, MESSAGE));
+        menuBar.add(helpMenu);
+
+        setJMenuBar(menuBar);
+
         addWindowListener(new ClosingWindowListener(this, this));
         addWindowListener(new WindowAdapter() {
             @Override
@@ -241,20 +259,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         });
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
-
-        setJMenuBar(menuBar);
-        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE);
-        help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    new ElementHelpDialog(Main.this, library, shapeFactory).setVisible(true);
-                } catch (NodeException | PinException e) {
-                    new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e).show(Main.this);
-                }
-            }
-        }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
-        new DocumentationLocator().addMenuTo(help);
 
         new ToolTipAction("insertLast") {
             @Override
