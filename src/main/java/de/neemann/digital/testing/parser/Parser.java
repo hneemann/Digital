@@ -267,11 +267,21 @@ public class Parser {
     }
 
     private Expression parseOR() throws IOException, ParserException {
-        Expression ac = parseAND();
+        Expression ac = parseXOR();
         while (isToken(Tokenizer.Token.OR)) {
             Expression a = ac;
-            Expression b = parseAND();
+            Expression b = parseXOR();
             ac = (c) -> a.value(c) | b.value(c);
+        }
+        return ac;
+    }
+
+    private Expression parseXOR() throws IOException, ParserException {
+        Expression ac = parseAND();
+        while (isToken(Tokenizer.Token.XOR)) {
+            Expression a = ac;
+            Expression b = parseAND();
+            ac = (c) -> a.value(c) ^ b.value(c);
         }
         return ac;
     }

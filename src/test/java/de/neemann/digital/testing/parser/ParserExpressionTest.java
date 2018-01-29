@@ -38,6 +38,7 @@ public class ParserExpressionTest extends TestCase {
 
         assertEquals(7, new Parser("3|4").getValue());
         assertEquals(2, new Parser("7&2").getValue());
+        assertEquals(5, new Parser("7^2").getValue());
 
         assertEquals(-1, new Parser("~0").getValue());
 
