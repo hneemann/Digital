@@ -25,7 +25,7 @@ public class RegisterFile extends Node implements Element, RAMInterface {
             input("Din"),
             input("we"),
             input("Rw"),
-            input("C"),
+            input("C").setClock(),
             input("Ra"),
             input("Rb"))
             .addAttribute(Keys.ROTATE)

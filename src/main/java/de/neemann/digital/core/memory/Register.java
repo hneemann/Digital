@@ -19,10 +19,11 @@ public class Register extends Node implements Element {
      * The registers {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Register.class, input("D"), input("C"), input("en"))
+            = new ElementTypeDescription(Register.class, input("D"), input("C").setClock(), input("en"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final int bits;

@@ -34,14 +34,8 @@ der Eingang WE auf 1 geschaltet wird.</string>
       <pos x="100" y="140"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt. Geht der Takt auf High, und ist WE auf High 
-wird der Wert an WD im dem Register gespeichert,
-welches in dest angegeben ist.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
@@ -88,22 +82,6 @@ WE auf 1 gesetzt wird.</string>
         </entry>
       </elementAttributes>
       <pos x="100" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das Speichern aktivieren. Wenn dieser Eingang auf 
-High geht, wird der Wert an WD in dem Register 
-gespeichert, welches in dest angegeben ist.</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>WE</string>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -158,6 +136,22 @@ festgelegt.</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Speichern aktivieren. Wenn dieser Eingang auf 
+High geht, wird der Wert an WD in dem Register 
+gespeichert, welches in dest angegeben ist.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>WE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="160"/>
     </visualElement>
   </visualElements>
   <wires>

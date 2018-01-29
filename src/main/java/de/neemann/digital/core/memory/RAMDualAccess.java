@@ -21,7 +21,7 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualAccess.class,
             input("str"),
-            input("C"),
+            input("C").setClock(),
             input("ld"),
             input("1A"),
             input("1D_in"),

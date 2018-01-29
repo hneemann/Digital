@@ -49,4 +49,8 @@ public interface PinDescription {
      */
     String getPinNumber();
 
+    /**
+     * @return true if this pin is a clock input
+     */
+    boolean isClock();
 }

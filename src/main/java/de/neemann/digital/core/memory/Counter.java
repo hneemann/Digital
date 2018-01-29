@@ -17,7 +17,7 @@ public class Counter extends Node implements Element {
      * The counters {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Counter.class, input("en"), input("C"), input("clr"))
+            = new ElementTypeDescription(Counter.class, input("en"), input("C").setClock(), input("clr"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.INVERTER_CONFIG)

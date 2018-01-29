@@ -45,36 +45,14 @@ Interrupt-Controller wieder frei.</string>
       <pos x="400" y="80"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Der nächste Befehl, also die Rücksprungadresse.</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Next</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="220" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -136,6 +114,24 @@ Interrupt-Controller wieder frei.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
+          <string>Der nächste Befehl, also die Rücksprungadresse.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Next</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
           <string>relativer Sprung: 
 Wenn gesetzt, wird Interrupt verhindert.</string>
         </entry>
@@ -145,6 +141,11 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="300" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -164,7 +165,7 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
-      <pos x="300" y="160"/>
+      <pos x="300" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -180,31 +181,6 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="300" y="120"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>return from interrupt. Über dieses Signal werden
-die Interrupts wieder freigegeben.
-</string>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>reti</string>
-        </entry>
-      </elementAttributes>
-      <pos x="520" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
@@ -272,6 +248,26 @@ die Interrupts wieder freigegeben.
         </entry>
       </elementAttributes>
       <pos x="560" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>return from interrupt. Über dieses Signal werden
+die Interrupts wieder freigegeben.
+</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>reti</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>

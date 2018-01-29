@@ -46,6 +46,7 @@ public class PinInfo implements PinDescription {
     private Direction direction;
     private PullResistor pullResistor;
     private String pinNumber;
+    private boolean isClock;
 
     /**
      * Creates a copy of the given {@link PinDescription}
@@ -54,7 +55,8 @@ public class PinInfo implements PinDescription {
      */
     public PinInfo(PinDescription description) {
         this(description.getName(), description.getDescription(), description.getDirection(), description.getPullResistor());
-        this.pinNumber=description.getPinNumber();
+        this.pinNumber = description.getPinNumber();
+        this.isClock=description.isClock();
     }
 
     /**
@@ -150,5 +152,20 @@ public class PinInfo implements PinDescription {
      */
     void setLangKey(String key) {
         this.langKey = key + name;
+    }
+
+    @Override
+    public boolean isClock() {
+        return isClock;
+    }
+
+    /**
+     * Sets the clock flag
+     *
+     * @return this for chained calls
+     */
+    public PinInfo setClock() {
+        isClock = true;
+        return this;
     }
 }

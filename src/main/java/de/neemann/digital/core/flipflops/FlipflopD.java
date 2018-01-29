@@ -20,7 +20,7 @@ public class FlipflopD extends Node implements Element {
      * The D-FF description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription("D_FF", FlipflopD.class, input("D"), input("C"))
+            = new ElementTypeDescription("D_FF", FlipflopD.class, input("D"), input("C").setClock())
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)

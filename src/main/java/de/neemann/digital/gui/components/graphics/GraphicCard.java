@@ -33,7 +33,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
             = new ElementTypeDescription(GraphicCard.class,
             input("A"),
             input("str"),
-            input("C"),
+            input("C").setClock(),
             input("ld"),
             input("B"))
             .addAttribute(Keys.ROTATE)

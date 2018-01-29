@@ -59,7 +59,7 @@
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>31</int>
+          <long>31</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -74,20 +74,6 @@
       <pos x="660" y="120"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="360" y="260"/>
-    </visualElement>
-    <visualElement>
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
@@ -96,6 +82,16 @@
         </entry>
       </elementAttributes>
       <pos x="560" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>

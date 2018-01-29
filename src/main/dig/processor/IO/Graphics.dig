@@ -61,7 +61,7 @@ eingeblendet.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>32767</int>
+          <long>32767</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -90,7 +90,7 @@ eingeblendet.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>33568</int>
+          <long>33568</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -126,20 +126,6 @@ eingeblendet.</string>
       <pos x="720" y="360"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="540"/>
-    </visualElement>
-    <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="580" y="340"/>
@@ -164,7 +150,7 @@ eingeblendet.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>32768</int>
+          <long>32768</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -178,7 +164,7 @@ eingeblendet.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="460" y="200"/>
@@ -208,18 +194,14 @@ eingeblendet.</string>
       <pos x="580" y="520"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Write enable</string>
-        </entry>
-        <entry>
           <string>Label</string>
-          <string>W</string>
+          <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="380"/>
+      <pos x="200" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -238,7 +220,7 @@ eingeblendet.</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>1,15</string>
+          <string>1</string>
         </entry>
       </elementAttributes>
       <pos x="700" y="600"/>
@@ -270,10 +252,24 @@ eingeblendet.</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>10,6</string>
+          <string>10</string>
         </entry>
       </elementAttributes>
       <pos x="600" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Write enable</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>W</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="380"/>
     </visualElement>
   </visualElements>
   <wires>

@@ -314,6 +314,11 @@ public class ObservableValue extends Observable implements PinDescription {
         return pinNumber;
     }
 
+    @Override
+    public boolean isClock() {
+        return false;
+    }
+
     /**
      * Sets the pin number
      *

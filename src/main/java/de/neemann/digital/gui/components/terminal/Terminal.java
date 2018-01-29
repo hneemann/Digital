@@ -24,7 +24,7 @@ public class Terminal extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Terminal.class,
             input("D"),
-            input("C"))
+            input("C").setClock())
             .addAttribute(Keys.TERM_WIDTH)
             .addAttribute(Keys.TERM_HEIGHT)
             .addAttribute(Keys.ROTATE)

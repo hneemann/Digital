@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
@@ -53,7 +54,7 @@
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>10</int>
+          <long>10</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -63,37 +64,19 @@
       <pos x="-240" y="-20"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>And</elementName>
+      <elementAttributes/>
+      <pos x="-120" y="-20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="-300" y="-100"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes/>
-      <pos x="-120" y="-20"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Write Enable</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>W</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-300" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>LedMatrix</elementName>
@@ -138,7 +121,7 @@
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>11</int>
+          <long>11</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -181,10 +164,24 @@
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>6,10</string>
+          <string>6</string>
         </entry>
       </elementAttributes>
       <pos x="140" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Write Enable</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>W</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-300" y="40"/>
     </visualElement>
   </visualElements>
   <wires>

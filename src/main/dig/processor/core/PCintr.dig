@@ -31,6 +31,12 @@ dem Takt weiter geschaltet wird.</string>
           <string>Bits</string>
           <int>16</int>
         </entry>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>C</string>
+          </inverterConfig>
+        </entry>
       </elementAttributes>
       <pos x="260" y="140"/>
     </visualElement>
@@ -50,7 +56,7 @@ dem Takt weiter geschaltet wird.</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="160" y="340"/>
+      <pos x="220" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Add</elementName>
@@ -81,7 +87,7 @@ dem Takt weiter geschaltet wird.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="400" y="200"/>
@@ -141,25 +147,11 @@ dem Takt weiter geschaltet wird.</string>
       <pos x="580" y="320"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="120" y="160"/>
-    </visualElement>
-    <visualElement>
       <elementName>Const</elementName>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="560" y="360"/>
@@ -185,6 +177,16 @@ dem Takt weiter geschaltet wird.</string>
       <pos x="760" y="300"/>
     </visualElement>
     <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="160"/>
+    </visualElement>
+    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -201,25 +203,6 @@ dem Takt weiter geschaltet wird.</string>
         </entry>
       </elementAttributes>
       <pos x="780" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>intr</string>
-        </entry>
-      </elementAttributes>
-      <pos x="940" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="140" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Reset</elementName>
@@ -245,6 +228,34 @@ dem Takt weiter geschaltet wird.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>intr</string>
+        </entry>
+      </elementAttributes>
+      <pos x="940" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>4096</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
           <string>Description</string>
           <string>relativen Spung auslösen</string>
         </entry>
@@ -259,29 +270,11 @@ dem Takt weiter geschaltet wird.</string>
       </elementAttributes>
       <pos x="700" y="480"/>
     </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <int>4096</int>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="900" y="360"/>
-    </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="120" y="160"/>
-      <p2 x="140" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="180" y="160"/>
-      <p2 x="260" y="160"/>
+      <p1 x="220" y="160"/>
+      <p2 x="240" y="160"/>
     </wire>
     <wire>
       <p1 x="320" y="160"/>
@@ -328,7 +321,7 @@ dem Takt weiter geschaltet wird.</string>
       <p2 x="260" y="180"/>
     </wire>
     <wire>
-      <p1 x="160" y="340"/>
+      <p1 x="220" y="340"/>
       <p2 x="480" y="340"/>
     </wire>
     <wire>
