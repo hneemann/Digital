@@ -88,22 +88,31 @@ public class GuiTester {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        return type(f.getPath());
+        return type(f.getPath().replace('\\', '/'));
     }
 
     public GuiTester type(String s) {
         add(((gt) -> {
             for (int i = 0; i < s.length(); i++) {
                 final char ch = s.charAt(i);
-                int code = KeyEvent.getExtendedKeyCodeForChar(ch);
-                if (ch == '/' || Character.isUpperCase(ch)) {
-                    gt.keyPress(KeyEvent.VK_SHIFT);
-                    gt.keyPress(code);
-                    gt.keyRelease(code);
-                    gt.keyRelease(KeyEvent.VK_SHIFT);
-                } else {
-                    gt.keyPress(code);
-                    gt.keyRelease(code);
+                switch (ch) {
+                    case ':':
+                        gt.keyPress(KeyEvent.VK_SHIFT);
+                        gt.keyPress(KeyEvent.VK_PERIOD);
+                        gt.keyRelease(KeyEvent.VK_PERIOD);
+                        gt.keyRelease(KeyEvent.VK_SHIFT);
+                        break;
+                    default:
+                        int code = KeyEvent.getExtendedKeyCodeForChar(ch);
+                        if (ch == '/' || Character.isUpperCase(ch)) {
+                            gt.keyPress(KeyEvent.VK_SHIFT);
+                            gt.keyPress(code);
+                            gt.keyRelease(code);
+                            gt.keyRelease(KeyEvent.VK_SHIFT);
+                        } else {
+                            gt.keyPress(code);
+                            gt.keyRelease(code);
+                        }
                 }
             }
         }));
@@ -158,8 +167,8 @@ public class GuiTester {
                     if (filename != null) {
                         File file = new File(Resources.getRoot(), filename);
                         main = new Main.MainBuilder().setFileToOpen(file).build();
-                        if (displayName!=null)
-                        SwingUtilities.invokeLater(() -> main.setTitle(displayName + " - Digital"));
+                        if (displayName != null)
+                            SwingUtilities.invokeLater(() -> main.setTitle(displayName + " - Digital"));
                     } else
                         main = new Main.MainBuilder().setCircuit(new Circuit()).build();
                     main.setVisible(true);
@@ -387,6 +396,35 @@ public class GuiTester {
         }
 
         public abstract void visit(Component component);
+    }
+
+    public static class SetFocusTo<W extends Window> extends ComponentTraverse<W> {
+
+        private final ComponentFilter filter;
+
+        /**
+         * creates a new instance
+         *
+         * @param expected the expected window
+         * @param filter   filter
+         */
+        public SetFocusTo(Class<W> expected, ComponentFilter filter) {
+            super(expected);
+            this.filter = filter;
+        }
+
+        @Override
+        public void visit(Component component) {
+            if (filter.accept(component))
+                component.requestFocus();
+        }
+    }
+
+    /**
+     * filters a certain component
+     */
+    public interface ComponentFilter {
+        boolean accept(Component component);
     }
 
 

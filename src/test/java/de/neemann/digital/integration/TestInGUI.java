@@ -7,6 +7,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Driver;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -17,8 +18,11 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.NumberingWizard;
+import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.components.DataEditor;
 import de.neemann.digital.gui.components.ProbeDialog;
+import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.AllSolutionsDialog;
@@ -26,6 +30,7 @@ import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.gui.ErrorMessage;
 import junit.framework.TestCase;
 
@@ -371,7 +376,7 @@ public class TestInGUI extends TestCase {
     public void testTestEditor() {
         new GuiTester("dig/manualError/11_editTest.dig")
                 .delay(300)
-                .mouseMove(200, 200)
+                .add(new SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)))
                 .mouseClick(InputEvent.BUTTON3_MASK)
                 .delay(300)
                 .type("testIdentzz")
@@ -678,6 +683,43 @@ public class TestInGUI extends TestCase {
                 .delay(200)
                 .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
                 .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 4))
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+    public void testDataEditor() {
+        new GuiTester("dig/manualError/15_romDataEditor.dig")
+                .add(new SetMouseToElement((v) -> v.equalsDescription(ROM.DESCRIPTION)))
+                .mouseClick(InputEvent.BUTTON3_MASK)
+                .delay(500)
+                .press("TAB", "SPACE")
+                .delay(500)
+                .press("TAB", "TAB")
+                .type("7")
+                .press("TAB", "TAB")
+                .type("6")
+                .press("TAB", "TAB")
+                .type("5")
+                .press("TAB", "TAB")
+                .type("4")
+                .press("TAB", "TAB")
+                .type("3")
+                .press("TAB", "TAB")
+                .type("2")
+                .press("TAB", "TAB")
+                .type("1")
+                .press("TAB")
+                .add(new GuiTester.SetFocusTo<>(DataEditor.class,
+                        (c) -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("ok"))))
+                .press("SPACE")
+                .delay(500)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
+                        (c) -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("ok"))))
+                .press("SPACE")
+                .delay(500)
+                .press("F8")
+                .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
+                .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 8))
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
