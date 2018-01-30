@@ -342,7 +342,9 @@
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">Ein Baustein zum Speichern eines Bits.
-        Der an Eingang D anliegende Wert wird abgespeichert, wenn Eingang C auf 1 wechselt.</string>
+        Der an Eingang D anliegende Wert wird bei einer steigenden Flanke an Eingang C gespeichert.
+        Die Bitbreite kann gewählt werden, so dass mehrere Bits gespeichert werden können.
+    </string>
     <string name="elem_D_FF_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
     <string name="elem_D_FF_pin_Q">Gibt den gespeicherten Wert zurück.</string>
@@ -372,8 +374,9 @@
     <string name="elem_D_FF_AS">D-FlipFlop, asynchron</string>
     <string name="elem_D_FF_AS_short">D-AS</string>
     <string name="elem_D_FF_AS_tt">Ein Baustein zum Speichern eines Bits.
-        Der am Eingang D anliegende Wert wird abgespeichert, wenn der Takteingang C auf 1 wechselt.
+        Der an Eingang D anliegende Wert wird bei einer steigenden Flanke an Eingang C gespeichert.
         Es gibt zwei Eingänge, welche ein sofortiges Setzen bzw. Rücksetzen ohne Taktsignal erlauben.
+        Die Bitbreite kann gewählt werden, so dass mehrere Bits gespeichert werden können.
     </string>
     <string name="elem_D_FF_AS_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_AS_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
@@ -387,7 +390,9 @@
 
     <string name="elem_Register">Register</string>
     <string name="elem_Register_short">Reg</string>
-    <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten.</string>
+    <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten. Die Bitbreite kann gewählt werden.
+        Der an Eingang D anliegende Wert wird bei einer steigenden Flanke an Eingang C gespeichert.
+        Im Unterschied zu einem D Flipflop verfügt das Register über einen Freigabeeingang für den Takt.</string>
     <string name="elem_Register_pin_D">Das zu speichernde Datenwort liegt hier an.</string>
     <string name="elem_Register_pin_C">Der Takteingang. Eine steigende Flanke speichert den an D anliegenden Wert ab.</string>
     <string name="elem_Register_pin_en">Nur wenn dieser Eingang 1 ist, kann gespeichert werden.</string>
@@ -911,7 +916,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_termWidth">Zeichen pro Zeile</string><!-- Terminal -->
     <string name="key_termWidth_tt">Die Anzahl der Zeichen, die in einer Zeile angezeigt werden können.</string>
     <string name="key_valueIsProbe">Als Messwert verwenden</string><!-- RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register -->
-    <string name="key_valueIsProbe_tt">Wenn gesetzt, taucht der Wert als Messwert in Graph und Tabelle auf</string>
+    <string name="key_valueIsProbe_tt">Wenn gesetzt, taucht der Wert als Messwert in Graph und Tabelle auf.
+        Zusätzlich muss eine Bezeichnung angegeben werden, welche als Identifikation des Messwertes dienen kann.</string>
     <string name="key_Testdata">Testdaten</string><!-- Testcase -->
     <string name="key_Testdata_tt">Hier wird der eigentliche Testfall angelegt.
         Details dazu finden sich in der Hilfe des Testdateneditors.</string>

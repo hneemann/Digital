@@ -349,7 +349,9 @@
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">A component used to store a value.
-        The value on pin D is stored on a rising edge of the clock pin C.</string>
+        The value on pin D is stored on a rising edge of the clock pin C.
+        The bit width can be selected, which allows to store multiple bits.
+    </string>
     <string name="elem_D_FF_pin_D">Input of the bit to be stored.</string>
     <string name="elem_D_FF_pin_C">Clock pin to store a value.
         The value on input D is stored on a rising edge of this pin.</string>
@@ -380,6 +382,7 @@
     <string name="elem_D_FF_AS_tt">A component used to store a value.
         The value on pin D is stored on a rising edge of the clock pin C.
         There are two additional inputs which set or reset the state immediately without a clock signal.
+        The bit width can be selected, which allows to store multiple bits.
     </string>
     <string name="elem_D_FF_AS_pin_D">Input of the bit to be stored.</string>
     <string name="elem_D_FF_AS_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
@@ -393,7 +396,8 @@
 
     <string name="elem_Register">Register</string>
     <string name="elem_Register_short">Reg</string>
-    <string name="elem_Register_tt">A component to store values. The length of the data word can be selected in the attributes dialog.</string>
+    <string name="elem_Register_tt">A component to store values. The bit width of the data word can be selected.
+        Unlike a D flip-flop, the register provides an input which enables the clock.</string>
     <string name="elem_Register_pin_D">Input pin of the data word to be stored.</string>
     <string name="elem_Register_pin_C">Clock input. A rising edge stores the value at the D pin.</string>
     <string name="elem_Register_pin_en">Enable pin. Storing a value works only if this pin is set high.</string>
@@ -906,7 +910,8 @@ The names of the variables may not be unique.</string>
     <string name="key_termWidth">Characters per line</string><!-- Terminal -->
     <string name="key_termWidth_tt">The number of characters shown in a single line.</string>
     <string name="key_valueIsProbe">Use as measurement value</string><!-- RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register -->
-    <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.</string>
+    <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.
+        In addition, a label must be specified that can serve as identification of the value.</string>
     <string name="key_Testdata">Test data</string><!-- Testcase -->
     <string name="key_Testdata_tt">The description of the test case.
         Details of the syntax can be found in the help dialog of the test data editor.</string>
