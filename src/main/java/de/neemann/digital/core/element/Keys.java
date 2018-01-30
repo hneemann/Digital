@@ -52,6 +52,16 @@ public final class Keys {
             .setComboBoxValues(new Integer[]{2, 3, 4, 5})
             .setMin(2);
 
+
+    /**
+     * the delay time used by the delay component
+     */
+    public static final Key.KeyInteger DELAY_TIME
+            = new Key.KeyInteger("delayTime", 1)
+            .setComboBoxValues(new Integer[]{1, 2, 3, 4, 5})
+            .setMin(1)
+            .setMax(20);
+
     /**
      * The elements label
      */

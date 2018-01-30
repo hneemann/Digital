@@ -107,8 +107,9 @@
         die Adresse des gewünschten Ausgabewertes fest.</string>
     <string name="elem_LookUpTable_pin_out">Gibt den Wert an der ausgewählten Adresse aus.</string>
     <string name="elem_Delay">Verzögerung</string>
-    <string name="elem_Delay_tt">Verzögert ein Signal für eine Gatterlaufzeit. In Digital haben alle Gatter die
-        selbe Gatterlaufzeit.
+    <string name="elem_Delay_tt">Verzögert ein Signal für eine einstellbare Anzahl an Gatterlaufzeiten.
+        Alle übrigen Bauteile in Digital haben genau eine Gatterlaufzeit Verzögerung.
+        Mit diesem Bauteil lassen sich damit beliebige Laufzeiten realisieren.
     </string>
     <string name="elem_Delay_pin_in">Eingang für das zu verzögernde Signal.</string>
     <string name="elem_Delay_pin_out">Das um eine Gatterlaufzeit verzögerte Eingangssignal.</string>
@@ -998,6 +999,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_outputBits_tt">Die Anzahl der Ausgangsbits muss größer sein als die Anzahl der Eingangsbits.</string>
     <string name="key_textFontSize">Schriftgröße</string>
     <string name="key_textFontSize_tt">Legt die für diesen Text zu verwendende Schriftgröße fest.</string>
+    <string name="key_delayTime">Dauer</string>
+    <string name="key_delayTime_tt">Dauer der Verzögerung in Gatterlaufzeiten.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

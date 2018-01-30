@@ -109,7 +109,9 @@
     <string name="elem_LookUpTable_pin_out">Returns the stored value at the address set via the inputs.</string>
     <string name="elem_Delay">Delay</string>
     <string name="elem_Delay_tt">Delays the signal by on propagation delay time.
-        In Digital all gates have the same propagation delay.
+        Delays a signal for an adjustable number of gate delays.
+        All other components in Digital have a gate delay of on propagation delay time.
+        This component can be used to realize any necessary propagation delay.
     </string>
     <string name="elem_Delay_pin_in">Input of the signal to be delayed.</string>
     <string name="elem_Delay_pin_out">The input signal delayed by one gate delay time.</string>
@@ -989,6 +991,9 @@ The names of the variables may not be unique.</string>
     <string name="key_outputBits_tt">The number of output bits must be greater than the number of input bits.</string>
     <string name="key_textFontSize">Font Size</string>
     <string name="key_textFontSize_tt">Sets the font size to use for this text.</string>
+    <string name="key_delayTime">Duration</string>
+    <string name="key_delayTime_tt">Delay time in units of the common gate propagation delay.</string>
+
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

@@ -23,12 +23,15 @@ public class Delay extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Delay.class, input("in"))
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.DELAY_TIME);
 
     private final ObservableValue output;
     private final int bits;
+    private final int delayTime;
     private ObservableValue input;
-    private long value;
+    private long[] value;
+    private int pos;
 
     /**
      * Creates a new instance
@@ -38,16 +41,37 @@ public class Delay extends Node implements Element {
     public Delay(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
         output = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
+        int dt = attributes.get(Keys.DELAY_TIME);
+        if (dt < 1)
+            delayTime = 1;
+        else
+            delayTime = dt;
+
+        value = new long[delayTime];
     }
 
     @Override
     public void readInputs() throws NodeException {
-        value = input.getValue();
+        value[pos] = input.getValue();
+        pos++;
+        if (pos >= delayTime)
+            pos = 0;
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.setValue(value);
+        output.setValue(value[pos]);
+
+        if (delayTime > 1) {
+            boolean same = true;
+            for (int i = 1; i < delayTime; i++)
+                if (value[0] != value[i]) {
+                    same = false;
+                    break;
+                }
+            if (!same)
+                hasChanged();
+        }
     }
 
     @Override
