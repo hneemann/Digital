@@ -45,7 +45,7 @@ public class FileScanner {
             System.err.println("----> error in: " + e.f);
             e.e.printStackTrace();
         }
-        throw new Exception("errors testing files");
+        throw new Exception("errors testing files: " + errors.size());
     }
 
     private int scanIntern(File path) throws Exception {

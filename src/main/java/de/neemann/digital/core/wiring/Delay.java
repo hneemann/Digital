@@ -12,7 +12,9 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * The Delay
+ * The Delay.
+ * Allows to delay a signal propagation by a certain amount of time.
+ * This time is given in units of gate delays.
  *
  * @author hneemann
  */

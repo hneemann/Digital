@@ -5,6 +5,12 @@ import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
 /**
+ * Represents all signal values in the simulator.
+ * There are some setters to set the value. A value can be set to high z state.
+ * Only a complete bus can be set to high z state. It is not possible to set
+ * a single bit of a bus to high z state.
+ * Observers can observe this value to be notified if the value changes.
+ *
  * @author hneemann
  */
 public class ObservableValue extends Observable implements PinDescription {
