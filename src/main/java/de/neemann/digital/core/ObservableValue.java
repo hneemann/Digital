@@ -316,7 +316,7 @@ public class ObservableValue extends Observable implements PinDescription {
 
     @Override
     public boolean isClock() {
-        return false;
+        return false;  // output pins are never clock pins
     }
 
     /**

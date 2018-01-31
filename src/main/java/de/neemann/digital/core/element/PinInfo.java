@@ -46,7 +46,7 @@ public class PinInfo implements PinDescription {
     private Direction direction;
     private PullResistor pullResistor;
     private String pinNumber;
-    private boolean isClock;
+    private boolean isClock; // Is used only to draw the small triangle in front of the pins label.
 
     /**
      * Creates a copy of the given {@link PinDescription}
