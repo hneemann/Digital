@@ -130,6 +130,12 @@ public final class Keys {
             = new Key<>("runRealTime", false);
 
     /**
+     * inverts the output of a gate
+     */
+    public static final Key<Boolean> INVERT_OUTPUT
+            = new Key<>("invertOutput", true);
+
+    /**
      * The real time frequency of the clock
      */
     public static final Key<Integer> FREQUENCY

@@ -6,8 +6,9 @@ HEAD, planned as v0.17
 - Added a register file component.
 - Added an "export to zip" function.
 - If an input or output is several bits wide, all pin numbers can be specified by a comma-separated list.
+- Now it's possible to choose the polarity of the reset component.
+- The model analyzer now creates an error message if a cycle is detected in the circuit.
 - Added a chapter "First Steps" to the documentation.
-- The model analyzer now detects cycles and creates an error message if a cycle is detected.
 - Bug fixes
   - Splitter, BarrelShifter and Comparator now are working with 64 bit.
   - fixed a bug in library IC 74198

@@ -659,9 +659,10 @@
     <string name="elem_PowerSupply_pin_VDD">Must be connected to VDD!</string>
     <string name="elem_PowerSupply_pin_GND">Must be connected to GND!</string>
     <string name="elem_Reset">Reset</string>
-    <string name="elem_Reset_pin_Reset">Reset Output. Is zero until the circuit has stabilized after power up.</string>
-    <string name="elem_Reset_tt">The output of this component is held low during the initialisation of the circuit.
-        After the circuit has stabilized the output goes to high.</string>
+    <string name="elem_Reset_pin_Reset">Reset Output.</string>
+    <string name="elem_Reset_tt">The output of this component is held high during the initialisation of the circuit.
+        After the circuit has stabilized the output goes to low.
+        If the output is inverted it behaves the opposite way.</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
     <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
@@ -993,6 +994,8 @@ The names of the variables may not be unique.</string>
     <string name="key_textFontSize_tt">Sets the font size to use for this text.</string>
     <string name="key_delayTime">Duration</string>
     <string name="key_delayTime_tt">Delay time in units of the common gate propagation delay.</string>
+    <string name="key_invertOutput">inverted output</string>
+    <string name="key_invertOutput_tt">If selected the output is inverted.</string>
 
 
     <string name="mod_insertWire">Inserted wire.</string>
@@ -1197,7 +1200,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_showDataTable">Show measurement value table</string>
     <string name="menu_showDataTable_tt">Show table with the measured values in a separate window.</string>
     <string name="menu_exportZIP">Export tos ZIP file</string>
-    <string name="menu_exportZIP_tt">Exports the complete circuit as a ZIP file.</string>
+    <string name="menu_exportZIP_tt">Exports the circuit as a ZIP file.
+        The ZIP file thus contains all the files that are necessary for the operation of the circuit.</string>
 
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.

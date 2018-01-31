@@ -22,9 +22,11 @@ public class Reset implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Reset", Reset.class)
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INVERT_OUTPUT);
 
     private final ObservableValue output;
+    private final boolean invOut;
 
     /**
      * Creates a new instance
@@ -33,6 +35,8 @@ public class Reset implements Element {
      */
     public Reset(ElementAttributes attributes) {
         output = new ObservableValue("Reset", 1).setPinDescription(DESCRIPTION);
+        invOut = attributes.get(Keys.INVERT_OUTPUT);
+        output.setBool(!invOut);
     }
 
     @Override
@@ -51,10 +55,10 @@ public class Reset implements Element {
     }
 
     /**
-     * @return the reset output
+     * Clears the reset state.
      */
-    public ObservableValue getResetOutput() {
-        return output;
+    public void clearReset() {
+        output.setBool(invOut);
     }
 
 }

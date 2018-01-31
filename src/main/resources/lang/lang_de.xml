@@ -662,9 +662,10 @@
     <string name="elem_PowerSupply_pin_VDD">Muss mit VDD verbunden werden!</string>
     <string name="elem_PowerSupply_pin_GND">Muss mit GND verbunden werden!</string>
     <string name="elem_Reset">Reset</string>
-    <string name="elem_Reset_pin_Reset">Reset Ausgang. Ist so lange Null, bis sich die Schaltung nach dem Einschalten stabilisiert hat.</string>
-    <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
-        in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.</string>
+    <string name="elem_Reset_pin_Reset">Reset Ausgang.</string>
+    <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Eins, solange sich die Schaltung nach dem Einschalten
+        in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Null gesetzt.
+        Bei einem invertiertem Ausgang verhält es sich genau anders herum.</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stoppt schnellen Simulationslauf, wenn 1.</string>
     <string name="elem_Break_tt">Wenn der Eingang dieses Elementes zu Eins wird, wird der schnelle Simulationslauf beendet.
@@ -1001,6 +1002,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_textFontSize_tt">Legt die für diesen Text zu verwendende Schriftgröße fest.</string>
     <string name="key_delayTime">Dauer</string>
     <string name="key_delayTime_tt">Dauer der Verzögerung in Gatterlaufzeiten.</string>
+    <string name="key_invertOutput">invertierter Ausgang</string>
+    <string name="key_invertOutput_tt">Wenn gesetzt, wird der Ausgang invertiert.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1203,7 +1206,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_showDataGraph">Zeige Messwertegraph</string>
     <string name="menu_showDataGraph_tt">Ein Graph mit den Messwerten wird in einem eigenen Fenster angezeigt.</string>
     <string name="menu_exportZIP">Export als ZIP-Datei</string>
-    <string name="menu_exportZIP_tt">Exportiert die komplette Schaltung als eine ZIP-Datei.</string>
+    <string name="menu_exportZIP_tt">Exportiert die Schaltung als eine ZIP-Datei, welche auch alle eingebetteten
+        Schaltungen enthält.
+        Die ZIP-Datei enthält damit alle Dateien, die für den Betrieb der Schaltung erforderlich sind.</string>
 
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
