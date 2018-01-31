@@ -16,7 +16,8 @@
             <par>
                 The simulator has two modes of operation: In the editing mode it is possible to modify the circuit.
                 You can add components or connect components by wires. The simulation is not active in this mode.
-                The simulation mode is activated by pressing <e>Start</e>. While starting the simulation the circuit
+                The simulation mode is activated by pressing the <e>Start</e> button in the tool bar.
+                While starting the simulation the circuit
                 is checked for consistency. If the are errors in the circuit an error message is shown. If possible
                 the affected components or wires are highlighted. If there are no errors, the simulation is activated.
                 Now you can interact with the running simulation.
@@ -59,15 +60,15 @@
                 </image>
                 <image src="scr07.png">
                     Now all necessary components are present. At next the wiring has to be added. With the mouse
-                    directly a wire can be drawn. The blue and red dots are connected. Only one red dot may be
-                    connected to any number of blue dots. Only the use of threestate outputs makes it possible to
-                    deviate from this rule and to connect several red dots.
+                    directly a wire can be drawn. The blue and red dots are connected. There must always be exactly
+                    one red dot connected to any number of blue dots. Only the use of threestate outputs makes it
+                    possible to deviate from this rule and to connect several red dots.
                 </image>
                 <image src="scr08.png">
                     So also the two missing lines can be drawn. This completes a first circuit.
                 </image>
                 <image src="scr09.png">
-                    To be able to interact with the circuit, it must be started. The start button in the toolbar can
+                    To be able to interact with the circuit, it must be started. The start button in the tool bar can
                     be used for this purpose. After starting the simulation, the color of the wires changes and the
                     inputs and outputs are now filled. A bright green marks a logical '1' and a dark green a logical '0'.
                     At the moment there is a logical '0' on all wires.
@@ -79,19 +80,19 @@
                 </image>
                 <image src="scr11.png">
                     To further process the circuit, the simulation must first be stopped. The easiest way to do this is
-                    with the Stop button in the ToolBar. Clicking on a component with the right mouse button opens a
-                    dialog which displays the properties of this component. The name 'A' can be defined for the first
+                    with the Stop button in the tool bar. Clicking on a component with the right mouse button opens a
+                    dialog which displays the properties of this component. The label 'A' can be defined for the first
                     input via this dialog.
                 </image>
                 <image src="scr12.png">
-                    In this way, the names for the remaining inputs and outputs can be defined. The menu item
+                    In this way, the labels for the remaining inputs and outputs can be defined. The menu item
                     <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
                     the current circuit. However, this is only possible if all inputs and outputs are labeled.
                 </image>
                 <image src="scr13.png">
-                    It opens a window showing the truth table of the current circuit. Below the table is the algebraic
-                    expression associated with the circuit. If there are several possible algebraic expressions, a
-                    separate window will open showing all expressions.
+                    It opens a window showing the truth table of the current circuit. Below the table you can find the
+                    algebraic expression associated with the circuit. If there are several possible algebraic
+                    expressions, a separate window will open showing all possible expressions.
                 </image>
                 <image src="scr14.png">
                     The table dialog has the menu entry <e>K-Map</e> in its main menu. This allows to display the truth
@@ -100,7 +101,8 @@
                 <image src="scr15.png">
                     At the top of this dialog there is a drop-down list which allows the selection of the desired
                     expression in the K-map. In this way you can, for example, illustrate how several equivalent
-                    algebraic expressions can result. By clicking in the K-map the table can be modified.
+                    algebraic expressions can result. However, in this example, there is only one minimal expression.
+                    By clicking in the K-map the table can be modified.
                 </image>
             </par>
         </subchapter>
@@ -135,14 +137,14 @@
             <par>
                 As an example, consider a 4-bit adder: First, we built a simple half-adder. This consists of an
                 XOR gate and an AND gate. The sum of the two bits 'A' and 'B' is given to the outputs 'S' and 'C'.
-                This circuit is stored in the file <e>halfAdder.dig</e> file.
+                This circuit is stored in the file <e>halfAdder.dig</e>.
             </par>
             <par><image src="scr21.png"/></par>
             <par>
                 From two half adders a full adder can now be built. To do this, create a new empty file and save the
                 empty file as <e>fullAdder.dig</e> in the same folder as before the half adder. Then the
                 half adder can be added to the new circuit via the <e>Components</e><arrow/><e>Custom</e> menu.
-                The order of the pins at the housing of the half-adder can be rearranged in the half adder in the
+                The order of the pins at the package of the half-adder can be rearranged in the half adder in the
                 menu <e>Edit</e><arrow/><e>Order inputs</e> or <e>Edit</e><arrow/><e>Order outputs</e>.
                 The full adder adds the three bits 'A', 'B' and 'Ci' and gives the sum to the outputs 'S' and 'Co'.
             </par>
@@ -150,8 +152,8 @@
             <par>
                 Now the full adders can be put together to form a so-called ripple-carry adder.
                 In this case, the carry output of an addition is forwarded as a carry input to the addition of the
-                next higher-order bit. Just as it is usual in pencil-and-paper addition.
-                This 4-bit adder should be checked for correct function. For this purpose a test case was inserted.
+                next higher-order bit, just as it is usual in pencil-and-paper addition.
+                This 4-bit adder should be tested for correct function. For this purpose a test case was inserted.
             </par>
             <par><image src="scr23.png"/></par>
             <par>
@@ -169,7 +171,7 @@
                 The details of the test syntax are provided by the help dialog.
             </par>
             <par>
-                If a circuit is embedded in an other ciruit, only the file name of the subcircuit are stored in a
+                If a circuit is embedded in an other ciruit, only the file name of the subcircuit is stored in a
                 circuit, not the embedded circuit itself.
                 The corresponding files of
                 the embedded subcircuits must therefore be found in the file system at runtime of the simulation.
@@ -201,8 +203,12 @@
                 These components have no propagation delay at all.
             </par>
             <par>
-                If a circuit is included in an other parent circuit, the included circuit keep its timing behaviour.
-                So if you include a complex circuit which has a large propagation delay because on of the input signals
+                If it's necessary to simulate a gate - e.g. the multiplier - with a longer propagation delay, a delay
+                gate must be inserted in the circuit right behind the output of the multiplier.
+            </par>
+            <par>
+                If a circuit is included in an other parent circuit, the included circuit keeps its timing behaviour.
+                So if you include a complex circuit which has a large propagation delay because the input signals
                 has to pass three gates until it reaches the output, this behaviour is conserved while including this
                 circuit.
                 There are no additional delays coming up by including a circuit. If not all outputs of a circuit have
@@ -330,9 +336,10 @@
                 If the circuit clock frequency is low, a frequency divider is integrated into the VHDL code to divide
                 the board clock accordingly.
                 If the clock frequency selected in the circuit exceeds 37kHz, the MMCM unit of the
-                Artix-7 is used for clock generation. Therefore, if a circuit which depends on a synchronous clock
+                Artix-7 is used for clock generation.
+                <!--Therefore, if a circuit which depends on a synchronous clock
                 distribution like a processor is exported to VHDL, the circuit clock frequency should be set to a value
-                above 37kHz.
+                above 37kHz.-->
                 This ensures that the FPGA resources provided for the clock distribution are used.
                 This allows the included example processor to run at 20MHz and if you can do without the
                 multiplier also 30HMz is possible.

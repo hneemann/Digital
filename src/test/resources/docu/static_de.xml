@@ -5,7 +5,7 @@
             <par>
                 Digital ist ein Simulator für digitale Schaltkreise. Ein Schaltung besteht dabei aus einer
                 Anzahl logischer Gatter welche miteinander durch Leitungen verbunden sind.
-                Das Verhalten der Gesamtschaltung wird dann simuliert.
+                Das Verhalten der Gesamtschaltung kann dann simuliert werden.
                 Der Anwender kann mit der laufenden Simulation über bestimmte Elemente interagieren, indem z.B. Knöpfe
                 betätigt oder Eingänge gesetzt werden.
             </par>
@@ -21,7 +21,7 @@
                 auf Konsistenz überprüft.
                 Enthält die Schaltung keine Fehler, wird die Simulation aktiviert.
                 Jetzt kann mit der laufenden Simulation interagiert werden.
-                Soll die Schaltung weiter bearbeitet werden, muss die Simulation wieder gestoppt werden.
+                Soll die Schaltung weiter bearbeitet werden, muss die Simulation zunächst wieder gestoppt werden.
             </par>
         </subchapter>
         <subchapter name="Erste Schritte">
@@ -64,20 +64,21 @@
                 <image src="scr07.png">
                     Damit sind alle Komponenten vorhanden. Jetzt muss noch die Verdrahtung ergänzt werden.
                     Mit der Maus kann direkt eine Verbindungsleitung gezogen werden. Es werden die blauen und roten
-                    Punkte miteinander verbunden. Es darf dabei immer nur genau ein roter Punkt mit einer beliebigen
+                    Punkte miteinander verbunden. Es muss dabei immer genau ein roter Punkt mit einer beliebigen
                     Anzahl blauer Punkte verbunden werden. Nur der Einsatz von Threestate-Ausgängen erlaubt es,
                     von dieser Regel abzuweichen und mehrere rote Punkte miteinander zu verbinden.
                 </image>
                 <image src="scr08.png">
                     So können auch die beiden noch fehlenden Leitungen ergänzt werden. Damit ist eine erste
-                    Schaltung komplett.
+                    Schaltung komplett. Verbindungsleitungen werden immer senkrecht oder waagerecht gezogen. Mit der
+                    Taste 'D' kann in den Diagonalmodus gewechselt werden.
                 </image>
                 <image src="scr09.png">
-                    Um mit der Schaltung interagieren zu können, muss diese gestartet werden. Dazu kann der
+                    Um mit der Schaltung interagieren zu können, muss die Simulation gestartet werden. Dazu kann der
                     Start-Knopf in der Toolbar verwendet werden.
                     Nach dem Starten der Simulation ändert sich die Farbe der Leitungen und die Ein- und Ausgänge
                     sind jetzt ausgefüllt. Ein helles Grün markiert eine logische '1' und ein dunkles Grün eine
-                    logische '0'. Im Moment findet sich auf allen Leitungen eine logische '0'.
+                    logische '0'. In obiger Abbildung findet sich auf allen Leitungen eine logische '0'.
                 </image>
                 <image src="scr10.png">
                     Durch Klicken mit der Maus können die Eingänge umgeschaltet werden. Da die Simulation jetzt
@@ -93,8 +94,8 @@
                 </image>
                 <image src="scr12.png">
                     Auf diese Weise können die Bezeichnungen für die übrigen Ein- und Ausgänge definiert werden.
-                    Im Hauptmenü im Menüpunkt <e>Analyse</e> findet sich auch ein Menüpunkt <e>Analyse</e>. Damit lässt sich
-                    eine Analyse der aktuellen Schaltung durchführen. Dies ist jedoch nur möglich, wenn alle Ein- und
+                    Im Hauptmenü im Menü <e>Analyse</e> findet sich der Menüpunkt <e>Analyse</e>. Dieser ermöglicht
+                    eine Analyse der aktuellen Schaltung. Zu beachten ist, dass dies nur möglich ist, wenn alle Ein- und
                     Ausgänge mit einer Bezeichnung versehen sind.
                 </image>
                 <image src="scr13.png">
@@ -110,7 +111,8 @@
                 <image src="scr15.png">
                     Oben in diesem Dialog gibt es eine Auswahlbox über welche der gewünschte Ausdruck in der KV-Tafel
                     ausgewählt werden kann. Auf diese Weise lässt sich z.B. verdeutlichen, wie sich mehrere äquivalente
-                    algebraische Ausdrücke ergeben können. Durch Klicken in der KV-Tafel lässt sich die Tabelle bearbeiten.
+                    algebraische Ausdrücke ergeben können. In diesem Beispiel gibt es jedoch nur einen minimalen Ausdruck.
+                    Durch Klicken in der KV-Tafel lässt sich die Tabelle bearbeiten.
                 </image>
             </par>
         </subchapter>
@@ -146,7 +148,7 @@
             <par><image src="scr20.png"/></par>
             <par>
                 Als Beispiel sei ein 4 Bit Addierer betrachtet: Zunächst wir ein einfacher Halbaddierer aufgebaut.
-                Dieser besteht aus einem XOr-Gatter und einem UND-Gatter. Die Summe der beiden Bits 'A' und 'B' wird
+                Dieser besteht aus einem XOR-Gatter und einem UND-Gatter. Die Summe der beiden Bits 'A' und 'B' wird
                 an den Ausgängen 'S' und 'C' ausgegeben. Diese Schaltung wird in der Datei <e>halfAdder.dig</e>
                 gespeichert.
             </par>
@@ -165,7 +167,7 @@
             <par>
                 Nun lassen sich die Volladdierer zu einem so gen. Ripple-Carry Addierer zusammensetzen. Dabei wird
                 der Carry-Ausgang einer Addition als Carry-Eingang an die Addition des nächst höherwertigen Bits
-                weitergegeben. Genau so, wie es bei der schriftlichen Addition üblich ist. Dieser 4-Bit Addierer soll
+                weitergegeben, genau so, wie es bei der schriftlichen Addition üblich ist. Dieser 4-Bit Addierer soll
                 auf korrekte Funktion überprüft werden. Dazu wurde ein Testfall eingefügt.
             </par>
             <par><image src="scr23.png"/></par>
@@ -222,6 +224,10 @@
                 Schalter. Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
             </par>
             <par>
+                Soll ein Gatter - z.B. der Multiplikator - mit einer längeren Laufzeit versehen werden, muss in die
+                Schaltung ein Verzögerungsglied am Ausgang des Multiplikators eingefügt werden.
+            </par>
+            <par>
                 Wird eine Schaltung in eine andere Schaltung eingebettet, um ein hierarchisches Design zu erstellen,
                 behalten die eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz
                 eingebettet bei welchem ein Signal
@@ -261,7 +267,7 @@
         </par>
         <par>
             Zu beachten ist dabei, dass die zu analysierende Schaltung neben den eingebauten D- und JK-Flipflops nur
-            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus NOr-Gattern aufgebaut, kann diese
+            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus NOR-Gattern aufgebaut, kann diese
             Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend analysiert werden.
         </par>
     </chapter>
@@ -311,7 +317,7 @@
             <par>
                 Daher muss auf einen der von ATMEL bereitgestellten Fitter <e>fit150[x].exe</e> zurückgegriffen werden.
                 Diese Programme erzeugen aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei welche dann
-                in den entsprechenden Chip programmiert werden kann.
+                in den entsprechenden Chip übertragen werden kann.
                 Digital startet den Fitter automatisch wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
                 Digital-Einstellungen der Pfad zu den <e>fit150[x].exe</e> Dateien angegeben werden.
                 Es wird zudem eine Projektdatei <e>*.chn</e> erzeugt, welche dann direkt mit
@@ -359,10 +365,11 @@
                 Wenn die Taktfrequenz niedrig ist, wird ein Frequenzteiler in den VHDL Code integriert,
                 um den Boardtakt entsprechend zu teilen. Wenn die in der Schaltung gewählte Taktfrequenz über 37kHz
                 liegt, wird die MMCM Einheit des Artix-7 zur Takterzeugung verwendet.
-                Wenn eine Schaltung zu VHDL exportiert wird, welche auf eine synchrone Taktverteilung angewiesen ist,
+                <!--Wenn eine Schaltung zu VHDL exportiert wird, welche auf eine synchrone Taktverteilung angewiesen ist,
                 wie das z.B. bei Prozessoren der Fall ist, sollte die Taktfrequenz also auf einen Wert
-                größer als 37kHz eingestellt werden.
-                Dies stellt sicher, dass die für die Taktverteilung vorgesehenen FPGA-Resourcen auch verwendet werden.
+                größer als 37kHz eingestellt werden.-->
+                Dies stellt sicher, dass die für die Taktverteilung vorgesehenen FPGA-Resourcen auch tatsächlich
+                verwendet werden.
                 Der enthaltene Beispiel-Prozessor läuft z.B. mit 20MHz, und wenn auf den Multiplizierer in der ALU
                 verzichtet werden kann, sind auch 30MHz möglich.
             </par>
