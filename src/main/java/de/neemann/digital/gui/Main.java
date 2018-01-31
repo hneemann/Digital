@@ -480,6 +480,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 switch (res) {
                                     case 0:
                                         saveFile(file, true);
+                                        library.setRootFilePath(file.getParentFile());
                                         break;
                                     case 1:
                                         saveAsHelper.retryFileSelect();
