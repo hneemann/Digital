@@ -22,7 +22,6 @@ import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.DataEditor;
 import de.neemann.digital.gui.components.ProbeDialog;
-import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.AllSolutionsDialog;

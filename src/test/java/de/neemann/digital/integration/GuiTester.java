@@ -97,22 +97,16 @@ public class GuiTester {
                 final char ch = s.charAt(i);
                 switch (ch) {
                     case ':':
-                        gt.keyPress(KeyEvent.VK_SHIFT);
-                        gt.keyPress(KeyEvent.VK_PERIOD);
-                        gt.keyRelease(KeyEvent.VK_PERIOD);
-                        gt.keyRelease(KeyEvent.VK_SHIFT);
+                        gt.keyType(KeyEvent.VK_SHIFT, KeyEvent.VK_PERIOD);
+                        break;
+                    case '/':
+                        gt.keyType(KeyEvent.VK_SHIFT, KeyEvent.VK_7);
                         break;
                     default:
-                        int code = KeyEvent.getExtendedKeyCodeForChar(ch);
-                        if (ch == '/' || Character.isUpperCase(ch)) {
-                            gt.keyPress(KeyEvent.VK_SHIFT);
-                            gt.keyPress(code);
-                            gt.keyRelease(code);
-                            gt.keyRelease(KeyEvent.VK_SHIFT);
-                        } else {
-                            gt.keyPress(code);
-                            gt.keyRelease(code);
-                        }
+                        if (Character.isUpperCase(ch))
+                            gt.keyType(KeyEvent.VK_SHIFT, KeyEvent.getExtendedKeyCodeForChar(Character.toLowerCase(ch)));
+                        else
+                            gt.keyType(KeyEvent.getExtendedKeyCodeForChar(ch));
                 }
             }
         }));
@@ -223,13 +217,15 @@ public class GuiTester {
         if ((mod & SHIFT_DOWN_MASK) != 0) keyPress(KeyEvent.VK_SHIFT);
         if ((mod & CTRL_DOWN_MASK) != 0) keyPress(KeyEvent.VK_CONTROL);
         if ((mod & ALT_DOWN_MASK) != 0) keyPress(KeyEvent.VK_ALT);
-        int keyCode = stroke.getKeyCode();
-        if (keyCode == 0) keyCode = KeyEvent.getExtendedKeyCodeForChar(stroke.getKeyChar());
-        keyPress(keyCode);
-        keyRelease(keyCode);
-        if ((mod & SHIFT_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_SHIFT);
-        if ((mod & CTRL_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_CONTROL);
-        if ((mod & ALT_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_ALT);
+        try {
+            int keyCode = stroke.getKeyCode();
+            if (keyCode == 0) keyCode = KeyEvent.getExtendedKeyCodeForChar(stroke.getKeyChar());
+            keyType(keyCode);
+        } finally {
+            if ((mod & SHIFT_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_SHIFT);
+            if ((mod & CTRL_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_CONTROL);
+            if ((mod & ALT_DOWN_MASK) != 0) keyRelease(KeyEvent.VK_ALT);
+        }
     }
 
     public void mouseClickNow(int x, int y, int buttons) throws InterruptedException {
@@ -277,6 +273,22 @@ public class GuiTester {
         else if (baseContainer instanceof JFrame)
             baseContainer = ((JFrame) baseContainer).getContentPane();
         return baseContainer;
+    }
+
+
+    private void keyType(int code1, int code2) {
+        robot.keyPress(code1);
+        try {
+            robot.keyPress(code2);
+            robot.keyRelease(code2);
+        } finally {
+            robot.keyRelease(code1);
+        }
+    }
+
+    private void keyType(int keyCode) {
+        robot.keyPress(keyCode);
+        robot.keyRelease(keyCode);
     }
 
     private void keyPress(int keyCode) {
