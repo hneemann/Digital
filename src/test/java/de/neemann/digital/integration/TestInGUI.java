@@ -23,6 +23,7 @@ import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.DataEditor;
 import de.neemann.digital.gui.components.ProbeDialog;
 import de.neemann.digital.gui.components.data.GraphDialog;
+import de.neemann.digital.gui.components.karnaugh.KarnaughMapComponent;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.AllSolutionsDialog;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
@@ -200,15 +201,15 @@ public class TestInGUI extends TestCase {
                 .use(createNew4VarTruthTable)
                 .add(new EnterTruthTable(0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1))
                 .press("F1")
-                .add(new GuiTester.ColorPicker(145, 135, new Color(208, 161, 161)))
-                .add(new GuiTester.ColorPicker(267, 132, new Color(191, 191, 223)))
-                .add(new GuiTester.ColorPicker(136, 194, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(205, 194, new Color(127, 255, 127)))
-                .add(new GuiTester.ColorPicker(197, 257, new Color(127, 127, 255)))
-                .add(new GuiTester.ColorPicker(267, 256, new Color(255, 175, 255)))
-                .add(new GuiTester.ColorPicker(83, 315, new Color(228, 228, 127)))
-                .add(new GuiTester.ColorPicker(205, 317, new Color(127, 255, 255)))
-//                .add(new GuiTester.ColorPickerCreator())
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 144, 109, new Color(191,127,127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 266, 110, new Color(127,127,191)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 82, 168, new Color(255,127,127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 205, 170, new Color(127,255,127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 143, 232, new Color(127,127,255)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 265, 230, new Color(255,127,255)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 83, 292, new Color(227,227,127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 204, 291, new Color(127,255,255)))
+//                .add(new GuiTester.ColorPickerCreator(KarnaughMapComponent.class))
 //                .ask("Shows the k-map a checkerboard pattern?")
                 .add(new GuiTester.CloseTopMost())
                 .execute();
@@ -219,10 +220,10 @@ public class TestInGUI extends TestCase {
                 .use(createNew4VarTruthTable)
                 .add(new EnterTruthTable(0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1))
                 .press("F1")
-                .add(new GuiTester.ColorPicker(136, 110, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(266, 109, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(266, 329, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(136, 337, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 136, 100, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 266, 100, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 266, 310, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 136, 310, new Color(255, 127, 127)))
 //                .add(new GuiTester.ColorPickerCreator())
 //                .ask("Are the edges covered in the k-map?")
                 .add(new GuiTester.CloseTopMost())
@@ -240,10 +241,10 @@ public class TestInGUI extends TestCase {
                 .press("RIGHT", 3)
                 .add(new EnterTruthTable(0, 0, 0, 1, 0, 1, 1, 1))
                 .press("F1")
-                .add(new GuiTester.ColorPicker(136, 255, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(209, 254, new Color(127, 255, 127)))
-                .add(new GuiTester.ColorPicker(311, 210, new Color(191, 127, 127)))
-                .add(new GuiTester.ColorPicker(266, 256, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 136, 230, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 209, 230, new Color(127, 255, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 311, 184, new Color(191, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 266, 231, new Color(255, 127, 127)))
 //                .add(new GuiTester.ColorPickerCreator())
 //                .ask("Shows the k-map a 'two out of three' pattern?")
                 .add(new GuiTester.CloseTopMost())
@@ -848,9 +849,9 @@ public class TestInGUI extends TestCase {
         private final ElementTypeDescription description;
         private final int dx;
         private final int dy;
-        private final GuiTester.ColorPickerInterface cpi;
+        private final GuiTester.ColorCheckInterface cpi;
 
-        public CheckColorInCircuit(ElementTypeDescription description, int dx, int dy, GuiTester.ColorPickerInterface cpi) {
+        public CheckColorInCircuit(ElementTypeDescription description, int dx, int dy, GuiTester.ColorCheckInterface cpi) {
             super(Main.class);
             this.description = description;
             this.dx = dx;

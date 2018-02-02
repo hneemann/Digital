@@ -102,6 +102,9 @@ public class GuiTester {
                     case '/':
                         gt.keyType(KeyEvent.VK_SHIFT, KeyEvent.VK_7);
                         break;
+                    case '~':
+                        gt.keyType(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_PLUS);
+                        break;
                     default:
                         if (Character.isUpperCase(ch))
                             gt.keyType(KeyEvent.VK_SHIFT, KeyEvent.getExtendedKeyCodeForChar(Character.toLowerCase(ch)));
@@ -281,6 +284,15 @@ public class GuiTester {
         try {
             robot.keyPress(code2);
             robot.keyRelease(code2);
+        } finally {
+            robot.keyRelease(code1);
+        }
+    }
+
+    private void keyType(int code1, int code2, int code3) {
+        robot.keyPress(code1);
+        try {
+            keyType(code2, code3);
         } finally {
             robot.keyRelease(code1);
         }
@@ -522,9 +534,10 @@ public class GuiTester {
      * Checks a color in a window
      */
     public static class ColorPicker implements Runnable {
+        private final Class<? extends Component> target;
         private final int x;
         private final int y;
-        private final ColorPickerInterface cpi;
+        private final ColorCheckInterface cpi;
 
 
         /**
@@ -534,8 +547,8 @@ public class GuiTester {
          * @param y             y coordinate.
          * @param expectedColor the expected color
          */
-        public ColorPicker(int x, int y, Color expectedColor) {
-            this(x, y, (c) -> assertEquals(expectedColor, c));
+        public ColorPicker(Class<? extends Component> target, int x, int y, Color expectedColor) {
+            this(target, x, y, (c) -> assertEquals(expectedColor, c));
         }
 
         /**
@@ -545,7 +558,8 @@ public class GuiTester {
          * @param y   y coordinate.
          * @param cpi the color test
          */
-        public ColorPicker(int x, int y, ColorPickerInterface cpi) {
+        public ColorPicker(Class<? extends Component> target, int x, int y, ColorCheckInterface cpi) {
+            this.target = target;
             this.x = x;
             this.y = y;
             this.cpi = cpi;
@@ -554,14 +568,34 @@ public class GuiTester {
         @Override
         public void run(GuiTester guiTester) throws Exception {
             Point p = new Point(x, y);
-            SwingUtilities.convertPointToScreen(p, getBaseContainer());
+
+            Component t = searchComponent(FocusManager.getCurrentManager().getActiveWindow(), target);
+            if (t == null)
+                throw new RuntimeException("Component " + target.getSimpleName() + " not found!");
+
+            SwingUtilities.convertPointToScreen(p, t);
             Thread.sleep(500);
             guiTester.getRobot().mouseMove(p.x, p.y);
+            Thread.sleep(1000);
             cpi.checkColor(guiTester.getRobot().getPixelColor(p.x, p.y));
         }
     }
 
-    public interface ColorPickerInterface {
+    private static Component searchComponent(Component c, Class<? extends Component> target) {
+        if (c.getClass() == target)
+            return c;
+        if (c instanceof Container) {
+            Container con = (Container) c;
+            for (int i = 0; i < con.getComponentCount(); i++) {
+                Component s = searchComponent(con.getComponent(i), target);
+                if (s != null)
+                    return s;
+            }
+        }
+        return null;
+    }
+
+    public interface ColorCheckInterface {
         void checkColor(Color pixelColor);
     }
 
@@ -570,12 +604,14 @@ public class GuiTester {
      */
     public static class ColorPickerCreator extends JDialog implements Runnable {
         private final JLabel label;
+        private final Class<? extends Component> target;
 
         /**
          * Creates a new instance
          */
-        public ColorPickerCreator() {
+        public ColorPickerCreator(Class<? extends Component> target) {
             super(null, "Position picker", ModalityType.APPLICATION_MODAL);
+            this.target = target;
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             label = new JLabel("<html>Move mouse to pos<br>and press ENTER</html>");
             label.setFocusable(true);
@@ -586,7 +622,10 @@ public class GuiTester {
 
         @Override
         public void run(GuiTester gt) throws Exception {
-            Container baseContainer = getBaseContainer();
+            Component baseContainer = searchComponent(FocusManager.getCurrentManager().getActiveWindow(), target);
+            if (baseContainer == null)
+                throw new RuntimeException("Component " + target.getSimpleName() + " not found!");
+
             label.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent keyEvent) {
@@ -596,6 +635,8 @@ public class GuiTester {
                         Color col = gt.getRobot().getPixelColor(p.x, p.y);
                         SwingUtilities.convertPointFromScreen(p, baseContainer);
                         System.out.print(".add(new GuiTester.ColorPicker(");
+                        System.out.print(target.getSimpleName());
+                        System.out.print(".class, ");
                         System.out.print(p.x + ", " + p.y);
                         System.out.print(", new Color(");
                         System.out.print(col.getRed() + "," + col.getGreen() + "," + col.getBlue());
