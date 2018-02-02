@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import static java.awt.event.InputEvent.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class GuiTester {
@@ -548,7 +549,12 @@ public class GuiTester {
          * @param expectedColor the expected color
          */
         public ColorPicker(Class<? extends Component> target, int x, int y, Color expectedColor) {
-            this(target, x, y, (c) -> assertEquals(expectedColor, c));
+            this(target, x, y, (c) -> {
+                boolean ok = (Math.abs (expectedColor.getRed() - c.getRed()) < 5)
+                        && (Math.abs(expectedColor.getGreen() - c.getGreen()) < 5)
+                        && (Math.abs(expectedColor.getBlue() - c.getBlue()) < 5);
+                assertTrue("expected:<" + expectedColor + "> but was:<" + c + ">", ok);
+            });
         }
 
         /**
