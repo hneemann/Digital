@@ -611,11 +611,11 @@ werden durch die Und-Gatter implementiert. </string>
           <testData>
             <dataString>     A       B        Y
 loop(a,1&lt;&lt;4)
-  loop(b,1&lt;&lt;16)
-     (a&lt;&lt;8)  (b)      ((a&lt;&lt;8)*b)
-     (b)     (a&lt;&lt;8)   ((a&lt;&lt;8)*b)
-     (a&lt;&lt;12) (b)      ((a&lt;&lt;12)*b)
-     (b)     (a&lt;&lt;12)  ((a&lt;&lt;12)*b)
+  loop(b,1&lt;&lt;13)
+     (a&lt;&lt;8)  (b&lt;&lt;3)   ((a&lt;&lt;8)*(b&lt;&lt;3))
+     (b&lt;&lt;3)  (a&lt;&lt;8)   ((a&lt;&lt;8)*(b&lt;&lt;3))
+     (a&lt;&lt;12) (b&lt;&lt;3)   ((a&lt;&lt;12)*(b&lt;&lt;3))
+     (b&lt;&lt;3)  (a&lt;&lt;12)  ((a&lt;&lt;12)*(b&lt;&lt;3))
   end loop
 end loop
 </dataString>
