@@ -21,7 +21,7 @@
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="320" y="180"/>
+      <pos x="320" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -92,6 +92,10 @@
   </visualElements>
   <wires>
     <wire>
+      <p1 x="320" y="160"/>
+      <p2 x="340" y="160"/>
+    </wire>
+    <wire>
       <p1 x="620" y="160"/>
       <p2 x="640" y="160"/>
     </wire>
@@ -100,12 +104,12 @@
       <p2 x="440" y="180"/>
     </wire>
     <wire>
-      <p1 x="320" y="180"/>
-      <p2 x="360" y="180"/>
-    </wire>
-    <wire>
       <p1 x="540" y="180"/>
       <p2 x="560" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="180"/>
+      <p2 x="360" y="180"/>
     </wire>
     <wire>
       <p1 x="320" y="100"/>
@@ -138,6 +142,10 @@
     <wire>
       <p1 x="540" y="140"/>
       <p2 x="560" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="340" y="180"/>
     </wire>
     <wire>
       <p1 x="340" y="200"/>

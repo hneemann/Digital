@@ -150,12 +150,24 @@
             </par>
             <par><image src="scr22.png"/></par>
             <par>
+                In order to check the correct function of the full adder, a test case should be added. In the test case,
+                the truth table is stored, which should fulfill the circuit. In this way it can be automatically
+                checked whether this is the case.
+            </par>
+            <par><image src="scr23.png"/></par>
+            <par>
+                The tests can be executed via the test case editor or the test button in the toolbar.
+                The table cells highlighted in green indicate that the output of the circuit matches
+                the truth table given in the test case.
+            </par>
+            <par><image src="scr24.png"/></par>
+            <par>
                 Now the full adders can be put together to form a so-called ripple-carry adder.
                 In this case, the carry output of an addition is forwarded as a carry input to the addition of the
                 next higher-order bit, just as it is usual in pencil-and-paper addition.
                 This 4-bit adder should be tested for correct function. For this purpose a test case was inserted.
             </par>
-            <par><image src="scr23.png"/></par>
+            <par><image src="scr25.png"/></par>
             <par>
                 This test case performs a 100% test, which is possible only with relatively simple circuits: all
                 possible 512 input combinations are applied to the circuit, and it is checked whether the output

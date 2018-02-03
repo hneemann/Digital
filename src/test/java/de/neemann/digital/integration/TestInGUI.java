@@ -879,7 +879,7 @@ public class TestInGUI extends TestCase {
         }
     }
 
-    private static class SetMouseToElement extends GuiTester.WindowCheck<Main> {
+    public static class SetMouseToElement extends GuiTester.WindowCheck<Main> {
         private final Circuit.ElementFilter filter;
 
         public SetMouseToElement(Circuit.ElementFilter filter) {

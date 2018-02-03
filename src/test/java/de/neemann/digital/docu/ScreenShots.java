@@ -6,9 +6,12 @@ import de.neemann.digital.gui.components.graphics.GraphicDialog;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionDialog;
+import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.integration.GuiTester;
 import de.neemann.digital.integration.Resources;
+import de.neemann.digital.integration.TestInGUI;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.gui.language.Language;
 
 import javax.imageio.ImageIO;
@@ -164,12 +167,46 @@ public class ScreenShots {
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, w) -> w.setSize(WIN_DX, WIN_DY)))
                 .delay(500)
                 .add(new ScreenShot<>(Main.class))
+                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)))
+                .mouseClick(InputEvent.BUTTON3_MASK)
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(AttributeDialog.class, (gt, w) -> {
+                    Point p = w.getLocation();
+                    p.y -= 50;
+                    p.x -= 70;
+                    w.setLocation(p);
+                }))
+                .delay(500)
+                .press("TAB", "SPACE")
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(TestCaseDescriptionDialog.class, (gt, w) -> {
+                    Point p = w.getLocation();
+                    p.y -= 50;
+                    p.x -= 50;
+                    w.setLocation(p);
+                    w.getContentPane().setPreferredSize(new Dimension(400, 300));
+                    w.pack();
+                }))
+                .delay(500)
+                .add(new ScreenShot<>(TestCaseDescriptionDialog.class).useParent().useParent())
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .press("F8")
+                .add(new GuiTester.WindowCheck<>(ValueTableDialog.class, (gt, w) -> {
+                    Point p = w.getLocation();
+                    p.y += 90;
+                    w.setLocation(p);
+                    w.getContentPane().setPreferredSize(new Dimension(400, 300));
+                    w.pack();
+                }))
+                .add(new ScreenShot<>(ValueTableDialog.class).useParent())
                 .execute();
         new GuiTester("dig/test/docu/rcAdder.dig", "rcAdder.dig")
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, w) -> w.setSize(WIN_DX, WIN_DY)))
                 .delay(500)
                 .add(new ScreenShot<>(Main.class))
-                .add(new ClickAtCircuit(600, 380, InputEvent.BUTTON3_MASK))
+                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)))
+                .mouseClick(InputEvent.BUTTON3_MASK)
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(AttributeDialog.class, (gt, w) -> {
                     Point p = w.getLocation();

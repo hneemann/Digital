@@ -165,12 +165,24 @@
             </par>
             <par><image src="scr22.png"/></par>
             <par>
+                Um die korrekte Funktion des Volladdierers zu überprüfen, sollte ein Testfall angelegt werden.
+                Im Testfall wird die Warheitstabelle hinterlegt, welche die Schaltung erfüllen soll. Auf diese Weise
+                kann automatisch überprüft werden, ob das tatsächlich der Fall ist.
+            </par>
+            <par><image src="scr23.png"/></par>
+            <par>
+                Über den Testfall-Editor oder den Testknopf in der Toolbar können die Tests ausgeführt werden.
+                Die in der Tabelle grün hinterlegten Felder zeigen an, dass die Ausgabe der Schaltung mit der Vorgabe
+                in der Wertetabelle des Testfalls übereinstimmt.
+            </par>
+            <par><image src="scr24.png"/></par>
+            <par>
                 Nun lassen sich die Volladdierer zu einem so gen. Ripple-Carry Addierer zusammensetzen. Dabei wird
                 der Carry-Ausgang einer Addition als Carry-Eingang an die Addition des nächst höherwertigen Bits
                 weitergegeben, genau so, wie es bei der schriftlichen Addition üblich ist. Dieser 4-Bit Addierer soll
-                auf korrekte Funktion überprüft werden. Dazu wurde ein Testfall eingefügt.
+                auf korrekte Funktion überprüft werden. Dazu wurde auch hier ein Testfall eingefügt.
             </par>
-            <par><image src="scr23.png"/></par>
+            <par><image src="scr25.png"/></par>
             <par>
                 Dieser Testfall führt einen 100% Test durch, was nur bei relativ einfachen Schaltungen möglich ist:
                 Alle möglichen 512 Eingangskombinationen werden an die
