@@ -811,7 +811,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_tableHasToManyResultColumns">Die Tabelle hat zu viele Spalten!</string>
     <string name="err_errorExportingZip">Fehler beim Schreiben der ZIP-Datei.</string>
     <string name="err_moreThanOneFastClock">Es ist nur ein Taktelement mit hoher Frequenz erlaubt.</string>
-    <string name="err_circuitHasCycles">Die Schaltung enthält Zyklen und kann daher nicht analysiert werden.</string>
+    <string name="err_circuitHasCycles">Die Schaltung enthält Zyklen und kann daher nicht analysiert werden.
+        Zyklen entstehen, wenn ein Ausgang eines Gatters auf einen der Eingänge des selben Gatters zurück geführt wird.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
