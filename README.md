@@ -15,7 +15,7 @@ Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logi
 If you are familiar with Logisim you will recognize the wire color scheme.
 
 Logisim is an excellent and proven tool for teaching purposes. Unfortunately, Carl Burch discontinued the development of 
-Logisim in 2014. Instead he has started the development of a new simulator called [Toves](http://www.toves.org/). 
+Logisim in 2014. Instead he has started the development of a new simulator called [Toves](http://www.toves.org/) in 2013. 
 In his [blog](http://www.toves.org/blog/) he explained why he decided to develop a new simulator instead of improving Logisim. 
 In short: There are weaknesses in Logisims architecture which are too difficult to overcome.
 Unfortunately, the development of Toves was discontinued at a very early stage.
@@ -32,7 +32,7 @@ They are more about adding features and fixing bugs. In [Logisim-Evolution](http
 for example, a VHDL/Verilog export was added.
 
 So I decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
-In the meantime a development level has been reached which is at least comparable to Logisim.
+In the meantime a development level has been reached which is comparable to Logisim.
 In some areas (performance, testing of circuits, circuit analysis, hardware support) Logisim has already been exceeded.
   
 ## Features ##
