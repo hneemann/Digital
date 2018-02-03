@@ -40,11 +40,31 @@ public class ScreenShots {
 //        mainScreenShot();
 //        firstSteps();
 //        hierarchicalDesign();
+//        all();
+    }
+
+    private static void all() {
+        // english
+        Lang.setActualRuntimeLanguage(new Language("en"));
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_DEFAULT_TREESELECT, false)
+                .set(Keys.SETTINGS_GRID, true)
+                .set(Keys.SETTINGS_IEEE_SHAPES, true);
+        mainScreenShot();
+        firstSteps();
+        hierarchicalDesign();
+
+        // german
+        Lang.setActualRuntimeLanguage(new Language("de"));
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_IEEE_SHAPES, false);
+        firstSteps();
+        hierarchicalDesign();
     }
 
     private static void mainScreenShot() {
         Lang.setActualRuntimeLanguage(new Language("en"));
-        Settings.getInstance().getAttributes().set(Keys.SETTINGS_IEEE_SHAPES,true);
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_IEEE_SHAPES, true);
         new GuiTester("../../main/dig/processor/Processor.dig", "examples/processor/Processor.dig")
                 .press(' ')
                 .delay(500)
@@ -107,6 +127,7 @@ public class ScreenShots {
 
     // Set all settings as needed before start this method
     private static void firstSteps() {
+        ScreenShot.n = 0;
         int x = 300;
         int y = 180;
         new GuiTester()
