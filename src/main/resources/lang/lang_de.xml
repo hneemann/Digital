@@ -78,13 +78,13 @@
         Es können auch Busse mit mehreren Bits pro Eingang verknüpft werden. In diesem Fall wird die Verknüpfung auf
         jedes Bit der Eingänge angewendet.
     </string>
-    <string name="elem_XOr">Exclusiv Oder</string>
+    <string name="elem_XOr">Exklusiv Oder</string>
     <string name="elem_XOr_tt">Bei zwei Eingängen wird eine 1 ausgegeben, wenn genau einer der Eingänge auf 1 gesetzt ist.
         Werden mehr als zwei Eingänge verwendet, werden die XOR-Gater kaskadiert ( A XOR B XOR C = (A XOR B) XOR C ).
         Es können auch Busse mit mehreren Bits pro Eingang verknüpft werden. In diesem Fall wird die Verknüpfung auf
         jedes Bit der Eingänge angewendet.
     </string>
-    <string name="elem_XNOr">Nicht Exclusiv Oder</string>
+    <string name="elem_XNOr">Nicht Exklusiv Oder</string>
     <string name="elem_XNOr_tt">Eine Kombination aus XOR und NOT.
         Die Eingänge werden per XOR verknüpft und das Ergebnis wird vor der Ausgabe invertiert.
         Es können auch Busse mit mehreren Bits pro Eingang verknüpft werden. In diesem Fall wird die Verknüpfung auf
