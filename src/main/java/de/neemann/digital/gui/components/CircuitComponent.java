@@ -965,6 +965,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         repaintNeeded();
     }
 
+    /**
+     * Translates the circuit.
+     *
+     * @param dx x movement
+     * @param dy y movement
+     */
+    public void translateCircuit(int dx, int dy) {
+        transform.translate(dx, dy);
+        isManualScale = true;
+        repaintNeeded();
+    }
+
     private void editAttributes(VisualElement element, MouseEvent e) {
         String name = element.getElementName();
         try {

@@ -103,6 +103,9 @@ public class GuiTester {
                     case '/':
                         gt.keyType(KeyEvent.VK_SHIFT, KeyEvent.VK_7);
                         break;
+                    case '!':
+                        gt.keyType(KeyEvent.VK_SHIFT, KeyEvent.VK_1);
+                        break;
                     case '~':
                         gt.keyType(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_PLUS);
                         break;

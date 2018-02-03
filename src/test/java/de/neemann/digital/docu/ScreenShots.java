@@ -1,7 +1,10 @@
 package de.neemann.digital.docu;
 
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.AttributeDialog;
+import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.graphics.GraphicDialog;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
@@ -41,6 +44,7 @@ public class ScreenShots {
 
     private static void mainScreenShot() {
         Lang.setActualRuntimeLanguage(new Language("en"));
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_IEEE_SHAPES,true);
         new GuiTester("../../main/dig/processor/Processor.dig", "examples/processor/Processor.dig")
                 .press(' ')
                 .delay(500)
@@ -54,7 +58,50 @@ public class ScreenShots {
                 .add((gt) -> graphic.dispose())
                 .delay(500)
                 .press("F1")
-                .add(new MainScreenShot())
+                .add(new MainScreenShot("screenshot.png"))
+                .execute();
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 3)
+                .press("ENTER")
+                .delay(500)
+                .press("control typed a")
+                .type("A B + B !C + A !C")
+                .add(new GuiTester.SetFocusTo<>(ExpressionDialog.class,
+                        comp -> comp instanceof JButton && ((JButton) comp).getText().equals(Lang.get("btn_create"))))
+                .press("SPACE")
+                .delay(500)
+                .press("control typed -", 1)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> main.getCircuitComponent().translateCircuit(-120, 0)))
+                .delay(500)
+                .press("F9")
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(TableDialog.class, (gt, td) -> {
+                    td.getContentPane().setPreferredSize(new Dimension(370, 280));
+                    td.pack();
+                    final Point location = td.getParent().getLocation();
+                    location.x += 640;
+                    location.y += 410;
+                    td.setLocation(location);
+                }))
+                .delay(500)
+                .press("F1")
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(KarnaughMapDialog.class, (gt, td) -> {
+                    final Point location = td.getParent().getLocation();
+                    location.x -= 150;
+                    location.y -= 340;
+                    td.setLocation(location);
+                    td.getContentPane().setPreferredSize(new Dimension(390, 300));
+                    td.pack();
+                }))
+                .delay(500)
+                .add(new MainScreenShot("screenshot2.png"))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
                 .execute();
     }
 
@@ -229,16 +276,25 @@ public class ScreenShots {
     }
 
 
-    private static class MainScreenShot extends GuiTester.WindowCheck<Main> {
+    private static class MainScreenShot implements GuiTester.Runnable {
 
-        MainScreenShot() {
-            super(Main.class);
+        private final String name;
+
+        MainScreenShot(String name) {
+            this.name = name;
         }
 
         @Override
-        public void checkWindow(GuiTester guiTester, Main main) throws Exception {
+        public void run(GuiTester guiTester) throws Exception {
+            Window main = FocusManager.getCurrentManager().getActiveWindow();
+            while (!(main instanceof Main)) {
+                main = (Window) main.getParent();
+                if (main == null)
+                    throw new RuntimeException("Main not found!");
+            }
+
             BufferedImage image = guiTester.getRobot().createScreenCapture(main.getBounds());
-            File file = new File(Resources.getRoot(), "../../../screenshot.png");
+            File file = new File(Resources.getRoot().getParentFile().getParentFile().getParentFile(), name);
             ImageIO.write(image, "png", file);
         }
     }
