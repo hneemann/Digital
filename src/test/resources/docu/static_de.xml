@@ -4,10 +4,10 @@
         <subchapter name="Einführung">
             <par>
                 Digital ist ein Simulator für digitale Schaltkreise. Ein Schaltung besteht dabei aus einer
-                Anzahl logischer Gatter welche miteinander durch Leitungen verbunden sind.
-                Das Verhalten der Gesamtschaltung kann dann simuliert werden.
-                Der Anwender kann mit der laufenden Simulation über bestimmte Elemente interagieren, indem z.B. Knöpfe
-                betätigt oder Eingänge gesetzt werden.
+                Anzahl logischer Gatter, welche miteinander durch Leitungen verbunden sind.
+                Das Verhalten der Gesamtschaltung kann simuliert werden.
+                Der Anwender kann mit der laufenden Simulation über bestimmte Elemente interagieren, indem er z.B.
+                Knöpfe betätigt oder Eingangswerte setzt.
             </par>
             <par>
                 Auf diese Weise können die meisten Grundschaltungen der Digitaltechnik aufgebaut werden. Im Ordner
@@ -17,21 +17,21 @@
             <par>
                 Der Simulator kennt dabei zwei Modi: Im Bearbeitungsmodus kann die Schaltung bearbeitet werden.
                 In diesem Modus ist die eigentliche Simulation nicht aktiv.
-                Der Simulationsmodus wird durch den <e>Start</e>-Knopf aktiviert. Beim Wechsel in diesen Modus wird die Schaltung
-                auf Konsistenz überprüft.
+                Der Simulationsmodus wird durch den <e>Start</e>-Knopf aktiviert. Beim Wechsel in diesen Modus wird die
+                Schaltung zunächst auf Konsistenz überprüft.
                 Enthält die Schaltung keine Fehler, wird die Simulation aktiviert.
                 Jetzt kann mit der laufenden Simulation interagiert werden.
-                Soll die Schaltung weiter bearbeitet werden, muss die Simulation zunächst wieder gestoppt werden.
+                Möchte man die Schaltung weiter bearbeiten, muss man die Simulation zunächst wieder stoppen.
             </par>
         </subchapter>
         <subchapter name="Erste Schritte">
             <par>
                 <image src="scr00.png">
                     Als erstes Beispiel soll eine Schaltung mit einem Exklusiv-Oder Gatter aufgebaut werden.
-                    Im Hauptfenster können aus dem Menü <e>Bauteile</e> die verschiedenen Bauteile ausgewählt werden.
+                    Im Hauptfenster erlaubt das Menü <e>Bauteile</e>, die verschiedenen Komponenten auszuwählen.
                     Danach werden diese auf dem Zeichenfeld positioniert. Das Positionieren kann mit der ESC-Taste
                     jederzeit abgebrochen werden.
-                    Als erstes soll ein Eingang der Schaltung hinzugefügt werden. Dieser lässt sich später interaktiv
+                    Als erstes soll der Schaltung ein Eingang hinzugefügt werden. Dieser lässt sich später interaktiv
                     mit der Maus steuern.
                 </image>
                 <image src="scr01.png">
@@ -54,27 +54,27 @@
                     Eingänge des Gatters.
                 </image>
                 <image src="scr05.png">
-                    Jetzt wählt man noch einen Ausgang aus. Dieser kann verwendet werden, um einen Zustand
-                    anzuzeigen, oder um später Signale an eine einbettende Schaltung weiterzugeben.
+                    Jetzt wählt man einen Ausgang aus. Dieser kann verwendet werden, um einen Zustand
+                    anzuzeigen oder um später Signale an eine einbettende Schaltung weiterzugeben.
                 </image>
                 <image src="scr06.png">
-                    Auch dieser wird so positioniert, dass die Verdrahtung möglichst einfach wird.
+                    Auch der Ausgang wird so positioniert, dass die Verdrahtung möglichst einfach wird.
                     Er hat einen blauen Punkt, verfügt also über einen Eingang.
                 </image>
                 <image src="scr07.png">
-                    Damit sind alle Komponenten vorhanden. Jetzt muss noch die Verdrahtung ergänzt werden.
-                    Mit der Maus kann direkt eine Verbindungsleitung gezogen werden. Es werden die blauen und roten
-                    Punkte miteinander verbunden. Es muss dabei immer genau ein roter Punkt mit einer beliebigen
+                    Damit sind alle erforderlichen Komponenten vorhanden. Jetzt ist die Verdrahtung zu ergänzen.
+                    Mit der Maus kann direkt eine Verbindungsleitung gezogen werden. Die blauen und roten
+                    Punkte sind miteinander zu verbinden. Es muss dabei immer genau ein roter Punkt mit einer beliebigen
                     Anzahl blauer Punkte verbunden werden. Nur der Einsatz von Threestate-Ausgängen erlaubt es,
                     von dieser Regel abzuweichen und mehrere rote Punkte miteinander zu verbinden.
                 </image>
                 <image src="scr08.png">
-                    So können auch die beiden noch fehlenden Leitungen ergänzt werden. Damit ist eine erste
+                    Nun sind die beiden noch fehlenden Leitungen zu ergänzen. Damit ist eine erste
                     Schaltung komplett. Verbindungsleitungen werden immer senkrecht oder waagerecht gezogen. Mit der
                     Taste 'D' kann in den Diagonalmodus gewechselt werden.
                 </image>
                 <image src="scr09.png">
-                    Um mit der Schaltung interagieren zu können, muss die Simulation gestartet werden. Dazu kann der
+                    Um mit der Schaltung interagieren zu können, ist die Simulation zu starten. Dazu kann der
                     Start-Knopf in der Toolbar verwendet werden.
                     Nach dem Starten der Simulation ändert sich die Farbe der Leitungen und die Ein- und Ausgänge
                     sind jetzt ausgefüllt. Ein helles Grün markiert eine logische '1' und ein dunkles Grün eine
@@ -94,9 +94,9 @@
                 </image>
                 <image src="scr12.png">
                     Auf diese Weise können die Bezeichnungen für die übrigen Ein- und Ausgänge definiert werden.
-                    Im Hauptmenü im Menü <e>Analyse</e> findet sich der Menüpunkt <e>Analyse</e>. Dieser ermöglicht
-                    eine Analyse der aktuellen Schaltung. Zu beachten ist, dass dies nur möglich ist, wenn alle Ein- und
-                    Ausgänge mit einer Bezeichnung versehen sind.
+                    Im Hauptmenü im Menü <e>Analyse</e> findet sich der Menüpunkt <e>Analyse</e>. Dieser ermittelt
+                    die Wahrheitstabelle der aktuellen Schaltung.
+                    Diese kann nur ermittelt werden, wenn alle Ein- und Ausgänge mit einer Bezeichnung versehen sind.
                 </image>
                 <image src="scr13.png">
                     Es öffnet sich ein Fenster, welches die Wahrheitstabelle der aktuellen Schaltung zeigt. Unter der
@@ -109,10 +109,10 @@
                     Wahrheitstabelle in Form einer KV-Tafel anzeigen.
                 </image>
                 <image src="scr15.png">
-                    Oben in diesem Dialog gibt es eine Auswahlbox über welche der gewünschte Ausdruck in der KV-Tafel
+                    Oben in diesem Dialog gibt es eine Auswahlbox, über welche der gewünschte Ausdruck in der KV-Tafel
                     ausgewählt werden kann. Auf diese Weise lässt sich z.B. verdeutlichen, wie sich mehrere äquivalente
                     algebraische Ausdrücke ergeben können. In diesem Beispiel gibt es jedoch nur einen minimalen Ausdruck.
-                    Durch Klicken in der KV-Tafel lässt sich die Tabelle bearbeiten.
+                    Durch Klicken in der KV-Tafel lässt sich die Wahrheitstabelle bearbeiten.
                 </image>
             </par>
         </subchapter>
@@ -124,14 +124,14 @@
             <par>
                 Zudem gibt es nur Verbindungen zwischen einem Leitungsende und einem Bauteil. Wird ein Bauteil mitten
                 auf eine Leitung gesetzt, wird keine Verbindung zwischen dem Bauteil und der Leitung hergestellt.
-                Daher muss an jedem Bauteileanschluss, welcher mit einem anderen Verbunden werden soll, eine Leitung
+                Daher muss an jedem Bauteileanschluss, welcher mit einem anderen verbunden werden soll, eine Leitung
                 tatsächlich enden bzw. beginnen.
                 Selbst wenn das Tunnel-Element verwendet wird, muss es eine Leitung zwischen dem Pin und dem
                 Tunnel-Element geben.
             </par>
             <par>
-                Soll ein Element incl. der angeschlossenen Verbindungsleitungen verschoben werden, kann das Element mit
-                der Rechteckauswahl ausgewählt werden. Danach kann es mit der Maus verschoben werden. Wenn ein Element
+                Soll ein Element incl. der angeschlossenen Verbindungsleitungen verschoben werden, ist das Element mit
+                der Rechteckauswahl auszuwählen. Danach lässt es sich mit der Maus verschieben. Wenn ein Element
                 per Mausklick selektiert wird, wird nur das Bauteil allein - also ohne die angeschlossenen Leitungen
                 mitzunehmen - verschoben.
             </par>
@@ -142,7 +142,7 @@
                 Um hier die Übersicht zu behalten, können die verschiedenen Teile einer Schaltung in unterschiedlichen
                 Dateien gespeichert werden. Dieser Mechanismuss erlaubt es auch, eine einmal erstellte Teilschaltung
                 mehrfach in einer weiteren Schaltung zu verwenden. Dieses Vorgehen bietet zudem den Vorteil, dass die
-                Dateien unabhängig von einander in einem Versionskontrollsystem abgelegt und Änderungen verfolgt werden
+                Dateien unabhängig voneinander in einem Versionskontrollsystem abgelegt und Änderungen verfolgt werden
                 können.
             </par>
             <par><image src="scr20.png"/></par>
@@ -189,18 +189,18 @@
                 Schaltung angelegt, und es wird überprüft, ob die Ausgabe der Schaltung korrekt ist.
                 In der ersten Zeile sind die Eingangs- und Ausgangssignale aufgelistet. Darunter würden in je einer Zeile
                 die anzulegenden Eingangswerte und die zu überprüfenden Ausgangswerte angegeben, wie in einer Wahrheitstabelle.
-                In diesem Beispiel sind jedoch 512 Zeilen erforlderlich.
+                In diesem Beispiel sind jedoch 512 Zeilen erforderlich.
                 Diese einzugeben, wäre eine mühsame und fehleranfällige Aufgabe.
                 Einfacher und zuverlässiger ist es, die erforderlichen Zeilen automatisch erzeugen zu lassen.
                 Dazu werden die
                 Variablen <e>A</e> und <e>B</e> jeweils von 0 bis 15 durchlaufen. Die jeweiligen Werte von <e>A</e> und
                 <e>B</e> werden dann den Eingängen 'A[n]' und 'B[n]' zugewiesen. Dann wird überprüft, ob die Schaltung den
                 Wert <e>A+B</e> ausgibt. Das wird dann noch einmal mit gesetztem Carry-Bit geprüft, wobei sich
-                in diesem Fall <e>A+B+1</e> ergeben muss. Die Detals der Test-Syntax liefert der Hilfe-Dialog.
+                in diesem Fall <e>A+B+1</e> ergeben muss. Die Details der Test-Syntax liefert der Hilfe-Dialog.
             </par>
             <par>
-                Wenn eine Schaltung in eine andere Schaltung eingebunden wird, wird in der einbindenden Schaltung nur
-                der Dateiname der Schaltung gespeichert, nicht die Schaltung selbst. Die entsprechenden
+                Wird eine Schaltung in eine andere eingebunden, wird in der einbindenden Schaltung nur
+                der Dateiname gespeichert, nicht die Schaltung selbst. Die entsprechenden
                 Dateien der eingebundenen Schaltungen müssen daher zur Laufzeit der Simulation im Dateisystem
                 gefunden werden. Um die verschiedenen Arbeitsweisen der Nutzer bestmöglich zu unterstützen und dennoch
                 auf eine komplexe Verwaltung von Importpfaden usw. zu verzichten, ist eine etwas ungewöhnliche
@@ -212,7 +212,7 @@
                 werden alle Unterordner nach einer Datei des entsprechenden Namens durchsucht. Wird
                 eine passende Datei gefunden, wird diese importiert. Dabei kommt es nur auf den Dateinamen der
                 einzulesenden
-                Datei an, nicht auf dessen Pfad. Entsprechend wird eine Fehlermeldung erzeugt, wenn sich in
+                Datei an, nicht auf deren Pfad. Entsprechend wird eine Fehlermeldung erzeugt, wenn sich in
                 verschiedenen
                 Unterordnern mehrere Dateien gleichen Namens befinden, da dann Mehrdeutigkeiten entstehen.
             </par>
@@ -230,9 +230,9 @@
             <par>
                 Bei der Simulation wird davon ausgegangen, dass jedes Gatter eine bestimmte Laufzeit hat, und dass diese
                 Laufzeit für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat
-                genau diese Laufzeit, unabhängig von dessen Komplexität.
-                Das Und-Gatter hat also die selbe Signalverzögerung wie der Multiplikator.
-                Ausgenommen davon sind die Dioden, der Leitungssplitter für die Erzeugung von Datenbussen und der
+                genau diese Laufzeit, unabhängig von seiner Komplexität.
+                Das Und-Gatter hat also dieselbe Signalverzögerung wie der Multiplizierer.
+                Ausgenommen davon sind Dioden, Leitungssplitter für die Erzeugung von Datenbussen und
                 Schalter. Diese Elemente haben keine Gatterlaufzeit bzw. diese beträgt Null.
             </par>
             <par>
@@ -242,13 +242,13 @@
             <par>
                 Wird eine Schaltung in eine andere Schaltung eingebettet, um ein hierarchisches Design zu erstellen,
                 behalten die eingebetteten Schaltungen ihre Laufzeiten. Wird also ein komplexes Schaltnetz
-                eingebettet bei welchem ein Signal
+                eingebettet, bei welchem ein Signal
                 von einem Eingang bis zu einem Ausgang drei Gatter passiern muss, beträgt dessen Laufzeit auch als
                 eingebettete Schaltung drei Gatterlaufzeiten. Es gibt keine zusätzlichen Verzögerungen durch
                 das Einbetten einer Schaltung. Sind nicht alle Ausgangssignale einer eingebetteten Schaltung gleich
                 schnell, werden sich die Signale in der einbettenden Schaltung ebenso verhalten.
-                Generell verändert das Einbetten einer Schaltung in eine andere dessen Laufzeitverhalten nicht. Die
-                Schaltung verhält sich exakt so, als befänden sich alle Elemente auf der selben Ebene.
+                Generell verändert das Einbetten einer Schaltung in eine andere deren Laufzeitverhalten nicht. Die
+                Schaltung verhält sich exakt so, als befänden sich alle Elemente auf derselben Ebene.
             </par>
         </subchapter>
     </chapter>
@@ -260,9 +260,9 @@
             Aus dieser Wahrheitstabelle lässt sich nach einer Bearbeitung eine neue Schaltung erzeugen.
         </par>
         <par>
-            Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen. Anstelle
-            einer
-            einfachen Wahrheitstabelle entsteht eine so gen. Zustandsfolgetabelle. Jedes Flipflop taucht dabei auf der
+            Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen.
+            Anstelle einer einfachen Wahrheitstabelle entsteht eine sogenannte Zustandsfolgetabelle.
+            Jedes Flipflop taucht dabei auf der
             Eingangsseite und der Ausgangsseite der Zustandsfolgetabelle auf. In dieser Tabelle findet sich auf der
             rechten Seite der abhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird,
             abhängig vom aktuellen Zustand der Flipflops. Damit eine Analyse möglich ist, müssen die Flipflops benannt
@@ -299,9 +299,8 @@
             <par>
                 Die Bausteine der
                 <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
-                    <e>ATF150x</e>
-                </a>
-                Familie sind einfache CPLDs mit bis zu 128 Makrozellen. Diese sind im PLCC Gehäuse verfügbar, was sie
+                    <e>ATF150x</e></a>-Familie
+                sind einfache CPLDs mit bis zu 128 Makrozellen. Diese sind im PLCC Gehäuse verfügbar, was sie
                 für Laborversuche gut geeignet erscheinen lässt:
                 Sollte ein IC bei Versuchen zerstört werden, kann es einfach ersetzt werden.
                 Zudem ist mit dem
@@ -328,9 +327,9 @@
             </par>
             <par>
                 Daher muss auf einen der von ATMEL bereitgestellten Fitter <e>fit150[x].exe</e> zurückgegriffen werden.
-                Diese Programme erzeugen aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei welche dann
+                Diese Programme erzeugen aus einer geeigneten <e>TT2</e> Datei eine <e>JEDEC</e>-Datei, welche dann
                 in den entsprechenden Chip übertragen werden kann.
-                Digital startet den Fitter automatisch wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
+                Digital startet den Fitter automatisch, wenn eine <e>TT2</e> Datei erzeugt wird. Dazu muss in den
                 Digital-Einstellungen der Pfad zu den <e>fit150[x].exe</e> Dateien angegeben werden.
                 Es wird zudem eine Projektdatei <e>*.chn</e> erzeugt, welche dann direkt mit
                 <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
@@ -370,8 +369,8 @@
                 <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
                 Board unterstützt.
                 Dabei wird eine Constraints-Datei erzeugt, welche die Zuordnung der Pins beinhaltet. Die Bezeichnung der
-                Pins kann dem BASYS3 Datenblatt entnommen werden, und muss als Pinnummer bei den Ein- und Ausgängen
-                eingetragen werden.
+                Pins kann dem BASYS3 Datenblatt entnommen werden und ist als Pinnummer bei den Ein- und Ausgängen
+                einzutragen.
             </par>
             <par>
                 Wenn die Taktfrequenz niedrig ist, wird ein Frequenzteiler in den VHDL Code integriert,
@@ -446,18 +445,16 @@
         <faq>
             <question>Ich habe eine Wahrheitstabelle. Wie kann ich daraus die minimalen Schaltfunktionen erzeugen?
             </question>
-            <answer>Im Menü
-                <e>Analyse<arrow/>Synthese
-                </e>
+            <answer>Im Menü <e>Analyse<arrow/>Synthese</e>
                 auswählen und dann die Wahrheitstabelle eingeben.
-                In der Statusleiste des Fensters findet sich die Schaltfunktion. Geben mehr als eine abhängige Größe
-                ein,
-                öffnet sich ein neues Fenster, in welchem alle Schaltfunktionen angegeben sind.
+                In der Statusleiste des Fensters findet sich die Schaltfunktion.
+                Geben Sie mehr als eine abhängige Größe an, öffnet sich ein neues Fenster, in welchem alle
+                Schaltfunktionen angezeigt werden.
             </answer>
         </faq>
         <faq>
             <question>Ich habe eine Wahrheitstabelle eingegeben, es wird jedoch mehr als eine Schaltfunktion für
-                das gesuchte Signal angezeigt. Welche ist die Richtige?
+                das gesuchte Signal angezeigt. Welche ist die richtige?
             </question>
             <answer>Wenn eine Schaltfunktion minimiert wird, kann es mehrere minimierte Schaltfunktionen gleicher
                 Komplexität geben (gleiche Anzahl von Termen).
@@ -531,34 +528,34 @@
     </chapter>
     <chapter name="Tastenbelegung" newpage="true">
         <shortcuts>
-            <shortcut key="Leertaste">Starten und stoppen der Simulation.</shortcut>
+            <shortcut key="Leertaste">Starten und stoppen der Simulation</shortcut>
             <shortcut key="F7">Run to Break</shortcut>
             <shortcut key="F8">Starten der Testfälle</shortcut>
             <shortcut key="C">Einen Taktschritt ausführen (nur bei gestarteter Simulation und nur, wenn es genau ein
-                Taktelement in der Schaltung gibt).
+                Taktelement in der Schaltung gibt)
             </shortcut>
             <shortcut key="F9">Analyse der Schaltung</shortcut>
-            <shortcut key="STRG-A">Alles auswählen.</shortcut>
-            <shortcut key="STRG-X">Ausschneiden der selektierten Elemente und kopieren in die Zwischenablage.</shortcut>
-            <shortcut key="STRG-C">Kopieren der selektierten Elemente in die Zwischenablage.</shortcut>
+            <shortcut key="STRG-A">Alles auswählen</shortcut>
+            <shortcut key="STRG-X">Ausschneiden der selektierten Elemente und kopieren in die Zwischenablage</shortcut>
+            <shortcut key="STRG-C">Kopieren der selektierten Elemente in die Zwischenablage</shortcut>
             <shortcut key="STRG-V">Einfügen der Elemente aus der Zwischenablage.</shortcut>
             <shortcut key="STRG-D">Aktuelle Auswahl duplizieren ohne die Zwischenablage zu verändern.</shortcut>
-            <shortcut key="R">Beim Einfügen rotieren der Elemente.</shortcut>
-            <shortcut key="L">Zuletzt eingefügtes Element noch einmal einfügen.</shortcut>
-            <shortcut key="STRG-N">Neue Schaltung.</shortcut>
-            <shortcut key="STRG-O">Schaltung öffnen.</shortcut>
-            <shortcut key="STRG-S">Speichern der Schaltung.</shortcut>
-            <shortcut key="STRG-Z">Letzte Änderung zurücknehmen.</shortcut>
-            <shortcut key="STRG-Y">Zurückgenommene Änderung erneut anwenden.</shortcut>
-            <shortcut key="P">Programmieren einer Diode oder eines FG-FET.</shortcut>
-            <shortcut key="D">Beim Ziehen einer rechteckigen Leitung in den Diagonalmodus wechseln.</shortcut>
-            <shortcut key="F">Beim Ziehen einer rechteckigen Leitung die Orientierung wechseln.</shortcut>
-            <shortcut key="S">Leitung in zwei Leitungen teilen.</shortcut>
-            <shortcut key="ESC">Abbrechen der aktuellen Aktion.</shortcut>
-            <shortcut key="Entfernen">Löschen der selektierten Elemente.</shortcut>
-            <shortcut key="Rückschritt">Löschen der selektierten Elemente.</shortcut>
-            <shortcut key="+">Erhöht die Anzahl der Eingänge in dem Element auf welches die Maus zeigt.</shortcut>
-            <shortcut key="-">Erniedrigt die Anzahl der Eingänge in dem Element auf welches die Maus zeigt.</shortcut>
+            <shortcut key="R">Rotieren der Elemente beim Einfügen</shortcut>
+            <shortcut key="L">Zuletzt eingefügtes Element noch einmal einfügen</shortcut>
+            <shortcut key="STRG-N">Neue Schaltung</shortcut>
+            <shortcut key="STRG-O">Schaltung öffnen</shortcut>
+            <shortcut key="STRG-S">Speichern der Schaltung</shortcut>
+            <shortcut key="STRG-Z">Letzte Änderung zurücknehmen</shortcut>
+            <shortcut key="STRG-Y">Zurückgenommene Änderung erneut anwenden</shortcut>
+            <shortcut key="P">Programmieren einer Diode oder eines FG-FET</shortcut>
+            <shortcut key="D">Beim Ziehen einer rechteckigen Leitung in den Diagonalmodus wechseln</shortcut>
+            <shortcut key="F">Beim Ziehen einer rechteckigen Leitung die Orientierung wechseln</shortcut>
+            <shortcut key="S">Leitung in zwei Leitungen teilen</shortcut>
+            <shortcut key="ESC">Abbrechen der aktuellen Aktion</shortcut>
+            <shortcut key="Entfernen">Löschen der selektierten Elemente</shortcut>
+            <shortcut key="Rückschritt">Löschen der selektierten Elemente</shortcut>
+            <shortcut key="+">Erhöht die Anzahl der Eingänge in dem Element, auf welches die Maus zeigt.</shortcut>
+            <shortcut key="-">Erniedrigt die Anzahl der Eingänge in dem Element, auf welches die Maus zeigt.</shortcut>
             <shortcut key="STRG +">Vergrößern</shortcut>
             <shortcut key="STRG -">Verkleinern</shortcut>
             <shortcut key="F1">Einpassen</shortcut>
