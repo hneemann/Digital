@@ -26,84 +26,93 @@
             </par>
         </subchapter>
         <subchapter name="First Steps">
+            <par><image src="scr00.png"/></par>
             <par>
-                <image src="scr00.png">
-                    As a first example, we want to build a circuit with an Exclusive-Or gate.
-                    In the main window, the various components can be selected from the menu <e>Components</e>.
-                    Then they are placed on the drawing panel. This process can be aborted with the ESC key
-                    at any time.
-                    At first select an input component.
-                    This can later be controlled interactively with the mouse.
-                </image>
-                <image src="scr01.png">
-                    After selection, the first input can be placed on the drawing surface. The red dot marks the wire
-                    connection. Here, a wire will be connected later. Red indicates that this port is active.
-                    So he defines a signal value.
-                </image>
-                <image src="scr02.png">
-                    In the same way, a second input is added. It is best to put it directly under the first input.
-                </image>
-                <image src="scr03.png">
-                    Thereafter, the Exclusive-Or gate is selected. This gate represents the actual logical function.
-                </image>
-                <image src="scr04.png">
+                As a first example, we want to build a circuit with an Exclusive-Or gate.
+                In the main window, the various components can be selected from the menu <e>Components</e>.
+                Then they are placed on the drawing panel. This process can be aborted with the ESC key
+                at any time.
+                At first select an input component.
+                This can later be controlled interactively with the mouse.
+            <par><image src="scr01.png"/></par>
+            <par>
+                After selection, the first input can be placed on the drawing surface. The red dot marks the wire
+                connection. Here, a wire will be connected later. Red indicates that this port is active.
+                So he defines a signal value.
+            </par>
+            <par><image src="scr02.png"/></par>
+            <par>
+                In the same way, a second input is added. It is best to put it directly under the first input.
+            </par><image src="scr03.png"/></par>
+            <par>
+                Thereafter, the Exclusive-Or gate is selected. This gate represents the actual logical function.
+            </par>
+            <par><image src="scr04.png"/></par>
+            <par>
                     This gate can now also be inserted in the circuit. It is best to set it in a way that the subsequent
                     wiring is as simple as possible. The blue dots indicate the inputs of the gate.
-                </image>
-                <image src="scr05.png">
+            </par>
+            <par><image src="scr05.png"/></par>
+            <par>
                     Now select an output. This can be used to indicate a signal state or to later pass signals to
                     an embedding circuit.
-                </image>
-                <image src="scr06.png">
-                    This is also positioned so that the wiring become as simple as possible.
-                    He has a blue dot, so has an input.
-                </image>
-                <image src="scr07.png">
-                    Now all necessary components are present. At next the wiring has to be added. With the mouse
-                    directly a wire can be drawn. The blue and red dots are connected. There must always be exactly
-                    one red dot connected to any number of blue dots. Only the use of threestate outputs makes it
-                    possible to deviate from this rule and to connect several red dots.
-                </image>
-                <image src="scr08.png">
-                    So also the two missing lines can be drawn. This completes a first circuit.
-                </image>
-                <image src="scr09.png">
-                    To be able to interact with the circuit, it must be started. The start button in the tool bar can
-                    be used for this purpose. After starting the simulation, the color of the wires changes and the
-                    inputs and outputs are now filled. A bright green marks a logical '1' and a dark green a logical '0'.
-                    At the moment there is a logical '0' on all wires.
-                </image>
-                <image src="scr10.png">
-                    By clicking with the mouse, the inputs can be switched. Since the simulation is now active, the
-                    output changes according to the current input states. The circuit behaves as expected like an
-                    Exclusive-Or gate.
-                </image>
-                <image src="scr11.png">
-                    To further process the circuit, the simulation must first be stopped. The easiest way to do this is
-                    with the Stop button in the tool bar. Clicking on a component with the right mouse button opens a
-                    dialog which displays the properties of this component. The label 'A' can be defined for the first
-                    input via this dialog.
-                </image>
-                <image src="scr12.png">
-                    In this way, the labels for the remaining inputs and outputs can be defined. The menu item
-                    <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
-                    the current circuit. However, this is only possible if all inputs and outputs are labeled.
-                </image>
-                <image src="scr13.png">
-                    It opens a window showing the truth table of the current circuit. Below the table you can find the
-                    algebraic expression associated with the circuit. If there are several possible algebraic
-                    expressions, a separate window will open showing all possible expressions.
-                </image>
-                <image src="scr14.png">
-                    The table dialog has the menu entry <e>K-Map</e> in its main menu. This allows to display the truth
-                    table in the form of a K-map.
-                </image>
-                <image src="scr15.png">
-                    At the top of this dialog there is a drop-down list which allows the selection of the desired
-                    expression in the K-map. In this way you can, for example, illustrate how several equivalent
-                    algebraic expressions can result. However, in this example, there is only one minimal expression.
-                    By clicking in the K-map the table can be modified.
-                </image>
+            </par>
+            <par><image src="scr06.png"/></par>
+            <par>
+                This is also positioned so that the wiring become as simple as possible.
+                He has a blue dot, so has an input.
+            </par>
+            <par><image src="scr07.png"/></par>
+            <par>
+                Now all necessary components are present. At next the wiring has to be added. With the mouse
+                a wire can be drawn. The blue and red dots are to be connected. There must always be exactly
+                one red dot connected to any number of blue dots. Only the use of threestate outputs makes it
+                possible to deviate from this rule and to connect several red dots.
+                If all wires have been drawn, the circuit is complete.
+            </par>
+            <par><image src="scr08.png"/></par>
+            <par>
+                To be able to interact with the circuit, it must be started. The start button in the tool bar can
+                be used for this purpose. After starting the simulation, the color of the wires changes and the
+                inputs and outputs are now filled. A bright green marks a logical '1' and a dark green a logical '0'.
+                In the figure above, all wires have a '0' value.
+            </par>
+            <par><image src="scr09.png"/></par>
+            <par>
+                By clicking with the mouse, the inputs can be switched. Since the simulation is now active, the
+                output changes according to the current input states. The circuit behaves like an
+                Exclusive-Or gate as expected .
+            </par>
+            <par><image src="scr10.png"/></par>
+            <par>
+                To further process the circuit, the simulation must first be stopped. The easiest way to do this is
+                with the Stop button in the tool bar. Clicking on a component with the right mouse button opens a
+                dialog which displays the properties of this component. The label 'A' can be defined for the first
+                input via this dialog.
+            </par>
+            <par><image src="scr11.png"/></par>
+            <par>
+                In this way, the labels for the remaining inputs and outputs can be defined. The menu item
+                <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
+                the current circuit. However, this is only possible if all inputs and outputs are labeled.
+            </par>
+            <par><image src="scr12.png"/></par>
+            <par>
+                It opens a window showing the truth table of the current circuit. Below the table you can find the
+                algebraic expression associated with the circuit. If there are several possible algebraic
+                expressions, a separate window will open showing all possible expressions.
+            </par>
+            <par><image src="scr13.png"/></par>
+            <par>
+                The table dialog has the menu entry <e>K-Map</e> in its main menu. This allows to display the truth
+                table in the form of a K-map.
+            </par>
+            <par><image src="scr14.png"/></par>
+            <par>
+                At the top of this dialog there is a drop-down list which allows the selection of the desired
+                expression in the K-map. In this way you can, for example, illustrate how several equivalent
+                algebraic expressions can result. However, in this example, there is only one minimal expression.
+                By clicking in the K-map the table can be modified.
             </par>
         </subchapter>
         <subchapter name="Wires">

@@ -25,95 +25,106 @@
             </par>
         </subchapter>
         <subchapter name="Erste Schritte">
+            <par><image src="scr00.png"/></par>
             <par>
-                <image src="scr00.png">
-                    Als erstes Beispiel soll eine Schaltung mit einem Exklusiv-Oder Gatter aufgebaut werden.
-                    Im Hauptfenster erlaubt das Menü <e>Bauteile</e>, die verschiedenen Komponenten auszuwählen.
-                    Danach werden diese auf dem Zeichenfeld positioniert. Das Positionieren kann mit der ESC-Taste
-                    jederzeit abgebrochen werden.
-                    Als erstes soll der Schaltung ein Eingang hinzugefügt werden. Dieser lässt sich später interaktiv
-                    mit der Maus steuern.
-                </image>
-                <image src="scr01.png">
-                    Nach der Auswahl kann der erste Eingang auf die Zeichenfläche gesetzt werden.
-                    Der rote Punkt markiert den Leitungsanschluss. Hier wird später eine Verbindungsleitung
-                    angeschlossen. Rot zeigt an, dass dieser Anschluss aktiv ist. Er definiert also einen
-                    Signalwert.
-                </image>
-                <image src="scr02.png">
-                    Auf die gleiche Art und Weise wird ein zweiter Eingang hinzugefügt. Am besten setzt man
-                    ihn direkt unter den ersten Eingang.
-                </image>
-                <image src="scr03.png">
-                    Danach wird das Exklusiv-Oder Gatter ausgewählt. Dieses Gatter stellt die eigentliche
-                    logische Funktion dar.
-                </image>
-                <image src="scr04.png">
-                    Dieses kann nun ebenfalls in die Schaltung eingefügt werden. Am besten setzt man es so,
-                    dass die spätere Verdrahtung möglichst einfach wird. Die blauen Punkte bezeichnen die
-                    Eingänge des Gatters.
-                </image>
-                <image src="scr05.png">
-                    Jetzt wählt man einen Ausgang aus. Dieser kann verwendet werden, um einen Zustand
-                    anzuzeigen oder um später Signale an eine einbettende Schaltung weiterzugeben.
-                </image>
-                <image src="scr06.png">
-                    Auch der Ausgang wird so positioniert, dass die Verdrahtung möglichst einfach wird.
-                    Er hat einen blauen Punkt, verfügt also über einen Eingang.
-                </image>
-                <image src="scr07.png">
-                    Damit sind alle erforderlichen Komponenten vorhanden. Jetzt ist die Verdrahtung zu ergänzen.
-                    Mit der Maus kann direkt eine Verbindungsleitung gezogen werden. Die blauen und roten
-                    Punkte sind miteinander zu verbinden. Es muss dabei immer genau ein roter Punkt mit einer beliebigen
-                    Anzahl blauer Punkte verbunden werden. Nur der Einsatz von Threestate-Ausgängen erlaubt es,
-                    von dieser Regel abzuweichen und mehrere rote Punkte miteinander zu verbinden.
-                </image>
-                <image src="scr08.png">
-                    Nun sind die beiden noch fehlenden Leitungen zu ergänzen. Damit ist eine erste
-                    Schaltung komplett. Verbindungsleitungen werden immer senkrecht oder waagerecht gezogen. Mit der
-                    Taste 'D' kann in den Diagonalmodus gewechselt werden.
-                </image>
-                <image src="scr09.png">
-                    Um mit der Schaltung interagieren zu können, ist die Simulation zu starten. Dazu kann der
-                    Start-Knopf in der Toolbar verwendet werden.
-                    Nach dem Starten der Simulation ändert sich die Farbe der Leitungen und die Ein- und Ausgänge
-                    sind jetzt ausgefüllt. Ein helles Grün markiert eine logische '1' und ein dunkles Grün eine
-                    logische '0'. In obiger Abbildung findet sich auf allen Leitungen eine logische '0'.
-                </image>
-                <image src="scr10.png">
-                    Durch Klicken mit der Maus können die Eingänge umgeschaltet werden. Da die Simulation jetzt
-                    aktiv ist, verändert sich der Ausgang entsprechend der aktuellen Eingangszustände.
-                    Die Schaltung verhält sich wie erwartet wie ein XOR-Gatter.
-                </image>
-                <image src="scr11.png">
-                    Um die Schaltung weiter bearbeiten zu können, muss die Simulation zunächst gestoppt werden.
-                    Dies geschieht am einfachsten mit dem Stopp-Knopf in der ToolBar.
-                    Durch Klicken mit der rechten Maustaste auf eine Komponente öffnet sich ein Dialog, welcher die
-                    Eigenschaften dieser Komponente anzeigt. Für den ersten Eingang kann über diesen Dialog die
-                    Bezeichnung 'A' festgelegt werden.
-                </image>
-                <image src="scr12.png">
-                    Auf diese Weise können die Bezeichnungen für die übrigen Ein- und Ausgänge definiert werden.
-                    Im Hauptmenü im Menü <e>Analyse</e> findet sich der Menüpunkt <e>Analyse</e>. Dieser ermittelt
-                    die Wahrheitstabelle der aktuellen Schaltung.
-                    Diese kann nur ermittelt werden, wenn alle Ein- und Ausgänge mit einer Bezeichnung versehen sind.
-                </image>
-                <image src="scr13.png">
-                    Es öffnet sich ein Fenster, welches die Wahrheitstabelle der aktuellen Schaltung zeigt. Unter der
-                    Tabelle findet sich der algebraische Ausdruck, welcher zu der Schaltung gehört. Gibt es mehrere
-                    mögliche algebraische Ausdrücke, öffnet sich ein separates Fenster, welches alle Ausdrücke
-                    anzeigt.
-                </image>
-                <image src="scr14.png">
-                    Der Tabellendialog hat in seinem Hauptmenü den Menüeintrag <e>KV-Tafel</e>. Über diesen lässt sich die
-                    Wahrheitstabelle in Form einer KV-Tafel anzeigen.
-                </image>
-                <image src="scr15.png">
-                    Oben in diesem Dialog gibt es eine Auswahlbox, über welche der gewünschte Ausdruck in der KV-Tafel
-                    ausgewählt werden kann. Auf diese Weise lässt sich z.B. verdeutlichen, wie sich mehrere äquivalente
-                    algebraische Ausdrücke ergeben können. In diesem Beispiel gibt es jedoch nur einen minimalen Ausdruck.
-                    Durch Klicken in der KV-Tafel lässt sich die Wahrheitstabelle bearbeiten.
-                </image>
+                Als erstes Beispiel soll eine Schaltung mit einem Exklusiv-Oder Gatter aufgebaut werden.
+                Im Hauptfenster erlaubt das Menü <e>Bauteile</e>, die verschiedenen Komponenten auszuwählen.
+                Danach werden diese auf dem Zeichenfeld positioniert. Das Positionieren kann mit der ESC-Taste
+                jederzeit abgebrochen werden.
+                Als erstes soll der Schaltung ein Eingang hinzugefügt werden. Dieser lässt sich später interaktiv
+                mit der Maus steuern.
+            </par>
+            <par><image src="scr01.png"/></par>
+            <par>
+                Nach der Auswahl kann der erste Eingang auf die Zeichenfläche gesetzt werden.
+                Der rote Punkt markiert den Leitungsanschluss. Hier wird später eine Verbindungsleitung
+                angeschlossen. Rot zeigt an, dass dieser Anschluss aktiv ist. Er definiert also einen
+                Signalwert.
+            </par>
+            <par><image src="scr02.png"/></par>
+            <par>
+                Auf die gleiche Art und Weise wird ein zweiter Eingang hinzugefügt. Am besten setzt man
+                ihn direkt unter den ersten Eingang.
+            </par>
+            <par><image src="scr03.png"/></par>
+            <par>
+                Danach wird das Exklusiv-Oder Gatter ausgewählt. Dieses Gatter stellt die eigentliche
+                logische Funktion dar.
+            </par>
+            <par><image src="scr04.png"/></par>
+            <par>
+                Dieses kann nun ebenfalls in die Schaltung eingefügt werden. Am besten setzt man es so,
+                dass die spätere Verdrahtung möglichst einfach wird. Die blauen Punkte bezeichnen die
+                Eingänge des Gatters.
+            </par>
+            <par><image src="scr05.png"/></par>
+            <par>
+                Jetzt wählt man einen Ausgang aus. Dieser kann verwendet werden, um einen Zustand
+                anzuzeigen oder um später Signale an eine einbettende Schaltung weiterzugeben.
+            </par>
+            <par><image src="scr06.png"/></par>
+            <par>
+                Auch der Ausgang wird so positioniert, dass die Verdrahtung möglichst einfach wird.
+                Er hat einen blauen Punkt, verfügt also über einen Eingang.
+            </par>
+            <par><image src="scr07.png"/></par>
+            <par>
+                Damit sind alle erforderlichen Komponenten vorhanden. Jetzt ist die Verdrahtung zu ergänzen.
+                Mit der Maus kann direkt eine Verbindungsleitung gezogen werden. Die blauen und roten
+                Punkte sind miteinander zu verbinden. Es muss dabei immer genau ein roter Punkt mit einer beliebigen
+                Anzahl blauer Punkte verbunden werden. Nur der Einsatz von Threestate-Ausgängen erlaubt es,
+                von dieser Regel abzuweichen und mehrere rote Punkte miteinander zu verbinden.
+                Verbindungsleitungen werden immer senkrecht oder waagerecht gezogen. Mit der
+                Taste 'D' kann in den Diagonalmodus gewechselt werden.
+                Sind alle noch fehlenden Leitungen ergänzt, ist eine erste Schaltung komplett.
+            </par>
+            <par><image src="scr08.png"/></par>
+            <par>
+                Um mit der Schaltung interagieren zu können, ist die Simulation zu starten. Dazu kann der
+                Start-Knopf in der Toolbar verwendet werden.
+                Nach dem Starten der Simulation ändert sich die Farbe der Leitungen und die Ein- und Ausgänge
+                sind jetzt ausgefüllt. Ein helles Grün markiert eine logische '1' und ein dunkles Grün eine
+                logische '0'. In obiger Abbildung findet sich auf allen Leitungen eine logische '0'.
+            </par>
+            <par><image src="scr09.png"/></par>
+            <par>
+                Durch Klicken mit der Maus können die Eingänge umgeschaltet werden. Da die Simulation jetzt
+                aktiv ist, verändert sich der Ausgang entsprechend der aktuellen Eingangszustände.
+                Die Schaltung verhält sich wie erwartet wie ein XOR-Gatter.
+            </par>
+            <par><image src="scr10.png"/></par>
+            <par>
+                Um die Schaltung weiter bearbeiten zu können, muss die Simulation zunächst gestoppt werden.
+                Dies geschieht am einfachsten mit dem Stopp-Knopf in der ToolBar.
+                Durch Klicken mit der rechten Maustaste auf eine Komponente öffnet sich ein Dialog, welcher die
+                Eigenschaften dieser Komponente anzeigt. Für den ersten Eingang kann über diesen Dialog die
+                Bezeichnung 'A' festgelegt werden.
+            </par>
+            <par><image src="scr11.png"/></par>
+            <par>
+                Auf diese Weise können die Bezeichnungen für die übrigen Ein- und Ausgänge definiert werden.
+                Im Hauptmenü im Menü <e>Analyse</e> findet sich der Menüpunkt <e>Analyse</e>. Dieser ermittelt
+                die Wahrheitstabelle der aktuellen Schaltung.
+                Diese kann nur ermittelt werden, wenn alle Ein- und Ausgänge mit einer Bezeichnung versehen sind.
+            </par>
+            <par><image src="scr12.png"/></par>
+            <par>
+                Es öffnet sich ein Fenster, welches die Wahrheitstabelle der aktuellen Schaltung zeigt. Unter der
+                Tabelle findet sich der algebraische Ausdruck, welcher zu der Schaltung gehört. Gibt es mehrere
+                mögliche algebraische Ausdrücke, öffnet sich ein separates Fenster, welches alle Ausdrücke
+                anzeigt.
+            </par>
+            <par><image src="scr13.png"/></par>
+            <par>
+                Der Tabellendialog hat in seinem Hauptmenü den Menüeintrag <e>KV-Tafel</e>. Über diesen lässt sich die
+                Wahrheitstabelle in Form einer KV-Tafel anzeigen.
+            </par>
+            <par><image src="scr14.png"/></par>
+            <par>
+                Oben in diesem Dialog gibt es eine Auswahlbox, über welche der gewünschte Ausdruck in der KV-Tafel
+                ausgewählt werden kann. Auf diese Weise lässt sich z.B. verdeutlichen, wie sich mehrere äquivalente
+                algebraische Ausdrücke ergeben können. In diesem Beispiel gibt es jedoch nur einen minimalen Ausdruck.
+                Durch Klicken in der KV-Tafel lässt sich die Wahrheitstabelle bearbeiten.
             </par>
         </subchapter>
         <subchapter name="Verbindungsleitungen">

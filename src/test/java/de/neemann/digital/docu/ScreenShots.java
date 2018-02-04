@@ -168,7 +168,6 @@ public class ScreenShots {
                 // wires
                 .add(new ClickAtCircuit(x, y - SIZE, InputEvent.BUTTON1_MASK))
                 .add(new ClickAtCircuit(x + SIZE * 2, y - SIZE, InputEvent.BUTTON1_MASK))
-                .add(new ScreenShot<>(Main.class))
                 .add(new ClickAtCircuit(x, y + SIZE, InputEvent.BUTTON1_MASK))
                 .add(new ClickAtCircuit(x + SIZE * 2, y + SIZE, InputEvent.BUTTON1_MASK))
                 .add(new ClickAtCircuit(x + SIZE * 5, y, InputEvent.BUTTON1_MASK))
