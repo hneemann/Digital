@@ -49,13 +49,13 @@
             </par>
             <par><image src="scr04.png"/></par>
             <par>
-                    This gate can now also be inserted in the circuit. It is best to set it in a way that the subsequent
-                    wiring is as simple as possible. The blue dots indicate the inputs of the gate.
+                This gate can now also be inserted in the circuit. It is best to set it in a way that the subsequent
+                wiring is as simple as possible. The blue dots indicate the inputs of the gate.
             </par>
             <par><image src="scr05.png"/></par>
             <par>
-                    Now select an output. This can be used to indicate a signal state or to later pass signals to
-                    an embedding circuit.
+                Now select an output. This can be used to indicate a signal state or to later pass signals to
+                an embedding circuit.
             </par>
             <par><image src="scr06.png"/></par>
             <par>
@@ -240,7 +240,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Circuit analysis and synthesis">
+    <chapter name="Circuit Analysis and Synthesis">
         <par>
             A circuit can be analyzed via the menu entry <e>Analysis</e>. A truth table is generated for purely
             combinatorial circuits. This truth table can be edited as desired.
@@ -358,9 +358,6 @@
                 the board clock accordingly.
                 If the clock frequency selected in the circuit exceeds 37kHz, the MMCM unit of the
                 Artix-7 is used for clock generation.
-                <!--Therefore, if a circuit which depends on a synchronous clock
-                distribution like a processor is exported to VHDL, the circuit clock frequency should be set to a value
-                above 37kHz.-->
                 This ensures that the FPGA resources provided for the clock distribution are used.
                 This allows the included example processor to run at 20MHz and if you can do without the
                 multiplier also 30HMz is possible.
