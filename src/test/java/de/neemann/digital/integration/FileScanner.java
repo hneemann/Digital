@@ -65,8 +65,8 @@ public class FileScanner {
                                 System.out.println();
                                 pos = 0;
                             }
-                            System.out.print(name + ", ");
-                            pos += 2 + name.length();
+                            System.out.print(name);
+                            pos += name.length();
                         }
                         try {
                             test.check(f);
@@ -74,6 +74,10 @@ public class FileScanner {
                             throw e;
                         } catch (Throwable e) {
                             errors.add(new Error(f, e));
+                        }
+                        if (output) {
+                            System.out.print(", ");
+                            pos += 2;
                         }
                         count++;
                     }
