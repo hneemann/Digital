@@ -465,7 +465,7 @@
         </faq>
         <faq>
             <question>Ich habe eine Wahrheitstabelle eingegeben, es wird jedoch mehr als eine Schaltfunktion für
-                das gesuchte Signal angezeigt. Welche ist die richtige?
+                das gesuchte Signal angezeigt. Welche ist richtig?
             </question>
             <answer>Wenn eine Schaltfunktion minimiert wird, kann es mehrere minimierte Schaltfunktionen gleicher
                 Komplexität geben (gleiche Anzahl von Termen).
