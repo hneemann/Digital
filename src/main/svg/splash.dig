@@ -170,16 +170,6 @@ auftritt..</string>
       </elementAttributes>
       <pos x="60" y="0"/>
     </visualElement>
-    <visualElement>
-      <elementName>Text</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>(c) by H. Neemann</string>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="340"/>
-    </visualElement>
   </visualElements>
   <wires>
     <wire>
