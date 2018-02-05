@@ -327,7 +327,7 @@ public class TestInGUI extends TestCase {
                 .press("control typed c")
                 .press("F10")
                 .press("RIGHT", 2)
-                .press("DOWN", 9)
+                .press("DOWN", 10)
                 .press("ENTER")
                 .delay(500)
                 .press("F8")

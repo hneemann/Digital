@@ -1203,6 +1203,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_exportZIP">Export tos ZIP file</string>
     <string name="menu_exportZIP_tt">Exports the circuit as a ZIP file.
         The ZIP file thus contains all the files that are necessary for the operation of the circuit.</string>
+    <string name="menu_labelPins">Label Inputs and Outputs</string>
+    <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
 
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.

@@ -701,6 +701,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_insertAsNew_tt"));
 
+        ToolTipAction labelPins = new ToolTipAction(Lang.get("menu_labelPins")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.labelPins();
+                ensureModelIsStopped();
+            }
+        }.setToolTip(Lang.get("menu_labelPins_tt"));
+
         edit.add(circuitComponent.getUndoAction().createJMenuItemNoIcon());
         edit.add(circuitComponent.getRedoAction().createJMenuItemNoIcon());
         edit.addSeparator();
@@ -708,6 +716,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         edit.add(actualToDefault.createJMenuItem());
         edit.add(restoreAllFuses.createJMenuItem());
         edit.add(createSpecialEditMenu());
+        edit.add(labelPins.createJMenuItem());
         edit.addSeparator();
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
