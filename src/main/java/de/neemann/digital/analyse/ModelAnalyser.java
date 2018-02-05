@@ -357,11 +357,6 @@ public class ModelAnalyser {
         for (Signal s : inputs)
             tt.addVariable(s.getName());
 
-        for (Signal s : inputs)
-            getModelAnalyzerInfo().addPinNumber(s);
-        for (Signal s : outputs)
-            getModelAnalyzerInfo().addPinNumber(s);
-
         CycleDetector.checkForCycles(inputs);
 
         DependencyAnalyser da = new DependencyAnalyser(this);

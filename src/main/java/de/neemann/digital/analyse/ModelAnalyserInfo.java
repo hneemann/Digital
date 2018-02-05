@@ -1,7 +1,6 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Signal;
 
 import java.util.ArrayList;
@@ -13,9 +12,9 @@ import java.util.TreeMap;
  */
 public class ModelAnalyserInfo {
     private final String clockPin;
-    private final TreeMap<String, String> pins;
     private final HashMap<String, ArrayList<String>> inputBusMap;
     private final HashMap<String, ArrayList<String>> outputBusMap;
+    private TreeMap<String, String> pins;
     private ArrayList<Signal> inputs;
     private ArrayList<Signal> outputs;
     private ArrayList<String> pinsWithoutNumber;
@@ -26,8 +25,6 @@ public class ModelAnalyserInfo {
      * @param model the model used
      */
     ModelAnalyserInfo(Model model) {
-        pins = new TreeMap<>();
-
         if (model.getClocks().size() == 1)
             clockPin = model.getClocks().get(0).getClockPin();
         else
@@ -38,26 +35,27 @@ public class ModelAnalyserInfo {
     }
 
     void setInOut(ArrayList<Signal> inputs, ArrayList<Signal> outputs) {
-        this.inputs = inputs;
-        this.outputs = outputs;
-    }
-
-    /**
-     * Adds the signals pin number to the table
-     *
-     * @param s the signal
-     * @throws NodeException NodeException
-     */
-    public void addPinNumber(Signal s) throws NodeException {
-        String p = s.getPinNumber();
-        if (p != null && p.length() > 0) pins.put(s.getName(), p);
+        this.inputs = new ArrayList<>(inputs);
+        this.outputs = new ArrayList<>(outputs);
     }
 
     /**
      * @return the assigned pins
      */
     public TreeMap<String, String> getPins() {
+        if (pins == null) {
+            pins = new TreeMap<>();
+            for (Signal s : this.inputs)
+                addPinNumber(s);
+            for (Signal s : this.outputs)
+                addPinNumber(s);
+        }
         return pins;
+    }
+
+    private void addPinNumber(Signal s) {
+        String p = s.getPinNumber();
+        if (p != null && p.length() > 0) pins.put(s.getName(), p);
     }
 
     /**

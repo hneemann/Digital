@@ -222,8 +222,8 @@ public class TestInGUI extends TestCase {
                 .press("F1")
                 .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 136, 100, new Color(255, 127, 127)))
                 .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 266, 100, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 266, 310, new Color(255, 127, 127)))
-                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 136, 310, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 266, 305, new Color(255, 127, 127)))
+                .add(new GuiTester.ColorPicker(KarnaughMapComponent.class, 136, 305, new Color(255, 127, 127)))
 //                .add(new GuiTester.ColorPickerCreator())
 //                .ask("Are the edges covered in the k-map?")
                 .add(new GuiTester.CloseTopMost())
@@ -350,8 +350,12 @@ public class TestInGUI extends TestCase {
     }
 
     public void testHardware() {
-        new GuiTester("dig/manualError/10_hardware.dig")
+        new GuiTester("dig/manualError/16_hardware.dig")
                 .press("F9")
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(Window.class, (gt, w) -> {
+                    if (w instanceof AllSolutionsDialog) w.getParent().requestFocus();
+                }))
                 .delay(500)
                 .press("F10")
                 .press("RIGHT", 4)
@@ -502,7 +506,7 @@ public class TestInGUI extends TestCase {
 
 
     public void test74xxFunctions() {
-        new GuiTester("dig/manualError/10_hardware.dig")
+        new GuiTester("dig/manualError/10_74xx.dig")
                 .press("F10")
                 .press("RIGHT", 2)
                 .press("DOWN", 4)
