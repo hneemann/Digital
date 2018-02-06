@@ -9,6 +9,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="102.91458mm"
@@ -29,12 +30,34 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs613" />
+     id="defs613">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient948">
+      <stop
+         style="stop-color:#e6e6e6;stop-opacity:1"
+         offset="0"
+         id="stop944" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.98076922"
+         offset="1"
+         id="stop946" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient948"
+       id="linearGradient952"
+       gradientUnits="userSpaceOnUse"
+       x1="676.14581"
+       y1="324.44778"
+       x2="125.93116"
+       y2="30.914618" />
+  </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -48,7 +71,7 @@
      inkscape:window-height="1002"
      id="namedview611"
      showgrid="false"
-     inkscape:zoom="2.6531712"
+     inkscape:zoom="2.6480294"
      inkscape:cx="194.48425"
      inkscape:cy="121.82282"
      inkscape:window-x="0"
@@ -62,7 +85,7 @@
      fit-margin-bottom="-2.7755576e-17"
      fit-margin-top="0" />
   <rect
-     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;vector-effect:none;fill:#fffffb;fill-opacity:1;fill-rule:nonzero;stroke:#000400;stroke-width:1.76388896;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;enable-background:accumulate"
+     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;vector-effect:none;fill:url(#linearGradient952);fill-opacity:1;fill-rule:nonzero;stroke:#000400;stroke-width:1.76388896;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;enable-background:accumulate"
      id="rect125"
      width="686.09723"
      height="429.76385"
@@ -717,10 +740,10 @@
        id="text603"
        style="font-size:24px;text-anchor:start;fill:#000000"
        y="358"
-       x="480">
+       x="451.77783">
       <tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic'"
-         id="tspan127">(c) by H. Neemann</tspan>
+         id="tspan127">© 2018 H. Neemann</tspan>
     </text>
   </g>
 </svg>
