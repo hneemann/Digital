@@ -56,22 +56,26 @@ public class CycleDetectorTest extends TestCase {
             "Xor3.dig"};
 
 
-    public void testCircles() throws Exception {
+    public void testCycles() throws Exception {
         for (String name : nameTableSequential) {
             Model model = new ToBreakRunner("../../main/dig/sequential/" + name, false).getModel();
             try {
                 new ModelAnalyser(model).analyse();
-                fail();
+                fail("in " + name + " cycle detection failes!");
             } catch (CycleDetector.CycleException e) {
                 assertTrue(true);
             }
         }
     }
 
-    public void testCirclesOk() throws Exception {
+    public void testCyclesOk() throws Exception {
         for (String name : nameTableCombinatorial) {
-            Model model = new ToBreakRunner("../../main/dig/combinatorial/" + name, false).getModel();
-            new ModelAnalyser(model).analyse();
+            try {
+                Model model = new ToBreakRunner("../../main/dig/combinatorial/" + name, false).getModel();
+                new ModelAnalyser(model).analyse();
+            } catch (CycleDetector.CycleException e) {
+                fail("cycle detected in " + name);
+            }
         }
     }
 

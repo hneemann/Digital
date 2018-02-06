@@ -808,7 +808,8 @@ The names of the variables may not be unique.</string>
     <string name="err_errorExportingZip">Error writing the zip file.</string>
     <string name="err_moreThanOneFastClock">Only one clock component with high frequency is allowed.</string>
     <string name="err_circuitHasCycles">The circuit contains cycles. It's not possible to analyze such a circuit.
-        Cycles arise if an output of a gate is fed back to one of the inputs of the same gate.</string>
+        Cycles arise if an output of a gate is fed back to one of the inputs of the same gate.
+        The use of switches, FETs or relays also causes cycles.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

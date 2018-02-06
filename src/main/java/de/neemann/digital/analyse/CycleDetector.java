@@ -1,6 +1,8 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.switching.Switch;
+import de.neemann.digital.core.wiring.bus.CommonBusValue;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 
@@ -20,13 +22,13 @@ public final class CycleDetector {
     }
 
     /**
-     * Checks a circuit for circles.
-     * If a circle is detected, en exception is thrown.
+     * Checks a circuit for cycles
+     * If a cycle is detected, en exception is thrown.
      *
      * @param values the input signals of the circuit
      * @throws BacktrackException BacktrackException
      * @throws PinException       PinException
-     * @throws CycleException    is thrown if a circle is detected
+     * @throws CycleException     is thrown if a cycle is detected
      */
     public static void checkForCycles(ArrayList<Signal> values) throws BacktrackException, PinException, CycleException {
         HashMap<NodeInterface, Node> nodes = new HashMap<>();
@@ -37,6 +39,10 @@ public final class CycleDetector {
             root.layer = 1;
             traverse(root, s.getValue(), nodes, visited);
         }
+
+        // Turned of for now because if it is used you can build circuits with a state
+        // which are not detected as such.
+        //removeSwitchCycles(nodes.values());
 
         checkGraphForCycles(nodes.values());
     }
@@ -79,6 +85,21 @@ public final class CycleDetector {
         public String toString() {
             return ni.toString();
         }
+    }
+
+    /**
+     * Calling this method allows analysis of nmos/cmos circuits because switch cycles are removed.
+     * But if this method is called, a cycle which contains a switch in the fed back is not
+     * detected anymore.
+     *
+     * @param nodes the node to analyse
+     */
+    private static void removeSwitchCycles(Collection<Node> nodes) {
+        for (Node n : nodes)
+            if (n.ni instanceof CommonBusValue)
+                for (Node p : n.parents)
+                    if (p.ni instanceof Switch)
+                        p.parents.removeIf(node -> node == n);
     }
 
     private static void checkGraphForCycles(Collection<Node> nodes) throws CycleException {
