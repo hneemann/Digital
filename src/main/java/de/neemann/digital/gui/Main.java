@@ -85,7 +85,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * @return true if experimental features are enabled
      */
-    public static boolean enableExperimental() {
+    public static boolean isExperimentalMode() {
         return experimental;
     }
 
@@ -508,7 +508,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         export.add(new ExportAction(Lang.get("menu_exportPNGSmall"), "png", (out) -> new GraphicsImage(out, "PNG", 1)));
         export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out) -> new GraphicsImage(out, "PNG", 2)));
 
-        if (enableExperimental())
+        if (isExperimentalMode())
             export.add(new ExportGifAction(Lang.get("menu_exportAnimatedGIF")));
 
         export.add(new ExportZipAction(this).createJMenuItem());

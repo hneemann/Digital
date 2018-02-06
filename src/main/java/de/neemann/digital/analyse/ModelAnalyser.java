@@ -13,6 +13,7 @@ import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -357,7 +358,8 @@ public class ModelAnalyser {
         for (Signal s : inputs)
             tt.addVariable(s.getName());
 
-        CycleDetector.checkForCycles(inputs);
+        if (!Main.isExperimentalMode())
+            CycleDetector.checkForCycles(inputs);
 
         DependencyAnalyser da = new DependencyAnalyser(this);
         long steps = da.getRequiredSteps(this);

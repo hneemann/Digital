@@ -155,7 +155,7 @@ public class TableDialog extends JDialog {
         sizeMenu.add(sequential);
         for (int i = 2; i <= 8; i++)
             sequential.add(new JMenuItem(new SizeSequentialAction(i)));
-        if (Main.enableExperimental()) {
+        if (Main.isExperimentalMode()) {
             JMenu sequentialBiDir = new JMenu(Lang.get("menu_table_new_sequential_bidir"));
             sizeMenu.add(sequentialBiDir);
             for (int i = 2; i <= 8; i++)
@@ -408,7 +408,7 @@ public class TableDialog extends JDialog {
             }
         }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
 
-        if (Main.enableExperimental()) {
+        if (Main.isExperimentalMode()) {
             createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAndTwo")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {

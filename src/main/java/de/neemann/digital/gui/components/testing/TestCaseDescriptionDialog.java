@@ -68,7 +68,7 @@ public class TestCaseDescriptionDialog extends JDialog {
             }
         }.createJButton());
 
-        if (Main.enableExperimental()) {
+        if (Main.isExperimentalMode()) {
             buttons.add(new ToolTipAction(Lang.get("btn_addTransitions")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
