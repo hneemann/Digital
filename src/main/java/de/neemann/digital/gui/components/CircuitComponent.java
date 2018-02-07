@@ -1,34 +1,31 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.*;
-import de.neemann.digital.core.io.In;
-import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.draw.elements.*;
-import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.shapes.InputShape;
-import de.neemann.digital.gui.Settings;
-import de.neemann.digital.gui.components.modification.*;
-import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.library.LibraryListener;
-import de.neemann.digital.draw.library.LibraryNode;
-import de.neemann.digital.draw.shapes.Drawable;
-import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.Main;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
-import de.neemann.digital.lang.Lang;
-import de.neemann.gui.*;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
@@ -36,12 +33,73 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
+import javax.swing.Icon;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.ImmutableList;
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.Movable;
+import de.neemann.digital.draw.elements.Pin;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.elements.Wire;
+import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.GraphicMinMax;
+import de.neemann.digital.draw.graphics.GraphicSwing;
+import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.LibraryListener;
+import de.neemann.digital.draw.library.LibraryNode;
+import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.draw.shapes.InputShape;
+import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.Settings;
+import de.neemann.digital.gui.components.graphics.svgimport.PreviewComponent;
+import de.neemann.digital.gui.components.modification.Modification;
+import de.neemann.digital.gui.components.modification.Modifications;
+import de.neemann.digital.gui.components.modification.ModifyAttribute;
+import de.neemann.digital.gui.components.modification.ModifyAttributes;
+import de.neemann.digital.gui.components.modification.ModifyCircuitAttributes;
+import de.neemann.digital.gui.components.modification.ModifyDeleteElement;
+import de.neemann.digital.gui.components.modification.ModifyDeleteRect;
+import de.neemann.digital.gui.components.modification.ModifyDeleteWire;
+import de.neemann.digital.gui.components.modification.ModifyInsertElement;
+import de.neemann.digital.gui.components.modification.ModifyInsertWire;
+import de.neemann.digital.gui.components.modification.ModifyMoveAndRotElement;
+import de.neemann.digital.gui.components.modification.ModifyMoveSelected;
+import de.neemann.digital.gui.components.modification.ModifyMoveWire;
+import de.neemann.digital.gui.components.modification.ModifySplitWire;
+import de.neemann.digital.gui.sync.NoSync;
+import de.neemann.digital.gui.sync.Sync;
+import de.neemann.digital.lang.Lang;
+import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.IconCreator;
+import de.neemann.gui.LineBreaker;
+import de.neemann.gui.Screen;
+import de.neemann.gui.ToolTipAction;
 
 /**
  * Component which shows the circuit.
@@ -979,6 +1037,27 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                                     .openLater();
                         }
                     }.setToolTip(Lang.get("attr_openCircuit_tt")));
+                    
+                    /**
+                     * Change graphic of the circuit 
+                     * @author felix
+                     */
+                    
+                    PreviewComponent prev=new PreviewComponent();
+                   attributeDialog.add(prev, BorderLayout.NORTH);
+                    attributeDialog.addButton("Grafik (constStr)", new ToolTipAction("Ändern (constStr)") {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                        	JFileChooser chooser = new JFileChooser();
+                        	chooser.setFileFilter(new FileNameExtensionFilter("Scalable Vector Graphics", "svg"));
+                            int action = chooser.showOpenDialog(CircuitComponent.this);
+                  
+                            if(action==JFileChooser.APPROVE_OPTION)
+                            {
+                            	prev.getInputFile(chooser.getSelectedFile());
+                            }
+                        }
+                    }.setToolTip("Need to be replaced"));
                 }
                 attributeDialog.addButton(new ToolTipAction(Lang.get("attr_help")) {
                     @Override

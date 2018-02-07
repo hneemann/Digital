@@ -10,26 +10,22 @@ public class SVGGraphics implements Graphic{
 
 	@Override
 	public void drawLine(Vector p1, Vector p2, Style style) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Draw line from "+p1+" to "+p2);
 	}
 
 	@Override
 	public void drawPolygon(Polygon p, Style style) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Draw "+p);
 	}
 
 	@Override
 	public void drawCircle(Vector p1, Vector p2, Style style) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Draw Circle between "+p1+" and "+p2);
 	}
 
 	@Override
 	public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Draw Text "+text);
 	}
 
 }
