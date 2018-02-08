@@ -3,26 +3,24 @@
     <chapter name="Digital">
         <subchapter name="Introduction">
             <par>
-                Digital is a simple simulator used to simulate digital circuits. The single logic gates are connected
-                to each other by wires and the behaviour of the whole circuit is simulated.
-                The user is able to interact with the circuit while it is running by pressing buttons or setting values
-                to the inputs of the circuit.
+                Digital is a simulator for digital circuits. A circuit consists of one or more number of logic gates connected 
+                to each other using lines whereas the behavior of the overall circuit can be simulated. The user can interact with 
+                the simulation by either pressing a Buttons or setting input values.
             </par>
             <par>
-                In this way you can build and simulate most of the fundamental circuits used in digital electronics.
-                In the folder <e>examples</e> you can find many examples including a working 16 bit single cycle harvard
-                processor.
+                In this way, most of the basic circuits used in digital electronics can be built and simulated. In the folder
+                <e> examples </e>, users can browse for examples that includes a functional 16-bit single-cycle Harvard processor.
             </par>
             <par>
-                The simulator has two modes of operation: In the editing mode it is possible to modify the circuit.
-                You can add components or connect components by wires. The simulation is not active in this mode.
-                The simulation mode is activated by pressing the <e>Start</e> button in the tool bar.
-                While starting the simulation the circuit
-                is checked for consistency. If the are errors in the circuit an error message is shown. If possible
-                the affected components or wires are highlighted. If there are no errors, the simulation is activated.
-                Now you can interact with the running simulation.
-                In the simulation mode it is not possible to modify the circuit. To do so you have to activate the
-                editing mode again by stopping the simulation.
+                The simulator has two modes of operation: Editing and Simulation mode. 
+                
+                In the editing mode, modification of circuit can be performed in this mode. Users can add or connect components. 
+                In this mode, simulation is disabled.
+                
+                To enable simulation mode, users should press the <e>Start</e> button in the tool bar. Before the simulation is enabled, 
+                simulated circuit is checked with errors. An error message apppears stating that the simulated circuit has errors. 
+                If simulated circuit is free from errors, users can now interact with the running simulation. To continue editing 
+                the circuit, users must first stop the simulation.
             </par>
         </subchapter>
         <subchapter name="First Steps">
