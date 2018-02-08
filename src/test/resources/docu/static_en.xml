@@ -26,12 +26,13 @@
         <subchapter name="First Steps">
             <par><image src="scr00.png"/></par>
             <par>
-                As a first example, we want to build a circuit with an Exclusive-Or gate.
-                In the main window, the various components can be selected from the menu <e>Components</e>.
-                Then they are placed on the drawing panel. This process can be aborted with the ESC key
-                at any time.
-                At first select an input component.
-                This can later be controlled interactively with the mouse.
+                As a first example, a circuit is to be constructed with an exclusive OR gate.
+                From the main window, the <e> Components </e> menu allows you to select the various components. This components,
+                if enabled or selected, it can be placed in the drawing panel. This process can be cancelled by pressing 
+                ESC key at any time.
+                
+                Start by selecting input to be added to the circuit. Input values can be change interactively 
+                by using a mouse later on.
             <par><image src="scr01.png"/></par>
             <par>
                 After selection, the first input can be placed on the drawing surface. The red dot marks the wire
