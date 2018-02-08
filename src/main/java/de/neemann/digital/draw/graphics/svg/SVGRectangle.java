@@ -17,19 +17,20 @@ public class SVGRectangle implements SVGFragment {
 
 	public SVGRectangle(Element element) throws NoParsableSVGException {
 		try {
-			width = (int)Double.parseDouble(element.getAttribute("width"));
-			height = (int)Double.parseDouble(element.getAttribute("height"));
-			x = (int)Double.parseDouble(element.getAttribute("x"));
-			y = (int)Double.parseDouble(element.getAttribute("y"));
+			width = (int) Double.parseDouble(element.getAttribute("width"));
+			height = (int) Double.parseDouble(element.getAttribute("height"));
+			x = (int) Double.parseDouble(element.getAttribute("x"));
+			y = (int) Double.parseDouble(element.getAttribute("y"));
 			if (!element.getAttribute("rx").isEmpty())
-				rx = (int)Double.parseDouble(element.getAttribute("rx"));
+				rx = (int) Double.parseDouble(element.getAttribute("rx"));
 			if (!element.getAttribute("ry").isEmpty())
-				ry = (int)Double.parseDouble(element.getAttribute("ry"));
-			style=new SVGStyle(element.getAttribute("style"));
+				ry = (int) Double.parseDouble(element.getAttribute("ry"));
+			style = new SVGStyle(element.getAttribute("style"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new NoParsableSVGException();
 		}
+
 	}
 
 	/**
@@ -57,7 +58,7 @@ public class SVGRectangle implements SVGFragment {
 			corners.add(new Vector(x + width, y + height));
 			corners.add(new Vector(x, y + height));
 		}
-		return new SVGPolygon(corners,style);
+		return new SVGPolygon(corners, style);
 	}
 
 	@Override

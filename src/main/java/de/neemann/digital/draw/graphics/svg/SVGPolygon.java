@@ -6,7 +6,6 @@ import org.w3c.dom.Element;
 
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 public class SVGPolygon implements SVGFragment, Drawable {
@@ -33,7 +32,10 @@ public class SVGPolygon implements SVGFragment, Drawable {
 	}
 
 	@Override
-	public void draw(Graphic graphic) {
+	public void draw(Graphic graphic, Vector pos) {
+		for (int i=0;i<corners.size();i++) {
+			corners.set(i, corners.get(i).add(pos));
+		}
 		Polygon p = new Polygon(corners, true);
 		if (style.getShallFilled()) {
 			graphic.drawPolygon(p, style.getInnerStyle());

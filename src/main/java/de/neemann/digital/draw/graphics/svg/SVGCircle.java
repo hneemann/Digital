@@ -2,9 +2,7 @@ package de.neemann.digital.draw.graphics.svg;
 
 import org.w3c.dom.Element;
 
-import de.neemann.digital.draw.graphics.Graphic;
-
-public class SVGCircle implements SVGFragment, Drawable {
+public class SVGCircle implements SVGFragment {
 
 	public SVGCircle(Element element) {
 		System.out.println("Kreis");
@@ -16,9 +14,4 @@ public class SVGCircle implements SVGFragment, Drawable {
 		return null;
 	}
 
-	@Override
-	public void draw(Graphic graphic) {
-		// TODO Auto-generated method stub
-		
-	}
 }

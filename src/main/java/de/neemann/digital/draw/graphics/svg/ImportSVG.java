@@ -14,6 +14,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.gui.components.graphics.svgimport.CustomVisualElement;
+
 public class ImportSVG {
 
 	private String[] possibleRoots = { "g", "a", "path", "circle", "ellipse", "rect", "line", "polyline", "polygon",
@@ -67,7 +70,8 @@ public class ImportSVG {
 		throw new NoSuchSVGElementException();
 	}
 	
-	public ArrayList<SVGFragment> getFragments(){
-		return fragments;
+	public VisualElement getElement(VisualElement proto) {
+		VisualElement element = new CustomVisualElement(proto, fragments);
+		return element;
 	}
 }
