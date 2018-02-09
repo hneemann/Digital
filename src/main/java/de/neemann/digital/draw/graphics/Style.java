@@ -24,53 +24,58 @@ public final class Style {
     /**
      * used for all lines to draw the shapes itself
      */
-    public static final Style NORMAL = new Style(LINETHICK, false, Color.BLACK);
+    public static final Style NORMAL = new Builder().build();
     /**
-     * used for all lines to draw the failed state
+     * used to draw the failed state lines in the measurement graph
      */
-    public static final Style FAILED = new Style(LINETHICK, false, Color.RED);
+    public static final Style FAILED = new Builder(NORMAL).setColor(Color.RED).build();
     /**
-     * used for all lines to draw the passed state
+     * used to draw the passed state lines in the measurement graph
      */
-    public static final Style PASS = new Style(LINETHICK, false, Color.GREEN);
+    public static final Style PASS = new Builder(NORMAL).setColor(Color.GREEN).build();
     /**
      * Used for text which is integral part of the shape.
      * Text which uses this style is always included in sizing!
      * Used for text only elements.
      */
-    public static final Style NORMAL_TEXT = new Style(LINETHICK, false, Color.BLACK, 24, null, true);
+    public static final Style NORMAL_TEXT = new Builder(NORMAL).setMattersForSize(true).build();
     /**
      * thin line used for the graphic in the clock or delay shape
      */
-    public static final Style THIN = new Style(LINETHIN, false, Color.BLACK);
+    public static final Style THIN = new Builder(NORMAL).setThickness(LINETHIN).build();
     /**
      * thin filled
      */
-    public static final Style THIN_FILLED = new Style(LINETHIN, true, Color.BLACK);
+    public static final Style THIN_FILLED = new Builder(NORMAL).setThickness(LINETHIN).setFilled(true).build();
     /**
      * thick line used for the ground line
      */
-    public static final Style THICK = new Style(LINETHICK + LINETHIN, false, Color.BLACK);
+    public static final Style THICK = new Builder(NORMAL).setThickness(LINETHICK + LINETHIN).build();
     /**
      * Used for wires in editing mode
      */
-    public static final Style WIRE = new Style(WIRETHICK, true, Color.BLUE.darker());
+    public static final Style WIRE = new Builder()
+            .setThickness(WIRETHICK)
+            .setFilled(true)
+            .setColor(Color.BLUE.darker())
+            .setEndCap(BasicStroke.CAP_ROUND)
+            .build();
     /**
      * Used for low wires in running mode
      */
-    public static final Style WIRE_LOW = new Style(WIRETHICK, true, new Color(0, 142, 0));
+    public static final Style WIRE_LOW = new Builder(WIRE).setColor(new Color(0, 142, 0)).build();
     /**
      * Used for high wires in running mode
      */
-    public static final Style WIRE_HIGH = new Style(WIRETHICK, true, new Color(102, 255, 102));
+    public static final Style WIRE_HIGH = new Builder(WIRE).setColor(new Color(102, 255, 102)).build();
     /**
      * Used for wires in high Z state
      */
-    public static final Style WIRE_HIGHZ = new Style(WIRETHICK, true, Color.GRAY);
+    public static final Style WIRE_HIGHZ = new Builder(WIRE).setColor(Color.GRAY).build();
     /**
      * used to draw the output dots
      */
-    public static final Style WIRE_OUT = new Style(LINETHICK, true, Color.RED.darker());
+    public static final Style WIRE_OUT = new Builder(WIRE).setColor(Color.RED.darker()).build();
 
     /**
      * used to draw the bus wires
@@ -80,80 +85,74 @@ public final class Style {
     /**
      * Filled style used to fill the splitter or the dark LEDs
      */
-    public static final Style FILLED = new Style(LINETHICK, true, Color.BLACK);
+    public static final Style FILLED = new Builder().setFilled(true).build();
     /**
      * Used to draw the grid in the graph
      */
-    public static final Style DASH = new Style(LINEDASH, false, Color.BLACK, new float[]{4, 4});
+    public static final Style DASH = new Builder()
+            .setThickness(LINEDASH)
+            .setDash(new float[]{4, 4})
+            .build();
     /**
      * Used to draw the pin description text
      */
-    public static final Style SHAPE_PIN = new Style(LINETHIN, false, Color.GRAY, 18, null, false);
+    public static final Style SHAPE_PIN = new Builder()
+            .setThickness(LINETHIN)
+            .setColor(Color.GRAY)
+            .setFontSize(18)
+            .build();
     /**
      * Used to draw the pin description text for splitters
      */
-    public static final Style SHAPE_SPLITTER = new Style(LINETHIN, false, Color.GRAY, 12, null, false);
+    public static final Style SHAPE_SPLITTER = new Builder(SHAPE_PIN).setFontSize(12).build();
     /**
      * Used to draw the pin description text
      */
-    public static final Style WIRE_VALUE = new Style(LINETHICK, false, new Color(50, 162, 50), 12, null, false);
+    public static final Style WIRE_VALUE = new Builder(SHAPE_SPLITTER)
+            .setColor(new Color(50, 162, 50))
+            .build();
     /**
      * Used to draw the wire bit number
      */
-    public static final Style WIRE_BITS = new Style(LINETHIN, false, WIRE.color, 12, null, false);
+    public static final Style WIRE_BITS = new Builder(SHAPE_SPLITTER)
+            .setColor(WIRE.color)
+            .build();
     /**
      * highlight color used for the circles to mark an element
      */
-    public static final Style HIGHLIGHT = new Style(WIRETHICK, false, Color.CYAN);
+    public static final Style HIGHLIGHT = new Builder(NORMAL)
+            .setColor(Color.CYAN)
+            .setEndCap(BasicStroke.CAP_ROUND)
+            .build();
 
     /**
      * error color used for the circles to mark an element
      */
-    public static final Style ERROR = new Style(WIRETHICK, false, Color.RED);
+    public static final Style ERROR = new Builder(NORMAL).setColor(Color.RED).build();
 
     private final int thickness;
     private final boolean filled;
     private final Color color;
     private final int fontSize;
     private final float[] dash;
-    private final Stroke stroke;
+    private final BasicStroke stroke;
     private final Font font;
     private final boolean mattersForSize;
 
-    private Style(int thickness, boolean filled, Color color, float[] dash) {
-        this(thickness, filled, color, 24, dash, false);
-    }
-
     /**
      * Creates a new style
      *
-     * @param thickness the line thickness
-     * @param filled    true if polygons needs to be filled
-     * @param color     the color to use
+     * @param builder the builder
      */
-    private Style(int thickness, boolean filled, Color color) {
-        this(thickness, filled, color, 24, null, false);
-    }
+    private Style(Builder builder) {
+        this.thickness = builder.thickness;
+        this.filled = builder.filled;
+        this.color = builder.color;
+        this.fontSize = builder.fontSize;
+        this.dash = builder.dash;
+        this.mattersForSize = builder.mattersForSize;
 
-    /**
-     * Creates a new style
-     *
-     * @param thickness      the line thickness
-     * @param filled         true if polygons needs to be filled
-     * @param color          the color to use
-     * @param fontSize       font size
-     * @param dash           dash intervals, null is allowed for a solid line
-     * @param mattersForSize always include in shape size measurement
-     */
-    private Style(int thickness, boolean filled, Color color, int fontSize, float[] dash, boolean mattersForSize) {
-        this.thickness = thickness;
-        this.filled = filled;
-        this.color = color;
-        this.fontSize = fontSize;
-        this.dash = dash;
-        this.mattersForSize = mattersForSize;
-        stroke = new BasicStroke(thickness, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 10f, dash, 0f);
-
+        stroke = new BasicStroke(thickness, builder.endCap, BasicStroke.JOIN_MITER, 10f, dash, 0f);
         font = new Font("Arial", Font.PLAIN, fontSize);
     }
 
@@ -238,7 +237,10 @@ public final class Style {
      * @return Style the derived style with the given font size and mattersForSize flag.
      */
     public Style deriveFontStyle(int fontSize, boolean mattersForSize) {
-        return new Style(thickness, filled, color, fontSize, dash, mattersForSize);
+        return new Builder(this)
+                .setFontSize(fontSize)
+                .setMattersForSize(mattersForSize)
+                .build();
     }
 
     /**
@@ -250,7 +252,11 @@ public final class Style {
      * @return the new style
      */
     public Style deriveStyle(int thickness, boolean filled, Color color) {
-        return new Style(thickness, filled, color, fontSize, dash, mattersForSize);
+        return new Builder(this)
+                .setThickness(thickness)
+                .setFilled(filled)
+                .setColor(color)
+                .build();
     }
 
     /**
@@ -260,7 +266,73 @@ public final class Style {
      * @return the nes style
      */
     public Style deriveFillStyle(Color color) {
-        return new Style(1, true, color, fontSize, dash, mattersForSize);
+        return new Builder(this)
+                .setThickness(1)
+                .setFilled(true)
+                .setColor(color)
+                .build();
+    }
+
+    private static final class Builder {
+        private int thickness = LINETHICK;
+        private boolean filled = false;
+        private Color color = Color.BLACK;
+        private int fontSize = 24;
+        private float[] dash = null;
+        private boolean mattersForSize = false;
+        private int endCap = BasicStroke.CAP_SQUARE;
+
+        private Builder() {
+        }
+
+        private Builder(Style style) {
+            thickness = style.thickness;
+            filled = style.filled;
+            color = style.color;
+            fontSize = style.fontSize;
+            dash = style.getDash();
+            mattersForSize = style.mattersForSize;
+            endCap = style.stroke.getEndCap();
+        }
+
+        private Builder setThickness(int thickness) {
+            this.thickness = thickness;
+            return this;
+        }
+
+        private Builder setFilled(boolean filled) {
+            this.filled = filled;
+            return this;
+        }
+
+        private Builder setColor(Color color) {
+            this.color = color;
+            return this;
+        }
+
+        private Builder setFontSize(int fontSize) {
+            this.fontSize = fontSize;
+            return this;
+        }
+
+        private Builder setDash(float[] dash) {
+            this.dash = dash;
+            return this;
+        }
+
+        private Builder setMattersForSize(boolean mattersForSize) {
+            this.mattersForSize = mattersForSize;
+            return this;
+        }
+
+        private Builder setEndCap(int endCap) {
+            this.endCap = endCap;
+            return this;
+        }
+
+        private Style build() {
+            return new Style(this);
+        }
     }
 
 }
