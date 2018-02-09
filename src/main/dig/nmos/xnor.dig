@@ -52,6 +52,10 @@
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
+          <string>Label</string>
+          <string>trans</string>
+        </entry>
+        <entry>
           <string>Testdata</string>
           <testData>
             <dataString>A B Y
@@ -81,7 +85,28 @@
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="160" y="40"/>
+      <pos x="460" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>simple</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A B Y
+0 0 1
+0 1 0
+1 0 0
+1 1 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="140"/>
     </visualElement>
   </visualElements>
   <wires>
