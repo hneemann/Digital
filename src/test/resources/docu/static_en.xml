@@ -26,18 +26,18 @@
         <subchapter name="First Steps">
             <par><image src="scr00.png"/></par>
             <par>
-                As a first example, a circuit is to be constructed with an exclusive OR gate.
-                From the main window, the <e> Components </e> menu allows you to select the various components. This components,
+                For the first example, a circuit is to be constructed with an exclusive OR (XOR) gate.
+                From the main window, the <e>Components</e> menu allows you to select the various components. This components,
                 if enabled or selected, it can be placed in the drawing panel. This process can be cancelled by pressing 
                 ESC key at any time.
                 
                 Start by selecting input to be added to the circuit. Input values can be change interactively 
-                by using a mouse later on.
+                by using the mouse later on.
             <par><image src="scr01.png"/></par>
             <par>
-                After selection, the first input can be placed on the drawing surface. The red dot marks the wire
-                connection. Here, a wire will be connected later. Red indicates that this port is active.
-                So he defines a signal value.
+                After selecting appropriate components, placed it by clicking on drawing panel. The dot 
+                on the component symbol is a connection point between the component and the wire, which will be connected later on.
+                The red dot indicates that the component is active. So, the change in the dot color signifies a change in the the signal value.    
             </par>
             <par><image src="scr02.png"/></par>
             <par>
