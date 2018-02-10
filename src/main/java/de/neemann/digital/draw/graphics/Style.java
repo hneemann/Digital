@@ -128,7 +128,10 @@ public final class Style {
     /**
      * error color used for the circles to mark an element
      */
-    public static final Style ERROR = new Builder(NORMAL).setColor(Color.RED).build();
+    public static final Style ERROR = new Builder(NORMAL)
+            .setColor(Color.RED)
+            .setEndCap(BasicStroke.CAP_ROUND)
+            .build();
 
     private final int thickness;
     private final boolean filled;
