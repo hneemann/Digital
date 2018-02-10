@@ -6,6 +6,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
@@ -35,8 +36,8 @@ public class TestInSimulator extends TestCase {
     public void testInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
-            assertEquals(19, tested);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
+            assertEquals(27, tested);
             assertEquals(tested, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
@@ -46,8 +47,8 @@ public class TestInSimulator extends TestCase {
     public void testInSimulator2() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
-            assertEquals(27, tested);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
+            assertEquals(28, tested);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }
@@ -56,7 +57,7 @@ public class TestInSimulator extends TestCase {
     public void testDistributedInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
             assertEquals(1, tested);
             assertEquals(1, testBenches);
         } catch (FileScanner.SkipAllException e) {
@@ -78,7 +79,7 @@ public class TestInSimulator extends TestCase {
 
     /*
     public void testInSimulatorDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "dig/test/vhdl/counter.dig");
+        File file = new File(Resources.getRoot(),"dig/test/vhdl/registerFile.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));

@@ -24,6 +24,7 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The Dialog which shows the data to plot.
@@ -91,7 +92,7 @@ public class GraphDialog extends JDialog implements Observer {
      * @param title   the frame title
      * @param logData the data to visualize
      */
-    public GraphDialog(JFrame owner, String title, ValueTable logData) {
+    public GraphDialog(Window owner, String title, ValueTable logData) {
         this(owner, title, logData, NoSync.INST);
     }
 
@@ -103,10 +104,9 @@ public class GraphDialog extends JDialog implements Observer {
      * @param logData   the data to visualize
      * @param modelSync used to access the running model
      */
-    private GraphDialog(JFrame owner, String title, ValueTable logData, Sync modelSync) {
-        super(owner, title, false);
+    private GraphDialog(Window owner, String title, ValueTable logData, Sync modelSync) {
+        super(owner, title, ModalityType.MODELESS);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
 
         dsc = new GraphComponent(logData, modelSync);
         scrollPane = new JScrollPane(dsc);
@@ -140,8 +140,9 @@ public class GraphDialog extends JDialog implements Observer {
         showTable = new ToolTipAction(Lang.get("menu_showDataAsTable")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ValueTableDialog(owner, title) // ToDo pass modelSync to ValueTableDialog
-                        .addValueTable(Lang.get("win_data"), logData).disableGraph()
+                new ValueTableDialog(GraphDialog.this, title) // ToDo pass modelSync to ValueTableDialog
+                        .addValueTable(Lang.get("win_data"), logData)
+                        .disableGraph()
                         .setVisible(true);
             }
         }.setToolTip(Lang.get("menu_showDataAsTable_tt"));
@@ -183,16 +184,21 @@ public class GraphDialog extends JDialog implements Observer {
         setLocationRelativeTo(owner);
     }
 
+    private final AtomicBoolean paintPending = new AtomicBoolean();
+
     @Override
     public void hasChanged() {
-        SwingUtilities.invokeLater(() -> {
-            dsc.revalidate();
-            dsc.repaint();
+        if (paintPending.compareAndSet(false, true)) {
             SwingUtilities.invokeLater(() -> {
-                JScrollBar bar = scrollPane.getHorizontalScrollBar();
-                bar.setValue(bar.getMaximum());
+                dsc.revalidate();
+                dsc.repaint();
+                SwingUtilities.invokeLater(() -> {
+                    JScrollBar bar = scrollPane.getHorizontalScrollBar();
+                    bar.setValue(bar.getMaximum());
+                    paintPending.set(false);
+                });
             });
-        });
+        }
     }
 
     /**
@@ -201,7 +207,7 @@ public class GraphDialog extends JDialog implements Observer {
      * @return this for chained calls
      */
     public GraphDialog disableTable() {
-        showTable.setActive(false);
+        showTable.setEnabled(false);
         return this;
     }
 

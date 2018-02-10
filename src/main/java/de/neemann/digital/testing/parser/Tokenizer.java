@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Tokenizer {
 
     enum Token {
-        UNKNOWN, IDENT, AND, OR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
+        UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, SMALER, DIV, MOD, END, LOOP, REPEAT, BITS
     }
 
@@ -98,6 +98,9 @@ public class Tokenizer {
                 break;
             case '|':
                 token = Token.OR;
+                break;
+            case '^':
+                token = Token.XOR;
                 break;
             case '+':
                 token = Token.ADD;

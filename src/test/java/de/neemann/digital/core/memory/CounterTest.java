@@ -32,7 +32,9 @@ public class CounterTest extends TestCase {
         sc.check(1, 0, 0, 2, 0);
         sc.check(1, 1, 0, 3, 0);
         sc.check(1, 0, 0, 3, 0);
-        sc.check(1, 0, 1, 0, 0);
+        sc.check(0, 0, 1, 3, 0);
+        sc.check(0, 1, 1, 0, 0);
+        sc.check(0, 0, 1, 0, 0);
 
         sc.check(1, 0, 0, 0, 0);
         for (int i = 1; i <= 254; i++) {

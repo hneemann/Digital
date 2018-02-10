@@ -1,12 +1,15 @@
 package de.neemann.digital.draw.shapes;
 
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -30,8 +33,10 @@ public class InputShape implements Shape {
 
     private final String label;
     private final PinDescriptions outputs;
+    private final IntFormat format;
     private IOState ioState;
     private SingleValueDialog dialog;
+    private Value value;
 
     /**
      * Creates a new instance
@@ -47,6 +52,8 @@ public class InputShape implements Shape {
             this.label = attr.getLabel();
         else
             this.label = attr.getLabel() + " (" + pinNumber + ")";
+
+        format = attr.get(Keys.INT_FORMAT);
     }
 
     @Override
@@ -73,11 +80,13 @@ public class InputShape implements Shape {
                     });
                     return true;
                 } else {
-                    if (dialog == null) {
-                        dialog = new SingleValueDialog(pos, label, value, cc, modelSync);
-                        ((In) element).getModel().addObserver(dialog);
-                    }
-                    dialog.setVisible(true);
+                    if (dialog == null || !dialog.isVisible()) {
+                        Model model = ((In) element).getModel();
+                        dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, cc, model, modelSync);
+                        dialog.setVisible(true);
+                    } else
+                        dialog.requestFocus();
+
                     return false;
                 }
             }
@@ -95,20 +104,25 @@ public class InputShape implements Shape {
     }
 
     @Override
+    public void readObservableValues() {
+        if (ioState != null)
+            value = ioState.getOutput(0).getCopy();
+    }
+
+    @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        if (graphic.isFlagSet("LaTeX")) {
+        if (graphic.isFlagSet(Graphic.LATEX)) {
             Vector center = new Vector(-LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
             Vector textPos = new Vector(-SIZE2 - LATEX_RAD.x, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
         } else {
             Style style = Style.NORMAL;
-            if (ioState != null) {
-                ObservableValue value = ioState.getOutput(0);
+            if (value != null) {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
                     Vector textPos = new Vector(-1 - SIZE, -4 - SIZE);
-                    graphic.drawText(textPos, textPos.add(1, 0), value.getValueString(), Orientation.CENTERBOTTOM, Style.NORMAL);
+                    graphic.drawText(textPos, textPos.add(1, 0), format.formatToView(value), Orientation.CENTERBOTTOM, Style.NORMAL);
                 }
             }
 

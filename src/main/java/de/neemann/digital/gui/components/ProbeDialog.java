@@ -16,11 +16,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author hneemann
  */
-public class ProbeDialog extends JDialog implements ModelStateObserver {
+public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     private final ModelEvent type;
     private final SignalTableModel tableModel;
@@ -29,13 +30,14 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
     /**
      * Creates a new instance
      *
-     * @param owner     the owner
-     * @param model     the model to run
-     * @param type      the event type which fires a dialog repaint
-     * @param ordering  the names list used to order the measurement values
-     * @param modelSync used to access the running model
+     * @param owner            the owner
+     * @param model            the model to run
+     * @param type             the event type which fires a dialog repaint
+     * @param ordering         the names list used to order the measurement values
+     * @param modelSync        used to access the running model
+     * @param circuitComponent used to update the circuit if signal values are changed
      */
-    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering, Sync modelSync) {
+    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering, Sync modelSync, CircuitComponent circuitComponent) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.type = type;
@@ -48,11 +50,10 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
             }
         }.order(signals);
 
-        tableModel = new SignalTableModel(signals);
+        tableModel = new SignalTableModel(signals, modelSync, circuitComponent);
         JTable list = new JTable(tableModel);
         list.setRowHeight(list.getFont().getSize() * 6 / 5);
         getContentPane().add(new JScrollPane(list), BorderLayout.CENTER);
-        setAlwaysOnTop(true);
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -101,11 +102,19 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
         setLocationRelativeTo(owner);
     }
 
+    private final AtomicBoolean paintPending = new AtomicBoolean();
+
     @Override
     public void handleEvent(ModelEvent event) {
         if (event == type || event == ModelEvent.MANUALCHANGE) {
-            if (tableUpdateEnable)
-                SwingUtilities.invokeLater(tableModel::fireChanged);
+            if (tableUpdateEnable) {
+                if (paintPending.compareAndSet(false, true)) {
+                    SwingUtilities.invokeLater(() -> {
+                        tableModel.fireChanged();
+                        paintPending.set(false);
+                    });
+                }
+            }
         }
         switch (event) {
             case FASTRUN:
@@ -119,12 +128,21 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
         }
     }
 
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{type, ModelEvent.MANUALCHANGE, ModelEvent.FASTRUN, ModelEvent.BREAK, ModelEvent.STOPPED};
+    }
+
     private static class SignalTableModel implements TableModel {
         private final ArrayList<Signal> signals;
+        private final Sync modelSync;
+        private final CircuitComponent circuitComponent;
         private ArrayList<TableModelListener> listeners = new ArrayList<>();
 
-        SignalTableModel(ArrayList<Signal> signals) {
+        SignalTableModel(ArrayList<Signal> signals, Sync modelSync, CircuitComponent circuitComponent) {
             this.signals = signals;
+            this.modelSync = modelSync;
+            this.circuitComponent = circuitComponent;
         }
 
         @Override
@@ -150,17 +168,33 @@ public class ProbeDialog extends JDialog implements ModelStateObserver {
 
         @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return false;
+            return columnIndex == 1 && signals.get(rowIndex).getSetter() != null;
         }
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (columnIndex == 0) return signals.get(rowIndex).getName();
-            else return signals.get(rowIndex).getValue().getValueString();
+            else return signals.get(rowIndex).getValueString();
         }
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+            if (columnIndex == 1) {
+                Signal.Setter s = signals.get(rowIndex).getSetter();
+                if (s != null)
+                    try {
+                        final String str = aValue.toString();
+                        if (str.equals("?") || str.equals("z") || str.equals("Z")) {
+                            modelSync.access(() -> s.set(0, true));
+                        } else {
+                            long value = Bits.decode(str);
+                            modelSync.access(() -> s.set(value, false));
+                        }
+                        circuitComponent.modelHasChanged();
+                    } catch (Bits.NumberFormatException e) {
+                        // do nothing in this case!
+                    }
+            }
         }
 
         @Override

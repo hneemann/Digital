@@ -17,6 +17,7 @@ public class PinMap {
     private final HashMap<String, Integer> pinMap;
     private final ArrayList<Pin> availPins;
     private ArrayList<HashSet<String>> alias;
+    private int clockPin;
 
     /**
      * Creates a new instance
@@ -200,11 +201,16 @@ public class PinMap {
      *
      * @param in the pins name
      * @return the pin number or -1 if not assigned
+     * @throws PinMapException PinMap
      */
-    public int isAssigned(String in) {
+    public int isOutputAssigned(String in) throws PinMapException {
         Integer p = searchPinWithAlias(in);
         if (p == null) return -1;
-        else return p;
+        else {
+            if (!isAvailable(PinDescription.Direction.output, p))
+                throw new PinMapException(Lang.get("err_pinMap_pin_N0_isNotAnOutput", p));
+            return p;
+        }
     }
 
     private int getPinFor(String in, PinDescription.Direction direction) throws PinMapException {
@@ -257,6 +263,25 @@ public class PinMap {
             sb.append(Lang.get("msg_pinMap_pin_N_is_N", p.getValue(), p.getKey())).append("\n");
 
         return sb.toString();
+    }
+
+    /**
+     * @return the clock pin
+     */
+    public int getClockPin() {
+        return clockPin;
+    }
+
+    /**
+     * Sets the clock pin
+     *
+     * @param clockPin the clock pin
+     * @return this for chained calls
+     */
+    public PinMap setClockPin(int clockPin) {
+        if (clockPin > 0)
+            this.clockPin = clockPin;
+        return this;
     }
 
     private static final class Pin {

@@ -11,9 +11,16 @@ public class FileScanner {
 
     private Interface test;
     private ArrayList<Error> errors;
+    private int pos;
+    private boolean output = true;
 
     public FileScanner(Interface test) {
         this.test = test;
+    }
+
+    public FileScanner noOutput() {
+        output = false;
+        return this;
     }
 
     public int scan(File path) throws Exception {
@@ -25,7 +32,11 @@ public class FileScanner {
             System.err.println("all tests are skipped: " + e.getMessage());
             throw e;
         }
-        System.out.println("tested " + count + " examples");
+
+        if (output && pos > 0)
+            System.out.println();
+
+        System.out.println("-- tested " + count + " examples");
         if (errors.isEmpty())
             return count;
 
@@ -34,10 +45,10 @@ public class FileScanner {
             System.err.println("----> error in: " + e.f);
             e.e.printStackTrace();
         }
-        throw new Exception("errors testing files");
+        throw new Exception("errors testing files: " + errors.size());
     }
 
-    private int scanIntern(File path) throws IOException, SkipAllException {
+    private int scanIntern(File path) throws Exception {
         int count = 0;
         File[] files = path.listFiles();
         if (files != null) {
@@ -47,13 +58,26 @@ public class FileScanner {
                         count += scanIntern(f);
                     }
                 } else {
-                    if (f.getName().endsWith(".dig")) {
+                    String name = f.getName();
+                    if (name.endsWith(".dig")) {
+                        if (output) {
+                            if (pos + name.length() >= 78) {
+                                System.out.println();
+                                pos = 0;
+                            }
+                            System.out.print(name);
+                            pos += name.length();
+                        }
                         try {
                             test.check(f);
                         } catch (SkipAllException e) {
                             throw e;
                         } catch (Throwable e) {
                             errors.add(new Error(f, e));
+                        }
+                        if (output) {
+                            System.out.print(", ");
+                            pos += 2;
                         }
                         count++;
                     }

@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,12 +13,23 @@ import java.util.Map;
  */
 public class WindowPosManager {
     private final Map<String, Window> windows;
+    private final JFrame main;
 
     /**
      * Creates a new instance
+     *
+     * @param main the main window
      */
-    public WindowPosManager() {
+    public WindowPosManager(JFrame main) {
+        this.main = main;
         this.windows = new HashMap<>();
+    }
+
+    /**
+     * @return the main window, maybe null
+     */
+    public JFrame getMainFrame() {
+        return main;
     }
 
     /**
@@ -47,5 +59,17 @@ public class WindowPosManager {
     public void closeAll() {
         for (Window w : windows.values())
             w.dispose();
+    }
+
+    /**
+     * Returns true if the window with the given id is visible
+     *
+     * @param id the id of the window
+     * @return true if window is visible
+     */
+    public boolean isVisible(String id) {
+        Window w = windows.get(id);
+        if (w == null) return false;
+        return w.isVisible();
     }
 }

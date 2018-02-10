@@ -4,7 +4,10 @@ package de.neemann.digital.analyse.expression.format;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.parser.Parser;
 import junit.framework.TestCase;
+
+import java.util.ArrayList;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -34,7 +37,7 @@ public class FormatToExpressionTest extends TestCase {
         Variable a = v("A");
         Variable b = v("B");
         Variable c = v("C");
-        Expression e = or(and(a, not(b), c),and(a, not(b), not(c)));
+        Expression e = or(and(a, not(b), c), and(a, not(b), not(c)));
 
         assertEquals("(A !B C) + (A !B !C)", FormatToExpression.FORMATTER_SHORTER.format(e));
     }
@@ -99,4 +102,15 @@ public class FormatToExpressionTest extends TestCase {
                 "\\end{tabular}\n", new FormatToTableLatex().format(e));
     }
 
+
+    public void testFormatXOr() throws Exception {
+        ArrayList<Expression> e = new Parser("let sum=(A^B)^C, let c = (A B) + ((A^B) C)").parse();
+        assertEquals("sum = (A ⊻ B) ⊻ C", FormatToExpression.FORMATTER_UNICODE.format(e.get(0)));
+        assertEquals("c = (A ∧ B) ∨ ((A ⊻ B) ∧ C)", FormatToExpression.FORMATTER_UNICODE.format(e.get(1)));
+        assertEquals("sum = (A \\xoder B) \\xoder C", FormatToExpression.FORMATTER_LATEX.format(e.get(0)));
+        assertEquals("sum = (A $ B) $ C", FormatToExpression.FORMATTER_CUPL.format(e.get(0)));
+        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.FORMATTER_JAVA.format(e.get(0)));
+        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.FORMATTER_SHORT.format(e.get(0)));
+        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.FORMATTER_SHORTER.format(e.get(0)));
+    }
 }

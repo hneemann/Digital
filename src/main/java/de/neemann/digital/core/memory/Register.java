@@ -19,10 +19,11 @@ public class Register extends Node implements Element {
      * The registers {@link ElementTypeDescription}
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Register.class, input("D"), input("C"), input("en"))
+            = new ElementTypeDescription(Register.class, input("D"), input("C").setClock(), input("en"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final int bits;
@@ -64,9 +65,9 @@ public class Register extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        dVal = inputs.get(0).addObserverToValue(this).checkBits(bits, this);
+        dVal = inputs.get(0).checkBits(bits, this);
         clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this);
-        enableVal = inputs.get(2).addObserverToValue(this).checkBits(1, this);
+        enableVal = inputs.get(2).checkBits(1, this);
     }
 
     @Override
@@ -78,6 +79,9 @@ public class Register extends Node implements Element {
     public void registerNodes(Model model) {
         super.registerNodes(model);
         if (isProbe)
-            model.addSignal(new Signal(label, q));
+            model.addSignal(new Signal(label, q, (v, z) -> {
+                value = v;
+                q.setValue(value);
+            }));
     }
 }

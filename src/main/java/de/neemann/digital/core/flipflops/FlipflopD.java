@@ -20,7 +20,7 @@ public class FlipflopD extends Node implements Element {
      * The D-FF description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription("D_FF", FlipflopD.class, input("D"), input("C"))
+            = new ElementTypeDescription("D_FF", FlipflopD.class, input("D"), input("C").setClock())
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
@@ -62,7 +62,7 @@ public class FlipflopD extends Node implements Element {
             throw new RuntimeException("wrong bit count given!");
     }
 
-    private FlipflopD(ElementAttributes attributes, ObservableValue q, ObservableValue qn) {
+    FlipflopD(ElementAttributes attributes, ObservableValue q, ObservableValue qn) {
         super(true);
         bits = attributes.getBits();
         this.q = q;
@@ -91,7 +91,7 @@ public class FlipflopD extends Node implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
-        dVal = inputs.get(0).addObserverToValue(this).checkBits(bits, this, 0);
+        dVal = inputs.get(0).checkBits(bits, this, 0);
         clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
     }
 
@@ -104,7 +104,11 @@ public class FlipflopD extends Node implements Element {
     public void registerNodes(Model model) {
         super.registerNodes(model);
         if (isProbe)
-            model.addSignal(new Signal(label, q));
+            model.addSignal(new Signal(label, q, (v, z) -> {
+                value = v;
+                q.setValue(value);
+                qn.setValue(~value);
+            }));
     }
 
     /**
@@ -133,5 +137,9 @@ public class FlipflopD extends Node implements Element {
      */
     public int getBits() {
         return bits;
+    }
+
+    void setValue(long value) {
+        this.value = value;
     }
 }

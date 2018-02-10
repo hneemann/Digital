@@ -1,17 +1,19 @@
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserver;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.Screen;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Arrays;
 
 /**
@@ -21,7 +23,7 @@ import java.util.Arrays;
  * @author hneemann
  * @author Rüdiger Heintz
  */
-public final class SingleValueDialog extends JDialog implements ModelStateObserver {
+public final class SingleValueDialog extends JDialog implements ModelStateObserverTyped {
 
     private final ObservableValue value;
     private final CircuitComponent circuitComponent;
@@ -58,6 +60,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private final JTextField textField;
     private final boolean supportsHighZ;
     private final JComboBox<InMode> formatComboBox;
+    private final long mask;
     private JCheckBox[] checkBoxes;
     private boolean programmaticModifyingFormat = false;
     private long editValue;
@@ -65,14 +68,16 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     /**
      * Edits a single value
      *
+     * @param parent           the parent frame
      * @param pos              the position to pop up the dialog
      * @param label            the name of the value
      * @param value            the value to edit
      * @param circuitComponent the component which contains the circuit
+     * @param model            the model
      * @param modelSync        used to access the running model
      */
-    public SingleValueDialog(Point pos, String label, ObservableValue value, CircuitComponent circuitComponent, Sync modelSync) {
-        super((Frame) null, Lang.get("win_valueInputTitle_N", label), false);
+    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, CircuitComponent circuitComponent, Model model, Sync modelSync) {
+        super(parent, Lang.get("win_valueInputTitle_N", label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.value = value;
         this.circuitComponent = circuitComponent;
@@ -80,19 +85,35 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         editValue = value.getValue();
         supportsHighZ = value.supportsHighZ();
+        mask = (1L << value.getBits()) - 1;
 
         textField = new JTextField(10);
         textField.setHorizontalAlignment(JTextField.RIGHT);
+
         formatComboBox = new JComboBox<>(InMode.values(supportsHighZ));
         formatComboBox.addActionListener(actionEvent -> {
             if (!programmaticModifyingFormat)
                 setLongToDialog(editValue);
         });
 
+        modelSync.access(() -> model.addObserver(this));
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent windowEvent) {
+                modelSync.access(() -> model.removeObserver(SingleValueDialog.this));
+            }
+        });
+
         JPanel panel = new JPanel(new GridBagLayout());
-        ConstrainsBuilder constr = new ConstrainsBuilder().inset(3).fill();
+        ConstraintsBuilder constr = new ConstraintsBuilder().inset(3).fill();
         panel.add(formatComboBox, constr);
-        panel.add(textField, constr.dynamicWidth().x(1));
+        JSpinner spinner = new JSpinner(new MySpinnerModel()) {
+            @Override
+            protected JComponent createEditor(SpinnerModel spinnerModel) {
+                return textField;
+            }
+        };
+        panel.add(spinner, constr.dynamicWidth().x(1));
         constr.nextRow();
         panel.add(new JLabel(Lang.get("attr_dialogBinary")), constr);
         panel.add(createCheckBoxPanel(value.getBits(), editValue), constr.dynamicWidth().x(1));
@@ -129,10 +150,9 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         pack();
-        setLocation(pos.x - getWidth(), pos.y - getHeight() / 2);
+        Screen.setLocation(this, pos, true);
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
-        setAlwaysOnTop(true);
     }
 
     private void apply() {
@@ -148,6 +168,11 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     public void handleEvent(ModelEvent event) {
         if (event.equals(ModelEvent.STOPPED))
             dispose();
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{ModelEvent.STOPPED};
     }
 
     private JPanel createCheckBoxPanel(int bits, long value) {
@@ -228,13 +253,13 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             } else {
                 if (text.startsWith("0x"))
                     setSelectedFormat(InMode.HEX);
-                else if (text.startsWith("0"))
+                else if (text.startsWith("0") && text.length() > 1)
                     setSelectedFormat(InMode.OCTAL);
                 else
                     setSelectedFormat(InMode.DECIMAL);
                 try {
-                    editValue = Long.decode(text);
-                } catch (NumberFormatException e) {
+                    editValue = Bits.decode(text);
+                } catch (Bits.NumberFormatException e) {
                     // do nothing on error
                 }
             }
@@ -263,6 +288,40 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         @Override
         public void changedUpdate(DocumentEvent documentEvent) {
             runnable.run();
+        }
+    }
+
+    private class MySpinnerModel implements SpinnerModel {
+        @Override
+        public Object getValue() {
+            return editValue;
+        }
+
+        @Override
+        public void setValue(Object o) {
+            if (o != null && o instanceof Number) {
+                editValue = ((Number) o).longValue();
+                setLongToDialog(editValue);
+                apply();
+            }
+        }
+
+        @Override
+        public Object getNextValue() {
+            return (editValue + 1) & mask;
+        }
+
+        @Override
+        public Object getPreviousValue() {
+            return (editValue - 1) & mask;
+        }
+
+        @Override
+        public void addChangeListener(ChangeListener changeListener) {
+        }
+
+        @Override
+        public void removeChangeListener(ChangeListener changeListener) {
         }
     }
 }

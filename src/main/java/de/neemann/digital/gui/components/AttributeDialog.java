@@ -6,6 +6,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -28,12 +29,12 @@ import java.util.HashMap;
 public class AttributeDialog extends JDialog {
     private final java.util.List<EditorHolder> editors;
     private final JPanel panel;
-    private final Component parent;
+    private final Window parent;
     private final Point pos;
     private final ElementAttributes originalAttributes;
     private final ElementAttributes modifiedAttributes;
     private final JPanel buttonPanel;
-    private final ConstrainsBuilder constrains;
+    private final ConstraintsBuilder constraints;
     private HashMap<Key, JCheckBox> checkBoxes;
     private JComponent topMostTextComponent;
     private VisualElement visualElement;
@@ -46,7 +47,7 @@ public class AttributeDialog extends JDialog {
      * @param list              the list of keys which are to edit
      * @param elementAttributes the data stored
      */
-    public AttributeDialog(Component parent, java.util.List<Key> list, ElementAttributes elementAttributes) {
+    public AttributeDialog(Window parent, java.util.List<Key> list, ElementAttributes elementAttributes) {
         this(parent, null, list, elementAttributes, false);
     }
 
@@ -58,7 +59,7 @@ public class AttributeDialog extends JDialog {
      * @param list              the list of keys which are to edit
      * @param elementAttributes the data stored
      */
-    public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
+    public AttributeDialog(Window parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
         this(parent, pos, list, elementAttributes, false);
     }
 
@@ -71,8 +72,8 @@ public class AttributeDialog extends JDialog {
      * @param elementAttributes the initial data to modify
      * @param addCheckBoxes     th true check boxes behind the attributes are added
      */
-    public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes, boolean addCheckBoxes) {
-        super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
+    public AttributeDialog(Window parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes, boolean addCheckBoxes) {
+        super(parent, Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         this.parent = parent;
         this.pos = pos;
         this.originalAttributes = elementAttributes;
@@ -86,11 +87,11 @@ public class AttributeDialog extends JDialog {
         editors = new ArrayList<>();
 
         topMostTextComponent = null;
-        constrains = new ConstrainsBuilder().inset(3).fill();
+        constraints = new ConstraintsBuilder().inset(3).fill();
         for (Key key : list) {
             Editor e = EditorFactory.INSTANCE.create(key, modifiedAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            e.addToPanel(panel, key, modifiedAttributes, this, constrains);
+            e.addToPanel(panel, key, modifiedAttributes, this, constraints);
             if (addCheckBoxes) {
                 if (checkBoxes == null)
                     checkBoxes = new HashMap<>();
@@ -98,13 +99,23 @@ public class AttributeDialog extends JDialog {
                 checkBox.setSelected(true);
                 checkBox.setToolTipText(Lang.get("msg_modifyThisAttribute"));
                 checkBoxes.put(key, checkBox);
-                panel.add(checkBox, constrains.x(2));
+                panel.add(checkBox, constraints.x(2));
                 checkBox.addChangeListener(event -> e.setEnabled(checkBox.isSelected()));
             }
-            constrains.nextRow();
+            constraints.nextRow();
 
             if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
                 topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
+
+            final Key dependsOn = key.getDependsOn();
+            if (dependsOn != null) {
+                for (EditorHolder ed : editors) {
+                    if (ed.key.getKey().equals(dependsOn.getKey())) {
+                        ed.setDependantEditor(e, key.isDependsOnInverted());
+                    }
+                }
+            }
+
         }
 
         JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
@@ -112,8 +123,8 @@ public class AttributeDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     fireOk();
-                } catch (RuntimeException err) {
-                    new ErrorMessage(Lang.get("msg_errorEditingValue")).addCause(err).setComponent(AttributeDialog.this).show();
+                } catch (Editor.EditorParseException err) {
+                    new ErrorMessage(Lang.get("msg_errorEditingValue")).addCause(err).show(AttributeDialog.this);
                 }
             }
         });
@@ -135,13 +146,14 @@ public class AttributeDialog extends JDialog {
         getRootPane().registerKeyboardAction(cancel,
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
-        setAlwaysOnTop(true);
     }
 
     /**
      * Closes the dialog and stores modified values
+     *
+     * @throws Editor.EditorParseException Editor.EditorParseException
      */
-    public void fireOk() {
+    public void fireOk() throws Editor.EditorParseException {
         storeEditedValues();
         okPressed = true;
         dispose();
@@ -162,9 +174,9 @@ public class AttributeDialog extends JDialog {
      * @return this for chained calls
      */
     public AttributeDialog addButton(String label, ToolTipAction action) {
-        panel.add(new JLabel(label), constrains);
-        panel.add(action.createJButton(), constrains.x(1));
-        constrains.nextRow();
+        panel.add(new JLabel(label), constraints);
+        panel.add(action.createJButton(), constraints.x(1));
+        constraints.nextRow();
         return this;
     }
 
@@ -181,8 +193,10 @@ public class AttributeDialog extends JDialog {
 
     /**
      * store gui fields to attributes
+     *
+     * @throws Editor.EditorParseException Editor.EditorParseException
      */
-    public void storeEditedValues() {
+    public void storeEditedValues() throws Editor.EditorParseException {
         for (EditorHolder e : editors)
             e.setTo(modifiedAttributes);
     }
@@ -198,7 +212,7 @@ public class AttributeDialog extends JDialog {
         if (pos == null)
             setLocationRelativeTo(parent);
         else
-            setLocation(pos.x, pos.y);
+            Screen.setLocation(this, pos, true);
 
         if (topMostTextComponent != null)
             SwingUtilities.invokeLater(() -> topMostTextComponent.requestFocusInWindow());
@@ -213,7 +227,7 @@ public class AttributeDialog extends JDialog {
     /**
      * @return the dialogs parent
      */
-    public Component getDialogParent() {
+    public Window getDialogParent() {
         return parent;
     }
 
@@ -231,8 +245,6 @@ public class AttributeDialog extends JDialog {
     public Main getMain() {  // ToDo: is a hack! find a better solution for getting the main frame
         if (parent instanceof Main)
             return (Main) parent;
-        if (parent instanceof CircuitComponent)
-            return ((CircuitComponent) parent).getMain();
         return null;
     }
 
@@ -263,9 +275,19 @@ public class AttributeDialog extends JDialog {
             this.key = key;
         }
 
-        public void setTo(ElementAttributes attr) {
+        public void setTo(ElementAttributes attr) throws Editor.EditorParseException {
             T value = e.getValue();
             attr.set(key, value);
+        }
+
+        void setDependantEditor(Editor editor, boolean inverted) {
+            if (key.getValueClass() != Boolean.class)
+                throw new RuntimeException("key " + key.getName() + " is not a bool key");
+
+            EditorFactory.BooleanEditor bool = (EditorFactory.BooleanEditor) e;
+            editor.setEnabled(bool.getValue() ^ inverted);
+
+            bool.getCheckBox().addActionListener(actionEvent -> editor.setEnabled(bool.getValue() ^ inverted));
         }
     }
 

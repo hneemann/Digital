@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>FullAdder.dig</elementName>
@@ -12,7 +13,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S_0</string>
+          <string>$S_0$</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="340"/>
@@ -22,7 +23,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A_0</string>
+          <string>$A_0$</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -36,7 +37,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B_0</string>
+          <string>$B_0$</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="360"/>
@@ -51,7 +52,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S_1</string>
+          <string>$S_1$</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="240"/>
@@ -61,7 +62,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A_1</string>
+          <string>$A_1$</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="220"/>
@@ -71,7 +72,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B_1</string>
+          <string>$B_1$</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -90,7 +91,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S_2</string>
+          <string>$S_2$</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="140"/>
@@ -100,7 +101,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A_2</string>
+          <string>$A_2$</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="120"/>
@@ -110,7 +111,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B_2</string>
+          <string>$B_2$</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="160"/>
@@ -125,7 +126,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S_3</string>
+          <string>$S_3$</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="40"/>
@@ -135,7 +136,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A_3</string>
+          <string>$A_3$</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="20"/>
@@ -145,7 +146,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B_3</string>
+          <string>$B_3$</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="60"/>

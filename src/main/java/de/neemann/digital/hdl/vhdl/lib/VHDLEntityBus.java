@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
@@ -13,6 +14,15 @@ import java.io.IOException;
  * Handles entities which can handle multiple bit values
  */
 public abstract class VHDLEntityBus extends VHDLEntitySimple {
+
+    /**
+     * Creates a new instance
+     *
+     * @param description the description
+     */
+    public VHDLEntityBus(ElementTypeDescription description) {
+        super(description);
+    }
 
     @Override
     public void writeDeclaration(CodePrinter out, HDLNode node) throws IOException, HDLException {

@@ -6,7 +6,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -73,3 +72,4 @@ buildNumber.properties
 /copybin.sh
 /Digital.sh
 /upload.sh
+/copyToPluginExample.sh

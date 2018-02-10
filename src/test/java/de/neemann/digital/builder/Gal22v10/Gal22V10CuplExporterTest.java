@@ -24,7 +24,7 @@ public class Gal22V10CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
-        Gal22v10CuplExporter ce = new Gal22v10CuplExporter("user", new GregorianCalendar(1970, 0, 1).getTime());
+        Gal22v10CuplExporter ce = new Gal22v10CuplExporter("user", null);
         ce.getPinMapping().parseString("Y_0=14;Y_1=15;A=16");
         ce.setProjectName("test");
         ce.getBuilder()
@@ -37,7 +37,7 @@ public class Gal22V10CuplExporterTest extends TestCase {
 
         assertEquals("Name     test ;\r\n" +
                 "PartNo   00 ;\r\n" +
-                "Date     01.01.1970 ;\r\n" +
+                "Date     unknownDate ;\r\n" +
                 "Revision 01 ;\r\n" +
                 "Designer user ;\r\n" +
                 "Company  unknown ;\r\n" +

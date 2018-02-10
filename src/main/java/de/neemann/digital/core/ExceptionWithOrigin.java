@@ -10,7 +10,7 @@ import java.util.Set;
  * A exception which has a set of files as an origin.
  * Created by hneemann on 16.06.17.
  */
-public class ExceptionWithOrigin extends Exception {
+public class ExceptionWithOrigin extends Exception implements ExceptionWithOriginInterface {
     private File origin;
     private VisualElement visualElement;
 
@@ -23,10 +23,16 @@ public class ExceptionWithOrigin extends Exception {
      */
     public static String getOriginOf(Throwable e) {
         while (e != null) {
-            if (e instanceof ExceptionWithOrigin) {
-                String originStr = ((ExceptionWithOrigin) e).getOriginStr();
-                if (originStr != null)
-                    return originStr;
+            if (e instanceof ExceptionWithOriginInterface) {
+                Set<File> origins = ((ExceptionWithOriginInterface) e).getOrigin();
+                if (origins != null && origins.size() > 0) {
+                    StringBuilder sb = new StringBuilder();
+                    for (File o : origins) {
+                        if (sb.length() > 0) sb.append(", ");
+                        sb.append(o.getName());
+                    }
+                    return sb.toString();
+                }
             }
             e = e.getCause();
         }
@@ -53,15 +59,6 @@ public class ExceptionWithOrigin extends Exception {
     }
 
     /**
-     * Creates a new exception
-     *
-     * @param cause the cause
-     */
-    public ExceptionWithOrigin(Throwable cause) {
-        super(cause);
-    }
-
-    /**
      * @return the origin of the error
      */
     public Set<File> getOrigin() {
@@ -72,22 +69,6 @@ public class ExceptionWithOrigin extends Exception {
             os.add(origin);
             return os;
         }
-    }
-
-    /**
-     * @return the origin of the error as a string
-     */
-    private String getOriginStr() {
-        Set<File> orig = getOrigin();
-        if (orig == null || orig.isEmpty())
-            return null;
-
-        StringBuilder sb = new StringBuilder();
-        for (File o : orig) {
-            if (sb.length() > 0) sb.append(", ");
-            sb.append(o.getName());
-        }
-        return sb.toString();
     }
 
     /**

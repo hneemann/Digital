@@ -14,12 +14,14 @@ end DIG_Counter;
 architecture DIG_Counter_arch of DIG_Counter is
    signal count : {{data}} := {{zero}};
 begin
-    process (PORT_C, PORT_clr)
+    process (PORT_C, PORT_clr, PORT_en)
     begin
-      if PORT_clr='1' then
-        count <= {{zero}};
-      elsif rising_edge(PORT_C) and PORT_en='1' then
-        count <= count + 1;
+      if rising_edge(PORT_C) then
+        if PORT_clr='1' then
+          count <= {{zero}};
+        elsif PORT_en='1' then
+          count <= count + 1;
+        end if;
       end if;
     end process;
 

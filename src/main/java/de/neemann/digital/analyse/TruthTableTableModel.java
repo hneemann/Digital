@@ -1,5 +1,7 @@
 package de.neemann.digital.analyse;
 
+import de.neemann.digital.analyse.quinemc.BoolTable;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -106,5 +108,28 @@ public class TruthTableTableModel implements TableModel {
     public void setColumnName(int columnIndex, String name) {
         truthTable.setColumnName(columnIndex, name);
         fireModelEvent(HEADER_ROW);
+    }
+
+    /**
+     * Changes the value in the given row in the given bool table.
+     *
+     * @param boolTable the table to modify
+     * @param row       the row to modify
+     */
+    public void incValue(BoolTable boolTable, int row) {
+        int col = -1;
+        for (int i = 0; i < truthTable.getResultCount(); i++) {
+            if (truthTable.getResult(i) == boolTable) {
+                col = i;
+                break;
+            }
+        }
+        if (col >= 0) {
+            col += truthTable.getVars().size();
+            int value = truthTable.getValue(row, col);
+            if (value == 2) value = 0;
+            else value++;
+            setValueAt(value, row, col);
+        }
     }
 }

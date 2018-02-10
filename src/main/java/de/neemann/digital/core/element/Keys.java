@@ -4,8 +4,9 @@ import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.IntFormat;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.gui.Screen;
@@ -32,6 +33,18 @@ public final class Keys {
             = new Key.KeyBits("Bits", 1);
 
     /**
+     * input bits of sign extender
+     */
+    public static final Key.KeyBits INPUT_BITS
+            = new Key.KeyBits("inputBits", 8);
+
+    /**
+     * output bits of sign extender
+     */
+    public static final Key.KeyBits OUTPUT_BITS
+            = new Key.KeyBits("outputBits", 16);
+
+    /**
      * number of inputs in simple gates like And and Or
      */
     public static final Key.KeyInteger INPUT_COUNT  // needs to have the same default value as ADDR_BITS!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
@@ -39,11 +52,31 @@ public final class Keys {
             .setComboBoxValues(new Integer[]{2, 3, 4, 5})
             .setMin(2);
 
+
+    /**
+     * the delay time used by the delay component
+     */
+    public static final Key.KeyInteger DELAY_TIME
+            = new Key.KeyInteger("delayTime", 1)
+            .setComboBoxValues(new Integer[]{1, 2, 3, 4, 5})
+            .setMin(1)
+            .setMax(20);
+
     /**
      * The elements label
      */
     public static final Key<String> LABEL
             = new Key<>("Label", "");
+
+
+    /**
+     * The font size
+     */
+    public static final Key<Integer> FONT_SIZE =
+            new Key.KeyInteger("textFontSize", Style.NORMAL.getFontSize())
+                    .setComboBoxValues(new Integer[]{14, 17, 20, 24, 36, 48, 60})
+                    .setMin(10)
+                    .setMax(70);
 
     /**
      * The size of a LED
@@ -57,8 +90,8 @@ public final class Keys {
     /**
      * The value of constants
      */
-    public static final Key<Integer> VALUE
-            = new Key<>("Value", 1).allowGroupEdit();
+    public static final Key<Long> VALUE
+            = new Key<>("Value", 1L).allowGroupEdit();
 
     /**
      * The default value of elements
@@ -79,12 +112,6 @@ public final class Keys {
             = new Key<>("Color", java.awt.Color.RED).allowGroupEdit();
 
     /**
-     * Background Color of nested circuits
-     */
-    public static final Key<java.awt.Color> BACKGROUND_COLOR
-            = new Key<>("backgroundColor", new Color(255, 255, 0, 64));
-
-    /**
      * The input splitting of a splitter
      */
     public static final Key<String> INPUT_SPLIT
@@ -97,23 +124,36 @@ public final class Keys {
             = new Key<>("Output Splitting", "8");
 
     /**
+     * flag to enable realtime mode at a clock
+     */
+    public static final Key<Boolean> RUN_AT_REAL_TIME
+            = new Key<>("runRealTime", false);
+
+    /**
+     * inverts the output of a gate
+     */
+    public static final Key<Boolean> INVERT_OUTPUT
+            = new Key<>("invertOutput", true);
+
+    /**
      * The real time frequency of the clock
      */
     public static final Key<Integer> FREQUENCY
             = new Key.KeyInteger("Frequency", 1)
             .setComboBoxValues(new Integer[]{1, 2, 5, 10, 20, 50, 100, 200, 500, 5000, 50000, 500000})
-            .setMin(1);
+            .setMin(1)
+            .setDependsOn(RUN_AT_REAL_TIME);
 
     /**
      * the bit count of a muxer or decoder
      */
-    public static final Key.KeyBits SELECTOR_BITS
+    public static final Key<Integer> SELECTOR_BITS
             = new Key.KeyBits("Selector Bits", 1).setMax(8);
 
     /**
      * number of address bits of memory
      */
-    public static final Key.KeyBits ADDR_BITS
+    public static final Key<Integer> ADDR_BITS
             = new Key.KeyBits("AddrBits", 2).setMax(24); // needs to have the same default value as INPUT_COUNT!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
 
     /**
@@ -150,7 +190,7 @@ public final class Keys {
      * the rotation of the elements
      */
     public static final Key<Rotation> ROTATE
-            = new Key<>("rotation", new Rotation(0));
+            = new Key<>("rotation", new Rotation(0)).allowGroupEdit();
 
     /**
      * the width of an element if it is included as nested element
@@ -236,12 +276,6 @@ public final class Keys {
             = new Key<>("isHighZ", false).allowGroupEdit();
 
     /**
-     * flag to enable realtime mode at a clock
-     */
-    public static final Key<Boolean> RUN_AT_REAL_TIME
-            = new Key<>("runRealTime", false);
-
-    /**
      * the description of an element
      */
     public static final Key.LongString DESCRIPTION
@@ -285,6 +319,12 @@ public final class Keys {
             = new Key<>("grid", false);
 
     /**
+     * enables the wire bits view
+     */
+    public static final Key<Boolean> SETTINGS_SHOW_WIRE_BITS
+            = new Key<>("showWireBits", false);
+
+    /**
      * output format for numbers
      */
     public static final Key.KeyEnum<IntFormat> INT_FORMAT
@@ -311,19 +351,19 @@ public final class Keys {
             = new Key<>("relayNormallyClosed", false).allowGroupEdit();
 
     /**
-     * flag used by a barrelshifter to indicate if data are rotated
+     * flag used by a barrel shifter to select the shift mode
      */
     public static final Key<BarrelShifterMode> BARREL_SHIFTER_MODE
-            = new Key.KeyEnum<>("barrelShifterMode", BarrelShifterMode.normal, BarrelShifterMode.values());
+            = new Key.KeyEnum<>("barrelShifterMode", BarrelShifterMode.logical, BarrelShifterMode.values());
 
     /**
-     * flag used by a barrelshifter to indicate shift direction
+     * flag used by a barrel shifter to indicate shift direction
      */
     public static final Key<LeftRightFormat> DIRECTION
             = new Key.KeyEnum<>("direction", LeftRightFormat.left, LeftRightFormat.values());
 
     /**
-     * flag used by a barrelshifter to indicate if shift value is signed
+     * flag used by a barrel shifter to indicate if shift value is signed
      */
     public static final Key<Boolean> BARREL_SIGNED
             = new Key<>("barrelSigned", false);
@@ -371,17 +411,18 @@ public final class Keys {
             new Key<>("pinNumber", "");
 
     /**
-     * the pin count
-     */
-    public static final Key.KeyInteger PINCOUNT =
-            new Key.KeyInteger("pinCount", 0)
-                    .setMin(0);
-
-    /**
      * true if shape is a dil shape
      */
     public static final Key<Boolean> IS_DIL
             = new Key<>("isDIL", false);
+    /**
+     * the pin count
+     */
+    public static final Key<Integer> PINCOUNT =
+            new Key.KeyInteger("pinCount", 0)
+                    .setMin(0)
+                    .setDependsOn(IS_DIL);
+
 
     /**
      * contains the input inverter config
@@ -389,6 +430,12 @@ public final class Keys {
     public static final Key<InverterConfig> INVERTER_CONFIG
             = new Key<>("inverterConfig", new InverterConfig());
 
+    /**
+     * Background Color of nested circuits
+     */
+    public static final Key<java.awt.Color> BACKGROUND_COLOR
+            = new Key<>("backgroundColor", new Color(255, 255, 180, 200))
+            .setDependsOn(IS_DIL, true);
 
     /**
      * the screen resolution
@@ -428,4 +475,11 @@ public final class Keys {
      */
     public static final Key<File> SETTINGS_LIBRARY_PATH
             = new Key.KeyFile("libraryPath", ElementLibrary.getLibPath()).setDirectoryOnly(true);
+
+    /**
+     * A jar containing custom java components
+     */
+    public static final Key<File> SETTINGS_JAR_PATH
+            = new Key.KeyFile("jarPath", new File(""));
+
 }

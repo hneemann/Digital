@@ -2,6 +2,8 @@ package de.neemann.digital.analyse.expression.format;
 
 import de.neemann.digital.analyse.expression.*;
 
+import java.util.Objects;
+
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
 import static de.neemann.digital.analyse.expression.Operation.or;
@@ -17,35 +19,35 @@ public class FormatToExpression implements Formatter {
     /**
      * Creates a string compatible to Java
      */
-    public static final FormatToExpression FORMATTER_JAVA = new FormatToExpression("||", "&&", "!", "false", "true");
+    public static final FormatToExpression FORMATTER_JAVA = new FormatToExpression("||", "&&", "^", "!", "false", "true");
     /**
      * Creates a string compatible to Derive
      */
-    public static final FormatToExpression FORMATTER_DERIVE = new FormatToExpression("OR", "AND", "NOT ", "false", "true");
+    public static final FormatToExpression FORMATTER_DERIVE = new FormatToExpression("OR", "AND", "XOR", "NOT ", "false", "true");
     /**
      * Creates a string compatible to WinCUPL
      */
-    public static final FormatToExpression FORMATTER_CUPL = new FormatToExpression("#", "&", "!", "0", "1");
+    public static final FormatToExpression FORMATTER_CUPL = new FormatToExpression("#", "&", "$", "!", "0", "1");
     /**
      * Creates a string compatible to Logisim
      */
-    public static final FormatToExpression FORMATTER_LOGISIM = new FormatToExpression("+", "", "~", "false", "true");
+    public static final FormatToExpression FORMATTER_LOGISIM = new FormatToExpression("+", "", "^", "~", "false", "true");
     /**
      * Creates a unicode string
      */
-    public static final FormatToExpression FORMATTER_UNICODE = new FormatToExpression("\u2228", "\u2227", "\u00AC", "0", "1");
+    public static final FormatToExpression FORMATTER_UNICODE = new FormatToExpression("\u2228", "\u2227", "\u22BB", "\u00AC", "0", "1");
     /**
      * Creates a unicode string with no AND character
      */
-    public static final FormatToExpression FORMATTER_UNICODE_NOAND = new FormatToExpression("\u2228", "", "\u00AC", "0", "1");
+    public static final FormatToExpression FORMATTER_UNICODE_NOAND = new FormatToExpression("\u2228", "", "\u22BB", "\u00AC", "0", "1");
     /**
      * Creates a short string representation
      */
-    public static final FormatToExpression FORMATTER_SHORT = new FormatToExpression("+", "*", "!", "0", "1");
+    public static final FormatToExpression FORMATTER_SHORT = new FormatToExpression("+", "*", "^", "!", "0", "1");
     /**
      * Creates a short string representation
      */
-    public static final FormatToExpression FORMATTER_SHORTER = new FormatToExpression("+", "", "!", "0", "1");
+    public static final FormatToExpression FORMATTER_SHORTER = new FormatToExpression("+", "", "^", "!", "0", "1");
     /**
      * Creates a LaTeX representation
      */
@@ -98,6 +100,7 @@ public class FormatToExpression implements Formatter {
     private final String andString;
     private final String falseString;
     private final String trueString;
+    private final String xorString;
     private final String notString;
 
     /**
@@ -106,12 +109,13 @@ public class FormatToExpression implements Formatter {
      * @param parent the parent
      */
     public FormatToExpression(FormatToExpression parent) {
-        this(parent.orString, parent.andString, parent.notString, parent.falseString, parent.trueString);
+        this(parent.orString, parent.andString, parent.xorString, parent.notString, parent.falseString, parent.trueString);
     }
 
-    private FormatToExpression(String orString, String andString, String notString, String falseString, String trueString) {
+    private FormatToExpression(String orString, String andString, String xorString, String notString, String falseString, String trueString) {
         this.orString = orString;
         this.andString = andString;
+        this.xorString = xorString;
         this.notString = notString;
         this.falseString = falseString;
         this.trueString = trueString;
@@ -152,6 +156,8 @@ public class FormatToExpression implements Formatter {
             return formatAnd((Operation.And) expression);
         } else if (expression instanceof Operation.Or) {
             return formatOr((Operation.Or) expression);
+        } else if (expression instanceof Operation.XOr) {
+            return formatXOr((Operation.XOr) expression);
         } else if (expression instanceof NamedExpression) {
             NamedExpression ne = (NamedExpression) expression;
             return identifier(ne.getName()) + " = " + format(ne.getExpression());
@@ -179,6 +185,10 @@ public class FormatToExpression implements Formatter {
 
     private String formatOr(Operation.Or expression) throws FormatterException {
         return formatOp(expression.getExpressions(), orString);
+    }
+
+    private String formatXOr(Operation.XOr expression) throws FormatterException {
+        return formatOp(expression.getExpressions(), xorString == null ? "^" : xorString);  // fixes stored old formats
     }
 
     /**
@@ -239,29 +249,23 @@ public class FormatToExpression implements Formatter {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         FormatToExpression that = (FormatToExpression) o;
-
-        if (!orString.equals(that.orString)) return false;
-        if (!andString.equals(that.andString)) return false;
-        if (!falseString.equals(that.falseString)) return false;
-        if (!trueString.equals(that.trueString)) return false;
-        return notString != null ? notString.equals(that.notString) : that.notString == null;
+        return Objects.equals(orString, that.orString)
+                && Objects.equals(andString, that.andString)
+                && Objects.equals(falseString, that.falseString)
+                && Objects.equals(trueString, that.trueString)
+                && Objects.equals(xorString, that.xorString)
+                && Objects.equals(notString, that.notString);
     }
 
     @Override
     public int hashCode() {
-        int result = orString.hashCode();
-        result = 31 * result + andString.hashCode();
-        result = 31 * result + falseString.hashCode();
-        result = 31 * result + trueString.hashCode();
-        result = 31 * result + (notString != null ? notString.hashCode() : 0);
-        return result;
+        return Objects.hash(orString, andString, falseString, trueString, xorString, notString);
     }
 
     private static class FormatterLatex extends FormatToExpression {
         FormatterLatex() {
-            super("\\oder", "\\und", null, "0", "1");
+            super("\\oder", "\\und", "\\xoder", null, "0", "1");
         }
 
         @Override

@@ -13,8 +13,9 @@ public interface Editor<T> {
 
     /**
      * @return the value of the editor
+     * @throws EditorParseException Value in editor field is not valid
      */
-    T getValue();
+    T getValue() throws EditorParseException;
 
     /**
      * Adds the components of the editor to the panel
@@ -23,9 +24,9 @@ public interface Editor<T> {
      * @param key               the key which is to edit
      * @param elementAttributes the attributes
      * @param dialog            the containing dialog
-     * @param constrains        the constrains used to place the components in the panel
+     * @param constraints       the constraints used to place the components in the panel
      */
-    void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog dialog, ConstrainsBuilder constrains);
+    void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog dialog, ConstraintsBuilder constraints);
 
     /**
      * Used to enable/disable the component.
@@ -33,4 +34,19 @@ public interface Editor<T> {
      * @param enabled true enables the component
      */
     void setEnabled(boolean enabled);
+
+    /**
+     * Indicates a invalid value in a input field
+     */
+    class EditorParseException extends Exception {
+        protected EditorParseException(Exception cause) {
+            super(cause);
+        }
+
+        @Override
+        public String getMessage() {
+            return getCause().getMessage();
+        }
+    }
+
 }

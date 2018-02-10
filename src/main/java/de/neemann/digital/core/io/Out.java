@@ -30,6 +30,7 @@ public class Out implements Element {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DESCRIPTION)
+            .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.PINNUMBER);
 
     /**
@@ -58,6 +59,7 @@ public class Out implements Element {
     private final int[] bits;
     private final String label;
     private final String pinNumber;
+    private final IntFormat format;
     private ObservableValue value;
 
     /**
@@ -69,6 +71,7 @@ public class Out implements Element {
         bits = new int[]{attributes.getBits()};
         label = attributes.getCleanLabel();
         pinNumber = attributes.get(Keys.PINNUMBER);
+        format = attributes.get(Keys.INT_FORMAT);
     }
 
     /**
@@ -80,6 +83,7 @@ public class Out implements Element {
         this.bits = bits;
         label = null;
         pinNumber = "";
+        format = null;
     }
 
     @Override
@@ -98,7 +102,9 @@ public class Out implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addOutput(new Signal(label, value).setPinNumber(pinNumber));
+        model.addOutput(new Signal(label, value)
+                .setPinNumber(pinNumber)
+                .setFormat(format));
     }
 
     private final static class SevenSegTypeDescription extends ElementTypeDescription {

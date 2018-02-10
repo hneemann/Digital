@@ -6,7 +6,9 @@ import de.neemann.digital.lang.Lang;
 import java.util.ArrayList;
 
 /**
- * This class performs a speed test, to determine how fast the model can run.
+ * This class performs a speed test to determine how fast the model can run.
+ * Gives only a rough estimation. Speed depends also on overall system load,
+ * garbage collector and so on.
  *
  * @author hneemann
  */
@@ -29,7 +31,7 @@ public class SpeedTest {
      * @return the maximal frequency in Hz
      * @throws NodeException NodeException
      */
-    public int calculate() throws NodeException {
+    public double calculate() throws NodeException {
         ArrayList<Clock> clocks = model.getClocks();
         if (clocks.isEmpty())
             throw new NodeException(Lang.get("err_noClockFound"));
@@ -58,12 +60,12 @@ public class SpeedTest {
         long cycles = ((long) loops) * LOOPCOUNTER / 2;
         double time = (aktTime - starTime) / 1000.0;
 
-        double freqency = cycles / time;
+        double frequency = cycles / time;
 
         System.out.println("cycles: " + cycles);
         System.out.println("time  : " + time + "s");
-        System.out.println("freq  :" + freqency);
+        System.out.println("freq  :" + frequency);
 
-        return (int) freqency;
+        return frequency;
     }
 }

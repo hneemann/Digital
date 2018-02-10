@@ -66,7 +66,7 @@ public class SplitterHighZTest extends TestCase {
         sc.check(1, 1, 0);
         sc.check(2, 0, 1);
         sc.check(3, 1, 1);
-        sc.check(HIGHZ, HIGHZ, HIGHZ);
+        sc.checkZ(HIGHZ, HIGHZ, HIGHZ);
     }
 
 }

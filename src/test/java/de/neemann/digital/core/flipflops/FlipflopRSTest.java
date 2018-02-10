@@ -24,17 +24,31 @@ public class FlipflopRSTest extends TestCase {
         TestExecuter sc = new TestExecuter(model).setInputs(s, c, r).setOutputs(out.getOutputs());
         //       S  C  R  Q  ~Q
         sc.check(0, 0, 0, 0, 1);
-        sc.check(0, 0, 0, 0, 1);
         sc.check(1, 0, 0, 0, 1);
         sc.check(0, 1, 0, 0, 1);
         sc.check(1, 0, 0, 0, 1);
         sc.check(1, 1, 0, 1, 0);
-        sc.check(1, 0, 1, 1, 0);
-        sc.check(1, 1, 1, 1, 0);
-        sc.check(1, 0, 1, 1, 0);
-        sc.check(1, 1, 1, 1, 0);
-        sc.check(0, 0, 1, 1, 0);
+        sc.check(1, 0, 0, 1, 0);
         sc.check(0, 1, 1, 0, 1);
-        sc.check(0, 0, 0, 0, 1);
+        sc.check(0, 0, 1, 0, 1);
+
+
+        ObservableValue q = out.getOutputs().get(0);
+        ObservableValue qn = out.getOutputs().get(1);
+
+        s.setValue(1);
+        r.setValue(1);
+        for (int i = 0; i < 100; i++) {
+            c.setValue(1);
+            model.doStep();
+            final boolean qBool = q.getBool();
+            final boolean qnBool = qn.getBool();
+            assertTrue(qBool ^ qnBool);
+            c.setValue(0);
+            model.doStep();
+            assertEquals(qBool, q.getBool());
+            assertEquals(qnBool, qn.getBool());
+        }
+
     }
 }

@@ -37,6 +37,16 @@ public class DataFieldTest extends TestCase {
         assertEquals(0xFF, df.getDataWord(3));
     }
 
+    public void testLoad64Bit() throws Exception {
+        String data = "v2.0 raw\n8000000000000000\n10\nAA\nFF";
+        DataField df = new DataField(new StringReader(data));
+        assertEquals(4, df.size());
+        assertEquals(0x8000000000000000L, df.getDataWord(0));
+        assertEquals(0x10, df.getDataWord(1));
+        assertEquals(0xAA, df.getDataWord(2));
+        assertEquals(0xFF, df.getDataWord(3));
+    }
+
     public void testLoadComments() throws Exception {
         String data = "v2.0 raw\n#test1 \n 0 \n#test1\n  #  test2\n10  # test3\n\n\nAA\nFF #test";
         DataField df = new DataField(new StringReader(data));

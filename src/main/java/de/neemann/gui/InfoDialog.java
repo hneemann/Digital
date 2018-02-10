@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.jar.JarFile;
 
 /**
@@ -21,10 +22,14 @@ import java.util.jar.JarFile;
  * Reads Build-Version and Build-Date from the Manifest.
  * Created by hneemann on 23.03.15.
  */
-public final class InfoDialog {
+public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
+    /**
+     * Unknown release
+     */
+    public static final String UNKNOWN = "unknown";
     private static InfoDialog instance;
     private final ArrayList<Manifest> infos;
-    private String revision = "unknown";
+    private String revision = UNKNOWN;
 
     /**
      * @return the singleton instance
@@ -52,7 +57,7 @@ public final class InfoDialog {
     }
 
     /**
-     * Creates amessage by taking the given message and adding the manifestinfos to it
+     * Creates a message by taking the given message and adding the manifest infos to it
      *
      * @param message the given message
      * @return message and added manifest infos
@@ -68,16 +73,17 @@ public final class InfoDialog {
     }
 
     /**
-     * Shows the message in a JOptioPane dialog
+     * Shows the message in a dialog
      *
-     * @param parent  the parent component
-     * @param message the message
+     * @param parent   the parent component
+     * @param message  the message
+     * @param revision the "{{version}}" url version replacement
      */
-    private void showInfo(Component parent, String message) {
-        final JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(parent), Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
+    public static void showInfo(Window parent, String message, String revision) {
+        final JDialog dialog = new JDialog(parent, Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
         dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        JEditorPane ta = new JEditorPane("text/html", createMessage(message));
+        JEditorPane ta = new JEditorPane("text/html", message);
         ta.setCaretPosition(0);
         ta.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
         ta.setEditable(false);
@@ -129,27 +135,38 @@ public final class InfoDialog {
      * @param message the message
      * @return the help menu
      */
-    public JMenu addToFrame(final JFrame frame, final String message) {
-        JMenuBar bar = frame.getJMenuBar();
-        JMenu help = new JMenu(Lang.get("menu_help"));
-        bar.add(help);
-        help.add(new AbstractAction(Lang.get("menu_about")) {
+    public JMenuItem createMenuItem(final JFrame frame, final String message) {
+        return new JMenuItem(new AbstractAction(Lang.get("menu_about")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                showInfo(frame, message);
+                showInfo(frame, createMessage(message), revision);
             }
         });
-        return help;
     }
 
-    private static class Manifest {
+    @Override
+    public Iterator<Manifest> iterator() {
+        return infos.iterator();
+    }
+
+    /**
+     * @return the revision
+     */
+    public String getRevision() {
+        return revision;
+    }
+
+    /**
+     * A simple Manifest parser
+     */
+    public static final class Manifest {
         private static final String REVISION = "Build-SCM-Revision";
         private static final String TIME = "Build-Time";
 
         private final HashMap<String, String> manifest;
         private final URL url;
 
-        Manifest(URL url) throws IOException {
+        private Manifest(URL url) throws IOException {
             this.url = url;
             manifest = new HashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
@@ -165,8 +182,22 @@ public final class InfoDialog {
             }
         }
 
-        public String get(String key) {
+        private String get(String key) {
             return manifest.get(key);
+        }
+
+        /**
+         * @return returns all entries
+         */
+        public HashMap<String, String> getEntries() {
+            return manifest;
+        }
+
+        /**
+         * @return the manifest url
+         */
+        public URL getUrl() {
+            return url;
         }
 
         private void createInfoString(StringBuilder sb) {

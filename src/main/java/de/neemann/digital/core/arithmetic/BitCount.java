@@ -1,9 +1,6 @@
 package de.neemann.digital.core.arithmetic;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -37,9 +34,7 @@ public class BitCount extends Node implements Element {
      */
     public BitCount(ElementAttributes attributes) {
         inBits = attributes.get(Keys.BITS);
-        int outBits = 1;
-        while ((1 << outBits) <= inBits)
-            outBits++;
+        int outBits = Bits.binLn2(inBits);
         output = new ObservableValue("out", outBits).setPinDescription(DESCRIPTION);
     }
 

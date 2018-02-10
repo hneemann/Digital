@@ -32,12 +32,12 @@ public class TerminalDialog extends JDialog {
     /**
      * Creates a new instance
      *
-     * @param attr the terminals attributes
+     * @param parent the parent window
+     * @param attr   the terminals attributes
      */
-    public TerminalDialog(ElementAttributes attr) {
-        super((JFrame) null, getDialogTitle(attr), false);
+    public TerminalDialog(JFrame parent, ElementAttributes attr) {
+        super(parent, getDialogTitle(attr), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
         width = attr.get(Keys.TERM_WIDTH);
         textArea = new JTextArea(attr.get(Keys.TERM_HEIGHT), width);
         textArea.setFont(new Font("monospaced", Font.PLAIN, 12));

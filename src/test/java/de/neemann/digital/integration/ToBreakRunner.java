@@ -9,7 +9,6 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.LibrarySelector;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,6 +69,7 @@ public class ToBreakRunner {
 
     private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException, ElementNotFoundException {
         library = new ElementLibrary();
+        initLibrary(library);
         library.setRootFilePath(filename.getParentFile());
         ShapeFactory shapeFactory = new ShapeFactory(library);
         circuit = Circuit.loadCircuit(filename, shapeFactory);
@@ -78,6 +78,15 @@ public class ToBreakRunner {
         model = md.createModel(false);
         if (doInit)
             model.init(true);
+    }
+
+    /**
+     * Override this method to prepare the library.
+     * This implementation does nothing.
+     *
+     * @param library the library
+     */
+    public void initLibrary(ElementLibrary library) {
     }
 
     /**

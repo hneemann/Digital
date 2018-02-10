@@ -125,14 +125,13 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
      *
      * @param out the stream to write to
      * @throws IOException            IOException
-     * @throws FuseMapFillerException FuseMapFillerException
      * @throws PinMapException        PinMapException
      */
-    public void writeTo(Writer out) throws IOException, FuseMapFillerException, PinMapException {
+    public void writeTo(Writer out) throws IOException, PinMapException {
         out
                 .append("Name     ").append(projectName).append(" ;\r\n")
                 .append("PartNo   00 ;\r\n")
-                .append("Date     ").append(dateFormat.format(date)).append(" ;\r\n")
+                .append("Date     ").append(formatDate(date)).append(" ;\r\n")
                 .append("Revision 01 ;\r\n")
                 .append("Designer ").append(username).append(" ;\r\n")
                 .append("Company  unknown ;\r\n")
@@ -154,7 +153,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
 
         for (String var : builder.getOutputs()) {
             if (createNodes) {
-                int p = pinMap.isAssigned(var);
+                int p = pinMap.isOutputAssigned(var);
                 if (p >= 0)
                     out.append("PIN ").append(Integer.toString(p)).append(" = ").append(var).append(";\r\n");
                 else
@@ -188,6 +187,13 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
         }
 
         out.flush();
+    }
+
+    private String formatDate(Date date) {
+        if (date == null)
+            return "unknownDate";
+        else
+            return dateFormat.format(date);
     }
 
     private void breakLines(Writer out, String expression) throws IOException {

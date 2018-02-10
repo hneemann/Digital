@@ -15,17 +15,13 @@ import de.neemann.digital.analyse.expression.modify.NOr;
 import de.neemann.digital.analyse.expression.modify.TwoInputs;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
-import de.neemann.digital.builder.ATF1502.*;
+import de.neemann.digital.builder.ATF150x.ATFDevice;
 import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.builder.Gal16v8.CuplExporter;
 import de.neemann.digital.builder.Gal16v8.Gal16v8JEDECExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10CuplExporter;
 import de.neemann.digital.builder.Gal22v10.Gal22v10JEDECExporter;
-import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.builder.circuit.CircuitBuilder;
-import de.neemann.digital.builder.jedec.FuseMapFillerException;
-import de.neemann.digital.builder.tt2.StartATF1502Fitter;
-import de.neemann.digital.builder.tt2.StartATF1504Fitter;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
@@ -37,13 +33,18 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
+import de.neemann.digital.gui.components.table.hardware.GenerateCUPL;
+import de.neemann.digital.gui.components.table.hardware.GenerateFile;
+import de.neemann.digital.gui.components.table.hardware.HardwareDescriptionGenerator;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.*;
+import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.MyFileChooser;
+import de.neemann.gui.Screen;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -51,22 +52,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.StringTokenizer;
+import java.util.prefs.Preferences;
 
 /**
  * @author hneemann
  */
 public class TableDialog extends JDialog {
+    private static final Preferences PREFS = Preferences.userRoot().node("dig").node("generator");
     private static final Color MYGRAY = new Color(230, 230, 230);
     private static final List<Key> LIST = new ArrayList<>();
 
     static {
         LIST.add(Keys.LABEL);
-        LIST.add(Keys.PINNUMBER);
     }
 
     private final JTextPane statusBar;
@@ -75,6 +77,8 @@ public class TableDialog extends JDialog {
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
     private final ToolTipAction karnaughMenuAction;
+    private final HashMap<String, HardwareDescriptionGenerator> availGenerators = new HashMap<>();
+    private final JMenu hardwareMenu;
     private JCheckBoxMenuItem createJK;
     private File filename;
     private TruthTableTableModel model;
@@ -82,6 +86,7 @@ public class TableDialog extends JDialog {
     private AllSolutionsDialog allSolutionsDialog;
     private ExpressionListenerStore lastGeneratedExpressions;
     private KarnaughMapDialog kvMap;
+    private JMenuItem lastUsedGenratorMenuItem;
 
     /**
      * Creates a new instance
@@ -98,7 +103,7 @@ public class TableDialog extends JDialog {
         this.shapeFactory = shapeFactory;
         this.filename = filename;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        kvMap = new KarnaughMapDialog(this);
+        kvMap = new KarnaughMapDialog(this, (boolTable, row) -> model.incValue(boolTable, row));
 
         statusBar = new JTextPane();
         statusBar.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE); // without this setFont not work
@@ -120,6 +125,8 @@ public class TableDialog extends JDialog {
         table.getActionMap().put("1_ACTION", new SetAction(1));
         table.getInputMap().put(KeyStroke.getKeyStroke("X"), "X_ACTION");
         table.getActionMap().put("X_ACTION", new SetAction(2));
+
+        new TableReorderManager(this, table);
 
         allSolutionsDialog = new AllSolutionsDialog(this, font);
 
@@ -148,7 +155,7 @@ public class TableDialog extends JDialog {
         sizeMenu.add(sequential);
         for (int i = 2; i <= 8; i++)
             sequential.add(new JMenuItem(new SizeSequentialAction(i)));
-        if (Main.enableExperimental()) {
+        if (Main.isExperimentalMode()) {
             JMenu sequentialBiDir = new JMenu(Lang.get("menu_table_new_sequential_bidir"));
             sizeMenu.add(sequentialBiDir);
             for (int i = 2; i <= 8; i++)
@@ -162,7 +169,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ReorderInputs ri = new ReorderInputs(model.getTable());
-                if (new ElementOrderer<>(parent, Lang.get("menu_table_reorder_inputs"), ri.getItems())
+                if (new ElementOrderer<>(TableDialog.this, Lang.get("menu_table_reorder_inputs"), ri.getItems())
                         .addDeleteButton()
                         .addOkButton()
                         .showDialog()) {
@@ -188,7 +195,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ReorderOutputs ro = new ReorderOutputs(model.getTable());
-                if (new ElementOrderer<>(parent, Lang.get("menu_table_reorder_outputs"), ro.getItems())
+                if (new ElementOrderer<>(TableDialog.this, Lang.get("menu_table_reorder_outputs"), ro.getItems())
                         .addDeleteButton()
                         .addOkButton()
                         .showDialog()) {
@@ -214,17 +221,19 @@ public class TableDialog extends JDialog {
 
         bar.add(createSetMenu());
 
-        bar.add(createCreateMenu());
+        hardwareMenu = createCreateMenu();
+        bar.add(hardwareMenu);
+        checkLastUsedGenerator();
 
+        JMenu karnaughMenu = new JMenu(Lang.get("menu_karnaughMap"));
         karnaughMenuAction = new ToolTipAction(Lang.get("menu_karnaughMap")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 kvMap.setVisible(true);
             }
-        }.setToolTip(Lang.get("menu_karnaughMap_tt"));
-        JMenuItem karnaughMenuItem = karnaughMenuAction.createJMenuItem();
-        bar.add(karnaughMenuItem);
-        karnaughMenuItem.setOpaque(false);
+        }.setToolTip(Lang.get("menu_karnaughMap_tt")).setAccelerator("F1");
+        karnaughMenu.add(karnaughMenuAction.createJMenuItem());
+        bar.add(karnaughMenu);
 
         setJMenuBar(bar);
 
@@ -240,17 +249,9 @@ public class TableDialog extends JDialog {
         ElementAttributes attr = new ElementAttributes();
         final String name = model.getColumnName(columnIndex);
         attr.set(Keys.LABEL, name);
-        final TreeMap<String, String> pins = model.getTable().getPins();
-        if (pins.containsKey(name))
-            attr.set(Keys.PINNUMBER, pins.get(name));
         ElementAttributes modified = new AttributeDialog(this, pos, LIST, attr).showDialog();
         if (modified != null) {
-            pins.remove(name);
             final String newName = modified.get(Keys.LABEL).trim().replace(' ', '_');
-            final String pinStr = modified.get(Keys.PINNUMBER).trim();
-            if (pinStr.length() > 0)
-                pins.put(newName, pinStr);
-
             if (!newName.equals(name))
                 model.setColumnName(columnIndex, newName);
         }
@@ -312,11 +313,16 @@ public class TableDialog extends JDialog {
         fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportHex")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new MyFileChooser();
-                if (TableDialog.this.filename != null)
-                    fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "hex"));
-                new SaveAsHelper(TableDialog.this, fc, "hex")
-                        .checkOverwrite(file -> model.getTable().saveHex(file));
+                int res = JOptionPane.OK_OPTION;
+                if (model.getTable().getVars().size() > 20)
+                    res = JOptionPane.showConfirmDialog(TableDialog.this, Lang.get("msg_tableHasManyRowsConfirm"));
+                if (res == JOptionPane.OK_OPTION) {
+                    JFileChooser fc = new MyFileChooser();
+                    if (TableDialog.this.filename != null)
+                        fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "hex"));
+                    new SaveAsHelper(TableDialog.this, fc, "hex")
+                            .checkOverwrite(file -> model.getTable().saveHex(file));
+                }
             }
         }.setToolTip(Lang.get("menu_table_exportHex_tt")).createJMenuItem());
 
@@ -380,7 +386,7 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 createCircuit(ExpressionModifier.IDENTITY);
             }
-        }.setToolTip(Lang.get("menu_table_createCircuit_tt")).createJMenuItem());
+        }.setToolTip(Lang.get("menu_table_createCircuit_tt")).setAccelerator("F2").enableAcceleratorIn(table).createJMenuItem());
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitJK")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -402,7 +408,7 @@ public class TableDialog extends JDialog {
             }
         }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
 
-        if (Main.enableExperimental()) {
+        if (Main.isExperimentalMode()) {
             createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAndTwo")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
@@ -427,110 +433,50 @@ public class TableDialog extends JDialog {
         }
 
         JMenu hardware = new JMenu(Lang.get("menu_table_create_hardware"));
-        JMenu gal16v8 = new JMenu("GAL16v8");
-        gal16v8.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCUPL(new CuplExporter());
-            }
-        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
-        gal16v8.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                Gal16v8JEDECExporter jedecExporter = new Gal16v8JEDECExporter();
-                createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed");
-            }
-        }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
-        hardware.add(gal16v8);
-
-        JMenu gal22v10 = new JMenu("GAL22v10");
-        gal22v10.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCUPL(new Gal22v10CuplExporter());
-            }
-        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
-        gal22v10.add(new ToolTipAction(Lang.get("menu_table_create_jedec")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                Gal22v10JEDECExporter jedecExporter = new Gal22v10JEDECExporter();
-                createHardware(new ExpressionToFileExporter(jedecExporter), filename, "jed");
-            }
-        }.setToolTip(Lang.get("menu_table_create_jedec_tt")).createJMenuItem());
-        hardware.add(gal22v10);
-
-
-        hardware.add(createATF150XExporterMenu("ATF1502",
-                new ATF1502CuplExporter(),
-                new ExpressionToFileExporter(new ATF1502TT2Exporter(filename.getName()))
-                        .addProcessingStep(new StartATF1502Fitter(TableDialog.this))
-                        .addProcessingStep(new CreateCHN("ATF1502AS"))
-        ));
-        hardware.add(createATF150XExporterMenu("ATF1504",
-                new ATF1504CuplExporter(),
-                new ExpressionToFileExporter(new ATF1504TT2Exporter(filename.getName()))
-                        .addProcessingStep(new StartATF1504Fitter(TableDialog.this))
-                        .addProcessingStep(new CreateCHN("ATF1504AS"))
-        ));
-        /*
-        hardware.add(createATF150XExporterMenu("ATF1508",
-                new ATF1508CuplExporter(),
-                new ExpressionToFileExporter(new ATF1508TT2Exporter(filename.getName()))
-                        .addProcessingStep(new StartATF1508Fitter(TableDialog.this))
-                        .addProcessingStep(new CreateCHN("ATF1508AS"))
-        ));*/
-
+        register(hardware, new GenerateCUPL(CuplExporter::new, "GAL16v8/CUPL"));
+        register(hardware, new GenerateFile("jed", () -> new ExpressionToFileExporter(new Gal16v8JEDECExporter()),
+                "GAL16v8/JEDEC", Lang.get("menu_table_create_jedec_tt")));
+        register(hardware, new GenerateCUPL(Gal22v10CuplExporter::new, "GAL22v10/CUPL"));
+        register(hardware, new GenerateFile("jed", () -> new ExpressionToFileExporter(new Gal22v10JEDECExporter()),
+                "GAL22v10/JEDEC", Lang.get("menu_table_create_jedec_tt")));
+        for (ATFDevice atfDev : ATFDevice.values()) {
+            register(hardware, new GenerateCUPL(atfDev::getCuplExporter, "ATF150x/" + atfDev.getMenuName() + "/CUPL"));
+            register(hardware, new GenerateFile("tt2",
+                    () -> atfDev.createExpressionToFileExporter(TableDialog.this, getProjectName()),
+                    "ATF150x/" + atfDev.getMenuName() + "/TT2, JEDEC",
+                    Lang.get("menu_table_createTT2_tt")));
+        }
         createMenu.add(hardware);
 
         return createMenu;
     }
 
-    private JMenuItem createATF150XExporterMenu(String menuName, CuplExporter cuplExporter, ExpressionToFileExporter expressionToFileExporter) {
-        JMenu menu = new JMenu(menuName);
-        menu.add(new ToolTipAction(Lang.get("menu_table_createCUPL")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCUPL(cuplExporter);
-            }
-        }.setToolTip(Lang.get("menu_table_createCUPL_tt")).createJMenuItem());
-        menu.add(new ToolTipAction(Lang.get("menu_table_createTT2")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createHardware(expressionToFileExporter, filename, "tt2");
-            }
-        }.setToolTip(Lang.get("menu_table_createTT2_tt")).createJMenuItem());
-        return menu;
-    }
-
-    private boolean createHardware(ExpressionToFileExporter expressionExporter, File filename, String suffix) {
-        boolean result = false;
-        if (filename == null)
-            filename = new File("circuit." + suffix);
-        else
-            filename = SaveAsHelper.checkSuffix(filename, suffix);
-
-        JFileChooser fileChooser = new MyFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("JEDEC", suffix));
-        fileChooser.setSelectedFile(filename);
-        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
-                expressionExporter.getPinMapping().addAll(model.getTable().getPins());
-                new BuilderExpressionCreator(expressionExporter.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
-                expressionExporter.export(SaveAsHelper.checkSuffix(fileChooser.getSelectedFile(), suffix));
-                result = true;
-            } catch (ExpressionException | FormatterException | IOException | FuseMapFillerException | PinMapException e) {
-                new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
+    private void register(JMenu hardware, final HardwareDescriptionGenerator generator) {
+        availGenerators.put(generator.getMenuPath(), generator);
+        JMenu m = hardware;
+        String path = generator.getMenuPath();
+        StringTokenizer tok = new StringTokenizer(path, "/");
+        while (tok.hasMoreTokens()) {
+            String menuName = tok.nextToken();
+            if (tok.hasMoreTokens()) {
+                JMenu toUse = null;
+                for (int i = 0; i < m.getMenuComponentCount(); i++) {
+                    Component menuComponent = m.getMenuComponent(i);
+                    if (menuComponent instanceof JMenu) {
+                        JMenu menu = (JMenu) menuComponent;
+                        if (menu.getText().equalsIgnoreCase(menuName))
+                            toUse = menu;
+                    }
+                }
+                if (toUse == null) {
+                    toUse = new JMenu(menuName);
+                    m.add(toUse);
+                }
+                m = toUse;
+            } else {
+                m.add(new HardwareToolTipAction(menuName, generator).createJMenuItem());
             }
         }
-
-        ArrayList<String> pinsWithoutNumber = model.getTable().getPinsWithoutNumber();
-        if (pinsWithoutNumber != null)
-            JOptionPane.showMessageDialog(TableDialog.this,
-                    new LineBreaker().toHTML().breakLines(Lang.get("msg_thereAreMissingPinNumbers", pinsWithoutNumber)),
-                    Lang.get("msg_warning"),
-                    JOptionPane.WARNING_MESSAGE);
-
-        return result;
     }
 
     private void createCircuit(ExpressionModifier... modifier) {
@@ -540,7 +486,7 @@ public class TableDialog extends JDialog {
     private void createCircuit(boolean useJKff, ExpressionModifier... modifier) {
         try {
             CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff, model.getTable().getVars())
-                    .setPins(model.getTable().getPins());
+                    .setModelAnalyzerInfo(model.getTable().getModelAnalyzerInfo());
             new BuilderExpressionCreator(circuitBuilder, modifier)
                     .setUseJKOptimizer(useJKff)
                     .create(lastGeneratedExpressions);
@@ -552,56 +498,39 @@ public class TableDialog extends JDialog {
                     .setBaseFileName(filename)
                     .openLater();
         } catch (ExpressionException | FormatterException | RuntimeException e) {
-            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
         }
     }
 
-    private void createCUPL(CuplExporter cupl) {
-        try {
-            File cuplPath;
-            if (filename == null) {
-                JFileChooser fc = new MyFileChooser();
-                fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                fc.setDialogTitle(Lang.get("msg_selectAnEmptyFolder"));
-                if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-                    cuplPath = fc.getSelectedFile();
-                    filename = cuplPath;
-                } else {
-                    return;
-                }
-            } else {
-                if (filename.isDirectory()) {
-                    cuplPath = filename;
-                } else {
-                    String name = filename.getName();
-                    if (name.length() > 3 && name.charAt(name.length() - 4) == '.')
-                        name = name.substring(0, name.length() - 4);
-                    cuplPath = new File(filename.getParentFile(), "CUPL_" + name);
-                }
-            }
-
-            if (!cuplPath.mkdirs())
-                if (!cuplPath.exists())
-                    throw new IOException(Lang.get("err_couldNotCreateFolder_N0", cuplPath.getPath()));
-
-            File f = new File(cuplPath, "CUPL.PLD");
-            cupl.setProjectName(filename.getName());
-            cupl.getPinMapping().addAll(model.getTable().getPins());
-            new BuilderExpressionCreator(cupl.getBuilder(), ExpressionModifier.IDENTITY).create(lastGeneratedExpressions);
-            try (FileOutputStream out = new FileOutputStream(f)) {
-                cupl.writeTo(out);
-            }
-        } catch (ExpressionException | FormatterException | RuntimeException | IOException | FuseMapFillerException | PinMapException e) {
-            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show();
-        }
-    }
-
-    private void setModel(TruthTableTableModel model) {
+    void setModel(TruthTableTableModel model) {
         this.model = model;
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
         karnaughMenuAction.setEnabled(model.getTable().getVars().size() <= 4);
         calculateExpressions();
+    }
+
+    private String getProjectName() {
+        if (filename == null)
+            return "unknown";
+        else return filename.getName();
+    }
+
+    private void setLastUsedGenerator(HardwareDescriptionGenerator generator) {
+        if (lastUsedGenratorMenuItem != null)
+            hardwareMenu.remove(lastUsedGenratorMenuItem);
+        lastUsedGenratorMenuItem = new HardwareToolTipAction(generator.getMenuPath().replace("/", " → "), generator).createJMenuItem();
+        hardwareMenu.add(lastUsedGenratorMenuItem);
+        PREFS.put("gen", generator.getMenuPath());
+    }
+
+    private void checkLastUsedGenerator() {
+        String lu = PREFS.get("gen", "");
+        if (lu.length() > 0) {
+            HardwareDescriptionGenerator gen = availGenerators.get(lu);
+            if (gen != null)
+                setLastUsedGenerator(gen);
+        }
     }
 
     private class CalculationTableModelListener implements TableModelListener {
@@ -625,8 +554,15 @@ public class TableDialog extends JDialog {
 
         } catch (ExpressionException | FormatterException | AnalyseException e1) {
             lastGeneratedExpressions = null;
-            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show();
+            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(this);
         }
+    }
+
+    /**
+     * @return the last generated expressions
+     */
+    public ExpressionListenerStore getLastGeneratedExpressions() {
+        return lastGeneratedExpressions;
     }
 
     private final class SizeAction extends AbstractAction {
@@ -738,7 +674,7 @@ public class TableDialog extends JDialog {
         }
 
         @Override
-        public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+        public void resultFound(String name, Expression expression) throws FormatterException {
             if (count == 0)
                 firstExp = "<html>" + htmlFormatter.identifier(name) + "=" + htmlFormatter.format(expression) + "</html>";
             html.append("<tr>");
@@ -819,13 +755,16 @@ public class TableDialog extends JDialog {
         private final StringBuilder sb;
 
         private LaTeXExpressionListener(TruthTableTableModel model) throws ExpressionException {
-            String text = new TruthTableFormatterLaTeX().format(model.getTable());
-            sb = new StringBuilder(text);
+            sb = new StringBuilder();
+            if (model.getTable().getRows() <= 256) {
+                String text = new TruthTableFormatterLaTeX().format(model.getTable());
+                sb.append(text);
+            }
             sb.append("\\begin{eqnarray*}\n");
         }
 
         @Override
-        public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
+        public void resultFound(String name, Expression expression) throws FormatterException {
             sb.append(FormatToTableLatex.formatIdentifier(name))
                     .append("&=&")
                     .append(FormatToExpression.FORMATTER_LATEX.format(expression))
@@ -836,6 +775,26 @@ public class TableDialog extends JDialog {
         public void close() {
             sb.append("\\end{eqnarray*}\n");
             new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"), sb.toString()).setVisible(true);
+        }
+    }
+
+    private final class HardwareToolTipAction extends ToolTipAction {
+        private final HardwareDescriptionGenerator generator;
+
+        private HardwareToolTipAction(String menuName, HardwareDescriptionGenerator generator) {
+            super(menuName);
+            this.generator = generator;
+            setToolTip(generator.getDescription());
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                generator.generate(TableDialog.this, filename, model.getTable(), lastGeneratedExpressions);
+                setLastUsedGenerator(generator);
+            } catch (Exception e1) {
+                new ErrorMessage(Lang.get("msg_errorDuringHardwareExport")).addCause(e1).show(TableDialog.this);
+            }
         }
     }
 }

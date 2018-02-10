@@ -1,23 +1,71 @@
 Release Notes
 
-HEAD, planned as v0.15
+HEAD, planned as v0.17
+- Added 64 bit support for Add and Sub components.
+- Added support of some more ATF150x chips.
+- Added a register file component.
+- Added an "export to zip" function.
+- If an input or output is several bits wide, all pin numbers can be specified by a comma-separated list.
+- Now it's possible to choose the polarity of the reset component.
+- The model analyzer now creates an error message if a cycle is detected in the circuit.
+- Added a chapter "First Steps" to the documentation.
+- Bug fixes
+  - Splitter, BarrelShifter and Comparator now are working with 64 bit.
+  - fixed a bug in library IC 74198
+
+v0.16, released on 02. Jan 2018
+- RAM components and EEPROM now allow an input invert configuration.
+- Measurement values dialog is also able to modify the values. This allows to modify
+  the content of registers and flip-flops in a running simulation.
+- Now you can open the measurement value table and graph in a running simulation.
+- Added a bit extender component to extend signed values.
+- Added a simple unclocked RS flip-flop.
+- Added a bit selector component.
+- Added a dual ported RAM component.
+- Added a priority encoder component.
+- Added tooltips showing the actual value of wires.
+- Added a shortcut S to split a single wire into two wires.
+- Added selectable number format to inputs and outputs.
+- Now you can click in the k-map to modify the truth table.
+- Improved performance through more efficient decoupling of the GUI thread and the simulation thread.
+- Bug fixes
+  - Fixed a bug in the RAMSinglePortSel component: Write was not edge-triggered on WE. Now it is.
+  - Fixed a bug in the barrel shifter and adder if 32 bits or more where used.
+  - It was not possible to use constants with 32 bits or more. Now it is.
+  - Fixed a bug that caused the exported VHDL code not to work if a signal was connected
+    to multiple outputs.
+  - Fixed "concurrent modification exception" if input value dialog is opened.
+- Breaking changes:
+  - Counter modified from a asynchronous clear to a synchronous clear.
+
+v0.15, released on 30. Oct 2017
+- Added the possibility to use custom, java implemented components in Digital.
 - Added an EEPROM which behaves like a memory that can be written and whose content
   is non-volatile.
-- Replaced shortcut 'B' with a more general attribute editing dialog (select multiple
-  components and click right).
-- Added a grid to the main panel.
 - Added the possibility to map keyboard keys to model buttons.
-- fixed bugs in some 74xx circuits (74160, 74161, 74162 and 74238)
-- fixed a bug in the remote interface "run to break" method.
-- fixed an error in VHDL export if comparator is used in "signed mode"
-- fixed a Windows specific bug in the speed test GUI
+- Some small usability improvements:
+  - Added a grid to the main panel.
+  - Replaced shortcut 'B' with a more general attribute editing dialog (select multiple
+    components and click right).
+  - Added some new shortcuts (CTRL-N, CTRL-O, CTRL-A, CTRL-D).
+  - Added a spinner to the input value edit dialog.
+- Bug fixes
+  - fixed bugs in some 74xx circuits (74160, 74161, 74162 and 74238)
+  - fixed a bug in the remote interface "run to break" method.
+  - fixed an error in VHDL export if comparator is used in "signed mode"
+  - fixed a Windows specific bug in the speed test GUI
+  - fixed a bug which causes a freezing when a file is stored in folder which contains
+    a large number of sub folders and files.
+- Breaking changes:
+  - Removed the address bits settings from the graphic RAM. The width is now
+    determined by the width and the height of the screen.
 
 v0.14, released on 31. Aug 2017
 - Added visualization of K-maps (thanks to roy77)
 - Added VHDL export
   (Not yet complete, but the example processor is running on a FPGA.)
 - Type of pin numbers changed from int to string to allow FPGA pin names like "U16".
-- Added support for BASYS3-Board (*.xdc constrains file is written and the mixed mode
+- Added support for BASYS3-Board (*.xdc constraints file is written and the mixed mode
   clock manager (MMCM) is used if clock frequency exceeds 37kHz)
 - Added shortcut 'B' which sets the number of data bits in all selected components.
 - Breaking changes:

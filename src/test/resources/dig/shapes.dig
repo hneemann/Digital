@@ -47,7 +47,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Logisch</string>
         </entry>
       </elementAttributes>
@@ -57,7 +57,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>IO</string>
         </entry>
       </elementAttributes>
@@ -127,7 +127,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Multiplexer</string>
         </entry>
       </elementAttributes>
@@ -137,7 +137,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Leitungen</string>
         </entry>
       </elementAttributes>
@@ -182,7 +182,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Flipflops</string>
         </entry>
       </elementAttributes>
@@ -206,13 +206,13 @@
     <visualElement>
       <elementName>T_FF</elementName>
       <elementAttributes/>
-      <pos x="980" y="320"/>
+      <pos x="980" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Speicher</string>
         </entry>
       </elementAttributes>
@@ -247,7 +247,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Arithmetik</string>
         </entry>
       </elementAttributes>
@@ -312,7 +312,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>PLD</string>
         </entry>
       </elementAttributes>
@@ -342,7 +342,7 @@
       <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
+          <string>Description</string>
           <string>Test</string>
         </entry>
       </elementAttributes>
@@ -447,6 +447,16 @@
       <elementName>MS-JK-DIL.dig</elementName>
       <elementAttributes/>
       <pos x="780" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BitSelector</elementName>
+      <elementAttributes/>
+      <pos x="1200" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RS_FF_AS</elementName>
+      <elementAttributes/>
+      <pos x="980" y="280"/>
     </visualElement>
   </visualElements>
   <wires/>

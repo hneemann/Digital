@@ -96,6 +96,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
+                    <excludes> <!-- GUI tests are excluded because they are very fragile-->
+                        <exclude>**/TestInGUI.java</exclude>
+                    </excludes>
                     <systemProperties>
                         <property>
                             <name>testdata</name>
@@ -130,6 +133,7 @@
                         <manifestEntries>
                             <Build-SCM-Revision>${git.commit.id.describe}</Build-SCM-Revision>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <SplashScreen-Image>icons/splash.png</SplashScreen-Image>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -193,6 +197,7 @@
                         <manifestEntries>
                             <Build-SCM-Revision>${git.commit.id.describe}</Build-SCM-Revision>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <SplashScreen-Image>icons/splash.png</SplashScreen-Image>
                         </manifestEntries>
                     </archive>
                     <appendAssemblyId>false</appendAssemblyId>
@@ -238,6 +243,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${version.org.slf4j}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20171018</version>
         </dependency>
 
         <dependency>

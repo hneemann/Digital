@@ -83,7 +83,7 @@ public class DataBus {
             model.addObserver(obs);
         }
 
-        commonBusValue = new CommonBusValue(bits, obs, resistor, outputs);
+        commonBusValue = new CommonBusValue(bits, obs, resistor, outputs, net == null ? null : net.getOrigin());
         for (ObservableValue p : outputs)
             p.addObserverToValue(commonBusValue);
         commonBusValue.hasChanged();

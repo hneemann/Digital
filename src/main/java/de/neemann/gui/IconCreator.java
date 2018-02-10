@@ -44,12 +44,12 @@ public final class IconCreator {
                 return getImage(name);
             } else {
                 BufferedImage image = getImageOrNull(name.substring(0, name.length() - 4) + "_hi.png");
-                if (image!=null) {
+                if (image != null) {
                     int w = (int) (image.getWidth() * scaling / 2);
                     int h = (int) (image.getHeight() * scaling / 2);
                     return image.getScaledInstance(w, h, BufferedImage.SCALE_SMOOTH);
                 } else {
-                    LOGGER.info("upscaling of "+name);
+                    LOGGER.info("upscaling of " + name);
                     image = getImage(name);
                     int w = (int) (image.getWidth() * scaling);
                     int h = (int) (image.getHeight() * scaling);
@@ -70,7 +70,7 @@ public final class IconCreator {
     }
 
     private static BufferedImage getImageOrNull(String name) throws IOException {
-        URL systemResource = ClassLoader.getSystemResource(name);
+        URL systemResource = ClassLoader.getSystemResource("icons/" + name);
         if (systemResource == null) {
             return null;
         }

@@ -48,6 +48,21 @@ public class DependencyAnalyser {
         return list;
     }
 
+    /**
+     * Returns the number of model steps needed to analyse the model.
+     *
+     * @param modelAnalyser the model analyser
+     * @return the number of required steps
+     */
+    public long getRequiredSteps(ModelAnalyser modelAnalyser) {
+        long num = 0;
+        for (Signal o : modelAnalyser.getOutputs()) {
+            int n = getInputs(o).size();
+            num += (1L << n);
+        }
+        return num;
+    }
+
     private void backtracking(ObservableValue value, Set<ObservableValue> effected) throws PinException, BacktrackException {
         if (!effected.contains(value)) {
             effected.add(value);

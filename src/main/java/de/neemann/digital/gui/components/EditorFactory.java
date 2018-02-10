@@ -1,19 +1,21 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.IntFormat;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
-import de.neemann.digital.gui.components.testing.TestCaseDesctiptionEditor;
+import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
@@ -47,6 +49,7 @@ public final class EditorFactory {
     private EditorFactory() {
         add(String.class, StringEditor.class);
         add(Integer.class, IntegerEditor.class);
+        add(Long.class, LongEditor.class);
         add(InValue.class, InValueEditor.class);
         add(File.class, FileEditor.class);
         add(Color.class, ColorEditor.class);
@@ -57,7 +60,7 @@ public final class EditorFactory {
         add(LeftRightFormat.class, LeftRightFormatsEditor.class);
         add(IntFormat.class, IntFormatsEditor.class);
         add(Language.class, LanguageEditor.class);
-        add(TestCaseDescription.class, TestCaseDesctiptionEditor.class);
+        add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
     }
@@ -99,7 +102,7 @@ public final class EditorFactory {
         private JLabel label;
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstrainsBuilder constrains) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
             this.attributeDialog = attributeDialog;
             label = new JLabel(key.getName() + ":  ");
             final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
@@ -107,12 +110,12 @@ public final class EditorFactory {
             component = getComponent(elementAttributes);
             component.setToolTipText(description);
             if (labelAtTop) {
-                panel.add(label, constrains.width(2));
-                constrains.nextRow();
-                panel.add(component, constrains.width(2).dynamicHeight());
+                panel.add(label, constraints.width(2));
+                constraints.nextRow();
+                panel.add(component, constraints.width(2).dynamicHeight());
             } else {
-                panel.add(label, constrains);
-                panel.add(component, constrains.x(1).dynamicWidth());
+                panel.add(label, constraints);
+                panel.add(component, constraints.x(1).dynamicWidth());
             }
         }
 
@@ -205,13 +208,17 @@ public final class EditorFactory {
         }
 
         @Override
-        public Integer getValue() {
+        public Integer getValue() throws EditorParseException {
             Object item = comboBox.getSelectedItem();
             int value = 0;
             if (item instanceof Number)
                 value = ((Number) item).intValue();
             else {
-                value = Integer.decode(item.toString());
+                try {
+                    value = (int) Bits.decode(item.toString());
+                } catch (Bits.NumberFormatException e) {
+                    throw new EditorParseException(e);
+                }
             }
 
             if (key instanceof Key.KeyInteger) {
@@ -223,6 +230,38 @@ public final class EditorFactory {
                     value = max;
             }
 
+            return value;
+        }
+    }
+
+    private final static class LongEditor extends LabelEditor<Long> {
+        private static final Long[] DEFAULTS = {0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L, 16L};
+        private final JComboBox<Long> comboBox;
+
+        public LongEditor(Long value, Key<Long> key) {
+            comboBox = new JComboBox<>(DEFAULTS);
+            comboBox.setEditable(true);
+            comboBox.setSelectedItem(value.toString());
+        }
+
+        @Override
+        public JComponent getComponent(ElementAttributes attr) {
+            return comboBox;
+        }
+
+        @Override
+        public Long getValue() {
+            Object item = comboBox.getSelectedItem();
+            long value = 0;
+            if (item instanceof Number)
+                value = ((Number) item).longValue();
+            else {
+                try {
+                    value = Bits.decode(item.toString());
+                } catch (Bits.NumberFormatException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             return value;
         }
     }
@@ -243,13 +282,17 @@ public final class EditorFactory {
         }
 
         @Override
-        public InValue getValue() {
+        public InValue getValue() throws EditorParseException {
             Object item = comboBox.getSelectedItem();
-            return new InValue(item.toString());
+            try {
+                return new InValue(item.toString());
+            } catch (Bits.NumberFormatException e) {
+                throw new EditorParseException(e);
+            }
         }
     }
 
-    private final static class BooleanEditor implements Editor<Boolean> {
+    final static class BooleanEditor implements Editor<Boolean> {
 
         private final JCheckBox bool;
 
@@ -264,13 +307,17 @@ public final class EditorFactory {
         }
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstrainsBuilder constrains) {
-            panel.add(bool, constrains.width(2));
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
+            panel.add(bool, constraints.width(2));
         }
 
         @Override
         public void setEnabled(boolean enabled) {
             bool.setEnabled(enabled);
+        }
+
+        JCheckBox getCheckBox() {
+            return bool;
         }
     }
 
@@ -366,24 +413,28 @@ public final class EditorFactory {
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    getAttributeDialog().storeEditedValues();
-                    int dataBits = attr.get(Keys.BITS);
-                    int addrBits;
+                    try {
+                        getAttributeDialog().storeEditedValues();
+                        int dataBits = attr.get(Keys.BITS);
+                        int addrBits;
 
-                    // INPUT_COUNT and ADDR_BITS must have the same default value!!!
-                    // If INPUT_COUNT is not present (default value is used) the default value of
-                    // ADDR_BITS is used. This works only if both have the same default value!!!
-                    if (attr.contains(Keys.INPUT_COUNT)) {
-                        // used to handle the LUT
-                        addrBits = attr.get(Keys.INPUT_COUNT);
-                    } else {
-                        // memory, RAM/ROM
-                        addrBits = attr.get(Keys.ADDR_BITS);
-                    }
-                    int size = 1 << addrBits;
-                    DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
-                    if (de.showDialog()) {
-                        data = de.getModifiedDataField();
+                        // INPUT_COUNT and ADDR_BITS must have the same default value!!!
+                        // If INPUT_COUNT is not present (default value is used) the default value of
+                        // ADDR_BITS is used. This works only if both have the same default value!!!
+                        if (attr.contains(Keys.INPUT_COUNT)) {
+                            // used to handle the LUT
+                            addrBits = attr.get(Keys.INPUT_COUNT);
+                        } else {
+                            // memory, RAM/ROM
+                            addrBits = attr.get(Keys.ADDR_BITS);
+                        }
+                        int size = 1 << addrBits;
+                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
+                        if (de.showDialog()) {
+                            data = de.getModifiedDataField();
+                        }
+                    } catch (EditorParseException e1) {
+                        new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
                     }
                 }
             }.createJButton());
@@ -413,7 +464,7 @@ public final class EditorFactory {
                             }
                         }
                     }
-                            .setActive(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
+                            .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
                             .setToolTip(Lang.get("btn_reload_tt"))
                             .createJButton()
             );
@@ -560,11 +611,11 @@ public final class EditorFactory {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     VisualElement ve = getAttributeDialog().getVisualElement();
-                    Component p = getAttributeDialog().getDialogParent();
-                    if (ve != null && p instanceof CircuitComponent) {
+                    Window p = getAttributeDialog().getDialogParent();
+                    if (ve != null && p instanceof Main) {
                         try {
                             getAttributeDialog().storeEditedValues();
-                            ElementTypeDescription d = ((CircuitComponent) p).getLibrary().getElementType(ve.getElementName());
+                            ElementTypeDescription d = ((Main) p).getCircuitComponent().getLibrary().getElementType(ve.getElementName());
                             PinDescriptions in = d.getInputDescription(elementAttributes);
                             InputSelectDialog dialog = new InputSelectDialog(getAttributeDialog(), in, inverterConfig);
                             if (dialog.showDialog()) {
@@ -573,6 +624,8 @@ public final class EditorFactory {
                             }
                         } catch (ElementNotFoundException | NodeException e) {
                             new ErrorMessage(Lang.get("msg_errGettingPinNames")).addCause(e).show(getAttributeDialog());
+                        } catch (EditorParseException e) {
+                            new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e).show(getAttributeDialog());
                         }
                     }
                 }

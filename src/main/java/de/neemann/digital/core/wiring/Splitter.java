@@ -22,16 +22,17 @@ public class Splitter implements Element {
     /**
      * Create a one to N splitter
      *
-     * @param bits number of outputs
+     * @param bits  number of outputs
+     * @param highZ value of the high-z attribute
      * @return the splitter
      */
-    public static Splitter createOneToN(int bits) {
+    public static Splitter createOneToN(int bits, boolean highZ) {
         Ports in = new Ports();
         in.add(new Port(0, bits));
         Ports out = new Ports();
         for (int i = 0; i < bits; i++)
             out.add(new Port(i, 1));
-        return new Splitter(in, out, false);
+        return new Splitter(in, out, highZ);
     }
 
     /**
@@ -271,34 +272,34 @@ public class Splitter implements Element {
                             int from = Integer.decode(strVal.substring(0, pos).trim());
                             int to = Integer.decode(strVal.substring(pos + 1).trim());
                             if (to < from)
-                                throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition), null);
+                                throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition));
                             add(new Port(from, to - from + 1));
                         } else
                             add(new Port(bits, Integer.decode(strVal)));
                     }
                 } catch (RuntimeException e) {
-                    throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition), null);
+                    throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition));
                 }
             }
             if (ports.isEmpty())
                 add(new Port(bits, 1));
 
             if (bits > 64)
-                throw new BitsException(Lang.get("err_spitterToManyBits", definition), null);
+                throw new BitsException(Lang.get("err_spitterToManyBits", definition));
         }
 
         void checkInputConsistency() throws BitsException {
-            long fullMask = (1L << bits) - 1;
+            long fullMask = Bits.mask(bits);
             for (Port p : ports) {
-                long mask = ((1L << p.bits) - 1) << p.pos;
+                long mask = Bits.up(Bits.mask(p.bits), p.pos);
 
                 if ((fullMask & mask) != mask)
-                    throw new BitsException(Lang.get("err_splitterNotUnambiguously"), null);
+                    throw new BitsException(Lang.get("err_splitterNotUnambiguously"));
 
                 fullMask = fullMask & (~mask);
             }
             if (fullMask != 0)
-                throw new BitsException(Lang.get("err_splitterNotAllBitsDefined"), null);
+                throw new BitsException(Lang.get("err_splitterNotAllBitsDefined"));
         }
 
         private void add(Port port) {

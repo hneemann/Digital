@@ -1,5 +1,6 @@
 package de.neemann.digital.testing.parser;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.testing.parser.functions.Function;
@@ -101,7 +102,7 @@ public class Parser {
                 case REPEAT:
                     tok.consume();
                     expect(Tokenizer.Token.OPEN);
-                    int count = (int) parseInt();
+                    long count = parseInt();
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat("n", count, parseSingleRow()));
                     break;
@@ -111,7 +112,7 @@ public class Parser {
                     expect(Tokenizer.Token.IDENT);
                     String var = tok.getIdent();
                     expect(Tokenizer.Token.COMMA);
-                    count = (int) parseInt();
+                    count = parseInt();
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat(var, count, parseRows(Tokenizer.Token.LOOP)));
                     break;
@@ -144,7 +145,7 @@ public class Parser {
                     try {
                         final Value value = new Value(tok.getIdent().toUpperCase());
                         line.add((vals, context) -> vals.add(value));
-                    } catch (NumberFormatException e) {
+                    } catch (Bits.NumberFormatException e) {
                         throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
                     }
                     break;
@@ -164,12 +165,8 @@ public class Parser {
 
     private long convToLong(String num) throws ParserException {
         try {
-            num = num.trim().toLowerCase();
-            if (num.startsWith("0b"))
-                return Long.parseLong(num.substring(2), 2);
-            else
-                return Long.decode(num);
-        } catch (NumberFormatException e) {
+            return Bits.decode(num);
+        } catch (Bits.NumberFormatException e) {
             throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
         }
     }
@@ -270,11 +267,21 @@ public class Parser {
     }
 
     private Expression parseOR() throws IOException, ParserException {
-        Expression ac = parseAND();
+        Expression ac = parseXOR();
         while (isToken(Tokenizer.Token.OR)) {
             Expression a = ac;
-            Expression b = parseAND();
+            Expression b = parseXOR();
             ac = (c) -> a.value(c) | b.value(c);
+        }
+        return ac;
+    }
+
+    private Expression parseXOR() throws IOException, ParserException {
+        Expression ac = parseAND();
+        while (isToken(Tokenizer.Token.XOR)) {
+            Expression a = ac;
+            Expression b = parseAND();
+            ac = (c) -> a.value(c) ^ b.value(c);
         }
         return ac;
     }

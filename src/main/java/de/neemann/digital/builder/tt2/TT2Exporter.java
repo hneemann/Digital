@@ -1,11 +1,9 @@
 package de.neemann.digital.builder.tt2;
 
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.expression.Not;
-import de.neemann.digital.analyse.expression.Operation;
-import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
+import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,7 +17,6 @@ import java.util.*;
 public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     private final BuilderCollector builder;
     private final PinMap pinMap;
-    private int clockPin;
     private String projectName;
     private String device;
     private OutputStreamWriter writer;
@@ -35,35 +32,16 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
      * @param projectName project name
      */
     public TT2Exporter(String projectName) {
-        builder = new BuilderCollector() {
-            @Override
-            public BuilderCollector addCombinatorial(String name, Expression expression) throws BuilderException {
-                if (pinMap.isSimpleAlias(name, expression))
-                    return this;
-                else
-                    return super.addCombinatorial(name, expression);
-            }
-        };
-        pinMap = new PinMap();
+        // if simple aliases are filtered out, a direct input to output connection isn't possible anymore
+        builder = new BuilderCollector();
+        pinMap = new PinMap().setClockPin(43);
         device = "f1502ispplcc44";
         this.projectName = projectName;
-        clockPin = 43;
     }
 
     @Override
     public BuilderInterface getBuilder() {
         return builder;
-    }
-
-    /**
-     * Sets the pin connected to the clock of the ff
-     *
-     * @param clockPin the pin number
-     * @return this for chained calls
-     */
-    public TT2Exporter setClockPin(int clockPin) {
-        this.clockPin = clockPin;
-        return this;
     }
 
     /**
@@ -113,11 +91,11 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     }
 
     private void createProductTerms() throws FuseMapFillerException {
-
         inputs = builder.getInputs();
         varIndexMap = new HashMap<>();
         int i = 0;
         for (String name : inputs) {
+            checkName(name);
             varIndexMap.put(name, i);
             i++;
         }
@@ -143,6 +121,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         outIndexMap = new HashMap<>();
         i = 0;
         for (String name : builder.getOutputs()) {
+            checkName(name);
             if (builder.getRegistered().containsKey(name)) {
                 outIndexMap.put(name + ".REG", i++);
                 outputs.add(name + ".REG");
@@ -168,12 +147,30 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             termMap.put(new ProdInput(inputs.size()), new StateSet(outputs.size()));
         }
 
-
         for (Map.Entry<String, Expression> e : builder.getCombinatorial().entrySet())
             addExpression(e.getKey(), e.getValue());
 
         for (Map.Entry<String, Expression> e : builder.getRegistered().entrySet())
             addExpression(e.getKey() + ".REG", e.getValue());
+    }
+
+    static void checkName(String name) throws FuseMapFillerException {
+        if (name.length() == 0)
+            throw new FuseMapFillerException(Lang.get("err_invalidPinName_N", name));
+
+        char first = name.charAt(0);
+        if (first >= '0' && first <= '9')
+            throw new FuseMapFillerException(Lang.get("err_invalidPinName_N", name));
+
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            if (!(c >= '0' && c <= '9'
+                    || (c >= 'a' && c <= 'z')
+                    || (c >= 'A' && c <= 'Z')
+                    || (c == '_'))) {
+                throw new FuseMapFillerException(Lang.get("err_invalidPinName_N", name));
+            }
+        }
     }
 
     private void addExpression(String name, Expression expression) throws FuseMapFillerException {
@@ -252,12 +249,12 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         }
 
         if (!builder.getRegistered().isEmpty()) {
-            pin.append(" CLK+:").append(clockPin);
+            pin.append(" CLK+:").append(pinMap.getClockPin());
             pinNum++;
         }
 
         for (String o : builder.getOutputs()) {
-            int p = pinMap.isAssigned(o);
+            int p = pinMap.isOutputAssigned(o);
             if (p >= 0) {
                 pin.append(" ").append(o).append("+:").append(p);
                 pinNum++;
@@ -354,6 +351,8 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         private void add(Expression var, boolean invers) throws FuseMapFillerException {
             if (var instanceof Variable) {
                 set(getVarNum(((Variable) var).getIdentifier()), invers ? 0 : 1);
+            } else if (var instanceof Constant) {
+                throw new FuseMapFillerException(Lang.get("err_constantsNotAllowed"));
             } else
                 throw new FuseMapFillerException("invalid expression");
         }

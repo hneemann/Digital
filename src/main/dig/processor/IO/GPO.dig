@@ -46,32 +46,14 @@ Seine Adresse ist 0x15</string>
       <pos x="280" y="220"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Write Enable</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>W</string>
-        </entry>
-      </elementAttributes>
-      <pos x="280" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Comparator</elementName>
@@ -88,7 +70,7 @@ Seine Adresse ist 0x15</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>21</int>
+          <long>21</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -285,6 +267,20 @@ Seine Adresse ist 0x15</string>
         </entry>
       </elementAttributes>
       <pos x="780" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Write Enable</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>W</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="280"/>
     </visualElement>
   </visualElements>
   <wires>

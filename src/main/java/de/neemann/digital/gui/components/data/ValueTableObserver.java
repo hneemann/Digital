@@ -1,7 +1,7 @@
 package de.neemann.digital.gui.components.data;
 
 import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserver;
+import de.neemann.digital.core.ModelStateObserverTyped;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.data.ValueTable;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author hneemann
  */
-public class ValueTableObserver implements ModelStateObserver {
+public class ValueTableObserver implements ModelStateObserverTyped {
 
     private final ValueTable logData;
     private final ModelEvent type;
@@ -63,6 +63,11 @@ public class ValueTableObserver implements ModelStateObserver {
                 row[i] = new Value(signals.get(i).getValue());
             logData.add(row);
         }
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{type, ModelEvent.STARTED, ModelEvent.MANUALCHANGE};
     }
 
     /**

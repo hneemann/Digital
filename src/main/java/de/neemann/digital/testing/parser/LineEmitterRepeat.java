@@ -7,7 +7,7 @@ import de.neemann.digital.lang.Lang;
  * Created by hneemann on 19.04.17.
  */
 public class LineEmitterRepeat implements LineEmitter {
-    private static final int MAX_LOOPS = 1 << 24;
+    private static final long MAX_LOOPS = 1L << 24;
 
     private final String name;
     private final int size;
@@ -21,9 +21,9 @@ public class LineEmitterRepeat implements LineEmitter {
      * @param inner the lines to repeat
      * @throws ParserException if there are to many iterations
      */
-    public LineEmitterRepeat(String name, int size, LineEmitter inner) throws ParserException {
+    public LineEmitterRepeat(String name, long size, LineEmitter inner) throws ParserException {
         this.name = name;
-        this.size = size;
+        this.size = (int) size;
         this.inner = inner;
 
         if (size > MAX_LOOPS)

@@ -1,11 +1,12 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserver;
+import de.neemann.digital.core.ModelStateObserverTyped;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.gui.components.CircuitComponent;
 
 import javax.swing.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * This observer is added to the model if real time timers are started.
@@ -16,11 +17,13 @@ import javax.swing.*;
  *
  * @author hneemann
  */
-public class GuiModelObserver implements Observer, ModelStateObserver {
+public class GuiModelObserver implements Observer, ModelStateObserverTyped {
+    private static final long TIMEOUT = 100;
     private final CircuitComponent component;
     private final ModelEvent type;
+    private final AtomicBoolean paintPending = new AtomicBoolean();
+    private long lastUpdateTime;
     private boolean changed = false;
-    private volatile boolean paintPending;
 
     /**
      * Creates a new instance.
@@ -31,6 +34,7 @@ public class GuiModelObserver implements Observer, ModelStateObserver {
     public GuiModelObserver(CircuitComponent component, ModelEvent type) {
         this.component = component;
         this.type = type;
+        this.lastUpdateTime = System.currentTimeMillis();
     }
 
     @Override
@@ -40,15 +44,22 @@ public class GuiModelObserver implements Observer, ModelStateObserver {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (changed && event == type) {
-            if (!paintPending) {
-                paintPending = true;
+        long time = System.currentTimeMillis();
+        boolean timeOut = time - lastUpdateTime > TIMEOUT;
+        if ((changed || timeOut) && event == type) {
+            if (paintPending.compareAndSet(false, true)) {
+                lastUpdateTime = time;
                 SwingUtilities.invokeLater(() -> {
-                    paintPending = false;
                     component.paintImmediately();
+                    paintPending.set(false);
                 });
             }
             changed = false;
         }
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{type};
     }
 }

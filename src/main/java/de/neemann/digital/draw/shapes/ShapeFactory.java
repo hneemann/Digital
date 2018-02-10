@@ -7,16 +7,14 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.*;
-import de.neemann.digital.core.memory.EEPROM;
-import de.neemann.digital.core.memory.RAMDualPort;
-import de.neemann.digital.core.memory.RAMSinglePort;
-import de.neemann.digital.core.memory.RAMSinglePortSel;
+import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.pld.*;
 import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.JarComponentManager;
 import de.neemann.digital.draw.shapes.ieee.IEEEAndShape;
 import de.neemann.digital.draw.shapes.ieee.IEEENotShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
@@ -78,6 +76,8 @@ public final class ShapeFactory {
         map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePort.DESCRIPTION));
         map.put(RAMSinglePortSel.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePortSel.DESCRIPTION));
         map.put(EEPROM.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, EEPROM.DESCRIPTION));
+        map.put(RAMDualAccess.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMDualAccess.DESCRIPTION));
+        map.put(RegisterFile.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RegisterFile.DESCRIPTION, 4));
 
         map.put(In.DESCRIPTION.getName(), InputShape::new);
         map.put(Reset.DESCRIPTION.getName(), ResetShape::new);
@@ -110,6 +110,15 @@ public final class ShapeFactory {
         map.put(Multiplexer.DESCRIPTION.getName(), MuxerShape::new);
         map.put(Demultiplexer.DESCRIPTION.getName(), DemuxerShape::new);
         map.put(Decoder.DESCRIPTION.getName(), DemuxerShape::new);
+        map.put(BitSelector.DESCRIPTION.getName(), BitSelShape::new);
+        map.put(PriorityEncoder.DESCRIPTION.getName(),
+                (attributes, inputs, outputs) -> new GenericShape(
+                        PriorityEncoder.DESCRIPTION.getShortName(),
+                        inputs,
+                        outputs,
+                        attributes.getCleanLabel(),
+                        true,
+                        4));
 
         map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);
@@ -124,6 +133,11 @@ public final class ShapeFactory {
         map.put(DiodeBackward.DESCRIPTION.getName(), DiodeBackwardShape::new);
         map.put(PullUp.DESCRIPTION.getName(), PullUpShape::new);
         map.put(PullDown.DESCRIPTION.getName(), PullDownShape::new);
+
+        final JarComponentManager jcm = library.getJarComponentManager();
+        if (jcm != null)
+            for (JarComponentManager.AdditionalShape c : jcm)
+                map.put(c.getDescription().getName(), c.getShape());
     }
 
     /**
@@ -178,12 +192,24 @@ public final class ShapeFactory {
                         pt.getOutputDescriptions(elementAttributes));
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return new MissingShape(elementName, e);
         }
     }
 
-    private interface Creator {
+    /**
+     * creates a new shape
+     */
+    public interface Creator {
+        /**
+         * Called to create a new shape
+         *
+         * @param attributes the elements attributes
+         * @param inputs     the inputs
+         * @param outputs    the outputs
+         * @return the shape
+         * @throws NodeException NodeException
+         * @throws PinException  PinException
+         */
         Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException, PinException;
     }
 

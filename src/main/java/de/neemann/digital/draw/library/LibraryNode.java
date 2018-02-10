@@ -328,7 +328,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
                 if (description == null) {
                     if (toolTipText == null) {
                         try {
-                            LOGGER.debug("load tooltip from "+file);
+                            LOGGER.debug("load tooltip from " + file);
                             Circuit c = Circuit.loadCircuit(file, null);
                             toolTipText = new LineBreaker().toHTML().breakLines(c.getAttributes().get(Keys.DESCRIPTION));
                         } catch (Exception e) {
@@ -365,5 +365,19 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public File getFile() {
         return file;
+    }
+
+    /**
+     * Checks if both files are equal.
+     * If one of the files is null, false is returned.
+     *
+     * @param other the other file
+     * @return true if both files are equal.
+     */
+    public boolean equalsFile(LibraryNode other) {
+        if (file == null || other.file == null)
+            return false;
+
+        return file.equals(other.file);
     }
 }

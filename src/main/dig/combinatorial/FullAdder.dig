@@ -109,15 +109,15 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>A_i B_i C_i-1 C_i S_i
- 0   0   0     0   0
- 0   0   1     0   1
- 0   1   0     0   1
- 0   1   1     1   0
- 1   0   0     0   1
- 1   0   1     1   0
- 1   1   0     1   0
- 1   1   1     1   1
+            <dataString>  A_i B_i C_i-1 C_i S_i
+
+loop (A,2)
+  loop (B,2)
+    loop (Ci,2)
+ (A) (B) (Ci)   bits(2, A+B+Ci)
+    end loop
+  end loop
+end loop
 </dataString>
           </testData>
         </entry>

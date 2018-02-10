@@ -1,17 +1,22 @@
 package de.neemann.digital.core.flipflops;
 
-import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.BitsException;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.PinDescriptions;
 
-import static de.neemann.digital.core.ObservableValues.ovs;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * The T Flipflop
+ * The T flip-flop
  *
  * @author hneemann
  */
-public class FlipflopT extends Node implements Element {
+public class FlipflopT extends FlipflopBit {
 
     /**
      * The T-FF description
@@ -21,9 +26,9 @@ public class FlipflopT extends Node implements Element {
         @Override
         public PinDescriptions getInputDescription(ElementAttributes elementAttributes) throws NodeException {
             if (elementAttributes.get(Keys.WITH_ENABLE))
-                return new PinDescriptions(input("T"), input("C")).setLangKey(getPinLangKey());
+                return new PinDescriptions(input("T"), input("C").setClock()).setLangKey(getPinLangKey());
             else
-                return new PinDescriptions(input("C")).setLangKey(getPinLangKey());
+                return new PinDescriptions(input("C").setClock()).setLangKey(getPinLangKey());
         }
     }
             .addAttribute(Keys.ROTATE)
@@ -33,16 +38,11 @@ public class FlipflopT extends Node implements Element {
             .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
-    private final boolean isProbe;
-    private final String label;
     private final boolean isEnable;
 
     private ObservableValue clockVal;
     private ObservableValue enable;
-    private ObservableValue q;
-    private ObservableValue qn;
     private boolean lastClock;
-    private boolean out;
 
     /**
      * Creates a new instance
@@ -50,17 +50,8 @@ public class FlipflopT extends Node implements Element {
      * @param attributes the attributes
      */
     public FlipflopT(ElementAttributes attributes) {
-        super(true);
-        this.q = new ObservableValue("Q", 1).setPinDescription(DESCRIPTION);
-        this.qn = new ObservableValue("\u00ACQ", 1).setPinDescription(DESCRIPTION);
+        super(attributes, DESCRIPTION);
         isEnable = attributes.get(Keys.WITH_ENABLE);
-        isProbe = attributes.get(Keys.VALUE_IS_PROBE);
-        label = attributes.getCleanLabel();
-
-        int def = attributes.get(Keys.DEFAULT);
-        out = def > 0;
-        q.setBool(out);
-        qn.setBool(!out);
     }
 
     @Override
@@ -68,40 +59,22 @@ public class FlipflopT extends Node implements Element {
         boolean clock = clockVal.getBool();
         if (clock && !lastClock) {
             if (enable == null)
-                out = !out;
+                setOut(!isOut());
             else {
                 if (enable.getBool())
-                    out = !out;
+                    setOut(!isOut());
             }
         }
         lastClock = clock;
     }
 
     @Override
-    public void writeOutputs() throws NodeException {
-        q.setBool(out);
-        qn.setBool(!out);
-    }
-
-    @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
         if (isEnable) {
-            enable = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
+            enable = inputs.get(0).checkBits(1, this, 0);
             clockVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
         } else
             clockVal = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
-    }
-
-    @Override
-    public ObservableValues getOutputs() {
-        return ovs(q, qn);
-    }
-
-    @Override
-    public void registerNodes(Model model) {
-        super.registerNodes(model);
-        if (isProbe)
-            model.addSignal(new Signal(label, q));
     }
 
     /**
@@ -118,10 +91,4 @@ public class FlipflopT extends Node implements Element {
         return enable;
     }
 
-    /**
-     * @return the label
-     */
-    public String getLabel() {
-        return label;
-    }
 }

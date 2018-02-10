@@ -6,13 +6,9 @@ import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Button;
-import de.neemann.digital.core.io.In;
-import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.io.PowerSupply;
+import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
@@ -35,6 +31,7 @@ import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
 import de.neemann.digital.gui.components.tree.SelectTree;
+import de.neemann.digital.gui.release.CheckForNewRelease;
 import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.gui.remote.RemoteSever;
@@ -49,6 +46,8 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.gui.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -62,6 +61,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -77,21 +78,15 @@ import static javax.swing.JOptionPane.showInputDialog;
  * @author hneemann
  */
 public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, Circuit.ChangedListener {
-    private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
 
     /**
      * @return true if experimental features are enabled
      */
-    public static boolean enableExperimental() {
+    public static boolean isExperimentalMode() {
         return experimental;
-    }
-
-    static {
-        ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
-        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH);
-        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
     }
 
     private static final String MESSAGE = Lang.get("message");
@@ -119,12 +114,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private final JLabel statusLabel;
     private final StateManager stateManager = new StateManager();
     private final ScheduledThreadPoolExecutor timerExecutor = new ScheduledThreadPoolExecutor(1);
-    private final WindowPosManager windowPosManager = new WindowPosManager();
+    private final WindowPosManager windowPosManager;
     private final InsertHistory insertHistory;
     private final boolean keepPrefMainFile;
 
     private ToolTipAction doStep;
     private ToolTipAction runToBreakAction;
+    private ToolTipAction showMeasurementDialog;
+    private ToolTipAction showMeasurementGraph;
 
     private File baseFilename;
     private File filename;
@@ -153,10 +150,17 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
 
+        windowPosManager = new WindowPosManager(this);
+
         keepPrefMainFile = builder.keepPrefMainFile;
 
         if (builder.library != null) library = builder.library;
-        else library = new ElementLibrary();
+        else {
+            library = new ElementLibrary(Settings.getInstance().get(Keys.SETTINGS_JAR_PATH));
+            Exception e = library.checkForException();
+            if (e != null)
+                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("err_loadingLibrary")).addCause(e).setComponent(this));
+        }
 
         shapeFactory = new ShapeFactory(library, Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES));
 
@@ -221,6 +225,24 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         library.addListener(librarySelector);
         menuBar.add(librarySelector.buildMenu(insertHistory, circuitComponent));
 
+        JMenu helpMenu = new JMenu(Lang.get("menu_help"));
+        helpMenu.add(new ToolTipAction(Lang.get("menu_help_elements")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    new ElementHelpDialog(Main.this, library, shapeFactory).setVisible(true);
+                } catch (NodeException | PinException e) {
+                    new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e).show(Main.this);
+                }
+            }
+        }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
+        new DocumentationLocator().addMenuTo(helpMenu);
+        helpMenu.addSeparator();
+        helpMenu.add(InfoDialog.getInstance().createMenuItem(this, MESSAGE));
+        menuBar.add(helpMenu);
+
+        setJMenuBar(menuBar);
+
         addWindowListener(new ClosingWindowListener(this, this));
         addWindowListener(new WindowAdapter() {
             @Override
@@ -238,25 +260,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
-        setJMenuBar(menuBar);
-        JMenu help = InfoDialog.getInstance().addToFrame(this, MESSAGE);
-        help.add(new ToolTipAction(Lang.get("menu_help_elements")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    new ElementHelpDialog(Main.this, library, shapeFactory).setVisible(true);
-                } catch (NodeException | PinException e) {
-                    new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e).show(Main.this);
-                }
-            }
-        }.setToolTip(Lang.get("menu_help_elements_tt")).createJMenuItem());
-        new DocumentationLocator().addMenuTo(help);
-
         new ToolTipAction("insertLast") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 InsertAction lastInsertAction = insertHistory.getLastInsertAction();
-                if (lastInsertAction != null)
+                if (lastInsertAction != null && model == null)
                     lastInsertAction.actionPerformed(actionEvent);
             }
         }.setAccelerator("L").enableAcceleratorIn(circuitComponent);
@@ -265,7 +273,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         setPreferredSize(Screen.getInstance().scale(new Dimension(1024, 768)));
         pack();
-        setLocationRelativeTo(builder.parent);
+        if (builder.parent != null) {
+            Point p = builder.parent.getLocation();
+            final float d = 20 * Screen.getInstance().getScaling();
+            p.x += d;
+            p.y += d;
+            Screen.setLocation(this, p, false);
+        } else
+            setLocationRelativeTo(null);
     }
 
     private void enableClockShortcut() {
@@ -297,12 +312,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.scaleCircuit(1 / 0.9);
             }
         }.setAccelerator("control PLUS");
+        // enable [+] which is SHIFT+[=] on english keyboard layout
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
+        circuitComponent.getActionMap().put(zoomIn, zoomIn);
+
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(0.9);
             }
         }.setAccelerator("control MINUS");
+        // enable [+] which is SHIFT+[=] on english keyboard layout
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK, false), zoomOut);
+        circuitComponent.getActionMap().put(zoomOut, zoomOut);
 
         ToolTipAction viewHelp = new ToolTipAction(Lang.get("menu_viewHelp"), ICON_HELP) {
             @Override
@@ -316,7 +339,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     ElementLibrary.ElementTypeDescriptionCustom description =
                             new ElementLibrary.ElementTypeDescriptionCustom(file,
                                     attributes -> new CustomElement(circuit, library),
-                                    circuit.getAttributes(), circuit.getInputNames());
+                                    circuit);
                     description.setShortName(name);
                     description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));
                     new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);
@@ -390,7 +413,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     }
                 }
             }
-        }.setToolTip(Lang.get("menu_new_tt")).setActive(allowAll);
+        }.setAcceleratorCTRLplus('N').setToolTip(Lang.get("menu_new_tt")).setEnabledChain(allowAll);
 
         ToolTipAction newSubFile = new ToolTipAction(Lang.get("menu_newSub"), ICON_NEW_SUB) {
             @Override
@@ -416,7 +439,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     }
                 }
             }
-        }.setActive(allowAll);
+        }.setAcceleratorCTRLplus('O').setEnabledChain(allowAll);
 
         ToolTipAction openWin = new ToolTipAction(Lang.get("menu_openWin"), ICON_OPEN_WIN) {
             @Override
@@ -430,11 +453,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             .setVisible(true);
                 }
             }
-        }.setToolTip(Lang.get("menu_openWin_tt")).setActive(allowAll);
+        }.setToolTip(Lang.get("menu_openWin_tt")).setEnabledChain(allowAll);
 
         JMenu openRecent = new JMenu(Lang.get("menu_openRecent"));
-        fileHistory.setMenu(openRecent);
+        JMenu openRecentNewWindow = new JMenu(Lang.get("menu_openRecentNewWindow"));
+        fileHistory.setMenu(openRecent, openRecentNewWindow);
         openRecent.setEnabled(allowAll);
+        openRecentNewWindow.setEnabled(allowAll);
 
         ToolTipAction saveAs = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
@@ -455,6 +480,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 switch (res) {
                                     case 0:
                                         saveFile(file, true);
+                                        library.setRootFilePath(file.getParentFile());
                                         break;
                                     case 1:
                                         saveAsHelper.retryFileSelect();
@@ -473,16 +499,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     saveFile(filename, false);
             }
-        }.setAcceleratorCTRLplus('S').setActive(false);
+        }.setAcceleratorCTRLplus('S').setEnabledChain(false);
 
         JMenu export = new JMenu(Lang.get("menu_export"));
         export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
         export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
+        export.add(new ExportAction(Lang.get("menu_exportSVGLaTexInOut"), "svg", GraphicSVGLaTeXInOut::new));
         export.add(new ExportAction(Lang.get("menu_exportPNGSmall"), "png", (out) -> new GraphicsImage(out, "PNG", 1)));
         export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out) -> new GraphicsImage(out, "PNG", 2)));
 
-        if (enableExperimental())
+        if (isExperimentalMode())
             export.add(new ExportGifAction(Lang.get("menu_exportAnimatedGIF")));
+
+        export.add(new ExportZipAction(this).createJMenuItem());
 
         export.add(createVHDLExportAction().createJMenuItem());
 
@@ -490,9 +519,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         menuBar.add(file);
         file.add(newFile.createJMenuItem());
         file.add(newSubFile.createJMenuItem());
-        file.add(openRecent);
         file.add(open.createJMenuItem());
+        file.add(openRecent);
         file.add(openWin.createJMenuItem());
+        file.add(openRecentNewWindow);
         file.add(save.createJMenuItem());
         file.add(saveAs.createJMenuItem());
         file.add(export);
@@ -513,7 +543,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 try {
                     new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                 } catch (PinException | NodeException | ElementNotFoundException e) {
-                    new ErrorMessage(Lang.get("msg_modelHasErrors")).addCause(e).show(Main.this);
+                    showErrorWithoutARunningModel(Lang.get("msg_modelHasErrors"), e);
                     return;
                 }
 
@@ -539,9 +569,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }.setToolTip(Lang.get("menu_exportVHDL_tt"));
     }
 
-    private File getBaseFileName() {
+    /**
+     * @return the file name base
+     */
+    public File getBaseFileName() {
         if (filename != null) return filename;
         return baseFilename;
+    }
+
+    /**
+     * @return the circuit component
+     */
+    public CircuitComponent getCircuitComponent() {
+        return circuitComponent;
     }
 
     /**
@@ -588,7 +628,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.editCircuitAttributes(Main.this);
+                circuitComponent.editCircuitAttributes();
             }
         }.setToolTip(Lang.get("menu_editAttributes_tt"));
 
@@ -600,7 +640,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)
-                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_FONT_SCALING, modified)) {
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_FONT_SCALING, modified)
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_JAR_PATH, modified)) {
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }
@@ -660,6 +701,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_insertAsNew_tt"));
 
+        ToolTipAction labelPins = new ToolTipAction(Lang.get("menu_labelPins")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.labelPins();
+                ensureModelIsStopped();
+            }
+        }.setToolTip(Lang.get("menu_labelPins_tt"));
+
         edit.add(circuitComponent.getUndoAction().createJMenuItemNoIcon());
         edit.add(circuitComponent.getRedoAction().createJMenuItemNoIcon());
         edit.addSeparator();
@@ -667,6 +716,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         edit.add(actualToDefault.createJMenuItem());
         edit.add(restoreAllFuses.createJMenuItem());
         edit.add(createSpecialEditMenu());
+        edit.add(labelPins.createJMenuItem());
         edit.addSeparator();
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
@@ -805,7 +855,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     list.add(new Wire(new Vector(0, SIZE * 2), new Vector(SIZE, SIZE * 2)));
                     list.add(new Wire(new Vector(SIZE, SIZE * 2), new Vector(SIZE, SIZE)));
                     list.add(new Wire(new Vector(SIZE, SIZE), new Vector(SIZE * 2, SIZE)));
-                    circuitComponent.setPartsToInsert(list);
+                    circuitComponent.setPartsToInsert(list, null);
                 }
             }
         }.setToolTip(Lang.get("menu_addPowerSupply_tt")).createJMenuItem());
@@ -830,9 +880,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     circuitComponent.repaintNeeded();
                     doStep.setEnabled(model.needsUpdate());
                 } catch (Exception e1) {
-                    SwingUtilities.invokeLater(
-                            new ErrorMessage(Lang.get("msg_errorCalculatingStep")).addCause(e1).setComponent(Main.this)
-                    );
+                    showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
             }
         }.setToolTip(Lang.get("menu_step_tt"));
@@ -848,47 +896,68 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     int i = model.runToBreak();
                     circuitComponent.repaintNeeded();
                     statusLabel.setText(Lang.get("stat_clocks", i));
-                } catch (NodeException e1) {
-                    ensureModelIsStopped();
-                    new ErrorMessage(Lang.get("msg_fastRunError")).addCause(e1).show(Main.this);
+                } catch (NodeException | RuntimeException e1) {
+                    showErrorAndStopModel(Lang.get("msg_fastRunError"), e1);
                 }
             }
-        }.setToolTip(Lang.get("menu_fast_tt")).setActive(false);
+        }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false).setAccelerator("F7");
 
-        ToolTipAction stoppedStateAction = stoppedState.createToolTipAction(Lang.get("menu_element"), ICON_STOP).setToolTip(Lang.get("menu_element_tt"));
+        ToolTipAction stoppedStateAction = stoppedState
+                .createToolTipAction(Lang.get("menu_element"), ICON_STOP)
+                .setToolTip(Lang.get("menu_element_tt"))
+                .setEnabledChain(false);
 
         ToolTipAction runTests = new ToolTipAction(Lang.get("menu_runTests"), ICON_TEST) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 startTests();
             }
-        }.setToolTip(Lang.get("menu_runTests_tt"));
+        }.setToolTip(Lang.get("menu_runTests_tt")).setAccelerator("F8");
 
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
+            private NumberFormat format = new DecimalFormat("0.0");
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                     model.setWindowPosManager(windowPosManager);
                     SpeedTest speedTest = new SpeedTest(model);
-                    String frequency = Integer.toString(speedTest.calculate() / 1000);
+                    String frequency = format.format(speedTest.calculate() / 1000);
                     circuitComponent.getCircuit().clearState();
                     SwingUtilities.invokeLater(() -> {
                         windowPosManager.closeAll();
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
                     });
                 } catch (Exception e1) {
-                    new ErrorMessage(Lang.get("msg_speedTestError")).addCause(e1).show();
+                    showErrorWithoutARunningModel(Lang.get("msg_speedTestError"), e1);
                 }
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
 
-        ToolTipAction editRunAttributes = new ToolTipAction(Lang.get("menu_editRunAttributes")) {
+        showMeasurementDialog = new ToolTipAction(Lang.get("menu_showDataTable")) {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                circuitComponent.editCircuitAttributes(Main.this, ATTR_LIST);
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model != null) {
+                    ModelEvent event = ModelEvent.STEP;
+                    if (stateManager.isActive(runModelMicroState))
+                        event = ModelEvent.MICROSTEP;
+                    showMeasurementDialog(event);
+                }
             }
-        }.setToolTip(Lang.get("menu_editRunAttributes_tt"));
+        }.setToolTip(Lang.get("menu_showDataTable_tt")).setEnabledChain(false);
+
+        showMeasurementGraph = new ToolTipAction(Lang.get("menu_showDataGraph")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model != null) {
+                    ModelEvent event = ModelEvent.STEP;
+                    if (stateManager.isActive(runModelMicroState))
+                        event = ModelEvent.MICROSTEP;
+                    showMeasurementGraph(event);
+                }
+            }
+        }.setToolTip(Lang.get("menu_showDataGraph_tt")).setEnabledChain(false);
 
         circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(' '), KEY_START_STOP_ACTION);
         circuitComponent.getActionMap().put(KEY_START_STOP_ACTION, new AbstractAction() {
@@ -903,7 +972,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         JMenu run = new JMenu(Lang.get("menu_sim"));
         menuBar.add(run);
-        run.add(editRunAttributes.createJMenuItem());
+        run.add(showMeasurementDialog.createJMenuItem());
+        run.add(showMeasurementGraph.createJMenuItem());
         run.addSeparator();
         run.add(runModelAction.createJMenuItem());
         run.add(runModelMicroAction.createJMenuItem());
@@ -946,7 +1016,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             ensureModelIsStopped();
         } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {
-            showErrorAndStopModel(Lang.get("msg_runningTestError"), e1);
+            showErrorWithoutARunningModel(Lang.get("msg_runningTestError"), e1);
         }
     }
 
@@ -965,20 +1035,22 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
 
                     if (model.isInvalidSignal())
-                        JOptionPane.showMessageDialog(Main.this,
-                                new LineBreaker().toHTML().breakLines(Lang.get("msg_invalidSignalsAnalysed")),
-                                Lang.get("msg_warning"),
-                                JOptionPane.WARNING_MESSAGE);
-
-                    new TableDialog(Main.this, new ModelAnalyser(model).analyse(), library, shapeFactory, getBaseFileName())
-                            .setVisible(true);
+                        new ErrorMessage(Lang.get("msg_invalidSignalsAnalysed")).show(Main.this);
+                    else
+                        new TableDialog(Main.this,
+                                new ModelAnalyser(model).analyse(),
+                                library,
+                                shapeFactory,
+                                getBaseFileName())
+                                .setVisible(true);
                     ensureModelIsStopped();
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | BacktrackException | RuntimeException e1) {
-                    showErrorAndStopModel(Lang.get("msg_analyseErr"), e1);
+                    showErrorWithoutARunningModel(Lang.get("msg_analyseErr"), e1);
                 }
             }
         }
                 .setToolTip(Lang.get("menu_analyse_tt"))
+                .setAccelerator("F9")
                 .createJMenuItem());
 
         analyse.add(new ToolTipAction(Lang.get("menu_synthesise")) {
@@ -1018,7 +1090,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.modify(new ModifyMeasurementOrdering(names));
             }
         } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
-            showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
+            showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
         }
     }
 
@@ -1031,6 +1103,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.setModeAndReset(false, NoSync.INST);
                 doStep.setEnabled(false);
                 stoppedState.getAction().setEnabled(false);
+                showMeasurementDialog.setEnabled(false);
+                showMeasurementGraph.setEnabled(false);
                 runToBreakAction.setEnabled(false);
                 // keep errors
                 if (circuitComponent.getHighLightStyle() != Style.ERROR)
@@ -1043,6 +1117,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void enter() {
                 super.enter();
+                showMeasurementDialog.setEnabled(true);
+                showMeasurementGraph.setEnabled(true);
                 stoppedState.getAction().setEnabled(true);
                 if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
@@ -1053,7 +1129,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void clearModelDescription() {
         if (model != null)
-            model.close();
+            modelSync.access(() -> model.close());
 
         modelCreator = null;
         model = null;
@@ -1063,28 +1139,41 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         try {
             circuitComponent.removeHighLighted();
 
+            long time = System.currentTimeMillis();
+
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
             if (model != null) {
-                model.close();
+                modelSync.access(() -> model.close());
                 circuitComponent.getCircuit().clearState();
+                model = null;
             }
 
             model = modelCreator.createModel(true);
+
+            time = System.currentTimeMillis() - time;
+            LOGGER.debug("model creation: " + time + " ms");
+
             model.setWindowPosManager(windowPosManager);
 
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
             realTimeClockRunning = false;
             modelSync = null;
-            if (globalRunClock)
+            if (globalRunClock) {
+                int threadRunnerCount = 0;
                 for (Clock c : model.getClocks())
                     if (c.getFrequency() > 0) {
                         if (modelSync == null)
                             modelSync = new LockSync();
-                        model.addObserver(new RealTimeClock(model, c, timerExecutor, this, modelSync, this));
+                        final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this, modelSync, this);
+                        model.addObserver(realTimeClock);
+                        if (realTimeClock.isThreadRunner()) threadRunnerCount++;
                         realTimeClockRunning = true;
                     }
+                if (threadRunnerCount > 1)
+                    throw new RuntimeException(Lang.get("err_moreThanOneFastClock"));
+            }
             if (modelSync == null)
                 modelSync = NoSync.INST;
 
@@ -1103,14 +1192,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
-            List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-            if (settings.get(Keys.SHOW_DATA_TABLE))
-                windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync)).setVisible(true);
+            if (settings.get(Keys.SHOW_DATA_TABLE) || windowPosManager.isVisible("probe"))
+                showMeasurementDialog(updateEvent);
 
-            if (settings.get(Keys.SHOW_DATA_GRAPH))
-                windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
+            if (settings.get(Keys.SHOW_DATA_GRAPH) || windowPosManager.isVisible("dataSet"))
+                showMeasurementGraph(updateEvent);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
-                windowPosManager.register("dataSetMicro", GraphDialog.createLiveDialog(this, model, true, ordering, modelSync)).setVisible(true);
+                showMeasurementGraph(ModelEvent.MICROSTEP);
 
             if (modelModifier != null)
                 modelModifier.preInit(model);
@@ -1119,34 +1207,67 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             return true;
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
-            showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
+            if (model != null)
+                showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
+            else
+                showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
     }
 
+    private void showMeasurementGraph(ModelEvent updateEvent) {
+        List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
+        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
+    }
+
+    private void showMeasurementDialog(ModelEvent updateEvent) {
+        List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
+        windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync, circuitComponent)).setVisible(true);
+    }
+
+    /**
+     * @return the model or null if no model is running
+     */
+    public Model getModel() {
+        return model;
+    }
+
+    private final Object modelLock = new Object();
+
     @Override
     public void showErrorAndStopModel(String message, Exception cause) {
-        SwingUtilities.invokeLater(() -> {
-            if (cause instanceof NodeException) {
-                NodeException e = (NodeException) cause;
-                circuitComponent.addHighLightedWires(e.getValues());
-                circuitComponent.addHighLighted(e.getVisualElement());
-                if (modelCreator != null)
-                    modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
-            } else if (cause instanceof PinException) {
-                PinException e = (PinException) cause;
-                circuitComponent.addHighLighted(e.getVisualElement());
-                if (e.getNet() != null)
-                    circuitComponent.addHighLighted(e.getNet().getWires());
-            } else if (cause instanceof BurnException) {
-                BurnException e = (BurnException) cause;
-                circuitComponent.addHighLightedWires(e.getValues());
+        // If an error is detected by the gui thread by clicking a button o.e. the real time
+        // thread could also detect that error later and maybe also calls this function.
+        // To avoid such problems a lock is used.
+        synchronized (modelLock) {
+            if (model != null) {
+                modelSync.access(() -> model.close());
+                model = null;
+                SwingUtilities.invokeLater(() -> showErrorWithoutARunningModel(message, cause));
             }
-            circuitComponent.setHighLightStyle(Style.ERROR);
-            circuitComponent.repaintNeeded();
-            new ErrorMessage(message).addCause(cause).show(Main.this);
-            stoppedState.enter();
-        });
+        }
+    }
+
+    private void showErrorWithoutARunningModel(String message, Exception cause) {
+        if (cause instanceof NodeException) {
+            NodeException e = (NodeException) cause;
+            circuitComponent.addHighLightedWires(e.getValues());
+            circuitComponent.addHighLighted(e.getVisualElement());
+            if (modelCreator != null)
+                modelCreator.addNodeElementsTo(e.getNodes(), circuitComponent.getHighLighted());
+        } else if (cause instanceof PinException) {
+            PinException e = (PinException) cause;
+            circuitComponent.addHighLighted(e.getVisualElement());
+            if (e.getNet() != null)
+                circuitComponent.addHighLighted(e.getNet().getWires());
+        } else if (cause instanceof BurnException) {
+            BurnException e = (BurnException) cause;
+            circuitComponent.addHighLightedWires(e.getValues());
+        }
+        circuitComponent.setHighLightStyle(Style.ERROR);
+        circuitComponent.repaintNeeded();
+        new ErrorMessage(message).addCause(cause).show(Main.this);
+        ensureModelIsStopped();
     }
 
     /**
@@ -1179,9 +1300,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     @Override
-    public void open(File file) {
-        if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-            loadFile(file, true, true);
+    public void open(File file, boolean newWindow) {
+        if (newWindow) {
+            new MainBuilder()
+                    .setParent(Main.this)
+                    .setFileToOpen(file)
+                    .build()
+                    .setVisible(true);
+        } else {
+            if (ClosingWindowListener.checkForSave(Main.this, Main.this))
+                loadFile(file, true, true);
         }
     }
 
@@ -1215,14 +1343,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (library.getRootFilePath() == null)
                 library.setRootFilePath(filename.getParentFile());
         } catch (IOException e) {
-            new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show();
+            new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show(this);
         }
     }
 
     private void setFilename(File filename, boolean toPrefs) {
         modifiedPrefixVisible = circuitComponent.getCircuit().isModified();
         if (save != null)
-            save.setActive(modifiedPrefixVisible);
+            save.setEnabled(modifiedPrefixVisible);
         String prefix = "";
         if (modifiedPrefixVisible)
             prefix = "*";
@@ -1353,7 +1481,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     file -> {
                         settings.setFile("exportDirectory", file.getParentFile());
                         GifExporter gifExporter = new GifExporter(Main.this, circuitComponent.getCircuit(), 500, file);
-                        setDebug(false);
                         windowPosManager.closeAll();
                         runModelState.enter(false, gifExporter);
                         circuitComponent.repaintNeeded();
@@ -1372,6 +1499,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         void enter(boolean runRealTime, ModelModifier modelModifier) {
             super.enter();
             stoppedState.getAction().setEnabled(true);
+            showMeasurementDialog.setEnabled(true);
+            showMeasurementGraph.setEnabled(true);
             if (createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier))
                 circuitComponent.setManualChangeObserver(new FullStepObserver(model));
         }
@@ -1400,27 +1529,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
     }
 
-    private void setDebug(boolean debug) {
-        ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
-        settings.set(Keys.SHOW_DATA_TABLE, debug);
-    }
-
     @Override
-    public void start(File romHex) throws RemoteException {
+    public void start(File romHex) {
         SwingUtilities.invokeLater(() -> {
-            setDebug(false);
-            windowPosManager.closeAll();
             runModelState.enter(true, new RomLoader(romHex));
             circuitComponent.repaintNeeded();
         });
     }
 
     @Override
-    public void debug(File romHex) throws RemoteException {
+    public void debug(File romHex) {
         SwingUtilities.invokeLater(() -> {
-            setDebug(true);
             runModelState.enter(false, new RomLoader(romHex));
             circuitComponent.repaintNeeded();
+            showMeasurementDialog(ModelEvent.STEP);
         });
     }
 
@@ -1488,6 +1610,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      * @param args the arguments
      */
     public static void main(String[] args) {
+        Thread.setDefaultUncaughtExceptionHandler(new DigitalUncaughtExceptionHandler());
+
         try { // enforce MetalLookAndFeel
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
@@ -1500,7 +1624,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         MainBuilder builder = new MainBuilder();
         for (String s : args) {
             if (s.equals("experimental")) experimental = true;
-            if (s.toLowerCase().endsWith(".dig")) builder.setFileToOpen(new File(s));
+            else builder.setFileToOpen(new File(s));
         }
         SwingUtilities.invokeLater(() -> {
             Main main = builder.build();
@@ -1510,6 +1634,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
             }
             main.setVisible(true);
+
+            CheckForNewRelease.showReleaseDialog(main);
         });
     }
 
@@ -1518,7 +1644,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      */
     public static class MainBuilder {
         private File fileToOpen;
-        private Component parent;
+        private Window parent;
         private ElementLibrary library;
         private Circuit circuit;
         private boolean allowAllFileActions = true;
@@ -1548,7 +1674,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
          * @param parent the parent component
          * @return this for chained calls
          */
-        public MainBuilder setParent(Component parent) {
+        public MainBuilder setParent(Window parent) {
             this.parent = parent;
             return this;
         }
@@ -1596,7 +1722,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
          *
          * @return a new Main instance
          */
-        private Main build() {
+        public Main build() {
             return new Main(this);
         }
 
@@ -1626,7 +1752,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 Button b = model.getButtonToMap(keyCode);
                 if (b != null) {
                     modelSync.access(() -> b.setPressed(pressed));
-                    circuitComponent.repaintNeeded();
+                    circuitComponent.modelHasChanged();
                 }
             }
         }

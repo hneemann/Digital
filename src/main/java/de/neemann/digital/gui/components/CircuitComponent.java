@@ -6,6 +6,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.InputShape;
@@ -66,6 +67,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         ATTR_LIST.add(Keys.BACKGROUND_COLOR);
         ATTR_LIST.add(Keys.DESCRIPTION);
         ATTR_LIST.add(Keys.LOCKED_MODE);
+        ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
+        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH);
+        ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
     }
 
     private static final String DEL_ACTION = "myDelAction";
@@ -73,6 +77,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private static final int MOUSE_BORDER_LARGE = 50;
 
     private static final int DRAG_DISTANCE = (int) (SIZE2 * Screen.getInstance().getScaling());
+
+    private static final Color GRID_COLOR = new Color(210, 210, 210);
 
     private final Main parent;
     private final ElementLibrary library;
@@ -85,6 +91,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private final MouseControllerMoveWire mouseMoveWire;
     private final MouseControllerWireDiag mouseWireDiag;
     private final MouseControllerWireRect mouseWireRect;
+    private final MouseControllerWireSplit mouseWireSplit;
     private final MouseControllerSelect mouseSelect;
     private final MouseControllerMoveSelected mouseMoveSelected;
     private final MouseController mouseRun;
@@ -133,7 +140,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             public void actionPerformed(ActionEvent e) {
                 activeMouseController.rotate();
             }
-        }.setActive(false).setAccelerator("R").enableAcceleratorIn(this);
+        }.setEnabledChain(false).setAccelerator("R").enableAcceleratorIn(this);
 
 
         cutAction = createCutAction(shapeFactory);
@@ -176,29 +183,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             }
         }.setAccelerator("F").enableAcceleratorIn(this);
 
-        new ToolTipAction("diagWire") {
+        new ToolTipAction("splitWire") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (activeMouseController instanceof MouseControllerWireDiag)
-                    ((MouseControllerWireDiag) activeMouseController).rectangularWire();
-                else if (activeMouseController instanceof MouseControllerWireRect)
-                    ((MouseControllerWireRect) activeMouseController).diagonalWire();
-            }
-        }.setAccelerator("D").enableAcceleratorIn(this);
-
-        new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
-        new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
-
-        new ToolTipAction(Lang.get("menu_programDiode")) {
-            @Override
-            public void actionPerformed(ActionEvent e) { // is allowed also if locked!
-                VisualElement ve = getActualVisualElement();
-                if (ve != null && CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
-                    boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
-                    modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
+                if (activeMouseController == mouseNormal) {
+                    Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
+                    Wire w = circuit.getWireAt(pos, SIZE2);
+                    if (w != null)
+                        mouseWireSplit.activate(w, pos);
                 }
             }
-        }.setAccelerator("P").enableAcceleratorIn(this);
+        }.setAccelerator("S").enableAcceleratorIn(this);
+
+
+        createAdditionalShortcuts(shapeFactory);
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DEL_ACTION);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), DEL_ACTION);
@@ -240,6 +238,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         mouseMoveWire = new MouseControllerMoveWire(normalCursor);
         mouseWireRect = new MouseControllerWireRect(normalCursor);
         mouseWireDiag = new MouseControllerWireDiag(normalCursor);
+        mouseWireSplit = new MouseControllerWireSplit(normalCursor);
         mouseSelect = new MouseControllerSelect(new Cursor(Cursor.CROSSHAIR_CURSOR));
         mouseMoveSelected = new MouseControllerMoveSelected(moveCursor);
         mouseRun = new MouseControllerRun(normalCursor);
@@ -254,6 +253,70 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         setToolTipText("");
     }
 
+    private void createAdditionalShortcuts(ShapeFactory shapeFactory) {
+        new ToolTipAction("diagWire") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerWireDiag)
+                    ((MouseControllerWireDiag) activeMouseController).rectangularWire();
+                else if (activeMouseController instanceof MouseControllerWireRect)
+                    ((MouseControllerWireRect) activeMouseController).diagonalWire();
+            }
+        }.setAccelerator("D").enableAcceleratorIn(this);
+
+        new ToolTipAction("selectAll") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (activeMouseController == mouseNormal) {
+                    GraphicMinMax gr = new GraphicMinMax();
+                    circuit.drawTo(gr);
+                    if (gr.getMin() != null && gr.getMax() != null) {
+                        mouseSelect.activate(gr.getMin(), gr.getMax());
+                        mouseSelect.release();
+                    }
+                }
+            }
+        }.setAcceleratorCTRLplus('A').enableAcceleratorIn(this);
+
+        new ToolTipAction("duplicate") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ArrayList<Movable> elements = getSelectedElements(shapeFactory);
+                if (elements != null) {
+                    activeMouseController.escapePressed();
+                    ArrayList<Movable> copiedElements = new ArrayList<>();
+                    for (Movable m : elements) {
+                        if (m instanceof Wire)
+                            copiedElements.add(new Wire((Wire) m));
+                        else if (m instanceof VisualElement)
+                            copiedElements.add(new VisualElement((VisualElement) m));
+                    }
+                    setPartsToInsert(copiedElements, null);
+                }
+            }
+        }.setAcceleratorCTRLplus('D').enableAcceleratorIn(this);
+
+
+        ToolTipAction plus = new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
+        // enable [+] which is SHIFT+[=] on english keyboard layout
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, 0, false), plus);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0, false), plus);
+
+        ToolTipAction minus = new PlusMinusAction(-1).setAccelerator("MINUS").enableAcceleratorIn(this);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0, false), minus);
+
+        new ToolTipAction(Lang.get("menu_programDiode")) {
+            @Override
+            public void actionPerformed(ActionEvent e) { // is allowed also if locked!
+                VisualElement ve = getActualVisualElement();
+                if (ve != null && CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
+                    boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
+                    modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
+                }
+            }
+        }.setAccelerator("P").enableAcceleratorIn(this);
+    }
+
     private ToolTipAction createPasteAction(ShapeFactory shapeFactory) {
         return new ToolTipAction(Lang.get("menu_paste")) {
             @Override
@@ -265,10 +328,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         if (data instanceof String) {
                             Vector posVector = getPosVector(lastMousePos.x, lastMousePos.y);
                             ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, posVector);
-                            if (elements != null) {
-                                removeHighLighted();
-                                mouseInsertList.activate(elements, posVector);
-                            }
+                            if (elements != null)
+                                setPartsToInsert(elements, posVector);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -298,48 +359,50 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     }
                 }
             }
-        }.setActive(false).setAcceleratorCTRLplus('X').enableAcceleratorIn(this);
+        }.setEnabledChain(false).setAcceleratorCTRLplus('X').enableAcceleratorIn(this);
     }
 
     private ToolTipAction createCopyAction(ShapeFactory shapeFactory) {
         return new ToolTipAction(Lang.get("menu_copy")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Movable> elements = null;
-                if (activeMouseController instanceof MouseControllerSelect) {
-                    MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-                    elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
-                } else if (activeMouseController instanceof MouseControllerMoveElement) {
-                    MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
-                    elements = new ArrayList<>();
-                    elements.add(mcme.visualElement);
-                }
+                ArrayList<Movable> elements = getSelectedElements(shapeFactory);
                 if (elements != null) {
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(new CircuitTransferable(elements), null);
                     activeMouseController.escapePressed();
                 }
             }
-        }.setActive(false).setAcceleratorCTRLplus('C').enableAcceleratorIn(this);
+        }.setEnabledChain(false).setAcceleratorCTRLplus('C').enableAcceleratorIn(this);
+    }
+
+    private ArrayList<Movable> getSelectedElements(ShapeFactory shapeFactory) {
+        ArrayList<Movable> elements = null;
+        if (activeMouseController instanceof MouseControllerSelect) {
+            MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
+            elements = circuit.getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
+        } else if (activeMouseController instanceof MouseControllerMoveElement) {
+            MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
+            elements = new ArrayList<>();
+            elements.add(mcme.visualElement);
+        }
+        return elements;
     }
 
 
     /**
      * Opens the attribute editor
-     *
-     * @param parent the parent component
      */
-    public void editCircuitAttributes(Component parent) {
-        editCircuitAttributes(parent, ATTR_LIST);
+    public void editCircuitAttributes() {
+        editCircuitAttributes(ATTR_LIST);
     }
 
     /**
      * Opens the attribute editor
      *
-     * @param parent   the parent component
      * @param attrList the list of keys to edit
      */
-    public void editCircuitAttributes(Component parent, java.util.List<Key> attrList) {
+    public void editCircuitAttributes(java.util.List<Key> attrList) {
         ElementAttributes modifiedAttributes = new AttributeDialog(parent, attrList, circuit.getAttributes()).showDialog();
         if (modifiedAttributes != null)
             modify(new ModifyCircuitAttributes(modifiedAttributes));
@@ -455,22 +518,31 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     public String getToolTipText(MouseEvent event) {
         Vector pos = getPosVector(event);
         VisualElement ve = circuit.getElementAt(pos);
-        if (ve == null) return null;
+        if (ve != null) {
+            Pin p = circuit.getPinAt(raster(pos), ve);
+            if (p != null)
+                return createPinToolTip(p);
 
-        Pin p = circuit.getPinAt(raster(pos), ve);
-        if (p != null)
-            return createPinToolTip(p);
-
-        try {
-            ElementTypeDescription etd = library.getElementType(ve.getElementName());
-            String tt = etd.getDescription(ve.getElementAttributes());
-            final String pin = ve.getElementAttributes().get(Keys.PINNUMBER);
-            if (pin.length() > 0)
-                tt += " (" + Lang.get("msg_pin_N", pin) + ")";
-            return checkToolTip(tt);
-        } catch (ElementNotFoundException e) {
-            return null;
+            try {
+                ElementTypeDescription etd = library.getElementType(ve.getElementName());
+                String tt = etd.getDescription(ve.getElementAttributes());
+                final String pin = ve.getElementAttributes().get(Keys.PINNUMBER);
+                if (pin.length() > 0)
+                    tt += " (" + Lang.get("msg_pin_N", pin) + ")";
+                return checkToolTip(tt);
+            } catch (ElementNotFoundException e) {
+                return null;
+            }
         }
+
+        Wire w = circuit.getWireAt(pos, SIZE2);
+        if (w != null) {
+            ObservableValue v = w.getValue();
+            if (v != null)
+                return v.getValueString();
+        }
+
+        return null;
     }
 
     private String createPinToolTip(Pin p) {
@@ -643,30 +715,28 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             else if (point.y > getHeight() - MOUSE_BORDER_SMALL)
                 point.y = getHeight() - MOUSE_BORDER_SMALL;
 
-            SwingUtilities.convertPointToScreen(point, this);
-
-            try {
-                new Robot().mouseMove(point.x, point.y);
-            } catch (AWTException e) {
-                e.printStackTrace();
-            }
-        } else {
-            mouseInsertElement.updateMousePos(getPosVector(point.x, point.y));
-            repaintNeeded();
         }
+        mouseInsertElement.updateMousePos(getPosVector(point.x, point.y));
+        repaintNeeded();
+        requestFocus();
     }
 
     /**
      * Adds the given list of elements to insert to the circuit
      *
      * @param elements the list of elements to insert
+     * @param pos      inserting position, maybe null
      */
-    public void setPartsToInsert(ArrayList<Movable> elements) {
+    public void setPartsToInsert(ArrayList<Movable> elements, Vector pos) {
+        removeHighLighted();
         parent.ensureModelIsStopped();
-        if (lastMousePos == null)
-            mouseInsertList.activate(elements, getPosVector(0, 0));
-        else
-            mouseInsertList.activate(elements, getPosVector(lastMousePos.x, lastMousePos.y));
+        if (pos == null) {
+            if (lastMousePos != null)
+                pos = getPosVector(lastMousePos.x, lastMousePos.y);
+            else
+                pos = getPosVector(0, 0);
+        }
+        mouseInsertList.activate(elements, pos);
         repaintNeeded();
     }
 
@@ -751,7 +821,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (delta > max) delta = max;
         double sub = delta / 2.0;
 
-        gr2.setColor(Color.LIGHT_GRAY);
+        gr2.setColor(GRID_COLOR);
         for (int x = 0; x <= cx; x++) {
             double xx = p1.getX() + (p2.getX() - p1.getX()) * x / cx - sub;
             for (int y = 0; y <= cy; y++) {
@@ -759,6 +829,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 gr2.fill(new Rectangle2D.Double(xx, yy, delta, delta));
             }
         }
+    }
+
+    /**
+     * Transforms a circuit coordinate to a screen coordinate relative to this component.
+     *
+     * @param pos the circuit position
+     * @return the screen coordinate relative to this component
+     */
+    public Point transform(Vector pos) {
+        Point p = new Point();
+        transform.transform(new Point(pos.x, pos.y), p);
+        return p;
     }
 
     private void enableAntiAlias(Graphics2D gr2) {
@@ -884,6 +966,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         repaintNeeded();
     }
 
+    /**
+     * Translates the circuit.
+     *
+     * @param dx x movement
+     * @param dy y movement
+     */
+    public void translateCircuit(int dx, int dy) {
+        transform.translate(dx, dy);
+        isManualScale = true;
+        repaintNeeded();
+    }
+
     private void editAttributes(VisualElement element, MouseEvent e) {
         String name = element.getElementName();
         try {
@@ -892,14 +986,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (list.size() > 0) {
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                AttributeDialog attributeDialog = new AttributeDialog(this, p, list, element.getElementAttributes()).setVisualElement(element);
+                AttributeDialog attributeDialog = new AttributeDialog(parent, p, list, element.getElementAttributes()).setVisualElement(element);
                 if (elementType instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                     attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             attributeDialog.dispose();
                             new Main.MainBuilder()
-                                    .setParent(CircuitComponent.this)
+                                    .setParent(parent)
                                     .setFileToOpen(((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile())
                                     .setLibrary(library)
                                     .denyMostFileActions()
@@ -999,6 +1093,24 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         modify(builder.build());
     }
 
+    /**
+     * Label all inputs and outputs
+     */
+    public void labelPins() {
+        LabelGenerator inGenerator = new LabelGenerator('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H');
+        LabelGenerator outGenerator = new LabelGenerator('Y', 'X', 'Z', 'U', 'V');
+
+        Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_labelPins"));
+        for (VisualElement ve : circuit.getElements()) {
+            if (ve.equalsDescription(In.DESCRIPTION) && ve.getElementAttributes().getLabel().length() == 0) {
+                builder.add(new ModifyAttribute<>(ve, Keys.LABEL, inGenerator.createLabel()));
+            } else if (ve.equalsDescription(Out.DESCRIPTION) && ve.getElementAttributes().getLabel().length() == 0) {
+                builder.add(new ModifyAttribute<>(ve, Keys.LABEL, outGenerator.createLabel()));
+            }
+        }
+        modify(builder.build());
+    }
+
     private VisualElement getActualVisualElement() {
         VisualElement ve = null;
         if (activeMouseController instanceof MouseControllerNormal)
@@ -1041,7 +1153,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     }
 
                 if (keyList.size() > 0) {
-                    AttributeDialog ad = new AttributeDialog(this, null, keyList, attr, true);
+                    AttributeDialog ad = new AttributeDialog(parent, null, keyList, attr, true);
                     for (Map.Entry<Key, Boolean> u : useKeyMap.entrySet())
                         ad.getCheckBoxes().get(u.getKey()).setSelected(u.getValue());
                     ElementAttributes mod = ad.showDialog();
@@ -1133,6 +1245,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void mouseDragged(MouseEvent e) {
+            lastMousePos = new Vector(e.getX(), e.getY());
             if (wasMoved(e) || isMoved) {
                 isMoved = true;
                 if (!activeMouseController.dragged(e)) {
@@ -1162,7 +1275,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (activeMouseController != null && activeMouseController != this)
                 activeMouseController.deactivate();
             activeMouseController = this;
-            deleteAction.setActive(false);
+            deleteAction.setEnabled(false);
             copyAction.setEnabled(false);
             cutAction.setEnabled(false);
             rotateAction.setEnabled(false);
@@ -1209,7 +1322,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (list.size() == 1)
             vp = list.get(0);
         else if (list.size() > 1) {
-            ItemPicker<VisualElement> picker = new ItemPicker<>(CircuitComponent.this, list);
+            ItemPicker<VisualElement> picker = new ItemPicker<>(parent, list);
             vp = picker.select();
         }
         return vp;
@@ -1288,7 +1401,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             this.element = element;
             delta = null;
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
         }
 
@@ -1343,6 +1456,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Vector delta;
         private Vector initialPos;
         private int initialRot;
+        private boolean normalEnd;
 
         private MouseControllerMoveElement(Cursor cursor) {
             super(cursor);
@@ -1354,9 +1468,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             initialPos = visualElement.getPos();
             initialRot = visualElement.getRotate();
             delta = initialPos.sub(pos);
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
             copyAction.setEnabled(true);
+            normalEnd = false;
             repaintNeeded();
         }
 
@@ -1367,6 +1482,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (!visualElement.getPos().equals(initialPos)
                         || visualElement.getRotate() != initialRot)
                     addModificationAlreadyMade(new ModifyMoveAndRotElement(visualElement, initialPos));
+                normalEnd = true;
             }
             mouseNormal.activate();
         }
@@ -1414,6 +1530,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             mouseNormal.activate();
         }
 
+        @Override
+        void deactivate() {
+            if (!normalEnd && !isLocked()) {
+                visualElement.setPos(raster(initialPos));
+                visualElement.setRotation(initialRot);
+            }
+        }
+
         public VisualElement getVisualElement() {
             return visualElement;
         }
@@ -1435,7 +1559,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             this.pos = raster(pos);
             this.initialWirePos = wire.getPos();
             this.initialPos = this.pos;
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             removeHighLighted();
             repaintNeeded();
         }
@@ -1644,6 +1768,64 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
+    private final class MouseControllerWireSplit extends MouseController {
+        private Wire wire1;
+        private Wire wire2;
+        private Vector newPosition;
+        private Wire origWire;
+
+        private MouseControllerWireSplit(Cursor cursor) {
+            super(cursor);
+        }
+
+        private void activate(Wire w, Vector startPos) {
+            super.activate();
+            startPos = raster(startPos);
+            origWire = new Wire(w);
+            wire1 = w;
+            wire1.setP2(startPos);
+            wire1.noDot();
+            wire2 = new Wire(startPos, origWire.p2);
+            circuit.getWires().add(wire2);
+        }
+
+        @Override
+        void moved(MouseEvent e) {
+            Vector p = raster(getPosVector(e));
+            if (!p.equals(newPosition)) {
+                newPosition = p;
+                wire1.setP2(newPosition);
+                wire2.setP1(newPosition);
+                circuitHasChanged();
+                repaint();
+            }
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                addModificationAlreadyMade(
+                        new ModifySplitWire(origWire, newPosition));
+                circuit.elementsMoved();
+                mouseNormal.activate();
+            } else
+                escapePressed();
+        }
+
+        @Override
+        public void escapePressed() {
+            wire1.setP2(origWire.p2);
+            circuit.getWires().remove(wire2);
+            circuitHasChanged();
+            mouseNormal.activate();
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            wire1.drawTo(gr, Style.HIGHLIGHT);
+            wire2.drawTo(gr, Style.HIGHLIGHT);
+        }
+    }
 
     private final class MouseControllerSelect extends MouseController {
         private static final int MIN_SIZE = 8;
@@ -1659,11 +1841,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             super.activate();
             this.corner1 = corner1;
             this.corner2 = corner2;
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             copyAction.setEnabled(true);
             cutAction.setEnabled(true);
             rotateAction.setEnabled(true);
             wasReleased = false;
+            updateHighlighting();
         }
 
         @Override
@@ -1715,14 +1898,22 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     corner2 = corner1.add(dx, dy);
                 }
 
-                ArrayList<Drawable> elements = circuit.getElementsToHighlight(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-                removeHighLighted();
-                if (elements != null)
-                    addHighLighted(elements);
-
-                repaint();
+                updateHighlighting();
             }
             return true;
+        }
+
+        private void updateHighlighting() {
+            ArrayList<Drawable> elements = circuit.getElementsToHighlight(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+            removeHighLighted();
+            if (elements != null)
+                addHighLighted(elements);
+
+            repaint();
+        }
+
+        public void release() {
+            this.wasReleased = true;
         }
 
         @Override
@@ -1858,7 +2049,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     m.move(delta);
             }
 
-            deleteAction.setActive(true);
+            deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
         }
 

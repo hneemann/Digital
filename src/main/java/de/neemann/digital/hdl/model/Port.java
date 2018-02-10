@@ -83,6 +83,9 @@ public class Port {
                 .replace("<", "le")
                 .replace(">", "gr");
 
+        if (name.length() == 0)
+            throw new HDLException(Lang.get("err_vhdlANameIsMissing", name));
+
         if (!isNameValid(name))
             throw new HDLException(Lang.get("err_vhdlNotAValidName", name));
 

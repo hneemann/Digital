@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
 				xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-				xmlns:fo="http://www.w3.org/1999/XSL/Format">
+				xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:csl="http://www.w3.org/1999/XSL/Transform">
+
+	<xsl:param name="images"><xsl:value-of select="/root/@images"/><xsl:value-of select="/root/@lang"/>/</xsl:param>
 
 	<xsl:template match="root">
 		<fo:root font-family="SansSerif" font-size="11pt" xml:lang="{@lang}">
@@ -177,16 +179,23 @@
         </fo:block>
     </xsl:template>
 
-	<xsl:template match="e">
-		<fo:inline font-style="italic" >
-			<xsl:apply-templates/>
-		</fo:inline>
+	<xsl:template match="image">
+		<fo:block keep-together.within-page="always" margin-top="1mm" margin-bottom="2mm">
+		    <fo:block text-align="center" margin-bottom="1mm">
+			    <fo:external-graphic content-width="15cm" width="100%" src="url('{$images}{@src}')"/>
+		    </fo:block>
+		    <xsl:apply-templates/>
+	    </fo:block>
 	</xsl:template>
 
 	<xsl:template match="a">
 		<fo:basic-link external-destination="{@href}" show-destination="new">
 			<xsl:apply-templates/>
 		</fo:basic-link>
+	</xsl:template>
+
+	<xsl:template match="e">
+		<fo:inline font-style="italic"><xsl:apply-templates/></fo:inline>
 	</xsl:template>
 
 	<xsl:template match="arrow">

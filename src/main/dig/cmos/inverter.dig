@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>VDD</elementName>
@@ -13,6 +14,10 @@
         <entry>
           <string>Label</string>
           <string>A</string>
+        </entry>
+        <entry>
+          <string>isHighZ</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="140" y="400"/>

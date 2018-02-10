@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.wiring.Multiplexer;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -16,6 +17,13 @@ import java.util.HashSet;
 public class MultiplexerVHDL extends VHDLEntitySimple {
     private HashSet<Integer> first = new HashSet<>();
     private HashSet<Integer> firstBus = new HashSet<>();
+
+    /**
+     * Creates a new instance
+     */
+    public MultiplexerVHDL() {
+        super(Multiplexer.DESCRIPTION);
+    }
 
     @Override
     public String getName(HDLNode node) {

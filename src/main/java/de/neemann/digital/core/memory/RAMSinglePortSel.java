@@ -26,12 +26,13 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePortSel.class,
             input("A"),
             input("CS"),
-            input("WE"),
+            input("WE").setClock(),
             input("OE"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INVERTER_CONFIG);
 
     private final int bits;
     private final int addrBits;
@@ -48,6 +49,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     private boolean cs;
     private int addr;
     private boolean oe;
+    private boolean lastweIn;
 
     /**
      * Creates a new instance
@@ -81,20 +83,22 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
         csIn = inputs.get(1).checkBits(1, this).addObserverToValue(this);
         weIn = inputs.get(2).checkBits(1, this).addObserverToValue(this);
         oeIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
-        dataIn = inputs.get(4).checkBits(bits, this).addObserverToValue(this);
+        dataIn = inputs.get(4).checkBits(bits, this);
     }
 
     @Override
     public void readInputs() throws NodeException {
+        final boolean weIn = this.weIn.getBool();
         cs = csIn.getBool();
         if (cs) {
             addr = (int) addrIn.getValue();
             oe = oeIn.getBool();
-            if (weIn.getBool()) {
+            if (weIn && !lastweIn) {
                 long data = dataIn.getValue();
                 memory.setData(addr, data);
             }
         }
+        lastweIn=weIn;
     }
 
     @Override

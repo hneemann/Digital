@@ -22,6 +22,7 @@ public final class FileHistory {
     private final ArrayList<File> files;
     private final OpenInterface opener;
     private JMenu menu;
+    private JMenu menuNewWindow;
 
     /**
      * Creates a new instance
@@ -85,35 +86,42 @@ public final class FileHistory {
     private void updateMenu() {
         if (menu != null) {
             menu.removeAll();
-            for (File f : files)
-                menu.add(new FileOpenEntry(f, opener).createJMenuItem());
+            menuNewWindow.removeAll();
+            for (File f : files) {
+                menu.add(new FileOpenEntry(f, opener, false).createJMenuItem());
+                menuNewWindow.add(new FileOpenEntry(f, opener, true).createJMenuItem());
+            }
         }
     }
 
     /**
      * Sets the JMenu which is to populate with the recent files
      *
-     * @param menu the menu
+     * @param menu          the menu
+     * @param menuNewWindow menu to open in a new window
      */
-    public void setMenu(JMenu menu) {
+    public void setMenu(JMenu menu, JMenu menuNewWindow) {
         this.menu = menu;
+        this.menuNewWindow = menuNewWindow;
         updateMenu();
     }
 
     private static class FileOpenEntry extends ToolTipAction {
         private final File file;
         private final OpenInterface opener;
+        private boolean newWindow;
 
-        FileOpenEntry(File file, OpenInterface opener) {
+        FileOpenEntry(File file, OpenInterface opener, boolean newWindow) {
             super(file.getName());
             this.file = file;
             this.opener = opener;
+            this.newWindow = newWindow;
             setToolTip(file.getPath());
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            opener.open(file);
+            opener.open(file, newWindow);
         }
     }
 
@@ -124,8 +132,9 @@ public final class FileHistory {
         /**
          * Is called if a user wants to open a file
          *
-         * @param file the file to open
+         * @param file      the file to open
+         * @param newWindow if true, a new window is opened
          */
-        void open(File file);
+        void open(File file, boolean newWindow);
     }
 }

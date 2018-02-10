@@ -2,10 +2,7 @@ package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ImmutableList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author hneemann
@@ -59,6 +56,16 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
         }
 
         /**
+         * Reverses the order of the values
+         *
+         * @return the builder
+         */
+        public Builder reverse() {
+            Collections.reverse(values);
+            return this;
+        }
+
+        /**
          * @return the {@link ObservableValues} instance
          */
         public ObservableValues build() {
@@ -69,6 +76,7 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
         public Iterator<ObservableValue> iterator() {
             return values.iterator();
         }
+
     }
 
 
@@ -115,6 +123,16 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
      */
     public ObservableValues(ObservableValues items, int from, int to) {
         super(items, from, to);
+    }
+
+    /**
+     * @return the names of the values
+     */
+    public ArrayList<String> getNames() {
+        ArrayList<String> names = new ArrayList<>(size());
+        for (ObservableValue o : this)
+            names.add(o.getName());
+        return names;
     }
 
 }

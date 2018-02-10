@@ -10,12 +10,10 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.Signal;
+import de.neemann.digital.lang.Lang;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 /**
  * The description of a truth table.
@@ -26,9 +24,8 @@ public class TruthTable {
 
     private final ArrayList<Variable> variables;
     private final ArrayList<Result> results;
-    private final TreeMap<String, String> pins;
     private transient BitSetter bitSetter;
-    private ArrayList<String> pinsWithoutNumber = null;
+    private transient ModelAnalyserInfo modelAnalyzerInfo;
 
     /**
      * Load the given file and returns a truth table instance
@@ -65,7 +62,10 @@ public class TruthTable {
      * @throws IOException IOException
      */
     public void saveHex(File filename) throws IOException {
-        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
+        if (results.size() > 63)
+            throw new IOException(Lang.get("err_tableHasToManyResultColumns"));
+
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"))) {
             saveHex(out);
         }
     }
@@ -80,15 +80,15 @@ public class TruthTable {
         writer.write("v2.0 raw\n");
         int count = results.get(0).getValues().size();
         for (int i = 0; i < count; i++) {
-            int val = 0;
-            int mask = 1;
+            long val = 0;
+            long mask = 1;
             for (Result r : results) {
                 ThreeStateValue v = r.getValues().get(i);
                 if (v == ThreeStateValue.one)
                     val |= mask;
                 mask *= 2;
             }
-            writer.write(Integer.toHexString(val));
+            writer.write(Long.toHexString(val));
             writer.write('\n');
         }
     }
@@ -101,6 +101,7 @@ public class TruthTable {
         xStream.aliasAttribute(Variable.class, "identifier", "name");
         xStream.alias("result", Result.class);
         xStream.alias("BoolTable", BoolTableByteArray.class);
+        xStream.alias("BoolTableEx", BoolTableExpanded.class);
         return xStream;
     }
 
@@ -128,7 +129,6 @@ public class TruthTable {
     public TruthTable(ArrayList<Variable> vars) {
         this.variables = vars;
         results = new ArrayList<>();
-        pins = new TreeMap<>();
     }
 
     /**
@@ -158,9 +158,11 @@ public class TruthTable {
      *
      * @param name   name of the result column
      * @param values the values
+     * @return this for call chaining
      */
-    public void addResult(String name, BoolTable values) {
+    public TruthTable addResult(String name, BoolTable values) {
         results.add(new Result(name, values));
+        return this;
     }
 
     /**
@@ -232,29 +234,31 @@ public class TruthTable {
             sb.append(s.getIdentifier()).append("\t");
         for (Result s : results)
             sb.append(s.getName()).append("\t");
-        sb.append('\n');
 
-        for (int row = 0; row < getRows(); row++) {
-            for (int col = 0; col < variables.size(); col++) {
-                if (getBitSetter().getBit(row, col))
-                    sb.append("1\t");
-                else
-                    sb.append("0\t");
-            }
-            for (int col = 0; col < results.size(); col++) {
-                switch (results.get(col).getValues().get(row)) {
-                    case one:
+        if (getRows() <= 256) {
+            sb.append('\n');
+            for (int row = 0; row < getRows(); row++) {
+                for (int col = 0; col < variables.size(); col++) {
+                    if (getBitSetter().getBit(row, col))
                         sb.append("1\t");
-                        break;
-                    case zero:
+                    else
                         sb.append("0\t");
-                        break;
-                    default:
-                        sb.append("x\t");
-                        break;
                 }
+                for (int col = 0; col < results.size(); col++) {
+                    switch (results.get(col).getValues().get(row)) {
+                        case one:
+                            sb.append("1\t");
+                            break;
+                        case zero:
+                            sb.append("0\t");
+                            break;
+                        default:
+                            sb.append("x\t");
+                            break;
+                    }
+                }
+                sb.append("\n");
             }
-            sb.append("\n");
         }
         return sb.toString();
     }
@@ -401,6 +405,19 @@ public class TruthTable {
     }
 
     /**
+     * Returns the result with the given name
+     *
+     * @param resultName the result name
+     * @return the table representing the result or null if not found
+     */
+    public BoolTable getResult(String resultName) {
+        for (Result r : results)
+            if (r.getName().equals(resultName))
+                return r.getValues();
+        return null;
+    }
+
+    /**
      * Returns the results name
      *
      * @param result index of result
@@ -447,42 +464,22 @@ public class TruthTable {
     }
 
     /**
-     * Adds the signals pin number to the table
+     * Sets additional data obtained from the model
      *
-     * @param s the signal
-     * @throws NodeException NodeException
+     * @param modelAnalyzerInfo the data obtained from the model
      */
-    public void addPinNumber(Signal s) throws NodeException {
-        String p = s.getPinNumber();
-        if (p!=null && p.length() > 0) pins.put(s.getName(), p);
+    public void setModelAnalyzerInfo(ModelAnalyserInfo modelAnalyzerInfo) {
+        this.modelAnalyzerInfo = modelAnalyzerInfo;
     }
 
     /**
-     * @return the assigned pins
-     */
-    public TreeMap<String, String> getPins() {
-        return pins;
-    }
-
-
-    /**
-     * Sets the missing pin number flag
+     * returns additional model infos
      *
-     * @param pinsWithoutNumber list of pins without a number or null
-     * @return this for chained calls
+     * @return infos obtained from the analysed model, maybe null
      */
-    public TruthTable setPinsWithoutNumber(ArrayList<String> pinsWithoutNumber) {
-        this.pinsWithoutNumber = pinsWithoutNumber;
-        return this;
+    public ModelAnalyserInfo getModelAnalyzerInfo() {
+        return modelAnalyzerInfo;
     }
-
-    /**
-     * @return list of pins without a number or null
-     */
-    public ArrayList<String> getPinsWithoutNumber() {
-        return pinsWithoutNumber;
-    }
-
 
     /**
      * A single result column

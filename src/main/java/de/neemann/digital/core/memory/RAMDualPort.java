@@ -22,7 +22,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             input("A"),
             input("D_in"),
             input("str"),
-            input("C"),
+            input("C").setClock(),
             input("ld"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
@@ -94,7 +94,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      * @throws BitsException BitsException
      */
     protected void setDataIn(ObservableValue dataIn) throws BitsException {
-        this.dataIn = dataIn.checkBits(bits, this).addObserverToValue(this);
+        this.dataIn = dataIn.checkBits(bits, this);
     }
 
     /**
@@ -104,7 +104,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      * @throws BitsException BitsException
      */
     protected void setStrIn(ObservableValue strIn) throws BitsException {
-        this.strIn = strIn.checkBits(1, this).addObserverToValue(this);
+        this.strIn = strIn.checkBits(1, this);
     }
 
     /**

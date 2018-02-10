@@ -40,7 +40,7 @@ public class ValueTableDialog extends JDialog {
 
     private final ArrayList<ValueTable> resultTableData;
     private final JTabbedPane tp;
-    private final JFrame owner;
+    private final Window owner;
     private final ToolTipAction asGraph;
 
     /**
@@ -49,11 +49,10 @@ public class ValueTableDialog extends JDialog {
      * @param owner the parent frame
      * @param title the frame title
      */
-    public ValueTableDialog(JFrame owner, String title) {
-        super(owner, title, false);
+    public ValueTableDialog(Window owner, String title) {
+        super(owner, title, ModalityType.MODELESS);
         this.owner = owner;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
 
         resultTableData = new ArrayList<>();
         tp = new JTabbedPane();
@@ -79,7 +78,9 @@ public class ValueTableDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 int tab = tp.getSelectedIndex();
                 if (tab < 0) tab = 0;
-                new GraphDialog(owner, Lang.get("win_testdata_N", tp.getTitleAt(tab)), resultTableData.get(tab)).disableTable().setVisible(true);
+                new GraphDialog(ValueTableDialog.this, Lang.get("win_testdata_N", tp.getTitleAt(tab)), resultTableData.get(tab))
+                        .disableTable()
+                        .setVisible(true);
             }
         }.setToolTip(Lang.get("menu_showDataAsGraph_tt"));
         view.add(asGraph.createJMenuItem());
@@ -176,7 +177,7 @@ public class ValueTableDialog extends JDialog {
      * @return this for chained calls
      */
     public ValueTableDialog disableGraph() {
-        asGraph.setActive(false);
+        asGraph.setEnabled(false);
         return this;
     }
 

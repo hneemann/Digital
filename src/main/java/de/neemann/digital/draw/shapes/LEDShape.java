@@ -1,7 +1,7 @@
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -26,6 +26,7 @@ public class LEDShape implements Shape {
     private final int size;
     private Style onStyle;
     private IOState ioState;
+    private Value value;
 
     /**
      * Creates a new instance
@@ -38,7 +39,7 @@ public class LEDShape implements Shape {
         this.inputs = inputs;
         this.label = attr.getLabel();
         this.size = attr.get(Keys.SIZE) * SIZE;
-        onStyle = new Style(1, true, attr.get(Keys.COLOR));
+        onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
     }
 
     @Override
@@ -54,11 +55,16 @@ public class LEDShape implements Shape {
     }
 
     @Override
+    public void readObservableValues() {
+        if (ioState != null)
+            value = ioState.getInput(0).getCopy();
+    }
+
+    @Override
     public void drawTo(Graphic graphic, Style heighLight) {
         boolean fill = true;
-        if (ioState != null) {
+        if (value != null) {
             fill = false;
-            ObservableValue value = ioState.getInput(0);
             if (!value.isHighZ() && (value.getValue() != 0))
                 fill = true;
         }

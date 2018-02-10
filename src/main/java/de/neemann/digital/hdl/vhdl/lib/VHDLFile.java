@@ -1,6 +1,5 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
@@ -9,7 +8,12 @@ import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -182,13 +186,31 @@ public class VHDLFile implements VHDLEntity {
         if (hasData && node.get(Keys.BITS) > 1)
             gw.print("bitCount => " + node.get(Keys.BITS));
         for (Generic g : generics) {
-            gw.print(g.name + " => " + g.toValueString(node.get(new Key<>(g.name, 0))));
+            Key key = new Key<>(g.name, 0);
+            if (!node.getAttributes().contains(key)) // ensures the usage of the correct default value
+                key = findKey(g.name);
+            gw.print(g.name + " => " + g.toValueString(node.get(key)));
         }
         gw.close();
     }
 
+    private Key findKey(String name) throws HDLException {
+        for (Field k : Keys.class.getDeclaredFields()) {
+            if (Modifier.isStatic(k.getModifiers()) && Key.class.isAssignableFrom(k.getType())) {
+                try {
+                    Key key = (Key) k.get(null);
+                    if (key.getKey().equals(name))
+                        return key;
+                } catch (IllegalAccessException e) {
+                    throw new HDLException("invalid generic key " + name, e);
+                }
+            }
+        }
+        throw new HDLException("invalid generic key " + name);
+    }
+
     @Override
-    public boolean createsSignals() {
+    public boolean createsSignals(HDLNode node) {
         return true;
     }
 
@@ -203,6 +225,13 @@ public class VHDLFile implements VHDLEntity {
     }
 
     private static final class Dummy extends VHDLEntitySimple {
+
+        /**
+         * Creates a new instance
+         */
+        Dummy() {
+            super(null);
+        }
 
         @Override
         public String getName(HDLNode node) {
@@ -256,7 +285,10 @@ public class VHDLFile implements VHDLEntity {
                 case "real":
                     return Double.toString(((Number) value).doubleValue());
                 case "std_logic":
-                    return "'" + (((Number) value).intValue() & 1) + "'";
+                    if (value instanceof Boolean)
+                        return "'" + (((Boolean) value) ? 1 : 0) + "'";
+                    else
+                        return "'" + (((Number) value).intValue() & 1) + "'";
                 default:
                     throw new IOException("generic " + type + " is not supported!");
             }
@@ -288,10 +320,10 @@ public class VHDLFile implements VHDLEntity {
     }
 
     @Override
-    public String getDescription(ElementAttributes attr) {
+    public String getDescription(HDLNode node) {
         if (description == null)
             return null;
         else
-            return description.getDescription(attr);
+            return description.getDescription(node.getAttributes());
     }
 }

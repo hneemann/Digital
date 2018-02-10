@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl;
 
+import de.neemann.digital.core.arithmetic.BitExtender;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -39,28 +40,30 @@ public class VHDLLibrary {
     public VHDLLibrary(ElementLibrary elementLibrary) throws IOException {
         this.elementLibrary = elementLibrary;
         map = new HashMap<>();
-        put(And.DESCRIPTION, new OperateVHDL("AND", false));
-        put(NAnd.DESCRIPTION, new OperateVHDL("AND", true));
-        put(Or.DESCRIPTION, new OperateVHDL("OR", false));
-        put(NOr.DESCRIPTION, new OperateVHDL("OR", true));
-        put(XOr.DESCRIPTION, new OperateVHDL("XOR", false));
-        put(XNOr.DESCRIPTION, new OperateVHDL("XOR", true));
+        put(And.DESCRIPTION, new OperateVHDL("AND", false, And.DESCRIPTION));
+        put(NAnd.DESCRIPTION, new OperateVHDL("AND", true, NAnd.DESCRIPTION));
+        put(Or.DESCRIPTION, new OperateVHDL("OR", false, Or.DESCRIPTION));
+        put(NOr.DESCRIPTION, new OperateVHDL("OR", true, NOr.DESCRIPTION));
+        put(XOr.DESCRIPTION, new OperateVHDL("XOR", false, XOr.DESCRIPTION));
+        put(XNOr.DESCRIPTION, new OperateVHDL("XOR", true, XNOr.DESCRIPTION));
         put(Not.DESCRIPTION, new NotVHDL());
 
         put(Multiplexer.DESCRIPTION, new MultiplexerVHDL());
         put(Decoder.DESCRIPTION, new DecoderVHDL());
         put(Demultiplexer.DESCRIPTION, new DemultiplexerVHDL());
+        put(BitSelector.DESCRIPTION, new BitSelectorVHDL());
         put(Driver.DESCRIPTION, new DriverVHDL(false));
         put(DriverInvSel.DESCRIPTION, new DriverVHDL(true));
 
         put(Comparator.DESCRIPTION, new ComparatorVHDL());
+        put(BitExtender.DESCRIPTION, new BitExtenderVHDL());
+        put(PriorityEncoder.DESCRIPTION, new PriorityEncoderVHDL());
 
         put(ROM.DESCRIPTION, new ROMVHDL());
     }
 
-    private void put(ElementTypeDescription description, VHDLEntitySimple entity) {
+    private void put(ElementTypeDescription description, VHDLEntity entity) {
         map.put(description.getName(), entity);
-        entity.setDescription(description);
     }
 
     private VHDLEntity getEntity(HDLNode node) throws HDLException {
@@ -113,7 +116,7 @@ public class VHDLLibrary {
         if (e.needsOutput(node)) {
             out.println("\n-- " + node.getHDLName() + "\n");
 
-            VHDLGenerator.writeComment(out, e.getDescription(node.getAttributes()), node);
+            VHDLGenerator.writeComment(out, e.getDescription(node), node);
 
             e.writeHeader(out, node);
             out.println();
@@ -121,10 +124,10 @@ public class VHDLLibrary {
             e.writeDeclaration(out, node);
             out.dec().println("end " + node.getHDLName() + ";\n");
             out.println("architecture " + node.getHDLName() + "_arch of " + node.getHDLName() + " is");
-            if (!e.createsSignals())
+            if (!e.createsSignals(node))
                 out.println("begin").inc();
             e.writeArchitecture(out, node);
-            if (!e.createsSignals())
+            if (!e.createsSignals(node))
                 out.dec();
             out.println("end " + node.getHDLName() + "_arch;");
         }

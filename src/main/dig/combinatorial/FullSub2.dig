@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A_i</string>
+          <string>$A_i$</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="300"/>
@@ -17,7 +18,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B_i</string>
+          <string>$B_i$</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="360"/>
@@ -27,7 +28,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>BO_i-1</string>
+          <string>$BO_{i-1}$</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="420"/>
@@ -37,7 +38,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S_i</string>
+          <string>$S_i$</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="300"/>
@@ -47,7 +48,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>BO_i</string>
+          <string>$BO_i$</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="340"/>

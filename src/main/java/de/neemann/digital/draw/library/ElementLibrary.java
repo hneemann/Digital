@@ -39,8 +39,8 @@ import java.util.*;
  * This import works in two steps: At first all the files in the same directory as the root circuit are loaded.
  * The file names are shown in the components menu. From there you can pick a file to insert it to the circuit.
  * When a file is selected it is loaded to the library. After that also an icon is available.
- * This is done because the loading of a circuit creation of an icon is very time consuming and should be avoided if
- * not necessary. Its a kind of lazy loading.
+ * This is done because the loading of a circuit and the creation of an icon is very time consuming and should
+ * be avoided if not necessary. It's a kind of lazy loading.
  *
  * @author hneemann
  */
@@ -71,14 +71,25 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private final HashSet<String> isProgrammable = new HashSet<>();
     private final ArrayList<LibraryListener> listeners = new ArrayList<>();
     private final LibraryNode root;
+    private JarComponentManager jarComponentManager;
     private ShapeFactory shapeFactory;
     private ElementLibraryFolder custom;
     private File rootLibraryPath;
+    private Exception exception;
 
     /**
      * Creates a new instance.
      */
     public ElementLibrary() {
+        this(null);
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param jarFile the jar file to load
+     */
+    public ElementLibrary(File jarFile) {
         root = new LibraryNode(Lang.get("menu_elements"))
                 .setLibrary(this)
                 .add(new LibraryNode(Lang.get("lib_Logic"))
@@ -89,8 +100,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(XOr.DESCRIPTION)
                         .add(XNOr.DESCRIPTION)
                         .add(Not.DESCRIPTION)
-                        .add(LookUpTable.DESCRIPTION)
-                        .add(Delay.DESCRIPTION))
+                        .add(LookUpTable.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_io"))
                         .add(Out.DESCRIPTION)
                         .add(Out.LEDDESCRIPTION)
@@ -114,15 +124,19 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Const.DESCRIPTION)
                         .add(Tunnel.DESCRIPTION)
                         .add(Splitter.DESCRIPTION)
-                        .add(PullUp.DESCRIPTION)
-                        .add(PullDown.DESCRIPTION)
                         .add(Driver.DESCRIPTION)
-                        .add(DriverInvSel.DESCRIPTION))
+                        .add(DriverInvSel.DESCRIPTION)
+                        .add(Delay.DESCRIPTION)
+                        .add(PullUp.DESCRIPTION)
+                        .add(PullDown.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_mux"))
                         .add(Multiplexer.DESCRIPTION)
                         .add(Demultiplexer.DESCRIPTION)
-                        .add(Decoder.DESCRIPTION))
+                        .add(Decoder.DESCRIPTION)
+                        .add(BitSelector.DESCRIPTION)
+                        .add(PriorityEncoder.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_flipFlops"))
+                        .add(FlipflopRSAsync.DESCRIPTION)
                         .add(FlipflopRS.DESCRIPTION)
                         .add(FlipflopJK.DESCRIPTION)
                         .add(FlipflopD.DESCRIPTION)
@@ -137,6 +151,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(RAMSinglePortSel.DESCRIPTION)
                         .add(EEPROM.DESCRIPTION)
                         .add(GraphicCard.DESCRIPTION)
+                        .add(RAMDualAccess.DESCRIPTION)
+                        .add(RegisterFile.DESCRIPTION)
                         .add(Counter.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_arithmetic"))
                         .add(Add.DESCRIPTION)
@@ -145,6 +161,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(BarrelShifter.DESCRIPTION)
                         .add(Comparator.DESCRIPTION)
                         .add(Neg.DESCRIPTION)
+                        .add(BitExtender.DESCRIPTION)
                         .add(BitCount.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_switching"))
                         //.add(Diode.DESCRIPTION) // see class DiodeTest for further information
@@ -164,7 +181,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION));
 
-        populateNodeMap();
+        addExternalJarComponents(jarFile);
 
         custom = new ElementLibraryFolder(root, Lang.get("menu_custom"));
 
@@ -172,12 +189,81 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         if (libPath != null && libPath.exists())
             new ElementLibraryFolder(root, Lang.get("menu_library")).scanFolder(libPath);
 
+        populateNodeMap();
+
         isProgrammable.clear();
         root.traverse(libraryNode -> {
             ElementTypeDescription d = libraryNode.getDescriptionOrNull();
             if (d != null && d.hasAttribute(Keys.BLOWN))
                 isProgrammable.add(d.getName());
         });
+    }
+
+    void addExternalJarComponents(File file) {
+        if (file != null && file.getPath().length() > 0 && file.exists()) {
+            if (jarComponentManager == null)
+                jarComponentManager = new JarComponentManager(this);
+            try {
+                jarComponentManager.loadJar(file);
+            } catch (IOException | InvalidNodeException e) {
+                exception = e;
+            }
+        }
+    }
+
+    /**
+     * registers a component source to Digital
+     *
+     * @param source the source
+     * @return this for chained calls
+     */
+    public ElementLibrary registerComponentSource(ComponentSource source) {
+        try {
+            if (jarComponentManager == null)
+                jarComponentManager = new JarComponentManager(this);
+            source.registerComponents(jarComponentManager);
+        } catch (InvalidNodeException e) {
+            exception = e;
+        }
+        return this;
+    }
+
+    /**
+     * @return returns a exception during initialization or null if there was none
+     */
+    public Exception checkForException() {
+        Exception e = exception;
+        exception = null;
+        return e;
+    }
+
+    LibraryNode findNode(String path) throws InvalidNodeException {
+        StringTokenizer st = new StringTokenizer(path, "\\/;");
+        LibraryNode node = root;
+        while (st.hasMoreTokens()) {
+            String name = st.nextToken();
+            LibraryNode found = null;
+            for (LibraryNode n : node) {
+                if (n.getName().equals(name)) {
+                    if (n.isLeaf())
+                        throw new InvalidNodeException(Lang.get("err_Node_N_isAComponent", n));
+                    found = n;
+                }
+            }
+            if (found == null) {
+                found = new LibraryNode(name);
+                node.add(found);
+            }
+            node = found;
+        }
+        return node;
+    }
+
+    /**
+     * @return the component manager
+     */
+    public JarComponentManager getJarComponentManager() {
+        return jarComponentManager;
     }
 
     /**
@@ -197,6 +283,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public void setShapeFactory(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
+    }
+
+    /**
+     * @return the shape factory
+     */
+    public ShapeFactory getShapeFactory() {
+        return shapeFactory;
     }
 
     /**
@@ -424,7 +517,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             ElementTypeDescriptionCustom description =
                     new ElementTypeDescriptionCustom(file,
                             attributes -> new CustomElement(circuit, ElementLibrary.this),
-                            circuit.getAttributes(), circuit.getInputNames());
+                            circuit);
             description.setShortName(createShortName(file));
 
             String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
@@ -457,7 +550,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
         private final File file;
-        private final ElementAttributes attributes;
+        private final Circuit circuit;
         private String description;
 
         /**
@@ -465,13 +558,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
          *
          * @param file           the file which is loaded
          * @param elementFactory a element factory which is used to create concrete elements if needed
-         * @param attributes     the attributes of the element
-         * @param inputNames     the names of the input signals
+         * @param circuit        the circuit
+         * @throws PinException PinException
          */
-        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, ElementAttributes attributes, PinDescription... inputNames) {
-            super(file.getName(), elementFactory, inputNames);
+        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, Circuit circuit) throws PinException {
+            super(file.getName(), elementFactory, circuit.getInputNames());
             this.file = file;
-            this.attributes = attributes;
+            this.circuit = circuit;
             setShortName(file.getName());
             addAttribute(Keys.ROTATE);
             addAttribute(Keys.LABEL);
@@ -491,7 +584,14 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
          * @return the elements attributes
          */
         public ElementAttributes getAttributes() {
-            return attributes;
+            return circuit.getAttributes();
+        }
+
+        /**
+         * @return the circuit
+         */
+        public Circuit getCircuit() {
+            return circuit;
         }
 
         /**
@@ -563,7 +663,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                     map.put(name, libraryNode);
                     libraryNode.setUnique(true);
                 } else {
-                    if (presentNode.getFile().equals(libraryNode.getFile()))
+                    if (presentNode.equalsFile(libraryNode))
                         libraryNode.setUnique(true);
                     else {
                         presentNode.setUnique(false); // ToDo does not work if there are more than two duplicates and

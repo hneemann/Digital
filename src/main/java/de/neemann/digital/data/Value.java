@@ -1,5 +1,7 @@
 package de.neemann.digital.data;
 
+import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.ObservableValue;
 
 /**
@@ -50,6 +52,13 @@ public class Value {
 
     }
 
+    /**
+     * @return returns a high z value
+     */
+    public static Value getHighZ() {
+        return new Value(0, Type.HIGHZ);
+    }
+
     private final long value;
     private final Type type;
 
@@ -73,6 +82,11 @@ public class Value {
         this.type = Type.NORMAL;
     }
 
+    private Value(long val, Type type) {
+        this.value = val;
+        this.type = type;
+    }
+
     /**
      * Creates a new value based on the given {@link ObservableValue}
      *
@@ -90,8 +104,9 @@ public class Value {
      * Creates a new value based on a string
      *
      * @param val the string
+     * @throws Bits.NumberFormatException Bits.NumberFormatException
      */
-    public Value(String val) {
+    public Value(String val) throws Bits.NumberFormatException {
         val = val.trim().toUpperCase();
         switch (val) {
             case "X":
@@ -107,7 +122,7 @@ public class Value {
                 type = Type.CLOCK;
                 break;
             default:
-                value = Long.decode(val);
+                value = Bits.decode(val);
                 type = Type.NORMAL;
                 break;
         }
@@ -120,6 +135,18 @@ public class Value {
      * @return true if equal
      */
     public boolean isEqualTo(Value v) {
+        return isEqualTo(v, 0);
+    }
+
+    /**
+     * Return true if value is equal to the given value.
+     * Only the bits which are set in the mask are compared.
+     *
+     * @param v    the value to compare with
+     * @param mask the mask with bits to take into account
+     * @return true if equal
+     */
+    protected boolean isEqualTo(Value v, long mask) {
         if (this == v) return true;
         if (v == null) return false;
 
@@ -130,7 +157,10 @@ public class Value {
         // both types are equal!
         if (type == Type.HIGHZ) return true;
 
-        return value == v.value;
+        if (mask == 0)
+            return value == v.value;
+        else
+            return (value & mask) == (v.value & mask);
     }
 
     @Override
@@ -143,7 +173,7 @@ public class Value {
             case CLOCK:
                 return "C";
             default:
-                return ObservableValue.getHexString(value);
+                return IntFormat.toShortHex(value);
         }
     }
 

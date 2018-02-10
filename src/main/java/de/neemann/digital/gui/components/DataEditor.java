@@ -1,5 +1,6 @@
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.memory.DataField;
@@ -103,8 +104,12 @@ public class DataEditor extends JDialog {
             buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    ok = true;
-                    dispose();
+                    if (table.isEditing()) {
+                        table.getCellEditor().stopCellEditing();
+                    } else {
+                        ok = true;
+                        dispose();
+                    }
                 }
             }));
             getContentPane().add(buttons, BorderLayout.SOUTH);
@@ -145,7 +150,7 @@ public class DataEditor extends JDialog {
             model.addObserver(event -> {
                 if (event.equals(ModelEvent.STOPPED))
                     detachFromRunningModel();
-            });
+            }, ModelEvent.STOPPED);
         }
     }
 
@@ -272,9 +277,10 @@ public class DataEditor extends JDialog {
          * Is called by the JTable to create a new instance if field was edited
          *
          * @param value the edited value
+         * @throws Bits.NumberFormatException Bits.NumberFormatException
          */
-        public MyLong(String value) {
-            data = Long.decode(value);
+        public MyLong(String value) throws Bits.NumberFormatException {
+            data = Bits.decode(value);
         }
 
         /**

@@ -81,7 +81,7 @@ public class GraphicMinMax implements Graphic {
 
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
-        if (includeText || style == Style.NORMAL_TEXT)
+        if (includeText || style.mattersAlwaysForSize())
             approxTextSize(this, p1, p2, text, orientation, style);
     }
 

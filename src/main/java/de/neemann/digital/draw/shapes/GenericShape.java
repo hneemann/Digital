@@ -143,7 +143,7 @@ public class GenericShape implements Shape {
      * @param ic        iput inverter configuration
      * @return the pins
      */
-    public static Pins createPins(PinDescriptions inputs, PinDescriptions outputs, boolean invert, int width, boolean symmetric, InverterConfig ic) {
+    private static Pins createPins(PinDescriptions inputs, PinDescriptions outputs, boolean invert, int width, boolean symmetric, InverterConfig ic) {
         Pins pins = new Pins();
 
         int offs = symmetric ? inputs.size() / 2 * SIZE : 0;
@@ -196,8 +196,8 @@ public class GenericShape implements Shape {
                 .add(SIZE * width - 1, height)
                 .add(1, height);
 
-        if (color != Color.WHITE)
-            graphic.drawPolygon(polygon, new Style(1, true, color));
+        if (color != Color.WHITE && !graphic.isFlagSet(Graphic.LATEX))
+            graphic.drawPolygon(polygon, Style.NORMAL.deriveFillStyle(color));
         graphic.drawPolygon(polygon, Style.NORMAL);
 
         if (invert) {
@@ -218,9 +218,17 @@ public class GenericShape implements Shape {
                 int dx = 4;
                 if (isInverted(p.getName(), inverterConfig))
                     dx += SIZE;
-                if (p.getDirection() == Pin.Direction.input)
+                if (p.getDirection() == Pin.Direction.input) {
+                    if (p.isClock()) {
+                        final int triangle = SIZE2 / 2 + 2;
+                        graphic.drawPolygon(new Polygon(false)
+                                .add(p.getPos().add(dx - 3, triangle))
+                                .add(p.getPos().add(dx + triangle - 3, 0))
+                                .add(p.getPos().add(dx - 3, -triangle)), Style.THIN);
+                        dx += triangle;
+                    }
                     graphic.drawText(p.getPos().add(dx, 0), p.getPos().add(dx + 1, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
-                else
+                } else
                     graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
             }
         }

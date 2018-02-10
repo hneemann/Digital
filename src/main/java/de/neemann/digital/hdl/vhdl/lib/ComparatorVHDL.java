@@ -1,5 +1,6 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
@@ -13,6 +14,13 @@ import java.io.IOException;
 public class ComparatorVHDL extends VHDLEntityBus {
     private boolean first = true;
     private boolean firstSigned = true;
+
+    /**
+     * Creates a new instance
+     */
+    public ComparatorVHDL() {
+        super(Comparator.DESCRIPTION);
+    }
 
     @Override
     public String getName(HDLNode node) throws HDLException {

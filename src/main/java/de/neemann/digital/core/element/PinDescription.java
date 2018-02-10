@@ -49,4 +49,11 @@ public interface PinDescription {
      */
     String getPinNumber();
 
+    /**
+     * Returns true if this pin is a cock pin.
+     * Is used only to draw the small triangle in front of the pins label.
+     *
+     * @return true if this pin is a clock input
+     */
+    boolean isClock();
 }

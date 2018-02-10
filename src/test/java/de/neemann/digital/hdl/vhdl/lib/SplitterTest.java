@@ -26,12 +26,16 @@ public class SplitterTest extends TestCase {
                 "    PORT_Z: out std_logic_vector (4 downto 0) );\n" +
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
-                "  signal S0: std_logic_vector (7 downto 0);\n" +
+                "  signal S0: std_logic_vector (2 downto 0);\n" +
+                "  signal S1: std_logic_vector (4 downto 0);\n" +
+                "  signal S2: std_logic_vector (7 downto 0);\n" +
                 "begin\n" +
-                "  S0(3 downto 0) <= PORT_A;\n" +
-                "  S0(7 downto 4) <= PORT_B;\n" +
-                "  PORT_Y <= S0(2 downto 0);\n" +
-                "  PORT_Z <= S0(7 downto 3);\n" +
+                "  S2(3 downto 0) <= PORT_A;\n" +
+                "  S2(7 downto 4) <= PORT_B;\n" +
+                "  S0 <= S2(2 downto 0);\n" +
+                "  S1 <= S2(7 downto 3);\n" +
+                "  PORT_Y <= S0;\n" +
+                "  PORT_Z <= S1;\n" +
                 "end main_arch;", TestHelper.removeCommentLines(vhdl));
     }
 
@@ -47,24 +51,26 @@ public class SplitterTest extends TestCase {
                 "    PORT_9SD: out std_logic_vector (15 downto 0) );\n" +
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
-                "  signal S0: std_logic_vector (7 downto 0);\n" +
-                "  signal S1: std_logic;\n" +
-                "  signal S2: std_logic_vector (15 downto 0);\n" +
+                "  signal S0: std_logic_vector (15 downto 0);\n" +
+                "  signal S1: std_logic_vector (7 downto 0);\n" +
+                "  signal S2: std_logic;\n" +
                 "  signal S3: std_logic_vector (15 downto 0);\n" +
+                "  signal S4: std_logic_vector (15 downto 0);\n" +
                 "begin\n" +
-                "  S2(15 downto 0) <= PORT_inst;\n" +
-                "  S0 <= S2(7 downto 0);\n" +
-                "  S1 <= S2(8);\n" +
-                "  S3(7 downto 0) <= S0;\n" +
-                "  S3(8) <= S1;\n" +
-                "  S3(9) <= S1;\n" +
-                "  S3(10) <= S1;\n" +
-                "  S3(11) <= S1;\n" +
-                "  S3(12) <= S1;\n" +
-                "  S3(13) <= S1;\n" +
-                "  S3(14) <= S1;\n" +
-                "  S3(15) <= S1;\n" +
-                "  PORT_9SD <= S3(15 downto 0);\n" +
+                "  S3(15 downto 0) <= PORT_inst;\n" +
+                "  S1 <= S3(7 downto 0);\n" +
+                "  S2 <= S3(8);\n" +
+                "  S4(7 downto 0) <= S1;\n" +
+                "  S4(8) <= S2;\n" +
+                "  S4(9) <= S2;\n" +
+                "  S4(10) <= S2;\n" +
+                "  S4(11) <= S2;\n" +
+                "  S4(12) <= S2;\n" +
+                "  S4(13) <= S2;\n" +
+                "  S4(14) <= S2;\n" +
+                "  S4(15) <= S2;\n" +
+                "  S0 <= S4(15 downto 0);\n" +
+                "  PORT_9SD <= S0;\n" +
                 "end main_arch;", TestHelper.removeCommentLines(vhdl));
     }
 
@@ -90,16 +96,18 @@ public class SplitterTest extends TestCase {
                 "  end component;\n" +
                 "  signal S0: std_logic_vector (7 downto 0);\n" +
                 "  signal S1: std_logic_vector (7 downto 0);\n" +
+                "  signal S2: std_logic_vector (7 downto 0);\n" +
                 "begin\n" +
-                "  S1(3 downto 0) <= PORT_A;\n" +
-                "  S1(7 downto 4) <= PORT_B;\n" +
-                "  S0 <= S1(7 downto 0);\n" +
+                "  S2(3 downto 0) <= PORT_A;\n" +
+                "  S2(7 downto 4) <= PORT_B;\n" +
+                "  S0 <= S2(7 downto 0);\n" +
                 "  gate0 : NOT_GATE_BUS\n" +
                 "    generic map ( bitCount => 8)\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Z,\n" +
+                "      PORT_out => S1,\n" +
                 "      PORT_in => S0 );\n" +
                 "  PORT_Y <= S0;\n" +
+                "  PORT_Z <= S1;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +

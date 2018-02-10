@@ -20,13 +20,6 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Der Übertrag vom Addierer welcher die
-niederwertigeren Bits addiert. Werden die 
-niederwertigsten Bits addiert, ist dieser Eingang 
-Null.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>C0</string>
         </entry>
@@ -40,10 +33,6 @@ Null.</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das 0. Bit des ersten zu addierenden Wertes.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>B1</string>
@@ -83,10 +72,6 @@ Null.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das 1. Bit des ersten zu addierenden Wertes.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>B2</string>
         </entry>
@@ -100,10 +85,6 @@ Null.</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das 0. Bit der Summe.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>S1</string>
@@ -119,10 +100,6 @@ Null.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das 2. Bit des ersten zu addierenden Wertes.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>B3</string>
         </entry>
@@ -136,10 +113,6 @@ Null.</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das 3. Bit des ersten zu addierenden Wertes.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>B4</string>
@@ -189,10 +162,6 @@ Null.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das 1. Bit der Summe.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>S2</string>
         </entry>
@@ -237,10 +206,6 @@ Null.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das 2. Bit der Summe.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>S3</string>
         </entry>
@@ -255,10 +220,6 @@ Null.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das 0. Bit des zweiten zu addierenden Wertes.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>A1</string>
         </entry>
@@ -272,10 +233,6 @@ Null.</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das 1. Bit des zweiten zu addierenden Wertes.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>A2</string>
@@ -345,10 +302,6 @@ Null.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das 2. Bit des zweiten zu addierenden Wertes.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>A3</string>
         </entry>
@@ -366,10 +319,6 @@ Null.</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das 3. Bit des zweiten zu addierenden Wertes.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>A4</string>
@@ -405,10 +354,6 @@ Null.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das 3. Bit der Summe.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>S4</string>
         </entry>
@@ -437,11 +382,6 @@ Null.</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das Übertragsbit, welches an den Adiierer für die
-nächst höherwertigen Bits weitergegeben wird.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C4</string>

@@ -96,36 +96,14 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
       <pos x="580" y="140"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="-100" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Speicherfreigabe für die Flags. Geht auf High, wenn
-eine arithmetische Funktion in der ALU ausgeführt
-wird. Nur diese setzen die Flags. Wird die ALU für
-die Adressbildung verwendet, werden die Flags nicht
-gespeichert.</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>store</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-100" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -146,18 +124,18 @@ gespeichert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Adresse</string>
+          <string>Speicherfreigabe für die Flags. Geht auf High, wenn
+eine arithmetische Funktion in der ALU ausgeführt
+wird. Nur diese setzen die Flags. Wird die ALU für
+die Adressbildung verwendet, werden die Flags nicht
+gespeichert.</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>A</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
+          <string>store</string>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="440"/>
+      <pos x="-100" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -188,7 +166,7 @@ gespeichert.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -207,6 +185,24 @@ gespeichert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
+          <string>Adresse</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
           <string>IO Read</string>
         </entry>
         <entry>
@@ -215,20 +211,6 @@ gespeichert.</string>
         </entry>
       </elementAttributes>
       <pos x="-100" y="500"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>IO Write</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>IOW</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-100" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -272,19 +254,15 @@ gespeichert.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>IO Write</string>
+        </entry>
+        <entry>
           <string>Label</string>
-          <string>Data</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-        <entry>
-          <string>isHighZ</string>
-          <boolean>true</boolean>
+          <string>IOW</string>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="280"/>
+      <pos x="-100" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
@@ -305,6 +283,24 @@ gespeichert.</string>
         </entry>
       </elementAttributes>
       <pos x="300" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Data</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>isHighZ</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="280"/>
     </visualElement>
   </visualElements>
   <wires>

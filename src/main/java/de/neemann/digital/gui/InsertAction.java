@@ -37,7 +37,7 @@ public final class InsertAction extends ToolTipAction {
         this.node = node;
         this.insertHistory = insertHistory;
         this.circuitComponent = circuitComponent;
-        setActive(node.isUnique());
+        setEnabled(node.isUnique());
     }
 
     @Override

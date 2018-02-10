@@ -197,10 +197,6 @@ and Complementary Sum Outputs</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Übertragsbit der Vorgängerschaltung.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>Cn</string>
         </entry>
@@ -214,10 +210,6 @@ and Complementary Sum Outputs</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Übertragsbit</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>~Cn+1</string>
@@ -233,10 +225,6 @@ and Complementary Sum Outputs</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Summe</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>S</string>
         </entry>
@@ -250,10 +238,6 @@ and Complementary Sum Outputs</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Summe</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>~S</string>

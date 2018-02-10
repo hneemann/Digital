@@ -21,8 +21,9 @@ import java.util.concurrent.TimeUnit;
  *
  * @author hneemann
  */
-public class RealTimeClock implements ModelStateObserver {
+public class RealTimeClock implements ModelStateObserverTyped {
     private static final Logger LOGGER = LoggerFactory.getLogger(RealTimeClock.class);
+    private static final int THREAD_RUNNER_DELAY = 100;
 
     private final Model model;
     private final ScheduledThreadPoolExecutor executor;
@@ -62,17 +63,30 @@ public class RealTimeClock implements ModelStateObserver {
                 if (frequency > 50)  // if frequency is high it is not necessary to update the GUI at every clock change
                     modelSync.access(() -> output.removeObserver(GuiModelObserver.class));
 
-                int delay = 500000 / frequency;
-                if (delay < 10)
+                int delayMuS = 500000 / frequency;
+                if (delayMuS < THREAD_RUNNER_DELAY)
                     runner = new ThreadRunner();
                 else
-                    runner = new RealTimeRunner(delay);
+                    runner = new RealTimeRunner(delayMuS);
                 break;
             case STOPPED:
                 if (runner != null)
                     runner.stop();
                 break;
         }
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{ModelEvent.STARTED, ModelEvent.STOPPED};
+    }
+
+    /**
+     * @return true if a thread runner is used
+     */
+    public boolean isThreadRunner() {
+        int delayMuS = 500000 / frequency;
+        return delayMuS < THREAD_RUNNER_DELAY;
     }
 
     interface Runner {
@@ -120,24 +134,18 @@ public class RealTimeClock implements ModelStateObserver {
         ThreadRunner() {
             thread = new Thread(() -> {
                 LOGGER.debug("thread start");
-                long time = System.currentTimeMillis();
-                long counter = 0;
+                FrequencyCalculator frequency = new FrequencyCalculator(status);
                 try {
                     while (!Thread.interrupted()) {
                         modelSync.accessNEx(() -> {
                             output.setValue(1 - output.getValue());
                             model.doStep();
                         });
-                        counter++;
+                        frequency.calc();
                     }
                 } catch (NodeException | RuntimeException e) {
                     stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
                 }
-                time = System.currentTimeMillis() - time;
-
-                final long l = counter / time / 2;
-                status.setStatus(l + "kHz");
-                LOGGER.debug("thread end, f=" + l + "kHz");
             });
             thread.setDaemon(true);
             thread.start();
@@ -146,6 +154,37 @@ public class RealTimeClock implements ModelStateObserver {
         @Override
         public void stop() {
             thread.interrupt();
+        }
+    }
+
+    private static final class FrequencyCalculator {
+        private static final long MIN_COUNTER = 50000;
+        private final StatusInterface status;
+        private long checkCounter;
+        private int counter;
+        private long time;
+
+        private FrequencyCalculator(StatusInterface status) {
+            this.status = status;
+            time = System.currentTimeMillis();
+            counter = 0;
+            checkCounter = MIN_COUNTER;
+        }
+
+        private void calc() {
+            counter++;
+            if (counter == checkCounter) {
+                long t = System.currentTimeMillis();
+                if (t - time > 2000) {
+                    final long l = counter / (t - time) / 2;
+                    status.setStatus(l + " kHz");
+                    time = t;
+                    counter = 0;
+                    checkCounter = MIN_COUNTER;
+                } else {
+                    checkCounter += MIN_COUNTER;
+                }
+            }
         }
     }
 }

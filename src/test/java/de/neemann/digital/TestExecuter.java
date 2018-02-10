@@ -1,9 +1,6 @@
 package de.neemann.digital;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -27,8 +24,8 @@ import static org.junit.Assert.assertTrue;
  * @author hneemann
  */
 public class TestExecuter {
-    public static final int IGNORE = -1;
-    public static final int HIGHZ = -2;
+    public static final Object IGNORE = new Object();
+    public static final Object HIGHZ = new Object();
 
     private final Model model;
     private ArrayList<ObservableValue> inputs;
@@ -47,6 +44,7 @@ public class TestExecuter {
     public TestExecuter() throws NodeException {
         this(null);
     }
+
     public TestExecuter(Model model) throws NodeException {
         this(model, false);
     }
@@ -123,33 +121,49 @@ public class TestExecuter {
         return this;
     }
 
-    public void checkC(int... val) throws NodeException {
+    public void checkC(long... val) throws NodeException {
         ObservableValue clock = model.getClocks().get(0).getClockOutput();
         clock.setBool(true);
         model.doStep();
         clock.setBool(false);
         check(val);
     }
-    public void check(int... val) throws NodeException {
+
+    public void checkZ(Object... val) throws NodeException {
         for (int i = 0; i < inputs.size(); i++) {
-            if (val[i]==HIGHZ)
+            if (val[i] == HIGHZ)
                 inputs.get(i).set(0, true);
             else
-                inputs.get(i).set(val[i], false);
+                inputs.get(i).set(((Number) val[i]).longValue(), false);
         }
         if (model != null)
             model.doStep();
 
         for (int i = 0; i < outputs.size(); i++) {
-            int should = val[i + inputs.size()];
-            if (should != IGNORE) {
-                if (should == HIGHZ) {
+            final Object v = val[i + inputs.size()];
+            if (v != IGNORE) {
+                if (v == HIGHZ) {
                     assertTrue("highz output " + i, outputs.get(i).isHighZ());
-                } else
+                } else {
+                    long should = ((Number) v).longValue();
                     assertEquals("output " + i, outputs.get(i).getValueBits(should), outputs.get(i).getValue());
+                }
             }
         }
     }
+
+    public void check(long... val) throws NodeException {
+        for (int i = 0; i < inputs.size(); i++)
+            inputs.get(i).set(val[i], false);
+        if (model != null)
+            model.doStep();
+
+        for (int i = 0; i < outputs.size(); i++) {
+            long should = val[i + inputs.size()];
+            assertEquals("output " + i, outputs.get(i).getValueBits(should), outputs.get(i).getValue());
+        }
+    }
+
 
     public void clockUntil(int... val) throws NodeException {
         for (int clocks = 0; clocks < 1000; clocks++) {

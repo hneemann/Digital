@@ -101,21 +101,6 @@ public class Signal implements Comparable<Signal> {
     }
 
     /**
-     * @return true if this is an input port
-     */
-    public boolean isInPort() {
-        return portDirection == Port.Direction.in;
-    }
-
-    /**
-     * @return true if this is an output port
-     */
-    public boolean isOutPort() {
-        return portDirection == Port.Direction.out;
-    }
-
-
-    /**
      * @return the number of bits
      */
     public int getBits() {
@@ -219,13 +204,4 @@ public class Signal implements Comparable<Signal> {
         ports.clear();
     }
 
-    /**
-     * removed a port from this signal
-     *
-     * @param port the port to remove
-     */
-    public void removePort(Port port) {
-        ports.remove(port);
-        port.setSignal(null);
-    }
 }

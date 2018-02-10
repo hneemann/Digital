@@ -15,6 +15,13 @@ public class Key<VALUE> {
     private final VALUE def;
     private final String langKey;
     private boolean groupEditAllowed = false;
+    private Key dependsOn;
+    private boolean dependsOnInvert;
+
+    // Both values are always null in digital.
+    // Both are only used within a custom implemented component.
+    private String name;
+    private String description;
 
     /**
      * Creates a new Key
@@ -42,10 +49,13 @@ public class Key<VALUE> {
     /**
      * Returns the attributes display name
      *
-     * @return thr name
+     * @return the name of the key
      */
     public String getName() {
-        return Lang.get(langKey);
+        if (name != null)
+            return name;
+        else
+            return Lang.get(langKey);
     }
 
     /**
@@ -71,11 +81,15 @@ public class Key<VALUE> {
      * @return the keys description
      */
     public String getDescription() {
-        String d = Lang.getNull(langKey + "_tt");
-        if (d != null)
-            return d;
-        else
-            return getName();
+        if (description != null)
+            return description;
+        else {
+            String d = Lang.getNull(langKey + "_tt");
+            if (d != null)
+                return d;
+            else
+                return getName();
+        }
     }
 
     /**
@@ -97,8 +111,71 @@ public class Key<VALUE> {
      *
      * @return this for chained calls
      */
-    Key<VALUE> allowGroupEdit() {
+    public Key<VALUE> allowGroupEdit() {
         this.groupEditAllowed = true;
+        return this;
+    }
+
+    /**
+     * Sets the name of this key.
+     * Is not used in Digital at all.
+     * This method can be used to define custom keys in custom java components.
+     *
+     * @param name the name of the key
+     * @return this for chained calls
+     */
+    public Key<VALUE> setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets the description of this key.
+     * Is not used in Digital at all.
+     * This method can be used to define custom keys in custom java components.
+     *
+     * @param description the name of the key
+     * @return this for chained calls
+     */
+    public Key<VALUE> setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * @return returns the key this key depends on
+     */
+    public Key getDependsOn() {
+        return dependsOn;
+    }
+
+    /**
+     * @return true if dependency is inverted
+     */
+    public boolean isDependsOnInverted() {
+        return dependsOnInvert;
+    }
+
+    /**
+     * Sets the key this key depends on.
+     *
+     * @param key the key where this key depends on
+     * @return this for chained calls
+     */
+    public Key<VALUE> setDependsOn(Key key) {
+        return setDependsOn(key, false);
+    }
+
+    /**
+     * Sets the key this key depends on.
+     *
+     * @param key    the key where this key depends on
+     * @param invert if true dependency is inverted
+     * @return this for chained calls
+     */
+    public Key<VALUE> setDependsOn(Key key, boolean invert) {
+        this.dependsOn = key;
+        this.dependsOnInvert = invert;
         return this;
     }
 
@@ -111,21 +188,45 @@ public class Key<VALUE> {
         private int min = Integer.MIN_VALUE;
         private int max = Integer.MAX_VALUE;
 
-        KeyInteger(String key, Integer def) {
+        /**
+         * Creates a new instance
+         *
+         * @param key the key to use
+         * @param def the default value
+         */
+        public KeyInteger(String key, Integer def) {
             super(key, def);
         }
 
-        KeyInteger setComboBoxValues(Integer[] values) {
+        /**
+         * Sets the values to use in the combo box.
+         *
+         * @param values the values
+         * @return this for chained calls
+         */
+        public KeyInteger setComboBoxValues(Integer[] values) {
             this.values = values;
             return this;
         }
 
-        KeyInteger setMin(int min) {
+        /**
+         * Sets the minimal value which is allowed.
+         *
+         * @param min the minimal value allowed
+         * @return this for chained calls
+         */
+        public KeyInteger setMin(int min) {
             this.min = min;
             return this;
         }
 
-        KeyInteger setMax(int max) {
+        /**
+         * Sets the maximal value which is allowed.
+         *
+         * @param max the  maximal value allowed
+         * @return this for chained calls
+         */
+        public KeyInteger setMax(int max) {
             this.max = max;
             return this;
         }
@@ -156,20 +257,21 @@ public class Key<VALUE> {
      * A bits attribute.
      * Stores additional combo box values
      */
-    static final class KeyBits extends KeyInteger {
+    public static final class KeyBits extends KeyInteger {
         private static final Integer[] VALUES = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32};
 
-        KeyBits(String key, Integer def) {
+        /**
+         * Creates a new bits key
+         *
+         * @param key the key
+         * @param def the default value
+         */
+        public KeyBits(String key, Integer def) {
             super(key, def);
             setMin(1);
-            super.setMax(64);
+            setMax(64);
             setComboBoxValues(VALUES);
             allowGroupEdit();
-        }
-
-        KeyBits setMax(int bits) {
-            super.setMax(bits);
-            return this;
         }
     }
 
@@ -178,10 +280,15 @@ public class Key<VALUE> {
      */
     public static final class KeyFile extends Key<File> {
 
-
         private boolean directoryOnly;
 
-        KeyFile(String key, File def) {
+        /**
+         * Creates a new file key
+         *
+         * @param key the key
+         * @param def the default file
+         */
+        public KeyFile(String key, File def) {
             super(key, def);
             setDirectoryOnly(false);
         }
@@ -214,7 +321,14 @@ public class Key<VALUE> {
         private final E[] values;
         private final String[] names;
 
-        KeyEnum(String key, E def, E[] values) {
+        /**
+         * Creates a new emum key
+         *
+         * @param key    the key
+         * @param def    the default value
+         * @param values the possible values
+         */
+        public KeyEnum(String key, E def, E[] values) {
             super(key, def);
             this.values = values;
 

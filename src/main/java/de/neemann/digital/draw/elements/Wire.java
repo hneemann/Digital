@@ -1,22 +1,33 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Value;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.draw.shapes.ObservableValueReader;
+import de.neemann.digital.gui.Settings;
 
 import java.util.Collection;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * A simple wire described by two points.
  *
  * @author hneemann
  */
-public class Wire implements Drawable, Movable {
-    private static final int MIN_LABEL_LEN = 80;
-    //Every value of p1 or p2 is valid. There are no hidden state constrains or dependencies.
-    //So both fields are allowed to by public to allow more readable code.
+public class Wire implements Drawable, Movable, ObservableValueReader {
+    private static final int MIN_LABEL_WIRE_LEN = SIZE * 4;
+    private static final int MIN_CROSS_WIRE_LEN = SIZE * 2;
+    private static final int MIN_CROSS_WIRE_LEN_SPLITTER = SIZE * 6;
+    private static final int CROSS_LEN = 4;
+    private static final int DISPLACE = SIZE2;
+    //Every value of p1 or p2 is valid. There are no hidden state constraints or dependencies.
+    //So both fields are allowed to be public to allow more readable code.
     //CHECKSTYLE.OFF: VisibilityModifier
     /**
      * The first endpoint of the line
@@ -27,9 +38,12 @@ public class Wire implements Drawable, Movable {
      */
     public Vector p2;
     //CHECKSTYLE.ON: VisibilityModifier
-    private transient ObservableValue value;
+    private transient ObservableValue observableValue;
+    private transient Value value;
     private transient boolean p1Dot;
     private transient boolean p2Dot;
+    private transient int bits;
+    private transient boolean isConnectedToSplitter;
 
     /**
      * Creates anew wire
@@ -55,6 +69,14 @@ public class Wire implements Drawable, Movable {
     }
 
     @Override
+    public void readObservableValues() {
+        if (observableValue != null)
+            value = observableValue.getCopy();
+        else
+            value = null;
+    }
+
+    @Override
     public void drawTo(Graphic graphic, Style highLight) {
         Style style = highLight;
         if (style == null)
@@ -62,9 +84,30 @@ public class Wire implements Drawable, Movable {
 
         graphic.drawLine(p1, p2, style);
 
-        if (value != null && p1.y == p2.y && Math.abs(p1.x - p2.x) > MIN_LABEL_LEN && value.getBits() > 1) {
-            Vector pos = p1.add(p2).div(2).add(0, -3);
-            graphic.drawText(pos, pos.add(1, 0), value.getValueString(), de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM, Style.WIRE_VALUE);
+        if (value != null)
+            bits = value.getBits();
+
+        final boolean showBits = Settings.getInstance().get(Keys.SETTINGS_SHOW_WIRE_BITS);
+        final int wireLen = Math.abs(p1.x - p2.x);
+        if (value != null && p1.y == p2.y && wireLen > MIN_LABEL_WIRE_LEN && value.getBits() > 1) {
+            de.neemann.digital.draw.graphics.Orientation ori;
+            Vector pos = getRoundPos();
+            if (showBits) {
+                pos = pos.add(0, 3);
+                ori = de.neemann.digital.draw.graphics.Orientation.RIGHTTOP;
+            } else {
+                pos = pos.add(0, -3);
+                ori = de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM;
+            }
+            graphic.drawText(pos, pos.add(1, 0), value.toString(), ori, Style.WIRE_VALUE);
+        }
+
+        int minCrossLen = isConnectedToSplitter ? MIN_CROSS_WIRE_LEN_SPLITTER : MIN_CROSS_WIRE_LEN;
+        if (bits > 1 && p1.y == p2.y && wireLen >= minCrossLen && showBits) {
+            Vector pos = getRoundPos();
+            graphic.drawLine(pos.add(CROSS_LEN, CROSS_LEN), pos.add(-CROSS_LEN, -CROSS_LEN), Style.WIRE_BITS);
+            Vector numPos = pos.add(0, -3);
+            graphic.drawText(numPos, numPos.add(1, 0), Integer.toString(bits), de.neemann.digital.draw.graphics.Orientation.LEFTBOTTOM, Style.WIRE_BITS);
         }
 
         if (p1Dot || p2Dot) {
@@ -74,6 +117,11 @@ public class Wire implements Drawable, Movable {
             if (p2Dot)
                 graphic.drawCircle(p2.sub(r), p2.add(r), style);
         }
+    }
+
+    private Vector getRoundPos() {
+        Vector pos = p1.add(p2).div(2);
+        return new Vector(((pos.x + SIZE2) / SIZE) * SIZE - DISPLACE, pos.y);
     }
 
     @Override
@@ -208,14 +256,14 @@ public class Wire implements Drawable, Movable {
      * @param value the {@link ObservableValue}
      */
     public void setValue(ObservableValue value) {
-        this.value = value;
+        this.observableValue = value;
     }
 
     /**
      * @return returns the value which is represented by this wire
      */
     public ObservableValue getValue() {
-        return value;
+        return observableValue;
     }
 
     /**
@@ -224,6 +272,8 @@ public class Wire implements Drawable, Movable {
     public void noDot() {
         p1Dot = false;
         p2Dot = false;
+        bits = 0;
+        isConnectedToSplitter = false;
     }
 
     /**
@@ -268,6 +318,15 @@ public class Wire implements Drawable, Movable {
                 return p2;
             }
         };
+    }
+
+    /**
+     * Sets the "connected to splitter" state
+     *
+     * @param isConnectedToSplitter true if this wire is connected to a splitter
+     */
+    public void setIsConnectedToSplitter(boolean isConnectedToSplitter) {
+        this.isConnectedToSplitter = isConnectedToSplitter;
     }
 
     enum Orientation {horzontal, vertical, diagonal}

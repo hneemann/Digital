@@ -4,14 +4,13 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
@@ -19,6 +18,7 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
+
 
 /**
  * Creates a {@link Model} from the given {@link Circuit} instance.
@@ -71,7 +71,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @param netList                 the NetList of the model. If known it is not necessary to create it.
      * @param subName                 name of the circuit, used to name unique elements
      * @param depth                   recursion depth, used to detect a circuit which contains itself
-     * @param containingVisualElement th topmost containig visual element
+     * @param containingVisualElement the topmost containing visual element
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
@@ -84,6 +84,9 @@ public class ModelCreator implements Iterable<ModelEntry> {
             ioMap = new HashMap<>();
         else
             ioMap = null;
+
+        if (!isNestedCircuit)
+            checkWiresForSplitterConnection(circuit);
 
         try {
             for (VisualElement ve : circuit.getElements()) {
@@ -149,39 +152,40 @@ public class ModelCreator implements Iterable<ModelEntry> {
                     HashMap<Net, Net> netMatch = new HashMap<>();
 
                     for (Pin p : me.getPins()) {                     // connect the custom elements to the parents net
-                        Net childNet = child.getNetOfIOAndRemove(p.getName());
+                        Net childNet = child.getNetOfIOAndRemove(p);
+                        if (childNet != null) {
+                            Net otherParentNet = netMatch.get(childNet);
+                            if (otherParentNet != null) {
+                                // direct connection!
+                                // two nets in the parent are connected directly by the nested circuit
+                                // merge the nets in the parent!
 
-                        Net otherParentNet = netMatch.get(childNet);
-                        if (otherParentNet != null) {
-                            // direct connection!
-                            // two nets in the parent are connected directly by the nested circuit
-                            // merge the nets in the parent!
+                                // remove the children's inner pin which is already added to the other net
+                                Pin insertedPin = child.getPinOfIO(p.getName());
+                                otherParentNet.removePin(insertedPin);
 
-                            // remove the children's inner pin which is already added to the other net
-                            Pin insertedPin = child.getPinOfIO(p.getName());
-                            otherParentNet.removePin(insertedPin);
+                                Net parentNet = netList.getNetOfPin(p);
+                                if (parentNet != null) {
+                                    // Disconnect the parents net from the pin
+                                    parentNet.removePin(p);
 
-                            Net parentNet = netList.getNetOfPin(p);
-                            if (parentNet != null) {
-                                // Disconnect the parents net from the pin
-                                parentNet.removePin(p);
-
-                                // connect the two parent nets if they are not already the same
-                                if (otherParentNet != parentNet) {
-                                    otherParentNet.addNet(parentNet);
-                                    netList.remove(parentNet);
+                                    // connect the two parent nets if they are not already the same
+                                    if (otherParentNet != parentNet) {
+                                        otherParentNet.addNet(parentNet);
+                                        netList.remove(parentNet);
+                                    }
                                 }
-                            }
-                        } else {
-                            Net parentNet = netList.getNetOfPin(p);
-                            if (parentNet != null) {
-                                // Disconnect the parents net from the pin
-                                parentNet.removePin(p);
-                                // and connect it to the nested inner net!
-                                parentNet.addAll(childNet.getPins());
+                            } else {
+                                Net parentNet = netList.getNetOfPin(p);
+                                if (parentNet != null) {
+                                    // Disconnect the parents net from the pin
+                                    parentNet.removePin(p);
+                                    // and connect it to the nested inner net!
+                                    parentNet.addAll(childNet.getPins());
 
-                                // store net connection
-                                netMatch.put(childNet, parentNet);
+                                    // store net connection
+                                    netMatch.put(childNet, parentNet);
+                                }
                             }
                         }
                     }
@@ -202,6 +206,16 @@ public class ModelCreator implements Iterable<ModelEntry> {
             e.setVisualElement(containingVisualElement);
             throw e;
         }
+    }
+
+    private void checkWiresForSplitterConnection(Circuit circuit) {
+        HashSet<Vector> posSet = new HashSet<>();
+        for (VisualElement e : circuit.getElements())
+            if (e.equalsDescription(Splitter.DESCRIPTION))
+                for (Pin p : e.getPins())
+                    posSet.add(p.getPos());
+        for (Wire w : circuit.getWires())
+            w.setIsConnectedToSplitter(posSet.contains(w.p1) || posSet.contains(w.p2));
     }
 
     private String combineNames(String s1, String s2) {
@@ -226,11 +240,16 @@ public class ModelCreator implements Iterable<ModelEntry> {
         return pin;
     }
 
-    private Net getNetOfIOAndRemove(String name) throws PinException {
-        Pin pin = getPinOfIO(name);
+    private Net getNetOfIOAndRemove(Pin p) throws PinException {
+        Pin pin = getPinOfIO(p.getName());
         Net netOfPin = netList.getNetOfPin(pin);
-        if (netOfPin == null)
-            throw new PinException(Lang.get("err_netOfPin_N_notFound", name));
+
+        if (netOfPin == null) {
+            if (p.getDirection() == PinDescription.Direction.input)
+                return null;
+            else
+                throw new PinException(Lang.get("err_netOfPin_N_notFound", p.getName()));
+        }
 
         netOfPin.removePin(pin);
 

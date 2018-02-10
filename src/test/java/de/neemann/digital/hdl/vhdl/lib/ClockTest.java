@@ -39,17 +39,19 @@ public class ClockTest extends TestCase {
                 "        PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
+                "  signal S1: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : NOT_GATE\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y0,\n" +
-                "      PORT_in => S0 );\n" +
+                "      PORT_out => S0,\n" +
+                "      PORT_in => S1 );\n" +
                 "  gate1 : DIG_simpleClockDivider\n" +
                 "    generic map (\n" +
                 "      maxCounter => 2500000 )\n" +
                 "    port map (\n" +
                 "      PORT_in => PORT_Clk,\n" +
-                "      PORT_out => S0 );\n" +
+                "      PORT_out => S1 );\n" +
+                "  PORT_Y0 <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -121,18 +123,20 @@ public class ClockTest extends TestCase {
                 "        PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
+                "  signal S1: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : XOR_GATE_2\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_Y0,\n" +
+                "      PORT_out => S0,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
-                "      PORT_In_2 => S0 );\n" +
+                "      PORT_In_2 => S1 );\n" +
                 "  gate1 : DIG_simpleClockDivider\n" +
                 "    generic map (\n" +
                 "      maxCounter => 2500000 )\n" +
                 "    port map (\n" +
                 "      PORT_in => PORT_Clk,\n" +
-                "      PORT_out => S0 );\n" +
+                "      PORT_out => S1 );\n" +
+                "  PORT_Y0 <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
@@ -196,11 +200,13 @@ public class ClockTest extends TestCase {
                 "      PORT_out: out std_logic;\n" +
                 "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
+                "  signal S0: std_logic;\n" +
                 "begin\n" +
                 "  gate0 : NOT_GATE\n" +
                 "    port map (\n" +
-                "      PORT_out => PORT_OV,\n" +
+                "      PORT_out => S0,\n" +
                 "      PORT_in => PORT_C );\n" +
+                "  PORT_OV <= S0;\n" +
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +

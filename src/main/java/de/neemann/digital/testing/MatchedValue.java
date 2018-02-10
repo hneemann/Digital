@@ -12,6 +12,7 @@ import de.neemann.digital.lang.Lang;
  */
 public class MatchedValue extends Value {
     private final Value expected;
+    private long mask;
 
     /**
      * Creates a new instance
@@ -22,13 +23,14 @@ public class MatchedValue extends Value {
     MatchedValue(Value expected, ObservableValue found) {
         super(found);
         this.expected = expected;
+        mask = (1L << found.getBits()) - 1;
     }
 
     /**
      * @return true if test is passed
      */
     boolean isPassed() {
-        return isEqualTo(expected);
+        return isEqualTo(expected, mask);
     }
 
     @Override

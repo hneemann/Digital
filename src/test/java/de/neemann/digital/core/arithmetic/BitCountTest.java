@@ -52,4 +52,18 @@ public class BitCountTest extends TestCase {
         assertEquals(4, new BitCount(new ElementAttributes().setBits(8)).getOutputs().get(0).getBits());
     }
 
+    public void testBitCount64() throws Exception {
+        ObservableValue a = new ObservableValue("a", 64);
+
+        Model model = new Model();
+        BitCount node = new BitCount(new ElementAttributes().setBits(64));
+        node.setInputs(a.asList());
+        model.add(node);
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a).setOutputs(node.getOutputs());
+        sc.check(0, 0);
+        sc.check(-1, 64);
+        sc.check(1, 1);
+    }
+
 }

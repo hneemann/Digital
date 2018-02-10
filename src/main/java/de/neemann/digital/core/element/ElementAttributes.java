@@ -52,6 +52,12 @@ public class ElementAttributes {
             if (value == null)
                 return key.getDefault();
 
+            // needed to fix files with int constants!
+            if ((key == Keys.VALUE) && value instanceof Integer) {
+                value = (VALUE) Long.valueOf(((Integer) value).longValue());
+                attributes.put(key.getKey(), value);
+            }
+
             // needed to fix files with int pin numbers!
             if (key == Keys.PINNUMBER && value instanceof Integer) {
                 value = (VALUE) value.toString();
@@ -166,8 +172,13 @@ public class ElementAttributes {
      * @return the clean name
      */
     public static String cleanLabel(String name) {
-        if (name.length() > 2 && name.charAt(0) == '$' && name.charAt(name.length() - 1) == '$')
+        if (name.length() > 2 && name.charAt(0) == '$' && name.charAt(name.length() - 1) == '$') {
             name = name.substring(1, name.length() - 1);
+            name = name
+                    .replace("{", "")
+                    .replace("}", "")
+                    .replace("^", "");
+        }
         return name;
     }
 
