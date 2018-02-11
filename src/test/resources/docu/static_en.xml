@@ -3,135 +3,129 @@
     <chapter name="Digital">
         <subchapter name="Introduction">
             <par>
-                Digital is a simple simulator used to simulate digital circuits. The single logic gates are connected
-                to each other by wires and the behaviour of the whole circuit is simulated.
-                The user is able to interact with the circuit while it is running by pressing buttons or setting values
-                to the inputs of the circuit.
+                Digital is a simulator for digital circuits. A circuit consists of one or more number of logic gates connected 
+                to each other using lines whereas the behavior of the overall circuit can be simulated. The user can interact with 
+                the simulation by either pressing a Buttons or setting input values.
             </par>
             <par>
-                In this way you can build and simulate most of the fundamental circuits used in digital electronics.
-                In the folder <e>examples</e> you can find many examples including a working 16 bit single cycle harvard
-                processor.
+                In this way, most of the basic circuits used in digital electronics can be built and simulated. In the folder
+                <e> examples </e>, users can browse for examples that includes a functional 16-bit single-cycle Harvard processor.
             </par>
             <par>
-                The simulator has two modes of operation: In the editing mode it is possible to modify the circuit.
-                You can add components or connect components by wires. The simulation is not active in this mode.
-                The simulation mode is activated by pressing the <e>Start</e> button in the tool bar.
-                While starting the simulation the circuit
-                is checked for consistency. If the are errors in the circuit an error message is shown. If possible
-                the affected components or wires are highlighted. If there are no errors, the simulation is activated.
-                Now you can interact with the running simulation.
-                In the simulation mode it is not possible to modify the circuit. To do so you have to activate the
-                editing mode again by stopping the simulation.
+                The simulator has two modes of operation: Editing and Simulation mode. 
+                
+                In the editing mode, modification of circuit can be performed in this mode. Users can add or connect components. 
+                In this mode, simulation is disabled.
+                
+                To enable simulation mode, users should press the <e>Start</e> button in the tool bar. Before the simulation is enabled, 
+                simulated circuit is checked with errors. An error message apppears stating that the simulated circuit has errors. 
+                If simulated circuit is free from errors, users can now interact with the running simulation. To continue editing 
+                the circuit, users must first stop the simulation.
             </par>
         </subchapter>
         <subchapter name="First Steps">
             <par><image src="scr00.png"/></par>
             <par>
-                As a first example, we want to build a circuit with an Exclusive-Or gate.
-                In the main window, the various components can be selected from the menu <e>Components</e>.
-                Then they are placed on the drawing panel. This process can be aborted with the ESC key
-                at any time.
-                At first select an input component.
-                This can later be controlled interactively with the mouse.
+                For the first example, a circuit is to be constructed with an exclusive OR (XOR) gate.
+                From the main window, the <e>Components</e> menu allows you to select the various components. This components,
+                if enabled or selected, it can be placed in the drawing panel. This process can be cancelled by pressing 
+                ESC key at any time.
+                
+                Start by selecting input to be added to the circuit. Input values can be change interactively 
+                by using the mouse later on.
             <par><image src="scr01.png"/></par>
             <par>
-                After selection, the first input can be placed on the drawing surface. The red dot marks the wire
-                connection. Here, a wire will be connected later. Red indicates that this port is active.
-                So he defines a signal value.
+                After selecting appropriate components, placed it by clicking on drawing panel. The dot 
+                on the component symbol is a connection point between the component and the wire, which will be connected later on.
+                The red dot indicates that the component is active. So, the change in the dot color signifies a change in the the signal value.    
             </par>
             <par><image src="scr02.png"/></par>
             <par>
-                In the same way, a second input is added. It is best to put it directly under the first input.
+                In the same way, a second input is added. It is the best way for the user to add it directly below the first input.
             </par><image src="scr03.png"/></par>
             <par>
-                Thereafter, the Exclusive-Or gate is selected. This gate represents the actual logical function.
+                After adding the inputs, select the Exclusive-Or gate. This gate represents the actual Exclusive-OR logical function.
             </par>
             <par><image src="scr04.png"/></par>
             <par>
-                This gate can now also be inserted in the circuit. It is best to set it in a way that the subsequent
-                wiring is as simple as possible. The blue dots indicate the inputs of the gate.
+                The XOR gate can now be added in the circuit. It is best to placed it in a way that succeding wiring connections 
+                is made as simple as possible. The "blue" dots indicate the input terminal of the XOR gate.
             </par>
             <par><image src="scr05.png"/></par>
             <par>
-                Now select an output. This can be used to indicate a signal state or to later pass signals to
+                Now, select an output which could be used to display a signal state or to later pass signals to
                 an embedding circuit.
             </par>
             <par><image src="scr06.png"/></par>
             <par>
-                This is also positioned so that the wiring become as simple as possible.
-                He has a blue dot, so has an input.
+                This is placed in a way that it can be wired easily. The ouput component also has a blue dot 
+                that indicates an input point.
             </par>
             <par><image src="scr07.png"/></par>
             <par>
-                Now all necessary components are present. At next the wiring has to be added. With the mouse
-                a wire can be drawn. The blue and red dots are to be connected. There must always be exactly
-                one red dot connected to any number of blue dots. Only the use of threestate outputs makes it
-                possible to deviate from this rule and to connect several red dots.
-                If all wires have been drawn, the circuit is complete.
+                After all components are selected and in placed, use a mouse to wire a connection between the blue and red dots.
+                See to it that there is one red dot to any number of blue dots. In case of a three state outputs, this rule is deviated 
+                to accomodate a connection of multiple red dots. The wire that is to be connected can either be vertical or 
+                horizontal orientation. To add wire diagonally, press in "D" to engage in diagonal mode. After completing all connection, 
+                missed wired in the circuit now is complete, and ready for simulation.
             </par>
             <par><image src="scr08.png"/></par>
             <par>
-                To be able to interact with the circuit, it must be started. The start button in the tool bar can
-                be used for this purpose. After starting the simulation, the color of the wires changes and the
-                inputs and outputs are now filled. A bright green marks a logical '1' and a dark green a logical '0'.
-                In the figure above, all wires have a '0' value.
+                Interaction with the circuit is possible when simulation is started. It is done by clicking on the play button 
+                located in the toolbar. After starting the simulation, the wire color changes from light to dark gray depending 
+                on the input state. A dark gray marks a logical '1'; and, a light gray indicates a logical '0'. In the figure above, 
+                all wires have a '0' value.
             </par>
             <par><image src="scr09.png"/></par>
             <par>
-                By clicking with the mouse, the inputs can be switched. Since the simulation is now active, the
-                output changes according to the current input states. The circuit behaves like an
-                Exclusive-Or gate as expected .
+                Once the simulation is active, the input is switch from either 0(low) or 1(high) by clicking on the input using the mouse.
+                The circuit behaves as an Exclusive-OR (XOR) gate.
             </par>
             <par><image src="scr10.png"/></par>
             <par>
-                To further process the circuit, the simulation must first be stopped. The easiest way to do this is
-                with the Stop button in the tool bar. Clicking on a component with the right mouse button opens a
-                dialog which displays the properties of this component. The label 'A' can be defined for the first
-                input via this dialog.
+                Stop the simulation first before further processing the circuit. It is done with ease by clicking the pause button in the toolbar.
+                TWhen you right click the input component, edit component dialog box which displays component's properties. Label 'A' can be defined as first input 
+                using the dialog box.
             </par>
             <par><image src="scr11.png"/></par>
             <par>
-                In this way, the labels for the remaining inputs and outputs can be defined. The menu item
-                <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
-                the current circuit. However, this is only possible if all inputs and outputs are labeled.
+                IN this way, labels for the remaaining inputs and ouputs can be configured. From the Menu bar, 
+                select <e>Analysis</e> to determine the truth table of the current circuit. This is only possible 
+                when all inputs and outputs are properly and correctly labeled.
             </par>
             <par><image src="scr12.png"/></par>
             <par>
-                It opens a window showing the truth table of the current circuit. Below the table you can find the
-                algebraic expression associated with the circuit. If there are several possible algebraic
-                expressions, a separate window will open showing all possible expressions.
+                The truth table of the simulated circuit appears on a new window wherease the algebraic expressions are tabulated.
+                In case of several expressions, a new window opens with all the possible logical expressions 
+                generated from the current simulation.
             </par>
             <par><image src="scr13.png"/></par>
             <par>
-                The table dialog has the menu entry <e>K-Map</e> in its main menu. This allows to display the truth
+                The table dialog box consist of a menu entry <e>K-Map</e> from its main menu. This allows to display the truth
                 table in the form of a K-map.
             </par>
             <par><image src="scr14.png"/></par>
             <par>
-                At the top of this dialog there is a drop-down list which allows the selection of the desired
-                expression in the K-map. In this way you can, for example, illustrate how several equivalent
-                algebraic expressions can result. However, in this example, there is only one minimal expression.
-                By clicking in the K-map the table can be modified.
+                A drop-down list from the top of the dialog box allows the selection of desired K-map expressions.
+                For example, display a result from a mutiple expressions. However, for XOR, there is only one minimal expression.
+                Truth table can also be modified by clicking the K-map.
             </par>
         </subchapter>
         <subchapter name="Wires">
             <par>
-                All components must be connected via wires. It is not possible to connect two components
-                by placing them directly next to each other.
+                All components must be connected through a wire whrease it is not possible  to directly placed components d
+                irectly to next each other.
             </par>
             <par>
-                In addition, there are only connections between a endpoint of a wire and a component.
-                If a pin of a component is placed in the middle of a wire, no connection is made between the component
-                and the wire.
-                Therefore, a wire must actually terminate at each pin which is to be connected to another.
-                Even if the tunnel component is used, there must be a wire between the pin and the tunnel element.
+                In addition, there is only a connections between the endpoint of a wire and a component.
+                No connection is done when component pin is placed in between wires. Connection mmust always 
+                terminate at the component pin. For tunnel component, there should have a connecting wire between the pin 
+                and the tunnel component.
             </par>
             <par>
-                If a component is to be moved including the connected wires, the component needs to be selected
-                with the rectangular selection. The rectangular selection must contain the whole component.
-                Then it can be moved with the mouse. If an element is selected by a mouse click, only the component
-                itself can be moved - without the connected wires.
+                The component needs to be selected using the rectangular selection tool in order to be moved,
+                including the connecting wires in between components. For moving an component without the connecting wires, 
+                select the component using mouse click.
             </par>
         </subchapter>
         <subchapter name="Hierarchical Design">
