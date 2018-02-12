@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,23 +20,38 @@ import de.neemann.digital.gui.components.graphics.svgimport.CustomVisualElement;
 
 public class ImportSVG {
 
-	private String[] possibleRoots = { "g", "a", "path", "circle", "ellipse", "rect", "line", "polyline", "polygon",
-			"text" };
+	private HashSet<String> possibleRoots = new HashSet<String>();
 	private ArrayList<SVGFragment> fragments = new ArrayList<>();
-	
+
 	public ImportSVG(File svgFile) throws ParserConfigurationException, SAXException, IOException {
 		if (!svgFile.exists())
 			throw new FileNotFoundException();
+
+		possibleRoots.add("g");
+		possibleRoots.add("a");
+		possibleRoots.add("path");
+		possibleRoots.add("circle");
+		possibleRoots.add("ellipse");
+		possibleRoots.add("rect");
+		possibleRoots.add("line");
+		possibleRoots.add("polyline");
+		possibleRoots.add("polygon");
+		possibleRoots.add("text");
 		Document svg = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(svgFile);
 
 		svg.getDocumentElement().normalize();
-		for (String s : possibleRoots) {
-			NodeList gList = svg.getElementsByTagName(s);
-			for (int i = 0; i < gList.getLength(); i++) {
+		NodeList gList;
+		try {
+			gList = svg.getElementsByTagName("*");
+		} catch (Exception e) {
+			throw new NoParsableSVGException();
+		}
+
+		for (int i = 0; i < gList.getLength(); i++) {
+			if (possibleRoots.contains(gList.item(i).getNodeName())) {
 				try {
 					fragments.add(createElement(gList.item(i)));
 				} catch (NoSuchSVGElementException e) {
-					System.out.println("Irrelevantes Element ignoriert");
 				}
 			}
 		}
@@ -60,16 +76,11 @@ public class ImportSVG {
 				return new SVGPolygon(((Element) n));
 			case "text":
 				return new SVGText(((Element) n));
-			default:
-				NodeList drawList = n.getChildNodes();
-				for (int j = 0; j < drawList.getLength(); j++) {
-					fragments.add(createElement(drawList.item(j)));
-				}
 			}
 		}
 		throw new NoSuchSVGElementException();
 	}
-	
+
 	public VisualElement getElement(VisualElement proto) {
 		VisualElement element = new CustomVisualElement(proto, fragments);
 		return element;

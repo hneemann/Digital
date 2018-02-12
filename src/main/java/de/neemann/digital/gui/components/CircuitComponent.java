@@ -43,7 +43,6 @@ import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -78,6 +77,7 @@ import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.Settings;
+import de.neemann.digital.gui.components.graphics.svgimport.CustomAttributeDialog;
 import de.neemann.digital.gui.components.graphics.svgimport.PreviewComponent;
 import de.neemann.digital.gui.components.modification.Modification;
 import de.neemann.digital.gui.components.modification.Modifications;
@@ -1049,9 +1049,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 			if (list.size() > 0) {
 				Point p = new Point(e.getX(), e.getY());
 				SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-				AttributeDialog attributeDialog = new AttributeDialog(this, p, list, element.getElementAttributes())
-						.setVisualElement(element);
 				PreviewComponent prev = new PreviewComponent(element);
+				AttributeDialog attributeDialog = new CustomAttributeDialog(this, p, list, element.getElementAttributes(),prev)
+						.setVisualElement(element);
+				
 				if (elementType instanceof ElementLibrary.ElementTypeDescriptionCustom) {
 					attributeDialog.addButton(Lang.get("attr_openCircuitLabel"),
 							new ToolTipAction(Lang.get("attr_openCircuit")) {
@@ -1071,9 +1072,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 					 * @author felix
 					 */
 
-					JScrollPane prevScroll = new JScrollPane();
-					prevScroll.setViewportView(prev);
-					attributeDialog.add(prevScroll, BorderLayout.WEST);
+					attributeDialog.add(prev, BorderLayout.WEST);
 
 					attributeDialog.addButton("Grafik (constStr)", new ToolTipAction("Ändern (constStr)") {
 						private static final long serialVersionUID = 823418011675239188L;
@@ -1086,14 +1085,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
 							if (action == JFileChooser.APPROVE_OPTION) {
 								prev.setInputFile(chooser.getSelectedFile(),element);
-								for (int i = 0; i < circuit.getElements().size(); i++) {
-									if (circuit.getElements().get(i) == element) {
-										prev.getElement().setPos(element.getPos());
-										circuit.getElements().set(i,prev.getElement());
-										repaint();
-										break;
-									}
-								}
+								
 							}
 						}
 					}.setToolTip("Need to be replaced"));

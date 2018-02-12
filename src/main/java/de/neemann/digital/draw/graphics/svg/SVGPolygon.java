@@ -33,13 +33,14 @@ public class SVGPolygon implements SVGFragment, Drawable {
 
 	@Override
 	public void draw(Graphic graphic, Vector pos) {
-		for (int i=0;i<corners.size();i++) {
+		for (int i = 0; i < corners.size(); i++) {
 			corners.set(i, corners.get(i).add(pos));
 		}
 		Polygon p = new Polygon(corners, true);
 		if (style.getShallFilled()) {
 			graphic.drawPolygon(p, style.getInnerStyle());
 		}
-		graphic.drawPolygon(p, style.getStyle());
+		if (style.getShallRanded())
+			graphic.drawPolygon(p, style.getStyle());
 	}
 }

@@ -16,6 +16,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.GraphicSwing;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.svg.ImportSVG;
+import de.neemann.gui.ErrorMessage;
 
 public class PreviewComponent extends JPanel {
 	private static final long serialVersionUID = 4412186969854541035L;
@@ -24,17 +25,19 @@ public class PreviewComponent extends JPanel {
 
 	public PreviewComponent(VisualElement element) {
 		setBackground(Color.WHITE);
-		setPreferredSize(new Dimension(300, 300));
-		this.element = new VisualElement(element);
-		this.element.setPos(new Vector(20, 20));
+		setPreferredSize(new Dimension(300, 200));
+		this.element = element;
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		graphic = new GraphicSwing((Graphics2D) g);
+	public void paint(Graphics g) {
+		super.paint(g);
 		if (element != null) {
+			Vector pos=new Vector(element.getPos());
+			element.setPos(new Vector(20,20));
+			graphic = new GraphicSwing((Graphics2D)g);
 			element.drawTo(graphic, null);
+			element.setPos(pos);
 		}
 	}
 
@@ -42,10 +45,14 @@ public class PreviewComponent extends JPanel {
 		try {
 			element = new ImportSVG(svg).getElement(proto);
 		} catch (ParserConfigurationException e) {
+			new ErrorMessage("Das Parsen der SVG Datei ist fehlgeschlagen (constStr)").addCause(e).show(this);
 			e.printStackTrace();
 		} catch (SAXException e) {
+			new ErrorMessage("Das Parsen der SVG Datei ist fehlgeschlagen (constStr)").addCause(e).show(this);
 			e.printStackTrace();
 		} catch (IOException e) {
+			new ErrorMessage("Die Datei " + svg.getName() + " konnte nicht gefunden werden (constStr)").addCause(e)
+					.show(this);
 			e.printStackTrace();
 		}
 		repaint();

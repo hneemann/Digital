@@ -53,9 +53,14 @@ public class SVGStyle {
 		fill = stringToColor(v);
 	}
 
+	public boolean getShallRanded() {
+		return attributes.containsKey("stroke");
+	}
+
 	public boolean getShallFilled() {
 		return attributes.containsKey("fill") && attributes.containsKey("fill-opacity")
-				&& Double.parseDouble(attributes.get("fill-opacity")) >= 0.5;
+				? Double.parseDouble(attributes.get("fill-opacity")) >= 0.5
+				: true;
 	}
 
 	public Style getStyle() {
