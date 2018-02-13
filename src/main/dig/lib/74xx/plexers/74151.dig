@@ -129,10 +129,6 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Strobe</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>S</string>
         </entry>

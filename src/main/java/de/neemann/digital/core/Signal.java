@@ -7,8 +7,8 @@ public final class Signal implements Comparable<Signal> {
     private final String name;
     private final ObservableValue value;
     private final Setter setter;
+    private IntFormat format = IntFormat.def;
     private String pinNumber;
-    private boolean isPin = false;
 
     /**
      * Creates a new Instance
@@ -49,17 +49,28 @@ public final class Signal implements Comparable<Signal> {
      */
     public Signal setPinNumber(String pinNumber) {
         this.pinNumber = pinNumber;
-        isPin = true;
         return this;
     }
 
     /**
+     * Sets the integer format to create a string
+     *
+     * @param format the format
+     * @return this for chained calls
+     */
+    public Signal setFormat(IntFormat format) {
+        if (format != null)
+            this.format = format;
+        return this;
+    }
+
+
+    /**
      * Gets the number of this pin.
      *
-     * @return the pin number of -1 if no pin is given
-     * @throws NodeException invalid pin number
+     * @return the pin number, or null if no pin is given
      */
-    public String getPinNumber() throws NodeException {
+    public String getPinNumber() {
         return pinNumber;
     }
 
@@ -83,7 +94,6 @@ public final class Signal implements Comparable<Signal> {
         Signal signal = (Signal) o;
 
         return name.equals(signal.name);
-
     }
 
     @Override
@@ -94,6 +104,13 @@ public final class Signal implements Comparable<Signal> {
     @Override
     public String toString() {
         return name;
+    }
+
+    /**
+     * @return the value in the specified format
+     */
+    public String getValueString() {
+        return format.formatToEdit(value.getCopy());
     }
 
     /**
@@ -111,7 +128,7 @@ public final class Signal implements Comparable<Signal> {
      * @return true if a pin number is missing
      */
     public boolean missingPinNumber() {
-        return isPin && pinNumber.length() == 0;
+        return pinNumber == null || pinNumber.trim().length() == 0;
     }
 
     /**
@@ -130,7 +147,8 @@ public final class Signal implements Comparable<Signal> {
          * Has to modify the inner state and also has to update the outputs.
          *
          * @param value the value to set
+         * @param highZ true is value is in high z state
          */
-        void set(long value);
+        void set(long value, boolean highZ);
     }
 }

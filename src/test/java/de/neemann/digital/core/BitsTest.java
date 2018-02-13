@@ -37,6 +37,11 @@ public class BitsTest extends TestCase {
         assertFalse(Bits.isNegative(0x4000000000000000L, 64));
     }
 
+    public void testSignExtend() {
+        assertEquals(-1, Bits.signExtend(3, 2));
+        assertEquals(3, Bits.signExtend(3, 3));
+    }
+
     public void testBitsLn2() {
         assertEquals(1, Bits.binLn2(0));
         assertEquals(1, Bits.binLn2(1));
@@ -77,6 +82,8 @@ public class BitsTest extends TestCase {
         assertEquals(0xFFFFFFFFFFFFFFFFL, Bits.decode("0xFFFFFFFFFFFFFFFF"));
 
         assertEquals(0xFFFFFFFFFFFFFFFFL, Bits.decode("FFFFFFFFFFFFFFFF", 0, 16));
+
+        assertEquals(42, Bits.decode("'*'"));
     }
 
     public void testDecodeInvalid() {
@@ -100,6 +107,23 @@ public class BitsTest extends TestCase {
         } catch (Bits.NumberFormatException e) {
             assertTrue(true);
         }
+    }
+
+    public void testRemoveBitFromValue() {
+        assertEquals(0b111, Bits.removeBitFromValue(0b1110, 0));
+        assertEquals(0b111, Bits.removeBitFromValue(0b1111, 0));
+        assertEquals(0b101, Bits.removeBitFromValue(0b1010, 0));
+        assertEquals(0b101, Bits.removeBitFromValue(0b1011, 0));
+        assertEquals(0b111, Bits.removeBitFromValue(0b1101, 1));
+        assertEquals(0b111, Bits.removeBitFromValue(0b1111, 1));
+        assertEquals(0b101, Bits.removeBitFromValue(0b1001, 1));
+        assertEquals(0b101, Bits.removeBitFromValue(0b1011, 1));
+        assertEquals(0b110, Bits.removeBitFromValue(0b1100, 1));
+        assertEquals(0b110, Bits.removeBitFromValue(0b1110, 1));
+        assertEquals(0b111, Bits.removeBitFromValue(0b1111, 2));
+        assertEquals(0b000, Bits.removeBitFromValue(0b0100, 2));
+        assertEquals(0b010, Bits.removeBitFromValue(0b0110, 2));
+        assertEquals(0b100, Bits.removeBitFromValue(0b1100, 2));
     }
 
 }

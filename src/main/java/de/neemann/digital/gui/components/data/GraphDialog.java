@@ -92,7 +92,7 @@ public class GraphDialog extends JDialog implements Observer {
      * @param title   the frame title
      * @param logData the data to visualize
      */
-    public GraphDialog(JFrame owner, String title, ValueTable logData) {
+    public GraphDialog(Window owner, String title, ValueTable logData) {
         this(owner, title, logData, NoSync.INST);
     }
 
@@ -104,10 +104,9 @@ public class GraphDialog extends JDialog implements Observer {
      * @param logData   the data to visualize
      * @param modelSync used to access the running model
      */
-    private GraphDialog(JFrame owner, String title, ValueTable logData, Sync modelSync) {
-        super(owner, title, false);
+    private GraphDialog(Window owner, String title, ValueTable logData, Sync modelSync) {
+        super(owner, title, ModalityType.MODELESS);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
 
         dsc = new GraphComponent(logData, modelSync);
         scrollPane = new JScrollPane(dsc);
@@ -141,8 +140,9 @@ public class GraphDialog extends JDialog implements Observer {
         showTable = new ToolTipAction(Lang.get("menu_showDataAsTable")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ValueTableDialog(owner, title) // ToDo pass modelSync to ValueTableDialog
-                        .addValueTable(Lang.get("win_data"), logData).disableGraph()
+                new ValueTableDialog(GraphDialog.this, title) // ToDo pass modelSync to ValueTableDialog
+                        .addValueTable(Lang.get("win_data"), logData)
+                        .disableGraph()
                         .setVisible(true);
             }
         }.setToolTip(Lang.get("menu_showDataAsTable_tt"));

@@ -51,7 +51,6 @@ public class NumberingWizard extends JDialog implements CircuitComponent.WizardN
 
         pinNumber = 1;
         setPinNumber(pinNumber);
-        setAlwaysOnTop(true);
         setLocation(parent.getLocation());
     }
 

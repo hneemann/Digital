@@ -36,8 +36,8 @@ public class TestInSimulator extends TestCase {
     public void testInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
-            assertEquals(25, tested);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
+            assertEquals(27, tested);
             assertEquals(tested, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
@@ -47,8 +47,8 @@ public class TestInSimulator extends TestCase {
     public void testInSimulator2() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
-            assertEquals(27, tested);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
+            assertEquals(28, tested);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }
@@ -57,7 +57,7 @@ public class TestInSimulator extends TestCase {
     public void testDistributedInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
         try {
-            int tested = new FileScanner(this::check).scan(examples);
+            int tested = new FileScanner(this::check).noOutput().scan(examples);
             assertEquals(1, tested);
             assertEquals(1, testBenches);
         } catch (FileScanner.SkipAllException e) {
@@ -79,7 +79,7 @@ public class TestInSimulator extends TestCase {
 
     /*
     public void testInSimulatorDebug() throws Exception {
-        File file = new File(Resources.getRoot(),"dig/test/vhdl/priorityEncoder.dig");
+        File file = new File(Resources.getRoot(),"dig/test/vhdl/registerFile.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));

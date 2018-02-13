@@ -125,10 +125,9 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
      *
      * @param out the stream to write to
      * @throws IOException            IOException
-     * @throws FuseMapFillerException FuseMapFillerException
      * @throws PinMapException        PinMapException
      */
-    public void writeTo(Writer out) throws IOException, FuseMapFillerException, PinMapException {
+    public void writeTo(Writer out) throws IOException, PinMapException {
         out
                 .append("Name     ").append(projectName).append(" ;\r\n")
                 .append("PartNo   00 ;\r\n")

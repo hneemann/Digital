@@ -25,6 +25,7 @@ public class Probe implements Element {
             .addAttribute(Keys.INT_FORMAT);
 
     private final String label;
+    private final IntFormat format;
     private ObservableValue value;
 
     /**
@@ -34,6 +35,7 @@ public class Probe implements Element {
      */
     public Probe(ElementAttributes attributes) {
         label = attributes.get(Keys.LABEL);
+        format = attributes.get(Keys.INT_FORMAT);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class Probe implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addSignal(new Signal(label, value));
+        model.addSignal(new Signal(label, value).setFormat(format));
     }
 
 }

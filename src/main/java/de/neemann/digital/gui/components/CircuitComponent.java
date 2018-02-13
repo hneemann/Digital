@@ -6,6 +6,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.InputShape;
@@ -391,20 +392,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     /**
      * Opens the attribute editor
-     *
-     * @param parent the parent component
      */
-    public void editCircuitAttributes(Component parent) {
-        editCircuitAttributes(parent, ATTR_LIST);
+    public void editCircuitAttributes() {
+        editCircuitAttributes(ATTR_LIST);
     }
 
     /**
      * Opens the attribute editor
      *
-     * @param parent   the parent component
      * @param attrList the list of keys to edit
      */
-    public void editCircuitAttributes(Component parent, java.util.List<Key> attrList) {
+    public void editCircuitAttributes(java.util.List<Key> attrList) {
         ElementAttributes modifiedAttributes = new AttributeDialog(parent, attrList, circuit.getAttributes()).showDialog();
         if (modifiedAttributes != null)
             modify(new ModifyCircuitAttributes(modifiedAttributes));
@@ -833,6 +831,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
     }
 
+    /**
+     * Transforms a circuit coordinate to a screen coordinate relative to this component.
+     *
+     * @param pos the circuit position
+     * @return the screen coordinate relative to this component
+     */
+    public Point transform(Vector pos) {
+        Point p = new Point();
+        transform.transform(new Point(pos.x, pos.y), p);
+        return p;
+    }
+
     private void enableAntiAlias(Graphics2D gr2) {
         if (antiAlias) {
             gr2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -956,6 +966,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         repaintNeeded();
     }
 
+    /**
+     * Translates the circuit.
+     *
+     * @param dx x movement
+     * @param dy y movement
+     */
+    public void translateCircuit(int dx, int dy) {
+        transform.translate(dx, dy);
+        isManualScale = true;
+        repaintNeeded();
+    }
+
     private void editAttributes(VisualElement element, MouseEvent e) {
         String name = element.getElementName();
         try {
@@ -964,14 +986,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (list.size() > 0) {
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                AttributeDialog attributeDialog = new AttributeDialog(this, p, list, element.getElementAttributes()).setVisualElement(element);
+                AttributeDialog attributeDialog = new AttributeDialog(parent, p, list, element.getElementAttributes()).setVisualElement(element);
                 if (elementType instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                     attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             attributeDialog.dispose();
                             new Main.MainBuilder()
-                                    .setParent(CircuitComponent.this)
+                                    .setParent(parent)
                                     .setFileToOpen(((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile())
                                     .setLibrary(library)
                                     .denyMostFileActions()
@@ -1071,6 +1093,24 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         modify(builder.build());
     }
 
+    /**
+     * Label all inputs and outputs
+     */
+    public void labelPins() {
+        LabelGenerator inGenerator = new LabelGenerator('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H');
+        LabelGenerator outGenerator = new LabelGenerator('Y', 'X', 'Z', 'U', 'V');
+
+        Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_labelPins"));
+        for (VisualElement ve : circuit.getElements()) {
+            if (ve.equalsDescription(In.DESCRIPTION) && ve.getElementAttributes().getLabel().length() == 0) {
+                builder.add(new ModifyAttribute<>(ve, Keys.LABEL, inGenerator.createLabel()));
+            } else if (ve.equalsDescription(Out.DESCRIPTION) && ve.getElementAttributes().getLabel().length() == 0) {
+                builder.add(new ModifyAttribute<>(ve, Keys.LABEL, outGenerator.createLabel()));
+            }
+        }
+        modify(builder.build());
+    }
+
     private VisualElement getActualVisualElement() {
         VisualElement ve = null;
         if (activeMouseController instanceof MouseControllerNormal)
@@ -1113,7 +1153,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     }
 
                 if (keyList.size() > 0) {
-                    AttributeDialog ad = new AttributeDialog(this, null, keyList, attr, true);
+                    AttributeDialog ad = new AttributeDialog(parent, null, keyList, attr, true);
                     for (Map.Entry<Key, Boolean> u : useKeyMap.entrySet())
                         ad.getCheckBoxes().get(u.getKey()).setSelected(u.getValue());
                     ElementAttributes mod = ad.showDialog();
@@ -1282,7 +1322,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         if (list.size() == 1)
             vp = list.get(0);
         else if (list.size() > 1) {
-            ItemPicker<VisualElement> picker = new ItemPicker<>(CircuitComponent.this, list);
+            ItemPicker<VisualElement> picker = new ItemPicker<>(parent, list);
             vp = picker.select();
         }
         return vp;
@@ -1416,6 +1456,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Vector delta;
         private Vector initialPos;
         private int initialRot;
+        private boolean normalEnd;
 
         private MouseControllerMoveElement(Cursor cursor) {
             super(cursor);
@@ -1430,6 +1471,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
             copyAction.setEnabled(true);
+            normalEnd = false;
             repaintNeeded();
         }
 
@@ -1440,6 +1482,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 if (!visualElement.getPos().equals(initialPos)
                         || visualElement.getRotate() != initialRot)
                     addModificationAlreadyMade(new ModifyMoveAndRotElement(visualElement, initialPos));
+                normalEnd = true;
             }
             mouseNormal.activate();
         }
@@ -1485,6 +1528,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 visualElement.setRotation(initialRot);
             }
             mouseNormal.activate();
+        }
+
+        @Override
+        void deactivate() {
+            if (!normalEnd && !isLocked()) {
+                visualElement.setPos(raster(initialPos));
+                visualElement.setRotation(initialRot);
+            }
         }
 
         public VisualElement getVisualElement() {

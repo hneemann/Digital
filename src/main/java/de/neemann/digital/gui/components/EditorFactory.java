@@ -7,14 +7,15 @@ import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.IntFormat;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
-import de.neemann.digital.gui.components.testing.TestCaseDesctiptionEditor;
+import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
@@ -59,7 +60,7 @@ public final class EditorFactory {
         add(LeftRightFormat.class, LeftRightFormatsEditor.class);
         add(IntFormat.class, IntFormatsEditor.class);
         add(Language.class, LanguageEditor.class);
-        add(TestCaseDescription.class, TestCaseDesctiptionEditor.class);
+        add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
     }
@@ -610,11 +611,11 @@ public final class EditorFactory {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     VisualElement ve = getAttributeDialog().getVisualElement();
-                    Component p = getAttributeDialog().getDialogParent();
-                    if (ve != null && p instanceof CircuitComponent) {
+                    Window p = getAttributeDialog().getDialogParent();
+                    if (ve != null && p instanceof Main) {
                         try {
                             getAttributeDialog().storeEditedValues();
-                            ElementTypeDescription d = ((CircuitComponent) p).getLibrary().getElementType(ve.getElementName());
+                            ElementTypeDescription d = ((Main) p).getCircuitComponent().getLibrary().getElementType(ve.getElementName());
                             PinDescriptions in = d.getInputDescription(elementAttributes);
                             InputSelectDialog dialog = new InputSelectDialog(getAttributeDialog(), in, inverterConfig);
                             if (dialog.showDialog()) {

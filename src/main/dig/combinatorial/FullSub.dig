@@ -17,7 +17,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A_i</string>
+          <string>$A_i$</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="80"/>
@@ -27,7 +27,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B_i</string>
+          <string>$B_i$</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="140"/>
@@ -37,7 +37,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>BO_i-1</string>
+          <string>$BO_{i-1}$</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="200"/>
@@ -57,7 +57,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>BO_i</string>
+          <string>$BO_i$</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="140"/>
@@ -72,7 +72,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S_i</string>
+          <string>$S_i$</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="80"/>
@@ -157,4 +157,5 @@
       <p2 x="440" y="120"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

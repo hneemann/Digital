@@ -28,7 +28,7 @@ public class ItemPicker<T> extends JDialog {
      * @param parent the parent frame
      * @param items  the list of items
      */
-    public ItemPicker(Component parent, final java.util.List<T> items) {
+    public ItemPicker(Window parent, final java.util.List<T> items) {
         this(parent, Lang.get("win_itempicker_title"), items);
     }
 
@@ -39,8 +39,8 @@ public class ItemPicker<T> extends JDialog {
      * @param title  title of the dialog
      * @param items  the list of items
      */
-    public ItemPicker(Component parent, final String title, final java.util.List<T> items) {
-        super(SwingUtilities.getWindowAncestor(parent), title, ModalityType.APPLICATION_MODAL);
+    public ItemPicker(Window parent, final String title, final java.util.List<T> items) {
+        super(parent, title, ModalityType.APPLICATION_MODAL);
         this.items = items;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 

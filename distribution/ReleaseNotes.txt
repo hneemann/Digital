@@ -2,8 +2,16 @@ Release Notes
 
 HEAD, planned as v0.17
 - Added 64 bit support for Add and Sub components.
+- Added support of some more ATF150x chips.
+- Added a register file component.
+- Added an "export to zip" function.
+- If an input or output is several bits wide, all pin numbers can be specified by a comma-separated list.
+- Now it's possible to choose the polarity of the reset component.
+- The model analyzer now creates an error message if a cycle is detected in the circuit.
+- Added a chapter "First Steps" to the documentation.
 - Bug fixes
   - Splitter, BarrelShifter and Comparator now are working with 64 bit.
+  - fixed a bug in library IC 74198
 
 v0.16, released on 02. Jan 2018
 - RAM components and EEPROM now allow an input invert configuration.

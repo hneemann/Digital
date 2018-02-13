@@ -22,16 +22,17 @@ public class Splitter implements Element {
     /**
      * Create a one to N splitter
      *
-     * @param bits number of outputs
+     * @param bits  number of outputs
+     * @param highZ value of the high-z attribute
      * @return the splitter
      */
-    public static Splitter createOneToN(int bits) {
+    public static Splitter createOneToN(int bits, boolean highZ) {
         Ports in = new Ports();
         in.add(new Port(0, bits));
         Ports out = new Ports();
         for (int i = 0; i < bits; i++)
             out.add(new Port(i, 1));
-        return new Splitter(in, out, false);
+        return new Splitter(in, out, highZ);
     }
 
     /**

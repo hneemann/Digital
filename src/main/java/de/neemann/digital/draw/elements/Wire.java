@@ -99,7 +99,7 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
                 pos = pos.add(0, -3);
                 ori = de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM;
             }
-            graphic.drawText(pos, pos.add(1, 0), value.getValueString(), ori, Style.WIRE_VALUE);
+            graphic.drawText(pos, pos.add(1, 0), value.toString(), ori, Style.WIRE_VALUE);
         }
 
         int minCrossLen = isConnectedToSplitter ? MIN_CROSS_WIRE_LEN_SPLITTER : MIN_CROSS_WIRE_LEN;

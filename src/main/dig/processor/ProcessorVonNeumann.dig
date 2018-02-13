@@ -11,11 +11,6 @@ Von Neumann Two-Cycle CPU.</string>
   </attributes>
   <visualElements>
     <visualElement>
-      <elementName>Register.dig</elementName>
-      <elementAttributes/>
-      <pos x="660" y="120"/>
-    </visualElement>
-    <visualElement>
       <elementName>Multiplexer</elementName>
       <elementAttributes>
         <entry>
@@ -49,7 +44,7 @@ Von Neumann Two-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -63,7 +58,7 @@ Von Neumann Two-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>255</int>
+          <long>255</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -77,7 +72,7 @@ Von Neumann Two-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>4095</int>
+          <long>4095</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -795,6 +790,11 @@ Von Neumann Two-Cycle CPU.</string>
         </entry>
       </elementAttributes>
       <pos x="1400" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RegisterOpt.dig</elementName>
+      <elementAttributes/>
+      <pos x="660" y="120"/>
     </visualElement>
   </visualElements>
   <wires>

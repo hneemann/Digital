@@ -29,8 +29,8 @@ public class TestExamples extends TestCase {
      */
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
-        assertEquals(203, new FileScanner(this::check).scan(examples));
-        assertEquals(108, testCasesInFiles);
+        assertEquals(210, new FileScanner(this::check).scan(examples));
+        assertEquals(126, testCasesInFiles);
     }
 
     /**
@@ -40,8 +40,8 @@ public class TestExamples extends TestCase {
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(115, new FileScanner(this::check).scan(examples));
-        assertEquals(105, testCasesInFiles);
+        assertEquals(121, new FileScanner(this::check).scan(examples));
+        assertEquals(110, testCasesInFiles);
     }
 
 
@@ -52,7 +52,7 @@ public class TestExamples extends TestCase {
      */
     private void check(File dig) throws Exception {
         boolean shouldFail = dig.getName().endsWith("Error.dig");
-        ToBreakRunner br = null;
+        ToBreakRunner br;
         try {
             br = new ToBreakRunner(dig);
         } catch (Exception e) {

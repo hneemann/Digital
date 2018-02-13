@@ -79,8 +79,8 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
      * @param message  the message
      * @param revision the "{{version}}" url version replacement
      */
-    public static void showInfo(Component parent, String message, String revision) {
-        final JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(parent), Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
+    public static void showInfo(Window parent, String message, String revision) {
+        final JDialog dialog = new JDialog(parent, Lang.get("menu_about"), Dialog.ModalityType.APPLICATION_MODAL);
         dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JEditorPane ta = new JEditorPane("text/html", message);
@@ -135,17 +135,13 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
      * @param message the message
      * @return the help menu
      */
-    public JMenu addToFrame(final JFrame frame, final String message) {
-        JMenuBar bar = frame.getJMenuBar();
-        JMenu help = new JMenu(Lang.get("menu_help"));
-        bar.add(help);
-        help.add(new AbstractAction(Lang.get("menu_about")) {
+    public JMenuItem createMenuItem(final JFrame frame, final String message) {
+        return new JMenuItem(new AbstractAction(Lang.get("menu_about")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 showInfo(frame, createMessage(message), revision);
             }
         });
-        return help;
     }
 
     @Override

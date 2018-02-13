@@ -72,6 +72,24 @@ public final class Bits {
         return (value & signedFlagMask(bits)) != 0;
     }
 
+    /**
+     * Sign extension of the value.
+     * signExtend(3,2) returns -1.
+     *
+     * @param value the value
+     * @param bits  number of bits
+     * @return the sign extended value
+     */
+    public static long signExtend(long value, int bits) {
+        if (bits >= 64)
+            return value;
+        else {
+            if ((value & signedFlagMask(bits)) == 0)
+                return value;
+            else
+                return value | ~mask(bits);
+        }
+    }
 
     /**
      * Calculates the number of bits needed to store the given value b.
@@ -87,8 +105,24 @@ public final class Bits {
     }
 
     /**
+     * Removes a bit from a value.
+     * This means it shifts the higher bits down. Behaves like removing an item from a list.
+     *
+     * @param value the value
+     * @param bit   the bit to remove
+     * @return the new value
+     */
+    public static int removeBitFromValue(int value, int bit) {
+        if (bit > 0) {
+            return ((value & (~((1 << (bit + 1)) - 1))) >>> 1) | (value & ((1 << bit) - 1));
+        } else {
+            return value >>> 1;
+        }
+    }
+
+    /**
      * Decodes a string to a long.
-     * Supports decimal, octal, hex and binary
+     * Supports decimal, octal, hex, binary and ascii
      *
      * @param str the string
      * @return the long value
@@ -139,6 +173,10 @@ public final class Bits {
                 p++;
                 if (p == str.length()) throw new NumberFormatException(str, p);
                 break;
+            case '\'':
+                p++;
+                if (p == str.length()) throw new NumberFormatException(str, p);
+                return str.charAt(p);
             default:
                 if (wasZero) {
                     if (neg) throw new NumberFormatException(str, p);

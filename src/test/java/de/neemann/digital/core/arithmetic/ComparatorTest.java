@@ -77,6 +77,7 @@ public class ComparatorTest extends TestCase {
         sc.check(-2, 0, 0, 0, 1);
         sc.check(-1, -2, 1, 0, 0);
         sc.check(-2, -1, 0, 0, 1);
+        sc.check(0x8000000000000000L, 0, 0, 0, 1);
     }
 
     public void testCompUnsigned64Bit() throws Exception {
@@ -98,7 +99,9 @@ public class ComparatorTest extends TestCase {
         sc.check(-2, 0, 1, 0, 0);
         sc.check(-1, -2, 1, 0, 0);
         sc.check(-2, -1, 0, 0, 1);
+        sc.check(2, 1, 1, 0, 0);
+        sc.check(0xC000000000000000L, 0x8000000000000000L, 1, 0, 0);
+        sc.check(0x8000000000000000L, 0, 1, 0, 0);
     }
-
 
 }

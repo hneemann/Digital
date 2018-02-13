@@ -10,22 +10,33 @@ The most recent changes are listed in the [release notes](distribution/ReleaseNo
 
 ![screnshot](screenshot.png)
 
+![screnshot2](screenshot2.png)
+
 Digital is a simulator for digital circuits. It is designed for educational purposes and I use it in my lectures.
 Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logisim/), developed by Carl Burch.
 If you are familiar with Logisim you will recognize the wire color scheme.
 
 Logisim is an excellent and proven tool for teaching purposes. Unfortunately, Carl Burch discontinued the development of 
-Logisim in 2014.
-He has released it as open source so there are a number of forks to continue his work:
+Logisim in 2014. Instead he has started the development of a new simulator called [Toves](http://www.toves.org/) in 2013. 
+In his [blog](http://www.toves.org/blog/) he explained why he decided to develop a new simulator instead of improving Logisim. 
+In short: There are weaknesses in Logisims architecture which are too difficult to overcome.
+Unfortunately, the development of Toves was discontinued at a very early stage.
+
+Carl Burch has released Logisim as open source so there are a number of forks to continue the work on Logisim:
 
 - [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance at Wentworth Institute of Technology, Boston, MA 
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
-Nevertheless, I believe that there were good reasons for a completely new development from scratch. 
-Thus I started the implementation of Digital in march 2016.  
+But as far as I know, these projects do not work on solving the architectural difficulties. 
+They are more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
+for example, a VHDL/Verilog export was added.
 
+So I decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
+In the meantime a development level has been reached which is comparable to Logisim.
+In some areas (performance, testing of circuits, circuit analysis, hardware support) Logisim has already been exceeded.
+  
 ## Features ##
 
 These are the main features of Digital:
@@ -42,13 +53,13 @@ These are the main features of Digital:
   and works just fine.
 - Its possible to use custom components which are implemented in Java and packed in a jar file. 
   See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
-- Simple remote TCP interface which  e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
+- Simple remote TCP interface which e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
   the simulator.
-- Direct export of JEDEC files which you can flash to a [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
-  or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx). These chips are somewhat outdated (introduced in 1985!) 
-  but sufficient for beginners exercises, easy to understand and well documented. Also the 
-  [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
-  [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) are supported which offer 32/64 macro-cells. 
+- Direct export of JEDEC files which you can flash to a [GAL16v8](https://www.microchip.com/wwwproducts/en/ATF16V8C) 
+  or a [GAL22v10](https://www.microchip.com/wwwproducts/en/ATF22V10C). These chips are somewhat outdated (introduced in 1985!) 
+  but sufficient for beginners exercises, easy to understand and well documented. Also the
+  [ATF150x](https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family) chips are 
+  supported which offer up to 128 macro-cells and in system programming. See the documentation for details.
 - Export to VHDL: A circuit can be exported to VHDL. There is also support for the 
   [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
   for details. The examples folder contains a variant of the simple CPU, which runs on a BASYS3 board.
@@ -72,11 +83,12 @@ Below I would like to explain briefly the reasons which led me to start a new de
 
 ### Switch On ###
 
-In Logisim there is no real "switching on" of a circuit. The circuit is working also while you are modifying it. 
-This causes sometimes an unexpected behaviour. A simple master-slave flip-flop
-can not be realized with Logisim, since the circuit is not switched on, there is no
+In Logisim there is no real "switching on" of a circuit. The simulation is running also while you are modifying it. 
+This causes sometimes an unexpected behaviour. So its possible to build a simple master-slave flip-flop
+which works fine. But after a circuit reset the flip-flop does not work anymore.  
+Since the circuit is not switched on, there is no
 settling time to bring the circuit to a stable condition after its completion.
-A master-slave JK-flip-flop can only be implemented with a reset input. This
+A master-slave JK-flip-flop can only be implemented with a reset input, and this
 reset input needs to be activated to make the circuit operational.
 
 To understand how Digital deals with this issue, you have to look at how the simulation works in Digital:
@@ -100,7 +112,7 @@ This gate has a single output which is low during settling time and goes
 high when settling time is over.
 
 A disadvantage of this approach is the fact that a running simulation cannot be changed.
-In  order to do so, the circuit needs be switched off, modified and switched on again.
+In order to do so, the circuit needs be switched off, modified and switched on again.
 However, this procedure is also advisable for real circuits.
 
 ### Oscillations ###
@@ -137,8 +149,8 @@ which makes it difficult to use bidirectional pins.
 
 If a complete processor is simulated, it is possible to calculate the simulation without an update of the 
 graphical representation.
-A simple processor (see example) can be simulated with a 100kHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz),
-which is suitable also for more complex exercises like Conway's Game of Live.
+A simple processor (see example) can be simulated with a 120kHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz),
+which is suitable also for more complex assembly exercises like Conway's Game of Live.
 There is a break gate having a single input. If this input changes from low to high this quick run is stopped.
 This way, an assembler instruction BRK can be implemented, which then can be used to insert break points
 in assembly language programs. So the debugging of assembly programs becomes very simple.
@@ -170,7 +182,7 @@ After that you can simply flash this file to the appropriate GAL and test the ci
 As mentioned above these GALs are quite old but with 8/10 macro-cells sufficient for beginners exercises.
 If more macro-cells are required, see the PDF documentation that is included in the distribution for details 
 on how to set up Digital to support the [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
-[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells.  
+[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells and ISP (In System Programming).  
 
 ## How do I get set up? ##
 
@@ -188,9 +200,10 @@ If you want to build Digital from the source code:
 
 ## Contribution guidelines ##
 
-* If you want to contribute send me just a pull request
+* If you want to contribute, please open a GitHub issue first.
+  * A discussion should avoid duplicate or unnecessary work.  
   * Before you send a pull request, make sure that at least `mvn install` runs without errors.
 * Don't introduce new findbugs issues.
 * Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
-* Up to now there are no GUI tests so the overall test coverage is only somewhat below 60%.
+* So far, there are only a few GUI tests, so that the overall test coverage is only slightly above 70%.
   Try to keep the amount of untested GUI code low.

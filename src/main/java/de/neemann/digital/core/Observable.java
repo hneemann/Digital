@@ -1,7 +1,6 @@
 package de.neemann.digital.core;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A simple observable
@@ -25,7 +24,7 @@ public class Observable {
      * @return observer the observer to add
      */
     public Observer addObserver(Observer observer) {
-        if (observer != null)
+        if (observer != null && !observers.contains(observer))
             observers.add(observer);
         return observer;
     }
@@ -52,11 +51,7 @@ public class Observable {
      * @param observerClass the class of observers to remove
      */
     public void removeObserver(Class<? extends Observer> observerClass) {
-        Iterator<Observer> it = observers.iterator();
-        while (it.hasNext()) {
-            if (it.next().getClass() == observerClass)
-                it.remove();
-        }
+        observers.removeIf(observer -> observer.getClass() == observerClass);
     }
 
     /**

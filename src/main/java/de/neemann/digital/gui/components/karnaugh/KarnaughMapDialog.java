@@ -90,6 +90,13 @@ public class KarnaughMapDialog extends JDialog {
         }
     }
 
+    /**
+     * @return the actual results
+     */
+    public List<ExpressionListenerStore.Result> getResults() {
+        return results;
+    }
+
     @Override
     public void setVisible(boolean visible) {
         if (!isVisible())

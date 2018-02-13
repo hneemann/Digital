@@ -332,43 +332,14 @@ der Eingang WE auf 1 geschaltet wird.</string>
       <pos x="180" y="200"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt. Geht der Takt auf High, und ist WE auf High 
-wird der Wert an WD im dem Register gespeichert,
-welches in dest angegeben ist.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="160" y="620"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Nummer des Source Registers. Legt fest, welches 
-Register an Rsrc ausgegeben werden soll.</string>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>src</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>4</int>
-        </entry>
-      </elementAttributes>
-      <pos x="1000" y="1000"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -403,6 +374,29 @@ Register an Rsrc ausgegeben werden soll.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
+          <string>Nummer des Source Registers. Legt fest, welches 
+Register an Rsrc ausgegeben werden soll.</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>src</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1000" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
           <string>Nummer des Destignation Registers. Legt fest, 
 welches Register an Rdest ausgegeben werden soll.
 Zudem wird dieses Register beschrieben, wenn
@@ -418,22 +412,6 @@ WE auf 1 gesetzt wird.</string>
         </entry>
       </elementAttributes>
       <pos x="160" y="560"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das Speichern aktivieren. Wenn dieser Eingang auf 
-High geht, wird der Wert an WD in dem Register 
-gespeichert, welches in dest angegeben ist.</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>WE</string>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -474,6 +452,22 @@ festgelegt.</string>
         </entry>
       </elementAttributes>
       <pos x="1040" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Speichern aktivieren. Wenn dieser Eingang auf 
+High geht, wird der Wert an WD in dem Register 
+gespeichert, welches in dest angegeben ist.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>WE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="360"/>
     </visualElement>
   </visualElements>
   <wires>

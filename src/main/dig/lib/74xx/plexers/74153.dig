@@ -91,10 +91,6 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>strobe</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>2G</string>
         </entry>
@@ -198,10 +194,6 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>strobe</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>1G</string>

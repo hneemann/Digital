@@ -24,16 +24,6 @@
       <pos x="1240" y="440"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1240" y="540"/>
-    </visualElement>
-    <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="1340" y="440"/>
@@ -116,6 +106,16 @@ C 0 0  1
         </entry>
       </elementAttributes>
       <pos x="1800" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="540"/>
     </visualElement>
   </visualElements>
   <wires>

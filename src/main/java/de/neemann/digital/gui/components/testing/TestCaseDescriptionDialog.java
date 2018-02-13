@@ -19,6 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.HashSet;
 
 /**
  * Dialog to show and edit the testing data source.
@@ -34,8 +35,8 @@ public class TestCaseDescriptionDialog extends JDialog {
      * @param data    the data to edit
      * @param element the element to be modified
      */
-    public TestCaseDescriptionDialog(Component parent, TestCaseDescription data, VisualElement element) {
-        super(SwingUtilities.getWindowAncestor(parent),
+    public TestCaseDescriptionDialog(Window parent, TestCaseDescription data, VisualElement element) {
+        super(parent,
                 Lang.get("key_Testdata"),
                 element == null ? ModalityType.APPLICATION_MODAL : ModalityType.MODELESS);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -45,6 +46,10 @@ public class TestCaseDescriptionDialog extends JDialog {
 
         JTextArea text = new JTextArea(data.getDataString(), 30, 50);
         text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, Screen.getInstance().getFontSize()));
+
+        HashSet<AWTKeyStroke> set = new HashSet<>(text.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+        set.add(KeyStroke.getKeyStroke("F1"));
+        text.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
 
         JScrollPane scrollPane = new JScrollPane(text);
         getContentPane().add(scrollPane);
@@ -63,12 +68,12 @@ public class TestCaseDescriptionDialog extends JDialog {
             }
         }.createJButton());
 
-        if (Main.enableExperimental()) {
+        if (Main.isExperimentalMode()) {
             buttons.add(new ToolTipAction(Lang.get("btn_addTransitions")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (parent instanceof CircuitComponent) {
-                        CircuitComponent cc = (CircuitComponent) parent;
+                    if (parent instanceof Main) {
+                        CircuitComponent cc = ((Main) parent).getCircuitComponent();
                         try {
                             Transitions tr = new Transitions(text.getText(), cc.getCircuit().getInputNames());
                             if (tr.isNew()) {
@@ -88,9 +93,9 @@ public class TestCaseDescriptionDialog extends JDialog {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         data.setDataString(text.getText());
-                        if (parent instanceof CircuitComponent) {
+                        if (parent instanceof Main) {
+                            CircuitComponent cc = ((Main) parent).getCircuitComponent();
                             element.getElementAttributes().set(TestCaseElement.TESTDATA, data);
-                            CircuitComponent cc = (CircuitComponent) parent;
                             cc.getMain().startTests();
                         }
                     } catch (ParserException | IOException e1) {
@@ -107,8 +112,8 @@ public class TestCaseDescriptionDialog extends JDialog {
                     data.setDataString(text.getText());
                     if (element != null
                             && !initialDataString.equals(data.getDataString())
-                            && parent instanceof CircuitComponent) {
-                        CircuitComponent cc = (CircuitComponent) parent;
+                            && parent instanceof Main) {
+                        CircuitComponent cc = ((Main) parent).getCircuitComponent();
                         cc.modify(new ModifyAttribute<>(element, TestCaseElement.TESTDATA, new TestCaseDescription(data)));
                     }
                     dispose();

@@ -25,7 +25,7 @@ public class FlipflopJKAsync extends FlipflopJK {
             = new ElementTypeDescription("JK_FF_AS", FlipflopJKAsync.class,
             input("Set"),
             input("J"),
-            input("C"),
+            input("C").setClock(),
             input("K"),
             input("Clr"))
             .addAttribute(Keys.ROTATE)

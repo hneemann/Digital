@@ -81,7 +81,7 @@ public class ExpressionToFileExporter {
             try {
                 file = p.execute(file);
             } catch (IOException e) {
-                throw new IOException(Lang.get("err_postProcessErrorIn_N0", p.toString()), e);
+                throw new IOException(Lang.get("err_postProcessErrorIn_N0", p.getName()), e);
             }
     }
 
@@ -97,5 +97,10 @@ public class ExpressionToFileExporter {
          * @throws IOException IOException
          */
         File execute(File file) throws IOException;
+
+        /**
+         * @return the name of this post processing step
+         */
+        String getName();
     }
 }

@@ -25,7 +25,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>6</int>
+          <string>6</string>
         </entry>
         <entry>
           <string>Inputs</string>
@@ -58,7 +58,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>7</int>
+          <string>7</string>
         </entry>
         <entry>
           <string>Inputs</string>
@@ -116,7 +116,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>9</int>
+          <string>9</string>
         </entry>
         <entry>
           <string>Inputs</string>
@@ -179,7 +179,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>14</int>
+          <string>14</string>
         </entry>
         <entry>
           <string>Inputs</string>
@@ -212,7 +212,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>15</int>
+          <string>15</string>
         </entry>
         <entry>
           <string>Inputs</string>
@@ -244,7 +244,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>5</int>
+          <string>5</string>
         </entry>
       </elementAttributes>
       <pos x="-360" y="-100"/>
@@ -262,7 +262,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>10</int>
+          <string>10</string>
         </entry>
       </elementAttributes>
       <pos x="-320" y="-100"/>
@@ -290,7 +290,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>11</int>
+          <string>11</string>
         </entry>
       </elementAttributes>
       <pos x="-280" y="-100"/>
@@ -318,7 +318,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>12</int>
+          <string>12</string>
         </entry>
       </elementAttributes>
       <pos x="-240" y="-100"/>
@@ -346,7 +346,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>13</int>
+          <string>13</string>
         </entry>
       </elementAttributes>
       <pos x="-200" y="-100"/>
@@ -374,7 +374,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>1</int>
+          <string>1</string>
         </entry>
       </elementAttributes>
       <pos x="-160" y="-100"/>
@@ -402,7 +402,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>2</int>
+          <string>2</string>
         </entry>
       </elementAttributes>
       <pos x="-120" y="-100"/>
@@ -430,7 +430,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>3</int>
+          <string>3</string>
         </entry>
       </elementAttributes>
       <pos x="-80" y="-100"/>
@@ -458,7 +458,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>4</int>
+          <string>4</string>
         </entry>
       </elementAttributes>
       <pos x="-40" y="-100"/>
@@ -487,7 +487,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>16</int>
+          <string>16</string>
         </entry>
         <entry>
           <string>InDefault</string>
@@ -505,10 +505,33 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>8</int>
+          <string>8</string>
         </entry>
       </elementAttributes>
       <pos x="200" y="-80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>EI 0 1 2 3 4 5 6 7   A2 A1 A0   GS E0
+1  x x x x x x x x   1  1  1    1  1
+0  1 1 1 1 1 1 1 1   1  1  1    1  0
+0  x x x x x x x 0   0  0  0    0  1
+0  x x x x x x 0 1   0  0  1    0  1
+0  x x x x x 0 1 1   0  1  0    0  1
+0  x x x x 0 1 1 1   0  1  1    0  1
+0  x x x 0 1 1 1 1   1  0  0    0  1
+0  x x 0 1 1 1 1 1   1  0  1    0  1
+0  x 0 1 1 1 1 1 1   1  1  0    0  1
+0  0 1 1 1 1 1 1 1   1  1  1    0  1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="180"/>
     </visualElement>
   </visualElements>
   <wires>

@@ -54,7 +54,6 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
         JTable list = new JTable(tableModel);
         list.setRowHeight(list.getFont().getSize() * 6 / 5);
         getContentPane().add(new JScrollPane(list), BorderLayout.CENTER);
-        setAlwaysOnTop(true);
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -175,7 +174,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (columnIndex == 0) return signals.get(rowIndex).getName();
-            else return signals.get(rowIndex).getValue().getValueString();
+            else return signals.get(rowIndex).getValueString();
         }
 
         @Override
@@ -184,8 +183,13 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                 Signal.Setter s = signals.get(rowIndex).getSetter();
                 if (s != null)
                     try {
-                        long value = Bits.decode(aValue.toString());
-                        modelSync.access(() -> s.set(value));
+                        final String str = aValue.toString();
+                        if (str.equals("?") || str.equals("z") || str.equals("Z")) {
+                            modelSync.access(() -> s.set(0, true));
+                        } else {
+                            long value = Bits.decode(str);
+                            modelSync.access(() -> s.set(value, false));
+                        }
                         circuitComponent.modelHasChanged();
                     } catch (Bits.NumberFormatException e) {
                         // do nothing in this case!

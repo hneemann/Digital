@@ -37,28 +37,41 @@ public class NetList implements Iterable<Net> {
                         found = n;
 
                 String label = ve.getElementAttributes().get(Keys.NETNAME).trim();
-                if (found == null)
-                    throw new PinException(Lang.get("err_labelNotConnectedToNet_N", label), ve);
+                if (found == null) {
+                    final PinException e = new PinException(Lang.get("err_labelNotConnectedToNet_N", label), ve);
+                    e.setOrigin(circuit.getOrigin());
+                    throw e;
+                }
 
                 found.addLabel(label);
             }
 
-        for (Net n : netList)
+        boolean hasLabel = false;
+        for (Net n : netList) {
             n.setOrigin(circuit.getOrigin());
+            if (n.hasLabel())
+                hasLabel = true;
+        }
 
-        mergeLabels();
+        if (hasLabel)
+            mergeLabels();
     }
 
     //modification of loop variable j is intended!
     //CHECKSTYLE.OFF: ModifiedControlVariable
     private void mergeLabels() {
-        for (int i = 0; i < netList.size() - 1; i++)
-            for (int j = i + 1; j < netList.size(); j++)
-                if (netList.get(i).matchesLabel(netList.get(j))) {
-                    netList.get(i).addAllPointsFrom(netList.get(j));
-                    netList.remove(j);
-                    j--;
-                }
+        boolean wasMerge;
+        do {
+            wasMerge = false;
+            for (int i = 0; i < netList.size() - 1; i++)
+                for (int j = i + 1; j < netList.size(); j++)
+                    if (netList.get(i).matchesLabel(netList.get(j))) {
+                        netList.get(i).addAllPointsFrom(netList.get(j));
+                        netList.remove(j);
+                        j--;
+                        wasMerge = true;
+                    }
+        } while (wasMerge);
     }
     //CHECKSTYLE.ON: ModifiedControlVariable
 

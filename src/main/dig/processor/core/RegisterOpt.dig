@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>In diesem Block befinden sich die 16 
+Prozessorregister.</string>
+    </entry>
+    <entry>
+      <string>Width</string>
+      <int>5</int>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Daten die gespeichert werden sollen.
+Der hier anliegende Wert wird gespeichert, wenn 
+der Eingang WE auf 1 geschaltet wird.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>WD</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Nummer des Source Registers. Legt fest, welches 
+Register an Rsrc ausgegeben werden soll.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>src</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Nummer des Destignation Registers. Legt fest, 
+welches Register an Rdest ausgegeben werden soll.
+Zudem wird dieses Register beschrieben, wenn
+WE auf 1 gesetzt wird.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>dest</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Inhalt des Destignation Registers.
+Welches Register ausgegeben wird, wird mittels 
+des Eingangs dest festgelegt.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Rdest</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Inhalt des Source Registers. Welches Register
+ausgegeben wird, wird mittels des Einganges src
+festgelegt.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Rsrc</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RegisterFile</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Das Speichern aktivieren. Wenn dieser Eingang auf 
+High geht, wird der Wert an WD in dem Register 
+gespeichert, welches in dest angegeben ist.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>WE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="160"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="320" y="160"/>
+      <p2 x="340" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="160"/>
+      <p2 x="240" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="240"/>
+      <p2 x="240" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="180"/>
+      <p2 x="360" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="180"/>
+      <p2 x="240" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="200"/>
+      <p2 x="240" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="140"/>
+      <p2 x="360" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="140"/>
+      <p2 x="240" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="220"/>
+      <p2 x="220" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="220"/>
+      <p2 x="240" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="340" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="180"/>
+      <p2 x="220" y="220"/>
+    </wire>
+  </wires>
+</circuit>

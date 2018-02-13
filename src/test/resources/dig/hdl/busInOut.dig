@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>V17,V16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>X</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>U16,E19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Board: Basys3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>W16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>U19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="280"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="280" y="280"/>
+      <p2 x="320" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="220"/>
+      <p2 x="320" y="220"/>
+    </wire>
+  </wires>
+</circuit>

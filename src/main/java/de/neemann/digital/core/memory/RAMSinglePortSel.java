@@ -26,7 +26,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMSinglePortSel.class,
             input("A"),
             input("CS"),
-            input("WE"),
+            input("WE").setClock(),
             input("OE"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)

@@ -19,7 +19,7 @@ public class EEPROM extends RAMSinglePortSel {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(EEPROM.class,
             input("A"),
             input("CS"),
-            input("WE"),
+            input("WE").setClock(),
             input("OE"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)

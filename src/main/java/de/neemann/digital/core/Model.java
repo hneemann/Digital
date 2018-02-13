@@ -49,6 +49,7 @@ public class Model implements Iterable<Node> {
     private static final int COLLECTING_LOOP_COUNTER = MAX_LOOP_COUNTER + 100;
 
     private enum State {BUILDING, INITIALIZING, RUNNING, CLOSED}
+
     private State state = State.BUILDING;
 
     private final ArrayList<Clock> clocks;
@@ -106,7 +107,7 @@ public class Model implements Iterable<Node> {
      */
     public WindowPosManager getWindowPosManager() {
         if (windowPosManager == null)
-            windowPosManager = new WindowPosManager();
+            windowPosManager = new WindowPosManager(null);
         return windowPosManager;
     }
 
@@ -151,7 +152,7 @@ public class Model implements Iterable<Node> {
      * Needs to be called after all nodes are added.
      * Resets and initializes the model.
      *
-     * @param noise setup with ore without noise
+     * @param noise setup with or without noise
      * @throws NodeException NodeException
      */
     public void init(boolean noise) throws NodeException {
@@ -160,9 +161,10 @@ public class Model implements Iterable<Node> {
         doStep(noise);
         if (!resets.isEmpty()) {
             for (Reset reset : resets)
-                reset.getResetOutput().setValue(1);
+                reset.clearReset();
             doStep(false);
         }
+        LOGGER.debug("stabilizing took " + version + " micro steps");
         state = State.RUNNING;
         fireEvent(ModelEvent.STARTED);
     }
@@ -619,19 +621,6 @@ public class Model implements Iterable<Node> {
             if (filter.accept(n))
                 found.add(n);
         return found;
-    }
-
-    /**
-     * @return list of pins without a number
-     */
-    public ArrayList<String> getPinsWithoutNumber() {
-        ArrayList<String> sigWithoutPinNumber = null;
-        for (Signal s : signals)
-            if (s.missingPinNumber()) {
-                if (sigWithoutPinNumber == null) sigWithoutPinNumber = new ArrayList<>();
-                sigWithoutPinNumber.add(s.getName());
-            }
-        return sigWithoutPinNumber;
     }
 
     /**

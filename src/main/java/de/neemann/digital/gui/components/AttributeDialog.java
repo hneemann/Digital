@@ -6,6 +6,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -28,7 +29,7 @@ import java.util.HashMap;
 public class AttributeDialog extends JDialog {
     private final java.util.List<EditorHolder> editors;
     private final JPanel panel;
-    private final Component parent;
+    private final Window parent;
     private final Point pos;
     private final ElementAttributes originalAttributes;
     private final ElementAttributes modifiedAttributes;
@@ -46,7 +47,7 @@ public class AttributeDialog extends JDialog {
      * @param list              the list of keys which are to edit
      * @param elementAttributes the data stored
      */
-    public AttributeDialog(Component parent, java.util.List<Key> list, ElementAttributes elementAttributes) {
+    public AttributeDialog(Window parent, java.util.List<Key> list, ElementAttributes elementAttributes) {
         this(parent, null, list, elementAttributes, false);
     }
 
@@ -58,7 +59,7 @@ public class AttributeDialog extends JDialog {
      * @param list              the list of keys which are to edit
      * @param elementAttributes the data stored
      */
-    public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
+    public AttributeDialog(Window parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
         this(parent, pos, list, elementAttributes, false);
     }
 
@@ -71,8 +72,8 @@ public class AttributeDialog extends JDialog {
      * @param elementAttributes the initial data to modify
      * @param addCheckBoxes     th true check boxes behind the attributes are added
      */
-    public AttributeDialog(Component parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes, boolean addCheckBoxes) {
-        super(SwingUtilities.getWindowAncestor(parent), Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
+    public AttributeDialog(Window parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes, boolean addCheckBoxes) {
+        super(parent, Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
         this.parent = parent;
         this.pos = pos;
         this.originalAttributes = elementAttributes;
@@ -145,7 +146,6 @@ public class AttributeDialog extends JDialog {
         getRootPane().registerKeyboardAction(cancel,
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
-        setAlwaysOnTop(true);
     }
 
     /**
@@ -211,12 +211,8 @@ public class AttributeDialog extends JDialog {
 
         if (pos == null)
             setLocationRelativeTo(parent);
-        else {
-            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-            if (pos.x + getWidth() > screen.width) pos.x = screen.width - getWidth();
-            if (pos.y + getHeight() > screen.height) pos.y = screen.height - getHeight();
-            setLocation(pos.x, pos.y);
-        }
+        else
+            Screen.setLocation(this, pos, true);
 
         if (topMostTextComponent != null)
             SwingUtilities.invokeLater(() -> topMostTextComponent.requestFocusInWindow());
@@ -231,7 +227,7 @@ public class AttributeDialog extends JDialog {
     /**
      * @return the dialogs parent
      */
-    public Component getDialogParent() {
+    public Window getDialogParent() {
         return parent;
     }
 
@@ -249,8 +245,6 @@ public class AttributeDialog extends JDialog {
     public Main getMain() {  // ToDo: is a hack! find a better solution for getting the main frame
         if (parent instanceof Main)
             return (Main) parent;
-        if (parent instanceof CircuitComponent)
-            return ((CircuitComponent) parent).getMain();
         return null;
     }
 

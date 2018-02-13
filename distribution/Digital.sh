@@ -1,2 +1,2 @@
 #!/bin/bash
-java -jar Digital.jar $1
+java -jar Digital.jar "$1"

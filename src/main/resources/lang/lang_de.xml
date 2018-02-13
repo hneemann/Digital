@@ -78,13 +78,13 @@
         Es können auch Busse mit mehreren Bits pro Eingang verknüpft werden. In diesem Fall wird die Verknüpfung auf
         jedes Bit der Eingänge angewendet.
     </string>
-    <string name="elem_XOr">Exclusiv Oder</string>
+    <string name="elem_XOr">Exklusiv Oder</string>
     <string name="elem_XOr_tt">Bei zwei Eingängen wird eine 1 ausgegeben, wenn genau einer der Eingänge auf 1 gesetzt ist.
         Werden mehr als zwei Eingänge verwendet, werden die XOR-Gater kaskadiert ( A XOR B XOR C = (A XOR B) XOR C ).
         Es können auch Busse mit mehreren Bits pro Eingang verknüpft werden. In diesem Fall wird die Verknüpfung auf
         jedes Bit der Eingänge angewendet.
     </string>
-    <string name="elem_XNOr">Nicht Exclusiv Oder</string>
+    <string name="elem_XNOr">Nicht Exklusiv Oder</string>
     <string name="elem_XNOr_tt">Eine Kombination aus XOR und NOT.
         Die Eingänge werden per XOR verknüpft und das Ergebnis wird vor der Ausgabe invertiert.
         Es können auch Busse mit mehreren Bits pro Eingang verknüpft werden. In diesem Fall wird die Verknüpfung auf
@@ -107,8 +107,9 @@
         die Adresse des gewünschten Ausgabewertes fest.</string>
     <string name="elem_LookUpTable_pin_out">Gibt den Wert an der ausgewählten Adresse aus.</string>
     <string name="elem_Delay">Verzögerung</string>
-    <string name="elem_Delay_tt">Verzögert ein Signal für eine Gatterlaufzeit. In Digital haben alle Gatter die
-        selbe Gatterlaufzeit.
+    <string name="elem_Delay_tt">Verzögert ein Signal für eine einstellbare Anzahl an Gatterlaufzeiten.
+        Alle übrigen Bauteile in Digital haben genau eine Gatterlaufzeit Verzögerung.
+        Mit diesem Bauteil lassen sich damit beliebige Laufzeiten realisieren.
     </string>
     <string name="elem_Delay_pin_in">Eingang für das zu verzögernde Signal.</string>
     <string name="elem_Delay_pin_out">Das um eine Gatterlaufzeit verzögerte Eingangssignal.</string>
@@ -342,7 +343,9 @@
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">Ein Baustein zum Speichern eines Bits.
-        Der an Eingang D anliegende Wert wird abgespeichert, wenn Eingang C auf 1 wechselt.</string>
+        Der an Eingang D anliegende Wert wird bei einer steigenden Flanke an Eingang C gespeichert.
+        Die Bitbreite kann gewählt werden, so dass mehrere Bits gespeichert werden können.
+    </string>
     <string name="elem_D_FF_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
     <string name="elem_D_FF_pin_Q">Gibt den gespeicherten Wert zurück.</string>
@@ -372,8 +375,9 @@
     <string name="elem_D_FF_AS">D-FlipFlop, asynchron</string>
     <string name="elem_D_FF_AS_short">D-AS</string>
     <string name="elem_D_FF_AS_tt">Ein Baustein zum Speichern eines Bits.
-        Der am Eingang D anliegende Wert wird abgespeichert, wenn der Takteingang C auf 1 wechselt.
+        Der an Eingang D anliegende Wert wird bei einer steigenden Flanke an Eingang C gespeichert.
         Es gibt zwei Eingänge, welche ein sofortiges Setzen bzw. Rücksetzen ohne Taktsignal erlauben.
+        Die Bitbreite kann gewählt werden, so dass mehrere Bits gespeichert werden können.
     </string>
     <string name="elem_D_FF_AS_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_AS_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
@@ -387,7 +391,9 @@
 
     <string name="elem_Register">Register</string>
     <string name="elem_Register_short">Reg</string>
-    <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten.</string>
+    <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten. Die Bitbreite kann gewählt werden.
+        Der an Eingang D anliegende Wert wird bei einer steigenden Flanke an Eingang C gespeichert.
+        Im Unterschied zu einem D Flipflop verfügt das Register über einen Freigabeeingang für den Takt.</string>
     <string name="elem_Register_pin_D">Das zu speichernde Datenwort liegt hier an.</string>
     <string name="elem_Register_pin_C">Der Takteingang. Eine steigende Flanke speichert den an D anliegenden Wert ab.</string>
     <string name="elem_Register_pin_en">Nur wenn dieser Eingang 1 ist, kann gespeichert werden.</string>
@@ -466,6 +472,20 @@
     <string name="elem_RAMDualAccess_pin_1D_in">Die Daten, die gespeichert werden sollen.</string>
     <string name="elem_RAMDualAccess_pin_ld">Ist diese Leitung high, wird der Ausgang D1 aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualAccess_pin_str">Ist diese Leitung high, wird das Datenwort an D1 gespeichert, wenn der Takt ansteigt.</string>
+
+    <string name="elem_RegisterFile">Registerspeicher</string>
+    <string name="elem_RegisterFile_short">Register</string>
+    <string name="elem_RegisterFile_tt">Speicher mit einem Schreib- und zwei Leseports. Kann verwendet werden um
+        Prozessorregister zu implementieren.
+        Es können so gleichzeitig zwei Register gelesen und ein Drittes beschrieben werden.</string>
+    <string name="elem_RegisterFile_pin_Da">Inhalt des Registers a.</string>
+    <string name="elem_RegisterFile_pin_Db">Inhalt des Registers b.</string>
+    <string name="elem_RegisterFile_pin_Ra">Nummer des Registers a.</string>
+    <string name="elem_RegisterFile_pin_Rb">Nummer des Registers b.</string>
+    <string name="elem_RegisterFile_pin_Rw">Nummer des zu beschreibenden Registers.</string>
+    <string name="elem_RegisterFile_pin_we">Bei einer 1 werden die Daten in das Register Rw übernommen.</string>
+    <string name="elem_RegisterFile_pin_C">Takteingang</string>
+    <string name="elem_RegisterFile_pin_Din">Die zu schreibenden Daten.</string>
 
     <string name="elem_Counter">Zähler</string>
     <string name="elem_Counter_short">Zähler</string>
@@ -642,9 +662,10 @@
     <string name="elem_PowerSupply_pin_VDD">Muss mit VDD verbunden werden!</string>
     <string name="elem_PowerSupply_pin_GND">Muss mit GND verbunden werden!</string>
     <string name="elem_Reset">Reset</string>
-    <string name="elem_Reset_pin_Reset">Reset Ausgang. Ist so lange Null, bis sich die Schaltung nach dem Einschalten stabilisiert hat.</string>
-    <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Null, solange sich die Schaltung nach dem Einschalten
-        in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Eins gesetzt.</string>
+    <string name="elem_Reset_pin_Reset">Reset Ausgang.</string>
+    <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Eins, solange sich die Schaltung nach dem Einschalten
+        in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Null gesetzt.
+        Bei einem invertiertem Ausgang verhält es sich genau anders herum.</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stoppt schnellen Simulationslauf, wenn 1.</string>
     <string name="elem_Break_tt">Wenn der Eingang dieses Elementes zu Eins wird, wird der schnelle Simulationslauf beendet.
@@ -713,7 +734,7 @@ Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_splitterNotUnambiguously">Es sind Eingangsbits mehrfach definiert!</string>
     <string name="err_spitterToManyBits">Es sind nur 64 Bits im Splitter erlaubt!</string>
     <string name="err_tableBecomesToSmall">Es sind mindestens zwei Eingänge erforderlich!</string>
-    <string name="err_toManyInputs_max_N0_is_N1">Zu viele Eingänge. Es sind nur {0} Eingänge erlaubt, es wurden jedoch {1} gefunden.</string>
+    <string name="err_toManyInputs_max_N0_is_N1">Zu viele Variablen (Eingänge+Flipflops). Es sind nur {0} Variablen erlaubt, es wurden jedoch {1} gefunden.</string>
     <string name="err_toManyInputsIn_N0_max_N1_is_N2">Zu viele Variablen bei der Vereinfachung von {0}.
 Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_varNotAllowedInCUPL_N">In CUPL ist die Variable {0} nicht erlaubt!</string>
@@ -783,8 +804,16 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_mainClass_N_NotFound">Die Klasse {0} wurde nicht gefunden!</string>
     <string name="err_couldNotInitializeMainClass_N">Es konnte keine Instanz der Klasse {0} erzeugt werden!</string>
     <string name="err_notMoreOutBitsThanInBits">Es muss mehr Eingangsbits als Ausgangsbits geben!</string>
-    <string name="err_constantsNotAllowed">Konstante Werte sind hier nicht erlaubt!</string>
+    <string name="err_constantsNotAllowed">Physikalische Pins können nicht auf konstante Werte gesetzt werden!</string>
     <string name="err_invalidNumberFormat_N_N">Der String {0} ist keine Zahl (Pos {1})!</string>
+    <string name="err_invalidPinName_N">Der Name &quot;{0}&quot; ist nicht erlaubt!</string>
+    <string name="err_whiteSpaceNotAllowedInTT2Name">Im Namen der TT2-Datei ist kein Leerzeichen erlaubt!</string>
+    <string name="err_tableHasToManyResultColumns">Die Tabelle hat zu viele Spalten!</string>
+    <string name="err_errorExportingZip">Fehler beim Schreiben der ZIP-Datei.</string>
+    <string name="err_moreThanOneFastClock">Es ist nur ein Taktelement mit hoher Frequenz erlaubt.</string>
+    <string name="err_circuitHasCycles">Die Schaltung enthält Zyklen und kann daher nicht analysiert werden.
+        Zyklen entstehen, wenn ein Ausgang eines Gatters auf einen der Eingänge des selben Gatters zurück geführt wird.
+        Die Verwendung von Schaltern, FETs oder Relais verursacht ebenfalls Zyklen.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -891,7 +920,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_termWidth">Zeichen pro Zeile</string><!-- Terminal -->
     <string name="key_termWidth_tt">Die Anzahl der Zeichen, die in einer Zeile angezeigt werden können.</string>
     <string name="key_valueIsProbe">Als Messwert verwenden</string><!-- RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register -->
-    <string name="key_valueIsProbe_tt">Wenn gesetzt, taucht der Wert als Messwert in Graph und Tabelle auf</string>
+    <string name="key_valueIsProbe_tt">Wenn gesetzt, taucht der Wert als Messwert in Graph und Tabelle auf.
+        Zusätzlich muss eine Bezeichnung angegeben werden, welche als Identifikation des Messwertes dienen kann.</string>
     <string name="key_Testdata">Testdaten</string><!-- Testcase -->
     <string name="key_Testdata_tt">Hier wird der eigentliche Testfall angelegt.
         Details dazu finden sich in der Hilfe des Testdateneditors.</string>
@@ -932,7 +962,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Um die Pins korrekt zuordnen zu können, ist an den Eingängen und Ausgängen die Pinnummer anzugeben.</string>
     <string name="key_pinNumber">Pinnummer</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Nummer dieses Pins. Wird für die Darstellung einer Schaltung als DIL-Gehäuse und die
-        Pinzuordnung bei der Programmierung eines CPLD verwendet.</string>
+        Pinzuordnung bei der Programmierung eines CPLD verwendet.
+        Bei mehreren Bits, können alle Pinnummern als kommagetrennte Liste angegeben werden.</string>
     <string name="key_pinCount">Pinanzahl DIL</string>
     <string name="key_pinCount_tt">Anzahl der Pins des DILs. Wird hier eine 0 eingetragen, wird die Anzahl automatisch bestimmt.</string>
     <string name="key_defTreeSelect">Baumansicht beim Start anzeigen</string>
@@ -971,6 +1002,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_outputBits_tt">Die Anzahl der Ausgangsbits muss größer sein als die Anzahl der Eingangsbits.</string>
     <string name="key_textFontSize">Schriftgröße</string>
     <string name="key_textFontSize_tt">Legt die für diesen Text zu verwendende Schriftgröße fest.</string>
+    <string name="key_delayTime">Dauer</string>
+    <string name="key_delayTime_tt">Dauer der Verzögerung in Gatterlaufzeiten.</string>
+    <string name="key_invertOutput">invertierter Ausgang</string>
+    <string name="key_invertOutput_tt">Wenn gesetzt, wird der Ausgang invertiert.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1042,6 +1077,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_newSub_tt">Öffnet ein neues Fenster, um darin eine neue eingebettete Teilschaltung zu erstellen.</string>
     <string name="menu_open">Öffnen</string>
     <string name="menu_openRecent">Zuletzt verwendet</string>
+    <string name="menu_openRecentNewWindow">Zuletzt verwendet in neuem Fenster</string>
     <string name="menu_openWin">Öffnen in neuem Fenster</string>
     <string name="menu_openWin_tt">Öffnet eine Schaltung in einem neuen Fenster</string>
     <string name="menu_orderInputs">Sortieren der Eingänge</string>
@@ -1067,9 +1103,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_synthesise_tt">Erzeugt minimale boolsche Ausdrücke, welche durch eine Wahrheitstabelle beschrieben werden.</string>
     <string name="menu_table_N_variables">{0} Variablen</string>
     <string name="menu_table_create">Erzeugen</string>
-    <string name="menu_table_createCUPL">CUPL</string>
     <string name="menu_table_createCUPL_tt">Erzeugt eine CUPL Quelldatei welche die Schaltung beschreibt.</string>
-    <string name="menu_table_createTT2">TT2 / JED</string>
     <string name="menu_table_createTT2_tt">Erzeugt eine dem Berkeley Logic Interchange Format (BLIF) ähnliche Beschreibung der Logik.
         Danach wird der Atmel-Fitter gestartet, um daraus die JEDEC Datei zu erzeugen.</string>
     <string name="menu_table_createCircuit">Schaltung</string>
@@ -1087,7 +1121,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_createTwo">Schaltung mit Gattern mit zwei Eingängen</string>
     <string name="menu_table_createTwo_tt">Erzeugt eine Schaltung und verwendet nur Gatter mit zwei Eingängen.</string>
     <string name="menu_table_create_hardware">Bausteine</string>
-    <string name="menu_table_create_jedec">JEDEC (*.jed)</string>
     <string name="menu_table_create_jedec_tt">Erzeugt eine JEDEC Datei für den Baustein</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
     <string name="menu_table_exportHex">Erzeuge HEX</string>
@@ -1174,8 +1207,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_showDataTable_tt">Zeigt eine Tabelle mit allen Messwerten in einem eigenen Fenster an.</string>
     <string name="menu_showDataGraph">Zeige Messwertegraph</string>
     <string name="menu_showDataGraph_tt">Ein Graph mit den Messwerten wird in einem eigenen Fenster angezeigt.</string>
-
-
+    <string name="menu_exportZIP">Export als ZIP-Datei</string>
+    <string name="menu_exportZIP_tt">Exportiert die Schaltung als eine ZIP-Datei, welche auch alle eingebetteten
+        Schaltungen enthält.
+        Die ZIP-Datei enthält damit alle Dateien, die für den Betrieb der Schaltung erforderlich sind.</string>
+    <string name="menu_labelPins">Ein- und Ausgänge benennen</string>
+    <string name="menu_labelPins_tt">Für alle unbenannten Ein- und AUsgänge eine Bezeichnung setzen.</string>
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
@@ -1255,12 +1292,19 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_signal_N">Leitung {0}</string>
     <string name="msg_invalidSignalsAnalysed">Um eine Analyse der Schaltung durchzuführen, müssen alle
         Eingänge und Ausgänge eindeutig benannt sein!</string>
-    <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!</string>
+    <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!
+        Es werden automatisch freie Pins zugeordnet. Die Schaltung kann damit auf realer Hardware in der Regel nicht
+        verwendet werden!</string>
     <string name="msg_modelHasErrors">Es kann nur eine fehlerfreie Schaltung exportiert werden!</string>
     <string name="msg_noKVMapAvailable">Keine KV-Tafel verfügbar!</string>
     <string name="msg_dataNotUpdatedAnymore">Daten werden nicht mehr aktualisiert!</string>
     <string name="msg_modifyThisAttribute">Diesen Wert verändern.</string>
     <string name="msg_invalidEditorValue">Ein Feld enthält einen ungültigen Wert!</string>
+    <string name="msg_create CHNFile">Erzeugen der CHN-Datei</string>
+    <string name="msg_tableHasManyRowsConfirm">Die Tabelle ist sehr groß, der Export kann etwas dauern.
+Soll dennoch exportiert werden?</string>
+    <string name="msg_circuitIsRequired">Um eine Hardwarebeschreibung zu erzeugen, muss zuvor eine Schaltung erstellt
+        und analysiert werden. Aus nur einer Wahrheitstabelle kann keine Hardwarebeschreibung erzeugt werden.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

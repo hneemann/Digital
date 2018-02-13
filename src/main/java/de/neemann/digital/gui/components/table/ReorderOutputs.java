@@ -16,6 +16,18 @@ public class ReorderOutputs {
     private final TruthTable table;
     private final ArrayList<String> names;
 
+
+    /**
+     * Creates a new instance
+     *
+     * @param table the original table
+     * @param names the new ordering
+     */
+    public ReorderOutputs(TruthTable table, ArrayList<String> names) {
+        this.table = table;
+        this.names = names;
+    }
+
     /**
      * Creates a new instance
      *

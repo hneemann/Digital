@@ -16,12 +16,103 @@
             <par>
                 The simulator has two modes of operation: In the editing mode it is possible to modify the circuit.
                 You can add components or connect components by wires. The simulation is not active in this mode.
-                The simulation mode is activated by pressing <e>Start</e>. While starting the simulation the circuit
+                The simulation mode is activated by pressing the <e>Start</e> button in the tool bar.
+                While starting the simulation the circuit
                 is checked for consistency. If the are errors in the circuit an error message is shown. If possible
                 the affected components or wires are highlighted. If there are no errors, the simulation is activated.
                 Now you can interact with the running simulation.
                 In the simulation mode it is not possible to modify the circuit. To do so you have to activate the
                 editing mode again by stopping the simulation.
+            </par>
+        </subchapter>
+        <subchapter name="First Steps">
+            <par><image src="scr00.png"/></par>
+            <par>
+                As a first example, we want to build a circuit with an Exclusive-Or gate.
+                In the main window, the various components can be selected from the menu <e>Components</e>.
+                Then they are placed on the drawing panel. This process can be aborted with the ESC key
+                at any time.
+                At first select an input component.
+                This can later be controlled interactively with the mouse.
+            <par><image src="scr01.png"/></par>
+            <par>
+                After selection, the first input can be placed on the drawing surface. The red dot marks the wire
+                connection. Here, a wire will be connected later. Red indicates that this port is active.
+                So he defines a signal value.
+            </par>
+            <par><image src="scr02.png"/></par>
+            <par>
+                In the same way, a second input is added. It is best to put it directly under the first input.
+            </par><image src="scr03.png"/></par>
+            <par>
+                Thereafter, the Exclusive-Or gate is selected. This gate represents the actual logical function.
+            </par>
+            <par><image src="scr04.png"/></par>
+            <par>
+                This gate can now also be inserted in the circuit. It is best to set it in a way that the subsequent
+                wiring is as simple as possible. The blue dots indicate the inputs of the gate.
+            </par>
+            <par><image src="scr05.png"/></par>
+            <par>
+                Now select an output. This can be used to indicate a signal state or to later pass signals to
+                an embedding circuit.
+            </par>
+            <par><image src="scr06.png"/></par>
+            <par>
+                This is also positioned so that the wiring become as simple as possible.
+                He has a blue dot, so has an input.
+            </par>
+            <par><image src="scr07.png"/></par>
+            <par>
+                Now all necessary components are present. At next the wiring has to be added. With the mouse
+                a wire can be drawn. The blue and red dots are to be connected. There must always be exactly
+                one red dot connected to any number of blue dots. Only the use of threestate outputs makes it
+                possible to deviate from this rule and to connect several red dots.
+                If all wires have been drawn, the circuit is complete.
+            </par>
+            <par><image src="scr08.png"/></par>
+            <par>
+                To be able to interact with the circuit, it must be started. The start button in the tool bar can
+                be used for this purpose. After starting the simulation, the color of the wires changes and the
+                inputs and outputs are now filled. A bright green marks a logical '1' and a dark green a logical '0'.
+                In the figure above, all wires have a '0' value.
+            </par>
+            <par><image src="scr09.png"/></par>
+            <par>
+                By clicking with the mouse, the inputs can be switched. Since the simulation is now active, the
+                output changes according to the current input states. The circuit behaves like an
+                Exclusive-Or gate as expected .
+            </par>
+            <par><image src="scr10.png"/></par>
+            <par>
+                To further process the circuit, the simulation must first be stopped. The easiest way to do this is
+                with the Stop button in the tool bar. Clicking on a component with the right mouse button opens a
+                dialog which displays the properties of this component. The label 'A' can be defined for the first
+                input via this dialog.
+            </par>
+            <par><image src="scr11.png"/></par>
+            <par>
+                In this way, the labels for the remaining inputs and outputs can be defined. The menu item
+                <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
+                the current circuit. However, this is only possible if all inputs and outputs are labeled.
+            </par>
+            <par><image src="scr12.png"/></par>
+            <par>
+                It opens a window showing the truth table of the current circuit. Below the table you can find the
+                algebraic expression associated with the circuit. If there are several possible algebraic
+                expressions, a separate window will open showing all possible expressions.
+            </par>
+            <par><image src="scr13.png"/></par>
+            <par>
+                The table dialog has the menu entry <e>K-Map</e> in its main menu. This allows to display the truth
+                table in the form of a K-map.
+            </par>
+            <par><image src="scr14.png"/></par>
+            <par>
+                At the top of this dialog there is a drop-down list which allows the selection of the desired
+                expression in the K-map. In this way you can, for example, illustrate how several equivalent
+                algebraic expressions can result. However, in this example, there is only one minimal expression.
+                By clicking in the K-map the table can be modified.
             </par>
         </subchapter>
         <subchapter name="Wires">
@@ -45,20 +136,71 @@
         </subchapter>
         <subchapter name="Hierarchical Design">
             <par>
-                If a very complex circuit is built up, this can very quickly become very confusing. To keep track here,
+                If a complex circuit is built up, this can quickly become very confusing. To keep track here,
                 the different parts of a circuit can be stored in different files. This mechanism also makes it
                 possible to use a subcircuit, which has been created once, several times in a further circuit.
                 This approach also offers the advantage that the files can be stored independently of each other in a
                 version control system and changes can be tracked.
             </par>
+            <par><image src="scr20.png"/></par>
             <par>
-                In this case, only the file names of the subcircuits are stored in a circuit. The corresponding files of
-                the integrated subcircuits must therefore be found at the runtime of the simulation in the file system.
+                As an example, consider a 4-bit adder: First, we built a simple half-adder. This consists of an
+                XOR gate and an AND gate. The sum of the two bits 'A' and 'B' is given to the outputs 'S' and 'C'.
+                This circuit is stored in the file <e>halfAdder.dig</e>.
+            </par>
+            <par><image src="scr21.png"/></par>
+            <par>
+                From two half adders a full adder can now be built. To do this, create a new empty file and save the
+                empty file as <e>fullAdder.dig</e> in the same folder as before the half adder. Then the
+                half adder can be added to the new circuit via the <e>Components</e><arrow/><e>Custom</e> menu.
+                The order of the pins at the package of the half-adder can be rearranged in the half adder in the
+                menu <e>Edit</e><arrow/><e>Order inputs</e> or <e>Edit</e><arrow/><e>Order outputs</e>.
+                The full adder adds the three bits 'A', 'B' and 'Ci' and gives the sum to the outputs 'S' and 'Co'.
+            </par>
+            <par><image src="scr22.png"/></par>
+            <par>
+                In order to check the correct function of the full adder, a test case should be added. In the test case,
+                the truth table is stored, which should fulfill the circuit. In this way it can be automatically
+                checked whether this is the case.
+            </par>
+            <par><image src="scr23.png"/></par>
+            <par>
+                The tests can be executed via the test case editor or the test button in the toolbar.
+                The table cells highlighted in green indicate that the output of the circuit matches
+                the truth table given in the test case.
+            </par>
+            <par><image src="scr24.png"/></par>
+            <par>
+                Now the full adders can be put together to form a so-called ripple-carry adder.
+                In this case, the carry output of an addition is forwarded as a carry input to the addition of the
+                next higher-order bit, just as it is usual in pencil-and-paper addition.
+                This 4-bit adder should be tested for correct function. For this purpose a test case was inserted.
+            </par>
+            <par><image src="scr25.png"/></par>
+            <par>
+                This test case performs a 100% test, which is possible only with relatively simple circuits: all
+                possible 512 input combinations are applied to the circuit, and it is checked whether the output
+                of the circuit is correct.
+                The first line lists the input and output signals. Below this, the input values to be applied and
+                the output values to be checked are specified in a row, as in a truth table.
+                In this example, however, 512 lines are required. Entering this would be a tedious and error-prone task.
+                It is easier and more reliable to automatically generate the required lines.
+                For this purpose, the variables <e>A</e> and <e>B</e> are each traversed
+                from 0 to 15. The respective values of <e>A</e> and <e>B </e> are then assigned to inputs 'A[n]' and 'B[n]'.
+                Then it is checked whether the circuit outputs the value <e>A+B</e>. Then it is checked again with
+                the carry bit set, in which case <e>A+B+1</e> must result.
+                The details of the test syntax are provided by the help dialog.
+            </par>
+            <par>
+                If a circuit is embedded in an other ciruit, only the file name of the subcircuit is stored in a
+                circuit, not the embedded circuit itself.
+                The corresponding files of
+                the embedded subcircuits must therefore be found in the file system at runtime of the simulation.
                 In order to support the various work methods of the users as best as possible and still to avoid a
                 complex administration of import paths, etc., a somewhat unusual import strategy is implemented.
             </par>
             <par>
-                Only the file names of the embedded circuits are stored in a circuits file.
+                Only the file names of the embedded circuits are stored in a circuits file, not the full path.
                 If a file needs to be opened, all subfolders are searched for a file of the corresponding name.
                 If a suitable file is found, it is imported. This process only depends on the file name of the file to
                 be read, not on its path. Correspondingly, an error message is generated if there are several files of
@@ -75,15 +217,19 @@
     <chapter name="Simulation">
         <subchapter name="Propagation Delay">
             <par>
-                During the simulation every logic gate has a propagation delay. Every component from the library
+                During the simulation every logic gate has a propagation delay. Every component found in the library
                 has the same propagation delay regardless of its complexity.
-                So a NOT gate has the same propagation delay as a RAM component or a flipflop.
+                The AND gate thus has the same propagation delay as the multiplier.
                 The only exceptions are diodes, switches and splitters which are used to create data buses.
                 These components have no propagation delay at all.
             </par>
             <par>
-                If a circuit is included in an other parent circuit, the included circuit keep its timing behaviour.
-                So if you include a complex circuit which has a large propagation delay because on of the input signals
+                If it's necessary to simulate a gate - e.g. the multiplier - with a longer propagation delay, a delay
+                gate must be inserted in the circuit right behind the output of the multiplier.
+            </par>
+            <par>
+                If a circuit is included in an other parent circuit, the included circuit keeps its timing behaviour.
+                So if you include a complex circuit which has a large propagation delay because the input signals
                 has to pass three gates until it reaches the output, this behaviour is conserved while including this
                 circuit.
                 There are no additional delays coming up by including a circuit. If not all outputs of a circuit have
@@ -94,7 +240,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Circuit analysis and synthesis">
+    <chapter name="Circuit Analysis and Synthesis">
         <par>
             A circuit can be analyzed via the menu entry <e>Analysis</e>. A truth table is generated for purely
             combinatorial circuits. This truth table can be edited as desired.
@@ -121,8 +267,7 @@
         <par>
             It should be noted that the circuit to be analyzed may contain only purely combinatorial elements in
             addition to the built-in D and JK flipflops. If a flip-flop is e.g. made from Nor gates, this
-            circuit is not recognized as a flip-flop and therefore not treated accordingly. In this case, the
-            circuit is not analyzed correctly, which means that an incorrect state transition table is generated.
+            circuit is not recognized as a flip-flop and therefore it is not possible to analyse such a circuit.
         </par>
     </chapter>
     <chapter name="Hardware">
@@ -135,53 +280,59 @@
                 devices are supported.
             </par>
         </subchapter>
-        <subchapter name="ATF1502AS">
+        <subchapter name="ATF150xAS">
             <par>
-                The chip
-                <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
-                    <e>ATF1502AS</e>
+                The chips in the
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
                 </a>
-                is a simple CPLD with 32 macrocells. It is identical to the XCR5032C from Xilinx. It is available in a
-                PLCC package, which makes it suitable for laboratory exercises: If an IC is destroyed during exercises,
+                family are simple CPLDs with up to 128 macrocells. They are available in a
+                PLCC package, which makes them suitable for laboratory exercises: If an IC is destroyed during exercises,
                 it can simply be replaced. In addition, with the
-                <a href="http://www.atmel.com/tools/atdh1150usb.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/hardware/atdh1150usb">
                     <e>ATDH1150USB</e>
                 </a>
                 a easy to use low-cost programmer is available. This programmer is able to program the
-                <a href="http://www.microchip.com/wwwproducts/en/ATF1502AS">
-                    <e>ATF1502AS</e>
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
                 </a>
-                in system using its JTAG interface. The software
-                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                chips in system using a JTAG interface.
+                A suitable evaluation board
+                <a href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATF15XX-DK3-U">
+                    (<e>ATF15XX-DK3-U</e>)
+                </a>
+                is also available.
+                The software
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
                     <e>ATMISP</e>
-                </a> is required for
-                programming, which is also available on the ATMEL / Microchip website.
+                </a>
+                which is available on the ATMEL/Microchip website, is required for programming the chips.
             </par>
             <par>
                 Unfortunately, the fuse map details are not public available so that no suitable fitter for this chip
                 can be integrated in Digital, as it is possible with the <e>GAL16v8</e> and <e>GAL22v10</e> chips.
             </par>
             <par>
-                Therefore, the fitter <e>fit1502.exe</e> provided by ATMEL must be used. This program creates a
-                <e>JEDEC</e> file from a suitable <e>TT2</e> file which can then be programmed. Digital starts the
-                fitter automatically every time a <e>TT2</e> file is created. For this purpose, the path to
-                <e>fit1502.exe</e> must be specified in the settings.
-                The created <e>JEDEC</e> file can then be opened and burned directly with
-                <a href="http://www.atmel.com/tools/ATMISP.aspx">
+                Therefore, the fitters <e>fit150[x].exe</e> provided by ATMEL must be used. These programs create a
+                <e>JEDEC</e> file from a suitable <e>TT2</e> file which can then be programmed to the chip. Digital
+                starts the fitter automatically every time a <e>TT2</e> file is created. For this purpose, the path to the
+                <e>fit150[n].exe</e> fitters must be specified in the settings.
+                The created <e>JEDEC</e> file can then be opened and programmed directly with
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
                     <e>ATMISP</e>
                 </a>.
             </par>
             <par>
                 For legal reasons the fitter <e>fit1502.exe</e> can not be distributed with Digital. However, it can be
                 found in the folder <e>WinCupl\Fitters</e> after installing
-                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
                     <e>WinCupl</e>
                 </a>.
-                <a href="http://www.atmel.com/tools/wincupl.aspx">
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
                     <e>WinCupl</e>
                 </a>
                 is available on the ATMEL/Microchip website.
-                On Linux systems, <e>fit1502.exe</e> can also be executed by Digital if <e>wine</e> is installed.
+                On Linux systems, the fitters can also be executed by Digital if <e>wine</e> is installed.
             </par>
         </subchapter>
         <subchapter name="VHDL">
@@ -206,9 +357,7 @@
                 If the circuit clock frequency is low, a frequency divider is integrated into the VHDL code to divide
                 the board clock accordingly.
                 If the clock frequency selected in the circuit exceeds 37kHz, the MMCM unit of the
-                Artix-7 is used for clock generation. Therefore, if a circuit which depends on a synchronous clock
-                distribution like a processor is exported to VHDL, the circuit clock frequency should be set to a value
-                above 37kHz.
+                Artix-7 is used for clock generation.
                 This ensures that the FPGA resources provided for the clock distribution are used.
                 This allows the included example processor to run at 20MHz and if you can do without the
                 multiplier also 30HMz is possible.
@@ -327,9 +476,12 @@
     <chapter name="Keyboard Shortcuts" newpage="true">
         <shortcuts>
             <shortcut key="Space">Starts or stops the simulation.</shortcut>
+            <shortcut key="F7">Run to Break</shortcut>
+            <shortcut key="F8">Execute test cases</shortcut>
             <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single
                 clock component).
             </shortcut>
+            <shortcut key="F9">Analysis of the circuit</shortcut>
             <shortcut key="CTRL-A">Select all.</shortcut>
             <shortcut key="CTRL-X">Cuts the selected components to the clipboard.</shortcut>
             <shortcut key="CTRL-C">Copys the selected components to the clipboard.</shortcut>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A R1 R2
+0 1  0
+1 1  0</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Reset</elementName>
+      <elementAttributes/>
+      <pos x="460" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Reset</elementName>
+      <elementAttributes>
+        <entry>
+          <string>invertOutput</string>
+          <boolean>false</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="240"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="460" y="160"/>
+      <p2 x="500" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="200"/>
+      <p2 x="500" y="200"/>
+    </wire>
+  </wires>
+</circuit>

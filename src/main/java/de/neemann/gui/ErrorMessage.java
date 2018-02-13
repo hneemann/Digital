@@ -5,6 +5,7 @@ import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Used to show error messages.
@@ -86,14 +87,7 @@ public class ErrorMessage implements Runnable {
      * @param parent the parent
      */
     public void show(Component parent) {
-        JOptionPane optionPane = new JOptionPane(
-                new LineBreaker(120)
-                        .toHTML()
-                        .preserveContainedLineBreaks()
-                        .breakLines(message.toString()),
-                JOptionPane.ERROR_MESSAGE);
-        JDialog dialog = optionPane.createDialog(parent, Lang.get("error"));
-        dialog.setAlwaysOnTop(true);
+        ErrorDialog dialog = new ErrorDialog(parent, Lang.get("error"), message.toString());
         dialog.setVisible(true);
         dialog.dispose();
     }
@@ -113,5 +107,73 @@ public class ErrorMessage implements Runnable {
     @Override
     public void run() {
         show(component);
+    }
+
+    /**
+     * the error dialog
+     */
+    public static final class ErrorDialog extends JDialog {
+        private static final Icon ICON = IconCreator.create("dialog-error.png");
+        private String errorMessage;
+
+        private ErrorDialog(Component parent, String title, String message) {
+            super(getParentWindow(parent), title, ModalityType.APPLICATION_MODAL);
+            setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+            errorMessage = message;
+            message = new LineBreaker(80)
+                    .toHTML()
+                    .preserveContainedLineBreaks()
+                    .breakLines(message);
+
+
+            JLabel ta = new JLabel(message);
+            int border = ta.getFont().getSize();
+            ta.setBorder(BorderFactory.createEmptyBorder(border, border, border, border));
+            getContentPane().add(ta);
+
+            JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            JButton button = new JButton(new AbstractAction(Lang.get("ok")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    dispose();
+                }
+            });
+            buttons.add(button);
+            getContentPane().add(buttons, BorderLayout.SOUTH);
+
+            JLabel l = new JLabel(ICON);
+            l.setVerticalAlignment(JLabel.TOP);
+            l.setBorder(BorderFactory.createEmptyBorder(border, border, border, 0));
+            getContentPane().add(l, BorderLayout.WEST);
+
+            pack();
+            setLocationRelativeTo(parent);
+            setAlwaysOnTop(true);
+        }
+
+        /**
+         * @return the error message
+         */
+        public String getErrorMessage() {
+            return errorMessage;
+        }
+
+    }
+
+    /**
+     * Get the parent window of the given component.
+     * If the component is a window this window is returned
+     *
+     * @param parent the parent component
+     * @return the window instance
+     */
+    public static Window getParentWindow(Component parent) {
+        if (parent == null)
+            return null;
+        else if (parent instanceof Window)
+            return (Window) parent;
+        else
+            return SwingUtilities.getWindowAncestor(parent);
     }
 }

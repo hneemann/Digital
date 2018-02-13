@@ -38,12 +38,12 @@ Folgende Features zeichnen Digital aus:
 - Fast-Run-Mode um eine Simulation ohne Aktualisierung des HMI durchzuführen.
   Ein einfacher Prozessor kann mit 100kHz getaktet werden.
 - Einfache Remote TCP-Schnittstelle um z.B. mit einer [Assembler-IDE](https://github.com/hneemann/Assembler) den Simulator zu steuern.
-- Direkter Export von JEDEC Dateien welche in ein [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) 
-  oder [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx) geschrieben werden können. 
+- Direkter Export von JEDEC Dateien welche in ein [GAL16v8](https://www.microchip.com/wwwproducts/en/ATF16V8C) 
+  oder [GAL22v10](https://www.microchip.com/wwwproducts/en/ATF22V10C) geschrieben werden können. 
   Diese Bausteine sind zwar schon sehr alt (vorgestellt 1985!) jedoch sind sie ausreichend für Anfängerübungen, 
   einfach zu verstehen und sehr gut dokumentiert.
-  Zudem werden die [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) und
-  [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) Bausteine unterstützt welche 32 bzw. 64 Makrozellen bieten. 
+  Zudem werden die Bausteine der [ATF150x](https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family)
+  Familie unterstützt welche bis zu 128 Makrozellen bieten. 
 - Export zu VHDL: Eine Schaltung kann zu VHDL exportiert werden. Zudem wird das  
   [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start) unterstützt. 
   Details können der Dokumentation entnommen werden. 

@@ -41,6 +41,8 @@ public class DocuTest extends TestCase {
                 .append(Lang.get("digital"))
                 .append("\" titleImage=\"")
                 .append(new File(Resources.getRoot(), "../../../screenshot.png").toURI().toString())
+                .append("\" images=\"")
+                .append(new File(Resources.getRoot(), "docu/images/").toURI().toString())
                 .append("\" toc=\"")
                 .append(Lang.get("tableOfContent"))
                 .append("\" lang=\"")

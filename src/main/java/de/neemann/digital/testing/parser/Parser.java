@@ -102,7 +102,7 @@ public class Parser {
                 case REPEAT:
                     tok.consume();
                     expect(Tokenizer.Token.OPEN);
-                    int count = (int) parseInt();
+                    long count = parseInt();
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat("n", count, parseSingleRow()));
                     break;
@@ -112,7 +112,7 @@ public class Parser {
                     expect(Tokenizer.Token.IDENT);
                     String var = tok.getIdent();
                     expect(Tokenizer.Token.COMMA);
-                    count = (int) parseInt();
+                    count = parseInt();
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat(var, count, parseRows(Tokenizer.Token.LOOP)));
                     break;
@@ -267,11 +267,21 @@ public class Parser {
     }
 
     private Expression parseOR() throws IOException, ParserException {
-        Expression ac = parseAND();
+        Expression ac = parseXOR();
         while (isToken(Tokenizer.Token.OR)) {
             Expression a = ac;
-            Expression b = parseAND();
+            Expression b = parseXOR();
             ac = (c) -> a.value(c) | b.value(c);
+        }
+        return ac;
+    }
+
+    private Expression parseXOR() throws IOException, ParserException {
+        Expression ac = parseAND();
+        while (isToken(Tokenizer.Token.XOR)) {
+            Expression a = ac;
+            Expression b = parseAND();
+            ac = (c) -> a.value(c) ^ b.value(c);
         }
         return ac;
     }

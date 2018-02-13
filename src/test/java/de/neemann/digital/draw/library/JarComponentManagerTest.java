@@ -28,7 +28,7 @@ public class JarComponentManagerTest extends TestCase {
     public void testJarAvailable() throws PinException, NodeException, IOException, ElementNotFoundException, TestingDataException {
         ToBreakRunner br = new ToBreakRunner("dig/jarLib/jarLibTest.dig") {
             @Override
-            public void initLibraray(ElementLibrary library) {
+            public void initLibrary(ElementLibrary library) {
                 library.addExternalJarComponents(new File(Resources.getRoot(), "dig/jarLib/pluginExample-1.0-SNAPSHOT.jar"));
                 assertNull(library.checkForException());
             }

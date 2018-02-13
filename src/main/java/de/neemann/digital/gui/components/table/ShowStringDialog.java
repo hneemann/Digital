@@ -49,7 +49,7 @@ public class ShowStringDialog extends JDialog {
         init(parent, str, html);
     }
 
-    private void init(Component parent, String str, boolean html) {
+    private void init(Window parent, String str, boolean html) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JTextComponent textComp;
@@ -68,6 +68,5 @@ public class ShowStringDialog extends JDialog {
 
         pack();
         setLocationRelativeTo(parent);
-        setAlwaysOnTop(true);
     }
 }

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Out</elementName>
@@ -787,7 +792,7 @@
           <string>J17</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="140"/>
+      <pos x="1040" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -801,7 +806,7 @@
           <string>N18</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="320"/>
+      <pos x="1040" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -829,7 +834,7 @@
           <string>H17</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="180"/>
+      <pos x="1040" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -843,7 +848,7 @@
           <string>L18</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="360"/>
+      <pos x="1040" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -871,7 +876,7 @@
           <string>G17</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="220"/>
+      <pos x="1040" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -885,7 +890,7 @@
           <string>K18</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="400"/>
+      <pos x="1040" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -913,7 +918,7 @@
           <string>D17</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="260"/>
+      <pos x="1040" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -927,7 +932,7 @@
           <string>J18</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="440"/>
+      <pos x="1040" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -941,7 +946,7 @@
           <string>P19</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="500"/>
+      <pos x="1040" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -955,7 +960,7 @@
           <string>R19</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="540"/>
+      <pos x="1040" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -979,7 +984,7 @@
           <string>J1</string>
         </entry>
       </elementAttributes>
-      <pos x="100" y="720"/>
+      <pos x="100" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -993,7 +998,7 @@
           <string>L2</string>
         </entry>
       </elementAttributes>
-      <pos x="100" y="760"/>
+      <pos x="100" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1007,7 +1012,7 @@
           <string>J2</string>
         </entry>
       </elementAttributes>
-      <pos x="100" y="800"/>
+      <pos x="100" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1021,7 +1026,7 @@
           <string>G2</string>
         </entry>
       </elementAttributes>
-      <pos x="100" y="840"/>
+      <pos x="100" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1035,7 +1040,7 @@
           <string>H1</string>
         </entry>
       </elementAttributes>
-      <pos x="100" y="880"/>
+      <pos x="100" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1049,7 +1054,7 @@
           <string>K2</string>
         </entry>
       </elementAttributes>
-      <pos x="100" y="920"/>
+      <pos x="100" y="940"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1063,7 +1068,7 @@
           <string>H2</string>
         </entry>
       </elementAttributes>
-      <pos x="100" y="960"/>
+      <pos x="100" y="980"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1077,7 +1082,7 @@
           <string>G3</string>
         </entry>
       </elementAttributes>
-      <pos x="100" y="1000"/>
+      <pos x="100" y="1020"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -1087,7 +1092,7 @@
           <string>Pmod JA</string>
         </entry>
       </elementAttributes>
-      <pos x="40" y="660"/>
+      <pos x="40" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1101,7 +1106,7 @@
           <string>J1</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="720"/>
+      <pos x="80" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1115,7 +1120,7 @@
           <string>L2</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="760"/>
+      <pos x="80" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1129,7 +1134,7 @@
           <string>J2</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="800"/>
+      <pos x="80" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1143,7 +1148,7 @@
           <string>G2</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="840"/>
+      <pos x="80" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1157,7 +1162,7 @@
           <string>H1</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="880"/>
+      <pos x="80" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1171,7 +1176,7 @@
           <string>K2</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="920"/>
+      <pos x="80" y="940"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1185,7 +1190,7 @@
           <string>H2</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="960"/>
+      <pos x="80" y="980"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1199,7 +1204,7 @@
           <string>G3</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="1000"/>
+      <pos x="80" y="1020"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -1209,7 +1214,7 @@
           <string>Pmod JB</string>
         </entry>
       </elementAttributes>
-      <pos x="520" y="660"/>
+      <pos x="520" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1223,7 +1228,7 @@
           <string>A14</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="720"/>
+      <pos x="560" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1237,7 +1242,7 @@
           <string>A16</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="760"/>
+      <pos x="560" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1251,7 +1256,7 @@
           <string>B15</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="800"/>
+      <pos x="560" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1265,7 +1270,7 @@
           <string>B16</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="840"/>
+      <pos x="560" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1279,7 +1284,7 @@
           <string>A15</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="880"/>
+      <pos x="560" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1293,7 +1298,7 @@
           <string>A17</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="920"/>
+      <pos x="560" y="940"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1307,7 +1312,7 @@
           <string>C15</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="960"/>
+      <pos x="560" y="980"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1321,7 +1326,7 @@
           <string>C16</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="1000"/>
+      <pos x="560" y="1020"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1335,7 +1340,7 @@
           <string>A14</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="720"/>
+      <pos x="580" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1349,7 +1354,7 @@
           <string>A16</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="760"/>
+      <pos x="580" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1363,7 +1368,7 @@
           <string>B15</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="800"/>
+      <pos x="580" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1377,7 +1382,7 @@
           <string>B16</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="840"/>
+      <pos x="580" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1391,7 +1396,7 @@
           <string>A15</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="880"/>
+      <pos x="580" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1405,7 +1410,7 @@
           <string>A17</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="920"/>
+      <pos x="580" y="940"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1419,7 +1424,7 @@
           <string>C15</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="960"/>
+      <pos x="580" y="980"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1433,7 +1438,7 @@
           <string>C16</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="1000"/>
+      <pos x="580" y="1020"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1447,7 +1452,7 @@
           <string>K17</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="720"/>
+      <pos x="1060" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1461,7 +1466,7 @@
           <string>M18</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="760"/>
+      <pos x="1060" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1475,7 +1480,7 @@
           <string>N17</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="800"/>
+      <pos x="1060" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1489,21 +1494,21 @@
           <string>P18</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="840"/>
+      <pos x="1060" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>JB7</string>
+          <string>JC7</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <string>L17</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="880"/>
+      <pos x="1060" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1517,7 +1522,7 @@
           <string>M19</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="920"/>
+      <pos x="1060" y="940"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1531,7 +1536,7 @@
           <string>P17</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="960"/>
+      <pos x="1060" y="980"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -1545,7 +1550,7 @@
           <string>R18</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="1000"/>
+      <pos x="1060" y="1020"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -1555,7 +1560,7 @@
           <string>Pmod JC</string>
         </entry>
       </elementAttributes>
-      <pos x="1020" y="660"/>
+      <pos x="1020" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1569,7 +1574,7 @@
           <string>K17</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="720"/>
+      <pos x="1080" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1583,7 +1588,7 @@
           <string>M18</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="760"/>
+      <pos x="1080" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1597,7 +1602,7 @@
           <string>N17</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="800"/>
+      <pos x="1080" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1611,21 +1616,21 @@
           <string>P18</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="840"/>
+      <pos x="1080" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>JB7</string>
+          <string>JC7</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <string>L17</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="880"/>
+      <pos x="1080" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1639,7 +1644,7 @@
           <string>M19</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="920"/>
+      <pos x="1080" y="940"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1653,7 +1658,7 @@
           <string>P17</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="960"/>
+      <pos x="1080" y="980"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1667,7 +1672,61 @@
           <string>R18</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="1000"/>
+      <pos x="1080" y="1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VGA_R</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>G19,H19,J19,N19</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VGA_G</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>J17,H17,G17,D17</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VGA_B</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>N18,L18,K18,J18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="520"/>
     </visualElement>
   </visualElements>
   <wires/>

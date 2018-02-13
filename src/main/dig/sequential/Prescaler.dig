@@ -20,6 +20,10 @@ Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.</string>
           <string>Label</string>
           <string>Clock</string>
         </entry>
+        <entry>
+          <string>Frequency</string>
+          <int>20</int>
+        </entry>
       </elementAttributes>
       <pos x="180" y="120"/>
     </visualElement>
@@ -161,15 +165,11 @@ Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.</string>
       <elementName>Or</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
           <string>Inputs</string>
           <int>4</int>
         </entry>
       </elementAttributes>
-      <pos x="480" y="420"/>
+      <pos x="620" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -183,7 +183,7 @@ Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.</string>
           <string>Y</string>
         </entry>
       </elementAttributes>
-      <pos x="620" y="500"/>
+      <pos x="700" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -205,6 +205,10 @@ repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
   </visualElements>
   <wires>
     <wire>
+      <p1 x="300" y="480"/>
+      <p2 x="620" y="480"/>
+    </wire>
+    <wire>
       <p1 x="180" y="240"/>
       <p2 x="200" y="240"/>
     </wire>
@@ -217,12 +221,12 @@ repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
       <p2 x="480" y="240"/>
     </wire>
     <wire>
-      <p1 x="300" y="400"/>
-      <p2 x="400" y="400"/>
+      <p1 x="600" y="400"/>
+      <p2 x="620" y="400"/>
     </wire>
     <wire>
-      <p1 x="480" y="400"/>
-      <p2 x="600" y="400"/>
+      <p1 x="500" y="420"/>
+      <p2 x="620" y="420"/>
     </wire>
     <wire>
       <p1 x="200" y="260"/>
@@ -235,10 +239,6 @@ repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
     <wire>
       <p1 x="280" y="260"/>
       <p2 x="380" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="500"/>
-      <p2 x="620" y="500"/>
     </wire>
     <wire>
       <p1 x="180" y="120"/>
@@ -285,6 +285,14 @@ repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
       <p2 x="600" y="200"/>
     </wire>
     <wire>
+      <p1 x="680" y="440"/>
+      <p2 x="700" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="460"/>
+      <p2 x="620" y="460"/>
+    </wire>
+    <wire>
       <p1 x="200" y="220"/>
       <p2 x="220" y="220"/>
     </wire>
@@ -297,14 +305,6 @@ repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
       <p2 x="500" y="220"/>
     </wire>
     <wire>
-      <p1 x="400" y="380"/>
-      <p2 x="420" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="460" y="380"/>
-      <p2 x="500" y="380"/>
-    </wire>
-    <wire>
       <p1 x="320" y="120"/>
       <p2 x="320" y="300"/>
     </wire>
@@ -313,16 +313,8 @@ repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
       <p2 x="480" y="300"/>
     </wire>
     <wire>
-      <p1 x="480" y="400"/>
-      <p2 x="480" y="420"/>
-    </wire>
-    <wire>
       <p1 x="420" y="120"/>
       <p2 x="420" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="420" y="380"/>
-      <p2 x="420" y="420"/>
     </wire>
     <wire>
       <p1 x="580" y="240"/>
@@ -341,40 +333,32 @@ repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
       <p2 x="520" y="300"/>
     </wire>
     <wire>
-      <p1 x="620" y="120"/>
-      <p2 x="620" y="300"/>
+      <p1 x="300" y="360"/>
+      <p2 x="300" y="480"/>
     </wire>
     <wire>
       <p1 x="300" y="220"/>
       <p2 x="300" y="300"/>
     </wire>
     <wire>
-      <p1 x="300" y="360"/>
-      <p2 x="300" y="400"/>
+      <p1 x="620" y="120"/>
+      <p2 x="620" y="300"/>
     </wire>
     <wire>
-      <p1 x="460" y="380"/>
-      <p2 x="460" y="420"/>
+      <p1 x="400" y="360"/>
+      <p2 x="400" y="460"/>
     </wire>
     <wire>
       <p1 x="400" y="200"/>
       <p2 x="400" y="300"/>
     </wire>
     <wire>
-      <p1 x="400" y="400"/>
-      <p2 x="400" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="400" y="360"/>
-      <p2 x="400" y="380"/>
+      <p1 x="500" y="360"/>
+      <p2 x="500" y="420"/>
     </wire>
     <wire>
       <p1 x="500" y="220"/>
       <p2 x="500" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="500" y="360"/>
-      <p2 x="500" y="380"/>
     </wire>
     <wire>
       <p1 x="600" y="200"/>
@@ -389,12 +373,9 @@ repeat(16) C     1 1 (~(n&gt;&gt;3)&amp;1)
       <p2 x="280" y="300"/>
     </wire>
     <wire>
-      <p1 x="440" y="480"/>
-      <p2 x="440" y="500"/>
-    </wire>
-    <wire>
       <p1 x="380" y="260"/>
       <p2 x="380" y="300"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

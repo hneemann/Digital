@@ -76,12 +76,6 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das P&lt;Q-Bit der Vorgängerschaltung. Wird direkt
-wieder Ausgegeben wenn die jeweiligen P und Q 
-Bits übereinstimmen.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>P&lt;Q_i</string>
         </entry>
@@ -96,12 +90,6 @@ Bits übereinstimmen.</string>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das P=Q-Bit der Vorgängerschaltung. Wird direkt
-wieder Ausgegeben wenn die jeweiligen P und Q 
-Bits übereinstimmen.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>P=Q_i</string>
         </entry>
@@ -115,12 +103,6 @@ Bits übereinstimmen.</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das P&gt;Q-Bit der Vorgängerschaltung. Wird direkt
-wieder Ausgegeben wenn die jeweiligen P und Q 
-Bits übereinstimmen.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>P&gt;Q_i</string>
@@ -207,10 +189,6 @@ Bits übereinstimmen.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&lt;Q gilt.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>P&lt;Q</string>
         </entry>
@@ -225,10 +203,6 @@ Bits übereinstimmen.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Das Bit ist Eins, wenn P=Q gilt.</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>P=Q</string>
         </entry>
@@ -242,10 +216,6 @@ Bits übereinstimmen.</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&gt;Q gilt.</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>P&gt;Q</string>

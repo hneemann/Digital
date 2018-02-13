@@ -5,6 +5,12 @@ import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
 /**
+ * Represents all signal values in the simulator.
+ * There are some setters to set the value. A value can be set to high z state.
+ * Only a complete bus can be set to high z state. It is not possible to set
+ * a single bit of a bus to high z state.
+ * Observers can observe this value to be notified if the value changes.
+ *
  * @author hneemann
  */
 public class ObservableValue extends Observable implements PinDescription {
@@ -135,7 +141,7 @@ public class ObservableValue extends Observable implements PinDescription {
         if (highZ)
             return "?";
         else {
-            return getHexString(value);
+            return IntFormat.toShortHex(value);
         }
     }
 
@@ -148,30 +154,6 @@ public class ObservableValue extends Observable implements PinDescription {
         long v = getValue();
         if ((v & signedFlag) != 0) v |= ~mask;
         return v;
-    }
-
-    /**
-     * converts a value to a minimal hex string
-     *
-     * @param value the value
-     * @return the string representation
-     */
-    public static String getHexString(long value) {
-        String s = Long.toHexString(value).toUpperCase();
-        if (s.length() == 1)
-            return s;
-        else {
-            boolean mark = true;
-            for (int i = 0; i < s.length(); i++)
-                if (s.charAt(i) > '9') {
-                    mark = false;
-                    break;
-                }
-            if (mark)
-                return "0x" + s;
-            else
-                return s;
-        }
     }
 
     /**
@@ -336,6 +318,11 @@ public class ObservableValue extends Observable implements PinDescription {
     @Override
     public String getPinNumber() {
         return pinNumber;
+    }
+
+    @Override
+    public boolean isClock() {
+        return false;  // output pins are never clock pins
     }
 
     /**

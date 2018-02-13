@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>halfAdder.dig</elementName>
+      <elementAttributes/>
+      <pos x="360" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>halfAdder.dig</elementName>
+      <elementAttributes/>
+      <pos x="460" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Ci</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Co</string>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes/>
+      <pos x="560" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>S</string>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString> A  B  Ci    Co  S
+ 0  0  0     0   0
+ 0  0  1     0   1
+ 0  1  0     0   1
+ 0  1  1     1   0
+ 1  0  0     0   1
+ 1  0  1     1   0
+ 1  1  0     1   0
+ 1  1  1     1   1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="240"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="320" y="160"/>
+      <p2 x="340" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="160"/>
+      <p2 x="640" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="180"/>
+      <p2 x="440" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="180"/>
+      <p2 x="560" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="180"/>
+      <p2 x="360" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="100"/>
+      <p2 x="460" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="100"/>
+      <p2 x="640" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="120"/>
+      <p2 x="460" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="120"/>
+      <p2 x="540" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="200"/>
+      <p2 x="540" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="200"/>
+      <p2 x="360" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="220"/>
+      <p2 x="340" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="140"/>
+      <p2 x="560" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="340" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="200"/>
+      <p2 x="340" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="120"/>
+      <p2 x="440" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="120"/>
+      <p2 x="540" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="180"/>
+      <p2 x="540" y="200"/>
+    </wire>
+  </wires>
+</circuit>

@@ -8,7 +8,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>x_2</string>
+          <string>$x_2$</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -16,7 +16,6 @@
         </entry>
       </elementAttributes>
       <pos x="520" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -27,43 +26,38 @@
         </entry>
       </elementAttributes>
       <pos x="860" y="480"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="620" y="420"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="760" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="620" y="500"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>x_0</string>
+          <string>$x_0$</string>
         </entry>
       </elementAttributes>
       <pos x="520" y="480"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>x_1</string>
+          <string>$x_1$</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -71,13 +65,11 @@
         </entry>
       </elementAttributes>
       <pos x="520" y="540"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
       <pos x="560" y="460"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
@@ -92,7 +84,6 @@
         </entry>
       </elementAttributes>
       <pos x="420" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
   </visualElements>
   <wires>

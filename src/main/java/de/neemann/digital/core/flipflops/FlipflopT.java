@@ -26,9 +26,9 @@ public class FlipflopT extends FlipflopBit {
         @Override
         public PinDescriptions getInputDescription(ElementAttributes elementAttributes) throws NodeException {
             if (elementAttributes.get(Keys.WITH_ENABLE))
-                return new PinDescriptions(input("T"), input("C")).setLangKey(getPinLangKey());
+                return new PinDescriptions(input("T"), input("C").setClock()).setLangKey(getPinLangKey());
             else
-                return new PinDescriptions(input("C")).setLangKey(getPinLangKey());
+                return new PinDescriptions(input("C").setClock()).setLangKey(getPinLangKey());
         }
     }
             .addAttribute(Keys.ROTATE)

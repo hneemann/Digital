@@ -21,7 +21,7 @@ public class FlipflopJK extends FlipflopBit {
      * The JK-FF description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription("JK_FF", FlipflopJK.class, input("J"), input("C"), input("K"))
+            = new ElementTypeDescription("JK_FF", FlipflopJK.class, input("J"), input("C").setClock(), input("K"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)

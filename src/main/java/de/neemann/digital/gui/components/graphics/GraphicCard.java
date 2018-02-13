@@ -33,7 +33,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
             = new ElementTypeDescription(GraphicCard.class,
             input("A"),
             input("str"),
-            input("C"),
+            input("C").setClock(),
             input("ld"),
             input("B"))
             .addAttribute(Keys.ROTATE)
@@ -155,7 +155,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         if (paintPending.compareAndSet(false, true)) {
             SwingUtilities.invokeLater(() -> {
                 if (graphicDialog == null || !graphicDialog.isVisible()) {
-                    graphicDialog = new GraphicDialog(width, height);
+                    graphicDialog = new GraphicDialog(getModel().getWindowPosManager().getMainFrame(), width, height);
                     getModel().getWindowPosManager().register("GraphicCard_" + label, graphicDialog);
                 }
                 paintPending.set(false);

@@ -109,7 +109,9 @@
     <string name="elem_LookUpTable_pin_out">Returns the stored value at the address set via the inputs.</string>
     <string name="elem_Delay">Delay</string>
     <string name="elem_Delay_tt">Delays the signal by on propagation delay time.
-        In Digital all gates have the same propagation delay.
+        Delays a signal for an adjustable number of gate delays.
+        All other components in Digital have a gate delay of on propagation delay time.
+        This component can be used to realize any necessary propagation delay.
     </string>
     <string name="elem_Delay_pin_in">Input of the signal to be delayed.</string>
     <string name="elem_Delay_pin_out">The input signal delayed by one gate delay time.</string>
@@ -349,7 +351,9 @@
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">A component used to store a value.
-        The value on pin D is stored on a rising edge of the clock pin C.</string>
+        The value on pin D is stored on a rising edge of the clock pin C.
+        The bit width can be selected, which allows to store multiple bits.
+    </string>
     <string name="elem_D_FF_pin_D">Input of the bit to be stored.</string>
     <string name="elem_D_FF_pin_C">Clock pin to store a value.
         The value on input D is stored on a rising edge of this pin.</string>
@@ -380,6 +384,7 @@
     <string name="elem_D_FF_AS_tt">A component used to store a value.
         The value on pin D is stored on a rising edge of the clock pin C.
         There are two additional inputs which set or reset the state immediately without a clock signal.
+        The bit width can be selected, which allows to store multiple bits.
     </string>
     <string name="elem_D_FF_AS_pin_D">Input of the bit to be stored.</string>
     <string name="elem_D_FF_AS_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
@@ -393,7 +398,8 @@
 
     <string name="elem_Register">Register</string>
     <string name="elem_Register_short">Reg</string>
-    <string name="elem_Register_tt">A component to store values. The length of the data word can be selected in the attributes dialog.</string>
+    <string name="elem_Register_tt">A component to store values. The bit width of the data word can be selected.
+        Unlike a D flip-flop, the register provides an input which enables the clock.</string>
     <string name="elem_Register_pin_D">Input pin of the data word to be stored.</string>
     <string name="elem_Register_pin_C">Clock input. A rising edge stores the value at the D pin.</string>
     <string name="elem_Register_pin_en">Enable pin. Storing a value works only if this pin is set high.</string>
@@ -469,6 +475,20 @@
     <string name="elem_RAMDualAccess_pin_1D_in">The data to be stored in the RAM.</string>
     <string name="elem_RAMDualAccess_pin_ld">If this input is high the output is activated and the data is visible at the output 1D.</string>
     <string name="elem_RAMDualAccess_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
+
+    <string name="elem_RegisterFile">Register File</string>
+    <string name="elem_RegisterFile_short">Register</string>
+    <string name="elem_RegisterFile_tt">Memory with one port that allows to write and two ports that allow to read from
+        the memory simultaneously. Can be used to implement processor registers.
+        Two registers can be read simultaneously and a third can be written.</string>
+    <string name="elem_RegisterFile_pin_Da">Output Port a</string>
+    <string name="elem_RegisterFile_pin_Db">Output Port b</string>
+    <string name="elem_RegisterFile_pin_Ra">The register which is visible at port a.</string>
+    <string name="elem_RegisterFile_pin_Rb">The register which is visible at port b.</string>
+    <string name="elem_RegisterFile_pin_Rw">The register into which the data is written.</string>
+    <string name="elem_RegisterFile_pin_we">If this input is high and when the clock becomes high, the the data is stored.</string>
+    <string name="elem_RegisterFile_pin_C">Clock</string>
+    <string name="elem_RegisterFile_pin_Din">The data to be stored in the register Rw.</string>
 
     <string name="elem_Counter">Counter</string>
     <string name="elem_Counter_short">count</string>
@@ -639,9 +659,10 @@
     <string name="elem_PowerSupply_pin_VDD">Must be connected to VDD!</string>
     <string name="elem_PowerSupply_pin_GND">Must be connected to GND!</string>
     <string name="elem_Reset">Reset</string>
-    <string name="elem_Reset_pin_Reset">Reset Output. Is zero until the circuit has stabilized after power up.</string>
-    <string name="elem_Reset_tt">The output of this component is held low during the initialisation of the circuit.
-        After the circuit has stabilized the output goes to high.</string>
+    <string name="elem_Reset_pin_Reset">Reset Output.</string>
+    <string name="elem_Reset_tt">The output of this component is held high during the initialisation of the circuit.
+        After the circuit has stabilized the output goes to low.
+        If the output is inverted it behaves the opposite way.</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
     <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
@@ -709,7 +730,7 @@ To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_splitterNotUnambiguously">Input bits are defined several times!</string>
     <string name="err_spitterToManyBits">Only 64 bits allowed in splitter!</string>
     <string name="err_tableBecomesToSmall">Two inputs are required!</string>
-    <string name="err_toManyInputs_max_N0_is_N1">To many inputs, allowed are {0} but {1} are found.</string>
+    <string name="err_toManyInputs_max_N0_is_N1">To many variables (inputs+flip-flops), allowed are {0} but {1} are found.</string>
     <string name="err_toManyInputsIn_N0_max_N1_is_N2">To many variables used in {0},
 allowed are {1} variables but {2} are found.</string>
     <string name="err_varNotAllowedInCUPL_N">Variable {0} is not allowed in CUPL source!</string>
@@ -779,8 +800,16 @@ The names of the variables may not be unique.</string>
     <string name="err_mainClass_N_NotFound">Could not find the class {0}!</string>
     <string name="err_couldNotInitializeMainClass_N">Could not create an instance of the class {0}!</string>
     <string name="err_notMoreOutBitsThanInBits">There must be more input bits than output bits!</string>
-    <string name="err_constantsNotAllowed">Constant values are not allowed!</string>
+    <string name="err_constantsNotAllowed">It is not possible to set physical pins to constant values!</string>
     <string name="err_invalidNumberFormat_N_N">The string {0} is not a valid number (pos {1})!</string>
+    <string name="err_invalidPinName_N">The name &quot;{0}&quot; is not allowed!</string>
+    <string name="err_whiteSpaceNotAllowedInTT2Name">No white space is allowed in the name of the TT2 file!</string>
+    <string name="err_tableHasToManyResultColumns">The table has too many columns!</string>
+    <string name="err_errorExportingZip">Error writing the zip file.</string>
+    <string name="err_moreThanOneFastClock">Only one clock component with high frequency is allowed.</string>
+    <string name="err_circuitHasCycles">The circuit contains cycles. It's not possible to analyze such a circuit.
+        Cycles arise if an output of a gate is fed back to one of the inputs of the same gate.
+        The use of switches, FETs or relays also causes cycles.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -886,7 +915,8 @@ The names of the variables may not be unique.</string>
     <string name="key_termWidth">Characters per line</string><!-- Terminal -->
     <string name="key_termWidth_tt">The number of characters shown in a single line.</string>
     <string name="key_valueIsProbe">Use as measurement value</string><!-- RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register -->
-    <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.</string>
+    <string name="key_valueIsProbe_tt">Is set the value is a measurement value and appears in the graph and data table.
+        In addition, a label must be specified that can serve as identification of the value.</string>
     <string name="key_Testdata">Test data</string><!-- Testcase -->
     <string name="key_Testdata_tt">The description of the test case.
         Details of the syntax can be found in the help dialog of the test data editor.</string>
@@ -926,7 +956,8 @@ The names of the variables may not be unique.</string>
         To assign the pins correctly, the pin numbers must be set on all inputs and outputs.</string>
     <string name="key_pinNumber">Pin number</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Number of this pin. Used for the representation of a circuit as a DIL package and
-        the pin assignment when programming a CPLD.</string>
+        the pin assignment when programming a CPLD.
+        If there are several bits, all pin numbers can be specified as a comma-separated list.</string>
     <string name="key_pinCount">Number of DIL pins</string>
     <string name="key_pinCount_tt">Number of pins. A zero means that the number od pins is determined automatically.</string>
     <string name="key_defTreeSelect">Component tree view is visible at startup.</string>
@@ -963,6 +994,11 @@ The names of the variables may not be unique.</string>
     <string name="key_outputBits_tt">The number of output bits must be greater than the number of input bits.</string>
     <string name="key_textFontSize">Font Size</string>
     <string name="key_textFontSize_tt">Sets the font size to use for this text.</string>
+    <string name="key_delayTime">Duration</string>
+    <string name="key_delayTime_tt">Delay time in units of the common gate propagation delay.</string>
+    <string name="key_invertOutput">inverted output</string>
+    <string name="key_invertOutput_tt">If selected the output is inverted.</string>
+
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -1034,6 +1070,7 @@ The names of the variables may not be unique.</string>
     <string name="menu_newSub_tt">Opens a new window to create a new embedded circuit, which than can be used in this circuit.</string>
     <string name="menu_open">Open</string>
     <string name="menu_openRecent">Open Recent</string>
+    <string name="menu_openRecentNewWindow">Open Recent in New Window</string>
     <string name="menu_openWin">Open in New Window</string>
     <string name="menu_openWin_tt">Opens a circuit in a new window</string>
     <string name="menu_orderInputs">Order Inputs</string>
@@ -1061,9 +1098,7 @@ The names of the variables may not be unique.</string>
     <string name="menu_synthesise_tt">Generates the minimal bool expressions described by a truth table.</string>
     <string name="menu_table_N_variables">{0} variables</string>
     <string name="menu_table_create">Create</string>
-    <string name="menu_table_createCUPL">CUPL source</string>
     <string name="menu_table_createCUPL_tt">Creates a CUPL source file containing the define circuit.</string>
-    <string name="menu_table_createTT2">TT2 / JED</string>
     <string name="menu_table_createTT2_tt">Creates a file containing the circuit similar to the Berkeley Logic Interchange Format (BLIF).
         After that the Atmel fitter is started to create the JEDEC file. </string>
     <string name="menu_table_createCircuit">Circuit</string>
@@ -1081,7 +1116,6 @@ The names of the variables may not be unique.</string>
     <string name="menu_table_createTwo">Circuit with two input gates</string>
     <string name="menu_table_createTwo_tt">create circuit, use only gates with two inputs</string>
     <string name="menu_table_create_hardware">Device</string>
-    <string name="menu_table_create_jedec">JEDEC (*.jed)</string>
     <string name="menu_table_create_jedec_tt">Creates a JEDEC file for the device</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
     <string name="menu_table_exportHex">Export HEX</string>
@@ -1131,8 +1165,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_probe_memory_tt">Shows the content of memory components.</string>
     <string name="menu_treeSelect">Component Tree View</string>
     <string name="menu_treeSelect_tt">Shows a tree view of available components at the left side.</string>
-    <string name="menu_karnaughMap">KV-Map</string>
-    <string name="menu_karnaughMap_tt">Shows a KV map representation of the Table!</string>
+    <string name="menu_karnaughMap">K-Map</string>
+    <string name="menu_karnaughMap_tt">Shows a K-map representation of the Table!</string>
 
     <string name="menu_special">Special 74xx Funtions</string>
     <string name="menu_addPrefix">Add IO-Prefix</string>
@@ -1167,6 +1201,11 @@ The names of the variables may not be unique.</string>
     <string name="menu_showDataGraph_tt">Shows a graph with the measured values in a separate window.</string>
     <string name="menu_showDataTable">Show measurement value table</string>
     <string name="menu_showDataTable_tt">Show table with the measured values in a separate window.</string>
+    <string name="menu_exportZIP">Export tos ZIP file</string>
+    <string name="menu_exportZIP_tt">Exports the circuit as a ZIP file.
+        The ZIP file thus contains all the files that are necessary for the operation of the circuit.</string>
+    <string name="menu_labelPins">Label Inputs and Outputs</string>
+    <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
 
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
@@ -1242,12 +1281,18 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="msg_signal_N">Signal {0}</string>
     <string name="msg_invalidSignalsAnalysed">To perform an analysis of the circuit, all inputs and outputs
         must be uniquely named!</string>
-    <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!</string>
+    <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!
+        Free pins are automatically assigned. The circuit can therefore not be used on real hardware in most cases!</string>
     <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>
     <string name="msg_noKVMapAvailable">No KV map available!</string>
     <string name="msg_dataNotUpdatedAnymore">Data will not be updated anymore!</string>
     <string name="msg_modifyThisAttribute">Modify this Value</string>
     <string name="msg_invalidEditorValue">On of the fields contains a invalid value!</string>
+    <string name="msg_create CHNFile">Creation of CHN file.</string>
+    <string name="msg_tableHasManyRowsConfirm">The table is very large, the export may take a while.
+Start export anyway?</string>
+    <string name="msg_circuitIsRequired">To create a hardware description, a circuit must first be created and analyzed.
+        A standalone truth table can not be used to generate a hardware description.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
@@ -1271,7 +1316,7 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
     <string name="win_testdata_N">Testdata {0}</string>
     <string name="win_data">Data</string>
     <string name="win_valueInputTitle_N">Input {0}</string>
-    <string name="win_karnaughMap">Karnaugh-Veitch Map</string>
+    <string name="win_karnaughMap">Karnaugh Map</string>
 
     <string name="btn_help">Help</string>
 

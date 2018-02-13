@@ -77,7 +77,7 @@ abstract class FlipflopBit extends Node implements Element {
     public void registerNodes(Model model) {
         super.registerNodes(model);
         if (isProbe)
-            model.addSignal(new Signal(label, q, v -> {
+            model.addSignal(new Signal(label, q, (v, z) -> {
                 out = v != 0;
                 q.setBool(out);
                 qn.setBool(!out);

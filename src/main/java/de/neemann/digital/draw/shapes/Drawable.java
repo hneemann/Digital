@@ -11,6 +11,8 @@ import de.neemann.digital.draw.graphics.Style;
 public interface Drawable {
     /**
      * Draws an element depending on its state.
+     * If implementing a shape, it is not allowed to access the model! Override the
+     * {@link ObservableValueReader#readObservableValues()} method to access the model!
      *
      * @param graphic   interface to draw to
      * @param highLight null means no highlighting at all. If highlight is not null, highlight is active.

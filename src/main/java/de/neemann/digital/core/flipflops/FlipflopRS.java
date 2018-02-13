@@ -21,7 +21,7 @@ public class FlipflopRS extends FlipflopBit {
      * The RS-FF description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("S"), input("C"), input("R"))
+            = new ElementTypeDescription("RS_FF", FlipflopRS.class, input("S"), input("C").setClock(), input("R"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)

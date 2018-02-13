@@ -1,40 +1,17 @@
 Distribution Checklist
 
-Checklist to be filled out before software is distributed.
+Checklist to be filled out before software is released.
 This is to ensure that at least the most important GUI functions
 work properly.
 
 Preparation
+[ ] Are the "fist steps" chapters in the documentation incl. screenshots up to date?
+[ ] Is the screenshot used on the first page of the documentation up to date?
 [ ] Don't use the 'experimental mode'!
 [ ] Remove jar library from settings.
-
-General
-[ ] execute gui error handling tests in "src/test/resources/dig/manualError"
-[ ] build a MS-JK-FF with diagonal wires, use Copy&Paste and 'L' shortcuts
-[ ] save circuit
-[ ] copy test case from the example (JK-MS.dig) to the created circuit
-[ ] run tests
-[ ] show test result in the timing diagram
-[ ] undo and redo complete build
-
-74xx
-[ ] number the pins
-[ ] remove all pin numbers
-[ ] adding and removing prefixes
-[ ] build a xor with two 7400
-[ ] analyse the circuit
-
-Analysis
-[ ] create circuit from the default expression
-[ ] analyse circuit, result should to be "Y=B*C"
-
-Truth Tables
-[ ] create truth table of "two out of three" function, show KV map
-[ ] create truth table of "4 input parity" function, show KV map
-[ ] create 4 bit counter, build circuit with JK-FFs, check if it's running
-[ ] build same circuit with D-FFs, check if it's running
-[ ] create 8 bit counter and start "ATF1502->TT2/JED" export.
-    Info "Design fits successfully" should pop up. (Needs WinCupl to be installed!)
+[ ] Make sure ghdl is installed.
+[ ] Make sure WinCupl ATF15xx fitters are configured properly.
+[ ] Run the GUI tests! (digital/src/test/java/de/neemann/digital/integration/TestInGUI.java)
 
 Remote Interface
 [ ] start and stop "Conways Game of Live" (Conway.asm) via the assembler GUI in the
@@ -48,4 +25,4 @@ Custom Jar Components
     An error message should be shown.
 [ ] Create the jar and select it in the settings.
     Now load the example circuit. It should work.
-[ ] Update the plugin example after distribution
+[ ] Update the plugin example after release.

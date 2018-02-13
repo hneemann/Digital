@@ -16,20 +16,20 @@ public class LedMatrixDialog extends JDialog {
     /**
      * Create a new instance
      *
+     * @param parent     the parent frame
      * @param dy         height of matrix
      * @param data       data
      * @param color      the LEDs color
      * @param ledPersist if true the LEDs light up indefinite
      */
-    public LedMatrixDialog(int dy, long[] data, Color color, boolean ledPersist) {
-        super((JFrame) null, Lang.get("elem_LedMatrix"), false);
+    public LedMatrixDialog(JFrame parent, int dy, long[] data, Color color, boolean ledPersist) {
+        super(parent, Lang.get("elem_LedMatrix"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         ledMatrixComponent = new LedMatrixComponent(dy, data, color, ledPersist);
         getContentPane().add(ledMatrixComponent);
         pack();
 
-        setAlwaysOnTop(true);
         setLocationRelativeTo(null);
         setVisible(true);
     }

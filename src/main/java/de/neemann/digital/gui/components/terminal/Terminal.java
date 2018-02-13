@@ -24,7 +24,7 @@ public class Terminal extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Terminal.class,
             input("D"),
-            input("C"))
+            input("C").setClock())
             .addAttribute(Keys.TERM_WIDTH)
             .addAttribute(Keys.TERM_HEIGHT)
             .addAttribute(Keys.ROTATE)
@@ -66,7 +66,7 @@ public class Terminal extends Node implements Element {
             if (value != 0)
                 SwingUtilities.invokeLater(() -> {
                     if (terminalDialog == null || !terminalDialog.isVisible()) {
-                        terminalDialog = new TerminalDialog(attr);
+                        terminalDialog = new TerminalDialog(getModel().getWindowPosManager().getMainFrame(), attr);
                         getModel().getWindowPosManager().register("terminal_" + label, terminalDialog);
                     }
                     terminalDialog.addChar((char) value);

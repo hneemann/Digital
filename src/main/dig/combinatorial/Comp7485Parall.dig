@@ -427,7 +427,17 @@
           <string>Testdata</string>
           <testData>
             <dataString>A_11 A_10 A_9 A_8 A_7 A_6 A_5 A_4 A_3 A_2 A_1 A_0   B_11 B_10 B_9 B_8 B_7 B_6 B_5 B_4 B_3 B_2 B_1 B_0  P&lt;Q P=Q P&gt;Q
-repeat(1&lt;&lt;20) bits(12,n&gt;&gt;10) bits(12,n&amp;0x3ff) ((n&gt;&gt;10)&lt;(n&amp;0x3ff)) ((n&gt;&gt;10)=(n&amp;0x3ff)) ((n&gt;&gt;10)&gt;(n&amp;0x3ff))</dataString>
+
+loop(i,7)
+  loop(A,1&lt;&lt;6)
+    loop(B,1&lt;&lt;6)
+
+bits(12,A&lt;&lt;i) bits(12,B&lt;&lt;i) (A&lt;B) (A=B) (A&gt;B)
+
+    end loop
+  end loop
+end loop
+</dataString>
           </testData>
         </entry>
       </elementAttributes>

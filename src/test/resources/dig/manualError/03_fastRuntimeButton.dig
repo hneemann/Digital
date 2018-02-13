@@ -80,7 +80,16 @@ the error.</string>
     </visualElement>
     <visualElement>
       <elementName>Button</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>mapToKey</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+      </elementAttributes>
       <pos x="220" y="140"/>
     </visualElement>
   </visualElements>

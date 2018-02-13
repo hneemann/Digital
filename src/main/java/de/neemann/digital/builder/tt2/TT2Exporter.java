@@ -91,11 +91,11 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     }
 
     private void createProductTerms() throws FuseMapFillerException {
-
         inputs = builder.getInputs();
         varIndexMap = new HashMap<>();
         int i = 0;
         for (String name : inputs) {
+            checkName(name);
             varIndexMap.put(name, i);
             i++;
         }
@@ -121,6 +121,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         outIndexMap = new HashMap<>();
         i = 0;
         for (String name : builder.getOutputs()) {
+            checkName(name);
             if (builder.getRegistered().containsKey(name)) {
                 outIndexMap.put(name + ".REG", i++);
                 outputs.add(name + ".REG");
@@ -146,12 +147,30 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             termMap.put(new ProdInput(inputs.size()), new StateSet(outputs.size()));
         }
 
-
         for (Map.Entry<String, Expression> e : builder.getCombinatorial().entrySet())
             addExpression(e.getKey(), e.getValue());
 
         for (Map.Entry<String, Expression> e : builder.getRegistered().entrySet())
             addExpression(e.getKey() + ".REG", e.getValue());
+    }
+
+    static void checkName(String name) throws FuseMapFillerException {
+        if (name.length() == 0)
+            throw new FuseMapFillerException(Lang.get("err_invalidPinName_N", name));
+
+        char first = name.charAt(0);
+        if (first >= '0' && first <= '9')
+            throw new FuseMapFillerException(Lang.get("err_invalidPinName_N", name));
+
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            if (!(c >= '0' && c <= '9'
+                    || (c >= 'a' && c <= 'z')
+                    || (c >= 'A' && c <= 'Z')
+                    || (c == '_'))) {
+                throw new FuseMapFillerException(Lang.get("err_invalidPinName_N", name));
+            }
+        }
     }
 
     private void addExpression(String name, Expression expression) throws FuseMapFillerException {

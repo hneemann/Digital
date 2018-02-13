@@ -129,12 +129,8 @@ spezielles Bit in jedem Befehlswort zur Verfügung.</string>
       <pos x="240" y="220"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Takt</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>

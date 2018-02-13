@@ -9,7 +9,8 @@ import java.io.File;
 import java.util.Arrays;
 
 /**
- * This observer is added to all outputs connected together
+ * This observer represents the common output value of several outputs connected together.
+ * Handles also the switches.
  */
 public final class CommonBusValue extends ObservableValue implements NodeInterface {
     private final BusModelStateObserver obs;

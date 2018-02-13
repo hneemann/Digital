@@ -97,12 +97,8 @@ alle Flags für eine bedingte Verzweigung.</string>
       <pos x="440" y="-80"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>der Takteingang</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>C</string>
@@ -111,29 +107,15 @@ alle Flags für eine bedingte Verzweigung.</string>
       <pos x="240" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Der Eingang welcher das Speichern aktiviert. Es wird auf Eins gesetzt, wenn eine arithmetische Operation ausgeführt wird.</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>store</string>
-        </entry>
-      </elementAttributes>
-      <pos x="240" y="220"/>
-    </visualElement>
-    <visualElement>
       <elementName>Register</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>Carry</string>
-        </entry>
-        <entry>
           <string>valueIsProbe</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Carry</string>
         </entry>
       </elementAttributes>
       <pos x="320" y="-100"/>
@@ -165,6 +147,20 @@ alle Flags für eine bedingte Verzweigung.</string>
         </entry>
       </elementAttributes>
       <pos x="320" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Der Eingang welcher das Speichern aktiviert. Es wird auf Eins gesetzt, wenn eine arithmetische Operation ausgeführt wird.</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>store</string>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="220"/>
     </visualElement>
   </visualElements>
   <wires>
