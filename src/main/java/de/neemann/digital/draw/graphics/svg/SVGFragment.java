@@ -1,5 +1,14 @@
 package de.neemann.digital.draw.graphics.svg;
 
+/**
+ * Interface of all representations of SVG-Elements
+ * @author felix
+ */
 public interface SVGFragment {
-	public Drawable[] getDrawables();
+
+    /**
+     * Get Drawable representations of the elements
+     * @return Array of Drawable Objects
+     */
+    Drawable[] getDrawables();
 }
