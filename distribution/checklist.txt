@@ -16,8 +16,8 @@ Preparation
 Remote Interface
 [ ] start and stop "Conways Game of Live" (Conway.asm) via the assembler GUI in the
     processor (Processor.dig).
-[ ] use "run to break" a few times
-[ ] start debugger, step at least through a call instruction
+[ ] start debugger and use "run to break" a few times
+[ ] step at least through a call instruction
 
 Custom Jar Components
 [ ] Copy actual Digital.jar to the plugin example, and start digital from the example
