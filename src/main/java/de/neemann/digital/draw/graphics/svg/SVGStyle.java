@@ -24,7 +24,8 @@ public class SVGStyle {
     public SVGStyle(String styleString) {
         for (String s : styleString.split(";")) {
             String[] tmp = s.split(":");
-            attributes.put(tmp[0], tmp[1]);
+            if (tmp.length > 1)
+                attributes.put(tmp[0], tmp[1]);
         }
         if (attributes.containsKey("fill"))
             setFill(attributes.get("fill"));

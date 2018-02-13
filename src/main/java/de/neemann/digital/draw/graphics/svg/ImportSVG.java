@@ -14,9 +14,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Vector;
 
 /**
  * Main class for the SVG Import
@@ -28,6 +26,7 @@ public class ImportSVG {
     private ArrayList<SVGFragment> fragments = new ArrayList<>();
     private PinDescriptions inputs;
     private PinDescriptions outputs;
+    private Pins pins = new Pins();
 
     /**
      * Imports a given SVG
@@ -101,7 +100,7 @@ public class ImportSVG {
             case "path":
                 return new SVGPath(((Element) n));
             case "circle":
-                return new SVGCircle(((Element) n));
+                return new SVGCircle(((Element) n), pins, inputs, outputs);
             case "ellipse":
                 return new SVGEllipse(((Element) n));
             case "rect":
@@ -132,9 +131,6 @@ public class ImportSVG {
      * @return Pins
      */
     public Pins getPins() {
-        Pins pins = new Pins();
-        pins.add(new Pin(new Vector(0, 0), inputs.get(0)));
-        pins.add(new Pin(new Vector(100, 0), outputs.get(0)));
         return pins;
     }
 }
