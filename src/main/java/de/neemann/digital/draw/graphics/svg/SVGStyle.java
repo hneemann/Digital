@@ -40,7 +40,7 @@ public class SVGStyle {
      * @param string
      *            line thickness
      */
-    private void setThickness(String string) {
+    public void setThickness(String string) {
         try {
             thickness = Integer.parseInt(string);
         } catch (Exception e) {

@@ -21,6 +21,7 @@ public class SVGCircle implements SVGFragment {
     private boolean pin;
     private PinDescriptions inputs;
     private PinDescriptions outputs;
+    private SVGLine pinLine;
 
     /**
      * Creates a SVG Circle from the corresponding XML Element
@@ -44,9 +45,9 @@ public class SVGCircle implements SVGFragment {
             int r = (int) Double.parseDouble(element.getAttribute("r"));
             int cx = (int) Double.parseDouble(element.getAttribute("cx"));
             int cy = (int) Double.parseDouble(element.getAttribute("cy"));
+            style = new SVGStyle(element.getAttribute("style"));
             pin = checkAndInsertPins(element.getAttribute("id"), cx, cy);
             if (!pin) {
-                style = new SVGStyle(element.getAttribute("style"));
                 x = cx - r;
                 y = cy - r;
                 x2 = cx + r;
@@ -100,13 +101,21 @@ public class SVGCircle implements SVGFragment {
      * @return ongrid-Vector
      */
     private Vector applyVectorToGrid(int x, int y) {
-        return new Vector((int) (Math.round(x / 20.0) * 20), (int) (Math.round(y / 20.0) * 20));
+        int nx = (int) (Math.round(x / 20.0) * 20);
+        int ny = (int) (Math.round(y / 20.0) * 20);
+        Vector a = new Vector(x, y);
+        Vector b = new Vector(nx, ny);
+        style.setThickness("1");
+        pinLine = new SVGLine(a, b, style);
+        return b;
     }
 
     @Override
     public SVGDrawable[] getDrawables() {
         if (pin) {
-            return new SVGDrawable[] {};
+            return new SVGDrawable[] {
+                    pinLine
+            };
         }
         return new SVGDrawable[] {
                 new SVGEllipse(x, y, x2, y2, style)
