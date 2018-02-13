@@ -16,7 +16,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.gui.components.graphics.svgimport.CustomVisualElement;
 
 public class ImportSVG {
 
@@ -82,7 +81,8 @@ public class ImportSVG {
 	}
 
 	public VisualElement getElement(VisualElement proto) {
-		VisualElement element = new CustomVisualElement(proto, fragments);
-		return element;
+		//TODO
+		
+		return null;
 	}
 }
