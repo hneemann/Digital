@@ -8,6 +8,9 @@ The most recent changes are listed in the [release notes](distribution/ReleaseNo
 
 ## PLEASE USE THE ORIGINAL VERSION FROM "hneemann" ##
 
+![screnshot3](screenshot3.png)
+Demo of a custom shaped circuit
+
 ![screnshot](screenshot.png)
 
 ![screnshot2](screenshot2.png)
