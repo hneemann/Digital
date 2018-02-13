@@ -76,12 +76,12 @@ public class SVGCircle implements SVGFragment {
         try {
             s = s.toLowerCase();
             if (s.startsWith("input") || s.startsWith("i")) {
-                int index = Integer.parseInt(s.replaceAll("[a-zA-Z]*", ""));
+                int index = Integer.parseInt(s.replaceAll("[^0-9]*", ""));
                 pins.add(new Pin(applyVectorToGrid(x, y), inputs.get(index)));
                 return true;
             }
             if (s.startsWith("output") || s.startsWith("o")) {
-                int index = Integer.parseInt(s.replaceAll("[a-zA-Z]*", ""));
+                int index = Integer.parseInt(s.replaceAll("[^0-9]*", ""));
                 pins.add(new Pin(applyVectorToGrid(x, y), outputs.get(index)));
                 return true;
             }
