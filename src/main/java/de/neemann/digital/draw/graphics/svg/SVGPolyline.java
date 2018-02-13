@@ -13,7 +13,7 @@ import de.neemann.digital.draw.graphics.Vector;
  * Representation of a SVG Polyline
  * @author felix
  */
-public class SVGPolyline implements SVGFragment, Drawable {
+public class SVGPolyline implements SVGFragment, SVGDrawable {
     private ArrayList<Vector> corners;
 
     /**
@@ -30,17 +30,17 @@ public class SVGPolyline implements SVGFragment, Drawable {
     }
 
     @Override
-    public Drawable[] getDrawables() {
-        return new Drawable[] {
+    public SVGDrawable[] getDrawables() {
+        return new SVGDrawable[] {
                 this
         };
     }
 
     @Override
-    public void draw(Graphic graphic, Vector pos) {
-        for (int i = 0; i < corners.size(); i++) {
-            corners.set(i, corners.get(i).add(pos));
-        }
+    public void draw(Graphic graphic) {
+//        for (int i = 0; i < corners.size(); i++) {
+//            corners.set(i, corners.get(i).add(pos));
+//        }
         Polygon p = new Polygon(corners, false);
         graphic.drawPolygon(p, Style.NORMAL);
     }

@@ -9,7 +9,7 @@ import de.neemann.digital.draw.graphics.Vector;
  * Representation of the SVG-Ellipse
  * @author felix
  */
-public class SVGEllipse implements SVGFragment, Drawable {
+public class SVGEllipse implements SVGFragment, SVGDrawable {
 
     private Vector oben;
     private Vector unten;
@@ -44,15 +44,15 @@ public class SVGEllipse implements SVGFragment, Drawable {
     }
 
     @Override
-    public Drawable[] getDrawables() {
+    public SVGDrawable[] getDrawables() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void draw(Graphic graphic, Vector pos) {
-        oben = oben.add(pos);
-        unten = unten.add(pos);
+    public void draw(Graphic graphic) {
+//        oben = oben.add(pos);
+//        unten = unten.add(pos);
         if (style.getShallFilled()) {
             graphic.drawCircle(oben, unten, style.getInnerStyle());
         }

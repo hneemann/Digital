@@ -34,14 +34,15 @@ import java.net.URISyntaxException;
 import java.util.*;
 
 /**
- * The ElementLibrary is responsible for storing all the components which can be used in a circuit.
- * Also the import of nested circuits is handled in this class.
- * This import works in two steps: At first all the files in the same directory as the root circuit are loaded.
- * The file names are shown in the components menu. From there you can pick a file to insert it to the circuit.
- * When a file is selected it is loaded to the library. After that also an icon is available.
- * This is done because the loading of a circuit and the creation of an icon is very time consuming and should
- * be avoided if not necessary. It's a kind of lazy loading.
- *
+ * The ElementLibrary is responsible for storing all the components which can be
+ * used in a circuit. Also the import of nested circuits is handled in this
+ * class. This import works in two steps: At first all the files in the same
+ * directory as the root circuit are loaded. The file names are shown in the
+ * components menu. From there you can pick a file to insert it to the circuit.
+ * When a file is selected it is loaded to the library. After that also an icon
+ * is available. This is done because the loading of a circuit and the creation
+ * of an icon is very time consuming and should be avoided if not necessary.
+ * It's a kind of lazy loading.
  * @author hneemann
  */
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
@@ -53,7 +54,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     public static File getLibPath() {
         String path;
         try {
-            path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replace('\\', '/');
+            path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
+                    .replace('\\', '/');
         } catch (URISyntaxException e) {
             return new File("noLibFound");
         }
@@ -86,100 +88,44 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Creates a new instance.
-     *
-     * @param jarFile the jar file to load
+     * @param jarFile
+     *            the jar file to load
      */
     public ElementLibrary(File jarFile) {
-        root = new LibraryNode(Lang.get("menu_elements"))
-                .setLibrary(this)
-                .add(new LibraryNode(Lang.get("lib_Logic"))
-                        .add(And.DESCRIPTION)
-                        .add(NAnd.DESCRIPTION)
-                        .add(Or.DESCRIPTION)
-                        .add(NOr.DESCRIPTION)
-                        .add(XOr.DESCRIPTION)
-                        .add(XNOr.DESCRIPTION)
-                        .add(Not.DESCRIPTION)
-                        .add(LookUpTable.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_io"))
-                        .add(Out.DESCRIPTION)
-                        .add(Out.LEDDESCRIPTION)
-                        .add(In.DESCRIPTION)
-                        .add(Clock.DESCRIPTION)
-                        .add(Button.DESCRIPTION)
-                        .add(DummyElement.TEXTDESCRIPTION)
-                        .add(Probe.DESCRIPTION)
-                        .add(new LibraryNode(Lang.get("lib_more"))
-                                .add(LightBulb.DESCRIPTION)
-                                .add(Out.SEVENDESCRIPTION)
-                                .add(Out.SEVENHEXDESCRIPTION)
-                                .add(LedMatrix.DESCRIPTION)
-                                .add(DummyElement.DATADESCRIPTION)
-                                .add(RotEncoder.DESCRIPTION)
-                                .add(Keyboard.DESCRIPTION)
+        root = new LibraryNode(Lang.get("menu_elements")).setLibrary(this)
+                .add(new LibraryNode(Lang.get("lib_Logic")).add(And.DESCRIPTION).add(NAnd.DESCRIPTION)
+                        .add(Or.DESCRIPTION).add(NOr.DESCRIPTION).add(XOr.DESCRIPTION).add(XNOr.DESCRIPTION)
+                        .add(Not.DESCRIPTION).add(LookUpTable.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_io")).add(Out.DESCRIPTION).add(Out.LEDDESCRIPTION)
+                        .add(In.DESCRIPTION).add(Clock.DESCRIPTION).add(Button.DESCRIPTION)
+                        .add(DummyElement.TEXTDESCRIPTION).add(Probe.DESCRIPTION)
+                        .add(new LibraryNode(Lang.get("lib_more")).add(LightBulb.DESCRIPTION).add(Out.SEVENDESCRIPTION)
+                                .add(Out.SEVENHEXDESCRIPTION).add(LedMatrix.DESCRIPTION)
+                                .add(DummyElement.DATADESCRIPTION).add(RotEncoder.DESCRIPTION).add(Keyboard.DESCRIPTION)
                                 .add(Terminal.DESCRIPTION)))
-                .add(new LibraryNode(Lang.get("lib_wires"))
-                        .add(Ground.DESCRIPTION)
-                        .add(VDD.DESCRIPTION)
-                        .add(Const.DESCRIPTION)
-                        .add(Tunnel.DESCRIPTION)
-                        .add(Splitter.DESCRIPTION)
-                        .add(Driver.DESCRIPTION)
-                        .add(DriverInvSel.DESCRIPTION)
-                        .add(Delay.DESCRIPTION)
-                        .add(PullUp.DESCRIPTION)
-                        .add(PullDown.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_mux"))
-                        .add(Multiplexer.DESCRIPTION)
-                        .add(Demultiplexer.DESCRIPTION)
-                        .add(Decoder.DESCRIPTION)
-                        .add(BitSelector.DESCRIPTION)
-                        .add(PriorityEncoder.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_flipFlops"))
-                        .add(FlipflopRSAsync.DESCRIPTION)
-                        .add(FlipflopRS.DESCRIPTION)
-                        .add(FlipflopJK.DESCRIPTION)
-                        .add(FlipflopD.DESCRIPTION)
-                        .add(FlipflopT.DESCRIPTION)
-                        .add(FlipflopJKAsync.DESCRIPTION)
-                        .add(FlipflopDAsync.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_memory"))
-                        .add(Register.DESCRIPTION)
-                        .add(ROM.DESCRIPTION)
-                        .add(RAMDualPort.DESCRIPTION)
-                        .add(RAMSinglePort.DESCRIPTION)
-                        .add(RAMSinglePortSel.DESCRIPTION)
-                        .add(EEPROM.DESCRIPTION)
-                        .add(GraphicCard.DESCRIPTION)
-                        .add(RAMDualAccess.DESCRIPTION)
-                        .add(RegisterFile.DESCRIPTION)
-                        .add(Counter.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_arithmetic"))
-                        .add(Add.DESCRIPTION)
-                        .add(Sub.DESCRIPTION)
-                        .add(Mul.DESCRIPTION)
-                        .add(BarrelShifter.DESCRIPTION)
-                        .add(Comparator.DESCRIPTION)
-                        .add(Neg.DESCRIPTION)
-                        .add(BitExtender.DESCRIPTION)
-                        .add(BitCount.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_wires")).add(Ground.DESCRIPTION).add(VDD.DESCRIPTION)
+                        .add(Const.DESCRIPTION).add(Tunnel.DESCRIPTION).add(Splitter.DESCRIPTION)
+                        .add(Driver.DESCRIPTION).add(DriverInvSel.DESCRIPTION).add(Delay.DESCRIPTION)
+                        .add(PullUp.DESCRIPTION).add(PullDown.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_mux")).add(Multiplexer.DESCRIPTION).add(Demultiplexer.DESCRIPTION)
+                        .add(Decoder.DESCRIPTION).add(BitSelector.DESCRIPTION).add(PriorityEncoder.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_flipFlops")).add(FlipflopRSAsync.DESCRIPTION)
+                        .add(FlipflopRS.DESCRIPTION).add(FlipflopJK.DESCRIPTION).add(FlipflopD.DESCRIPTION)
+                        .add(FlipflopT.DESCRIPTION).add(FlipflopJKAsync.DESCRIPTION).add(FlipflopDAsync.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_memory")).add(Register.DESCRIPTION).add(ROM.DESCRIPTION)
+                        .add(RAMDualPort.DESCRIPTION).add(RAMSinglePort.DESCRIPTION).add(RAMSinglePortSel.DESCRIPTION)
+                        .add(EEPROM.DESCRIPTION).add(GraphicCard.DESCRIPTION).add(RAMDualAccess.DESCRIPTION)
+                        .add(RegisterFile.DESCRIPTION).add(Counter.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_arithmetic")).add(Add.DESCRIPTION).add(Sub.DESCRIPTION)
+                        .add(Mul.DESCRIPTION).add(BarrelShifter.DESCRIPTION).add(Comparator.DESCRIPTION)
+                        .add(Neg.DESCRIPTION).add(BitExtender.DESCRIPTION).add(BitCount.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_switching"))
-                        //.add(Diode.DESCRIPTION) // see class DiodeTest for further information
-                        .add(DiodeForward.DESCRIPTION)
-                        .add(DiodeBackward.DESCRIPTION)
-                        .add(Switch.DESCRIPTION)
-                        .add(Fuse.DESCRIPTION)
-                        .add(Relay.DESCRIPTION)
-                        .add(PFET.DESCRIPTION)
-                        .add(NFET.DESCRIPTION)
-                        .add(FGPFET.DESCRIPTION)
-                        .add(FGNFET.DESCRIPTION)
-                        .add(TransGate.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_misc"))
-                        .add(TestCaseElement.TESTCASEDESCRIPTION)
-                        .add(PowerSupply.DESCRIPTION)
-                        .add(Reset.DESCRIPTION)
-                        .add(Break.DESCRIPTION));
+                        // .add(Diode.DESCRIPTION) // see class DiodeTest for further information
+                        .add(DiodeForward.DESCRIPTION).add(DiodeBackward.DESCRIPTION).add(Switch.DESCRIPTION)
+                        .add(Fuse.DESCRIPTION).add(Relay.DESCRIPTION).add(PFET.DESCRIPTION).add(NFET.DESCRIPTION)
+                        .add(FGPFET.DESCRIPTION).add(FGNFET.DESCRIPTION).add(TransGate.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_misc")).add(TestCaseElement.TESTCASEDESCRIPTION)
+                        .add(PowerSupply.DESCRIPTION).add(Reset.DESCRIPTION).add(Break.DESCRIPTION));
 
         addExternalJarComponents(jarFile);
 
@@ -213,8 +159,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * registers a component source to Digital
-     *
-     * @param source the source
+     * @param source
+     *            the source
      * @return this for chained calls
      */
     public ElementLibrary registerComponentSource(ComponentSource source) {
@@ -268,8 +214,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Returns true if element is programmable
-     *
-     * @param name the name
+     * @param name
+     *            the name
      * @return true if it is programmable
      */
     public boolean isProgrammable(String name) {
@@ -278,8 +224,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Sets the shape factory used to import sub circuits
-     *
-     * @param shapeFactory the shape factory
+     * @param shapeFactory
+     *            the shape factory
      */
     public void setShapeFactory(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
@@ -306,9 +252,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * sets the root library path
-     *
-     * @param rootLibraryPath the path
-     * @throws IOException IOException
+     * @param rootLibraryPath
+     *            the path
+     * @throws IOException
+     *             IOException
      */
     public void setRootFilePath(File rootLibraryPath) throws IOException {
         if (rootLibraryPath == null) {
@@ -331,12 +278,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Checks if the given file is accessible from the actual library.
-     *
-     * @param file the file to check
+     * @param file
+     *            the file to check
      * @return true if given file is importable
      */
     public boolean isFileAccessible(File file) {
-        if (rootLibraryPath == null) return true;
+        if (rootLibraryPath == null)
+            return true;
 
         try {
             String root = rootLibraryPath.getCanonicalPath();
@@ -349,8 +297,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Returns the node or null if node not present.
-     *
-     * @param elementName the name
+     * @param elementName
+     *            the name
      * @return the node or null
      */
     public LibraryNode getElementNodeOrNull(String elementName) {
@@ -358,12 +306,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     /**
-     * Returns a {@link ElementTypeDescription} by a given name.
-     * If not found its tried to load it.
-     *
-     * @param elementName the elements name
+     * Returns a {@link ElementTypeDescription} by a given name. If not found its
+     * tried to load it.
+     * @param elementName
+     *            the elements name
      * @return the {@link ElementTypeDescription}
-     * @throws ElementNotFoundException ElementNotFoundException
+     * @throws ElementNotFoundException
+     *             ElementNotFoundException
      */
     public ElementTypeDescription getElementType(String elementName) throws ElementNotFoundException {
         try {
@@ -408,8 +357,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Fires a library event
-     *
-     * @param node the node changed
+     * @param node
+     *            the node changed
      */
     void fireLibraryChanged(LibraryNode node) {
         for (LibraryListener l : listeners)
@@ -418,24 +367,25 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Adds a listener to this library
-     *
-     * @param listener the listener to add
+     * @param listener
+     *            the listener to add
      */
     public void addListener(LibraryListener listener) {
         listeners.add(listener);
-        LOGGER.debug("added library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
+        LOGGER.debug(
+                "added library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
     }
 
     /**
      * Removes a listener from this library
-     *
-     * @param listener the listener to remove
+     * @param listener
+     *            the listener to remove
      */
     public void removeListener(LibraryListener listener) {
         listeners.remove(listener);
-        LOGGER.debug("removed library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
+        LOGGER.debug(
+                "removed library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
     }
-
 
     @Override
     public Iterator<ElementContainer> iterator() {
@@ -468,9 +418,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Removes an element from the library to enforce a reload
-     *
-     * @param name the elements name
-     * @throws IOException IOException
+     * @param name
+     *            the elements name
+     * @throws IOException
+     *             IOException
      */
     public void invalidateElement(File name) throws IOException {
         LibraryNode n = map.get(name.getName());
@@ -484,8 +435,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Updates all entries
-     *
-     * @throws IOException IOException
+     * @throws IOException
+     *             IOException
      */
     public void updateEntries() throws IOException {
         rescanFolder();
@@ -500,10 +451,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Imports the given file
-     *
-     * @param file the file to load
+     * @param file
+     *            the file to load
      * @return the description
-     * @throws IOException IOException
+     * @throws IOException
+     *             IOException
      */
     ElementTypeDescription importElement(File file) throws IOException {
         try {
@@ -514,10 +466,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             } catch (IOException e) {
                 throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
-            ElementTypeDescriptionCustom description =
-                    new ElementTypeDescriptionCustom(file,
-                            attributes -> new CustomElement(circuit, ElementLibrary.this),
-                            circuit);
+            ElementTypeDescriptionCustom description = new ElementTypeDescriptionCustom(file,
+                    attributes -> new CustomElement(circuit, ElementLibrary.this), circuit);
             description.setShortName(createShortName(file));
 
             String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
@@ -535,7 +485,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     private String createShortName(String name) {
-        if (name.endsWith(".dig")) return name.substring(0, name.length() - 4);
+        if (name.endsWith(".dig"))
+            return name.substring(0, name.length() - 4);
 
         String transName = Lang.getNull("elem_" + name);
         if (transName == null)
@@ -545,8 +496,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     /**
-     * The description of a nested element.
-     * This is a complete circuit which is used as a element.
+     * The description of a nested element. This is a complete circuit which is used
+     * as a element.
      */
     public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
         private final File file;
@@ -555,13 +506,18 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         /**
          * Creates a new element
-         *
-         * @param file           the file which is loaded
-         * @param elementFactory a element factory which is used to create concrete elements if needed
-         * @param circuit        the circuit
-         * @throws PinException PinException
+         * @param file
+         *            the file which is loaded
+         * @param elementFactory
+         *            a element factory which is used to create concrete elements if
+         *            needed
+         * @param circuit
+         *            the circuit
+         * @throws PinException
+         *             PinException
          */
-        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, Circuit circuit) throws PinException {
+        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, Circuit circuit)
+                throws PinException {
             super(file.getName(), elementFactory, circuit.getInputNames());
             this.file = file;
             this.circuit = circuit;
@@ -571,9 +527,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         }
 
         /**
-         * Returns the filename
-         * The returned file is opened if the user wants to modify the element
-         *
+         * Defines, whether a CustomDescriptions owns a custom Shape
+         * @return isCustomShaped
+         */
+        public boolean isCustomShaped() {
+            return getAttributes().contains(Keys.SVG_SHAPE_PATH);
+        }
+
+        /**
+         * Returns the filename The returned file is opened if the user wants to modify
+         * the element
          * @return the filename
          */
         public File getFile() {
@@ -596,8 +559,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         /**
          * Sets a custom description for this field
-         *
-         * @param description the description
+         * @param description
+         *            the description
          */
         public void setDescription(String description) {
             this.description = description;
@@ -612,7 +575,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         }
     }
 
-
     /**
      * Used to store a elements name and its position in the elements menu.
      */
@@ -622,9 +584,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         /**
          * Creates anew instance
-         *
-         * @param typeDescription the elements typeDescription
-         * @param treePath        the elements menu path
+         * @param typeDescription
+         *            the elements typeDescription
+         * @param treePath
+         *            the elements menu path
          */
         ElementContainer(ElementTypeDescription typeDescription, String treePath) {
             this.name = typeDescription;

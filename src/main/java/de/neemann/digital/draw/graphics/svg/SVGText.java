@@ -3,13 +3,12 @@ package de.neemann.digital.draw.graphics.svg;
 import org.w3c.dom.Element;
 
 import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Vector;
 
 /**
  * Representation of a SVG Text
  * @author felix
  */
-public class SVGText implements SVGFragment, Drawable {
+public class SVGText implements SVGFragment, SVGDrawable {
 
     /**
      * Creates a Text from an element
@@ -21,13 +20,13 @@ public class SVGText implements SVGFragment, Drawable {
     }
 
     @Override
-    public Drawable[] getDrawables() {
+    public SVGDrawable[] getDrawables() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void draw(Graphic graphic, Vector pos) {
+    public void draw(Graphic graphic) {
         // TODO Auto-generated method stub
 
     }

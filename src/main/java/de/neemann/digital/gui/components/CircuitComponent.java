@@ -70,6 +70,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
         ATTR_LIST.add(Keys.SHOW_DATA_GRAPH);
         ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
+        ATTR_LIST.add(Keys.SVG_SHAPE_PATH);
     }
 
     private static final String DEL_ACTION = "myDelAction";

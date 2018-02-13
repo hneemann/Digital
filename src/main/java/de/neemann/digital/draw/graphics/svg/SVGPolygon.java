@@ -12,7 +12,7 @@ import de.neemann.digital.draw.graphics.Vector;
  * Representation of a SVG Polygon
  * @author felix
  */
-public class SVGPolygon implements SVGFragment, Drawable {
+public class SVGPolygon implements SVGFragment, SVGDrawable {
 
     private ArrayList<Vector> corners;
     private SVGStyle style;
@@ -43,17 +43,17 @@ public class SVGPolygon implements SVGFragment, Drawable {
     }
 
     @Override
-    public Drawable[] getDrawables() {
+    public SVGDrawable[] getDrawables() {
         return new SVGPolygon[] {
                 this
         };
     }
 
     @Override
-    public void draw(Graphic graphic, Vector pos) {
-        for (int i = 0; i < corners.size(); i++) {
-            corners.set(i, corners.get(i).add(pos));
-        }
+    public void draw(Graphic graphic) {
+//        for (int i = 0; i < corners.size(); i++) {
+//            corners.set(i, corners.get(i).add(pos));
+//        }
         Polygon p = new Polygon(corners, true);
         if (style.getShallFilled()) {
             graphic.drawPolygon(p, style.getInnerStyle());

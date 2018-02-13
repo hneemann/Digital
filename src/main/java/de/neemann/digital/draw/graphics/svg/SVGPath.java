@@ -29,7 +29,7 @@ public class SVGPath implements SVGFragment {
     }
 
     @Override
-    public Drawable[] getDrawables() {
+    public SVGDrawable[] getDrawables() {
         // TODO Auto-generated method stub
         return null;
     }

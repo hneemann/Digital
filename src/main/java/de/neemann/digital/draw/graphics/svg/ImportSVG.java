@@ -13,6 +13,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.draw.elements.Pin;
+import de.neemann.digital.draw.elements.Pins;
+import de.neemann.digital.draw.graphics.Vector;
+
 /**
  * Main class for the SVG Import
  * @author felix
@@ -21,9 +26,15 @@ public class ImportSVG {
 
     private HashSet<String> possibleRoots = new HashSet<String>();
     private ArrayList<SVGFragment> fragments = new ArrayList<>();
+    private PinDescriptions inputs;
+    private PinDescriptions outputs;
 
     /**
      * Imports a given SVG
+     * @param inputs
+     *            InputPins
+     * @param outputs
+     *            OutputPins
      * @param svgFile
      *            File to parse
      * @throws NoParsableSVGException
@@ -31,9 +42,12 @@ public class ImportSVG {
      * @throws IOException
      *             if the SVG File does not exists
      */
-    public ImportSVG(File svgFile) throws NoParsableSVGException, IOException {
+    public ImportSVG(File svgFile, PinDescriptions inputs, PinDescriptions outputs)
+            throws NoParsableSVGException, IOException {
         if (!svgFile.exists())
             throw new FileNotFoundException();
+        this.inputs = inputs;
+        this.outputs = outputs;
 
         possibleRoots.add("g");
         possibleRoots.add("a");
@@ -103,5 +117,24 @@ public class ImportSVG {
             }
         }
         throw new NoSuchSVGElementException();
+    }
+
+    /**
+     * Gives the fragments of the SVG
+     * @return list of fragments
+     */
+    public ArrayList<SVGFragment> getFragments() {
+        return fragments;
+    }
+
+    /**
+     * Gives the Pins of the Shape in the SVG
+     * @return Pins
+     */
+    public Pins getPins() {
+        Pins pins = new Pins();
+        pins.add(new Pin(new Vector(0, 0), inputs.get(0)));
+        pins.add(new Pin(new Vector(100, 0), outputs.get(0)));
+        return pins;
     }
 }

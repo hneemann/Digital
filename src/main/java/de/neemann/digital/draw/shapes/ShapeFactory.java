@@ -27,7 +27,6 @@ import java.util.HashMap;
 
 /**
  * Used to create a shape matching a given name
- *
  * @author hneemann
  */
 public final class ShapeFactory {
@@ -37,8 +36,8 @@ public final class ShapeFactory {
 
     /**
      * Creates a new instance
-     *
-     * @param library the library to get information about the parts to visualize
+     * @param library
+     *            the library to get information about the parts to visualize
      */
     public ShapeFactory(ElementLibrary library) {
         this(library, false);
@@ -46,20 +45,27 @@ public final class ShapeFactory {
 
     /**
      * Creates a new instance
-     *
-     * @param library the library to get information about the parts to visualize
-     * @param ieee    true if IEEE shapes required
+     * @param library
+     *            the library to get information about the parts to visualize
+     * @param ieee
+     *            true if IEEE shapes required
      */
     public ShapeFactory(ElementLibrary library, boolean ieee) {
         this.library = library;
         library.setShapeFactory(this);
         if (ieee) {
-            map.put(And.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, false, attributes));
-            map.put(NAnd.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, true, attributes));
-            map.put(Or.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, false, attributes));
-            map.put(NOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, true, attributes));
-            map.put(XOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, false, attributes));
-            map.put(XNOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, true, attributes));
+            map.put(And.DESCRIPTION.getName(),
+                    (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, false, attributes));
+            map.put(NAnd.DESCRIPTION.getName(),
+                    (attributes, inputs, outputs) -> new IEEEAndShape(inputs, outputs, true, attributes));
+            map.put(Or.DESCRIPTION.getName(),
+                    (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, false, attributes));
+            map.put(NOr.DESCRIPTION.getName(),
+                    (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, true, attributes));
+            map.put(XOr.DESCRIPTION.getName(),
+                    (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, false, attributes));
+            map.put(XNOr.DESCRIPTION.getName(),
+                    (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, true, attributes));
             map.put(Not.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEENotShape(inputs, outputs));
         } else {
             map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", false));
@@ -71,13 +77,17 @@ public final class ShapeFactory {
             map.put(Not.DESCRIPTION.getName(), new CreatorSimple("", true));
         }
 
-
-        map.put(RAMDualPort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMDualPort.DESCRIPTION));
-        map.put(RAMSinglePort.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePort.DESCRIPTION));
-        map.put(RAMSinglePortSel.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePortSel.DESCRIPTION));
+        map.put(RAMDualPort.DESCRIPTION.getName(),
+                (attr, inputs, outputs) -> new RAMShape(attr, RAMDualPort.DESCRIPTION));
+        map.put(RAMSinglePort.DESCRIPTION.getName(),
+                (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePort.DESCRIPTION));
+        map.put(RAMSinglePortSel.DESCRIPTION.getName(),
+                (attr, inputs, outputs) -> new RAMShape(attr, RAMSinglePortSel.DESCRIPTION));
         map.put(EEPROM.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, EEPROM.DESCRIPTION));
-        map.put(RAMDualAccess.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RAMDualAccess.DESCRIPTION));
-        map.put(RegisterFile.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, RegisterFile.DESCRIPTION, 4));
+        map.put(RAMDualAccess.DESCRIPTION.getName(),
+                (attr, inputs, outputs) -> new RAMShape(attr, RAMDualAccess.DESCRIPTION));
+        map.put(RegisterFile.DESCRIPTION.getName(),
+                (attr, inputs, outputs) -> new RAMShape(attr, RegisterFile.DESCRIPTION, 4));
 
         map.put(In.DESCRIPTION.getName(), InputShape::new);
         map.put(Reset.DESCRIPTION.getName(), ResetShape::new);
@@ -112,17 +122,13 @@ public final class ShapeFactory {
         map.put(Decoder.DESCRIPTION.getName(), DemuxerShape::new);
         map.put(BitSelector.DESCRIPTION.getName(), BitSelShape::new);
         map.put(PriorityEncoder.DESCRIPTION.getName(),
-                (attributes, inputs, outputs) -> new GenericShape(
-                        PriorityEncoder.DESCRIPTION.getShortName(),
-                        inputs,
-                        outputs,
-                        attributes.getCleanLabel(),
-                        true,
-                        4));
+                (attributes, inputs, outputs) -> new GenericShape(PriorityEncoder.DESCRIPTION.getShortName(), inputs,
+                        outputs, attributes.getCleanLabel(), true, 4));
 
         map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);
-        map.put(DriverInvSel.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new DriverShape(attributes, inputs, outputs, true));
+        map.put(DriverInvSel.DESCRIPTION.getName(),
+                (attributes, inputs, outputs) -> new DriverShape(attributes, inputs, outputs, true));
         map.put(Tunnel.DESCRIPTION.getName(), TunnelShape::new);
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
@@ -141,11 +147,12 @@ public final class ShapeFactory {
     }
 
     /**
-     * Returns a shape matching the given name.
-     * If no shape is found, a special "missing shape" shape is returned.
-     *
-     * @param elementName       the elements name
-     * @param elementAttributes the elements attributes
+     * Returns a shape matching the given name. If no shape is found, a special
+     * "missing shape" shape is returned.
+     * @param elementName
+     *            the elements name
+     * @param elementAttributes
+     *            the elements attributes
      * @return the shape
      */
     public Shape getShape(String elementName, ElementAttributes elementAttributes) {
@@ -159,36 +166,29 @@ public final class ShapeFactory {
                     if (pt instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                         ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
                         if (customDescr.getAttributes().get(Keys.IS_DIL)) {
-                            return new DILShape(
-                                    pt.getShortName(),
-                                    pt.getInputDescription(elementAttributes),
-                                    pt.getOutputDescriptions(elementAttributes),
-                                    elementAttributes.getLabel(),
+                            return new DILShape(pt.getShortName(), pt.getInputDescription(elementAttributes),
+                                    pt.getOutputDescriptions(elementAttributes), elementAttributes.getLabel(),
                                     customDescr.getAttributes());
                         } else {
-                            return new GenericShape(
-                                    pt.getShortName(),
-                                    pt.getInputDescription(elementAttributes),
-                                    pt.getOutputDescriptions(elementAttributes),
-                                    elementAttributes.getLabel(),
-                                    true,
-                                    customDescr.getAttributes().get(Keys.WIDTH))
-                                    .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
+                            if (customDescr.isCustomShaped()) {
+                                return new CustomShape(customDescr.getAttributes().get(Keys.SVG_SHAPE_PATH), pt.getInputDescription(elementAttributes),
+                                        pt.getOutputDescriptions(elementAttributes));
+                            } else {
+                                return new GenericShape(pt.getShortName(), pt.getInputDescription(elementAttributes),
+                                        pt.getOutputDescriptions(elementAttributes), elementAttributes.getLabel(), true,
+                                        customDescr.getAttributes().get(Keys.WIDTH))
+                                                .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
+                            }
                         }
                     } else {
-                        return new GenericShape(
-                                pt.getShortName(),
-                                pt.getInputDescription(elementAttributes),
-                                pt.getOutputDescriptions(elementAttributes),
-                                elementAttributes.getLabel(),
-                                true)
-                                .setInverterConfig(elementAttributes.get(Keys.INVERTER_CONFIG));
+                        return new GenericShape(pt.getShortName(), pt.getInputDescription(elementAttributes),
+                                pt.getOutputDescriptions(elementAttributes), elementAttributes.getLabel(), true)
+                                        .setInverterConfig(elementAttributes.get(Keys.INVERTER_CONFIG));
                     }
                 }
             } else {
                 ElementTypeDescription pt = library.getElementType(elementName);
-                return cr.create(elementAttributes,
-                        pt.getInputDescription(elementAttributes),
+                return cr.create(elementAttributes, pt.getInputDescription(elementAttributes),
                         pt.getOutputDescriptions(elementAttributes));
             }
         } catch (Exception e) {
@@ -202,17 +202,21 @@ public final class ShapeFactory {
     public interface Creator {
         /**
          * Called to create a new shape
-         *
-         * @param attributes the elements attributes
-         * @param inputs     the inputs
-         * @param outputs    the outputs
+         * @param attributes
+         *            the elements attributes
+         * @param inputs
+         *            the inputs
+         * @param outputs
+         *            the outputs
          * @return the shape
-         * @throws NodeException NodeException
-         * @throws PinException  PinException
+         * @throws NodeException
+         *             NodeException
+         * @throws PinException
+         *             PinException
          */
-        Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException, PinException;
+        Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs)
+                throws NodeException, PinException;
     }
-
 
     private static final class CreatorSimple implements Creator {
 
@@ -225,9 +229,9 @@ public final class ShapeFactory {
         }
 
         @Override
-        public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException {
-            return new GenericShape(name, inputs, outputs)
-                    .invert(invers)
+        public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs)
+                throws NodeException {
+            return new GenericShape(name, inputs, outputs).invert(invers)
                     .setInverterConfig(attributes.get(Keys.INVERTER_CONFIG));
         }
     }

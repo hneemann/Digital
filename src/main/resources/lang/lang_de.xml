@@ -1006,6 +1006,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_delayTime_tt">Dauer der Verzögerung in Gatterlaufzeiten.</string>
     <string name="key_invertOutput">invertierter Ausgang</string>
     <string name="key_invertOutput_tt">Wenn gesetzt, wird der Ausgang invertiert.</string>
+    <string name="key_svgPath">SVG-Datei</string>
+    <string name="key_svgPath_tt">Optional: SVG-Datei für eine eigene Darstellung der Schaltung</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

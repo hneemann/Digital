@@ -35,8 +35,8 @@ public class SVGCircle implements SVGFragment {
     }
 
     @Override
-    public Drawable[] getDrawables() {
-        return new Drawable[] {
+    public SVGDrawable[] getDrawables() {
+        return new SVGDrawable[] {
                 new SVGEllipse(x, y, x2, y2, style)
         };
     }

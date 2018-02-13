@@ -998,6 +998,8 @@ The names of the variables may not be unique.</string>
     <string name="key_delayTime_tt">Delay time in units of the common gate propagation delay.</string>
     <string name="key_invertOutput">inverted output</string>
     <string name="key_invertOutput_tt">If selected the output is inverted.</string>
+    <string name="key_svgPath">SVG-File</string>
+    <string name="key_svgPath_tt">Optional: SVG-File for a custom circuit presentation</string>
 
 
     <string name="mod_insertWire">Inserted wire.</string>

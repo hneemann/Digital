@@ -482,4 +482,10 @@ public final class Keys {
     public static final Key<File> SETTINGS_JAR_PATH
             = new Key.KeyFile("jarPath", new File(""));
 
+    /**
+     * A svg containing custom shapes
+     */
+    public static final Key<File> SVG_SHAPE_PATH
+            = new Key.KeyFile("svgPath", new File(""));
+
 }

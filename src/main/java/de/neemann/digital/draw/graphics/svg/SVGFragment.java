@@ -10,5 +10,5 @@ public interface SVGFragment {
      * Get Drawable representations of the elements
      * @return Array of Drawable Objects
      */
-    Drawable[] getDrawables();
+    SVGDrawable[] getDrawables();
 }
