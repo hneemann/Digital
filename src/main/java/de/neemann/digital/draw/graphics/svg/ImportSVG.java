@@ -13,7 +13,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.neemann.digital.core.element.PinDescription.Direction;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 
 /**
@@ -82,6 +84,18 @@ public class ImportSVG {
                 }
             }
         }
+        int outSize = outputs.size();
+        int inSize = inputs.size();
+        for (Pin p : pins) {
+            if (p.getDirection() == Direction.output) {
+                outSize--;
+            }
+            if (p.getDirection() == Direction.input) {
+                inSize--;
+            }
+        }
+        if (inSize != 0 || outSize != 0)
+            throw new NoParsableSVGException();
     }
 
     /**
@@ -100,9 +114,8 @@ public class ImportSVG {
             case "path":
                 return new SVGPath(((Element) n));
             case "circle":
-                return new SVGCircle(((Element) n), pins, inputs, outputs);
             case "ellipse":
-                return new SVGEllipse(((Element) n));
+                return new SVGEllipse(((Element) n), pins, inputs, outputs);
             case "rect":
                 return new SVGRectangle(((Element) n));
             case "line":
