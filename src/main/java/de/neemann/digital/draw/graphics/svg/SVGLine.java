@@ -22,11 +22,20 @@ public class SVGLine implements SVGFragment, SVGDrawable {
     public SVGLine(Element element) {
         System.out.println("Linie");
     }
-    
-    public SVGLine(Vector a,Vector b, SVGStyle style) {
-        this.a=a;
-        this.b=b;
-        this.style=style;
+
+    /**
+     * Creates a SVGLine with given parameters
+     * @param a
+     *            Vector to start
+     * @param b
+     *            Vector to end
+     * @param style
+     *            Style of the Line
+     */
+    public SVGLine(Vector a, Vector b, SVGStyle style) {
+        this.a = a;
+        this.b = b;
+        this.style = style;
     }
 
     @Override

@@ -105,8 +105,10 @@ public class SVGCircle implements SVGFragment {
         int ny = (int) (Math.round(y / 20.0) * 20);
         Vector a = new Vector(x, y);
         Vector b = new Vector(nx, ny);
-        style.setThickness("1");
-        pinLine = new SVGLine(a, b, style);
+        if (!a.equals(b)) {
+            style.setThickness("2");
+            pinLine = new SVGLine(a, b, style);
+        }
         return b;
     }
 
