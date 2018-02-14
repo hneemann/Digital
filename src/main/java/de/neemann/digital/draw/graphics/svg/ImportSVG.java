@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.TransformerException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -30,11 +29,7 @@ public class ImportSVG {
     private SVG objSVG;
 
     /**
-     * Imports a given SVG
-     * @param inputs
-     *            InputPins
-     * @param outputs
-     *            OutputPins
+     * Imports a given SVG OutputPins
      * @param svgFile
      *            File to parse
      * @throws NoParsableSVGException
@@ -77,14 +72,21 @@ public class ImportSVG {
                 elements.add((Element) gList.item(i));
             }
         }
-        try {
-            objSVG = new SVG(elements);
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
+        objSVG = new SVG(elements);
         imp(elements);
     }
 
+    /**
+     * Creates a ImportSVG from a concrete svg, prefilles with Pin Descriptions
+     * @param svg
+     *            SVG
+     * @param inputs
+     *            Inputs
+     * @param outputs
+     *            Outputs
+     * @throws NoParsableSVGException
+     *             if the SVG is not valid
+     */
     public ImportSVG(SVG svg, PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
         if (inputs != null && outputs != null) {
             this.inputs = inputs;
@@ -94,6 +96,13 @@ public class ImportSVG {
         imp(svg.getElements());
     }
 
+    /**
+     * Creates a List of SVGFragments from a list of XML Elements
+     * @param list
+     *            list of XML Elements
+     * @throws NoParsableSVGException
+     *             if the SVG is not Valid
+     */
     private void imp(ArrayList<Element> list) throws NoParsableSVGException {
         for (Element el : list) {
             try {
@@ -106,6 +115,15 @@ public class ImportSVG {
         }
     }
 
+    /**
+     * Sets the PinDescriptions
+     * @param inputs
+     *            Inputpins
+     * @param outputs
+     *            Outputpins
+     * @throws NoParsableSVGException
+     *             if the SVG is not valid
+     */
     public void setPinDescriptions(PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
         for (SVGPseudoPin pin : pseudoPins) {
             if (pin.isInput())
@@ -115,6 +133,10 @@ public class ImportSVG {
         }
     }
 
+    /**
+     * Gets a created SVG Object
+     * @return SVG
+     */
     public SVG getSVG() {
         return objSVG;
     }

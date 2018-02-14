@@ -5,21 +5,31 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.TransformerException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+/**
+ * Representation of a SVG. Is used to be saved in the Circuit-properties
+ * @author felix
+ */
 public class SVG {
     private String elements = "";
-    // DeferredElementImpl element=new DeferredElementImpl(null, 0);
 
+    /**
+     * Stock Constructor
+     */
     public SVG() {
 
     }
 
-    public SVG(ArrayList<Element> list) throws TransformerException {
+    /**
+     * Creates a SVG Object from a list of XML Elements
+     * @param list
+     *            List of XML Elements
+     */
+    public SVG(ArrayList<Element> list) {
         elements = "<root>";
         for (Element e : list) {
             String tmp = "<" + e.getNodeName() + " ";
@@ -33,10 +43,20 @@ public class SVG {
         elements += "</root>";
     }
 
+    /**
+     * Is True, if the SVG Object is filled
+     * @return elementsstring is not empty
+     */
     public boolean isSet() {
         return !elements.isEmpty();
     }
 
+    /**
+     * Get the Elements as XML Elements
+     * @return List of XML Elements
+     * @throws NoParsableSVGException
+     *             if the saved XML is not correct
+     */
     public ArrayList<Element> getElements() throws NoParsableSVGException {
         Document svg;
         try {

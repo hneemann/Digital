@@ -5,6 +5,11 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Vector;
 
+/**
+ * Is used to define a Pin or, if the PinsDescriptions are not available, draw a
+ * circle which looks like a Pin
+ * @author felix
+ */
 public class SVGPseudoPin implements SVGFragment {
 
     private Vector pos;
@@ -15,6 +20,21 @@ public class SVGPseudoPin implements SVGFragment {
     private SVGLine pinLine;
     private SVGStyle style;
 
+    /**
+     * Creates a PseudoPin
+     * @param pos
+     *            Vector where the Pin is located (Center)
+     * @param pinDesc
+     *            PinDescription
+     * @param index
+     *            Number of the Pin
+     * @param input
+     *            if its a input Pin, false if its not
+     * @param pins
+     *            Pins of the circuit
+     * @param style
+     *            style of the Pin
+     */
     public SVGPseudoPin(Vector pos, PinDescriptions pinDesc, int index, boolean input, Pins pins, SVGStyle style) {
         this.pinDesc = pinDesc;
         this.index = index;
@@ -37,6 +57,18 @@ public class SVGPseudoPin implements SVGFragment {
         int ny = (int) (Math.round(y / 20.0) * 20);
         Vector a = new Vector(x, y);
         Vector b = new Vector(nx, ny);
+        boolean uncorrect = false;
+        do {
+            for (Pin p : pins) {
+                if (p.getPos().equals(b)) {
+                    uncorrect = true;
+                }
+            }
+            if (uncorrect) {
+                b = new Vector(nx, ny + 20);
+            }
+        } while (uncorrect);
+
         if (!a.equals(b)) {
             style.setThickness("2");
             pinLine = new SVGLine(a, b, style);
@@ -44,10 +76,19 @@ public class SVGPseudoPin implements SVGFragment {
         return b;
     }
 
+    /**
+     * Checks, whether the Pin is a Input-Pin
+     * @return input
+     */
     public boolean isInput() {
         return input;
     }
 
+    /**
+     * Sets the Pin Description
+     * @param pinDesc
+     *            Pin Description
+     */
     public void setPinDesc(PinDescriptions pinDesc) {
         this.pinDesc = pinDesc;
         pins.add(new Pin(pos, pinDesc.get(index)));

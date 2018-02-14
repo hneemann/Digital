@@ -1,17 +1,59 @@
 package de.neemann.digital.draw.shapes;
 
+import java.util.HashMap;
+
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.basic.*;
+import de.neemann.digital.core.basic.And;
+import de.neemann.digital.core.basic.NAnd;
+import de.neemann.digital.core.basic.NOr;
+import de.neemann.digital.core.basic.Not;
+import de.neemann.digital.core.basic.Or;
+import de.neemann.digital.core.basic.XNOr;
+import de.neemann.digital.core.basic.XOr;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.core.io.*;
-import de.neemann.digital.core.memory.*;
-import de.neemann.digital.core.pld.*;
-import de.neemann.digital.core.switching.*;
-import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.core.io.Button;
+import de.neemann.digital.core.io.Const;
+import de.neemann.digital.core.io.Ground;
+import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.io.LightBulb;
+import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.io.Probe;
+import de.neemann.digital.core.io.RotEncoder;
+import de.neemann.digital.core.io.VDD;
+import de.neemann.digital.core.memory.EEPROM;
+import de.neemann.digital.core.memory.RAMDualAccess;
+import de.neemann.digital.core.memory.RAMDualPort;
+import de.neemann.digital.core.memory.RAMSinglePort;
+import de.neemann.digital.core.memory.RAMSinglePortSel;
+import de.neemann.digital.core.memory.RegisterFile;
+import de.neemann.digital.core.pld.Diode;
+import de.neemann.digital.core.pld.DiodeBackward;
+import de.neemann.digital.core.pld.DiodeForward;
+import de.neemann.digital.core.pld.PullDown;
+import de.neemann.digital.core.pld.PullUp;
+import de.neemann.digital.core.switching.FGNFET;
+import de.neemann.digital.core.switching.FGPFET;
+import de.neemann.digital.core.switching.Fuse;
+import de.neemann.digital.core.switching.NFET;
+import de.neemann.digital.core.switching.PFET;
+import de.neemann.digital.core.switching.Relay;
+import de.neemann.digital.core.switching.Switch;
+import de.neemann.digital.core.switching.TransGate;
+import de.neemann.digital.core.wiring.BitSelector;
+import de.neemann.digital.core.wiring.Break;
+import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.core.wiring.Decoder;
+import de.neemann.digital.core.wiring.Delay;
+import de.neemann.digital.core.wiring.Demultiplexer;
+import de.neemann.digital.core.wiring.Driver;
+import de.neemann.digital.core.wiring.DriverInvSel;
+import de.neemann.digital.core.wiring.Multiplexer;
+import de.neemann.digital.core.wiring.PriorityEncoder;
+import de.neemann.digital.core.wiring.Reset;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -23,8 +65,6 @@ import de.neemann.digital.draw.shapes.ieee.IEEEXOrShape;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
-
-import java.util.HashMap;
 
 /**
  * Used to create a shape matching a given name
