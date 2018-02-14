@@ -25,18 +25,30 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
     private ArrayList<SVGPseudoPin> pseudoPins;
 
     /**
-     * Creates an ellipse from XML
+     * Creates an ellipse from xml
      * @param element
      *            XML Element
+     * @param pins
+     *            Necessary Pins
+     * @param inputs
+     *            Input Descriptions
+     * @param outputs
+     *            Output Descriptions
+     * @param pseudoPins
+     *            PseudoPins
+     * @throws NoParsableSVGException
+     *             if the SVG's not valid
      */
-    public SVGEllipse(Element element, Pins pins, PinDescriptions inputs, PinDescriptions outputs, ArrayList<SVGPseudoPin> pseudoPins)
-            throws NoParsableSVGException {
+    public SVGEllipse(Element element, Pins pins, PinDescriptions inputs, PinDescriptions outputs,
+            ArrayList<SVGPseudoPin> pseudoPins) throws NoParsableSVGException {
         this.pins = pins;
         this.inputs = inputs;
         this.outputs = outputs;
-        this.pseudoPins=pseudoPins;
+        this.pseudoPins = pseudoPins;
         try {
-            int r = 0, rx, ry;
+            int r = 0;
+            int rx;
+            int ry;
             if (element.hasAttribute("r")) {
                 r = (int) Double.parseDouble(element.getAttribute("r"));
             }
@@ -44,7 +56,8 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
                 rx = (int) Double.parseDouble(element.getAttribute("rx"));
                 ry = (int) Double.parseDouble(element.getAttribute("ry"));
             } else {
-                rx = ry = r;
+                rx = r;
+                ry = r;
             }
             int cx = (int) Double.parseDouble(element.getAttribute("cx"));
             int cy = (int) Double.parseDouble(element.getAttribute("cy"));
@@ -60,6 +73,15 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
         }
     }
 
+    /**
+     * Creates a Ellipse from predefined values
+     * @param oben
+     *            Upper left Vector
+     * @param unten
+     *            Lower right Vector
+     * @param style
+     *            Style of the Ellipse
+     */
     public SVGEllipse(Vector oben, Vector unten, SVGStyle style) {
         this.oben = oben;
         this.unten = unten;
