@@ -14,9 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.neemann.digital.core.element.PinDescription.Direction;
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 
 /**
@@ -73,10 +71,10 @@ public class ImportSVG {
         possibleRoots.add("polyline");
         possibleRoots.add("polygon");
         possibleRoots.add("text");
-        ArrayList<Element> elements=new ArrayList<Element>();
+        ArrayList<Element> elements = new ArrayList<Element>();
         for (int i = 0; i < gList.getLength(); i++) {
             if (possibleRoots.contains(gList.item(i).getNodeName())) {
-                elements.add((Element)gList.item(i));
+                elements.add((Element) gList.item(i));
             }
         }
         try {
@@ -109,18 +107,6 @@ public class ImportSVG {
     }
 
     public void setPinDescriptions(PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
-        int outSize = outputs.size();
-        int inSize = inputs.size();
-        for (Pin p : pins) {
-            if (p.getDirection() == Direction.output) {
-                outSize--;
-            }
-            if (p.getDirection() == Direction.input) {
-                inSize--;
-            }
-        }
-        if (inSize != 0 || outSize != 0)
-            throw new NoParsableSVGException();
         for (SVGPseudoPin pin : pseudoPins) {
             if (pin.isInput())
                 pin.setPinDesc(inputs);

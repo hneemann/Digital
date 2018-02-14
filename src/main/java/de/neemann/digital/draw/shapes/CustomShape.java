@@ -39,8 +39,14 @@ public class CustomShape implements Shape {
      */
     public CustomShape(SVG svg, PinDescriptions inputs, PinDescriptions outputs)
             throws NoParsableSVGException, IOException {
-        ImportSVG importer = new ImportSVG(svg,inputs, outputs);
-        //importer.setPinDescriptions(inputs, outputs);
+        ImportSVG importer=null;
+        try {
+            importer = new ImportSVG(svg, inputs, outputs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        // importer.setPinDescriptions(inputs, outputs);
         this.pins = importer.getPins();
         this.fragments = importer.getFragments();
     }

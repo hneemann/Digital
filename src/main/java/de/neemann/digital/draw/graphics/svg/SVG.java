@@ -20,6 +20,7 @@ public class SVG {
     }
 
     public SVG(ArrayList<Element> list) throws TransformerException {
+        elements = "<root>";
         for (Element e : list) {
             String tmp = "<" + e.getNodeName() + " ";
             for (int i = 0; i < e.getAttributes().getLength(); i++) {
@@ -29,6 +30,7 @@ public class SVG {
             tmp += " />";
             elements += tmp;
         }
+        elements += "</root>";
     }
 
     public boolean isSet() {
@@ -36,7 +38,6 @@ public class SVG {
     }
 
     public ArrayList<Element> getElements() throws NoParsableSVGException {
-        // TODO
         Document svg;
         try {
             svg = DocumentBuilderFactory.newInstance().newDocumentBuilder()
@@ -54,7 +55,8 @@ public class SVG {
         }
         ArrayList<Element> ret = new ArrayList<Element>();
         for (int i = 0; i < gList.getLength(); i++) {
-            ret.add((Element) gList.item(i));
+            if (!gList.item(i).getNodeName().equals("root"))
+                ret.add((Element) gList.item(i));
         }
         return ret;
     }
