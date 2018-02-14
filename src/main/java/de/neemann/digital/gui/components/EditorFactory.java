@@ -427,7 +427,7 @@ public final class EditorFactory {
             preview.setPreferredSize(new Dimension(300, 300));
             preview.setBackground(Color.WHITE);
             this.svg = value;
-            if (svg.getgList() != null) {
+            if (svg.isSet()) {
                 try {
                     ImportSVG importer = new ImportSVG(svg, null, null);
                     preview.setSVG(importer.getFragments());

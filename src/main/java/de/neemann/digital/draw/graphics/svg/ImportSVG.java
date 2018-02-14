@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.TransformerException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -58,23 +59,9 @@ public class ImportSVG {
         NodeList gList;
         try {
             gList = svg.getElementsByTagName("*");
-            objSVG=new SVG(gList);
         } catch (Exception e) {
             throw new NoParsableSVGException();
         }
-        imp(gList);
-    }
-
-    public ImportSVG(SVG svg, PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
-        if (inputs != null && outputs != null) {
-            this.inputs = inputs;
-            this.outputs = outputs;
-            setPinDescriptions(inputs, outputs);
-        }
-        imp(svg.getgList());
-    }
-
-    private void imp(NodeList gList) throws NoParsableSVGException {
         HashSet<String> possibleRoots = new HashSet<String>();
         possibleRoots.add("g");
         possibleRoots.add("a");
@@ -86,12 +73,34 @@ public class ImportSVG {
         possibleRoots.add("polyline");
         possibleRoots.add("polygon");
         possibleRoots.add("text");
+        ArrayList<Element> elements=new ArrayList<Element>();
         for (int i = 0; i < gList.getLength(); i++) {
             if (possibleRoots.contains(gList.item(i).getNodeName())) {
-                try {
-                    fragments.add(createElement(gList.item(i)));
-                } catch (NoSuchSVGElementException e) {
-                }
+                elements.add((Element)gList.item(i));
+            }
+        }
+        try {
+            objSVG = new SVG(elements);
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+        imp(elements);
+    }
+
+    public ImportSVG(SVG svg, PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
+        if (inputs != null && outputs != null) {
+            this.inputs = inputs;
+            this.outputs = outputs;
+            setPinDescriptions(inputs, outputs);
+        }
+        imp(svg.getElements());
+    }
+
+    private void imp(ArrayList<Element> list) throws NoParsableSVGException {
+        for (Element el : list) {
+            try {
+                fragments.add(createElement(el));
+            } catch (NoSuchSVGElementException e) {
             }
         }
         if (inputs != null && outputs != null) {
