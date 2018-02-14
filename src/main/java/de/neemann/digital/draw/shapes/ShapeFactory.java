@@ -4,6 +4,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.*;
@@ -171,7 +172,8 @@ public final class ShapeFactory {
                                     customDescr.getAttributes());
                         } else {
                             if (customDescr.isCustomShaped()) {
-                                return new CustomShape(customDescr.getAttributes().get(Keys.SVG_SHAPE_PATH), pt.getInputDescription(elementAttributes),
+                                return new CustomShape(customDescr.getAttributes().get(Keys.SVG_SHAPE_PATH),
+                                        pt.getInputDescription(elementAttributes),
                                         pt.getOutputDescriptions(elementAttributes));
                             } else {
                                 return new GenericShape(pt.getShortName(), pt.getInputDescription(elementAttributes),

@@ -1,16 +1,63 @@
 package de.neemann.digital.gui.components;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.JTextComponent;
+
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
-import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.GraphicSwing;
+import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.svg.ImportSVG;
+import de.neemann.digital.draw.graphics.svg.NoParsableSVGException;
+import de.neemann.digital.draw.graphics.svg.SVG;
+import de.neemann.digital.draw.graphics.svg.SVGDrawable;
+import de.neemann.digital.draw.graphics.svg.SVGFragment;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.gui.Main;
@@ -19,21 +66,13 @@ import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.gui.*;
+import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.LineBreaker;
+import de.neemann.gui.MyFileChooser;
+import de.neemann.gui.Screen;
+import de.neemann.gui.ToolTipAction;
 import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.JTextComponent;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author hneemann
@@ -52,6 +91,7 @@ public final class EditorFactory {
         add(Long.class, LongEditor.class);
         add(InValue.class, InValueEditor.class);
         add(File.class, FileEditor.class);
+        add(SVG.class, SVGEditor.class);
         add(Color.class, ColorEditor.class);
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
@@ -71,10 +111,12 @@ public final class EditorFactory {
 
     /**
      * Creates a new Editor
-     *
-     * @param key   the key
-     * @param value the value
-     * @param <T>   the type of the value
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     * @param <T>
+     *            the type of the value
      * @return the editor
      */
     public <T> Editor<T> create(Key<T> key, T value) {
@@ -92,8 +134,8 @@ public final class EditorFactory {
 
     /**
      * Simple single component editor
-     *
-     * @param <T> the type to edit
+     * @param <T>
+     *            the type to edit
      */
     public static abstract class LabelEditor<T> implements Editor<T> {
         private AttributeDialog attributeDialog;
@@ -102,7 +144,8 @@ public final class EditorFactory {
         private JLabel label;
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
+                AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
             this.attributeDialog = attributeDialog;
             label = new JLabel(key.getName() + ":  ");
             final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
@@ -128,8 +171,8 @@ public final class EditorFactory {
 
         /**
          * returns the editor component
-         *
-         * @param elementAttributes the elements attributes
+         * @param elementAttributes
+         *            the elements attributes
          * @return the component
          */
         protected abstract JComponent getComponent(ElementAttributes elementAttributes);
@@ -142,16 +185,17 @@ public final class EditorFactory {
 
         /**
          * Sets the position of the label
-         *
-         * @param labelAtTop if true the label is placed at the top of the editing component.
+         * @param labelAtTop
+         *            if true the label is placed at the top of the editing component.
          */
         void setLabelAtTop(boolean labelAtTop) {
             this.labelAtTop = labelAtTop;
         }
     }
 
-    //Checkstyle flags redundant modifiers, which are not redundant. Maybe a bug in checkstyle?
-    //CHECKSTYLE.OFF: RedundantModifier
+    // Checkstyle flags redundant modifiers, which are not redundant. Maybe a bug in
+    // checkstyle?
+    // CHECKSTYLE.OFF: RedundantModifier
     final static class StringEditor extends LabelEditor<String> {
 
         private final JTextComponent text;
@@ -185,7 +229,9 @@ public final class EditorFactory {
     }
 
     private final static class IntegerEditor extends LabelEditor<Integer> {
-        private static final Integer[] DEFAULTS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+        private static final Integer[] DEFAULTS = {
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+        };
         private final JComboBox<Integer> comboBox;
         private final Key<Integer> key;
 
@@ -235,7 +281,9 @@ public final class EditorFactory {
     }
 
     private final static class LongEditor extends LabelEditor<Long> {
-        private static final Long[] DEFAULTS = {0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L, 16L};
+        private static final Long[] DEFAULTS = {
+                0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L, 16L
+        };
         private final JComboBox<Long> comboBox;
 
         public LongEditor(Long value, Key<Long> key) {
@@ -267,7 +315,9 @@ public final class EditorFactory {
     }
 
     private final static class InValueEditor extends LabelEditor<InValue> {
-        private static final String[] DEFAULTS = {"Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
+        private static final String[] DEFAULTS = {
+                "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"
+        };
         private final JComboBox<String> comboBox;
 
         public InValueEditor(InValue value, Key<Integer> key) {
@@ -307,7 +357,8 @@ public final class EditorFactory {
         }
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
+                AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
             panel.add(bool, constraints.width(2));
         }
 
@@ -357,6 +408,99 @@ public final class EditorFactory {
         @Override
         public Color getValue() {
             return color;
+        }
+    }
+
+    /**
+     * @author felix
+     */
+    private final static class SVGEditor extends LabelEditor<SVG> {
+
+        private final JPanel panel;
+        private final VPanel preview;
+        private SVG svg;
+
+        public SVGEditor(SVG value, Key<File> key) {
+
+            panel = new JPanel(new BorderLayout());
+            preview = new VPanel();
+            preview.setPreferredSize(new Dimension(300, 300));
+            preview.setBackground(Color.WHITE);
+            this.svg = value;
+            if (svg.getgList() != null) {
+                try {
+                    ImportSVG importer = new ImportSVG(svg, null, null);
+                    preview.setSVG(importer.getFragments());
+                } catch (NoParsableSVGException e1) {
+                    new ErrorMessage("Beim Öffnen der SVG Datei ist ein Fehler aufgetreten (constStr)").addCause(e1)
+                            .show(panel);
+                    e1.printStackTrace();
+                }
+            }
+            JButton button = new JButton(new AbstractAction("...") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser fc = new MyFileChooser();
+                    fc.setFileFilter(new FileNameExtensionFilter("SVG", "svg"));
+                    if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
+                        try {
+                            ImportSVG importer = new ImportSVG(fc.getSelectedFile());
+                            svg = importer.getSVG();
+                            preview.setSVG(importer.getFragments());
+                        } catch (Exception ex) {
+                            new ErrorMessage("Beim Öffnen der SVG Datei ist ein Fehler aufgetreten (constStr)")
+                                    .addCause(ex).show(panel);
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            });
+            panel.add(button, BorderLayout.SOUTH);
+            panel.add(preview, BorderLayout.CENTER);
+        }
+
+        @Override
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
+                AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
+            super.addToPanel(panel, key, elementAttributes, attributeDialog, constraints);
+
+        }
+
+        private final class VPanel extends JPanel {
+            private ArrayList<SVGFragment> fragments;
+
+            public void setSVG(ArrayList<SVGFragment> fragments) {
+                this.fragments = fragments;
+                repaint();
+            }
+
+            @Override
+            public void paint(Graphics g) {
+                super.paint(g);
+                Graphic graphic = new GraphicSwing((Graphics2D) g);
+                graphic.setBoundingBox(new Vector(-20, -20), new Vector(100, 100));
+                if (fragments != null) {
+                    for (SVGFragment f : fragments) {
+                        if (f != null && f.getDrawables() != null) {
+                            for (SVGDrawable d : f.getDrawables()) {
+                                if (d != null) {
+                                    d.draw(graphic);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            return panel;
+        }
+
+        @Override
+        public SVG getValue() {
+            return svg;
         }
     }
 
@@ -455,31 +599,26 @@ public final class EditorFactory {
                 }
             }.createJButton());
             panel.add(new ToolTipAction(Lang.get("btn_reload")) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            try {
-                                data = new DataField(attr.getFile(ROM.LAST_DATA_FILE_KEY));
-                            } catch (IOException e1) {
-                                new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
-                            }
-                        }
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        data = new DataField(attr.getFile(ROM.LAST_DATA_FILE_KEY));
+                    } catch (IOException e1) {
+                        new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
                     }
-                            .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
-                            .setToolTip(Lang.get("btn_reload_tt"))
-                            .createJButton()
-            );
+                }
+            }.setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null).setToolTip(Lang.get("btn_reload_tt"))
+                    .createJButton());
             panel.add(new ToolTipAction(Lang.get("btn_save")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser();
                     fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                     fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
-                    new SaveAsHelper(panel, fc, "hex").checkOverwrite(
-                            file -> {
-                                attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
-                                data.saveTo(file);
-                            }
-                    );
+                    new SaveAsHelper(panel, fc, "hex").checkOverwrite(file -> {
+                        attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
+                        data.saveTo(file);
+                    });
                 }
             }.createJButton());
             return panel;
@@ -492,7 +631,9 @@ public final class EditorFactory {
     }
 
     private final static class RotationEditor extends LabelEditor<Rotation> {
-        private static final String[] LIST = new String[]{Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")};
+        private static final String[] LIST = new String[] {
+                Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")
+        };
 
         private final Rotation rotation;
         private JComboBox<String> comb;
@@ -615,7 +756,8 @@ public final class EditorFactory {
                     if (ve != null && p instanceof Main) {
                         try {
                             getAttributeDialog().storeEditedValues();
-                            ElementTypeDescription d = ((Main) p).getCircuitComponent().getLibrary().getElementType(ve.getElementName());
+                            ElementTypeDescription d = ((Main) p).getCircuitComponent().getLibrary()
+                                    .getElementType(ve.getElementName());
                             PinDescriptions in = d.getInputDescription(elementAttributes);
                             InputSelectDialog dialog = new InputSelectDialog(getAttributeDialog(), in, inverterConfig);
                             if (dialog.showDialog()) {

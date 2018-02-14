@@ -1,20 +1,21 @@
 package de.neemann.digital.core.element;
 
+import java.awt.Color;
+import java.io.File;
+import java.util.Locale;
+
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.svg.SVG;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
-
-import java.awt.*;
-import java.io.File;
-import java.util.Locale;
 
 /**
  * Collection of key constants
@@ -485,7 +486,7 @@ public final class Keys {
     /**
      * A svg containing custom shapes
      */
-    public static final Key<File> SVG_SHAPE_PATH
-            = new Key.KeyFile("svgPath", new File(""));
+    public static final Key<SVG> SVG_SHAPE_PATH
+            = new Key.KeySVG("svgPath", new SVG());
 
 }

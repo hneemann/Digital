@@ -23,12 +23,12 @@ import de.neemann.digital.draw.elements.Pins;
  * @author felix
  */
 public class ImportSVG {
-
-    private HashSet<String> possibleRoots = new HashSet<String>();
     private ArrayList<SVGFragment> fragments = new ArrayList<>();
     private PinDescriptions inputs;
     private PinDescriptions outputs;
     private Pins pins = new Pins();
+    private ArrayList<SVGPseudoPin> pseudoPins = new ArrayList<SVGPseudoPin>();
+    private SVG objSVG;
 
     /**
      * Imports a given SVG
@@ -43,23 +43,9 @@ public class ImportSVG {
      * @throws IOException
      *             if the SVG File does not exists
      */
-    public ImportSVG(File svgFile, PinDescriptions inputs, PinDescriptions outputs)
-            throws NoParsableSVGException, IOException {
+    public ImportSVG(File svgFile) throws NoParsableSVGException, IOException {
         if (!svgFile.exists())
             throw new FileNotFoundException();
-        this.inputs = inputs;
-        this.outputs = outputs;
-
-        possibleRoots.add("g");
-        possibleRoots.add("a");
-        possibleRoots.add("path");
-        possibleRoots.add("circle");
-        possibleRoots.add("ellipse");
-        possibleRoots.add("rect");
-        possibleRoots.add("line");
-        possibleRoots.add("polyline");
-        possibleRoots.add("polygon");
-        possibleRoots.add("text");
         Document svg;
         try {
             svg = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(svgFile);
@@ -72,10 +58,34 @@ public class ImportSVG {
         NodeList gList;
         try {
             gList = svg.getElementsByTagName("*");
+            objSVG=new SVG(gList);
         } catch (Exception e) {
             throw new NoParsableSVGException();
         }
+        imp(gList);
+    }
 
+    public ImportSVG(SVG svg, PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
+        if (inputs != null && outputs != null) {
+            this.inputs = inputs;
+            this.outputs = outputs;
+            setPinDescriptions(inputs, outputs);
+        }
+        imp(svg.getgList());
+    }
+
+    private void imp(NodeList gList) throws NoParsableSVGException {
+        HashSet<String> possibleRoots = new HashSet<String>();
+        possibleRoots.add("g");
+        possibleRoots.add("a");
+        possibleRoots.add("path");
+        possibleRoots.add("circle");
+        possibleRoots.add("ellipse");
+        possibleRoots.add("rect");
+        possibleRoots.add("line");
+        possibleRoots.add("polyline");
+        possibleRoots.add("polygon");
+        possibleRoots.add("text");
         for (int i = 0; i < gList.getLength(); i++) {
             if (possibleRoots.contains(gList.item(i).getNodeName())) {
                 try {
@@ -84,6 +94,12 @@ public class ImportSVG {
                 }
             }
         }
+        if (inputs != null && outputs != null) {
+            setPinDescriptions(inputs, outputs);
+        }
+    }
+
+    public void setPinDescriptions(PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
         int outSize = outputs.size();
         int inSize = inputs.size();
         for (Pin p : pins) {
@@ -96,6 +112,16 @@ public class ImportSVG {
         }
         if (inSize != 0 || outSize != 0)
             throw new NoParsableSVGException();
+        for (SVGPseudoPin pin : pseudoPins) {
+            if (pin.isInput())
+                pin.setPinDesc(inputs);
+            else
+                pin.setPinDesc(outputs);
+        }
+    }
+
+    public SVG getSVG() {
+        return objSVG;
     }
 
     /**
@@ -115,7 +141,7 @@ public class ImportSVG {
                 return new SVGPath(((Element) n));
             case "circle":
             case "ellipse":
-                return new SVGEllipse(((Element) n), pins, inputs, outputs);
+                return new SVGEllipse(((Element) n), pins, inputs, outputs, pseudoPins);
             case "rect":
                 return new SVGRectangle(((Element) n));
             case "line":
