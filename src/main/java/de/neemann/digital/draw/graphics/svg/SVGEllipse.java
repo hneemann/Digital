@@ -1,9 +1,10 @@
 package de.neemann.digital.draw.graphics.svg;
 
+import java.util.ArrayList;
+
 import org.w3c.dom.Element;
 
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
@@ -21,20 +22,21 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
     private boolean pin;
     private PinDescriptions inputs;
     private PinDescriptions outputs;
-    private SVGLine pinLine;
+    private ArrayList<SVGPseudoPin> pseudoPins;
 
     /**
      * Creates an ellipse from XML
      * @param element
      *            XML Element
      */
-    public SVGEllipse(Element element, Pins pins, PinDescriptions inputs, PinDescriptions outputs)
+    public SVGEllipse(Element element, Pins pins, PinDescriptions inputs, PinDescriptions outputs, ArrayList<SVGPseudoPin> pseudoPins)
             throws NoParsableSVGException {
         this.pins = pins;
         this.inputs = inputs;
         this.outputs = outputs;
+        this.pseudoPins=pseudoPins;
         try {
-            int r=0, rx, ry;
+            int r = 0, rx, ry;
             if (element.hasAttribute("r")) {
                 r = (int) Double.parseDouble(element.getAttribute("r"));
             }
@@ -58,6 +60,12 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
         }
     }
 
+    public SVGEllipse(Vector oben, Vector unten, SVGStyle style) {
+        this.oben = oben;
+        this.unten = unten;
+        this.style = style;
+    }
+
     /**
      * Checks, if a circle appears to be a Pin and appends a new Pin to the circuit,
      * if thats the case
@@ -76,12 +84,12 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
             s = s.toLowerCase();
             if (s.startsWith("input") || s.startsWith("i")) {
                 int index = Integer.parseInt(s.replaceAll("[^0-9]*", ""));
-                pins.add(new Pin(applyVectorToGrid(x, y), inputs.get(index)));
+                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), inputs, index, true, pins, style));
                 return true;
             }
             if (s.startsWith("output") || s.startsWith("o")) {
                 int index = Integer.parseInt(s.replaceAll("[^0-9]*", ""));
-                pins.add(new Pin(applyVectorToGrid(x, y), outputs.get(index)));
+                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), outputs, index, false, pins, style));
                 return true;
             }
             return false;
@@ -91,32 +99,15 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
         }
     }
 
-    /**
-     * gives a Vector on the grid
-     * @param x
-     *            old x value
-     * @param y
-     *            old y value
-     * @return ongrid-Vector
-     */
-    private Vector applyVectorToGrid(int x, int y) {
-        int nx = (int) (Math.round(x / 20.0) * 20);
-        int ny = (int) (Math.round(y / 20.0) * 20);
-        Vector a = new Vector(x, y);
-        Vector b = new Vector(nx, ny);
-        if (!a.equals(b)) {
-            style.setThickness("2");
-            pinLine = new SVGLine(a, b, style);
-        }
-        return b;
-    }
-
     @Override
     public SVGDrawable[] getDrawables() {
         if (pin) {
-            return new SVGDrawable[] {
-                    pinLine
-            };
+            ArrayList<SVGDrawable> list = new ArrayList<SVGDrawable>();
+            for (SVGPseudoPin p : pseudoPins) {
+                for (SVGDrawable d : p.getDrawables())
+                    list.add(d);
+            }
+            return list.toArray(new SVGDrawable[list.size()]);
         }
         return new SVGDrawable[] {
                 this
@@ -125,8 +116,6 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
 
     @Override
     public void draw(Graphic graphic) {
-        // oben = oben.add(pos);
-        // unten = unten.add(pos);
         if (style.getShallFilled()) {
             graphic.drawCircle(oben, unten, style.getInnerStyle());
         }

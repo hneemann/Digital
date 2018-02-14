@@ -1,6 +1,5 @@
 package de.neemann.digital.draw.shapes;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -12,6 +11,7 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.svg.ImportSVG;
 import de.neemann.digital.draw.graphics.svg.NoParsableSVGException;
+import de.neemann.digital.draw.graphics.svg.SVG;
 import de.neemann.digital.draw.graphics.svg.SVGDrawable;
 import de.neemann.digital.draw.graphics.svg.SVGFragment;
 
@@ -27,7 +27,7 @@ public class CustomShape implements Shape {
     /**
      * Creates a Custom Shape
      * @param svg
-     *            SVG File
+     *            SVG Object
      * @param inputs
      *            Input Pins
      * @param outputs
@@ -37,9 +37,16 @@ public class CustomShape implements Shape {
      * @throws IOException
      *             if the SVG couldn't be read
      */
-    public CustomShape(File svg, PinDescriptions inputs, PinDescriptions outputs)
+    public CustomShape(SVG svg, PinDescriptions inputs, PinDescriptions outputs)
             throws NoParsableSVGException, IOException {
-        ImportSVG importer = new ImportSVG(svg, inputs, outputs);
+        ImportSVG importer=null;
+        try {
+            importer = new ImportSVG(svg, inputs, outputs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        // importer.setPinDescriptions(inputs, outputs);
         this.pins = importer.getPins();
         this.fragments = importer.getFragments();
     }

@@ -1,13 +1,14 @@
 package de.neemann.digital.core.element;
 
-import de.neemann.digital.lang.Lang;
-
 import java.io.File;
+
+import de.neemann.digital.draw.graphics.svg.SVG;
+import de.neemann.digital.lang.Lang;
 
 /**
  * Class is used to define the keys used to access the models attributes
- *
- * @param <VALUE> the keys value type
+ * @param <VALUE>
+ *            the keys value type
  * @author hneemann
  */
 public class Key<VALUE> {
@@ -25,9 +26,10 @@ public class Key<VALUE> {
 
     /**
      * Creates a new Key
-     *
-     * @param key the key
-     * @param def the default value
+     * @param key
+     *            the key
+     * @param def
+     *            the default value
      */
     public Key(String key, VALUE def) {
         this.key = key;
@@ -39,7 +41,6 @@ public class Key<VALUE> {
 
     /**
      * Returns the attributes key
-     *
      * @return the key
      */
     public String getKey() {
@@ -48,7 +49,6 @@ public class Key<VALUE> {
 
     /**
      * Returns the attributes display name
-     *
      * @return the name of the key
      */
     public String getName() {
@@ -108,7 +108,6 @@ public class Key<VALUE> {
 
     /**
      * Allows this attribute in group edit.
-     *
      * @return this for chained calls
      */
     public Key<VALUE> allowGroupEdit() {
@@ -117,11 +116,10 @@ public class Key<VALUE> {
     }
 
     /**
-     * Sets the name of this key.
-     * Is not used in Digital at all.
-     * This method can be used to define custom keys in custom java components.
-     *
-     * @param name the name of the key
+     * Sets the name of this key. Is not used in Digital at all. This method can be
+     * used to define custom keys in custom java components.
+     * @param name
+     *            the name of the key
      * @return this for chained calls
      */
     public Key<VALUE> setName(String name) {
@@ -130,11 +128,10 @@ public class Key<VALUE> {
     }
 
     /**
-     * Sets the description of this key.
-     * Is not used in Digital at all.
-     * This method can be used to define custom keys in custom java components.
-     *
-     * @param description the name of the key
+     * Sets the description of this key. Is not used in Digital at all. This method
+     * can be used to define custom keys in custom java components.
+     * @param description
+     *            the name of the key
      * @return this for chained calls
      */
     public Key<VALUE> setDescription(String description) {
@@ -158,8 +155,8 @@ public class Key<VALUE> {
 
     /**
      * Sets the key this key depends on.
-     *
-     * @param key the key where this key depends on
+     * @param key
+     *            the key where this key depends on
      * @return this for chained calls
      */
     public Key<VALUE> setDependsOn(Key key) {
@@ -168,9 +165,10 @@ public class Key<VALUE> {
 
     /**
      * Sets the key this key depends on.
-     *
-     * @param key    the key where this key depends on
-     * @param invert if true dependency is inverted
+     * @param key
+     *            the key where this key depends on
+     * @param invert
+     *            if true dependency is inverted
      * @return this for chained calls
      */
     public Key<VALUE> setDependsOn(Key key, boolean invert) {
@@ -180,8 +178,7 @@ public class Key<VALUE> {
     }
 
     /**
-     * A integer attribute.
-     * Stores additional combo box values
+     * A integer attribute. Stores additional combo box values
      */
     public static class KeyInteger extends Key<Integer> {
         private Integer[] values;
@@ -190,9 +187,10 @@ public class Key<VALUE> {
 
         /**
          * Creates a new instance
-         *
-         * @param key the key to use
-         * @param def the default value
+         * @param key
+         *            the key to use
+         * @param def
+         *            the default value
          */
         public KeyInteger(String key, Integer def) {
             super(key, def);
@@ -200,8 +198,8 @@ public class Key<VALUE> {
 
         /**
          * Sets the values to use in the combo box.
-         *
-         * @param values the values
+         * @param values
+         *            the values
          * @return this for chained calls
          */
         public KeyInteger setComboBoxValues(Integer[] values) {
@@ -211,8 +209,8 @@ public class Key<VALUE> {
 
         /**
          * Sets the minimal value which is allowed.
-         *
-         * @param min the minimal value allowed
+         * @param min
+         *            the minimal value allowed
          * @return this for chained calls
          */
         public KeyInteger setMin(int min) {
@@ -222,8 +220,8 @@ public class Key<VALUE> {
 
         /**
          * Sets the maximal value which is allowed.
-         *
-         * @param max the  maximal value allowed
+         * @param max
+         *            the maximal value allowed
          * @return this for chained calls
          */
         public KeyInteger setMax(int max) {
@@ -254,17 +252,19 @@ public class Key<VALUE> {
     }
 
     /**
-     * A bits attribute.
-     * Stores additional combo box values
+     * A bits attribute. Stores additional combo box values
      */
     public static final class KeyBits extends KeyInteger {
-        private static final Integer[] VALUES = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32};
+        private static final Integer[] VALUES = new Integer[] {
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32
+        };
 
         /**
          * Creates a new bits key
-         *
-         * @param key the key
-         * @param def the default value
+         * @param key
+         *            the key
+         * @param def
+         *            the default value
          */
         public KeyBits(String key, Integer def) {
             super(key, def);
@@ -278,15 +278,52 @@ public class Key<VALUE> {
     /**
      * Stores a file
      */
+    public static final class KeySVG extends Key<SVG> {
+
+        private SVG svg;
+
+        /**
+         * Creates a new svg key
+         * @param key
+         *            the key
+         * @param def
+         *            the default svg
+         */
+        public KeySVG(String key, SVG def) {
+            super(key, def);
+        }
+
+        /**
+         * Getter
+         * @return svg
+         */
+        public SVG getSvg() {
+            return svg;
+        }
+
+        /**
+         * Setter
+         * @param svg
+         *            svg to set
+         */
+        public void setSvg(SVG svg) {
+            this.svg = svg;
+        }
+    }
+
+    /**
+     * Stores a file
+     */
     public static final class KeyFile extends Key<File> {
 
         private boolean directoryOnly;
 
         /**
          * Creates a new file key
-         *
-         * @param key the key
-         * @param def the default file
+         * @param key
+         *            the key
+         * @param def
+         *            the default file
          */
         public KeyFile(String key, File def) {
             super(key, def);
@@ -295,8 +332,8 @@ public class Key<VALUE> {
 
         /**
          * Set the directory only mode
-         *
-         * @param directoryOnly if true you can select only directories
+         * @param directoryOnly
+         *            if true you can select only directories
          * @return this for chained calls
          */
         public KeyFile setDirectoryOnly(boolean directoryOnly) {
@@ -314,8 +351,8 @@ public class Key<VALUE> {
 
     /**
      * Used to store enum values
-     *
-     * @param <E> the enum type
+     * @param <E>
+     *            the enum type
      */
     public static final class KeyEnum<E extends Enum> extends Key<E> {
         private final E[] values;
@@ -323,10 +360,12 @@ public class Key<VALUE> {
 
         /**
          * Creates a new emum key
-         *
-         * @param key    the key
-         * @param def    the default value
-         * @param values the possible values
+         * @param key
+         *            the key
+         * @param def
+         *            the default value
+         * @param values
+         *            the possible values
          */
         public KeyEnum(String key, E def, E[] values) {
             super(key, def);
@@ -340,8 +379,8 @@ public class Key<VALUE> {
 
         /**
          * creates the language key for the enum values
-         *
-         * @param value the value
+         * @param value
+         *            the value
          * @return the language key
          */
         public String getLangKey(E value) {
@@ -369,8 +408,8 @@ public class Key<VALUE> {
     public static final class LongString extends Key<String> {
         /**
          * Creates a new Key
-         *
-         * @param key the key
+         * @param key
+         *            the key
          */
         public LongString(String key) {
             super(key, "");
