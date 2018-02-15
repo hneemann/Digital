@@ -37,6 +37,7 @@ public class ScreenShots {
     private static GraphicDialog graphic;
 
     public static void main(String[] args) {
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_DEFAULT_TREESELECT, false);
 //        mainScreenShot();
 //        firstSteps();
 //        hierarchicalDesign();
@@ -47,7 +48,6 @@ public class ScreenShots {
         // english
         Lang.setActualRuntimeLanguage(new Language("en"));
         Settings.getInstance().getAttributes()
-                .set(Keys.SETTINGS_DEFAULT_TREESELECT, false)
                 .set(Keys.SETTINGS_GRID, true)
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         mainScreenShot();

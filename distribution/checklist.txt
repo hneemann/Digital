@@ -8,7 +8,6 @@ Preparation
 [ ] Are the "fist steps" chapters in the documentation incl. screenshots up to date?
 [ ] Is the screenshot used on the first page of the documentation up to date?
 [ ] Don't use the 'experimental mode'!
-[ ] Remove jar library from settings.
 [ ] Make sure ghdl is installed.
 [ ] Make sure WinCupl ATF15xx fitters are configured properly.
 [ ] Run the GUI tests! (digital/src/test/java/de/neemann/digital/integration/TestInGUI.java)

@@ -583,9 +583,9 @@ public class GuiTester {
                 throw new RuntimeException("Component " + target.getSimpleName() + " not found!");
 
             SwingUtilities.convertPointToScreen(p, t);
-            Thread.sleep(500);
+            Thread.sleep(100);
             guiTester.getRobot().mouseMove(p.x, p.y);
-            Thread.sleep(1000);
+            Thread.sleep(100);
             cpi.checkColor(guiTester.getRobot().getPixelColor(p.x, p.y));
         }
     }

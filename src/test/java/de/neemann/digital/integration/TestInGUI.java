@@ -18,6 +18,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.NumberingWizard;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.DataEditor;
@@ -51,6 +52,13 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * Run this tests directly from your IDE.
  */
 public class TestInGUI extends TestCase {
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_DEFAULT_TREESELECT, false);
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_JAR_PATH, new File(""));
+    }
 
     public void testErrorAtStart1() {
         new GuiTester("dig/manualError/01_fastRuntime.dig")
@@ -134,6 +142,22 @@ public class TestInGUI extends TestCase {
                 .add(new CheckColorInCircuit(Driver.DESCRIPTION, 0, SIZE + SIZE2, (c) -> assertEquals(Style.ERROR.getColor(), c)))
 //                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
+                .execute();
+    }
+
+    public void testTreeView() {
+        new GuiTester()
+                .delay(500)
+                .press("F5")
+                .mouseMove(100, 100)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .mouseMove(400, 200)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
+                    Circuit c = main.getCircuitComponent().getCircuit();
+                    assertEquals(1, c.getElements().size());
+                }))
                 .execute();
     }
 
