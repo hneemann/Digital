@@ -8,6 +8,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -52,7 +56,6 @@ import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.GraphicSwing;
-import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.svg.ImportSVG;
 import de.neemann.digital.draw.graphics.svg.NoParsableSVGException;
 import de.neemann.digital.draw.graphics.svg.SVG;
@@ -469,16 +472,47 @@ public final class EditorFactory {
         private final class VPanel extends JPanel {
             private ArrayList<SVGFragment> fragments;
 
+            private double scale = 2.0;
+            private double translateX = 10;
+            private double translateY = 10;
+            private double translateXlast = 10;
+            private double translateYlast = 10;
+
             public void setSVG(ArrayList<SVGFragment> fragments) {
                 this.fragments = fragments;
+                this.addMouseWheelListener(new MouseWheelListener() {
+
+                    @Override
+                    public void mouseWheelMoved(MouseWheelEvent e) {
+                        scale = scale - 0.1 * e.getWheelRotation();
+                        repaint();
+                    }
+                });
+                this.addMouseMotionListener(new MouseMotionListener() {
+
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseDragged(MouseEvent e) {
+                        translateX = translateXlast;
+                        translateXlast = e.getX();
+                        translateY = translateYlast;
+                        translateYlast = e.getY();
+                        repaint();
+                    }
+                });
                 repaint();
             }
 
             @Override
             public void paint(Graphics g) {
                 super.paint(g);
-                Graphic graphic = new GraphicSwing((Graphics2D) g);
-                graphic.setBoundingBox(new Vector(-20, -20), new Vector(100, 100));
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.scale(scale, scale);
+                g2d.translate(translateX, translateY);
+                Graphic graphic = new GraphicSwing(g2d);
                 if (fragments != null) {
                     for (SVGFragment f : fragments) {
                         if (f != null && f.getDrawables() != null) {

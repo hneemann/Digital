@@ -77,7 +77,7 @@ public class ImportSVG {
     }
 
     /**
-     * Creates a ImportSVG from a concrete svg, prefilles with Pin Descriptions
+     * Creates a ImportSVG from a concrete svg, prefilled with Pin Descriptions
      * @param svg
      *            SVG
      * @param inputs
