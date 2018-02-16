@@ -15,6 +15,14 @@ public class SVGStyle {
     private Color color = Color.BLACK;
     private Color fill = Color.WHITE;
     private int thickness = 1;
+    private int fontSize = 14;
+    
+    /**
+     * Empty Constructor
+     */
+    public SVGStyle() {
+        
+    }
 
     /**
      * Creates a SVG Style
@@ -22,6 +30,10 @@ public class SVGStyle {
      *            the style tag from the SVG
      */
     public SVGStyle(String styleString) {
+        setStyleString(styleString);
+    }
+    
+    public void setStyleString(String styleString) {
         for (String s : styleString.split(";")) {
             String[] tmp = s.split(":");
             if (tmp.length > 1)
@@ -33,6 +45,8 @@ public class SVGStyle {
             setColor(attributes.get("stroke"));
         if (attributes.containsKey("stroke-width"))
             setThickness(attributes.get("stroke-width"));
+        if (attributes.containsKey("font-size"))
+            setFontSize(attributes.get("font-size"));
     }
 
     /**
@@ -42,10 +56,23 @@ public class SVGStyle {
      */
     public void setThickness(String string) {
         try {
-            thickness = Integer.parseInt(string);
+            thickness = getIntFromString(string);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Turns a String into an integer
+     * @param inp
+     *            input String
+     * @return corresponding int
+     */
+    private int getIntFromString(String inp) {
+        inp = inp.replaceAll("[^0-9]", "");
+        if (inp.isEmpty())
+            return 0;
+        return Integer.parseInt(inp);
     }
 
     /**
@@ -64,6 +91,14 @@ public class SVGStyle {
         } catch (Exception e) {
             return Color.getColor(v);
         }
+    }
+
+    /**
+     * Sets the font size
+     * @param s Size String
+     */
+    public void setFontSize(String s) {
+        fontSize = getIntFromString(s);
     }
 
     /**
@@ -109,6 +144,7 @@ public class SVGStyle {
     public Style getStyle() {
         Style s = Style.NORMAL;
         s = s.deriveStyle(thickness, false, color);
+        s = s.deriveFontStyle(fontSize, true);
         return s;
     }
 
@@ -119,6 +155,7 @@ public class SVGStyle {
     public Style getInnerStyle() {
         Style s = Style.NORMAL;
         s = s.deriveStyle(thickness, true, fill);
+        s = s.deriveFontStyle(fontSize, true);
         return s;
     }
 }

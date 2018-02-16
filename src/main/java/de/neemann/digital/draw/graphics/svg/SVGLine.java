@@ -18,9 +18,20 @@ public class SVGLine implements SVGFragment, SVGDrawable {
      * Creates a Line from a XML-Element
      * @param element
      *            XML Element
+     * @throws NoParsableSVGException
+     *             if the Element is not valid
      */
-    public SVGLine(Element element) {
-        System.out.println("Linie");
+    public SVGLine(Element element) throws NoParsableSVGException {
+        try {
+            a = new Vector((int) Double.parseDouble(element.getAttribute("x1")),
+                    (int) Double.parseDouble(element.getAttribute("y1")));
+            b = new Vector((int) Double.parseDouble(element.getAttribute("x2")),
+                    (int) Double.parseDouble(element.getAttribute("y2")));
+            style = new SVGStyle(element.getAttribute("style"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NoParsableSVGException();
+        }
     }
 
     /**
@@ -40,8 +51,9 @@ public class SVGLine implements SVGFragment, SVGDrawable {
 
     @Override
     public SVGDrawable[] getDrawables() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SVGDrawable[] {
+                this
+        };
     }
 
     @Override

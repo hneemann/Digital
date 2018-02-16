@@ -32,15 +32,38 @@ public class SVG {
     public SVG(ArrayList<Element> list) {
         elements = "<root>";
         for (Element e : list) {
-            String tmp = "<" + e.getNodeName() + " ";
-            for (int i = 0; i < e.getAttributes().getLength(); i++) {
-                tmp += " " + e.getAttributes().item(i).getNodeName() + "=";
-                tmp += "\"" + e.getAttributes().item(i).getNodeValue() + "\"";
-            }
-            tmp += " />";
-            elements += tmp;
+            elements += elementToString(e);
         }
         elements += "</root>";
+    }
+
+    /**
+     * Turns a XML Element to an XML String
+     * @param e
+     *            XML Element
+     * @return XML String
+     */
+    private String elementToString(Element e) {
+        String tmp = "<" + e.getNodeName() + " ";
+        for (int i = 0; i < e.getAttributes().getLength(); i++) {
+            tmp += " " + e.getAttributes().item(i).getNodeName() + "=";
+            tmp += "\"" + e.getAttributes().item(i).getNodeValue() + "\"";
+        }
+        if (e.getElementsByTagName("*").getLength() > 0) {
+            tmp += " >";
+            NodeList gList = e.getElementsByTagName("*");
+            for (int i = 0; i < gList.getLength(); i++) {
+                tmp += elementToString((Element) gList.item(i));
+            }
+            tmp += "</" + e.getNodeName() + ">";
+        } else if (e.getTextContent().isEmpty())
+            tmp += " />";
+        else {
+            tmp += ">";
+            tmp += e.getTextContent();
+            tmp += "</" + e.getNodeName() + ">";
+        }
+        return tmp;
     }
 
     /**
