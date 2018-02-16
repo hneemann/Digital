@@ -3,6 +3,7 @@ package de.neemann.digital.integration;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.basic.And;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
@@ -31,6 +32,7 @@ import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.gui.ErrorMessage;
 import junit.framework.TestCase;
@@ -45,6 +47,7 @@ import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
 
 /**
  * These tests are excluded from the maven build because gui tests are sometimes fragile.
@@ -291,6 +294,21 @@ public class TestInGUI extends TestCase {
             .add(new GuiTester.WindowCheck<>(AllSolutionsDialog.class, (gt, asd) -> asd.getParent().requestFocus()))
             .delay(500);
 
+    // constant is not possible because of language access
+    private GuiTester createCheck4BitCounterCircuit() {
+        return new GuiTester()
+                .add(new AddTestCaseToCircuit(
+                        "C Q_3 Q_2 Q_1 Q_0\n" +
+                                "repeat(32) C bits(4,n+1)"))
+                .press("F8")
+                .delay(500)
+                .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
+                .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 32))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost());
+    }
+
     public void testCounterJK() {
         new GuiTester()
                 .use(create4BitCounterTruthTable)
@@ -299,11 +317,7 @@ public class TestInGUI extends TestCase {
                 .press("DOWN", 2)
                 .press("ENTER")
                 .delay(500)
-                .press("SPACE")
-                .delay(500)
-                .add(new GuiTester.WindowCheck<>(Main.class))
-                .ask("Does the 4 bit counter run correctly?")
-                .add(new GuiTester.CloseTopMost())
+                .use(createCheck4BitCounterCircuit())
                 .execute();
     }
 
@@ -311,11 +325,8 @@ public class TestInGUI extends TestCase {
         new GuiTester()
                 .use(create4BitCounterTruthTable)
                 .press("F2")
-                .press("SPACE")
                 .delay(500)
-                .add(new GuiTester.WindowCheck<>(Main.class))
-                .ask("Does the 4 bit counter run correctly?")
-                .add(new GuiTester.CloseTopMost())
+                .use(createCheck4BitCounterCircuit())
                 .execute();
     }
 
@@ -992,6 +1003,23 @@ public class TestInGUI extends TestCase {
             final ArrayList<Signal> outputs = main.getModel().getOutputs();
             assertEquals(1, outputs.size());
             assertEquals(val, outputs.get(0).getValue().getValue());
+        }
+    }
+
+    private class AddTestCaseToCircuit extends GuiTester.WindowCheck<Main> {
+        private final String testdata;
+
+        private AddTestCaseToCircuit(String testdata) {
+            super(Main.class);
+            this.testdata = testdata;
+        }
+
+        @Override
+        public void checkWindow(GuiTester gt, Main main) throws Exception {
+            main.getCircuitComponent().getCircuit().add(
+                    new VisualElement(TestCaseElement.TESTCASEDESCRIPTION.getName())
+                            .setAttribute(TESTDATA, new TestCaseDescription(testdata))
+                            .setShapeFactory(main.getCircuitComponent().getLibrary().getShapeFactory()));
         }
     }
 }
