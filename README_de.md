@@ -8,6 +8,8 @@ Die letzten Änderungen sind in den [Release Notes](distribution/ReleaseNotes.tx
 
 ![screnshot](screenshot.png)
 
+![screnshot2](screenshot2.png)
+
 Digital ist ein Simulator für digitale Schaltkreise. Er ist für Lehrzwecke entwickelt worden und
 wird von mir in meinen Vorlesungen eingesetzt.
 Bevor ich mit der Entwicklung von Digital begonnen habe, habe ich
@@ -16,14 +18,26 @@ eingesetzt. Zu erkennen noch daran, dass die Farbschemata der Leitungen sich äh
 
 Logisim ist ein ganz hervorragendes Werkzeug welches sich beim Einsatz in der Lehre vielfach 
 bewährt hat. Leider hat Carl Burch die Entwicklung von Logisim 2014 eingestellt.
-Es gibt eine Reihe von Projekten, über welche eine Weiterentwicklung betrieben wird:
+Stattdessen hat er 2013 die Entwicklung eines neuen Simulators [Toves](http://www.toves.org/) begonnen. 
+In seinem [Blog](http://www.toves.org/blog/) erklärt er, warum er anstelle einer Weiterentwicklung von Logisim 
+eine Neuentwicklung begonnen hat: Es gibt Schwächen im Design von Logisim, die schwer zu beheben sind.
+Leider wurde die Entwicklung von Toves sehr früh eingestellt.
+
+Carl Burch hat jedoch Logisim als Open-Source zur Verfügung gestellt, so dass es eine Reihe von Projekten gibt, 
+welche eine Weiterentwicklung betreiben:
 
 - [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) von Mitarbeitern dreier schweizer Institute (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) von Joseph Lawrance vom Wentworth Institute of Technology, Boston, MA
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) vom Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) des CS3410 Kurses der Cornell Universität
 
-Dennoch bin ich der Meinung, das es gute Gründe für eine komplette Neuentwicklung gab.
+Aber soweit ich weiß, wird in diesen Projekten nicht daran gearbeitet, die architektonischen Schwächen zu beheben.  
+Es geht eher darum, neue Funktionen zu implementieren und Fehler zu beheben. [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
+wurde zum Beispiel um einen VHDL/Verilog Export erweitert.
+
+Daher habe ich im März 2016 entschieden einen neuen Simulator von Grund auf neu zu entwickeln.
+In der Zwischenzeit wurde ein Stand erreicht, der Vergleichbar ist mit Logisim. 
+In einigen Gebieten (Performance, Testen von Schaltungen, Schaltungsanalyse, Hardware-Unterstützung) wurde Logisim übertroffen.
 
 ## Features ##
 
@@ -183,5 +197,5 @@ Wenn Digital direkt aus dem Source Code gebaut werden soll:
   * Bevor ein Pull-Request geschickt wird, sollte mindestens `mvn install` ohne Fehler durchlaufen.
 * Es sollten keine neuen findbugs Fehler hinzugefügt werden.
 * Die Testabdeckung sollte noch gehalten werden. Das Ziel ist 80% Testabdeckung in allen nicht GUI Komponenten.
-* Bis jetzt gibt es keine GUI Tests. Dahier liegt die gesamte Testabdeckung nur bei etwas unter 60%.
+* Bis jetzt gibt es nur wenige GUI Tests. Dahier liegt die gesamte Testabdeckung nur bei etwas unter 80%.
   Versuche den Anteil an ungetestetem GUI-Code so gering wie möglich zu halten.
