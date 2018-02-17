@@ -164,7 +164,7 @@ public class ImportSVG {
             case "line":
                 return new SVGLine(((Element) n));
             case "polyline":
-                return new SVGPolyline(((Element) n));
+                return new SVGPolygon(((Element) n), false);
             case "polygon":
                 return new SVGPolygon(((Element) n));
             case "text":

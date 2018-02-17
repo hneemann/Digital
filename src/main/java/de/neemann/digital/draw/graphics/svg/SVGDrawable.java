@@ -14,5 +14,4 @@ public interface SVGDrawable {
      *            to draw on
      */
     void draw(Graphic graphic);
-
 }

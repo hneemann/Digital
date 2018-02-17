@@ -16,12 +16,12 @@ public class SVGStyle {
     private Color fill = Color.WHITE;
     private int thickness = 1;
     private int fontSize = 14;
-    
+
     /**
      * Empty Constructor
      */
     public SVGStyle() {
-        
+
     }
 
     /**
@@ -32,7 +32,12 @@ public class SVGStyle {
     public SVGStyle(String styleString) {
         setStyleString(styleString);
     }
-    
+
+    /**
+     * Sets a Stylestring
+     * @param styleString
+     *            stylestring
+     */
     public void setStyleString(String styleString) {
         for (String s : styleString.split(";")) {
             String[] tmp = s.split(":");
@@ -69,6 +74,8 @@ public class SVGStyle {
      * @return corresponding int
      */
     private int getIntFromString(String inp) {
+        if (inp.contains("."))
+            inp = inp.split(".")[0];
         inp = inp.replaceAll("[^0-9]", "");
         if (inp.isEmpty())
             return 0;
@@ -82,20 +89,35 @@ public class SVGStyle {
      * @return color
      */
     private Color stringToColor(String v) {
-        if (v.startsWith("#"))
-            v = v.substring(1);
         try {
             Integer.parseInt(v, 16);
-            return new Color(Integer.parseInt(v.substring(0, 2), 16), Integer.parseInt(v.substring(2, 4), 16),
-                    Integer.parseInt(v.substring(4), 16));
+            v = "#" + v;
         } catch (Exception e) {
-            return Color.getColor(v);
         }
+        if (v.startsWith("#")) {
+            if (v.length() == 4) {
+                v = "#" + v.charAt(1) + v.charAt(1) + v.charAt(2) + v.charAt(2) + v.charAt(3) + v.charAt(3);
+            }
+            return Color.decode(v);
+        }
+        try {
+            return (Color) Color.class.getField(v).get(null);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        return Color.WHITE;
     }
 
     /**
      * Sets the font size
-     * @param s Size String
+     * @param s
+     *            Size String
      */
     public void setFontSize(String s) {
         fontSize = getIntFromString(s);
@@ -107,7 +129,8 @@ public class SVGStyle {
      *            colorstring
      */
     public void setColor(String v) {
-        color = stringToColor(v);
+        if (!v.equals("none"))
+            color = stringToColor(v);
     }
 
     /**
@@ -116,7 +139,8 @@ public class SVGStyle {
      *            colorstring
      */
     public void setFill(String v) {
-        fill = stringToColor(v);
+        if (!v.equals("none"))
+            fill = stringToColor(v);
     }
 
     /**
@@ -124,7 +148,7 @@ public class SVGStyle {
      * @return need to draw outer lines
      */
     public boolean getShallRanded() {
-        return attributes.containsKey("stroke");
+        return attributes.containsKey("stroke") && !attributes.get("stroke").equals("none") || !getShallFilled();
     }
 
     /**
@@ -132,9 +156,7 @@ public class SVGStyle {
      * @return need to draw fill
      */
     public boolean getShallFilled() {
-        return attributes.containsKey("fill") && attributes.containsKey("fill-opacity")
-                ? Double.parseDouble(attributes.get("fill-opacity")) >= 0.5
-                : true;
+        return attributes.containsKey("fill") && !attributes.get("fill").equals("none");
     }
 
     /**

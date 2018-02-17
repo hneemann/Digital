@@ -16,6 +16,24 @@ public class SVGPolygon implements SVGFragment, SVGDrawable {
 
     private ArrayList<Vector> corners;
     private SVGStyle style;
+    private final boolean closed;
+
+    /**
+     * Creates a SVGPolygon
+     * @param element
+     *            XML Element
+     * @param closed
+     *            whether its closed
+     */
+    public SVGPolygon(Element element, boolean closed) {
+        this.closed = closed;
+        style = new SVGStyle(element.getAttribute("style"));
+        String[] points = element.getAttribute("points").split(" ");
+        for (String s : points) {
+            String[] tmp = s.split(",");
+            corners.add(new Vector(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1])));
+        }
+    }
 
     /**
      * Creates a SVGPolygon from a XML Element
@@ -23,11 +41,7 @@ public class SVGPolygon implements SVGFragment, SVGDrawable {
      *            XML Element
      */
     public SVGPolygon(Element element) {
-        String[] points = element.getAttribute("points").split(" ");
-        for (String s : points) {
-            String[] tmp = s.split(",");
-            corners.add(new Vector(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1])));
-        }
+        this(element, true);
     }
 
     /**
@@ -40,6 +54,7 @@ public class SVGPolygon implements SVGFragment, SVGDrawable {
     public SVGPolygon(ArrayList<Vector> corners, SVGStyle style) {
         this.corners = corners;
         this.style = style;
+        closed = true;
     }
 
     @Override
@@ -51,10 +66,7 @@ public class SVGPolygon implements SVGFragment, SVGDrawable {
 
     @Override
     public void draw(Graphic graphic) {
-//        for (int i = 0; i < corners.size(); i++) {
-//            corners.set(i, corners.get(i).add(pos));
-//        }
-        Polygon p = new Polygon(corners, true);
+        Polygon p = new Polygon(corners, closed);
         if (style.getShallFilled()) {
             graphic.drawPolygon(p, style.getInnerStyle());
         }
