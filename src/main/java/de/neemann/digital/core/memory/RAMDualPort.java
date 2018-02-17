@@ -20,7 +20,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class,
             input("A"),
-            input("D_in"),
+            input("Din"),
             input("str"),
             input("C").setClock(),
             input("ld"))

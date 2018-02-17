@@ -416,7 +416,7 @@
     <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
     <string name="elem_RAMDualPort_pin_A">The address to read from or write to.</string>
     <string name="elem_RAMDualPort_pin_C">Clock input</string>
-    <string name="elem_RAMDualPort_pin_D_in">The data to be stored in the RAM.</string>
+    <string name="elem_RAMDualPort_pin_Din">The data to be stored in the RAM.</string>
     <string name="elem_RAMDualPort_pin_D">The data output pin</string>
     <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMDualPort_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
@@ -472,7 +472,7 @@
     <string name="elem_RAMDualAccess_pin_1A">The address at which port 1 is read or written.</string>
     <string name="elem_RAMDualAccess_pin_2A">The address used to read via port 2.</string>
     <string name="elem_RAMDualAccess_pin_C">Clock</string>
-    <string name="elem_RAMDualAccess_pin_1D_in">The data to be stored in the RAM.</string>
+    <string name="elem_RAMDualAccess_pin_1Din">The data to be stored in the RAM.</string>
     <string name="elem_RAMDualAccess_pin_ld">If this input is high the output is activated and the data is visible at the output 1D.</string>
     <string name="elem_RAMDualAccess_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
 

@@ -13,7 +13,7 @@ entity DIG_RAMDualAccess is
     PORT_C: in std_logic;
     PORT_ld: in std_logic;
     PORT_1A: in std_logic_vector ((AddrBits-1) downto 0);
-    PORT_1D_in: in std_logic_vector ((Bits-1) downto 0);
+    PORT_1Din: in std_logic_vector ((Bits-1) downto 0);
     PORT_2A: in std_logic_vector ((AddrBits-1) downto 0) );
 end DIG_RAMDualAccess;
 
@@ -25,7 +25,7 @@ begin
   process ( PORT_C )
   begin
     if rising_edge(PORT_C) AND (PORT_str='1') then
-      memory(to_integer(unsigned(PORT_1A))) <= PORT_1D_in;
+      memory(to_integer(unsigned(PORT_1A))) <= PORT_1Din;
     end if;
   end process;
   PORT_1D <= memory(to_integer(unsigned(PORT_1A))) when PORT_ld='1' else (others => 'Z');

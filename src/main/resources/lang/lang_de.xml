@@ -411,7 +411,7 @@
         Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen bzw. geschrieben wird.</string>
     <string name="elem_RAMDualPort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_RAMDualPort_pin_D_in">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualPort_pin_Din">Die Daten, die gespeichert werden sollen.</string>
     <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
@@ -469,7 +469,7 @@
     <string name="elem_RAMDualAccess_pin_1A">Die Adresse, an der über Port 1 gelesen bzw. geschrieben wird.</string>
     <string name="elem_RAMDualAccess_pin_2A">Die Adresse, an der über Port 2 gelesen wird.</string>
     <string name="elem_RAMDualAccess_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_RAMDualAccess_pin_1D_in">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualAccess_pin_1Din">Die Daten, die gespeichert werden sollen.</string>
     <string name="elem_RAMDualAccess_pin_ld">Ist diese Leitung high, wird der Ausgang D1 aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualAccess_pin_str">Ist diese Leitung high, wird das Datenwort an D1 gespeichert, wenn der Takt ansteigt.</string>
 
