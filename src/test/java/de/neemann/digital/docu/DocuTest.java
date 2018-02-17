@@ -152,6 +152,9 @@ public class DocuTest extends TestCase {
                 }
                 first = false;
                 switch (c) {
+                    case '~':
+                        sb.append("\u00ac");
+                        break;
                     case '<':
                         sb.append("&lt;");
                         break;
