@@ -12,6 +12,7 @@ public class GraphicSVGIndexTest extends TestCase {
 
         assertEquals("Z<tspan style=\"font-size:80%;baseline-shift:sub\">0</tspan>", gs.formatText("Z_0", 0));
         assertEquals("&lt;a&gt;", gs.formatText("<a>", 0));
+        assertEquals("¬Z", gs.formatText("~Z", 0));
     }
 
 }

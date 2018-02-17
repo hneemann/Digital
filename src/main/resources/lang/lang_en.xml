@@ -326,7 +326,7 @@
     <string name="elem_RS_FF_AS_pin_S">The set input.</string>
     <string name="elem_RS_FF_AS_pin_R">The reset input.</string>
     <string name="elem_RS_FF_AS_pin_Q">Returns the stored value.</string>
-    <string name="elem_RS_FF_AS_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_RS_FF_AS_pin_~Q">Returns the inverted stored value.</string>
 
     <string name="elem_RS_FF">RS-FlipFlop, clocked</string>
     <string name="elem_RS_FF_short">RS</string>
@@ -338,7 +338,7 @@
     <string name="elem_RS_FF_pin_C">The clock input. A rising edge initiates a state transition.</string>
     <string name="elem_RS_FF_pin_R">The reset input.</string>
     <string name="elem_RS_FF_pin_Q">Returns the stored value.</string>
-    <string name="elem_RS_FF_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_RS_FF_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_JK_FF">JK-Flipflop</string>
     <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value.
@@ -347,7 +347,7 @@
     <string name="elem_JK_FF_pin_C">The clock input. A rising edge initiates a state change.</string>
     <string name="elem_JK_FF_pin_K">The reset input of the flipflop.</string>
     <string name="elem_JK_FF_pin_Q">Returns the stored value.</string>
-    <string name="elem_JK_FF_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_JK_FF_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">A component used to store a value.
@@ -358,14 +358,14 @@
     <string name="elem_D_FF_pin_C">Clock pin to store a value.
         The value on input D is stored on a rising edge of this pin.</string>
     <string name="elem_D_FF_pin_Q">Returns the stored value.</string>
-    <string name="elem_D_FF_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_D_FF_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
     <string name="elem_T_FF_short">T</string>
     <string name="elem_T_FF_tt">Stores a single bit. Toggles the state on a rising edge at input C.</string>
     <string name="elem_T_FF_pin_T">Enables the toggle function.</string>
     <string name="elem_T_FF_pin_C">Clock input. A rising edge toggles the output, if input T is set to 1.</string>
     <string name="elem_T_FF_pin_Q">Returns the stored value.</string>
-    <string name="elem_T_FF_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_T_FF_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_JK_FF_AS">JK-Flipflop, asynchronous</string>
     <string name="elem_JK_FF_AS_short">JK-AS</string>
     <string name="elem_JK_FF_AS_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value.
@@ -376,7 +376,7 @@
     <string name="elem_JK_FF_AS_pin_C">The Clock input. A rising edge initiates a state change.</string>
     <string name="elem_JK_FF_AS_pin_K">The reset input of the flipflop.</string>
     <string name="elem_JK_FF_AS_pin_Q">Returns the stored value.</string>
-    <string name="elem_JK_FF_AS_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_JK_FF_AS_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_JK_FF_AS_pin_Set">asynchronous set</string>
     <string name="elem_JK_FF_AS_pin_Clr">asynchronous clear</string>
     <string name="elem_D_FF_AS">D-FlipFlop, asynchronous</string>
@@ -389,7 +389,7 @@
     <string name="elem_D_FF_AS_pin_D">Input of the bit to be stored.</string>
     <string name="elem_D_FF_AS_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
     <string name="elem_D_FF_AS_pin_Q">Returns the stored value.</string>
-    <string name="elem_D_FF_AS_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_D_FF_AS_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_D_FF_AS_pin_Set">asynchronous set</string>
     <string name="elem_D_FF_AS_pin_Clr">asynchronous clear</string>
 

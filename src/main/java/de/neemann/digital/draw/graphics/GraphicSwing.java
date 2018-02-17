@@ -112,6 +112,7 @@ public class GraphicSwing implements Graphic {
         int height = gr.getFontMetrics().getHeight();
         if (height > minFontSize) {
             if (text == null || text.length() == 0) return;
+            text = text.replace('~', '¬');
 
             //GraphicMinMax.approxTextSize(this, p1, p2, text, orientation, style);
 

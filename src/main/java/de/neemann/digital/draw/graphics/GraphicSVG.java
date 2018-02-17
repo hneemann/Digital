@@ -198,7 +198,7 @@ public class GraphicSVG implements Graphic {
      *
      * @param text     the text
      * @param fontSize the fontsize
-     * @return the formated text
+     * @return the formatted text
      */
     public String formatText(String text, int fontSize) {
         return escapeXML(text);
