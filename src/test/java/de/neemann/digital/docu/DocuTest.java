@@ -6,6 +6,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.GraphicMinMax;
 import de.neemann.digital.draw.graphics.GraphicSVG;
+import de.neemann.digital.draw.graphics.GraphicSVGIndex;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.integration.Resources;
@@ -119,7 +120,7 @@ public class DocuTest extends TestCase {
 
     private void writeSVG(File imageFile, VisualElement ve) throws IOException {
         try (FileOutputStream out = new FileOutputStream(imageFile)) {
-            try (GraphicSVG svg = new GraphicSVG(out, null, 20)) {
+            try (GraphicSVG svg = new GraphicSVGIndex(out, null, 20)) {
                 GraphicMinMax minMax = new GraphicMinMax(true, svg);
                 ve.drawTo(minMax, null);
                 svg.setBoundingBox(minMax.getMin(), minMax.getMax());
