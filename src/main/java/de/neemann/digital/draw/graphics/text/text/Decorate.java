@@ -59,14 +59,6 @@ public class Decorate implements Text {
     }
 
     @Override
-    public Text enforceMath() {
-        if (!style.equals(Style.OVERLINE))
-            return this;
-        else
-            return new Decorate(this, Style.MATH);
-    }
-
-    @Override
     public String toString() {
         return "Decorate{" + content + ", " + style + '}';
     }

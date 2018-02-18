@@ -39,12 +39,6 @@ public class Sentence implements Text, Iterable<Text> {
     }
 
     @Override
-    public Text enforceMath() {
-        list.replaceAll(Text::enforceMath);
-        return this;
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Text t : list)

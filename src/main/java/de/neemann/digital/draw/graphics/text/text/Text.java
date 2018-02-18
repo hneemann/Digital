@@ -8,9 +8,4 @@ public interface Text {
      * @return a simplified text
      */
     Text simplify();
-
-    /**
-     * @return the text fragment in math mode if necessary
-     */
-    Text enforceMath();
 }

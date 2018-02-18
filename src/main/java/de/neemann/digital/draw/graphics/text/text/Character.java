@@ -21,14 +21,6 @@ public class Character implements Text {
     }
 
     @Override
-    public Text enforceMath() {
-        if (aChar == '≥' || aChar == '¬')
-            return new Decorate(this, Decorate.Style.MATH);
-        else
-            return this;
-    }
-
-    @Override
     public String toString() {
         return "" + aChar;
     }

@@ -18,7 +18,7 @@ public class GraphicSVGLaTeXTest extends TestCase {
         assertEquals("\\&amp;", gs.formatText("&", Style.NORMAL));
         assertEquals("$\\geq\\!\\!{}$1", gs.formatText("\u22651", Style.NORMAL));
         assertEquals("$\\geq\\!\\!{}1$", gs.formatText("$\u22651$", Style.NORMAL));
-        assertEquals("$\\overline{Q}$", gs.formatText("~Q", Style.NORMAL));
+        assertEquals("$\\overline{\\mbox{Q}}$", gs.formatText("~Q", Style.NORMAL));
         assertEquals("$\\overline{Q}$", gs.formatText("$~Q$", Style.NORMAL));
         assertEquals("\\textless{}a\\textgreater{}", gs.formatText("<a>", Style.NORMAL));
         assertEquals("Grün", gs.formatText("Grün", Style.NORMAL));

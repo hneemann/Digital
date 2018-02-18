@@ -18,11 +18,6 @@ public final class Blank implements Text {
     }
 
     @Override
-    public Text enforceMath() {
-        return this;
-    }
-
-    @Override
     public String toString() {
         return " ";
     }

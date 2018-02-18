@@ -18,7 +18,7 @@ public final class LaTeXFormatter {
      * @return the formatted string
      */
     public static String format(Text text) {
-        return format(text.enforceMath(), false);
+        return format(text, false);
     }
 
     private static String format(Text text, boolean mathMode) {
@@ -37,18 +37,29 @@ public final class LaTeXFormatter {
                     else
                         return "$" + format(d.getContent(), true) + "$";
                 case OVERLINE:
-                    return "\\overline{" + format(d.getContent(), mathMode) + "}";
+                    if (mathMode)
+                        return "\\overline{" + format(d.getContent(), true) + "}";
+                    else {
+                        final Text c = d.getContent();
+                        if (c instanceof Index)
+                            return "$\\overline{" + format(c, true) + "}$";
+                        else
+                            return "$\\overline{\\mbox{" + format(c, false) + "}}$";
+                    }
                 default:
                     return format(d.getContent(), mathMode);
             }
         } else if (text instanceof Index) {
             Index i = (Index) text;
-            String str = format(i.getVar(), mathMode);
+            String str = format(i.getVar(), true);
             if (i.getSuperScript() != null)
-                str += '^' + brace(format(i.getSuperScript(), mathMode));
+                str += '^' + brace(format(i.getSuperScript(), true));
             if (i.getSubScript() != null)
-                str += '_' + brace(format(i.getSubScript(), mathMode));
-            return str;
+                str += '_' + brace(format(i.getSubScript(), true));
+            if (mathMode)
+                return str;
+            else
+                return "$" + str + "$";
         } else if (text instanceof Sentence) {
             Sentence s = (Sentence) text;
             StringBuilder sb = new StringBuilder();
@@ -61,9 +72,15 @@ public final class LaTeXFormatter {
     private static String character(char aChar, boolean inMath) {
         switch (aChar) {
             case '\u00AC':
-                return "\\neg{}";
+                if (inMath)
+                    return "\\neg{}";
+                else
+                    return "$\\neg{}$";
             case '\u2265':
-                return "\\geq\\!\\!{}";
+                if (inMath)
+                    return "\\geq\\!\\!{}";
+                else
+                    return "$\\geq\\!\\!{}$";
             case '<':
                 if (inMath)
                     return "" + aChar;

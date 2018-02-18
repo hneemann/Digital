@@ -49,11 +49,6 @@ public class Index implements Text {
     }
 
     @Override
-    public Text enforceMath() {
-        return new Decorate(this, Decorate.Style.MATH);
-    }
-
-    @Override
     public String toString() {
         String s = var.toString();
         if (superScript != null)

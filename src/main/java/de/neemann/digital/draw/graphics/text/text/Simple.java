@@ -32,11 +32,6 @@ public class Simple implements Text {
     }
 
     @Override
-    public Text enforceMath() {
-        return this;
-    }
-
-    @Override
     public String toString() {
         return text;
     }

@@ -13,7 +13,7 @@ public class LaTeXFormatterTest extends TestCase {
         assertEquals("$Q^i$", LaTeXFormatter.format(new Parser("Q^i").parse()));
         assertEquals("$Q^i$", LaTeXFormatter.format(new Parser("Q^{i}").parse()));
         assertEquals("$Q^{in}$", LaTeXFormatter.format(new Parser("Q^{in}").parse()));
-        assertEquals("$\\overline{Q}$", LaTeXFormatter.format(new Parser("~Q").parse()));
+        assertEquals("$\\overline{\\mbox{Q}}$", LaTeXFormatter.format(new Parser("~Q").parse()));
         assertEquals("$\\overline{Q}_i$", LaTeXFormatter.format(new Parser("~Q_i").parse()));
         assertEquals("$\\overline{Q_i}$", LaTeXFormatter.format(new Parser("~{Q_i}").parse()));
         assertEquals("Hello World", LaTeXFormatter.format(new Parser("Hello World").parse()));

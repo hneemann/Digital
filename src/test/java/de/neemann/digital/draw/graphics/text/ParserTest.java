@@ -21,13 +21,7 @@ public class ParserTest extends TestCase {
         assertEquals("≥1", new Parser("≥1").parse().toString());
 
         assertEquals("Decorate{≥1, MATH}", new Parser("$≥1$").parse().toString());
+        assertEquals("Decorate{MR, OVERLINE}", new Parser("~MR").parse().toString());
     }
 
-    public void testEnforceMath() throws ParseException {
-        assertEquals("Decorate{Decorate{Q, OVERLINE}, MATH}", new Parser("$~Q$").parse().enforceMath().toString());
-        assertEquals("Decorate{Decorate{Q, OVERLINE}, MATH}", new Parser("~Q").parse().enforceMath().toString());
-        assertEquals("Decorate{Q_{i}, MATH}", new Parser("Q_i").parse().enforceMath().toString());
-        assertEquals("hello Decorate{Q_{i}, MATH} world", new Parser("hello Q_i world").parse().enforceMath().toString());
-        assertEquals("hello Decorate{Q_{i}, MATH} world", new Parser("hello Q_i world").parse().enforceMath().enforceMath().toString());
-    }
 }
