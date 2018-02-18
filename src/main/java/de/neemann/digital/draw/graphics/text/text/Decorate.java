@@ -1,0 +1,73 @@
+package de.neemann.digital.draw.graphics.text.text;
+
+/**
+ * Decorates a text fragment
+ */
+public class Decorate implements Text {
+    /**
+     * The different styles
+     */
+    public enum Style {
+        /**
+         * Normal
+         */
+        NORMAL,
+        /**
+         * overline
+         */
+        OVERLINE,
+        /**
+         * Math mode
+         */
+        MATH
+    }
+
+    private Text content;
+    private final Style style;
+
+    /**
+     * Creates a new decorator
+     *
+     * @param content the content to decorate
+     * @param style   the decoration style
+     */
+    public Decorate(Text content, Style style) {
+        this.content = content;
+        this.style = style;
+    }
+
+    /**
+     * @return the content
+     */
+    public Text getContent() {
+        return content;
+    }
+
+    /**
+     * @return the docoration style
+     */
+    public Style getStyle() {
+        return style;
+    }
+
+    @Override
+    public Text simplify() {
+        if (style.equals(Style.NORMAL))
+            return content;
+        else
+            return this;
+    }
+
+    @Override
+    public Text enforceMath() {
+        if (!style.equals(Style.OVERLINE))
+            return this;
+        else
+            return new Decorate(this, Style.MATH);
+    }
+
+    @Override
+    public String toString() {
+        return "Decorate{" + content + ", " + style + '}';
+    }
+}
