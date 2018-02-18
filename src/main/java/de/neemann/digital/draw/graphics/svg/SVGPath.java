@@ -19,7 +19,7 @@ public class SVGPath implements SVGFragment, SVGDrawable {
     private SVGStyle style;
     private boolean closed = false;
     private final HashSet<Integer> isBezierStart = new HashSet<>();
-    private Vector lastForCurve = null;
+    private static Vector lastForCurve = null;
 
     /**
      * Creates a Path from XML
@@ -94,22 +94,34 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                 verticalLine(getIntFromString(b.get(0)), abs);
                 return;
             case 'c':
-                bezierCurve(b, abs, false);
+                for (int i = 0; i < b.size() - 5; i += 6) {
+                    bezierCurve(getIntFromString(b.get(i)), getIntFromString(b.get(i + 1)),
+                            getIntFromString(b.get(i + 2)), getIntFromString(b.get(i + 3)),
+                            getIntFromString(b.get(i + 4)), getIntFromString(b.get(i + 5)), abs);
+                }
                 return;
             case 's':
-                bezierCurve(b, abs, true);
+                for (int i = 0; i < b.size() - 3; i += 4) {
+                    bezierCurve(lastForCurve.x, lastForCurve.y, getIntFromString(b.get(i + 0)),
+                            getIntFromString(b.get(i + 1)), getIntFromString(b.get(i + 2)),
+                            getIntFromString(b.get(i + 3)), abs);
+                }
                 return;
             case 'q':
-                bezierCurve(getIntFromString(b.get(0)), getIntFromString(b.get(1)), getIntFromString(b.get(2)),
-                        getIntFromString(b.get(3)), abs);
+                for (int i = 0; i < b.size() - 3; i += 4) {
+                    bezierCurve(getIntFromString(b.get(i + 0)), getIntFromString(b.get(i + 1)),
+                            getIntFromString(b.get(i + 2)), getIntFromString(b.get(i + 3)), abs);
+                }
                 return;
             case 't':
-                bezierCurve(lastForCurve.x, lastForCurve.y, getIntFromString(b.get(0)), getIntFromString(b.get(1)),
-                        abs);
+                for (int i = 0; i < b.size() - 1; i += 2) {
+                    bezierCurve(lastForCurve.x, lastForCurve.y, getIntFromString(b.get(i + 0)),
+                            getIntFromString(b.get(i + 1)), abs);
+                }
                 return;
             case 'a':
                 // TODO
-                bezierCurve(b, abs, false);
+                // bezierCurve(b, abs, false);
                 return;
             default:
                 throw new NoParsableSVGException();
@@ -194,7 +206,13 @@ public class SVGPath implements SVGFragment, SVGDrawable {
      *            whether they're absolute positions
      */
     private void bezierCurve(int x1, int y1, int x2, int y2, int x3, int y3, boolean abs) {
-        System.out.println("Zeichne Bezierkurve: " + x1 + "/" + y1 + " " + x2 + "/" + y2 + " " + x3 + "/" + y3);
+        if (abs)
+            System.out.println("Zeichne Bezierkurve: " + x1 + "/" + y1 + " " + x2 + "/" + y2 + " " + x3 + "/" + y3);
+        else
+            System.out.println("Zeichne Bezierkurve: " + (x1 + corners.get(corners.size() - 1).x) + "/"
+                    + (y1 + corners.get(corners.size() - 1).y) + " " + (x2 + corners.get(corners.size() - 1).x) + "/"
+                    + (y2 + corners.get(corners.size() - 1).y) + " " + (x3 + corners.get(corners.size() - 1).x) + "/"
+                    + (y3 + corners.get(corners.size() - 1).y));
         Vector v1 = new Vector(x1, y1);
         Vector v2 = new Vector(x2, y2);
         Vector v3 = new Vector(x3, y3);
@@ -207,7 +225,7 @@ public class SVGPath implements SVGFragment, SVGDrawable {
         isBezierStart.add(corners.size() - 1);
         corners.add(v2);
         corners.add(v3);
-        lastForCurve = v3;
+        lastForCurve = v2;
     }
 
     /**
@@ -224,44 +242,16 @@ public class SVGPath implements SVGFragment, SVGDrawable {
      *            absolute Positions
      */
     private void bezierCurve(int x1, int y1, int x2, int y2, boolean abs) {
-        int ax = corners.get(corners.size() - 1).x;
-        int ay = corners.get(corners.size() - 1).y;
-        int xn1 = ax + (2 / 3) * (x1 - ax);
-        int yn1 = ay + (2 / 3) * (y1 - ay);
-        int xn2 = x2 + (2 / 3) * (x1 - x2);
-        int yn2 = y2 + (2 / 3) * (y1 - y2);
-        bezierCurve(xn1, yn1, xn2, yn2, x2, y2, abs);
-    }
-
-    /**
-     * Creates a pseudo-bezier Curve
-     * @param points
-     *            List of points as String
-     * @param abs
-     *            whether its about absolut positions
-     * @param sht
-     *            if its a smooth curve(starts with last Vector from last curve
-     */
-    private void bezierCurve(ArrayList<String> points, boolean abs, boolean sht) throws Exception {
-        if (sht && points.size() == 4) {
-            bezierCurve(lastForCurve.x, lastForCurve.y, getIntFromString(points.get(0)),
-                    getIntFromString(points.get(1)), getIntFromString(points.get(2)), getIntFromString(points.get(3)),
-                    abs);
-        } else if (!sht && points.size() == 6) {
-            bezierCurve(getIntFromString(points.get(0)), getIntFromString(points.get(1)),
-                    getIntFromString(points.get(2)), getIntFromString(points.get(3)), getIntFromString(points.get(4)),
-                    getIntFromString(points.get(5)), abs);
-        } else {
-            if (sht) {
-                lineTo(lastForCurve.x, lastForCurve.y, abs);
-            }
-            for (int i = 0; i < points.size() - 1; i += 2) {
-                lineTo(getIntFromString(points.get(i)), getIntFromString(points.get(i + 1)), abs);
-            }
-            lastForCurve = new Vector(getIntFromString(points.get(points.size() - 2)),
-                    getIntFromString(points.get(points.size() - 1)));
+        Vector start = corners.get(corners.size() - 1);
+        Vector controlQ = new Vector(x1, y1);
+        Vector end = new Vector(x2, y2);
+        if (!abs) {
+            controlQ = controlQ.add(start);
+            end = end.add(start);
         }
-
+        Vector controlC1 = start.add(controlQ.sub(start).mul(2).div(3));
+        Vector controlC2 = end.add(controlQ.sub(end).mul(2).div(3));
+        bezierCurve(controlC1.x, controlC1.y, controlC2.x, controlC2.y, end.x, end.y, true);
     }
 
     /**
