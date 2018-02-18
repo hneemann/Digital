@@ -37,7 +37,7 @@ public class GraphicSVGIndex extends GraphicSVG {
     }
 
     @Override
-    public String formatText(String text, int fontSize) {
+    public String formatText(String text, Style style) {
         text = text.replace('~', '\u00ac');
         return formatSVGIndex(escapeXML(formatIndex(cleanLabel(text))));
     }

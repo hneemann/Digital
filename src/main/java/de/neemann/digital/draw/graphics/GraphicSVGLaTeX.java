@@ -85,7 +85,7 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     }
 
     @Override
-    public String formatText(String text, int fontSize) {
+    public String formatText(String text, Style style) {
         text = formatIndex(text);
         StringBuilder sb = new StringBuilder();
         boolean inMath = false;
@@ -121,8 +121,8 @@ public class GraphicSVGLaTeX extends GraphicSVG {
             }
         }
         text = sb.toString();
-        if (fontSize != Style.NORMAL.getFontSize()) {
-            final String fontSizeName = getFontSizeName(fontSize);
+        if (style.getFontSize() != Style.NORMAL.getFontSize()) {
+            final String fontSizeName = getFontSizeName(style.getFontSize());
             if (!fontSizeName.equals("normalsize"))
                 text = "{\\" + fontSizeName + " " + text + "}";
         }
