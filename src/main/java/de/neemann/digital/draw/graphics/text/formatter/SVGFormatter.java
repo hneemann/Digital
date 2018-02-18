@@ -32,7 +32,10 @@ public final class SVGFormatter {
             Decorate d = (Decorate) text;
             switch (d.getStyle()) {
                 case MATH:
-                    return "<tspan style=\"font-style:italic\">" + format(d.getContent(), true) + "</tspan>";
+                    if (mathMode)
+                        return format(d.getContent(), true);
+                    else
+                        return "<tspan style=\"font-style:italic\">" + format(d.getContent(), true) + "</tspan>";
                 case OVERLINE:
                     return "<tspan style=\"text-decoration: overline\">" + format(d.getContent(), mathMode) + "</tspan>";
                 default:
