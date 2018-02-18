@@ -19,7 +19,6 @@ public class SVGPath implements SVGFragment, SVGDrawable {
     private SVGStyle style;
     private boolean closed = false;
     private final HashSet<Integer> isBezierStart = new HashSet<>();
-    private static Vector lastForCurve = null;
 
     /**
      * Creates a Path from XML
@@ -102,9 +101,10 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                 return;
             case 's':
                 for (int i = 0; i < b.size() - 3; i += 4) {
-                    bezierCurve(lastForCurve.x, lastForCurve.y, getIntFromString(b.get(i + 0)),
-                            getIntFromString(b.get(i + 1)), getIntFromString(b.get(i + 2)),
-                            getIntFromString(b.get(i + 3)), abs);
+                    bezierCurve(2 * corners.get(corners.size() - 1).x - corners.get(corners.size() - 2).x,
+                            2 * corners.get(corners.size() - 1).y - corners.get(corners.size() - 2).y,
+                            getIntFromString(b.get(i + 0)), getIntFromString(b.get(i + 1)),
+                            getIntFromString(b.get(i + 2)), getIntFromString(b.get(i + 3)), abs);
                 }
                 return;
             case 'q':
@@ -115,8 +115,9 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                 return;
             case 't':
                 for (int i = 0; i < b.size() - 1; i += 2) {
-                    bezierCurve(lastForCurve.x, lastForCurve.y, getIntFromString(b.get(i + 0)),
-                            getIntFromString(b.get(i + 1)), abs);
+                    bezierCurve(2 * corners.get(corners.size() - 1).x - corners.get(corners.size() - 2).x,
+                            2 * corners.get(corners.size() - 1).y - corners.get(corners.size() - 2).y,
+                            getIntFromString(b.get(i + 0)), getIntFromString(b.get(i + 1)), abs);
                 }
                 return;
             case 'a':
@@ -225,7 +226,6 @@ public class SVGPath implements SVGFragment, SVGDrawable {
         isBezierStart.add(corners.size() - 1);
         corners.add(v2);
         corners.add(v3);
-        lastForCurve = v2;
     }
 
     /**
