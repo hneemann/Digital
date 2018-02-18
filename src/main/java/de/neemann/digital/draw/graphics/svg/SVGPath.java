@@ -194,10 +194,12 @@ public class SVGPath implements SVGFragment, SVGDrawable {
      *            whether they're absolute positions
      */
     private void bezierCurve(int x1, int y1, int x2, int y2, int x3, int y3, boolean abs) {
+        System.out.println("Zeichne Bezierkurve: " + x1 + "/" + y1 + " " + x2 + "/" + y2 + " " + x3 + "/" + y3);
         Vector v1 = new Vector(x1, y1);
         Vector v2 = new Vector(x2, y2);
         Vector v3 = new Vector(x3, y3);
         if (!abs) {
+            v1 = v1.add(corners.get(corners.size() - 1));
             v2 = v2.add(corners.get(corners.size() - 1));
             v3 = v3.add(corners.get(corners.size() - 1));
         }
@@ -288,7 +290,7 @@ public class SVGPath implements SVGFragment, SVGDrawable {
         int adder = 1;
         for (int i = 0; i < corners.size(); i += adder) {
             if (isBezierStart.contains(i)) {
-                p.add(corners.get(i), corners.get(i+1), corners.get(i+2));
+                p.add(corners.get(i), corners.get(i + 1), corners.get(i + 2));
                 adder = 3;
             } else {
                 p.add(corners.get(i));

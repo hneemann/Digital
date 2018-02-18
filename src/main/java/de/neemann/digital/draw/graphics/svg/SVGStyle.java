@@ -74,12 +74,10 @@ public class SVGStyle {
      * @return corresponding int
      */
     private int getIntFromString(String inp) {
-        if (inp.contains("."))
-            inp = inp.split(".")[0];
         inp = inp.replaceAll("[^0-9]", "");
         if (inp.isEmpty())
             return 0;
-        return Integer.parseInt(inp);
+        return (int)Double.parseDouble(inp);
     }
 
     /**
