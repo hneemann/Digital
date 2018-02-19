@@ -1,6 +1,6 @@
 Release Notes
 
-HEAD, planned as v0.17
+v0.17, released on 19. Feb 2018
 - Added 64 bit support for Add and Sub components.
 - Added support of some more ATF150x chips.
 - Added a register file component.
