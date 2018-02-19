@@ -1,5 +1,10 @@
 package de.neemann.digital.draw.graphics;
 
+import de.neemann.digital.draw.graphics.text.ParseException;
+import de.neemann.digital.draw.graphics.text.Parser;
+import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
+import de.neemann.digital.draw.graphics.text.text.Text;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
@@ -107,12 +112,12 @@ public class GraphicSwing implements Graphic {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public void drawText(Vector p1, Vector p2, String theText, Orientation orientation, Style style) {
         applyStyle(style); // sets also font size!
         int height = gr.getFontMetrics().getHeight();
         if (height > minFontSize) {
-            if (text == null || text.length() == 0) return;
-            text = text.replace('~', '¬');
+            if (theText == null || theText.length() == 0) return;
+            String text = theText.replace('~', '¬');
 
             //GraphicMinMax.approxTextSize(this, p1, p2, text, orientation, style);
 
@@ -130,6 +135,14 @@ public class GraphicSwing implements Graphic {
                 rotateText = true;
             }
 
+            GraphicsFormatter.Fragment fragment = null;
+            try {
+                Text t = new Parser(theText).parse();
+                fragment = GraphicsFormatter.createFragment(gr, t);
+            } catch (ParseException | GraphicsFormatter.FormatterException e) {
+                e.printStackTrace();
+            }
+
             AffineTransform old = null;
             if (rotateText) {
                 old = gr.getTransform();
@@ -140,7 +153,11 @@ public class GraphicSwing implements Graphic {
 
             int xoff = 0;
             if (orientation.getX() != 0) {
-                int width = gr.getFontMetrics().stringWidth(text);
+                int width;
+                if (fragment != null)
+                    width = fragment.getWidth();
+                else
+                    width = gr.getFontMetrics().stringWidth(text);
                 xoff -= width * orientation.getX() / 2;
             }
 
@@ -149,7 +166,10 @@ public class GraphicSwing implements Graphic {
                 yoff += height * orientation.getY() / 3;
             }
 
-            gr.drawString(text, p1.x + xoff, p1.y + yoff);
+            if (fragment != null)
+                GraphicsFormatter.draw(gr, p1.x + xoff, p1.y + yoff, fragment);
+            else
+                gr.drawString(text, p1.x + xoff, p1.y + yoff);
 
             if (rotateText)
                 gr.setTransform(old);
