@@ -18,20 +18,6 @@ public final class GraphicsFormatter {
     /**
      * Draws the given text.
      *
-     * @param gr   the {@link Graphics2D} instance
-     * @param x    the x position
-     * @param y    the y position
-     * @param text the text
-     * @throws FormatterException FormatterException
-     */
-    public static void draw(Graphics2D gr, int x, int y, Text text) throws FormatterException {
-        Fragment f = createFragment(gr, gr.getFont(), text);
-        draw(gr, x, y, f);
-    }
-
-    /**
-     * Draws the given text.
-     *
      * @param gr       the {@link Graphics2D} instance
      * @param x        the x position
      * @param y        the y position
@@ -45,6 +31,7 @@ public final class GraphicsFormatter {
         gr.setStroke(stroke);
     }
 
+
     /**
      * Creates the text fragments
      *
@@ -54,23 +41,36 @@ public final class GraphicsFormatter {
      * @throws FormatterException FormatterException
      */
     public static Fragment createFragment(Graphics2D gr, Text text) throws FormatterException {
-        return createFragment(gr, gr.getFont(), text);
+        return createFragment((fragment, font, str) -> {
+            final FontMetrics metrics = gr.getFontMetrics(font);
+            Rectangle2D rec = metrics.getStringBounds(str, gr);
+            fragment.set((int) rec.getWidth(), (int) rec.getHeight(), metrics.getDescent());
+        }, gr.getFont(), text);
     }
 
-    private static Fragment createFragment(Graphics2D gr, Font font, Text text) throws FormatterException {
+    /**
+     * Creates the text fragments
+     *
+     * @param sizer the sizer instance
+     * @param font  the font
+     * @param text  the text
+     * @return the fragment
+     * @throws FormatterException FormatterException
+     */
+    public static Fragment createFragment(FontSizer sizer, Font font, Text text) throws FormatterException {
         if (text instanceof Simple) {
-            return new TextFragment(gr, font, ((Simple) text).getText());
+            return new TextFragment(sizer, font, ((Simple) text).getText());
         } else if (text instanceof Character) {
-            return new TextFragment(gr, font, "" + ((Character) text).getChar());
+            return new TextFragment(sizer, font, "" + ((Character) text).getChar());
         } else if (text instanceof Sentence) {
             Sentence s = (Sentence) text;
             SentenceFragment sf = new SentenceFragment();
             int x = 0;
             for (Text t : s)
                 if (t instanceof Blank)
-                    x += gr.getFont().getSize() / 2;
+                    x += font.getSize() / 2;
                 else {
-                    final Fragment f = createFragment(gr, font, t);
+                    final Fragment f = createFragment(sizer, font, t);
                     f.x = x;
                     x += f.dx;
                     sf.add(f);
@@ -79,20 +79,20 @@ public final class GraphicsFormatter {
             return sf.setUp();
         } else if (text instanceof Index) {
             Index i = (Index) text;
-            Fragment var = createFragment(gr, font, i.getVar());
+            Fragment var = createFragment(sizer, font, i.getVar());
             Font f = font.deriveFont(font.getSize() / 1.4f);
-            Fragment superScript = i.getSuperScript() == null ? null : createFragment(gr, f, i.getSuperScript());
-            Fragment subScript = i.getSubScript() == null ? null : createFragment(gr, f, i.getSubScript());
+            Fragment superScript = i.getSuperScript() == null ? null : createFragment(sizer, f, i.getSuperScript());
+            Fragment subScript = i.getSubScript() == null ? null : createFragment(sizer, f, i.getSubScript());
             return new IndexFragment(var, superScript, subScript);
         } else if (text instanceof Decorate) {
             Decorate d = (Decorate) text;
             switch (d.getStyle()) {
                 case MATH:
-                    return createFragment(gr, font.deriveFont(Font.ITALIC), d.getContent());
+                    return createFragment(sizer, font.deriveFont(Font.ITALIC), d.getContent());
                 case OVERLINE:
-                    return new OverlineFragment(createFragment(gr, font, d.getContent()), font.getSize());
+                    return new OverlineFragment(createFragment(sizer, font, d.getContent()), font.getSize());
                 default:
-                    return createFragment(gr, font, d.getContent());
+                    return createFragment(sizer, font, d.getContent());
             }
         } else
             throw new FormatterException("unknown text element " + text.getClass().getSimpleName() + ", " + text);
@@ -122,7 +122,14 @@ public final class GraphicsFormatter {
         private Fragment() {
         }
 
-        void set(int dx, int dy, int base) {
+        /**
+         * Sets the size of this fragment
+         *
+         * @param dx   width
+         * @param dy   height
+         * @param base base line
+         */
+        public void set(int dx, int dy, int base) {
             this.dx = dx;
             this.dy = dy;
             this.base = base;
@@ -146,12 +153,10 @@ public final class GraphicsFormatter {
         private final String text;
         private final Font font;
 
-        private TextFragment(Graphics2D gr, Font font, String text) {
+        private TextFragment(FontSizer sizer, Font font, String text) {
             this.font = font;
-            final FontMetrics metrics = gr.getFontMetrics(font);
-            Rectangle2D rec = metrics.getStringBounds(text, gr);
-            set((int) rec.getWidth(), (int) rec.getHeight(), metrics.getDescent());
             this.text = text;
+            sizer.setSizeTo(this, font, text);
         }
 
         @Override
@@ -273,5 +278,19 @@ public final class GraphicsFormatter {
             gr.setStroke(new BasicStroke(fontSize / 10f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
             gr.drawLine(xOfs + x + indent, yy, xOfs + x + dx - indent / 2, yy);
         }
+    }
+
+    /**
+     * Used to determine the size of a string
+     */
+    public interface FontSizer {
+        /**
+         * Must set the size of the given fragment by calling the {@link Fragment#set(int, int, int)} method.
+         *
+         * @param fragment fragment which size
+         * @param font     the used font
+         * @param str      the string to measure
+         */
+        void setSizeTo(Fragment fragment, Font font, String str);
     }
 }
