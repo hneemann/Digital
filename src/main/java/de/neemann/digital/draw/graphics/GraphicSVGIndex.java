@@ -46,7 +46,7 @@ public class GraphicSVGIndex extends GraphicSVG {
         try {
             Text t = new Parser(text).parse();
             if (style.getFontStyle() == Font.ITALIC)
-                t = new Decorate(t, Decorate.Style.MATH);
+                t = Decorate.math(t);
             return SVGFormatter.format(t);
         } catch (ParseException e) {
             e.printStackTrace();

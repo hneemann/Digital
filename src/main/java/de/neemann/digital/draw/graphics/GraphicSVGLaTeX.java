@@ -96,7 +96,7 @@ public class GraphicSVGLaTeX extends GraphicSVG {
         try {
             Text t = new Parser(text).parse();
             if (style.getFontStyle() == Font.ITALIC)
-                t = new Decorate(t, Decorate.Style.MATH);
+                t = Decorate.math(t);
             text = LaTeXFormatter.format(t);
         } catch (ParseException e) {
             e.printStackTrace();
