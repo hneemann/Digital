@@ -40,7 +40,6 @@ public final class GraphicsFormatter {
     public static void draw(Graphics2D gr, int x, int y, Fragment fragment) {
         Font font = gr.getFont();
         Stroke stroke = gr.getStroke();
-        gr.setStroke(new BasicStroke(2f));
         fragment.draw(gr, x, y);
         gr.setFont(font);
         gr.setStroke(stroke);
@@ -91,7 +90,7 @@ public final class GraphicsFormatter {
                 case MATH:
                     return createFragment(gr, font.deriveFont(Font.ITALIC), d.getContent());
                 case OVERLINE:
-                    return new OverlineFragment(createFragment(gr, font, d.getContent()), font.getSize() / 10);
+                    return new OverlineFragment(createFragment(gr, font, d.getContent()), font.getSize());
                 default:
                     return createFragment(gr, font, d.getContent());
             }
@@ -130,6 +129,7 @@ public final class GraphicsFormatter {
         }
 
         void draw(Graphics2D gr, int xOfs, int yOfs) {
+//            gr.setStroke(new BasicStroke());
 //            gr.drawRect(xOfs + x, yOfs + y + base - dy, dx, dy);
 //            gr.drawLine(xOfs + x, yOfs + y, xOfs + x + dx, yOfs + y);
         }
@@ -138,7 +138,7 @@ public final class GraphicsFormatter {
          * @return the width of this fragment
          */
         public int getWidth() {
-            return dx;
+            return dx + dy / 10;
         }
     }
 
@@ -254,13 +254,15 @@ public final class GraphicsFormatter {
     private final static class OverlineFragment extends Fragment {
         private final Fragment fragment;
         private final int indent;
+        private final float fontSize;
 
-        private OverlineFragment(Fragment fragment, int indent) {
+        private OverlineFragment(Fragment fragment, float fontSize) {
             this.fragment = fragment;
-            this.indent = indent;
+            this.fontSize = fontSize;
             this.dx = fragment.dx;
             this.dy = fragment.dy;
             this.base = fragment.base;
+            this.indent = dx < fontSize / 2 ? 0 : (int) fontSize / 10;
         }
 
         @Override
@@ -268,6 +270,7 @@ public final class GraphicsFormatter {
             super.draw(gr, xOfs, yOfs);
             fragment.draw(gr, xOfs + x, yOfs + y);
             int yy = yOfs + y - dy + base;
+            gr.setStroke(new BasicStroke(fontSize / 10f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
             gr.drawLine(xOfs + x + indent, yy, xOfs + x + dx - indent / 2, yy);
         }
     }

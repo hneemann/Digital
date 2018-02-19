@@ -112,12 +112,11 @@ public class GraphicSwing implements Graphic {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String theText, Orientation orientation, Style style) {
+    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
         applyStyle(style); // sets also font size!
         int height = gr.getFontMetrics().getHeight();
         if (height > minFontSize) {
-            if (theText == null || theText.length() == 0) return;
-            String text = theText.replace('~', '¬');
+            if (text == null || text.length() == 0) return;
 
             //GraphicMinMax.approxTextSize(this, p1, p2, text, orientation, style);
 
@@ -137,10 +136,10 @@ public class GraphicSwing implements Graphic {
 
             GraphicsFormatter.Fragment fragment = null;
             try {
-                Text t = new Parser(theText).parse();
+                Text t = new Parser(text).parse();
                 fragment = GraphicsFormatter.createFragment(gr, t);
             } catch (ParseException | GraphicsFormatter.FormatterException e) {
-                e.printStackTrace();
+                // on formatting errors show original text
             }
 
             AffineTransform old = null;
