@@ -67,6 +67,12 @@ These are the main features of Digital:
 - Good test coverage (exclusive of GUI classes about 80%).
   Almost all examples contain test cases which ensure that they work correctly.
 
+## Documentation ##
+
+A [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English and German.
+It is still very incomplete but it contains a chapter "First Steps" which explains the basic usage of Digital.
+The documentation also contains a list of available keyboard shortcuts. 
+
 ## Comments ##
 
 If you want to send a bug report or feature request please use the GitHub 
