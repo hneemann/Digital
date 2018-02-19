@@ -218,7 +218,7 @@ public final class GraphicsFormatter {
             dy = var.dy;
 
             int delta = var.dy / 3;
-            int ofs = var.dy / 6;
+            int ofs = var.dy / 8;
             if (superScript != null) {
                 superScript.x = var.dx;
                 superScript.y = -delta - ofs;
