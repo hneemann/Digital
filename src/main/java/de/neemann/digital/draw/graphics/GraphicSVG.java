@@ -156,7 +156,7 @@ public class GraphicSVG implements Graphic {
         if (text == null || text.length() == 0) return;
 
         try {
-            text = formatText(text, style.getFontSize());
+            text = formatText(text, style);
 
             boolean rotateText = false;
             if (p1.y == p2.y) {   // 0 and 180 deg
@@ -196,11 +196,11 @@ public class GraphicSVG implements Graphic {
      * Is used by drawText to format the given text to SVG.
      * This implementation only calls escapeXML(text).
      *
-     * @param text     the text
-     * @param fontSize the fontsize
+     * @param text  the text
+     * @param style the text style
      * @return the formatted text
      */
-    public String formatText(String text, int fontSize) {
+    public String formatText(String text, Style style) {
         return escapeXML(text);
     }
 
