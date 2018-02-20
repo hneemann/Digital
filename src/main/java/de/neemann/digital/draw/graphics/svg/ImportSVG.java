@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -48,32 +47,35 @@ public class ImportSVG {
             throw new NoParsableSVGException();
         }
 
+        ArrayList<Element> elements = getElements(svg);
+        objSVG = new SVG(elements);
+        imp(elements);
+    }
+
+    /**
+     * Turns a Document in a List of Elements
+     * @param svg
+     *            SVG Document
+     * @return List of Elements
+     * @throws NoParsableSVGException
+     *             if the Doc is not valid
+     */
+    public static ArrayList<Element> getElements(Document svg) throws NoParsableSVGException {
         svg.getDocumentElement().normalize();
         NodeList gList;
         try {
-            gList = svg.getElementsByTagName("*");
+            gList = svg.getElementsByTagName("svg").item(0).getChildNodes();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new NoParsableSVGException();
         }
-        HashSet<String> possibleRoots = new HashSet<String>();
-        possibleRoots.add("g");
-        possibleRoots.add("a");
-        possibleRoots.add("path");
-        possibleRoots.add("circle");
-        possibleRoots.add("ellipse");
-        possibleRoots.add("rect");
-        possibleRoots.add("line");
-        possibleRoots.add("polyline");
-        possibleRoots.add("polygon");
-        possibleRoots.add("text");
-        ArrayList<Element> elements = new ArrayList<Element>();
+        ArrayList<Element> ret = new ArrayList<Element>();
         for (int i = 0; i < gList.getLength(); i++) {
-            if (possibleRoots.contains(gList.item(i).getNodeName())) {
-                elements.add((Element) gList.item(i));
+            if (gList.item(i) instanceof Element) {
+                ret.add((Element) gList.item(i));
             }
         }
-        objSVG = new SVG(elements);
-        imp(elements);
+        return ret;
     }
 
     /**
@@ -105,10 +107,7 @@ public class ImportSVG {
      */
     private void imp(ArrayList<Element> list) throws NoParsableSVGException {
         for (Element el : list) {
-            try {
-                fragments.add(createElement(el));
-            } catch (NoSuchSVGElementException e) {
-            }
+            fragments.add(createElement(el));
         }
         if (inputs != null && outputs != null) {
             setPinDescriptions(inputs, outputs);
@@ -151,14 +150,14 @@ public class ImportSVG {
      * @throws NoParsableSVGException
      *             if the svg is not parsable
      */
-    public SVGFragment createElement(Node n) throws NoSuchSVGElementException, NoParsableSVGException {
+    public SVGFragment createElement(Node n) throws NoParsableSVGException {
         if (n.getNodeType() == Node.ELEMENT_NODE) {
             switch (n.getNodeName()) {
             case "path":
                 return new SVGPath(((Element) n));
             case "circle":
             case "ellipse":
-                return new SVGEllipse(((Element) n), pins, inputs, outputs, pseudoPins);
+                return new SVGEllipse(((Element) n), pins, pseudoPins);
             case "rect":
                 return new SVGRectangle(((Element) n));
             case "line":
@@ -169,9 +168,12 @@ public class ImportSVG {
                 return new SVGPolygon(((Element) n));
             case "text":
                 return new SVGText(((Element) n));
+            case "a":
+            case "g":
+                return new SVGGroup((Element) n, this);
             }
         }
-        throw new NoSuchSVGElementException();
+        return null;
     }
 
     /**
@@ -188,5 +190,13 @@ public class ImportSVG {
      */
     public Pins getPins() {
         return pins;
+    }
+
+    /**
+     * get the pseudopins
+     * @return Pseudopins
+     */
+    public ArrayList<SVGPseudoPin> getPseudoPins() {
+        return pseudoPins;
     }
 }

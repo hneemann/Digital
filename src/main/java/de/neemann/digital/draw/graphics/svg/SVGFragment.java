@@ -1,5 +1,7 @@
 package de.neemann.digital.draw.graphics.svg;
 
+import de.neemann.digital.draw.graphics.Vector;
+
 /**
  * Interface of all representations of SVG-Elements
  * @author felix
@@ -11,4 +13,18 @@ public interface SVGFragment {
      * @return Array of Drawable Objects
      */
     SVGDrawable[] getDrawables();
+
+    /**
+     * Says if a Fragment is representing a pin
+     * @return pin
+     */
+    default boolean isPin() {
+        return false;
+    }
+
+    /**
+     * Gets the Pos-Vector
+     * @return Position
+     */
+    Vector getPos();
 }

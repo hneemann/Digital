@@ -9,9 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -56,11 +55,14 @@ import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.GraphicSwing;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.svg.ImportSVG;
 import de.neemann.digital.draw.graphics.svg.NoParsableSVGException;
 import de.neemann.digital.draw.graphics.svg.SVG;
 import de.neemann.digital.draw.graphics.svg.SVGDrawable;
 import de.neemann.digital.draw.graphics.svg.SVGFragment;
+import de.neemann.digital.draw.graphics.svg.SVGPinnable;
+import de.neemann.digital.draw.graphics.svg.SVGPseudoPin;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.gui.Main;
@@ -422,6 +424,7 @@ public final class EditorFactory {
         private final JPanel panel;
         private final VPanel preview;
         private SVG svg;
+        private ImportSVG importer;
 
         public SVGEditor(SVG value, Key<File> key) {
 
@@ -447,7 +450,7 @@ public final class EditorFactory {
                     fc.setFileFilter(new FileNameExtensionFilter("SVG", "svg"));
                     if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
                         try {
-                            ImportSVG importer = new ImportSVG(fc.getSelectedFile());
+                            importer = new ImportSVG(fc.getSelectedFile());
                             svg = importer.getSVG();
                             preview.setSVG(importer.getFragments());
                         } catch (Exception ex) {
@@ -462,30 +465,62 @@ public final class EditorFactory {
             panel.add(preview, BorderLayout.CENTER);
         }
 
-        @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
-                AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
-            super.addToPanel(panel, key, elementAttributes, attributeDialog, constraints);
-
-        }
-
         private final class VPanel extends JPanel {
             private ArrayList<SVGFragment> fragments;
 
             private double scale = 2.0;
             private double translateX = 10;
             private double translateY = 10;
-            private double translateXlast = 10;
-            private double translateYlast = 10;
+            private ArrayList<SVGPseudoPin> pins = new ArrayList<SVGPseudoPin>();
+            private boolean drag = false;
+            private int dragged;
+            private Vector old;
 
             public void setSVG(ArrayList<SVGFragment> fragments) {
                 this.fragments = fragments;
-                this.addMouseWheelListener(new MouseWheelListener() {
+                for (SVGFragment f : fragments) {
+                    if (f != null && f.isPin()) {
+                        for (SVGPseudoPin p : ((SVGPinnable) f).getPin())
+                            pins.add(p);
+                    }
+                }
+                this.addMouseListener(new MouseListener() {
 
                     @Override
-                    public void mouseWheelMoved(MouseWheelEvent e) {
-                        scale = scale - 0.1 * e.getWheelRotation();
-                        repaint();
+                    public void mouseReleased(MouseEvent e) {
+                        if (drag) {
+                            Vector fresh = new Vector((int) (e.getX() / scale - translateX),
+                                    (int) (e.getY() / scale - translateY));
+                            pins.get(dragged).setPos(fresh);
+                            repaint();
+                            svg.transformPin(old, fresh, pins.get(dragged).getIndex(), pins.get(dragged).isInput());
+                        }
+                        drag = false;
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        drag = false;
+                        for (int i = 0; i < pins.size(); i++) {
+                            if (pins.get(i).contains((int) (e.getX() / scale - translateX),
+                                    (int) (e.getY() / scale - translateY))) {
+                                drag = true;
+                                dragged = i;
+                                old = pins.get(i).getOriginalPos();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
                     }
                 });
                 this.addMouseMotionListener(new MouseMotionListener() {
@@ -496,11 +531,11 @@ public final class EditorFactory {
 
                     @Override
                     public void mouseDragged(MouseEvent e) {
-                        translateX = translateXlast;
-                        translateXlast = e.getX();
-                        translateY = translateYlast;
-                        translateYlast = e.getY();
-                        repaint();
+                        if (drag) {
+                            pins.get(dragged).setPos(new Vector((int) (e.getX() / scale - translateX),
+                                    (int) (e.getY() / scale - translateY)));
+                            repaint();
+                        }
                     }
                 });
                 repaint();

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Element;
 
-import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
@@ -13,16 +12,15 @@ import de.neemann.digital.draw.graphics.Vector;
  * Representation of the SVG-Ellipse
  * @author felix
  */
-public class SVGEllipse implements SVGFragment, SVGDrawable {
+public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
 
     private Vector oben;
     private Vector unten;
     private SVGStyle style;
     private Pins pins;
     private boolean pin;
-    private PinDescriptions inputs;
-    private PinDescriptions outputs;
     private ArrayList<SVGPseudoPin> pseudoPins;
+    private SVGPseudoPin me = null;
 
     /**
      * Creates an ellipse from xml
@@ -30,20 +28,13 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
      *            XML Element
      * @param pins
      *            Necessary Pins
-     * @param inputs
-     *            Input Descriptions
-     * @param outputs
-     *            Output Descriptions
      * @param pseudoPins
      *            PseudoPins
      * @throws NoParsableSVGException
      *             if the SVG's not valid
      */
-    public SVGEllipse(Element element, Pins pins, PinDescriptions inputs, PinDescriptions outputs,
-            ArrayList<SVGPseudoPin> pseudoPins) throws NoParsableSVGException {
+    public SVGEllipse(Element element, Pins pins, ArrayList<SVGPseudoPin> pseudoPins) throws NoParsableSVGException {
         this.pins = pins;
-        this.inputs = inputs;
-        this.outputs = outputs;
         this.pseudoPins = pseudoPins;
         try {
             int r = 0;
@@ -63,10 +54,8 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
             int cy = (int) Double.parseDouble(element.getAttribute("cy"));
             style = new SVGStyle(element.getAttribute("style"));
             pin = checkAndInsertPins(element.getAttribute("id"), cx, cy);
-            if (!pin) {
-                oben = new Vector(cx - rx, cy - ry);
-                unten = new Vector(cx + rx, cy + ry);
-            }
+            oben = new Vector(cx - rx, cy - ry);
+            unten = new Vector(cx + rx, cy + ry);
         } catch (Exception e) {
             e.printStackTrace();
             throw new NoParsableSVGException();
@@ -106,12 +95,14 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
             s = s.toLowerCase();
             if (s.startsWith("input") || s.startsWith("i")) {
                 int index = Integer.parseInt(s.replaceAll("[^0-9]*", ""));
-                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), inputs, index, true, pins, style));
+                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), index, true, pins, style));
+                me = pseudoPins.get(pseudoPins.size() - 1);
                 return true;
             }
             if (s.startsWith("output") || s.startsWith("o")) {
                 int index = Integer.parseInt(s.replaceAll("[^0-9]*", ""));
-                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), outputs, index, false, pins, style));
+                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), index, false, pins, style));
+                me = pseudoPins.get(pseudoPins.size() - 1);
                 return true;
             }
             return false;
@@ -125,9 +116,15 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
     public SVGDrawable[] getDrawables() {
         if (pin) {
             ArrayList<SVGDrawable> list = new ArrayList<SVGDrawable>();
-            for (SVGPseudoPin p : pseudoPins) {
-                for (SVGDrawable d : p.getDrawables())
-                    list.add(d);
+            if (me != null && !me.descSet()) {
+                String styleString;
+                if (me.isInput())
+                    styleString = "fill:#0000ff";
+                else
+                    styleString = "fill:#dd0000";
+                SVGEllipse ellipse = new SVGEllipse(me.getPos().sub(new Vector(2, 2)),
+                        me.getPos().add(new Vector(2, 2)), new SVGStyle(styleString));
+                list.add(ellipse);
             }
             return list.toArray(new SVGDrawable[list.size()]);
         }
@@ -143,5 +140,22 @@ public class SVGEllipse implements SVGFragment, SVGDrawable {
         }
         if (style.getShallRanded())
             graphic.drawCircle(oben, unten, style.getStyle());
+    }
+
+    @Override
+    public Vector getPos() {
+        return oben;
+    }
+
+    @Override
+    public boolean isPin() {
+        return pin;
+    }
+
+    @Override
+    public SVGPseudoPin[] getPin() {
+        return new SVGPseudoPin[] {
+                me
+        };
     }
 }

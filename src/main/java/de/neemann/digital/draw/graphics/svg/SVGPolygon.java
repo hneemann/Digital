@@ -73,4 +73,9 @@ public class SVGPolygon implements SVGFragment, SVGDrawable {
         if (style.getShallRanded())
             graphic.drawPolygon(p, style.getStyle());
     }
+
+    @Override
+    public Vector getPos() {
+        return corners.get(0);
+    }
 }

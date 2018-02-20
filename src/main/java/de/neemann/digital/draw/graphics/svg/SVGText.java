@@ -121,4 +121,9 @@ public class SVGText implements SVGFragment, SVGDrawable {
         if (style.getShallRanded())
             graphic.drawText(p1, p2, text, orientation, style.getStyle());
     }
+
+    @Override
+    public Vector getPos() {
+        return p1;
+    }
 }

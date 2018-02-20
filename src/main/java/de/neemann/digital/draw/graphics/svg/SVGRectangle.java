@@ -77,4 +77,9 @@ public class SVGRectangle implements SVGFragment {
                 calculatePolygon()
         };
     }
+
+    @Override
+    public Vector getPos() {
+        return new Vector(x, y);
+    }
 }

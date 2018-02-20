@@ -10,22 +10,19 @@ import de.neemann.digital.draw.graphics.Vector;
  * circle which looks like a Pin
  * @author felix
  */
-public class SVGPseudoPin implements SVGFragment {
+public class SVGPseudoPin implements SVGFragment, SVGPinnable {
 
     private Vector pos;
-    private PinDescriptions pinDesc;
     private int index;
     private boolean input;
     private Pins pins;
-    private SVGLine pinLine;
-    private SVGStyle style;
+    private boolean descSet = false;
+    private Vector originalPos;
 
     /**
      * Creates a PseudoPin
      * @param pos
      *            Vector where the Pin is located (Center)
-     * @param pinDesc
-     *            PinDescription
      * @param index
      *            Number of the Pin
      * @param input
@@ -35,12 +32,10 @@ public class SVGPseudoPin implements SVGFragment {
      * @param style
      *            style of the Pin
      */
-    public SVGPseudoPin(Vector pos, PinDescriptions pinDesc, int index, boolean input, Pins pins, SVGStyle style) {
-        this.pinDesc = pinDesc;
+    public SVGPseudoPin(Vector pos, int index, boolean input, Pins pins, SVGStyle style) {
         this.index = index;
         this.input = input;
         this.pins = pins;
-        this.style = style;
         this.pos = applyVectorToGrid(pos.x, pos.y);
     }
 
@@ -53,26 +48,10 @@ public class SVGPseudoPin implements SVGFragment {
      * @return ongrid-Vector
      */
     private Vector applyVectorToGrid(int x, int y) {
+        originalPos = new Vector(x, y);
         int nx = (int) (Math.round(x / 20.0) * 20);
         int ny = (int) (Math.round(y / 20.0) * 20);
-        Vector a = new Vector(x, y);
         Vector b = new Vector(nx, ny);
-        boolean uncorrect = false;
-        do {
-            for (Pin p : pins) {
-                if (p.getPos().equals(b)) {
-                    uncorrect = true;
-                }
-            }
-            if (uncorrect) {
-                b = new Vector(nx, ny + 20);
-            }
-        } while (uncorrect);
-
-        if (!a.equals(b)) {
-            style.setThickness("2");
-            pinLine = new SVGLine(a, b, style);
-        }
         return b;
     }
 
@@ -90,24 +69,76 @@ public class SVGPseudoPin implements SVGFragment {
      *            Pin Description
      */
     public void setPinDesc(PinDescriptions pinDesc) {
-        this.pinDesc = pinDesc;
         pins.add(new Pin(pos, pinDesc.get(index)));
+        descSet = true;
     }
 
     @Override
     public SVGDrawable[] getDrawables() {
-        if (pinDesc != null) {
-            return new SVGDrawable[] {
-                    pinLine
-            };
-        }
-        String styleString;
-        if (input)
-            styleString = "fill:#0000ff";
-        else
-            styleString = "fill:#dd0000";
-        return new SVGDrawable[] {
-                pinLine, new SVGEllipse(pos.sub(new Vector(2, 2)), pos.add(new Vector(2, 2)), new SVGStyle(styleString))
+        return new SVGDrawable[] {};
+    }
+
+    /**
+     * Returns true, if the given coordinates are within the Pin
+     * @param x
+     *            x coordinate
+     * @param y
+     *            y coordinate
+     * @return contains
+     */
+    public boolean contains(int x, int y) {
+        if (new Vector(x, y).inside(pos.sub(new Vector(2, 2)), pos.add(new Vector(2, 2))))
+            return true;
+        return false;
+    }
+
+    /**
+     * Sets the pos of the Pin
+     * @param pos
+     *            pos
+     */
+    public void setPos(Vector pos) {
+        this.pos = applyVectorToGrid(pos.x, pos.y);
+    }
+
+    /**
+     * Says if the Pin is a real PIn
+     * @return descSet
+     */
+    public boolean descSet() {
+        return descSet;
+    }
+
+    @Override
+    public Vector getPos() {
+        return pos;
+    }
+
+    /**
+     * Gets the original pos, as its defined in the SVG
+     * @return original Pos
+     */
+    public Vector getOriginalPos() {
+        return originalPos;
+    }
+
+    /**
+     * Gets the Number of the Pin
+     * @return index
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    @Override
+    public boolean isPin() {
+        return true;
+    }
+
+    @Override
+    public SVGPseudoPin[] getPin() {
+        return new SVGPseudoPin[] {
+                this
         };
     }
 }

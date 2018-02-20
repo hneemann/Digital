@@ -60,4 +60,9 @@ public class SVGLine implements SVGFragment, SVGDrawable {
     public void draw(Graphic graphic) {
         graphic.drawLine(a, b, style.getStyle());
     }
+
+    @Override
+    public Vector getPos() {
+        return a;
+    }
 }

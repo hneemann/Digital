@@ -10,6 +10,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import de.neemann.digital.draw.graphics.Vector;
+
 /**
  * Representation of a SVG. Is used to be saved in the Circuit-properties
  * @author felix
@@ -26,15 +28,48 @@ public class SVG {
 
     /**
      * Creates a SVG Object from a list of XML Elements
-     * @param list
+     * @param el
      *            List of XML Elements
      */
-    public SVG(ArrayList<Element> list) {
-        elements = "<root>";
-        for (Element e : list) {
+    public SVG(ArrayList<Element> el) {
+        elements = "<svg>";
+        for (Element e : el) {
             elements += elementToString(e);
         }
-        elements += "</root>";
+        elements += "</svg>";
+    }
+
+    /**
+     * Moves a Pin
+     * @param old
+     *            old position
+     * @param fresh
+     *            new Position
+     * @param id
+     *            id of the pin
+     * @param input
+     *            if its a inputpin
+     */
+    public void transformPin(Vector old, Vector fresh, int id, boolean input) {
+        elements = elements.replaceAll(
+                "(<circle |<ellipse )[^\\/]*cx=\"" + old.x + "\"[^\\/]*cy=\"" + old.y + "\"[^\\/]*\\/>",
+                "<circle cx=\"" + fresh.x + "\" cy=\"" + fresh.y + "\" r=\"2\" id=\"" + (input ? "input" : "output")
+                        + id + "\"/>");
+    }
+
+    /**
+     * Adds a new Pin
+     * @param input
+     *            Inputpin
+     * @param number
+     *            Number of the Pin
+     * @param pos
+     *            Position of the Pin
+     */
+    public void addPin(boolean input, int number, Vector pos) {
+        String pin = "<circle cx=\"" + pos.x + "\" cy=\"" + pos.y + "\" id=\"" + (input ? "input" : "output") + number
+                + "\" />";
+        elements.replaceAll("</svg>", pin + "</svg>");
     }
 
     /**
@@ -44,7 +79,7 @@ public class SVG {
      * @return XML String
      */
     private String elementToString(Element e) {
-        String tmp = "<" + e.getNodeName() + " ";
+        String tmp = "<" + e.getNodeName();
         for (int i = 0; i < e.getAttributes().getLength(); i++) {
             tmp += " " + e.getAttributes().item(i).getNodeName() + "=";
             tmp += "\"" + e.getAttributes().item(i).getNodeValue() + "\"";
@@ -89,18 +124,6 @@ public class SVG {
             e.printStackTrace();
             throw new NoParsableSVGException();
         }
-        svg.getDocumentElement().normalize();
-        NodeList gList;
-        try {
-            gList = svg.getElementsByTagName("*");
-        } catch (Exception e) {
-            throw new NoParsableSVGException();
-        }
-        ArrayList<Element> ret = new ArrayList<Element>();
-        for (int i = 0; i < gList.getLength(); i++) {
-            if (!gList.item(i).getNodeName().equals("root"))
-                ret.add((Element) gList.item(i));
-        }
-        return ret;
+        return ImportSVG.getElements(svg);
     }
 }

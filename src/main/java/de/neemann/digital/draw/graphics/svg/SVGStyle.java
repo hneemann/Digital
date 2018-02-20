@@ -77,7 +77,7 @@ public class SVGStyle {
         inp = inp.replaceAll("[^0-9]", "");
         if (inp.isEmpty())
             return 0;
-        return (int)Double.parseDouble(inp);
+        return (int) Double.parseDouble(inp);
     }
 
     /**

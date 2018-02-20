@@ -121,8 +121,7 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                 }
                 return;
             case 'a':
-                // TODO
-                // bezierCurve(b, abs, false);
+                ellipse(b, abs);
                 return;
             default:
                 throw new NoParsableSVGException();
@@ -207,13 +206,6 @@ public class SVGPath implements SVGFragment, SVGDrawable {
      *            whether they're absolute positions
      */
     private void bezierCurve(int x1, int y1, int x2, int y2, int x3, int y3, boolean abs) {
-        if (abs)
-            System.out.println("Zeichne Bezierkurve: " + x1 + "/" + y1 + " " + x2 + "/" + y2 + " " + x3 + "/" + y3);
-        else
-            System.out.println("Zeichne Bezierkurve: " + (x1 + corners.get(corners.size() - 1).x) + "/"
-                    + (y1 + corners.get(corners.size() - 1).y) + " " + (x2 + corners.get(corners.size() - 1).x) + "/"
-                    + (y2 + corners.get(corners.size() - 1).y) + " " + (x3 + corners.get(corners.size() - 1).x) + "/"
-                    + (y3 + corners.get(corners.size() - 1).y));
         Vector v1 = new Vector(x1, y1);
         Vector v2 = new Vector(x2, y2);
         Vector v3 = new Vector(x3, y3);
@@ -255,6 +247,31 @@ public class SVGPath implements SVGFragment, SVGDrawable {
     }
 
     /**
+     * Creates a ellipse TODO
+     * @param param
+     *            List of parameters
+     * @param abs
+     *            absolute values
+     */
+    private void ellipse(ArrayList<String> param, boolean abs) {
+        System.out.println("Zeichne Ellipse: " + param);
+        ArrayList<Integer> p = new ArrayList<Integer>();
+        for (String s : param) {
+            p.add(getIntFromString(s));
+        }
+        for (int i = 0; i < p.size() - 6; i += 7) {
+            int rx = p.get(i);
+            int ry = p.get(i + 1);
+            int rot = p.get(i + 2);
+            boolean large = p.get(i + 3) == 1;
+            boolean sweep = p.get(i + 4) == 1;
+            int x = p.get(i + 5);
+            int y = p.get(i + 6);
+            lineTo(x, y, abs);
+        }
+    }
+
+    /**
      * Turns a String into an integer
      * @param inp
      *            input String
@@ -291,5 +308,10 @@ public class SVGPath implements SVGFragment, SVGDrawable {
             graphic.drawPolygon(p, style.getInnerStyle());
         if (style.getShallRanded())
             graphic.drawPolygon(p, style.getStyle());
+    }
+
+    @Override
+    public Vector getPos() {
+        return corners.get(0);
     }
 }
