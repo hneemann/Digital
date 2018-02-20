@@ -3,6 +3,7 @@ package de.neemann.digital.draw.graphics.svg;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -24,6 +25,15 @@ public class SVG {
      */
     public SVG() {
 
+    }
+
+    /**
+     * Creates a new SVG with old Data
+     * @param renew
+     *            elements String
+     */
+    public SVG(String renew) {
+        this.elements = renew;
     }
 
     /**
@@ -49,12 +59,26 @@ public class SVG {
      *            id of the pin
      * @param input
      *            if its a inputpin
+     * @return SVG
      */
-    public void transformPin(Vector old, Vector fresh, int id, boolean input) {
+    public SVG transformPin(Vector old, Vector fresh, int id, boolean input) {
         elements = elements.replaceAll(
                 "(<circle |<ellipse )[^\\/]*cx=\"" + old.x + "\"[^\\/]*cy=\"" + old.y + "\"[^\\/]*\\/>",
                 "<circle cx=\"" + fresh.x + "\" cy=\"" + fresh.y + "\" r=\"2\" id=\"" + (input ? "input" : "output")
                         + id + "\"/>");
+        return new SVG(elements);
+    }
+
+    /**
+     * Deletes a Pin
+     * @param old
+     *            old position
+     * @return SVG
+     */
+    public SVG deletePin(Vector old) {
+        elements = elements.replaceAll(
+                "(<circle |<ellipse )[^\\/]*cx=\"" + old.x + "\"[^\\/]*cy=\"" + old.y + "\"[^\\/]*\\/>", "");
+        return new SVG(elements);
     }
 
     /**
@@ -65,11 +89,13 @@ public class SVG {
      *            Number of the Pin
      * @param pos
      *            Position of the Pin
+     * @return SVG
      */
-    public void addPin(boolean input, int number, Vector pos) {
-        String pin = "<circle cx=\"" + pos.x + "\" cy=\"" + pos.y + "\" id=\"" + (input ? "input" : "output") + number
-                + "\" />";
-        elements.replaceAll("</svg>", pin + "</svg>");
+    public SVG addPin(boolean input, int number, Vector pos) {
+        String pin = "<circle cx=\"" + pos.x + "\" cy=\"" + pos.y + "\" r=\"2\" id=\"" + (input ? "input" : "output")
+                + number + "\" />";
+        elements = elements.replaceAll("</svg>", pin + "</svg>");
+        return new SVG(elements);
     }
 
     /**
@@ -79,6 +105,19 @@ public class SVG {
      * @return XML String
      */
     private String elementToString(Element e) {
+        HashSet<String> possibleRoots = new HashSet<String>();
+        possibleRoots.add("g");
+        possibleRoots.add("a");
+        possibleRoots.add("path");
+        possibleRoots.add("circle");
+        possibleRoots.add("ellipse");
+        possibleRoots.add("rect");
+        possibleRoots.add("line");
+        possibleRoots.add("polyline");
+        possibleRoots.add("polygon");
+        possibleRoots.add("text");
+        if (!possibleRoots.contains(e.getNodeName()))
+            return "";
         String tmp = "<" + e.getNodeName();
         for (int i = 0; i < e.getAttributes().getLength(); i++) {
             tmp += " " + e.getAttributes().item(i).getNodeName() + "=";

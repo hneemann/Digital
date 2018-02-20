@@ -8,9 +8,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -33,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.JTextComponent;
 
@@ -55,11 +59,14 @@ import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.GraphicSwing;
+import de.neemann.digital.draw.graphics.Orientation;
+import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.svg.ImportSVG;
 import de.neemann.digital.draw.graphics.svg.NoParsableSVGException;
 import de.neemann.digital.draw.graphics.svg.SVG;
 import de.neemann.digital.draw.graphics.svg.SVGDrawable;
+import de.neemann.digital.draw.graphics.svg.SVGEllipse;
 import de.neemann.digital.draw.graphics.svg.SVGFragment;
 import de.neemann.digital.draw.graphics.svg.SVGPinnable;
 import de.neemann.digital.draw.graphics.svg.SVGPseudoPin;
@@ -471,12 +478,47 @@ public final class EditorFactory {
             private double scale = 2.0;
             private double translateX = 10;
             private double translateY = 10;
+            private int lastPin = 0;
             private ArrayList<SVGPseudoPin> pins = new ArrayList<SVGPseudoPin>();
             private boolean drag = false;
             private int dragged;
             private Vector old;
+            private JButton addInput = new JButton("+ Input");
+            private JButton addOutput = new JButton("+ Output");
+            private JPanel buttons = new JPanel();
 
+            public VPanel() {
+                setLayout(new BorderLayout());
+                buttons.setLayout(new BorderLayout());
+                buttons.add(addInput, BorderLayout.WEST);
+                buttons.add(addOutput, BorderLayout.EAST);
+                add(buttons, BorderLayout.SOUTH);
+            }
+
+            /**
+             * Adds a new Pin
+             * @param input
+             *            Input or output
+             */
+            private void addPin(boolean input) {
+                int index = 0;
+                for (SVGPseudoPin p : pins) {
+                    if (p != null && p.isInput())
+                        index++;
+                }
+                svg = svg.addPin(input, index, new Vector(lastPin, 0));
+                pins.add(new SVGPseudoPin(new Vector(lastPin, 0), index, input, null, null));
+                lastPin += 20;
+                repaint();
+            }
+
+            /**
+             * Sets the fragments for displaying
+             * @param fragments
+             *            parts of the svg
+             */
             public void setSVG(ArrayList<SVGFragment> fragments) {
+                pins = new ArrayList<SVGPseudoPin>();
                 this.fragments = fragments;
                 for (SVGFragment f : fragments) {
                     if (f != null && f.isPin()) {
@@ -493,7 +535,8 @@ public final class EditorFactory {
                                     (int) (e.getY() / scale - translateY));
                             pins.get(dragged).setPos(fresh);
                             repaint();
-                            svg.transformPin(old, fresh, pins.get(dragged).getIndex(), pins.get(dragged).isInput());
+                            svg = svg.transformPin(old, fresh, pins.get(dragged).getIndex(),
+                                    pins.get(dragged).isInput());
                         }
                         drag = false;
                     }
@@ -504,9 +547,22 @@ public final class EditorFactory {
                         for (int i = 0; i < pins.size(); i++) {
                             if (pins.get(i).contains((int) (e.getX() / scale - translateX),
                                     (int) (e.getY() / scale - translateY))) {
-                                drag = true;
-                                dragged = i;
-                                old = pins.get(i).getOriginalPos();
+                                if (SwingUtilities.isRightMouseButton(e)) {
+                                    svg.deletePin(pins.get(i).getOriginalPos());
+                                    pins.remove(i);
+                                    for (int j = i; j < pins.size(); j++) {
+                                        SVGPseudoPin p = pins.get(j);
+                                        svg = svg.transformPin(p.getOriginalPos(), p.getPos(), p.getIndex() - 1,
+                                                p.isInput());
+                                        p.setIndex(p.getIndex() - 1);
+                                    }
+                                    repaint();
+                                } else {
+                                    drag = true;
+                                    dragged = i;
+                                    old = pins.get(i).getOriginalPos();
+                                }
+                                break;
                             }
                         }
                     }
@@ -538,6 +594,29 @@ public final class EditorFactory {
                         }
                     }
                 });
+                addInput.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        addPin(true);
+                    }
+                });
+
+                addOutput.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        addPin(false);
+                    }
+                });
+                this.addMouseWheelListener(new MouseWheelListener() {
+
+                    @Override
+                    public void mouseWheelMoved(MouseWheelEvent e) {
+                        scale = scale - 0.1 * e.getWheelRotation();
+                        repaint();
+                    }
+                });
                 repaint();
             }
 
@@ -556,6 +635,18 @@ public final class EditorFactory {
                                     d.draw(graphic);
                                 }
                             }
+                        }
+                    }
+                }
+                for (SVGPseudoPin p : pins) {
+                    if (p != null) {
+                        for (SVGDrawable d : p.getDrawables()) {
+                            d.draw(graphic);
+                            SVGEllipse e = (SVGEllipse) d;
+                            graphic.drawText(e.getPos(), e.getPos(), "(" + p.getIndex() + ")",
+                                    p.isInput() ? Orientation.RIGHTTOP : Orientation.LEFTTOP,
+                                    Style.NORMAL.deriveFontStyle(12, true)
+                                            .deriveFillStyle(p.isInput() ? Color.blue : Color.red));
                         }
                     }
                 }
