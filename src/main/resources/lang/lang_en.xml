@@ -1400,6 +1400,21 @@ loop(a,16)
 end loop
 </pre>
 
+<p>An input that allows high impedance as a value can also be used as a test output.
+In this case, the signal name can be used with a trailing "_out" to read back and check the current value.
+For this, the corresponding input must be set to high impedance ('Z').</p>
+
+<pre>OE CLK D D_out
+0   0  0 0
+0   C  1 1
+1   0  z 1
+0   C  0 0
+1   0  z 0
+</pre>
+
+<p>The circuit for this test has only one input 'D', but which can be high impedance state.
+Therefore, the signal 'D_out' is also available to check the value in this case.</p>
+
 </body></html>]]></string>
 
 </resources>

@@ -59,13 +59,24 @@ public class TestExecutor {
         HashSet<String> usedSignals = new HashSet<>();
 
         inputs = new ArrayList<>();
+        outputs = new ArrayList<>();
         for (Signal s : model.getInputs()) {
             final int index = getIndexOf(s.getName());
             if (index >= 0) {
                 inputs.add(new TestSignal(index, s.getValue()));
                 addTo(usedSignals, s.getName());
             }
+            ObservableValue outValue = s.getBidirectionalReader();
+            if (outValue != null) {
+                final String outName = s.getName() + "_out";
+                final int inIndex = getIndexOf(outName);
+                if (inIndex >= 0) {
+                    outputs.add(new TestSignal(inIndex, outValue));
+                    addTo(usedSignals, outName);
+                }
+            }
         }
+
         for (Clock c : model.getClocks()) {
             final int index = getIndexOf(c.getLabel());
             if (index >= 0) {
@@ -74,7 +85,6 @@ public class TestExecutor {
             }
         }
 
-        outputs = new ArrayList<>();
         for (Signal s : model.getOutputs()) {
             final int index = getIndexOf(s.getName());
             if (index >= 0) {
