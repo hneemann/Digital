@@ -9,6 +9,7 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * TreeModel based on a {@link ElementLibrary}
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class LibraryTreeModel implements TreeModel, LibraryListener {
     private final LibraryNode root;
     private final ArrayList<TreeModelListener> listeners = new ArrayList<>();
+    private HashMap<LibraryNode, Container> map;
 
     /**
      * Creates a new library tree model
@@ -25,6 +27,7 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
      */
     public LibraryTreeModel(ElementLibrary library) {
         root = library.getRoot();
+        map = new HashMap<>();
         library.addListener(this);
     }
 
@@ -35,12 +38,12 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
 
     @Override
     public Object getChild(Object o, int i) {
-        return ((LibraryNode) o).getChild(i);
+        return getContainer((LibraryNode) o).getChild(i);
     }
 
     @Override
     public int getChildCount(Object o) {
-        return ((LibraryNode) o).size();
+        return getContainer((LibraryNode) o).size();
     }
 
     @Override
@@ -50,12 +53,11 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
 
     @Override
     public void valueForPathChanged(TreePath treePath, Object o) {
-
     }
 
     @Override
     public int getIndexOfChild(Object o, Object o1) {
-        return ((LibraryNode) o).indexOf((LibraryNode) o1);
+        return getContainer((LibraryNode) o).indexOf((LibraryNode) o1);
     }
 
     @Override
@@ -83,5 +85,33 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
     public LibraryNode getTypedRoot() {
         return root;
     }
+
+    private Container getContainer(LibraryNode libraryNode) {
+        return map.computeIfAbsent(libraryNode, Container::new);
+    }
+
+    private static final class Container {
+        private final ArrayList<LibraryNode> list;
+
+        private Container(LibraryNode libraryNode) {
+            list = new ArrayList<>(libraryNode.size());
+            for (LibraryNode ln : libraryNode)
+                if (!ln.isHidden())
+                    list.add(ln);
+        }
+
+        private LibraryNode getChild(int i) {
+            return list.get(i);
+        }
+
+        private int size() {
+            return list.size();
+        }
+
+        private int indexOf(LibraryNode o1) {
+            return list.indexOf(o1);
+        }
+    }
+
 
 }

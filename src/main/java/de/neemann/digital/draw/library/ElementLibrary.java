@@ -187,7 +187,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         File libPath = Settings.getInstance().get(Keys.SETTINGS_LIBRARY_PATH);
         if (libPath != null && libPath.exists())
-            new ElementLibraryFolder(root, Lang.get("menu_library")).scanFolder(libPath);
+            new ElementLibraryFolder(root, Lang.get("menu_library")).scanFolder(libPath, true);
 
         populateNodeMap();
 
@@ -398,7 +398,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void rescanFolder() throws IOException {
         LOGGER.debug("rescan folder");
-        LibraryNode cn = custom.scanFolder(rootLibraryPath);
+        LibraryNode cn = custom.scanFolder(rootLibraryPath, false);
 
         populateNodeMap();
 
