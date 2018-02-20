@@ -1,5 +1,11 @@
 Release Notes
 
+HEAD, planed as v0.18
+- It's possible to test circuits with a high-z input which can act as an output.
+- Embedded circuits which are used in the library and which names first character is a
+  underscore '_' are not shown in the components menu. They are usable but hidden
+  in the menu and in the tree view.
+
 v0.17, released on 19. Feb 2018
 - Added 64 bit support for Add and Sub components.
 - Added support of some more ATF150x chips.
