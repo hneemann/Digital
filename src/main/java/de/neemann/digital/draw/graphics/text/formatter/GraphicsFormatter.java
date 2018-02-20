@@ -149,7 +149,7 @@ public final class GraphicsFormatter {
         }
     }
 
-    private final static class TextFragment extends Fragment {
+    final static class TextFragment extends Fragment {
         private final String text;
         private final Font font;
 
@@ -287,7 +287,7 @@ public final class GraphicsFormatter {
         /**
          * Must set the size of the given fragment by calling the {@link Fragment#set(int, int, int)} method.
          *
-         * @param fragment fragment which size
+         * @param fragment fragment which size is requested
          * @param font     the used font
          * @param str      the string to measure
          */

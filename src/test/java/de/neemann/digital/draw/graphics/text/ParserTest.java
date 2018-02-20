@@ -1,8 +1,20 @@
 package de.neemann.digital.draw.graphics.text;
 
+import de.neemann.digital.draw.graphics.text.text.Simple;
+import de.neemann.digital.draw.graphics.text.text.Text;
 import junit.framework.TestCase;
 
 public class ParserTest extends TestCase {
+
+
+    public void testPlainString() throws ParseException {
+        Text t = new Parser("Q").parse();
+        assertTrue(t instanceof Simple);
+        assertEquals("Q", ((Simple) t).getText());
+        t = new Parser("In").parse();
+        assertTrue(t instanceof Simple);
+        assertEquals("In", ((Simple) t).getText());
+    }
 
     public void testSimple() throws ParseException {
         assertEquals("Decorate{Q_{i}, OVERLINE}", new Parser("~{Q_{i}}").parse().toString());
