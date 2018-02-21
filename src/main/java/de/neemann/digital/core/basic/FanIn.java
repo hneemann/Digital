@@ -84,7 +84,7 @@ public abstract class FanIn extends Node implements Element {
             int count = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
-                names[i] = input(PREFIX + (i+1), Lang.get("elem_Basic_In", i));
+                names[i] = input(PREFIX + (i + 1), Lang.get("elem_Basic_In", i + 1));
             return new PinDescriptions(names);
         }
     }
