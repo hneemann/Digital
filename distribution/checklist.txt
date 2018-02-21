@@ -8,7 +8,6 @@ Preparation
 [ ] Are the "fist steps" chapters in the documentation incl. screenshots up to date?
 [ ] Is the screenshot used on the first page of the documentation up to date?
 [ ] Don't use the 'experimental mode'!
-[ ] Remove jar library from settings.
 [ ] Make sure ghdl is installed.
 [ ] Make sure WinCupl ATF15xx fitters are configured properly.
 [ ] Run the GUI tests! (digital/src/test/java/de/neemann/digital/integration/TestInGUI.java)
@@ -16,8 +15,8 @@ Preparation
 Remote Interface
 [ ] start and stop "Conways Game of Live" (Conway.asm) via the assembler GUI in the
     processor (Processor.dig).
-[ ] use "run to break" a few times
-[ ] start debugger, step at least through a call instruction
+[ ] start debugger and use "run to break" a few times
+[ ] step at least through a call instruction
 
 Custom Jar Components
 [ ] Copy actual Digital.jar to the plugin example, and start digital from the example

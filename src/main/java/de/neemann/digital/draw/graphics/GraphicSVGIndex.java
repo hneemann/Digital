@@ -1,10 +1,15 @@
 package de.neemann.digital.draw.graphics;
 
+import de.neemann.digital.draw.graphics.text.ParseException;
+import de.neemann.digital.draw.graphics.text.Parser;
+import de.neemann.digital.draw.graphics.text.formatter.SVGFormatter;
+import de.neemann.digital.draw.graphics.text.text.Decorate;
+import de.neemann.digital.draw.graphics.text.text.Text;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import static de.neemann.digital.core.element.ElementAttributes.cleanLabel;
 
 /**
  * Subclass of {@link GraphicSVG} which creates the correct SVG representation
@@ -37,39 +42,16 @@ public class GraphicSVGIndex extends GraphicSVG {
     }
 
     @Override
-    public String formatText(String text, int fontSize) {
-        return formatSVGIndex(escapeXML(formatIndex(cleanLabel(text))));
-    }
-
-    private String formatIndex(String text) {
-        int p = text.lastIndexOf("_");
-        if (p > 0) {
-            text = text.substring(0, p) + "_{" + text.substring(p + 1) + "}";
+    public String formatText(String text, Style style) {
+        try {
+            Text t = new Parser(text).parse();
+            if (style.getFontStyle() == Font.ITALIC)
+                t = Decorate.math(t);
+            return SVGFormatter.format(t);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return text;
     }
 
-
-    private String formatSVGIndex(String text) {
-        int p1;
-        while ((p1 = text.indexOf("_{")) >= 0) {
-            int p2 = text.indexOf('}', p1);
-            if (p2 >= 0) {
-                String ind = text.substring(p1 + 2, p2);
-                if (ind.length() > 0)
-                    ind = "<tspan style=\"font-size:80%;baseline-shift:sub\">" + ind + "</tspan>";
-                text = text.substring(0, p1) + ind + text.substring(p2 + 1);
-            }
-        }
-        while ((p1 = text.indexOf("^{")) >= 0) {
-            int p2 = text.indexOf('}', p1);
-            if (p2 >= 0) {
-                String ind = text.substring(p1 + 2, p2);
-                if (ind.length() > 0)
-                    ind = "<tspan style=\"font-size:80%;baseline-shift:super\">" + ind + "</tspan>";
-                text = text.substring(0, p1) + ind + text.substring(p2 + 1);
-            }
-        }
-        return text;
-    }
 }

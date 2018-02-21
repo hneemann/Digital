@@ -326,7 +326,7 @@
     <string name="elem_RS_FF_AS_pin_S">The set input.</string>
     <string name="elem_RS_FF_AS_pin_R">The reset input.</string>
     <string name="elem_RS_FF_AS_pin_Q">Returns the stored value.</string>
-    <string name="elem_RS_FF_AS_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_RS_FF_AS_pin_~Q">Returns the inverted stored value.</string>
 
     <string name="elem_RS_FF">RS-FlipFlop, clocked</string>
     <string name="elem_RS_FF_short">RS</string>
@@ -338,7 +338,7 @@
     <string name="elem_RS_FF_pin_C">The clock input. A rising edge initiates a state transition.</string>
     <string name="elem_RS_FF_pin_R">The reset input.</string>
     <string name="elem_RS_FF_pin_Q">Returns the stored value.</string>
-    <string name="elem_RS_FF_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_RS_FF_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_JK_FF">JK-Flipflop</string>
     <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value.
@@ -347,7 +347,7 @@
     <string name="elem_JK_FF_pin_C">The clock input. A rising edge initiates a state change.</string>
     <string name="elem_JK_FF_pin_K">The reset input of the flipflop.</string>
     <string name="elem_JK_FF_pin_Q">Returns the stored value.</string>
-    <string name="elem_JK_FF_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_JK_FF_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">A component used to store a value.
@@ -358,14 +358,14 @@
     <string name="elem_D_FF_pin_C">Clock pin to store a value.
         The value on input D is stored on a rising edge of this pin.</string>
     <string name="elem_D_FF_pin_Q">Returns the stored value.</string>
-    <string name="elem_D_FF_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_D_FF_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
     <string name="elem_T_FF_short">T</string>
     <string name="elem_T_FF_tt">Stores a single bit. Toggles the state on a rising edge at input C.</string>
     <string name="elem_T_FF_pin_T">Enables the toggle function.</string>
     <string name="elem_T_FF_pin_C">Clock input. A rising edge toggles the output, if input T is set to 1.</string>
     <string name="elem_T_FF_pin_Q">Returns the stored value.</string>
-    <string name="elem_T_FF_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_T_FF_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_JK_FF_AS">JK-Flipflop, asynchronous</string>
     <string name="elem_JK_FF_AS_short">JK-AS</string>
     <string name="elem_JK_FF_AS_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value.
@@ -376,7 +376,7 @@
     <string name="elem_JK_FF_AS_pin_C">The Clock input. A rising edge initiates a state change.</string>
     <string name="elem_JK_FF_AS_pin_K">The reset input of the flipflop.</string>
     <string name="elem_JK_FF_AS_pin_Q">Returns the stored value.</string>
-    <string name="elem_JK_FF_AS_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_JK_FF_AS_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_JK_FF_AS_pin_Set">asynchronous set</string>
     <string name="elem_JK_FF_AS_pin_Clr">asynchronous clear</string>
     <string name="elem_D_FF_AS">D-FlipFlop, asynchronous</string>
@@ -389,7 +389,7 @@
     <string name="elem_D_FF_AS_pin_D">Input of the bit to be stored.</string>
     <string name="elem_D_FF_AS_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
     <string name="elem_D_FF_AS_pin_Q">Returns the stored value.</string>
-    <string name="elem_D_FF_AS_pin_¬Q">Returns the inverted stored value.</string>
+    <string name="elem_D_FF_AS_pin_~Q">Returns the inverted stored value.</string>
     <string name="elem_D_FF_AS_pin_Set">asynchronous set</string>
     <string name="elem_D_FF_AS_pin_Clr">asynchronous clear</string>
 
@@ -416,7 +416,7 @@
     <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
     <string name="elem_RAMDualPort_pin_A">The address to read from or write to.</string>
     <string name="elem_RAMDualPort_pin_C">Clock input</string>
-    <string name="elem_RAMDualPort_pin_D_in">The data to be stored in the RAM.</string>
+    <string name="elem_RAMDualPort_pin_Din">The data to be stored in the RAM.</string>
     <string name="elem_RAMDualPort_pin_D">The data output pin</string>
     <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMDualPort_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
@@ -472,7 +472,7 @@
     <string name="elem_RAMDualAccess_pin_1A">The address at which port 1 is read or written.</string>
     <string name="elem_RAMDualAccess_pin_2A">The address used to read via port 2.</string>
     <string name="elem_RAMDualAccess_pin_C">Clock</string>
-    <string name="elem_RAMDualAccess_pin_1D_in">The data to be stored in the RAM.</string>
+    <string name="elem_RAMDualAccess_pin_1Din">The data to be stored in the RAM.</string>
     <string name="elem_RAMDualAccess_pin_ld">If this input is high the output is activated and the data is visible at the output 1D.</string>
     <string name="elem_RAMDualAccess_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
 
@@ -1401,6 +1401,21 @@ loop(a,16)
   end loop
 end loop
 </pre>
+
+<p>An input that allows high impedance as a value can also be used as a test output.
+In this case, the signal name can be used with a trailing "_out" to read back and check the current value.
+For this, the corresponding input must be set to high impedance ('Z').</p>
+
+<pre>OE CLK D D_out
+0   0  0 0
+0   C  1 1
+1   0  z 1
+0   C  0 0
+1   0  z 0
+</pre>
+
+<p>The circuit for this test has only one input 'D', but which can be high impedance state.
+Therefore, the signal 'D_out' is also available to check the value in this case.</p>
 
 </body></html>]]></string>
 

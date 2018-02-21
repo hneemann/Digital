@@ -24,7 +24,12 @@ public class TestCaseDescription {
     private transient LineEmitter lines;
     private transient ArrayList<String> names;
 
-    TestCaseDescription(String data) {
+    /**
+     * creates a new instance
+     *
+     * @param data the test case description
+     */
+    public TestCaseDescription(String data) {
         this.dataString = data;
     }
 

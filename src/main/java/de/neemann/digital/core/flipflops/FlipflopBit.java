@@ -28,7 +28,7 @@ abstract class FlipflopBit extends Node implements Element {
     FlipflopBit(ElementAttributes attributes, ElementTypeDescription description) {
         super(true);
         this.q = new ObservableValue("Q", 1).setPinDescription(description);
-        this.qn = new ObservableValue("\u00ACQ", 1).setPinDescription(description);
+        this.qn = new ObservableValue("~Q", 1).setPinDescription(description);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getCleanLabel();
 

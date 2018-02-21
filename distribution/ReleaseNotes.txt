@@ -1,17 +1,30 @@
 Release Notes
 
-HEAD, planned as v0.17
+HEAD, planed as v0.18
+- Added new text formatting engine which supports overline, super- and subscript.
+  Try "~Q_{n+1}^1" as an output label.
+- It's possible to test circuits with a high-z input which can act as an output.
+- Embedded circuits which are used in the library and which names first character is a
+  underscore '_' are not shown in the components menu. They are usable but hidden
+  in the menu and in the tree view.
+
+v0.17, released on 19. Feb 2018
 - Added 64 bit support for Add and Sub components.
 - Added support of some more ATF150x chips.
 - Added a register file component.
+- Added IC 74273
 - Added an "export to zip" function.
-- If an input or output is several bits wide, all pin numbers can be specified by a comma-separated list.
+- If an input or output has several bits, all pin numbers can be specified by a comma-separated list.
 - Now it's possible to choose the polarity of the reset component.
 - The model analyzer now creates an error message if a cycle is detected in the circuit.
+  This prevents the generation of incorrect truth tables if, for example, a self-built
+  flip-flop is analyzed.
 - Added a chapter "First Steps" to the documentation.
 - Bug fixes
   - Splitter, BarrelShifter and Comparator now are working with 64 bit.
   - fixed a bug in library IC 74198
+- Added automated GUI tests. The overall test coverage is now above 70%.
+  There is still much to do.
 
 v0.16, released on 02. Jan 2018
 - RAM components and EEPROM now allow an input invert configuration.

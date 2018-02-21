@@ -5,7 +5,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 /**
  * The Input
@@ -41,6 +40,7 @@ public class In implements Element {
     private final String pinNumber;
     private final IntFormat format;
     private Model model;
+    private ObservableValue input;
 
     /**
      * Create a new instance
@@ -53,13 +53,15 @@ public class In implements Element {
         pinNumber = attributes.get(Keys.PINNUMBER);
         output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION).setPinNumber(pinNumber);
         output.set(value.getValue(), value.isHighZ());
+        if (highZ) output.setBidirectional();
         label = attributes.getCleanLabel();
         format = attributes.get(Keys.INT_FORMAT);
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        throw new NodeException(Lang.get("err_noInputsAvailable"));
+        // if input is bidirectional the value is given to read the pins state!
+        input = inputs.get(0);
     }
 
     @Override
@@ -71,6 +73,7 @@ public class In implements Element {
     public void registerNodes(Model model) {
         model.addInput(new Signal(label, output, output::set)
                 .setPinNumber(pinNumber)
+                .setBidirectionalReader(input)
                 .setFormat(format));
         this.model = model;
     }

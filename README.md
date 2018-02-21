@@ -72,6 +72,12 @@ These are the main features of Digital:
 - Good test coverage (exclusive of GUI classes about 80%).
   Almost all examples contain test cases which ensure that they work correctly.
 
+## Documentation ##
+
+A [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English and German.
+It is still very incomplete but it contains a chapter "First Steps" which explains the basic usage of Digital.
+The documentation also contains a list of available keyboard shortcuts. 
+
 ## Comments ##
 
 If you want to send a bug report or feature request please use the GitHub 
@@ -208,5 +214,5 @@ If you want to build Digital from the source code:
   * Before you send a pull request, make sure that at least `mvn install` runs without errors.
 * Don't introduce new findbugs issues.
 * Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
-* So far, there are only a few GUI tests, so that the overall test coverage is only slightly above 70%.
+* So far, there are only a few GUI tests, so that the overall test coverage is only slightly below 80%.
   Try to keep the amount of untested GUI code low.

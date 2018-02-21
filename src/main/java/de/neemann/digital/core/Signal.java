@@ -9,6 +9,7 @@ public final class Signal implements Comparable<Signal> {
     private final Setter setter;
     private IntFormat format = IntFormat.def;
     private String pinNumber;
+    private ObservableValue bidirectionalReader;
 
     /**
      * Creates a new Instance
@@ -136,6 +137,24 @@ public final class Signal implements Comparable<Signal> {
      */
     public Setter getSetter() {
         return setter;
+    }
+
+    /**
+     * If a signal is bidirectional the input is set.
+     *
+     * @param bidirectionalReader the corresponding input value
+     * @return this for chained calls
+     */
+    public Signal setBidirectionalReader(ObservableValue bidirectionalReader) {
+        this.bidirectionalReader = bidirectionalReader;
+        return this;
+    }
+
+    /**
+     * @return the bidirectional reader, maybe null
+     */
+    public ObservableValue getBidirectionalReader() {
+        return bidirectionalReader;
     }
 
     /**

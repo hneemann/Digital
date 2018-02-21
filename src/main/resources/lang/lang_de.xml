@@ -316,7 +316,7 @@
     <string name="elem_RS_FF_AS_pin_S">Der Setzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit gesetzt.</string>
     <string name="elem_RS_FF_AS_pin_R">Der Rücksetzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit zurückgesetzt.</string>
     <string name="elem_RS_FF_AS_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_RS_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_RS_FF_AS_pin_~Q">Gibt den gespeicherten Wert negiert zurück.</string>
 
     <string name="elem_RS_FF">RS-FlipFlop, getaktet</string>
     <string name="elem_RS_FF_short">RS</string>
@@ -329,7 +329,7 @@
     <string name="elem_RS_FF_pin_C">Der Takteingang. Eine steigende Flanke veranlasst die Zustandsänderung.</string>
     <string name="elem_RS_FF_pin_R">Der Rücksetzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit zurückgesetzt.</string>
     <string name="elem_RS_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_RS_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_RS_FF_pin_~Q">Gibt den gespeicherten Wert negiert zurück.</string>
     <string name="elem_JK_FF">JK-FlipFlop</string>
     <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Bietet die Funktionen zum
@@ -339,7 +339,7 @@
     <string name="elem_JK_FF_pin_C">Takteingang. Eine steigende Flanke initiiert den Zustandswechsel.</string>
     <string name="elem_JK_FF_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
     <string name="elem_JK_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_JK_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_JK_FF_pin_~Q">Gibt den gespeicherten Wert negiert aus.</string>
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">Ein Baustein zum Speichern eines Bits.
@@ -349,7 +349,7 @@
     <string name="elem_D_FF_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
     <string name="elem_D_FF_pin_Q">Gibt den gespeicherten Wert zurück.</string>
-    <string name="elem_D_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_D_FF_pin_~Q">Gibt den gespeicherten Wert negiert zurück.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
     <string name="elem_T_FF_short">T</string>
     <string name="elem_T_FF_tt">Speichert ein Bit, welches sich mit einem Eingang umschalten lässt.</string>
@@ -357,7 +357,7 @@
     <string name="elem_T_FF_pin_C">Dieser Eingang schaltet das Flipflop um.
         Wenn ein T-Eingang vorhanden ist, passiert das nur, wenn T auf 1 gesetzt ist.</string>
     <string name="elem_T_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_T_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_T_FF_pin_~Q">Gibt den gespeicherten Wert negiert aus.</string>
     <string name="elem_JK_FF_AS">JK-FlipFlop, asynchron</string>
     <string name="elem_JK_FF_AS_short">JK-AS</string>
     <string name="elem_JK_FF_AS_tt">Bietet die Funktionen zum
@@ -369,7 +369,7 @@
     <string name="elem_JK_FF_AS_pin_C">Takteingang. Eine steigende Flanke initiiert den Zustandswechsel.</string>
     <string name="elem_JK_FF_AS_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
     <string name="elem_JK_FF_AS_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_JK_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_JK_FF_AS_pin_~Q">Gibt den gespeicherten Wert negiert aus.</string>
     <string name="elem_JK_FF_AS_pin_Set">asynchrones Setzen</string>
     <string name="elem_JK_FF_AS_pin_Clr">asynchrones Löschen</string>
     <string name="elem_D_FF_AS">D-FlipFlop, asynchron</string>
@@ -382,7 +382,7 @@
     <string name="elem_D_FF_AS_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_AS_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
     <string name="elem_D_FF_AS_pin_Q">Gibt den gespeicherten Wert zurück.</string>
-    <string name="elem_D_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_D_FF_AS_pin_~Q">Gibt den gespeicherten Wert negiert zurück.</string>
     <string name="elem_D_FF_AS_pin_Set">asynchrones Setzen</string>
     <string name="elem_D_FF_AS_pin_Clr">asynchrones Löschen</string>
 
@@ -411,7 +411,7 @@
         Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen bzw. geschrieben wird.</string>
     <string name="elem_RAMDualPort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_RAMDualPort_pin_D_in">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualPort_pin_Din">Die Daten, die gespeichert werden sollen.</string>
     <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
@@ -469,7 +469,7 @@
     <string name="elem_RAMDualAccess_pin_1A">Die Adresse, an der über Port 1 gelesen bzw. geschrieben wird.</string>
     <string name="elem_RAMDualAccess_pin_2A">Die Adresse, an der über Port 2 gelesen wird.</string>
     <string name="elem_RAMDualAccess_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_RAMDualAccess_pin_1D_in">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualAccess_pin_1Din">Die Daten, die gespeichert werden sollen.</string>
     <string name="elem_RAMDualAccess_pin_ld">Ist diese Leitung high, wird der Ausgang D1 aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualAccess_pin_str">Ist diese Leitung high, wird das Datenwort an D1 gespeichert, wenn der Takt ansteigt.</string>
 
@@ -1362,7 +1362,8 @@ werden: "let U=A+B, let V=A*B"</string>
     <head><style>pre { background-color: #E0E0E0;}</style></head>
     <body>
 <p>Die erste Zeile muss, durch ein Leerzeichen getrennt, die
-Ein- und Ausgänge auflisten. In den folgenden Zeilen stehen dann die Sollwerte.
+Ein- und Ausgänge auflisten, die verwendet werden sollen.
+In den folgenden Zeilen stehen dann die Sollwerte.
 Dabei steht ein 'X' für Don't Care, und ein 'Z' für hochohmig.
 Wird der Wert 'C' verwendet, werden zunächst alle anderen Werte gesetzt, dann wird ein
 Taktzyklus durchgeführt, und erst daran anschließend werden die Werte verglichen.
@@ -1414,6 +1415,22 @@ loop(a,16)
   end loop
 end loop
 </pre>
+
+<p>Ein Eingang, welcher hochhomige Werte erlaubt, kann auch als Testausgang verwendet werden.
+In diesem Fall kann der Signalname mit einem nachgestellten '_out' verwendet werden, um den
+aktuellen Wert zurückzulesen und zu überprüfen. Dazu muss der entsprechende Eingang auf
+hochohmig ('Z') gesetzt sein.</p>
+
+<pre>OE CLK D D_out
+0   0  0 0
+0   C  1 1
+1   0  z 1
+0   C  0 0
+1   0  z 0
+</pre>
+
+<p>Die Schaltung zu diesem Test hat nur einen Eingang 'D', welcher aber hochohmig sein kann.
+Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert zu prüfen.</p>
 
 </body></html>]]></string>
 

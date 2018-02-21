@@ -9,7 +9,7 @@ entity DIG_RAMDualPort is
   port (
     PORT_D: out std_logic_vector ((Bits-1) downto 0);
     PORT_A: in std_logic_vector ((AddrBits-1) downto 0);
-    PORT_D_in: in std_logic_vector ((Bits-1) downto 0);
+    PORT_Din: in std_logic_vector ((Bits-1) downto 0);
     PORT_str: in std_logic;
     PORT_C: in std_logic;
     PORT_ld: in std_logic );
@@ -23,7 +23,7 @@ begin
   process ( PORT_C )
   begin
     if rising_edge(PORT_C) AND (PORT_str='1') then
-      memory(to_integer(unsigned(PORT_A))) <= PORT_D_in;
+      memory(to_integer(unsigned(PORT_A))) <= PORT_Din;
     end if;
   end process;
   PORT_D <= memory(to_integer(unsigned(PORT_A))) when PORT_ld='1' else (others => 'Z');

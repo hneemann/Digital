@@ -26,6 +26,10 @@ public final class Style {
      */
     public static final Style NORMAL = new Builder().build();
     /**
+     * used for input and output labels
+     */
+    public static final Style INOUT = new Builder(NORMAL).setFontStyle(Font.ITALIC).build();
+    /**
      * used to draw the failed state lines in the measurement graph
      */
     public static final Style FAILED = new Builder(NORMAL).setColor(Color.RED).build();
@@ -141,6 +145,7 @@ public final class Style {
     private final BasicStroke stroke;
     private final Font font;
     private final boolean mattersForSize;
+    private final int fontStyle;
 
     /**
      * Creates a new style
@@ -152,11 +157,12 @@ public final class Style {
         this.filled = builder.filled;
         this.color = builder.color;
         this.fontSize = builder.fontSize;
+        this.fontStyle = builder.fontStyle;
         this.dash = builder.dash;
         this.mattersForSize = builder.mattersForSize;
 
         stroke = new BasicStroke(thickness, builder.endCap, BasicStroke.JOIN_MITER, 10f, dash, 0f);
-        font = new Font("Arial", Font.PLAIN, fontSize);
+        font = new Font("Arial", fontStyle, fontSize);
     }
 
     /**
@@ -192,6 +198,13 @@ public final class Style {
      */
     public int getFontSize() {
         return fontSize;
+    }
+
+    /**
+     * @return the font style
+     */
+    public int getFontStyle() {
+        return fontStyle;
     }
 
     /**
@@ -284,6 +297,7 @@ public final class Style {
         private float[] dash = null;
         private boolean mattersForSize = false;
         private int endCap = BasicStroke.CAP_SQUARE;
+        private int fontStyle = Font.PLAIN;
 
         private Builder() {
         }
@@ -318,6 +332,11 @@ public final class Style {
             return this;
         }
 
+        private Builder setFontStyle(int fontStyle) {
+            this.fontStyle = fontStyle;
+            return this;
+        }
+
         private Builder setDash(float[] dash) {
             this.dash = dash;
             return this;
@@ -336,6 +355,7 @@ public final class Style {
         private Style build() {
             return new Style(this);
         }
+
     }
 
 }

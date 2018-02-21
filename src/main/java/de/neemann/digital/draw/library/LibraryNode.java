@@ -30,6 +30,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private final String translatedName;
     private final String name;
     private final File file;
+    private final boolean isHidden;
     private ElementTypeDescription description;
     private String toolTipText;
     private ImageIcon icon;
@@ -51,6 +52,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
         this.description = null;
         this.toolTipText = null;
         this.file = null;
+        this.isHidden = false;
     }
 
     /**
@@ -65,6 +67,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
         this.name = description.getName();
         this.translatedName = description.getTranslatedName();
         this.file = null;
+        this.isHidden = false;
     }
 
     /**
@@ -72,13 +75,16 @@ public class LibraryNode implements Iterable<LibraryNode> {
      *
      * @param file the file containing the leaf
      */
-    LibraryNode(File file) {
+    LibraryNode(File file, boolean isLibrary) {
         children = null;
         name = file.getName();
         if (name.toLowerCase().endsWith(".dig"))
             translatedName = name.substring(0, name.length() - 4);
         else
             translatedName = name;
+
+        isHidden = isLibrary && name.startsWith("_");
+
         this.file = file;
     }
 
@@ -365,6 +371,15 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public File getFile() {
         return file;
+    }
+
+    /**
+     * If the hidden flag is set, this circuit should not appear in the select menus
+     *
+     * @return the hidden flag
+     */
+    public boolean isHidden() {
+        return isHidden;
     }
 
     /**

@@ -24,7 +24,7 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
             input("C").setClock(),
             input("ld"),
             input("1A"),
-            input("1D_in"),
+            input("1Din"),
             input("2A"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
